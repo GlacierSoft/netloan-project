@@ -264,6 +264,76 @@ public class ActionExample {
             return (Criteria) this;
         }
 
+        public Criteria andPanelIdIsNull() {
+            addCriterion("temp_action.panel_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanelIdIsNotNull() {
+            addCriterion("temp_action.panel_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanelIdEqualTo(String value) {
+            addCriterion("temp_action.panel_id =", value, "panelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanelIdNotEqualTo(String value) {
+            addCriterion("temp_action.panel_id <>", value, "panelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanelIdGreaterThan(String value) {
+            addCriterion("temp_action.panel_id >", value, "panelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanelIdGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_action.panel_id >=", value, "panelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanelIdLessThan(String value) {
+            addCriterion("temp_action.panel_id <", value, "panelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanelIdLessThanOrEqualTo(String value) {
+            addCriterion("temp_action.panel_id <=", value, "panelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanelIdLike(String value) {
+            addCriterion("temp_action.panel_id like", value, "panelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanelIdNotLike(String value) {
+            addCriterion("temp_action.panel_id not like", value, "panelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanelIdIn(List<String> values) {
+            addCriterion("temp_action.panel_id in", values, "panelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanelIdNotIn(List<String> values) {
+            addCriterion("temp_action.panel_id not in", values, "panelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanelIdBetween(String value1, String value2) {
+            addCriterion("temp_action.panel_id between", value1, value2, "panelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanelIdNotBetween(String value1, String value2) {
+            addCriterion("temp_action.panel_id not between", value1, value2, "panelId");
+            return (Criteria) this;
+        }
+
         public Criteria andActionCnNameIsNull() {
             addCriterion("temp_action.action_cn_name is null");
             return (Criteria) this;
