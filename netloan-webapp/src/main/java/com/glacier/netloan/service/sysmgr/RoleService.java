@@ -194,6 +194,7 @@ public class RoleService {
                 if (!authorities.contains(authority)) {// 已经存在的权限跳过
                     // 添加默认操作
                     ActionExample actionExample = new ActionExample();
+                    
                     List<Action> defaultActions = actionMapper.selectByExample(actionExample);
                     authorityMapper.insert(authority);
                 }
