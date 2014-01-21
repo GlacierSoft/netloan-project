@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地MySql
+Source Server         : localhost
 Source Server Version : 50067
 Source Host           : localhost:3306
 Source Database       : netloan
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50067
 File Encoding         : 65001
 
-Date: 2014-01-20 15:18:26
+Date: 2014-01-21 10:55:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -37,20 +37,7 @@ CREATE TABLE `t_action` (
 -- ----------------------------
 -- Records of t_action
 -- ----------------------------
-INSERT INTO `t_action` VALUES ('18060139f0e736a796d5ac4bdd78eadc', 'e550884c5e6c1e94ee70cc833aa1c2b9', '83bbeed02a85549ae84cde8d98bcd8c1', '修改', 'edit', 'icon-standard-pencil-go', 'Button', 'Disabled', 'glacier.permissions_mgr.role_mgr.role.editRole();', '2', '');
-INSERT INTO `t_action` VALUES ('429f54b614db46af58598c8d9a47a36f', '54eb754157cf483a790f4eea35200118', '961d2e73b3fa93a9f125fb731e0a9529', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'Disabled', 'glacier.permissions_mgr.res_mgr.res.delPanel();', '4', '');
-INSERT INTO `t_action` VALUES ('5db796929f23e991708fd0af99b3b4bc', 'e550884c5e6c1e94ee70cc833aa1c2b9', '83bbeed02a85549ae84cde8d98bcd8c1', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'Enabled', 'glacier.permissions_mgr.role_mgr.role.addRole();', '1', '');
-INSERT INTO `t_action` VALUES ('6838d18fa1e582d4dc28404a80445c88', '54eb754157cf483a790f4eea35200118', '5731697aea23532eb8162f5ba1818c6f', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'Enabled', 'glacier.permissions_mgr.res_mgr.res.addMenu();', '2', '');
-INSERT INTO `t_action` VALUES ('6c0bc1e009b3742af24d7bdc94adec3c', '54eb754157cf483a790f4eea35200118', '961d2e73b3fa93a9f125fb731e0a9529', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'Enabled', 'glacier.permissions_mgr.res_mgr.res.addPanel();', '2', '');
-INSERT INTO `t_action` VALUES ('6e1027dd7e57195d06dd2fac811f8ebf', '54eb754157cf483a790f4eea35200118', '5731697aea23532eb8162f5ba1818c6f', '修改', 'edit', 'icon-standard-pencil-go', 'Button', 'Disabled', 'glacier.permissions_mgr.res_mgr.res.editMenu();', '3', '');
-INSERT INTO `t_action` VALUES ('8eb3b50d119f05c30127c3359e4a5d2a', 'e550884c5e6c1e94ee70cc833aa1c2b9', '83bbeed02a85549ae84cde8d98bcd8c1', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'Disabled', 'glacier.permissions_mgr.role_mgr.role.delRole();', '3', '');
-INSERT INTO `t_action` VALUES ('9320f5b0199abd8d53990eef7cdcd745', '54eb754157cf483a790f4eea35200118', 'eb2a84c4b7bd11632135e4992ade286e', '编辑', 'edit', 'icon-standard-pencil-go', 'Button', 'Disabled', 'glacier.permissions_mgr.res_mgr.res.editAction();', '3', '');
-INSERT INTO `t_action` VALUES ('b0f605139653554aa66cf38a78fe42ba', '54eb754157cf483a790f4eea35200118', 'eb07f8ec54989seb66e4e8a1a0f21604', '列表', 'list', '', 'Button', 'Disabled', '', '1', '');
-INSERT INTO `t_action` VALUES ('b34352268cb171aee1f8e2110657beab', 'e550884c5e6c1e94ee70cc833aa1c2b9', '83bbeed02a85549ae84cde8d98bcd8c1', '权限维护', 'actionAuth', 'icon-standard-key-go', 'Button', 'Enabled', 'glacier.permissions_mgr.role_mgr.role.actionAuth();', '5', '');
-INSERT INTO `t_action` VALUES ('b5852fac0798a25a13b87e8532c60440', '54eb754157cf483a790f4eea35200118', '5731697aea23532eb8162f5ba1818c6f', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'Disabled', 'glacier.permissions_mgr.res_mgr.res.delMenu();', '4', '');
-INSERT INTO `t_action` VALUES ('dad8f671986722837f7eecb2b77c284b', '54eb754157cf483a790f4eea35200118', '961d2e73b3fa93a9f125fb731e0a9529', '修改', 'edit', 'icon-standard-pencil-go', 'Button', 'Disabled', 'glacier.permissions_mgr.res_mgr.res.editPanel();', '3', '');
-INSERT INTO `t_action` VALUES ('e550884c5e6c1e94a970cc833aa1c2b9', '54eb754157cf483a790f4eea35200118', 'eb2a84c4b7bd11632135e4992ade286e', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'Enabled', 'glacier.permissions_mgr.res_mgr.res.addAction();', '2', '');
-INSERT INTO `t_action` VALUES ('f4b5eca05e616d411f1aeef044346664', '54eb754157cf483a790f4eea35200118', 'eb2a84c4b7bd11632135e4992ade286e', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'Disabled', 'glacier.permissions_mgr.res_mgr.res.delAction();', '4', '');
+INSERT INTO `t_action` VALUES ('5db796929f23e991708fd0af99b3b4bc', 'e550884c5e6c1e94ee70cc833aa1c2b9', '83bbeed02a85549ae84cde8d98bcd8c1', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'Enabled', 'glacier.permissions_mgr.role_mgr.role.addRole();', '1', null);
 
 -- ----------------------------
 -- Table structure for `t_authority`
@@ -70,8 +57,7 @@ CREATE TABLE `t_authority` (
 -- Records of t_authority
 -- ----------------------------
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '16ac1df11de350c61722dc7b98cecca7', null);
-INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '54eb754157cf483a790f4eea35200118', 'MenuTree_add,MenuTree_edit,MenuTree_del,PanelList_add,PanelList_edit,PanelList_del,ActionList_add,ActionList_edit,ActionList_del');
-INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', 'e550884c5e6c1e94ee70cc833aa1c2b9', 'RoleList_add,RoleList_edit,RoleList_del');
+INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', 'e550884c5e6c1e94ee70cc833aa1c2b9', 'RolePanel_add,RolePanel_edit,RolePanel_del');
 
 -- ----------------------------
 -- Table structure for `t_loginlog`
@@ -115,7 +101,6 @@ CREATE TABLE `t_menu` (
 -- Records of t_menu
 -- ----------------------------
 INSERT INTO `t_menu` VALUES ('16ac1df11de350c61722dc7b98cecca7', null, 'syssetting', '系统设置', null, null, '1', null);
-INSERT INTO `t_menu` VALUES ('54eb754157cf483a790f4eea35200118', '16ac1df11de350c61722dc7b98cecca7', 'resmgr', '资源管理', 'icon-cologne-featured', '/do/res/index.htm', '12', null);
 INSERT INTO `t_menu` VALUES ('e550884c5e6c1e94ee70cc833aa1c2b9', '16ac1df11de350c61722dc7b98cecca7', 'rolemgr', '角色管理', 'icon-standard-status-online', '/do/role/index.htm', '11', null);
 
 -- ----------------------------
@@ -156,10 +141,146 @@ CREATE TABLE `t_panel` (
 -- ----------------------------
 -- Records of t_panel
 -- ----------------------------
-INSERT INTO `t_panel` VALUES ('5731697aea23532eb8162f5ba1818c6f', '54eb754157cf483a790f4eea35200118', '菜单树', 'MenuTree', '1');
-INSERT INTO `t_panel` VALUES ('83bbeed02a85549ae84cde8d98bcd8c1', 'e550884c5e6c1e94ee70cc833aa1c2b9', '角色列表', 'RoleList', '1');
-INSERT INTO `t_panel` VALUES ('961d2e73b3fa93a9f125fb731e0a9529', '54eb754157cf483a790f4eea35200118', '面板列表', 'PanelList', '2');
-INSERT INTO `t_panel` VALUES ('eb2a84c4b7bd11632135e4992ade286e', '54eb754157cf483a790f4eea35200118', '操作列表', 'ActionList', '3');
+INSERT INTO `t_panel` VALUES ('83bbeed02a85549ae84cde8d98bcd8c1', 'e550884c5e6c1e94ee70cc833aa1c2b9', '角色列表', 'RolePanel', '1');
+
+-- ----------------------------
+-- Table structure for `t_parameter_age`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_parameter_age`;
+CREATE TABLE `t_parameter_age` (
+  `age_id` varchar(32) NOT NULL,
+  `age_name` varchar(50) default NULL,
+  `age_begin` int(20) default NULL,
+  `age_end` int(20) default NULL,
+  `accessory` varchar(255) default NULL,
+  `age_num` int(11) default NULL,
+  `remark` varchar(255) default NULL,
+  `creater` varchar(32) default NULL,
+  `create_time` datetime default NULL,
+  `updater` varchar(32) default NULL,
+  `update_time` datetime default NULL,
+  PRIMARY KEY  (`age_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='�������õ����������á�';
+
+-- ----------------------------
+-- Records of t_parameter_age
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_parameter_area`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_parameter_area`;
+CREATE TABLE `t_parameter_area` (
+  `area_id` varchar(32) NOT NULL,
+  `area_pid` varchar(32) default NULL,
+  `area_name` varchar(20) default NULL,
+  `area_subsite` enum('subsite1','subsite0') default NULL,
+  `accessory` varchar(255) default NULL,
+  `area_num` int(11) default NULL,
+  `remark` varchar(255) default NULL,
+  `creater` varchar(32) default NULL,
+  `create_time` datetime default NULL,
+  `updater` varchar(32) default NULL,
+  `update_time` datetime default NULL,
+  PRIMARY KEY  (`area_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='�������õĵ������á�';
+
+-- ----------------------------
+-- Records of t_parameter_area
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_parameter_credit`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_parameter_credit`;
+CREATE TABLE `t_parameter_credit` (
+  `credit_id` varchar(32) NOT NULL,
+  `credit_name` varchar(50) default NULL,
+  `credit_begin_integral` int(20) default NULL,
+  `credit_end_integral` int(20) default NULL,
+  `credit_photo` varchar(100) default NULL,
+  `accessory` varchar(255) default NULL,
+  `credit_num` int(11) default NULL,
+  `remark` varchar(255) default NULL,
+  `creater` varchar(32) default NULL,
+  `create_time` datetime default NULL,
+  `updater` varchar(32) default NULL,
+  `update_time` datetime default NULL,
+  PRIMARY KEY  (`credit_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='�������õĻ��������µĻ�Ա���ü������á�';
+
+-- ----------------------------
+-- Records of t_parameter_credit
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_parameter_integral`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_parameter_integral`;
+CREATE TABLE `t_parameter_integral` (
+  `integral_id` varchar(32) NOT NULL,
+  `integral_name` varchar(50) default NULL,
+  `integral_begin` int(20) default NULL,
+  `integral_end` int(20) default NULL,
+  `integral_photo` varchar(50) default NULL,
+  `integral_num` int(11) default NULL,
+  `remark` varchar(255) default NULL,
+  `creater` varchar(32) default NULL,
+  `create_time` datetime default NULL,
+  `updater` varchar(32) default NULL,
+  `update_time` datetime default NULL,
+  PRIMARY KEY  (`integral_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='�������õĻ�Ա�������á�';
+
+-- ----------------------------
+-- Records of t_parameter_integral
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_parameter_optgroup`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_parameter_optgroup`;
+CREATE TABLE `t_parameter_optgroup` (
+  `optgroup_id` varchar(32) NOT NULL,
+  `optgroup_pid` varchar(32) default NULL,
+  `optgroup_code` varchar(50) default NULL,
+  `optgroup_name` varchar(50) default NULL,
+  `optgroup_icon` varchar(50) default NULL,
+  `optgroup_url` varchar(50) default NULL,
+  `optgroup_num` int(11) default NULL,
+  `remark` varchar(255) default NULL,
+  `creater` varchar(32) default NULL,
+  `create_time` datetime default NULL,
+  `updater` varchar(32) default NULL,
+  `update_time` datetime default NULL,
+  PRIMARY KEY  (`optgroup_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='�������õĻ��������µ�������������á�';
+
+-- ----------------------------
+-- Records of t_parameter_optgroup
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_parameter_optgroup_value`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_parameter_optgroup_value`;
+CREATE TABLE `t_parameter_optgroup_value` (
+  `optgroup_value_id` varchar(32) NOT NULL,
+  `optgroup_value_code` varchar(50) default NULL,
+  `optgroup_value_name` varchar(50) default NULL,
+  `status` enum('Enabled','Disabled') default NULL,
+  `optgroup_value_num` int(11) default NULL,
+  `remark` varchar(255) default NULL,
+  `creater` varchar(32) default NULL,
+  `create_time` datetime default NULL,
+  `updater` varchar(32) default NULL,
+  `update_time` datetime default NULL,
+  PRIMARY KEY  (`optgroup_value_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='�������õĻ��������µ�������ֵ���á�';
+
+-- ----------------------------
+-- Records of t_parameter_optgroup_value
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `t_role`
@@ -243,4 +364,193 @@ CREATE TABLE `t_user_setting` (
 
 -- ----------------------------
 -- Records of t_user_setting
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_website_advertisement`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_website_advertisement`;
+CREATE TABLE `t_website_advertisement` (
+  `web_adv_id` varchar(32) NOT NULL,
+  `web_adv_theme` varchar(100) default NULL,
+  `web_adv_content` text,
+  `web_adv_status` enum('Enabled','Disabled') default NULL COMMENT 'dsafsdafasdfd',
+  `clicks` int(11) default NULL,
+  `accessory` varchar(255) default NULL,
+  `web_adv_num` int(11) default NULL,
+  `remark` varchar(255) default NULL,
+  `creater` varchar(32) default NULL,
+  `create_time` datetime default NULL,
+  `updater` varchar(32) default NULL,
+  `update_time` datetime default NULL,
+  PRIMARY KEY  (`web_adv_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ǰ̨���õ���վ�����';
+
+-- ----------------------------
+-- Records of t_website_advertisement
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_website_announcement`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_website_announcement`;
+CREATE TABLE `t_website_announcement` (
+  `web_ann_id` varchar(32) NOT NULL,
+  `web_ann_theme` varchar(100) default NULL,
+  `web_ann_content` text,
+  `web_ann_status` enum('Enabled','Disabled') default NULL COMMENT 'dsafsdafasdfd',
+  `clicks` int(11) default NULL,
+  `accessory` varchar(255) default NULL,
+  `web_ann_num` int(11) default NULL,
+  `remark` varchar(255) default NULL,
+  `creater` varchar(32) default NULL,
+  `create_time` datetime default NULL,
+  `updater` varchar(32) default NULL,
+  `update_time` datetime default NULL,
+  PRIMARY KEY  (`web_ann_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ǰ̨���õ���վ������';
+
+-- ----------------------------
+-- Records of t_website_announcement
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_website_help`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_website_help`;
+CREATE TABLE `t_website_help` (
+  `web_help_id` varchar(32) NOT NULL,
+  `web_help_theme` varchar(100) default NULL,
+  `web_help_content` text,
+  `web_help_type` enum('borrow','invest','fund') default NULL,
+  `web_help_status` enum('Enabled','Disabled') default NULL,
+  `accessory` varchar(255) default NULL,
+  `web_cla_num` int(11) default NULL,
+  `remark` varchar(255) default NULL,
+  `creater` varchar(32) default NULL,
+  `create_time` datetime default NULL,
+  `updater` varchar(32) default NULL,
+  `update_time` datetime default NULL,
+  PRIMARY KEY  (`web_help_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ǰ̨���õİ������ı��';
+
+-- ----------------------------
+-- Records of t_website_help
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_website_hiring`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_website_hiring`;
+CREATE TABLE `t_website_hiring` (
+  `web_hiring_id` varchar(32) NOT NULL,
+  `web_hiring_theme` varchar(100) default NULL,
+  `web_hiring_content` text,
+  `web_hiring_status` enum('Enabled','Disabled') default NULL,
+  `accessory` varchar(255) default NULL,
+  `web_hiring_num` int(11) default NULL,
+  `remark` varchar(255) default NULL,
+  `creater` varchar(32) default NULL,
+  `create_time` datetime default NULL,
+  `updater` varchar(32) default NULL,
+  `update_time` datetime default NULL,
+  PRIMARY KEY  (`web_hiring_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ǰ̨���õ���Ƹ������';
+
+-- ----------------------------
+-- Records of t_website_hiring
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_website_link`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_website_link`;
+CREATE TABLE `t_website_link` (
+  `web_link_id` varchar(32) NOT NULL,
+  `web_link_name` varchar(100) default NULL,
+  `web_link_url` varchar(100) default NULL,
+  `web_link_photo` varchar(100) default NULL,
+  `web_link_status` enum('Enabled','Disabled') default NULL,
+  `accessory` varchar(255) default NULL,
+  `web_link_num` int(11) default NULL,
+  `remark` varchar(255) default NULL,
+  `creater` varchar(32) default NULL,
+  `create_time` datetime default NULL,
+  `updater` varchar(32) default NULL,
+  `update_time` datetime default NULL,
+  PRIMARY KEY  (`web_link_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ǰ̨���õ��������ӱ��';
+
+-- ----------------------------
+-- Records of t_website_link
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_website_nav`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_website_nav`;
+CREATE TABLE `t_website_nav` (
+  `web_nav_id` varchar(32) NOT NULL,
+  `web_nav_pid` varchar(32) default NULL,
+  `web_nav_name` varchar(100) default NULL,
+  `web_nav_url` varchar(100) default NULL,
+  `web_nav_status` enum('Enabled','Disabled') default NULL,
+  `web_nav_num` int(11) default NULL,
+  `remark` varchar(255) default NULL,
+  `creater` varchar(32) default NULL,
+  `create_time` datetime default NULL,
+  `updater` varchar(32) default NULL,
+  `update_time` datetime default NULL,
+  PRIMARY KEY  (`web_nav_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ǰ̨���õĵ���������';
+
+-- ----------------------------
+-- Records of t_website_nav
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_website_news`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_website_news`;
+CREATE TABLE `t_website_news` (
+  `web_news_id` varchar(32) NOT NULL,
+  `web_news_theme` varchar(100) default NULL,
+  `web_news_content` text,
+  `web_news_status` enum('Enabled','Disabled') default NULL,
+  `web_news_num` int(11) default NULL,
+  `accessory` varchar(255) default NULL,
+  `remark` varchar(255) default NULL,
+  `creater` varchar(32) default NULL,
+  `create_time` datetime default NULL,
+  `updater` varchar(32) default NULL,
+  `update_time` datetime default NULL,
+  PRIMARY KEY  (`web_news_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ǰ̨���õ����Ź�����';
+
+-- ----------------------------
+-- Records of t_website_news
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_website_service`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_website_service`;
+CREATE TABLE `t_website_service` (
+  `web_service_id` varchar(32) NOT NULL,
+  `web_service_name` varchar(100) default NULL,
+  `web_service_qq` varchar(100) default NULL,
+  `web_service_photo` varchar(100) default NULL,
+  `web_service_status` enum('Enabled','Disabled') default NULL,
+  `accessory` varchar(255) default NULL,
+  `web_service_num` int(11) default NULL,
+  `remark` varchar(255) default NULL,
+  `creater` varchar(32) default NULL,
+  `create_time` datetime default NULL,
+  `updater` varchar(32) default NULL,
+  `update_time` datetime default NULL,
+  PRIMARY KEY  (`web_service_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ǰ̨���õĿͷ�������';
+
+-- ----------------------------
+-- Records of t_website_service
 -- ----------------------------
