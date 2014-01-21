@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50067
 File Encoding         : 65001
 
-Date: 2014-01-21 14:19:07
+Date: 2014-01-21 16:34:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -38,7 +38,13 @@ CREATE TABLE `t_action` (
 -- Records of t_action
 -- ----------------------------
 INSERT INTO `t_action` VALUES ('18060139f0e736a796d5ac4bdd78eadc', 'e550884c5e6c1e94ee70cc833aa1c2b9', '83bbeed02a85549ae84cde8d98bcd8c1', '修改', 'edit', 'icon-standard-pencil-go', 'Button', 'Disabled', 'glacier.permissions_mgr.role_mgr.role.editRole();', '2', '');
+INSERT INTO `t_action` VALUES ('18060139f0e736a796d5ac4bdd78eads', 't110147c5e6c1e94ee70cc833aa7f5d3', '21gfdg1rgrh1dfhsjdfh124564sdf21d', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'Enabled', 'glacier.basicdatas_mgr.age_mgr.age.addAge();', '2', null);
+INSERT INTO `t_action` VALUES ('25860139f0e736a796d5ac4bdd78147', 'v465654c5e6c1e94ee70cc833asd142', '87gfdg1rgrh1dfhsjdfh124564sderbg', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'Enabled', 'glacier.basicdatas_mgr.credit_mgr.credit.addCredit();', '1', null);
+INSERT INTO `t_action` VALUES ('28060139f0e736a796d5ac4bdd78dawx', 't110147c5e6c1e94ee70cc833aa7f5d3', '21gfdg1rgrh1dfhsjdfh124564sdf21d', '修改', 'edit', 'icon-standard-pencil-add', 'Button', 'Enabled', 'glacier.basicdatas_mgr.age_mgr.age.editAge();', '3', null);
+INSERT INTO `t_action` VALUES ('35860139f0e736a796d5ac4bdd78147', 'v465654c5e6c1e94ee70cc833asd142', '87gfdg1rgrh1dfhsjdfh124564sderbg', '修改', 'edit', 'icon-standard-pencil-add', 'Button', 'Enabled', 'glacier.basicdatas_mgr.credit_mgr.credit.editCredit();', null, null);
+INSERT INTO `t_action` VALUES ('38060139f0e736a796d5ac4bdd78escs', 't110147c5e6c1e94ee70cc833aa7f5d3', '21gfdg1rgrh1dfhsjdfh124564sdf21d', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'Enabled', 'glacier.basicdatas_mgr.age_mgr.age.delAge();', '4', null);
 INSERT INTO `t_action` VALUES ('429f54b614db46af58598c8d9a47a36f', '54eb754157cf483a790f4eea35200118', '961d2e73b3fa93a9f125fb731e0a9529', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'Disabled', 'glacier.permissions_mgr.res_mgr.res.delPanel();', '4', '');
+INSERT INTO `t_action` VALUES ('4586054157cf483a790f4eea35dsf6f6', 'v465654c5e6c1e94ee70cc833asd142', '87gfdg1rgrh1dfhsjdfh124564sderbg', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'Enabled', 'glacier.basicdatas_mgr.credit_mgr.credit.delCredit();', null, null);
 INSERT INTO `t_action` VALUES ('5db796929f23e991708fd0af99b3b4bc', 'e550884c5e6c1e94ee70cc833aa1c2b9', '83bbeed02a85549ae84cde8d98bcd8c1', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'Enabled', 'glacier.permissions_mgr.role_mgr.role.addRole();', '1', '');
 INSERT INTO `t_action` VALUES ('6838d18fa1e582d4dc28404a80445c88', '54eb754157cf483a790f4eea35200118', '5731697aea23532eb8162f5ba1818c6f', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'Enabled', 'glacier.permissions_mgr.res_mgr.res.addMenu();', '2', '');
 INSERT INTO `t_action` VALUES ('6c0bc1e009b3742af24d7bdc94adec3c', '54eb754157cf483a790f4eea35200118', '961d2e73b3fa93a9f125fb731e0a9529', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'Enabled', 'glacier.permissions_mgr.res_mgr.res.addPanel();', '2', '');
@@ -74,8 +80,8 @@ INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '14sdf5415
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '16ac1df11de350c61722dc7b98cecca7', null);
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '54eb754157cf483a790f4eea35200118', 'MenuTree_add,MenuTree_edit,MenuTree_del,PanelList_add,PanelList_edit,PanelList_del,ActionList_add,ActionList_edit,ActionList_del');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', 'e550884c5e6c1e94ee70cc833aa1c2b9', 'RoleList_add,RoleList_edit,RoleList_del,RoleList_auth');
-INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', 't110147c5e6c1e94ee70cc833aa7f5d3', null);
-INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', 'v465654c5e6c1e94ee70cc833asd142', null);
+INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', 't110147c5e6c1e94ee70cc833aa7f5d3', 'AgeList_add,AgeList_edit,AgeList_del');
+INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', 'v465654c5e6c1e94ee70cc833asd142', 'CreditList_add,CreditList_edit,CreditList_del');
 
 -- ----------------------------
 -- Table structure for `t_loginlog`
@@ -163,8 +169,10 @@ CREATE TABLE `t_panel` (
 -- ----------------------------
 -- Records of t_panel
 -- ----------------------------
+INSERT INTO `t_panel` VALUES ('21gfdg1rgrh1dfhsjdfh124564sdf21d', 't110147c5e6c1e94ee70cc833aa7f5d3', '年龄列表', 'AgeList', '2');
 INSERT INTO `t_panel` VALUES ('5731697aea23532eb8162f5ba1818c6f', '54eb754157cf483a790f4eea35200118', '菜单树', 'MenuTree', '1');
 INSERT INTO `t_panel` VALUES ('83bbeed02a85549ae84cde8d98bcd8c1', 'e550884c5e6c1e94ee70cc833aa1c2b9', '角色列表', 'RoleList', '1');
+INSERT INTO `t_panel` VALUES ('87gfdg1rgrh1dfhsjdfh124564sderbg', 'v465654c5e6c1e94ee70cc833asd142', '信用列表', 'CreditList', '3');
 INSERT INTO `t_panel` VALUES ('961d2e73b3fa93a9f125fb731e0a9529', '54eb754157cf483a790f4eea35200118', '面板列表', 'PanelList', '2');
 INSERT INTO `t_panel` VALUES ('eb2a84c4b7bd11632135e4992ade286e', '54eb754157cf483a790f4eea35200118', '操作列表', 'ActionList', '3');
 
@@ -190,6 +198,9 @@ CREATE TABLE `t_parameter_age` (
 -- ----------------------------
 -- Records of t_parameter_age
 -- ----------------------------
+INSERT INTO `t_parameter_age` VALUES ('25gtr54157cf483a790f4eea3der25', '创业期', '1', '29', null, null, null, null, '2014-01-21 15:13:28', null, null);
+INSERT INTO `t_parameter_age` VALUES ('3f2sa343dg54f65fh54fh67h5sf4h5', '黄金岁月', '30', '40', null, null, null, null, '2014-01-21 15:13:26', null, null);
+INSERT INTO `t_parameter_age` VALUES ('45dfdsf554f5sd4fsdf4s5df4sd5f4s', '成功人士', '41', '59', null, null, null, null, '2014-01-21 15:13:24', null, null);
 
 -- ----------------------------
 -- Table structure for `t_parameter_area`
@@ -237,6 +248,10 @@ CREATE TABLE `t_parameter_credit` (
 -- ----------------------------
 -- Records of t_parameter_credit
 -- ----------------------------
+INSERT INTO `t_parameter_credit` VALUES ('125s754157cf483a790f4eea35200118', '1级', '0', '50', 'maque001.gif', null, null, null, null, null, null, null);
+INSERT INTO `t_parameter_credit` VALUES ('2545745dsfsd4gsd5gs5dg8gsd54gyt', '2级', '51', '70', 'maque002.gif', null, null, null, null, null, null, null);
+INSERT INTO `t_parameter_credit` VALUES ('354sdf454dsg54j5ytktku4y5u5ege5r', '3级', '71', '100', 'maque003.gif', null, null, null, null, null, null, null);
+INSERT INTO `t_parameter_credit` VALUES ('457df5a5hrstj4tyk5je54g6er4g64g5', '4级', '101', '150', 'maque004.gif', null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `t_parameter_integral`

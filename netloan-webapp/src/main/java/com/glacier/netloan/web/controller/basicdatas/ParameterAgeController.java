@@ -18,7 +18,7 @@ import com.glacier.netloan.service.basicdatas.ParameterAgeService;
 
 /** 
  * @ClassName: ParameterAgeController 
- * @Description: TODO(这里用一句话描述这个类的作用) 
+ * @Description: TODO(会员年龄别称的控制器) 
  * @author xichao.dong
  * @email 406592176@QQ.com
  * @date 2014-1-21 下午2:39:20  
@@ -40,7 +40,7 @@ public class ParameterAgeController extends AbstractController{
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByAgeId(String ageId, JqPager pager) {
+    private Object listActionAsGridByMenuId(String menuId, JqPager pager) {
         return ageService.listAsGrid(pager);
     }
 }
