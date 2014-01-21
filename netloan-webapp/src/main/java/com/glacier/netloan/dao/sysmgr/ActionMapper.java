@@ -9,6 +9,7 @@ public interface ActionMapper {
     int countByExample(ActionExample example);
 
     int deleteByExample(ActionExample example);
+    
 
     int deleteByPrimaryKey(String actionId);
 
