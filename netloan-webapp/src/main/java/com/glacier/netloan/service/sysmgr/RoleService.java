@@ -72,8 +72,6 @@ public class RoleService {
         JqGridReturn returnResult = new JqGridReturn();
         RoleExample roleExample = new RoleExample();
 
-        Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
             roleExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
             roleExample.setLimitEnd(pager.getRows());
