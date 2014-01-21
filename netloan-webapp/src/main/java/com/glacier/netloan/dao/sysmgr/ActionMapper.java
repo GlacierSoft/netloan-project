@@ -13,6 +13,7 @@ public interface ActionMapper {
     int deleteByPrimaryKey(String actionId);
 
     int insert(Action record);
+    
 
     int insertSelective(Action record);
 
