@@ -105,5 +105,9 @@
 	<session-config>
 		<session-timeout>300</session-timeout>
 	</session-config>
+	
+	<welcome-file-list>
+		<welcome-file>do/index.htm</welcome-file>
+	</welcome-file-list>
 
 </web-app>

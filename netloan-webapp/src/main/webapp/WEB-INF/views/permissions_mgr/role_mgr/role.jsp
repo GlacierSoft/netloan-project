@@ -336,18 +336,78 @@
 	
 	//操作授权
 	glacier.permissions_mgr.role_mgr.role.actionAuth = function(){
-		//获取要授权的角色Id
 		var row = glacier.permissions_mgr.role_mgr.role.roleDataGrid.datagrid("getSelected");
-		$.easyui.showDialog({
-			href : ctx + '/do/role/actionAuth.htm?roleId='+row.roleId,//从controller请求jsp页面进行渲染
-			width :792,
-			height : 600,
-			resizable: false,
-			enableSaveButton : false,
-			enableApplyButton : false,
-			enableCloseButton : false,
-			title : ' ['+row.roleCnName+'] -> (权限维护)'
-		});
+		var roleId = row.roleId;
+			//初始化资源和操作的treegrid
+			glacier.permissions_mgr.role_mgr.role.menuAndActionsDataGrid = $('#menuAndActions').treegrid({
+				url:ctx+'/do/auth/getPAAuthByCondition.json',
+				queryParams:{roleId:roleId},
+				idField : 'id',//定义了关键字段来标识一个树节点
+				treeField : 'menuName',//定义树节点字段
+				smooth: true,//该属性用以启用当前 easyui-treegrid 控件对平滑数据格式的支持,默认使用字段pid,可自定义
+				enableHeaderClickMenu: false,//启用表头菜单
+		        enableHeaderContextMenu: true,//启用表头右键菜单
+		        enableRowContextMenu: false,//启用表行右键菜单
+		        singleSelect:true,
+				checkOnSelect:false,
+				selectOnCheck:false,
+				nowrap:true,
+				fit : true,//控件自动resize占满窗口大小
+				fitColumns : false,//使冻结列生效
+				border : false,//是否存在边框
+				frozenColumns : [ [ {
+					title : 'id',
+					field : 'id',
+					checkbox:true
+				},{
+					field : 'menuName',
+					title : '菜单',
+					width:120
+				}] ],
+				columns : [ [ 
+							{
+								field : 'actions',
+								title : '操作',
+								width:450
+							}  
+				        ] ],
+				onUncheck:function(rowData){//取消勾选触发事件：取消操作中以id开头的input复选框=当前行
+					var inputs = $("#menuAndActionWin input[id^='"+rowData.id+"']:checked");
+					for(var i=0;i<inputs.length;i++){
+						inputs[i].checked = false;
+					}
+				},
+				onUncheckAll:function(rows){//取消勾选触发事件：取消操作中所有勾选的input复选框
+					var inputs = $("#menuAndActionWin input[name='actionCB']:checked");
+					for(var i=0;i<inputs.length;i++){
+						inputs[i].checked = false;
+					}
+				}
+			});
+			//显示菜单和操作窗口
+			glacier.permissions_mgr.role_mgr.role.menuAndActionWin = $('#menuAndActionWin').dialog({ 
+				title:'角色授权',
+			    width:350,  
+			    height:430,
+			    resizable:true,
+			    //fit:true,
+			    modal:true,
+			    minimizable:true,
+			    maximizable:true,
+			    buttons:[{
+					text:'保存',
+					iconCls:"icon-save",
+					handler:function(){
+						glacier.system_mgr.role_mgr.role.submitMenuAndAction(roleId);
+					}
+				},{
+					text:'关闭',
+					iconCls:"icon-undo",
+					handler:function(){
+						glacier.system_mgr.role_mgr.role.menuAndActionWin.dialog('close');
+					}
+				}]
+			});
 	};
 </script>
 
@@ -355,7 +415,7 @@
 <div class="easyui-layout" data-options="fit:true">
 	<div id="roleGridPanel" data-options="region:'center',border:true" >
 		<table id="roleDataGrid">
-			<glacierui:toolbar panelEnName="RolePanel" toolbarId="roleDataGrid_toolbar" menuEnName="rolemgr"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+			<glacierui:toolbar panelEnName="RoleList" toolbarId="roleDataGrid_toolbar" menuEnName="rolemgr"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 </div>

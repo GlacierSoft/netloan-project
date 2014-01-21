@@ -39,12 +39,15 @@ import com.glacier.netloan.dao.sysmgr.ActionMapper;
 import com.glacier.netloan.dao.sysmgr.AuthorityMapper;
 import com.glacier.netloan.dao.sysmgr.MenuMapper;
 import com.glacier.netloan.dao.sysmgr.PanelMapper;
+import com.glacier.netloan.entity.sysmgr.Action;
 import com.glacier.netloan.entity.sysmgr.ActionExample;
 import com.glacier.netloan.entity.sysmgr.Authority;
 import com.glacier.netloan.entity.sysmgr.AuthorityExample;
+import com.glacier.netloan.entity.sysmgr.AuthorityKey;
 import com.glacier.netloan.entity.sysmgr.Menu;
 import com.glacier.netloan.entity.sysmgr.MenuExample;
 import com.glacier.netloan.entity.sysmgr.User;
+import com.glacier.netloan.web.vo.sysmgr.AuthMenuActionVO;
 
 /**
  * @ClassName: PanelService
@@ -309,4 +312,62 @@ public class MenuService {
         return JackJson.fromObjectToJson(items);
     }
 
+    
+    public Object getAuthsByRoleId(String roleId) {
+        List<AuthMenuActionVO> returnAuthList = new ArrayList<AuthMenuActionVO>();// 要返回的List数据
+        List<Menu> allMenus = menuMapper.selectByExample(new MenuExample());// 获取全部的权限菜单
+        for (Menu menu : allMenus) {
+
+            String menuId = menu.getMenuId();
+            String menuParentId = menu.getPid();
+            String menuENName = menu.getMenuEnName();
+            String menuCNName = menu.getMenuCnName();
+            String id = menuId + "_" + menuENName;
+            String iconCls = menu.getIconCls();
+            
+            // 构建菜单列表树
+            AuthMenuActionVO authMenuActionVO = new AuthMenuActionVO();
+            authMenuActionVO.setId(menuId);
+            authMenuActionVO.setPid(menuParentId);
+            authMenuActionVO.setMenuName(menuCNName);
+            authMenuActionVO.setIconCls(iconCls);
+
+            // 查找角色菜单权限操作集合
+            AuthorityKey authorityKey = new AuthorityKey();
+            authorityKey.setMenuId(menuId);
+            authorityKey.setRoleId(roleId);
+            String[] ownActions = null;
+            Authority roleAuth = authorityMapper.selectByPrimaryKey(authorityKey);
+            if (null != roleAuth && StringUtils.isNotBlank(roleAuth.getActions())) {
+                ownActions = roleAuth.getActions().split(",");
+            }
+            // 查找菜单所有的操作集合
+            ActionExample actionExample = new ActionExample();
+            actionExample.createCriteria().andMenuIdEqualTo(menuId);
+            List<Action> actions = actionMapper.selectByExample(actionExample);
+            StringBuilder menuActionsBuilder = new StringBuilder();// 构建操作返回字符串，拼复选框_______后台编写提高效率
+            if (null != actions && actions.size() > 0) {
+                for (Action action : actions) {
+                    menuActionsBuilder.append("<input name='actionCB' type='checkbox' id='" + id + ":"
+                            + action.getActionEnName() + "' ");
+                    boolean checked = false;
+                    if (null != ownActions && ownActions.length > 0) {
+                        for (String ownAction : ownActions) {
+                            if (action.getActionEnName().equals(ownAction)) {
+                                checked = true;
+                            }
+                        }
+                    }
+                    if (checked) {
+                        menuActionsBuilder.append("checked=" + checked);
+                    }
+                    menuActionsBuilder.append(" /><span>" + action.getActionCnName() + "</span> ");
+                }
+                String menuActions = menuActionsBuilder.toString();
+                authMenuActionVO.setActions(menuActions);
+            }
+            returnAuthList.add(authMenuActionVO);
+        }
+        return returnAuthList;
+    }
 }

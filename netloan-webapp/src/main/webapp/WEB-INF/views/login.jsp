@@ -60,7 +60,9 @@
 										<input type="password" id="password" name="password" class="form-control input-lg"  placeholder="密码" value="${password}"/>
 									</div>
 								</div>
+								
 								<div id="captcha_form_group" class="form-group">
+									<!--  
 									<div class="col-md-6 col-md-offset-3 col-xs-9">
 										<div class="input-group">
 											<span id="login_kaptcha_span" class="input-group-addon">
@@ -71,6 +73,7 @@
 											<input type="text" id="captcha" name="captcha" maxlength="4" class="form-control input-lg">
 										</div>
 									</div>
+									-->
 									<div class="col-md-3 col-xs-3">
 										<button id="login_submit" class="btn btn-primary btn-lg btn-block">登录</button>
 									</div>
@@ -169,12 +172,14 @@
 						$password.focus();
 						return false;
 					}
+					/*
 					var $captcha = $('#captcha');
 					if($captcha.val().length < 4){
 						$('#captcha_form_group').addClass("has-error");
 						$captcha.focus();
 						return false;
 					}
+					*/
 					$('#login_submit').attr('disabled', 'disabled').html('登录中...');
 					return true;
 				};
