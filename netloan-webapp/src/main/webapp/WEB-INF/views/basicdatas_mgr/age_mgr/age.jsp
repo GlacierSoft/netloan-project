@@ -8,7 +8,7 @@
 	
 	
 	//初始化角色DataGrid
-	glacier.basicdatas_mgr.role_mgr.role.roleDataGrid = $('#roleDataGrid').datagrid({
+	glacier.basicdatas_mgr.age_mgr.age.ageDataGrid = $('#ageDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
@@ -19,8 +19,8 @@
 		singleSelect:true,//限制单选
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
-		url: ctx + '/do/role/list.json',
-		sortName: 'roleEnName',//排序字段名称
+		url: ctx + '/do/age/list.json',
+		sortName: 'ageName',//排序字段名称
 		sortOrder: 'ASC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
 		idField:'id',
@@ -30,8 +30,23 @@
 				title:'ID',
 				checkbox:true
 			},{
-				field:'roleCnName',
-				title:'角色名',
+				field:'ageName',
+				title:'会员年龄别名',
+				width:120,
+				sortable:true
+			},{
+				field:'ageBegin',
+				title:'开始年龄',
+				width:120,
+				sortable:true
+			},{
+				field:'ageEnd',
+				title:'结束年龄',
+				width:120,
+				sortable:true
+			},{
+				field:'remark',
+				title:'备注',
 				width:120,
 				sortable:true
 			},{

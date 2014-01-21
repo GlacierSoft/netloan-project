@@ -8,9 +8,12 @@ package com.glacier.netloan.web.controller.basicdatas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
+import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.service.basicdatas.ParameterAgeService;
 
 /** 
@@ -25,7 +28,7 @@ import com.glacier.netloan.service.basicdatas.ParameterAgeService;
 public class ParameterAgeController extends AbstractController{
 
     @Autowired
-    private ParameterAgeService parameterAgeService;// 注入角色业务Bean
+    private ParameterAgeService ageService;// 注入角色业务Bean
     
     // 进入角色列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -34,4 +37,10 @@ public class ParameterAgeController extends AbstractController{
         return mav;
     }
     
+    // 获取表格结构的所有菜单数据
+    @RequestMapping(value = "/list.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object listActionAsGridByAgeId(String ageId, JqPager pager) {
+        return ageService.listAsGrid(pager);
+    }
 }

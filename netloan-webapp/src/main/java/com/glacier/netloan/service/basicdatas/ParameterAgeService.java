@@ -51,7 +51,7 @@ public class ParameterAgeService {
         	parameterAgeExample.setLimitEnd(pager.getRows());
         }
         if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
-        	parameterAgeExample.setOrderByClause(pager.getOrderBy("temp_role_"));
+        	parameterAgeExample.setOrderByClause(pager.getOrderBy("temp_parameter_age_"));
         }
         List<ParameterAge>  parameterAges = parameterAgeMapper.selectByExample(parameterAgeExample); // 查询所有操作列表
         int total = parameterAgeMapper.countByExample(parameterAgeExample); // 查询总页数
