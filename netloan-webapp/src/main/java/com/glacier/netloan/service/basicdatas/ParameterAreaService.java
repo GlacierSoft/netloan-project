@@ -23,7 +23,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.basicdatas.ParameterAreaMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterArea;
 import com.glacier.netloan.entity.basicdatas.ParameterAreaExample;
-import com.glacier.netloan.entity.sysmgr.User;
+import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
 /** 
