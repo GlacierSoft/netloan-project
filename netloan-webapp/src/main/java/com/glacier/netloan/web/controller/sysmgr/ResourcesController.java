@@ -54,7 +54,7 @@ public class ResourcesController {
     //进入资源展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPage(String menuId) {
-        ModelAndView mav = new ModelAndView("permissions_mgr/res_mgr/res");
+        ModelAndView mav = new ModelAndView("system_mgr/res_mgr/res");
         return mav;
     }
 

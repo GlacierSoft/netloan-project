@@ -4,22 +4,22 @@
 
 <script type="text/javascript">
 
-	$.util.namespace('glacier.permissions_mgr.res_mgr.res');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+	$.util.namespace('glacier.system_mgr.res_mgr.res');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
 	//菜单选中
-	glacier.permissions_mgr.res_mgr.res.menuAlwaySelect = function(){
+	glacier.system_mgr.res_mgr.res.menuAlwaySelect = function(){
 		$('#res_btn_MenuPanel_edit').linkbutton('enable');//菜单编辑按钮
 		$('#res_btn_MenuPanel_del').linkbutton('enable');//菜单删除按钮
 	};
 	
 	//菜单未选中
-	glacier.permissions_mgr.res_mgr.res.menuAlwayUnSelect = function(){
+	glacier.system_mgr.res_mgr.res.menuAlwayUnSelect = function(){
 		$('#res_btn_MenuPanel_edit').linkbutton('disable');//菜单编辑按钮
 		$('#res_btn_MenuPanel_del').linkbutton('disable');//菜单删除按钮
 	};
 		
 	//初始化资源菜单menuTreeGrid
-	glacier.permissions_mgr.res_mgr.res.menuTreeGrid = $('#menuTreeGrid').treegrid({
+	glacier.system_mgr.res_mgr.res.menuTreeGrid = $('#menuTreeGrid').treegrid({
 		fit:true,//控件自动resize占满窗口大小
 		border:false,//是否存在边框
 		fitColumns:true,//自动填充行
@@ -34,25 +34,25 @@
 		rowTooltip: false, //表行数据提示
 		toolbar : '#menuTreeGridToolbar',
 		onSelect:function(rowData){//选择行事件触发
-			glacier.permissions_mgr.res_mgr.res.menuAlwaySelect();
+			glacier.system_mgr.res_mgr.res.menuAlwaySelect();
 			if(rowData.url){//选中菜单的同时，根据菜单属性是否包含可用的URL进行对应的操作进行动态变更
-				glacier.permissions_mgr.res_mgr.res.actionPropertyGrid.propertygrid('load',{
+				glacier.system_mgr.res_mgr.res.actionPropertyGrid.propertygrid('load',{
 					menuId: rowData.menuId
 				});
-				glacier.permissions_mgr.res_mgr.res.panelDataGrid.datagrid('load',{
+				glacier.system_mgr.res_mgr.res.panelDataGrid.datagrid('load',{
 					menuId: rowData.menuId
 				});
 			}
 		},
 		onUnselectAll:function(rows){//取消选择行状态触发事件
-			glacier.permissions_mgr.res_mgr.res.menuAlwayUnSelect();
+			glacier.system_mgr.res_mgr.res.menuAlwayUnSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$.fn.treegrid.extensions.onLoadSuccess.apply(this, arguments);//这句一定要加上
 			$(this).treegrid('unselectAll');
 		},
 		onDblClickRow: function(row){
-			glacier.permissions_mgr.res_mgr.res.menuDetails(row);
+			glacier.system_mgr.res_mgr.res.menuDetails(row);
 		},
 		frozenColumns : [ [{//冻结列，当表格宽度压缩展示不全时候，该列不会缩小
 			field : 'menuId' , title : 'ID' , hidden:true
@@ -71,26 +71,26 @@
 	});
 	
 	//面板选中
-	glacier.permissions_mgr.res_mgr.res.panelAlwaySelect = function(){
+	glacier.system_mgr.res_mgr.res.panelAlwaySelect = function(){
 		$('#res_btn_Panel_edit').linkbutton('enable');//编辑
 	};
 	
 	//面板未选中
-	glacier.permissions_mgr.res_mgr.res.panelAlwayUnSelect = function(){
+	glacier.system_mgr.res_mgr.res.panelAlwayUnSelect = function(){
 		$('#res_btn_Panel_edit').linkbutton('disable');//编辑
 	};
 	
 	//面板勾选
-	glacier.permissions_mgr.res_mgr.res.panelAlwayCheck = function(){
-		var rows = glacier.permissions_mgr.res_mgr.res.panelDataGrid.datagrid("getChecked");
+	glacier.system_mgr.res_mgr.res.panelAlwayCheck = function(){
+		var rows = glacier.system_mgr.res_mgr.res.panelDataGrid.datagrid("getChecked");
 		if(rows.length > 0){//如果勾选的列大于0，则激活删除按钮
 			$('#res_btn_Panel_del').linkbutton('enable');//删除
 		}
 	};
 	
 	//面板取消勾选
-	glacier.permissions_mgr.res_mgr.res.panelAlwayUnCheck = function(){
-		var rows = glacier.permissions_mgr.res_mgr.res.panelDataGrid.datagrid("getChecked");
+	glacier.system_mgr.res_mgr.res.panelAlwayUnCheck = function(){
+		var rows = glacier.system_mgr.res_mgr.res.panelDataGrid.datagrid("getChecked");
 		if(rows.length > 0){//如果勾选的列大于0，则激活删除按钮
 			$('#res_btn_Panel_del').linkbutton('enable');//删除
 		}else{
@@ -99,7 +99,7 @@
 	};
 	
 	//初始化面板datagrid
-	glacier.permissions_mgr.res_mgr.res.panelDataGrid = $('#panelDataGrid').datagrid({
+	glacier.system_mgr.res_mgr.res.panelDataGrid = $('#panelDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		border:false,//是否存在边框
 		fitColumns:true,//自动填充行
@@ -129,26 +129,26 @@
 		pageList : [2,10,50,100],//从session中获取
 		rownumbers:true,
 		onCheck:function(rowIndex,rowData){//选择行事件触发
-			glacier.permissions_mgr.res_mgr.res.panelAlwayCheck();
+			glacier.system_mgr.res_mgr.res.panelAlwayCheck();
 		},
 		onCheckAll:function(rows){//取消勾选行状态触发事件
-			glacier.permissions_mgr.res_mgr.res.panelAlwayCheck();
+			glacier.system_mgr.res_mgr.res.panelAlwayCheck();
 		},
 		onUncheck:function(rowIndex,rowData){//选择行事件触发
-			glacier.permissions_mgr.res_mgr.res.panelAlwayUnCheck();
+			glacier.system_mgr.res_mgr.res.panelAlwayUnCheck();
 		},
 		onUncheckAll:function(rows){//取消勾选行状态触发事件
-			glacier.permissions_mgr.res_mgr.res.panelAlwayUnCheck();
+			glacier.system_mgr.res_mgr.res.panelAlwayUnCheck();
 		},
 		onSelect:function(rowIndex, rowData){//选择行事件触发
-			glacier.permissions_mgr.res_mgr.res.panelAlwaySelect();
-			glacier.permissions_mgr.res_mgr.res.actionPropertyGrid.propertygrid('load',{
+			glacier.system_mgr.res_mgr.res.panelAlwaySelect();
+			glacier.system_mgr.res_mgr.res.actionPropertyGrid.propertygrid('load',{
 				menuId: rowData.menuId,
 				panelId:rowData.panelId
 			});
 		},
 		onUnselectAll:function(rows){
-			glacier.permissions_mgr.res_mgr.res.panelAlwayUnSelect();
+			glacier.system_mgr.res_mgr.res.panelAlwayUnSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('unselectAll');
@@ -159,26 +159,26 @@
 	
 	
 	//选中的时候默认调用的方法
-	glacier.permissions_mgr.res_mgr.res.actionAlwaySelect = function(){
+	glacier.system_mgr.res_mgr.res.actionAlwaySelect = function(){
 		$('#res_btn_ActionPanel_edit').linkbutton('enable');//编辑
 	};
 	
 	//没选中的时候默认调用的方法
-	glacier.permissions_mgr.res_mgr.res.actionAlwayUnSelect = function(){
+	glacier.system_mgr.res_mgr.res.actionAlwayUnSelect = function(){
 		$('#res_btn_ActionPanel_edit').linkbutton('disable');//编辑
 	};
 	
 	//勾选的时候默认调用的方法
-	glacier.permissions_mgr.res_mgr.res.actionAlwayCheck = function(){
-		var rows = glacier.permissions_mgr.res_mgr.res.actionPropertyGrid.propertygrid("getChecked");
+	glacier.system_mgr.res_mgr.res.actionAlwayCheck = function(){
+		var rows = glacier.system_mgr.res_mgr.res.actionPropertyGrid.propertygrid("getChecked");
 		if(rows.length > 0){//如果勾选的列大于0，则激活删除按钮
 			$('#res_btn_ActionPanel_del').linkbutton('enable');//删除
 		}
 	};
 	
 	//取消勾选的时候默认调用的方法
-	glacier.permissions_mgr.res_mgr.res.actionAlwayUnCheck = function(){
-		var rows = glacier.permissions_mgr.res_mgr.res.actionPropertyGrid.propertygrid("getChecked");
+	glacier.system_mgr.res_mgr.res.actionAlwayUnCheck = function(){
+		var rows = glacier.system_mgr.res_mgr.res.actionPropertyGrid.propertygrid("getChecked");
 		if(rows.length > 0){//如果勾选的列大于0，则激活删除按钮
 			$('#res_btn_ActionPanel_del').linkbutton('enable');//删除
 		}else{
@@ -187,7 +187,7 @@
 	};
 	
 	//初始化操作propertygrid
-	glacier.permissions_mgr.res_mgr.res.actionPropertyGrid = $('#actionDataGrid').propertygrid({
+	glacier.system_mgr.res_mgr.res.actionPropertyGrid = $('#actionDataGrid').propertygrid({
 		fit:true,//控件自动resize占满窗口大小
 		showGroup: true,
 		scrollbarSize: 0,
@@ -207,22 +207,22 @@
 		idField:'actionId',
 		toolbar : '#actionDataGridToolbar',
 		onCheck:function(rowIndex,rowData){//选择行事件触发
-			glacier.permissions_mgr.res_mgr.res.actionAlwayCheck();
+			glacier.system_mgr.res_mgr.res.actionAlwayCheck();
 		},
 		onCheckAll:function(rows){//取消勾选行状态触发事件
-			glacier.permissions_mgr.res_mgr.res.actionAlwayCheck();
+			glacier.system_mgr.res_mgr.res.actionAlwayCheck();
 		},
 		onUncheck:function(rowIndex,rowData){//选择行事件触发
-			glacier.permissions_mgr.res_mgr.res.actionAlwayUnCheck();
+			glacier.system_mgr.res_mgr.res.actionAlwayUnCheck();
 		},
 		onUncheckAll:function(rows){//取消勾选行状态触发事件
-			glacier.permissions_mgr.res_mgr.res.actionAlwayUnCheck();
+			glacier.system_mgr.res_mgr.res.actionAlwayUnCheck();
 		},
 		onSelect:function(rowIndex, rowData){//选择行事件触发
-			glacier.permissions_mgr.res_mgr.res.actionAlwaySelect();
+			glacier.system_mgr.res_mgr.res.actionAlwaySelect();
 		},
 		onUnselectAll:function(rows){
-			glacier.permissions_mgr.res_mgr.res.actionAlwayUnSelect();
+			glacier.system_mgr.res_mgr.res.actionAlwayUnSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).propertygrid('clearSelections');//清空选择行与勾选行
@@ -255,18 +255,18 @@
 	});
 	
 	// 增加菜单
-	glacier.permissions_mgr.res_mgr.res.addMenu = function(){
-		glacier.permissions_mgr.res_mgr.res.newMenuDialog('增加菜单',false,'/do/res/menu/add.json');
+	glacier.system_mgr.res_mgr.res.addMenu = function(){
+		glacier.system_mgr.res_mgr.res.newMenuDialog('增加菜单',false,'/do/res/menu/add.json');
 	};
 	
 	//编辑菜单
-	glacier.permissions_mgr.res_mgr.res.editMenu = function(){
-		glacier.permissions_mgr.res_mgr.res.newMenuDialog('修改菜单',true,'/do/res/menu/edit.json');
+	glacier.system_mgr.res_mgr.res.editMenu = function(){
+		glacier.system_mgr.res_mgr.res.newMenuDialog('修改菜单',true,'/do/res/menu/edit.json');
 	};
 	
 	//删除菜单
-	glacier.permissions_mgr.res_mgr.res.delMenu = function(){
-		var row = glacier.permissions_mgr.res_mgr.res.menuTreeGrid.treegrid("getSelected");
+	glacier.system_mgr.res_mgr.res.delMenu = function(){
+		var row = glacier.system_mgr.res_mgr.res.menuTreeGrid.treegrid("getSelected");
 		$.messager.confirm('请确认', '是否要删除所选操作，删除后不可恢复!', function(r){
 			if (r){
 				$.ajax({
@@ -282,7 +282,7 @@
 									icon:'info',
 									showType:'fade'
 								});
-							   glacier.permissions_mgr.res_mgr.res.menuTreeGrid.treegrid('reload');
+							   glacier.system_mgr.res_mgr.res.menuTreeGrid.treegrid('reload');
 						   }else{
 							   $.messager.show({
 									title:'提示',
@@ -298,33 +298,33 @@
 	};
 	
 	//增加面板
-	glacier.permissions_mgr.res_mgr.res.addPanel = function(){
-		glacier.permissions_mgr.res_mgr.res.newPanelDialog('增加面板',false,'/do/res/panel/add.json');
+	glacier.system_mgr.res_mgr.res.addPanel = function(){
+		glacier.system_mgr.res_mgr.res.newPanelDialog('增加面板',false,'/do/res/panel/add.json');
 	};
 	
 	//修改面板
-	glacier.permissions_mgr.res_mgr.res.editPanel = function(){
-		glacier.permissions_mgr.res_mgr.res.newPanelDialog('修改面板',true,'/do/res/panel/edit.json');
+	glacier.system_mgr.res_mgr.res.editPanel = function(){
+		glacier.system_mgr.res_mgr.res.newPanelDialog('修改面板',true,'/do/res/panel/edit.json');
 	};
 	
 	//删除面板
-	glacier.permissions_mgr.res_mgr.res.delPanel = function(){
-		var rows = glacier.permissions_mgr.res_mgr.res.panelDataGrid.datagrid("getChecked");
+	glacier.system_mgr.res_mgr.res.delPanel = function(){
+		var rows = glacier.system_mgr.res_mgr.res.panelDataGrid.datagrid("getChecked");
 	};
 	
 	//增加操作
-	glacier.permissions_mgr.res_mgr.res.addAction = function(){
-		glacier.permissions_mgr.res_mgr.res.newActionDialog('增加操作',false,'/do/res/action/add.json');
+	glacier.system_mgr.res_mgr.res.addAction = function(){
+		glacier.system_mgr.res_mgr.res.newActionDialog('增加操作',false,'/do/res/action/add.json');
 	};
 	
 	//修改操作
-	glacier.permissions_mgr.res_mgr.res.editAction = function(){
-		glacier.permissions_mgr.res_mgr.res.newActionDialog('修改操作',true,'/do/res/action/edit.json');
+	glacier.system_mgr.res_mgr.res.editAction = function(){
+		glacier.system_mgr.res_mgr.res.newActionDialog('修改操作',true,'/do/res/action/edit.json');
 	};
 	
 	//删除操作
-	glacier.permissions_mgr.res_mgr.res.delAction = function(){
-		var rows = glacier.permissions_mgr.res_mgr.res.actionPropertyGrid.propertygrid("getChecked");
+	glacier.system_mgr.res_mgr.res.delAction = function(){
+		var rows = glacier.system_mgr.res_mgr.res.actionPropertyGrid.propertygrid("getChecked");
 		var actionIds = [];//删除的id标识
 		var actionCnNames = [];//日志记录引用名称
 		for(var i=0;i<rows.length;i++){
@@ -346,7 +346,7 @@
 										timeout:3000,
 										msg:r.msg
 									});
-									glacier.permissions_mgr.res_mgr.res.actionPropertyGrid.propertygrid('reload');
+									glacier.system_mgr.res_mgr.res.actionPropertyGrid.propertygrid('reload');
 							   }else{
 								   $.messager.show({
 										title:'提示',
@@ -363,7 +363,7 @@
 	};
 	
 	//查看菜单详细信息
-	glacier.permissions_mgr.res_mgr.res.menuDetails = function(row){
+	glacier.system_mgr.res_mgr.res.menuDetails = function(row){
 		$('<div/>').dialog({
 			href : ctx + '/do/res/menu/intoForm.htm',//从controller请求jsp页面进行渲染
 			width : 550,
@@ -386,7 +386,7 @@
 		editModel: true or false ，是否复制当前选择行数据到form中
 		url:点击保存按钮请求的url
 	*/
-	glacier.permissions_mgr.res_mgr.res.newMenuDialog = function(title,editModel,url){
+	glacier.system_mgr.res_mgr.res.newMenuDialog = function(title,editModel,url){
 			$.easyui.showDialog({
 				href : ctx + '/do/res/menu/intoForm.htm',//从controller请求jsp页面进行渲染
 				width : 530,
@@ -404,7 +404,7 @@
 								url: ctx + url,
 								success: function(r){
 									$.messager.show(r.msg);
-									glacier.permissions_mgr.res_mgr.res.menuTreeGrid.treegrid('reload');
+									glacier.system_mgr.res_mgr.res.menuTreeGrid.treegrid('reload');
 								    dia.dialog("close");  
 								}
 							});
@@ -412,7 +412,7 @@
 				}],
 				onLoad : function() {
 					if(editModel){//编辑模式
-						var row = glacier.permissions_mgr.res_mgr.res.menuTreeGrid.treegrid('getSelected');
+						var row = glacier.system_mgr.res_mgr.res.menuTreeGrid.treegrid('getSelected');
 						if(row){
 							$('#menu_mgr_menu_form').form('load', row );
 						}else{
@@ -433,7 +433,7 @@
 		editModel: true or false ，是否复制当前选择行数据到form中
 		url:点击保存按钮请求的url
 	*/
-	glacier.permissions_mgr.res_mgr.res.newPanelDialog = function(title,editModel,url){
+	glacier.system_mgr.res_mgr.res.newPanelDialog = function(title,editModel,url){
 			$.easyui.showDialog({
 				href : ctx + '/do/res/panel/intoForm.htm',//从controller请求jsp页面进行渲染
 				width : 280,
@@ -450,7 +450,7 @@
 							url: ctx + url,
 							success: function(r){
 								$.messager.show(r.msg);
-								glacier.permissions_mgr.res_mgr.res.panelDataGrid.datagrid('reload');
+								glacier.system_mgr.res_mgr.res.panelDataGrid.datagrid('reload');
 							    dia.dialog("close");  
 							}
 						});
@@ -458,12 +458,12 @@
 				}],
 				onLoad : function() {
 					if(editModel){//如果是编辑模式则从选择行中获取数据填充到表单
-						var row = glacier.permissions_mgr.res_mgr.res.panelDataGrid.datagrid("getSelected");
+						var row = glacier.system_mgr.res_mgr.res.panelDataGrid.datagrid("getSelected");
 						if(row){
 							$('#res_mgr_panel_form').form('load',row);
 						}
 					}else{
-						var menuRow = glacier.permissions_mgr.res_mgr.res.menuTreeGrid.treegrid("getSelected");
+						var menuRow = glacier.system_mgr.res_mgr.res.menuTreeGrid.treegrid("getSelected");
 						if(menuRow){//初始化所在菜单以及对应面板
 							$("#res_mgr_panel_form_menuId").combotree('setValue', menuRow.menuId);
 						}
@@ -478,7 +478,7 @@
 		editModel: true or false ，是否复制当前选择行数据到form中
 		url:点击保存按钮请求的url
 	*/
-	glacier.permissions_mgr.res_mgr.res.newActionDialog = function(title,editModel,url){
+	glacier.system_mgr.res_mgr.res.newActionDialog = function(title,editModel,url){
 			$.easyui.showDialog({
 				href : ctx + '/do/res/action/intoForm.htm',//从controller请求jsp页面进行渲染
 				width : 550,
@@ -495,25 +495,25 @@
 							url: ctx + url,
 							success: function(r){
 								$.messager.show(r.msg);
-								glacier.permissions_mgr.res_mgr.res.actionPropertyGrid.propertygrid('reload');
+								glacier.system_mgr.res_mgr.res.actionPropertyGrid.propertygrid('reload');
 							    dia.dialog("close");  
 							}
 						});
 					}
 				}],
 				onLoad : function() {
-					var menuRow = glacier.permissions_mgr.res_mgr.res.menuTreeGrid.treegrid("getSelected");
+					var menuRow = glacier.system_mgr.res_mgr.res.menuTreeGrid.treegrid("getSelected");
 					if(menuRow){//初始化所在菜单以及对应面板
 						$("#res_mgr_action_form_menuId").combotree('setValue', menuRow.menuId);
 						$("#res_mgr_action_form_panelId").combobox('enable').combobox('reload',ctx + '/do/res/panel/getPanelsByMenuId.json?menuId='+menuRow.menuId);
 						//如果面板已选中，自动初始化面板combobox
-						var panelRow = glacier.permissions_mgr.res_mgr.res.panelDataGrid.datagrid("getSelected");
+						var panelRow = glacier.system_mgr.res_mgr.res.panelDataGrid.datagrid("getSelected");
 						if(panelRow){
 							$("#res_mgr_action_form_panelId").combobox('setValue',panelRow.panelId)
 						}
 					}
 					if(editModel){//如果是编辑模式则从选择行中获取数据填充到表单
-						var row = glacier.permissions_mgr.res_mgr.res.actionPropertyGrid.propertygrid('getSelected');
+						var row = glacier.system_mgr.res_mgr.res.actionPropertyGrid.propertygrid('getSelected');
 						if(row){
 							$('#res_mgr_action_form').form('load',row);
 						}else{

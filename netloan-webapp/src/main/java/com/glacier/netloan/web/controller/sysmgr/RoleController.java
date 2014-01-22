@@ -46,14 +46,14 @@ public class RoleController extends AbstractController{
     // 进入角色列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPage() {
-        ModelAndView mav = new ModelAndView("permissions_mgr/role_mgr/role");
+        ModelAndView mav = new ModelAndView("system_mgr/role_mgr/role");
         return mav;
     }
     
     // 进入角色Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoRoleFormPage(String roleId) {
-        ModelAndView mav = new ModelAndView("permissions_mgr/role_mgr/role_form");
+        ModelAndView mav = new ModelAndView("system_mgr/role_mgr/role_form");
         if(StringUtils.isNotBlank(roleId)){
             mav.addObject("roleData", roleService.getRole(roleId));
         }
@@ -63,7 +63,7 @@ public class RoleController extends AbstractController{
     // 进入角色操作授权展示页面
     @RequestMapping(value = "/actionAuth.htm")
     private Object intoActionAuthPage(String roleId) {
-        ModelAndView mav = new ModelAndView("permissions_mgr/role_mgr/roleActionAuth");
+        ModelAndView mav = new ModelAndView("system_mgr/role_mgr/roleActionAuth");
         mav.addObject("allMenuTreeNodeData", menuService.getAllTreeMenuNode(false,roleId));
         mav.addObject("roleId", roleId);
         return mav;

@@ -4,33 +4,33 @@
 
 <script type="text/javascript">
 
-	$.util.namespace('glacier.permissions_mgr.role_mgr.role');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+	$.util.namespace('glacier.system_mgr.role_mgr.role');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
 	//角色选中
-	glacier.permissions_mgr.role_mgr.role.roleAlwaySelect = function(){
+	glacier.system_mgr.role_mgr.role.roleAlwaySelect = function(){
 		$('#role_btn_RolePanel_edit').linkbutton('enable');//编辑
 		$('#role_btn_RolePanel_auth').linkbutton('enable');//角色授权
 		$('#role_btn_RolePanel_actionAuth').linkbutton('enable');//角色授权
 	};
 	
 	//角色未选中
-	glacier.permissions_mgr.role_mgr.role.roleAlwayUnSelect = function(){
+	glacier.system_mgr.role_mgr.role.roleAlwayUnSelect = function(){
 		$('#role_btn_RolePanel_edit').linkbutton('disable');//编辑
 		$('#role_btn_RolePanel_auth').linkbutton('disable');//角色授权
 		$('#role_btn_RolePanel_actionAuth').linkbutton('disable');//角色授权
 	};
 	
 	//角色勾选
-	glacier.permissions_mgr.role_mgr.role.roleAlwayCheck = function(){
-		var rows = glacier.permissions_mgr.role_mgr.role.roleDataGrid.datagrid("getChecked");
+	glacier.system_mgr.role_mgr.role.roleAlwayCheck = function(){
+		var rows = glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid("getChecked");
 		if(rows.length > 0){//如果勾选的列大于0，则激活删除按钮
 			$('#role_btn_RolePanel_del').linkbutton('enable');//删除
 		}
 	};
 	
 	//角色取消勾选
-	glacier.permissions_mgr.role_mgr.role.roleAlwayUnCheck = function(){
-		var rows = glacier.permissions_mgr.role_mgr.role.roleDataGrid.datagrid("getChecked");
+	glacier.system_mgr.role_mgr.role.roleAlwayUnCheck = function(){
+		var rows = glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid("getChecked");
 		if(rows.length > 0){//如果勾选的列大于0，则激活删除按钮
 			$('#role_btn_RolePanel_del').linkbutton('enable');//删除
 		}else{
@@ -40,7 +40,7 @@
 	
 	
 	//初始化角色DataGrid
-	glacier.permissions_mgr.role_mgr.role.roleDataGrid = $('#roleDataGrid').datagrid({
+	glacier.system_mgr.role_mgr.role.roleDataGrid = $('#roleDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
@@ -88,22 +88,22 @@
 		rownumbers:true,//True 就会显示行号的列
 		toolbar:'#roleDataGrid_toolbar',
 		onCheck:function(rowIndex,rowData){//选择行事件触发
-			glacier.permissions_mgr.role_mgr.role.roleAlwayCheck();
+			glacier.system_mgr.role_mgr.role.roleAlwayCheck();
 		},
 		onCheckAll:function(rows){//取消勾选行状态触发事件
-			glacier.permissions_mgr.role_mgr.role.roleAlwayCheck();
+			glacier.system_mgr.role_mgr.role.roleAlwayCheck();
 		},
 		onUncheck:function(rowIndex,rowData){//选择行事件触发
-			glacier.permissions_mgr.role_mgr.role.roleAlwayUnCheck();
+			glacier.system_mgr.role_mgr.role.roleAlwayUnCheck();
 		},
 		onUncheckAll:function(rows){//取消勾选行状态触发事件
-			glacier.permissions_mgr.role_mgr.role.roleAlwayUnCheck();
+			glacier.system_mgr.role_mgr.role.roleAlwayUnCheck();
 		},
 		onSelect:function(rowIndex, rowData){//选择行事件触发
-			glacier.permissions_mgr.role_mgr.role.roleAlwaySelect();
+			glacier.system_mgr.role_mgr.role.roleAlwaySelect();
 		},
 		onUnselectAll:function(rows){
-			glacier.permissions_mgr.role_mgr.role.roleAlwayUnSelect();
+			glacier.system_mgr.role_mgr.role.roleAlwayUnSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('unselectAll');
@@ -112,7 +112,7 @@
 	});
 	
 	
-	glacier.permissions_mgr.role_mgr.role.newDialog = function(title,roleId,url,loadType){
+	glacier.system_mgr.role_mgr.role.newDialog = function(title,roleId,url,loadType){
 		$.easyui.showDialog({
 			href : ctx + '/do/role/intoForm.htm?roleId='+roleId,//从controller请求jsp页面进行渲染
 			width : 385,
@@ -131,7 +131,7 @@
 							success: function(r){
 								$.messager.show(r.msg);
 								if(r.success){
-									glacier.permissions_mgr.role_mgr.role.roleDataGrid.datagrid('reload');
+									glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid('reload');
 								    dia.dialog("close"); 
 								}
 								 
@@ -142,17 +142,17 @@
 		});
 	};
 	//点击增加按钮触发方法
-	glacier.permissions_mgr.role_mgr.role.addRole = function(){
-		glacier.permissions_mgr.role_mgr.role.newDialog('增加角色','','/do/role/add.json','load');
+	glacier.system_mgr.role_mgr.role.addRole = function(){
+		glacier.system_mgr.role_mgr.role.newDialog('增加角色','','/do/role/add.json','load');
 	};
 	//点击编辑按钮触发方法
-	glacier.permissions_mgr.role_mgr.role.editRole = function(){
-		var row = glacier.permissions_mgr.role_mgr.role.roleDataGrid.datagrid("getSelected");
-		glacier.permissions_mgr.role_mgr.role.newDialog('编辑角色',row.roleId,'/do/role/edit.json','reload');
+	glacier.system_mgr.role_mgr.role.editRole = function(){
+		var row = glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid("getSelected");
+		glacier.system_mgr.role_mgr.role.newDialog('编辑角色',row.roleId,'/do/role/edit.json','reload');
 	};
 	//点击删除按钮触发方法
-	glacier.permissions_mgr.role_mgr.role.delRole = function(){
-		var row = glacier.permissions_mgr.role_mgr.role.roleDataGrid.datagrid("getChecked");
+	glacier.system_mgr.role_mgr.role.delRole = function(){
+		var row = glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid("getChecked");
 		var roleId = row[0].id;
 		if(roleId){
 			$.messager.confirm('请确认', '是否要删除该记录', function(r){
@@ -169,8 +169,8 @@
 										timeout:3000,
 										msg:r.msg
 									});
-								   glacier.permissions_mgr.role_mgr.role.roleDataGrid.datagrid("uncheckAll");
-								   glacier.permissions_mgr.role_mgr.role.roleDataGrid.datagrid('reload');
+								   glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid("uncheckAll");
+								   glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid('reload');
 							   }else{
 									$.messager.show({//后台验证弹出错误提示信息框
 										title:'错误提示',
@@ -187,11 +187,11 @@
 		}
 	};
 	//授权显示窗口
-	glacier.permissions_mgr.role_mgr.role.showMenuAndActionWin = function(){//点击角色授权，根据角色id显示该角色拥有的资源和操作
-		var row = glacier.permissions_mgr.role_mgr.role.roleDataGrid.datagrid("getChecked");
+	glacier.system_mgr.role_mgr.role.showMenuAndActionWin = function(){//点击角色授权，根据角色id显示该角色拥有的资源和操作
+		var row = glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid("getChecked");
 		var roleId = row[0].roleId;
 			//初始化资源和操作的treegrid
-			glacier.permissions_mgr.role_mgr.role.menuAndActionsDataGrid = $('#menuAndActions').treegrid({
+			glacier.system_mgr.role_mgr.role.menuAndActionsDataGrid = $('#menuAndActions').treegrid({
 				url:ctx +'/do/res/menu/getAuthMenuAndActionsByRoleId.json',//请求的URL
 				idField : 'id',
 				treeField : 'menuName',//定义树节点字段
@@ -225,22 +225,22 @@
 					text : '展开',
 					iconCls : 'icon-redo',
 					handler : function() {
-						var node = glacier.permissions_mgr.role_mgr.role.menuAndActionsDataGrid.treegrid('getSelected');
+						var node = glacier.system_mgr.role_mgr.role.menuAndActionsDataGrid.treegrid('getSelected');
 						if (node) {
-							glacier.permissions_mgr.role_mgr.role.menuAndActionsDataGrid.treegrid('expandAll', node.cid);
+							glacier.system_mgr.role_mgr.role.menuAndActionsDataGrid.treegrid('expandAll', node.cid);
 						} else {
-							glacier.permissions_mgr.role_mgr.role.menuAndActionsDataGrid.treegrid('expandAll');
+							glacier.system_mgr.role_mgr.role.menuAndActionsDataGrid.treegrid('expandAll');
 						}
 					}
 				}, '-', {
 					text : '折叠',
 					iconCls : 'icon-undo',
 					handler : function() {
-						var node = glacier.permissions_mgr.role_mgr.role.menuAndActionsDataGrid.treegrid('getSelected');
+						var node = glacier.system_mgr.role_mgr.role.menuAndActionsDataGrid.treegrid('getSelected');
 						if (node) {
-							glacier.permissions_mgr.role_mgr.role.menuAndActionsDataGrid.treegrid('collapseAll', node.cid);
+							glacier.system_mgr.role_mgr.role.menuAndActionsDataGrid.treegrid('collapseAll', node.cid);
 						} else {
-							glacier.permissions_mgr.role_mgr.role.menuAndActionsDataGrid.treegrid('collapseAll');
+							glacier.system_mgr.role_mgr.role.menuAndActionsDataGrid.treegrid('collapseAll');
 						}
 					}
 				}],
@@ -258,7 +258,7 @@
 				}
 			});
 			//显示菜单和操作窗口
-			glacier.permissions_mgr.role_mgr.role.menuAndActionWin = $('#menuAndActionWin').dialog({ 
+			glacier.system_mgr.role_mgr.role.menuAndActionWin = $('#menuAndActionWin').dialog({ 
 				title:'角色授权',
 			    width:650,  
 			    height:430,
@@ -271,33 +271,33 @@
 					text:'保存',
 					iconCls:"icon-save",
 					handler:function(){
-						glacier.permissions_mgr.role_mgr.role.submitMenuAndAction(roleId);
+						glacier.system_mgr.role_mgr.role.submitMenuAndAction(roleId);
 					}
 				},{
 					text:'关闭',
 					iconCls:"icon-undo",
 					handler:function(){
-						glacier.permissions_mgr.role_mgr.role.menuAndActionWin.dialog('close');
+						glacier.system_mgr.role_mgr.role.menuAndActionWin.dialog('close');
 					}
 				}]
 			});
 	};
 	//点击操作复选框触发事件
-	glacier.permissions_mgr.role_mgr.role.actionsClick = function (input) {
-		glacier.permissions_mgr.role_mgr.role.menuAndActionsDataGrid.treegrid('checkRow',input.id.split("_")[0]);
+	glacier.system_mgr.role_mgr.role.actionsClick = function (input) {
+		glacier.system_mgr.role_mgr.role.menuAndActionsDataGrid.treegrid('checkRow',input.id.split("_")[0]);
 	};
 	//保存分配操作权限
-	glacier.permissions_mgr.role_mgr.role.submitMenuAndAction = function (roleId){
+	glacier.system_mgr.role_mgr.role.submitMenuAndAction = function (roleId){
 		//此处有一个bug,用easyui自带的getChecked获取选择行偶尔会出现bug，只好使用jquery选择器获取menuIds
-		//console.log(glacier.permissions_mgr.role_mgr.role.menuAndActionsDataGrid.treegrid('getChecked'));
+		//console.log(glacier.system_mgr.role_mgr.role.menuAndActionsDataGrid.treegrid('getChecked'));
 		var menuIds = [];
-		var menuInputs = glacier.permissions_mgr.role_mgr.role.menuAndActionWin.find("input[name='id']:checked");
+		var menuInputs = glacier.system_mgr.role_mgr.role.menuAndActionWin.find("input[name='id']:checked");
 		for(var i=0;i<menuInputs.length;i++){
 			menuIds.push(menuInputs[i].value);
 		}
 	 	//获取勾选的操作复选框
 		var menuActions = [];
-		var actionInputs = glacier.permissions_mgr.role_mgr.role.menuAndActionWin.find("input[name='actionCB']:checked");
+		var actionInputs = glacier.system_mgr.role_mgr.role.menuAndActionWin.find("input[name='actionCB']:checked");
 		for(var i=0;i<actionInputs.length;i++){
 			menuActions.push(actionInputs[i].id);
 		}
@@ -315,7 +315,7 @@
 							timeout:3000,
 							showType:'slide'
 						});
-					   glacier.permissions_mgr.role_mgr.role.menuAndActionWin.dialog('close');
+					   glacier.system_mgr.role_mgr.role.menuAndActionWin.dialog('close');
 				   }else{
 						$.messager.show({//后台验证弹出错误提示信息框
 							title:'错误提示',
@@ -329,16 +329,16 @@
 		});   
 	};
 	//角色资料模糊查询
-	glacier.permissions_mgr.role_mgr.role.quickquery = function(value,name){
+	glacier.system_mgr.role_mgr.role.quickquery = function(value,name){
 		var obj = $.parseJSON('{"'+name+'":"'+value+'"}');//将值和对象封装成obj作为参数传递给后台
-		glacier.permissions_mgr.role_mgr.role.roleDataGrid.datagrid('load',obj);
+		glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid('load',obj);
 	};
 	
 	//操作授权
-	glacier.permissions_mgr.role_mgr.role.actionAuth = function(){
-		var roleId = glacier.permissions_mgr.role_mgr.role.roleDataGrid.datagrid("getSelected").roleId;
+	glacier.system_mgr.role_mgr.role.actionAuth = function(){
+		var roleId = glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid("getSelected").roleId;
 			//初始化资源和操作的treegrid
-			glacier.permissions_mgr.role_mgr.role.menuAndActionsDataGrid = $('#menuAndActions').treegrid({
+			glacier.system_mgr.role_mgr.role.menuAndActionsDataGrid = $('#menuAndActions').treegrid({
 				url:ctx+'/do/auth/getAuthsByRoleId.json',
 				queryParams:{roleId:roleId},
 				idField : 'id',//定义了关键字段来标识一个树节点
@@ -392,7 +392,7 @@
 				}
 			});
 			//显示菜单和操作窗口
-			glacier.permissions_mgr.role_mgr.role.menuAndActionWin = $('#menuAndActionWin').dialog({ 
+			glacier.system_mgr.role_mgr.role.menuAndActionWin = $('#menuAndActionWin').dialog({ 
 				title:'角色授权',
 			    width:960,  
 			    height:480,
@@ -403,23 +403,23 @@
 					text:'保存',
 					iconCls:"icon-save",
 					handler:function(){
-						glacier.permissions_mgr.role_mgr.role.submitMenuAndAction(roleId);
+						glacier.system_mgr.role_mgr.role.submitMenuAndAction(roleId);
 					}
 				}]
 			});
 	};
 	
 	//保存分配操作权限
-	glacier.permissions_mgr.role_mgr.role.submitMenuAndAction = function (roleId){
+	glacier.system_mgr.role_mgr.role.submitMenuAndAction = function (roleId){
 		//此处有一个bug,用easyui自带的getChecked获取选择行偶尔会出现bug，只好使用jquery选择器获取menuIds
 		//console.log(glacier.system_mgr.role_mgr.role.menuAndActionsDataGrid.treegrid('getChecked'));
 		var menuIds = [];
-		$.each(glacier.permissions_mgr.role_mgr.role.menuAndActionWin.find("input[name='id']:checked"), function(){
+		$.each(glacier.system_mgr.role_mgr.role.menuAndActionWin.find("input[name='id']:checked"), function(){
 			menuIds.push(this.value);
 		});
 	 	//获取勾选的操作复选框
 		var authActions = [];
-		$.each(glacier.permissions_mgr.role_mgr.role.menuAndActionWin.find("input[name='actionCB']:checked"), function(){
+		$.each(glacier.system_mgr.role_mgr.role.menuAndActionWin.find("input[name='actionCB']:checked"), function(){
 			authActions.push(this.id);
 		});
 		//发送远程请求保存当前权限设置
@@ -436,7 +436,7 @@
 							timeout:3000,
 							showType:'slide'
 						});
-					   glacier.permissions_mgr.role_mgr.role.menuAndActionWin.dialog('close');
+					   glacier.system_mgr.role_mgr.role.menuAndActionWin.dialog('close');
 				   }else{
 						$.messager.show({//后台验证弹出错误提示信息框
 							title:'错误提示',
