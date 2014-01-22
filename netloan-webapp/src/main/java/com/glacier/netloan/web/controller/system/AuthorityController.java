@@ -31,8 +31,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.glacier.netloan.service.system.AuthorityService;
 
 /**
- * @ClassName: AuthorityController 
- * @Description: TODO(权限控制器，处理所有权限相关请求、权限资源获取) 
+ * @ClassName: AuthorityController
+ * @Description: TODO(权限控制器，处理所有权限相关请求、权限资源获取)
  * @author zhenfei.zhang
  * @email 289556866@qq.com
  * @date 2014-1-21 上午10:45:58
@@ -41,15 +41,22 @@ import com.glacier.netloan.service.system.AuthorityService;
 @Controller
 @RequestMapping(value = "/auth")
 public class AuthorityController {
-    
+
     @Autowired
     private AuthorityService authorityService;// 注入菜单业务Bean
-    
-    
-    //根据角色Id获取面板操作权限
+
+    // 获取当前用户授权菜单树
+    @RequestMapping(value = "/getPrincipalUserMenu.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object getPrincipalUserMenu() {
+        return authorityService.getPrincipalUserMenu();
+    }
+
+    // 根据角色Id获取面板操作权限
     @RequestMapping(value = "/getAuthsByRoleId.json")
     @ResponseBody
-    public Object getAuthsByRoleId(@RequestParam String roleId) {
+    public Object getAuthsByRoleId(@RequestParam
+    String roleId) {
         return authorityService.getAuthsByRoleId(roleId);
     }
 
@@ -62,7 +69,10 @@ public class AuthorityController {
      */
     @RequestMapping(value = "/saveMenuActions", method = RequestMethod.POST)
     @ResponseBody
-    public Object saveMenuActions(@RequestParam String roleId,@RequestParam Set<String> menuIds, @RequestParam Set<String> authActions) {
+    public Object saveMenuActions(@RequestParam
+    String roleId, @RequestParam
+    Set<String> menuIds, @RequestParam
+    Set<String> authActions) {
         return authorityService.saveRoleAuths(roleId, menuIds, authActions);
     }
 }

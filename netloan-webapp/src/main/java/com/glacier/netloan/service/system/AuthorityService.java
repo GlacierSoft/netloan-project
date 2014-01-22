@@ -24,16 +24,18 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.jqueryui.util.Tree;
 import com.glacier.netloan.dao.system.ActionMapper;
 import com.glacier.netloan.dao.system.AuthorityMapper;
 import com.glacier.netloan.dao.system.MenuMapper;
@@ -43,6 +45,7 @@ import com.glacier.netloan.entity.system.Authority;
 import com.glacier.netloan.entity.system.AuthorityExample;
 import com.glacier.netloan.entity.system.Menu;
 import com.glacier.netloan.entity.system.MenuExample;
+import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.web.vo.system.AuthMenuActionVO;
 
 /**
@@ -64,6 +67,33 @@ public class AuthorityService {
 
     @Autowired
     private AuthorityMapper authorityMapper;
+    
+    
+    /**
+     * 
+     * @Title: getPrincipalUserMenu
+     * @Description: TODO(获取用户可用Menu)
+     * @param @return 设定文件
+     * @return String 返回类型
+     * @throws
+     */
+    public Object getPrincipalUserMenu() {
+        User principalUser = (User) SecurityUtils.getSubject().getPrincipal();// 获取已认证对象
+        List<Menu> principalMenus = menuMapper.selectByUserId(principalUser.getUserId());
+        List<Tree> principalMenuTrees = new ArrayList<Tree>();
+        for (Menu menu : principalMenus) {
+            Tree menuTree = new Tree();
+            Map<String, String> treeAttributes = new HashMap<String, String>();
+            menuTree.setId(menu.getMenuId());
+            menuTree.setPid(menu.getPid());
+            menuTree.setText(menu.getMenuCnName());
+            menuTree.setIconCls(menu.getIconCls());
+            treeAttributes.put("url", menu.getUrl());
+            menuTree.setAttributes(treeAttributes);
+            principalMenuTrees.add(menuTree);
+        }
+        return principalMenuTrees;
+    }
 
     /**
      * 
@@ -112,6 +142,7 @@ public class AuthorityService {
                 // 查找菜单所有的操作集合
                 ActionExample actionExample = new ActionExample();
                 actionExample.createCriteria().andMenuIdEqualTo(menuId);
+                actionExample.setOrderByClause("temp_action.order_num asc");
                 List<Action> actions = actionMapper.selectByExample(actionExample);
 
                 StringBuilder menuActionsBuilder = new StringBuilder();// 构建操作返回字符串，拼复选框，后台编写提高效率

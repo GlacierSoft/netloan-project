@@ -15,7 +15,7 @@
 											'<tr><td>上次登录时间：</td><td><span class="label label-warning">2013-12-16/15:58:12</span></td></tr>'+
 											'<tr><td>上次登录IP：</td><td><span class="label label-warning">202.96.156.23[上海电信]<span></td></tr>'+
 										'</table>';
-				
+				//用户登录信息显示
 				$('.user').tooltip({
 				    content: userInfoDetailStr,
 				    showDelay:50
@@ -23,14 +23,14 @@
 				
 				//初始化导航
 				$('#layout_west_tree').tree({
-					url : ctx +'/do/res/menu/getPrincipalUserMenu.json',
+					url : ctx +'/do/auth/getPrincipalUserMenu.json',
 					smooth: true,       //该属性用以启用当前 easyui-tree 控件对平滑数据格式的支持
 					lines : true,
 					onClick : function(node) {
-						var url = ctx + node.attributes.url;
-						if (url) {//获取树节点中自定义属性的url属性
+						var url = node.attributes.url;
+						if (url && url!='') {//获取树节点中自定义属性的url属性
 							$("#layout_center_panel").panel("setTitle",node.text);
-							$('#layout_center_panel').panel('refresh',url);
+							$('#layout_center_panel').panel('refresh',ctx + url);
 						}
 					}
 				});

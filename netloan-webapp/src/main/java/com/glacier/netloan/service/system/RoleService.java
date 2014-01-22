@@ -18,10 +18,6 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.system.ActionMapper;
 import com.glacier.netloan.dao.system.AuthorityMapper;
 import com.glacier.netloan.dao.system.RoleMapper;
-import com.glacier.netloan.entity.system.Action;
-import com.glacier.netloan.entity.system.ActionExample;
-import com.glacier.netloan.entity.system.Authority;
-import com.glacier.netloan.entity.system.AuthorityExample;
 import com.glacier.netloan.entity.system.Role;
 import com.glacier.netloan.entity.system.RoleExample;
 import com.glacier.netloan.entity.system.User;
@@ -173,70 +169,4 @@ public class RoleService {
         }
         return returnResult;
     }
-
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "保存角色菜单权限")
-    public Object saveRoleMenuAuths(String roleId, List<String> menuIds) {
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        AuthorityExample authorityExample = new AuthorityExample();
-        if (menuIds.size() > 0) {
-            // 先清除所选角色在数据库中没有的权限
-            authorityExample.createCriteria().andRoleIdEqualTo(roleId).andMenuIdNotIn(menuIds);
-            authorityMapper.deleteByExample(authorityExample);
-            // 取出所选角色在数据库中已有的权限，如果是新的菜单权限则插入
-            authorityExample.clear();
-            authorityExample.createCriteria().andRoleIdEqualTo(roleId);
-            List<Authority> authorities = authorityMapper.selectByExample(authorityExample);
-            for (String menuId : menuIds) {
-                Authority authority = new Authority();
-                authority.setMenuId(menuId);
-                authority.setRoleId(roleId);
-                if (!authorities.contains(authority)) {// 已经存在的权限跳过
-                    // 添加默认操作
-                    ActionExample actionExample = new ActionExample();
-                    List<Action> defaultActions = actionMapper.selectByExample(actionExample);
-                    authorityMapper.insert(authority);
-                }
-            }
-        } else {
-            authorityExample.createCriteria().andRoleIdEqualTo(roleId);
-            authorityMapper.deleteByExample(authorityExample);
-        }
-        returnResult.setSuccess(true);
-        returnResult.setMsg("角色菜单权限已保存");
-        return returnResult;
-    }
-
-    /**
-     * @Title: saveRoleMenuActionAuths
-     * @Description: TODO(保存角色菜单操作权限)
-     * @param @param authority
-     * @param @return
-     * @throws 备注
-     *             <p>
-     *             已检查测试:Green
-     *             <p>
-     */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "保存角色菜单操作权限")
-    public Object saveRoleMenuActionAuths(Authority authority) {
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        int count = 0;
-        AuthorityExample authorityExample = new AuthorityExample();
-        authorityExample.createCriteria().andRoleIdEqualTo(authority.getRoleId()).andMenuIdEqualTo(authority.getMenuId());
-        count = authorityMapper.countByExample(authorityExample);
-        if(count > 0){
-            count = authorityMapper.updateByPrimaryKey(authority);
-        }else{
-            count = authorityMapper.insert(authority);
-        }
-        if(count == 1){
-            returnResult.setSuccess(true);
-            returnResult.setMsg("角色操作权限已保存");
-            return returnResult;
-        } 
-        returnResult.setMsg("角色操作权限保存失败");
-        return returnResult;
-    }
-
 }

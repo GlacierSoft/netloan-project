@@ -8,14 +8,14 @@
 	
 	//菜单选中
 	glacier.system_mgr.res_mgr.res.menuAlwaySelect = function(){
-		$('#res_btn_MenuPanel_edit').linkbutton('enable');//菜单编辑按钮
-		$('#res_btn_MenuPanel_del').linkbutton('enable');//菜单删除按钮
+		$('#res_btn_MenuTree_edit').linkbutton('enable');//菜单编辑按钮
+		$('#res_btn_MenuTree_del').linkbutton('enable');//菜单删除按钮
 	};
 	
 	//菜单未选中
 	glacier.system_mgr.res_mgr.res.menuAlwayUnSelect = function(){
-		$('#res_btn_MenuPanel_edit').linkbutton('disable');//菜单编辑按钮
-		$('#res_btn_MenuPanel_del').linkbutton('disable');//菜单删除按钮
+		$('#res_btn_MenuTree_edit').linkbutton('disable');//菜单编辑按钮
+		$('#res_btn_MenuTree_del').linkbutton('disable');//菜单删除按钮
 	};
 		
 	//初始化资源菜单menuTreeGrid
@@ -72,19 +72,19 @@
 	
 	//面板选中
 	glacier.system_mgr.res_mgr.res.panelAlwaySelect = function(){
-		$('#res_btn_Panel_edit').linkbutton('enable');//编辑
+		$('#res_btn_PanelList_edit').linkbutton('enable');//编辑
 	};
 	
 	//面板未选中
 	glacier.system_mgr.res_mgr.res.panelAlwayUnSelect = function(){
-		$('#res_btn_Panel_edit').linkbutton('disable');//编辑
+		$('#res_btn_PanelList_edit').linkbutton('disable');//编辑
 	};
 	
 	//面板勾选
 	glacier.system_mgr.res_mgr.res.panelAlwayCheck = function(){
 		var rows = glacier.system_mgr.res_mgr.res.panelDataGrid.datagrid("getChecked");
 		if(rows.length > 0){//如果勾选的列大于0，则激活删除按钮
-			$('#res_btn_Panel_del').linkbutton('enable');//删除
+			$('#res_btn_PanelList_del').linkbutton('enable');//删除
 		}
 	};
 	
@@ -92,9 +92,9 @@
 	glacier.system_mgr.res_mgr.res.panelAlwayUnCheck = function(){
 		var rows = glacier.system_mgr.res_mgr.res.panelDataGrid.datagrid("getChecked");
 		if(rows.length > 0){//如果勾选的列大于0，则激活删除按钮
-			$('#res_btn_Panel_del').linkbutton('enable');//删除
+			$('#res_btn_PanelList_del').linkbutton('enable');//删除
 		}else{
-			$('#res_btn_Panel_del').linkbutton('disable');//删除
+			$('#res_btn_PanelList_del').linkbutton('disable');//删除
 		}
 	};
 	
@@ -160,19 +160,19 @@
 	
 	//选中的时候默认调用的方法
 	glacier.system_mgr.res_mgr.res.actionAlwaySelect = function(){
-		$('#res_btn_ActionPanel_edit').linkbutton('enable');//编辑
+		$('#res_btn_ActionList_edit').linkbutton('enable');//编辑
 	};
 	
 	//没选中的时候默认调用的方法
 	glacier.system_mgr.res_mgr.res.actionAlwayUnSelect = function(){
-		$('#res_btn_ActionPanel_edit').linkbutton('disable');//编辑
+		$('#res_btn_ActionList_edit').linkbutton('disable');//编辑
 	};
 	
 	//勾选的时候默认调用的方法
 	glacier.system_mgr.res_mgr.res.actionAlwayCheck = function(){
 		var rows = glacier.system_mgr.res_mgr.res.actionPropertyGrid.propertygrid("getChecked");
 		if(rows.length > 0){//如果勾选的列大于0，则激活删除按钮
-			$('#res_btn_ActionPanel_del').linkbutton('enable');//删除
+			$('#res_btn_ActionList_del').linkbutton('enable');//删除
 		}
 	};
 	
@@ -180,9 +180,9 @@
 	glacier.system_mgr.res_mgr.res.actionAlwayUnCheck = function(){
 		var rows = glacier.system_mgr.res_mgr.res.actionPropertyGrid.propertygrid("getChecked");
 		if(rows.length > 0){//如果勾选的列大于0，则激活删除按钮
-			$('#res_btn_ActionPanel_del').linkbutton('enable');//删除
+			$('#res_btn_ActionList_del').linkbutton('enable');//删除
 		}else{
-			$('#res_btn_ActionPanel_del').linkbutton('disable');//删除
+			$('#res_btn_ActionList_del').linkbutton('disable');//删除
 		}
 	};
 	
@@ -533,19 +533,19 @@
 <div id="res_layout" class="easyui-layout" data-options="fit:true,border:false">  
     <div data-options="region:'center',title:'操作管理',border:true">
     	<table id="actionDataGrid">
-    		<glacierui:toolbar panelEnName="ActionList" toolbarId="actionDataGridToolbar" menuEnName="resmgr"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+    		<glacierui:toolbar panelEnName="ActionList" toolbarId="actionDataGridToolbar" menuEnName="res"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
     	</table>
     </div>
     <div data-options="region:'west',border:false,split:true" style="width:400px;">
     	<div class="easyui-layout" data-options="fit:true,border:false">
     		<div data-options="region:'center',title:'菜单管理',border:true">
     			<table id="menuTreeGrid">
-		    		<glacierui:toolbar panelEnName="MenuTree" toolbarId="menuTreeGridToolbar" menuEnName="resmgr"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+		    		<glacierui:toolbar panelEnName="MenuTree" toolbarId="menuTreeGridToolbar" menuEnName="res"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		    	</table>
     		</div>
     		<div data-options="region:'south',title:'面板管理',border:true,split:true" style="height:300px;">
     			<table id="panelDataGrid">
-		    		<glacierui:toolbar panelEnName="PanelList" toolbarId="panelDataGridToolbar" menuEnName="resmgr"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+		    		<glacierui:toolbar panelEnName="PanelList" toolbarId="panelDataGridToolbar" menuEnName="res"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		    	</table>
     		</div>
     	</div>

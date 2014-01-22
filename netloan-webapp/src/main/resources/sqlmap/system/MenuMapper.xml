@@ -269,6 +269,6 @@
 			SELECT temp_role.role_id FROM t_role temp_role
 			INNER JOIN t_user_role temp_user_role ON temp_role.role_id = temp_user_role.role_id
 			WHERE temp_user_role.user_id = #{userId}
-		)
+		) ORDER BY temp_menu.order_num asc
   </select>
 </mapper>

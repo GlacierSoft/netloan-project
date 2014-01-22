@@ -5,8 +5,6 @@
  */
 package com.glacier.netloan.web.controller.system;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -15,13 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
-import com.glacier.netloan.entity.system.Authority;
 import com.glacier.netloan.entity.system.Role;
 import com.glacier.netloan.service.system.MenuService;
 import com.glacier.netloan.service.system.RoleService;
@@ -94,19 +90,5 @@ public class RoleController extends AbstractController{
             return returnErrorBindingResult(bindingResult);
         }
         return roleService.editRole(role);
-    }
-
-    //保存角色菜单权限
-    @RequestMapping(value = "/saveRoleMenuAuths.json", method = RequestMethod.POST)
-    @ResponseBody
-    private Object saveRoleMenuAuths(String roleId, @RequestParam List<String> menuIds) {
-        return roleService.saveRoleMenuAuths(roleId, menuIds);
-    }
-    
-    //保存角色菜单操作权限
-    @RequestMapping(value = "/saveRoleMenuActionAuths.json", method = RequestMethod.POST)
-    @ResponseBody
-    private Object saveRoleMenuActionAuths(Authority authority) {
-        return roleService.saveRoleMenuActionAuths(authority);
     }
 }
