@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.entity.basicdatas.ParameterAge;
-import com.glacier.netloan.entity.sysmgr.Role;
 import com.glacier.netloan.service.basicdatas.ParameterAgeService;
 
 /** 
@@ -34,16 +33,16 @@ import com.glacier.netloan.service.basicdatas.ParameterAgeService;
 public class ParameterAgeController extends AbstractController{
 
     @Autowired
-    private ParameterAgeService ageService;// 注入角色业务Bean
+    private ParameterAgeService ageService;// 注入会员年龄别称业务Bean
     
-    // 进入角色列表展示页面
+    // 进入会员年龄别称列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPage() {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/age_mgr/age");
         return mav;
     }
     
-    // 进入角色Form表单页面
+    // 进入会员年龄别称Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoAgeFormPage(String ageId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/age_mgr/age_form");
@@ -60,7 +59,7 @@ public class ParameterAgeController extends AbstractController{
         return ageService.listAsGrid(pager);
     }
     
-    // 增加角色
+    // 增加会员年龄别称
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
     private Object addAge(@Valid ParameterAge age, BindingResult bindingResult) {
@@ -70,7 +69,7 @@ public class ParameterAgeController extends AbstractController{
         return ageService.addAge(age);
     }
     
-    // 修改角色
+    // 修改会员年龄别称
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
     private Object editRole(@Valid ParameterAge age, BindingResult bindingResult) {
@@ -78,5 +77,12 @@ public class ParameterAgeController extends AbstractController{
             return returnErrorBindingResult(bindingResult);
         }
         return ageService.editAge(age);
+    }
+    
+    // 删除会员年龄别称
+    @RequestMapping(value = "/del.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object del(String ageId) {
+    	return ageService.delAge(ageId);
     }
 }

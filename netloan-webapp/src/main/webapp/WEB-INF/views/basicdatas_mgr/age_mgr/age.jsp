@@ -7,7 +7,7 @@
 	$.util.namespace('glacier.basicdatas_mgr.age_mgr.age');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
 	
-	//初始化角色DataGrid
+	//初始化会员年龄别称DataGrid
 	glacier.basicdatas_mgr.age_mgr.age.ageDataGrid = $('#ageDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
@@ -94,44 +94,33 @@
 	};
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.age_mgr.age.addAge = function(){
-		glacier.basicdatas_mgr.age_mgr.age.newDialog('增加年龄别称','','/do/age/add.json','load');
+		glacier.basicdatas_mgr.age_mgr.age.newDialog('增加会员年龄别称','','/do/age/add.json','load');
 	};
 	//点击编辑按钮触发方法
 	glacier.basicdatas_mgr.age_mgr.age.editAge = function(){
 		var row = glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid("getSelected");
-		glacier.basicdatas_mgr.age_mgr.age.newDialog('编辑年龄别称',row.ageId,'/do/age/edit.json','reload');
+		glacier.basicdatas_mgr.age_mgr.age.newDialog('编辑会员年龄别称',row.ageId,'/do/age/edit.json','reload');
 	};
+	
 	//点击删除按钮触发方法
 	glacier.basicdatas_mgr.age_mgr.age.delAge = function(){
 		var row = glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid("getChecked");
-		var ageId = row[0].id;
+		var ageId = row[0].ageId;
 		if(ageId){
 			$.messager.confirm('请确认', '是否要删除该记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
-						   url: ctx + '/age/del.html',
+						   url: ctx + '/do/age/del.json',
 						   data: {ageId:ageId},
 						   dataType:'json',
 						   success: function(r){
-							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
-								   $.messager.show({
-										title:'提示',
-										timeout:3000,
-										msg:r.msg
-									});
-								   glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid("uncheckAll");
-								   glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid('reload');
-							   }else{
-									$.messager.show({//后台验证弹出错误提示信息框
-										title:'错误提示',
-										width:380,
-										height:120,
-										msg: '<span style="color:red">'+r.msg+'<span>',
-										timeout:4500
-									});
+								$.messager.show(r.msg);
+								if(r.success){
+									glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid('reload');
 								}
-						   }
+								 
+							}
 					});
 				}
 			});
@@ -139,7 +128,7 @@
 	};
 </script>
 
-<!-- 所有角色列表面板和表格 -->
+<!-- 所有会员年龄别称列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="ageGridPanel" data-options="region:'center',border:true" >
 		<table id="ageDataGrid">
