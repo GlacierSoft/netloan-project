@@ -100,7 +100,7 @@
       and role_id = #{roleId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.sysmgr.AuthorityExample" >
-    delete from t_authority temp_auth
+    delete temp_auth from t_authority temp_auth
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

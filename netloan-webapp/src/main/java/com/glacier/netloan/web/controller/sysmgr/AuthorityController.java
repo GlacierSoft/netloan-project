@@ -19,6 +19,8 @@
  */
 package com.glacier.netloan.web.controller.sysmgr;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.glacier.netloan.service.sysmgr.MenuService;
+import com.glacier.netloan.service.sysmgr.AuthorityService;
 
 /**
  * @ClassName: AuthorityController 
@@ -41,14 +43,26 @@ import com.glacier.netloan.service.sysmgr.MenuService;
 public class AuthorityController {
     
     @Autowired
-    private MenuService menuService;// 注入菜单业务Bean
+    private AuthorityService authorityService;// 注入菜单业务Bean
     
     
     //根据角色Id获取面板操作权限
-    @RequestMapping(value = "/getPAAuthByCondition.json")
+    @RequestMapping(value = "/getAuthsByRoleId.json")
     @ResponseBody
-    public Object getPAAuthByCondition(@RequestParam String roleId) {
-        return menuService.getAuthsByRoleId(roleId);
+    public Object getAuthsByRoleId(@RequestParam String roleId) {
+        return authorityService.getAuthsByRoleId(roleId);
     }
 
+    /**
+     * @Title: saveMenuActions
+     * @Description: TODO(菜单操作关联)
+     * @param @return 设定文件
+     * @return Object 返回类型
+     * @throws
+     */
+    @RequestMapping(value = "/saveMenuActions", method = RequestMethod.POST)
+    @ResponseBody
+    public Object saveMenuActions(@RequestParam String roleId,@RequestParam Set<String> menuIds, @RequestParam Set<String> authActions) {
+        return authorityService.saveRoleAuths(roleId, menuIds, authActions);
+    }
 }

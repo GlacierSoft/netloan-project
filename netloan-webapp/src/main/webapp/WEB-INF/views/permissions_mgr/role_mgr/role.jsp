@@ -336,11 +336,10 @@
 	
 	//操作授权
 	glacier.permissions_mgr.role_mgr.role.actionAuth = function(){
-		var row = glacier.permissions_mgr.role_mgr.role.roleDataGrid.datagrid("getSelected");
-		var roleId = row.roleId;
+		var roleId = glacier.permissions_mgr.role_mgr.role.roleDataGrid.datagrid("getSelected").roleId;
 			//初始化资源和操作的treegrid
 			glacier.permissions_mgr.role_mgr.role.menuAndActionsDataGrid = $('#menuAndActions').treegrid({
-				url:ctx+'/do/auth/getPAAuthByCondition.json',
+				url:ctx+'/do/auth/getAuthsByRoleId.json',
 				queryParams:{roleId:roleId},
 				idField : 'id',//定义了关键字段来标识一个树节点
 				treeField : 'menuName',//定义树节点字段
@@ -351,12 +350,12 @@
 		        singleSelect:true,
 				checkOnSelect:false,
 				selectOnCheck:false,
-				nowrap:true,
+				nowrap:false,
 				fit : true,//控件自动resize占满窗口大小
-				fitColumns : false,//使冻结列生效
+				fitColumns : true,//使冻结列生效
 				border : false,//是否存在边框
 				frozenColumns : [ [ {
-					title : 'id',
+					title : 'menuId',
 					field : 'id',
 					checkbox:true
 				},{
@@ -372,42 +371,83 @@
 							}  
 				        ] ],
 				onUncheck:function(rowData){//取消勾选触发事件：取消操作中以id开头的input复选框=当前行
-					var inputs = $("#menuAndActionWin input[id^='"+rowData.id+"']:checked");
-					for(var i=0;i<inputs.length;i++){
-						inputs[i].checked = false;
-					}
+					$.each($("#menuAndActionWin input[id^='"+rowData.id+"']"), function(){
+						this.checked = false;
+					});
 				},
 				onUncheckAll:function(rows){//取消勾选触发事件：取消操作中所有勾选的input复选框
-					var inputs = $("#menuAndActionWin input[name='actionCB']:checked");
-					for(var i=0;i<inputs.length;i++){
-						inputs[i].checked = false;
-					}
+					$.each($("#menuAndActionWin input[name='actionCB']:checked"), function(){
+						this.checked = false;
+					});
+				},
+				onCheck:function(rowData){//取消勾选触发事件：取消操作中以id开头的input复选框=当前行
+					$.each($("#menuAndActionWin input[id^='"+rowData.id+"']"), function(){
+						this.checked = true;
+					});
+				},
+				onCheckAll:function(rows){//取消勾选触发事件：取消操作中所有勾选的input复选框
+					$.each($("#menuAndActionWin input[name='actionCB']"), function(){
+						this.checked = true;
+					});
 				}
 			});
 			//显示菜单和操作窗口
 			glacier.permissions_mgr.role_mgr.role.menuAndActionWin = $('#menuAndActionWin').dialog({ 
 				title:'角色授权',
-			    width:350,  
-			    height:430,
+			    width:960,  
+			    height:480,
 			    resizable:true,
-			    //fit:true,
 			    modal:true,
-			    minimizable:true,
 			    maximizable:true,
 			    buttons:[{
 					text:'保存',
 					iconCls:"icon-save",
 					handler:function(){
-						glacier.system_mgr.role_mgr.role.submitMenuAndAction(roleId);
-					}
-				},{
-					text:'关闭',
-					iconCls:"icon-undo",
-					handler:function(){
-						glacier.system_mgr.role_mgr.role.menuAndActionWin.dialog('close');
+						glacier.permissions_mgr.role_mgr.role.submitMenuAndAction(roleId);
 					}
 				}]
 			});
+	};
+	
+	//保存分配操作权限
+	glacier.permissions_mgr.role_mgr.role.submitMenuAndAction = function (roleId){
+		//此处有一个bug,用easyui自带的getChecked获取选择行偶尔会出现bug，只好使用jquery选择器获取menuIds
+		//console.log(glacier.system_mgr.role_mgr.role.menuAndActionsDataGrid.treegrid('getChecked'));
+		var menuIds = [];
+		$.each(glacier.permissions_mgr.role_mgr.role.menuAndActionWin.find("input[name='id']:checked"), function(){
+			menuIds.push(this.value);
+		});
+	 	//获取勾选的操作复选框
+		var authActions = [];
+		$.each(glacier.permissions_mgr.role_mgr.role.menuAndActionWin.find("input[name='actionCB']:checked"), function(){
+			authActions.push(this.id);
+		});
+		//发送远程请求保存当前权限设置
+		$.ajax({
+			   type: "POST",
+			   url: ctx + "/do/auth/saveMenuActions.json",
+			   data: {roleId:roleId,menuIds:menuIds.join(','),authActions:authActions.join(',')},
+			   dataType:'json',
+			   success: function(r){
+				   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
+					   $.messager.show({
+							title:'提示',
+							msg:r.msg,
+							timeout:3000,
+							showType:'slide'
+						});
+					   glacier.permissions_mgr.role_mgr.role.menuAndActionWin.dialog('close');
+				   }else{
+						$.messager.show({//后台验证弹出错误提示信息框
+							title:'错误提示',
+							width:380,
+							height:120,
+							msg: '<span style="color:red">'+r.msg+'<span>',
+							timeout:4500
+						});
+					}
+			   }
+		});
 	};
 </script>
 

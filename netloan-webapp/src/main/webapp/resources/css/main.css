@@ -92,28 +92,20 @@ hr {
 }
 
 /*授权表格样式*/
-table.gridtable {
-	width: 290px;
-	text-align: left;
-	margin: 0 auto;
+table.auth_table {
+	text-align: right;
 	border-collapse: collapse;
-	text-align: left;
 }
 
-table.gridtable th {
-	border-width: 1px;
-	padding: 8px;
-	border-color: #CCC;
-	border-style: solid;
-	background: linear-gradient(to bottom, #F8F8F8 0px, #EEEEEE 100%)
-		repeat-x scroll 0 0 rgba(0, 0, 0, 0);
-}
 
-table.gridtable td {
-	border-width: 1px;
+table.auth_table td {
+	border-width: 0px;
 	padding: 5px;
-	border-style: solid;
-	border-color: #CCC;
+}
+.auth_span{
+	padding-left: 3px;
+	vertical-align: middle;
+		
 }
 
 /*普通录入表格样式*/
