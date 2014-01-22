@@ -63,7 +63,80 @@
 		toolbar:'#ageDataGrid_toolbar'
 	});
 	
-
+	glacier.basicdatas_mgr.age_mgr.age.newDialog = function(title,ageId,url,loadType){
+		$.easyui.showDialog({
+			href : ctx + '/do/age/intoForm.htm?ageId='+ageId,//从controller请求jsp页面进行渲染
+			width : 450,
+			height : 300,
+			resizable: false,
+			enableSaveButton : false,
+			enableApplyButton : false,
+			title : title,
+			buttons : [ 
+			 {
+				text : '保存',
+				iconCls : 'icon-save',
+				handler : function(dia) {
+						$('#age_mgr_age_form').form('submit', {
+							url: ctx + url,
+							success: function(r){
+								$.messager.show(r.msg);
+								if(r.success){
+									glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid('reload');
+								    dia.dialog("close"); 
+								}
+								 
+							}
+						});
+					}
+			}]
+		});
+	};
+	//点击增加按钮触发方法
+	glacier.basicdatas_mgr.age_mgr.age.addAge = function(){
+		glacier.basicdatas_mgr.age_mgr.age.newDialog('增加年龄别称','','/do/age/add.json','load');
+	};
+	//点击编辑按钮触发方法
+	glacier.basicdatas_mgr.age_mgr.age.editAge = function(){
+		var row = glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid("getSelected");
+		glacier.basicdatas_mgr.age_mgr.age.newDialog('编辑年龄别称',row.ageId,'/do/age/edit.json','reload');
+	};
+	//点击删除按钮触发方法
+	glacier.basicdatas_mgr.age_mgr.age.delAge = function(){
+		var row = glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid("getChecked");
+		var ageId = row[0].id;
+		if(ageId){
+			$.messager.confirm('请确认', '是否要删除该记录', function(r){
+				if (r){
+					$.ajax({
+						   type: "POST",
+						   url: ctx + '/age/del.html',
+						   data: {ageId:ageId},
+						   dataType:'json',
+						   success: function(r){
+							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
+								   $.messager.show({
+										title:'提示',
+										timeout:3000,
+										msg:r.msg
+									});
+								   glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid("uncheckAll");
+								   glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid('reload');
+							   }else{
+									$.messager.show({//后台验证弹出错误提示信息框
+										title:'错误提示',
+										width:380,
+										height:120,
+										msg: '<span style="color:red">'+r.msg+'<span>',
+										timeout:4500
+									});
+								}
+						   }
+					});
+				}
+			});
+		}
+	};
 </script>
 
 <!-- 所有角色列表面板和表格 -->
