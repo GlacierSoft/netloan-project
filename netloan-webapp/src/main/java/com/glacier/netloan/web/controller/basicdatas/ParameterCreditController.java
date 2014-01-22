@@ -2,6 +2,7 @@ package com.glacier.netloan.web.controller.basicdatas;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
@@ -40,6 +41,16 @@ public class ParameterCreditController extends AbstractController{
         return mav;
     }
     
+    // 进入角色Form表单页面
+    @RequestMapping(value = "/intoForm.htm")
+    private Object intoCreditFormPage(String creditId) {
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/credit_mgr/credit_form");
+        if(StringUtils.isNotBlank(creditId)){
+            mav.addObject("creditData", parameterCreditService.getCredit(creditId));
+        }
+        return mav;
+    }
+    
     // 获取表格结构的所有会员信用等级数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
@@ -66,12 +77,9 @@ public class ParameterCreditController extends AbstractController{
         return parameterCreditService.editParameterCredit(parameterCredit);
     }
     // 删除会员信用等级
-/*    @RequestMapping(value = "/delete.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object delCredit(@Valid ParameterCredit parameterCredit, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {// 后台校验的错误信息
-            return returnErrorBindingResult(bindingResult);
-        }
-        return parameterCreditService.delParameterCredits(creditIds, creditNames);
-    }*/
+    private Object delCredit(String creditId) {
+        return parameterCreditService.delCredit(creditId);
+    }
 }

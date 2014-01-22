@@ -17,6 +17,7 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.basicdatas.ParameterCreditMapper;
+import com.glacier.netloan.entity.basicdatas.ParameterAge;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditExample;
 import com.glacier.netloan.entity.sysmgr.Action;
@@ -38,6 +39,10 @@ public class ParameterCreditService {
 	
 	@Autowired
 	private ParameterCreditMapper parameterCreditMapper;
+	
+	public Object getCredit(String creditId){
+		return parameterCreditMapper.selectByPrimaryKey(creditId);
+	}
 	
 	/**
      * 
@@ -127,7 +132,7 @@ public class ParameterCreditService {
         ParameterCreditExample parameterCreditExample = new ParameterCreditExample();
         int count = 0;
         // 防止会员信用级别名称重复
-        parameterCreditExample.createCriteria().andCreditNameEqualTo(parameterCredit.getCreditName());
+        parameterCreditExample.createCriteria().andCreditIdNotEqualTo(parameterCredit.getCreditId()).andCreditNameEqualTo(parameterCredit.getCreditName());
         count = parameterCreditMapper.countByExample(parameterCreditExample);// 查找相同信用等级名称的会员数量
         if (count > 0) {
             returnResult.setMsg("会员信用等级名称重复，请重新填写!");
@@ -142,23 +147,26 @@ public class ParameterCreditService {
         }
         return returnResult;
     }
+    /**
+     * @Title: delAge 
+     * @Description: TODO(删除会员信用级别) 
+     * @param @param creditId
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera="删除操作")
-    public Object delParameterCredits(List<String> creditIds,List<String> creditNames){
+    @MethodLog(opera = "删除会员信用等级")
+    public Object delCredit(String creditId) {
+    	ParameterCredit credit= parameterCreditMapper.selectByPrimaryKey(creditId);
+        int result = parameterCreditMapper.deleteByPrimaryKey(creditId);//根据会员年龄别称Id，进行删除会员年龄别称
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        int count = 0;
-        if(creditIds.size() > 0){
-        	 ParameterCreditExample parameterCreditExample = new ParameterCreditExample();
-        	 parameterCreditExample.createCriteria().andCreditIdIn(creditIds);
-            //方便操作日志记录
-            count = parameterCreditMapper.deleteByExample(parameterCreditExample);
-            if (count > 0) {
-                returnResult.setSuccess(true);
-                returnResult.setMsg("成功删除了[ "+ CollectionsUtil.convertToString(creditNames,",") +" ]操作!");
-            }else{
-                returnResult.setMsg("删除失败，请联系管理员!");
-            }
+        if (result == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("[" + credit.getCreditName() + "] 会员年龄别称信息已删除");
+        } else {
+            returnResult.setMsg("会员年龄别称信息删除失败，请联系管理员!");
         }
-        return returnResult;
-    }
+		return returnResult;
+     }
 }

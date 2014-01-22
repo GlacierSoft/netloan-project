@@ -63,7 +63,69 @@
 		toolbar:'#creditDataGrid_toolbar'
 	});
 	
-
+	glacier.basicdatas_mgr.credit_mgr.credit.newDialog = function(title,creditId,url,loadType){
+		$.easyui.showDialog({
+			href : ctx + '/do/credit/intoForm.htm?creditId='+creditId,//从controller请求jsp页面进行渲染
+			width : 450,
+			height : 300,
+			resizable: false,
+			enableSaveButton : false,
+			enableApplyButton : false,
+			title : title,
+			buttons : [ 
+			 {
+				text : '保存',
+				iconCls : 'icon-save',
+				handler : function(dia) {
+						$('#credit_mgr_credit_form').form('submit', {
+							url: ctx + url,
+							success: function(r){
+								$.messager.show(r.msg);
+								if(r.success){
+									glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid('reload');
+								    dia.dialog("close"); 
+								}
+								 
+							}
+						});
+					}
+			}]
+		});
+	};
+	
+	//点击增加按钮触发方法
+	glacier.basicdatas_mgr.credit_mgr.credit.addCredit = function(){
+		glacier.basicdatas_mgr.credit_mgr.credit.newDialog('增加会员信用级别','','/do/credit/add.json','load');
+	};
+	//点击编辑按钮触发方法
+	glacier.basicdatas_mgr.credit_mgr.credit.editCredit = function(){
+		var row = glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid("getSelected");
+		glacier.basicdatas_mgr.credit_mgr.credit.newDialog('编辑会员信用级别',row.creditId,'/do/credit/edit.json','reload');
+	};
+	//点击删除按钮触发方法
+	glacier.basicdatas_mgr.credit_mgr.credit.delCredit = function(){
+		var row = glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid("getChecked");
+		var creditId = row[0].creditId;
+		if(creditId){
+			$.messager.confirm('请确认', '是否要删除该记录', function(r){
+				if (r){
+					$.ajax({
+						   type: "POST",
+						   url: ctx + '/do/credit/del.json',
+						   data: {creditId:creditId},
+						   dataType:'json',
+						   success: function(r){
+								$.messager.show(r.msg);
+								if(r.success){
+									glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid('reload');
+								}
+								 
+							}
+					});
+				}
+			});
+		}
+	};
 </script>
 
 <!-- 所有角色列表面板和表格 -->
