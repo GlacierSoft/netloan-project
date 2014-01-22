@@ -9,11 +9,11 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
 import com.glacier.basic.util.DBHelper;
-import com.glacier.netloan.entity.sysmgr.Action;
-import com.glacier.netloan.entity.sysmgr.util.ActionAuthRange;
-import com.glacier.netloan.entity.sysmgr.util.ActionDisabled;
-import com.glacier.netloan.entity.sysmgr.util.ActionType;
-import com.glacier.netloan.entity.sysmgr.util.DefaultAction;
+import com.glacier.netloan.entity.system.Action;
+import com.glacier.netloan.entity.system.util.ActionAuthRange;
+import com.glacier.netloan.entity.system.util.ActionDisabled;
+import com.glacier.netloan.entity.system.util.ActionType;
+import com.glacier.netloan.entity.system.util.DefaultAction;
 
 /**
  * 

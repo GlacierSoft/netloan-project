@@ -23,7 +23,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.basicdatas.ParameterAgeMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterAge;
 import com.glacier.netloan.entity.basicdatas.ParameterAgeExample;
-import com.glacier.netloan.entity.sysmgr.User;
+import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
 /** 

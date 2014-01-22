@@ -12,7 +12,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 import com.glacier.jqueryui.util.JqReturnJson;
-import com.glacier.netloan.entity.sysmgr.User;
+import com.glacier.netloan.entity.system.User;
 
 @Aspect
 @Component

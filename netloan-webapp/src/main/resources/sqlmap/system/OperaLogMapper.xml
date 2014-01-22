@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.system.OperaLogMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.system.OperaLog" >
+    <id column="temp_operalog_operalog_id" property="operalogId" jdbcType="VARCHAR" />
+    <result column="temp_operalog_action_id" property="actionId" jdbcType="VARCHAR" />
+    <result column="temp_operalog_user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="temp_operalog_opera_desc" property="operaDesc" jdbcType="VARCHAR" />
+    <result column="temp_operalog_opera_id" property="operaId" jdbcType="VARCHAR" />
+    <result column="temp_operalog_opera_time" property="operaTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_operalog.operalog_id as temp_operalog_operalog_id, temp_operalog.action_id as temp_operalog_action_id, 
+    temp_operalog.user_id as temp_operalog_user_id, temp_operalog.opera_desc as temp_operalog_opera_desc, 
+    temp_operalog.opera_id as temp_operalog_opera_id, temp_operalog.opera_time as temp_operalog_opera_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.system.OperaLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_operalog temp_operalog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_operalog temp_operalog
+    where temp_operalog.operalog_id = #{operalogId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_operalog
+    where operalog_id = #{operalogId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.system.OperaLogExample" >
+    delete from t_operalog temp_operalog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.system.OperaLog" >
+    insert into t_operalog (operalog_id, action_id, user_id, 
+      opera_desc, opera_id, opera_time
+      )
+    values (#{operalogId,jdbcType=VARCHAR}, #{actionId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{operaDesc,jdbcType=VARCHAR}, #{operaId,jdbcType=VARCHAR}, #{operaTime,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.system.OperaLog" >
+    insert into t_operalog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="operalogId != null" >
+        operalog_id,
+      </if>
+      <if test="actionId != null" >
+        action_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="operaDesc != null" >
+        opera_desc,
+      </if>
+      <if test="operaId != null" >
+        opera_id,
+      </if>
+      <if test="operaTime != null" >
+        opera_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="operalogId != null" >
+        #{operalogId,jdbcType=VARCHAR},
+      </if>
+      <if test="actionId != null" >
+        #{actionId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="operaDesc != null" >
+        #{operaDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="operaId != null" >
+        #{operaId,jdbcType=VARCHAR},
+      </if>
+      <if test="operaTime != null" >
+        #{operaTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.system.OperaLogExample" resultType="java.lang.Integer" >
+    select count(*) from t_operalog temp_operalog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_operalog temp_operalog
+    <set >
+      <if test="record.operalogId != null" >
+        temp_operalog.operalog_id = #{record.operalogId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actionId != null" >
+        temp_operalog.action_id = #{record.actionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        temp_operalog.user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operaDesc != null" >
+        temp_operalog.opera_desc = #{record.operaDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operaId != null" >
+        temp_operalog.opera_id = #{record.operaId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operaTime != null" >
+        temp_operalog.opera_time = #{record.operaTime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_operalog temp_operalog
+    set temp_operalog.operalog_id = #{record.operalogId,jdbcType=VARCHAR},
+      temp_operalog.action_id = #{record.actionId,jdbcType=VARCHAR},
+      temp_operalog.user_id = #{record.userId,jdbcType=VARCHAR},
+      temp_operalog.opera_desc = #{record.operaDesc,jdbcType=VARCHAR},
+      temp_operalog.opera_id = #{record.operaId,jdbcType=VARCHAR},
+      temp_operalog.opera_time = #{record.operaTime,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.system.OperaLog" >
+    update t_operalog
+    <set >
+      <if test="actionId != null" >
+        action_id = #{actionId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="operaDesc != null" >
+        opera_desc = #{operaDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="operaId != null" >
+        opera_id = #{operaId,jdbcType=VARCHAR},
+      </if>
+      <if test="operaTime != null" >
+        opera_time = #{operaTime,jdbcType=DATE},
+      </if>
+    </set>
+    where operalog_id = #{operalogId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.system.OperaLog" >
+    update t_operalog
+    set action_id = #{actionId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      opera_desc = #{operaDesc,jdbcType=VARCHAR},
+      opera_id = #{operaId,jdbcType=VARCHAR},
+      opera_time = #{operaTime,jdbcType=DATE}
+    where operalog_id = #{operalogId,jdbcType=VARCHAR}
+  </update>
+</mapper>

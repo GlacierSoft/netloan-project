@@ -19,9 +19,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.basicdatas.ParameterCreditMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditExample;
-import com.glacier.netloan.entity.sysmgr.Action;
-import com.glacier.netloan.entity.sysmgr.ActionExample;
-import com.glacier.netloan.entity.sysmgr.User;
+import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
 /**

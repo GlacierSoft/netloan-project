@@ -22,13 +22,13 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.glacier.netloan.dao.sysmgr.AuthorityMapper;
-import com.glacier.netloan.dao.sysmgr.RoleMapper;
-import com.glacier.netloan.dao.sysmgr.UserMapper;
-import com.glacier.netloan.entity.sysmgr.Authority;
-import com.glacier.netloan.entity.sysmgr.User;
-import com.glacier.netloan.entity.sysmgr.UserExample;
-import com.glacier.netloan.service.sysmgr.UserService;
+import com.glacier.netloan.dao.system.AuthorityMapper;
+import com.glacier.netloan.dao.system.RoleMapper;
+import com.glacier.netloan.dao.system.UserMapper;
+import com.glacier.netloan.entity.system.Authority;
+import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.system.UserExample;
+import com.glacier.netloan.service.system.UserService;
 import com.glacier.security.util.Encodes;
 
 /**
