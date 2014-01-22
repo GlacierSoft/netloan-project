@@ -8,12 +8,16 @@
 			<td>会员信用级别名称：</td>
 			<td>
 				<input id="credit_mgr_credit_form_creditId" type="hidden" name="creditId" value="${creditData.creditId}" />
-				<input id="credit_mgr_credit_form_creditCnName" name="creditCnName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditCnName}"/>
+				<input id="credit_mgr_credit_form_creditName" name="creditName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditName}"/>
 			</td>
 		</tr>
 		<tr>
-			<td>英文名称：</td>
-			<td><input id="credit_mgr_credit_form_creditName" name="creditEnName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditEnName}"/></td>
+			<td>信用级别开始积分：</td>
+			<td><input id="credit_mgr_credit_form_creditBeginIntegral" name="creditBeginIntegral" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditBeginIntegral}"/></td>
+		</tr>
+		<tr>
+			<td>信用级别结束积分：</td>
+			<td><input id="credit_mgr_credit_form_creditEndIntegral" name="creditEndIntegral" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditEndIntegral}"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>
