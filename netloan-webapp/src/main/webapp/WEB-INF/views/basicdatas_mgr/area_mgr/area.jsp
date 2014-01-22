@@ -1,4 +1,4 @@
-<%@ parea languarea="java" pareaEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!-- 引入自定义权限标签 -->
 <%@ taglib prefix="glacierui" uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
 
@@ -57,8 +57,8 @@
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
-		pareaSize : 10,//注意，pareaSize必须在pareaList存在
-		pareaList : [2,10,50,100],//从session中获取
+		pageSize : 10,//注意，pageSize必须在pageList存在
+		pageList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
 		toolbar:'#areaDataGrid_toolbar'
 	});
