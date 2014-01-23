@@ -195,6 +195,76 @@ public class ParameterOptgroupValueExample {
             return (Criteria) this;
         }
 
+        public Criteria andOptgroupIdIsNull() {
+            addCriterion("temp_parameter_optgroup_value.optgroup_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptgroupIdIsNotNull() {
+            addCriterion("temp_parameter_optgroup_value.optgroup_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptgroupIdEqualTo(String value) {
+            addCriterion("temp_parameter_optgroup_value.optgroup_id =", value, "optgroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptgroupIdNotEqualTo(String value) {
+            addCriterion("temp_parameter_optgroup_value.optgroup_id <>", value, "optgroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptgroupIdGreaterThan(String value) {
+            addCriterion("temp_parameter_optgroup_value.optgroup_id >", value, "optgroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptgroupIdGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_parameter_optgroup_value.optgroup_id >=", value, "optgroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptgroupIdLessThan(String value) {
+            addCriterion("temp_parameter_optgroup_value.optgroup_id <", value, "optgroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptgroupIdLessThanOrEqualTo(String value) {
+            addCriterion("temp_parameter_optgroup_value.optgroup_id <=", value, "optgroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptgroupIdLike(String value) {
+            addCriterion("temp_parameter_optgroup_value.optgroup_id like", value, "optgroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptgroupIdNotLike(String value) {
+            addCriterion("temp_parameter_optgroup_value.optgroup_id not like", value, "optgroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptgroupIdIn(List<String> values) {
+            addCriterion("temp_parameter_optgroup_value.optgroup_id in", values, "optgroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptgroupIdNotIn(List<String> values) {
+            addCriterion("temp_parameter_optgroup_value.optgroup_id not in", values, "optgroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptgroupIdBetween(String value1, String value2) {
+            addCriterion("temp_parameter_optgroup_value.optgroup_id between", value1, value2, "optgroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptgroupIdNotBetween(String value1, String value2) {
+            addCriterion("temp_parameter_optgroup_value.optgroup_id not between", value1, value2, "optgroupId");
+            return (Criteria) this;
+        }
+
         public Criteria andOptgroupValueCodeIsNull() {
             addCriterion("temp_parameter_optgroup_value.optgroup_value_code is null");
             return (Criteria) this;

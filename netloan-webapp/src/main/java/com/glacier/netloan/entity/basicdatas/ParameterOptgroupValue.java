@@ -5,6 +5,8 @@ import java.util.Date;
 public class ParameterOptgroupValue {
     private String optgroupValueId;
 
+    private String optgroupId;
+
     private String optgroupValueCode;
 
     private String optgroupValueName;
@@ -29,6 +31,14 @@ public class ParameterOptgroupValue {
 
     public void setOptgroupValueId(String optgroupValueId) {
         this.optgroupValueId = optgroupValueId;
+    }
+
+    public String getOptgroupId() {
+        return optgroupId;
+    }
+
+    public void setOptgroupId(String optgroupId) {
+        this.optgroupId = optgroupId;
     }
 
     public String getOptgroupValueCode() {
@@ -116,6 +126,7 @@ public class ParameterOptgroupValue {
         }
         ParameterOptgroupValue other = (ParameterOptgroupValue) that;
         return (this.getOptgroupValueId() == null ? other.getOptgroupValueId() == null : this.getOptgroupValueId().equals(other.getOptgroupValueId()))
+            && (this.getOptgroupId() == null ? other.getOptgroupId() == null : this.getOptgroupId().equals(other.getOptgroupId()))
             && (this.getOptgroupValueCode() == null ? other.getOptgroupValueCode() == null : this.getOptgroupValueCode().equals(other.getOptgroupValueCode()))
             && (this.getOptgroupValueName() == null ? other.getOptgroupValueName() == null : this.getOptgroupValueName().equals(other.getOptgroupValueName()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
@@ -132,6 +143,7 @@ public class ParameterOptgroupValue {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getOptgroupValueId() == null) ? 0 : getOptgroupValueId().hashCode());
+        result = prime * result + ((getOptgroupId() == null) ? 0 : getOptgroupId().hashCode());
         result = prime * result + ((getOptgroupValueCode() == null) ? 0 : getOptgroupValueCode().hashCode());
         result = prime * result + ((getOptgroupValueName() == null) ? 0 : getOptgroupValueName().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());

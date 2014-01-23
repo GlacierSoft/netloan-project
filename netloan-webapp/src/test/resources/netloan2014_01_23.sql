@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50067
 File Encoding         : 65001
 
-Date: 2014-01-23 16:02:18
+Date: 2014-01-23 17:22:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -338,6 +338,7 @@ INSERT INTO `t_parameter_optgroup` VALUES ('ss34g1rgrh1dfhsjdfh124564sdf21d', 'f
 DROP TABLE IF EXISTS `t_parameter_optgroup_value`;
 CREATE TABLE `t_parameter_optgroup_value` (
   `optgroup_value_id` varchar(32) NOT NULL,
+  `optgroup_id` varchar(32) default NULL,
   `optgroup_value_code` varchar(50) default NULL,
   `optgroup_value_name` varchar(50) default NULL,
   `status` enum('Enabled','Disabled') default NULL,
@@ -347,14 +348,16 @@ CREATE TABLE `t_parameter_optgroup_value` (
   `create_time` datetime default NULL,
   `updater` varchar(32) default NULL,
   `update_time` datetime default NULL,
-  PRIMARY KEY  (`optgroup_value_id`)
+  PRIMARY KEY  (`optgroup_value_id`),
+  KEY `FK_t_optvalue_t_parameter_optgroup_optgroup_id` (`optgroup_id`),
+  CONSTRAINT `FK_t_optvalue_t_parameter_optgroup_optgroup_id` FOREIGN KEY (`optgroup_id`) REFERENCES `t_parameter_optgroup` (`optgroup_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='参数设置的基础资料下的下拉项值设置。';
 
 -- ----------------------------
 -- Records of t_parameter_optgroup_value
 -- ----------------------------
-INSERT INTO `t_parameter_optgroup_value` VALUES ('sadsadsafasf3215s4d5g4', 'women', '女', null, null, null, null, null, null, null);
-INSERT INTO `t_parameter_optgroup_value` VALUES ('sdsdsdg1rgrh1dfhsjdfh1245df21d', 'man', '男', null, null, null, null, null, null, null);
+INSERT INTO `t_parameter_optgroup_value` VALUES ('sadsadsafasf3215s4d5g4', 'ss34g1rgrh1dfhsjdfh124564sdf21d', 'women', '女', null, null, null, null, null, null, null);
+INSERT INTO `t_parameter_optgroup_value` VALUES ('sdsdsdg1rgrh1dfhsjdfh1245df21d', 'ss34g1rgrh1dfhsjdfh124564sdf21d', 'man', '男', null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `t_role`

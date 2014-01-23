@@ -36,6 +36,11 @@
 		toolbar : '#optgroupTreeGridToolbar',
 		onSelect:function(rowData){//选择行事件触发
 			glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupAlwaySelect();
+			if(rowData.url){//选中菜单的同时，根据菜单属性是否包含可用的URL进行对应的操作进行动态变更
+				glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValuePropertyGrid.propertygrid('load',{
+					optgroupId: rowData.optgroupId
+				});
+			}
 		},
 		onUnselectAll:function(rows){//取消选择行状态触发事件
 			glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupAlwayUnSelect();
