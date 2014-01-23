@@ -126,9 +126,9 @@
 
 <!-- 所有地区列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
-    		<div data-options="region:'center',title:'菜单管理',border:true">
-    			<table id="areaTreeGrid">
-		    		<glacierui:toolbar panelEnName="AreaTree" toolbarId="areaTreeGridToolbar" menuEnName="area"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
-		    	</table>
-    		</div>
+   		<div id="areaGridPanel" data-options="region:'center',border:true" >
+   			<table id="areaTreeGrid">
+	    		<glacierui:toolbar panelEnName="AreaTree" toolbarId="areaTreeGridToolbar" menuEnName="area"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+	    	</table>
+   		</div>
 </div>
