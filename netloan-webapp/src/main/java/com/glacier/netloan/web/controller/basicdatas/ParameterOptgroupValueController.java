@@ -54,11 +54,18 @@ public class ParameterOptgroupValueController extends AbstractController{
         return mav;
     }
     
+//    // 获取表格结构的所有菜单数据
+//    @RequestMapping(value = "/optgroupValue/list.json", method = RequestMethod.POST)
+//    @ResponseBody
+//    private Object listActionAsGridByMenuId(String menuId, JqPager pager) {
+//        return optgroupValueService.listAsGrid(pager);
+//    }
+    
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/optgroupValue/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(String menuId, JqPager pager) {
-        return optgroupValueService.listAsGrid(pager);
+    private Object listValueAsGridByOptgroupId(String optgroupId,JqPager pager) {
+        return optgroupValueService.listAsGrid(optgroupId,pager);
     }
     
     // 增加下拉项

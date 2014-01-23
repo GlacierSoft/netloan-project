@@ -23,6 +23,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.basicdatas.ParameterOptgroupValueMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterOptgroupValue;
 import com.glacier.netloan.entity.basicdatas.ParameterOptgroupValueExample;
+import com.glacier.netloan.entity.basicdatas.ParameterOptgroupValueExample.Criteria;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -52,27 +53,51 @@ public class ParameterOptgroupValueService {
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "浏览会员年龄别称")
-    public Object listAsGrid(JqPager pager) {
+//    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+//    @MethodLog(opera = "浏览会员年龄别称")
+//    public Object listAsGrid(JqPager pager) {
+//
+//        JqGridReturn returnResult = new JqGridReturn();
+//        ParameterOptgroupValueExample parameterOptgroupValueExample = new ParameterOptgroupValueExample();
+//
+//        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
+//        	parameterOptgroupValueExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
+//        	parameterOptgroupValueExample.setLimitEnd(pager.getRows());
+//        }
+//        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
+//        	parameterOptgroupValueExample.setOrderByClause(pager.getOrderBy("temp_parameter_optgroupValue_"));
+//        }
+//        List<ParameterOptgroupValue>  parameterOptgroupValues = optgroupValueMapper.selectByExample(parameterOptgroupValueExample); // 查询所有会员年龄别称列表
+//        int total = optgroupValueMapper.countByExample(parameterOptgroupValueExample); // 查询总页数
+//        returnResult.setRows(parameterOptgroupValues);
+//        returnResult.setTotal(total);
+//        return returnResult;// 返回ExtGrid表
+//    }
 
+    public Object listAsGrid(String optgroupId, JqPager pager) {
         JqGridReturn returnResult = new JqGridReturn();
-        ParameterOptgroupValueExample parameterOptgroupValueExample = new ParameterOptgroupValueExample();
-
-        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
-        	parameterOptgroupValueExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
-        	parameterOptgroupValueExample.setLimitEnd(pager.getRows());
+        if (StringUtils.isNotBlank(optgroupId)) {// 当菜单对应的menuId有意义的时候，才会进行数据库查询
+        	ParameterOptgroupValueExample parameterOptgroupValueExample = new ParameterOptgroupValueExample();
+            Criteria optgroupValueCriteria = parameterOptgroupValueExample.createCriteria();
+            optgroupValueCriteria.andOptgroupIdEqualTo(optgroupId);
+            if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
+            	parameterOptgroupValueExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
+            	parameterOptgroupValueExample.setLimitEnd(pager.getRows());
+            }
+            if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
+            	parameterOptgroupValueExample.setOrderByClause(pager.getOrderBy("temp_parameter_optgroup_value_"));// 必须外键inner
+                                                                                                               // join
+                                                                                                               // t_panel
+                                                                                                               // temp_panel
+            }
+            List<ParameterOptgroupValue> parameterOptgroupValues = optgroupValueMapper.selectByExample(parameterOptgroupValueExample); // 查询所有操作列表
+            int total = optgroupValueMapper.countByExample(parameterOptgroupValueExample); // 查询总页数
+            returnResult.setRows(parameterOptgroupValues);
+            returnResult.setTotal(total);
         }
-        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
-        	parameterOptgroupValueExample.setOrderByClause(pager.getOrderBy("temp_parameter_optgroupValue_"));
-        }
-        List<ParameterOptgroupValue>  parameterOptgroupValues = optgroupValueMapper.selectByExample(parameterOptgroupValueExample); // 查询所有会员年龄别称列表
-        int total = optgroupValueMapper.countByExample(parameterOptgroupValueExample); // 查询总页数
-        returnResult.setRows(parameterOptgroupValues);
-        returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
     }
-
+    
     /**
      * @Title: addOptgroupValue 
      * @Description: TODO(新增会员年龄别称) 

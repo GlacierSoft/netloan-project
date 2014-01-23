@@ -36,7 +36,7 @@
 		toolbar : '#optgroupTreeGridToolbar',
 		onSelect:function(rowData){//选择行事件触发
 			glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupAlwaySelect();
-			if(rowData.url){//选中菜单的同时，根据菜单属性是否包含可用的URL进行对应的操作进行动态变更
+			if(rowData.optgroupId){//选中菜单的同时，根据菜单属性是否包含可用的URL进行对应的操作进行动态变更
 				glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValuePropertyGrid.propertygrid('load',{
 					optgroupId: rowData.optgroupId
 				});
@@ -107,7 +107,7 @@
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
 		url: ctx + '/do/optgroupValue/optgroupValue/list.json',
-		queryParams: {menuId: ''},//初始化的时候默认传递menuId为空的参数
+		queryParams: {optgroupId: ''},//初始化的时候默认传递menuId为空的参数
 		sortName: 'optgroupValueNum',//排序字段名称
 		sortOrder: 'ASC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
