@@ -15,35 +15,36 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
-import com.glacier.netloan.dao.basicdatas.ParameterCreditMapper;
-import com.glacier.netloan.entity.basicdatas.ParameterCredit;
-import com.glacier.netloan.entity.basicdatas.ParameterCreditExample;
+import com.glacier.netloan.dao.basicdatas.ParameterIntegralMapper;
+import com.glacier.netloan.entity.basicdatas.ParameterIntegral;
+import com.glacier.netloan.entity.basicdatas.ParameterIntegralExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
+
 /**
  * 
- * @ClassName: ParameterCreditService 
- * @Description: TODO(会员信用等级业务类) 
+ * @ClassName: ParameterIntegralService 
+ * @Description: TODO(会员积分级别业务类) 
  * @author yuzexu
  * @email 804346249@QQ.com
- * @date 2014-1-22上午9:12:04
+ * @date 2014-1-22下午3:45:13
  */
 @Service
 @Transactional(readOnly= true ,propagation= Propagation.REQUIRED)
-public class ParameterCreditService {
+public class ParameterIntegralService {
 	
 	@Autowired
-	private ParameterCreditMapper parameterCreditMapper;
-	
-	public Object getCredit(String creditId){
-		return parameterCreditMapper.selectByPrimaryKey(creditId);
+	private ParameterIntegralMapper parameterIntegralMapper;
+			
+	public Object getIntegral(String IntegralId){
+		return parameterIntegralMapper.selectByPrimaryKey(IntegralId);
 	}
 	
 	/**
      * 
      * @Title: listAsGrid
-     * @Description: TODO(以表格结构展示会员信用等级列表)
+     * @Description: TODO(以表格结构展示会员积分级别列表)
      * @param @param menuId 动作对应的菜单Id
      * @param @param pager 分页参数
      * @param @return 设定文件
@@ -51,31 +52,31 @@ public class ParameterCreditService {
      * @throws
      */
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "浏览会员信用等级信息")
+    @MethodLog(opera = "浏览会员积分级别信息")
     public Object listAsGrid(JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
-        ParameterCreditExample parameterCreditExample = new ParameterCreditExample();
+        ParameterIntegralExample parameterIntegralExample = new ParameterIntegralExample();
 
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
-        	parameterCreditExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
-        	parameterCreditExample.setLimitEnd(pager.getRows());
+        	parameterIntegralExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
+        	parameterIntegralExample.setLimitEnd(pager.getRows());
         }
         if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
-        	parameterCreditExample.setOrderByClause(pager.getOrderBy("temp_parameter_credit_"));
+        	parameterIntegralExample.setOrderByClause(pager.getOrderBy("temp_parameter_integral_"));
         }
-        List<ParameterCredit>  parameterCredits = parameterCreditMapper.selectByExample(parameterCreditExample); // 查询所有操作列表
-        int total = parameterCreditMapper.countByExample(parameterCreditExample); // 查询总页数
-        returnResult.setRows(parameterCredits);
+        List<ParameterIntegral>  parameterIntegrals = parameterIntegralMapper.selectByExample(parameterIntegralExample); // 查询所有操作列表
+        int total = parameterIntegralMapper.countByExample(parameterIntegralExample); // 查询总页数
+        returnResult.setRows(parameterIntegrals);
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
     }
 
     /**
      * 
-     * @Title: addparameterCredit 
+     * @Title: addparameterIntegral 
      * @Description: TODO(新增会员信用级别) 
-     * @param  @param parameterCredit
+     * @param  @param parameterIntegral
      * @param  @return设定文件
      * @return Object  返回类型
      * @throws 
@@ -83,27 +84,27 @@ public class ParameterCreditService {
      */
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     @MethodLog(opera = "新增会员信用级别")
-    public Object addParameterCredit(ParameterCredit parameterCredit) {
+    public Object addParameterIntegral(ParameterIntegral parameterIntegral) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        ParameterCreditExample parameterCreditExample = new ParameterCreditExample();
+        ParameterIntegralExample parameterIntegralExample = new ParameterIntegralExample();
         int count = 0;
         // 防止会员信用级别名称重复
-        parameterCreditExample.createCriteria().andCreditNameEqualTo(parameterCredit.getCreditName());
-        count = parameterCreditMapper.countByExample(parameterCreditExample);// 查找相同信用等级名称的会员数量
+        parameterIntegralExample.createCriteria().andIntegralNameEqualTo(parameterIntegral.getIntegralName());
+        count = parameterIntegralMapper.countByExample(parameterIntegralExample);// 查找相同信用等级名称的会员数量
         if (count > 0) {
             returnResult.setMsg("会员信用等级名称重复，请重新填写!");
             return returnResult;
         }
-        parameterCredit.setCreditId(RandomGUID.getRandomGUID());
-        parameterCredit.setCreater(pricipalUser.getUserId());
-        parameterCredit.setCreateTime(new Date());
-        count = parameterCreditMapper.insert(parameterCredit);
+        parameterIntegral.setIntegralId(RandomGUID.getRandomGUID());
+        parameterIntegral.setCreater(pricipalUser.getUserId());
+        parameterIntegral.setCreateTime(new Date());
+        count = parameterIntegralMapper.insert(parameterIntegral);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + parameterCredit.getCreditName() + "] 会员信用等级信息已保存");
+            returnResult.setMsg("[" + parameterIntegral.getIntegralName() + "] 会员信用等级信息已保存");
         } else {
             returnResult.setMsg("会员信用等级信息保存失败，请联系管理员!");
         }
@@ -111,9 +112,9 @@ public class ParameterCreditService {
     }
     /**
      * 
-     * @Title: editParameterCredit 
+     * @Title: editParameterIntegral 
      * @Description: TODO(修改会员信用等级) 
-     * @param  @param parameterCredit
+     * @param  @param parameterIntegral
      * @param  @return设定文件
      * @return Object  返回类型
      * @throws 
@@ -121,21 +122,21 @@ public class ParameterCreditService {
      */
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     @MethodLog(opera="修改操作")
-    public Object editParameterCredit(ParameterCredit parameterCredit) {
+    public Object editParameterIntegral(ParameterIntegral parameterIntegral) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        ParameterCreditExample parameterCreditExample = new ParameterCreditExample();
+        ParameterIntegralExample parameterIntegralExample = new ParameterIntegralExample();
         int count = 0;
         // 防止会员信用级别名称重复
-        parameterCreditExample.createCriteria().andCreditIdNotEqualTo(parameterCredit.getCreditId()).andCreditNameEqualTo(parameterCredit.getCreditName());
-        count = parameterCreditMapper.countByExample(parameterCreditExample);// 查找相同信用等级名称的会员数量
+        parameterIntegralExample.createCriteria().andIntegralIdNotEqualTo(parameterIntegral.getIntegralId()).andIntegralNameEqualTo(parameterIntegral.getIntegralName());
+        count = parameterIntegralMapper.countByExample(parameterIntegralExample);// 查找相同信用等级名称的会员数量
         if (count > 0) {
             returnResult.setMsg("会员信用等级名称重复，请重新填写!");
             return returnResult;
         }
-        count = parameterCreditMapper.updateByPrimaryKey(parameterCredit);
+        count = parameterIntegralMapper.updateByPrimaryKey(parameterIntegral);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + parameterCredit.getCreditName() + "] 会员信用等级信息已修改保存");
+            returnResult.setMsg("[" + parameterIntegral.getIntegralName() + "] 会员信用等级信息已修改保存");
         } else {
             returnResult.setMsg("会员信用等级信息修改保存失败，请联系管理员!");
         }
@@ -144,20 +145,20 @@ public class ParameterCreditService {
     /**
      * @Title: delAge 
      * @Description: TODO(删除会员信用级别) 
-     * @param @param creditId
+     * @param @param IntegralId
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     @MethodLog(opera = "删除会员信用等级")
-    public Object delCredit(String creditId) {
-    	ParameterCredit credit= parameterCreditMapper.selectByPrimaryKey(creditId);
-        int result = parameterCreditMapper.deleteByPrimaryKey(creditId);//根据会员年龄别称Id，进行删除会员年龄别称
+    public Object delIntegral(String IntegralId) {
+    	ParameterIntegral Integral= parameterIntegralMapper.selectByPrimaryKey(IntegralId);
+        int result = parameterIntegralMapper.deleteByPrimaryKey(IntegralId);//根据会员年龄别称Id，进行删除会员年龄别称
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         if (result == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + credit.getCreditName() + "] 会员年龄别称信息已删除");
+            returnResult.setMsg("[" + Integral.getIntegralName() + "] 会员年龄别称信息已删除");
         } else {
             returnResult.setMsg("会员年龄别称信息删除失败，请联系管理员!");
         }
