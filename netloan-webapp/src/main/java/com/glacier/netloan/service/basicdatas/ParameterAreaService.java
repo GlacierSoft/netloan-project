@@ -73,6 +73,12 @@ public class ParameterAreaService {
         return returnResult;// 返回ExtGrid表
     }
 
+    public Object listAsTree() {
+        List<ParameterArea> areaList = areaMapper.selectByExample(new ParameterAreaExample());
+        return areaList;
+    }
+
+    
     /**
      * @Title: addArea 
      * @Description: TODO(新增地区) 

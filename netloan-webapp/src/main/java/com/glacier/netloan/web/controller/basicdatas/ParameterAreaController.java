@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
-import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.entity.basicdatas.ParameterArea;
 import com.glacier.netloan.service.basicdatas.ParameterAreaService;
 
@@ -42,6 +41,13 @@ public class ParameterAreaController extends AbstractController{
         return mav;
     }
     
+    // 获取菜单下的树结构的所有菜单数据
+    @RequestMapping(value = "/list.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object listAreaAsTreeByAreaId() {
+        return areaService.listAsTree();
+    }
+    
     // 进入地区Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoareaFormParea(String areaId) {
@@ -52,12 +58,12 @@ public class ParameterAreaController extends AbstractController{
         return mav;
     }
     
-    // 获取表格结构的所有菜单数据
-    @RequestMapping(value = "/list.json", method = RequestMethod.POST)
-    @ResponseBody
-    private Object listActionAsGridByMenuId(String menuId, JqPager pager) {
-        return areaService.listAsGrid(pager);
-    }
+//    // 获取表格结构的所有菜单数据
+//    @RequestMapping(value = "/list.json", method = RequestMethod.POST)
+//    @ResponseBody
+//    private Object listActionAsGridByMenuId(String menuId, JqPager pager) {
+//        return areaService.listAsGrid(pager);
+//    }
     
     // 增加地区
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)

@@ -5,10 +5,22 @@
 <form id="area_mgr_area_form" method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
-			<td>年龄别称：</td>
+			<td>地区：</td>
 			<td>
 				<input id="area_mgr_area_form_areaId" type="hidden" name="areaId" value="${areaData.areaId}" />
 				<input id="area_mgr_area_form_areaName" name="areaName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${areaData.areaName}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>父级地区：</td>
+			<td>
+				<input id="area_mgr_area_form_areaPid" name="areaPid" class="easyui-validatebox spinner" style="width:268px" required="true" value="${areaData.areaPid}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>排序：</td>
+			<td>
+				<input id="area_mgr_area_form_areaNum" name="areaNum" class="easyui-validatebox spinner" style="width:268px" required="true" value="${areaData.areaNum}"/>
 			</td>
 		</tr>
 		<tr>
