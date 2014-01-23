@@ -67,3 +67,49 @@ $.extend($.fn.propertygrid.methods, {
 	    	return $.parseJSON(returnStr);
 	    }
 });
+
+function action_controller(param,datagird){
+	return {
+			select : function(){
+				$.each(param.actions, function(){
+					if('single' === this.controlType){
+						$('#'+param.toolbarId+'').find("a[id$='"+this.flag+"']").linkbutton('enable');
+					}
+				});
+			},
+			unSelect : function(){
+				$.each(param.actions, function(){
+					if('single' === this.controlType){
+						$('#'+param.toolbarId+'').find("a[id$='"+this.flag+"']").linkbutton('disable');
+					}
+				});
+			},
+			check : function(){
+				var rows = $(datagird).datagrid("getChecked");
+				if(rows.length > 0){
+					$.each(param.actions, function(){
+						if('multiple' === this.controlType){
+							$('#'+param.toolbarId+'').find("a[id$='"+this.flag+"']").linkbutton('enable');
+						}
+					});
+					
+				}
+			},
+			unCheck : function(){
+				var rows = $(datagird).datagrid("getChecked");
+				if(rows.length > 0){
+					$.each(param.actions, function(){
+						if('multiple' === this.controlType){
+							$('#'+param.toolbarId+'').find("a[id$='"+this.flag+"']").linkbutton('disable');
+						}
+					});
+				}else{
+					$.each(param.actions, function(){
+						if('multiple' === this.controlType){
+							$('#'+param.toolbarId+'').find("a[id$='"+this.flag+"']").linkbutton('disable');
+						}
+					});
+				}
+			}
+	};
+};

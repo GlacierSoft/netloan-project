@@ -6,36 +6,14 @@
 
 	$.util.namespace('glacier.system_mgr.role_mgr.role');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
-	//角色选中
-	glacier.system_mgr.role_mgr.role.roleAlwaySelect = function(){
-		$('#role_btn_RolePanel_edit').linkbutton('enable');//编辑
-		$('#role_btn_RolePanel_auth').linkbutton('enable');//角色授权
-		$('#role_btn_RolePanel_actionAuth').linkbutton('enable');//角色授权
-	};
-	
-	//角色未选中
-	glacier.system_mgr.role_mgr.role.roleAlwayUnSelect = function(){
-		$('#role_btn_RolePanel_edit').linkbutton('disable');//编辑
-		$('#role_btn_RolePanel_auth').linkbutton('disable');//角色授权
-		$('#role_btn_RolePanel_actionAuth').linkbutton('disable');//角色授权
-	};
-	
-	//角色勾选
-	glacier.system_mgr.role_mgr.role.roleAlwayCheck = function(){
-		var rows = glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid("getChecked");
-		if(rows.length > 0){//如果勾选的列大于0，则激活删除按钮
-			$('#role_btn_RolePanel_del').linkbutton('enable');//删除
-		}
-	};
-	
-	//角色取消勾选
-	glacier.system_mgr.role_mgr.role.roleAlwayUnCheck = function(){
-		var rows = glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid("getChecked");
-		if(rows.length > 0){//如果勾选的列大于0，则激活删除按钮
-			$('#role_btn_RolePanel_del').linkbutton('enable');//删除
-		}else{
-			$('#role_btn_RolePanel_del').linkbutton('disable');//删除
-		}
+	//定义toolbar的操作，对操作进行控制
+	glacier.system_mgr.role_mgr.role.param = {
+			toolbarId : 'roleDataGrid_toolbar',
+			actions : {
+				edit:{flag:'edit',controlType:'single'},
+				auth:{flag:'auth',controlType:'single'},
+				del:{flag:'del',controlType:'multiple'}
+			}
 	};
 	
 	
@@ -88,22 +66,22 @@
 		rownumbers:true,//True 就会显示行号的列
 		toolbar:'#roleDataGrid_toolbar',
 		onCheck:function(rowIndex,rowData){//选择行事件触发
-			glacier.system_mgr.role_mgr.role.roleAlwayCheck();
+			action_controller(glacier.system_mgr.role_mgr.role.param,this).check();
 		},
 		onCheckAll:function(rows){//取消勾选行状态触发事件
-			glacier.system_mgr.role_mgr.role.roleAlwayCheck();
+			action_controller(glacier.system_mgr.role_mgr.role.param,this).check();
 		},
 		onUncheck:function(rowIndex,rowData){//选择行事件触发
-			glacier.system_mgr.role_mgr.role.roleAlwayUnCheck();
+			action_controller(glacier.system_mgr.role_mgr.role.param,this).unCheck();
 		},
 		onUncheckAll:function(rows){//取消勾选行状态触发事件
-			glacier.system_mgr.role_mgr.role.roleAlwayUnCheck();
+			action_controller(glacier.system_mgr.role_mgr.role.param,this).unCheck();
 		},
 		onSelect:function(rowIndex, rowData){//选择行事件触发
-			glacier.system_mgr.role_mgr.role.roleAlwaySelect();
+			action_controller(glacier.system_mgr.role_mgr.role.param,this).select();
 		},
 		onUnselectAll:function(rows){
-			glacier.system_mgr.role_mgr.role.roleAlwayUnSelect();
+			action_controller(glacier.system_mgr.role_mgr.role.param,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('unselectAll');
@@ -118,27 +96,21 @@
 			width : 385,
 			height : 250,
 			resizable: false,
-			enableSaveButton : false,
 			enableApplyButton : false,
 			title : title,
-			buttons : [ 
-			 {
-				text : '保存',
-				iconCls : 'icon-save',
-				handler : function(dia) {
-						$('#role_mgr_role_form').form('submit', {
-							url: ctx + url,
-							success: function(r){
-								$.messager.show(r.msg);
-								if(r.success){
-									glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid('reload');
-								    dia.dialog("close"); 
-								}
-								 
-							}
-						});
+			onSave : function(){
+				$(this).find('form').form('submit', {
+					url: ctx + url,
+					success: function(r){
+						$.messager.show(r.msg);
+						if(r.success){
+							glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid('reload');
+							return true;
+						}
+						 
 					}
-			}]
+				});
+			}
 		});
 	};
 	//点击增加按钮触发方法

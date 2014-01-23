@@ -43,7 +43,7 @@ import com.glacier.netloan.service.system.PanelService;
 
 /**
  * @ClassName: ResourcesController
- * @Description: TODO(这里用一句话描述这个类的作用)
+ * @Description: TODO(资源控制器，此控制器包含了对三个业务的请求处理：菜单、面板、操作)
  * @author zhenfei.zhang
  * @email 289556866@qq.com
  * @date 2014-1-16 下午1:46:08
@@ -91,7 +91,7 @@ public class ResourcesController extends AbstractController{
         return mav;
     }
 
-    // 查看详细页面
+    // 查看菜单Detail页面
     @RequestMapping(value = "/menu/intoDetails.htm")
     private Object intoDetailsPage() {
         ModelAndView mav = new ModelAndView("system_mgr/res_mgr/menu_details");

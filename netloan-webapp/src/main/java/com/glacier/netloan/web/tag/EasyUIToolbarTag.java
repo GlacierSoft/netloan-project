@@ -10,10 +10,8 @@ import org.apache.shiro.subject.Subject;
 
 import com.glacier.basic.util.DBHelper;
 import com.glacier.netloan.entity.system.Action;
-import com.glacier.netloan.entity.system.util.ActionAuthRange;
 import com.glacier.netloan.entity.system.util.ActionDisabled;
 import com.glacier.netloan.entity.system.util.ActionType;
-import com.glacier.netloan.entity.system.util.DefaultAction;
 
 /**
  * 
@@ -25,10 +23,6 @@ import com.glacier.netloan.entity.system.util.DefaultAction;
  */
 public class EasyUIToolbarTag extends TagSupport {
 
-    /**
-     * 
-     * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
-     */
     private static final long serialVersionUID = 435348957983475982L;
 
     /**
