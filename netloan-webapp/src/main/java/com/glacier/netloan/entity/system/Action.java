@@ -40,6 +40,10 @@ public class Action {
      * 自定义显示字段：面板英文名称
      */
     private String panelEnName;
+    
+    public String getGroup(){
+        return this.panelCnName;
+    }
 
     public String getActionId() {
         return actionId;

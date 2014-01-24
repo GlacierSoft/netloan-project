@@ -248,7 +248,9 @@ public class MenuService {
      * @throws
      */
     public Object listAsTree() {
-        List<Menu> menuList = menuMapper.selectByExample(new MenuExample());
+        MenuExample menuExample = new MenuExample();
+        menuExample.setOrderByClause("temp_menu.order_num asc");
+        List<Menu> menuList = menuMapper.selectByExample(menuExample);
         return menuList;
     }
 
@@ -271,7 +273,9 @@ public class MenuService {
             menuItem.setIconCls("anchor");
             items.add(menuItem);
         }
-        List<Menu> menuList = menuMapper.selectByExample(new MenuExample());
+        MenuExample menuExample = new MenuExample();
+        menuExample.setOrderByClause("temp_menu.order_num asc");
+        List<Menu> menuList = menuMapper.selectByExample(menuExample);
         if (null != menuList && menuList.size() > 0) {
             List<Authority> authorities = null;
             if (StringUtils.isNotBlank(roleId)) {

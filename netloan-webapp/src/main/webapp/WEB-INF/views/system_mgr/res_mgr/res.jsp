@@ -6,16 +6,13 @@
 
 	$.util.namespace('glacier.system_mgr.res_mgr.res');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
-	//菜单选中
-	glacier.system_mgr.res_mgr.res.menuAlwaySelect = function(){
-		$('#res_btn_MenuTree_edit').linkbutton('enable');//菜单编辑按钮
-		$('#res_btn_MenuTree_del').linkbutton('enable');//菜单删除按钮
-	};
-	
-	//菜单未选中
-	glacier.system_mgr.res_mgr.res.menuAlwayUnSelect = function(){
-		$('#res_btn_MenuTree_edit').linkbutton('disable');//菜单编辑按钮
-		$('#res_btn_MenuTree_del').linkbutton('disable');//菜单删除按钮
+	//定义toolbar的操作，对操作进行控制
+	glacier.system_mgr.res_mgr.res.menuParam = {
+			toolbarId : 'menuTreeGridToolbar',
+			actions : {
+				edit:{flag:'edit',controlType:'single'},
+				del:{flag:'del',controlType:'single'}
+			}
 	};
 		
 	//初始化资源菜单menuTreeGrid
@@ -34,7 +31,7 @@
 		rowTooltip: false, //表行数据提示
 		toolbar : '#menuTreeGridToolbar',
 		onSelect:function(rowData){//选择行事件触发
-			glacier.system_mgr.res_mgr.res.menuAlwaySelect();
+			action_controller(glacier.system_mgr.res_mgr.res.menuParam,this).select();
 			if(rowData.url){//选中菜单的同时，根据菜单属性是否包含可用的URL进行对应的操作进行动态变更
 				glacier.system_mgr.res_mgr.res.actionPropertyGrid.propertygrid('load',{
 					menuId: rowData.menuId
@@ -45,7 +42,7 @@
 			}
 		},
 		onUnselectAll:function(rows){//取消选择行状态触发事件
-			glacier.system_mgr.res_mgr.res.menuAlwayUnSelect();
+			action_controller(glacier.system_mgr.res_mgr.res.menuParam,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$.fn.treegrid.extensions.onLoadSuccess.apply(this, arguments);//这句一定要加上
@@ -70,33 +67,15 @@
 		}]]
 	});
 	
-	//面板选中
-	glacier.system_mgr.res_mgr.res.panelAlwaySelect = function(){
-		$('#res_btn_PanelList_edit').linkbutton('enable');//编辑
+	//定义面板的toolbar的操作，对面板操作进行控制
+	glacier.system_mgr.res_mgr.res.panelParam = {
+			toolbarId : 'panelDataGridToolbar',
+			actions : {
+				edit:{flag:'edit',controlType:'single'},
+				del:{flag:'del',controlType:'multiple'}
+			}
 	};
 	
-	//面板未选中
-	glacier.system_mgr.res_mgr.res.panelAlwayUnSelect = function(){
-		$('#res_btn_PanelList_edit').linkbutton('disable');//编辑
-	};
-	
-	//面板勾选
-	glacier.system_mgr.res_mgr.res.panelAlwayCheck = function(){
-		var rows = glacier.system_mgr.res_mgr.res.panelDataGrid.datagrid("getChecked");
-		if(rows.length > 0){//如果勾选的列大于0，则激活删除按钮
-			$('#res_btn_PanelList_del').linkbutton('enable');//删除
-		}
-	};
-	
-	//面板取消勾选
-	glacier.system_mgr.res_mgr.res.panelAlwayUnCheck = function(){
-		var rows = glacier.system_mgr.res_mgr.res.panelDataGrid.datagrid("getChecked");
-		if(rows.length > 0){//如果勾选的列大于0，则激活删除按钮
-			$('#res_btn_PanelList_del').linkbutton('enable');//删除
-		}else{
-			$('#res_btn_PanelList_del').linkbutton('disable');//删除
-		}
-	};
 	
 	//初始化面板datagrid
 	glacier.system_mgr.res_mgr.res.panelDataGrid = $('#panelDataGrid').datagrid({
@@ -129,26 +108,26 @@
 		pageList : [2,10,50,100],//从session中获取
 		rownumbers:true,
 		onCheck:function(rowIndex,rowData){//选择行事件触发
-			glacier.system_mgr.res_mgr.res.panelAlwayCheck();
+			action_controller(glacier.system_mgr.res_mgr.res.panelParam,this).check();
 		},
 		onCheckAll:function(rows){//取消勾选行状态触发事件
-			glacier.system_mgr.res_mgr.res.panelAlwayCheck();
+			action_controller(glacier.system_mgr.res_mgr.res.panelParam,this).check();
 		},
 		onUncheck:function(rowIndex,rowData){//选择行事件触发
-			glacier.system_mgr.res_mgr.res.panelAlwayUnCheck();
+			action_controller(glacier.system_mgr.res_mgr.res.panelParam,this).unCheck();
 		},
 		onUncheckAll:function(rows){//取消勾选行状态触发事件
-			glacier.system_mgr.res_mgr.res.panelAlwayUnCheck();
+			action_controller(glacier.system_mgr.res_mgr.res.panelParam,this).unCheck();
 		},
 		onSelect:function(rowIndex, rowData){//选择行事件触发
-			glacier.system_mgr.res_mgr.res.panelAlwaySelect();
+			action_controller(glacier.system_mgr.res_mgr.res.panelParam,this).select();
 			glacier.system_mgr.res_mgr.res.actionPropertyGrid.propertygrid('load',{
 				menuId: rowData.menuId,
 				panelId:rowData.panelId
 			});
 		},
 		onUnselectAll:function(rows){
-			glacier.system_mgr.res_mgr.res.panelAlwayUnSelect();
+			action_controller(glacier.system_mgr.res_mgr.res.panelParam,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('unselectAll');
@@ -156,35 +135,15 @@
 		}
 	});
 	
-	
-	
-	//选中的时候默认调用的方法
-	glacier.system_mgr.res_mgr.res.actionAlwaySelect = function(){
-		$('#res_btn_ActionList_edit').linkbutton('enable');//编辑
+	//定义动作的toolbar的操作，对动作操作进行控制
+	glacier.system_mgr.res_mgr.res.actionParam = {
+			toolbarId : 'actionDataGridToolbar',
+			actions : {
+				edit:{flag:'edit',controlType:'single'},
+				del:{flag:'del',controlType:'multiple'}
+			}
 	};
 	
-	//没选中的时候默认调用的方法
-	glacier.system_mgr.res_mgr.res.actionAlwayUnSelect = function(){
-		$('#res_btn_ActionList_edit').linkbutton('disable');//编辑
-	};
-	
-	//勾选的时候默认调用的方法
-	glacier.system_mgr.res_mgr.res.actionAlwayCheck = function(){
-		var rows = glacier.system_mgr.res_mgr.res.actionPropertyGrid.propertygrid("getChecked");
-		if(rows.length > 0){//如果勾选的列大于0，则激活删除按钮
-			$('#res_btn_ActionList_del').linkbutton('enable');//删除
-		}
-	};
-	
-	//取消勾选的时候默认调用的方法
-	glacier.system_mgr.res_mgr.res.actionAlwayUnCheck = function(){
-		var rows = glacier.system_mgr.res_mgr.res.actionPropertyGrid.propertygrid("getChecked");
-		if(rows.length > 0){//如果勾选的列大于0，则激活删除按钮
-			$('#res_btn_ActionList_del').linkbutton('enable');//删除
-		}else{
-			$('#res_btn_ActionList_del').linkbutton('disable');//删除
-		}
-	};
 	
 	//初始化操作propertygrid
 	glacier.system_mgr.res_mgr.res.actionPropertyGrid = $('#actionDataGrid').propertygrid({
@@ -207,22 +166,22 @@
 		idField:'actionId',
 		toolbar : '#actionDataGridToolbar',
 		onCheck:function(rowIndex,rowData){//选择行事件触发
-			glacier.system_mgr.res_mgr.res.actionAlwayCheck();
+			action_controller(glacier.system_mgr.res_mgr.res.actionParam,this).check();
 		},
 		onCheckAll:function(rows){//取消勾选行状态触发事件
-			glacier.system_mgr.res_mgr.res.actionAlwayCheck();
+			action_controller(glacier.system_mgr.res_mgr.res.actionParam,this).check();
 		},
 		onUncheck:function(rowIndex,rowData){//选择行事件触发
-			glacier.system_mgr.res_mgr.res.actionAlwayUnCheck();
+			action_controller(glacier.system_mgr.res_mgr.res.actionParam,this).unCheck();
 		},
 		onUncheckAll:function(rows){//取消勾选行状态触发事件
-			glacier.system_mgr.res_mgr.res.actionAlwayUnCheck();
+			action_controller(glacier.system_mgr.res_mgr.res.actionParam,this).unCheck();
 		},
 		onSelect:function(rowIndex, rowData){//选择行事件触发
-			glacier.system_mgr.res_mgr.res.actionAlwaySelect();
+			action_controller(glacier.system_mgr.res_mgr.res.actionParam,this).select();
 		},
 		onUnselectAll:function(rows){
-			glacier.system_mgr.res_mgr.res.actionAlwayUnSelect();
+			action_controller(glacier.system_mgr.res_mgr.res.actionParam,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).propertygrid('clearSelections');//清空选择行与勾选行
