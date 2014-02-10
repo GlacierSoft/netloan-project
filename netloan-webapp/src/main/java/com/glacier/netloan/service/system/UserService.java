@@ -69,6 +69,5 @@ public class UserService {
         user.setPassword("admin");
         UserService userService = new UserService();
         userService.entryptPassword(user);
-        System.out.println(user);
     }
 }

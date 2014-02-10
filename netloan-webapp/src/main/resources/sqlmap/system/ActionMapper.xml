@@ -13,9 +13,10 @@
     <result column="temp_action_method" property="method" jdbcType="VARCHAR" />
     <result column="temp_action_order_num" property="orderNum" jdbcType="INTEGER" />
     <result column="temp_action_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_action_menuEnName" property="menuEnName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_action_menuCnName" property="menuCnName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_action_panel_cn_name" property="panelCnName" jdbcType="VARCHAR" /><!-- 自定义扩展字段 -->
     <result column="temp_action_panel_en_name" property="panelEnName" jdbcType="VARCHAR" /><!-- 自定义扩展字段 -->
-	<result column="temp_action_menuEnName" property="menuEnName"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -84,6 +85,7 @@
     temp_action.remark as temp_action_remark
     <!-- 以下字段属于扩展 -->
     ,temp_menu.menu_en_name as temp_action_menuEnName
+    ,temp_menu.menu_cn_name as temp_action_menuCnName
     ,temp_panel.panel_cn_name as temp_action_panel_cn_name
     ,temp_panel.panel_en_name as temp_action_panel_en_name
   </sql>

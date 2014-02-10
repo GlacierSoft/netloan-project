@@ -3,10 +3,15 @@
 <mapper namespace="com.glacier.netloan.dao.system.OperaLogMapper" >
   <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.system.OperaLog" >
     <id column="temp_operalog_operalog_id" property="operalogId" jdbcType="VARCHAR" />
-    <result column="temp_operalog_action_id" property="actionId" jdbcType="VARCHAR" />
-    <result column="temp_operalog_user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="temp_operalog_opera_menu" property="operaMenu" jdbcType="VARCHAR" />
+    <result column="temp_operalog_opera_penal" property="operaPenal" jdbcType="VARCHAR" />
+    <result column="temp_operalog_opera_method" property="operaMethod" jdbcType="VARCHAR" />
+    <result column="temp_operalog_opera_result" property="operaResult" jdbcType="VARCHAR" />
     <result column="temp_operalog_opera_desc" property="operaDesc" jdbcType="VARCHAR" />
-    <result column="temp_operalog_opera_id" property="operaId" jdbcType="VARCHAR" />
+    <result column="temp_operalog_opera_class" property="operaClass" jdbcType="VARCHAR" />
+    <result column="temp_operalog_opera_md" property="operaMd" jdbcType="VARCHAR" />
+    <result column="temp_operalog_opera_key" property="operaKey" jdbcType="VARCHAR" />
+    <result column="temp_operalog_operator" property="operator" jdbcType="VARCHAR" />
     <result column="temp_operalog_opera_time" property="operaTime" jdbcType="DATE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -68,9 +73,12 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    temp_operalog.operalog_id as temp_operalog_operalog_id, temp_operalog.action_id as temp_operalog_action_id, 
-    temp_operalog.user_id as temp_operalog_user_id, temp_operalog.opera_desc as temp_operalog_opera_desc, 
-    temp_operalog.opera_id as temp_operalog_opera_id, temp_operalog.opera_time as temp_operalog_opera_time
+    temp_operalog.operalog_id as temp_operalog_operalog_id, temp_operalog.opera_menu as temp_operalog_opera_menu, 
+    temp_operalog.opera_penal as temp_operalog_opera_penal, temp_operalog.opera_method as temp_operalog_opera_method, 
+    temp_operalog.opera_result as temp_operalog_opera_result, temp_operalog.opera_desc as temp_operalog_opera_desc, 
+    temp_operalog.opera_class as temp_operalog_opera_class, temp_operalog.opera_md as temp_operalog_opera_md, 
+    temp_operalog.opera_key as temp_operalog_opera_key, temp_operalog.operator as temp_operalog_operator, 
+    temp_operalog.opera_time as temp_operalog_opera_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.system.OperaLogExample" >
     select
@@ -106,12 +114,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.glacier.netloan.entity.system.OperaLog" >
-    insert into t_operalog (operalog_id, action_id, user_id, 
-      opera_desc, opera_id, opera_time
-      )
-    values (#{operalogId,jdbcType=VARCHAR}, #{actionId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
-      #{operaDesc,jdbcType=VARCHAR}, #{operaId,jdbcType=VARCHAR}, #{operaTime,jdbcType=DATE}
-      )
+    insert into t_operalog (operalog_id, opera_menu, opera_penal, 
+      opera_method, opera_result, opera_desc, 
+      opera_class, opera_md, opera_key, 
+      operator, opera_time)
+    values (#{operalogId,jdbcType=VARCHAR}, #{operaMenu,jdbcType=VARCHAR}, #{operaPenal,jdbcType=VARCHAR}, 
+      #{operaMethod,jdbcType=VARCHAR}, #{operaResult,jdbcType=VARCHAR}, #{operaDesc,jdbcType=VARCHAR}, 
+      #{operaClass,jdbcType=VARCHAR}, #{operaMd,jdbcType=VARCHAR}, #{operaKey,jdbcType=VARCHAR}, 
+      #{operator,jdbcType=VARCHAR}, #{operaTime,jdbcType=DATE})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.system.OperaLog" >
     insert into t_operalog
@@ -119,17 +129,32 @@
       <if test="operalogId != null" >
         operalog_id,
       </if>
-      <if test="actionId != null" >
-        action_id,
+      <if test="operaMenu != null" >
+        opera_menu,
       </if>
-      <if test="userId != null" >
-        user_id,
+      <if test="operaPenal != null" >
+        opera_penal,
+      </if>
+      <if test="operaMethod != null" >
+        opera_method,
+      </if>
+      <if test="operaResult != null" >
+        opera_result,
       </if>
       <if test="operaDesc != null" >
         opera_desc,
       </if>
-      <if test="operaId != null" >
-        opera_id,
+      <if test="operaClass != null" >
+        opera_class,
+      </if>
+      <if test="operaMd != null" >
+        opera_md,
+      </if>
+      <if test="operaKey != null" >
+        opera_key,
+      </if>
+      <if test="operator != null" >
+        operator,
       </if>
       <if test="operaTime != null" >
         opera_time,
@@ -139,17 +164,32 @@
       <if test="operalogId != null" >
         #{operalogId,jdbcType=VARCHAR},
       </if>
-      <if test="actionId != null" >
-        #{actionId,jdbcType=VARCHAR},
+      <if test="operaMenu != null" >
+        #{operaMenu,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=VARCHAR},
+      <if test="operaPenal != null" >
+        #{operaPenal,jdbcType=VARCHAR},
+      </if>
+      <if test="operaMethod != null" >
+        #{operaMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="operaResult != null" >
+        #{operaResult,jdbcType=VARCHAR},
       </if>
       <if test="operaDesc != null" >
         #{operaDesc,jdbcType=VARCHAR},
       </if>
-      <if test="operaId != null" >
-        #{operaId,jdbcType=VARCHAR},
+      <if test="operaClass != null" >
+        #{operaClass,jdbcType=VARCHAR},
+      </if>
+      <if test="operaMd != null" >
+        #{operaMd,jdbcType=VARCHAR},
+      </if>
+      <if test="operaKey != null" >
+        #{operaKey,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
       </if>
       <if test="operaTime != null" >
         #{operaTime,jdbcType=DATE},
@@ -168,17 +208,32 @@
       <if test="record.operalogId != null" >
         temp_operalog.operalog_id = #{record.operalogId,jdbcType=VARCHAR},
       </if>
-      <if test="record.actionId != null" >
-        temp_operalog.action_id = #{record.actionId,jdbcType=VARCHAR},
+      <if test="record.operaMenu != null" >
+        temp_operalog.opera_menu = #{record.operaMenu,jdbcType=VARCHAR},
       </if>
-      <if test="record.userId != null" >
-        temp_operalog.user_id = #{record.userId,jdbcType=VARCHAR},
+      <if test="record.operaPenal != null" >
+        temp_operalog.opera_penal = #{record.operaPenal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operaMethod != null" >
+        temp_operalog.opera_method = #{record.operaMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operaResult != null" >
+        temp_operalog.opera_result = #{record.operaResult,jdbcType=VARCHAR},
       </if>
       <if test="record.operaDesc != null" >
         temp_operalog.opera_desc = #{record.operaDesc,jdbcType=VARCHAR},
       </if>
-      <if test="record.operaId != null" >
-        temp_operalog.opera_id = #{record.operaId,jdbcType=VARCHAR},
+      <if test="record.operaClass != null" >
+        temp_operalog.opera_class = #{record.operaClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operaMd != null" >
+        temp_operalog.opera_md = #{record.operaMd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operaKey != null" >
+        temp_operalog.opera_key = #{record.operaKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operator != null" >
+        temp_operalog.operator = #{record.operator,jdbcType=VARCHAR},
       </if>
       <if test="record.operaTime != null" >
         temp_operalog.opera_time = #{record.operaTime,jdbcType=DATE},
@@ -191,10 +246,15 @@
   <update id="updateByExample" parameterType="map" >
     update t_operalog temp_operalog
     set temp_operalog.operalog_id = #{record.operalogId,jdbcType=VARCHAR},
-      temp_operalog.action_id = #{record.actionId,jdbcType=VARCHAR},
-      temp_operalog.user_id = #{record.userId,jdbcType=VARCHAR},
+      temp_operalog.opera_menu = #{record.operaMenu,jdbcType=VARCHAR},
+      temp_operalog.opera_penal = #{record.operaPenal,jdbcType=VARCHAR},
+      temp_operalog.opera_method = #{record.operaMethod,jdbcType=VARCHAR},
+      temp_operalog.opera_result = #{record.operaResult,jdbcType=VARCHAR},
       temp_operalog.opera_desc = #{record.operaDesc,jdbcType=VARCHAR},
-      temp_operalog.opera_id = #{record.operaId,jdbcType=VARCHAR},
+      temp_operalog.opera_class = #{record.operaClass,jdbcType=VARCHAR},
+      temp_operalog.opera_md = #{record.operaMd,jdbcType=VARCHAR},
+      temp_operalog.opera_key = #{record.operaKey,jdbcType=VARCHAR},
+      temp_operalog.operator = #{record.operator,jdbcType=VARCHAR},
       temp_operalog.opera_time = #{record.operaTime,jdbcType=DATE}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -203,17 +263,32 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.system.OperaLog" >
     update t_operalog
     <set >
-      <if test="actionId != null" >
-        action_id = #{actionId,jdbcType=VARCHAR},
+      <if test="operaMenu != null" >
+        opera_menu = #{operaMenu,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=VARCHAR},
+      <if test="operaPenal != null" >
+        opera_penal = #{operaPenal,jdbcType=VARCHAR},
+      </if>
+      <if test="operaMethod != null" >
+        opera_method = #{operaMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="operaResult != null" >
+        opera_result = #{operaResult,jdbcType=VARCHAR},
       </if>
       <if test="operaDesc != null" >
         opera_desc = #{operaDesc,jdbcType=VARCHAR},
       </if>
-      <if test="operaId != null" >
-        opera_id = #{operaId,jdbcType=VARCHAR},
+      <if test="operaClass != null" >
+        opera_class = #{operaClass,jdbcType=VARCHAR},
+      </if>
+      <if test="operaMd != null" >
+        opera_md = #{operaMd,jdbcType=VARCHAR},
+      </if>
+      <if test="operaKey != null" >
+        opera_key = #{operaKey,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
       </if>
       <if test="operaTime != null" >
         opera_time = #{operaTime,jdbcType=DATE},
@@ -223,10 +298,15 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.system.OperaLog" >
     update t_operalog
-    set action_id = #{actionId,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=VARCHAR},
+    set opera_menu = #{operaMenu,jdbcType=VARCHAR},
+      opera_penal = #{operaPenal,jdbcType=VARCHAR},
+      opera_method = #{operaMethod,jdbcType=VARCHAR},
+      opera_result = #{operaResult,jdbcType=VARCHAR},
       opera_desc = #{operaDesc,jdbcType=VARCHAR},
-      opera_id = #{operaId,jdbcType=VARCHAR},
+      opera_class = #{operaClass,jdbcType=VARCHAR},
+      opera_md = #{operaMd,jdbcType=VARCHAR},
+      opera_key = #{operaKey,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
       opera_time = #{operaTime,jdbcType=DATE}
     where operalog_id = #{operalogId,jdbcType=VARCHAR}
   </update>

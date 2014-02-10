@@ -222,143 +222,283 @@ public class OperaLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andActionIdIsNull() {
-            addCriterion("temp_operalog.action_id is null");
+        public Criteria andOperaMenuIsNull() {
+            addCriterion("temp_operalog.opera_menu is null");
             return (Criteria) this;
         }
 
-        public Criteria andActionIdIsNotNull() {
-            addCriterion("temp_operalog.action_id is not null");
+        public Criteria andOperaMenuIsNotNull() {
+            addCriterion("temp_operalog.opera_menu is not null");
             return (Criteria) this;
         }
 
-        public Criteria andActionIdEqualTo(String value) {
-            addCriterion("temp_operalog.action_id =", value, "actionId");
+        public Criteria andOperaMenuEqualTo(String value) {
+            addCriterion("temp_operalog.opera_menu =", value, "operaMenu");
             return (Criteria) this;
         }
 
-        public Criteria andActionIdNotEqualTo(String value) {
-            addCriterion("temp_operalog.action_id <>", value, "actionId");
+        public Criteria andOperaMenuNotEqualTo(String value) {
+            addCriterion("temp_operalog.opera_menu <>", value, "operaMenu");
             return (Criteria) this;
         }
 
-        public Criteria andActionIdGreaterThan(String value) {
-            addCriterion("temp_operalog.action_id >", value, "actionId");
+        public Criteria andOperaMenuGreaterThan(String value) {
+            addCriterion("temp_operalog.opera_menu >", value, "operaMenu");
             return (Criteria) this;
         }
 
-        public Criteria andActionIdGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_operalog.action_id >=", value, "actionId");
+        public Criteria andOperaMenuGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_operalog.opera_menu >=", value, "operaMenu");
             return (Criteria) this;
         }
 
-        public Criteria andActionIdLessThan(String value) {
-            addCriterion("temp_operalog.action_id <", value, "actionId");
+        public Criteria andOperaMenuLessThan(String value) {
+            addCriterion("temp_operalog.opera_menu <", value, "operaMenu");
             return (Criteria) this;
         }
 
-        public Criteria andActionIdLessThanOrEqualTo(String value) {
-            addCriterion("temp_operalog.action_id <=", value, "actionId");
+        public Criteria andOperaMenuLessThanOrEqualTo(String value) {
+            addCriterion("temp_operalog.opera_menu <=", value, "operaMenu");
             return (Criteria) this;
         }
 
-        public Criteria andActionIdLike(String value) {
-            addCriterion("temp_operalog.action_id like", value, "actionId");
+        public Criteria andOperaMenuLike(String value) {
+            addCriterion("temp_operalog.opera_menu like", value, "operaMenu");
             return (Criteria) this;
         }
 
-        public Criteria andActionIdNotLike(String value) {
-            addCriterion("temp_operalog.action_id not like", value, "actionId");
+        public Criteria andOperaMenuNotLike(String value) {
+            addCriterion("temp_operalog.opera_menu not like", value, "operaMenu");
             return (Criteria) this;
         }
 
-        public Criteria andActionIdIn(List<String> values) {
-            addCriterion("temp_operalog.action_id in", values, "actionId");
+        public Criteria andOperaMenuIn(List<String> values) {
+            addCriterion("temp_operalog.opera_menu in", values, "operaMenu");
             return (Criteria) this;
         }
 
-        public Criteria andActionIdNotIn(List<String> values) {
-            addCriterion("temp_operalog.action_id not in", values, "actionId");
+        public Criteria andOperaMenuNotIn(List<String> values) {
+            addCriterion("temp_operalog.opera_menu not in", values, "operaMenu");
             return (Criteria) this;
         }
 
-        public Criteria andActionIdBetween(String value1, String value2) {
-            addCriterion("temp_operalog.action_id between", value1, value2, "actionId");
+        public Criteria andOperaMenuBetween(String value1, String value2) {
+            addCriterion("temp_operalog.opera_menu between", value1, value2, "operaMenu");
             return (Criteria) this;
         }
 
-        public Criteria andActionIdNotBetween(String value1, String value2) {
-            addCriterion("temp_operalog.action_id not between", value1, value2, "actionId");
+        public Criteria andOperaMenuNotBetween(String value1, String value2) {
+            addCriterion("temp_operalog.opera_menu not between", value1, value2, "operaMenu");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIsNull() {
-            addCriterion("temp_operalog.user_id is null");
+        public Criteria andOperaPenalIsNull() {
+            addCriterion("temp_operalog.opera_penal is null");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIsNotNull() {
-            addCriterion("temp_operalog.user_id is not null");
+        public Criteria andOperaPenalIsNotNull() {
+            addCriterion("temp_operalog.opera_penal is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdEqualTo(String value) {
-            addCriterion("temp_operalog.user_id =", value, "userId");
+        public Criteria andOperaPenalEqualTo(String value) {
+            addCriterion("temp_operalog.opera_penal =", value, "operaPenal");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotEqualTo(String value) {
-            addCriterion("temp_operalog.user_id <>", value, "userId");
+        public Criteria andOperaPenalNotEqualTo(String value) {
+            addCriterion("temp_operalog.opera_penal <>", value, "operaPenal");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThan(String value) {
-            addCriterion("temp_operalog.user_id >", value, "userId");
+        public Criteria andOperaPenalGreaterThan(String value) {
+            addCriterion("temp_operalog.opera_penal >", value, "operaPenal");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_operalog.user_id >=", value, "userId");
+        public Criteria andOperaPenalGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_operalog.opera_penal >=", value, "operaPenal");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThan(String value) {
-            addCriterion("temp_operalog.user_id <", value, "userId");
+        public Criteria andOperaPenalLessThan(String value) {
+            addCriterion("temp_operalog.opera_penal <", value, "operaPenal");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThanOrEqualTo(String value) {
-            addCriterion("temp_operalog.user_id <=", value, "userId");
+        public Criteria andOperaPenalLessThanOrEqualTo(String value) {
+            addCriterion("temp_operalog.opera_penal <=", value, "operaPenal");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLike(String value) {
-            addCriterion("temp_operalog.user_id like", value, "userId");
+        public Criteria andOperaPenalLike(String value) {
+            addCriterion("temp_operalog.opera_penal like", value, "operaPenal");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotLike(String value) {
-            addCriterion("temp_operalog.user_id not like", value, "userId");
+        public Criteria andOperaPenalNotLike(String value) {
+            addCriterion("temp_operalog.opera_penal not like", value, "operaPenal");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIn(List<String> values) {
-            addCriterion("temp_operalog.user_id in", values, "userId");
+        public Criteria andOperaPenalIn(List<String> values) {
+            addCriterion("temp_operalog.opera_penal in", values, "operaPenal");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotIn(List<String> values) {
-            addCriterion("temp_operalog.user_id not in", values, "userId");
+        public Criteria andOperaPenalNotIn(List<String> values) {
+            addCriterion("temp_operalog.opera_penal not in", values, "operaPenal");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdBetween(String value1, String value2) {
-            addCriterion("temp_operalog.user_id between", value1, value2, "userId");
+        public Criteria andOperaPenalBetween(String value1, String value2) {
+            addCriterion("temp_operalog.opera_penal between", value1, value2, "operaPenal");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotBetween(String value1, String value2) {
-            addCriterion("temp_operalog.user_id not between", value1, value2, "userId");
+        public Criteria andOperaPenalNotBetween(String value1, String value2) {
+            addCriterion("temp_operalog.opera_penal not between", value1, value2, "operaPenal");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMethodIsNull() {
+            addCriterion("temp_operalog.opera_method is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMethodIsNotNull() {
+            addCriterion("temp_operalog.opera_method is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMethodEqualTo(String value) {
+            addCriterion("temp_operalog.opera_method =", value, "operaMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMethodNotEqualTo(String value) {
+            addCriterion("temp_operalog.opera_method <>", value, "operaMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMethodGreaterThan(String value) {
+            addCriterion("temp_operalog.opera_method >", value, "operaMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMethodGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_operalog.opera_method >=", value, "operaMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMethodLessThan(String value) {
+            addCriterion("temp_operalog.opera_method <", value, "operaMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMethodLessThanOrEqualTo(String value) {
+            addCriterion("temp_operalog.opera_method <=", value, "operaMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMethodLike(String value) {
+            addCriterion("temp_operalog.opera_method like", value, "operaMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMethodNotLike(String value) {
+            addCriterion("temp_operalog.opera_method not like", value, "operaMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMethodIn(List<String> values) {
+            addCriterion("temp_operalog.opera_method in", values, "operaMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMethodNotIn(List<String> values) {
+            addCriterion("temp_operalog.opera_method not in", values, "operaMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMethodBetween(String value1, String value2) {
+            addCriterion("temp_operalog.opera_method between", value1, value2, "operaMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMethodNotBetween(String value1, String value2) {
+            addCriterion("temp_operalog.opera_method not between", value1, value2, "operaMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaResultIsNull() {
+            addCriterion("temp_operalog.opera_result is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaResultIsNotNull() {
+            addCriterion("temp_operalog.opera_result is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaResultEqualTo(String value) {
+            addCriterion("temp_operalog.opera_result =", value, "operaResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaResultNotEqualTo(String value) {
+            addCriterion("temp_operalog.opera_result <>", value, "operaResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaResultGreaterThan(String value) {
+            addCriterion("temp_operalog.opera_result >", value, "operaResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaResultGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_operalog.opera_result >=", value, "operaResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaResultLessThan(String value) {
+            addCriterion("temp_operalog.opera_result <", value, "operaResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaResultLessThanOrEqualTo(String value) {
+            addCriterion("temp_operalog.opera_result <=", value, "operaResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaResultLike(String value) {
+            addCriterion("temp_operalog.opera_result like", value, "operaResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaResultNotLike(String value) {
+            addCriterion("temp_operalog.opera_result not like", value, "operaResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaResultIn(List<String> values) {
+            addCriterion("temp_operalog.opera_result in", values, "operaResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaResultNotIn(List<String> values) {
+            addCriterion("temp_operalog.opera_result not in", values, "operaResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaResultBetween(String value1, String value2) {
+            addCriterion("temp_operalog.opera_result between", value1, value2, "operaResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaResultNotBetween(String value1, String value2) {
+            addCriterion("temp_operalog.opera_result not between", value1, value2, "operaResult");
             return (Criteria) this;
         }
 
@@ -432,73 +572,283 @@ public class OperaLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andOperaIdIsNull() {
-            addCriterion("temp_operalog.opera_id is null");
+        public Criteria andOperaClassIsNull() {
+            addCriterion("temp_operalog.opera_class is null");
             return (Criteria) this;
         }
 
-        public Criteria andOperaIdIsNotNull() {
-            addCriterion("temp_operalog.opera_id is not null");
+        public Criteria andOperaClassIsNotNull() {
+            addCriterion("temp_operalog.opera_class is not null");
             return (Criteria) this;
         }
 
-        public Criteria andOperaIdEqualTo(String value) {
-            addCriterion("temp_operalog.opera_id =", value, "operaId");
+        public Criteria andOperaClassEqualTo(String value) {
+            addCriterion("temp_operalog.opera_class =", value, "operaClass");
             return (Criteria) this;
         }
 
-        public Criteria andOperaIdNotEqualTo(String value) {
-            addCriterion("temp_operalog.opera_id <>", value, "operaId");
+        public Criteria andOperaClassNotEqualTo(String value) {
+            addCriterion("temp_operalog.opera_class <>", value, "operaClass");
             return (Criteria) this;
         }
 
-        public Criteria andOperaIdGreaterThan(String value) {
-            addCriterion("temp_operalog.opera_id >", value, "operaId");
+        public Criteria andOperaClassGreaterThan(String value) {
+            addCriterion("temp_operalog.opera_class >", value, "operaClass");
             return (Criteria) this;
         }
 
-        public Criteria andOperaIdGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_operalog.opera_id >=", value, "operaId");
+        public Criteria andOperaClassGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_operalog.opera_class >=", value, "operaClass");
             return (Criteria) this;
         }
 
-        public Criteria andOperaIdLessThan(String value) {
-            addCriterion("temp_operalog.opera_id <", value, "operaId");
+        public Criteria andOperaClassLessThan(String value) {
+            addCriterion("temp_operalog.opera_class <", value, "operaClass");
             return (Criteria) this;
         }
 
-        public Criteria andOperaIdLessThanOrEqualTo(String value) {
-            addCriterion("temp_operalog.opera_id <=", value, "operaId");
+        public Criteria andOperaClassLessThanOrEqualTo(String value) {
+            addCriterion("temp_operalog.opera_class <=", value, "operaClass");
             return (Criteria) this;
         }
 
-        public Criteria andOperaIdLike(String value) {
-            addCriterion("temp_operalog.opera_id like", value, "operaId");
+        public Criteria andOperaClassLike(String value) {
+            addCriterion("temp_operalog.opera_class like", value, "operaClass");
             return (Criteria) this;
         }
 
-        public Criteria andOperaIdNotLike(String value) {
-            addCriterion("temp_operalog.opera_id not like", value, "operaId");
+        public Criteria andOperaClassNotLike(String value) {
+            addCriterion("temp_operalog.opera_class not like", value, "operaClass");
             return (Criteria) this;
         }
 
-        public Criteria andOperaIdIn(List<String> values) {
-            addCriterion("temp_operalog.opera_id in", values, "operaId");
+        public Criteria andOperaClassIn(List<String> values) {
+            addCriterion("temp_operalog.opera_class in", values, "operaClass");
             return (Criteria) this;
         }
 
-        public Criteria andOperaIdNotIn(List<String> values) {
-            addCriterion("temp_operalog.opera_id not in", values, "operaId");
+        public Criteria andOperaClassNotIn(List<String> values) {
+            addCriterion("temp_operalog.opera_class not in", values, "operaClass");
             return (Criteria) this;
         }
 
-        public Criteria andOperaIdBetween(String value1, String value2) {
-            addCriterion("temp_operalog.opera_id between", value1, value2, "operaId");
+        public Criteria andOperaClassBetween(String value1, String value2) {
+            addCriterion("temp_operalog.opera_class between", value1, value2, "operaClass");
             return (Criteria) this;
         }
 
-        public Criteria andOperaIdNotBetween(String value1, String value2) {
-            addCriterion("temp_operalog.opera_id not between", value1, value2, "operaId");
+        public Criteria andOperaClassNotBetween(String value1, String value2) {
+            addCriterion("temp_operalog.opera_class not between", value1, value2, "operaClass");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMdIsNull() {
+            addCriterion("temp_operalog.opera_md is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMdIsNotNull() {
+            addCriterion("temp_operalog.opera_md is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMdEqualTo(String value) {
+            addCriterion("temp_operalog.opera_md =", value, "operaMd");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMdNotEqualTo(String value) {
+            addCriterion("temp_operalog.opera_md <>", value, "operaMd");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMdGreaterThan(String value) {
+            addCriterion("temp_operalog.opera_md >", value, "operaMd");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMdGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_operalog.opera_md >=", value, "operaMd");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMdLessThan(String value) {
+            addCriterion("temp_operalog.opera_md <", value, "operaMd");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMdLessThanOrEqualTo(String value) {
+            addCriterion("temp_operalog.opera_md <=", value, "operaMd");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMdLike(String value) {
+            addCriterion("temp_operalog.opera_md like", value, "operaMd");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMdNotLike(String value) {
+            addCriterion("temp_operalog.opera_md not like", value, "operaMd");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMdIn(List<String> values) {
+            addCriterion("temp_operalog.opera_md in", values, "operaMd");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMdNotIn(List<String> values) {
+            addCriterion("temp_operalog.opera_md not in", values, "operaMd");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMdBetween(String value1, String value2) {
+            addCriterion("temp_operalog.opera_md between", value1, value2, "operaMd");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaMdNotBetween(String value1, String value2) {
+            addCriterion("temp_operalog.opera_md not between", value1, value2, "operaMd");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaKeyIsNull() {
+            addCriterion("temp_operalog.opera_key is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaKeyIsNotNull() {
+            addCriterion("temp_operalog.opera_key is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaKeyEqualTo(String value) {
+            addCriterion("temp_operalog.opera_key =", value, "operaKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaKeyNotEqualTo(String value) {
+            addCriterion("temp_operalog.opera_key <>", value, "operaKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaKeyGreaterThan(String value) {
+            addCriterion("temp_operalog.opera_key >", value, "operaKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaKeyGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_operalog.opera_key >=", value, "operaKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaKeyLessThan(String value) {
+            addCriterion("temp_operalog.opera_key <", value, "operaKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaKeyLessThanOrEqualTo(String value) {
+            addCriterion("temp_operalog.opera_key <=", value, "operaKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaKeyLike(String value) {
+            addCriterion("temp_operalog.opera_key like", value, "operaKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaKeyNotLike(String value) {
+            addCriterion("temp_operalog.opera_key not like", value, "operaKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaKeyIn(List<String> values) {
+            addCriterion("temp_operalog.opera_key in", values, "operaKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaKeyNotIn(List<String> values) {
+            addCriterion("temp_operalog.opera_key not in", values, "operaKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaKeyBetween(String value1, String value2) {
+            addCriterion("temp_operalog.opera_key between", value1, value2, "operaKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaKeyNotBetween(String value1, String value2) {
+            addCriterion("temp_operalog.opera_key not between", value1, value2, "operaKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorIsNull() {
+            addCriterion("temp_operalog.operator is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorIsNotNull() {
+            addCriterion("temp_operalog.operator is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorEqualTo(String value) {
+            addCriterion("temp_operalog.operator =", value, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorNotEqualTo(String value) {
+            addCriterion("temp_operalog.operator <>", value, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorGreaterThan(String value) {
+            addCriterion("temp_operalog.operator >", value, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_operalog.operator >=", value, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorLessThan(String value) {
+            addCriterion("temp_operalog.operator <", value, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorLessThanOrEqualTo(String value) {
+            addCriterion("temp_operalog.operator <=", value, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorLike(String value) {
+            addCriterion("temp_operalog.operator like", value, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorNotLike(String value) {
+            addCriterion("temp_operalog.operator not like", value, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorIn(List<String> values) {
+            addCriterion("temp_operalog.operator in", values, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorNotIn(List<String> values) {
+            addCriterion("temp_operalog.operator not in", values, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorBetween(String value1, String value2) {
+            addCriterion("temp_operalog.operator between", value1, value2, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorNotBetween(String value1, String value2) {
+            addCriterion("temp_operalog.operator not between", value1, value2, "operator");
             return (Criteria) this;
         }
 

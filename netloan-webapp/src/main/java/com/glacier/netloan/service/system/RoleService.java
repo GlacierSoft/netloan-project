@@ -38,7 +38,7 @@ public class RoleService {
 
     /**
      * @Title: getRole
-     * @Description: TODO(这里用一句话描述这个方法的作用)
+     * @Description: TODO(根据角色ID获取角色信息)
      * @param @param roleId
      * @param @return
      * @throws 备注
@@ -46,7 +46,6 @@ public class RoleService {
      *             已检查测试:Green
      *             <p>
      */
-
     public Object getRole(String roleId) {
         return roleMapper.selectByPrimaryKey(roleId);
     }
@@ -62,7 +61,6 @@ public class RoleService {
      * @throws
      */
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "浏览角色")
     public Object listAsGrid(JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
@@ -97,7 +95,7 @@ public class RoleService {
     public Object addRole(Role role) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
+
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         RoleExample roleExample = new RoleExample();
         int count = 0;
@@ -140,7 +138,7 @@ public class RoleService {
      *             <p>
      */
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "修改角色")
+    @MethodLog(opera = "RoleList_edit")
     public Object editRole(Role role) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         RoleExample roleExample = new RoleExample();
@@ -163,7 +161,7 @@ public class RoleService {
         count = roleMapper.updateByPrimaryKeySelective(role);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + role.getRoleCnName() + "] 角色信息已保存");
+            returnResult.setMsg("[" + role.getRoleCnName() + "] 角色信息已变更!");
         } else {
             returnResult.setMsg("角色信息保存失败，请联系管理员!");
         }

@@ -1,5 +1,7 @@
 package com.glacier.netloan.entity.system;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import com.glacier.netloan.entity.system.util.ActionDisabled;
 import com.glacier.netloan.entity.system.util.ActionType;
 
@@ -30,6 +32,11 @@ public class Action {
      * 自定义显示字段：菜单英文名称
      */
     private String menuEnName;
+    
+    /**
+     * 自定义显示字段：菜单中文名称
+     */
+    private String menuCnName;
 
     /**
      * 自定义显示字段：面板中文名称
@@ -141,6 +148,14 @@ public class Action {
         this.menuEnName = menuEnName;
     }
 
+    public String getMenuCnName() {
+        return menuCnName;
+    }
+
+    public void setMenuCnName(String menuCnName) {
+        this.menuCnName = menuCnName;
+    }
+
     public String getPanelCnName() {
         return panelCnName;
     }
@@ -155,6 +170,18 @@ public class Action {
 
     public void setPanelEnName(String panelEnName) {
         this.panelEnName = panelEnName;
+    }
+    
+    /* (non-Javadoc)
+     *  
+     *  
+     * @return 
+     * @see java.lang.Object#toString() 
+     */
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return ReflectionToStringBuilder.toString(this);
     }
 
 }
