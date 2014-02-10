@@ -5,6 +5,7 @@
  */
 package com.glacier.netloan.service.basicdatas;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,11 +17,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.jqueryui.util.Tree;
 import com.glacier.netloan.dao.basicdatas.ParameterAreaMapper;
+import com.glacier.netloan.dao.system.AuthorityMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterArea;
 import com.glacier.netloan.entity.basicdatas.ParameterAreaExample;
 import com.glacier.netloan.entity.system.User;
@@ -40,6 +44,9 @@ public class ParameterAreaService {
 	@Autowired
     private ParameterAreaMapper areaMapper;
 
+	@Autowired
+    private AuthorityMapper authorityMapper;
+	
     public Object getArea(String areaId) {
         return areaMapper.selectByPrimaryKey(areaId);
     }
@@ -114,6 +121,44 @@ public class ParameterAreaService {
             returnResult.setMsg("地区信息保存失败，请联系管理员!");
         }
         return returnResult;
+    }
+    
+    /**
+     * 
+     * @Title: getAllTreeAreaNode
+     * @Description: TODO(获取全部的地区数据组装成EasyUI树节点JSON)
+     * @param @param virtualRoot 是否构建虚拟ROOT -> 系统地区作为导航
+     * @param @return 设定文件
+     * @return String 返回类型
+     * @throws
+     */
+    public String getAllTreeAreaNode(boolean virtualRoot, String roleId) {
+
+        List<Tree> items = new ArrayList<Tree>();
+        if (virtualRoot) {
+            Tree areaItem = new Tree();// 增加总的树节点作为地区导航
+            areaItem.setId("ROOT");
+            areaItem.setText("地区");
+            items.add(areaItem);
+        }
+        ParameterAreaExample areaExample = new ParameterAreaExample();
+        areaExample.setOrderByClause("temp_parameter_area.area_num asc");
+        List<ParameterArea> areaList = areaMapper.selectByExample(areaExample);
+        if (null != areaList && areaList.size() > 0) {
+            for (ParameterArea area : areaList) {
+                Tree item = new Tree();// 将查询到的地区记录某些属性值设置在ComboTreeItem中，用于页面的ComboTree的数据绑定
+                item.setId(area.getAreaId());
+                item.setText(area.getAreaName());
+                if (StringUtils.isNotBlank(area.getAreaPid())) {
+                    item.setPid(area.getAreaPid());
+                } else if (virtualRoot) {
+                    item.setPid("ROOT");// 如果父节点为空说明上一级为总节点
+                }
+
+                items.add(item);
+            }
+        }
+        return JackJson.fromObjectToJson(items);
     }
     
     /**

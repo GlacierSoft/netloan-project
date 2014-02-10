@@ -52,18 +52,12 @@ public class ParameterAreaController extends AbstractController{
     @RequestMapping(value = "/intoForm.htm")
     private Object intoareaFormParea(String areaId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/area_mgr/area_form");
+        mav.addObject("allAreaTreeNodeData", areaService.getAllTreeAreaNode(true,""));
         if(StringUtils.isNotBlank(areaId)){
             mav.addObject("areaData", areaService.getArea(areaId));
         }
         return mav;
     }
-    
-//    // 获取表格结构的所有菜单数据
-//    @RequestMapping(value = "/list.json", method = RequestMethod.POST)
-//    @ResponseBody
-//    private Object listActionAsGridByMenuId(String menuId, JqPager pager) {
-//        return areaService.listAsGrid(pager);
-//    }
     
     // 增加地区
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
