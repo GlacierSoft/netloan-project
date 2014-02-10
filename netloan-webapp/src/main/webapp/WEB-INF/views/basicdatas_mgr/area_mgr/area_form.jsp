@@ -13,8 +13,8 @@
 		</tr>
 		<tr>
 			<td>父级地区：</td>
-			<td>
-				<input id="area_mgr_area_form_areaPid" name="areaPid" class="easyui-validatebox spinner" style="width:268px" required="true" value="${areaData.areaPid}"/>
+			<td class="forminputtable">
+				<input id="area_mgr_area_form_areaPid" name="areaPid"/>
 			</td>
 		</tr>
 		<tr>
@@ -29,3 +29,15 @@
 		</tr>
 	</table>
 </form>
+
+<script type="text/javascript">
+	//初始化上级菜单
+	$("#area_mgr_area_form_areaPid").combotree({
+		data : $.parseJSON('${allAreaTreeNodeData}'),
+		width:268,
+		height:18,
+	    missingMessage:'请选择上级地区',
+	    smooth: true,       //该属性用以启用当前 easyui-tree 控件对平滑数据格式的支持
+	    lines : true
+	});	
+</script>

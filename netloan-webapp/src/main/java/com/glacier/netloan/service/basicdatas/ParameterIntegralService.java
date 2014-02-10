@@ -132,8 +132,8 @@ public class ParameterIntegralService {
         if (count > 0) {
             returnResult.setMsg("会员信用等级名称重复，请重新填写!");
             return returnResult;
-        }
-        count = parameterIntegralMapper.updateByPrimaryKey(parameterIntegral);
+        }                               
+        count = parameterIntegralMapper.updateByPrimaryKeySelective(parameterIntegral);
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + parameterIntegral.getIntegralName() + "] 会员信用等级信息已修改保存");

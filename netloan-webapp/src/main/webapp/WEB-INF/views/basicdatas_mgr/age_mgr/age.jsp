@@ -6,6 +6,15 @@
 
 	$.util.namespace('glacier.basicdatas_mgr.age_mgr.age');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
+	//定义toolbar的操作，对操作进行控制
+	glacier.basicdatas_mgr.age_mgr.age.param = {
+			toolbarId : 'ageDataGrid_toolbar',
+			actions : {
+				edit:{flag:'edit',controlType:'single'},
+				auth:{flag:'auth',controlType:'single'},
+				del:{flag:'del',controlType:'multiple'}
+			}
+	};
 	
 	//初始化会员年龄别称DataGrid
 	glacier.basicdatas_mgr.age_mgr.age.ageDataGrid = $('#ageDataGrid').datagrid({
@@ -60,48 +69,74 @@
 		pageSize : 10,//注意，pageSize必须在pageList存在
 		pageList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#ageDataGrid_toolbar'
+		toolbar:'#ageDataGrid_toolbar',
+		onCheck:function(rowIndex,rowData){//选择行事件触发
+			action_controller(glacier.basicdatas_mgr.age_mgr.age.param,this).check();
+		},
+		onCheckAll:function(rows){//取消勾选行状态触发事件
+			action_controller(glacier.basicdatas_mgr.age_mgr.age.param,this).check();
+		},
+		onUncheck:function(rowIndex,rowData){//选择行事件触发
+			action_controller(glacier.basicdatas_mgr.age_mgr.age.param,this).unCheck();
+		},
+		onUncheckAll:function(rows){//取消勾选行状态触发事件
+			action_controller(glacier.basicdatas_mgr.age_mgr.age.param,this).unCheck();
+		},
+		onSelect:function(rowIndex, rowData){//选择行事件触发
+			action_controller(glacier.basicdatas_mgr.age_mgr.age.param,this).select();
+		},
+		onUnselectAll:function(rows){
+			action_controller(glacier.basicdatas_mgr.age_mgr.age.param,this).unSelect();
+		},
+		onLoadSuccess:function(index, record){//加载数据成功触发事件
+			$(this).datagrid('unselectAll');
+			$(this).datagrid('uncheckAll');
+		}
 	});
 	
-	glacier.basicdatas_mgr.age_mgr.age.newDialog = function(title,ageId,url,loadType){
+	/*
+		新建/编辑 弹出框
+		title:弹出框标题
+		submitUrl：提交路径
+		id:新增值为空字符串，编辑填写后台要获取的数据ID
+	*/
+	glacier.basicdatas_mgr.age_mgr.age.newDialog = function(title,submitUrl,id){
+		var iconCls = 'icon-standard-pencil-add';
+		if(id){
+			iconCls='icon-standard-pencil-go';
+		}
 		$.easyui.showDialog({
-			href : ctx + '/do/age/intoForm.htm?ageId='+ageId,//从controller请求jsp页面进行渲染
-			width : 450,
-			height : 300,
+			href : ctx + '/do/age/intoForm.htm?ageId='+id,//从controller请求jsp页面进行渲染
+			width : 400,
+			height : 280,
 			resizable: false,
-			enableSaveButton : false,
 			enableApplyButton : false,
 			title : title,
-			buttons : [ 
-			 {
-				text : '保存',
-				iconCls : 'icon-save',
-				handler : function(dia) {
-						$('#age_mgr_age_form').form('submit', {
-							url: ctx + url,
-							success: function(r){
-								$.messager.show(r.msg);
-								if(r.success){
-									glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid('reload');
-								    dia.dialog("close"); 
-								}
-								 
-							}
-						});
+			iconCls : iconCls,
+			onSave : function(){
+				$(this).find('form').form('submit', {
+					url: ctx + submitUrl,
+					success: function(r){
+						$.messager.show(r.msg);
+						if(r.success){
+							glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid('reload');
+							return true;
+						}
+						 
 					}
-			}]
+				});
+			}
 		});
 	};
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.age_mgr.age.addAge = function(){
-		glacier.basicdatas_mgr.age_mgr.age.newDialog('增加会员年龄别称','','/do/age/add.json','load');
+		glacier.basicdatas_mgr.age_mgr.age.newDialog(' 增加会员年龄别称','/do/age/add.json','');
 	};
 	//点击编辑按钮触发方法
 	glacier.basicdatas_mgr.age_mgr.age.editAge = function(){
 		var row = glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid("getSelected");
-		glacier.basicdatas_mgr.age_mgr.age.newDialog('编辑会员年龄别称',row.ageId,'/do/age/edit.json','reload');
+		glacier.basicdatas_mgr.age_mgr.age.newDialog(' 编辑【'+row.ageName+'】','/do/age/edit.json',row.ageId);
 	};
-	
 	//点击删除按钮触发方法
 	glacier.basicdatas_mgr.age_mgr.age.delAge = function(){
 		var row = glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid("getChecked");
@@ -126,6 +161,12 @@
 			});
 		}
 	};
+	//会员年龄别称资料模糊查询
+	glacier.basicdatas_mgr.age_mgr.age.quickquery = function(value,name){
+		var obj = $.parseJSON('{"'+name+'":"'+value+'"}');//将值和对象封装成obj作为参数传递给后台
+		glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid('load',obj);
+	};
+	
 </script>
 
 <!-- 所有会员年龄别称列表面板和表格 -->
