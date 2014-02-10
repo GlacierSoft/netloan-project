@@ -6,6 +6,14 @@
 
 	$.util.namespace('glacier.basicdatas_mgr.credit_mgr.credit');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
+	//定义toolbar的操作，对操作进行控制
+	glacier.basicdatas_mgr.credit_mgr.credit.param = {
+			toolbarId : 'creditDataGrid_toolbar',
+			actions : {
+				edit:{flag:'edit',controlType:'single'},
+				del:{flag:'del',controlType:'multiple'}
+			}
+	};
 	
 	//初始化角色DataGrid
 	glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid = $('#creditDataGrid').datagrid({
@@ -60,48 +68,74 @@
 		pageSize : 10,//注意，pageSize必须在pageList存在
 		pageList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#creditDataGrid_toolbar'
+		toolbar:'#creditDataGrid_toolbar',
+		onCheck:function(rowIndex,rowData){//在用户勾选一行的时候触发事件
+			action_controller(glacier.basicdatas_mgr.credit_mgr.credit.param,this).check();
+		},
+		onCheckAll:function(rows){//在用户勾选所有行的时候触发
+			action_controller(glacier.basicdatas_mgr.credit_mgr.credit.param,this).check();
+		},
+		onUncheck:function(rowIndex,rowData){//在用户取消勾选一行的时候触发
+			action_controller(glacier.basicdatas_mgr.credit_mgr.credit.param,this).unCheck();
+		},
+		onUncheckAll:function(rows){//在用户取消勾选所有行的时候触发
+			action_controller(glacier.basicdatas_mgr.credit_mgr.credit.param,this).unCheck();
+		},
+		onSelect:function(rowIndex, rowData){//在用户选择一行的时候触发
+			action_controller(glacier.basicdatas_mgr.credit_mgr.credit.param,this).select();
+		},
+		onUnselectAll:function(rows){//在用户取消勾选所有行的时候触发
+			action_controller(glacier.basicdatas_mgr.credit_mgr.credit.param,this).unSelect();
+		},
+		onLoadSuccess:function(index, record){//加载数据成功触发事件
+			$(this).datagrid('unselectAll');
+			$(this).datagrid('uncheckAll');
+		}
 	});
-	
-	glacier.basicdatas_mgr.credit_mgr.credit.newDialog = function(title,creditId,url,loadType){
+	/*
+		新建/编辑 弹出框
+		title:弹出框标题
+		submitUrl：提交路径
+		id:新增值为空字符串，编辑填写后台要获取的数据ID
+	*/
+	glacier.basicdatas_mgr.credit_mgr.credit.newDialog = function(title,submitUrl,id){
+		var iconCls = 'icon-standard-pencil-add';
+		if(id){
+			iconCls='icon-standard-pencil-go';
+		}
 		$.easyui.showDialog({
-			href : ctx + '/do/credit/intoForm.htm?creditId='+creditId,//从controller请求jsp页面进行渲染
+			href : ctx + '/do/credit/intoForm.htm?creditId='+id,//从controller请求jsp页面进行渲染
 			width : 450,
 			height : 300,
 			resizable: false,
-			enableSaveButton : false,
 			enableApplyButton : false,
 			title : title,
-			buttons : [ 
-			 {
-				text : '保存',
-				iconCls : 'icon-save',
-				handler : function(dia) {
-						$('#credit_mgr_credit_form').form('submit', {
-							url: ctx + url,
-							success: function(r){
-								$.messager.show(r.msg);
-								if(r.success){
-									glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid('reload');
-								    dia.dialog("close"); 
-								}
-								 
-							}
-						});
+			iconCls : iconCls,
+			onSave : function(){
+				$(this).find('form').form('submit', {
+					url: ctx + submitUrl,
+					success: function(r){
+						$.messager.show(r.msg);
+						if(r.success){
+							glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid('reload');
+							return true;
+						}
+						 
 					}
-			}]
+				});
+			}
 		});
 	};
-	
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.credit_mgr.credit.addCredit = function(){
-		glacier.basicdatas_mgr.credit_mgr.credit.newDialog('增加会员信用级别','','/do/credit/add.json','load');
+		glacier.basicdatas_mgr.credit_mgr.credit.newDialog('增加会员信用级别','/do/credit/add.json','');
 	};
 	//点击编辑按钮触发方法
 	glacier.basicdatas_mgr.credit_mgr.credit.editCredit = function(){
 		var row = glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid("getSelected");
-		glacier.basicdatas_mgr.credit_mgr.credit.newDialog('编辑会员信用级别',row.creditId,'/do/credit/edit.json','reload');
+		glacier.basicdatas_mgr.credit_mgr.credit.newDialog('编辑【'+row.creditName+'】','/do/credit/edit.json',row.creditId);
 	};
+	
 	//点击删除按钮触发方法
 	glacier.basicdatas_mgr.credit_mgr.credit.delCredit = function(){
 		var row = glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid("getChecked");

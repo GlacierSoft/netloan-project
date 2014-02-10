@@ -1,14 +1,23 @@
 package com.glacier.netloan.web.controller.basicdatas;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
@@ -57,10 +66,26 @@ public class ParameterCreditController extends AbstractController{
     // 增加会员信用等级
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addCredit(@Valid ParameterCredit parameterCredit, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {// 后台校验的错误信息
+    //private Object addCredit(@Valid ParameterCredit parameterCredit, BindingResult bindingResult,@RequestParam(value = "photo", required = false)MultipartFile photo, HttpServletRequest req) {
+    private Object addCredit(@Valid ParameterCredit parameterCredit, BindingResult bindingResult) {	
+    	System.out.println("呼呼呼");
+    	if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
+       /* if(photo.isEmpty()) {
+        	System.out.println("没有传值进来");
+        }else{
+        	System.out.println(photo.getContentType()+","+photo.getName()+","+photo.getOriginalFilename());
+    		String realpath = req.getSession().getServletContext().getRealPath("resources/uploadfile/");
+    		System.out.println(realpath);
+    		try {
+    			FileUtils.copyInputStreamToFile(photo.getInputStream(), new File(realpath+"/"+photo.getOriginalFilename()));
+    			String realpathtotle = photo.getOriginalFilename();
+    			parameterCredit.setCreditPhoto(realpathtotle);
+    		} catch (IOException e) {
+    			e.printStackTrace();
+    		} 
+        };*/
         return parameterCreditService.addParameterCredit(parameterCredit);
     }
     

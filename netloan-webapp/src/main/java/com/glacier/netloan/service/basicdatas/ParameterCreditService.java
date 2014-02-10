@@ -132,7 +132,7 @@ public class ParameterCreditService {
             returnResult.setMsg("会员信用等级名称重复，请重新填写!");
             return returnResult;
         }
-        count = parameterCreditMapper.updateByPrimaryKey(parameterCredit);
+        count = parameterCreditMapper.updateByPrimaryKeySelective(parameterCredit);
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + parameterCredit.getCreditName() + "] 会员信用等级信息已修改保存");
