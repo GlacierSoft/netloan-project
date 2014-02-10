@@ -89,15 +89,25 @@
 		}
 	});
 	
-	
-	glacier.system_mgr.role_mgr.role.newDialog = function(title,roleId,url,loadType){
+	/*
+		新建/编辑 弹出框
+		title:弹出框标题
+		submitUrl：提交路径
+		id:新增值为空字符串，编辑填写后台要获取的数据ID
+	*/
+	glacier.system_mgr.role_mgr.role.newDialog = function(title,submitUrl,id){
+		var iconCls = 'icon-standard-pencil-add';
+		if(id){
+			iconCls='icon-standard-pencil-go';
+		}
 		$.easyui.showDialog({
-			href : ctx + '/do/role/intoForm.htm?roleId='+roleId,//从controller请求jsp页面进行渲染
+			href : ctx + '/do/role/intoForm.htm?roleId='+id,//从controller请求jsp页面进行渲染
 			width : 385,
 			height : 250,
 			resizable: false,
 			enableApplyButton : false,
 			title : title,
+			iconCls : iconCls,
 			onSave : function(){
 				$(this).find('form').form('submit', {
 					url: ctx + url,
@@ -115,12 +125,12 @@
 	};
 	//点击增加按钮触发方法
 	glacier.system_mgr.role_mgr.role.addRole = function(){
-		glacier.system_mgr.role_mgr.role.newDialog('增加角色','','/do/role/add.json','load');
+		glacier.system_mgr.role_mgr.role.newDialog(' 增加角色','/do/role/add.json','');
 	};
 	//点击编辑按钮触发方法
 	glacier.system_mgr.role_mgr.role.editRole = function(){
 		var row = glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid("getSelected");
-		glacier.system_mgr.role_mgr.role.newDialog('编辑角色',row.roleId,'/do/role/edit.json','reload');
+		glacier.system_mgr.role_mgr.role.newDialog(' 编辑【'+row.roleCnName+'】','/do/role/edit.json',row.roleId);
 	};
 	//点击删除按钮触发方法
 	glacier.system_mgr.role_mgr.role.delRole = function(){
@@ -371,9 +381,10 @@
 			    resizable:true,
 			    modal:true,
 			    maximizable:true,
+			    iconCls:'',
 			    buttons:[{
 					text:'保存',
-					iconCls:"icon-save",
+					iconCls:'icon-save',
 					handler:function(){
 						glacier.system_mgr.role_mgr.role.submitMenuAndAction(roleId);
 					}

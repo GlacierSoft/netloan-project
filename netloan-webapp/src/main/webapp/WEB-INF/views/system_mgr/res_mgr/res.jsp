@@ -502,7 +502,7 @@
 		    		<glacierui:toolbar panelEnName="MenuTree" toolbarId="menuTreeGridToolbar" menuEnName="res"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		    	</table>
     		</div>
-    		<div data-options="region:'south',title:'面板管理',border:true,split:true" style="height:300px;">
+    		<div data-options="region:'south',title:'面板管理',border:true,split:true" style="height:260px;">
     			<table id="panelDataGrid">
 		    		<glacierui:toolbar panelEnName="PanelList" toolbarId="panelDataGridToolbar" menuEnName="res"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		    	</table>
