@@ -83,6 +83,14 @@ public class ResourcesController extends AbstractController{
         return mav;
     }
     
+    //进入面板Form表单页面
+    @RequestMapping(value = "/panel/intoForm.htm")
+    private Object intoPanelFormPage() {
+        ModelAndView mav = new ModelAndView("system_mgr/res_mgr/panel_form");
+        mav.addObject("allMenuTreeNodeData", menuService.getAllTreeMenuNode(false,""));
+        return mav;
+    }
+    
     // 进入操作Form表单页面
     @RequestMapping(value = "/action/intoForm.htm")
     private Object intoActionFormPage() {
@@ -187,6 +195,13 @@ public class ResourcesController extends AbstractController{
         return menuService.delMenu(menu);
     }
     
+    //删除面板
+    @RequestMapping(value = "/panel/del.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object delPanel(Panel panel) {
+        return panelService.delPanel(panel);
+    }
+    
     
     //删除操作
     @RequestMapping(value = "/action/del.json", method = RequestMethod.POST)
@@ -195,7 +210,7 @@ public class ResourcesController extends AbstractController{
         return actionService.delActions(actionIds,actionCnNames);
     }
     
-    
+    //根据菜单获取面板数据
     @RequestMapping(value = "/panel/getPanelsByMenuId.json", method = RequestMethod.POST)
     @ResponseBody
     public Object getPanelsByMenuId(String menuId) {

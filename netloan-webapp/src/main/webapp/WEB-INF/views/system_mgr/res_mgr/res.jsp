@@ -268,7 +268,35 @@
 	
 	//删除面板
 	glacier.system_mgr.res_mgr.res.delPanel = function(){
-		var rows = glacier.system_mgr.res_mgr.res.panelDataGrid.datagrid("getChecked");
+		var row = glacier.system_mgr.res_mgr.res.panelDataGrid.datagrid("getSelected");
+		$.messager.confirm('请确认', '是否要删除所选面板，删除后不可恢复!', function(r){
+			if (r){
+				$.ajax({
+					   type: "POST",
+					   url: ctx + '/do/res/panel/del.json',
+					   data: row,
+					   dataType:'json',
+					   success: function(r){
+						   if(r.success){//操作成功刷新列表
+							   $.messager.show({
+									title:'提示',
+									msg:r.msg,
+									icon:'info',
+									showType:'fade'
+								});
+							   glacier.system_mgr.res_mgr.res.panelDataGrid.datagrid('reload');
+						   }else{
+							   $.messager.show({
+									title:'提示',
+									msg:r.msg,
+									icon:'error',
+									showType:'fade'
+								});
+						   }
+					   }
+				});
+			}
+		});
 	};
 	
 	//增加操作
