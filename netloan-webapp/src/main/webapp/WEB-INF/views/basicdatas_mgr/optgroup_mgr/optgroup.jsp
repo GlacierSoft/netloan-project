@@ -6,18 +6,15 @@
 
 	$.util.namespace('glacier.basicdatas_mgr.optgroup_mgr.optgroup');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
-	//菜单选中
-	glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupAlwaySelect = function(){
-		$('#optgroup_btn_OptgroupTree_edit').linkbutton('enable');//菜单编辑按钮
-		$('#optgroup_btn_OptgroupTree_del').linkbutton('enable');//菜单删除按钮
+	//定义toolbar的操作，对操作进行控制
+	glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupParam = {
+			toolbarId : 'optgroupTreeGridToolbar',
+			actions : {
+				edit:{flag:'edit',controlType:'single'},
+				del:{flag:'del',controlType:'single'}
+			}
 	};
-	
-	//菜单未选中
-	glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupAlwayUnSelect = function(){
-		$('#optgroup_btn_OptgroupTree_edit').linkbutton('disable');//菜单编辑按钮
-		$('#optgroup_btn_OptgroupTree_del').linkbutton('disable');//菜单删除按钮
-	};
-	
+		
 	//初始化资源菜单optgroupTreeGrid
 	glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupTreeGrid = $('#optgroupTreeGrid').treegrid({
 		fit:true,//控件自动optgroupize占满窗口大小
@@ -35,7 +32,7 @@
 		rowTooltip: false, //表行数据提示
 		toolbar : '#optgroupTreeGridToolbar',
 		onSelect:function(rowData){//选择行事件触发
-			glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupAlwaySelect();
+			action_controller(glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupParam,this).select();
 			if(rowData.optgroupId){//选中菜单的同时，根据菜单属性是否包含可用的URL进行对应的操作进行动态变更
 				glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValuePropertyGrid.propertygrid('load',{
 					optgroupId: rowData.optgroupId
@@ -43,7 +40,7 @@
 			}
 		},
 		onUnselectAll:function(rows){//取消选择行状态触发事件
-			glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupAlwayUnSelect();
+			action_controller(glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupParam,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$.fn.treegrid.extensions.onLoadSuccess.apply(this, arguments);//这句一定要加上
@@ -65,33 +62,15 @@
 	});
 	
 
-	//选中的时候默认调用的方法
-	glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueAlwaySelect = function(){
-		$('#optgroup_btn_ActionList_edit').linkbutton('enable');//编辑
+	//定义下拉项值的toolbar的操作，对下拉项值操作进行控制
+	glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueParam = {
+			toolbarId : 'optgroupValueDataGridToolbar',
+			optgroupValues : {
+				edit:{flag:'edit',controlType:'single'},
+				del:{flag:'del',controlType:'multiple'}
+			}
 	};
 	
-	//没选中的时候默认调用的方法
-	glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueAlwayUnSelect = function(){
-		$('#optgroup_btn_ActionList_edit').linkbutton('disable');//编辑
-	};
-	
-	//勾选的时候默认调用的方法
-	glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueAlwayCheck = function(){
-		var rows = glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValuePropertyGrid.propertygrid("getChecked");
-		if(rows.length > 0){//如果勾选的列大于0，则激活删除按钮
-			$('#optgroup_btn_ActionList_del').linkbutton('enable');//删除
-		}
-	};
-	
-	//取消勾选的时候默认调用的方法
-	glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueAlwayUnCheck = function(){
-		var rows = glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValuePropertyGrid.propertygrid("getChecked");
-		if(rows.length > 0){//如果勾选的列大于0，则激活删除按钮
-			$('#optgroup_btn_ActionList_del').linkbutton('enable');//删除
-		}else{
-			$('#optgroup_btn_ActionList_del').linkbutton('disable');//删除
-		}
-	};
 	
 	//初始化操作propertygrid
 	glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValuePropertyGrid = $('#optgroupValueDataGrid').propertygrid({
@@ -114,22 +93,22 @@
 		idField:'optgroupValueId',
 		toolbar : '#optgroupValueDataGridToolbar',
 		onCheck:function(rowIndex,rowData){//选择行事件触发
-			glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueAlwayCheck();
+			action_controller(glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueParam,this).check();
 		},
 		onCheckAll:function(rows){//取消勾选行状态触发事件
-			glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueAlwayCheck();
+			action_controller(glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueParam,this).check();
 		},
 		onUncheck:function(rowIndex,rowData){//选择行事件触发
-			glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueAlwayUnCheck();
+			action_controller(glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueParam,this).unCheck();
 		},
 		onUncheckAll:function(rows){//取消勾选行状态触发事件
-			glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueAlwayUnCheck();
+			action_controller(glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueParam,this).unCheck();
 		},
 		onSelect:function(rowIndex, rowData){//选择行事件触发
-			glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueAlwaySelect();
+			action_controller(glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueParam,this).select();
 		},
 		onUnselectAll:function(rows){
-			glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueAlwayUnSelect();
+			action_controller(glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueParam,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).propertygrid('clearSelections');//清空选择行与勾选行
@@ -152,44 +131,48 @@
 		rownumbers:true
 	});
 	
-	//增加和修改下拉管理菜单
-	glacier.basicdatas_mgr.optgroup_mgr.optgroup.newDialog = function(title,optgroupId,url,loadType){
+	/*
+	新建/编辑 弹出框
+	title:弹出框标题
+	submitUrl：提交路径
+	id:新增值为空字符串，编辑填写后台要获取的数据ID
+	*/
+	glacier.basicdatas_mgr.optgroup_mgr.optgroup.newDialog = function(title,submitUrl,id){
+		var iconCls = 'icon-standard-pencil-add';
+		if(id){
+			iconCls='icon-standard-pencil-go';
+		}
 		$.easyui.showDialog({
-			href : ctx + '/do/optgroup/intoForm.htm?optgroupId='+optgroupId,//从controller请求jsp页面进行渲染
-			width : 450,
-			height : 300,
+			href : ctx + '/do/optgroup/intoForm.htm?optgroupId='+id,//从controller请求jsp页面进行渲染
+			width : 400,
+			height : 280,
 			resizable: false,
-			enableSaveButton : false,
 			enableApplyButton : false,
 			title : title,
-			buttons : [ 
-			 {
-				text : '保存',
-				iconCls : 'icon-save',
-				handler : function(dia) {
-						$('#optgroup_mgr_optgroup_form').form('submit', {
-							url: ctx + url,
-							success: function(r){
-								$.messager.show(r.msg);
-								if(r.success){
-									glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupTreeGrid.treegrid('reload');
-								    dia.dialog("close"); 
-								}
-								 
-							}
-						});
+			iconCls : iconCls,
+			onSave : function(){
+				$(this).find('form').form('submit', {
+					url: ctx + submitUrl,
+					success: function(r){
+						$.messager.show(r.msg);
+						if(r.success){
+							glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupTreeGrid.treegrid('reload');
+							return true;
+						}
+						 
 					}
-			}]
+				});
+			}
 		});
 	};
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.optgroup_mgr.optgroup.addOptgroup = function(){
-		glacier.basicdatas_mgr.optgroup_mgr.optgroup.newDialog('增加下拉项','','/do/optgroup/add.json','load');
+		glacier.basicdatas_mgr.optgroup_mgr.optgroup.newDialog(' 增加下拉项','/do/optgroup/add.json','');
 	};
 	//点击编辑按钮触发方法
 	glacier.basicdatas_mgr.optgroup_mgr.optgroup.editOptgroup = function(){
 		var row = glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupTreeGrid.treegrid("getSelected");
-		glacier.basicdatas_mgr.optgroup_mgr.optgroup.newDialog('编辑下拉项',row.optgroupId,'/do/optgroup/edit.json','reload');
+		glacier.basicdatas_mgr.optgroup_mgr.optgroup.newDialog(' 编辑【'+row.optgroupName+'】','/do/optgroup/edit.json',row.optgroupId);
 	};
 	
 	//点击删除按钮触发方法
@@ -215,6 +198,50 @@
 				}
 			});
 		}
+	};
+	
+	/*
+	新建/编辑 弹出框
+	title:弹出框标题
+	submitUrl：提交路径
+	id:新增值为空字符串，编辑填写后台要获取的数据ID
+	*/
+	glacier.basicdatas_mgr.optgroup_mgr.optgroup.newValueDialog = function(title,submitUrl,id){
+		var iconCls = 'icon-standard-pencil-add';
+		if(id){
+			iconCls='icon-standard-pencil-go';
+		}
+		$.easyui.showDialog({
+			href : ctx + '/do/optgroupValue/intoForm.htm?optgroupValueId='+id,//从controller请求jsp页面进行渲染
+			width : 400,
+			height : 280,
+			resizable: false,
+			enableApplyButton : false,
+			title : title,
+			iconCls : iconCls,
+			onSave : function(){
+				$(this).find('form').form('submit', {
+					url: ctx + submitUrl,
+					success: function(r){
+						$.messager.show(r.msg);
+						if(r.success){
+							glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupTreeGrid.treegrid('reload');
+							return true;
+						}
+						 
+					}
+				});
+			}
+		});
+	};
+	//点击增加按钮触发方法
+	glacier.basicdatas_mgr.optgroup_mgr.optgroup.addOptgroupValue = function(){
+		glacier.basicdatas_mgr.optgroup_mgr.optgroup.newValueDialog(' 增加下拉项','/do/optgroup/add.json','');
+	};
+	//点击编辑按钮触发方法
+	glacier.basicdatas_mgr.optgroup_mgr.optgroup.editOptgroupValue = function(){
+		var row = glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupTreeGrid.treegrid("getSelected");
+		glacier.basicdatas_mgr.optgroup_mgr.optgroup.newValueDialog(' 编辑','/do/optgroupValue/edit.json',row.optgroupValueId);
 	};
 </script>
 

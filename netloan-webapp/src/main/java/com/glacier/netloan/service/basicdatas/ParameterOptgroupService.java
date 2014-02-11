@@ -5,6 +5,7 @@
  */
 package com.glacier.netloan.service.basicdatas;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,10 +17,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.jqueryui.util.Tree;
 import com.glacier.netloan.dao.basicdatas.ParameterOptgroupMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterOptgroup;
 import com.glacier.netloan.entity.basicdatas.ParameterOptgroupExample;
@@ -104,6 +107,9 @@ public class ParameterOptgroupService {
             return returnResult;
         }
         optgroup.setOptgroupId(RandomGUID.getRandomGUID());
+        if (optgroup.getOptgroupPid().equals("ROOT") || optgroup.getOptgroupPid().equals("")) {// 如果父级下拉项的Id为"ROOT"或为空，则将父级下拉项的值设置为null保存到数据库
+        	optgroup.setOptgroupPid(null);
+        }
         optgroup.setCreater(pricipalUser.getUserId());
         optgroup.setCreateTime(new Date());
         count = optgroupMapper.insert(optgroup);
@@ -114,6 +120,43 @@ public class ParameterOptgroupService {
             returnResult.setMsg("下拉项信息保存失败，请联系管理员!");
         }
         return returnResult;
+    }
+    
+    /**
+     * 
+     * @Title: getAllTreeOptgroupNode
+     * @Description: TODO(获取全部的下拉项数据组装成EasyUI树节点JSON)
+     * @param @param virtualRoot 是否构建虚拟ROOT -> 系统下拉项作为导航
+     * @param @return 设定文件
+     * @return String 返回类型
+     * @throws
+     */
+    public String getAllTreeOptgroupNode(boolean virtualRoot) {
+
+        List<Tree> items = new ArrayList<Tree>();
+        if (virtualRoot) {
+            Tree optgroupItem = new Tree();// 增加总的树节点作为下拉项导航
+            optgroupItem.setId("ROOT");
+            optgroupItem.setText("下拉项");
+            items.add(optgroupItem);
+        }
+        ParameterOptgroupExample optgroupExample = new ParameterOptgroupExample();
+        optgroupExample.setOrderByClause("temp_parameter_optgroup.optgroup_num asc");
+        List<ParameterOptgroup> optgroupList = optgroupMapper.selectByExample(optgroupExample);
+        if (null != optgroupList && optgroupList.size() > 0) {
+            for (ParameterOptgroup optgroup : optgroupList) {
+                Tree item = new Tree();// 将查询到的下拉项记录某些属性值设置在ComboTreeItem中，用于页面的ComboTree的数据绑定
+                item.setId(optgroup.getOptgroupId());
+                item.setText(optgroup.getOptgroupName());
+                if (StringUtils.isNotBlank(optgroup.getOptgroupPid())) {
+                    item.setPid(optgroup.getOptgroupPid());
+                } else if (virtualRoot) {
+                    item.setPid("ROOT");// 如果父节点为空说明上一级为总节点
+                }
+                items.add(item);
+            }
+        }
+        return JackJson.fromObjectToJson(items);
     }
     
     /**
@@ -137,7 +180,17 @@ public class ParameterOptgroupService {
             returnResult.setMsg("下拉项名称重复，请重新填写!");
             return returnResult;
         }
-        count = optgroupMapper.updateByPrimaryKeySelective(optgroup);
+        if (optgroup.getOptgroupPid().equals("ROOT") || optgroup.getOptgroupPid().equals("")) {// 如果父级下拉项的Id为"ROOT"或为空，则将父级下拉项的值设置为null保存到数据库
+        	optgroup.setOptgroupPid(null);
+        }
+        ParameterOptgroup oldOptgroup = optgroupMapper.selectByPrimaryKey(optgroup.getOptgroupId()) ;
+        optgroup.setCreater(oldOptgroup.getCreater());
+        optgroup.setCreateTime(oldOptgroup.getCreateTime());
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        optgroup.setUpdater(pricipalUser.getUserId());
+        optgroup.setUpdateTime(new Date());
+        count = optgroupMapper.updateByPrimaryKey(optgroup);
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + optgroup.getOptgroupName() + "] 下拉项信息已修改");

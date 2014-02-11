@@ -24,7 +24,6 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.jqueryui.util.Tree;
 import com.glacier.netloan.dao.basicdatas.ParameterAreaMapper;
-import com.glacier.netloan.dao.system.AuthorityMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterArea;
 import com.glacier.netloan.entity.basicdatas.ParameterAreaExample;
 import com.glacier.netloan.entity.system.User;
@@ -43,9 +42,6 @@ public class ParameterAreaService {
 
 	@Autowired
     private ParameterAreaMapper areaMapper;
-
-	@Autowired
-    private AuthorityMapper authorityMapper;
 	
     public Object getArea(String areaId) {
         return areaMapper.selectByPrimaryKey(areaId);
@@ -184,9 +180,22 @@ public class ParameterAreaService {
             returnResult.setMsg("地区名称重复，请重新填写!");
             return returnResult;
         }
+//        List<String> retrunAreaList = new ArrayList<String>();// 修改上级所属地区时，禁止选择地区本身及子级地区作为地区的父级地区
+//        retrunAreaList = getAreaChild(area.getAreaId(), retrunAreaList);// 查找地区本身及子级地区
+//        retrunAreaList.add(area.getAreaId());
+//        if (retrunAreaList.contains(area.getAreaId())) {// 如果用户是选择地区本身及子级地区作为地区的父级地区，则返回错误提示信息
+//            return "禁止选择地区本身及子级地区作为父级地区";
+//        }
         if (area.getAreaPid().equals("ROOT") || area.getAreaPid().equals("")) {// 如果父级地区的Id为"ROOT"或为空，则将父级地区的值设置为null保存到数据库
         	area.setAreaPid(null);
         }
+        ParameterArea oldArea = areaMapper.selectByPrimaryKey(area.getAreaId()) ;
+        area.setCreater(oldArea.getCreater());
+        area.setCreateTime(oldArea.getCreateTime());
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        area.setUpdater(pricipalUser.getUserId());
+        area.setUpdateTime(new Date());
         count = areaMapper.updateByPrimaryKey(area);
         if (count == 1) {
             returnResult.setSuccess(true);
@@ -196,6 +205,28 @@ public class ParameterAreaService {
         }
         return returnResult;
     }
+    
+    /**
+     * @Title: getAreaChild
+     * @Description: TODO(递归获取地区和地区子节点)
+     * @param @param areaId 要获取的当前地区
+     * @param @param retrunAreaList 返回的所有地区信息
+     * @param @return 设定文件
+     * @return List<String> 返回类型
+     * @throws
+     */
+/*    private List<String> getAreaChild(String areaId, List<String> retrunAreaList) {
+    	ParameterAreaExample areaExample = new ParameterAreaExample();
+    	areaExample.createCriteria().andAreaIdEqualTo(areaId);// 查询子地区
+        List<ParameterArea> areaList = areaMapper.selectByExample(areaExample);
+        if (areaList.size() > 0) {// 如果存在子地区则遍历
+            for (ParameterArea area : areaList) {
+                this.getAreaChild(area.getAreaId(), retrunAreaList);// 递归查询是否存在子地区
+            }
+        }
+        retrunAreaList.add(areaId);
+        return retrunAreaList;
+    }*/
     
     /**
      * @Title: delArea 

@@ -52,6 +52,7 @@ public class ParameterOptgroupController extends AbstractController{
     @RequestMapping(value = "/intoForm.htm")
     private Object intooptgroupFormPoptgroup(String optgroupId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/optgroup_mgr/optgroup_form");
+        mav.addObject("allOptgroupTreeNodeData", optgroupService.getAllTreeOptgroupNode(true));
         if(StringUtils.isNotBlank(optgroupId)){
             mav.addObject("optgroupData", optgroupService.getOptgroup(optgroupId));
         }
