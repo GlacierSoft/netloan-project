@@ -5,14 +5,14 @@
 <form id="optgroup_mgr_optgroup_form" method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
-			<td>地区：</td>
+			<td>下拉项名称：</td>
 			<td>
 				<input id="optgroup_mgr_optgroup_form_optgroupId" type="hidden" name="optgroupId" value="${optgroupData.optgroupId}" />
 				<input id="optgroup_mgr_optgroup_form_optgroupName" name="optgroupName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupData.optgroupName}"/>
 			</td>
 		</tr>
 		<tr>
-			<td>父级地区：</td>
+			<td>父级下拉项：</td>
 			<td class="forminputtable">
 				<input id="optgroup_mgr_optgroup_form_optgroupPid" name="optgroupPid" value="${optgroupData.optgroupPid}"/>
 			</td>

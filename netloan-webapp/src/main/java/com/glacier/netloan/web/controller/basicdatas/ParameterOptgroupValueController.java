@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.entity.basicdatas.ParameterOptgroupValue;
+import com.glacier.netloan.service.basicdatas.ParameterOptgroupService;
 import com.glacier.netloan.service.basicdatas.ParameterOptgroupValueService;
 
 /** 
@@ -35,6 +36,9 @@ public class ParameterOptgroupValueController extends AbstractController{
     @Autowired
     private ParameterOptgroupValueService optgroupValueService;// 注入下拉项业务Bean
     
+    @Autowired
+    private ParameterOptgroupService optgroupService;// 注入下拉项业务Bean
+    
     // 进入下拉项列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPoptgroupValue() {
@@ -47,7 +51,8 @@ public class ParameterOptgroupValueController extends AbstractController{
     // 进入下拉项Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intooptgroupValueFormPoptgroupValue(String optgroupValueId) {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/optgroupValue_mgr/optgroupValue_form");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/optgroup_mgr/optgroupValue_form");
+        mav.addObject("allOptgroupTreeNodeData", optgroupService.getAllTreeOptgroupNode(true));
         if(StringUtils.isNotBlank(optgroupValueId)){
             mav.addObject("optgroupValueData", optgroupValueService.getOptgroupValue(optgroupValueId));
         }
@@ -62,7 +67,7 @@ public class ParameterOptgroupValueController extends AbstractController{
 //    }
     
     // 获取表格结构的所有菜单数据
-    @RequestMapping(value = "/optgroupValue/list.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listValueAsGridByOptgroupId(String optgroupId,JqPager pager) {
         return optgroupValueService.listAsGrid(optgroupId,pager);
