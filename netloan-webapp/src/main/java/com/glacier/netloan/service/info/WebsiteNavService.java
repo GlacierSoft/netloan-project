@@ -19,6 +19,7 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.jqueryui.util.Tree;
 import com.glacier.netloan.dao.info.WebsiteNavMapper;
+import com.glacier.netloan.entity.basicdatas.ParameterArea;
 import com.glacier.netloan.entity.info.WebsiteNav;
 import com.glacier.netloan.entity.info.WebsiteNavExample;
 import com.glacier.netloan.entity.system.User;
@@ -101,6 +102,9 @@ public class WebsiteNavService {
             return returnResult;
         }
         nav.setWebNavId(RandomGUID.getRandomGUID());
+        if (nav.getWebNavPid().equals("ROOT") || nav.getWebNavPid().equals("")) {// 如果父级导航的Id为"ROOT"或为空，则将父级导航的值设置为null保存到数据库
+        	nav.setWebNavPid(null);
+        }
         nav.setCreater(pricipalUser.getUserId());
         nav.setCreateTime(new Date());
         count = websiteNavMapper.insert(nav);
@@ -162,6 +166,13 @@ public class WebsiteNavService {
     @MethodLog(opera = "修改导航")
     public Object editNav(WebsiteNav nav) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        
+        List<String> returnNavList = new ArrayList<String>();// 修改上级所属导航时，禁止选择导航本身及子级导航作为导航的父级导航
+        returnNavList = this.getNavChild(nav.getWebNavId(), returnNavList);// 查找导航本身及子级导航
+        if(returnNavList.contains(nav.getWebNavPid())){// 如果用户是选择导航本身及子级导航作为地区的父级导航，则返回错误提示信息
+        	returnResult.setMsg("禁止选择该导航本身以及子导航作为上级导航");
+            return returnResult;
+        }
         WebsiteNavExample websiteNavExample = new WebsiteNavExample();
         int count = 0;
         // 防止导航名称重复
@@ -171,7 +182,17 @@ public class WebsiteNavService {
             returnResult.setMsg("导航名称重复，请重新填写!");
             return returnResult;
         }
-        count = websiteNavMapper.updateByPrimaryKeySelective(nav);
+        if (nav.getWebNavPid().equals("ROOT") || nav.getWebNavPid().equals("")) {// 如果父级导航的Id为"ROOT"或为空，则将父级导航的值设置为null保存到数据库
+        	nav.setWebNavPid(null);
+        }
+        WebsiteNav oldNav = websiteNavMapper.selectByPrimaryKey(nav.getWebNavId());
+        nav.setCreater(oldNav.getCreater());
+        nav.setCreateTime(oldNav.getCreateTime());
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        nav.setUpdater(pricipalUser.getUserId());
+        nav.setUpdateTime(new Date());
+        count = websiteNavMapper.updateByPrimaryKey(nav);
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + nav.getWebNavName() + "] 导航信息已修改");
@@ -180,7 +201,27 @@ public class WebsiteNavService {
         }
         return returnResult;
     }
-    
+    /**
+     * @Title: getNavChild 
+     * @Description: TODO(递归获取导航和导航子节点) 
+     * @param  @param navId
+     * @param  @param returnNavList
+     * @param  @return设定文件
+     * @return List<String>  返回类型
+     * @throws 
+     */
+    private List<String> getNavChild(String navId,List<String> returnNavList){
+    	WebsiteNavExample websiteNavExample = new WebsiteNavExample();
+    	websiteNavExample.createCriteria().andWebNavPidEqualTo(navId);// 查询子导航
+    	List<WebsiteNav> navs = websiteNavMapper.selectByExample(websiteNavExample);
+    	if(navs.size()>0){// 如果存在子导航则遍历
+    		for(WebsiteNav nav : navs){
+        		this.getNavChild(nav.getWebNavId(), returnNavList);// 递归查询是否存在子导航
+        	}	
+    	}
+    	returnNavList.add(navId);
+    	return returnNavList;
+    }
     /**
      * @Title: delNav 
      * @Description: TODO(删除导航) 
@@ -193,14 +234,23 @@ public class WebsiteNavService {
     @MethodLog(opera = "删除导航")
     public Object delNav(String navId) {
     	WebsiteNav nav= websiteNavMapper.selectByPrimaryKey(navId);
-        int result = websiteNavMapper.deleteByPrimaryKey(navId);//根据导航Id，进行删除导航
+    	WebsiteNavExample websiteNavExample = new WebsiteNavExample();
+        int count = 0;
+        // 防止删除有子类的父类
+        websiteNavExample.createCriteria().andWebNavPidEqualTo(navId);
+        count = websiteNavMapper.countByExample(websiteNavExample);// 查找有导航子类数量
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        if (result == 1) {
-            returnResult.setSuccess(true);
-            returnResult.setMsg("[" + nav.getWebNavName() + "] 导航信息已删除");
-        } else {
-            returnResult.setMsg("导航信息删除失败，请联系管理员!");
+        if(count >0){
+        	returnResult.setMsg("导航信息删除失败，不能删除有子导航的导航!");
+        }else{
+        	int result = websiteNavMapper.deleteByPrimaryKey(navId);//根据导航Id，进行删除导航
+        	if (result == 1) {
+                returnResult.setSuccess(true);
+                returnResult.setMsg("[" + nav.getWebNavName() + "] 导航信息已删除");
+            } else {
+                returnResult.setMsg("导航信息删除失败，请联系管理员!");
+            }
         }
-		return returnResult;
+        return returnResult;
      }
 }
