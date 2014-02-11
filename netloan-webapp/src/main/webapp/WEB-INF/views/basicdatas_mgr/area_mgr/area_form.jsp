@@ -14,7 +14,7 @@
 		<tr>
 			<td>父级地区：</td>
 			<td class="forminputtable">
-				<input id="area_mgr_area_form_areaPid" name="areaPid"/>
+				<input id="area_mgr_area_form_areaPid" name="areaPid" value="${areaData.areaPid}"/>
 			</td>
 		</tr>
 		<tr>

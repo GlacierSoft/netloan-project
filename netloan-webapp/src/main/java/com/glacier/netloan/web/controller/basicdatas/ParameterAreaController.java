@@ -52,7 +52,7 @@ public class ParameterAreaController extends AbstractController{
     @RequestMapping(value = "/intoForm.htm")
     private Object intoareaFormParea(String areaId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/area_mgr/area_form");
-        mav.addObject("allAreaTreeNodeData", areaService.getAllTreeAreaNode(true,""));
+        mav.addObject("allAreaTreeNodeData", areaService.getAllTreeAreaNode(true));
         if(StringUtils.isNotBlank(areaId)){
             mav.addObject("areaData", areaService.getArea(areaId));
         }

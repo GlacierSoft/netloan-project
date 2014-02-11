@@ -111,6 +111,9 @@ public class ParameterAreaService {
             return returnResult;
         }
         area.setAreaId(RandomGUID.getRandomGUID());
+        if (area.getAreaPid().equals("ROOT") || area.getAreaPid().equals("")) {// 如果父级地区的Id为"ROOT"或为空，则将父级地区的值设置为null保存到数据库
+        	area.setAreaPid(null);
+        }
         area.setCreater(pricipalUser.getUserId());
         area.setCreateTime(new Date());
         count = areaMapper.insert(area);
@@ -132,7 +135,7 @@ public class ParameterAreaService {
      * @return String 返回类型
      * @throws
      */
-    public String getAllTreeAreaNode(boolean virtualRoot, String roleId) {
+    public String getAllTreeAreaNode(boolean virtualRoot) {
 
         List<Tree> items = new ArrayList<Tree>();
         if (virtualRoot) {
@@ -154,7 +157,6 @@ public class ParameterAreaService {
                 } else if (virtualRoot) {
                     item.setPid("ROOT");// 如果父节点为空说明上一级为总节点
                 }
-
                 items.add(item);
             }
         }
@@ -182,7 +184,10 @@ public class ParameterAreaService {
             returnResult.setMsg("地区名称重复，请重新填写!");
             return returnResult;
         }
-        count = areaMapper.updateByPrimaryKeySelective(area);
+        if (area.getAreaPid().equals("ROOT") || area.getAreaPid().equals("")) {// 如果父级地区的Id为"ROOT"或为空，则将父级地区的值设置为null保存到数据库
+        	area.setAreaPid(null);
+        }
+        count = areaMapper.updateByPrimaryKey(area);
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + area.getAreaName() + "] 地区信息已修改");
