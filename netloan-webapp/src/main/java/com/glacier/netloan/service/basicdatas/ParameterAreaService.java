@@ -175,7 +175,7 @@ public class ParameterAreaService {
         List<String> retrunAreaList = new ArrayList<String>();// 修改上级所属地区时，禁止选择地区本身及子级地区作为地区的父级地区
         retrunAreaList = getAreaChild(area.getAreaId(), retrunAreaList);// 查找地区本身及子级地区
         retrunAreaList.add(area.getAreaId());
-        if (retrunAreaList.contains(area.getAreaId())) {// 如果用户是选择地区本身及子级地区作为地区的父级地区，则返回错误提示信息
+        if (retrunAreaList.contains(area.getAreaPid())) {// 如果用户是选择地区本身及子级地区作为地区的父级地区，则返回错误提示信息
         	returnResult.setMsg("禁止选择该地区本身以及子地区作为上级地区");
             return returnResult;
         }
@@ -226,9 +226,7 @@ public class ParameterAreaService {
         List<ParameterArea> areaList = areaMapper.selectByExample(areaExample);
         if (areaList.size() > 0) {// 如果存在子地区则遍历
             for (ParameterArea area : areaList) {
-            	System.out.println("001");
                 this.getAreaChild(area.getAreaId(), retrunAreaList);// 递归查询是否存在子地区
-                System.out.println("0021");
             }
         }
         retrunAreaList.add(areaId);
