@@ -171,6 +171,15 @@ public class ParameterAreaService {
     @MethodLog(opera = "修改地区")
     public Object editArea(ParameterArea area) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        
+        List<String> retrunAreaList = new ArrayList<String>();// 修改上级所属地区时，禁止选择地区本身及子级地区作为地区的父级地区
+        retrunAreaList = getAreaChild(area.getAreaId(), retrunAreaList);// 查找地区本身及子级地区
+        retrunAreaList.add(area.getAreaId());
+        if (retrunAreaList.contains(area.getAreaId())) {// 如果用户是选择地区本身及子级地区作为地区的父级地区，则返回错误提示信息
+        	returnResult.setMsg("禁止选择该地区本身以及子地区作为上级地区");
+            return returnResult;
+        }
+        
         ParameterAreaExample areaExample = new ParameterAreaExample();
         int count = 0;
         // 防止地区名称重复
@@ -180,12 +189,8 @@ public class ParameterAreaService {
             returnResult.setMsg("地区名称重复，请重新填写!");
             return returnResult;
         }
-//        List<String> retrunAreaList = new ArrayList<String>();// 修改上级所属地区时，禁止选择地区本身及子级地区作为地区的父级地区
-//        retrunAreaList = getAreaChild(area.getAreaId(), retrunAreaList);// 查找地区本身及子级地区
-//        retrunAreaList.add(area.getAreaId());
-//        if (retrunAreaList.contains(area.getAreaId())) {// 如果用户是选择地区本身及子级地区作为地区的父级地区，则返回错误提示信息
-//            return "禁止选择地区本身及子级地区作为父级地区";
-//        }
+        
+
         if (area.getAreaPid().equals("ROOT") || area.getAreaPid().equals("")) {// 如果父级地区的Id为"ROOT"或为空，则将父级地区的值设置为null保存到数据库
         	area.setAreaPid(null);
         }
@@ -215,18 +220,20 @@ public class ParameterAreaService {
      * @return List<String> 返回类型
      * @throws
      */
-/*    private List<String> getAreaChild(String areaId, List<String> retrunAreaList) {
+    private List<String> getAreaChild(String areaId, List<String> retrunAreaList) {
     	ParameterAreaExample areaExample = new ParameterAreaExample();
-    	areaExample.createCriteria().andAreaIdEqualTo(areaId);// 查询子地区
+    	areaExample.createCriteria().andAreaPidEqualTo(areaId);// 查询子地区
         List<ParameterArea> areaList = areaMapper.selectByExample(areaExample);
         if (areaList.size() > 0) {// 如果存在子地区则遍历
             for (ParameterArea area : areaList) {
+            	System.out.println("001");
                 this.getAreaChild(area.getAreaId(), retrunAreaList);// 递归查询是否存在子地区
+                System.out.println("0021");
             }
         }
         retrunAreaList.add(areaId);
         return retrunAreaList;
-    }*/
+    }
     
     /**
      * @Title: delArea 
