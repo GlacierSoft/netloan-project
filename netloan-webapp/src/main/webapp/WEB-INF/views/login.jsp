@@ -74,16 +74,19 @@
 										</div>
 									</div>
 									-->
-									<div class="col-md-3 col-xs-3">
+									<label for="submit" class="control-label col-xs-3 hidden-sm hidden-xs"></label>
+									<div class="col-md-3 col-xs-12" style="float: right">
 										<button id="login_submit" class="btn btn-primary btn-lg btn-block">登录</button>
 									</div>
 								</div>
+								<!--  屏蔽rememberMe功能，防止获取用户登录信息出错
 								<div class="form-group">
 									<label for="rememberMe" class="control-label col-xs-3 hidden-sm hidden-xs">记住我</label>
 										<div class="col-md-9 col-xs-12">
 										<input id="rememberMe" name="rememberMe" type="checkbox" data-on="primary" data-off="danger"  data-on-label="开启" data-off-label="关闭"/>
 									</div>
 								</div>
+								-->
 							</form>
 						</div>
 					</div>

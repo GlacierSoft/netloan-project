@@ -144,10 +144,12 @@ public class CustomPermissionsRealm extends AuthorizingRealm {
      */
 
     private void updatePrincipalUserInfo(CaptchaUsernamePasswordToken token, User principalUser) {
-            principalUser.setLastLoginIpAddress(token.getHost());// 设定最后登录时间
-            principalUser.setLastLoginTime(new Date());
-            principalUser.setLoginCount(principalUser.getLoginCount() + 1);
-            userMapper.updateByPrimaryKeySelective(principalUser);
+            User lastPrincipalUser = new User();
+            lastPrincipalUser.setUserId(principalUser.getUserId());
+            lastPrincipalUser.setLastLoginIpAddress(token.getHost());// 设定最后登录时间
+            lastPrincipalUser.setLastLoginTime(new Date());
+            lastPrincipalUser.setLoginCount(principalUser.getLoginCount() + 1);
+            userMapper.updateByPrimaryKeySelective(lastPrincipalUser);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.glacier.netloan.entity.system;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class User implements Serializable{
@@ -28,6 +29,12 @@ public class User implements Serializable{
     private String remark;
 
     private Date lastLoginTime;
+    
+    /**
+     * 自定义时间显示字段
+     */
+    @SuppressWarnings("unused")
+    private String lastLoginFormatTime;
 
     private String lastLoginIpAddress;
 
@@ -156,6 +163,15 @@ public class User implements Serializable{
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+    
+    public String getLastLoginFormatTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd HH:MM:ss");
+        return dateFormat.format(lastLoginTime);
+    }
+
+    public void setLastLoginFormatTime(String lastLoginFormatTime) {
+        this.lastLoginFormatTime = lastLoginFormatTime;
+    }
 
     @Override
     public boolean equals(Object that) {
@@ -206,5 +222,17 @@ public class User implements Serializable{
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         return result;
+    }
+    
+    /* (non-Javadoc)
+     *  
+     *  
+     * @return 
+     * @see java.lang.Object#toString() 
+     */
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return this.getUserCnName();
     }
 }

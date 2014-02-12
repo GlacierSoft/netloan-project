@@ -3,6 +3,7 @@ package com.glacier.netloan.web.filter;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -35,7 +36,8 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
         String password = getPassword(request);
         String captcha = getCaptcha(request);
         boolean rememberMe = isRememberMe(request);
-        String host = IpUtil.getIpAddr((HttpServletRequest)request);
+        String ip = IpUtil.getIpAddr((HttpServletRequest) request);
+        String host = ip + IpUtil.getIpInfo(ip);
 
         char[] charPassword = null;
 
@@ -46,13 +48,17 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
         return new CaptchaUsernamePasswordToken(username, charPassword, rememberMe, host, captcha);
     }
 
-    // 认证
+    /**
+     * 登录认证，失败会捕获相关异常信息
+     */
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
         CaptchaUsernamePasswordToken token = (CaptchaUsernamePasswordToken) createToken(request, response);
         try {
-            //doCaptchaValidate( (HttpServletRequest)request,token);
+            // doCaptchaValidate( (HttpServletRequest)request,token);
             Subject subject = getSubject(request, response);
             subject.login(token);
+            HttpSession session = ((HttpServletRequest) request).getSession(false);
+            session.setAttribute("currentUser", subject.getPrincipal());
             return onLoginSuccess(token, subject, request, response);
         } catch (AuthenticationException e) {
             return onLoginFailure(token, e, request, response);

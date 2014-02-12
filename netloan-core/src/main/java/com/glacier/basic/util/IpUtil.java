@@ -24,41 +24,40 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class IpUtil {
 
-	/**
-	 * 获取登录用户IP地址
-	 * 
-	 * @param request
-	 * @return
-	 */
-	public static String getIpAddr(HttpServletRequest request) {
-		String ip = request.getHeader("x-forwarded-for");
-		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-			ip = request.getHeader("Proxy-Client-IP");
-		}
-		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-			ip = request.getHeader("WL-Proxy-Client-IP");
-		}
-		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-			ip = request.getRemoteAddr();
-		}
-		if (ip.equals("0:0:0:0:0:0:0:1")) {
-			ip = "本地";
-		}
-		return ip;
-	}
-	
-	
-	/**
+    /**
+     * 获取登录用户的IP地址
+     * 
+     * @param request
+     * @return
+     */
+    public static String getIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        if (ip.split(",").length > 1) {
+            ip = ip.split(",")[0];
+        }
+        return ip;
+    }
+
+    /**
      * 通过IP获取地址(需要联网，调用淘宝的IP库)
      * 
      * @param ip
      * @return
      */
     public static String getIpInfo(String ip) {
-        if (ip.equals("本地")) {
-            ip = "127.0.0.1";
+        String info = "[";
+        if (ip.equals("0:0:0:0:0:0:0:1") || ip.equals("127.0.0.1")) {
+            return  "[本地]";
         }
-        String info = "";
         try {
             URL url = new URL("http://ip.taobao.com/service/getIpInfo.php?ip=" + ip);
             HttpURLConnection htpcon = (HttpURLConnection) url.openConnection();
@@ -91,7 +90,7 @@ public class IpUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return info;
+        return info += "]";
     }
 
 }

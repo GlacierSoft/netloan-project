@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -10,10 +11,9 @@
 			$(function(){
 				
 				var userInfoDetailStr = '<table class="formtable" style="font-weight: bold;">'+
-											'<tr><td>本次登录时间：</td><td><span class="label label-success">2013-12-06/15:27:23</span></td></tr>'+
-											'<tr><td>本次登录IP：</td><td><span class="label label-success">192.168.1.1[本地/本机]</span></td></tr>'+
-											'<tr><td>上次登录时间：</td><td><span class="label label-warning">2013-12-16/15:58:12</span></td></tr>'+
-											'<tr><td>上次登录IP：</td><td><span class="label label-warning">202.96.156.23[上海电信]<span></td></tr>'+
+											'<tr><td>上次登录时间：</td><td><span class="label label-warning">${currentUser.lastLoginFormatTime}</span></td></tr>'+
+											'<tr><td>上次登录IP：</td><td><span class="label label-warning">${currentUser.lastLoginIpAddress}<span></td></tr>'+
+											'<tr><td>登录次数：</td><td><span class="label label-success">${currentUser.loginCount}</span></td></tr>'+
 										'</table>';
 				//用户登录信息显示
 				$('.user').tooltip({
@@ -80,7 +80,9 @@
 			<div data-options="region:'north',border:false" class="logo">
 				<div id="sessionInfoDiv" style="position: absolute; right: 0px; top: 0px;" class="login_name">
 					<span class="icon-dortmund-user" style="vertical-align: top;display:inline-block;width:16px;height:16px;"></span>
-					<a href="javascript:void(0);" class="user" rel="shareit">超级管理员</a>
+					<a href="javascript:void(0);" class="user" rel="shareit">
+						${currentUser.userCnName}
+					</a>
 					<span class="label label-info">2013年12月28日 星期六</span>
 				</div>
 				<div style="position: absolute; right: 0px; bottom: 0px;">
