@@ -12,7 +12,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>下拉项值：</td>
+			<td>下拉项名称：</td>
 			<td>
 				<input id="optgroup_mgr_optgroupValue_form_optgroupValueName" name="optgroupValueName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupValueData.optgroupValueName}"/>
 			</td>

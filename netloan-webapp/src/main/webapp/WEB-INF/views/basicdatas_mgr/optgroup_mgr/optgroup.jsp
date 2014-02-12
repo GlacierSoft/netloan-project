@@ -52,7 +52,9 @@
 		frozenColumns : [ [{//冻结列，当表格宽度压缩展示不全时候，该列不会缩小
 			field : 'optgroupId' , title : 'ID' , hidden:true
 		},{
-			field : 'optgroupName' , title : '下拉项' , width : 150
+			field : 'optgroupName' , title : '下拉项名称' , width : 150
+		},{
+			field : 'optgroupCode' , title : '下拉项代码' , width : 150
 		}]],
 		columns : [ [{
 			field : 'optgroupNum' , title : '排序' , width : 150
