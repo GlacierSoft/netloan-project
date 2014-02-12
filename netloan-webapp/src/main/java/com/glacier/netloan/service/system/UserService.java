@@ -19,11 +19,26 @@
  */
 package com.glacier.netloan.service.system;
 
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.io.filefilter.FalseFileFilter;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.RandomGUID;
+import com.glacier.jqueryui.util.JqGridReturn;
+import com.glacier.jqueryui.util.JqPager;
+import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.system.UserExample;
+import com.glacier.netloan.util.MethodLog;
 import com.glacier.security.util.Digests;
 import com.glacier.security.util.Encodes;
 
@@ -38,6 +53,9 @@ import com.glacier.security.util.Encodes;
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 public class UserService {
     
+	@Autowired
+	private UserMapper userMapper;
+	
     /**
      * 加密方式
      */
@@ -69,5 +87,129 @@ public class UserService {
         user.setPassword("admin");
         UserService userService = new UserService();
         userService.entryptPassword(user);
+    }
+    
+    /**
+     * @Title: getUser 
+     * @Description: TODO(通过主键userId查询用户) 
+     * @param  @param userId
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     */
+    public Object getUser(String userId){
+    	return userMapper.selectByPrimaryKey(userId);
+    }
+    /**
+     * @Title: listAsGrid 
+     * @Description: TODO(分页浏览用户列表) 
+     * @param  @param pager
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     */
+    @Transactional(readOnly = false , propagation = Propagation.REQUIRED)
+    @MethodLog(opera = "分页查询用户列表")
+    public Object listAsGrid(JqPager pager){
+    	JqGridReturn returnResulte = new JqGridReturn();
+    	UserExample userExample = new UserExample();
+    	if(null != pager.getPage() && null != pager.getRows()){// 设置排序信息
+    		userExample.setLimitStart((pager.getPage()-1) * pager.getRows());
+    		userExample.setLimitEnd(pager.getRows());
+    	}
+    	if(StringUtils.isNotBlank(pager.getOrder()) && StringUtils.isNotBlank(pager.getSort())){// 设置排序信息
+    		userExample.setOrderByClause(pager.getOrderBy("temp_user_"));
+    	}
+    	List<User> users = userMapper.selectByExample(userExample);
+    	int total = userMapper.countByExample(userExample);
+    	returnResulte.setRows(users);
+    	returnResulte.setTotal(total);
+    	return returnResulte;
+    }
+    
+    @Transactional(readOnly = false , propagation = Propagation.REQUIRED)
+    @MethodLog(opera="增加用户")
+    public Object addUser(User user){
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+    	User pricipalUser = (User) pricipalSubject.getPrincipal();
+    	
+    	JqReturnJson returnResulte = new JqReturnJson();// 构建返回结果，默认结果为false
+    	UserExample userExample = new UserExample();
+    	int count = 0;
+    	// 防止用户名称重复
+    	userExample.createCriteria().andUsernameEqualTo(user.getUsername());
+    	count = userMapper.countByExample(userExample);// 查找相同用户名称数量
+    	if(count >0){
+    		returnResulte.setMsg("用户名称重复，请重新填写!");
+    		return returnResulte;
+    	}
+    	user.setUserId(RandomGUID.getRandomGUID());
+    	user.setCreateTime(new Date());
+    	user.setStatus("able");
+    	user.setBuiltin("notBuiltin");
+    	user.setCreater(pricipalUser.getUserId());
+    	user.setLastLoginTime(new Date());
+    	count = userMapper.insert(user);
+		if(count == 1){
+			returnResulte.setMsg("["+user.getUsername()+"]"+"用户信息已保存");
+			returnResulte.setSuccess(true);
+		}else{
+			returnResulte.setMsg("用户信息保存失败，请联系管理员!");
+		}
+    	return returnResulte;
+    }
+    
+    /**
+     * @Title: editUser 
+     * @Description: TODO(修改用户信息) 
+     * @param  @param user
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     */
+    @Transactional(readOnly = false , propagation = Propagation.REQUIRED)
+    @MethodLog(opera = "修改用户信息")
+    public Object editUser(User user){
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	UserExample userExample = new UserExample();
+    	// 防止用户名称重复
+    	userExample.createCriteria().andUsernameEqualTo(user.getUsername()).andUserIdNotEqualTo(user.getUserId());
+    	int count = 0;
+    	count = userMapper.countByExample(userExample);// 查找相同用户名称数量
+    	if(count > 0){
+    		returnResult.setMsg("用户名称重复，请重新填写!");
+    		return returnResult;
+    	}
+    	count = userMapper.updateByPrimaryKeySelective(user);
+    	if(count == 1){
+    		returnResult.setMsg("["+user.getUsername()+"]"+"用户信息已修改");
+    		returnResult.setSuccess(true);
+    	}else{
+    		returnResult.setMsg("用户信息修改失败，请联系管理员!");
+    	}
+    	return returnResult;
+    }
+    
+    /**
+     * @Title: delUser 
+     * @Description: TODO(删除用户信息) 
+     * @param  @param userId
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     */
+    @Transactional(readOnly = false , propagation = Propagation.REQUIRED)
+    @MethodLog(opera = "删除用户信息")
+    public Object delUser(String userId){
+    	User user = userMapper.selectByPrimaryKey(userId);
+    	JqReturnJson returnResulte = new JqReturnJson();// 构建返回结果，默认结果为false
+    	int count = userMapper.deleteByPrimaryKey(userId);//根据用户Id，进行删除用户
+    	if(count == 1){
+    		returnResulte.setMsg("["+user.getUsername()+"]"+"用户信息已删除");
+    		returnResulte.setSuccess(true);
+    	}else{
+    		returnResulte.setMsg("用户信息删除失败，请联系管理员!");
+    	}
+    	return returnResulte;
     }
 }

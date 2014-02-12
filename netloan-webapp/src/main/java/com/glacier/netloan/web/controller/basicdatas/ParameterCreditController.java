@@ -47,7 +47,7 @@ public class ParameterCreditController extends AbstractController{
         return mav;
     }
     
-    // 进入角色Form表单页面
+    // 进入会员等级Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoCreditFormPage(String creditId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/credit_mgr/credit_form");
