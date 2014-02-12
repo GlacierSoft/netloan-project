@@ -11,7 +11,6 @@
 			toolbarId : 'ageDataGrid_toolbar',
 			actions : {
 				edit:{flag:'edit',controlType:'single'},
-				auth:{flag:'auth',controlType:'single'},
 				del:{flag:'del',controlType:'multiple'}
 			}
 	};
