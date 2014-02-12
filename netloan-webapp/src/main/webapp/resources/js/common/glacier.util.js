@@ -100,7 +100,7 @@ function action_controller(param,datagird){
 				if(rows.length > 0){
 					$.each(param.actions, function(){
 						if('multiple' === this.controlType){
-							$('#'+param.toolbarId+'').find("a[id$='"+this.flag+"']").linkbutton('disable');
+							$('#'+param.toolbarId+'').find("a[id$='"+this.flag+"']").linkbutton('enable');
 						}
 					});
 				}else{

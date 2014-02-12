@@ -1,9 +1,12 @@
 package com.glacier.netloan.compent.realm;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -69,7 +72,7 @@ public class CustomPermissionsRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         Subject pricipalSubject = SecurityUtils.getSubject();
-        User principalUser = (User)pricipalSubject.getPrincipal();// 获取通过认证用户
+        User principalUser = (User) pricipalSubject.getPrincipal();// 获取通过认证用户
         List<Authority> authorityList = authorityMapper.selectByUserId(principalUser.getUserId());// 获取用户的权限集合(用户和用户组的角色权限)
         if (null != authorityList && authorityList.size() > 0) {
             SimpleAuthorizationInfo authInfo = new SimpleAuthorizationInfo();// 创建返回权限对象
@@ -79,7 +82,7 @@ public class CustomPermissionsRealm extends AuthorizingRealm {
                     for (String action : actionString) {
                         // shiro权限字符串为：“当前资源英文名称:操作名英文名称”
                         // 对action进行分割，避免权限范围对其造成的影响
-                        String [] authStr = action.split(":");
+                        String[] authStr = action.split(":");
                         authInfo.addStringPermission(authority.getMenuEnName() + ":" + authStr[0]);// 设置权限操作(设置Permission)
                     }
                 }
@@ -116,12 +119,36 @@ public class CustomPermissionsRealm extends AuthorizingRealm {
                 byte[] salt = Encodes.decodeHex(principalUser.getSalt());
                 AuthenticationInfo info = new SimpleAuthenticationInfo(principalUser, principalUser.getPassword(), ByteSource.Util.bytes(salt), getName());// 将用户的所有信息作为认证对象返回
                 clearCache(info.getPrincipals());// 认证成功后清除之前的缓存
+                updatePrincipalUserInfo(token, principalUser);// 更新用户登录信息
                 return info;
             } else {
                 throw new DisabledAccountException();
             }
         }
         return null;
+    }
+
+    /**
+     * @param token
+     * @param principalUser
+     * @Title: updatePrincipalUserInfo
+     * @Description: TODO(更新用户登录信息)
+     * @param
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws 备注
+     *             <p>
+     *             已检查测试:Green
+     *             <p>
+     */
+
+    private void updatePrincipalUserInfo(CaptchaUsernamePasswordToken token, User principalUser) {
+            principalUser.setLastLoginIpAddress(token.getHost());// 设定最后登录时间
+            principalUser.setLastLoginTime(new Date());
+            principalUser.setLoginCount(principalUser.getLoginCount() + 1);
+            userMapper.updateByPrimaryKeySelective(principalUser);
     }
 
     /**

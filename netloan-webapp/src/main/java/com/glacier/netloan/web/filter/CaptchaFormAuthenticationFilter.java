@@ -12,6 +12,7 @@ import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 
 import com.glacier.basic.exception.IncorrectCaptchaException;
+import com.glacier.basic.util.IpUtil;
 import com.glacier.netloan.compent.realm.CaptchaUsernamePasswordToken;
 
 public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
@@ -34,7 +35,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
         String password = getPassword(request);
         String captcha = getCaptcha(request);
         boolean rememberMe = isRememberMe(request);
-        String host = getHost(request);
+        String host = IpUtil.getIpAddr((HttpServletRequest)request);
 
         char[] charPassword = null;
 
