@@ -24,10 +24,13 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.glacier.basic.util.RandomGUID;
 import com.glacier.netloan.dao.system.AuthorityMapper;
+import com.glacier.netloan.dao.system.LoginLogMapper;
 import com.glacier.netloan.dao.system.RoleMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.entity.system.Authority;
+import com.glacier.netloan.entity.system.LoginLog;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.service.system.UserService;
@@ -51,6 +54,9 @@ public class CustomPermissionsRealm extends AuthorizingRealm {
 
     @Autowired
     private AuthorityMapper authorityMapper;
+    
+    @Autowired
+    private LoginLogMapper loginLogMapper;
 
     public CustomPermissionsRealm() {
         setName("CustomPermissionsRealm");
@@ -149,7 +155,14 @@ public class CustomPermissionsRealm extends AuthorizingRealm {
             lastPrincipalUser.setLastLoginIpAddress(token.getHost());// 设定最后登录时间
             lastPrincipalUser.setLastLoginTime(new Date());
             lastPrincipalUser.setLoginCount(principalUser.getLoginCount() + 1);
-            userMapper.updateByPrimaryKeySelective(lastPrincipalUser);
+            userMapper.updateByPrimaryKeySelective(lastPrincipalUser);//更新用户信息
+            LoginLog loginLog = new LoginLog();
+            loginLog.setLoginlogId(RandomGUID.getRandomGUID());
+            loginLog.setLoginIp(token.getHost());
+            loginLog.setLoginTime(new Date());
+            loginLog.setLoginUser(principalUser.getUserCnName());
+            loginLog.setUserId(principalUser.getUserId());
+            loginLogMapper.insert(loginLog);//插入登录日志
     }
 
     /**
