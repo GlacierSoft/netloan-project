@@ -5,23 +5,31 @@
 <form method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
-			<td>年龄别称：</td>
+			<td>公告主题：</td>
 			<td>
-				<input type="hidden" name="ageId" value="${ageData.ageId}" />
-				<input name="ageName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${ageData.ageName}"/>
+				<input type="hidden" name="webAnnId" value="${announcementData.webAnnId}" />
+				<input name="webAnnTheme" class="easyui-validatebox spinner" style="width:268px" required="true" value="${announcementData.webAnnTheme}"/>
 			</td>
 		</tr>
 		<tr>
-			<td>开始年龄：</td>
-			<td><input name="ageBegin" class="easyui-validatebox spinner" style="width:268px" required="true" value="${ageData.ageBegin}"/></td>
+			<td>公告内容：</td>
+			<td><input name="webAnnContent" class="easyui-validatebox spinner" style="width:268px" required="true" value="${announcementData.webAnnContent}"/></td>
 		</tr>
 		<tr>
-			<td>结束年龄：</td>
-			<td><input name="ageEnd" class="easyui-validatebox spinner" style="width:268px" required="true" value="${ageData.ageEnd}"/></td>
+			<td>公告状态：</td>
+			<td><input name="webAnnStatus" class="easyui-validatebox spinner" style="width:268px" required="true" value="${announcementData.webAnnStatus}"/></td>
+		</tr>
+		<tr>
+			<td>点击次数：</td>
+			<td><input name="clicks" class="easyui-validatebox spinner" style="width:268px" required="true" value="${announcementData.clicks}"/></td>
+		</tr>
+		<tr>
+			<td>附件：</td>
+			<td><input name="accessory" class="easyui-validatebox spinner" style="width:268px" required="true" value="${announcementData.accessory}"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>
-			<td><textarea name="remark" style="width:268px;" maxlength="255" class="spinner formta">${ageData.remark}</textarea></td>
+			<td><textarea name="remark" style="width:268px;" maxlength="255" class="spinner formta">${announcementData.remark}</textarea></td>
 		</tr>
 	</table>
 </form>

@@ -43,10 +43,35 @@
 				width:120,
 				sortable:true
 			},{
+				field:'webAnnContent',
+				title:'公告内容',
+				width:120,
+				sortable:true
+			},{
+				field:'webAnnStatus',
+				title:'公告状态',
+				width:120,
+				sortable:true
+			},{
+				field:'clicks',
+				title:'点击次数',
+				width:120,
+				sortable:true
+			},{
+				field:'accessory',
+				title:'附件',
+				width:120,
+				sortable:true
+			},{
 				field:'remark',
 				title:'备注',
 				width:120,
 				sortable:true
+			},{
+				field:'creater',
+				title:'录入人',
+				sortable:true,
+				width:200
 			},{
 				field:'createTime',
 				title:'录入时间',
@@ -97,7 +122,7 @@
 		$.easyui.showDialog({
 			href : ctx + '/do/announcement/intoForm.htm?webAnnId='+id,//从controller请求jsp页面进行渲染
 			width : 400,
-			height : 280,
+			height : 350,
 			resizable: false,
 			enableApplyButton : false,
 			title : title,
@@ -106,7 +131,7 @@
 				$(this).find('form').form('submit', {
 					url: ctx + submitUrl,
 					success: function(r){
-						$.messannouncementr.show(r.msg);
+						$.messager.show(r.msg);
 						if(r.success){
 							glacier.website_mgr.announcement_mgr.announcement.announcementDataGrid.datagrid('reload');
 							return true;
@@ -131,7 +156,7 @@
 		var row = glacier.website_mgr.announcement_mgr.announcement.announcementDataGrid.datagrid("getChecked");
 		var webAnnId = row[0].webAnnId;
 		if(webAnnId){
-			$.messannouncementr.confirm('请确认', '是否要删除该记录', function(r){
+			$.messager.confirm('请确认', '是否要删除该记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
@@ -139,7 +164,7 @@
 						   data: {webAnnId:webAnnId},
 						   dataType:'json',
 						   success: function(r){
-								$.messannouncementr.show(r.msg);
+								$.messager.show(r.msg);
 								if(r.success){
 									glacier.website_mgr.announcement_mgr.announcement.announcementDataGrid.datagrid('reload');
 								}
