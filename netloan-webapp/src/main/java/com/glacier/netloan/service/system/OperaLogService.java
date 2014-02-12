@@ -29,9 +29,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.system.OperaLogMapper;
 import com.glacier.netloan.entity.system.OperaLog;
 import com.glacier.netloan.entity.system.OperaLogExample;
+import com.glacier.netloan.util.MethodLog;
 
 /**
  * @ClassName: OperaLogService
@@ -58,6 +60,8 @@ public class OperaLogService {
      *             已检查测试:Green
      *             <p>
      */
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	@MethodLog(opera = "查询操作日志列表")
     public Object listAsGrid(JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
@@ -68,7 +72,7 @@ public class OperaLogService {
             OperaLogExample.setLimitEnd(pager.getRows());
         }
         if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
-            OperaLogExample.setOrderByClause(pager.getOrderBy("temp_OperaLog_"));
+            OperaLogExample.setOrderByClause(pager.getOrderBy("temp_operalog_"));
         }
         List<OperaLog> OperaLogs = operaLogMapper.selectByExample(OperaLogExample); // 查询所有操作日志列表
         int total = operaLogMapper.countByExample(OperaLogExample); // 查询总页数
@@ -76,5 +80,26 @@ public class OperaLogService {
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
     }
-
+    /**
+     * @Title: delOperaLog 
+     * @Description: TODO(删除操作日志) 
+     * @param  @param operalogId
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     */
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    @MethodLog(opera="删除操作日志")
+    public Object delOperaLog(String operalogId){
+    	OperaLog operaLog = operaLogMapper.selectByPrimaryKey(operalogId);
+    	int count = operaLogMapper.deleteByPrimaryKey(operalogId);//根据操作日志Id，进行删除
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	if(count == 1){
+    		returnResult.setSuccess(true);
+    		returnResult.setMsg("["+operaLog.getOperaMenu()+"]"+"操作日志信息已删除");
+    	}else{
+    		returnResult.setMsg("操作日志信息删除失败，请联系管理员!");
+    	}
+    	return returnResult;
+    }
 }

@@ -4,11 +4,11 @@
 
 <script type="text/javascript">
 
-	$.util.namespace('glacier.system_mgr.operalog_mgr.operalog');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+	$.util.namespace('glacier.system_mgr.loginlog_mgr.loginlog');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
 	//定义toolbar的操作，对操作进行控制
-	glacier.system_mgr.operalog_mgr.operalog.param = {
-			toolbarId : 'operalogDataGrid_toolbar',
+	glacier.system_mgr.loginlog_mgr.loginlog.param = {
+			toolbarId : 'loginlogDataGrid_toolbar',
 			actions : {
 				del:{flag:'del',controlType:'multiple'}
 			}
@@ -16,20 +16,20 @@
 	
 	
 	//初始化角色DataGrid
-	glacier.system_mgr.operalog_mgr.operalog.operalogDataGrid = $('#operalogDataGrid').datagrid({
+	glacier.system_mgr.loginlog_mgr.loginlog.loginlogDataGrid = $('#loginlogDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
-		//fitColumns:true,//自动填充行
-		fitColumns:false,//自动填充行,出现滚动条
+		fitColumns:true,//自动填充行
+		//fitColumns:false,//自动填充行,出现滚动条
 		nowrap: true,//禁止单元格中的文字自动换行
 		autoRowHeight: false,//禁止设置自动行高以适应内容
 		striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
 		singleSelect:true,//限制单选
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
-		url: ctx + '/do/operalog/list.json',
-		sortName: 'operaMenu',//排序字段名称
+		url: ctx + '/do/loginlog/list.json',
+		sortName: 'loginTime',//排序字段名称
 		sortOrder: 'ASC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
 		idField:'id',
@@ -39,52 +39,32 @@
 				title:'ID',
 				checkbox:true
 			},{
-				field:'operaMenu',
-				title:'操作菜单',
+				field:'userId',
+				title:'用户ID',
 				width:120,
 				sortable:true
 			},{
-				field:'operaPenal',
-				title:'操作面板',
+				field:'loginUser',
+				title:'登录人',
 				width:120,
 				sortable:true
 			},{
-				field:'operaMethod',
-				title:'操作方法',
-				width:80
+				field:'loginIp',
+				title:'登录IP',
+				width:120
 			},{
-				field:'operaResult',
-				title:'操作结果',
+				field:'browserVersion',
+				title:'浏览器版本',
 				width:120,
 				sortable:true
 			},{
-				field:'operaDesc',
-				title:'返回内容',
-				width:200,
-				sortable:true
-			},{
-				field:'operaClass',
-				title:'调用类',
-				width:200,
-				sortable:true
-			},{
-				field:'operaMd',
-				title:'调用方法',
+				field:'screenSize',
+				title:'屏幕分辨率',
 				width:120,
 				sortable:true
 			},{
-				field:'operaPenal',
-				title:'操作面板',
-				width:120,
-				sortable:true
-			},{
-				field:'operator',
-				title:'操作人',
-				width:120,
-				sortable:true
-			},{
-				field:'createTime',
-				title:'录入时间',
+				field:'loginTime',
+				title:'登录时间',
 				sortable:true,
 				width:120
 			}
@@ -93,24 +73,24 @@
 		pageSize : 10,//注意，pageSize必须在pageList存在
 		pageList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#operalogDataGrid_toolbar',
+		toolbar:'#loginlogDataGrid_toolbar',
 		onCheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.system_mgr.operalog_mgr.operalog.param,this).check();
+			action_controller(glacier.system_mgr.loginlog_mgr.loginlog.param,this).check();
 		},
 		onCheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.system_mgr.operalog_mgr.operalog.param,this).check();
+			action_controller(glacier.system_mgr.loginlog_mgr.loginlog.param,this).check();
 		},
 		onUncheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.system_mgr.operalog_mgr.operalog.param,this).unCheck();
+			action_controller(glacier.system_mgr.loginlog_mgr.loginlog.param,this).unCheck();
 		},
 		onUncheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.system_mgr.operalog_mgr.operalog.param,this).unCheck();
+			action_controller(glacier.system_mgr.loginlog_mgr.loginlog.param,this).unCheck();
 		},
 		onSelect:function(rowIndex, rowData){//选择行事件触发
-			action_controller(glacier.system_mgr.operalog_mgr.operalog.param,this).select();
+			action_controller(glacier.system_mgr.loginlog_mgr.loginlog.param,this).select();
 		},
 		onUnselectAll:function(rows){
-			action_controller(glacier.system_mgr.operalog_mgr.operalog.param,this).unSelect();
+			action_controller(glacier.system_mgr.loginlog_mgr.loginlog.param,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('unselectAll');
@@ -120,16 +100,16 @@
 	
 
 	//点击删除按钮触发方法
-	glacier.system_mgr.operalog_mgr.operalog.delOperalog = function(){
-		var row = glacier.system_mgr.operalog_mgr.operalog.operalogDataGrid.datagrid("getChecked");
-		var operalogId = row[0].operalogId;
-		if(operalogId){
+	glacier.system_mgr.loginlog_mgr.loginlog.delLoginlog = function(){
+		var row = glacier.system_mgr.loginlog_mgr.loginlog.loginlogDataGrid.datagrid("getChecked");
+		var loginlogId = row[0].loginlogId;
+		if(loginlogId){
 			$.messager.confirm('请确认', '是否要删除该记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
-						   url: ctx + '/do/operalog/del.json',
-						   data: {operalogId:operalogId},
+						   url: ctx + '/do/loginlog/del.json',
+						   data: {loginlogId:loginlogId},
 						   dataType:'json',
 						   success: function(r){
 							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
@@ -138,8 +118,8 @@
 										timeout:3000,
 										msg:r.msg
 									});
-								   glacier.system_mgr.operalog_mgr.operalog.operalogDataGrid.datagrid("uncheckAll");
-								   glacier.system_mgr.operalog_mgr.operalog.operalogDataGrid.datagrid('reload');
+								   glacier.system_mgr.loginlog_mgr.loginlog.loginlogDataGrid.datagrid("uncheckAll");
+								   glacier.system_mgr.loginlog_mgr.loginlog.loginlogDataGrid.datagrid('reload');
 							   }else{
 									$.messager.show({//后台验证弹出错误提示信息框
 										title:'错误提示',
@@ -160,9 +140,9 @@
 
 <!-- 所有操作日志列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
-	<div id="operalogGridPanel" data-options="region:'center',border:true" >
-		<table id="operalogDataGrid">
-			<glacierui:toolbar panelEnName="OperalogList" toolbarId="operalogDataGrid_toolbar" menuEnName="operalog"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+	<div id="loginlogGridPanel" data-options="region:'center',border:true" >
+		<table id="loginlogDataGrid">
+			<glacierui:toolbar panelEnName="LoginlogList" toolbarId="loginlogDataGrid_toolbar" menuEnName="loginlog"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 </div>

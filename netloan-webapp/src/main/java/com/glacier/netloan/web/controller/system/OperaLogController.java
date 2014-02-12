@@ -56,5 +56,12 @@ public class OperaLogController {
     private Object listActionAsGridByMenuId(JqPager pager) {
         return operaLogService.listAsGrid(pager);
     }
+    
+    //删除操作日志数据
+    @RequestMapping(value = "/del.json",method = RequestMethod.POST)
+    @ResponseBody
+    private Object delOperaLog(String operalogId){
+    	return operaLogService.delOperaLog(operalogId);
+    }
 
 }
