@@ -110,7 +110,7 @@
 			iconCls : iconCls,
 			onSave : function(){
 				$(this).find('form').form('submit', {
-					url: ctx + submitUrl,
+					url: ctx + url,
 					success: function(r){
 						$.messager.show(r.msg);
 						if(r.success){
@@ -134,14 +134,14 @@
 	};
 	//点击删除按钮触发方法
 	glacier.system_mgr.role_mgr.role.delRole = function(){
-		var rows = glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid("getChecked");
-		var roleId = rows[0].roleId;
+		var row = glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid("getChecked");
+		var roleId = row[0].id;
 		if(roleId){
 			$.messager.confirm('请确认', '是否要删除该记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
-						   url: ctx + '/role/del.htm',
+						   url: ctx + '/role/del.html',
 						   data: {roleId:roleId},
 						   dataType:'json',
 						   success: function(r){
