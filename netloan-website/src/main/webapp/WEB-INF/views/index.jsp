@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
    
-    <title>冰川网贷系统</title>
+    <title>冰川网贷平台</title>
 
    	<!-- 引入公用的js和样式库 -->
 	<jsp:include page="inc.jsp"/>
@@ -28,14 +28,15 @@
     <div class="container">
 
       <div class="masthead">
-        <h3 class="text-muted">Project name</h3>
+        <h3 class="text-muted">冰川网贷平台</h3>
         <ul class="nav nav-justified">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">Projects</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Downloads</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
+          <li class="active"><a href="#">主页</a></li>
+          <li><a href="#">我要借款</a></li>
+          <li><a href="#">我要投资</a></li>
+          <li><a href="#">个人中心</a></li>
+          <li><a href="#">本金保障</a></li>
+          <li><a href="#">新闻资讯</a></li>
+          <li><a href="#">客服中心</a></li>
         </ul>
       </div>
 
