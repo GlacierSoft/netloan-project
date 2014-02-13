@@ -6,6 +6,7 @@
 <!-- 项目path全局对象，方便js调用-->
 <script type="text/javascript" charset="utf-8">
 	var ctx = "${ctx}";
+	var fields = eval('(${fields})');
 </script>
 
 <!-- 引入网站标识icon -->
@@ -54,5 +55,4 @@
 
 <!-- 引入自定义js-->
 <script src="${ctx}/resources/js/common/glacier.util.js" type="text/javascript"></script>
-
 

@@ -1,3 +1,5 @@
+var glacier = $.extend({}, glacier);/* 全局对象 */
+
 /**
  * 增加数组判断是否包含某元素功能
  * 
@@ -12,6 +14,17 @@ Array.prototype.contains = function(obj) {
 	} 
 	return false; 
 } 
+
+/**
+ * 渲染字段信息
+ */
+function renderGridValue(value,fields){
+	for(var i =0;i<fields.length;i++){
+		if(value == fields[i].optgroupValueCode){
+			return fields[i].optgroupValueName;
+		}
+	}
+}
 
 /**
  * 更换主题方法，在系统中link引入easyui的主题，必须加上id为easyuiThemeName

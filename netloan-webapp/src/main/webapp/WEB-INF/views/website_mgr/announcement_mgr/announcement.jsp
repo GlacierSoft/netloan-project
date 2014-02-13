@@ -51,7 +51,10 @@
 				field:'webAnnStatus',
 				title:'公告状态',
 				width:120,
-				sortable:true
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
+					return renderGridValue(value,fields.webAnnStatus);
+				}
 			},{
 				field:'clicks',
 				title:'点击次数',

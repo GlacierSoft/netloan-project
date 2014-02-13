@@ -51,7 +51,10 @@
 				field:'webNewsStatus',
 				title:'新闻状态',
 				width:120,
-				sortable:true
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
+					return renderGridValue(value,fields.webNewsStatus);
+				}
 			},{
 				field:'webNewsNum',
 				title:'排序号',
@@ -121,8 +124,8 @@
 		}
 		$.easyui.showDialog({
 			href : ctx + '/do/news/intoForm.htm?webNewsId='+id,//从controller请求jsp页面进行渲染
-			width : 400,
-			height : 350,
+			width : 800,
+			height : 600,
 			resizable: false,
 			enableApplyButton : false,
 			title : title,
