@@ -84,8 +84,8 @@
 			action_controller(glacier.system_mgr.role_mgr.role.param,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
-			$(this).datagrid('unselectAll');
-			$(this).datagrid('uncheckAll');
+			$(this).datagrid('clearSelections');
+			$(this).datagrid('clearChecked');
 		}
 	});
 	
@@ -110,12 +110,26 @@
 			iconCls : iconCls,
 			onSave : function(){
 				$(this).find('form').form('submit', {
-					url: ctx + url,
+					url: ctx + submitUrl,
 					success: function(r){
-						$.messager.show(r.msg);
 						if(r.success){
+							$.messager.show({//后台验证弹出错误提示信息框
+								title:'操作成功',
+								width:380,
+								height:120,
+								msg: '<span style="color:red">'+r.msg+'<span>',
+								timeout:4500
+							});
 							glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid('reload');
-							return true;
+						}else{
+							$.messager.show({//后台验证弹出错误提示信息框
+								title:'操作失败',
+								icon:'error',
+								width:380,
+								height:120,
+								msg: '<span style="color:red">'+r.msg+'<span>',
+								timeout:4500
+							});
 						}
 						 
 					}
@@ -134,15 +148,20 @@
 	};
 	//点击删除按钮触发方法
 	glacier.system_mgr.role_mgr.role.delRole = function(){
-		var row = glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid("getChecked");
-		var roleId = row[0].id;
-		if(roleId){
+		var rows = glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid("getChecked");
+		var roleIds = [];//删除的id标识
+		var roleCnNames = [];//日志记录引用名称
+		for(var i=0;i<rows.length;i++){
+			roleIds.push(rows[i].roleId);
+			roleCnNames.push(rows[i].roleCnName);
+		}
+		if(roleIds.length > 0){
 			$.messager.confirm('请确认', '是否要删除该记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
-						   url: ctx + '/role/del.html',
-						   data: {roleId:roleId},
+						   url: ctx + '/do/role/del.json',
+						   data: {roleIds:roleIds.join(','),roleCnNames:roleCnNames.join(',')},
 						   dataType:'json',
 						   success: function(r){
 							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
@@ -151,7 +170,6 @@
 										timeout:3000,
 										msg:r.msg
 									});
-								   glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid("uncheckAll");
 								   glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid('reload');
 							   }else{
 									$.messager.show({//后台验证弹出错误提示信息框
