@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>glaciersoft.product.netloan</groupId>
 	<artifactId>netloan-project</artifactId>
@@ -12,7 +11,8 @@
 	<!-- maven结构 -->
 	<modules>
 		<module>netloan-core</module>
-		<module>netloan-webapp</module>	
+		<module>netloan-webapp</module>
+    	<module>netloan-website</module>
 	</modules>
 
 	<!-- 管理jar版本 -->
@@ -358,7 +358,7 @@
 
 	<build>
 		<finalName>netloan-build</finalName>
-		<!-- 当项目变化的时自动编译 -->
+		<!-- 当项目变化的时自动编�?-->
 		<defaultGoal>compiler</defaultGoal>
 		<!-- pluginManagement 中定义的plugin，所有子项目都会继承 -->
 		<pluginManagement>

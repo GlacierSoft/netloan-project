@@ -23,10 +23,10 @@
 			<td>电子邮箱：</td>
 			<td><input name="email" class="easyui-validatebox spinner" style="width:268px" required="true" value="${userData.email}"/></td>
 		</tr>
-<!--  		<tr> -->
-<!-- 	    	<td>头像:</td> -->
-<%-- 	    	<td><input name="userImage" type="file" class="easyui-validatebox spinner" style="width:268px" required="true" value="${userData.userImage}"/></td> --%>
-<!-- 	    </tr> -->
+<%--  		<tr>
+ 	    	<td>头像:</td> 
+ 	    	<td><input name="userImage" type="file" class="easyui-validatebox spinner" style="width:268px" required="true" value="${userData.userImage}"/></td>
+	    </tr> --%>
 		<tr>
 			<td>备注：</td>
 			<td><textarea name="remark" style="width:268px;" maxlength="255" class="spinner formta">${userData.remark}</textarea></td>

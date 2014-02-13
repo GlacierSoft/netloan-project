@@ -7,25 +7,25 @@
 		<tr>
 			<td>导航：</td>
 			<td>
-				<input id="nav_mgr_nav_form_webNavId" type="hidden" name="webNavId" value="${navData.webNavId}" />
-				<input id="nav_mgr_nav_form_webNavName" name="webNavName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${navData.webNavName}"/>
+				<input id="nav_mgr_nav_form_webNavId" type="hidden" name="webNavId" value="${websiteNavData.webNavId}" />
+				<input id="nav_mgr_nav_form_webNavName" name="webNavName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${websiteNavData.webNavName}"/>
 			</td>
 		</tr>
 		<tr>
 			<td>父级导航：</td>
 			<td class="forminputtable">
-				<input id="nav_mgr_nav_form_webNavPid" name="webNavPid" value="${navData.webNavPid}"/>
+				<input id="nav_mgr_nav_form_webNavPid" name="webNavPid" value="${websiteNavData.webNavPid}"/>
 			</td>
 		</tr>
 		<tr>
 			<td>排序：</td>
 			<td>
-				<input id="nav_mgr_nav_form_webNavNum" name="webNavNum" class="easyui-validatebox spinner" style="width:268px" required="true" value="${navData.webNavNum}"/>
+				<input id="nav_mgr_nav_form_webNavNum" name="webNavNum" class="easyui-validatebox spinner" style="width:268px" required="true" value="${websiteNavData.webNavNum}"/>
 			</td>
 		</tr>
 		<tr>
 			<td>备注：</td>
-			<td><textarea id="nav_mgr_nav_form_remark" name="remark" style="width:268px;" maxlength="255" class="spinner formta">${navData.remark}</textarea></td>
+			<td><textarea id="nav_mgr_nav_form_remark" name="remark" style="width:268px;" maxlength="255" class="spinner formta">${websiteNavData.remark}</textarea></td>
 		</tr>
 	</table>
 </form>
