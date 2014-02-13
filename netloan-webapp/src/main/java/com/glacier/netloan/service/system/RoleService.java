@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -60,7 +61,6 @@ public class RoleService {
      * @return Object 返回类型
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public Object listAsGrid(JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
@@ -90,8 +90,8 @@ public class RoleService {
      *             已检查测试:Green
      *             <p>
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "新增角色")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "RoleList_add")
     public Object addRole(Role role) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -103,7 +103,7 @@ public class RoleService {
         roleExample.createCriteria().andRoleCnNameEqualTo(role.getRoleCnName());
         count = roleMapper.countByExample(roleExample);// 查找相同中文名称的角色数量
         if (count > 0) {
-            returnResult.setMsg("角色名称重复，请重新填写!");
+            returnResult.setMsg("角色名称重复");
             return returnResult;
         }
         // 防止英文名称重复
@@ -111,7 +111,7 @@ public class RoleService {
         roleExample.createCriteria().andRoleEnNameEqualTo(role.getRoleEnName());
         count = roleMapper.countByExample(roleExample);// 查找相同英文名称的菜单数量
         if (count > 0) {
-            returnResult.setMsg("英文名称重复，请重新填写!");
+            returnResult.setMsg("英文名称重复");
             return returnResult;
         }
         role.setRoleId(RandomGUID.getRandomGUID());
@@ -122,7 +122,7 @@ public class RoleService {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + role.getRoleCnName() + "] 角色信息已保存");
         } else {
-            returnResult.setMsg("角色信息保存失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，角色信息保存失败");
         }
         return returnResult;
     }
@@ -147,7 +147,7 @@ public class RoleService {
         roleExample.createCriteria().andRoleIdNotEqualTo(role.getRoleId()).andRoleCnNameEqualTo(role.getRoleCnName());
         count = roleMapper.countByExample(roleExample);// 查找相同中文名称的角色数量
         if (count > 0) {
-            returnResult.setMsg("角色名称重复，请重新填写!");
+            returnResult.setMsg("角色名称重复");
             return returnResult;
         }
         // 防止英文名称重复
@@ -155,15 +155,46 @@ public class RoleService {
         roleExample.createCriteria().andRoleIdNotEqualTo(role.getRoleId()).andRoleEnNameEqualTo(role.getRoleEnName());
         count = roleMapper.countByExample(roleExample);// 查找相同英文名称的菜单数量
         if (count > 0) {
-            returnResult.setMsg("英文名称重复，请重新填写!");
+            returnResult.setMsg("英文名称重复");
             return returnResult;
         }
         count = roleMapper.updateByPrimaryKeySelective(role);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + role.getRoleCnName() + "] 角色信息已变更!");
+            returnResult.setMsg("[" + role.getRoleCnName() + "] 角色信息已变更");
         } else {
-            returnResult.setMsg("角色信息保存失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，角色信息保存失败");
+        }
+        return returnResult;
+    }
+
+    /**
+     * 
+     * @Title: delRoles
+     * @Description: TODO(批量删除角色)
+     * @param @param roleIds
+     * @param @param roleCnNames
+     * @param @return
+     * @throws 备注
+     *             <p>
+     *             已检查测试:Green
+     *             <p>
+     */
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    @MethodLog(opera = "RoleList_del")
+    public Object delRoles(List<String> roleIds, List<String> roleCnNames) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        if (roleIds.size() > 0) {
+            RoleExample roleExample = new RoleExample();
+            roleExample.createCriteria().andRoleIdIn(roleIds);
+            count = roleMapper.deleteByExample(roleExample);
+            if (count > 0) {
+                returnResult.setSuccess(true);
+                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(roleCnNames, ",") + " ]操作");
+            } else {
+                returnResult.setMsg("发生未知错误，角色信息删除失败");
+            }
         }
         return returnResult;
     }

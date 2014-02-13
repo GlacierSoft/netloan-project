@@ -5,6 +5,8 @@
  */
 package com.glacier.netloan.web.controller.system;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -90,5 +93,12 @@ public class RoleController extends AbstractController{
             return returnErrorBindingResult(bindingResult);
         }
         return roleService.editRole(role);
+    }
+    
+    //批量删除角色
+    @RequestMapping(value = "/del.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object delActions(@RequestParam List<String> roleIds,@RequestParam List<String> roleCnNames) {
+        return roleService.delRoles(roleIds, roleCnNames);
     }
 }
