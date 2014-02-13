@@ -124,6 +124,11 @@
 			},{
 				field:'optgroupValueName' , title:'下拉名称' , width:80
 			},{
+				field:'status' , title:'状态' , width:80,
+				formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
+					return renderGridValue(value,fields.status);
+				}
+			},{
 				field : 'optgroupValueNum' , title : '排序' , width : 25
 			}
 		]],
@@ -215,8 +220,8 @@
 		}
 		$.easyui.showDialog({
 			href : ctx + '/do/optgroupValue/intoForm.htm?optgroupValueId='+id,//从controller请求jsp页面进行渲染
-			width : 420,
-			height : 320,
+			width : 450,
+			height : 350,
 			resizable: false,
 			enableApplyButton : false,
 			title : title,
