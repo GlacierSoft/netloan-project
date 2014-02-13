@@ -33,10 +33,10 @@
 		sortName: 'roleEnName',//排序字段名称
 		sortOrder: 'ASC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
-		idField:'id',
+		idField:'roleId',
 		columns:[[
 			{
-				field:'id',
+				field:'roleId',
 				title:'ID',
 				checkbox:true
 			},{
