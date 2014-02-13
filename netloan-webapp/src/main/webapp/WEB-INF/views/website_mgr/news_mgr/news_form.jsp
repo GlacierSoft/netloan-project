@@ -11,10 +11,10 @@
 				<input name="webNewsTheme" class="easyui-validatebox spinner" style="width:268px" required="true" value="${newsData.webNewsTheme}"/>
 			</td>
 		</tr>
-		<tr>
-			<td>新闻内容：</td>
-			<td><input name="webNewsContent" class="easyui-validatebox spinner" style="width:268px" required="true" value="${newsData.webNewsContent}"/></td>
-		</tr>
+<!-- 		<tr> -->
+<!-- 			<td>新闻内容：</td> -->
+<%-- 			<td><input name="webNewsContent" class="easyui-validatebox spinner" style="width:268px" required="true" value="${newsData.webNewsContent}"/></td> --%>
+<!-- 		</tr> -->
 		<tr>
 			<td>新闻状态：</td>
 			<td><input name="webNewsStatus" class="easyui-validatebox spinner" style="width:268px" required="true" value="${newsData.webNewsStatus}"/></td>
@@ -29,7 +29,19 @@
 		</tr>
 		<tr>
 			<td>备注：</td>
-			<td><textarea name="remark" style="width:268px;" maxlength="255" class="spinner formta">${newsData.remark}</textarea></td>
+			<td>
+			<textarea name="remark" style="width:268px;" maxlength="255" class="spinner formta">${newsData.remark}</textarea>
+			
+<!-- 			<textarea id="webNewsContent" name="webNewsContent" style="width:700px;height:300px;">
+			&lt;strong&gt;&lt;/strong&gt;
+			</textarea> -->
+			</td>
 		</tr>
 	</table>
 </form>
+
+<!-- <script>
+       KindEditor.ready(function(K) {
+               window.editor = K.create('#webNewsContent');
+       });
+</script> -->

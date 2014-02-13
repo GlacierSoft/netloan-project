@@ -5,8 +5,12 @@
  */
 package com.glacier.netloan.service.basicdatas;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -16,11 +20,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.basicdatas.ParameterOptgroupMapper;
 import com.glacier.netloan.dao.basicdatas.ParameterOptgroupValueMapper;
+import com.glacier.netloan.entity.basicdatas.ParameterOptgroup;
+import com.glacier.netloan.entity.basicdatas.ParameterOptgroupExample;
 import com.glacier.netloan.entity.basicdatas.ParameterOptgroupValue;
 import com.glacier.netloan.entity.basicdatas.ParameterOptgroupValueExample;
 import com.glacier.netloan.entity.basicdatas.ParameterOptgroupValueExample.Criteria;
@@ -29,7 +37,7 @@ import com.glacier.netloan.util.MethodLog;
 
 /** 
  * @ClassName: ParameterOptgroupValueService 
- * @Description: TODO(会员年龄别称业务类) 
+ * @Description: TODO(下拉项值业务类) 
  * @author xichao.dong
  * @email 406592176@QQ.com
  * @date 2014-1-21 下午2:22:22  
@@ -41,39 +49,63 @@ public class ParameterOptgroupValueService {
 	@Autowired
     private ParameterOptgroupValueMapper optgroupValueMapper;
 
+	@Autowired
+    private ParameterOptgroupMapper optgroupMapper;
+	
+	/**
+     * @Title: loadEnableField 
+     * @Description: TODO(查找可用字段，在grid显示字段值) 
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    public Object loadEnableField() {
+    	ParameterOptgroupExample optgroupExample = new ParameterOptgroupExample();
+    	optgroupExample.createCriteria().andOptgroupCodeIsNotNull();
+    	List<ParameterOptgroup> listOptgroup = optgroupMapper.selectByExample(optgroupExample);
+    	LinkedHashMap<String, List<ParameterOptgroupValue>> part = new LinkedHashMap<String, List<ParameterOptgroupValue>>();
+        for (ParameterOptgroup optgroup : listOptgroup) {
+        	ParameterOptgroupValueExample optgroupValueExample = new ParameterOptgroupValueExample();
+        	optgroupValueExample.createCriteria().andStatusEqualTo("Enabled").andOptgroupIdEqualTo(optgroup.getOptgroupId());// 查询可用和下拉项关联的下拉项值
+        	optgroupValueExample.setOrderByClause("optgroup_value_code desc,optgroup_value_num asc");// optgroup_value_code降序 optgroup_value_num 升序
+        	List<ParameterOptgroupValue> list = optgroupValueMapper.selectByExample(optgroupValueExample);
+        	for (ParameterOptgroupValue optgroupValue : list) {
+        		String key = optgroup.getOptgroupCode();
+                if (part.containsKey(key)) { // 如果包含这个field，就加入它的值
+                    part.get(key).add(optgroupValue);
+                } else { // 没有这个field，则新加入这个filed
+                    List<ParameterOptgroupValue> optgroupValues = new ArrayList<ParameterOptgroupValue>();
+                    optgroupValues.add(optgroupValue);
+                    part.put(key, optgroupValues);
+                }
+        	}
+        }
+        Set<String> filterSet = new HashSet<String>();// 过滤不需要的属性，提高性能
+        filterSet.add("optgroupValueId");
+        filterSet.add("optgroupId");
+        filterSet.add("status");
+        filterSet.add("optgroupValueNum");
+        filterSet.add("remark");
+        filterSet.add("creater");
+        filterSet.add("createTime");
+        filterSet.add("updater");
+        filterSet.add("updateTime");
+        return JackJson.fromObjectToJson(part, "fieldFilter", filterSet);
+    }
+    
     public Object getOptgroupValue(String optgroupValueId) {
         return optgroupValueMapper.selectByPrimaryKey(optgroupValueId);
     }
     
     /**
      * @Title: listAsGrid 
-     * @Description: TODO(获取所有会员年龄别称信息) 
-     * @param @param poptgroupValuer
+     * @Description: TODO(获取所有下拉项值信息) 
+     * @param @param optgroupId
+     * @param @param pager
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
-//    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-//    @MethodLog(opera = "浏览会员年龄别称")
-//    public Object listAsGrid(JqPager pager) {
-//
-//        JqGridReturn returnResult = new JqGridReturn();
-//        ParameterOptgroupValueExample parameterOptgroupValueExample = new ParameterOptgroupValueExample();
-//
-//        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
-//        	parameterOptgroupValueExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
-//        	parameterOptgroupValueExample.setLimitEnd(pager.getRows());
-//        }
-//        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
-//        	parameterOptgroupValueExample.setOrderByClause(pager.getOrderBy("temp_parameter_optgroupValue_"));
-//        }
-//        List<ParameterOptgroupValue>  parameterOptgroupValues = optgroupValueMapper.selectByExample(parameterOptgroupValueExample); // 查询所有会员年龄别称列表
-//        int total = optgroupValueMapper.countByExample(parameterOptgroupValueExample); // 查询总页数
-//        returnResult.setRows(parameterOptgroupValues);
-//        returnResult.setTotal(total);
-//        return returnResult;// 返回ExtGrid表
-//    }
-
     public Object listAsGrid(String optgroupId, JqPager pager) {
         JqGridReturn returnResult = new JqGridReturn();
         if (StringUtils.isNotBlank(optgroupId)) {// 当菜单对应的menuId有意义的时候，才会进行数据库查询
@@ -100,14 +132,14 @@ public class ParameterOptgroupValueService {
     
     /**
      * @Title: addOptgroupValue 
-     * @Description: TODO(新增会员年龄别称) 
+     * @Description: TODO(新增下拉项值) 
      * @param @param optgroupValue
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "新增会员年龄别称")
+    @MethodLog(opera = "新增下拉项值")
     public Object addOptgroupValue(ParameterOptgroupValue optgroupValue) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -115,11 +147,11 @@ public class ParameterOptgroupValueService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParameterOptgroupValueExample optgroupValueExample = new ParameterOptgroupValueExample();
         int count = 0;
-        // 防止会员年龄别称名称重复
-        optgroupValueExample.createCriteria().andOptgroupValueNameEqualTo(optgroupValue.getOptgroupValueName());
-        count = optgroupValueMapper.countByExample(optgroupValueExample);// 查找相同中文名称的会员年龄别称数量
+        // 防止下拉项值名称重复
+        optgroupValueExample.createCriteria().andOptgroupIdEqualTo(optgroupValue.getOptgroupId()).andOptgroupValueNameEqualTo(optgroupValue.getOptgroupValueName());
+        count = optgroupValueMapper.countByExample(optgroupValueExample);// 查找相同中文名称的下拉项值数量
         if (count > 0) {
-            returnResult.setMsg("会员年龄别称重复，请重新填写!");
+            returnResult.setMsg("下拉项值重复，请重新填写!");
             return returnResult;
         }
         optgroupValue.setOptgroupValueId(RandomGUID.getRandomGUID());
@@ -128,63 +160,63 @@ public class ParameterOptgroupValueService {
         count = optgroupValueMapper.insert(optgroupValue);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + optgroupValue.getOptgroupValueName() + "] 会员年龄别称信息已保存");
+            returnResult.setMsg("[" + optgroupValue.getOptgroupValueName() + "] 下拉项值信息已保存");
         } else {
-            returnResult.setMsg("会员年龄别称信息保存失败，请联系管理员!");
+            returnResult.setMsg("下拉项值信息保存失败，请联系管理员!");
         }
         return returnResult;
     }
     
     /**
      * @Title: editOptgroupValue 
-     * @Description: TODO(修改会员年龄别称) 
+     * @Description: TODO(修改下拉项值) 
      * @param @param optgroupValue
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "修改会员年龄别称")
+    @MethodLog(opera = "修改下拉项值")
     public Object editOptgroupValue(ParameterOptgroupValue optgroupValue) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParameterOptgroupValueExample optgroupValueExample = new ParameterOptgroupValueExample();
         int count = 0;
-        // 防止会员年龄别称名称重复
-        optgroupValueExample.createCriteria().andOptgroupValueIdNotEqualTo(optgroupValue.getOptgroupValueId()).andOptgroupValueNameEqualTo(optgroupValue.getOptgroupValueName());
-        count = optgroupValueMapper.countByExample(optgroupValueExample);// 查找相同中文名称的会员年龄别称数量
+        // 防止下拉项值名称重复
+        optgroupValueExample.createCriteria().andOptgroupValueIdNotEqualTo(optgroupValue.getOptgroupValueId()).andOptgroupIdEqualTo(optgroupValue.getOptgroupId()).andOptgroupValueNameEqualTo(optgroupValue.getOptgroupValueName());
+        count = optgroupValueMapper.countByExample(optgroupValueExample);// 查找相同中文名称的下拉项值数量
         if (count > 0) {
-            returnResult.setMsg("会员年龄别称名称重复，请重新填写!");
+            returnResult.setMsg("下拉项值名称重复，请重新填写!");
             return returnResult;
         }
         count = optgroupValueMapper.updateByPrimaryKeySelective(optgroupValue);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + optgroupValue.getOptgroupValueName() + "] 会员年龄别称信息已修改");
+            returnResult.setMsg("[" + optgroupValue.getOptgroupValueName() + "] 下拉项值信息已修改");
         } else {
-            returnResult.setMsg("会员年龄别称信息修改失败，请联系管理员!");
+            returnResult.setMsg("下拉项值信息修改失败，请联系管理员!");
         }
         return returnResult;
     }
     
     /**
      * @Title: delOptgroupValue 
-     * @Description: TODO(删除会员年龄别称) 
+     * @Description: TODO(删除下拉项值) 
      * @param @param optgroupValueId
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "删除会员年龄别称")
+    @MethodLog(opera = "删除下拉项值")
     public Object delOptgroupValue(String optgroupValueId) {
     	ParameterOptgroupValue optgroupValue= optgroupValueMapper.selectByPrimaryKey(optgroupValueId);
-        int result = optgroupValueMapper.deleteByPrimaryKey(optgroupValueId);//根据会员年龄别称Id，进行删除会员年龄别称
+        int result = optgroupValueMapper.deleteByPrimaryKey(optgroupValueId);//根据下拉项值Id，进行删除下拉项值
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         if (result == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + optgroupValue.getOptgroupValueName() + "] 会员年龄别称信息已删除");
+            returnResult.setMsg("[" + optgroupValue.getOptgroupValueName() + "] 下拉项值信息已删除");
         } else {
-            returnResult.setMsg("会员年龄别称信息删除失败，请联系管理员!");
+            returnResult.setMsg("下拉项值信息删除失败，请联系管理员!");
         }
 		return returnResult;
      }
