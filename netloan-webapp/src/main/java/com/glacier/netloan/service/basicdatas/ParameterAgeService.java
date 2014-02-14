@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -142,7 +143,7 @@ public class ParameterAgeService {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + age.getAgeName() + "] 会员年龄别称信息已变更");
         } else {
-            returnResult.setMsg("发生未知错误，会员年龄别称信息修改失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，会员年龄别称信息修改失败");
         }
         return returnResult;
     }
@@ -150,23 +151,28 @@ public class ParameterAgeService {
     /**
      * @Title: delAge 
      * @Description: TODO(删除会员年龄别称) 
-     * @param @param ageId
+     * @param @param ageId 会员年龄别称Id
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "AgeList_del")
-    public Object delAge(String ageId) {
-    	ParameterAge age= ageMapper.selectByPrimaryKey(ageId);
-        int result = ageMapper.deleteByPrimaryKey(ageId);//根据会员年龄别称Id，进行删除会员年龄别称
+    public Object delAges(List<String> ageIds, List<String> ageNames) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        if (result == 1) {
-            returnResult.setSuccess(true);
-            returnResult.setMsg("[" + age.getAgeName() + "] 会员年龄别称信息已删除");
-        } else {
-            returnResult.setMsg("会员年龄别称信息删除失败，请联系管理员!");
+        int count = 0;
+        System.out.println("0000000000000ageIds="+ageIds);
+        if (ageIds.size() > 0) {
+        	ParameterAgeExample ageExample = new ParameterAgeExample();
+        	ageExample.createCriteria().andAgeIdIn(ageIds);
+            count = ageMapper.deleteByExample(ageExample);
+            if (count > 0) {
+                returnResult.setSuccess(true);
+                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(ageNames, ",") + " ]操作");
+            } else {
+                returnResult.setMsg("发生未知错误，会员年龄别称信息删除失败");
+            }
         }
-		return returnResult;
-     }
+        return returnResult;
+    }
 }

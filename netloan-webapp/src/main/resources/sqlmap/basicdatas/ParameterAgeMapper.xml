@@ -108,7 +108,7 @@
     where age_id = #{ageId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.basicdatas.ParameterAgeExample" >
-    delete from t_parameter_age temp_parameter_age
+    delete temp_parameter_age from t_parameter_age temp_parameter_age
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
