@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -24,7 +25,7 @@ import com.glacier.netloan.util.MethodLog;
 /**
  * 
  * @ClassName: ParameterCreditService 
- * @Description: TODO(会员信用等级业务类) 
+ * @Description: TODO(会员信用级别业务类) 
  * @author yuzexu
  * @email 804346249@QQ.com
  * @date 2014-1-22上午9:12:04
@@ -43,15 +44,13 @@ public class ParameterCreditService {
 	/**
      * 
      * @Title: listAsGrid
-     * @Description: TODO(以表格结构展示会员信用等级列表)
+     * @Description: TODO(以表格结构展示会员信用级别列表)
      * @param @param menuId 动作对应的菜单Id
      * @param @param pager 分页参数
      * @param @return 设定文件
      * @return Object 返回类型
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "浏览会员信用等级信息")
     public Object listAsGrid(JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
@@ -81,8 +80,8 @@ public class ParameterCreditService {
      * @throws 
      *
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "新增会员信用级别")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "CreditList_add")
     public Object addParameterCredit(ParameterCredit parameterCredit) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -94,7 +93,7 @@ public class ParameterCreditService {
         parameterCreditExample.createCriteria().andCreditNameEqualTo(parameterCredit.getCreditName());
         count = parameterCreditMapper.countByExample(parameterCreditExample);// 查找相同信用等级名称的会员数量
         if (count > 0) {
-            returnResult.setMsg("会员信用等级名称重复，请重新填写!");
+            returnResult.setMsg("会员信用级别名称重复");
             return returnResult;
         }
         parameterCredit.setCreditId(RandomGUID.getRandomGUID());
@@ -103,24 +102,24 @@ public class ParameterCreditService {
         count = parameterCreditMapper.insert(parameterCredit);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + parameterCredit.getCreditName() + "] 会员信用等级信息已保存");
+            returnResult.setMsg("[" + parameterCredit.getCreditName() + "] 会员信用级别信息已保存");
         } else {
-            returnResult.setMsg("会员信用等级信息保存失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，会员信用级别信息保存失败");
         }
         return returnResult;
     }
     /**
      * 
      * @Title: editParameterCredit 
-     * @Description: TODO(修改会员信用等级) 
+     * @Description: TODO(修改会员信用级别) 
      * @param  @param parameterCredit
      * @param  @return设定文件
      * @return Object  返回类型
      * @throws 
      *
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera="修改操作")
+    @Transactional(readOnly = false)
+    @MethodLog(opera="CreditList_edit")
     public Object editParameterCredit(ParameterCredit parameterCredit) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParameterCreditExample parameterCreditExample = new ParameterCreditExample();
@@ -129,15 +128,15 @@ public class ParameterCreditService {
         parameterCreditExample.createCriteria().andCreditIdNotEqualTo(parameterCredit.getCreditId()).andCreditNameEqualTo(parameterCredit.getCreditName());
         count = parameterCreditMapper.countByExample(parameterCreditExample);// 查找相同信用等级名称的会员数量
         if (count > 0) {
-            returnResult.setMsg("会员信用等级名称重复，请重新填写!");
+            returnResult.setMsg("会员信用级别名称重复");
             return returnResult;
         }
         count = parameterCreditMapper.updateByPrimaryKeySelective(parameterCredit);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + parameterCredit.getCreditName() + "] 会员信用等级信息已修改保存");
+            returnResult.setMsg("[" + parameterCredit.getCreditName() + "] 会员信用级别信息已变更");
         } else {
-            returnResult.setMsg("会员信用等级信息修改保存失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，会员信用级别信息修改保存失败");
         }
         return returnResult;
     }
@@ -149,18 +148,22 @@ public class ParameterCreditService {
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "删除会员信用等级")
-    public Object delCredit(String creditId) {
-    	ParameterCredit credit= parameterCreditMapper.selectByPrimaryKey(creditId);
-        int result = parameterCreditMapper.deleteByPrimaryKey(creditId);//根据会员年龄别称Id，进行删除会员年龄别称
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        if (result == 1) {
-            returnResult.setSuccess(true);
-            returnResult.setMsg("[" + credit.getCreditName() + "] 会员年龄别称信息已删除");
-        } else {
-            returnResult.setMsg("会员年龄别称信息删除失败，请联系管理员!");
-        }
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "CreditList_del")
+    public Object delCredit(List<String> creditIds ,List<String> creditNames) {
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	int count = 0;
+    	if(creditIds.size() >0){
+    		ParameterCreditExample parameterCreditExample = new ParameterCreditExample();
+        	parameterCreditExample.createCriteria().andCreditIdIn(creditIds);
+        	count = parameterCreditMapper.deleteByExample(parameterCreditExample);
+    		if(count >0){
+        		returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(creditNames, ",") + " ]操作");
+        		returnResult.setSuccess(true);
+        	}else{
+        		returnResult.setMsg("发生未知错误，会员信用级别删除失败");
+        	}
+    	}
 		return returnResult;
      }
 }

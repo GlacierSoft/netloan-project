@@ -50,8 +50,6 @@ public class WebsiteNavService {
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "浏览导航信息")
     public Object listAsGrid(JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
@@ -84,8 +82,8 @@ public class WebsiteNavService {
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "新增导航")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "NavTree_add")
     public Object addNav(WebsiteNav nav) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -97,7 +95,7 @@ public class WebsiteNavService {
         websiteNavExample.createCriteria().andWebNavNameEqualTo(nav.getWebNavName());
         count = websiteNavMapper.countByExample(websiteNavExample);// 查找相同名称的导航数量
         if (count > 0) {
-            returnResult.setMsg("导航名称重复，请重新填写!");
+            returnResult.setMsg("导航名称重复");
             return returnResult;
         }
         nav.setWebNavId(RandomGUID.getRandomGUID());
@@ -161,8 +159,8 @@ public class WebsiteNavService {
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "修改导航")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "NavTree_edit")
     public Object editNav(WebsiteNav nav) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         
@@ -229,8 +227,8 @@ public class WebsiteNavService {
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "删除导航")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "NavTree_del")
     public Object delNav(String navId) {
     	WebsiteNav nav= websiteNavMapper.selectByPrimaryKey(navId);
     	WebsiteNavExample websiteNavExample = new WebsiteNavExample();

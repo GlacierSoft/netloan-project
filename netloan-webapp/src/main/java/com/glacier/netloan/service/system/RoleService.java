@@ -137,7 +137,7 @@ public class RoleService {
      *             已检查测试:Green
      *             <p>
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    @Transactional(readOnly = false)
     @MethodLog(opera = "RoleList_edit")
     public Object editRole(Role role) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
@@ -180,7 +180,7 @@ public class RoleService {
      *             已检查测试:Green
      *             <p>
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    @Transactional(readOnly = false)
     @MethodLog(opera = "RoleList_del")
     public Object delRoles(List<String> roleIds, List<String> roleCnNames) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false

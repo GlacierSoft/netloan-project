@@ -31,10 +31,10 @@
 		sortName: 'createTime',//排序字段名称
 		sortOrder: 'ASC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
-		idField:'id',
+		idField:'creditId',
 		columns:[[
 			{
-				field:'id',
+				field:'creditId',
 				title:'ID',
 				checkbox:true
 			},{
@@ -88,8 +88,8 @@
 			action_controller(glacier.basicdatas_mgr.credit_mgr.credit.param,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
-			$(this).datagrid('unselectAll');
-			$(this).datagrid('uncheckAll');
+			$(this).datagrid('clearSelections');
+			$(this).datagrid('clearChecked');
 		}
 	});
 	/*
@@ -138,23 +138,39 @@
 	
 	//点击删除按钮触发方法
 	glacier.basicdatas_mgr.credit_mgr.credit.delCredit = function(){
-		var row = glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid("getChecked");
-		var creditId = row[0].creditId;
-		if(creditId){
+		var rows = glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid("getChecked");
+		var creditIds = [];//删除的id标识
+		var creditNames = [];//日志记录引用名称
+		for(var i =0;i<rows.length;i++){
+			creditIds.push(rows[i].creditId);
+			creditNames.push(rows[i].creditName);
+		}
+		if(creditIds.length > 0){
 			$.messager.confirm('请确认', '是否要删除该记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
 						   url: ctx + '/do/credit/del.json',
-						   data: {creditId:creditId},
+						   data: {creditIds:creditIds.join(','),creditNames:creditNames.join(',')},
 						   dataType:'json',
 						   success: function(r){
-								$.messager.show(r.msg);
-								if(r.success){
-									glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid('reload');
+							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
+								   $.messager.show({
+										title:'提示',
+										timeout:3000,
+										msg:r.msg
+									});
+								   glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid('reload');
+							   }else{
+									$.messager.show({//后台验证弹出错误提示信息框
+										title:'错误提示',
+										width:380,
+										height:120,
+										msg: '<span style="color:red">'+r.msg+'<span>',
+										timeout:4500
+									});
 								}
-								 
-							}
+						   }
 					});
 				}
 			});
@@ -166,7 +182,7 @@
 <div class="easyui-layout" data-options="fit:true">
 	<div id="creditGridPanel" data-options="region:'center',border:true" >
 		<table id="creditDataGrid">
-			<glacierui:toolbar panelEnName="creditList" toolbarId="creditDataGrid_toolbar" menuEnName="credit"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+			<glacierui:toolbar panelEnName="CreditList" toolbarId="creditDataGrid_toolbar" menuEnName="credit"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 </div>

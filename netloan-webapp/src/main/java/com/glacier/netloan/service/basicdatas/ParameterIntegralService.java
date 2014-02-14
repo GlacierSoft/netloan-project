@@ -51,8 +51,6 @@ public class ParameterIntegralService {
      * @return Object 返回类型
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "浏览会员积分级别信息")
     public Object listAsGrid(JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
@@ -75,15 +73,15 @@ public class ParameterIntegralService {
     /**
      * 
      * @Title: addparameterIntegral 
-     * @Description: TODO(新增会员信用级别) 
+     * @Description: TODO(新增会员积分级别) 
      * @param  @param parameterIntegral
      * @param  @return设定文件
      * @return Object  返回类型
      * @throws 
      *
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "新增会员信用级别")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "IntegralList_add")
     public Object addParameterIntegral(ParameterIntegral parameterIntegral) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -91,11 +89,11 @@ public class ParameterIntegralService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParameterIntegralExample parameterIntegralExample = new ParameterIntegralExample();
         int count = 0;
-        // 防止会员信用级别名称重复
+        // 防止会员积分级别名称重复
         parameterIntegralExample.createCriteria().andIntegralNameEqualTo(parameterIntegral.getIntegralName());
-        count = parameterIntegralMapper.countByExample(parameterIntegralExample);// 查找相同信用等级名称的会员数量
+        count = parameterIntegralMapper.countByExample(parameterIntegralExample);// 查找相同积分级别名称的会员数量
         if (count > 0) {
-            returnResult.setMsg("会员信用等级名称重复，请重新填写!");
+            returnResult.setMsg("会员积分级别名称重复");
             return returnResult;
         }
         parameterIntegral.setIntegralId(RandomGUID.getRandomGUID());
@@ -104,54 +102,54 @@ public class ParameterIntegralService {
         count = parameterIntegralMapper.insert(parameterIntegral);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + parameterIntegral.getIntegralName() + "] 会员信用等级信息已保存");
+            returnResult.setMsg("[" + parameterIntegral.getIntegralName() + "] 会员积分级别信息已保存");
         } else {
-            returnResult.setMsg("会员信用等级信息保存失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，会员积分级别信息保存失败");
         }
         return returnResult;
     }
     /**
      * 
      * @Title: editParameterIntegral 
-     * @Description: TODO(修改会员信用等级) 
+     * @Description: TODO(修改会员积分级别) 
      * @param  @param parameterIntegral
      * @param  @return设定文件
      * @return Object  返回类型
      * @throws 
      *
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera="修改操作")
+    @Transactional(readOnly = false)
+    @MethodLog(opera="IntegralList_edit")
     public Object editParameterIntegral(ParameterIntegral parameterIntegral) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParameterIntegralExample parameterIntegralExample = new ParameterIntegralExample();
         int count = 0;
-        // 防止会员信用级别名称重复
+        // 防止会员积分级别名称重复
         parameterIntegralExample.createCriteria().andIntegralIdNotEqualTo(parameterIntegral.getIntegralId()).andIntegralNameEqualTo(parameterIntegral.getIntegralName());
-        count = parameterIntegralMapper.countByExample(parameterIntegralExample);// 查找相同信用等级名称的会员数量
+        count = parameterIntegralMapper.countByExample(parameterIntegralExample);// 查找相同积分级别名称的会员数量
         if (count > 0) {
-            returnResult.setMsg("会员信用等级名称重复，请重新填写!");
+            returnResult.setMsg("会员积分级别名称重复，请重新填写!");
             return returnResult;
         }                               
         count = parameterIntegralMapper.updateByPrimaryKeySelective(parameterIntegral);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + parameterIntegral.getIntegralName() + "] 会员信用等级信息已修改保存");
+            returnResult.setMsg("[" + parameterIntegral.getIntegralName() + "] 会员积分级别信息已修改保存");
         } else {
-            returnResult.setMsg("会员信用等级信息修改保存失败，请联系管理员!");
+            returnResult.setMsg("会员积分级别信息修改保存失败，请联系管理员!");
         }
         return returnResult;
     }
     /**
      * @Title: delAge 
-     * @Description: TODO(删除会员信用级别) 
+     * @Description: TODO(删除会员积分级别) 
      * @param @param IntegralId
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "删除会员信用等级")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "IntegralList_del")
     public Object delIntegral(String IntegralId) {
     	ParameterIntegral Integral= parameterIntegralMapper.selectByPrimaryKey(IntegralId);
         int result = parameterIntegralMapper.deleteByPrimaryKey(IntegralId);//根据会员年龄别称Id，进行删除会员年龄别称

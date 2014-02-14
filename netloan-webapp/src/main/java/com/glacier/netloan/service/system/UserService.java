@@ -107,8 +107,6 @@ public class UserService {
      * @return Object  返回类型
      * @throws 
      */
-    @Transactional(readOnly = false , propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "分页查询用户列表")
     public Object listAsGrid(JqPager pager){
     	JqGridReturn returnResulte = new JqGridReturn();
     	UserExample userExample = new UserExample();
@@ -126,8 +124,8 @@ public class UserService {
     	return returnResulte;
     }
     
-    @Transactional(readOnly = false , propagation = Propagation.REQUIRED)
-    @MethodLog(opera="增加用户")
+    @Transactional(readOnly = false)
+    @MethodLog(opera="UserList_add")
     public Object addUser(User user){
     	Subject pricipalSubject = SecurityUtils.getSubject();
     	User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -166,8 +164,8 @@ public class UserService {
      * @return Object  返回类型
      * @throws 
      */
-    @Transactional(readOnly = false , propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "修改用户信息")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "UserList_edit")
     public Object editUser(User user){
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
     	UserExample userExample = new UserExample();
@@ -197,8 +195,8 @@ public class UserService {
      * @return Object  返回类型
      * @throws 
      */
-    @Transactional(readOnly = false , propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "删除用户信息")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "UserList_del")
     public Object delUser(String userId){
     	User user = userMapper.selectByPrimaryKey(userId);
     	JqReturnJson returnResulte = new JqReturnJson();// 构建返回结果，默认结果为false

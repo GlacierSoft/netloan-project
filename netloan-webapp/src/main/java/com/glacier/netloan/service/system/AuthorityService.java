@@ -46,6 +46,7 @@ import com.glacier.netloan.entity.system.AuthorityExample;
 import com.glacier.netloan.entity.system.Menu;
 import com.glacier.netloan.entity.system.MenuExample;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.util.MethodLog;
 import com.glacier.netloan.web.vo.system.AuthMenuActionVO;
 
 /**
@@ -56,7 +57,7 @@ import com.glacier.netloan.web.vo.system.AuthMenuActionVO;
  * @date 2014-1-22 下午1:37:05
  */
 @Service
-@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 public class AuthorityService {
 
     @Autowired
@@ -205,6 +206,8 @@ public class AuthorityService {
      *             已检查测试:Green
      *             <p>
      */
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "RoleList_auth")
     public Object saveRoleAuths(String roleId, Set<String> menuIds, Set<String> authActions) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;

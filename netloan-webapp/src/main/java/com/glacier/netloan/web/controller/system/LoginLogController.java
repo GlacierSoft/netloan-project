@@ -1,9 +1,12 @@
 package com.glacier.netloan.web.controller.system;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,7 +33,7 @@ public class LoginLogController {
 	}
 	@RequestMapping(value = "/del.json" , method = RequestMethod.POST)
 	@ResponseBody
-	public Object delLoginLog(String loginlogId){
-		return loginLogService.delLoginLog(loginlogId);
+	public Object delLoginLog(@RequestParam List<String> loginlogIds , @RequestParam List<String> loginUsers){
+		return loginLogService.delLoginLog(loginlogIds, loginUsers);
 	}
 }

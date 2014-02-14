@@ -43,7 +43,7 @@ import com.glacier.netloan.util.MethodLog;
  * @date 2014-2-10 下午3:18:37
  */
 @Service
-@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 public class OperaLogService {
 
     @Autowired
@@ -60,8 +60,6 @@ public class OperaLogService {
      *             已检查测试:Green
      *             <p>
      */
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	@MethodLog(opera = "查询操作日志列表")
     public Object listAsGrid(JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
@@ -88,8 +86,8 @@ public class OperaLogService {
      * @return Object  返回类型
      * @throws 
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera="删除操作日志")
+    @Transactional(readOnly = false)
+    @MethodLog(opera="OperalogList_del")
     public Object delOperaLog(String operalogId){
     	OperaLog operaLog = operaLogMapper.selectByPrimaryKey(operalogId);
     	int count = operaLogMapper.deleteByPrimaryKey(operalogId);//根据操作日志Id，进行删除

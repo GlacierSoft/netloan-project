@@ -1,14 +1,10 @@
 package com.glacier.netloan.web.controller.basicdatas;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
@@ -101,7 +96,8 @@ public class ParameterCreditController extends AbstractController{
     // 删除会员信用等级
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object delCredit(String creditId) {
-        return parameterCreditService.delCredit(creditId);
+    private Object delCredit(@RequestParam List<String> creditIds,@RequestParam List<String> creditNames) {
+    	System.out.println("dddd   "+creditIds+"  ddd   "+creditNames);
+        return parameterCreditService.delCredit(creditIds, creditNames);
     }
 }

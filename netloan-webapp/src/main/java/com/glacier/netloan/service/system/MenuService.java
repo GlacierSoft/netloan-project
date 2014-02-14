@@ -45,6 +45,7 @@ import com.glacier.netloan.entity.system.AuthorityExample;
 import com.glacier.netloan.entity.system.Menu;
 import com.glacier.netloan.entity.system.MenuExample;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.util.MethodLog;
 
 /**
  * @ClassName: MenuService
@@ -54,7 +55,7 @@ import com.glacier.netloan.entity.system.User;
  * @date 2013-12-10 下午4:00:46
  */
 @Service
-@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 public class MenuService {
 
     @Autowired
@@ -79,6 +80,7 @@ public class MenuService {
      * @throws
      */
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    @MethodLog(opera = "MenuTree_add")
     public Object addMenu(Menu menu) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         MenuExample menuExample = new MenuExample();
@@ -122,7 +124,8 @@ public class MenuService {
      * @return Object 返回类型
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "MenuTree_edit")
     public Object editMenu(Menu menu) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         // 防止选择自身作为父菜单，引起死循环
@@ -163,7 +166,8 @@ public class MenuService {
         return returnResult;
     }
 
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "MenuTree_del")
     public Object delMenu(Menu menu) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int menuCount = 0;

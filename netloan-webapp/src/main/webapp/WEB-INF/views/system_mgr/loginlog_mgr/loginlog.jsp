@@ -32,10 +32,10 @@
 		sortName: 'loginTime',//排序字段名称
 		sortOrder: 'ASC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
-		idField:'id',
+		idField:'loginlogId',
 		columns:[[
 			{
-				field:'id',
+				field:'loginlogId',
 				title:'ID',
 				checkbox:true
 			},{
@@ -93,23 +93,28 @@
 			action_controller(glacier.system_mgr.loginlog_mgr.loginlog.param,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
-			$(this).datagrid('unselectAll');
-			$(this).datagrid('uncheckAll');
+			$(this).datagrid('clearSelections');
+			$(this).datagrid('clearChecked');
 		}
 	});
 	
 
 	//点击删除按钮触发方法
 	glacier.system_mgr.loginlog_mgr.loginlog.delLoginlog = function(){
-		var row = glacier.system_mgr.loginlog_mgr.loginlog.loginlogDataGrid.datagrid("getChecked");
-		var loginlogId = row[0].loginlogId;
-		if(loginlogId){
+		var rows = glacier.system_mgr.loginlog_mgr.loginlog.loginlogDataGrid.datagrid("getChecked");
+		var loginlogIds = [];//删除的id标识
+		var loginUsers = [];//日志记录引用名称
+		for(var i=0;i<rows.length;i++){
+			loginlogIds.push(rows[i].loginlogId);
+			loginUsers.push(rows[i].loginUser);
+		}
+		if(loginlogIds.length > 0){
 			$.messager.confirm('请确认', '是否要删除该记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
 						   url: ctx + '/do/loginlog/del.json',
-						   data: {loginlogId:loginlogId},
+						   data: {loginlogIds:loginlogIds.join(','),loginUsers:loginUsers.join(',')},
 						   dataType:'json',
 						   success: function(r){
 							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
@@ -118,7 +123,6 @@
 										timeout:3000,
 										msg:r.msg
 									});
-								   glacier.system_mgr.loginlog_mgr.loginlog.loginlogDataGrid.datagrid("uncheckAll");
 								   glacier.system_mgr.loginlog_mgr.loginlog.loginlogDataGrid.datagrid('reload');
 							   }else{
 									$.messager.show({//后台验证弹出错误提示信息框

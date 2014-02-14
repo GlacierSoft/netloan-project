@@ -76,8 +76,8 @@ public class ActionService {
      * @return Object 返回类型
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "新增操作")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "ActionList_add")
     public Object addAction(Action action) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ActionExample actionExample = new ActionExample();
@@ -108,8 +108,8 @@ public class ActionService {
         return returnResult;
     }
 
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "修改操作")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "ActionList_edit")
     public Object editAction(Action action) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ActionExample actionExample = new ActionExample();
@@ -141,8 +141,8 @@ public class ActionService {
         return returnResult;
     }
 
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "删除操作")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "ActionList_del")
     public Object delActions(List<String> actionIds, List<String> actionCnNames) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;

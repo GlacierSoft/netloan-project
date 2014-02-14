@@ -38,6 +38,7 @@ import com.glacier.netloan.dao.system.PanelMapper;
 import com.glacier.netloan.entity.system.ActionExample;
 import com.glacier.netloan.entity.system.Panel;
 import com.glacier.netloan.entity.system.PanelExample;
+import com.glacier.netloan.util.MethodLog;
 
 /**
  * @ClassName: PanelService
@@ -125,7 +126,8 @@ public class PanelService {
      *             已检查测试:Green
      *             <p>
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    @Transactional(readOnly = false)
+    @MethodLog(opera ="PanelList_add")
     public Object addPanel(Panel panel) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         PanelExample panelExample = new PanelExample();
@@ -167,7 +169,8 @@ public class PanelService {
      *             已检查测试:Green
      *             <p>
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "PanelList_edit")
     public Object editPanel(Panel panel) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         PanelExample panelExample = new PanelExample();
@@ -197,7 +200,8 @@ public class PanelService {
         return returnResult;
     }
     
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "PanelList_del")
     public Object delPanel(Panel panel){
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;

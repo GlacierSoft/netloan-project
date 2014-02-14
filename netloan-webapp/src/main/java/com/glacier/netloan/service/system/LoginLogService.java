@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
@@ -17,7 +18,7 @@ import com.glacier.netloan.entity.system.LoginLogExample;
 import com.glacier.netloan.util.MethodLog;
 
 @Service
-@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 public class LoginLogService {
 	
 	@Autowired
@@ -31,8 +32,6 @@ public class LoginLogService {
 	 * @return Object  返回类型
 	 * @throws 
 	 */
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	@MethodLog(opera = "查询登录日志列表")
 	public Object listAsGrid(JqPager pager){
 		
 		JqGridReturn returnResult = new JqGridReturn();
@@ -60,17 +59,21 @@ public class LoginLogService {
 	 * @return Object  返回类型
 	 * @throws 
 	 */
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	@MethodLog(opera="删除登录日志")
-	public Object delLoginLog(String loginlogId){
-		LoginLog loginLog = loginLogMapper.selectByPrimaryKey(loginlogId);
-		int count = loginLogMapper.deleteByPrimaryKey(loginlogId);//根据登录日志Id，进行删除
+	@Transactional(readOnly = false)
+	@MethodLog(opera="LoginlogList_del")
+	public Object delLoginLog(List<String> loginlogIds , List<String> loginUsers){
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-		if(count == 1){
-			returnResult.setMsg("["+loginLog.getLoginUser()+"]"+"登录日志信息已删除");
-			returnResult.setSuccess(true);
-		}else{
-			returnResult.setMsg("登录日志信息删除失败，请联系管理员!");
+		int count = 0;
+		if(loginlogIds.size() > 0){
+			LoginLogExample loginLogExample = new LoginLogExample();
+			loginLogExample.createCriteria().andLoginlogIdIn(loginlogIds);
+			count = loginLogMapper.deleteByExample(loginLogExample);
+			if(count >0){
+				returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(loginUsers, ",") + " ]操作");
+				returnResult.setSuccess(true);
+			}else{
+				returnResult.setMsg("发生未知错误，登录日志信息删除失败");
+			}
 		}
 		return returnResult;
 	}
