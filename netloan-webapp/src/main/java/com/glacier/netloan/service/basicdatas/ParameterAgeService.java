@@ -40,20 +40,26 @@ public class ParameterAgeService {
 	@Autowired
     private ParameterAgeMapper ageMapper;
 
+	/**
+	 * @Title: getAge 
+	 * @Description: TODO(根据会员年龄别称Id获取会员年龄别称信息) 
+	 * @param @param ageId 会员年龄别称Id
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
     public Object getAge(String ageId) {
         return ageMapper.selectByPrimaryKey(ageId);
     }
     
     /**
      * @Title: listAsGrid 
-     * @Description: TODO(获取所有会员年龄别称信息) 
+     * @Description: TODO(以表格结构展示会员年龄别称列表) 
      * @param @param pager
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "浏览会员年龄别称")
     public Object listAsGrid(JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
@@ -75,14 +81,14 @@ public class ParameterAgeService {
 
     /**
      * @Title: addAge 
-     * @Description: TODO(新增会员年龄别称) 
+     * @Description: TODO(增加会员年龄别称) 
      * @param @param age
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "新增会员年龄别称")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "AgeList_add")
     public Object addAge(ParameterAge age) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -92,9 +98,9 @@ public class ParameterAgeService {
         int count = 0;
         // 防止会员年龄别称名称重复
         ageExample.createCriteria().andAgeNameEqualTo(age.getAgeName());
-        count = ageMapper.countByExample(ageExample);// 查找相同中文名称的会员年龄别称数量
+        count = ageMapper.countByExample(ageExample);// 查找相同名称的会员年龄别称数量
         if (count > 0) {
-            returnResult.setMsg("会员年龄别称重复，请重新填写!");
+            returnResult.setMsg("会员年龄别称重复");
             return returnResult;
         }
         age.setAgeId(RandomGUID.getRandomGUID());
@@ -105,7 +111,7 @@ public class ParameterAgeService {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + age.getAgeName() + "] 会员年龄别称信息已保存");
         } else {
-            returnResult.setMsg("会员年龄别称信息保存失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，会员年龄别称信息保存失败");
         }
         return returnResult;
     }
@@ -118,25 +124,25 @@ public class ParameterAgeService {
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "修改会员年龄别称")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "AgeList_edit")
     public Object editAge(ParameterAge age) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParameterAgeExample ageExample = new ParameterAgeExample();
         int count = 0;
         // 防止会员年龄别称名称重复
         ageExample.createCriteria().andAgeIdNotEqualTo(age.getAgeId()).andAgeNameEqualTo(age.getAgeName());
-        count = ageMapper.countByExample(ageExample);// 查找相同中文名称的会员年龄别称数量
+        count = ageMapper.countByExample(ageExample);// 查找相同名称的会员年龄别称数量
         if (count > 0) {
-            returnResult.setMsg("会员年龄别称名称重复，请重新填写!");
+            returnResult.setMsg("会员年龄别称名称重复");
             return returnResult;
         }
         count = ageMapper.updateByPrimaryKeySelective(age);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + age.getAgeName() + "] 会员年龄别称信息已修改");
+            returnResult.setMsg("[" + age.getAgeName() + "] 会员年龄别称信息已变更");
         } else {
-            returnResult.setMsg("会员年龄别称信息修改失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，会员年龄别称信息修改失败，请联系管理员!");
         }
         return returnResult;
     }
@@ -149,8 +155,8 @@ public class ParameterAgeService {
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "删除会员年龄别称")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "AgeList_del")
     public Object delAge(String ageId) {
     	ParameterAge age= ageMapper.selectByPrimaryKey(ageId);
         int result = ageMapper.deleteByPrimaryKey(ageId);//根据会员年龄别称Id，进行删除会员年龄别称
