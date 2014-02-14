@@ -30,7 +30,7 @@
     
     <dependency>
 			<groupId>glaciersoft.product.netloan</groupId>
-			<artifactId>netloan-core</artifactId>
+			<artifactId>netloan-module</artifactId>
 			<version>${project.version}</version>
 		</dependency>
   </dependencies>

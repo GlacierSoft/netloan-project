@@ -17,7 +17,7 @@
  * @Review (审核人) ：zhenfei.zhang
  * 
  */
-package com.glacier.netloan.web.vo.system;
+package com.glacier.netloan.dto.system;
 
 /**
  * @ClassName: AuthMenuActionVO

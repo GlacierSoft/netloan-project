@@ -11,6 +11,7 @@
 	<!-- maven结构 -->
 	<modules>
 		<module>netloan-core</module>
+		<module>netloan-module</module>
 		<module>netloan-webapp</module>
     	<module>netloan-website</module>
 	</modules>
@@ -358,7 +359,7 @@
 
 	<build>
 		<finalName>netloan-build</finalName>
-		<!-- 当项目变化的时自动编�?-->
+		<!-- 当项目变化的时自动编译-->
 		<defaultGoal>compiler</defaultGoal>
 		<!-- pluginManagement 中定义的plugin，所有子项目都会继承 -->
 		<pluginManagement>

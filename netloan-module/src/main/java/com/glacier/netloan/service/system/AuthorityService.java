@@ -39,6 +39,7 @@ import com.glacier.jqueryui.util.Tree;
 import com.glacier.netloan.dao.system.ActionMapper;
 import com.glacier.netloan.dao.system.AuthorityMapper;
 import com.glacier.netloan.dao.system.MenuMapper;
+import com.glacier.netloan.dto.system.AuthMenuActionVO;
 import com.glacier.netloan.entity.system.Action;
 import com.glacier.netloan.entity.system.ActionExample;
 import com.glacier.netloan.entity.system.Authority;
@@ -47,7 +48,6 @@ import com.glacier.netloan.entity.system.Menu;
 import com.glacier.netloan.entity.system.MenuExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
-import com.glacier.netloan.web.vo.system.AuthMenuActionVO;
 
 /**
  * @ClassName: AuthoirtyService
