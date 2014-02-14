@@ -19,7 +19,6 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.basicdatas.ParameterIntegralMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterIntegral;
 import com.glacier.netloan.entity.basicdatas.ParameterIntegralExample;
-import com.glacier.netloan.entity.system.RoleExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 

@@ -29,7 +29,7 @@
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
 		url: ctx + '/do/operalog/list.json',
-		sortName: 'operaMenu',//排序字段名称
+		sortName: 'operaTime',//排序字段名称
 		sortOrder: 'ASC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
 		idField:'operalogId',
@@ -83,7 +83,7 @@
 				width:120,
 				sortable:true
 			},{
-				field:'createTime',
+				field:'operaTime',
 				title:'录入时间',
 				sortable:true,
 				width:120
