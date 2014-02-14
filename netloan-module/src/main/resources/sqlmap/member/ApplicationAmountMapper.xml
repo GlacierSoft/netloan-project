@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.member.ApplicationAmountMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.member.ApplicationAmount" >
+    <id column="temp_application_amount_app_amount_id" property="appAmountId" jdbcType="VARCHAR" />
+    <result column="temp_application_amount_member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="temp_application_amount_app_type" property="appType" jdbcType="CHAR" />
+    <result column="temp_application_amount_original_amount" property="originalAmount" jdbcType="REAL" />
+    <result column="temp_application_amount_app_money" property="appMoney" jdbcType="REAL" />
+    <result column="temp_application_amount_app_explanation" property="appExplanation" jdbcType="VARCHAR" />
+    <result column="temp_application_amount_authorized_amount" property="authorizedAmount" jdbcType="VARCHAR" />
+    <result column="temp_application_amount_audit_state" property="auditState" jdbcType="CHAR" />
+    <result column="temp_application_amount_process_explanation" property="processExplanation" jdbcType="VARCHAR" />
+    <result column="temp_application_amount_app_date" property="appDate" jdbcType="TIMESTAMP" />
+    <result column="temp_application_amount_auditor_id" property="auditorId" jdbcType="VARCHAR" />
+    <result column="temp_application_amount_audit_date" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="temp_application_amount_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_application_amount_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_application_amount_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_application_amount_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_application_amount_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_application_amount.app_amount_id as temp_application_amount_app_amount_id, temp_application_amount.member_id as temp_application_amount_member_id, 
+    temp_application_amount.app_type as temp_application_amount_app_type, temp_application_amount.original_amount as temp_application_amount_original_amount, 
+    temp_application_amount.app_money as temp_application_amount_app_money, temp_application_amount.app_explanation as temp_application_amount_app_explanation, 
+    temp_application_amount.authorized_amount as temp_application_amount_authorized_amount, 
+    temp_application_amount.audit_state as temp_application_amount_audit_state, temp_application_amount.process_explanation as temp_application_amount_process_explanation, 
+    temp_application_amount.app_date as temp_application_amount_app_date, temp_application_amount.auditor_id as temp_application_amount_auditor_id, 
+    temp_application_amount.audit_date as temp_application_amount_audit_date, temp_application_amount.remark as temp_application_amount_remark, 
+    temp_application_amount.creater as temp_application_amount_creater, temp_application_amount.create_time as temp_application_amount_create_time, 
+    temp_application_amount.updater as temp_application_amount_updater, temp_application_amount.update_time as temp_application_amount_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.member.ApplicationAmountExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_application_amount temp_application_amount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_application_amount temp_application_amount
+    where temp_application_amount.app_amount_id = #{appAmountId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_application_amount
+    where app_amount_id = #{appAmountId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.member.ApplicationAmountExample" >
+    delete from t_application_amount temp_application_amount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.member.ApplicationAmount" >
+    insert into t_application_amount (app_amount_id, member_id, app_type, 
+      original_amount, app_money, app_explanation, 
+      authorized_amount, audit_state, process_explanation, 
+      app_date, auditor_id, audit_date, 
+      remark, creater, create_time, 
+      updater, update_time)
+    values (#{appAmountId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{appType,jdbcType=CHAR}, 
+      #{originalAmount,jdbcType=REAL}, #{appMoney,jdbcType=REAL}, #{appExplanation,jdbcType=VARCHAR}, 
+      #{authorizedAmount,jdbcType=VARCHAR}, #{auditState,jdbcType=CHAR}, #{processExplanation,jdbcType=VARCHAR}, 
+      #{appDate,jdbcType=TIMESTAMP}, #{auditorId,jdbcType=VARCHAR}, #{auditDate,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.member.ApplicationAmount" >
+    insert into t_application_amount
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="appAmountId != null" >
+        app_amount_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="appType != null" >
+        app_type,
+      </if>
+      <if test="originalAmount != null" >
+        original_amount,
+      </if>
+      <if test="appMoney != null" >
+        app_money,
+      </if>
+      <if test="appExplanation != null" >
+        app_explanation,
+      </if>
+      <if test="authorizedAmount != null" >
+        authorized_amount,
+      </if>
+      <if test="auditState != null" >
+        audit_state,
+      </if>
+      <if test="processExplanation != null" >
+        process_explanation,
+      </if>
+      <if test="appDate != null" >
+        app_date,
+      </if>
+      <if test="auditorId != null" >
+        auditor_id,
+      </if>
+      <if test="auditDate != null" >
+        audit_date,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="appAmountId != null" >
+        #{appAmountId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="appType != null" >
+        #{appType,jdbcType=CHAR},
+      </if>
+      <if test="originalAmount != null" >
+        #{originalAmount,jdbcType=REAL},
+      </if>
+      <if test="appMoney != null" >
+        #{appMoney,jdbcType=REAL},
+      </if>
+      <if test="appExplanation != null" >
+        #{appExplanation,jdbcType=VARCHAR},
+      </if>
+      <if test="authorizedAmount != null" >
+        #{authorizedAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null" >
+        #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="processExplanation != null" >
+        #{processExplanation,jdbcType=VARCHAR},
+      </if>
+      <if test="appDate != null" >
+        #{appDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditorId != null" >
+        #{auditorId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.member.ApplicationAmountExample" resultType="java.lang.Integer" >
+    select count(*) from t_application_amount temp_application_amount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_application_amount temp_application_amount
+    <set >
+      <if test="record.appAmountId != null" >
+        temp_application_amount.app_amount_id = #{record.appAmountId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberId != null" >
+        temp_application_amount.member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appType != null" >
+        temp_application_amount.app_type = #{record.appType,jdbcType=CHAR},
+      </if>
+      <if test="record.originalAmount != null" >
+        temp_application_amount.original_amount = #{record.originalAmount,jdbcType=REAL},
+      </if>
+      <if test="record.appMoney != null" >
+        temp_application_amount.app_money = #{record.appMoney,jdbcType=REAL},
+      </if>
+      <if test="record.appExplanation != null" >
+        temp_application_amount.app_explanation = #{record.appExplanation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authorizedAmount != null" >
+        temp_application_amount.authorized_amount = #{record.authorizedAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditState != null" >
+        temp_application_amount.audit_state = #{record.auditState,jdbcType=CHAR},
+      </if>
+      <if test="record.processExplanation != null" >
+        temp_application_amount.process_explanation = #{record.processExplanation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appDate != null" >
+        temp_application_amount.app_date = #{record.appDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditorId != null" >
+        temp_application_amount.auditor_id = #{record.auditorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditDate != null" >
+        temp_application_amount.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        temp_application_amount.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_application_amount.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_application_amount.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_application_amount.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_application_amount.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_application_amount temp_application_amount
+    set temp_application_amount.app_amount_id = #{record.appAmountId,jdbcType=VARCHAR},
+      temp_application_amount.member_id = #{record.memberId,jdbcType=VARCHAR},
+      temp_application_amount.app_type = #{record.appType,jdbcType=CHAR},
+      temp_application_amount.original_amount = #{record.originalAmount,jdbcType=REAL},
+      temp_application_amount.app_money = #{record.appMoney,jdbcType=REAL},
+      temp_application_amount.app_explanation = #{record.appExplanation,jdbcType=VARCHAR},
+      temp_application_amount.authorized_amount = #{record.authorizedAmount,jdbcType=VARCHAR},
+      temp_application_amount.audit_state = #{record.auditState,jdbcType=CHAR},
+      temp_application_amount.process_explanation = #{record.processExplanation,jdbcType=VARCHAR},
+      temp_application_amount.app_date = #{record.appDate,jdbcType=TIMESTAMP},
+      temp_application_amount.auditor_id = #{record.auditorId,jdbcType=VARCHAR},
+      temp_application_amount.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      temp_application_amount.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_application_amount.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_application_amount.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_application_amount.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_application_amount.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.member.ApplicationAmount" >
+    update t_application_amount
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="appType != null" >
+        app_type = #{appType,jdbcType=CHAR},
+      </if>
+      <if test="originalAmount != null" >
+        original_amount = #{originalAmount,jdbcType=REAL},
+      </if>
+      <if test="appMoney != null" >
+        app_money = #{appMoney,jdbcType=REAL},
+      </if>
+      <if test="appExplanation != null" >
+        app_explanation = #{appExplanation,jdbcType=VARCHAR},
+      </if>
+      <if test="authorizedAmount != null" >
+        authorized_amount = #{authorizedAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null" >
+        audit_state = #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="processExplanation != null" >
+        process_explanation = #{processExplanation,jdbcType=VARCHAR},
+      </if>
+      <if test="appDate != null" >
+        app_date = #{appDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditorId != null" >
+        auditor_id = #{auditorId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where app_amount_id = #{appAmountId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.member.ApplicationAmount" >
+    update t_application_amount
+    set member_id = #{memberId,jdbcType=VARCHAR},
+      app_type = #{appType,jdbcType=CHAR},
+      original_amount = #{originalAmount,jdbcType=REAL},
+      app_money = #{appMoney,jdbcType=REAL},
+      app_explanation = #{appExplanation,jdbcType=VARCHAR},
+      authorized_amount = #{authorizedAmount,jdbcType=VARCHAR},
+      audit_state = #{auditState,jdbcType=CHAR},
+      process_explanation = #{processExplanation,jdbcType=VARCHAR},
+      app_date = #{appDate,jdbcType=TIMESTAMP},
+      auditor_id = #{auditorId,jdbcType=VARCHAR},
+      audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where app_amount_id = #{appAmountId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.member.BorrowDataAuditMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.member.BorrowDataAudit" >
+    <id column="temp_borrow_data_audit_borrow_data_audit_id" property="borrowDataAuditId" jdbcType="VARCHAR" />
+    <result column="temp_borrow_data_audit_member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="temp_borrow_data_audit_audit_status" property="auditStatus" jdbcType="CHAR" />
+    <result column="temp_borrow_data_audit_review_status" property="reviewStatus" jdbcType="CHAR" />
+    <result column="temp_borrow_data_audit_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_borrow_data_audit_creater_time" property="createrTime" jdbcType="TIMESTAMP" />
+    <result column="temp_borrow_data_audit_audit" property="audit" jdbcType="VARCHAR" />
+    <result column="temp_borrow_data_audit_audit_time" property="auditTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_borrow_data_audit.borrow_data_audit_id as temp_borrow_data_audit_borrow_data_audit_id, 
+    temp_borrow_data_audit.member_id as temp_borrow_data_audit_member_id, temp_borrow_data_audit.audit_status as temp_borrow_data_audit_audit_status, 
+    temp_borrow_data_audit.review_status as temp_borrow_data_audit_review_status, temp_borrow_data_audit.creater as temp_borrow_data_audit_creater, 
+    temp_borrow_data_audit.creater_time as temp_borrow_data_audit_creater_time, temp_borrow_data_audit.audit as temp_borrow_data_audit_audit, 
+    temp_borrow_data_audit.audit_time as temp_borrow_data_audit_audit_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.member.BorrowDataAuditExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_borrow_data_audit temp_borrow_data_audit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_borrow_data_audit temp_borrow_data_audit
+    where temp_borrow_data_audit.borrow_data_audit_id = #{borrowDataAuditId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_borrow_data_audit
+    where borrow_data_audit_id = #{borrowDataAuditId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.member.BorrowDataAuditExample" >
+    delete from t_borrow_data_audit temp_borrow_data_audit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.member.BorrowDataAudit" >
+    insert into t_borrow_data_audit (borrow_data_audit_id, member_id, audit_status, 
+      review_status, creater, creater_time, 
+      audit, audit_time)
+    values (#{borrowDataAuditId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{auditStatus,jdbcType=CHAR}, 
+      #{reviewStatus,jdbcType=CHAR}, #{creater,jdbcType=VARCHAR}, #{createrTime,jdbcType=TIMESTAMP}, 
+      #{audit,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.member.BorrowDataAudit" >
+    insert into t_borrow_data_audit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="borrowDataAuditId != null" >
+        borrow_data_audit_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="auditStatus != null" >
+        audit_status,
+      </if>
+      <if test="reviewStatus != null" >
+        review_status,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createrTime != null" >
+        creater_time,
+      </if>
+      <if test="audit != null" >
+        audit,
+      </if>
+      <if test="auditTime != null" >
+        audit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="borrowDataAuditId != null" >
+        #{borrowDataAuditId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null" >
+        #{auditStatus,jdbcType=CHAR},
+      </if>
+      <if test="reviewStatus != null" >
+        #{reviewStatus,jdbcType=CHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createrTime != null" >
+        #{createrTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="audit != null" >
+        #{audit,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.member.BorrowDataAuditExample" resultType="java.lang.Integer" >
+    select count(*) from t_borrow_data_audit temp_borrow_data_audit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_borrow_data_audit temp_borrow_data_audit
+    <set >
+      <if test="record.borrowDataAuditId != null" >
+        temp_borrow_data_audit.borrow_data_audit_id = #{record.borrowDataAuditId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberId != null" >
+        temp_borrow_data_audit.member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditStatus != null" >
+        temp_borrow_data_audit.audit_status = #{record.auditStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.reviewStatus != null" >
+        temp_borrow_data_audit.review_status = #{record.reviewStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_borrow_data_audit.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createrTime != null" >
+        temp_borrow_data_audit.creater_time = #{record.createrTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.audit != null" >
+        temp_borrow_data_audit.audit = #{record.audit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditTime != null" >
+        temp_borrow_data_audit.audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_borrow_data_audit temp_borrow_data_audit
+    set temp_borrow_data_audit.borrow_data_audit_id = #{record.borrowDataAuditId,jdbcType=VARCHAR},
+      temp_borrow_data_audit.member_id = #{record.memberId,jdbcType=VARCHAR},
+      temp_borrow_data_audit.audit_status = #{record.auditStatus,jdbcType=CHAR},
+      temp_borrow_data_audit.review_status = #{record.reviewStatus,jdbcType=CHAR},
+      temp_borrow_data_audit.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_borrow_data_audit.creater_time = #{record.createrTime,jdbcType=TIMESTAMP},
+      temp_borrow_data_audit.audit = #{record.audit,jdbcType=VARCHAR},
+      temp_borrow_data_audit.audit_time = #{record.auditTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.member.BorrowDataAudit" >
+    update t_borrow_data_audit
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null" >
+        audit_status = #{auditStatus,jdbcType=CHAR},
+      </if>
+      <if test="reviewStatus != null" >
+        review_status = #{reviewStatus,jdbcType=CHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createrTime != null" >
+        creater_time = #{createrTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="audit != null" >
+        audit = #{audit,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where borrow_data_audit_id = #{borrowDataAuditId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.member.BorrowDataAudit" >
+    update t_borrow_data_audit
+    set member_id = #{memberId,jdbcType=VARCHAR},
+      audit_status = #{auditStatus,jdbcType=CHAR},
+      review_status = #{reviewStatus,jdbcType=CHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      creater_time = #{createrTime,jdbcType=TIMESTAMP},
+      audit = #{audit,jdbcType=VARCHAR},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP}
+    where borrow_data_audit_id = #{borrowDataAuditId,jdbcType=VARCHAR}
+  </update>
+</mapper>
