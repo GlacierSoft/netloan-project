@@ -62,10 +62,10 @@ public class ParameterAgeService {
      * @throws
      */
     public Object listAsGrid(JqPager pager) {
-
+    	
         JqGridReturn returnResult = new JqGridReturn();
         ParameterAgeExample parameterAgeExample = new ParameterAgeExample();
-
+        
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	parameterAgeExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	parameterAgeExample.setLimitEnd(pager.getRows());
@@ -91,6 +91,7 @@ public class ParameterAgeService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "AgeList_add")
     public Object addAge(ParameterAge age) {
+    	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         
@@ -161,7 +162,6 @@ public class ParameterAgeService {
     public Object delAges(List<String> ageIds, List<String> ageNames) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
-        System.out.println("0000000000000ageIds="+ageIds);
         if (ageIds.size() > 0) {
         	ParameterAgeExample ageExample = new ParameterAgeExample();
         	ageExample.createCriteria().andAgeIdIn(ageIds);

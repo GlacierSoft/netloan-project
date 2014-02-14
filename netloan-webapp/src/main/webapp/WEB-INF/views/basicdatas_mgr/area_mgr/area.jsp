@@ -15,7 +15,7 @@
 			}
 	};
 		
-	//初始化资源菜单areaTreeGrid
+	//初始化地区areaTreeGrid
 	glacier.basicdatas_mgr.area_mgr.area.areaTreeGrid = $('#areaTreeGrid').treegrid({
 		fit:true,//控件自动areaize占满窗口大小
 		border:false,//是否存在边框
@@ -33,14 +33,6 @@
 		toolbar : '#areaTreeGridToolbar',
 		onSelect:function(rowData){//选择行事件触发
 			action_controller(glacier.basicdatas_mgr.area_mgr.area.areaParam,this).select();
-			if(rowData.url){//选中菜单的同时，根据菜单属性是否包含可用的URL进行对应的操作进行动态变更
-				glacier.basicdatas_mgr.area_mgr.area.actionPropertyGrid.propertygrid('load',{
-					areaId: rowData.areaId
-				});
-				glacier.basicdatas_mgr.area_mgr.area.panelDataGrid.datagrid('load',{
-					areaId: rowData.areaId
-				});
-			}
 		},
 		onUnselectAll:function(rows){//取消选择行状态触发事件
 			action_controller(glacier.basicdatas_mgr.area_mgr.area.areaParam,this).unSelect();
@@ -55,12 +47,16 @@
 		frozenColumns : [ [{//冻结列，当表格宽度压缩展示不全时候，该列不会缩小
 			field : 'areaId' , title : 'ID' , hidden:true
 		},{
-			field : 'areaName' , title : '地区' , width : 150
+			field : 'areaName' , title : '地区' , width : 250
 		}]],
 		columns : [ [{
-			field : 'areaNum' , title : '排序' , width : 150
+			field : 'areaNum' , title : '排序' , width : 50
 		},{
-			field : 'remark' , title : '备注' , width : 150
+			field : 'remark' , title : '备注' , width : 120
+		},{
+			field : 'creater' , title : '创建人' , width : 120
+		},{
+			field : 'createTime' , title : '创建时间' , width : 100
 		}]]
 	});
 	
@@ -107,29 +103,37 @@
 		var row = glacier.basicdatas_mgr.area_mgr.area.areaTreeGrid.treegrid("getSelected");
 		glacier.basicdatas_mgr.area_mgr.area.newDialog(' 编辑【'+row.areaName+'】','/do/area/edit.json',row.areaId);
 	};
-	//点击删除按钮触发方法
+	//删除地区
 	glacier.basicdatas_mgr.area_mgr.area.delArea = function(){
-		var row = glacier.basicdatas_mgr.area_mgr.area.areaTreeGrid.treegrid("getChecked");
-		var areaId = row[0].areaId;
-		if(areaId){
-			$.messager.confirm('请确认', '是否要删除该记录', function(r){
-				if (r){
-					$.ajax({
-						   type: "POST",
-						   url: ctx + '/do/area/del.json',
-						   data: {areaId:areaId},
-						   dataType:'json',
-						   success: function(r){
-								$.messager.show(r.msg);
-								if(r.success){
-									glacier.basicdatas_mgr.area_mgr.area.areaTreeGrid.treegrid('reload');
-								}
-								 
-							}
-					});
-				}
-			});
-		}
+		var row = glacier.basicdatas_mgr.area_mgr.area.areaTreeGrid.treegrid("getSelected");
+		$.messager.confirm('请确认', '是否要删除所选地区，删除后不可恢复!', function(r){
+			if (r){
+				$.ajax({
+					   type: "POST",
+					   url: ctx + '/do/area/del.json',
+					   data: row,
+					   dataType:'json',
+					   success: function(r){
+						   if(r.success){//操作成功刷新列表
+							   $.messager.show({
+									title:'提示',
+									msg:r.msg,
+									icon:'info',
+									showType:'fade'
+								});
+							   glacier.basicdatas_mgr.area_mgr.area.areaTreeGrid.treegrid('reload');
+						   }else{
+							   $.messager.show({
+									title:'提示',
+									msg:r.msg,
+									icon:'error',
+									showType:'fade'
+								});
+						   }
+					   }
+				});
+			}
+		});
 	};
 </script>
 
@@ -137,7 +141,7 @@
 <div class="easyui-layout" data-options="fit:true">
    		<div id="areaGridPanel" data-options="region:'center',border:true" >
    			<table id="areaTreeGrid">
-	    		<glacierui:toolbar panelEnName="AreaTree" toolbarId="areaTreeGridToolbar" menuEnName="area"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+	    		<glacierui:toolbar panelEnName="AreaTree" toolbarId="areaTreeGridToolbar" menuEnName="area"/><!-- 自定义标签：自动根据地区获取当前用户权限，动态注册方法 -->
 	    	</table>
    		</div>
 </div>

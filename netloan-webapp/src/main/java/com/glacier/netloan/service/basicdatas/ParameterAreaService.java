@@ -43,20 +43,26 @@ public class ParameterAreaService {
 	@Autowired
     private ParameterAreaMapper areaMapper;
 	
+	/**
+	 * @Title: getArea 
+	 * @Description: TODO(根据地区Id获取地区信息) 
+	 * @param @param areaId 地区Id
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
     public Object getArea(String areaId) {
         return areaMapper.selectByPrimaryKey(areaId);
     }
     
     /**
      * @Title: listAsGrid 
-     * @Description: TODO(获取所有地区信息) 
+     * @Description: TODO(以表格结构展示地区列表) 
      * @param @param parear
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "浏览地区")
     public Object listAsGrid(JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
@@ -76,11 +82,17 @@ public class ParameterAreaService {
         return returnResult;// 返回ExtGrid表
     }
 
+    /**
+     * @Title: listAsTree 
+     * @Description: TODO(获取地区下的树结构的所有地区数据) 
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
     public Object listAsTree() {
         List<ParameterArea> areaList = areaMapper.selectByExample(new ParameterAreaExample());
         return areaList;
     }
-
     
     /**
      * @Title: addArea 
@@ -90,9 +102,10 @@ public class ParameterAreaService {
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "新增地区")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "AreaTree_add")
     public Object addArea(ParameterArea area) {
+    	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         
@@ -101,9 +114,9 @@ public class ParameterAreaService {
         int count = 0;
         // 防止地区名称重复
         areaExample.createCriteria().andAreaNameEqualTo(area.getAreaName());
-        count = areaMapper.countByExample(areaExample);// 查找相同中文名称的地区数量
+        count = areaMapper.countByExample(areaExample);// 查找相同名称的地区数量
         if (count > 0) {
-            returnResult.setMsg("地区重复，请重新填写!");
+            returnResult.setMsg("地区名称重复");
             return returnResult;
         }
         area.setAreaId(RandomGUID.getRandomGUID());
@@ -117,7 +130,7 @@ public class ParameterAreaService {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + area.getAreaName() + "] 地区信息已保存");
         } else {
-            returnResult.setMsg("地区信息保存失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，地区信息保存失败");
         }
         return returnResult;
     }
@@ -137,7 +150,7 @@ public class ParameterAreaService {
         if (virtualRoot) {
             Tree areaItem = new Tree();// 增加总的树节点作为地区导航
             areaItem.setId("ROOT");
-            areaItem.setText("地区");
+            areaItem.setText("地区导航");
             items.add(areaItem);
         }
         ParameterAreaExample areaExample = new ParameterAreaExample();
@@ -167,11 +180,10 @@ public class ParameterAreaService {
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "修改地区")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "AreaTree_edit")
     public Object editArea(ParameterArea area) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        
         List<String> retrunAreaList = new ArrayList<String>();// 修改上级所属地区时，禁止选择地区本身及子级地区作为地区的父级地区
         retrunAreaList = getAreaChild(area.getAreaId(), retrunAreaList);// 查找地区本身及子级地区
         retrunAreaList.add(area.getAreaId());
@@ -179,18 +191,15 @@ public class ParameterAreaService {
         	returnResult.setMsg("禁止选择该地区本身以及子地区作为上级地区");
             return returnResult;
         }
-        
         ParameterAreaExample areaExample = new ParameterAreaExample();
         int count = 0;
         // 防止地区名称重复
         areaExample.createCriteria().andAreaIdNotEqualTo(area.getAreaId()).andAreaNameEqualTo(area.getAreaName());
-        count = areaMapper.countByExample(areaExample);// 查找相同中文名称的地区数量
+        count = areaMapper.countByExample(areaExample);// 查找相同名称的地区数量
         if (count > 0) {
-            returnResult.setMsg("地区名称重复，请重新填写!");
+            returnResult.setMsg("地区名称重复");
             return returnResult;
         }
-        
-
         if (area.getAreaPid().equals("ROOT") || area.getAreaPid().equals("")) {// 如果父级地区的Id为"ROOT"或为空，则将父级地区的值设置为null保存到数据库
         	area.setAreaPid(null);
         }
@@ -206,7 +215,7 @@ public class ParameterAreaService {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + area.getAreaName() + "] 地区信息已修改");
         } else {
-            returnResult.setMsg("地区信息修改失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，地区信息修改失败");
         }
         return returnResult;
     }
@@ -241,17 +250,26 @@ public class ParameterAreaService {
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "删除地区")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "AreaTree_del")
     public Object delArea(String areaId) {
-    	ParameterArea area= areaMapper.selectByPrimaryKey(areaId);
-        int result = areaMapper.deleteByPrimaryKey(areaId);//根据地区Id，进行删除地区
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        if (result == 1) {
-            returnResult.setSuccess(true);
-            returnResult.setMsg("[" + area.getAreaName() + "] 地区信息已删除");
-        } else {
-            returnResult.setMsg("地区信息删除失败，请联系管理员!");
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	if (StringUtils.isBlank(areaId)) {// 判断是否选择一条地区信息
+            returnResult.setMsg("请选择一条地区信息，再进行删除");
+        }
+    	ParameterAreaExample parameterAreaExample = new ParameterAreaExample();
+    	parameterAreaExample.createCriteria().andAreaPidEqualTo(areaId);
+        if (areaMapper.countByExample(parameterAreaExample) > 0) {// 判断该地区是否存在子级地区，有则不能删除
+            returnResult.setMsg("该地区存在子级地区，如需删除请先删除子地区");
+        }else {
+        	ParameterArea area= areaMapper.selectByPrimaryKey(areaId);
+            int result = areaMapper.deleteByPrimaryKey(areaId);//根据地区Id，进行删除地区
+            if (result == 1) {
+                returnResult.setSuccess(true);
+                returnResult.setMsg("[" + area.getAreaName() + "] 地区信息已删除");
+            } else {
+                returnResult.setMsg("发生未知错误，地区信息删除失败");
+            }
         }
 		return returnResult;
      }

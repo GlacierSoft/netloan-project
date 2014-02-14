@@ -41,7 +41,7 @@ public class ParameterAreaController extends AbstractController{
         return mav;
     }
     
-    // 获取菜单下的树结构的所有菜单数据
+    // 获取地区下的树结构的所有地区数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listAreaAsTreeByAreaId() {
