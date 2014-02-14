@@ -49,7 +49,7 @@ import com.glacier.netloan.util.MethodLog;
 
 /**
  * @ClassName: MenuService
- * @Description: TODO(面板业务类：为控制器提供服务)
+ * @Description: TODO(菜单业务类：为控制器提供服务)
  * @author zhenfei.zhang
  * @email 289556866@qq.com
  * @date 2013-12-10 下午4:00:46
@@ -79,7 +79,7 @@ public class MenuService {
      * @return Object 返回类型
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    @Transactional(readOnly = false)
     @MethodLog(opera = "MenuTree_add")
     public Object addMenu(Menu menu) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
@@ -89,7 +89,7 @@ public class MenuService {
         menuExample.createCriteria().andMenuCnNameEqualTo(menu.getMenuCnName());
         count = menuMapper.countByExample(menuExample);// 查找相同中文名称的菜单数量
         if (count > 0) {
-            returnResult.setMsg("菜单名称重复，请重新填写!");
+            returnResult.setMsg("菜单名称重复");
             return returnResult;
         }
         // 防止英文名称重复
@@ -97,7 +97,7 @@ public class MenuService {
         menuExample.createCriteria().andMenuEnNameEqualTo(menu.getMenuEnName());
         count = menuMapper.countByExample(menuExample);// 查找相同英文名称的菜单数量
         if (count > 0) {
-            returnResult.setMsg("英文名称重复，请重新填写!");
+            returnResult.setMsg("英文名称重复");
             return returnResult;
         }
         menu.setMenuId(RandomGUID.getRandomGUID());
@@ -109,7 +109,7 @@ public class MenuService {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + menu.getMenuCnName() + "] 菜单信息已保存");
         } else {
-            returnResult.setMsg("菜单信息保存失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，菜单信息保存失败");
         }
         return returnResult;
     }
@@ -142,7 +142,7 @@ public class MenuService {
         menuExample.createCriteria().andMenuCnNameEqualTo(menu.getMenuCnName()).andMenuIdNotEqualTo(menu.getMenuId());
         count = menuMapper.countByExample(menuExample);// 查找相同中文名称的菜单数量
         if (count > 0) {
-            returnResult.setMsg("菜单名称重复，请重新填写!");
+            returnResult.setMsg("菜单名称重复");
             return returnResult;
         }
         // 防止英文名称重复
@@ -150,7 +150,7 @@ public class MenuService {
         menuExample.createCriteria().andMenuEnNameEqualTo(menu.getMenuEnName()).andMenuIdNotEqualTo(menu.getMenuId());
         count = menuMapper.countByExample(menuExample);// 查找相同英文名称的菜单数量
         if (count > 0) {
-            returnResult.setMsg("英文名称重复，请重新填写!");
+            returnResult.setMsg("英文名称重复");
             return returnResult;
         }
         if (menu.getPid().equals("ROOT") || menu.getPid().equals("")) {// 如果父级菜单的Id为"ROOT"或为空，则将父级菜单的值设置为null保存到数据库
@@ -161,7 +161,7 @@ public class MenuService {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + menu.getMenuCnName() + "] 菜单信息已保存");
         } else {
-            returnResult.setMsg("菜单信息更新失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，菜单信息更新失败");
         }
         return returnResult;
     }
@@ -171,27 +171,38 @@ public class MenuService {
     public Object delMenu(Menu menu) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int menuCount = 0;
-        // 删除菜单必须先删除菜单对应的操作
-        ActionExample actionExample = new ActionExample();
-        actionExample.createCriteria().andMenuIdEqualTo(menu.getMenuId());
-        menuCount = actionMapper.countByExample(actionExample);
-        if (menuCount > 0) {
+        //删除菜单先检查菜单是否有子菜单
+        MenuExample menuExample = new MenuExample();
+        menuExample.createCriteria().andPidEqualTo(menu.getMenuId());
+        List<Menu> menus = menuMapper.selectByExample(menuExample);
+        if(menus.size() > 0){
             returnResult.setSuccess(false);
-            returnResult.setMsg("该菜单下存在对应的操作，请先删除其操作再尝试!");
+            returnResult.setMsg("菜单删除失败，不能删除有子菜单的菜单");
             return returnResult;
+        }else{
+        	// 删除菜单必须先删除菜单对应的操作
+            ActionExample actionExample = new ActionExample();
+            actionExample.createCriteria().andMenuIdEqualTo(menu.getMenuId());
+            menuCount = actionMapper.countByExample(actionExample);
+            if (menuCount > 0) {
+                returnResult.setSuccess(false);
+                returnResult.setMsg("该菜单下存在对应的操作，请先删除其操作再尝试!");
+                return returnResult;
+            }
+            // 同时删除权限表中引用的菜单
+            AuthorityExample authorityExample = new AuthorityExample();
+            authorityExample.createCriteria().andMenuIdEqualTo(menu.getMenuId());
+            authorityMapper.deleteByExample(authorityExample);
+            // 删除菜单
+            menuCount = menuMapper.deleteByPrimaryKey(menu.getMenuId());
+            if (menuCount > 0) {
+                returnResult.setSuccess(true);
+                returnResult.setMsg("成功删除名称为：[ " + menu.getMenuCnName() + " ]菜单");
+                return returnResult;
+            }else{
+            	returnResult.setMsg("发生未知错误，[ " + menu.getMenuCnName() + " ]菜单删除失败");        	
+            }
         }
-        // 同时删除权限表中引用的菜单
-        AuthorityExample authorityExample = new AuthorityExample();
-        authorityExample.createCriteria().andMenuIdEqualTo(menu.getMenuId());
-        authorityMapper.deleteByExample(authorityExample);
-        // 删除菜单
-        menuCount = menuMapper.deleteByPrimaryKey(menu.getMenuId());
-        if (menuCount > 0) {
-            returnResult.setSuccess(true);
-            returnResult.setMsg("成功删除名称为：[ " + menu.getMenuCnName() + " ]菜单");
-            return returnResult;
-        }
-        returnResult.setMsg("[ " + menu.getMenuCnName() + " ]菜单删除失败，请联系管理员!");
         return returnResult;
     }
 

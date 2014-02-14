@@ -176,7 +176,7 @@ public class WebsiteNavService {
         websiteNavExample.createCriteria().andWebNavIdNotEqualTo(nav.getWebNavId()).andWebNavNameEqualTo(nav.getWebNavName());
         count = websiteNavMapper.countByExample(websiteNavExample);// 查找相同中文名称的导航数量
         if (count > 0) {
-            returnResult.setMsg("导航名称重复，请重新填写!");
+            returnResult.setMsg("导航名称重复");
             return returnResult;
         }
         if (nav.getWebNavPid().equals("ROOT") || nav.getWebNavPid().equals("")) {// 如果父级导航的Id为"ROOT"或为空，则将父级导航的值设置为null保存到数据库
@@ -194,7 +194,7 @@ public class WebsiteNavService {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + nav.getWebNavName() + "] 导航信息已修改");
         } else {
-            returnResult.setMsg("导航信息修改失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，导航信息修改失败");
         }
         return returnResult;
     }
@@ -245,7 +245,7 @@ public class WebsiteNavService {
                 returnResult.setSuccess(true);
                 returnResult.setMsg("[" + nav.getWebNavName() + "] 导航信息已删除");
             } else {
-                returnResult.setMsg("导航信息删除失败，请联系管理员!");
+                returnResult.setMsg("发生未知错误，导航信息删除失败");
             }
         }
         return returnResult;

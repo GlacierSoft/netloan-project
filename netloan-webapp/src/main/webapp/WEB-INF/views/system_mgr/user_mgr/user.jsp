@@ -33,10 +33,10 @@
 		sortName: 'username',//排序字段名称
 		sortOrder: 'ASC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
-		idField:'id',
+		idField:'userId',
 		columns:[[
 			{
-				field:'id',
+				field:'userId',
 				title:'ID',
 				checkbox:true
 			},{
@@ -104,8 +104,8 @@
 			action_controller(glacier.system_mgr.user_mgr.user.param,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
-			$(this).datagrid('unselectAll');
-			$(this).datagrid('uncheckAll');
+			$(this).datagrid('clearSelections');
+			$(this).datagrid('clearChecked');
 		}
 	});
 	
@@ -155,15 +155,20 @@
 
 	//点击删除按钮触发方法
 	glacier.system_mgr.user_mgr.user.delUser = function(){
-		var row = glacier.system_mgr.user_mgr.user.userDataGrid.datagrid("getChecked");
-		var userId = row[0].userId;
-		if(userId){
+		var rows = glacier.system_mgr.user_mgr.user.userDataGrid.datagrid("getChecked");
+		var userIds = [];//删除的id标识
+		var usernames = [];//日志记录引用名称
+		for(var i=0;i<rows.length;i++){
+			userIds.push(rows[i].userId);
+			usernames.push(rows[i].username);
+		}
+		if(userIds.length > 0){
 			$.messager.confirm('请确认', '是否要删除该记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
 						   url: ctx + '/do/user/del.json',
-						   data: {userId:userId},
+						   data: {userIds:userIds.join(','),usernames:usernames.join(',')},
 						   dataType:'json',
 						   success: function(r){
 							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
@@ -172,7 +177,6 @@
 										timeout:3000,
 										msg:r.msg
 									});
-								   glacier.system_mgr.user_mgr.user.userDataGrid.datagrid("uncheckAll");
 								   glacier.system_mgr.user_mgr.user.userDataGrid.datagrid('reload');
 							   }else{
 									$.messager.show({//后台验证弹出错误提示信息框

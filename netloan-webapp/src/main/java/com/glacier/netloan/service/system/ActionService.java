@@ -86,7 +86,7 @@ public class ActionService {
         actionExample.createCriteria().andActionCnNameEqualTo(action.getActionCnName()).andMenuIdEqualTo(action.getMenuId()).andPanelIdEqualTo(action.getPanelId());
         count = actionMapper.countByExample(actionExample);// 查找相同中文名称的菜单数量
         if (count > 0) {
-            returnResult.setMsg("操作名称重复，请重新填写!");
+            returnResult.setMsg("操作名称重复");
             return returnResult;
         }
         // 防止英文名称重复
@@ -94,7 +94,7 @@ public class ActionService {
         actionExample.createCriteria().andActionEnNameEqualTo(action.getActionEnName()).andMenuIdEqualTo(action.getMenuId()).andPanelIdEqualTo(action.getPanelId());
         count = actionMapper.countByExample(actionExample);// 查找相同英文名称的菜单数量
         if (count > 0) {
-            returnResult.setMsg("操作名称重复，请重新填写!");
+            returnResult.setMsg("操作名称重复");
             return returnResult;
         }
         action.setActionId(RandomGUID.getRandomGUID());
@@ -103,7 +103,7 @@ public class ActionService {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + action.getActionCnName() + "] 操作信息已保存");
         } else {
-            returnResult.setMsg("操作信息保存失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，操作信息保存失败");
         }
         return returnResult;
     }
@@ -119,7 +119,7 @@ public class ActionService {
                 .andPanelIdEqualTo(action.getPanelId());
         count = actionMapper.countByExample(actionExample);// 查找相同中文名称的菜单数量
         if (count > 0) {
-            returnResult.setMsg("操作名称重复，请重新填写!");
+            returnResult.setMsg("操作名称重复");
             return returnResult;
         }
         // 防止英文名称重复
@@ -128,7 +128,7 @@ public class ActionService {
                 .andPanelIdEqualTo(action.getPanelId());
         count = actionMapper.countByExample(actionExample);// 查找相同英文名称的菜单数量
         if (count > 0) {
-            returnResult.setMsg("操作名称重复，请重新填写!");
+            returnResult.setMsg("操作名称重复");
             return returnResult;
         }
         count = actionMapper.updateByPrimaryKey(action);
@@ -136,7 +136,7 @@ public class ActionService {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + action.getActionCnName() + "] 操作信息已保存");
         } else {
-            returnResult.setMsg("操作信息保存失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，操作信息保存失败");
         }
         return returnResult;
     }
@@ -155,7 +155,7 @@ public class ActionService {
                 returnResult.setSuccess(true);
                 returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(actionCnNames, ",") + " ]操作!");
             } else {
-                returnResult.setMsg("删除失败，请联系管理员!");
+                returnResult.setMsg("发生未知错误，操作删除失败");
             }
         }
         return returnResult;

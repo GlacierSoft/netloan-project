@@ -20,6 +20,10 @@
 			<td><input name="password" class="easyui-validatebox spinner" style="width:268px" required="true" value="${userData.password}"/></td>
 		</tr>
 		<tr>
+			<td>是否内置：</td>
+			<td><input name="builtin" class="easyui-validatebox spinner" style="width:268px" required="true" value="${userData.builtin}"/></td>
+		</tr>
+		<tr>
 			<td>电子邮箱：</td>
 			<td><input name="email" class="easyui-validatebox spinner" style="width:268px" required="true" value="${userData.email}"/></td>
 		</tr>

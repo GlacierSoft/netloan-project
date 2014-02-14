@@ -30,11 +30,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.system.UserMapper;
+import com.glacier.netloan.entity.system.LoginLogExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.util.MethodLog;
@@ -137,12 +139,12 @@ public class UserService {
     	userExample.createCriteria().andUsernameEqualTo(user.getUsername());
     	count = userMapper.countByExample(userExample);// 查找相同用户名称数量
     	if(count >0){
-    		returnResulte.setMsg("用户名称重复，请重新填写!");
+    		returnResulte.setMsg("用户名称重复");
     		return returnResulte;
     	}
     	user.setUserId(RandomGUID.getRandomGUID());
     	user.setCreateTime(new Date());
-    	user.setStatus("able");
+    	user.setStatus("enable");
     	user.setBuiltin("notBuiltin");
     	user.setCreater(pricipalUser.getUserId());
     	user.setLastLoginTime(new Date());
@@ -151,7 +153,7 @@ public class UserService {
 			returnResulte.setMsg("["+user.getUsername()+"]"+"用户信息已保存");
 			returnResulte.setSuccess(true);
 		}else{
-			returnResulte.setMsg("用户信息保存失败，请联系管理员!");
+			returnResulte.setMsg("发生未知错误，用户信息保存失败");
 		}
     	return returnResulte;
     }
@@ -174,7 +176,7 @@ public class UserService {
     	int count = 0;
     	count = userMapper.countByExample(userExample);// 查找相同用户名称数量
     	if(count > 0){
-    		returnResult.setMsg("用户名称重复，请重新填写!");
+    		returnResult.setMsg("用户名称重复");
     		return returnResult;
     	}
     	count = userMapper.updateByPrimaryKeySelective(user);
@@ -182,7 +184,7 @@ public class UserService {
     		returnResult.setMsg("["+user.getUsername()+"]"+"用户信息已修改");
     		returnResult.setSuccess(true);
     	}else{
-    		returnResult.setMsg("用户信息修改失败，请联系管理员!");
+    		returnResult.setMsg("发生未知错误，用户信息修改失败");
     	}
     	return returnResult;
     }
@@ -197,16 +199,20 @@ public class UserService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "UserList_del")
-    public Object delUser(String userId){
-    	User user = userMapper.selectByPrimaryKey(userId);
-    	JqReturnJson returnResulte = new JqReturnJson();// 构建返回结果，默认结果为false
-    	int count = userMapper.deleteByPrimaryKey(userId);//根据用户Id，进行删除用户
-    	if(count == 1){
-    		returnResulte.setMsg("["+user.getUsername()+"]"+"用户信息已删除");
-    		returnResulte.setSuccess(true);
-    	}else{
-    		returnResulte.setMsg("用户信息删除失败，请联系管理员!");
-    	}
-    	return returnResulte;
+    public Object delUser(List<String> userIds,List<String> usernames){
+		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+		int count = 0;
+		if(userIds.size() > 0){
+			UserExample userExample = new UserExample();
+			userExample.createCriteria().andUserIdIn(userIds);
+			count = userMapper.deleteByExample(userExample);
+			if(count >0){
+				returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(usernames, ",") + " ]操作");
+				returnResult.setSuccess(true);
+			}else{
+				returnResult.setMsg("发生未知错误，用户信息删除失败");
+			}
+		}
+		return returnResult;
     }
 }

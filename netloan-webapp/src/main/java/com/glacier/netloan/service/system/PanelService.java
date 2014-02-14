@@ -221,7 +221,7 @@ public class PanelService {
             returnResult.setMsg("成功删除名称为：[ "+panel.getPanelCnName()+" ]mianban ");
             return returnResult;
         }
-        returnResult.setMsg("[ "+panel.getPanelCnName()+" ]面板删除失败，请联系管理员!");
+        returnResult.setMsg("发生未知错误，[ "+panel.getPanelCnName()+" ]面板删除失败");
         return returnResult;
     }
 
