@@ -19,10 +19,13 @@
  */
 package com.glacier.netloan.web.controller.system;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -60,8 +63,8 @@ public class OperaLogController {
     //删除操作日志数据
     @RequestMapping(value = "/del.json",method = RequestMethod.POST)
     @ResponseBody
-    private Object delOperaLog(String operalogId){
-    	return operaLogService.delOperaLog(operalogId);
+    private Object delOperaLog(@RequestParam List<String> operalogIds,@RequestParam List<String> operaPenals){
+    	return operaLogService.delOperaLog(operalogIds, operaPenals);
     }
 
 }

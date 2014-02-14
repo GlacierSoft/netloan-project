@@ -27,10 +27,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.system.OperaLogMapper;
+import com.glacier.netloan.entity.system.LoginLogExample;
 import com.glacier.netloan.entity.system.OperaLog;
 import com.glacier.netloan.entity.system.OperaLogExample;
 import com.glacier.netloan.util.MethodLog;
@@ -88,16 +90,20 @@ public class OperaLogService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera="OperalogList_del")
-    public Object delOperaLog(String operalogId){
-    	OperaLog operaLog = operaLogMapper.selectByPrimaryKey(operalogId);
-    	int count = operaLogMapper.deleteByPrimaryKey(operalogId);//根据操作日志Id，进行删除
-    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-    	if(count == 1){
-    		returnResult.setSuccess(true);
-    		returnResult.setMsg("["+operaLog.getOperaMenu()+"]"+"操作日志信息已删除");
-    	}else{
-    		returnResult.setMsg("操作日志信息删除失败，请联系管理员!");
-    	}
-    	return returnResult;
+    public Object delOperaLog(List<String> operalogIds,List<String> operaPenals){
+		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+		int count = 0;
+		if(operalogIds.size() > 0){
+			OperaLogExample operaLogExample = new OperaLogExample();
+			operaLogExample.createCriteria().andOperalogIdIn(operalogIds);
+			count = operaLogMapper.deleteByExample(operaLogExample);
+			if(count >0){
+				returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(operaPenals, ",") + " ]操作");
+				returnResult.setSuccess(true);
+			}else{
+				returnResult.setMsg("发生未知错误，操作日志信息删除失败");
+			}
+		}
+		return returnResult;
     }
 }

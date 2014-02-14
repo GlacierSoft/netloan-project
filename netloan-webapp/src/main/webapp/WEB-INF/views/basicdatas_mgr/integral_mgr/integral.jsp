@@ -31,10 +31,10 @@
 		sortName: 'createTime',//排序字段名称
 		sortOrder: 'ASC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
-		idField:'id',
+		idField:'integralId',
 		columns:[[
 			{
-				field:'id',
+				field:'integralId',
 				title:'ID',
 				checkbox:true
 			},{
@@ -88,8 +88,8 @@
 			action_controller(glacier.basicdatas_mgr.integral_mgr.integral.param,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
-			$(this).datagrid('unselectAll');
-			$(this).datagrid('uncheckAll');
+			$(this).datagrid('clearSelections');
+			$(this).datagrid('clearChecked');
 		}
 	});
 	
@@ -177,22 +177,38 @@
 	};
 	//点击删除按钮触发方法
 	glacier.basicdatas_mgr.integral_mgr.integral.delIntegral = function(){
-		var row = glacier.basicdatas_mgr.integral_mgr.integral.integralDataGrid.datagrid("getChecked");
-		var integralId = row[0].integralId;
-		if(integralId){
+		var rows = glacier.basicdatas_mgr.integral_mgr.integral.integralDataGrid.datagrid("getChecked");
+		var integralIds = [];//删除的id标识
+		var integralNames = [];//日志记录引用名称
+		for(var i=0;i<rows.length;i++){
+			integralIds.push(rows[i].integralId);
+			integralNames.push(rows[i].integralName);
+		}
+		if(integralIds.length > 0){
 			$.messager.confirm('请确认', '是否要删除该记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
 						   url: ctx + '/do/integral/del.json',
-						   data: {integralId:integralId},
+						   data: {integralIds:integralIds.join(','),integralNames:integralNames.join(',')},
 						   dataType:'json',
 						   success: function(r){
-								$.messager.show(r.msg);
-								if(r.success){
-									glacier.basicdatas_mgr.integral_mgr.integral.integralDataGrid.datagrid('reload');
-								}
-								 
+								 if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
+									   $.messager.show({
+											title:'提示',
+											timeout:3000,
+											msg:r.msg
+										});
+									   glacier.basicdatas_mgr.integral_mgr.integral.integralDataGrid.datagrid('reload');
+								   }else{
+										$.messager.show({//后台验证弹出错误提示信息框
+											title:'错误提示',
+											width:380,
+											height:120,
+											msg: '<span style="color:red">'+r.msg+'<span>',
+											timeout:4500
+										});
+									}
 							}
 					});
 				}

@@ -1,5 +1,7 @@
 package com.glacier.netloan.web.controller.basicdatas;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -76,7 +79,7 @@ public class ParameterIntegralController extends AbstractController{
     // 删除会员信用等级
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object delIntegral(String integralId) {
-        return parameterIntegralService.delIntegral(integralId);
+    private Object delIntegral(@RequestParam List<String> integralIds,@RequestParam List<String> integralNames) {
+        return parameterIntegralService.delIntegral(integralIds, integralNames);
     }
 }

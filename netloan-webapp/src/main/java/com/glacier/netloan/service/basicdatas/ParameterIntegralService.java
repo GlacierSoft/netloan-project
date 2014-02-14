@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -18,6 +19,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.basicdatas.ParameterIntegralMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterIntegral;
 import com.glacier.netloan.entity.basicdatas.ParameterIntegralExample;
+import com.glacier.netloan.entity.system.RoleExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -128,7 +130,7 @@ public class ParameterIntegralService {
         parameterIntegralExample.createCriteria().andIntegralIdNotEqualTo(parameterIntegral.getIntegralId()).andIntegralNameEqualTo(parameterIntegral.getIntegralName());
         count = parameterIntegralMapper.countByExample(parameterIntegralExample);// 查找相同积分级别名称的会员数量
         if (count > 0) {
-            returnResult.setMsg("会员积分级别名称重复，请重新填写!");
+            returnResult.setMsg("会员积分级别名称重复");
             return returnResult;
         }                               
         count = parameterIntegralMapper.updateByPrimaryKeySelective(parameterIntegral);
@@ -136,7 +138,7 @@ public class ParameterIntegralService {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + parameterIntegral.getIntegralName() + "] 会员积分级别信息已修改保存");
         } else {
-            returnResult.setMsg("会员积分级别信息修改保存失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，会员积分级别信息保存失败");
         }
         return returnResult;
     }
@@ -150,16 +152,20 @@ public class ParameterIntegralService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "IntegralList_del")
-    public Object delIntegral(String IntegralId) {
-    	ParameterIntegral Integral= parameterIntegralMapper.selectByPrimaryKey(IntegralId);
-        int result = parameterIntegralMapper.deleteByPrimaryKey(IntegralId);//根据会员年龄别称Id，进行删除会员年龄别称
+    public Object delIntegral(List<String> integralIds,List<String> integralNames) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        if (result == 1) {
-            returnResult.setSuccess(true);
-            returnResult.setMsg("[" + Integral.getIntegralName() + "] 会员年龄别称信息已删除");
-        } else {
-            returnResult.setMsg("会员年龄别称信息删除失败，请联系管理员!");
+        int count = 0;
+        if (integralIds.size() > 0) {
+        	ParameterIntegralExample parameterIntegralExample = new ParameterIntegralExample();
+        	parameterIntegralExample.createCriteria().andIntegralIdIn(integralIds);
+            count = parameterIntegralMapper.deleteByExample(parameterIntegralExample);
+            if (count > 0) {
+                returnResult.setSuccess(true);
+                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(integralNames, ",") + " ]操作");
+            } else {
+                returnResult.setMsg("发生未知错误，会员积分级别信息删除失败");
+            }
         }
-		return returnResult;
+        return returnResult;
      }
 }
