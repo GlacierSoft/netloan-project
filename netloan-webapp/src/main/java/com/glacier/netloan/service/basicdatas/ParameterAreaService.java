@@ -256,6 +256,7 @@ public class ParameterAreaService {
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
     	if (StringUtils.isBlank(areaId)) {// 判断是否选择一条地区信息
             returnResult.setMsg("请选择一条地区信息，再进行删除");
+            return returnResult;
         }
     	ParameterAreaExample parameterAreaExample = new ParameterAreaExample();
     	parameterAreaExample.createCriteria().andAreaPidEqualTo(areaId);

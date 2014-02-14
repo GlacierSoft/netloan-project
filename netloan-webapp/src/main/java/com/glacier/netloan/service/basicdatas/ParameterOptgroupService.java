@@ -43,20 +43,26 @@ public class ParameterOptgroupService {
 	@Autowired
     private ParameterOptgroupMapper optgroupMapper;
 
+	/**
+	 * @Title: getOptgroup 
+	 * @Description: TODO(根据下拉项Id获取地区信息) 
+	 * @param @param optgroupId
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
     public Object getOptgroup(String optgroupId) {
         return optgroupMapper.selectByPrimaryKey(optgroupId);
     }
     
     /**
      * @Title: listAsGrid 
-     * @Description: TODO(获取所有下拉项信息) 
+     * @Description: TODO(以表格结构展示下拉项列表) 
      * @param @param poptgroupr
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "浏览下拉项")
     public Object listAsGrid(JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
@@ -76,12 +82,18 @@ public class ParameterOptgroupService {
         return returnResult;// 返回ExtGrid表
     }
 
+    /**
+     * @Title: listAsTree 
+     * @Description: TODO(获取下拉项下的树结构的所有下拉项数据) 
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
     public Object listAsTree() {
         List<ParameterOptgroup> optgroupList = optgroupMapper.selectByExample(new ParameterOptgroupExample());
         return optgroupList;
     }
 
-    
     /**
      * @Title: addOptgroup 
      * @Description: TODO(新增下拉项) 
@@ -90,9 +102,10 @@ public class ParameterOptgroupService {
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "新增下拉项")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "OptgroupTree_add")
     public Object addOptgroup(ParameterOptgroup optgroup) {
+    	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         
@@ -101,9 +114,9 @@ public class ParameterOptgroupService {
         int count = 0;
         // 防止下拉项名称重复
         optgroupExample.createCriteria().andOptgroupNameEqualTo(optgroup.getOptgroupName());
-        count = optgroupMapper.countByExample(optgroupExample);// 查找相同中文名称的下拉项数量
+        count = optgroupMapper.countByExample(optgroupExample);// 查找相同名称的下拉项数量
         if (count > 0) {
-            returnResult.setMsg("下拉项重复，请重新填写!");
+            returnResult.setMsg("下拉项名称重复");
             return returnResult;
         }
         optgroup.setOptgroupId(RandomGUID.getRandomGUID());
@@ -117,7 +130,7 @@ public class ParameterOptgroupService {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + optgroup.getOptgroupName() + "] 下拉项信息已保存");
         } else {
-            returnResult.setMsg("下拉项信息保存失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，下拉项信息保存失败");
         }
         return returnResult;
     }
@@ -132,12 +145,11 @@ public class ParameterOptgroupService {
      * @throws
      */
     public String getAllTreeOptgroupNode(boolean virtualRoot) {
-
         List<Tree> items = new ArrayList<Tree>();
         if (virtualRoot) {
             Tree optgroupItem = new Tree();// 增加总的树节点作为下拉项导航
             optgroupItem.setId("ROOT");
-            optgroupItem.setText("下拉项");
+            optgroupItem.setText("下拉项导航");
             items.add(optgroupItem);
         }
         ParameterOptgroupExample optgroupExample = new ParameterOptgroupExample();
@@ -167,17 +179,17 @@ public class ParameterOptgroupService {
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "修改下拉项")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "OptgroupTree_edit")
     public Object editOptgroup(ParameterOptgroup optgroup) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParameterOptgroupExample optgroupExample = new ParameterOptgroupExample();
         int count = 0;
         // 防止下拉项名称重复
         optgroupExample.createCriteria().andOptgroupIdNotEqualTo(optgroup.getOptgroupId()).andOptgroupNameEqualTo(optgroup.getOptgroupName());
-        count = optgroupMapper.countByExample(optgroupExample);// 查找相同中文名称的下拉项数量
+        count = optgroupMapper.countByExample(optgroupExample);// 查找相同名称的下拉项数量
         if (count > 0) {
-            returnResult.setMsg("下拉项名称重复，请重新填写!");
+            returnResult.setMsg("下拉项名称重复");
             return returnResult;
         }
         if (optgroup.getOptgroupPid().equals("ROOT") || optgroup.getOptgroupPid().equals("")) {// 如果父级下拉项的Id为"ROOT"或为空，则将父级下拉项的值设置为null保存到数据库
@@ -195,30 +207,40 @@ public class ParameterOptgroupService {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + optgroup.getOptgroupName() + "] 下拉项信息已修改");
         } else {
-            returnResult.setMsg("下拉项信息修改失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，下拉项信息修改失败");
         }
         return returnResult;
     }
     
     /**
-     * @Title: delOptgroup 
+     * @Title: delArea 
      * @Description: TODO(删除下拉项) 
      * @param @param optgroupId
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "删除下拉项")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "OptgroupTree_del")
     public Object delOptgroup(String optgroupId) {
-    	ParameterOptgroup optgroup= optgroupMapper.selectByPrimaryKey(optgroupId);
-        int result = optgroupMapper.deleteByPrimaryKey(optgroupId);//根据下拉项Id，进行删除下拉项
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        if (result == 1) {
-            returnResult.setSuccess(true);
-            returnResult.setMsg("[" + optgroup.getOptgroupName() + "] 下拉项信息已删除");
-        } else {
-            returnResult.setMsg("下拉项信息删除失败，请联系管理员!");
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	if (StringUtils.isBlank(optgroupId)) {// 判断是否选择一条下拉项信息
+            returnResult.setMsg("请选择一条下拉项信息，再进行删除");
+            return returnResult;
+        }
+    	ParameterOptgroupExample parameterOptgroupExample = new ParameterOptgroupExample();
+    	parameterOptgroupExample.createCriteria().andOptgroupPidEqualTo(optgroupId);
+        if (optgroupMapper.countByExample(parameterOptgroupExample) > 0) {// 判断该下拉项是否存在子级下拉项，有则不能删除
+            returnResult.setMsg("该下拉项存在子级下拉项，如需删除请先删除子下拉项");
+        }else {
+        	ParameterOptgroup optgroup= optgroupMapper.selectByPrimaryKey(optgroupId);
+            int result = optgroupMapper.deleteByPrimaryKey(optgroupId);//根据下拉项Id，进行删除下拉项
+            if (result == 1) {
+                returnResult.setSuccess(true);
+                returnResult.setMsg("[" + optgroup.getOptgroupName() + "] 地区信息已删除");
+            } else {
+                returnResult.setMsg("发生未知错误，下拉项信息删除失败");
+            }
         }
 		return returnResult;
      }
