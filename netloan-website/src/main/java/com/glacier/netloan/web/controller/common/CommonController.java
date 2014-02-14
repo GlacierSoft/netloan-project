@@ -44,6 +44,7 @@ public class CommonController {
     @RequestMapping(value = "/")
     private Object index(){
         ModelAndView mav = new ModelAndView("index");
+        //进入首页初始化导航信息
         return mav;
     }
 
