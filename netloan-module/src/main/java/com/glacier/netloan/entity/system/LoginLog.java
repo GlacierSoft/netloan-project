@@ -2,13 +2,16 @@ package com.glacier.netloan.entity.system;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class LoginLog {
     private String loginlogId;
 
     private String userId;
 
     private String loginUser;
-
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date loginTime;
 
     private String loginIp;

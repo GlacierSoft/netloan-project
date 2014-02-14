@@ -2,6 +2,8 @@ package com.glacier.netloan.entity.system;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class OperaLog {
     private String operalogId;
 
@@ -23,6 +25,7 @@ public class OperaLog {
 
     private String operator;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date operaTime;
 
     public String getOperalogId() {
