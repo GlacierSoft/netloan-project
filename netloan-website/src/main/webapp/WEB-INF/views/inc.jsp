@@ -12,3 +12,6 @@
 <!-- 自定义主页样式 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css"></link>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/ie8.css"></link>
+
+<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap-3.0.3-dist/dist/js/bootstrap.min.js"></script>

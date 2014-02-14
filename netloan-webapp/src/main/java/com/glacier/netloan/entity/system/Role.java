@@ -2,6 +2,8 @@ package com.glacier.netloan.entity.system;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class Role {
     private String roleId;
 
@@ -14,7 +16,8 @@ public class Role {
     private String remark;
 
     private String creater;
-
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date createTime;
 
     public String getRoleId() {
