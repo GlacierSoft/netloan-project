@@ -110,7 +110,7 @@
     where credit_id = #{creditId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.basicdatas.ParameterCreditExample" >
-    delete from t_parameter_credit temp_parameter_credit
+    delete temp_parameter_credit from t_parameter_credit temp_parameter_credit
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

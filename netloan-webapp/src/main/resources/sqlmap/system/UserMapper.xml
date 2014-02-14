@@ -113,7 +113,7 @@
     where user_id = #{userId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.system.UserExample" >
-    delete from t_user temp_user
+    delete temp_user from t_user temp_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

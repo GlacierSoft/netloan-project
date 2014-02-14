@@ -102,7 +102,7 @@
     where loginlog_id = #{loginlogId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.system.LoginLogExample" >
-    delete from t_loginlog temp_loginlog
+    delete temp_loginlog from t_loginlog temp_loginlog
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

@@ -89,7 +89,7 @@
       and user_id = #{userId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.system.UserRoleExample" >
-    delete from t_user_role temp_user_role
+    delete temp_user_role from t_user_role temp_user_role
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

@@ -102,7 +102,7 @@
     where menu_id = #{menuId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.system.MenuExample" >
-    delete from t_menu temp_menu
+    delete temp_menu from t_menu temp_menu
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

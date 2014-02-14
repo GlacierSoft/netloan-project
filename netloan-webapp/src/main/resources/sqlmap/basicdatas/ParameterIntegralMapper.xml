@@ -108,7 +108,7 @@
     where integral_id = #{integralId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.basicdatas.ParameterIntegralExample" >
-    delete from t_parameter_integral temp_parameter_integral
+    delete temp_parameter_integral from t_parameter_integral temp_parameter_integral
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

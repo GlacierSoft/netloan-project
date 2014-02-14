@@ -101,7 +101,7 @@
     where role_id = #{roleId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.system.RoleExample" >
-    delete temp_role from t_role temp_role
+    delete  temp_role from t_role temp_role
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

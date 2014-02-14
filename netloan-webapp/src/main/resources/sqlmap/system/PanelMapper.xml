@@ -99,7 +99,7 @@
     where panel_id = #{panelId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.system.PanelExample" >
-    delete from t_panel temp_panel
+    delete temp_panel from t_panel temp_panel
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
