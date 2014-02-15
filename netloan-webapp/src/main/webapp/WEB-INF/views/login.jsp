@@ -148,6 +148,7 @@
 			$(function() {
 				$(".alert").alert();
 				$('#rememberMe').bootstrapSwitch();//开关风格checkbox
+				
 				$('#login_kaptcha').click(function() {  
 					$('#captcha').val('');
 		        	$(this).hide().attr('src','${pageContext.request.contextPath}/resources/images/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();     
@@ -161,6 +162,7 @@
 				        }
 				    }
 				});
+				
 				//表单验证
 				validaForm = function(){
 					var $username = $('#username');
@@ -186,6 +188,8 @@
 					$('#login_submit').attr('disabled', 'disabled').html('登录中...');
 					return true;
 				};
+				
+				$("#loginForm").submit();//自动登录，方便测试，后期删除
 			});
 		</script>
 		<%
