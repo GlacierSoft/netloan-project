@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.system.RoleQueryDTO;
 import com.glacier.netloan.entity.system.Role;
 import com.glacier.netloan.service.system.MenuService;
 import com.glacier.netloan.service.system.RoleService;
@@ -69,20 +70,12 @@ public class RoleController extends AbstractController{
         return mav;
     }
     
-    // 进入角色操作授权展示页面
-    @RequestMapping(value = "/actionAuth.htm")
-    private Object intoActionAuthPage(String roleId) {
-        ModelAndView mav = new ModelAndView("system_mgr/role_mgr/roleActionAuth");
-        mav.addObject("allMenuTreeNodeData", menuService.getAllTreeMenuNode(false,roleId));
-        mav.addObject("roleId", roleId);
-        return mav;
-    }
 
-    // 获取表格结构的所有菜单数据
+    // 检索表格结构的角色数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(String menuId, JqPager pager) {
-        return roleService.listAsGrid(pager);
+    private Object listRoleAsGridByMenuId(RoleQueryDTO roleQueryDTO, JqPager pager) {
+        return roleService.listAsGrid(roleQueryDTO,pager);
     }
     
     
@@ -109,7 +102,7 @@ public class RoleController extends AbstractController{
     //批量删除角色
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
-    public Object delActions(@RequestParam List<String> roleIds,@RequestParam List<String> roleCnNames) {
+    public Object delRoles(@RequestParam List<String> roleIds,@RequestParam List<String> roleCnNames) {
         return roleService.delRoles(roleIds, roleCnNames);
     }
 }

@@ -19,8 +19,10 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.system.ActionMapper;
 import com.glacier.netloan.dao.system.AuthorityMapper;
 import com.glacier.netloan.dao.system.RoleMapper;
+import com.glacier.netloan.dto.query.system.RoleQueryDTO;
 import com.glacier.netloan.entity.system.Role;
 import com.glacier.netloan.entity.system.RoleExample;
+import com.glacier.netloan.entity.system.RoleExample.Criteria;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -61,11 +63,14 @@ public class RoleService {
      * @return Object 返回类型
      * @throws
      */
-    public Object listAsGrid(JqPager pager) {
-
+    public Object listAsGrid(RoleQueryDTO roleQueryDTO , JqPager pager) {
+        
         JqGridReturn returnResult = new JqGridReturn();
         RoleExample roleExample = new RoleExample();
-
+        
+        Criteria queryCriteria = roleExample.createCriteria();
+        roleQueryDTO.setQueryCondition(queryCriteria);
+        
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
             roleExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
             roleExample.setLimitEnd(pager.getRows());
@@ -73,6 +78,9 @@ public class RoleService {
         if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
             roleExample.setOrderByClause(pager.getOrderBy("temp_role_"));
         }
+        
+        //高级检索
+        
         List<Role> Roles = roleMapper.selectByExample(roleExample); // 查询所有操作列表
         int total = roleMapper.countByExample(roleExample); // 查询总页数
         returnResult.setRows(Roles);

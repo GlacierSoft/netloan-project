@@ -1,4 +1,4 @@
-var glacier = $.extend({}, glacier);/* 全局对象 */
+$.util.namespace('glacier');
 
 /**
  * 增加数组判断是否包含某元素功能
@@ -152,3 +152,28 @@ $.extend($.fn.validatebox.defaults.rules, {
 		message : ''
 	}
 });
+
+/**
+ * 将form表单元素的值序列化成对象
+ * 
+ * @example sy.serializeObject($('#formId'))
+ * 
+ * @author 孙宇
+ * 
+ * @requires jQuery
+ * 
+ * @returns object
+ */
+glacier.serializeObject = function(form) {
+	var o = {};
+	$.each(form.serializeArray(), function(index) {
+		if (this['value'] != undefined && this['value'].length > 0) {// 如果表单项的值非空，才进行序列化操作
+			if (o[this['name']]) {
+				o[this['name']] = o[this['name']] + "," + this['value'];
+			} else {
+				o[this['name']] = this['value'];
+			}
+		}
+	});
+	return o;
+};

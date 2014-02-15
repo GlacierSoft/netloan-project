@@ -39,7 +39,7 @@ import com.glacier.jqueryui.util.Tree;
 import com.glacier.netloan.dao.system.ActionMapper;
 import com.glacier.netloan.dao.system.AuthorityMapper;
 import com.glacier.netloan.dao.system.MenuMapper;
-import com.glacier.netloan.dto.system.AuthMenuActionVO;
+import com.glacier.netloan.dto.service.system.AuthMenuActionDTO;
 import com.glacier.netloan.entity.system.Action;
 import com.glacier.netloan.entity.system.ActionExample;
 import com.glacier.netloan.entity.system.Authority;
@@ -108,7 +108,7 @@ public class AuthorityService {
      *             <p>
      */
     public Object getAuthsByRoleId(String roleId) {
-        List<AuthMenuActionVO> returnAuthList = new ArrayList<AuthMenuActionVO>();// 要返回的List数据
+        List<AuthMenuActionDTO> returnAuthList = new ArrayList<AuthMenuActionDTO>();// 要返回的List数据
         List<Menu> sysNaviMenus = menuMapper.selectByExample(new MenuExample());// 获取系统导航菜单列表
         if (null != sysNaviMenus && sysNaviMenus.size() > 0) {
             AuthorityExample authorityExample = new AuthorityExample();
@@ -126,7 +126,7 @@ public class AuthorityService {
                 String iconCls = menu.getIconCls();
 
                 // 构建菜单列表树
-                AuthMenuActionVO authMenuActionVO = new AuthMenuActionVO();
+                AuthMenuActionDTO authMenuActionVO = new AuthMenuActionDTO();
                 authMenuActionVO.setId(menuId);
                 authMenuActionVO.setPid(menuParentId);
                 authMenuActionVO.setMenuName(menuCnName);

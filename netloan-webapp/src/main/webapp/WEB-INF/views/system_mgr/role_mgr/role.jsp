@@ -51,8 +51,12 @@
 				sortable:true
 			},{
 				field:'builtin',
-				title:'是否内置角色',
-				width:80
+				title:'是否内置',
+				width:120,
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
+					return renderGridValue(value,fields.builtin);
+				}
 			},{
 				field:'createTime',
 				title:'录入时间',
@@ -465,10 +469,39 @@
 
 <!-- 所有角色列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
-	<div id="roleGridPanel" data-options="region:'center',border:true" >
+	<div id="roleGridPanel" data-options="region:'center'" >
 		<table id="roleDataGrid">
 			<glacierui:toolbar panelEnName="RoleList" toolbarId="roleDataGrid_toolbar" menuEnName="role"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
+	</div>
+	<div data-options="region:'north',split:true" style="height:40px;">
+		<form id="roleSearchForm">
+			<table>
+				<tr>
+					<td>角色名：</td>
+					<td><input name="roleCnName" style="width: 80px;" class="spinner"/></td>
+					<td>角色英文名：</td>
+					<td><input name="roleEnName" style="width: 80px;" class="spinner"/></td>
+					<td>是否内置：</td>
+					<td>
+						<select name="builtin" class="easyui-combobox" data-options="panelHeight:'auto',editable:false,height:18">
+							<option value="builtin">内置</option>
+							<option value="custom">自定义</option>
+						</select>
+					</td>
+					<td>创建时间：</td>
+					<td>
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;" />
+						-
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;" />
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid('load',glacier.serializeObject($('#roleSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#roleSearchForm input').val('');glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid('load',{});">重置条件</a>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </div>
 <!-- 自定义角色授权窗口 -->

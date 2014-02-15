@@ -17,16 +17,16 @@
  * @Review (审核人) ：zhenfei.zhang
  * 
  */
-package com.glacier.netloan.dto.system;
+package com.glacier.netloan.dto.service.system;
 
 /**
- * @ClassName: AuthMenuActionVO
- * @Description: TODO(这里用一句话描述这个类的作用)
+ * @ClassName: AuthMenuActionDTO
+ * @Description: TODO(权限菜单操作构建DTO)
  * @author zhenfei.zhang
  * @email 289556866@qq.com
  * @date 2014-1-21 上午10:43:00
  */
-public class AuthMenuActionVO {
+public class AuthMenuActionDTO {
 
     private String id;
 

@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.validation.constraints.Pattern;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.glacier.netloan.entity.system.util.CommonBuiltin;
 
 public class Role {
     /**
@@ -24,7 +25,7 @@ public class Role {
     @Pattern(regexp = "^[\\u4E00-\\u9FA5\\uf900-\\ufa2d\\w]{2,16}$", message = "{Role.roleCnName.illegal}")
     private String roleCnName;
 
-    private String builtin;
+    private CommonBuiltin builtin;
 
     private String remark;
 
@@ -62,11 +63,11 @@ public class Role {
         this.roleCnName = roleCnName;
     }
 
-    public String getBuiltin() {
+    public CommonBuiltin getBuiltin() {
         return builtin;
     }
 
-    public void setBuiltin(String builtin) {
+    public void setBuiltin(CommonBuiltin builtin) {
         this.builtin = builtin;
     }
 
