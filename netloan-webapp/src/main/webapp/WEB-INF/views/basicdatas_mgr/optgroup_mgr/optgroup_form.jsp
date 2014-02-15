@@ -40,7 +40,7 @@
 	//初始化上级菜单
 	$("#optgroup_mgr_optgroup_form_optgroupPid").combotree({
 		data : $.parseJSON('${allOptgroupTreeNodeData}'),
-		width:268,
+		width:270,
 		height:18,
 	    missingMessage:'请选择上级下拉项',
 	    smooth: true,       //该属性用以启用当前 easyui-tree 控件对平滑数据格式的支持
