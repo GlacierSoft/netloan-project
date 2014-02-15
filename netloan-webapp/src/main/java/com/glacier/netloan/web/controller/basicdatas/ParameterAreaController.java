@@ -59,6 +59,16 @@ public class ParameterAreaController extends AbstractController{
         return mav;
     }
     
+    // 进入地区Detail信息页面
+    @RequestMapping(value = "/intoDetail.htm")
+    private Object intoAreaDetailPage(String areaId) {
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/area_mgr/area_detail");
+        if(StringUtils.isNotBlank(areaId)){
+            mav.addObject("areaData", areaService.getArea(areaId));
+        }
+        return mav;
+    }
+    
     // 增加地区
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody

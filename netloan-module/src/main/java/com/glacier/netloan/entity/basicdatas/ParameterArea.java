@@ -8,8 +8,18 @@ public class ParameterArea {
     private String areaId;
 
     private String areaPid;
+    
+    private String areaPname;
 
-    private String areaName;
+    public String getAreaPname() {
+		return areaPname;
+	}
+
+	public void setAreaPname(String areaPname) {
+		this.areaPname = areaPname;
+	}
+
+	private String areaName;
 
     private String areaSubsite;
 
