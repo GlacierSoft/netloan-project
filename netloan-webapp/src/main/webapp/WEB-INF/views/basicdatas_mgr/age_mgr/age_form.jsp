@@ -8,16 +8,16 @@
 			<td>年龄别称：</td>
 			<td>
 				<input type="hidden" name="ageId" value="${ageData.ageId}" />
-				<input name="ageName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${ageData.ageName}"/>
+				<input name="ageName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${ageData.ageName}" validType="customReg['^[\u0391-\uFFE5]{2,10}$','<fmt:message key="ParameterAge.ageName.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>
 			<td>开始年龄：</td>
-			<td><input name="ageBegin" class="easyui-validatebox spinner" style="width:268px" required="true" value="${ageData.ageBegin}"/></td>
+			<td><input name="ageBegin" class="easyui-numberspinner spinner" value="${ageData.ageBegin}" data-options="min:0,max:999,required:true,missingMessage:'请选择开始年龄'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr>
 		<tr>
 			<td>结束年龄：</td>
-			<td><input name="ageEnd" class="easyui-validatebox spinner" style="width:268px" required="true" value="${ageData.ageEnd}"/></td>
+			<td><input name="ageEnd" class="easyui-numberspinner spinner" value="${ageData.ageEnd}" data-options="min:0,max:999,required:true,missingMessage:'请选择结束年龄'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>
