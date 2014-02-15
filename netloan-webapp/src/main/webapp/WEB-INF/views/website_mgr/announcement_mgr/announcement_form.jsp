@@ -12,7 +12,7 @@
 		panelHeight : 'auto',
 		editable : false,
 		required:true,
-		data : fields.webAnnStatus
+		data : fields.status
 	});
 </script>
 
