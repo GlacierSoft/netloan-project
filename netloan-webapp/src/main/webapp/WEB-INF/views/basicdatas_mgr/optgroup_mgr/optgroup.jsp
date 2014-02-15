@@ -252,13 +252,13 @@
 	//点击编辑按钮触发方法
 	glacier.basicdatas_mgr.optgroup_mgr.optgroup.editOptgroupValue = function(){
 		var row = glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValuePropertyGrid.datagrid("getSelected");
-		glacier.basicdatas_mgr.optgroup_mgr.optgroup.newValueDialog(' 编辑','/do/optgroupValue/edit.json',row.optgroupValueId);
+		glacier.basicdatas_mgr.optgroup_mgr.optgroup.newValueDialog(' 编辑【'+row.optgroupValueName+'】','/do/optgroupValue/edit.json',row.optgroupValueId);
 	};
 	//点击删除按钮触发方法
 	glacier.basicdatas_mgr.optgroup_mgr.optgroup.delOptgroupValue = function(){
 		var rows = glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValuePropertyGrid.datagrid("getChecked");
 		var optgroupValueIds = [];//删除的id标识
-		var optgroupValueNames = [];//日志记录引用名称
+		var optgroupValueNames = [];//下拉值名称
 		for(var i=0;i<rows.length;i++){
 			optgroupValueIds.push(rows[i].optgroupValueId);
 			optgroupValueNames.push(rows[i].optgroupValueName);

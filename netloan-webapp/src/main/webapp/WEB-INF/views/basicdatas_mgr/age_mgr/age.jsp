@@ -140,7 +140,7 @@
 	glacier.basicdatas_mgr.age_mgr.age.delAge = function(){
 		var rows = glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid("getChecked");
 		var ageIds = [];//删除的id标识
-		var ageNames = [];//日志记录引用名称
+		var ageNames = [];//会员年龄别称
 		for(var i=0;i<rows.length;i++){
 			ageIds.push(rows[i].ageId);
 			ageNames.push(rows[i].ageName);

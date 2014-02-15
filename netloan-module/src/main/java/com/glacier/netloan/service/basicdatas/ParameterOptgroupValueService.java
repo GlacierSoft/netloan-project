@@ -156,7 +156,15 @@ public class ParameterOptgroupValueService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParameterOptgroupValueExample optgroupValueExample = new ParameterOptgroupValueExample();
         int count = 0;
+        // 防止下拉项值代码重复
+        optgroupValueExample.createCriteria().andOptgroupIdEqualTo(optgroupValue.getOptgroupId()).andOptgroupValueCodeEqualTo(optgroupValue.getOptgroupValueCode());
+        count = optgroupValueMapper.countByExample(optgroupValueExample);// 查找属于同一下拉项的相同名称的下拉值数量
+        if (count > 0) {
+            returnResult.setMsg("下拉值代码重复");
+            return returnResult;
+        }
         // 防止下拉项值名称重复
+        optgroupValueExample.clear();
         optgroupValueExample.createCriteria().andOptgroupIdEqualTo(optgroupValue.getOptgroupId()).andOptgroupValueNameEqualTo(optgroupValue.getOptgroupValueName());
         count = optgroupValueMapper.countByExample(optgroupValueExample);// 查找属于同一下拉项的相同名称的下拉值数量
         if (count > 0) {
@@ -190,7 +198,15 @@ public class ParameterOptgroupValueService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParameterOptgroupValueExample optgroupValueExample = new ParameterOptgroupValueExample();
         int count = 0;
+        // 防止下拉项值代码重复
+        optgroupValueExample.createCriteria().andOptgroupValueIdNotEqualTo(optgroupValue.getOptgroupValueId()).andOptgroupIdEqualTo(optgroupValue.getOptgroupId()).andOptgroupValueCodeEqualTo(optgroupValue.getOptgroupValueCode());
+        count = optgroupValueMapper.countByExample(optgroupValueExample);// 查找属于同一下拉项的相同名称的下拉值数量
+        if (count > 0) {
+            returnResult.setMsg("下拉值代码重复");
+            return returnResult;
+        }
         // 防止下拉项值名称重复
+        optgroupValueExample.clear();
         optgroupValueExample.createCriteria().andOptgroupValueIdNotEqualTo(optgroupValue.getOptgroupValueId()).andOptgroupIdEqualTo(optgroupValue.getOptgroupId()).andOptgroupValueNameEqualTo(optgroupValue.getOptgroupValueName());
         count = optgroupValueMapper.countByExample(optgroupValueExample);// 查找属于同一下拉项的相同名称的下拉值数量
         if (count > 0) {

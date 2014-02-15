@@ -5,6 +5,8 @@
  */
 package com.glacier.netloan.web.controller.website;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -79,10 +82,10 @@ public class WebsiteAnnouncementController extends AbstractController{
         return announcementService.editAnnouncement(announcement);
     }
     
-    // 删除公告
+    // 批量删除公告
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
-    public Object del(String webAnnId) {
-    	return announcementService.delAnnouncement(webAnnId);
+    public Object delAnn(@RequestParam List<String> webAnnIds,@RequestParam List<String> webAnnThemes) {
+    	return announcementService.delAnnouncement(webAnnIds, webAnnThemes);
     }
 }

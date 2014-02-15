@@ -31,10 +31,10 @@
 		sortName: 'webAnnTheme',//排序字段名称
 		sortOrder: 'ASC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
-		idField:'id',
+		idField:'webAnnId',
 		columns:[[
 			{
-				field:'id',
+				field:'webAnnId',
 				title:'ID',
 				checkbox:true
 			},{
@@ -106,8 +106,8 @@
 			action_controller(glacier.website_mgr.announcement_mgr.announcement.param,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
-			$(this).datagrid('unselectAll');
-			$(this).datagrid('uncheckAll');
+			$(this).datagrid('clearSelections');
+			$(this).datagrid('clearChecked');
 		}
 	});
 	
@@ -152,27 +152,43 @@
 	//点击编辑按钮触发方法
 	glacier.website_mgr.announcement_mgr.announcement.editAnnouncement = function(){
 		var row = glacier.website_mgr.announcement_mgr.announcement.announcementDataGrid.datagrid("getSelected");
-		glacier.website_mgr.announcement_mgr.announcement.newDialog(' 编辑【'+row.announcementName+'】','/do/announcement/edit.json',row.webAnnId);
+		glacier.website_mgr.announcement_mgr.announcement.newDialog(' 编辑【'+row.webAnnTheme+'】','/do/announcement/edit.json',row.webAnnId);
 	};
 	//点击删除按钮触发方法
 	glacier.website_mgr.announcement_mgr.announcement.delAnnouncement = function(){
-		var row = glacier.website_mgr.announcement_mgr.announcement.announcementDataGrid.datagrid("getChecked");
-		var webAnnId = row[0].webAnnId;
-		if(webAnnId){
+		var rows = glacier.website_mgr.announcement_mgr.announcement.announcementDataGrid.datagrid("getChecked");
+		var webAnnIds = [];//删除的id标识
+		var webAnnThemes = [];//公告主题
+		for(var i=0;i<rows.length;i++){
+			webAnnIds.push(rows[i].webAnnId);
+			webAnnThemes.push(rows[i].webAnnTheme);
+		}
+		if(webAnnIds.length > 0){
 			$.messager.confirm('请确认', '是否要删除该记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
 						   url: ctx + '/do/announcement/del.json',
-						   data: {webAnnId:webAnnId},
+						   data: {webAnnIds:webAnnIds.join(','),webAnnThemes:webAnnThemes.join(',')},
 						   dataType:'json',
 						   success: function(r){
-								$.messager.show(r.msg);
-								if(r.success){
-									glacier.website_mgr.announcement_mgr.announcement.announcementDataGrid.datagrid('reload');
+							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
+								   $.messager.show({
+										title:'提示',
+										timeout:3000,
+										msg:r.msg
+									});
+								   glacier.website_mgr.announcement_mgr.announcement.announcementDataGrid.datagrid('reload');
+							   }else{
+									$.messager.show({//后台验证弹出错误提示信息框
+										title:'错误提示',
+										width:380,
+										height:120,
+										msg: '<span style="color:red">'+r.msg+'<span>',
+										timeout:4500
+									});
 								}
-								 
-							}
+						   }
 					});
 				}
 			});

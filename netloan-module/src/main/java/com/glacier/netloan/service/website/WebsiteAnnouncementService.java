@@ -16,14 +16,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.website.WebsiteAnnouncementMapper;
+import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.website.WebsiteAnnouncement;
 import com.glacier.netloan.entity.website.WebsiteAnnouncementExample;
-import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
 /** 
@@ -40,6 +41,14 @@ public class WebsiteAnnouncementService {
 	@Autowired
     private WebsiteAnnouncementMapper announcementMapper;
 
+	/**
+	 * @Title: getAnnouncement 
+	 * @Description: TODO(根据公告Id获取公告信息) 
+	 * @param @param webAnnId
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
     public Object getAnnouncement(String webAnnId) {
         return announcementMapper.selectByPrimaryKey(webAnnId);
     }
@@ -52,8 +61,6 @@ public class WebsiteAnnouncementService {
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "浏览公告")
     public Object listAsGrid(JqPager pannouncementr) {
 
         JqGridReturn returnResult = new JqGridReturn();
@@ -81,20 +88,21 @@ public class WebsiteAnnouncementService {
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "新增公告")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "AnnouncementList_add")
     public Object addAnnouncement(WebsiteAnnouncement announcement) {
+    	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         WebsiteAnnouncementExample announcementExample = new WebsiteAnnouncementExample();
         int count = 0;
-        // 防止公告名称重复
+        // 防止公告主题重复
         announcementExample.createCriteria().andWebAnnThemeEqualTo(announcement.getWebAnnTheme());
-        count = announcementMapper.countByExample(announcementExample);// 查找相同中文名称的公告数量
+        count = announcementMapper.countByExample(announcementExample);// 查找相同主题的公告数量
         if (count > 0) {
-            returnResult.setMsg("公告重复，请重新填写!");
+            returnResult.setMsg("公告主题重复");
             return returnResult;
         }
         announcement.setWebAnnId(RandomGUID.getRandomGUID());
@@ -105,7 +113,7 @@ public class WebsiteAnnouncementService {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + announcement.getWebAnnTheme() + "] 公告信息已保存");
         } else {
-            returnResult.setMsg("公告信息保存失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，公告信息保存失败");
         }
         return returnResult;
     }
@@ -118,17 +126,17 @@ public class WebsiteAnnouncementService {
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "修改公告")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "AnnouncementList_edit")
     public Object editAnnouncement(WebsiteAnnouncement announcement) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         WebsiteAnnouncementExample announcementExample = new WebsiteAnnouncementExample();
         int count = 0;
-        // 防止公告名称重复
+        // 防止公告主题重复
         announcementExample.createCriteria().andWebAnnIdNotEqualTo(announcement.getWebAnnId()).andWebAnnThemeEqualTo(announcement.getWebAnnTheme());
-        count = announcementMapper.countByExample(announcementExample);// 查找相同中文名称的公告数量
+        count = announcementMapper.countByExample(announcementExample);// 查找相同主题的公告数量
         if (count > 0) {
-            returnResult.setMsg("公告名称重复，请重新填写!");
+            returnResult.setMsg("公告主题重复");
             return returnResult;
         }
         count = announcementMapper.updateByPrimaryKeySelective(announcement);
@@ -136,7 +144,7 @@ public class WebsiteAnnouncementService {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + announcement.getWebAnnTheme() + "] 公告信息已修改");
         } else {
-            returnResult.setMsg("公告信息修改失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，公告信息修改失败");
         }
         return returnResult;
     }
@@ -144,23 +152,28 @@ public class WebsiteAnnouncementService {
     /**
      * @Title: delAnnouncement 
      * @Description: TODO(删除公告) 
-     * @param @param announcementId
+     * @param @param webAnnIds
+     * @param @param annThemes
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "删除公告")
-    public Object delAnnouncement(String webAnnId) {
-    	WebsiteAnnouncement announcement= announcementMapper.selectByPrimaryKey(webAnnId);
-        int result = announcementMapper.deleteByPrimaryKey(webAnnId);//根据公告Id，进行删除公告
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "AnnouncementList_del")
+    public Object delAnnouncement(List<String> webAnnIds, List<String> webAnnThemes) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        if (result == 1) {
-            returnResult.setSuccess(true);
-            returnResult.setMsg("[" + announcement.getWebAnnTheme() + "] 公告信息已删除");
-        } else {
-            returnResult.setMsg("公告信息删除失败，请联系管理员!");
+        int count = 0;
+        if (webAnnIds.size() > 0) {
+        	WebsiteAnnouncementExample announcementExample = new WebsiteAnnouncementExample();
+        	announcementExample.createCriteria().andWebAnnIdIn(webAnnIds);
+            count = announcementMapper.deleteByExample(announcementExample);
+            if (count > 0) {
+                returnResult.setSuccess(true);
+                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(webAnnThemes, ",") + " ]操作");
+            } else {
+                returnResult.setMsg("发生未知错误，公告信息删除失败");
+            }
         }
-		return returnResult;
-     }
+        return returnResult;
+    }
 }

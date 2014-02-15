@@ -2,6 +2,8 @@ package com.glacier.netloan.entity.website;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class WebsiteAnnouncement {
     private String webAnnId;
 
@@ -19,10 +21,12 @@ public class WebsiteAnnouncement {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date updateTime;
 
     private String webAnnContent;
