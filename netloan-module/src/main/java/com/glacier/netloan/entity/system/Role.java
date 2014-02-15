@@ -2,13 +2,26 @@ package com.glacier.netloan.entity.system;
 
 import java.util.Date;
 
+import javax.validation.constraints.Pattern;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class Role {
+    /**
+     * 角色主键ID
+     */
     private String roleId;
 
+    /**
+     * 角色英文名 字母组成，长度为2-25
+     */
+    @Pattern(regexp = "^[A-Z_]{2,16}$", message = "{Role.roleEnName.illegal}")
     private String roleEnName;
 
+    /**
+     * 角色名
+     */
+    @Pattern(regexp = "^[\\u4E00-\\u9FA5\\uf900-\\ufa2d\\w]{2,16}$", message = "{Role.roleCnName.illegal}")
     private String roleCnName;
 
     private String builtin;

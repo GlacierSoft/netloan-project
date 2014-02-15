@@ -126,3 +126,29 @@ function action_controller(param,datagird){
 			}
 	};
 };
+
+/**
+ * @requires jQuery,EasyUI
+ * 
+ * 扩展validatebox，添加验证两次密码功能
+ */
+$.extend($.fn.validatebox.defaults.rules, {
+	eqPwd : {
+		validator : function(value, param) {
+			return value == $(param[0]).val();
+		},
+		message : '密码不一致！'
+	},
+	customReg : {
+		validator : function(value, param) {
+			var customRegExp = new RegExp(param[0]);
+			if (customRegExp.test(value)) {  
+            	return true;
+            }else{
+            	$.fn.validatebox.defaults.rules.customReg.message = param[1];
+            	return false;  
+            }
+		},
+		message : ''
+	}
+});
