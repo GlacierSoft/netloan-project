@@ -54,7 +54,26 @@ public class ParameterAreaService {
 	 * @throws
 	 */
     public Object getArea(String areaId) {
-        return areaMapper.selectByPrimaryKey(areaId);
+    	ParameterArea area = areaMapper.selectByPrimaryKey(areaId);
+    	if (null != area.getAreaPid()) {// 根据父地区的所属Id查找到父地区的名字
+    		ParameterArea areaTemp = areaMapper.selectByPrimaryKey(area.getAreaPid());
+    		if (StringUtils.isNotBlank(areaTemp.getAreaName())) {
+    			area.setAreaPname(areaTemp.getAreaName());
+            }
+        }
+    	if (null != area.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
+            User userTemp = userMapper.selectByPrimaryKey(area.getCreater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	area.setCreater(userTemp.getUserCnName());
+            }
+        }
+    	if (null != area.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
+            User userTemp = userMapper.selectByPrimaryKey(area.getUpdater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	area.setUpdater(userTemp.getUserCnName());
+            }
+        }
+        return area;
     }
 
     /**

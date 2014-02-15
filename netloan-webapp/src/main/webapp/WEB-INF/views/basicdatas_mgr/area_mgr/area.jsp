@@ -139,6 +139,23 @@
 			}
 		});
 	};
+	//查看菜单详细信息
+	glacier.basicdatas_mgr.area_mgr.area.areaDetails = function(row){
+		$('<div/>').dialog({
+			href : ctx + '/do/area/intoDetail.htm?areaId='+row.areaId,//从controller请求jsp页面进行渲染
+			width : 550,
+			height : 250,
+			modal : true,
+			resizable: false,
+			title : row.areaName,
+			onClose : function() {//提高浏览器性能，点击关闭窗口时候注销
+				$(this).dialog('destroy');
+			},
+			onLoad : function() {
+				$('#area_mgr_area_details').form('load', row);
+			}
+		});
+	};
 </script>
 
 <!-- 所有地区列表面板和表格 -->
