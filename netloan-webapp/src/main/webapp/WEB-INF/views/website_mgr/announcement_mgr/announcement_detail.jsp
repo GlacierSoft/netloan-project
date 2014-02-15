@@ -14,9 +14,9 @@
 			<td colspan="3"><input class="spinner" style="width:168px"  value="${announcementData.webAnnContent}" readonly="readonly"/></td>
 		</tr>
 		<tr>
-			<td>创建者：</td>
+			<td>录入者：</td>
 			<td><input class="spinner" style="width:168px" value="${announcementData.creater}" readonly="readonly"/></td>
-			<td>创建时间：</td>
+			<td>录入时间：</td>
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${announcementData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>

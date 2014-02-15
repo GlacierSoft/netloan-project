@@ -54,7 +54,20 @@ public class ParameterAgeService {
 	 * @throws
 	 */
     public Object getAge(String ageId) {
-        return ageMapper.selectByPrimaryKey(ageId);
+    	ParameterAge age = ageMapper.selectByPrimaryKey(ageId);
+    	if (null != age.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
+            User userTemp = userMapper.selectByPrimaryKey(age.getCreater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	age.setCreater(userTemp.getUserCnName());
+            }
+        }
+    	if (null != age.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
+            User userTemp = userMapper.selectByPrimaryKey(age.getUpdater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	age.setUpdater(userTemp.getUserCnName());
+            }
+        }
+        return age;
     }
     
     /**

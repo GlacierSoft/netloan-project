@@ -55,6 +55,16 @@ public class ParameterAgeController extends AbstractController{
         return mav;
     }
     
+    // 进入会员年龄别称Detail信息页面
+    @RequestMapping(value = "/intoDetail.htm")
+    private Object intoAgeDetailPage(String ageId) {
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/age_mgr/age_detail");
+        if(StringUtils.isNotBlank(ageId)){
+            mav.addObject("ageData", ageService.getAge(ageId));
+        }
+        return mav;
+    }
+    
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody

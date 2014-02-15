@@ -105,6 +105,17 @@
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
 			$(this).datagrid('clearChecked');
+		},
+		onDblClickRow:function(rowIndex, rowData){
+			$.easyui.showDialog({
+				title: rowData.ageName,
+				href : ctx + '/do/age/intoDetail.htm?ageId='+rowData.ageId,//从controller请求jsp页面进行渲染
+				width : 550,
+				height : 280,
+				resizable: false,
+				enableApplyButton : false,
+				enableSaveButton : false
+			});
 		}
 	});
 	
