@@ -74,10 +74,20 @@
 				field:'creater',
 				title:'录入人',
 				sortable:true,
-				width:200
+				width:100
 			},{
 				field:'createTime',
 				title:'录入时间',
+				sortable:true,
+				width:200
+			},{
+				field:'updater',
+				title:'更新人',
+				sortable:true,
+				width:100
+			},{
+				field:'updateTime',
+				title:'更新时间',
 				sortable:true,
 				width:200
 			}

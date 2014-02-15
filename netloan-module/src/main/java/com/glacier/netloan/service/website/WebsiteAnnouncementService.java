@@ -21,6 +21,7 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dao.website.WebsiteAnnouncementMapper;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.website.WebsiteAnnouncement;
@@ -41,6 +42,9 @@ public class WebsiteAnnouncementService {
 	@Autowired
     private WebsiteAnnouncementMapper announcementMapper;
 
+	@Autowired
+    private UserMapper userMapper;
+	
 	/**
 	 * @Title: getAnnouncement 
 	 * @Description: TODO(根据公告Id获取公告信息) 
@@ -62,7 +66,7 @@ public class WebsiteAnnouncementService {
      * @throws
      */
     public Object listAsGrid(JqPager pannouncementr) {
-
+        
         JqGridReturn returnResult = new JqGridReturn();
         WebsiteAnnouncementExample websiteAnnouncementExample = new WebsiteAnnouncementExample();
 
@@ -74,6 +78,20 @@ public class WebsiteAnnouncementService {
         	websiteAnnouncementExample.setOrderByClause(pannouncementr.getOrderBy("temp_website_announcement_"));
         }
         List<WebsiteAnnouncement>  websiteAnnouncements = announcementMapper.selectByExample(websiteAnnouncementExample); // 查询所有公告列表
+        for (WebsiteAnnouncement annTemp : websiteAnnouncements) {
+        	if (null != annTemp.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
+                User userTemp = userMapper.selectByPrimaryKey(annTemp.getCreater());
+                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+                	annTemp.setCreater(userTemp.getUserCnName());
+                }
+            }
+        	if (null != annTemp.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
+                User userTemp = userMapper.selectByPrimaryKey(annTemp.getUpdater());
+                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+                	annTemp.setUpdater(userTemp.getUserCnName());
+                }
+            }
+        }
         int total = announcementMapper.countByExample(websiteAnnouncementExample); // 查询总页数
         returnResult.setRows(websiteAnnouncements);
         returnResult.setTotal(total);
