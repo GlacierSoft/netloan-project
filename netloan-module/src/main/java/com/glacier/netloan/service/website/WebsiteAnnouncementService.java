@@ -157,6 +157,10 @@ public class WebsiteAnnouncementService {
             returnResult.setMsg("公告主题重复");
             return returnResult;
         }
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        announcement.setUpdater(pricipalUser.getUserId());
+        announcement.setUpdateTime(new Date());
         count = announcementMapper.updateByPrimaryKeySelective(announcement);
         if (count == 1) {
             returnResult.setSuccess(true);

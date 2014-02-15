@@ -19,11 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
-import com.glacier.jqueryui.util.JqGridReturn;
-import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.jqueryui.util.Tree;
 import com.glacier.netloan.dao.basicdatas.ParameterAreaMapper;
+import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterArea;
 import com.glacier.netloan.entity.basicdatas.ParameterAreaExample;
 import com.glacier.netloan.entity.system.User;
@@ -43,6 +42,9 @@ public class ParameterAreaService {
 	@Autowired
     private ParameterAreaMapper areaMapper;
 	
+	@Autowired
+    private UserMapper userMapper;
+	
 	/**
 	 * @Title: getArea 
 	 * @Description: TODO(根据地区Id获取地区信息) 
@@ -54,33 +56,6 @@ public class ParameterAreaService {
     public Object getArea(String areaId) {
         return areaMapper.selectByPrimaryKey(areaId);
     }
-    
-    /**
-     * @Title: listAsGrid 
-     * @Description: TODO(以表格结构展示地区列表) 
-     * @param @param parear
-     * @param @return    设定文件 
-     * @return Object    返回类型 
-     * @throws
-     */
-    public Object listAsGrid(JqPager pager) {
-
-        JqGridReturn returnResult = new JqGridReturn();
-        ParameterAreaExample parameterAreaExample = new ParameterAreaExample();
-
-        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
-        	parameterAreaExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
-        	parameterAreaExample.setLimitEnd(pager.getRows());
-        }
-        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
-        	parameterAreaExample.setOrderByClause(pager.getOrderBy("temp_parameter_area_"));
-        }
-        List<ParameterArea>  parameterAreas = areaMapper.selectByExample(parameterAreaExample); // 查询所有地区列表
-        int total = areaMapper.countByExample(parameterAreaExample); // 查询总页数
-        returnResult.setRows(parameterAreas);
-        returnResult.setTotal(total);
-        return returnResult;// 返回ExtGrid表
-    }
 
     /**
      * @Title: listAsTree 
@@ -91,6 +66,20 @@ public class ParameterAreaService {
      */
     public Object listAsTree() {
         List<ParameterArea> areaList = areaMapper.selectByExample(new ParameterAreaExample());
+        for (ParameterArea areaTemp : areaList) {
+        	if (null != areaTemp.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
+                User userTemp = userMapper.selectByPrimaryKey(areaTemp.getCreater());
+                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+                	areaTemp.setCreater(userTemp.getUserCnName());
+                }
+            }
+        	if (null != areaTemp.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
+                User userTemp = userMapper.selectByPrimaryKey(areaTemp.getUpdater());
+                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+                	areaTemp.setUpdater(userTemp.getUserCnName());
+                }
+            }
+        }
         return areaList;
     }
     

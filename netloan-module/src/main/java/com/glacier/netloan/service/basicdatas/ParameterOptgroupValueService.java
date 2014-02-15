@@ -213,6 +213,10 @@ public class ParameterOptgroupValueService {
             returnResult.setMsg("下拉值名称重复");
             return returnResult;
         }
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        optgroupValue.setUpdater(pricipalUser.getUserId());
+        optgroupValue.setUpdateTime(new Date());
         count = optgroupValueMapper.updateByPrimaryKeySelective(optgroupValue);
         if (count == 1) {
             returnResult.setSuccess(true);

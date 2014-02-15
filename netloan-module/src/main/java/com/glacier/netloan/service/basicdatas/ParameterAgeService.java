@@ -22,6 +22,7 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.basicdatas.ParameterAgeMapper;
+import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterAge;
 import com.glacier.netloan.entity.basicdatas.ParameterAgeExample;
 import com.glacier.netloan.entity.system.User;
@@ -40,6 +41,9 @@ public class ParameterAgeService {
 
 	@Autowired
     private ParameterAgeMapper ageMapper;
+	
+	@Autowired
+    private UserMapper userMapper;
 
 	/**
 	 * @Title: getAge 
@@ -74,6 +78,20 @@ public class ParameterAgeService {
         	parameterAgeExample.setOrderByClause(pager.getOrderBy("temp_parameter_age_"));
         }
         List<ParameterAge>  parameterAges = ageMapper.selectByExample(parameterAgeExample); // 查询所有会员年龄别称列表
+        for (ParameterAge ageTemp : parameterAges) {
+        	if (null != ageTemp.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
+                User userTemp = userMapper.selectByPrimaryKey(ageTemp.getCreater());
+                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+                	ageTemp.setCreater(userTemp.getUserCnName());
+                }
+            }
+        	if (null != ageTemp.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
+                User userTemp = userMapper.selectByPrimaryKey(ageTemp.getUpdater());
+                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+                	ageTemp.setUpdater(userTemp.getUserCnName());
+                }
+            }
+        }
         int total = ageMapper.countByExample(parameterAgeExample); // 查询总页数
         returnResult.setRows(parameterAges);
         returnResult.setTotal(total);
@@ -139,6 +157,10 @@ public class ParameterAgeService {
             returnResult.setMsg("会员年龄别称名称重复");
             return returnResult;
         }
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        age.setUpdater(pricipalUser.getUserId());
+        age.setUpdateTime(new Date());
         count = ageMapper.updateByPrimaryKeySelective(age);
         if (count == 1) {
             returnResult.setSuccess(true);

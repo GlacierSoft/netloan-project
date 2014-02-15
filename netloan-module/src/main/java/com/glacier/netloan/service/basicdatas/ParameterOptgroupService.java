@@ -19,8 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
-import com.glacier.jqueryui.util.JqGridReturn;
-import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.jqueryui.util.Tree;
 import com.glacier.netloan.dao.basicdatas.ParameterOptgroupMapper;
@@ -59,33 +57,6 @@ public class ParameterOptgroupService {
         return optgroupMapper.selectByPrimaryKey(optgroupId);
     }
     
-    /**
-     * @Title: listAsGrid 
-     * @Description: TODO(以表格结构展示下拉项列表) 
-     * @param @param poptgroupr
-     * @param @return    设定文件 
-     * @return Object    返回类型 
-     * @throws
-     */
-    public Object listAsGrid(JqPager pager) {
-
-        JqGridReturn returnResult = new JqGridReturn();
-        ParameterOptgroupExample parameterOptgroupExample = new ParameterOptgroupExample();
-
-        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
-        	parameterOptgroupExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
-        	parameterOptgroupExample.setLimitEnd(pager.getRows());
-        }
-        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
-        	parameterOptgroupExample.setOrderByClause(pager.getOrderBy("temp_parameter_optgroup_"));
-        }
-        List<ParameterOptgroup>  parameterOptgroups = optgroupMapper.selectByExample(parameterOptgroupExample); // 查询所有下拉项列表
-        int total = optgroupMapper.countByExample(parameterOptgroupExample); // 查询总页数
-        returnResult.setRows(parameterOptgroups);
-        returnResult.setTotal(total);
-        return returnResult;// 返回ExtGrid表
-    }
-
     /**
      * @Title: listAsTree 
      * @Description: TODO(获取下拉项下的树结构的所有下拉项数据) 
@@ -187,6 +158,13 @@ public class ParameterOptgroupService {
     @MethodLog(opera = "OptgroupTree_edit")
     public Object editOptgroup(ParameterOptgroup optgroup) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        List<String> retrunOptgroupList = new ArrayList<String>();// 修改上级所属下拉项时，禁止选择下拉项本身及子级下拉项作为下拉项的父级下拉项
+        retrunOptgroupList = getOptgroupChild(optgroup.getOptgroupId(), retrunOptgroupList);// 查找下拉项本身及子级下拉项
+        retrunOptgroupList.add(optgroup.getOptgroupId());
+        if (retrunOptgroupList.contains(optgroup.getOptgroupPid())) {// 如果用户是选择下拉项本身及子级下拉项作为下拉项的父级下拉项，则返回错误提示信息
+        	returnResult.setMsg("禁止选择该下拉项本身以及子下拉项作为上级下拉项");
+            return returnResult;
+        }
         ParameterOptgroupExample optgroupExample = new ParameterOptgroupExample();
         int count = 0;
         // 防止下拉项名称重复
@@ -214,6 +192,28 @@ public class ParameterOptgroupService {
             returnResult.setMsg("发生未知错误，下拉项信息修改失败");
         }
         return returnResult;
+    }
+    
+    /**
+     * @Title: getOptgroupChild 
+     * @Description: TODO(递归获取下拉项和下拉项子节点) 
+     * @param @param optgroupId
+     * @param @param retrunOptgroupList 返回的所有下拉项信息
+     * @param @return    设定文件 
+     * @return List<String>    返回类型 
+     * @throws
+     */
+    private List<String> getOptgroupChild(String optgroupId, List<String> retrunOptgroupList) {
+    	ParameterOptgroupExample optgroupExample = new ParameterOptgroupExample();
+    	optgroupExample.createCriteria().andOptgroupPidEqualTo(optgroupId);// 查询子下拉项
+        List<ParameterOptgroup> optgroupList = optgroupMapper.selectByExample(optgroupExample);
+        if (optgroupList.size() > 0) {// 如果存在子下拉项则遍历
+            for (ParameterOptgroup optgroup : optgroupList) {
+                this.getOptgroupChild(optgroup.getOptgroupId(), retrunOptgroupList);// 递归查询是否存在子下拉项
+            }
+        }
+        retrunOptgroupList.add(optgroupId);
+        return retrunOptgroupList;
     }
     
     /**

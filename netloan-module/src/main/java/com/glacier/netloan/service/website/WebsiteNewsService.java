@@ -131,6 +131,10 @@ public class WebsiteNewsService {
             returnResult.setMsg("新闻名称重复，请重新填写!");
             return returnResult;
         }
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        news.setUpdater(pricipalUser.getUserId());
+        news.setUpdateTime(new Date());
         count = newsMapper.updateByPrimaryKeySelective(news);
         if (count == 1) {
             returnResult.setSuccess(true);
