@@ -54,7 +54,20 @@ public class WebsiteAnnouncementService {
 	 * @throws
 	 */
     public Object getAnnouncement(String webAnnId) {
-        return announcementMapper.selectByPrimaryKey(webAnnId);
+    	WebsiteAnnouncement websiteAnnouncement = announcementMapper.selectByPrimaryKey(webAnnId);
+    	if (null != websiteAnnouncement.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
+            User userTemp = userMapper.selectByPrimaryKey(websiteAnnouncement.getCreater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	websiteAnnouncement.setCreater(userTemp.getUserCnName());
+            }
+        }
+    	if (null != websiteAnnouncement.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
+            User userTemp = userMapper.selectByPrimaryKey(websiteAnnouncement.getUpdater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	websiteAnnouncement.setUpdater(userTemp.getUserCnName());
+            }
+        }
+        return websiteAnnouncement;
     }
     
     /**

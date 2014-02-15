@@ -55,6 +55,16 @@ public class WebsiteAnnouncementController extends AbstractController{
         return mav;
     }
     
+    // 进入公告Detail信息页面
+    @RequestMapping(value = "/intoDetail.htm")
+    private Object intoAnnouncementDetailPage(String webAnnId) {
+        ModelAndView mav = new ModelAndView("website_mgr/announcement_mgr/announcement_detail");
+        if(StringUtils.isNotBlank(webAnnId)){
+            mav.addObject("announcementData", announcementService.getAnnouncement(webAnnId));
+        }
+        return mav;
+    }
+    
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
