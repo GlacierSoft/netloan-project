@@ -5,7 +5,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!-- 项目path全局对象，方便js调用-->
 <script type="text/javascript" charset="utf-8">
-	var ctx = "${ctx}";
+	var ctx = '${ctx}';
 	var fields = eval('(${fields})');
 </script>
 

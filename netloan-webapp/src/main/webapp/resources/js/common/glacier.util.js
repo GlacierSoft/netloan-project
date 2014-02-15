@@ -20,8 +20,8 @@ Array.prototype.contains = function(obj) {
  */
 function renderGridValue(value,fields){
 	for(var i =0;i<fields.length;i++){
-		if(value == fields[i].optgroupValueCode){
-			return fields[i].optgroupValueName;
+		if(value == fields[i].value){
+			return fields[i].label;
 		}
 	}
 }

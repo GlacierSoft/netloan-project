@@ -8,6 +8,11 @@ public class ParameterOptgroupValue {
     private String optgroupValueId;
 
     private String optgroupId;
+    
+    /**
+     * 自定义字段
+     */
+    private String optgroupCode;
 
     private String optgroupValueCode;
 
@@ -43,6 +48,14 @@ public class ParameterOptgroupValue {
 
     public void setOptgroupId(String optgroupId) {
         this.optgroupId = optgroupId;
+    }
+
+    public String getOptgroupCode() {
+        return optgroupCode;
+    }
+
+    public void setOptgroupCode(String optgroupCode) {
+        this.optgroupCode = optgroupCode;
     }
 
     public String getOptgroupValueCode() {
