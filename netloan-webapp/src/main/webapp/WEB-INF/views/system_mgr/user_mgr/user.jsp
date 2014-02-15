@@ -57,7 +57,10 @@
 				field:'builtin',
 				title:'是否内置',
 				width:120,
-				sortable:true
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
+					return renderGridValue(value,fields.builtin);
+				}
 			},{
 				field:'email',
 				title:'电子邮箱',

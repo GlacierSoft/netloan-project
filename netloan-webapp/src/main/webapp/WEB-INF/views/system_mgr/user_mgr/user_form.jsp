@@ -2,6 +2,21 @@
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<script type="text/javascript">
+	// 初始化客户性别下拉框
+	$('#user_mgr_user_form_builtin').combobox({  
+		valueField : 'optgroupValueCode',
+		height:18,
+		width:270,
+		textField : 'optgroupValueName',
+		panelHeight : 'auto',
+		editable : false,
+		required:true,
+		data : fields.builtin
+	});
+	
+</script>
+
 <form id="user_mgr_user_form" method="POST" style="padding:15px" >
 	<table class="formtable">
 		<tr>
@@ -21,7 +36,7 @@
 		</tr>
 		<tr>
 			<td>是否内置：</td>
-			<td><input name="builtin" class="easyui-validatebox spinner" style="width:268px" required="true" value="${userData.builtin}"/></td>
+			<td><input id="user_mgr_user_form_builtin" name="builtin" class="easyui-validatebox spinner" style="width:268px" required="true" value="${userData.builtin}"/></td>
 		</tr>
 		<tr>
 			<td>电子邮箱：</td>
