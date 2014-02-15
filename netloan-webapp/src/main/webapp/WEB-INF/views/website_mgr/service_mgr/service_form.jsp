@@ -12,7 +12,7 @@
 		panelHeight : 'auto',
 		editable : false,
 		required:true,
-		data : fields.webServiceStatus
+		data : fields.status
 	});
 </script>
 

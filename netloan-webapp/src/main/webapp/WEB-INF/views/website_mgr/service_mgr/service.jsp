@@ -58,7 +58,7 @@
 				width:120,
 				sortable:true,
 				formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
-					return renderGridValue(value,fields.webServiceStatus);
+					return renderGridValue(value,fields.status);
 				}
 			},{
 				field:'webServiceNum',
