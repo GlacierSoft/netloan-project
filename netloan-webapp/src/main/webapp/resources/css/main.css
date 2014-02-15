@@ -121,6 +121,31 @@ td.forminputtable {
 	padding-right: 15px;
 }
 
+
+/*展示详细表格样式*/
+table.detailtable {
+	border-collapse: collapse;
+}
+
+table.detailtable td {
+	height: 25px;
+}
+table.detailtable input{
+	border-top:0px; 
+	border-left:0px; 
+	border-right:0px; 
+	background-color:transparent; /* 背景色透明 */ 
+}
+table.detailtable textarea{
+	resize: none;
+	overflow: auto;
+	white-space: normal;
+	border-top-style:none;
+	border-left-style:none;
+	border-right-style:none;
+	border-bottom-style:1px solid #84909C;
+}
+
 /*toorbar 右对齐*/
 .toorbar_right {
 	float: right;

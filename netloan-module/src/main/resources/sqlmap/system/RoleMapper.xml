@@ -9,6 +9,7 @@
     <result column="temp_role_remark" property="remark" jdbcType="VARCHAR" />
     <result column="temp_role_creater" property="creater" jdbcType="VARCHAR" />
     <result column="temp_role_create_time" property="createTime" jdbcType="DATE" />
+    <result column="temp_role_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -72,6 +73,8 @@
     temp_role.role_id as temp_role_role_id, temp_role.role_en_name as temp_role_role_en_name, 
     temp_role.role_cn_name as temp_role_role_cn_name, temp_role.builtin as temp_role_builtin, 
     temp_role.remark as temp_role_remark, temp_role.creater as temp_role_creater, temp_role.create_time as temp_role_create_time
+    <!-- 以下字段属于扩展 -->
+    ,temp_user.user_cn_name as temp_role_creater_display
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.system.RoleExample" >
     select
@@ -80,6 +83,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_role temp_role
+    INNER JOIN t_user temp_user ON temp_user.user_id = temp_role.creater <!-- 扩展 -->
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -94,6 +98,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_role temp_role
+    INNER JOIN t_user temp_user ON temp_user.user_id = temp_role.creater <!-- 扩展 -->
     where temp_role.role_id = #{roleId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >

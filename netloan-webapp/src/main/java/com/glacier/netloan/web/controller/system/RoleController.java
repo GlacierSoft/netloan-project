@@ -59,6 +59,16 @@ public class RoleController extends AbstractController{
         return mav;
     }
     
+    // 进入角色Detail信息页面
+    @RequestMapping(value = "/intoDetail.htm")
+    private Object intoRoleDetailPage(String roleId) {
+        ModelAndView mav = new ModelAndView("system_mgr/role_mgr/role_detail");
+        if(StringUtils.isNotBlank(roleId)){
+            mav.addObject("roleData", roleService.getRole(roleId));
+        }
+        return mav;
+    }
+    
     // 进入角色操作授权展示页面
     @RequestMapping(value = "/actionAuth.htm")
     private Object intoActionAuthPage(String roleId) {
@@ -74,6 +84,7 @@ public class RoleController extends AbstractController{
     private Object listActionAsGridByMenuId(String menuId, JqPager pager) {
         return roleService.listAsGrid(pager);
     }
+    
     
     // 增加角色
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)

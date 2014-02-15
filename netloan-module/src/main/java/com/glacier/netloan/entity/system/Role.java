@@ -16,8 +16,13 @@ public class Role {
     private String remark;
 
     private String creater;
-    
-    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
+
+    /**
+     * 自定义字段：创建者显示字段
+     */
+    private String createrDisplay;
+
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     public String getRoleId() {
@@ -68,6 +73,14 @@ public class Role {
         this.creater = creater;
     }
 
+    public String getCreaterDisplay() {
+        return createrDisplay;
+    }
+
+    public void setCreaterDisplay(String createrDisplay) {
+        this.createrDisplay = createrDisplay;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -89,12 +102,12 @@ public class Role {
         }
         Role other = (Role) that;
         return (this.getRoleId() == null ? other.getRoleId() == null : this.getRoleId().equals(other.getRoleId()))
-            && (this.getRoleEnName() == null ? other.getRoleEnName() == null : this.getRoleEnName().equals(other.getRoleEnName()))
-            && (this.getRoleCnName() == null ? other.getRoleCnName() == null : this.getRoleCnName().equals(other.getRoleCnName()))
-            && (this.getBuiltin() == null ? other.getBuiltin() == null : this.getBuiltin().equals(other.getBuiltin()))
-            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
-            && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
+                && (this.getRoleEnName() == null ? other.getRoleEnName() == null : this.getRoleEnName().equals(other.getRoleEnName()))
+                && (this.getRoleCnName() == null ? other.getRoleCnName() == null : this.getRoleCnName().equals(other.getRoleCnName()))
+                && (this.getBuiltin() == null ? other.getBuiltin() == null : this.getBuiltin().equals(other.getBuiltin()))
+                && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
+                && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
     }
 
     @Override
