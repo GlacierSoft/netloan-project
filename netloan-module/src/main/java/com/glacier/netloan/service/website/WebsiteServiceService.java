@@ -19,6 +19,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dao.website.WebsiteServiceMapper;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.website.WebsiteAnnouncement;
 import com.glacier.netloan.entity.website.WebsiteService;
 import com.glacier.netloan.entity.website.WebsiteServiceExample;
 import com.glacier.netloan.util.MethodLog;
@@ -49,7 +50,20 @@ public class WebsiteServiceService {
 	 * @throws
 	 */
     public Object getWebsiteService(String webServiceId) {
-        return websiteServiceMapper.selectByPrimaryKey(webServiceId);
+    	WebsiteService websiteService = websiteServiceMapper.selectByPrimaryKey(webServiceId);
+    	if (null != websiteService.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
+            User userTemp = userMapper.selectByPrimaryKey(websiteService.getCreater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	websiteService.setCreater(userTemp.getUserCnName());
+            }
+        }
+    	if (null != websiteService.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
+            User userTemp = userMapper.selectByPrimaryKey(websiteService.getUpdater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	websiteService.setUpdater(userTemp.getUserCnName());
+            }
+        }
+        return websiteService;
     }
     
     /**
@@ -152,6 +166,10 @@ public class WebsiteServiceService {
             returnResult.setMsg("客服名称重复");
             return returnResult;
         }
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        websiteService.setUpdater(pricipalUser.getUserId());
+        websiteService.setUpdateTime(new Date());
         count = websiteServiceMapper.updateByPrimaryKeySelective(websiteService);
         if (count == 1) {
             returnResult.setSuccess(true);

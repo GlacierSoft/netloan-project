@@ -52,6 +52,16 @@ public class ParameterCreditController extends AbstractController{
         return mav;
     }
     
+    // 进入会员等级Detail信息页面
+    @RequestMapping(value = "/intoDetail.htm")
+    private Object intoCreditDetailPage(String creditId) {
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/credit_mgr/credit_detail");
+        if(StringUtils.isNotBlank(creditId)){
+            mav.addObject("creditData", parameterCreditService.getCredit(creditId));
+        }
+        return mav;
+    }
+    
     // 获取表格结构的所有会员信用等级数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody

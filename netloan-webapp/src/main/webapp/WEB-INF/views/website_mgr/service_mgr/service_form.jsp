@@ -22,7 +22,7 @@
 			<td>客服名称：</td>
 			<td>
 				<input type="hidden" id="service_mgr_service_form_webServiceId" name="webServiceId" value="${serviceData.webServiceId}" />
-				<input id="service_mgr_service_form_webServiceName" name="webServiceName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${serviceData.webServiceName}"/>
+				<input id="service_mgr_service_form_webServiceName" name="webServiceName" style="width:268px" value="${serviceData.webServiceName}" class="easyui-validatebox spinner"  required="true"  validType="customReg['^[\\u4E00-\\u9FA5\\uf900-\\ufa2d\\w]{2,16}$','<fmt:message key="Role.roleCnName.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>

@@ -55,6 +55,16 @@ public class WebsiteServiceController extends AbstractController{
         return mav;
     }
     
+    // 进入客服Detail信息页面
+    @RequestMapping(value = "/intoDetail.htm")
+    private Object intoWebsiteServiceDetailPage(String webServiceId) {
+        ModelAndView mav = new ModelAndView("website_mgr/service_mgr/service_detail");
+        if(StringUtils.isNotBlank(webServiceId)){
+            mav.addObject("serviceData", websiteServiceService.getWebsiteService(webServiceId));
+        }
+        return mav;
+    }
+    
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody

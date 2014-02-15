@@ -17,9 +17,11 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.basicdatas.ParameterCreditMapper;
+import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditExample;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.website.WebsiteService;
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -37,8 +39,33 @@ public class ParameterCreditService {
 	@Autowired
 	private ParameterCreditMapper parameterCreditMapper;
 	
+	@Autowired
+    private UserMapper userMapper;
+	
+	/**
+	 * @Title: getCredit 
+	 * @Description: TODO(根据会员信用等级id进行查询) 
+	 * @param  @param creditId
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 *
+	 */
 	public Object getCredit(String creditId){
-		return parameterCreditMapper.selectByPrimaryKey(creditId);
+		ParameterCredit parameterCredit = parameterCreditMapper.selectByPrimaryKey(creditId);
+    	if (null != parameterCredit.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
+            User userTemp = userMapper.selectByPrimaryKey(parameterCredit.getCreater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	parameterCredit.setCreater(userTemp.getUserCnName());
+            }
+        }
+    	if (null != parameterCredit.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
+            User userTemp = userMapper.selectByPrimaryKey(parameterCredit.getUpdater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	parameterCredit.setUpdater(userTemp.getUserCnName());
+            }
+        }
+        return parameterCredit;
 	}
 	
 	/**
