@@ -58,7 +58,7 @@ public class WebsiteAnnouncementController extends AbstractController{
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(String menuId, JqPager pannouncementr) {
+    private Object listActionAsGridByMenuId(JqPager pannouncementr) {
         return announcementService.listAsGrid(pannouncementr);
     }
     

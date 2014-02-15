@@ -191,7 +191,7 @@ public class WebsiteAnnouncementService {
             count = announcementMapper.deleteByExample(announcementExample);
             if (count > 0) {
                 returnResult.setSuccess(true);
-                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(webAnnThemes, ",") + " ]操作");
+                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(webAnnThemes, ",") + " ]公告");
             } else {
                 returnResult.setMsg("发生未知错误，公告信息删除失败");
             }

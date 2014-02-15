@@ -58,7 +58,7 @@ public class ParameterAgeController extends AbstractController{
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(String menuId, JqPager pager) {
+    private Object listActionAsGridByMenuId(JqPager pager) {
         return ageService.listAsGrid(pager);
     }
     

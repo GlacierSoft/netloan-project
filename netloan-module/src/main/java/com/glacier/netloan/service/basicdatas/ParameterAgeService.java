@@ -191,7 +191,7 @@ public class ParameterAgeService {
             count = ageMapper.deleteByExample(ageExample);
             if (count > 0) {
                 returnResult.setSuccess(true);
-                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(ageNames, ",") + " ]操作");
+                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(ageNames, ",") + " ]会员年龄别称");
             } else {
                 returnResult.setMsg("发生未知错误，会员年龄别称信息删除失败");
             }

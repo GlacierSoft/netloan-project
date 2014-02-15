@@ -47,7 +47,7 @@ public class ParameterOptgroupService {
     private ParameterOptgroupValueMapper optgroupValueMapper;
 	/**
 	 * @Title: getOptgroup 
-	 * @Description: TODO(根据下拉项Id获取地区信息) 
+	 * @Description: TODO(根据下拉项Id获取下拉项信息) 
 	 * @param @param optgroupId
 	 * @param @return    设定文件 
 	 * @return Object    返回类型 
@@ -246,7 +246,7 @@ public class ParameterOptgroupService {
                 int result = optgroupMapper.deleteByPrimaryKey(optgroupId);//根据下拉项Id，进行删除下拉项
                 if (result == 1) {
                     returnResult.setSuccess(true);
-                    returnResult.setMsg("[" + optgroup.getOptgroupName() + "] 地区信息已删除");
+                    returnResult.setMsg("[" + optgroup.getOptgroupName() + "] 下拉项信息已删除");
                 } else {
                     returnResult.setMsg("发生未知错误，下拉项信息删除失败");
                 }

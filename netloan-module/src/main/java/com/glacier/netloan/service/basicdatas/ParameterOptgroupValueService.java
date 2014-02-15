@@ -247,7 +247,7 @@ public class ParameterOptgroupValueService {
             count = optgroupValueMapper.deleteByExample(parameterOptgroupValueExample);
             if (count > 0) {
                 returnResult.setSuccess(true);
-                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(optgroupValueNames, ",") + " ]操作");
+                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(optgroupValueNames, ",") + " ]下拉值");
             } else {
                 returnResult.setMsg("发生未知错误，下拉值信息删除失败");
             }
