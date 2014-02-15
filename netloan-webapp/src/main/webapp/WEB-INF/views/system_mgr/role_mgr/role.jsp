@@ -474,7 +474,7 @@
 			<glacierui:toolbar panelEnName="RoleList" toolbarId="roleDataGrid_toolbar" menuEnName="role"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
-	<div data-options="region:'north',split:true" style="height:40px;">
+	<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
 		<form id="roleSearchForm">
 			<table>
 				<tr>
