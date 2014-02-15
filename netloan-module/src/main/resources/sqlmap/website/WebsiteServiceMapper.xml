@@ -110,7 +110,7 @@
     where web_service_id = #{webServiceId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.website.WebsiteServiceExample" >
-    delete from t_website_service temp_website_service
+    delete temp_website_service from t_website_service temp_website_service
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

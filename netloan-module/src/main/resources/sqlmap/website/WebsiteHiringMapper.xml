@@ -133,7 +133,7 @@
     where web_hiring_id = #{webHiringId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.website.WebsiteHiringExample" >
-    delete from t_website_hiring temp_website_hiring
+    delete temp_website_hiring from t_website_hiring temp_website_hiring
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
