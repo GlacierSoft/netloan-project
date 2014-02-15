@@ -148,11 +148,12 @@ public class ParameterAgeService {
         }
         return returnResult;
     }
-    
+
     /**
-     * @Title: delAge 
+     * @Title: delAges 
      * @Description: TODO(删除会员年龄别称) 
-     * @param @param ageId 会员年龄别称Id
+     * @param @param ageIds 会员年龄别称Id
+     * @param @param ageNames 会员年龄别称名字
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -54,7 +55,7 @@ public class ParameterOptgroupValueService {
 	
 	/**
      * @Title: loadEnableField 
-     * @Description: TODO(查找可用字段，在grid显示字段值) 
+     * @Description: TODO(查找可用下拉值，在grid显示下拉值) 
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
@@ -93,6 +94,14 @@ public class ParameterOptgroupValueService {
         return JackJson.fromObjectToJson(part, "fieldFilter", filterSet);
     }
     
+    /**
+     * @Title: getOptgroupValue 
+     * @Description: TODO(根据下拉值Id获取下拉值信息) 
+     * @param @param optgroupValueId
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
     public Object getOptgroupValue(String optgroupValueId) {
         return optgroupValueMapper.selectByPrimaryKey(optgroupValueId);
     }
@@ -108,7 +117,7 @@ public class ParameterOptgroupValueService {
      */
     public Object listAsGrid(String optgroupId, JqPager pager) {
         JqGridReturn returnResult = new JqGridReturn();
-        if (StringUtils.isNotBlank(optgroupId)) {// 当菜单对应的menuId有意义的时候，才会进行数据库查询
+        if (StringUtils.isNotBlank(optgroupId)) {// 当下拉值对应的下拉项Id有意义的时候，才会进行数据库查询
         	ParameterOptgroupValueExample parameterOptgroupValueExample = new ParameterOptgroupValueExample();
             Criteria optgroupValueCriteria = parameterOptgroupValueExample.createCriteria();
             optgroupValueCriteria.andOptgroupIdEqualTo(optgroupId);
@@ -119,8 +128,7 @@ public class ParameterOptgroupValueService {
             if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
             	parameterOptgroupValueExample.setOrderByClause(pager.getOrderBy("temp_parameter_optgroup_value_"));// 必须外键inner
                                                                                                                // join
-                                                                                                               // t_panel
-                                                                                                               // temp_panel
+                                                                                                               // temp_parameter
             }
             List<ParameterOptgroupValue> parameterOptgroupValues = optgroupValueMapper.selectByExample(parameterOptgroupValueExample); // 查询所有操作列表
             int total = optgroupValueMapper.countByExample(parameterOptgroupValueExample); // 查询总页数
@@ -138,9 +146,10 @@ public class ParameterOptgroupValueService {
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "新增下拉项值")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "OptgroupValueList_add")
     public Object addOptgroupValue(ParameterOptgroupValue optgroupValue) {
+    	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         
@@ -149,9 +158,9 @@ public class ParameterOptgroupValueService {
         int count = 0;
         // 防止下拉项值名称重复
         optgroupValueExample.createCriteria().andOptgroupIdEqualTo(optgroupValue.getOptgroupId()).andOptgroupValueNameEqualTo(optgroupValue.getOptgroupValueName());
-        count = optgroupValueMapper.countByExample(optgroupValueExample);// 查找相同中文名称的下拉项值数量
+        count = optgroupValueMapper.countByExample(optgroupValueExample);// 查找属于同一下拉项的相同名称的下拉值数量
         if (count > 0) {
-            returnResult.setMsg("下拉项值重复，请重新填写!");
+            returnResult.setMsg("下拉值名称重复");
             return returnResult;
         }
         optgroupValue.setOptgroupValueId(RandomGUID.getRandomGUID());
@@ -162,7 +171,7 @@ public class ParameterOptgroupValueService {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + optgroupValue.getOptgroupValueName() + "] 下拉项值信息已保存");
         } else {
-            returnResult.setMsg("下拉项值信息保存失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，下拉项值信息保存失败");
         }
         return returnResult;
     }
@@ -175,17 +184,17 @@ public class ParameterOptgroupValueService {
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "修改下拉项值")
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "OptgroupValueList_edit")
     public Object editOptgroupValue(ParameterOptgroupValue optgroupValue) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParameterOptgroupValueExample optgroupValueExample = new ParameterOptgroupValueExample();
         int count = 0;
         // 防止下拉项值名称重复
         optgroupValueExample.createCriteria().andOptgroupValueIdNotEqualTo(optgroupValue.getOptgroupValueId()).andOptgroupIdEqualTo(optgroupValue.getOptgroupId()).andOptgroupValueNameEqualTo(optgroupValue.getOptgroupValueName());
-        count = optgroupValueMapper.countByExample(optgroupValueExample);// 查找相同中文名称的下拉项值数量
+        count = optgroupValueMapper.countByExample(optgroupValueExample);// 查找属于同一下拉项的相同名称的下拉值数量
         if (count > 0) {
-            returnResult.setMsg("下拉项值名称重复，请重新填写!");
+            returnResult.setMsg("下拉值名称重复");
             return returnResult;
         }
         count = optgroupValueMapper.updateByPrimaryKeySelective(optgroupValue);
@@ -193,31 +202,36 @@ public class ParameterOptgroupValueService {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + optgroupValue.getOptgroupValueName() + "] 下拉项值信息已修改");
         } else {
-            returnResult.setMsg("下拉项值信息修改失败，请联系管理员!");
+            returnResult.setMsg("发生未知错误，下拉项值信息修改失败");
         }
         return returnResult;
     }
     
     /**
      * @Title: delOptgroupValue 
-     * @Description: TODO(删除下拉项值) 
-     * @param @param optgroupValueId
+     * @Description: TODO(删除下拉值) 
+     * @param @param optgroupValueIds
+     * @param @param optgroupValueNames
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @MethodLog(opera = "删除下拉项值")
-    public Object delOptgroupValue(String optgroupValueId) {
-    	ParameterOptgroupValue optgroupValue= optgroupValueMapper.selectByPrimaryKey(optgroupValueId);
-        int result = optgroupValueMapper.deleteByPrimaryKey(optgroupValueId);//根据下拉项值Id，进行删除下拉项值
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "OptgroupValueList_del")
+    public Object delOptgroupValue(List<String> optgroupValueIds, List<String> optgroupValueNames) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        if (result == 1) {
-            returnResult.setSuccess(true);
-            returnResult.setMsg("[" + optgroupValue.getOptgroupValueName() + "] 下拉项值信息已删除");
-        } else {
-            returnResult.setMsg("下拉项值信息删除失败，请联系管理员!");
+        int count = 0;
+        if (optgroupValueIds.size() > 0) {
+        	ParameterOptgroupValueExample parameterOptgroupValueExample = new ParameterOptgroupValueExample();
+        	parameterOptgroupValueExample.createCriteria().andOptgroupValueIdIn(optgroupValueIds);
+            count = optgroupValueMapper.deleteByExample(parameterOptgroupValueExample);
+            if (count > 0) {
+                returnResult.setSuccess(true);
+                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(optgroupValueNames, ",") + " ]操作");
+            } else {
+                returnResult.setMsg("发生未知错误，下拉值信息删除失败");
+            }
         }
-		return returnResult;
-     }
+        return returnResult;
+    }
 }

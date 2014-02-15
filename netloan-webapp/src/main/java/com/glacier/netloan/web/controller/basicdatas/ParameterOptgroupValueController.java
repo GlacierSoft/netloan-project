@@ -5,6 +5,8 @@
  */
 package com.glacier.netloan.web.controller.basicdatas;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -46,8 +49,6 @@ public class ParameterOptgroupValueController extends AbstractController{
         return mav;
     }
     
-
-    
     // 进入下拉项Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intooptgroupValueFormPoptgroupValue(String optgroupValueId) {
@@ -58,13 +59,6 @@ public class ParameterOptgroupValueController extends AbstractController{
         }
         return mav;
     }
-    
-//    // 获取表格结构的所有菜单数据
-//    @RequestMapping(value = "/optgroupValue/list.json", method = RequestMethod.POST)
-//    @ResponseBody
-//    private Object listActionAsGridByMenuId(String menuId, JqPager pager) {
-//        return optgroupValueService.listAsGrid(pager);
-//    }
     
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
@@ -93,10 +87,10 @@ public class ParameterOptgroupValueController extends AbstractController{
         return optgroupValueService.editOptgroupValue(optgroupValue);
     }
     
-    // 删除下拉项
+    // 删除下拉值
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
-    public Object del(String optgroupValueId) {
-    	return optgroupValueService.delOptgroupValue(optgroupValueId);
+    public Object del(@RequestParam List<String> optgroupValueIds,@RequestParam List<String> optgroupValueNames) {
+    	return optgroupValueService.delOptgroupValue(optgroupValueIds, optgroupValueNames);
     }
 }

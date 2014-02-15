@@ -110,7 +110,7 @@
     where optgroup_value_id = #{optgroupValueId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.basicdatas.ParameterOptgroupValueExample" >
-    delete from t_parameter_optgroup_value temp_parameter_optgroup_value
+    delete temp_parameter_optgroup_value from t_parameter_optgroup_value temp_parameter_optgroup_value
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

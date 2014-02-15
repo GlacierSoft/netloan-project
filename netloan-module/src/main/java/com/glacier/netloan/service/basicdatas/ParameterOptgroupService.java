@@ -24,8 +24,10 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.jqueryui.util.Tree;
 import com.glacier.netloan.dao.basicdatas.ParameterOptgroupMapper;
+import com.glacier.netloan.dao.basicdatas.ParameterOptgroupValueMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterOptgroup;
 import com.glacier.netloan.entity.basicdatas.ParameterOptgroupExample;
+import com.glacier.netloan.entity.basicdatas.ParameterOptgroupValueExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -43,6 +45,8 @@ public class ParameterOptgroupService {
 	@Autowired
     private ParameterOptgroupMapper optgroupMapper;
 
+	@Autowired
+    private ParameterOptgroupValueMapper optgroupValueMapper;
 	/**
 	 * @Title: getOptgroup 
 	 * @Description: TODO(根据下拉项Id获取地区信息) 
@@ -233,14 +237,20 @@ public class ParameterOptgroupService {
         if (optgroupMapper.countByExample(parameterOptgroupExample) > 0) {// 判断该下拉项是否存在子级下拉项，有则不能删除
             returnResult.setMsg("该下拉项存在子级下拉项，如需删除请先删除子下拉项");
         }else {
-        	ParameterOptgroup optgroup= optgroupMapper.selectByPrimaryKey(optgroupId);
-            int result = optgroupMapper.deleteByPrimaryKey(optgroupId);//根据下拉项Id，进行删除下拉项
-            if (result == 1) {
-                returnResult.setSuccess(true);
-                returnResult.setMsg("[" + optgroup.getOptgroupName() + "] 地区信息已删除");
-            } else {
-                returnResult.setMsg("发生未知错误，下拉项信息删除失败");
-            }
+        	ParameterOptgroupValueExample parameterOptgroupValueExample = new ParameterOptgroupValueExample();
+        	parameterOptgroupValueExample.createCriteria().andOptgroupIdEqualTo(optgroupId);
+        	if (optgroupValueMapper.countByExample(parameterOptgroupValueExample)>0) {// 判断该下拉项是否存在所属下拉值，有则不能删除
+        		returnResult.setMsg("该下拉项存在所属下拉值，如需删除请先删除所属下拉值");
+        	}else {
+        		ParameterOptgroup optgroup= optgroupMapper.selectByPrimaryKey(optgroupId);
+                int result = optgroupMapper.deleteByPrimaryKey(optgroupId);//根据下拉项Id，进行删除下拉项
+                if (result == 1) {
+                    returnResult.setSuccess(true);
+                    returnResult.setMsg("[" + optgroup.getOptgroupName() + "] 地区信息已删除");
+                } else {
+                    returnResult.setMsg("发生未知错误，下拉项信息删除失败");
+                }
+        	}
         }
 		return returnResult;
      }

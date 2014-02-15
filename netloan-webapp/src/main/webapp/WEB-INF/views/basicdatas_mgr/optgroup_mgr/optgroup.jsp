@@ -62,7 +62,6 @@
 			field : 'remark' , title : '备注' , width : 150
 		}]]
 	});
-	
 
 	//定义下拉项值的toolbar的操作，对下拉项值操作进行控制
 	glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueParam = {
@@ -72,7 +71,6 @@
 				del:{flag:'del',controlType:'multiple'}
 			}
 	};
-	
 	
 	//初始化操作propertyValuegrid
 	glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValuePropertyGrid = $('#optgroupValueDataGrid').propertygrid({
@@ -113,8 +111,8 @@
 			action_controller(glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValueParam,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
-			$(this).datagrid('unselectAll');
-			$(this).datagrid('uncheckAll');
+			$(this).datagrid('clearSelections');
+			$(this).datagrid('clearChecked');
 		},
 		columns:[[
 			{
@@ -181,32 +179,38 @@
 		var row = glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupTreeGrid.treegrid("getSelected");
 		glacier.basicdatas_mgr.optgroup_mgr.optgroup.newDialog(' 编辑【'+row.optgroupName+'】','/do/optgroup/edit.json',row.optgroupId);
 	};
-	
 	//点击删除按钮触发方法
 	glacier.basicdatas_mgr.optgroup_mgr.optgroup.delOptgroup = function(){
-		var row = glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupTreeGrid.treegrid("getChecked");
-		var optgroupId = row[0].optgroupId;
-		if(optgroupId){
-			$.messager.confirm('请确认', '是否要删除该记录', function(r){
-				if (r){
-					$.ajax({
-						   type: "POST",
-						   url: ctx + '/do/optgroup/del.json',
-						   data: {optgroupId:optgroupId},
-						   dataType:'json',
-						   success: function(r){
-								$.messager.show(r.msg);
-								if(r.success){
-									glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupTreeGrid.treegrid('reload');
-								}
-								 
-							}
-					});
-				}
-			});
-		}
+		var row = glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupTreeGrid.treegrid("getSelected");
+		$.messager.confirm('请确认', '是否要删除所选下拉项，删除后不可恢复!', function(r){
+			if (r){
+				$.ajax({
+					   type: "POST",
+					   url: ctx + '/do/optgroup/del.json',
+					   data: row,
+					   dataType:'json',
+					   success: function(r){
+						   if(r.success){//操作成功刷新列表
+							   $.messager.show({
+									title:'提示',
+									msg:r.msg,
+									icon:'info',
+									showType:'fade'
+								});
+							   glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupTreeGrid.treegrid('reload');
+						   }else{
+							   $.messager.show({
+									title:'提示',
+									msg:r.msg,
+									icon:'error',
+									showType:'fade'
+								});
+						   }
+					   }
+				});
+			}
+		});
 	};
-	
 	/*
 	新建/编辑 弹出框
 	title:弹出框标题
@@ -250,6 +254,46 @@
 		var row = glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValuePropertyGrid.datagrid("getSelected");
 		glacier.basicdatas_mgr.optgroup_mgr.optgroup.newValueDialog(' 编辑','/do/optgroupValue/edit.json',row.optgroupValueId);
 	};
+	//点击删除按钮触发方法
+	glacier.basicdatas_mgr.optgroup_mgr.optgroup.delOptgroupValue = function(){
+		var rows = glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValuePropertyGrid.datagrid("getChecked");
+		var optgroupValueIds = [];//删除的id标识
+		var optgroupValueNames = [];//日志记录引用名称
+		for(var i=0;i<rows.length;i++){
+			optgroupValueIds.push(rows[i].optgroupValueId);
+			optgroupValueNames.push(rows[i].optgroupValueName);
+		}
+		if(optgroupValueIds.length > 0){
+			$.messager.confirm('请确认', '是否要删除该记录', function(r){
+				if (r){
+					$.ajax({
+						   type: "POST",
+						   url: ctx + '/do/optgroupValue/del.json',
+						   data: {optgroupValueIds:optgroupValueIds.join(','),optgroupValueNames:optgroupValueNames.join(',')},
+						   dataType:'json',
+						   success: function(r){
+							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
+								   $.messager.show({
+										title:'提示',
+										timeout:3000,
+										msg:r.msg
+									});
+								   glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValuePropertyGrid.datagrid("reload");
+							   }else{
+									$.messager.show({//后台验证弹出错误提示信息框
+										title:'错误提示',
+										width:380,
+										height:120,
+										msg: '<span style="color:red">'+r.msg+'<span>',
+										timeout:4500
+									});
+								}
+						   }
+					});
+				}
+			});
+		}
+	};
 </script>
 
 <!-- 所有下拉项列表面板和表格 -->
@@ -259,9 +303,9 @@
     		<glacierui:toolbar panelEnName="OptgroupValueList" toolbarId="optgroupValueDataGridToolbar" menuEnName="optgroup"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
     	</table>
     </div>
-    <div data-options="region:'west',border:false,split:true" style="width:400px;">
+    <div data-options="region:'west',border:false,split:true" style="width:520px;">
     	<div class="easyui-layout" data-options="fit:true,border:false">
-    		<div data-options="region:'center',title:'菜单管理',border:true">
+    		<div data-options="region:'center',title:'下拉项管理',border:true">
     			<table id="optgroupTreeGrid">
 		    		<glacierui:toolbar panelEnName="OptgroupTree" toolbarId="optgroupTreeGridToolbar" menuEnName="optgroup"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		    	</table>
