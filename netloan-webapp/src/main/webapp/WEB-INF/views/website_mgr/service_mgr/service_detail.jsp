@@ -14,13 +14,19 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
+			<td>客服头像：</td>
+			<td><input class="spinner" style="width:168px"  value="${serviceData.webServicePhoto}" readonly="readonly"/></td>
+			<td>客服序号：</td>
+			<td><input class="spinner" style="width:168px" value="${serviceData.webServiceNum}" readonly="readonly"/></td>
+		</tr>
+		<tr>
 			<td>客服名称：</td>
 			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
 				<input type="hidden" name="webServiceId" value="${serviceData.webServiceId}" />
 				<input class="spinner" style="width:168px"  value="${serviceData.webServiceName}" readonly="readonly"/>
 			</td>
 			<td>客服qq：</td>
-			<td colspan="3"><input class="spinner" style="width:168px"  value="${serviceData.webServiceQq}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px"  value="${serviceData.webServiceQq}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>客服状态：</td>
@@ -28,7 +34,7 @@
 				<input id="service_mgr_service_form_webServiceStatus" class="spinner" style="width:168px"  readonly="readonly"/>
 			</td>
 			<td>客服序号：</td>
-			<td colspan="3"><input class="spinner" style="width:168px"  value="${serviceData.webServiceNum}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px"  value="${serviceData.webServiceNum}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>创建者：</td>

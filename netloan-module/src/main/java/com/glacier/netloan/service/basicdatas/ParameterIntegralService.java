@@ -17,6 +17,8 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.basicdatas.ParameterIntegralMapper;
+import com.glacier.netloan.dao.system.UserMapper;
+import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.basicdatas.ParameterIntegral;
 import com.glacier.netloan.entity.basicdatas.ParameterIntegralExample;
 import com.glacier.netloan.entity.system.User;
@@ -37,9 +39,33 @@ public class ParameterIntegralService {
 	
 	@Autowired
 	private ParameterIntegralMapper parameterIntegralMapper;
-			
+	
+	@Autowired
+    private UserMapper userMapper;
+	/**
+	 * @Title: getIntegral 
+	 * @Description: TODO(通过会员积分级别ID查询) 
+	 * @param  @param IntegralId
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 *
+	 */
 	public Object getIntegral(String IntegralId){
-		return parameterIntegralMapper.selectByPrimaryKey(IntegralId);
+		ParameterIntegral parameterCredit = parameterIntegralMapper.selectByPrimaryKey(IntegralId);
+    	if (null != parameterCredit.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
+            User userTemp = userMapper.selectByPrimaryKey(parameterCredit.getCreater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	parameterCredit.setCreater(userTemp.getUserCnName());
+            }
+        }
+    	if (null != parameterCredit.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
+            User userTemp = userMapper.selectByPrimaryKey(parameterCredit.getUpdater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	parameterCredit.setUpdater(userTemp.getUserCnName());
+            }
+        }
+        return parameterCredit;
 	}
 	
 	/**

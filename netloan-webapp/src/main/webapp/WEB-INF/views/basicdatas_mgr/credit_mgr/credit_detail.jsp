@@ -6,12 +6,10 @@
 	<table class="detailtable">
 		<tr>
 			<td>会员信用等级名称：</td>
-			<td class="forminputtable" colspan="5"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
+			<td>
 				<input type="hidden" name="creditId" value="${creditData.creditId}" />
 				<input class="spinner" style="width:150px"  value="${creditData.creditName}" readonly="readonly"/>
 			</td>
-			<!-- <td></td>
-			<td></td> -->
 		</tr>
 		<tr>
 			<td>会员开始积分：</td>

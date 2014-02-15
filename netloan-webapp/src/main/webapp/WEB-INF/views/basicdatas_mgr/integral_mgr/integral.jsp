@@ -90,49 +90,20 @@
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
 			$(this).datagrid('clearChecked');
+		},
+		onDblClickRow:function(rowIndex, rowData){
+			$.easyui.showDialog({
+				title: rowData.integralName,
+				href : ctx + '/do/integral/intoDetail.htm?integralId='+rowData.integralId,//从controller请求jsp页面进行渲染
+				width : 550,
+				height : 250,
+				resizable: false,
+				enableApplyButton : false,
+				enableSaveButton : false
+			});
 		}
 	});
-	
-/* 	glacier.basicdatas_mgr.integral_mgr.integral.newDialog = function(title,integralId,url,loadType){
-		$.easyui.showDialog({
-			href : ctx + '/do/integral/intoForm.htm?integralId='+integralId,//从controller请求jsp页面进行渲染
-			width : 450,
-			height : 300,
-			resizable: false,
-			enableSaveButton : false,
-			enableApplyButton : false,
-			title : title,
-			buttons : [ 
-			 {
-				text : '保存',
-				iconCls : 'icon-save',
-				handler : function(dia) {
-						$('#integral_mgr_integral_form').form('submit', {
-							url: ctx + url,
-							success: function(r){
-								$.messager.show(r.msg);
-								if(r.success){
-									glacier.basicdatas_mgr.integral_mgr.integral.integralDataGrid.datagrid('reload');
-								    dia.dialog("close"); 
-								}
-								 
-							}
-						});
-					}
-			}]
-		});
-	};
-	
-	//点击增加按钮触发方法
-	glacier.basicdatas_mgr.integral_mgr.integral.addIntegral = function(){
-		glacier.basicdatas_mgr.integral_mgr.integral.newDialog('增加会员信用级别','','/do/integral/add.json','load');
-	};
-	//点击编辑按钮触发方法
-	glacier.basicdatas_mgr.integral_mgr.integral.editIntegral = function(){
-		var row = glacier.basicdatas_mgr.integral_mgr.integral.integralDataGrid.datagrid("getSelected");
-		glacier.basicdatas_mgr.integral_mgr.integral.newDialog('编辑会员信用级别',row.integralId,'/do/integral/edit.json','reload');
-	}; */
-		/*
+	/*
 		新建/编辑 弹出框
 		title:弹出框标题
 		submitUrl：提交路径
