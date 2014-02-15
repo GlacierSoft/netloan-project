@@ -484,7 +484,7 @@
 					<td><input name="roleEnName" style="width: 80px;" class="spinner"/></td>
 					<td>是否内置：</td>
 					<td>
-						<input name="builtin" style="width:80px;height:18px;" class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'optgroupValueCode',textField : 'optgroupValueName',data :fields.status" />
+						<input name="builtin" style="width:80px;height:18px;" class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'optgroupValueCode',textField : 'optgroupValueName',data :fields.builtin" />
 					</td>
 					<td>创建时间：</td>
 					<td>
