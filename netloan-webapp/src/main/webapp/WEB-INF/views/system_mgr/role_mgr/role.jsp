@@ -51,7 +51,7 @@
 				sortable:true
 			},{
 				field:'builtin',
-				title:'是否内置',
+				title:'角色类型',
 				width:120,
 				sortable:true,
 				formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
@@ -486,7 +486,7 @@
 					<td>
 						<input name="builtin" style="width:80px;height:18px;" class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'value',textField : 'label',data :fields.builtin" />
 					</td>
-					<td>创建时间：</td>
+					<td>录入时间：</td>
 					<td>
 						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;" />
 						-

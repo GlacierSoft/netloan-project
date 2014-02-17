@@ -24,6 +24,7 @@ import com.glacier.netloan.entity.system.Role;
 import com.glacier.netloan.entity.system.RoleExample;
 import com.glacier.netloan.entity.system.RoleExample.Criteria;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.system.util.CommonBuiltin;
 import com.glacier.netloan.util.MethodLog;
 
 @Service
@@ -63,14 +64,14 @@ public class RoleService {
      * @return Object 返回类型
      * @throws
      */
-    public Object listAsGrid(RoleQueryDTO roleQueryDTO , JqPager pager) {
-        
+    public Object listAsGrid(RoleQueryDTO roleQueryDTO, JqPager pager) {
+
         JqGridReturn returnResult = new JqGridReturn();
         RoleExample roleExample = new RoleExample();
-        
+
         Criteria queryCriteria = roleExample.createCriteria();
         roleQueryDTO.setQueryCondition(queryCriteria);
-        
+
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
             roleExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
             roleExample.setLimitEnd(pager.getRows());
@@ -78,9 +79,9 @@ public class RoleService {
         if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
             roleExample.setOrderByClause(pager.getOrderBy("temp_role_"));
         }
-        
-        //高级检索
-        
+
+        // 高级检索
+
         List<Role> Roles = roleMapper.selectByExample(roleExample); // 查询所有操作列表
         int total = roleMapper.countByExample(roleExample); // 查询总页数
         returnResult.setRows(Roles);
@@ -122,7 +123,8 @@ public class RoleService {
             returnResult.setMsg("英文名称重复");
             return returnResult;
         }
-        role.setRoleId(RandomGUID.getRandomGUID());
+        role.setRoleId(RandomGUID.getRandomGUID());// 初始化新建角色信息
+        role.setBuiltin(CommonBuiltin.custom);// 在业务新建的角色为自定义
         role.setCreater(pricipalUser.getUserId());
         role.setCreateTime(new Date());
         count = roleMapper.insert(role);
@@ -151,6 +153,16 @@ public class RoleService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         RoleExample roleExample = new RoleExample();
         int count = 0;
+        Role originalRole = roleMapper.selectByPrimaryKey(role.getRoleId());// 获取原角色相关信息
+        // 管理员类型角色只有所属创建者才能进行修改
+        if (originalRole.getBuiltin() == CommonBuiltin.admin) {
+            Subject pricipalSubject = SecurityUtils.getSubject();
+            User pricipalUser = (User) pricipalSubject.getPrincipal();
+            if (!pricipalUser.getUserId().equals(role.getCreater())) {
+                returnResult.setMsg("管理员类型角色只有所属创建者才能进行修改");
+                return returnResult;
+            }
+        }
         // 防止角色名称重复
         roleExample.createCriteria().andRoleIdNotEqualTo(role.getRoleId()).andRoleCnNameEqualTo(role.getRoleCnName());
         count = roleMapper.countByExample(roleExample);// 查找相同中文名称的角色数量

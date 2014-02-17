@@ -6,12 +6,12 @@
 package com.glacier.netloan.entity.system.util;
 
 /** 
- * @ClassName: UserBuiltin 
- * @Description: TODO(这里用一句话描述这个类的作用) 
+ * @ClassName:  
+ * @Description: TODO(用户/角色类型) 
  * @author zhenfei.zhang 
  * @email zhangzhenfei_email@163.com 
  * @date 2013-8-9 下午4:54:31  
  */
 public enum CommonBuiltin {
-    builtin,custom;
+    admin,builtin,custom;
 }
