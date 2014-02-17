@@ -25,7 +25,7 @@
 		</tr>
 		<tr>
 			<td>表单类型：</td>
-			<td><input name="formType" class="easyui-validatebox spinner" style="width:268px" required="true" value="${variablesData.formType}"/></td>
+			<td><input id="variables_mgr_variables_form_formType" name="formType" value="${variablesData.formType}"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>
@@ -33,3 +33,16 @@
 		</tr>
 	</table>
 </form>
+<script type="text/javascript">
+	// 初始化公告状态下拉框
+	$('#variables_mgr_variables_form_formType').combobox({  
+		valueField : 'value',
+		height:18,
+		width:270,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		required:true,
+		data : fields.formType
+	});
+</script>

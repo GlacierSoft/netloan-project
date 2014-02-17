@@ -61,7 +61,10 @@
 				field:'formType',
 				title:'表单类型',
 				width:200,
-				sortable:true
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如input显示输入框，textarea显示文本框
+					return renderGridValue(value,fields.formType);
+				}
 			},{
 				field:'remark',
 				title:'备注',

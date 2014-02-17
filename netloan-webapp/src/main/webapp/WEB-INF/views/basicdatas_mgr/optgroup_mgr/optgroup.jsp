@@ -134,7 +134,7 @@
 				field:'optgroupValueName' , title:'下拉名称' , width:80
 			},{
 				field:'status' , title:'状态' , width:80,
-				formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
+				formatter: function(value,row,index){//数据格式化，例如enable显示启用，disable显示禁用
 					return renderGridValue(value,fields.status);
 				}
 			},{
