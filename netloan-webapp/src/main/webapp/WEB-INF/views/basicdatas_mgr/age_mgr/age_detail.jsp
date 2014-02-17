@@ -6,10 +6,12 @@
 	<table class="detailtable">
 		<tr>
 			<td>年龄别称：</td>
-			<td  colspan="3" class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
+			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
 				<input type="hidden" name="roleId" value="${ageData.ageId}" />
-				<input class="spinner" style="width:416px"  value="${ageData.ageName}" readonly="readonly"/>
+				<input class="spinner" style="width:168px"  value="${ageData.ageName}" readonly="readonly"/>
 			</td>
+			<td>排序：</td>
+			<td><input class="spinner" style="width:168px" value="${ageData.ageNum}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>开始年龄：</td>

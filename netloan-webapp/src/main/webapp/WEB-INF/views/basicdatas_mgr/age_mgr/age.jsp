@@ -40,7 +40,7 @@
 			},{
 				field:'ageName',
 				title:'会员年龄别名',
-				width:120,
+				width:200,
 				sortable:true
 			},{
 				field:'ageBegin',
@@ -50,6 +50,11 @@
 			},{
 				field:'ageEnd',
 				title:'结束年龄',
+				width:120,
+				sortable:true
+			},{
+				field:'ageNum',
+				title:'排序',
 				width:120,
 				sortable:true
 			},{
@@ -133,7 +138,7 @@
 		$.easyui.showDialog({
 			href : ctx + '/do/age/intoForm.htm?ageId='+id,//从controller请求jsp页面进行渲染
 			width : 400,
-			height : 280,
+			height : 300,
 			resizable: false,
 			enableApplyButton : false,
 			title : title,

@@ -2,21 +2,31 @@ package com.glacier.netloan.entity.basicdatas;
 
 import java.util.Date;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class ParameterAge {
     private String ageId;
 
+    @Pattern(regexp = "^[\u0391-\uFFE5]{2,10}$", message = "{ParameterAge.ageName.illegal}")
     private String ageName;
 
+    @Max(value = 99, message = "{ParameterAge.ageBegin.illegal}")
     private Integer ageBegin;
 
+    @Max(value = 99, message = "{ParameterAge.ageEnd.illegal}")
     private Integer ageEnd;
 
     private String accessory;
 
+    @Max(value = 99, message = "{ParameterAge.ageNum.illegal}")
     private Integer ageNum;
 
+    @Length(max = 255, message = "{ParameterAge.remark.illegal}")
     private String remark;
 
     private String creater;
