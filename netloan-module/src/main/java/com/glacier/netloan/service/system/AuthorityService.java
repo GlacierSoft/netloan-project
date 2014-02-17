@@ -74,13 +74,12 @@ public class AuthorityService {
 
     @Autowired
     private AuthorityMapper authorityMapper;
-    
+
     @Autowired
     private RoleMapper roleMapper;
-    
+
     @Autowired
     private UserRoleMapper userRoleMapper;
-    
 
     /**
      * 
@@ -259,9 +258,9 @@ public class AuthorityService {
         }
         if (count > 0) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("权限信息已保存!");
+            returnResult.setMsg("权限信息已保存");
         } else {
-            returnResult.setMsg("权限信息更新失败!");
+            returnResult.setMsg("权限信息更新失败");
         }
         return returnResult;
     }
@@ -291,6 +290,42 @@ public class AuthorityService {
                 role.setChecked(true);
             }
         }
-        return userRoleList;
+        return roles;
+    }
+
+    /**
+     * @Title: saveRolesAndRational
+     * @Description: TODO(保存用户角色关联)
+     * @param @param userId
+     * @param @param roleIds
+     * @param @return
+     * @throws 备注
+     *             <p>
+     *             已检查测试:Green
+     *             <p>
+     */
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "RoleList_assign")
+    public Object saveRolesAndRational(String userId, Set<String> roleIds) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        UserRoleExample userRoleExample = new UserRoleExample();
+        userRoleExample.createCriteria().andUserIdEqualTo(userId);
+        count = userRoleMapper.deleteByExample(userRoleExample);
+        if (null != roleIds && roleIds.size() > 0) {
+            for (String roleId : roleIds) {
+                UserRoleKey userRoleKey = new UserRoleKey();
+                userRoleKey.setUserId(userId);
+                userRoleKey.setRoleId(roleId);
+                count += userRoleMapper.insert(userRoleKey);// 插入用户和角色关联表数据
+            }
+        }
+        if (count > 0) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("角色分配成功");
+        } else {
+            returnResult.setMsg("系统出现未知错误，角色分配失败");
+        }
+        return returnResult;
     }
 }

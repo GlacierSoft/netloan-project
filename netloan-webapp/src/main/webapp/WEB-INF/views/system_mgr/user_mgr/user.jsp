@@ -10,6 +10,7 @@
 	glacier.system_mgr.user_mgr.user.param = {
 			toolbarId : 'userDataGrid_toolbar',
 			actions : {
+				assign:{flag:'assign',controlType:'single'},
 				edit:{flag:'edit',controlType:'single'},
 				del:{flag:'del',controlType:'multiple'}
 			}
@@ -216,9 +217,9 @@
 	//显示为用户分配角色窗口
 	glacier.system_mgr.user_mgr.user.roleAssign = function(){
 		var userId = glacier.system_mgr.user_mgr.user.userDataGrid.datagrid("getSelected").userId;
-		glacier.system_mgr.user_mgr.user.userRoleDataGrid = $('#userRoleDataGrid').datagrid({
+		glacier.system_mgr.user_mgr.user.userRoleTreeGrid = $('#userRoleTreeGrid').treegrid({
 			url:ctx +'/do/auth/getRolesAndRational.json',//请求的URL
-			idField : 'id',//定义了关键字段来标识一个树节点
+			idField : 'roleId',//定义了关键字段来标识一个树节点
 			singleSelect:false,//限制单选
 			checkOnSelect:true,
 			selectOnCheck:false,
@@ -228,7 +229,7 @@
 			border : false,//是否存在边框
 			columns:[[
 				{
-					field:'id',
+					field:'roleId',
 					title:'ID',
 					checkbox:true
 				},{
@@ -270,6 +271,41 @@
 			}]
 		});
 	};
+	
+	//保存用户和角色关系
+	glacier.system_mgr.user_mgr.user.saveRolesAndRational = function(userId){
+		var roleIds = [];
+		var roleInputs = glacier.system_mgr.user_mgr.user.userRoleWin.find("input[name='roleId']:checked");
+		for(var i=0;i<roleInputs.length;i++){
+			roleIds.push(roleInputs[i].value);
+		}
+		//发送远程请求保存当前权限设置
+		$.ajax({
+			   type: "POST",
+			   url: ctx + "/do/auth/saveRolesAndRational.json",
+			   data: {userId:userId,roleIds:roleIds.join(',')},
+			   dataType:'json',
+			   success: function(r){
+				   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
+					   $.messager.show({
+							title:'提示',
+							msg:r.msg,
+							timeout:3000,
+							showType:'slide'
+						});
+				   }else{
+						$.messager.show({//后台验证弹出错误提示信息框
+							title:'错误提示',
+							width:380,
+							height:120,
+							msg: '<span style="color:red">'+r.msg+'<span>',
+							timeout:4500
+						});
+					}
+				    glacier.system_mgr.user_mgr.user.userRoleWin.dialog('close');
+			   }
+		});
+	};
 </script>
 
 <!-- 所有操作日志列表面板和表格 -->
@@ -283,5 +319,5 @@
 
 <!-- 自定义分配角色窗口 -->
 <div id="userRoleWin">
-	<table id="userRoleDataGrid"></table>
+	<table id="userRoleTreeGrid"></table>
 </div>

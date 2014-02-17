@@ -73,5 +73,12 @@ public class AuthorityController {
         return authorityService.saveRoleAuths(roleId, menuIds, authActions);
     }
     
+    //保存用户角色关联
+    @RequestMapping(value = "/saveRolesAndRational", method = RequestMethod.POST)
+    @ResponseBody
+    public Object saveRolesAndRational(@RequestParam String userId, @RequestParam Set<String> roleIds) {
+        return authorityService.saveRolesAndRational(userId, roleIds);
+    }
+    
     
 }
