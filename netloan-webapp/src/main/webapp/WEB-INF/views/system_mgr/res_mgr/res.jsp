@@ -61,7 +61,7 @@
 		},{
 			field : 'url' , title : '菜单路径' , width : 200
 		} ,{
-			field : 'orderNum' , title : '排序' , hidden:true
+			field : 'orderNum' , title : '排序' , width : 80
 		},{
 			field : 'iconCls' , title : '样式' , hidden:true
 		}]]

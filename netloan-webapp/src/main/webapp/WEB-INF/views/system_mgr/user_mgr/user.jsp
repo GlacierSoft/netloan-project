@@ -74,7 +74,7 @@
 				field:'userImage',
 				title:'头像路径',
 				width:120,
-				sortable:true
+				hidden:true
 			},{
 				field:'remark',
 				title:'备注',
