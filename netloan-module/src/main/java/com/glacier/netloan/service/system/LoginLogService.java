@@ -52,6 +52,20 @@ public class LoginLogService {
 	}
 	
 	/**
+	 * @Title: getLoginLog 
+	 * @Description: TODO(根据d登录日志的id进行查询) 
+	 * @param  @param creditId
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 *
+	 */
+	public Object getLoginLog(String loginlogId){
+		LoginLog loginLog = loginLogMapper.selectByPrimaryKey(loginlogId);
+        return loginLog;
+	}
+	
+	/**
 	 * @Title: delLoginLog 
 	 * @Description: TODO(删除登录日志) 
 	 * @param  @param loginlogId

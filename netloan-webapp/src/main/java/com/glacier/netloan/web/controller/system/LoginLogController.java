@@ -2,6 +2,7 @@ package com.glacier.netloan.web.controller.system;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,11 +27,25 @@ public class LoginLogController {
 		ModelAndView mav = new ModelAndView("system_mgr/loginlog_mgr/loginlog");
 		return mav;
 	}
+	
+	//
 	@RequestMapping(value = "/list.json" , method = RequestMethod.POST)
 	@ResponseBody
 	public Object listActionAsGridByMenuId(JqPager pager){
 		return loginLogService.listAsGrid(pager); 
 	}
+	
+	// 进入客服Detail信息页面
+    @RequestMapping(value = "/intoDetail.htm")
+    private Object intoLoginLogDetailPage(String loginlogId) {
+        ModelAndView mav = new ModelAndView("system_mgr/loginlog_mgr/loginlog_detail");
+        if(StringUtils.isNotBlank(loginlogId)){
+            mav.addObject("loginlogData", loginLogService.getLoginLog(loginlogId));
+        }
+        return mav;
+    }
+	
+	//
 	@RequestMapping(value = "/del.json" , method = RequestMethod.POST)
 	@ResponseBody
 	public Object delLoginLog(@RequestParam List<String> loginlogIds , @RequestParam List<String> loginUsers){

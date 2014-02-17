@@ -81,14 +81,6 @@ public class UserService {
         user.setPassword(Encodes.encodeHex(hashPassword));
     }
     
-    /**
-     * 
-     * @Title: main 
-     * @Description: TODO(测试用户密码) 
-     * @param  @param args
-     * @throws 
-     * 备注<p>已检查测试:Green<p>
-     */
     public static void main(String[] args) {
         User user = new User();
         user.setUsername("admin");
@@ -106,7 +98,14 @@ public class UserService {
      * @throws 
      */
     public Object getUser(String userId){
-    	return userMapper.selectByPrimaryKey(userId);
+    	User user = userMapper.selectByPrimaryKey(userId);
+    	if (null != user.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
+            User userTemp = userMapper.selectByPrimaryKey(user.getCreater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	user.setCreater(userTemp.getUserCnName());
+            }
+        }
+        return user;
     }
     /**
      * @Title: listAsGrid 
@@ -136,6 +135,9 @@ public class UserService {
     @Transactional(readOnly = false)
     @MethodLog(opera="UserList_add")
     public Object addUser(User user){
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+    	User pricipalUser = (User) pricipalSubject.getPrincipal();
+    	
     	JqReturnJson returnResulte = new JqReturnJson();// 构建返回结果，默认结果为false
     	UserExample userExample = new UserExample();
     	int count = 0;
@@ -146,16 +148,10 @@ public class UserService {
     		returnResulte.setMsg("用户名称重复");
     		return returnResulte;
     	}
-    	//初始化新建用户信息
-    	Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
     	user.setUserId(RandomGUID.getRandomGUID());
-    	user.setPassword(user.getUsername());//新建的管理员密码初始化和帐号相同
-    	this.entryptPassword(user);// 加密，生成随机的salt并经过1024次 sha-1 hash
-    	user.setBuiltin("custom");//新建的管理员类型统一为自定义
-    	user.setCreater(pricipalUser.getUserId());
     	user.setCreateTime(new Date());
-    	user.setLoginCount(0);
+    	user.setCreater(pricipalUser.getUserId());
+    	user.setLastLoginTime(new Date());
     	count = userMapper.insert(user);
 		if(count == 1){
 			returnResulte.setMsg("["+user.getUsername()+"]"+"用户信息已保存");

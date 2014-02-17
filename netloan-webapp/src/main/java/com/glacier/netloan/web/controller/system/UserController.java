@@ -43,6 +43,16 @@ public class UserController extends AbstractController{
 		return mav;
 	}
 	
+    // 进入用户Detail信息页面
+    @RequestMapping(value = "/intoDetail.htm")
+    private Object intoUserDetailPage(String userId) {
+        ModelAndView mav = new ModelAndView("system_mgr/user_mgr/user_detail");
+        if(StringUtils.isNotBlank(userId)){
+            mav.addObject("UserData", userService.getUser(userId));
+        }
+        return mav;
+    }
+	
 	// 获取表格结构的所有用户数据
 	@RequestMapping(value = "/list.json", method = RequestMethod.POST)
 	@ResponseBody
@@ -51,19 +61,18 @@ public class UserController extends AbstractController{
 	}
 	
 	//增加用户信息
-    @RequestMapping(value = "/add.json", method = RequestMethod.POST)
-    @ResponseBody
-    private Object addUser(@Valid User user,BindingResult bindingResult){
-        if(bindingResult.hasErrors()){// 后台校验的错误信息
-            return returnErrorBindingResult(bindingResult);
-        }
-        return userService.addUser(user);
-    }
-    
+	@RequestMapping(value = "/add.json", method = RequestMethod.POST)
+	@ResponseBody
+	private Object addUser(@Valid User user,BindingResult bindingResult){
+		if(bindingResult.hasErrors()){// 后台校验的错误信息
+			return returnErrorBindingResult(bindingResult);
+		}
+		return userService.addUser(user);
+	}
 	//修改用户信息
 	@RequestMapping(value = "/edit.json" , method = RequestMethod.POST)
 	@ResponseBody
-	private Object editUser(@Valid User user,BindingResult bindingResult){
+	private Object editUser(@Valid User user , BindingResult bindingResult){
 		if(bindingResult.hasErrors()){// 后台校验的错误信息
 			return returnErrorBindingResult(bindingResult);
 		}

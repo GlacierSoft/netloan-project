@@ -52,7 +52,11 @@
 			},{
 				field:'status',
 				title:'状态',
-				width:120
+				width:120,
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
+					return renderGridValue(value,fields.status);
+				}
 			},{
 				field:'builtin',
 				title:'是否内置',
@@ -109,6 +113,17 @@
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
 			$(this).datagrid('clearChecked');
+		},
+		onDblClickRow:function(rowIndex, rowData){
+			$.easyui.showDialog({
+				title: rowData.username,
+				href : ctx + '/do/user/intoDetail.htm?userId='+rowData.userId,//从controller请求jsp页面进行渲染
+				width : 550,
+				height : 250,
+				resizable: false,
+				enableApplyButton : false,
+				enableSaveButton : false
+			});
 		}
 	});
 	
@@ -148,7 +163,7 @@
 	};
 	//点击增加按钮触发方法
 	glacier.system_mgr.user_mgr.user.addUser = function(){
-		glacier.system_mgr.user_mgr.user.newDialog('增加管理员','/do/user/addsss.json','');
+		glacier.system_mgr.user_mgr.user.newDialog('增加管理员信息','/do/user/add.json','');
 	};
 	//点击编辑按钮触发方法
 	glacier.system_mgr.user_mgr.user.editUser = function(){

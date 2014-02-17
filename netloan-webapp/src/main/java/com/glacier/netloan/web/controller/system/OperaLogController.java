@@ -21,6 +21,7 @@ package com.glacier.netloan.web.controller.system;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,6 +59,16 @@ public class OperaLogController {
     @ResponseBody
     private Object listActionAsGridByMenuId(JqPager pager) {
         return operaLogService.listAsGrid(pager);
+    }
+    
+    // 进入客服Detail信息页面
+    @RequestMapping(value = "/intoDetail.htm")
+    private Object intoOperaLogDetailPage(String operalogId) {
+        ModelAndView mav = new ModelAndView("system_mgr/operalog_mgr/operalog_detail");
+        if(StringUtils.isNotBlank(operalogId)){
+            mav.addObject("operaLogData", operaLogService.getOperaLog(operalogId));
+        }
+        return mav;
     }
     
     //删除操作日志数据

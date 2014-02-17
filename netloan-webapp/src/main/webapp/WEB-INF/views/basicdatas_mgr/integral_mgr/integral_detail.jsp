@@ -10,14 +10,10 @@
 				<input type="hidden" name="creditId" value="${integralData.integralId}" />
 				<input class="spinner" style="width:150px"  value="${integralData.integralName}" readonly="readonly"/>
 			</td>
-			<!-- <td></td>
-			<td></td> -->
 		</tr>
 		<tr>
 			<td>会员开始积分：</td>
-			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
-				<input class="spinner" style="width:150px"  value="${integralData.integralBegin}" readonly="readonly"/>
-			</td>
+			<td><input class="spinner" style="width:150px"  value="${integralData.integralBegin}" readonly="readonly"/></td>
 			<td>会员结束积分：</td>
 			<td colspan="3"><input class="spinner" style="width:150px"  value="${integralData.integralEnd}" readonly="readonly"/></td>
 		</tr>

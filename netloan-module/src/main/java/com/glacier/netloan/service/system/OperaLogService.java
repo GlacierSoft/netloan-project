@@ -50,6 +50,7 @@ public class OperaLogService {
     @Autowired
     private OperaLogMapper operaLogMapper;
 
+    
     /**
      * 
      * @Title: listAsGrid
@@ -79,6 +80,21 @@ public class OperaLogService {
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
     }
+    
+    /**
+	 * @Title: getOperaLog 
+	 * @Description: TODO(根据会员信用等级id进行查询) 
+	 * @param  @param operalogId
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 *
+	 */
+	public Object getOperaLog(String operalogId){
+		OperaLog operaLog = operaLogMapper.selectByPrimaryKey(operalogId);
+        return operaLog;
+	}
+    
     /**
      * @Title: delOperaLog 
      * @Description: TODO(删除操作日志) 

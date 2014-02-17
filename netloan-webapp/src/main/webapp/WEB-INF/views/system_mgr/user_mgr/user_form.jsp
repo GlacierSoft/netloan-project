@@ -17,8 +17,16 @@
 			<td><input name="userCnName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${userData.userCnName}"/></td>
 		</tr>
 		<tr>
+			<td>密码：</td>
+			<td><input name="password" class="easyui-validatebox spinner" style="width:268px" required="true" value="${userData.password}"/></td>
+		</tr>
+		<tr>
 			<td>用户状态：</td>
-			<td><input id="user_mgr_user_form_status" name="status" class="easyui-validatebox spinner" style="width:268px" required="true" value="${userData.status}"/></td>
+			<td><input id="user_mgr_user_form_status" name="status" value="${userData.status}"/></td>
+		</tr>
+		<tr>
+			<td>是否内置：</td>
+			<td><input id="user_mgr_user_form_builtin" name="builtin" value="${userData.builtin}"/></td>
 		</tr>
 		<tr>
 			<td>电子邮箱：</td>
@@ -42,5 +50,17 @@
 		editable : false,
 		required:true,
 		data : fields.status
+	});
+	
+	// 初始化管理员内置状态
+	$('#user_mgr_user_form_builtin').combobox({  
+		valueField : 'value',
+		height:18,
+		width:270,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		required:true,
+		data : fields.builtin
 	});
 </script>
