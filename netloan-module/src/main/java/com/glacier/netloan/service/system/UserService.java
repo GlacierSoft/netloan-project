@@ -45,7 +45,7 @@ import com.glacier.security.util.Encodes;
 
 /**
  * @ClassName: UserService 
- * @Description: TODO(用户业务实现) 
+ * @Description: TODO(管理员业务实现) 
  * @author zhenfei.zhang
  * @email 289556866@qq.com
  * @date 2014-1-8 下午2:51:30
@@ -92,7 +92,7 @@ public class UserService {
     
     /**
      * @Title: getUser 
-     * @Description: TODO(通过主键userId查询用户) 
+     * @Description: TODO(通过主键userId查询管理员) 
      * @param  @param userId
      * @param  @return设定文件
      * @return Object  返回类型
@@ -110,7 +110,7 @@ public class UserService {
     }
     /**
      * @Title: listAsGrid 
-     * @Description: TODO(分页浏览用户列表) 
+     * @Description: TODO(分页浏览管理员列表) 
      * @param  @param pager
      * @param  @return设定文件
      * @return Object  返回类型
@@ -133,6 +133,15 @@ public class UserService {
     	return returnResulte;
     }
     
+    /**
+     * 
+     * @Title: addUser 
+     * @Description: TODO(增加管理员) 
+     * @param  @param user
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
     @Transactional(readOnly = false)
     @MethodLog(opera="UserList_add")
     public Object addUser(User user){
@@ -142,11 +151,11 @@ public class UserService {
     	JqReturnJson returnResulte = new JqReturnJson();// 构建返回结果，默认结果为false
     	UserExample userExample = new UserExample();
     	int count = 0;
-    	// 防止用户名称重复
+    	// 防止管理员名称重复
     	userExample.createCriteria().andUsernameEqualTo(user.getUsername());
-    	count = userMapper.countByExample(userExample);// 查找相同用户名称数量
+    	count = userMapper.countByExample(userExample);// 查找相同管理员名称数量
     	if(count >0){
-    		returnResulte.setMsg("用户名称重复");
+    		returnResulte.setMsg("管理员名称重复");
     		return returnResulte;
     	}
     	//初始化管理员信息
@@ -159,17 +168,17 @@ public class UserService {
     	user.setLoginCount(0);
     	count = userMapper.insert(user);
 		if(count == 1){
-			returnResulte.setMsg("["+user.getUsername()+"]"+"用户信息已保存");
+			returnResulte.setMsg("["+user.getUsername()+"]"+"管理员信息已保存");
 			returnResulte.setSuccess(true);
 		}else{
-			returnResulte.setMsg("发生未知错误，用户信息保存失败");
+			returnResulte.setMsg("发生未知错误，管理员信息保存失败");
 		}
     	return returnResulte;
     }
     
     /**
      * @Title: editUser 
-     * @Description: TODO(修改用户信息) 
+     * @Description: TODO(修改管理员信息) 
      * @param  @param user
      * @param  @return设定文件
      * @return Object  返回类型
@@ -180,27 +189,27 @@ public class UserService {
     public Object editUser(User user){
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
     	UserExample userExample = new UserExample();
-    	// 防止用户名称重复
+    	// 防止管理员名称重复
     	userExample.createCriteria().andUsernameEqualTo(user.getUsername()).andUserIdNotEqualTo(user.getUserId());
     	int count = 0;
-    	count = userMapper.countByExample(userExample);// 查找相同用户名称数量
+    	count = userMapper.countByExample(userExample);// 查找相同管理员名称数量
     	if(count > 0){
-    		returnResult.setMsg("用户名称重复");
+    		returnResult.setMsg("管理员名称重复");
     		return returnResult;
     	}
     	count = userMapper.updateByPrimaryKeySelective(user);
     	if(count == 1){
-    		returnResult.setMsg("["+user.getUsername()+"]"+"用户信息已修改");
+    		returnResult.setMsg("["+user.getUsername()+"]"+"管理员信息已修改");
     		returnResult.setSuccess(true);
     	}else{
-    		returnResult.setMsg("发生未知错误，用户信息修改失败");
+    		returnResult.setMsg("发生未知错误，管理员信息修改失败");
     	}
     	return returnResult;
     }
     
     /**
      * @Title: delUser 
-     * @Description: TODO(删除用户信息) 
+     * @Description: TODO(删除管理员信息) 
      * @param  @param userId
      * @param  @return设定文件
      * @return Object  返回类型
@@ -219,7 +228,7 @@ public class UserService {
 				returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(usernames, ",") + " ]操作");
 				returnResult.setSuccess(true);
 			}else{
-				returnResult.setMsg("发生未知错误，用户信息删除失败");
+				returnResult.setMsg("发生未知错误，管理员信息删除失败");
 			}
 		}
 		return returnResult;

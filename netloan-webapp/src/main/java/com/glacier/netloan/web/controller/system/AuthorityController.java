@@ -55,24 +55,23 @@ public class AuthorityController {
     // 根据角色Id获取面板操作权限
     @RequestMapping(value = "/getAuthsByRoleId.json")
     @ResponseBody
-    public Object getAuthsByRoleId(@RequestParam
-    String roleId) {
+    public Object getAuthsByRoleId(@RequestParam String roleId) {
         return authorityService.getAuthsByRoleId(roleId);
     }
+    
+    // 根据用户Id获取角色列表
+    @RequestMapping(value = "/getRolesAndRational.json")
+    @ResponseBody
+    public Object getRolesAndRational(@RequestParam String userId) {
+        return authorityService.getRolesAndRational(userId);
+    }
 
-    /**
-     * @Title: saveMenuActions
-     * @Description: TODO(菜单操作关联)
-     * @param @return 设定文件
-     * @return Object 返回类型
-     * @throws
-     */
+    //保存菜单操作关联
     @RequestMapping(value = "/saveMenuActions", method = RequestMethod.POST)
     @ResponseBody
-    public Object saveMenuActions(@RequestParam
-    String roleId, @RequestParam
-    Set<String> menuIds, @RequestParam
-    Set<String> authActions) {
+    public Object saveMenuActions(@RequestParam String roleId, @RequestParam Set<String> menuIds, @RequestParam Set<String> authActions) {
         return authorityService.saveRoleAuths(roleId, menuIds, authActions);
     }
+    
+    
 }

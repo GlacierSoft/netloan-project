@@ -39,6 +39,8 @@ import com.glacier.jqueryui.util.Tree;
 import com.glacier.netloan.dao.system.ActionMapper;
 import com.glacier.netloan.dao.system.AuthorityMapper;
 import com.glacier.netloan.dao.system.MenuMapper;
+import com.glacier.netloan.dao.system.RoleMapper;
+import com.glacier.netloan.dao.system.UserRoleMapper;
 import com.glacier.netloan.dto.service.system.AuthMenuActionDTO;
 import com.glacier.netloan.entity.system.Action;
 import com.glacier.netloan.entity.system.ActionExample;
@@ -46,7 +48,11 @@ import com.glacier.netloan.entity.system.Authority;
 import com.glacier.netloan.entity.system.AuthorityExample;
 import com.glacier.netloan.entity.system.Menu;
 import com.glacier.netloan.entity.system.MenuExample;
+import com.glacier.netloan.entity.system.Role;
+import com.glacier.netloan.entity.system.RoleExample;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.system.UserRoleExample;
+import com.glacier.netloan.entity.system.UserRoleKey;
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -69,7 +75,13 @@ public class AuthorityService {
     @Autowired
     private AuthorityMapper authorityMapper;
     
+    @Autowired
+    private RoleMapper roleMapper;
     
+    @Autowired
+    private UserRoleMapper userRoleMapper;
+    
+
     /**
      * 
      * @Title: getPrincipalUserMenu
@@ -219,7 +231,7 @@ public class AuthorityService {
                 Authority authorityTemp = new Authority();
                 authorityTemp.setRoleId(roleId);
                 authorityTemp.setMenuId(menuId);
-                count =  authorityMapper.insert(authorityTemp);// 插入关联表数据
+                count = authorityMapper.insert(authorityTemp);// 插入关联表数据
             }
         }
         if (null != authActions && authActions.size() > 0) {
@@ -242,7 +254,7 @@ public class AuthorityService {
                 Authority.setRoleId(roleId);
                 Authority.setMenuId(entry.getKey());
                 Authority.setActions(entry.getValue());
-                count =  authorityMapper.updateByPrimaryKey(Authority);
+                count = authorityMapper.updateByPrimaryKey(Authority);
             }
         }
         if (count > 0) {
@@ -252,5 +264,33 @@ public class AuthorityService {
             returnResult.setMsg("权限信息更新失败!");
         }
         return returnResult;
+    }
+
+    /**
+     * @Title: getRolesAndRational
+     * @Description: TODO(根据用户Id获取角色列表)
+     * @param @param userId
+     * @param @return
+     * @throws 备注
+     *             <p>
+     *             已检查测试:Green
+     *             <p>
+     */
+
+    public Object getRolesAndRational(String userId) {
+        RoleExample roleExample = new RoleExample();// 后面做优化，需要开
+        List<Role> roles = roleMapper.selectByExample(roleExample);
+        UserRoleExample userRoleExample = new UserRoleExample();
+        userRoleExample.createCriteria().andUserIdEqualTo(userId);
+        List<UserRoleKey> userRoleList = userRoleMapper.selectByExample(userRoleExample);// 查找传入用户Id拥有的角色
+        for (Role role : roles) {
+            UserRoleKey userRoleKey = new UserRoleKey();
+            userRoleKey.setUserId(userId);
+            userRoleKey.setRoleId(role.getRoleId());
+            if (userRoleList.contains(userRoleKey)) {
+                role.setChecked(true);
+            }
+        }
+        return userRoleList;
     }
 }

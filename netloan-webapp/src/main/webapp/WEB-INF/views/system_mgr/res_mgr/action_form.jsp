@@ -42,8 +42,8 @@
 					<td>默认状态：</td>
 					<td>
 						<select id="cc" class="easyui-combobox" name="disabled" style="width:172px;height:18px;">    
-							<option value="Enabled">显示</option>  
-							<option value="Disabled">置灰</option>
+							<option value="enable">显示</option>  
+							<option value="disable">置灰</option>
 						</select>
 					</td>
 				</tr>

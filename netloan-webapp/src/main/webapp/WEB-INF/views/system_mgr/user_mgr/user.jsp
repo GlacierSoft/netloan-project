@@ -212,6 +212,64 @@
 		}
 	};
 	
+	
+	//显示为用户分配角色窗口
+	glacier.system_mgr.user_mgr.user.roleAssign = function(){
+		var userId = glacier.system_mgr.user_mgr.user.userDataGrid.datagrid("getSelected").userId;
+		glacier.system_mgr.user_mgr.user.userRoleDataGrid = $('#userRoleDataGrid').datagrid({
+			url:ctx +'/do/auth/getRolesAndRational.json',//请求的URL
+			idField : 'id',//定义了关键字段来标识一个树节点
+			singleSelect:false,//限制单选
+			checkOnSelect:true,
+			selectOnCheck:false,
+			queryParams:{userId:userId},//当请求远程数据时，发送的额外参数
+			fit : true,//控件自动resize占满窗口大小
+			fitColumns : true,//自动填充行
+			border : false,//是否存在边框
+			columns:[[
+				{
+					field:'id',
+					title:'ID',
+					checkbox:true
+				},{
+					field:'roleCnName',
+					title:'角色名',
+					width:120
+				},{
+					field:'roleEnName',
+					title:'角色英文名',
+					width:120
+				},{
+					field:'remark',
+					title:'备注',
+					width:200
+				}
+			]]
+		});
+		//显示分配角色窗口
+		glacier.system_mgr.user_mgr.user.userRoleWin = $('#userRoleWin').dialog({ 
+			title:'分配角色',
+		    width:650,  
+		    height:430,
+		    resizable:false,
+		    modal:true,
+		    minimizable:true,
+		    maximizable:true,
+		    buttons:[{
+				text:'保存',
+				iconCls:"icon-save",
+				handler:function(){
+					glacier.system_mgr.user_mgr.user.saveRolesAndRational(userId);
+				}
+			},{
+				text:'关闭',
+				iconCls:"icon-undo",
+				handler:function(){
+					glacier.system_mgr.user_mgr.user.userRoleWin.dialog('close');
+				}
+			}]
+		});
+	};
 </script>
 
 <!-- 所有操作日志列表面板和表格 -->
@@ -221,4 +279,9 @@
 			<glacierui:toolbar panelEnName="UserList" toolbarId="userDataGrid_toolbar" menuEnName="user"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
+</div>
+
+<!-- 自定义分配角色窗口 -->
+<div id="userRoleWin">
+	<table id="userRoleDataGrid"></table>
 </div>
