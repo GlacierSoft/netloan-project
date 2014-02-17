@@ -10,7 +10,7 @@
 				<input type="hidden" name="areaId" value="${areaData.areaId}" />
 				<input class="spinner" style="width:168px"  value="${areaData.areaName}" readonly="readonly"/>
 			</td>
-			<td>父地区：</td>
+			<td>所属地区：</td>
 			<td colspan="3"><input class="spinner" style="width:168px"  value="${areaData.areaPname}" readonly="readonly"/></td>
 		</tr>
 		<tr>
