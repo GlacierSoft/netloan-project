@@ -24,8 +24,8 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
-import com.glacier.netloan.dao.basicdatas.ParameterOptgroupMapper;
 import com.glacier.netloan.dao.basicdatas.ParameterOptgroupValueMapper;
+import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.service.basicdatas.FieldDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterOptgroupValue;
 import com.glacier.netloan.entity.basicdatas.ParameterOptgroupValueExample;
@@ -35,7 +35,7 @@ import com.glacier.netloan.util.MethodLog;
 
 /**
  * @ClassName: ParameterOptgroupValueService
- * @Description: TODO(下拉项值业务类)
+ * @Description: TODO(下拉值业务类)
  * @author xichao.dong
  * @email 406592176@QQ.com
  * @date 2014-1-21 下午2:22:22
@@ -48,8 +48,7 @@ public class ParameterOptgroupValueService {
     private ParameterOptgroupValueMapper optgroupValueMapper;
 
     @Autowired
-    private ParameterOptgroupMapper optgroupMapper;
-
+    private UserMapper userMapper;
     /**
      * @Title: loadEnableField
      * @Description: TODO(查找可用下拉值，在grid显示下拉值)
@@ -86,7 +85,28 @@ public class ParameterOptgroupValueService {
      * @throws
      */
     public Object getOptgroupValue(String optgroupValueId) {
-        return optgroupValueMapper.selectByPrimaryKey(optgroupValueId);
+    	ParameterOptgroupValue optgroupValue = optgroupValueMapper.selectByPrimaryKey(optgroupValueId);
+    	System.out.println("optgroupValue.getStatus()="+optgroupValue.getStatus());
+    	if (null != optgroupValue.getStatus()) {// 根据字段代码改成字段名称
+    		if (optgroupValue.getStatus().equals("Enabled")) {
+    			optgroupValue.setStatusName("启用");
+    		} else {
+    			optgroupValue.setStatusName("禁用");
+    		}
+    	}
+    	if (null != optgroupValue.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
+            User userTemp = userMapper.selectByPrimaryKey(optgroupValue.getCreater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	optgroupValue.setCreater(userTemp.getUserCnName());
+            }
+        }
+    	if (null != optgroupValue.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
+            User userTemp = userMapper.selectByPrimaryKey(optgroupValue.getUpdater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	optgroupValue.setUpdater(userTemp.getUserCnName());
+            }
+        }
+        return optgroupValue;
     }
 
     /**

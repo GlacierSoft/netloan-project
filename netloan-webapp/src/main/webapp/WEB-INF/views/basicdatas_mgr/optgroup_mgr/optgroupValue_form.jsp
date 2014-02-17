@@ -2,20 +2,6 @@
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<script type="text/javascript">
-	// 初始化下拉值状态下拉框
-	$('#optgroup_mgr_optgroupValue_form_status').combobox({  
-		valueField : 'value',
-		height:18,
-		width:270,
-		textField : 'label',
-		panelHeight : 'auto',
-		editable : false,
-		required:true,
-		data : fields.status
-	});
-</script>
-
 <form id="optgroup_mgr_optgroupValue_form" method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
@@ -57,13 +43,24 @@
 </form>
 
 <script type="text/javascript">
-	//初始化上级菜单
+	//初始化所属下拉项
 	$("#optgroup_mgr_optgroupValue_form_optgroupId").combotree({
 		data : $.parseJSON('${allOptgroupTreeNodeData}'),
 		width:270,
 		height:18,
-	    missingMessage:'请选择上级下拉项',
+	    missingMessage:'请选择所属下拉项',
 	    smooth: true,       //该属性用以启用当前 easyui-tree 控件对平滑数据格式的支持
 	    lines : true
 	});	
+	// 初始化下拉值状态下拉框
+	$('#optgroup_mgr_optgroupValue_form_status').combobox({  
+		valueField : 'value',
+		height:18,
+		width:270,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		required:true,
+		data : fields.status
+	});
 </script>

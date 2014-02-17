@@ -114,6 +114,17 @@
 			$(this).datagrid('clearSelections');
 			$(this).datagrid('clearChecked');
 		},
+		onDblClickRow:function(rowIndex, rowData){
+			$.easyui.showDialog({
+				title: rowData.optgroupValueName,
+				href : ctx + '/do/optgroupValue/intoDetail.htm?optgroupValueId='+rowData.optgroupValueId,//从controller请求jsp页面进行渲染
+				width : 550,
+				height : 280,
+				resizable: false,
+				enableApplyButton : false,
+				enableSaveButton : false
+			});
+		},
 		columns:[[
 			{
 				field:'optgroupValueId' , title:'ID' , checkbox:true
@@ -208,6 +219,23 @@
 						   }
 					   }
 				});
+			}
+		});
+	};
+	//双击查看下拉项详细信息
+	glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupDetails = function(row){
+		$('<div/>').dialog({
+			href : ctx + '/do/optgroup/intoDetail.htm?optgroupId='+row.optgroupId,//从controller请求jsp页面进行渲染
+			width : 550,
+			height : 250,
+			modal : true,
+			resizable: false,
+			title : row.optgroupName,
+			onClose : function() {//提高浏览器性能，点击关闭窗口时候注销
+				$(this).dialog('destroy');
+			},
+			onLoad : function() {
+				$('#optgroup_mgr_optgroup_details').form('load', row);
 			}
 		});
 	};

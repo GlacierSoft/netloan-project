@@ -37,7 +37,7 @@
 </form>
 
 <script type="text/javascript">
-	//初始化上级菜单
+	//初始化上级下拉项
 	$("#optgroup_mgr_optgroup_form_optgroupPid").combotree({
 		data : $.parseJSON('${allOptgroupTreeNodeData}'),
 		width:270,

@@ -2,20 +2,6 @@
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<script type="text/javascript">
-	// 初始化公告状态下拉框
-	$('#announcement_mgr_announcement_form_webAnnStatus').combobox({  
-		valueField : 'value',
-		height:18,
-		width:270,
-		textField : 'label',
-		panelHeight : 'auto',
-		editable : false,
-		required:true,
-		data : fields.status
-	});
-</script>
-
 <form method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
@@ -47,3 +33,16 @@
 		</tr>
 	</table>
 </form>
+<script type="text/javascript">
+	// 初始化公告状态下拉框
+	$('#announcement_mgr_announcement_form_webAnnStatus').combobox({  
+		valueField : 'value',
+		height:18,
+		width:270,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		required:true,
+		data : fields.status
+	});
+</script>

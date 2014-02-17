@@ -23,6 +23,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.jqueryui.util.Tree;
 import com.glacier.netloan.dao.basicdatas.ParameterOptgroupMapper;
 import com.glacier.netloan.dao.basicdatas.ParameterOptgroupValueMapper;
+import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterOptgroup;
 import com.glacier.netloan.entity.basicdatas.ParameterOptgroupExample;
 import com.glacier.netloan.entity.basicdatas.ParameterOptgroupValueExample;
@@ -45,6 +46,9 @@ public class ParameterOptgroupService {
 
 	@Autowired
     private ParameterOptgroupValueMapper optgroupValueMapper;
+	
+	@Autowired
+    private UserMapper userMapper;
 	/**
 	 * @Title: getOptgroup 
 	 * @Description: TODO(根据下拉项Id获取下拉项信息) 
@@ -54,7 +58,26 @@ public class ParameterOptgroupService {
 	 * @throws
 	 */
     public Object getOptgroup(String optgroupId) {
-        return optgroupMapper.selectByPrimaryKey(optgroupId);
+    	ParameterOptgroup optgroup = optgroupMapper.selectByPrimaryKey(optgroupId);
+    	if (null != optgroup.getOptgroupPid()) {// 根据父地区的所属Id查找到父地区的名字
+    		ParameterOptgroup optgroupTemp = optgroupMapper.selectByPrimaryKey(optgroup.getOptgroupPid());
+    		if (StringUtils.isNotBlank(optgroupTemp.getOptgroupName())) {
+    			optgroup.setOptgroupPname(optgroupTemp.getOptgroupName());
+            }
+        }
+    	if (null != optgroup.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
+            User userTemp = userMapper.selectByPrimaryKey(optgroup.getCreater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	optgroup.setCreater(userTemp.getUserCnName());
+            }
+        }
+    	if (null != optgroup.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
+            User userTemp = userMapper.selectByPrimaryKey(optgroup.getUpdater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	optgroup.setUpdater(userTemp.getUserCnName());
+            }
+        }
+        return optgroup;
     }
     
     /**
