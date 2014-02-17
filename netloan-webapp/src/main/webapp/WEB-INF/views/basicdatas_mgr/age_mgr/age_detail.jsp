@@ -18,9 +18,9 @@
 			<td><input class="spinner" style="width:168px" value="${ageData.ageEnd}" readonly="readonly"/></td>
 		</tr>
 		<tr>
-			<td>录入者：</td>
+			<td>创建人：</td>
 			<td><input class="spinner" style="width:168px" value="${ageData.creater}" readonly="readonly"/></td>
-			<td>录入时间：</td>
+			<td>创建时间：</td>
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${ageData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>

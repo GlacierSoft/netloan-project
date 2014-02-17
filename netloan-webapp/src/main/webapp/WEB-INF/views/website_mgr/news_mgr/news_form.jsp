@@ -5,10 +5,10 @@
 <script type="text/javascript">
 	// 初始化新闻状态下拉框
 	$('#news_mgr_news_form_webNewsStatus').combobox({  
-		valueField : 'optgroupValueCode',
+		valueField : 'value',
 		height:18,
 		width:270,
-		textField : 'optgroupValueName',
+		textField : 'label',
 		panelHeight : 'auto',
 		editable : false,
 		required:true,

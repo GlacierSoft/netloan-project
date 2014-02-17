@@ -3,14 +3,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <script type="text/javascript">
-// 	glacier.ns('glacier.basicdatas_mgr.client_mgr.client_form');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
-
-	// 初始化客户性别下拉框
+	// 初始化下拉值状态下拉框
 	$('#optgroup_mgr_optgroupValue_form_status').combobox({  
-		valueField : 'optgroupValueCode',
+		valueField : 'value',
 		height:18,
 		width:270,
-		textField : 'optgroupValueName',
+		textField : 'label',
 		panelHeight : 'auto',
 		editable : false,
 		required:true,

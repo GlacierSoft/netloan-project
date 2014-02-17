@@ -3,12 +3,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <script type="text/javascript">
-	// 初始化新闻状态下拉框
+	// 初始化公告状态下拉框
 	$('#announcement_mgr_announcement_form_webAnnStatus').combobox({  
-		valueField : 'optgroupValueCode',
+		valueField : 'value',
 		height:18,
 		width:270,
-		textField : 'optgroupValueName',
+		textField : 'label',
 		panelHeight : 'auto',
 		editable : false,
 		required:true,

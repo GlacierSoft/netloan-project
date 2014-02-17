@@ -59,12 +59,12 @@
 				sortable:true
 			},{
 				field:'creater',
-				title:'录入人',
+				title:'创建人',
 				sortable:true,
 				width:100
 			},{
 				field:'createTime',
-				title:'录入时间',
+				title:'创建时间',
 				sortable:true,
 				width:200
 			},{
