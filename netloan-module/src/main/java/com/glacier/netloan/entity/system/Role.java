@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.validation.constraints.Pattern;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.glacier.netloan.entity.system.util.CommonBuiltin;
+import com.glacier.netloan.entity.common.util.CommonBuiltin;
 
 public class Role {
     /**

@@ -3,7 +3,7 @@
  * @author zhenfei.zhang 
  * Copyright (c) 2012 Glacier SoftWare Company Limited. All Rights Reserved.
  */
-package com.glacier.netloan.entity.system.util;
+package com.glacier.netloan.entity.common.util;
 
 /** 
  * @ClassName:  

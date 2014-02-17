@@ -1,13 +1,14 @@
 package com.glacier.netloan.entity.system;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.glacier.netloan.entity.common.util.CommonBuiltin;
+import com.glacier.netloan.entity.common.util.CommonStatus;
 
-public class User implements Serializable{
-    
+public class User implements Serializable {
+
     private static final long serialVersionUID = 6326148934682228878L;
 
     private String userId;
@@ -20,9 +21,9 @@ public class User implements Serializable{
 
     private String salt;
 
-    private String status;
+    private CommonStatus status;
 
-    private String builtin;
+    private CommonBuiltin builtin;
 
     private String email;
 
@@ -30,14 +31,8 @@ public class User implements Serializable{
 
     private String remark;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date lastLoginTime;
-    
-    /**
-     * 自定义时间显示字段
-     */
-    @SuppressWarnings("unused")
-    private String lastLoginFormatTime;
 
     private String lastLoginIpAddress;
 
@@ -87,19 +82,19 @@ public class User implements Serializable{
         this.salt = salt;
     }
 
-    public String getStatus() {
+    public CommonStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(CommonStatus status) {
         this.status = status;
     }
 
-    public String getBuiltin() {
+    public CommonBuiltin getBuiltin() {
         return builtin;
     }
 
-    public void setBuiltin(String builtin) {
+    public void setBuiltin(CommonBuiltin builtin) {
         this.builtin = builtin;
     }
 
@@ -166,15 +161,6 @@ public class User implements Serializable{
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-    
-    public String getLastLoginFormatTime() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd HH:MM:ss");
-        return dateFormat.format(lastLoginTime);
-    }
-
-    public void setLastLoginFormatTime(String lastLoginFormatTime) {
-        this.lastLoginFormatTime = lastLoginFormatTime;
-    }
 
     @Override
     public boolean equals(Object that) {
@@ -189,20 +175,20 @@ public class User implements Serializable{
         }
         User other = (User) that;
         return (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
-            && (this.getUserCnName() == null ? other.getUserCnName() == null : this.getUserCnName().equals(other.getUserCnName()))
-            && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
-            && (this.getSalt() == null ? other.getSalt() == null : this.getSalt().equals(other.getSalt()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getBuiltin() == null ? other.getBuiltin() == null : this.getBuiltin().equals(other.getBuiltin()))
-            && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
-            && (this.getUserImage() == null ? other.getUserImage() == null : this.getUserImage().equals(other.getUserImage()))
-            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
-            && (this.getLastLoginTime() == null ? other.getLastLoginTime() == null : this.getLastLoginTime().equals(other.getLastLoginTime()))
-            && (this.getLastLoginIpAddress() == null ? other.getLastLoginIpAddress() == null : this.getLastLoginIpAddress().equals(other.getLastLoginIpAddress()))
-            && (this.getLoginCount() == null ? other.getLoginCount() == null : this.getLoginCount().equals(other.getLoginCount()))
-            && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
+                && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
+                && (this.getUserCnName() == null ? other.getUserCnName() == null : this.getUserCnName().equals(other.getUserCnName()))
+                && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
+                && (this.getSalt() == null ? other.getSalt() == null : this.getSalt().equals(other.getSalt()))
+                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+                && (this.getBuiltin() == null ? other.getBuiltin() == null : this.getBuiltin().equals(other.getBuiltin()))
+                && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
+                && (this.getUserImage() == null ? other.getUserImage() == null : this.getUserImage().equals(other.getUserImage()))
+                && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
+                && (this.getLastLoginTime() == null ? other.getLastLoginTime() == null : this.getLastLoginTime().equals(other.getLastLoginTime()))
+                && (this.getLastLoginIpAddress() == null ? other.getLastLoginIpAddress() == null : this.getLastLoginIpAddress().equals(other.getLastLoginIpAddress()))
+                && (this.getLoginCount() == null ? other.getLoginCount() == null : this.getLoginCount().equals(other.getLoginCount()))
+                && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
     }
 
     @Override
@@ -226,12 +212,14 @@ public class User implements Serializable{
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         return result;
     }
-    
-    /* (non-Javadoc)
-     *  
-     *  
-     * @return 
-     * @see java.lang.Object#toString() 
+
+    /*
+     * (non-Javadoc)
+     * 
+     * 
+     * @return
+     * 
+     * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {

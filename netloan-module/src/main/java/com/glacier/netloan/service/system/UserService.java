@@ -36,6 +36,7 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.system.UserMapper;
+import com.glacier.netloan.entity.common.util.CommonBuiltin;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.util.MethodLog;
@@ -148,10 +149,14 @@ public class UserService {
     		returnResulte.setMsg("用户名称重复");
     		return returnResulte;
     	}
+    	//初始化管理员信息
     	user.setUserId(RandomGUID.getRandomGUID());
+    	user.setPassword(user.getUsername());
+    	this.entryptPassword(user);//设置加密后的密码以及盐值
+    	user.setBuiltin(CommonBuiltin.custom);//新增管理员类型为自定义
     	user.setCreateTime(new Date());
     	user.setCreater(pricipalUser.getUserId());
-    	user.setLastLoginTime(new Date());
+    	user.setLoginCount(0);
     	count = userMapper.insert(user);
 		if(count == 1){
 			returnResulte.setMsg("["+user.getUsername()+"]"+"用户信息已保存");

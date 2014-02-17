@@ -20,11 +20,11 @@ import com.glacier.netloan.dao.system.ActionMapper;
 import com.glacier.netloan.dao.system.AuthorityMapper;
 import com.glacier.netloan.dao.system.RoleMapper;
 import com.glacier.netloan.dto.query.system.RoleQueryDTO;
+import com.glacier.netloan.entity.common.util.CommonBuiltin;
 import com.glacier.netloan.entity.system.Role;
 import com.glacier.netloan.entity.system.RoleExample;
 import com.glacier.netloan.entity.system.RoleExample.Criteria;
 import com.glacier.netloan.entity.system.User;
-import com.glacier.netloan.entity.system.util.CommonBuiltin;
 import com.glacier.netloan.util.MethodLog;
 
 @Service

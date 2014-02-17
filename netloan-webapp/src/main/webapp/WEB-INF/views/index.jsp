@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %><!-- 引入自定义权限标签 -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><!-- 引入国际化标签 -->
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -11,7 +12,7 @@
 			$(function(){
 				
 				var userInfoDetailStr = '<table class="formtable" style="font-weight: bold;">'+
-											'<tr><td>上次登录时间：</td><td><span class="label label-warning">${currentUser.lastLoginFormatTime}</span></td></tr>'+
+											'<tr><td>上次登录时间：</td><td><span class="label label-warning"><fmt:formatDate value="${currentUser.lastLoginTime}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td></tr>'+
 											'<tr><td>上次登录IP：</td><td><span class="label label-warning">${currentUser.lastLoginIpAddress}<span></td></tr>'+
 											'<tr><td>登录次数：</td><td><span class="label label-success">${currentUser.loginCount}</span></td></tr>'+
 										'</table>';
