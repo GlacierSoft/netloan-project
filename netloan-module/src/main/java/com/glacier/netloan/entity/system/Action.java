@@ -2,7 +2,7 @@ package com.glacier.netloan.entity.system;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
-import com.glacier.netloan.entity.system.util.ActionDisabled;
+import com.glacier.netloan.entity.common.util.CommonStatus;
 import com.glacier.netloan.entity.system.util.ActionType;
 
 public class Action {
@@ -20,7 +20,7 @@ public class Action {
 
     private ActionType type;
 
-    private ActionDisabled disabled;
+    private CommonStatus disabled;
 
     private String method;
 
@@ -32,7 +32,7 @@ public class Action {
      * 自定义显示字段：菜单英文名称
      */
     private String menuEnName;
-    
+
     /**
      * 自定义显示字段：菜单中文名称
      */
@@ -47,8 +47,8 @@ public class Action {
      * 自定义显示字段：面板英文名称
      */
     private String panelEnName;
-    
-    public String getGroup(){
+
+    public String getGroup() {
         return this.panelCnName;
     }
 
@@ -108,11 +108,11 @@ public class Action {
         this.type = type;
     }
 
-    public ActionDisabled getDisabled() {
+    public CommonStatus getDisabled() {
         return disabled;
     }
 
-    public void setDisabled(ActionDisabled disabled) {
+    public void setDisabled(CommonStatus disabled) {
         this.disabled = disabled;
     }
 
@@ -171,12 +171,14 @@ public class Action {
     public void setPanelEnName(String panelEnName) {
         this.panelEnName = panelEnName;
     }
-    
-    /* (non-Javadoc)
-     *  
-     *  
-     * @return 
-     * @see java.lang.Object#toString() 
+
+    /*
+     * (non-Javadoc)
+     * 
+     * 
+     * @return
+     * 
+     * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {

@@ -1,8 +1,20 @@
 package com.glacier.netloan.entity.common.util;
 
 public enum CommonStatus {
-    enable,disable;
-    private CommonStatus() {  
-        System.out.println("no args");  
-    }  
+    /**
+     * 返回true表示禁用按钮
+     */
+    enable(false),disable(true);
+    
+    private CommonStatus(){};
+    
+    private CommonStatus(boolean value){
+        this.value = value;
+    };
+    
+    private boolean value;
+
+    public boolean getValue() {
+        return value;
+    }
 }

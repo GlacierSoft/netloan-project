@@ -9,6 +9,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
 import com.glacier.basic.util.DBHelper;
+import com.glacier.netloan.entity.common.util.CommonStatus;
 import com.glacier.netloan.entity.system.Action;
 import com.glacier.netloan.entity.system.util.ActionDisabled;
 import com.glacier.netloan.entity.system.util.ActionType;
@@ -102,7 +103,7 @@ public class EasyUIToolbarTag extends TagSupport {
                 actionTemp.setPanelEnName(rs.getString("temp_action_panel_en_name"));
                 actionTemp.setIconCls(rs.getString("temp_action_icon_cls"));
                 actionTemp.setType(ActionType.valueOf(rs.getString("temp_action_type")));
-                actionTemp.setDisabled(ActionDisabled.valueOf(rs.getString("temp_action_disabled")));
+                actionTemp.setDisabled(CommonStatus.valueOf(rs.getString("temp_action_disabled")));
                 actionTemp.setMethod(rs.getString("temp_action_method"));
                 actionTemp.setOrderNum(rs.getInt("temp_action_order_num"));
                 actionTemp.setRemark(rs.getString("temp_action_remark"));
