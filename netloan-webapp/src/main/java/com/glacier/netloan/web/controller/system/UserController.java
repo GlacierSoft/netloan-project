@@ -51,19 +51,19 @@ public class UserController extends AbstractController{
 	}
 	
 	//增加用户信息
-	@RequestMapping(value = "/add.json", method = RequestMethod.POST)
-	@ResponseBody
-	private Object addUser(@Valid User user,BindingResult bindingResult){
-		System.out.println("dffddfdfdfd");
-		if(bindingResult.hasErrors()){// 后台校验的错误信息
-			return returnErrorBindingResult(bindingResult);
-		}
-		return userService.addUser(user);
-	}
+    @RequestMapping(value = "/add.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object addUser(@Valid User user,BindingResult bindingResult){
+        if(bindingResult.hasErrors()){// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResult);
+        }
+        return userService.addUser(user);
+    }
+    
 	//修改用户信息
 	@RequestMapping(value = "/edit.json" , method = RequestMethod.POST)
 	@ResponseBody
-	private Object editUser(@Valid User user , BindingResult bindingResult){
+	private Object editUser(@Valid User user,BindingResult bindingResult){
 		if(bindingResult.hasErrors()){// 后台校验的错误信息
 			return returnErrorBindingResult(bindingResult);
 		}

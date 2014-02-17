@@ -17,10 +17,6 @@
 			<td><input name="userCnName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${userData.userCnName}"/></td>
 		</tr>
 		<tr>
-			<td>密码：</td>
-			<td><input name="password" class="easyui-validatebox spinner" style="width:268px" required="true" value="${userData.password}"/></td>
-		</tr>
-		<tr>
 			<td>用户状态：</td>
 			<td><input id="user_mgr_user_form_status" name="status" class="easyui-validatebox spinner" style="width:268px" required="true" value="${userData.status}"/></td>
 		</tr>

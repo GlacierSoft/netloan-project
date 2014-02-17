@@ -148,7 +148,7 @@
 	};
 	//点击增加按钮触发方法
 	glacier.system_mgr.user_mgr.user.addUser = function(){
-		glacier.system_mgr.user_mgr.user.newDialog('增加管理员信息','/do/user/add.json','');
+		glacier.system_mgr.user_mgr.user.newDialog('增加管理员','/do/user/addsss.json','');
 	};
 	//点击编辑按钮触发方法
 	glacier.system_mgr.user_mgr.user.editUser = function(){
