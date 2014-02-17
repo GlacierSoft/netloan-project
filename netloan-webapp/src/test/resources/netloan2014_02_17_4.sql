@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地MySql
+Source Server         : localhost
 Source Server Version : 50067
 Source Host           : localhost:3306
 Source Database       : netloan
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50067
 File Encoding         : 65001
 
-Date: 2014-02-17 15:02:28
+Date: 2014-02-17 15:47:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -423,6 +423,8 @@ CREATE TABLE `t_loginlog` (
 -- ----------------------------
 INSERT INTO `t_loginlog` VALUES ('02016b337a28989cccecebf11207b10b', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-02-17', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('1d045ccdfbfadad533c5baba20e0bf7c', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-02-12', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('2094a6e139ec0600ac06a0fd9b33311b', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-02-17', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('29095f771f1d0417ee862a72fc8cf8b5', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-02-17', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('2e78987eca033cef0ca2fae280da31d7', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-02-15', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('3212d5335a262256c78aa39e7f23927e', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-02-12', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('3a8692b9575c844cc9fa0235d58665fd', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-02-12', '127.0.0.1[本地]', null, null);
@@ -456,7 +458,9 @@ INSERT INTO `t_loginlog` VALUES ('da4f67ded4052636058e1b4166991c36', '8b25651c2d
 INSERT INTO `t_loginlog` VALUES ('ddfdfasd', '8b25651c2d896297530b64e4b80ec503', 'adsf', '2014-02-12', 'adsf', 'fd', 'adsf');
 INSERT INTO `t_loginlog` VALUES ('de88b1152dde86d1b9ee26870295be19', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-02-15', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('deb25377d234afb2055b50e304f86253', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-02-17', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('e2382af2a1b529f650d21fb80d13d40c', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-02-17', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('e84c12dfc104bd19948cc2183a57cba2', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-02-15', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('e9a11845d672c8b301f46862bd9da453', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-02-17', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('f8442e87c0cc3de96d99f65502cde5ca', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-02-12', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('f9eb726c12e4168f40cf3b9a231c17ae', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-02-12', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('fb59b7f4a2d165a4fb6ab8bbd4257b96', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-02-15', '127.0.0.1[本地]', null, null);
@@ -689,7 +693,7 @@ INSERT INTO `t_menu` VALUES ('54eb754157cf483a790f4eea35200118', '16ac1df11de350
 INSERT INTO `t_menu` VALUES ('5b6eaabb2c3a020c4d85ab50d11ffd85', 'a60cca184eff20fdce88b3f1ab5a9cce', 'link', '友情链接', 'icon-hamburg-world', '/do/link/index.htm', '35', '');
 INSERT INTO `t_menu` VALUES ('88ee044d59911b3b1a67ba4cdd0ee90d', 'a60cca184eff20fdce88b3f1ab5a9cce', 'announcement', '公告管理', 'icon-standard-feed', '/do/announcement/index.htm', '32', '');
 INSERT INTO `t_menu` VALUES ('91ca1b4b197688f21b68a72f69e09a8d', '16ac1df11de350c61722dc7b98cecca7', 'user', '管理员设置', 'icon-standard-user-orange', '/do/user/index.htm', '10', '');
-INSERT INTO `t_menu` VALUES ('93f0fcfa7cdff069d929723062b53211', '14sdf54157cf483a790f4eea35dsf6f6', 'sysparam', '系统参数', 'icon-standard-layout-content', '/do/sysparam/index.htm', '26', '');
+INSERT INTO `t_menu` VALUES ('93f0fcfa7cdff069d929723062b53211', '14sdf54157cf483a790f4eea35dsf6f6', 'variables', '系统变量', 'icon-standard-layout-content', '/do/variables/index.htm', '26', '');
 INSERT INTO `t_menu` VALUES ('a60cca184eff20fdce88b3f1ab5a9cce', null, 'website', '网站管理', 'icon-standard-color-wheel', '', '3', '');
 INSERT INTO `t_menu` VALUES ('a652d3fe69c067cb94b73361351b8378', 'a60cca184eff20fdce88b3f1ab5a9cce', 'news', '新闻管理', 'icon-standard-monitor', '/do/news/index.htm', '34', '');
 INSERT INTO `t_menu` VALUES ('ab01dd2ac38d920f691bbc65b7a4bfb2', 'a60cca184eff20fdce88b3f1ab5a9cce', 'hiring', '招聘信息', 'icon-hamburg-customers', '/do/hiring/index.htm', '38', '');
@@ -742,6 +746,7 @@ INSERT INTO `t_operalog` VALUES ('2ab0553041fa90190930d99ebbd3f188', '下拉项�
 INSERT INTO `t_operalog` VALUES ('2acc3d059f1873832653a08f0762819a', '下拉项管理', '下拉项树', '修改', '1', '[是否内置] 下拉项信息已修改', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupService', 'editOptgroup', 'OptgroupTree_edit', '超级管理员', '2014-02-15 10:26:11');
 INSERT INTO `t_operalog` VALUES ('2e7343f769ad6d38c97631192f5bd114', '下拉项管理', '下拉项树', '删除', '1', '[参数管理] 下拉项信息已删除', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupService', 'delOptgroup', 'OptgroupTree_del', '超级管理员', '2014-02-15 16:37:55');
 INSERT INTO `t_operalog` VALUES ('3f3ebe72165fd6b0dfc3dd86faad89ff', '资源管理', '菜单树', '修改', '1', '[帮助中心] 菜单信息已保存', 'com.glacier.netloan.service.system.MenuService', 'editMenu', 'MenuTree_edit', '超级管理员', '2014-02-17 14:57:08');
+INSERT INTO `t_operalog` VALUES ('4ab88cf96ae808883c62d3393c45bc04', '资源管理', '面板列表', '增加', '1', '[变量列表] 面板信息已保存', 'com.glacier.netloan.service.system.PanelService', 'addPanel', 'PanelList_add', '超级管理员', '2014-02-17 15:34:43');
 INSERT INTO `t_operalog` VALUES ('505cc29fd4abee087c7a2f39a1f3133c', '下拉项管理', '下拉项树', '删除', '0', '该下拉项存在所属下拉值，如需删除请先删除所属下拉值', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupService', 'delOptgroup', 'OptgroupTree_del', '超级管理员', '2014-02-15 16:30:11');
 INSERT INTO `t_operalog` VALUES ('588491e42c4bf87d174d0f5561281071', '下拉项管理', '下拉列表', '增加', '1', '[自定义] 下拉项值信息已保存', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupValueService', 'addOptgroupValue', 'OptgroupValueList_add', '超级管理员', '2014-02-15 16:31:33');
 INSERT INTO `t_operalog` VALUES ('6012350c31b65b0107f134b17163f8d7', '下拉项管理', '下拉项树', '删除', '1', '[客服状态] 下拉项信息已删除', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupService', 'delOptgroup', 'OptgroupTree_del', '超级管理员', '2014-02-15 16:38:42');
@@ -749,6 +754,7 @@ INSERT INTO `t_operalog` VALUES ('622394c607f92bc566d43a62355fc9b9', '下拉项�
 INSERT INTO `t_operalog` VALUES ('62b6ec85db8d52aed20ab43b69140f3b', '资源管理', '菜单树', '修改', '1', '[招聘信息] 菜单信息已保存', 'com.glacier.netloan.service.system.MenuService', 'editMenu', 'MenuTree_edit', '超级管理员', '2014-02-17 14:57:14');
 INSERT INTO `t_operalog` VALUES ('68ca319425187ce2f5fa375328f51c63', '下拉项管理', '下拉列表', '修改', '1', '[禁用] 下拉项值信息已修改', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupValueService', 'editOptgroupValue', 'OptgroupValueList_edit', '超级管理员', '2014-02-15 16:37:46');
 INSERT INTO `t_operalog` VALUES ('6c3db1897709cca96955530cb5c0d879', '客服服务', '客服列表', '增加', '1', '[ddd] 客服信息已保存', 'com.glacier.netloan.service.website.WebsiteServiceService', 'addWebsiteService', 'ServiceList_add', '超级管理员', '2014-02-15 14:45:23');
+INSERT INTO `t_operalog` VALUES ('6cc9638824ec894aad7c9be8ac6d01d4', '资源管理', '菜单树', '修改', '1', '[系统参数] 菜单信息已保存', 'com.glacier.netloan.service.system.MenuService', 'editMenu', 'MenuTree_edit', '超级管理员', '2014-02-17 15:20:35');
 INSERT INTO `t_operalog` VALUES ('6f6fccf692e120b84e725fdae846ed8a', '下拉项管理', '下拉列表', '增加', '1', '[启用] 下拉项值信息已保存', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupValueService', 'addOptgroupValue', 'OptgroupValueList_add', '超级管理员', '2014-02-15 14:35:52');
 INSERT INTO `t_operalog` VALUES ('70b3bdc84357b0c48d0c68f88d737b56', '角色管理', '角色列表', '授权', '1', '权限信息已保存!', 'com.glacier.netloan.service.system.AuthorityService', 'saveRoleAuths', 'RoleList_auth', '超级管理员', '2014-02-17 15:02:09');
 INSERT INTO `t_operalog` VALUES ('79662e83d97759e07db47c8f612e5a4f', '资源管理', '菜单树', '修改', '1', '[导航信息] 菜单信息已保存', 'com.glacier.netloan.service.system.MenuService', 'editMenu', 'MenuTree_edit', '超级管理员', '2014-02-17 14:56:28');
@@ -771,6 +777,7 @@ INSERT INTO `t_operalog` VALUES ('b6a681540afcf6440b665a12672efa48', '下拉项�
 INSERT INTO `t_operalog` VALUES ('be02867adc54dcba86060352dbcdc82f', '资源管理', '菜单树', '修改', '1', '[操作日志] 菜单信息已保存', 'com.glacier.netloan.service.system.MenuService', 'editMenu', 'MenuTree_edit', '超级管理员', '2014-02-17 14:50:47');
 INSERT INTO `t_operalog` VALUES ('bfc27e6d7b4e9d49ddff0255b48e0665', '资源管理', '菜单树', '增加', '1', '[系统参数] 菜单信息已保存', 'com.glacier.netloan.service.system.MenuService', 'addMenu', 'MenuTree_add', '超级管理员', '2014-02-17 15:01:12');
 INSERT INTO `t_operalog` VALUES ('c0a2705925a0d4044ed0a24cb2376f84', '客服服务', '客服列表', '增加', '1', '[asf] 客服信息已保存', 'com.glacier.netloan.service.website.WebsiteServiceService', 'addWebsiteService', 'ServiceList_add', '超级管理员', '2014-02-15 14:47:25');
+INSERT INTO `t_operalog` VALUES ('c0bb0ab367605a9c38fec2004336db79', '资源管理', '菜单树', '修改', '1', '[系统变量] 菜单信息已保存', 'com.glacier.netloan.service.system.MenuService', 'editMenu', 'MenuTree_edit', '超级管理员', '2014-02-17 15:33:58');
 INSERT INTO `t_operalog` VALUES ('c1828fdbd8c349533c6ebefecd35fcad', '下拉项管理', '下拉列表', '增加', '1', '[关闭] 下拉项值信息已保存', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupValueService', 'addOptgroupValue', 'OptgroupValueList_add', '超级管理员', '2014-02-15 14:35:12');
 INSERT INTO `t_operalog` VALUES ('c2a9fd3e8308cd67d32347368131b1fd', '资源管理', '菜单树', '修改', '1', '[系统参数] 菜单信息已保存', 'com.glacier.netloan.service.system.MenuService', 'editMenu', 'MenuTree_edit', '超级管理员', '2014-02-17 15:01:46');
 INSERT INTO `t_operalog` VALUES ('c31cc57af39f8eed483d974b015d388c', '客服服务', '客服列表', '删除', '1', '成功删除了[ sd,dsd ]操作', 'com.glacier.netloan.service.website.WebsiteServiceService', 'delWebsiteService', 'ServiceList_del', '超级管理员', '2014-02-15 14:51:38');
@@ -816,6 +823,7 @@ CREATE TABLE `t_panel` (
 -- ----------------------------
 INSERT INTO `t_panel` VALUES ('20814591aaa67351ab28198ec8531c80', '5b6eaabb2c3a020c4d85ab50d11ffd85', '友情列表', 'LinkList', '1');
 INSERT INTO `t_panel` VALUES ('21gfdg1rgrh1dfhsjdfh124564sdf21d', 't110147c5e6c1e94ee70cc833aa7f5d3', '年龄列表', 'AgeList', '2');
+INSERT INTO `t_panel` VALUES ('2742a4ddf632dce3bac51fba43b68ba2', '93f0fcfa7cdff069d929723062b53211', '变量列表', 'VariablesList', '1');
 INSERT INTO `t_panel` VALUES ('28fe18d693742ae7db094fc750715c46', '54d652799e07bb8be54483301a89ff90', '帮助列表', 'HelpList', '1');
 INSERT INTO `t_panel` VALUES ('3456eg4157cf483a790f4eea35ds5675', 'sdsfeg4157cf483a790f4eea35ds5675', '下拉列表', 'OptgroupValueList', '6');
 INSERT INTO `t_panel` VALUES ('34eg454c5e6c1e94ee70cc833asd87', 'sdeg454c5e6c1e94ee70cc833asd142', '积分列表', 'IntegralList', '5');
@@ -1029,6 +1037,7 @@ CREATE TABLE `t_parameter_system_variables` (
 -- ----------------------------
 -- Records of t_parameter_system_variables
 -- ----------------------------
+INSERT INTO `t_parameter_system_variables` VALUES ('4css921507de7b121d37b460d65b5g', '参数说明', '输入提示', '参数值', '变量名', 'input', '测试数据', '8b25651c2d896297530b64e4b80ec503', '2014-02-17 15:22:26', '8b25651c2d896297530b64e4b80ec503', '2014-02-17 15:22:28');
 
 -- ----------------------------
 -- Table structure for `t_role`
@@ -1081,7 +1090,7 @@ CREATE TABLE `t_user` (
 INSERT INTO `t_user` VALUES ('21da4f6ca70201996e77aa7fda80db3d', 's', 's', 's', null, 'enable', 'custom', 's', null, 's', '2014-02-12 17:35:02', null, null, '8b25651c2d896297530b64e4b80ec503', '2014-02-12 00:00:00');
 INSERT INTO `t_user` VALUES ('50a3309800345a2984f12279515e001b', 'd', 'd', 'd', null, 'enable', 'custom', 'd', null, 'd', '2014-02-12 17:35:06', null, null, '8b25651c2d896297530b64e4b80ec503', '2014-02-12 00:00:00');
 INSERT INTO `t_user` VALUES ('5b7fd153d75b63ad21fdf11bd233f684', 'sdf', 'w', '6bc37158d9839e1c75fac0a00ed55120c3e4beb3', 'f75071ba2c27d397', 'enable', 'custom', 'wer', null, 'wer', null, null, '0', '8b25651c2d896297530b64e4b80ec503', '2014-02-17 00:00:00');
-INSERT INTO `t_user` VALUES ('8b25651c2d896297530b64e4b80ec503', 'admin', '超级管理员', '5dc10e7826e648ec6f136974c38f81d0e5e1d0ae', 'e03b1b95ceff4db6', 'enable', 'admin', 'admin@glacier.cn', null, null, '2014-02-17 14:46:28', '127.0.0.1[本地]', '42', '8b25651c2d896297530b64e4b80ec503', '2014-01-16 00:00:00');
+INSERT INTO `t_user` VALUES ('8b25651c2d896297530b64e4b80ec503', 'admin', '超级管理员', '5dc10e7826e648ec6f136974c38f81d0e5e1d0ae', 'e03b1b95ceff4db6', 'enable', 'admin', 'admin@glacier.cn', null, null, '2014-02-17 15:31:23', '127.0.0.1[本地]', '46', '8b25651c2d896297530b64e4b80ec503', '2014-01-16 00:00:00');
 INSERT INTO `t_user` VALUES ('af', 'qqqqqqqqqqq', 'afdddd', 'adf', 'asfd', 'enable', 'custom', 'ddd', null, 'dd', '2014-02-12 16:55:54', null, null, '8b25651c2d896297530b64e4b80ec503', '2014-02-12 00:00:00');
 INSERT INTO `t_user` VALUES ('ca1c01ab0f77133531b891cba8bd2670', 'dd', 'dd', 'dd', null, 'enable', 'custom', 'dd', null, 'dd', '2014-02-12 17:49:48', null, null, '8b25651c2d896297530b64e4b80ec503', '2014-02-12 00:00:00');
 

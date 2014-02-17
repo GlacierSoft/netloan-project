@@ -27,7 +27,7 @@ import com.glacier.netloan.service.basicdatas.ParameterOptgroupValueService;
 
 /** 
  * @ClassName: ParameteroptgroupValueController 
- * @Description: TODO(下拉项的控制器) 
+ * @Description: TODO(下拉值的控制器) 
  * @author xichao.dong
  * @email 406592176@QQ.com
  * @date 2014-1-21 下午2:39:20  

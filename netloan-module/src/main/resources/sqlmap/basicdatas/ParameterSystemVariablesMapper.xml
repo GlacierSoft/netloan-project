@@ -113,7 +113,7 @@
     where variables_id = #{variablesId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.basicdatas.ParameterSystemVariablesExample" >
-    delete from t_parameter_system_variables temp_parameter_system_variables
+    delete temp_parameter_system_variables from t_parameter_system_variables temp_parameter_system_variables
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

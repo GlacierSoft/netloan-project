@@ -86,7 +86,6 @@ public class ParameterOptgroupValueService {
      */
     public Object getOptgroupValue(String optgroupValueId) {
     	ParameterOptgroupValue optgroupValue = optgroupValueMapper.selectByPrimaryKey(optgroupValueId);
-    	System.out.println("optgroupValue.getStatus()="+optgroupValue.getStatus());
     	if (null != optgroupValue.getStatus()) {// 根据字段代码改成字段名称
     		if (optgroupValue.getStatus().equals("enabled")) {
     			optgroupValue.setStatusName("启用");

@@ -1035,6 +1035,8 @@ CREATE TABLE `t_parameter_system_variables` (
 -- Records of t_parameter_system_variables
 -- ----------------------------
 
+INSERT INTO `t_parameter_system_variables` VALUES ('4css921507de7b121d37b460d65b5g', '参数说明', '输入提示', '参数值', '变量名', 'input', '测试数据', '8b25651c2d896297530b64e4b80ec503', '2014-02-17 15:22:26', '8b25651c2d896297530b64e4b80ec503', '2014-02-17 15:22:28');
+
 -- ----------------------------
 -- Table structure for `t_role`
 -- ----------------------------
