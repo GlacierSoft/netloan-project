@@ -47,7 +47,7 @@ public class SystemInitListener implements ServletContextListener {
             sqlStr.append(",temp_parameter_optgroup.optgroup_code as temp_parameter_optgroup_value_optgroupCode ");
             sqlStr.append("from t_parameter_optgroup_value temp_parameter_optgroup_value INNER JOIN t_parameter_optgroup temp_parameter_optgroup ON temp_parameter_optgroup.optgroup_id = temp_parameter_optgroup_value.optgroup_id ");
             sqlStr.append("WHERE ( temp_parameter_optgroup_value.status = ? )");
-            Object[] param = new Object[]{"Enabled"};
+            Object[] param = new Object[]{"enable"};
             ResultSet rs = DBHelper.executeQuery(sqlStr.toString(), param);// 为了提高性能，同时解除Web和Bean的耦合，这里使用了jdbc方式进行数据获取
             while (rs.next()) {// 遍历返回数据，进行字符串构造
                 String key = rs.getString("temp_parameter_optgroup_value_optgroupCode");

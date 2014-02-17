@@ -143,7 +143,7 @@
 		$.easyui.showDialog({
 			href : ctx + '/do/variables/intoForm.htm?variablesId='+id,//从controller请求jsp页面进行渲染
 			width : 400,
-			height : 300,
+			height : 330,
 			resizable: false,
 			enableApplyButton : false,
 			title : title,
@@ -152,7 +152,7 @@
 				$(this).find('form').form('submit', {
 					url: ctx + submitUrl,
 					success: function(r){
-						$.messvariablesr.show(r.msg);
+						$.messager.show(r.msg);
 						if(r.success){
 							glacier.basicdatas_mgr.variables_mgr.variables.variablesDataGrid.datagrid('reload');
 							return true;
@@ -182,7 +182,7 @@
 			variableNames.push(rows[i].variableName);
 		}
 		if(variablesIds.length > 0){
-			$.messvariablesr.confirm('请确认', '是否要删除该记录', function(r){
+			$.messager.confirm('请确认', '是否要删除该记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
@@ -191,14 +191,14 @@
 						   dataType:'json',
 						   success: function(r){
 							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
-								   $.messvariablesr.show({
+								   $.messager.show({
 										title:'提示',
 										timeout:3000,
 										msg:r.msg
 									});
 								   glacier.basicdatas_mgr.variables_mgr.variables.variablesDataGrid.datagrid('reload');
 							   }else{
-									$.messvariablesr.show({//后台验证弹出错误提示信息框
+									$.messager.show({//后台验证弹出错误提示信息框
 										title:'错误提示',
 										width:380,
 										height:120,
