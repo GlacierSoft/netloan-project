@@ -24,7 +24,7 @@
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${ageData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
-			<td>更新者：</td>
+			<td>更新人：</td>
 			<td><input class="spinner" style="width:168px" value="${ageData.updater}" readonly="readonly"/></td>
 			<td>更新时间：</td>
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${ageData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>

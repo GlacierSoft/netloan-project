@@ -50,9 +50,19 @@ public class ParameterOptgroupController extends AbstractController{
     
     // 进入下拉项Form表单页面
     @RequestMapping(value = "/intoForm.htm")
-    private Object intooptgroupFormPoptgroup(String optgroupId) {
+    private Object intoOptgroupFormPoptgroup(String optgroupId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/optgroup_mgr/optgroup_form");
         mav.addObject("allOptgroupTreeNodeData", optgroupService.getAllTreeOptgroupNode(true));
+        if(StringUtils.isNotBlank(optgroupId)){
+            mav.addObject("optgroupData", optgroupService.getOptgroup(optgroupId));
+        }
+        return mav;
+    }
+    
+    // 进入下拉项Detail信息页面
+    @RequestMapping(value = "/intoDetail.htm")
+    private Object intoOptgroupDetailPage(String optgroupId) {
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/optgroup_mgr/optgroup_detail");
         if(StringUtils.isNotBlank(optgroupId)){
             mav.addObject("optgroupData", optgroupService.getOptgroup(optgroupId));
         }

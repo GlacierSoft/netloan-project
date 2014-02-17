@@ -9,7 +9,17 @@ public class ParameterOptgroup {
 
     private String optgroupPid;
 
-    private String optgroupCode;
+    private String optgroupPname;
+
+    public String getOptgroupPname() {
+		return optgroupPname;
+	}
+
+	public void setOptgroupPname(String optgroupPname) {
+		this.optgroupPname = optgroupPname;
+	}
+
+	private String optgroupCode;
 
     private String optgroupName;
 

@@ -139,7 +139,7 @@
 			}
 		});
 	};
-	//查看菜单详细信息
+	//双击查看地区详细信息
 	glacier.basicdatas_mgr.area_mgr.area.areaDetails = function(row){
 		$('<div/>').dialog({
 			href : ctx + '/do/area/intoDetail.htm?areaId='+row.areaId,//从controller请求jsp页面进行渲染

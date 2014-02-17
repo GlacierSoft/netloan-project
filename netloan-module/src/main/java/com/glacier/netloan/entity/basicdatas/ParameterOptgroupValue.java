@@ -20,7 +20,17 @@ public class ParameterOptgroupValue {
 
     private String status;
 
-    private Integer optgroupValueNum;
+    private String statusName;
+    
+    public String getStatusName() {
+		return statusName;
+	}
+
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
+	}
+
+	private Integer optgroupValueNum;
 
     private String remark;
 
