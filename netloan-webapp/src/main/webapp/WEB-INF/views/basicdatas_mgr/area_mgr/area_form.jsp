@@ -8,7 +8,7 @@
 			<td>地区：</td>
 			<td>
 				<input id="area_mgr_area_form_areaId" type="hidden" name="areaId" value="${areaData.areaId}" />
-				<input id="area_mgr_area_form_areaName" name="areaName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${areaData.areaName}"/>
+				<input id="area_mgr_area_form_areaName" name="areaName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${areaData.areaName}" validType="customReg['^[\u0391-\uFFE5]{2,10}$','<fmt:message key="ParameterArea.areaName.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>
@@ -19,9 +19,7 @@
 		</tr>
 		<tr>
 			<td>排序：</td>
-			<td>
-				<input id="area_mgr_area_form_areaNum" name="areaNum" class="easyui-validatebox spinner" style="width:268px" required="true" value="${areaData.areaNum}"/>
-			</td>
+			<td><input id="area_mgr_area_form_areaNum" name="areaNum" class="easyui-numberspinner spinner" value="${areaData.areaNum}" data-options="min:0,max:999,missingMessage:'请地区排序'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>

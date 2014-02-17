@@ -2,6 +2,11 @@ package com.glacier.netloan.entity.basicdatas;
 
 import java.util.Date;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class ParameterArea {
@@ -19,14 +24,17 @@ public class ParameterArea {
 		this.areaPname = areaPname;
 	}
 
+	@Pattern(regexp = "^[\u0391-\uFFE5]{2,10}$", message = "{ParameterArea.areaName.illegal}")
 	private String areaName;
 
     private String areaSubsite;
 
     private String accessory;
 
+    @Max(value = 99, message = "{ParameterArea.areaNum.illegal}")
     private Integer areaNum;
 
+    @Length(max = 255, message = "{ParameterArea.remark.illegal}")
     private String remark;
 
     private String creater;

@@ -124,7 +124,7 @@
 				title: rowData.variableName,
 				href : ctx + '/do/variables/intoDetail.htm?variablesId='+rowData.variablesId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 280,
+				height : 300,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
