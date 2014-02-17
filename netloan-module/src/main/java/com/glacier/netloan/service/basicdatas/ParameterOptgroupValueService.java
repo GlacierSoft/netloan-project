@@ -59,7 +59,7 @@ public class ParameterOptgroupValueService {
     public Object loadEnableField() {
         LinkedHashMap<String, List<FieldDTO>> part = new LinkedHashMap<String, List<FieldDTO>>();
         ParameterOptgroupValueExample optgroupValueExample = new ParameterOptgroupValueExample();
-        optgroupValueExample.createCriteria().andStatusEqualTo("Enabled");// 查询可用的下拉项值
+        optgroupValueExample.createCriteria().andStatusEqualTo("enabled");// 查询可用的下拉项值
         for (ParameterOptgroupValue optgroupValue : optgroupValueMapper.selectByExample(optgroupValueExample)) {
             String key = optgroupValue.getOptgroupCode();
             FieldDTO fieldDTOTemp = new FieldDTO();
@@ -88,7 +88,7 @@ public class ParameterOptgroupValueService {
     	ParameterOptgroupValue optgroupValue = optgroupValueMapper.selectByPrimaryKey(optgroupValueId);
     	System.out.println("optgroupValue.getStatus()="+optgroupValue.getStatus());
     	if (null != optgroupValue.getStatus()) {// 根据字段代码改成字段名称
-    		if (optgroupValue.getStatus().equals("Enabled")) {
+    		if (optgroupValue.getStatus().equals("enabled")) {
     			optgroupValue.setStatusName("启用");
     		} else {
     			optgroupValue.setStatusName("禁用");
