@@ -19,7 +19,6 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dao.website.WebsiteServiceMapper;
 import com.glacier.netloan.entity.system.User;
-import com.glacier.netloan.entity.website.WebsiteAnnouncement;
 import com.glacier.netloan.entity.website.WebsiteService;
 import com.glacier.netloan.entity.website.WebsiteServiceExample;
 import com.glacier.netloan.util.MethodLog;

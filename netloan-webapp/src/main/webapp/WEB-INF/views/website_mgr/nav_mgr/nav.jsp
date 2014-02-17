@@ -33,14 +33,6 @@
 		toolbar : '#navTreeGridToolbar',
 		onSelect:function(rowData){//选择行事件触发
 			action_controller(glacier.website_mgr.nav_mgr.nav.navParam,this).select();
-			if(rowData.url){//选中菜单的同时，根据菜单属性是否包含可用的URL进行对应的操作进行动态变更
-				glacier.website_mgr.nav_mgr.nav.actionPropertyGrid.propertygrid('load',{
-					webNavId: rowData.webNavId
-				});
-				glacier.website_mgr.nav_mgr.nav.panelDataGrid.datagrid('load',{
-					webNavId: rowData.webNavId
-				});
-			}
 		},
 		onUnselectAll:function(rows){//取消选择行状态触发事件
 			action_controller(glacier.website_mgr.nav_mgr.nav.navParam,this).unSelect();
@@ -58,7 +50,14 @@
 			field : 'webNavName' , title : '导航' , width : 150
 		}]],
 		columns : [ [{
+			field : 'webNavUrl' , title : '导航url' , width : 150
+		},{
 			field : 'webNavNum' , title : '排序' , width : 150
+		},{
+			field : 'webNavStatus' , title : '状态' , width : 150 ,
+			formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
+				return renderGridValue(value,fields.status);
+			}
 		},{
 			field : 'remark' , title : '备注' , width : 150
 		}]]
@@ -107,29 +106,55 @@
 		var row = glacier.website_mgr.nav_mgr.nav.navTreeGrid.treegrid("getSelected");
 		glacier.website_mgr.nav_mgr.nav.newDialog(' 编辑【'+row.webNavName+'】','/do/nav/edit.json',row.webNavId);
 	};
+
 	//点击删除按钮触发方法
 	glacier.website_mgr.nav_mgr.nav.delNav = function(){
-		var row = glacier.website_mgr.nav_mgr.nav.navTreeGrid.treegrid("getChecked");
-		var webNavId = row[0].webNavId;
-		if(webNavId){
-			$.messager.confirm('请确认', '是否要删除该记录', function(r){
-				if (r){
-					$.ajax({
-						   type: "POST",
-						   url: ctx + '/do/nav/del.json',
-						   data: {webNavId:webNavId},
-						   dataType:'json',
-						   success: function(r){
-								$.messager.show(r.msg);
-								if(r.success){
-									glacier.website_mgr.nav_mgr.nav.navTreeGrid.treegrid('reload');
-								}
-								 
-							}
-					});
-				}
-			});
-		}
+		var row = glacier.website_mgr.nav_mgr.nav.navTreeGrid.treegrid("getSelected");
+		$.messager.confirm('请确认', '是否要删除所选导航，删除后不可恢复!', function(r){
+			if (r){
+				$.ajax({
+					   type: "POST",
+					   url: ctx + '/do/nav/del.json',
+					   data: row,
+					   dataType:'json',
+					   success: function(r){
+						   if(r.success){//操作成功刷新列表
+							   $.messager.show({
+									title:'提示',
+									msg:r.msg,
+									icon:'info',
+									showType:'fade'
+								});
+							   glacier.website_mgr.nav_mgr.nav.navTreeGrid.treegrid('reload');
+						   }else{
+							   $.messager.show({
+									title:'提示',
+									msg:r.msg,
+									icon:'error',
+									showType:'fade'
+								});
+						   }
+					   }
+				});
+			}
+		});
+	};
+	//双击查看下拉项详细信息
+	glacier.website_mgr.nav_mgr.nav.navDetails = function(row){
+		$('<div/>').dialog({
+			href : ctx + '/do/nav/intoDetail.htm?webNavId='+row.webNavId,//从controller请求jsp页面进行渲染
+			width : 550,
+			height : 250,
+			modal : true,
+			resizable: false,
+			title : row.webNavName,
+			onClose : function() {//提高浏览器性能，点击关闭窗口时候注销
+				$(this).dialog('destroy');
+			},
+			onLoad : function() {
+				$('#nav_mgr_nav_details').form('load', row);
+			}
+		});
 	};
 </script>
 

@@ -8,8 +8,18 @@ public class WebsiteNav {
     private String webNavId;
 
     private String webNavPid;
+    
+    private String webNavPname;
+    
+	public String getWebNavPname() {
+		return webNavPname;
+	}
 
-    private String webNavName;
+	public void setWebNavPname(String webNavPname) {
+		this.webNavPname = webNavPname;
+	}
+
+	private String webNavName;
 
     private String webNavUrl;
 

@@ -55,6 +55,16 @@ public class WebsiteNavController extends AbstractController{
 		return mav;
 	}
 	
+	// 进入导航Detail信息页面
+    @RequestMapping(value = "/intoDetail.htm")
+    private Object intoNavDetailPage(String webNavId) {
+        ModelAndView mav = new ModelAndView("website_mgr/nav_mgr/nav_detail");
+        if(StringUtils.isNotBlank(webNavId)){
+            mav.addObject("websiteNavData", websiteNavService.getNav(webNavId));
+        }
+        return mav;
+    }
+	
 	// 增加导航
 	@RequestMapping(value="/add.json",method=RequestMethod.POST)
 	@ResponseBody

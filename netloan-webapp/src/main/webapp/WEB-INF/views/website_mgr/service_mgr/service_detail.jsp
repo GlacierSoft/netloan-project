@@ -37,10 +37,9 @@
 	</table>
 </form>
 
-
 <script type="text/javascript">
 	var webServiceStatus = '${serviceData.webServiceStatus}';
-	if(webServiceStatus == "Enabled"){
+	if(webServiceStatus == "enabled"){
 		$('#service_mgr_service_form_webServiceStatus').val("启用");
 	}else{
 		$('#service_mgr_service_form_webServiceStatus').val("禁用");

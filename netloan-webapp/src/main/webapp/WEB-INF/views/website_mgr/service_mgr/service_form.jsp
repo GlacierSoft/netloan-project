@@ -2,20 +2,6 @@
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<script type="text/javascript">
-	// 初始化新闻状态下拉框
-	$('#service_mgr_service_form_webServiceStatus').combobox({  
-		valueField : 'optgroupValueCode',
-		height:18,
-		width:270,
-		textField : 'optgroupValueName',
-		panelHeight : 'auto',
-		editable : false,
-		required:true,
-		data : fields.status
-	});
-</script>
-
 <form method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
@@ -51,3 +37,17 @@
 		</tr>
 	</table>
 </form>
+
+<script type="text/javascript">
+	// 初始化新闻状态下拉框
+	$('#service_mgr_service_form_webServiceStatus').combobox({  
+		valueField : 'value',
+		height:18,
+		width:270,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		required:true,
+		data : fields.status
+	});
+</script>

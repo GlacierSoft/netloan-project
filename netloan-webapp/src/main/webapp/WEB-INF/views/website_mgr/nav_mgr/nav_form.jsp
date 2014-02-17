@@ -8,7 +8,7 @@
 			<td>导航：</td>
 			<td>
 				<input id="nav_mgr_nav_form_webNavId" type="hidden" name="webNavId" value="${websiteNavData.webNavId}" />
-				<input id="nav_mgr_nav_form_webNavName" name="webNavName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${websiteNavData.webNavName}"/>
+				<input id="nav_mgr_nav_form_webNavName" name="webNavName" class="easyui-validatebox spinner" style="width:240px" required="true" value="${websiteNavData.webNavName}"/>
 			</td>
 		</tr>
 		<tr>
@@ -18,14 +18,22 @@
 			</td>
 		</tr>
 		<tr>
+			<td>导航URL：</td>
+			<td><input id="nav_mgr_nav_form_webNavUrl" name="webNavUrl" class="easyui-validatebox spinner" style="width:240px" required="true"  value="${websiteNavData.webNavUrl}"/></td>
+		</tr>
+		<tr>
+			<td>客服状态：</td>
+			<td><input id="nav_mgr_nav_form_webNavStatus" name="webNavStatus" value="${websiteNavData.webNavStatus}"/></td>
+		</tr>
+		<tr>
 			<td>排序：</td>
 			<td>
-				<input id="nav_mgr_nav_form_webNavNum" name="webNavNum" class="easyui-validatebox spinner" style="width:268px" required="true" value="${websiteNavData.webNavNum}"/>
+				<input id="nav_mgr_nav_form_webNavNum" name="webNavNum" class="easyui-validatebox spinner" style="width:240px" required="true" value="${websiteNavData.webNavNum}"/>
 			</td>
 		</tr>
 		<tr>
 			<td>备注：</td>
-			<td><textarea id="nav_mgr_nav_form_remark" name="remark" style="width:268px;" maxlength="255" class="spinner formta">${websiteNavData.remark}</textarea></td>
+			<td><textarea id="nav_mgr_nav_form_remark" name="remark" style="width:240px;" maxlength="255" class="spinner formta">${websiteNavData.remark}</textarea></td>
 		</tr>
 	</table>
 </form>
@@ -34,10 +42,22 @@
 	//初始化上级菜单
 	$("#nav_mgr_nav_form_webNavPid").combotree({
 		data : $.parseJSON('${allWebsiteNavTreeNodeData}'),
-		width:268,
+		width:240,
 		height:18,
 	    missingMessage:'请选择上级导航',
 	    smooth: true,       //该属性用以启用当前 easyui-tree 控件对平滑数据格式的支持
 	    lines : true
 	});	
+
+	// 初始化新闻状态下拉框
+	$('#nav_mgr_nav_form_webNavStatus').combobox({  
+		valueField : 'value',
+		height:18,
+		width:242,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		required:true,
+		data : fields.status
+	});
 </script>

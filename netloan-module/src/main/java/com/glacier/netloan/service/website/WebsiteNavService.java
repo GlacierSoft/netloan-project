@@ -18,6 +18,7 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.jqueryui.util.Tree;
+import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dao.website.WebsiteNavMapper;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.website.WebsiteNav;
@@ -38,8 +39,38 @@ public class WebsiteNavService {
 	@Autowired
 	private WebsiteNavMapper websiteNavMapper;
 	
+	@Autowired
+    private UserMapper userMapper;
+	
+	/**
+	 * @Title: getNav 
+	 * @Description: TODO(根据导航Id获取下拉项信息) 
+	 * @param @param webNavId
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
 	public Object getNav(String webNavId) {
-	    return websiteNavMapper.selectByPrimaryKey(webNavId);
+	    WebsiteNav websiteNav = websiteNavMapper.selectByPrimaryKey(webNavId);
+	    if (null != websiteNav.getWebNavPid()) {// 根据父地区的所属Id查找到父地区的名字
+	    	WebsiteNav websiteNavTemp = websiteNavMapper.selectByPrimaryKey(websiteNav.getWebNavPid());
+    		if (StringUtils.isNotBlank(websiteNavTemp.getWebNavName())) {
+    			websiteNav.setWebNavPname(websiteNavTemp.getWebNavName());
+            }
+        }
+    	if (null != websiteNav.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
+            User userTemp = userMapper.selectByPrimaryKey(websiteNav.getCreater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	websiteNav.setCreater(userTemp.getUserCnName());
+            }
+        }
+    	if (null != websiteNav.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
+            User userTemp = userMapper.selectByPrimaryKey(websiteNav.getUpdater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	websiteNav.setUpdater(userTemp.getUserCnName());
+            }
+        }
+        return websiteNav;
 	}
 	
 	   /**
@@ -237,10 +268,12 @@ public class WebsiteNavService {
         websiteNavExample.createCriteria().andWebNavPidEqualTo(navId);
         count = websiteNavMapper.countByExample(websiteNavExample);// 查找有导航子类数量
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        System.out.println("count :" +count);
         if(count >0){
         	returnResult.setMsg("导航信息删除失败，不能删除有子导航的导航!");
         }else{
         	int result = websiteNavMapper.deleteByPrimaryKey(navId);//根据导航Id，进行删除导航
+        	System.out.println("result :" +result);
         	if (result == 1) {
                 returnResult.setSuccess(true);
                 returnResult.setMsg("[" + nav.getWebNavName() + "] 导航信息已删除");
