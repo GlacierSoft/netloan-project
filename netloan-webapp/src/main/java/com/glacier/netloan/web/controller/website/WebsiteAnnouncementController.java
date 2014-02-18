@@ -65,10 +65,10 @@ public class WebsiteAnnouncementController extends AbstractController{
         return mav;
     }
     
-    // 获取表格结构的所有菜单数据
+    // 获取表格结构的所有公告数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(JqPager pannouncementr) {
+    private Object listAnnouncementAsGridByMenuId(JqPager pannouncementr) {
         return announcementService.listAsGrid(pannouncementr);
     }
     
@@ -85,7 +85,7 @@ public class WebsiteAnnouncementController extends AbstractController{
     // 修改公告
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object editRole(@Valid WebsiteAnnouncement announcement, BindingResult bindingResult) {
+    private Object editAnnouncement(@Valid WebsiteAnnouncement announcement, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }

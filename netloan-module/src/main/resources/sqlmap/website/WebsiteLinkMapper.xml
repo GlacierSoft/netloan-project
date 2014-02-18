@@ -109,7 +109,7 @@
     where web_link_id = #{webLinkId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.website.WebsiteLinkExample" >
-    delete from t_website_link temp_website_link
+    delete temp_website_link from t_website_link temp_website_link
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

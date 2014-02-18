@@ -1,5 +1,5 @@
 /*
- * @(#)WebsiteNewsController.java
+ * @(#)WebsiteLinkController.java
  * @author xichao.dong
  * Copyright (c) 2013 Glacier SoftWare Company Limited. All Rights Reserved.
  */
@@ -21,81 +21,81 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
-import com.glacier.netloan.entity.website.WebsiteNews;
-import com.glacier.netloan.service.website.WebsiteNewsService;
+import com.glacier.netloan.entity.website.WebsiteLink;
+import com.glacier.netloan.service.website.WebsiteLinkService;
 
 /** 
- * @ClassName: WebsiteNewsController 
- * @Description: TODO(新闻的控制器) 
+ * @ClassName: WebsiteLinkController 
+ * @Description: TODO(友情链接的控制器) 
  * @author xichao.dong
  * @email 406592176@QQ.com
  * @date 2014-1-21 下午2:39:20  
  */
 @Controller
-@RequestMapping(value = "/news")
-public class WebsiteNewsController extends AbstractController{
+@RequestMapping(value = "/link")
+public class WebsiteLinkController extends AbstractController{
 
     @Autowired
-    private WebsiteNewsService newsService;// 注入新闻业务Bean
+    private WebsiteLinkService linkService;// 注入友情链接业务Bean
     
-    // 进入新闻列表展示页面
+    // 进入友情链接列表展示页面
     @RequestMapping(value = "/index.htm")
-    private Object intoIndexPnews() {
-        ModelAndView mav = new ModelAndView("website_mgr/news_mgr/news");
+    private Object intoIndexPlink() {
+        ModelAndView mav = new ModelAndView("website_mgr/link_mgr/link");
         return mav;
     }
     
-    // 进入新闻Form表单页面
+    // 进入友情链接Form表单页面
     @RequestMapping(value = "/intoForm.htm")
-    private Object intoNewsFormPnews(String webNewsId) {
-        ModelAndView mav = new ModelAndView("website_mgr/news_mgr/news_form");
-        if(StringUtils.isNotBlank(webNewsId)){
-            mav.addObject("newsData", newsService.getNews(webNewsId));
+    private Object intoLinkFormPlink(String webLinkId) {
+        ModelAndView mav = new ModelAndView("website_mgr/link_mgr/link_form");
+        if(StringUtils.isNotBlank(webLinkId)){
+            mav.addObject("linkData", linkService.getLink(webLinkId));
         }
         return mav;
     }
     
-    // 进入新闻Detail信息页面
+    // 进入友情链接Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
-    private Object intoNewsDetailPage(String webNewsId) {
-        ModelAndView mav = new ModelAndView("website_mgr/news_mgr/news_detail");
-        if(StringUtils.isNotBlank(webNewsId)){
-            mav.addObject("newsData", newsService.getNews(webNewsId));
+    private Object intoLinkDetailPage(String webLinkId) {
+        ModelAndView mav = new ModelAndView("website_mgr/link_mgr/link_detail");
+        if(StringUtils.isNotBlank(webLinkId)){
+            mav.addObject("linkData", linkService.getLink(webLinkId));
         }
         return mav;
     }
     
-    // 获取表格结构的所有新闻数据
+    // 获取表格结构的所有友情链接数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listNewsAsGridByMenuId(JqPager pnewsr) {
-        return newsService.listAsGrid(pnewsr);
+    private Object listLinkAsGridByMenuId(JqPager plinkr) {
+        return linkService.listAsGrid(plinkr);
     }
     
-    // 增加新闻
+    // 增加友情链接
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addNews(@Valid WebsiteNews news, BindingResult bindingResult) {
+    private Object addLink(@Valid WebsiteLink link, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
-        return newsService.addNews(news);
+        return linkService.addLink(link);
     }
     
-    // 修改新闻
+    // 修改友情链接
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object editNews(@Valid WebsiteNews news, BindingResult bindingResult) {
+    private Object editLink(@Valid WebsiteLink link, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
-        return newsService.editNews(news);
+        return linkService.editLink(link);
     }
     
-    // 批量删除新闻
+    // 批量删除友情链接
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
-    public Object delNews(@RequestParam List<String> webNewsIds,@RequestParam List<String> webNewsThemes) {
-    	return newsService.delNews(webNewsIds, webNewsThemes);
+    public Object delLink(@RequestParam List<String> webLinkIds,@RequestParam List<String> webLinkNames) {
+    	return linkService.delLink(webLinkIds, webLinkNames);
     }
 }
