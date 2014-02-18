@@ -8,16 +8,16 @@
 			<td>会员信用级别名称：</td>
 			<td>
 				<input type="hidden" name="creditId" value="${creditData.creditId}" />
-				<input name="creditName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditName}"/>
+				<input name="creditName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditName}" validType="customReg['^[\u0391-\uFFE5]{2,10}$','<fmt:message key="ParameterCredit.creditName.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>
 			<td>信用级别开始积分：</td>
-			<td><input name="creditBeginIntegral" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditBeginIntegral}"/></td>
+			<td><input name="creditBeginIntegral" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditBeginIntegral}" validType="customReg['^[0-9]*[1-9][0-9]*$','<fmt:message key="ParameterCredit.creditBeginIntegral.illegal"/>']"/></td>
 		</tr>
 		<tr>
 			<td>信用级别结束积分：</td>
-			<td><input name="creditEndIntegral" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditEndIntegral}"/></td>
+			<td><input name="creditEndIntegral" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditEndIntegral}" validType="customReg['^[0-9]*[1-9][0-9]*$','<fmt:message key="ParameterCredit.creditEndIntegral.illegal"/>']"/></td>
 		</tr>
 <%-- 		<tr>
 	    	<td>级别图标:</td>
