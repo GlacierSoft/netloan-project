@@ -63,49 +63,35 @@
 			field:'updateTime',	title:'更新时间',	width:200
 		}]]
 	});
-	
-	/*
-	新建/编辑 弹出框
-	title:弹出框标题
-	submitUrl：提交路径
-	id:新增值为空字符串，编辑填写后台要获取的数据ID
-	*/
-	glacier.basicdatas_mgr.area_mgr.area.newDialog = function(title,submitUrl,id){
-		var iconCls = 'icon-standard-pencil-add';
-		if(id){
-			iconCls='icon-standard-pencil-go';
-		}
-		$.easyui.showDialog({
-			href : ctx + '/do/area/intoForm.htm?areaId='+id,//从controller请求jsp页面进行渲染
-			width : 400,
-			height : 280,
-			resizable: false,
-			enableApplyButton : false,
-			title : title,
-			iconCls : iconCls,
-			onSave : function(){
-				$(this).find('form').form('submit', {
-					url: ctx + submitUrl,
-					success: function(r){
-						$.messager.show(r.msg);
-						if(r.success){
-							glacier.basicdatas_mgr.area_mgr.area.areaTreeGrid.treegrid('reload');
-							return true;
-						}
-						 
-					}
-				});
-			}
-		});
-	};
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.area_mgr.area.addArea = function(){
-		glacier.basicdatas_mgr.area_mgr.area.newDialog(' 增加会员年龄别称','/do/area/add.json','');
+		glacier.basicAddOrEditDialog({
+			title : '增加地区',
+			width : 400,
+			height : 280,
+			queryUrl : ctx + '/do/area/intoForm.htm',
+			submitUrl : ctx + '/do/area/add.json',
+			successFun : function (){
+				glacier.basicdatas_mgr.area_mgr.area.areaTreeGrid.treegrid('reload');
+			}
+		});
 	};
 	//点击编辑按钮触发方法
 	glacier.basicdatas_mgr.area_mgr.area.editArea = function(){
 		var row = glacier.basicdatas_mgr.area_mgr.area.areaTreeGrid.treegrid("getSelected");
-		glacier.basicdatas_mgr.area_mgr.area.newDialog(' 编辑【'+row.areaName+'】','/do/area/edit.json',row.areaId);
+		glacier.basicAddOrEditDialog({
+			title : '编辑【'+row.areaName+'】',
+			width : 400,
+			height : 280,
+			queryUrl : ctx + '/do/area/intoForm.htm',
+			submitUrl : ctx + '/do/area/edit.json',
+			queryParams : {
+				areaId : row.areaId
+			},
+			successFun : function (){
+				glacier.basicdatas_mgr.area_mgr.area.areaTreeGrid.treegrid('reload');
+			}
+		});
 	};
 	//删除地区
 	glacier.basicdatas_mgr.area_mgr.area.delArea = function(){
@@ -143,8 +129,8 @@
 	glacier.basicdatas_mgr.area_mgr.area.areaDetails = function(row){
 		$('<div/>').dialog({
 			href : ctx + '/do/area/intoDetail.htm?areaId='+row.areaId,//从controller请求jsp页面进行渲染
-			width : 550,
-			height : 250,
+			width : 520,
+			height : 220,
 			modal : true,
 			resizable: false,
 			title : row.areaName,

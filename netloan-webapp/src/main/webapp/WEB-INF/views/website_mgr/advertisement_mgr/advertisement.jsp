@@ -131,49 +131,35 @@
 			});
 		}
 	});
-	
-	/*
-		新建/编辑 弹出框
-		title:弹出框标题
-		submitUrl：提交路径
-		id:新增值为空字符串，编辑填写后台要获取的数据ID
-	*/
-	glacier.website_mgr.advertisement_mgr.advertisement.newDialog = function(title,submitUrl,id){
-		var iconCls = 'icon-standard-pencil-add';
-		if(id){
-			iconCls='icon-standard-pencil-go';
-		}
-		$.easyui.showDialog({
-			href : ctx + '/do/advertisement/intoForm.htm?webAdvId='+id,//从controller请求jsp页面进行渲染
-			width : 400,
-			height : 350,
-			resizable: false,
-			enableApplyButton : false,
-			title : title,
-			iconCls : iconCls,
-			onSave : function(){
-				$(this).find('form').form('submit', {
-					url: ctx + submitUrl,
-					success: function(r){
-						$.messager.show(r.msg);
-						if(r.success){
-							glacier.website_mgr.advertisement_mgr.advertisement.advertisementDataGrid.datagrid('reload');
-							return true;
-						}
-						 
-					}
-				});
-			}
-		});
-	};
 	//点击增加按钮触发方法
 	glacier.website_mgr.advertisement_mgr.advertisement.addAdvertisement = function(){
-		glacier.website_mgr.advertisement_mgr.advertisement.newDialog(' 增加广告','/do/advertisement/add.json','');
+		glacier.basicAddOrEditDialog({
+			title : '增加广告',
+			width : 400,
+			height : 340,
+			queryUrl : ctx + '/do/advertisement/intoForm.htm',
+			submitUrl : ctx + '/do/advertisement/add.json',
+			successFun : function (){
+				glacier.website_mgr.advertisement_mgr.advertisement.advertisementDataGrid.datagrid('reload');
+			}
+		});
 	};
 	//点击编辑按钮触发方法
 	glacier.website_mgr.advertisement_mgr.advertisement.editAdvertisement = function(){
 		var row = glacier.website_mgr.advertisement_mgr.advertisement.advertisementDataGrid.datagrid("getSelected");
-		glacier.website_mgr.advertisement_mgr.advertisement.newDialog(' 编辑【'+row.webAdvTheme+'】','/do/advertisement/edit.json',row.webAdvId);
+		glacier.basicAddOrEditDialog({
+			title : '编辑【'+row.webAdvTheme+'】',
+			width : 400,
+			height : 340,
+			queryUrl : ctx + '/do/advertisement/intoForm.htm',
+			submitUrl : ctx + '/do/advertisement/edit.json',
+			queryParams : {
+				webAdvId : row.webAdvId
+			},
+			successFun : function (){
+				glacier.website_mgr.advertisement_mgr.advertisement.advertisementDataGrid.datagrid('reload');
+			}
+		});
 	};
 	//点击删除按钮触发方法
 	glacier.website_mgr.advertisement_mgr.advertisement.delAdvertisement = function(){

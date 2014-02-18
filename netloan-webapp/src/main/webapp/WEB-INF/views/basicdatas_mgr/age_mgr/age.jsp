@@ -116,56 +116,42 @@
 				title: rowData.ageName,
 				href : ctx + '/do/age/intoDetail.htm?ageId='+rowData.ageId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 280,
+				height : 270,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
 			});
 		}
 	});
-	
-	/*
-		新建/编辑 弹出框
-		title:弹出框标题
-		submitUrl：提交路径
-		id:新增值为空字符串，编辑填写后台要获取的数据ID
-	*/
-	glacier.basicdatas_mgr.age_mgr.age.newDialog = function(title,submitUrl,id){
-		var iconCls = 'icon-standard-pencil-add';
-		if(id){
-			iconCls='icon-standard-pencil-go';
-		}
-		$.easyui.showDialog({
-			href : ctx + '/do/age/intoForm.htm?ageId='+id,//从controller请求jsp页面进行渲染
-			width : 400,
-			height : 300,
-			resizable: false,
-			enableApplyButton : false,
-			title : title,
-			iconCls : iconCls,
-			onSave : function(){
-				$(this).find('form').form('submit', {
-					url: ctx + submitUrl,
-					success: function(r){
-						$.messager.show(r.msg);
-						if(r.success){
-							glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid('reload');
-							return true;
-						}
-						 
-					}
-				});
-			}
-		});
-	};
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.age_mgr.age.addAge = function(){
-		glacier.basicdatas_mgr.age_mgr.age.newDialog(' 增加会员年龄别称','/do/age/add.json','');
+		glacier.basicAddOrEditDialog({
+			title : '增加会员年龄别称',
+			width : 400,
+			height : 300,
+			queryUrl : ctx + '/do/age/intoForm.htm',
+			submitUrl : ctx + '/do/age/add.json',
+			successFun : function (){
+				glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid('reload');
+			}
+		});
 	};
 	//点击编辑按钮触发方法
 	glacier.basicdatas_mgr.age_mgr.age.editAge = function(){
 		var row = glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid("getSelected");
-		glacier.basicdatas_mgr.age_mgr.age.newDialog(' 编辑【'+row.ageName+'】','/do/age/edit.json',row.ageId);
+		glacier.basicAddOrEditDialog({
+			title : '编辑【'+row.ageName+'】',
+			width : 400,
+			height : 300,
+			queryUrl : ctx + '/do/age/intoForm.htm',
+			submitUrl : ctx + '/do/age/edit.json',
+			queryParams : {
+				ageId : row.ageId
+			},
+			successFun : function (){
+				glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid('reload');
+			}
+		});
 	};
 	//点击删除按钮触发方法
 	glacier.basicdatas_mgr.age_mgr.age.delAge = function(){

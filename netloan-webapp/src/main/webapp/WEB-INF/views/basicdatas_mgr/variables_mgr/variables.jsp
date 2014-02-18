@@ -123,7 +123,7 @@
 			$.easyui.showDialog({
 				title: rowData.variableName,
 				href : ctx + '/do/variables/intoDetail.htm?variablesId='+rowData.variablesId,//从controller请求jsp页面进行渲染
-				width : 550,
+				width : 530,
 				height : 300,
 				resizable: false,
 				enableApplyButton : false,
@@ -131,49 +131,35 @@
 			});
 		}
 	});
-	
-	/*
-		新建/编辑 弹出框
-		title:弹出框标题
-		submitUrl：提交路径
-		id:新增值为空字符串，编辑填写后台要获取的数据ID
-	*/
-	glacier.basicdatas_mgr.variables_mgr.variables.newDialog = function(title,submitUrl,id){
-		var iconCls = 'icon-standard-pencil-add';
-		if(id){
-			iconCls='icon-standard-pencil-go';
-		}
-		$.easyui.showDialog({
-			href : ctx + '/do/variables/intoForm.htm?variablesId='+id,//从controller请求jsp页面进行渲染
-			width : 400,
-			height : 330,
-			resizable: false,
-			enableApplyButton : false,
-			title : title,
-			iconCls : iconCls,
-			onSave : function(){
-				$(this).find('form').form('submit', {
-					url: ctx + submitUrl,
-					success: function(r){
-						$.messager.show(r.msg);
-						if(r.success){
-							glacier.basicdatas_mgr.variables_mgr.variables.variablesDataGrid.datagrid('reload');
-							return true;
-						}
-						 
-					}
-				});
-			}
-		});
-	};
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.variables_mgr.variables.addVariables = function(){
-		glacier.basicdatas_mgr.variables_mgr.variables.newDialog(' 增加系统变量','/do/variables/add.json','');
+		glacier.basicAddOrEditDialog({
+			title : '增加系统变量',
+			width : 400,
+			height : 330,
+			queryUrl : ctx + '/do/variables/intoForm.htm',
+			submitUrl : ctx + '/do/variables/add.json',
+			successFun : function (){
+				glacier.basicdatas_mgr.variables_mgr.variables.variablesDataGrid.datagrid('reload');
+			}
+		});
 	};
 	//点击编辑按钮触发方法
 	glacier.basicdatas_mgr.variables_mgr.variables.editVariables = function(){
 		var row = glacier.basicdatas_mgr.variables_mgr.variables.variablesDataGrid.datagrid("getSelected");
-		glacier.basicdatas_mgr.variables_mgr.variables.newDialog(' 编辑【'+row.variableName+'】','/do/variables/edit.json',row.variablesId);
+		glacier.basicAddOrEditDialog({
+			title : '编辑【'+row.variableName+'】',
+			width : 400,
+			height : 330,
+			queryUrl : ctx + '/do/variables/intoForm.htm',
+			submitUrl : ctx + '/do/variables/edit.json',
+			queryParams : {
+				variablesId : row.variablesId
+			},
+			successFun : function (){
+				glacier.basicdatas_mgr.variables_mgr.variables.variablesDataGrid.datagrid('reload');
+			}
+		});
 	};
 	//点击删除按钮触发方法
 	glacier.basicdatas_mgr.variables_mgr.variables.delVariables = function(){

@@ -131,49 +131,35 @@
 			});
 		}
 	});
-	
-	/*
-		新建/编辑 弹出框
-		title:弹出框标题
-		submitUrl：提交路径
-		id:新增值为空字符串，编辑填写后台要获取的数据ID
-	*/
-	glacier.website_mgr.news_mgr.news.newDialog = function(title,submitUrl,id){
-		var iconCls = 'icon-standard-pencil-add';
-		if(id){
-			iconCls='icon-standard-pencil-go';
-		}
-		$.easyui.showDialog({
-			href : ctx + '/do/news/intoForm.htm?webNewsId='+id,//从controller请求jsp页面进行渲染
-			width : 800,
-			height : 600,
-			resizable: false,
-			enableApplyButton : false,
-			title : title,
-			iconCls : iconCls,
-			onSave : function(){
-				$(this).find('form').form('submit', {
-					url: ctx + submitUrl,
-					success: function(r){
-						$.messager.show(r.msg);
-						if(r.success){
-							glacier.website_mgr.news_mgr.news.newsDataGrid.datagrid('reload');
-							return true;
-						}
-						 
-					}
-				});
-			}
-		});
-	};
 	//点击增加按钮触发方法
 	glacier.website_mgr.news_mgr.news.addNews = function(){
-		glacier.website_mgr.news_mgr.news.newDialog(' 增加新闻','/do/news/add.json','');
+		glacier.basicAddOrEditDialog({
+			title : '增加新闻',
+			width : 500,
+			height : 400,
+			queryUrl : ctx + '/do/news/intoForm.htm',
+			submitUrl : ctx + '/do/news/add.json',
+			successFun : function (){
+				glacier.website_mgr.news_mgr.news.newsDataGrid.datagrid('reload');
+			}
+		});
 	};
 	//点击编辑按钮触发方法
 	glacier.website_mgr.news_mgr.news.editNews = function(){
 		var row = glacier.website_mgr.news_mgr.news.newsDataGrid.datagrid("getSelected");
-		glacier.website_mgr.news_mgr.news.newDialog(' 编辑【'+row.webNewsTheme+'】','/do/news/edit.json',row.webNewsId);
+		glacier.basicAddOrEditDialog({
+			title : '编辑【'+row.webNewsTheme+'】',
+			width : 500,
+			height : 400,
+			queryUrl : ctx + '/do/news/intoForm.htm',
+			submitUrl : ctx + '/do/news/edit.json',
+			queryParams : {
+				webNewsId : row.webNewsId
+			},
+			successFun : function (){
+				glacier.website_mgr.news_mgr.news.newsDataGrid.datagrid('reload');
+			}
+		});
 	};
 	//点击删除按钮触发方法
 	glacier.website_mgr.news_mgr.news.delNews = function(){

@@ -131,49 +131,35 @@
 			});
 		}
 	});
-	
-	/*
-		新建/编辑 弹出框
-		title:弹出框标题
-		submitUrl：提交路径
-		id:新增值为空字符串，编辑填写后台要获取的数据ID
-	*/
-	glacier.website_mgr.link_mgr.link.newDialog = function(title,submitUrl,id){
-		var iconCls = 'icon-standard-pencil-add';
-		if(id){
-			iconCls='icon-standard-pencil-go';
-		}
-		$.easyui.showDialog({
-			href : ctx + '/do/link/intoForm.htm?webLinkId='+id,//从controller请求jsp页面进行渲染
-			width : 410,
-			height : 350,
-			resizable: false,
-			enableApplyButton : false,
-			title : title,
-			iconCls : iconCls,
-			onSave : function(){
-				$(this).find('form').form('submit', {
-					url: ctx + submitUrl,
-					success: function(r){
-						$.messager.show(r.msg);
-						if(r.success){
-							glacier.website_mgr.link_mgr.link.linkDataGrid.datagrid('reload');
-							return true;
-						}
-						 
-					}
-				});
-			}
-		});
-	};
 	//点击增加按钮触发方法
 	glacier.website_mgr.link_mgr.link.addLink = function(){
-		glacier.website_mgr.link_mgr.link.newDialog(' 增加友情链接','/do/link/add.json','');
+		glacier.basicAddOrEditDialog({
+			title : '增加友情链接',
+			width : 410,
+			height : 330,
+			queryUrl : ctx + '/do/link/intoForm.htm',
+			submitUrl : ctx + '/do/link/add.json',
+			successFun : function (){
+				glacier.website_mgr.link_mgr.link.linkDataGrid.datagrid('reload');
+			}
+		});
 	};
 	//点击编辑按钮触发方法
 	glacier.website_mgr.link_mgr.link.editLink = function(){
 		var row = glacier.website_mgr.link_mgr.link.linkDataGrid.datagrid("getSelected");
-		glacier.website_mgr.link_mgr.link.newDialog(' 编辑【'+row.webLinkName+'】','/do/link/edit.json',row.webLinkId);
+		glacier.basicAddOrEditDialog({
+			title : '编辑【'+row.webLinkName+'】',
+			width : 410,
+			height : 330,
+			queryUrl : ctx + '/do/link/intoForm.htm',
+			submitUrl : ctx + '/do/link/edit.json',
+			queryParams : {
+				webLinkId : row.webLinkId
+			},
+			successFun : function (){
+				glacier.website_mgr.link_mgr.link.linkDataGrid.datagrid('reload');
+			}
+		});
 	};
 	//点击删除按钮触发方法
 	glacier.website_mgr.link_mgr.link.delLink = function(){
