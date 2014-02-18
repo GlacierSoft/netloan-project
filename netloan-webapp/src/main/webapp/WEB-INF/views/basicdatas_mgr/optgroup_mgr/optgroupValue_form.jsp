@@ -8,13 +8,13 @@
 			<td>下拉值代码：</td>
 			<td>
 				<input id="optgroup_mgr_optgroupValue_form_optgroupValueId" type="hidden" name="optgroupValueId" value="${optgroupValueData.optgroupValueId}" />
-				<input id="optgroup_mgr_optgroupValue_form_optgroupValueCode" name="optgroupValueCode" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupValueData.optgroupValueCode}"/>
+				<input id="optgroup_mgr_optgroupValue_form_optgroupValueCode" name="optgroupValueCode" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupValueData.optgroupValueCode}" validType="customReg['^[a-zA-Z]{2,20}$','<fmt:message key="ParameterOptgroup.optgroupCode.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>
 			<td>下拉值名称：</td>
 			<td>
-				<input id="optgroup_mgr_optgroupValue_form_optgroupValueName" name="optgroupValueName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupValueData.optgroupValueName}"/>
+				<input id="optgroup_mgr_optgroupValue_form_optgroupValueName" name="optgroupValueName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupValueData.optgroupValueName}" validType="customReg['^[\u0391-\uFFE5]{2,10}$','<fmt:message key="ParameterOptgroup.optgroupName.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>
@@ -31,13 +31,11 @@
 		</tr>
 		<tr>
 			<td>排序：</td>
-			<td>
-				<input id="optgroup_mgr_optgroupValue_form_optgroupValueNum" name="optgroupValueNum" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupValueData.optgroupValueNum}"/>
-			</td>
+			<td><input id="optgroup_mgr_optgroupValue_form_optgroupValueNum" name="optgroupValueNum" class="easyui-numberspinner spinner" value="${optgroupValueData.optgroupValueNum}" data-options="min:0,max:999,missingMessage:'请输入下拉值排序'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>
-			<td><textarea id="optgroup_mgr_optgroupValue_form__remark" name="remark" style="width:268px;" maxlength="255" class="spinner formta">${optgroupData.remark}</textarea></td>
+			<td><textarea id="optgroup_mgr_optgroupValue_form__remark" name="remark" style="width:268px;" maxlength="255" class="spinner formta">${optgroupValueData.remark}</textarea></td>
 		</tr>
 	</table>
 </form>

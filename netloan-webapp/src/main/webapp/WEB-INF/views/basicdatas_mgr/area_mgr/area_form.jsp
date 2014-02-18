@@ -19,7 +19,7 @@
 		</tr>
 		<tr>
 			<td>排序：</td>
-			<td><input id="area_mgr_area_form_areaNum" name="areaNum" class="easyui-numberspinner spinner" value="${areaData.areaNum}" data-options="min:0,max:999,missingMessage:'请地区排序'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
+			<td><input id="area_mgr_area_form_areaNum" name="areaNum" class="easyui-numberspinner spinner" value="${areaData.areaNum}" data-options="min:0,max:999,missingMessage:'请输入地区排序'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>

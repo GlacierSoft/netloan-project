@@ -25,7 +25,7 @@
 		</tr>
 		<tr>
 			<td>排序：</td>
-			<td><input id="optgroup_mgr_optgroup_form_optgroupNum" name="optgroupNum" class="easyui-numberspinner spinner" value="${optgroupData.optgroupNum}" data-options="min:0,max:999,missingMessage:'请下拉项排序'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
+			<td><input id="optgroup_mgr_optgroup_form_optgroupNum" name="optgroupNum" class="easyui-numberspinner spinner" value="${optgroupData.optgroupNum}" data-options="min:0,max:999,missingMessage:'请输入下拉项排序'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>

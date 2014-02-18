@@ -21,7 +21,7 @@
 		</tr>
 		<tr>
 			<td>排序：</td>
-			<td><input name="ageNum" class="easyui-numberspinner spinner" value="${ageData.ageNum}" data-options="min:0,max:999,missingMessage:'请年龄排序'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
+			<td><input name="ageNum" class="easyui-numberspinner spinner" value="${ageData.ageNum}" data-options="min:0,max:999,missingMessage:'请输入年龄排序'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>
