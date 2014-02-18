@@ -177,3 +177,75 @@ glacier.serializeObject = function(form) {
 	});
 	return o;
 };
+
+/**
+ * 封装show方法
+ * glacier.show({msg:r.msg,result:r.success});
+ */
+glacier.show = function(option){
+	
+}
+
+/**
+ * 新增/编辑弹出窗口
+ */
+glacier.basicAddOrEditDialog = function(option){
+	if(option.queryParams){//拼装访问链接
+		option.queryUrl += '?';
+		$.each(option.queryParams, function(key,value){
+			option.queryUrl += key + '=' + value + '&';
+		});
+		option.queryUrl = option.queryUrl.substring(0,option.queryUrl.length - 1);
+	}
+	$('<div/>').dialog({
+		href : option.queryUrl,
+		width : option.width ? option.width : 500,
+		height : option.height ? option.height : 300,
+		modal : true,
+		resizable: true,
+		title : option.title,
+		buttons : [
+           {
+			text : '保存',
+			iconCls : 'icon-save',
+			handler : function() {
+					var $dialog = $(this).closest('.window-body');//定义d变量获取该dialog的窗体
+					$dialog.find('form').form('submit', {
+						url: option.submitUrl,
+						success: function(r){
+							$.messager.show({//后台验证弹出错误提示信息框
+								title : r.success ? '操作成功' :'操作失败',
+								icon : r.success ? 'info' :'error',
+								width : 400,
+								height : 150,
+								showType : 'fade',
+								position: 'bottomRight',
+								msg: r.success ? r.msg : '<span style="color:red">'+ r.msg + '<span>'
+							});
+							if(r.success){
+								if(typeof(eval(option.successFun))=="function"){
+									option.successFun();
+								}
+								$dialog.dialog('destroy');//关闭窗体
+							}else{
+								if(typeof(eval(option.falseFun))=="function"){
+									option.falseFun();
+								}
+							}
+						}
+					});
+				}
+           }, {
+				text : '取消',
+				iconCls : 'icon-cancel',
+				handler : function() {
+					var $dialog = $(this).closest('.window-body');//定义d变量获取该dialog的窗体
+					$dialog.dialog('destroy');
+				}
+           }
+		],
+		onClose : function() {//提高浏览器性能，点击关闭窗口时候注销
+			$(this).dialog('destroy');
+		}
+	});
+};

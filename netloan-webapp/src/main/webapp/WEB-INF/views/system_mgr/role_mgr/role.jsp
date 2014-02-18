@@ -104,62 +104,36 @@
 		}
 	});
 	
-	/*
-		新建/编辑 弹出框
-		title:弹出框标题
-		submitUrl：提交路径
-		id:新增值为空字符串，编辑填写后台要获取的数据ID
-	*/
-	glacier.system_mgr.role_mgr.role.newDialog = function(title,submitUrl,id){
-		var iconCls = 'icon-standard-pencil-add';
-		if(id){
-			iconCls='icon-standard-pencil-go';
-		}
-		$.easyui.showDialog({
-			href : ctx + '/do/role/intoForm.htm?roleId='+id,//从controller请求jsp页面进行渲染
+	//点击增加按钮触发方法
+	glacier.system_mgr.role_mgr.role.addRole = function(){
+		glacier.basicAddOrEditDialog({
+			title : '增加角色',
 			width : 385,
 			height : 250,
-			resizable: false,
-			enableApplyButton : false,
-			title : title,
-			iconCls : iconCls,
-			onSave : function(){
-				$(this).find('form').form('submit', {
-					url: ctx + submitUrl,
-					success: function(r){
-						if(r.success){
-							$.messager.show({//后台验证弹出错误提示信息框
-								title:'操作成功',
-								width:380,
-								height:120,
-								msg: '<span style="color:red">'+r.msg+'<span>',
-								timeout:4500
-							});
-							glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid('reload');
-						}else{
-							$.messager.show({//后台验证弹出错误提示信息框
-								title:'操作失败',
-								icon:'error',
-								width:380,
-								height:120,
-								msg: '<span style="color:red">'+r.msg+'<span>',
-								timeout:4500
-							});
-						}
-						 
-					}
-				});
+			queryUrl : ctx + '/do/role/intoForm.htm',
+			submitUrl : ctx + '/do/role/add.json',
+			successFun : function (){
+				glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid('reload');
 			}
 		});
 	};
-	//点击增加按钮触发方法
-	glacier.system_mgr.role_mgr.role.addRole = function(){
-		glacier.system_mgr.role_mgr.role.newDialog(' 增加角色','/do/role/add.json','');
-	};
+	
 	//点击编辑按钮触发方法
 	glacier.system_mgr.role_mgr.role.editRole = function(){
 		var row = glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid("getSelected");
-		glacier.system_mgr.role_mgr.role.newDialog(' 编辑【'+row.roleCnName+'】','/do/role/edit.json',row.roleId);
+		glacier.basicAddOrEditDialog({
+			title : '编辑【'+row.roleCnName+'】',
+			width : 385,
+			height : 250,
+			queryUrl : ctx + '/do/role/intoForm.htm',
+			submitUrl : ctx + '/do/role/edit.json',
+			queryParams : {
+				roleId : row.roleId
+			},
+			successFun : function (){
+				glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid('reload');
+			}
+		});
 	};
 	//点击删除按钮触发方法
 	glacier.system_mgr.role_mgr.role.delRole = function(){

@@ -189,7 +189,7 @@
 					return true;
 				};
 				
-				$("#loginForm").submit();//自动登录，方便测试，后期删除
+				//$("#loginForm").submit();//自动登录，方便测试，后期删除
 			});
 		</script>
 		<%

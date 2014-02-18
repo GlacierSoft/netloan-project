@@ -128,48 +128,35 @@
 		}
 	});
 	
-		/*
-		新建/编辑 弹出框
-		title:弹出框标题
-		submitUrl：提交路径
-		id:新增值为空字符串，编辑填写后台要获取的数据ID
-	*/
-	glacier.system_mgr.user_mgr.user.newDialog = function(title,submitUrl,id){
-		var iconCls = 'icon-standard-pencil-add';
-		if(id){
-			iconCls='icon-standard-pencil-go';
-		}
-		$.easyui.showDialog({
-			href : ctx + '/do/user/intoForm.htm?userId='+id,//从controller请求jsp页面进行渲染
-			width : 450,
-			height : 300,
-			resizable: false,
-			enableApplyButton : false,
-			title : title,
-			iconCls : iconCls,
-			onSave : function(){
-				$(this).find('form').form('submit', {
-					url: ctx + submitUrl,
-					success: function(r){
-						$.messager.show(r.msg);
-						if(r.success){
-							glacier.system_mgr.user_mgr.user.userDataGrid.datagrid('reload');
-							return true;
-						}
-						 
-					}
-				});
-			}
-		});
-	};
 	//点击增加按钮触发方法
 	glacier.system_mgr.user_mgr.user.addUser = function(){
-		glacier.system_mgr.user_mgr.user.newDialog('增加管理员信息','/do/user/add.json','');
+		glacier.basicAddOrEditDialog({
+			title : '增加管理员信息',
+			width : 450,
+			height : 300,
+			queryUrl : ctx + '/do/user/intoForm.htm',
+			submitUrl : ctx + '/do/user/add.json',
+			successFun : function (){
+				glacier.system_mgr.user_mgr.user.userDataGrid.datagrid('reload');
+			}
+		});
 	};
 	//点击编辑按钮触发方法
 	glacier.system_mgr.user_mgr.user.editUser = function(){
 		var row = glacier.system_mgr.user_mgr.user.userDataGrid.datagrid("getSelected");
-		glacier.system_mgr.user_mgr.user.newDialog('编辑【'+row.username+'】','/do/user/edit.json',row.userId);
+		glacier.basicAddOrEditDialog({
+			title : '编辑【'+row.username+'】',
+			width : 450,
+			height : 300,
+			queryUrl : ctx + '/do/user/intoForm.htm',
+			submitUrl : ctx + '/do/user/edit.json',
+			queryParams : {
+				userId : row.userId
+			},
+			successFun : function (){
+				glacier.system_mgr.user_mgr.user.userDataGrid.datagrid('reload');
+			}
+		});
 	};
 
 	//点击删除按钮触发方法

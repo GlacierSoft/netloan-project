@@ -161,7 +161,7 @@
 
         //  点击模式对话框（例如 easyui-messager、easyui-window、easyui-dialog）的背景遮蔽层使窗口闪动
         $("body").on("click", "div.window-mask:last", function (e) {
-            $(this).prevAll("div.panel.window:first").shine();
+            //$(this).prevAll("div.panel.window:first").shine();//取消窗口闪烁
         });
     });
 
