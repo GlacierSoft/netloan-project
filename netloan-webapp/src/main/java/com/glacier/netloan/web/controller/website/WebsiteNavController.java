@@ -31,7 +31,7 @@ public class WebsiteNavController extends AbstractController{
 	
 	// 进入导航列表展示页面
 	@RequestMapping(value="/index.htm")
-	private Object intoIndexParea(){
+	private Object intoIndexPnav(){
 		ModelAndView mav = new ModelAndView("website_mgr/nav_mgr/nav");
 		return mav;
 	}
@@ -46,7 +46,7 @@ public class WebsiteNavController extends AbstractController{
 	// 进入导航Form表单页面
 	@RequestMapping(value="/intoForm.htm")
 	@ResponseBody
-	private Object intowebsiteNavFormParea(String webNavId){
+	private Object intowebsiteNavFormPnav(String webNavId){
 		ModelAndView  mav = new ModelAndView("website_mgr/nav_mgr/nav_form");
 		mav.addObject("allWebsiteNavTreeNodeData",websiteNavService.getAllTreeNavNode(true, ""));
 		if(StringUtils.isNotBlank(webNavId)){
