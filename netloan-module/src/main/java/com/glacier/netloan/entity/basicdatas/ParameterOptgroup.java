@@ -2,6 +2,11 @@ package com.glacier.netloan.entity.basicdatas;
 
 import java.util.Date;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class ParameterOptgroup {
@@ -19,16 +24,23 @@ public class ParameterOptgroup {
 		this.optgroupPname = optgroupPname;
 	}
 
+	/**
+	 * 下拉项代码必须由2-20个英文字符组成
+	 */
+	@Pattern(regexp = "^[a-zA-Z]{2,20}$", message = "{ParameterOptgroup.optgroupCode.illegal}")
 	private String optgroupCode;
 
+	@Pattern(regexp = "^[\u0391-\uFFE5]{2,10}$", message = "{ParameterOptgroup.optgroupName.illegal}")
     private String optgroupName;
 
     private String optgroupIcon;
 
     private String optgroupUrl;
 
+    @Max(value = 99, message = "{ParameterOptgroup.optgroupNum.illegal}")
     private Integer optgroupNum;
 
+    @Length(max = 255, message = "{ParameterOptgroup.remark.illegal}")
     private String remark;
 
     private String creater;

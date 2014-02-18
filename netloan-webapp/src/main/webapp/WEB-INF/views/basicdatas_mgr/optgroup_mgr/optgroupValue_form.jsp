@@ -5,14 +5,14 @@
 <form id="optgroup_mgr_optgroupValue_form" method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
-			<td>下拉项代码：</td>
+			<td>下拉值代码：</td>
 			<td>
 				<input id="optgroup_mgr_optgroupValue_form_optgroupValueId" type="hidden" name="optgroupValueId" value="${optgroupValueData.optgroupValueId}" />
 				<input id="optgroup_mgr_optgroupValue_form_optgroupValueCode" name="optgroupValueCode" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupValueData.optgroupValueCode}"/>
 			</td>
 		</tr>
 		<tr>
-			<td>下拉项名称：</td>
+			<td>下拉值名称：</td>
 			<td>
 				<input id="optgroup_mgr_optgroupValue_form_optgroupValueName" name="optgroupValueName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupValueData.optgroupValueName}"/>
 			</td>
@@ -24,7 +24,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>下拉项状态：</td>
+			<td>下拉值状态：</td>
 			<td class="forminputtable">
 				<input id="optgroup_mgr_optgroupValue_form_status" name="status" value="${optgroupValueData.status}"/>
 			</td>

@@ -8,13 +8,13 @@
 			<td>下拉项名称：</td>
 			<td>
 				<input id="optgroup_mgr_optgroup_form_optgroupId" type="hidden" name="optgroupId" value="${optgroupData.optgroupId}" />
-				<input id="optgroup_mgr_optgroup_form_optgroupName" name="optgroupName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupData.optgroupName}"/>
+				<input id="optgroup_mgr_optgroup_form_optgroupName" name="optgroupName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupData.optgroupName}" validType="customReg['^[\u0391-\uFFE5]{2,10}$','<fmt:message key="ParameterOptgroup.optgroupName.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>
 			<td>下拉项代码：</td>
 			<td>
-				<input id="optgroup_mgr_optgroup_form_optgroupCode" name="optgroupCode" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupData.optgroupCode}"/>
+				<input id="optgroup_mgr_optgroup_form_optgroupCode" name="optgroupCode" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupData.optgroupCode}" validType="customReg['^[a-zA-Z]{2,20}$','<fmt:message key="ParameterOptgroup.optgroupCode.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>
@@ -25,9 +25,7 @@
 		</tr>
 		<tr>
 			<td>排序：</td>
-			<td>
-				<input id="optgroup_mgr_optgroup_form_optgroupNum" name="optgroupNum" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupData.optgroupNum}"/>
-			</td>
+			<td><input id="optgroup_mgr_optgroup_form_optgroupNum" name="optgroupNum" class="easyui-numberspinner spinner" value="${optgroupData.optgroupNum}" data-options="min:0,max:999,missingMessage:'请下拉项排序'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>
