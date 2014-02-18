@@ -109,7 +109,7 @@
 		submitUrl：提交路径
 		id:新增值为空字符串，编辑填写后台要获取的数据ID
 	*/
-	glacier.basicdatas_mgr.credit_mgr.credit.newDialog = function(title,submitUrl,id){
+/* 	glacier.basicdatas_mgr.credit_mgr.credit.newDialog = function(title,submitUrl,id){
 		var iconCls = 'icon-standard-pencil-add';
 		if(id){
 			iconCls='icon-standard-pencil-go';
@@ -145,8 +145,38 @@
 	glacier.basicdatas_mgr.credit_mgr.credit.editCredit = function(){
 		var row = glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid("getSelected");
 		glacier.basicdatas_mgr.credit_mgr.credit.newDialog('编辑【'+row.creditName+'】','/do/credit/edit.json',row.creditId);
+	}; */
+	//点击增加按钮触发方法
+	glacier.basicdatas_mgr.credit_mgr.credit.addCredit = function(){
+		glacier.basicAddOrEditDialog({
+			title : '增加会员信用级别',
+			width : 385,
+			height : 250,
+			queryUrl : ctx + '/do/credit/intoForm.htm',
+			submitUrl : ctx + '/do/credit/add.json',
+			successFun : function (){
+				glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid('reload');
+			}
+		});
 	};
 	
+	//点击编辑按钮触发方法
+	glacier.basicdatas_mgr.credit_mgr.credit.editCredit = function(){
+		var row = glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid("getSelected");
+		glacier.basicAddOrEditDialog({
+			title : '编辑【'+row.creditName+'】',
+			width : 385,
+			height : 250,
+			queryUrl : ctx + '/do/credit/intoForm.htm',
+			submitUrl : ctx + '/do/credit/edit.json',
+			queryParams : {
+				creditId : row.creditId
+			},
+			successFun : function (){
+				glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid('reload');
+			}
+		});
+	};
 	//点击删除按钮触发方法
 	glacier.basicdatas_mgr.credit_mgr.credit.delCredit = function(){
 		var rows = glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid("getChecked");

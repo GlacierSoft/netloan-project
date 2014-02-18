@@ -146,7 +146,7 @@
 		submitUrl：提交路径
 		id:新增值为空字符串，编辑填写后台要获取的数据ID
 	*/
-	glacier.website_mgr.help_mgr.help.newDialog = function(title,submitUrl,id){
+/* 	glacier.website_mgr.help_mgr.help.newDialog = function(title,submitUrl,id){
 		var iconCls = 'icon-standard-pencil-add';
 		if(id){
 			iconCls='icon-standard-pencil-go';
@@ -182,6 +182,37 @@
 	glacier.website_mgr.help_mgr.help.editHelp = function(){
 		var row = glacier.website_mgr.help_mgr.help.helpDataGrid.datagrid("getSelected");
 		glacier.website_mgr.help_mgr.help.newDialog(' 编辑【'+row.webHelpTheme+'】','/do/help/edit.json',row.webHelpId);
+	}; */
+	//点击增加按钮触发方法
+	glacier.website_mgr.help_mgr.help.addHelp = function(){
+		glacier.basicAddOrEditDialog({
+			title : '增加客服',
+			width : 385,
+			height : 250,
+			queryUrl : ctx + '/do/help/intoForm.htm',
+			submitUrl : ctx + '/do/help/add.json',
+			successFun : function (){
+				glacier.website_mgr.help_mgr.help.helpDataGrid.datagrid('reload');
+			}
+		});
+	};
+	
+	//点击编辑按钮触发方法
+	glacier.website_mgr.help_mgr.help.editHelp = function(){
+		var row = glacier.website_mgr.help_mgr.help.helpDataGrid.datagrid("getSelected");
+		glacier.basicAddOrEditDialog({
+			title : '编辑【'+row.webHelpTheme+'】',
+			width : 385,
+			height : 250,
+			queryUrl : ctx + '/do/help/intoForm.htm',
+			submitUrl : ctx + '/do/help/edit.json',
+			queryParams : {
+				webHelpId : row.webHelpId
+			},
+			successFun : function (){
+				glacier.website_mgr.help_mgr.help.helpDataGrid.datagrid('reload');
+			}
+		});
 	};
 	//点击删除按钮触发方法
 	glacier.website_mgr.help_mgr.help.delHelp = function(){

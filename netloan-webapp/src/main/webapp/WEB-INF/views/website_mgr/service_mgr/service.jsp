@@ -143,7 +143,7 @@
 		submitUrl：提交路径
 		id:新增值为空字符串，编辑填写后台要获取的数据ID
 	*/
-	glacier.website_mgr.service_mgr.service.newDialog = function(title,submitUrl,id){
+/* 	glacier.website_mgr.service_mgr.service.newDialog = function(title,submitUrl,id){
 		var iconCls = 'icon-standard-pencil-add';
 		if(id){
 			iconCls='icon-standard-pencil-go';
@@ -179,6 +179,37 @@
 	glacier.website_mgr.service_mgr.service.editService = function(){
 		var row = glacier.website_mgr.service_mgr.service.serviceDataGrid.datagrid("getSelected");
 		glacier.website_mgr.service_mgr.service.newDialog(' 编辑【'+row.webServiceName+'】','/do/service/edit.json',row.webServiceId);
+	}; */
+	//点击增加按钮触发方法
+	glacier.website_mgr.service_mgr.service.addService = function(){
+		glacier.basicAddOrEditDialog({
+			title : '增加客服',
+			width : 385,
+			height : 250,
+			queryUrl : ctx + '/do/service/intoForm.htm',
+			submitUrl : ctx + '/do/service/add.json',
+			successFun : function (){
+				glacier.website_mgr.service_mgr.service.serviceDataGrid.datagrid('reload');
+			}
+		});
+	};
+	
+	//点击编辑按钮触发方法
+	glacier.website_mgr.service_mgr.service.editService = function(){
+		var row = glacier.website_mgr.service_mgr.service.serviceDataGrid.datagrid("getSelected");
+		glacier.basicAddOrEditDialog({
+			title : '编辑【'+row.webServiceName+'】',
+			width : 385,
+			height : 250,
+			queryUrl : ctx + '/do/service/intoForm.htm',
+			submitUrl : ctx + '/do/service/edit.json',
+			queryParams : {
+				webServiceId : row.webServiceId
+			},
+			successFun : function (){
+				glacier.website_mgr.service_mgr.service.serviceDataGrid.datagrid('reload');
+			}
+		});
 	};
 	//点击删除按钮触发方法
 	glacier.website_mgr.service_mgr.service.delService = function(){

@@ -69,7 +69,7 @@
 	submitUrl：提交路径
 	id:新增值为空字符串，编辑填写后台要获取的数据ID
 	*/
-	glacier.website_mgr.nav_mgr.nav.newDialog = function(title,submitUrl,id){
+/* 	glacier.website_mgr.nav_mgr.nav.newDialog = function(title,submitUrl,id){
 		var iconCls = 'icon-standard-pencil-add';
 		if(id){
 			iconCls='icon-standard-pencil-go';
@@ -99,14 +99,44 @@
 	};
 	//点击增加按钮触发方法
 	glacier.website_mgr.nav_mgr.nav.addNav = function(){
-		glacier.website_mgr.nav_mgr.nav.newDialog(' 增加会员年龄别称','/do/nav/add.json','');
+		glacier.website_mgr.nav_mgr.nav.newDialog(' 增加导航信息','/do/nav/add.json','');
 	};
 	//点击编辑按钮触发方法
 	glacier.website_mgr.nav_mgr.nav.editNav = function(){
 		var row = glacier.website_mgr.nav_mgr.nav.navTreeGrid.treegrid("getSelected");
 		glacier.website_mgr.nav_mgr.nav.newDialog(' 编辑【'+row.webNavName+'】','/do/nav/edit.json',row.webNavId);
+	}; */
+	//点击增加按钮触发方法
+	glacier.website_mgr.nav_mgr.nav.addNav = function(){
+		glacier.basicAddOrEditDialog({
+			title : '增加导航信息',
+			width : 385,
+			height : 250,
+			queryUrl : ctx + '/do/nav/intoForm.htm',
+			submitUrl : ctx + '/do/nav/add.json',
+			successFun : function (){
+				glacier.website_mgr.nav_mgr.nav.navTreeGrid.treegrid('reload');
+			}
+		});
 	};
-
+	
+	//点击编辑按钮触发方法
+	glacier.website_mgr.nav_mgr.nav.editNav = function(){
+		var row = glacier.website_mgr.nav_mgr.nav.navTreeGrid.treegrid("getSelected");
+		glacier.basicAddOrEditDialog({
+			title : '编辑【'+row.webNavName+'】',
+			width : 385,
+			height : 250,
+			queryUrl : ctx + '/do/nav/intoForm.htm',
+			submitUrl : ctx + '/do/nav/edit.json',
+			queryParams : {
+				webNavId : row.webNavId
+			},
+			successFun : function (){
+				glacier.website_mgr.nav_mgr.nav.navTreeGrid.treegrid('reload');
+			}
+		});
+	};
 	//点击删除按钮触发方法
 	glacier.website_mgr.nav_mgr.nav.delNav = function(){
 		var row = glacier.website_mgr.nav_mgr.nav.navTreeGrid.treegrid("getSelected");

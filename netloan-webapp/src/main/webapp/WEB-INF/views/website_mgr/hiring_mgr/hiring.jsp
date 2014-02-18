@@ -138,7 +138,7 @@
 		submitUrl：提交路径
 		id:新增值为空字符串，编辑填写后台要获取的数据ID
 	*/
-	glacier.website_mgr.hiring_mgr.hiring.newDialog = function(title,submitUrl,id){
+/* 	glacier.website_mgr.hiring_mgr.hiring.newDialog = function(title,submitUrl,id){
 		var iconCls = 'icon-standard-pencil-add';
 		if(id){
 			iconCls='icon-standard-pencil-go';
@@ -174,6 +174,37 @@
 	glacier.website_mgr.hiring_mgr.hiring.editHiring = function(){
 		var row = glacier.website_mgr.hiring_mgr.hiring.hiringDataGrid.datagrid("getSelected");
 		glacier.website_mgr.hiring_mgr.hiring.newDialog(' 编辑【'+row.webHiringTheme+'】','/do/hiring/edit.json',row.webHiringId);
+	}; */
+	//点击增加按钮触发方法
+	glacier.website_mgr.hiring_mgr.hiring.addHiring = function(){
+		glacier.basicAddOrEditDialog({
+			title : '增加招聘信息',
+			width : 385,
+			height : 250,
+			queryUrl : ctx + '/do/hiring/intoForm.htm',
+			submitUrl : ctx + '/do/hiring/add.json',
+			successFun : function (){
+				glacier.website_mgr.hiring_mgr.hiring.hiringDataGrid.datagrid('reload');
+			}
+		});
+	};
+	
+	//点击编辑按钮触发方法
+	glacier.website_mgr.hiring_mgr.hiring.editHiring = function(){
+		var row = glacier.website_mgr.hiring_mgr.hiring.hiringDataGrid.datagrid("getSelected");
+		glacier.basicAddOrEditDialog({
+			title : '编辑【'+row.webHiringTheme+'】',
+			width : 385,
+			height : 250,
+			queryUrl : ctx + '/do/hiring/intoForm.htm',
+			submitUrl : ctx + '/do/hiring/edit.json',
+			queryParams : {
+				webHiringId : row.webHiringId
+			},
+			successFun : function (){
+				glacier.website_mgr.hiring_mgr.hiring.hiringDataGrid.datagrid('reload');
+			}
+		});
 	};
 	//点击删除按钮触发方法
 	glacier.website_mgr.hiring_mgr.hiring.delHiring = function(){

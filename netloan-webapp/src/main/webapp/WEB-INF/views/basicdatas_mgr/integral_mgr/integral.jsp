@@ -109,7 +109,7 @@
 		submitUrl：提交路径
 		id:新增值为空字符串，编辑填写后台要获取的数据ID
 	*/
-	glacier.basicdatas_mgr.integral_mgr.integral.newDialog = function(title,submitUrl,id){
+/* 	glacier.basicdatas_mgr.integral_mgr.integral.newDialog = function(title,submitUrl,id){
 		var iconCls = 'icon-standard-pencil-add';
 		if(id){
 			iconCls='icon-standard-pencil-go';
@@ -139,12 +139,43 @@
 	};
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.integral_mgr.integral.addIntegral = function(){
-		glacier.basicdatas_mgr.integral_mgr.integral.newDialog('增加会员信用级别','/do/integral/add.json','');
+		glacier.basicdatas_mgr.integral_mgr.integral.newDialog('增加会员积分级别','/do/integral/add.json','');
 	};
 	//点击编辑按钮触发方法
 	glacier.basicdatas_mgr.integral_mgr.integral.editIntegral = function(){
 		var row = glacier.basicdatas_mgr.integral_mgr.integral.integralDataGrid.datagrid("getSelected");
 		glacier.basicdatas_mgr.integral_mgr.integral.newDialog('编辑【'+row.integralName+'】','/do/integral/edit.json',row.integralId);
+	}; */
+	//点击增加按钮触发方法
+	glacier.basicdatas_mgr.integral_mgr.integral.addIntegral = function(){
+		glacier.basicAddOrEditDialog({
+			title : '增加会员积分级别',
+			width : 385,
+			height : 250,
+			queryUrl : ctx + '/do/integral/intoForm.htm',
+			submitUrl : ctx + '/do/integral/add.json',
+			successFun : function (){
+				glacier.basicdatas_mgr.integral_mgr.integral.integralDataGrid.datagrid('reload');
+			}
+		});
+	};
+	
+	//点击编辑按钮触发方法
+	glacier.basicdatas_mgr.integral_mgr.integral.editIntegral = function(){
+		var row = glacier.basicdatas_mgr.integral_mgr.integral.integralDataGrid.datagrid("getSelected");
+		glacier.basicAddOrEditDialog({
+			title : '编辑【'+row.integralName+'】',
+			width : 385,
+			height : 250,
+			queryUrl : ctx + '/do/integral/intoForm.htm',
+			submitUrl : ctx + '/do/integral/edit.json',
+			queryParams : {
+				integralId : row.integralId
+			},
+			successFun : function (){
+				glacier.basicdatas_mgr.integral_mgr.integral.integralDataGrid.datagrid('reload');
+			}
+		});
 	};
 	//点击删除按钮触发方法
 	glacier.basicdatas_mgr.integral_mgr.integral.delIntegral = function(){
