@@ -2,9 +2,16 @@ package com.glacier.netloan.entity.website;
 
 import java.util.Date;
 
+import javax.validation.constraints.Max;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class WebsiteLink {
     private String webLinkId;
 
+    @Length(min = 1, max = 25, message = "{WebsiteLink.webLinkName.illegal}")
     private String webLinkName;
 
     private String webLinkUrl;
@@ -15,16 +22,20 @@ public class WebsiteLink {
 
     private String accessory;
 
+    @Max(value = 99, message = "{WebsiteLink.webLinkNum.illegal}")
     private Integer webLinkNum;
 
+    @Length(max = 255, message = "{WebsiteLink.remark.illegal}")
     private String remark;
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date updateTime;
 
     public String getWebLinkId() {
