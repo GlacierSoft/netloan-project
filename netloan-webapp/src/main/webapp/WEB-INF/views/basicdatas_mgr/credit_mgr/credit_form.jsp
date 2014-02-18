@@ -13,11 +13,11 @@
 		</tr>
 		<tr>
 			<td>信用级别开始积分：</td>
-			<td><input name="creditBeginIntegral" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditBeginIntegral}" validType="customReg['^[0-9]*[1-9][0-9]*$','<fmt:message key="ParameterCredit.creditBeginIntegral.illegal"/>']"/></td>
+			<td><input name="creditBeginIntegral" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditBeginIntegral}" validType="customReg['^d+$','<fmt:message key="ParameterCredit.creditBeginIntegral.illegal"/>']"/></td>
 		</tr>
 		<tr>
 			<td>信用级别结束积分：</td>
-			<td><input name="creditEndIntegral" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditEndIntegral}" validType="customReg['^[0-9]*[1-9][0-9]*$','<fmt:message key="ParameterCredit.creditEndIntegral.illegal"/>']"/></td>
+			<td><input name="creditEndIntegral" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditEndIntegral}" validType="customReg['^d+$','<fmt:message key="ParameterCredit.creditEndIntegral.illegal"/>']"/></td>
 		</tr>
 <%-- 		<tr>
 	    	<td>级别图标:</td>
@@ -29,3 +29,12 @@
 		</tr>
 	</table>
 </form>
+
+<script type="text/javascript">
+/* 	var webNavStatus = '${websiteNavData.webNavStatus}';
+	if(webNavStatus == "enabled"){
+		$('#nav_mgr_nav_form_webNavStatus').val("启用");
+	}else{
+		$('#nav_mgr_nav_form_webNavStatus').val("禁用");
+	}   */
+</script>

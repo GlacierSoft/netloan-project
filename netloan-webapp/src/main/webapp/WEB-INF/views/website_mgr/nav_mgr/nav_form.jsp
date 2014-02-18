@@ -8,7 +8,7 @@
 			<td>导航：</td>
 			<td>
 				<input id="nav_mgr_nav_form_webNavId" type="hidden" name="webNavId" value="${websiteNavData.webNavId}" />
-				<input id="nav_mgr_nav_form_webNavName" name="webNavName" class="easyui-validatebox spinner" style="width:240px" required="true" value="${websiteNavData.webNavName}"/>
+				<input id="nav_mgr_nav_form_webNavName" name="webNavName" class="easyui-validatebox spinner" style="width:240px" required="true" value="${websiteNavData.webNavName}" validType="customReg['^[\\u4E00-\\u9FA5\\uf900-\\ufa2d\\w]{2,16}$','<fmt:message key="WebsiteNav.webNavName.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>
@@ -28,7 +28,7 @@
 		<tr>
 			<td>排序：</td>
 			<td>
-				<input id="nav_mgr_nav_form_webNavNum" name="webNavNum" class="easyui-validatebox spinner" style="width:240px" required="true" value="${websiteNavData.webNavNum}"/>
+				<input id="nav_mgr_nav_form_webNavNum" name="webNavNum" class="easyui-validatebox spinner" style="width:240px" required="true" value="${websiteNavData.webNavNum}" data-options="min:0,max:999,required:true,missingMessage:'请填写导航序号'" value="10" style="width: 270px;height:18px;" min="1" max="99"/>
 			</td>
 		</tr>
 		<tr>

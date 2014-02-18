@@ -8,7 +8,7 @@
 			<td>帮助中心主题：</td>
 			<td>
 				<input type="hidden" id="help_mgr_help_form_webHelpId" name="webHelpId" value="${helpData.webHelpId}" />
-				<input id="help_mgr_help_form_webHelpTheme" name="webHelpTheme" style="width:268px" value="${helpData.webHelpTheme}" class="easyui-validatebox spinner"  required="true"  validType="customReg['^[\\u4E00-\\u9FA5\\uf900-\\ufa2d\\w]{2,16}$','<fmt:message key="Role.roleCnName.illegal"/>']"/>
+				<input id="help_mgr_help_form_webHelpTheme" name="webHelpTheme" style="width:268px" value="${helpData.webHelpTheme}" class="easyui-validatebox spinner"  required="true"  validType="customReg['^[\\u4E00-\\u9FA5\\uf900-\\ufa2d\\w]{2,16}$','<fmt:message key="WebsiteHelp.webHelpTheme.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>
@@ -25,7 +25,7 @@
 		</tr>
 		<tr>
 			<td>序号：</td>
-			<td><input id="help_mgr_help_form_webClaNum" name="webClaNum" class="easyui-validatebox spinner" style="width:268px" required="true" value="${helpData.webClaNum}"/></td>
+			<td><input id="help_mgr_help_form_webClaNum" name="webClaNum" class="easyui-validatebox spinner" style="width:268px" required="true" value="${helpData.webClaNum}" data-options="min:0,max:999,required:true,missingMessage:'请填写序号'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr>
 		<tr>
 			<td>附件：</td>

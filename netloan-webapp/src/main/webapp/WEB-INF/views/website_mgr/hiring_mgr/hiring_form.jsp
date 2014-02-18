@@ -8,7 +8,7 @@
 			<td>招聘管理主题：</td>
 			<td>
 				<input type="hidden" id="hiring_mgr_hiring_form_webHiringId" name="webHiringId" value="${hiringData.webHiringId}" />
-				<input id="hiring_mgr_hiring_form_webHiringTheme" name="webHiringTheme" style="width:268px" value="${hiringData.webHiringTheme}" class="easyui-validatebox spinner"  required="true"  validType="customReg['^[\\u4E00-\\u9FA5\\uf900-\\ufa2d\\w]{2,16}$','<fmt:message key="Role.roleCnName.illegal"/>']"/>
+				<input id="hiring_mgr_hiring_form_webHiringTheme" name="webHiringTheme" style="width:268px" value="${hiringData.webHiringTheme}" class="easyui-validatebox spinner"  required="true"  validType="customReg['^[\\u4E00-\\u9FA5\\uf900-\\ufa2d\\w]{2,16}$','<fmt:message key="WebsiteHiring.webHiringTheme.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>
@@ -21,7 +21,7 @@
 		</tr>
 		<tr>
 			<td>招聘管理序号：</td>
-			<td><input id="hiring_mgr_hiring_form_webHiringNum" name="webHiringNum" class="easyui-validatebox spinner" style="width:268px" required="true" value="${hiringData.webHiringNum}"/></td>
+			<td><input id="hiring_mgr_hiring_form_webHiringNum" name="webHiringNum" class="easyui-validatebox spinner" style="width:268px" required="true" value="${hiringData.webHiringNum}" data-options="min:0,max:999,required:true,missingMessage:'请填写招聘管理序号'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr>
 		<tr>
 			<td>附件：</td>
