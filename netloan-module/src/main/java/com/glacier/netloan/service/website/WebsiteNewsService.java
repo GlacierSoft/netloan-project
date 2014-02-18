@@ -54,7 +54,20 @@ public class WebsiteNewsService {
 	 * @throws
 	 */
     public Object getNews(String webNewsId) {
-        return newsMapper.selectByPrimaryKey(webNewsId);
+    	WebsiteNews news = newsMapper.selectByPrimaryKey(webNewsId);
+    	if (null != news.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
+            User userTemp = userMapper.selectByPrimaryKey(news.getCreater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	news.setCreater(userTemp.getUserCnName());
+            }
+        }
+    	if (null != news.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
+            User userTemp = userMapper.selectByPrimaryKey(news.getUpdater());
+            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
+            	news.setUpdater(userTemp.getUserCnName());
+            }
+        }
+        return news;
     }
     
     /**

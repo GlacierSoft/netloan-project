@@ -118,6 +118,17 @@
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
 			$(this).datagrid('clearChecked');
+		},
+		onDblClickRow:function(rowIndex, rowData){
+			$.easyui.showDialog({
+				title: rowData.webNewsTheme,
+				href : ctx + '/do/news/intoDetail.htm?webNewsId='+rowData.webNewsId,//从controller请求jsp页面进行渲染
+				width : 550,
+				height : 250,
+				resizable: false,
+				enableApplyButton : false,
+				enableSaveButton : false
+			});
 		}
 	});
 	
@@ -162,7 +173,7 @@
 	//点击编辑按钮触发方法
 	glacier.website_mgr.news_mgr.news.editNews = function(){
 		var row = glacier.website_mgr.news_mgr.news.newsDataGrid.datagrid("getSelected");
-		glacier.website_mgr.news_mgr.news.newDialog(' 编辑【'+row.newsName+'】','/do/news/edit.json',row.webNewsId);
+		glacier.website_mgr.news_mgr.news.newDialog(' 编辑【'+row.webNewsTheme+'】','/do/news/edit.json',row.webNewsId);
 	};
 	//点击删除按钮触发方法
 	glacier.website_mgr.news_mgr.news.delNews = function(){

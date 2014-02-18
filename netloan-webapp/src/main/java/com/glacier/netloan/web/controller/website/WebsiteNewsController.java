@@ -55,6 +55,16 @@ public class WebsiteNewsController extends AbstractController{
         return mav;
     }
     
+    // 进入新闻Detail信息页面
+    @RequestMapping(value = "/intoDetail.htm")
+    private Object intoNewsDetailPage(String webNewsId) {
+        ModelAndView mav = new ModelAndView("website_mgr/news_mgr/news_detail");
+        if(StringUtils.isNotBlank(webNewsId)){
+            mav.addObject("newsData", newsService.getNews(webNewsId));
+        }
+        return mav;
+    }
+    
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
