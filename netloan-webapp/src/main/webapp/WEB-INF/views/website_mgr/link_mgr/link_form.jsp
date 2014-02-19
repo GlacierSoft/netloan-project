@@ -8,12 +8,12 @@
 			<td>友情链接名称：</td>
 			<td>
 				<input type="hidden" id="link_mgr_link_form_webLinkId" name="webLinkId" value="${linkData.webLinkId}" />
-				<input id="link_mgr_link_form_webLinkName" name="webLinkName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${linkData.webLinkName}"/>
+				<input id="link_mgr_link_form_webLinkName" name="webLinkName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${linkData.webLinkName}" validType="customReg['^[\u0391-\uFFE5]{1,20}$','<fmt:message key="WebsiteLink.webLinkName.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>
 			<td>友情链接Url：</td>
-			<td><input id="link_mgr_link_form_webLinkUrl" name="webLinkUrl" class="easyui-validatebox spinner" style="width:268px" required="true" value="${linkData.webLinkUrl}"/></td>
+			<td><input id="link_mgr_link_form_webLinkUrl" name="webLinkUrl" class="easyui-validatebox spinner" style="width:268px" required="true" value="${linkData.webLinkUrl}" validType="customReg['^[^\u4e00-\u9fa5]{0,100}$','<fmt:message key="WebsiteLink.webLinkUrl.illegal"/>']"/></td>
 		</tr>
 		<tr>
 			<td>友情链接图像：</td>

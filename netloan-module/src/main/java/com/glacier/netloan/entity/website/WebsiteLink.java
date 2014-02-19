@@ -3,6 +3,7 @@ package com.glacier.netloan.entity.website;
 import java.util.Date;
 
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -11,9 +12,10 @@ import com.alibaba.fastjson.annotation.JSONField;
 public class WebsiteLink {
     private String webLinkId;
 
-    @Length(min = 1, max = 25, message = "{WebsiteLink.webLinkName.illegal}")
+    @Pattern(regexp = "^[\u0391-\uFFE5]{1,20}$", message = "{WebsiteLink.webLinkName.illegal}")
     private String webLinkName;
 
+    @Pattern(regexp = "^[^\u4e00-\u9fa5]{0,100}$", message = "{WebsiteLink.webLinkUrl.illegal}")
     private String webLinkUrl;
 
     private String webLinkPhoto;
