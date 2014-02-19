@@ -8,7 +8,7 @@
 			<td>变量名：</td>
 			<td>
 				<input type="hidden" name="variablesId" value="${variablesData.variablesId}" />
-				<input name="variableName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${variablesData.variableName}"/>
+				<input name="variableName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${variablesData.variableName}" validType="customReg['^[\u0391-\uFFE5]{1,20}$','<fmt:message key="ParameterSystemVariables.variableName.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>

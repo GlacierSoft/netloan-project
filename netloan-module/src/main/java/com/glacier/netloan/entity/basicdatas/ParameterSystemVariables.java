@@ -2,6 +2,10 @@ package com.glacier.netloan.entity.basicdatas;
 
 import java.util.Date;
 
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class ParameterSystemVariables {
@@ -13,10 +17,12 @@ public class ParameterSystemVariables {
 
     private String parameterValues;
 
+    @Pattern(regexp = "^[\u0391-\uFFE5]{1,20}$", message = "{ParameterSystemVariables.variableName.illegal}")
     private String variableName;
 
     private String formType;
 
+    @Length(max = 255, message = "{ParameterSystemVariables.remark.illegal}")
     private String remark;
 
     private String creater;
