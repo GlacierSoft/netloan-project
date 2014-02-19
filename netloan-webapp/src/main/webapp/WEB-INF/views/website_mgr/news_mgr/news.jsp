@@ -40,12 +40,7 @@
 			},{
 				field:'webNewsTheme',
 				title:'新闻主题',
-				width:120,
-				sortable:true
-			},{
-				field:'webNewsContent',
-				title:'新闻内容',
-				width:120,
+				width:220,
 				sortable:true
 			},{
 				field:'webNewsStatus',
@@ -58,16 +53,6 @@
 			},{
 				field:'webNewsNum',
 				title:'排序号',
-				width:120,
-				sortable:true
-			},{
-				field:'accessory',
-				title:'附件',
-				width:120,
-				sortable:true
-			},{
-				field:'remark',
-				title:'备注',
 				width:120,
 				sortable:true
 			},{
@@ -123,8 +108,8 @@
 			$.easyui.showDialog({
 				title: rowData.webNewsTheme,
 				href : ctx + '/do/news/intoDetail.htm?webNewsId='+rowData.webNewsId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 250,
+				width : 720,
+				height : 520,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -135,8 +120,8 @@
 	glacier.website_mgr.news_mgr.news.addNews = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加新闻',
-			width : 500,
-			height : 400,
+			width : 720,
+			height : 500,
 			queryUrl : ctx + '/do/news/intoForm.htm',
 			submitUrl : ctx + '/do/news/add.json',
 			successFun : function (){
@@ -149,8 +134,8 @@
 		var row = glacier.website_mgr.news_mgr.news.newsDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.webNewsTheme+'】',
-			width : 500,
-			height : 400,
+			width : 720,
+			height : 500,
 			queryUrl : ctx + '/do/news/intoForm.htm',
 			submitUrl : ctx + '/do/news/edit.json',
 			queryParams : {
