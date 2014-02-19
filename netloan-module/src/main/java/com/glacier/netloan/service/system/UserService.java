@@ -145,18 +145,17 @@ public class UserService {
     @Transactional(readOnly = false)
     @MethodLog(opera="UserList_add")
     public Object addUser(User user){
-    	Subject pricipalSubject = SecurityUtils.getSubject();
-    	User pricipalUser = (User) pricipalSubject.getPrincipal();
-    	
-    	JqReturnJson returnResulte = new JqReturnJson();// 构建返回结果，默认结果为false
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
     	UserExample userExample = new UserExample();
     	int count = 0;
     	// 防止管理员名称重复
     	userExample.createCriteria().andUsernameEqualTo(user.getUsername());
     	count = userMapper.countByExample(userExample);// 查找相同管理员名称数量
     	if(count >0){
-    		returnResulte.setMsg("管理员名称重复");
-    		return returnResulte;
+    	    returnResult.setMsg("管理员名称重复");
+    		return returnResult;
     	}
     	//初始化管理员信息
     	user.setUserId(RandomGUID.getRandomGUID());
@@ -168,12 +167,12 @@ public class UserService {
     	user.setLoginCount(0);
     	count = userMapper.insert(user);
 		if(count == 1){
-			returnResulte.setMsg("["+user.getUsername()+"]"+"管理员信息已保存");
-			returnResulte.setSuccess(true);
+		    returnResult.setMsg("["+user.getUsername()+"]"+"管理员信息已保存");
+		    returnResult.setSuccess(true);
 		}else{
-			returnResulte.setMsg("发生未知错误，管理员信息保存失败");
+		    returnResult.setMsg("发生未知错误，管理员信息保存失败");
 		}
-    	return returnResulte;
+    	return returnResult;
     }
     
     /**
@@ -187,11 +186,21 @@ public class UserService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "UserList_edit")
     public Object editUser(User user){
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
     	UserExample userExample = new UserExample();
     	// 防止管理员名称重复
     	userExample.createCriteria().andUsernameEqualTo(user.getUsername()).andUserIdNotEqualTo(user.getUserId());
     	int count = 0;
+    	User originalUser = userMapper.selectByPrimaryKey(user.getUserId());// 获取原用户相关信息
+        // 管理员类型用户只有所属创建者才能进行修改
+        if (originalUser.getBuiltin() == CommonBuiltin.admin) {
+            if (!pricipalUser.getUserId().equals(originalUser.getCreater())) {
+                returnResult.setMsg("管理员类型用户只有所属创建者才能进行修改");
+                return returnResult;
+            }
+        }
     	count = userMapper.countByExample(userExample);// 查找相同管理员名称数量
     	if(count > 0){
     		returnResult.setMsg("管理员名称重复");

@@ -150,15 +150,15 @@ public class RoleService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "RoleList_edit")
     public Object editRole(Role role) {
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         RoleExample roleExample = new RoleExample();
         int count = 0;
         Role originalRole = roleMapper.selectByPrimaryKey(role.getRoleId());// 获取原角色相关信息
         // 管理员类型角色只有所属创建者才能进行修改
         if (originalRole.getBuiltin() == CommonBuiltin.admin) {
-            Subject pricipalSubject = SecurityUtils.getSubject();
-            User pricipalUser = (User) pricipalSubject.getPrincipal();
-            if (!pricipalUser.getUserId().equals(role.getCreater())) {
+            if (!pricipalUser.getUserId().equals(originalRole.getCreater())) {
                 returnResult.setMsg("管理员类型角色只有所属创建者才能进行修改");
                 return returnResult;
             }
@@ -178,6 +178,9 @@ public class RoleService {
             returnResult.setMsg("英文名称重复");
             return returnResult;
         }
+        
+        role.setCreater(pricipalUser.getUserId());//初始化插入角色信息
+        role.setCreateTime(new Date());
         count = roleMapper.updateByPrimaryKeySelective(role);
         if (count == 1) {
             returnResult.setSuccess(true);

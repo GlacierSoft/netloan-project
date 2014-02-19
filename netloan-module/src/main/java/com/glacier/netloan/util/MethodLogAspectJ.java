@@ -2,7 +2,6 @@ package com.glacier.netloan.util;
 
 import java.lang.reflect.Method;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -110,7 +109,6 @@ public class MethodLogAspectJ {
             boolean success = false;// 操作结果
             String operaInfo = "";// 通知
             String methode = "";// 操作描述
-            String operaTime = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss").format(new Date());
             String operator = ((User) SecurityUtils.getSubject().getPrincipal()).getUserCnName();
             Object[] arguments = joinPoint.getArgs();
             Class targetClass = Class.forName(targetName);
@@ -131,17 +129,6 @@ public class MethodLogAspectJ {
             }
             if (panelActionIndexMap.containsKey(methode)) {
                 Action action = panelActionIndexMap.get(methode);
-                System.out.println("操作菜单：" + action.getMenuCnName());
-                System.out.println("操作面板：" + action.getPanelCnName());
-                System.out.println("使用方法：" + action.getActionCnName());
-                System.out.println("操作结果：" + success);
-                System.out.println("返回结果：" + operaInfo);
-                System.out.println("操作人：" + operator);
-                System.out.println("操作时间：" + operaTime);
-                System.out.println("调用类：" + targetName);
-                System.out.println("调用方法：" + methodName);
-                System.out.println("调用KEY：" + methode);
-
                 StringBuilder insertSql = new StringBuilder();
 
                 insertSql.append("insert into t_operalog (operalog_id, opera_menu, opera_penal, ");
