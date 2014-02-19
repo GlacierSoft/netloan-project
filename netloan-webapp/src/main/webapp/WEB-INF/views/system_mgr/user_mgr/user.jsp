@@ -117,11 +117,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.username,
+				title: rowData.userCnName,
 				href : ctx + '/do/user/intoDetail.htm?userId='+rowData.userId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 250,
-				resizable: false,
+				height : 350,
 				enableApplyButton : false,
 				enableSaveButton : false
 			});
@@ -227,9 +226,9 @@
 			title:'分配角色',
 		    width:650,  
 		    height:430,
-		    resizable:false,
+		    resizable:true,
 		    modal:true,
-		    minimizable:true,
+		    minimizable:false,
 		    maximizable:true,
 		    buttons:[{
 				text:'保存',
@@ -274,6 +273,32 @@
 		<table id="userDataGrid">
 			<glacierui:toolbar panelEnName="UserList" toolbarId="userDataGrid_toolbar" menuEnName="user"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
+	</div>
+	<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
+		<form id="userSearchForm">
+			<table>
+				<tr>
+					<td>角色名：</td>
+					<td><input name="roleCnName" style="width: 80px;" class="spinner"/></td>
+					<td>角色英文名：</td>
+					<td><input name="roleEnName" style="width: 80px;" class="spinner"/></td>
+					<td>角色类型：</td>
+					<td>
+						<input name="builtin" style="width:80px;height:18px;" class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'value',textField : 'label',data :fields.builtin" />
+					</td>
+					<td>录入时间：</td>
+					<td>
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;" />
+						-
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;" />
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid('load',glacier.serializeObject($('#roleSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#roleSearchForm input').val('');glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid('load',{});">重置条件</a>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </div>
 

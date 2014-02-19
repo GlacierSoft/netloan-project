@@ -1,5 +1,5 @@
 ﻿/**
-* jQuery EasyUI 1.3.3
+ * jQuery EasyUI 1.3.3
 * Copyright (c) 2009-2013 www.jeasyui.com. All rights reserved.
 *
 * Licensed under the GPL or commercial licenses
@@ -291,7 +291,6 @@
     //  备注：该默认属性定义仅在方法 $.easyui.showDialog 中被调用。
     $.easyui.showDialog.defaults = {
         title: "新建对话框",
-        iconCls: "icon-standard-application-form",
         width: 600,
         height: 360,
         modal: true,

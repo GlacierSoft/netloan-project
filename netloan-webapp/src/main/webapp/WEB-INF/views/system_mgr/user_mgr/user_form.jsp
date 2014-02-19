@@ -7,7 +7,7 @@
 			<td>用户名称：</td>
 			<td>
 				<input type="hidden" name="userId" value="${userData.userId}" />
-				<input name="username" class="easyui-validatebox spinner" style="width:268px" value="${userData.username}" required="true" validType="customReg['^[a-zA-Z][a-zA-Z0-9_]{5,15}','<fmt:message key="User.username.illegal"/>']"/>
+				<input name="username" class="easyui-validatebox spinner" style="width:268px" value="${userData.username}" required="true" validType="customReg['^[a-zA-Z][a-zA-Z0-9_]{4,15}','<fmt:message key="User.username.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>

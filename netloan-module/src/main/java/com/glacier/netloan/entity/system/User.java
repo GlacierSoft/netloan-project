@@ -24,7 +24,7 @@ public class User implements Serializable {
     /**
      * 用户名称字母组成，长度为5-15
      */
-    @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9_]{5,15}", message = "{User.username.illegal}")
+    @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9_]{4,15}", message = "{User.username.illegal}")
     private String username;
 
     /**
