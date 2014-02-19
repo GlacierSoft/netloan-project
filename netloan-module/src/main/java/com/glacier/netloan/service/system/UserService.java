@@ -197,7 +197,7 @@ public class UserService {
         // 管理员类型用户只有所属创建者才能进行修改
         if (originalUser.getBuiltin() == CommonBuiltin.admin) {
             if (!pricipalUser.getUserId().equals(originalUser.getCreater())) {
-                returnResult.setMsg("管理员类型用户只有所属创建者才能进行修改");
+                returnResult.setMsg("管理员类型用户只有所属创建者才能对其进行修改");
                 return returnResult;
             }
         }

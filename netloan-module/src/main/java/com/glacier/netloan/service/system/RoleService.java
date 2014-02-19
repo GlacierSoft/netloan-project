@@ -159,7 +159,7 @@ public class RoleService {
         // 管理员类型角色只有所属创建者才能进行修改
         if (originalRole.getBuiltin() == CommonBuiltin.admin) {
             if (!pricipalUser.getUserId().equals(originalRole.getCreater())) {
-                returnResult.setMsg("管理员类型角色只有所属创建者才能进行修改");
+                returnResult.setMsg("管理员类型角色只有所属创建者才能对其进行修改");
                 return returnResult;
             }
         }

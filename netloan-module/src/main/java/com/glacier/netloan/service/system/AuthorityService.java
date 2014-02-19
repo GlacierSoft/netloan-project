@@ -29,6 +29,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -40,8 +41,10 @@ import com.glacier.netloan.dao.system.ActionMapper;
 import com.glacier.netloan.dao.system.AuthorityMapper;
 import com.glacier.netloan.dao.system.MenuMapper;
 import com.glacier.netloan.dao.system.RoleMapper;
+import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dao.system.UserRoleMapper;
 import com.glacier.netloan.dto.service.system.AuthMenuActionDTO;
+import com.glacier.netloan.entity.common.util.CommonBuiltin;
 import com.glacier.netloan.entity.system.Action;
 import com.glacier.netloan.entity.system.ActionExample;
 import com.glacier.netloan.entity.system.Authority;
@@ -66,6 +69,9 @@ import com.glacier.netloan.util.MethodLog;
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 public class AuthorityService {
 
+    @Autowired
+    private UserMapper userMapper;
+    
     @Autowired
     private MenuMapper menuMapper;
 
@@ -203,6 +209,35 @@ public class AuthorityService {
         }
         return returnAuthList;
     }
+    
+    
+    /**
+     * @Title: getRolesAndRational
+     * @Description: TODO(根据用户Id获取角色列表)
+     * @param @param userId
+     * @param @return
+     * @throws 备注
+     *             <p>
+     *             已检查测试:Green
+     *             <p>
+     */
+
+    public Object getRolesAndRational(String userId) {
+        RoleExample roleExample = new RoleExample();// 后面做优化，需要开
+        List<Role> roles = roleMapper.selectByExample(roleExample);
+        UserRoleExample userRoleExample = new UserRoleExample();
+        userRoleExample.createCriteria().andUserIdEqualTo(userId);
+        List<UserRoleKey> userRoleList = userRoleMapper.selectByExample(userRoleExample);// 查找传入用户Id拥有的角色
+        for (Role role : roles) {
+            UserRoleKey userRoleKey = new UserRoleKey();
+            userRoleKey.setUserId(userId);
+            userRoleKey.setRoleId(role.getRoleId());
+            if (userRoleList.contains(userRoleKey)) {
+                role.setChecked(true);
+            }
+        }
+        return roles;
+    }
 
     /**
      * 
@@ -222,6 +257,17 @@ public class AuthorityService {
     public Object saveRoleAuths(String roleId, Set<String> menuIds, Set<String> authActions) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
+        Subject pricipalSubject = SecurityUtils.getSubject();//管理员类型用户只有所属创建者才能对其进行分配角色
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        // 管理员类型用户只有所属创建者才能进行修改
+        Role originalRole = roleMapper.selectByPrimaryKey(roleId);// 获取原角色相关信息
+        // 管理员类型角色只有所属创建者才能进行修改
+        if (originalRole.getBuiltin() == CommonBuiltin.admin) {
+            if (!pricipalUser.getUserId().equals(originalRole.getCreater())) {
+                returnResult.setMsg("管理员类型角色只有所属创建者才能对其进行授权");
+                return returnResult;
+            }
+        }
         AuthorityExample authExample = new AuthorityExample();
         authExample.createCriteria().andRoleIdEqualTo(roleId);
         authorityMapper.deleteByExample(authExample);// 先删除角色权限关联表中的roleId的数据
@@ -265,33 +311,7 @@ public class AuthorityService {
         return returnResult;
     }
 
-    /**
-     * @Title: getRolesAndRational
-     * @Description: TODO(根据用户Id获取角色列表)
-     * @param @param userId
-     * @param @return
-     * @throws 备注
-     *             <p>
-     *             已检查测试:Green
-     *             <p>
-     */
-
-    public Object getRolesAndRational(String userId) {
-        RoleExample roleExample = new RoleExample();// 后面做优化，需要开
-        List<Role> roles = roleMapper.selectByExample(roleExample);
-        UserRoleExample userRoleExample = new UserRoleExample();
-        userRoleExample.createCriteria().andUserIdEqualTo(userId);
-        List<UserRoleKey> userRoleList = userRoleMapper.selectByExample(userRoleExample);// 查找传入用户Id拥有的角色
-        for (Role role : roles) {
-            UserRoleKey userRoleKey = new UserRoleKey();
-            userRoleKey.setUserId(userId);
-            userRoleKey.setRoleId(role.getRoleId());
-            if (userRoleList.contains(userRoleKey)) {
-                role.setChecked(true);
-            }
-        }
-        return roles;
-    }
+    
 
     /**
      * @Title: saveRolesAndRational
@@ -309,6 +329,16 @@ public class AuthorityService {
     public Object saveRolesAndRational(String userId, Set<String> roleIds) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
+        Subject pricipalSubject = SecurityUtils.getSubject();//管理员类型用户只有所属创建者才能对其进行分配角色
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        User originalUser = userMapper.selectByPrimaryKey(userId);// 获取原用户相关信息
+        // 管理员类型用户只有所属创建者才能进行修改
+        if (originalUser.getBuiltin() == CommonBuiltin.admin) {
+            if (!pricipalUser.getUserId().equals(originalUser.getCreater())) {
+                returnResult.setMsg("管理员类型用户只有所属创建者才能对其进行分配角色");
+                return returnResult;
+            }
+        }
         UserRoleExample userRoleExample = new UserRoleExample();
         userRoleExample.createCriteria().andUserIdEqualTo(userId);
         count = userRoleMapper.deleteByExample(userRoleExample);

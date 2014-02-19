@@ -183,7 +183,15 @@ glacier.serializeObject = function(form) {
  * glacier.show({msg:r.msg,result:r.success});
  */
 glacier.show = function(option){
-	
+	$.messager.show({//后台验证弹出错误提示信息框
+		title : option.result ? '操作成功' :'操作失败',
+		icon : option.result ? 'info' :'error',
+		width : 400,
+		height : 150,
+		showType : 'fade',
+		position: 'bottomRight',
+		msg: option.result ? option.msg : '<span style="color:red">'+ option.msg + '<span>'
+	});
 }
 
 /**
@@ -213,15 +221,7 @@ glacier.basicAddOrEditDialog = function(option){
 					$dialog.find('form').form('submit', {
 						url: option.submitUrl,
 						success: function(r){
-							$.messager.show({//后台验证弹出错误提示信息框
-								title : r.success ? '操作成功' :'操作失败',
-								icon : r.success ? 'info' :'error',
-								width : 400,
-								height : 150,
-								showType : 'fade',
-								position: 'bottomRight',
-								msg: r.success ? r.msg : '<span style="color:red">'+ r.msg + '<span>'
-							});
+							glacier.show({msg:r.msg,result:r.success});
 							if(r.success){
 								if(typeof(eval(option.successFun))=="function"){
 									option.successFun();

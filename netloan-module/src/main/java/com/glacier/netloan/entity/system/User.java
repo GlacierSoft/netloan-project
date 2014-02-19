@@ -3,6 +3,11 @@ package com.glacier.netloan.entity.system;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+
 import com.alibaba.fastjson.annotation.JSONField;
 import com.glacier.netloan.entity.common.util.CommonBuiltin;
 import com.glacier.netloan.entity.common.util.CommonStatus;
@@ -11,10 +16,21 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 6326148934682228878L;
 
+    /**
+     * 用户主键ID
+     */
     private String userId;
 
+    /**
+     * 用户名称字母组成，长度为5-15
+     */
+    @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9_]{5,15}", message = "{User.username.illegal}")
     private String username;
 
+    /**
+     * 真实姓名字母组成，长度为2-10
+     */
+    @Pattern(regexp = "^[\u0391-\uFFE5]{2,10}", message = "{User.userCnName.illegal}")
     private String userCnName;
 
     private String password;
@@ -25,10 +41,12 @@ public class User implements Serializable {
 
     private CommonBuiltin builtin;
 
+    @Email(message = "{User.email.illegal}")
     private String email;
 
     private String userImage;
 
+    @Length(max = 255, message = "{Common.remark.illegal}")
     private String remark;
 
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")

@@ -14,7 +14,6 @@ input,textarea {
 /*textarea通用表单样式*/
 textarea.formta {
 	height: 80px;
-	resize: none;
 	overflow: auto;
 	white-space: normal;
 	margin-top: 5px
