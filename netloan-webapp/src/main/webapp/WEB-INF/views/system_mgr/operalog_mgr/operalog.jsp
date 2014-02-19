@@ -73,11 +73,6 @@
 				width:120,
 				sortable:true
 			},{
-				field:'operaPenal',
-				title:'操作面板',
-				width:120,
-				sortable:true
-			},{
 				field:'operator',
 				title:'操作人',
 				width:120,
@@ -179,5 +174,33 @@
 		<table id="operalogDataGrid">
 			<glacierui:toolbar panelEnName="OperalogList" toolbarId="operalogDataGrid_toolbar" menuEnName="operalog"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
+	</div>
+	<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
+		<form id="operalogSearchForm">
+			<table>
+				<tr>
+					<td>操作菜单：</td>
+					<td><input name="operaMenu" style="width: 80px;" class="spinner"/></td>
+					<td>操作面板：</td>
+					<td><input name="operaPenal" style="width: 80px;" class="spinner"/></td>
+					<td>操作方法：</td>
+					<td><input name="operaMethod" style="width: 80px;" class="spinner"/></td>
+					<td>调用方法：</td>
+					<td><input name="operaMd" style="width: 80px;" class="spinner"/></td>
+					<td>操作人：</td>
+					<td><input name="operator" style="width: 80px;" class="spinner"/></td>
+					<td>录入时间：</td>
+					<td>
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;" />
+						-
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;" />
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.system_mgr.operalog_mgr.operalog.operalogDataGrid.datagrid('load',glacier.serializeObject($('#operalogSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#operalogSearchForm input').val('');glacier.system_mgr.operalog_mgr.operalog.operalogDataGrid.datagrid('load',{});">重置条件</a>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </div>

@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.system.OperalogQueryDTO;
 import com.glacier.netloan.service.system.OperaLogService;
 
 /**
@@ -57,8 +58,8 @@ public class OperaLogController {
     // 获取表格结构的所有操作日志数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(JqPager pager) {
-        return operaLogService.listAsGrid(pager);
+    private Object listActionAsGridByMenuId(OperalogQueryDTO operalogQueryDTO,JqPager pager) {
+        return operaLogService.listAsGrid(operalogQueryDTO,pager);
     }
     
     // 进入客服Detail信息页面

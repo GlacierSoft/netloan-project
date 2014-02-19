@@ -32,8 +32,10 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.system.OperaLogMapper;
+import com.glacier.netloan.dto.query.system.OperalogQueryDTO;
 import com.glacier.netloan.entity.system.OperaLog;
 import com.glacier.netloan.entity.system.OperaLogExample;
+import com.glacier.netloan.entity.system.OperaLogExample.Criteria;
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -62,20 +64,26 @@ public class OperaLogService {
      *             已检查测试:Green
      *             <p>
      */
-    public Object listAsGrid(JqPager pager) {
+    public Object listAsGrid(OperalogQueryDTO operalogQueryDTO,JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
-        OperaLogExample OperaLogExample = new OperaLogExample();
+        OperaLogExample operaLogExample = new OperaLogExample();
+
+        Criteria queryCriteria = operaLogExample.createCriteria();
+        operalogQueryDTO.setQueryCondition(queryCriteria);
 
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
-            OperaLogExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
-            OperaLogExample.setLimitEnd(pager.getRows());
+        	operaLogExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
+        	operaLogExample.setLimitEnd(pager.getRows());
         }
         if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
-            OperaLogExample.setOrderByClause(pager.getOrderBy("temp_operalog_"));
+        	operaLogExample.setOrderByClause(pager.getOrderBy("temp_operalog_"));
         }
-        List<OperaLog> OperaLogs = operaLogMapper.selectByExample(OperaLogExample); // 查询所有操作日志列表
-        int total = operaLogMapper.countByExample(OperaLogExample); // 查询总页数
+        
+     // 高级检索
+        
+        List<OperaLog> OperaLogs = operaLogMapper.selectByExample(operaLogExample); // 查询所有操作日志列表
+        int total = operaLogMapper.countByExample(operaLogExample); // 查询总页数
         returnResult.setRows(OperaLogs);
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
