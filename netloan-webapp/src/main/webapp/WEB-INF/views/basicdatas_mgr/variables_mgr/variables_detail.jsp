@@ -5,19 +5,19 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>表单类型：</td>
+			<td>变量名：</td>
 			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
 				<input type="hidden" name="roleId" value="${variablesData.variablesId}" />
-				<input class="spinner" style="width:168px"  value="${variablesData.formType}" readonly="readonly"/>
+				<input class="spinner" style="width:168px"  value="${variablesData.variableName}" readonly="readonly"/>
 			</td>
-			<td>输入提示：</td>
-			<td><input class="spinner" style="width:168px" value="${variablesData.inputTip}" readonly="readonly"/></td>
-		</tr>
-		<tr>
 			<td>参数值：</td>
 			<td><input class="spinner" style="width:168px" value="${variablesData.parameterValues}" readonly="readonly"/></td>
-			<td>变量名：</td>
-			<td><input class="spinner" style="width:168px" value="${variablesData.variableName}" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>输入提示：</td>
+			<td><input class="spinner" style="width:168px" value="${variablesData.inputTip}" readonly="readonly"/></td>
+			<td>表单类型：</td>
+			<td><input class="spinner" style="width:168px" value="${variablesData.formType}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>参数说明：</td>

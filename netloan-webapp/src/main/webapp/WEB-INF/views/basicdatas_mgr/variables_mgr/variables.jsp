@@ -38,13 +38,8 @@
 				title:'ID',
 				checkbox:true
 			},{
-				field:'specification',
-				title:'参数说明',
-				width:200,
-				sortable:true
-			},{
-				field:'inputTip',
-				title:'输入提示',
+				field:'variableName',
+				title:'变量名',
 				width:200,
 				sortable:true
 			},{
@@ -53,8 +48,13 @@
 				width:200,
 				sortable:true
 			},{
-				field:'variableName',
-				title:'变量名',
+				field:'specification',
+				title:'参数说明',
+				width:200,
+				sortable:true
+			},{
+				field:'inputTip',
+				title:'输入提示',
 				width:200,
 				sortable:true
 			},{
@@ -124,7 +124,7 @@
 				title: rowData.variableName,
 				href : ctx + '/do/variables/intoDetail.htm?variablesId='+rowData.variablesId,//从controller请求jsp页面进行渲染
 				width : 530,
-				height : 300,
+				height : 290,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

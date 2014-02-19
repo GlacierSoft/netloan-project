@@ -5,23 +5,23 @@
 <form method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
-			<td>参数说明：</td>
+			<td>变量名：</td>
 			<td>
 				<input type="hidden" name="variablesId" value="${variablesData.variablesId}" />
-				<input name="specification" class="easyui-validatebox spinner" style="width:268px" required="true" value="${variablesData.specification}"/>
+				<input name="variableName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${variablesData.variableName}"/>
 			</td>
-		</tr>
-		<tr>
-			<td>输入提示：</td>
-			<td><input name="inputTip" class="easyui-validatebox spinner" style="width:268px" required="true" value="${variablesData.inputTip}"/></td>
 		</tr>
 		<tr>
 			<td>参数值：</td>
 			<td><input name="parameterValues" class="easyui-validatebox spinner" style="width:268px" required="true" value="${variablesData.parameterValues}"/></td>
 		</tr>
 		<tr>
-			<td>变量名：</td>
-			<td><input name="variableName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${variablesData.variableName}"/></td>
+			<td>参数说明：</td>
+			<td><input name="specification" class="easyui-validatebox spinner" style="width:268px" required="true" value="${variablesData.specification}"/></td>
+		</tr>
+		<tr>
+			<td>输入提示：</td>
+			<td><input name="inputTip" class="easyui-validatebox spinner" style="width:268px" required="true" value="${variablesData.inputTip}"/></td>
 		</tr>
 		<tr>
 			<td>表单类型：</td>
