@@ -117,7 +117,7 @@
     where app_amount_id = #{appAmountId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.member.ApplicationAmountExample" >
-    delete from t_application_amount temp_application_amount
+    delete temp_application_amount from t_application_amount temp_application_amount
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
