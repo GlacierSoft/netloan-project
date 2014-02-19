@@ -26,7 +26,7 @@
 		</tr>
 		<tr>
 			<td>附件：</td>
-			<td><input id="hiring_mgr_hiring_form_accessory" name="accessory" class="easyui-validatebox spinner" style="width:268px" required="true" value="${hiringData.accessory}"/></td>
+			<td><input id="hiring_mgr_hiring_form_accessory" name="accessory" class="easyui-validatebox spinner" style="width:268px" value="${hiringData.accessory}"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>

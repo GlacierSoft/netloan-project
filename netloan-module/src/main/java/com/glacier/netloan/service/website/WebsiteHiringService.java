@@ -159,7 +159,7 @@ public class WebsiteHiringService {
         WebsiteHiringExample websiteHiringExample = new WebsiteHiringExample();
         int count = 0;
         // 防止招聘管理名称重复
-        websiteHiringExample.createCriteria().andWebHiringIdEqualTo(websiteHiring.getWebHiringId()).andWebHiringThemeEqualTo(websiteHiring.getWebHiringTheme());
+        websiteHiringExample.createCriteria().andWebHiringIdNotEqualTo(websiteHiring.getWebHiringId()).andWebHiringThemeEqualTo(websiteHiring.getWebHiringTheme());
         count = websiteHiringMapper.countByExample(websiteHiringExample);// 查找相同名称的招聘管理数量
         if (count > 0) {
             returnResult.setMsg("招聘管理名称重复");

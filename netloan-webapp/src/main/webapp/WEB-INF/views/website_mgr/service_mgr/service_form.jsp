@@ -30,7 +30,7 @@
 		</tr> --%>
 		<tr>
 			<td>附件：</td>
-			<td><input id="service_mgr_service_form_accessory" name="accessory" class="easyui-validatebox spinner" style="width:268px" required="true" value="${serviceData.accessory}"/></td>
+			<td><input id="service_mgr_service_form_accessory" name="accessory" class="easyui-validatebox spinner" style="width:268px" value="${serviceData.accessory}"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>
