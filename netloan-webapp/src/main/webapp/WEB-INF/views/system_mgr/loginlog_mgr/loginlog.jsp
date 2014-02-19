@@ -160,4 +160,30 @@
 			<glacierui:toolbar panelEnName="LoginlogList" toolbarId="loginlogDataGrid_toolbar" menuEnName="loginlog"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
+	<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
+		<form id="loginlogSearchForm">
+			<table>
+				<tr>
+					<td>登录人：</td>
+					<td><input name="loginUser" style="width: 80px;" class="spinner"/></td>
+					<!-- <td>角色英文名：</td>
+					<td><input name="roleEnName" style="width: 80px;" class="spinner"/></td>
+					<td>是否内置：</td>
+					<td>
+						<input name="builtin" style="width:80px;height:18px;" class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'value',textField : 'label',data :fields.builtin" />
+					</td> -->
+					<td>登录时间：</td>
+					<td>
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;" />
+						-
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;" />
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.system_mgr.loginlog_mgr.loginlog.loginlogDataGrid.datagrid('load',glacier.serializeObject($('#loginlogSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#loginlogSearchForm input').val('');glacier.system_mgr.loginlog_mgr.loginlog.loginlogDataGrid.datagrid('load',{});">重置条件</a>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
 </div>

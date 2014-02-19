@@ -13,8 +13,10 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.system.LoginLogMapper;
+import com.glacier.netloan.dto.query.system.LoginlogQueryDTO;
 import com.glacier.netloan.entity.system.LoginLog;
 import com.glacier.netloan.entity.system.LoginLogExample;
+import com.glacier.netloan.entity.system.LoginLogExample.Criteria;
 import com.glacier.netloan.util.MethodLog;
 
 @Service
@@ -32,10 +34,13 @@ public class LoginLogService {
 	 * @return Object  返回类型
 	 * @throws 
 	 */
-	public Object listAsGrid(JqPager pager){
+	public Object listAsGrid(LoginlogQueryDTO loginlogQueryDTO,JqPager pager){
 		
 		JqGridReturn returnResult = new JqGridReturn();
 		LoginLogExample loginLogExample = new LoginLogExample();
+		
+		Criteria queryCriteria = loginLogExample.createCriteria();
+		loginlogQueryDTO.setQueryCondition(queryCriteria);
 		
 		if(null != pager.getPage() && null != pager.getRows()){// 设置排序信息
 			loginLogExample.setLimitStart((pager.getPage()-1)*pager.getRows());
@@ -44,6 +49,9 @@ public class LoginLogService {
 		if(StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())){// 设置排序信息
 			loginLogExample.setOrderByClause(pager.getOrderBy("temp_loginlog_"));
 		}
+		
+		// 高级检索
+		
 		List<LoginLog> loginLogs = loginLogMapper.selectByExample(loginLogExample);// 查询所有登录日志列表
 		int total = loginLogMapper.countByExample(loginLogExample);// 查询总页数
 		returnResult.setRows(loginLogs);

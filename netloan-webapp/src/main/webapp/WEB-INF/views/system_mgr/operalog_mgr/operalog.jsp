@@ -34,7 +34,7 @@
 		remoteSort: true,//开启远程排序，默认为false
 		idField:'operalogId',
 		columns:[[
-			{
+			{	
 				field:'operalogId',
 				title:'ID',
 				checkbox:true

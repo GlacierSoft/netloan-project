@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.system.LoginlogQueryDTO;
 import com.glacier.netloan.service.system.LoginLogService;
 
 @Controller
@@ -31,8 +32,8 @@ public class LoginLogController {
 	//
 	@RequestMapping(value = "/list.json" , method = RequestMethod.POST)
 	@ResponseBody
-	public Object listActionAsGridByMenuId(JqPager pager){
-		return loginLogService.listAsGrid(pager); 
+	public Object listActionAsGridByMenuId(LoginlogQueryDTO loginlogQueryDTO,JqPager pager){
+		return loginLogService.listAsGrid(loginlogQueryDTO,pager); 
 	}
 	
 	// 进入客服Detail信息页面
