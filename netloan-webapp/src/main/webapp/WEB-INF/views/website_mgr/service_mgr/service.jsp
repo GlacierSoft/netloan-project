@@ -129,7 +129,7 @@
 				title: rowData.webServiceName,
 				href : ctx + '/do/service/intoDetail.htm?webServiceId='+rowData.webServiceId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 250,
+				height : 260,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -137,55 +137,12 @@
 		}
 	});
 	
-	/*
-		新建/编辑 弹出框
-		title:弹出框标题
-		submitUrl：提交路径
-		id:新增值为空字符串，编辑填写后台要获取的数据ID
-	*/
-/* 	glacier.website_mgr.service_mgr.service.newDialog = function(title,submitUrl,id){
-		var iconCls = 'icon-standard-pencil-add';
-		if(id){
-			iconCls='icon-standard-pencil-go';
-		}
-		$.easyui.showDialog({
-			href : ctx + '/do/service/intoForm.htm?webServiceId='+id,//从controller请求jsp页面进行渲染
-			width : 400,
-			height : 350,
-			resizable: false,
-			enableApplyButton : false,
-			title : title,
-			iconCls : iconCls,
-			onSave : function(){
-				$(this).find('form').form('submit', {
-					url: ctx + submitUrl,
-					success: function(r){
-						$.messager.show(r.msg);
-						if(r.success){
-							glacier.website_mgr.service_mgr.service.serviceDataGrid.datagrid('reload');
-							return true;
-						}
-						 
-					}
-				});
-			}
-		});
-	};
-	//点击增加按钮触发方法
-	glacier.website_mgr.service_mgr.service.addService = function(){
-		glacier.website_mgr.service_mgr.service.newDialog(' 增加客服','/do/service/add.json','');
-	};
-	//点击编辑按钮触发方法
-	glacier.website_mgr.service_mgr.service.editService = function(){
-		var row = glacier.website_mgr.service_mgr.service.serviceDataGrid.datagrid("getSelected");
-		glacier.website_mgr.service_mgr.service.newDialog(' 编辑【'+row.webServiceName+'】','/do/service/edit.json',row.webServiceId);
-	}; */
 	//点击增加按钮触发方法
 	glacier.website_mgr.service_mgr.service.addService = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加客服',
-			width : 385,
-			height : 250,
+			width : 420,
+			height : 340,
 			queryUrl : ctx + '/do/service/intoForm.htm',
 			submitUrl : ctx + '/do/service/add.json',
 			successFun : function (){
@@ -199,8 +156,8 @@
 		var row = glacier.website_mgr.service_mgr.service.serviceDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.webServiceName+'】',
-			width : 385,
-			height : 250,
+			width : 420,
+			height : 340,
 			queryUrl : ctx + '/do/service/intoForm.htm',
 			submitUrl : ctx + '/do/service/edit.json',
 			queryParams : {

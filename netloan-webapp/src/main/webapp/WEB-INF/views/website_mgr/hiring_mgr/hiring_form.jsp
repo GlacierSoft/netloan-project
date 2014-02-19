@@ -8,7 +8,8 @@
 			<td>招聘管理主题：</td>
 			<td>
 				<input type="hidden" id="hiring_mgr_hiring_form_webHiringId" name="webHiringId" value="${hiringData.webHiringId}" />
-				<input id="hiring_mgr_hiring_form_webHiringTheme" name="webHiringTheme" style="width:268px" value="${hiringData.webHiringTheme}" class="easyui-validatebox spinner"  required="true"  validType="customReg['^[\\u4E00-\\u9FA5\\uf900-\\ufa2d\\w]{2,16}$','<fmt:message key="WebsiteHiring.webHiringTheme.illegal"/>']"/>
+<%-- 				<input id="hiring_mgr_hiring_form_webHiringTheme" name="webHiringTheme" style="width:268px" value="${hiringData.webHiringTheme}" class="easyui-validatebox spinner"  required="true"  validType="customReg['^[\\u4E00-\\u9FA5\\uf900-\\ufa2d\\w]{2,16}$','<fmt:message key="WebsiteHiring.webHiringTheme.illegal"/>']"/> --%>
+				<input id="hiring_mgr_hiring_form_webHiringTheme" name="webHiringTheme" style="width:268px" value="${hiringData.webHiringTheme}" class="easyui-validatebox spinner"  required="true"  validType="length[2,10]" invalidMessage="招聘管理主题必须在2到10个字符之间"/>
 			</td>
 		</tr>
 		<tr>

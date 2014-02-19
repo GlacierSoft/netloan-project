@@ -8,13 +8,14 @@
 			<td>导航：</td>
 			<td>
 				<input id="nav_mgr_nav_form_webNavId" type="hidden" name="webNavId" value="${websiteNavData.webNavId}" />
-				<input id="nav_mgr_nav_form_webNavName" name="webNavName" class="easyui-validatebox spinner" style="width:240px" required="true" value="${websiteNavData.webNavName}" validType="customReg['^[\u0391-\uFFE5]{2,10}$','<fmt:message key="WebsiteNav.webNavName.illegal"/>']"/>
+<%-- 				<input id="nav_mgr_nav_form_webNavName" name="webNavName" class="easyui-validatebox spinner" style="width:240px" required="true" value="${websiteNavData.webNavName}" validType="customReg['^[\u0391-\uFFE5]{2,10}$','<fmt:message key="WebsiteNav.webNavName.illegal"/>']"/> --%>
+				<input id="nav_mgr_nav_form_webNavName" name="webNavName" class="easyui-validatebox spinner" style="width:240px" required="true" value="${websiteNavData.webNavName}" validType="length[2,10]" invalidMessage="导航名称必须在2到10个字符之间"/>
 			</td>
 		</tr>
 		<tr>
 			<td>父级导航：</td>
 			<td class="forminputtable">
-				<input id="nav_mgr_nav_form_webNavPid" name="webNavPid" value="${websiteNavData.webNavPid}"/>
+				<input id="nav_mgr_nav_form_webNavPid" name="webNavPid"  class="easyui-validatebox spinner" required="true" value="${websiteNavData.webNavPid}"/>
 			</td>
 		</tr>
 		<tr>

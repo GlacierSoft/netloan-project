@@ -8,7 +8,8 @@
 			<td>帮助中心主题：</td>
 			<td>
 				<input type="hidden" id="help_mgr_help_form_webHelpId" name="webHelpId" value="${helpData.webHelpId}" />
-				<input id="help_mgr_help_form_webHelpTheme" name="webHelpTheme" style="width:268px" value="${helpData.webHelpTheme}" class="easyui-validatebox spinner"  required="true"  validType="customReg['^[\\u4E00-\\u9FA5\\uf900-\\ufa2d\\w]{2,16}$','<fmt:message key="WebsiteHelp.webHelpTheme.illegal"/>']"/>
+<%-- 				<input id="help_mgr_help_form_webHelpTheme" name="webHelpTheme" style="width:268px" value="${helpData.webHelpTheme}" class="easyui-validatebox spinner"  required="true"  validType="customReg['^[\\u4E00-\\u9FA5\\uf900-\\ufa2d\\w]{2,16}$','<fmt:message key="WebsiteHelp.webHelpTheme.illegal"/>']"/> --%>
+				<input id="help_mgr_help_form_webHelpTheme" name="webHelpTheme" style="width:268px" value="${helpData.webHelpTheme}" class="easyui-validatebox spinner"  required="true"  validType="length[2,10]" invalidMessage="帮助中心主题必须在2到10个字符之间"/>
 			</td>
 		</tr>
 		<tr>

@@ -131,64 +131,21 @@
 			$.easyui.showDialog({
 				title: rowData.webHelpTheme,
 				href : ctx + '/do/help/intoDetail.htm?webHelpId='+rowData.webHelpId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 250,
+				width : 600,
+				height : 288,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
 			});
 		}
 	});
-	
-	/*
-		新建/编辑 弹出框
-		title:弹出框标题
-		submitUrl：提交路径
-		id:新增值为空字符串，编辑填写后台要获取的数据ID
-	*/
-/* 	glacier.website_mgr.help_mgr.help.newDialog = function(title,submitUrl,id){
-		var iconCls = 'icon-standard-pencil-add';
-		if(id){
-			iconCls='icon-standard-pencil-go';
-		}
-		$.easyui.showDialog({
-			href : ctx + '/do/help/intoForm.htm?webHelpId='+id,//从controller请求jsp页面进行渲染
-			width : 400,
-			height : 350,
-			resizable: false,
-			enableApplyButton : false,
-			title : title,
-			iconCls : iconCls,
-			onSave : function(){
-				$(this).find('form').form('submit', {
-					url: ctx + submitUrl,
-					success: function(r){
-						$.messager.show(r.msg);
-						if(r.success){
-							glacier.website_mgr.help_mgr.help.helpDataGrid.datagrid('reload');
-							return true;
-						}
-						 
-					}
-				});
-			}
-		});
-	};
-	//点击增加按钮触发方法
-	glacier.website_mgr.help_mgr.help.addHelp = function(){
-		glacier.website_mgr.help_mgr.help.newDialog(' 增加客服','/do/help/add.json','');
-	};
-	//点击编辑按钮触发方法
-	glacier.website_mgr.help_mgr.help.editHelp = function(){
-		var row = glacier.website_mgr.help_mgr.help.helpDataGrid.datagrid("getSelected");
-		glacier.website_mgr.help_mgr.help.newDialog(' 编辑【'+row.webHelpTheme+'】','/do/help/edit.json',row.webHelpId);
-	}; */
+
 	//点击增加按钮触发方法
 	glacier.website_mgr.help_mgr.help.addHelp = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加帮助信息',
-			width : 385,
-			height : 250,
+			width : 440,
+			height : 360,
 			queryUrl : ctx + '/do/help/intoForm.htm',
 			submitUrl : ctx + '/do/help/add.json',
 			successFun : function (){
@@ -202,8 +159,8 @@
 		var row = glacier.website_mgr.help_mgr.help.helpDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.webHelpTheme+'】',
-			width : 385,
-			height : 250,
+			width : 440,
+			height : 360,
 			queryUrl : ctx + '/do/help/intoForm.htm',
 			submitUrl : ctx + '/do/help/edit.json',
 			queryParams : {

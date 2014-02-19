@@ -123,64 +123,21 @@
 			$.easyui.showDialog({
 				title: rowData.webHiringTheme,
 				href : ctx + '/do/hiring/intoDetail.htm?webHiringId='+rowData.webHiringId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 250,
+				width : 600,
+				height : 280,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
 			});
 		}
 	});
-	
-	/*
-		新建/编辑 弹出框
-		title:弹出框标题
-		submitUrl：提交路径
-		id:新增值为空字符串，编辑填写后台要获取的数据ID
-	*/
-/* 	glacier.website_mgr.hiring_mgr.hiring.newDialog = function(title,submitUrl,id){
-		var iconCls = 'icon-standard-pencil-add';
-		if(id){
-			iconCls='icon-standard-pencil-go';
-		}
-		$.easyui.showDialog({
-			href : ctx + '/do/hiring/intoForm.htm?webHiringId='+id,//从controller请求jsp页面进行渲染
-			width : 400,
-			height : 350,
-			resizable: false,
-			enableApplyButton : false,
-			title : title,
-			iconCls : iconCls,
-			onSave : function(){
-				$(this).find('form').form('submit', {
-					url: ctx + submitUrl,
-					success: function(r){
-						$.messager.show(r.msg);
-						if(r.success){
-							glacier.website_mgr.hiring_mgr.hiring.hiringDataGrid.datagrid('reload');
-							return true;
-						}
-						 
-					}
-				});
-			}
-		});
-	};
-	//点击增加按钮触发方法
-	glacier.website_mgr.hiring_mgr.hiring.addHiring = function(){
-		glacier.website_mgr.hiring_mgr.hiring.newDialog(' 增加客服','/do/hiring/add.json','');
-	};
-	//点击编辑按钮触发方法
-	glacier.website_mgr.hiring_mgr.hiring.editHiring = function(){
-		var row = glacier.website_mgr.hiring_mgr.hiring.hiringDataGrid.datagrid("getSelected");
-		glacier.website_mgr.hiring_mgr.hiring.newDialog(' 编辑【'+row.webHiringTheme+'】','/do/hiring/edit.json',row.webHiringId);
-	}; */
+
 	//点击增加按钮触发方法
 	glacier.website_mgr.hiring_mgr.hiring.addHiring = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加招聘信息',
-			width : 385,
-			height : 250,
+			width : 430,
+			height : 330,
 			queryUrl : ctx + '/do/hiring/intoForm.htm',
 			submitUrl : ctx + '/do/hiring/add.json',
 			successFun : function (){
@@ -194,8 +151,8 @@
 		var row = glacier.website_mgr.hiring_mgr.hiring.hiringDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.webHiringTheme+'】',
-			width : 385,
-			height : 250,
+			width : 430,
+			height : 330,
 			queryUrl : ctx + '/do/hiring/intoForm.htm',
 			submitUrl : ctx + '/do/hiring/edit.json',
 			queryParams : {
