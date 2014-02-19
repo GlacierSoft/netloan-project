@@ -95,63 +95,20 @@
 			$.easyui.showDialog({
 				title: rowData.integralName,
 				href : ctx + '/do/integral/intoDetail.htm?integralId='+rowData.integralId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 250,
+				width : 580,
+				height : 260,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
 			});
 		}
 	});
-	/*
-		新建/编辑 弹出框
-		title:弹出框标题
-		submitUrl：提交路径
-		id:新增值为空字符串，编辑填写后台要获取的数据ID
-	*/
-/* 	glacier.basicdatas_mgr.integral_mgr.integral.newDialog = function(title,submitUrl,id){
-		var iconCls = 'icon-standard-pencil-add';
-		if(id){
-			iconCls='icon-standard-pencil-go';
-		}
-		$.easyui.showDialog({
-			href : ctx + '/do/integral/intoForm.htm?integralId='+id,//从controller请求jsp页面进行渲染
-			width : 450,
-			height : 300,
-			resizable: false,
-			enableApplyButton : false,
-			title : title,
-			iconCls : iconCls,
-			onSave : function(){
-				$(this).find('form').form('submit', {
-					url: ctx + submitUrl,
-					success: function(r){
-						$.messager.show(r.msg);
-						if(r.success){
-							glacier.basicdatas_mgr.integral_mgr.integral.integralDataGrid.datagrid('reload');
-							return true;
-						}
-						 
-					}
-				});
-			}
-		});
-	};
-	//点击增加按钮触发方法
-	glacier.basicdatas_mgr.integral_mgr.integral.addIntegral = function(){
-		glacier.basicdatas_mgr.integral_mgr.integral.newDialog('增加会员积分级别','/do/integral/add.json','');
-	};
-	//点击编辑按钮触发方法
-	glacier.basicdatas_mgr.integral_mgr.integral.editIntegral = function(){
-		var row = glacier.basicdatas_mgr.integral_mgr.integral.integralDataGrid.datagrid("getSelected");
-		glacier.basicdatas_mgr.integral_mgr.integral.newDialog('编辑【'+row.integralName+'】','/do/integral/edit.json',row.integralId);
-	}; */
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.integral_mgr.integral.addIntegral = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加会员积分级别',
-			width : 385,
-			height : 250,
+			width : 420,
+			height : 300,
 			queryUrl : ctx + '/do/integral/intoForm.htm',
 			submitUrl : ctx + '/do/integral/add.json',
 			successFun : function (){
@@ -165,8 +122,8 @@
 		var row = glacier.basicdatas_mgr.integral_mgr.integral.integralDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.integralName+'】',
-			width : 385,
-			height : 250,
+			width : 420,
+			height : 300,
 			queryUrl : ctx + '/do/integral/intoForm.htm',
 			submitUrl : ctx + '/do/integral/edit.json',
 			queryParams : {

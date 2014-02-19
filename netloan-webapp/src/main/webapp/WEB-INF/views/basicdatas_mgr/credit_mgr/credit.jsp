@@ -95,63 +95,20 @@
 			$.easyui.showDialog({
 				title: rowData.creditName,
 				href : ctx + '/do/credit/intoDetail.htm?creditId='+rowData.creditId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 250,
+				width : 600,
+				height : 260,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
 			});
 		}
 	});
-	/*
-		新建/编辑 弹出框
-		title:弹出框标题
-		submitUrl：提交路径
-		id:新增值为空字符串，编辑填写后台要获取的数据ID
-	*/
-/* 	glacier.basicdatas_mgr.credit_mgr.credit.newDialog = function(title,submitUrl,id){
-		var iconCls = 'icon-standard-pencil-add';
-		if(id){
-			iconCls='icon-standard-pencil-go';
-		}
-		$.easyui.showDialog({
-			href : ctx + '/do/credit/intoForm.htm?creditId='+id,//从controller请求jsp页面进行渲染
-			width : 450,
-			height : 300,
-			resizable: false,
-			enableApplyButton : false,
-			title : title,
-			iconCls : iconCls,
-			onSave : function(){
-				$(this).find('form').form('submit', {
-					url: ctx + submitUrl,
-					success: function(r){
-						$.messager.show(r.msg);
-						if(r.success){
-							glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid('reload');
-							return true;
-						}
-						 
-					}
-				});
-			}
-		});
-	};
-	//点击增加按钮触发方法
-	glacier.basicdatas_mgr.credit_mgr.credit.addCredit = function(){
-		glacier.basicdatas_mgr.credit_mgr.credit.newDialog('增加会员信用级别','/do/credit/add.json','');
-	};
-	//点击编辑按钮触发方法
-	glacier.basicdatas_mgr.credit_mgr.credit.editCredit = function(){
-		var row = glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid("getSelected");
-		glacier.basicdatas_mgr.credit_mgr.credit.newDialog('编辑【'+row.creditName+'】','/do/credit/edit.json',row.creditId);
-	}; */
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.credit_mgr.credit.addCredit = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加会员信用级别',
-			width : 385,
-			height : 250,
+			width : 440,
+			height : 300,
 			queryUrl : ctx + '/do/credit/intoForm.htm',
 			submitUrl : ctx + '/do/credit/add.json',
 			successFun : function (){
@@ -165,8 +122,8 @@
 		var row = glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.creditName+'】',
-			width : 385,
-			height : 250,
+			width : 440,
+			height : 300,
 			queryUrl : ctx + '/do/credit/intoForm.htm',
 			submitUrl : ctx + '/do/credit/edit.json',
 			queryParams : {

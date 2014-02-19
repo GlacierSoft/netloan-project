@@ -156,7 +156,11 @@ public class ParameterIntegralService {
         if (count > 0) {
             returnResult.setMsg("会员积分级别名称重复");
             return returnResult;
-        }                               
+        }                              
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        parameterIntegral.setUpdater(pricipalUser.getUserId());
+        parameterIntegral.setUpdateTime(new Date());
         count = parameterIntegralMapper.updateByPrimaryKeySelective(parameterIntegral);
         if (count == 1) {
             returnResult.setSuccess(true);

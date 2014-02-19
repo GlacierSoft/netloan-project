@@ -186,7 +186,7 @@
 	//点击增加按钮触发方法
 	glacier.website_mgr.help_mgr.help.addHelp = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加客服',
+			title : '增加帮助信息',
 			width : 385,
 			height : 250,
 			queryUrl : ctx + '/do/help/intoForm.htm',

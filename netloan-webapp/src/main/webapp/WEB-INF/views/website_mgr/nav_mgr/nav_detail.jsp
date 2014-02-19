@@ -21,7 +21,7 @@
 		</tr>
 		<tr>
 			<td>状态：</td>
-			<td colspan="3"><input id="nav_mgr_nav_form_webNavStatus" value="${websiteNavData.webNavStatus}" readonly="readonly"/></td>
+			<td colspan="3"><input id="nav_mgr_nav_form_webNavStatus" class="spinner" style="width:168px" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>创建人：</td>
@@ -44,7 +44,7 @@
 
 <script type="text/javascript">
 	var webNavStatus = '${websiteNavData.webNavStatus}';
-	if(webNavStatus == "enabled"){
+	if(webNavStatus == "enable"){
 		$('#nav_mgr_nav_form_webNavStatus').val("启用");
 	}else{
 		$('#nav_mgr_nav_form_webNavStatus').val("禁用");

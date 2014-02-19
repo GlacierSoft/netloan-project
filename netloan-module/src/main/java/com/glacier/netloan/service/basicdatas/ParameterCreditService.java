@@ -157,6 +157,10 @@ public class ParameterCreditService {
             returnResult.setMsg("会员信用级别名称重复");
             return returnResult;
         }
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        parameterCredit.setUpdater(pricipalUser.getUserId());
+        parameterCredit.setUpdateTime(new Date());
         count = parameterCreditMapper.updateByPrimaryKeySelective(parameterCredit);
         if (count == 1) {
             returnResult.setSuccess(true);

@@ -39,7 +39,7 @@
 
 <script type="text/javascript">
 	var webHiringStatus = '${hiringData.webHiringStatus}';
-	if(webHiringStatus == "enabled"){
+	if(webHiringStatus == "enable"){
 		$('#hiring_mgr_hiring_form_webHiringStatus').val("启用");
 	}else{
 		$('#hiring_mgr_hiring_form_webHiringStatus').val("禁用");

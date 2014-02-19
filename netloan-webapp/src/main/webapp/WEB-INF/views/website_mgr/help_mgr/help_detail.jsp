@@ -46,7 +46,7 @@
 <script type="text/javascript">
 	var webHelpStatus = '${helpData.webHelpStatus}';
 	var webHelpType = '${helpData.webHelpType}';
-	if(webHelpStatus == "enabled"){
+	if(webHelpStatus == "enable"){
 		$('#service_mgr_service_form_webHelpStatus').val("启用");
 	}else{
 		$('#service_mgr_service_form_webHelpStatus').val("禁用");

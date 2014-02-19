@@ -5,19 +5,23 @@
 <form id="credit_mgr_credit_form" method="POST" modelAttribute="parameterCredit" style="padding:15px" enctype="multipart/form-data">
 	<table class="formtable">
 		<tr>
-			<td>会员信用级别名称：</td>
+			<td>信用级别名称：</td>
 			<td>
 				<input type="hidden" name="creditId" value="${creditData.creditId}" />
 				<input name="creditName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditName}" validType="customReg['^[\u0391-\uFFE5]{2,10}$','<fmt:message key="ParameterCredit.creditName.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>
-			<td>信用级别开始积分：</td>
-			<td><input name="creditBeginIntegral" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditBeginIntegral}" validType="customReg['^d+$','<fmt:message key="ParameterCredit.creditBeginIntegral.illegal"/>']"/></td>
+			<td>开始积分：</td>
+			<td><input name="creditBeginIntegral" class="easyui-numberspinner spinner" value="${creditData.creditBeginIntegral}" data-options="min:0,max:999,required:true,missingMessage:'请选择信用级别开始积分'" style="width: 270px;height:18px;"/></td>
 		</tr>
 		<tr>
-			<td>信用级别结束积分：</td>
-			<td><input name="creditEndIntegral" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditEndIntegral}" validType="customReg['^d+$','<fmt:message key="ParameterCredit.creditEndIntegral.illegal"/>']"/></td>
+			<td>结束积分：</td>
+			<td><input name="creditEndIntegral" class="easyui-numberspinner spinner" value="${creditData.creditEndIntegral}" data-options="min:0,max:999,required:true,missingMessage:'请选择信用级别结束积分'" style="width: 270px;height:18px;"/></td>
+		</tr>
+		<tr>
+			<td>排序：</td>
+			<td><input name="creditNum" class="easyui-numberspinner spinner" value="${creditData.creditNum}" data-options="min:0,max:999,missingMessage:'请输入信用级别排序'" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr>
 <%-- 		<tr>
 	    	<td>级别图标:</td>

@@ -5,19 +5,23 @@
 <form method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
-			<td>会员积分级别名称：</td>
+			<td>积分级别名称：</td>
 			<td>
 				<input type="hidden" name="integralId" value="${integralData.integralId}" />
 				<input name="integralName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${integralData.integralName}" validType="customReg['^[\u0391-\uFFE5]{2,10}$','<fmt:message key="ParameterIntegral.integralName.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>
-			<td>积分级别开始积分：</td>
-			<td><input name="integralBegin" class="easyui-validatebox spinner" style="width:268px" required="true" value="${integralData.integralBegin}" validType="customReg['^d+$','<fmt:message key="ParameterIntegral.integralBegin.illegal"/>']"/></td>
+			<td>开始积分：</td>
+			<td><input name="integralBegin" class="easyui-numberspinner spinner" value="${integralData.integralBegin}" data-options="min:0,max:999,required:true,missingMessage:'请选择积分级别开始积分'" style="width: 270px;height:18px;"/></td>
 		</tr>
 		<tr>
-			<td>积分级别结束积分：</td>
-			<td><input name="integralEnd" class="easyui-validatebox spinner" style="width:268px" required="true" value="${integralData.integralEnd}" validType="customReg['^d+$','<fmt:message key="ParameterIntegral.integralEnd.illegal"/>']"/></td>
+			<td>结束积分：</td>
+			<td><input name="integralEnd" class="easyui-numberspinner spinner" value="${integralData.integralEnd}" data-options="min:0,max:999,required:true,missingMessage:'请选择积分级别开始积分'" style="width: 270px;height:18px;"/></td>
+		</tr>
+		<tr>
+			<td>排序：</td>
+			<td><input name="integralNum" class="easyui-numberspinner spinner" value="${integralData.integralNum}" data-options="min:0,max:999,missingMessage:'请输入信用级别排序'" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>

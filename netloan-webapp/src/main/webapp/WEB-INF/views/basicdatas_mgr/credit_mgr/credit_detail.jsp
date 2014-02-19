@@ -10,6 +10,8 @@
 				<input type="hidden" name="creditId" value="${creditData.creditId}" />
 				<input class="spinner" style="width:150px"  value="${creditData.creditName}" readonly="readonly"/>
 			</td>
+			<td>排序：</td>
+			<td><input class="spinner" style="width:168px" value="${creditData.creditNum}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>会员开始积分：</td>
@@ -22,6 +24,12 @@
 			<td><input class="spinner" style="width:150px" value="${creditData.creater}" readonly="readonly"/></td>
 			<td>创建时间：</td>
 			<td><input class="spinner" style="width:150px" value="<fmt:formatDate value="${creditData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>更新人：</td>
+			<td><input class="spinner" style="width:168px" value="${creditData.updater}" readonly="readonly"/></td>
+			<td>更新时间：</td>
+			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${creditData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>
