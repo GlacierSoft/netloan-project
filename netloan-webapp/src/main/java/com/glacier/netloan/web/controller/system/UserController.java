@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.system.UserQueryDTO;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.service.system.UserService;
 
@@ -56,8 +57,8 @@ public class UserController extends AbstractController{
 	// 获取表格结构的所有用户数据
 	@RequestMapping(value = "/list.json", method = RequestMethod.POST)
 	@ResponseBody
-	private Object listActionAsGridByMenuId(JqPager pager){
-		return userService.listAsGrid(pager);
+	private Object listActionAsGridByMenuId(UserQueryDTO userQueryDTO,JqPager pager){
+		return userService.listAsGrid(userQueryDTO,pager);
 	}
 	
 	//增加用户信息

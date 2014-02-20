@@ -25,7 +25,7 @@
 					<td>URL：</td>
 					<td><input name="url" class="easyui-validatebox spinner" style="width:170px" maxlength="100" validType="customReg['^[^\u4e00-\u9fa5]{0,100}$','<fmt:message key="Menu.url.illegal"/>']"/></td>
 					<td>菜单排序：</td>
-					<td><input name="orderNum" class="easyui-numberspinner spinner" data-options="min:0,max:999,editable:true,required:true,missingMessage:'请选择菜单排序'" value="10" style="width: 172px;height:18px;" min="1" max="99"/></td>
+					<td><input name="orderNum" class="easyui-number spinner" data-options="min:0,max:999,editable:true,required:true,missingMessage:'请选择菜单排序'" value="10" style="width: 172px;height:18px;" min="1" max="99"/></td>
 				</tr>
 				<tr>
 					<td>备注：</td>

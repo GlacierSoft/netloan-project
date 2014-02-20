@@ -58,6 +58,8 @@ public class User implements Serializable {
 
     private String creater;
 
+    private String createrDisplay;
+
     private Date createTime;
 
     public String getUserId() {
@@ -170,6 +172,14 @@ public class User implements Serializable {
 
     public void setCreater(String creater) {
         this.creater = creater;
+    }
+
+    public String getCreaterDisplay() {
+        return createrDisplay;
+    }
+
+    public void setCreaterDisplay(String createrDisplay) {
+        this.createrDisplay = createrDisplay;
     }
 
     public Date getCreateTime() {

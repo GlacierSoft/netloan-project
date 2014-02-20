@@ -89,6 +89,10 @@
     ,temp_panel.panel_cn_name as temp_action_panel_cn_name
     ,temp_panel.panel_en_name as temp_action_panel_en_name
   </sql>
+  <sql id="Base_extend">
+  	INNER JOIN t_menu temp_menu ON temp_action.menu_id = temp_menu.menu_id <!-- 扩展 -->
+	INNER JOIN t_panel temp_panel ON temp_action.panel_id = temp_panel.panel_id <!-- 扩展 -->
+  </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.system.ActionExample" >
     select
     <if test="distinct" >
@@ -96,8 +100,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_action temp_action
-    INNER JOIN t_menu temp_menu ON temp_action.menu_id = temp_menu.menu_id <!-- 扩展 -->
-	INNER JOIN t_panel temp_panel ON temp_action.panel_id = temp_panel.panel_id <!-- 扩展 -->
+    <include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -112,8 +115,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_action temp_action
-    INNER JOIN t_menu temp_menu ON temp_action.menu_id = temp_menu.menu_id <!-- 扩展 -->
-	INNER JOIN t_panel temp_panel ON temp_action.panel_id = temp_panel.panel_id <!-- 扩展 -->
+    <include refid="Base_extend"/>
     where temp_action.action_id = #{actionId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -211,6 +213,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.system.ActionExample" resultType="java.lang.Integer" >
     select count(*) from t_action temp_action
+    <include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

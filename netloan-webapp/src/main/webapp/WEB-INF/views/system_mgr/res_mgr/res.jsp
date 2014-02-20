@@ -46,10 +46,19 @@
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$.fn.treegrid.extensions.onLoadSuccess.apply(this, arguments);//这句一定要加上
-			$(this).treegrid('unselectAll');
+			$(this).datagrid('clearSelections');
+			$(this).datagrid('clearChecked');
 		},
 		onDblClickRow: function(row){
-			glacier.system_mgr.res_mgr.res.menuDetails(row);
+			$.easyui.showDialog({
+				title: row.menuCnName,
+				href : ctx + '/do/res/menu/intoDetail.htm?menuId='+row.menuId,//从controller请求jsp页面进行渲染
+				width : 550,
+				height : 250,
+				resizable: false,
+				enableApplyButton : false,
+				enableSaveButton : false
+			});
 		},
 		frozenColumns : [ [{//冻结列，当表格宽度压缩展示不全时候，该列不会缩小
 			field : 'menuId' , title : 'ID' , hidden:true
@@ -347,24 +356,6 @@
 				}
 			});
 		}
-	};
-	
-	//查看菜单详细信息
-	glacier.system_mgr.res_mgr.res.menuDetails = function(row){
-		$('<div/>').dialog({
-			href : ctx + '/do/res/menu/intoForm.htm',//从controller请求jsp页面进行渲染
-			width : 550,
-			height : 300,
-			modal : true,
-			resizable: false,
-			title : row.menuCnName,
-			onClose : function() {//提高浏览器性能，点击关闭窗口时候注销
-				$(this).dialog('destroy');
-			},
-			onLoad : function() {
-				$('#menu_mgr_menu_form').form('load', row);
-			}
-		});
 	};
 	
 	/**

@@ -69,6 +69,20 @@ public class MenuService {
 
     @Autowired
     private AuthorityMapper authorityMapper;
+    
+    /**
+     * @Title: getMenu
+     * @Description: TODO(根据菜单ID获取角色信息)
+     * @param @param roleId
+     * @param @return
+     * @throws 备注
+     *             <p>
+     *             已检查测试:Green
+     *             <p>
+     */
+    public Object getMenu(String menuId) {
+        return menuMapper.selectByPrimaryKey(menuId);
+    }
 
     /**
      * 

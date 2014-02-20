@@ -23,6 +23,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -77,9 +78,12 @@ public class ResourcesController extends AbstractController{
     
     // 进入菜单Form表单页面
     @RequestMapping(value = "/menu/intoForm.htm")
-    private Object intoMenuFormPage() {
+    private Object intoMenuFormPage(String menuId) {
         ModelAndView mav = new ModelAndView("system_mgr/res_mgr/menu_form");
         mav.addObject("allMenuTreeNodeData", menuService.getAllTreeMenuNode(true,""));
+        if(StringUtils.isNotBlank(menuId)){
+            mav.addObject("menuData", menuService.getMenu(menuId));
+        }
         return mav;
     }
     
@@ -100,9 +104,10 @@ public class ResourcesController extends AbstractController{
     }
 
     // 查看菜单Detail页面
-    @RequestMapping(value = "/menu/intoDetails.htm")
-    private Object intoDetailsPage() {
-        ModelAndView mav = new ModelAndView("system_mgr/res_mgr/menu_details");
+    @RequestMapping(value = "/menu/intoDetail.htm")
+    private Object intoDetailsPage(String menuId) {
+        ModelAndView mav = new ModelAndView("system_mgr/res_mgr/menu_detail");
+        mav.addObject("menuData",menuService.getMenu(menuId));
         return mav;
     }
 

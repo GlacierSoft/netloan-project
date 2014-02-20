@@ -86,6 +86,10 @@
 				title:'最后登录时间',
 				sortable:true,
 				width:120
+			},{
+				field:'createrDisplay',
+				title:'创建者',
+				width:120
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
@@ -278,13 +282,21 @@
 		<form id="userSearchForm">
 			<table>
 				<tr>
-					<td>角色名：</td>
-					<td><input name="roleCnName" style="width: 80px;" class="spinner"/></td>
-					<td>角色英文名：</td>
-					<td><input name="roleEnName" style="width: 80px;" class="spinner"/></td>
-					<td>角色类型：</td>
+					<td>用户名：</td>
+					<td><input name="username" style="width: 80px;" class="spinner"/></td>
+					<td>真实姓名：</td>
+					<td><input name="userCnName" style="width: 80px;" class="spinner"/></td>
+					<td>电子邮箱：</td>
+					<td>
+						<input name="email" style="width:80px;height:18px;" class="spinner" />
+					</td>
+					<td>用户类型：</td>
 					<td>
 						<input name="builtin" style="width:80px;height:18px;" class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'value',textField : 'label',data :fields.builtin" />
+					</td>
+					<td>用户状态：</td>
+					<td>
+						<input name="status" style="width:80px;height:18px;" class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'value',textField : 'label',data :fields.status" />
 					</td>
 					<td>录入时间：</td>
 					<td>
@@ -293,8 +305,8 @@
 						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;" />
 					</td>
 					<td>
-						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid('load',glacier.serializeObject($('#roleSearchForm')));">查询</a>
-						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#roleSearchForm input').val('');glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid('load',{});">重置条件</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.system_mgr.user_mgr.user.userDataGrid.datagrid('load',glacier.serializeObject($('#userSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#userSearchForm input').val('');glacier.system_mgr.user_mgr.user.userDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>
