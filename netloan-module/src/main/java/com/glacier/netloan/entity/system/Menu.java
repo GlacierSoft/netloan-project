@@ -4,6 +4,11 @@ public class Menu {
     private String menuId;
 
     private String pid;
+    
+    /**
+     * 自定义字段
+     */
+    private String parentMenuCnName;
 
     private String menuEnName;
 
@@ -79,6 +84,14 @@ public class Menu {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+    
+    public String getParentMenuCnName() {
+        return parentMenuCnName;
+    }
+
+    public void setParentMenuCnName(String parentMenuCnName) {
+        this.parentMenuCnName = parentMenuCnName;
     }
 
     @Override

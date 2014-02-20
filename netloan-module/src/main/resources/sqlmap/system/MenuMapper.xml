@@ -10,6 +10,7 @@
     <result column="temp_menu_url" property="url" jdbcType="VARCHAR" />
     <result column="temp_menu_order_num" property="orderNum" jdbcType="INTEGER" />
     <result column="temp_menu_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_action_parentMenuCnName" property="parentMenuCnName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -73,6 +74,11 @@
     temp_menu.menu_id as temp_menu_menu_id, temp_menu.pid as temp_menu_pid, temp_menu.menu_en_name as temp_menu_menu_en_name, 
     temp_menu.menu_cn_name as temp_menu_menu_cn_name, temp_menu.icon_cls as temp_menu_icon_cls, 
     temp_menu.url as temp_menu_url, temp_menu.order_num as temp_menu_order_num, temp_menu.remark as temp_menu_remark
+    <!-- 以下字段属于扩展 -->
+    ,temp_parentmenu.menu_cn_name as temp_action_parentMenuCnName
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_menu temp_parentmenu ON temp_parentmenu.menu_id = temp_menu.pid <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.system.MenuExample" >
     select
@@ -81,6 +87,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_menu temp_menu
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -95,6 +102,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_menu temp_menu
+    <include refid="Base_extend" />
     where temp_menu.menu_id = #{menuId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -172,6 +180,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.system.MenuExample" resultType="java.lang.Integer" >
     select count(*) from t_menu temp_menu
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
