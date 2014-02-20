@@ -72,6 +72,7 @@ public class ParameterOptgroupValueService {
                 fields.add(fieldDTOTemp);
                 part.put(key, fields);
             }
+            
         }
         return JackJson.fromObjectToJson(part);
     }
@@ -86,25 +87,6 @@ public class ParameterOptgroupValueService {
      */
     public Object getOptgroupValue(String optgroupValueId) {
     	ParameterOptgroupValue optgroupValue = optgroupValueMapper.selectByPrimaryKey(optgroupValueId);
-    	if (null != optgroupValue.getStatus()) {// 根据字段代码改成字段名称
-    		if (optgroupValue.getStatus().equals("enable")) {
-    			optgroupValue.setStatusName("启用");
-    		} else {
-    			optgroupValue.setStatusName("禁用");
-    		}
-    	}
-    	if (null != optgroupValue.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-            User userTemp = userMapper.selectByPrimaryKey(optgroupValue.getCreater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	optgroupValue.setCreater(userTemp.getUserCnName());
-            }
-        }
-    	if (null != optgroupValue.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-            User userTemp = userMapper.selectByPrimaryKey(optgroupValue.getUpdater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	optgroupValue.setUpdater(userTemp.getUserCnName());
-            }
-        }
         return optgroupValue;
     }
 

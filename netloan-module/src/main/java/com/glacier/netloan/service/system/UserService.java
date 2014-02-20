@@ -100,12 +100,6 @@ public class UserService {
      */
     public Object getUser(String userId){
     	User user = userMapper.selectByPrimaryKey(userId);
-    	if (null != user.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-            User userTemp = userMapper.selectByPrimaryKey(user.getCreater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	user.setCreater(userTemp.getUserCnName());
-            }
-        }
         return user;
     }
     /**
