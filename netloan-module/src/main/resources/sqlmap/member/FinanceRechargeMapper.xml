@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.member.FinanceRechargeMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.member.FinanceRecharge" >
+    <id column="temp_finance_recharge_finance_recharge_id" property="financeRechargeId" jdbcType="VARCHAR" />
+    <result column="temp_finance_recharge_member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="temp_finance_recharge_finance_recharge_set_id" property="financeRechargeSetId" jdbcType="VARCHAR" />
+    <result column="temp_finance_recharge_recharge_amount" property="rechargeAmount" jdbcType="REAL" />
+    <result column="temp_finance_recharge_handling_charge" property="handlingCharge" jdbcType="REAL" />
+    <result column="temp_finance_recharge_recharge_rate" property="rechargeRate" jdbcType="REAL" />
+    <result column="temp_finance_recharge_arrive_money" property="arriveMoney" jdbcType="REAL" />
+    <result column="temp_finance_recharge_status" property="status" jdbcType="CHAR" />
+    <result column="temp_finance_recharge_auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="temp_finance_recharge_audit_date" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="temp_finance_recharge_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_finance_recharge_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_finance_recharge_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_finance_recharge_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_finance_recharge_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_finance_recharge.finance_recharge_id as temp_finance_recharge_finance_recharge_id, 
+    temp_finance_recharge.member_id as temp_finance_recharge_member_id, temp_finance_recharge.finance_recharge_set_id as temp_finance_recharge_finance_recharge_set_id, 
+    temp_finance_recharge.recharge_amount as temp_finance_recharge_recharge_amount, temp_finance_recharge.handling_charge as temp_finance_recharge_handling_charge, 
+    temp_finance_recharge.recharge_rate as temp_finance_recharge_recharge_rate, temp_finance_recharge.arrive_money as temp_finance_recharge_arrive_money, 
+    temp_finance_recharge.status as temp_finance_recharge_status, temp_finance_recharge.auditor as temp_finance_recharge_auditor, 
+    temp_finance_recharge.audit_date as temp_finance_recharge_audit_date, temp_finance_recharge.remark as temp_finance_recharge_remark, 
+    temp_finance_recharge.creater as temp_finance_recharge_creater, temp_finance_recharge.create_time as temp_finance_recharge_create_time, 
+    temp_finance_recharge.updater as temp_finance_recharge_updater, temp_finance_recharge.update_time as temp_finance_recharge_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.member.FinanceRechargeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_finance_recharge temp_finance_recharge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_finance_recharge temp_finance_recharge
+    where temp_finance_recharge.finance_recharge_id = #{financeRechargeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_finance_recharge
+    where finance_recharge_id = #{financeRechargeId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.member.FinanceRechargeExample" >
+    delete from t_finance_recharge temp_finance_recharge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.member.FinanceRecharge" >
+    insert into t_finance_recharge (finance_recharge_id, member_id, finance_recharge_set_id, 
+      recharge_amount, handling_charge, recharge_rate, 
+      arrive_money, status, auditor, 
+      audit_date, remark, creater, 
+      create_time, updater, update_time
+      )
+    values (#{financeRechargeId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{financeRechargeSetId,jdbcType=VARCHAR}, 
+      #{rechargeAmount,jdbcType=REAL}, #{handlingCharge,jdbcType=REAL}, #{rechargeRate,jdbcType=REAL}, 
+      #{arriveMoney,jdbcType=REAL}, #{status,jdbcType=CHAR}, #{auditor,jdbcType=VARCHAR}, 
+      #{auditDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.member.FinanceRecharge" >
+    insert into t_finance_recharge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="financeRechargeId != null" >
+        finance_recharge_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="financeRechargeSetId != null" >
+        finance_recharge_set_id,
+      </if>
+      <if test="rechargeAmount != null" >
+        recharge_amount,
+      </if>
+      <if test="handlingCharge != null" >
+        handling_charge,
+      </if>
+      <if test="rechargeRate != null" >
+        recharge_rate,
+      </if>
+      <if test="arriveMoney != null" >
+        arrive_money,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="auditor != null" >
+        auditor,
+      </if>
+      <if test="auditDate != null" >
+        audit_date,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="financeRechargeId != null" >
+        #{financeRechargeId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="financeRechargeSetId != null" >
+        #{financeRechargeSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeAmount != null" >
+        #{rechargeAmount,jdbcType=REAL},
+      </if>
+      <if test="handlingCharge != null" >
+        #{handlingCharge,jdbcType=REAL},
+      </if>
+      <if test="rechargeRate != null" >
+        #{rechargeRate,jdbcType=REAL},
+      </if>
+      <if test="arriveMoney != null" >
+        #{arriveMoney,jdbcType=REAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.member.FinanceRechargeExample" resultType="java.lang.Integer" >
+    select count(*) from t_finance_recharge temp_finance_recharge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_finance_recharge temp_finance_recharge
+    <set >
+      <if test="record.financeRechargeId != null" >
+        temp_finance_recharge.finance_recharge_id = #{record.financeRechargeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberId != null" >
+        temp_finance_recharge.member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.financeRechargeSetId != null" >
+        temp_finance_recharge.finance_recharge_set_id = #{record.financeRechargeSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rechargeAmount != null" >
+        temp_finance_recharge.recharge_amount = #{record.rechargeAmount,jdbcType=REAL},
+      </if>
+      <if test="record.handlingCharge != null" >
+        temp_finance_recharge.handling_charge = #{record.handlingCharge,jdbcType=REAL},
+      </if>
+      <if test="record.rechargeRate != null" >
+        temp_finance_recharge.recharge_rate = #{record.rechargeRate,jdbcType=REAL},
+      </if>
+      <if test="record.arriveMoney != null" >
+        temp_finance_recharge.arrive_money = #{record.arriveMoney,jdbcType=REAL},
+      </if>
+      <if test="record.status != null" >
+        temp_finance_recharge.status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.auditor != null" >
+        temp_finance_recharge.auditor = #{record.auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditDate != null" >
+        temp_finance_recharge.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        temp_finance_recharge.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_finance_recharge.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_finance_recharge.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_finance_recharge.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_finance_recharge.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_finance_recharge temp_finance_recharge
+    set temp_finance_recharge.finance_recharge_id = #{record.financeRechargeId,jdbcType=VARCHAR},
+      temp_finance_recharge.member_id = #{record.memberId,jdbcType=VARCHAR},
+      temp_finance_recharge.finance_recharge_set_id = #{record.financeRechargeSetId,jdbcType=VARCHAR},
+      temp_finance_recharge.recharge_amount = #{record.rechargeAmount,jdbcType=REAL},
+      temp_finance_recharge.handling_charge = #{record.handlingCharge,jdbcType=REAL},
+      temp_finance_recharge.recharge_rate = #{record.rechargeRate,jdbcType=REAL},
+      temp_finance_recharge.arrive_money = #{record.arriveMoney,jdbcType=REAL},
+      temp_finance_recharge.status = #{record.status,jdbcType=CHAR},
+      temp_finance_recharge.auditor = #{record.auditor,jdbcType=VARCHAR},
+      temp_finance_recharge.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      temp_finance_recharge.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_finance_recharge.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_finance_recharge.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_finance_recharge.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_finance_recharge.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.member.FinanceRecharge" >
+    update t_finance_recharge
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="financeRechargeSetId != null" >
+        finance_recharge_set_id = #{financeRechargeSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeAmount != null" >
+        recharge_amount = #{rechargeAmount,jdbcType=REAL},
+      </if>
+      <if test="handlingCharge != null" >
+        handling_charge = #{handlingCharge,jdbcType=REAL},
+      </if>
+      <if test="rechargeRate != null" >
+        recharge_rate = #{rechargeRate,jdbcType=REAL},
+      </if>
+      <if test="arriveMoney != null" >
+        arrive_money = #{arriveMoney,jdbcType=REAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="auditor != null" >
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where finance_recharge_id = #{financeRechargeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.member.FinanceRecharge" >
+    update t_finance_recharge
+    set member_id = #{memberId,jdbcType=VARCHAR},
+      finance_recharge_set_id = #{financeRechargeSetId,jdbcType=VARCHAR},
+      recharge_amount = #{rechargeAmount,jdbcType=REAL},
+      handling_charge = #{handlingCharge,jdbcType=REAL},
+      recharge_rate = #{rechargeRate,jdbcType=REAL},
+      arrive_money = #{arriveMoney,jdbcType=REAL},
+      status = #{status,jdbcType=CHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where finance_recharge_id = #{financeRechargeId,jdbcType=VARCHAR}
+  </update>
+</mapper>
