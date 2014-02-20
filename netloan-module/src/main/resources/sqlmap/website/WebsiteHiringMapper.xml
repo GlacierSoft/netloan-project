@@ -12,6 +12,8 @@
     <result column="temp_website_hiring_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_website_hiring_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_website_hiring_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_website_hiring_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_website_hiring_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.glacier.netloan.entity.website.WebsiteHiring" extends="BaseResultMap" >
     <result column="temp_website_hiring_web_hiring_content" property="webHiringContent" jdbcType="LONGVARCHAR" />
@@ -80,9 +82,16 @@
     temp_website_hiring.web_hiring_num as temp_website_hiring_web_hiring_num, temp_website_hiring.remark as temp_website_hiring_remark, 
     temp_website_hiring.creater as temp_website_hiring_creater, temp_website_hiring.create_time as temp_website_hiring_create_time, 
     temp_website_hiring.updater as temp_website_hiring_updater, temp_website_hiring.update_time as temp_website_hiring_update_time
+         <!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_website_hiring_createrDisplay
+    ,temp_updater.user_cn_name as temp_website_hiring_updaterDisplay
   </sql>
   <sql id="Blob_Column_List" >
     temp_website_hiring.web_hiring_content as temp_website_hiring_web_hiring_content
+  </sql>
+  <sql id="Base_extend">
+    INNER JOIN t_user temp_creater ON temp_creater.user_id = temp_website_hiring.creater <!-- 扩展 -->
+    INNER JOIN t_user temp_updater ON temp_updater.user_id = temp_website_hiring.updater <!-- 扩展 -->
   </sql>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.glacier.netloan.entity.website.WebsiteHiringExample" >
     select
@@ -110,6 +119,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_website_hiring temp_website_hiring
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -126,6 +136,7 @@
     ,
     <include refid="Blob_Column_List" />
     from t_website_hiring temp_website_hiring
+	<include refid="Base_extend" />
     where temp_website_hiring.web_hiring_id = #{webHiringId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -223,6 +234,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.website.WebsiteHiringExample" resultType="java.lang.Integer" >
     select count(*) from t_website_hiring temp_website_hiring
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

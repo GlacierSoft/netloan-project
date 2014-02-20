@@ -43,10 +43,5 @@
 </form>
 
 <script type="text/javascript">
-	var webNavStatus = '${websiteNavData.webNavStatus}';
-	if(webNavStatus == "enable"){
-		$('#nav_mgr_nav_form_webNavStatus').val("启用");
-	}else{
-		$('#nav_mgr_nav_form_webNavStatus').val("禁用");
-	}  
+	$('#nav_mgr_nav_form_webNavStatus').val(renderGridValue('${websiteNavData.webNavStatus}',fields.status));
 </script>

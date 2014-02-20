@@ -52,13 +52,13 @@ public class WebsiteNavService {
 	 */
 	public Object getNav(String webNavId) {
 	    WebsiteNav websiteNav = websiteNavMapper.selectByPrimaryKey(webNavId);
-	    if (null != websiteNav.getWebNavPid()) {// 根据父地区的所属Id查找到父地区的名字
+	    /*if (null != websiteNav.getWebNavPid()) {// 根据父地区的所属Id查找到父地区的名字
 	    	WebsiteNav websiteNavTemp = websiteNavMapper.selectByPrimaryKey(websiteNav.getWebNavPid());
     		if (StringUtils.isNotBlank(websiteNavTemp.getWebNavName())) {
     			websiteNav.setWebNavPname(websiteNavTemp.getWebNavName());
             }
-        }
-    	if (null != websiteNav.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
+        }*/
+    	/*if (null != websiteNav.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
             User userTemp = userMapper.selectByPrimaryKey(websiteNav.getCreater());
             if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
             	websiteNav.setCreater(userTemp.getUserCnName());
@@ -69,7 +69,7 @@ public class WebsiteNavService {
             if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
             	websiteNav.setUpdater(userTemp.getUserCnName());
             }
-        }
+        }*/
         return websiteNav;
 	}
 	
@@ -135,6 +135,8 @@ public class WebsiteNavService {
         }
         nav.setCreater(pricipalUser.getUserId());
         nav.setCreateTime(new Date());
+        nav.setUpdater(pricipalUser.getUserId());
+        nav.setUpdateTime(new Date());
         count = websiteNavMapper.insert(nav);
         if (count == 1) {
             returnResult.setSuccess(true);

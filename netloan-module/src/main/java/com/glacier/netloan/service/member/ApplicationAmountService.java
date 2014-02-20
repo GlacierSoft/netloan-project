@@ -127,6 +127,8 @@ public class ApplicationAmountService {
         applicationAmount.setAppAmountId(RandomGUID.getRandomGUID());
         applicationAmount.setCreater(pricipalUser.getUserId());
         applicationAmount.setCreateTime(new Date());
+        applicationAmount.setUpdater(pricipalUser.getUserId());
+        applicationAmount.setUpdateTime(new Date());
         count = applicationAmountMapper.insert(applicationAmount);
         if (count == 1) {
             returnResult.setSuccess(true);

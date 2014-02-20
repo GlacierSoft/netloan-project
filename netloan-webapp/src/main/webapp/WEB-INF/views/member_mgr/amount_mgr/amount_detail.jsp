@@ -14,9 +14,9 @@
 		</tr>
 		<tr>
 			<td>帮助中心类型：</td>
-			<td><input id="help_mgr_help_form_webHelpType" class="spinner" style="width:168px"  readonly="readonly"/></td>
+			<td><input id="service_mgr_service_form_webHelpType" class="spinner" style="width:168px"  readonly="readonly"/></td>
 			<td>帮助中心状态：</td>
-			<td><input id="help_mgr_help_form_webHelpStatus" class="spinner" style="width:168px"  readonly="readonly"/></td>
+			<td><input id="service_mgr_service_form_webHelpStatus" class="spinner" style="width:168px"  readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>附件：</td>
@@ -26,13 +26,13 @@
 		</tr>
 		<tr>
 			<td>创建者：</td>
-			<td><input class="spinner" style="width:168px" value="${helpData.createrDisplay}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="${helpData.creater}" readonly="readonly"/></td>
 			<td>创建时间：</td>
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${helpData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>更新者：</td>
-			<td><input class="spinner" style="width:168px" value="${helpData.updaterDisplay}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="${helpData.updater}" readonly="readonly"/></td>
 			<td>更新时间：</td>
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${helpData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
@@ -43,7 +43,7 @@
 	</table>
 </form>
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 	var webHelpStatus = '${helpData.webHelpStatus}';
 	var webHelpType = '${helpData.webHelpType}';
 	if(webHelpStatus == "enable"){
@@ -56,10 +56,6 @@
 	}else if(webHelpType == "invest"){
 		$('#service_mgr_service_form_webHelpType').val("投资");
 	}else{
-		$('#help_mgr_help_form_webHelpStatus').val("基金");
+		$('#service_mgr_service_form_webHelpType').val("基金");
 	}  
-</script> -->
-<script type="text/javascript">
-	$('#help_mgr_help_form_webHelpStatus').val(renderGridValue('${helpData.webHelpStatus}',fields.status));
-	$('#help_mgr_help_form_webHelpType').val(renderGridValue('${helpData.webHelpType}',fields.webHelpType));
 </script>

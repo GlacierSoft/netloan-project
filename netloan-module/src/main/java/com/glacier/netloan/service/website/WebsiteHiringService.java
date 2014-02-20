@@ -50,18 +50,6 @@ public class WebsiteHiringService {
 	 */
     public Object getWebsiteHiring(String webHiringId) {
     	WebsiteHiring websiteHiring = websiteHiringMapper.selectByPrimaryKey(webHiringId);
-    	if (null != websiteHiring.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-            User userTemp = userMapper.selectByPrimaryKey(websiteHiring.getCreater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	websiteHiring.setCreater(userTemp.getUserCnName());
-            }
-        }
-    	if (null != websiteHiring.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-            User userTemp = userMapper.selectByPrimaryKey(websiteHiring.getUpdater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	websiteHiring.setUpdater(userTemp.getUserCnName());
-            }
-        }
         return websiteHiring;
     }
     
@@ -86,20 +74,6 @@ public class WebsiteHiringService {
         	websiteHiringExample.setOrderByClause(pager.getOrderBy("temp_website_hiring_"));
         }
         List<WebsiteHiring>  websiteHirings = websiteHiringMapper.selectByExample(websiteHiringExample); // 查询所有招聘管理列表
-        for (WebsiteHiring hiringTemp : websiteHirings) {
-        	if (null != hiringTemp.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-                User userTemp = userMapper.selectByPrimaryKey(hiringTemp.getCreater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	hiringTemp.setCreater(userTemp.getUserCnName());
-                }
-            }
-        	if (null != hiringTemp.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-                User userTemp = userMapper.selectByPrimaryKey(hiringTemp.getUpdater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	hiringTemp.setUpdater(userTemp.getUserCnName());
-                }
-            }
-        }
         int total = websiteHiringMapper.countByExample(websiteHiringExample); // 查询总页数
         returnResult.setRows(websiteHirings);
         returnResult.setTotal(total);
@@ -134,6 +108,8 @@ public class WebsiteHiringService {
         websiteHiring.setWebHiringId(RandomGUID.getRandomGUID());
         websiteHiring.setCreater(pricipalUser.getUserId());
         websiteHiring.setCreateTime(new Date());
+        websiteHiring.setUpdater(pricipalUser.getUserId());
+        websiteHiring.setUpdateTime(new Date());
         count = websiteHiringMapper.insert(websiteHiring);
         if (count == 1) {
             returnResult.setSuccess(true);

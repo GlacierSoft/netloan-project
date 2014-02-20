@@ -50,18 +50,6 @@ public class WebsiteServiceService {
 	 */
     public Object getWebsiteService(String webServiceId) {
     	WebsiteService websiteService = websiteServiceMapper.selectByPrimaryKey(webServiceId);
-    	if (null != websiteService.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-            User userTemp = userMapper.selectByPrimaryKey(websiteService.getCreater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	websiteService.setCreater(userTemp.getUserCnName());
-            }
-        }
-    	if (null != websiteService.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-            User userTemp = userMapper.selectByPrimaryKey(websiteService.getUpdater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	websiteService.setUpdater(userTemp.getUserCnName());
-            }
-        }
         return websiteService;
     }
     
@@ -86,20 +74,6 @@ public class WebsiteServiceService {
         	websiteServiceExample.setOrderByClause(pager.getOrderBy("temp_website_service_"));
         }
         List<WebsiteService>  websiteServices = websiteServiceMapper.selectByExample(websiteServiceExample); // 查询所有客服列表
-        for (WebsiteService annTemp : websiteServices) {
-        	if (null != annTemp.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-                User userTemp = userMapper.selectByPrimaryKey(annTemp.getCreater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	annTemp.setCreater(userTemp.getUserCnName());
-                }
-            }
-        	if (null != annTemp.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-                User userTemp = userMapper.selectByPrimaryKey(annTemp.getUpdater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	annTemp.setUpdater(userTemp.getUserCnName());
-                }
-            }
-        }
         int total = websiteServiceMapper.countByExample(websiteServiceExample); // 查询总页数
         returnResult.setRows(websiteServices);
         returnResult.setTotal(total);
@@ -134,6 +108,8 @@ public class WebsiteServiceService {
         websiteService.setWebServiceId(RandomGUID.getRandomGUID());
         websiteService.setCreater(pricipalUser.getUserId());
         websiteService.setCreateTime(new Date());
+        websiteService.setUpdater(pricipalUser.getUserId());
+        websiteService.setUpdateTime(new Date());
         count = websiteServiceMapper.insert(websiteService);
         if (count == 1) {
             returnResult.setSuccess(true);

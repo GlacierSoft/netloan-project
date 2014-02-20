@@ -13,6 +13,9 @@
     <result column="temp_website_nav_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_website_nav_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_website_nav_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_website_nav_webNavPname" property="webNavPname" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_website_nav_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_website_nav_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -79,6 +82,15 @@
     temp_website_nav.remark as temp_website_nav_remark, temp_website_nav.creater as temp_website_nav_creater, 
     temp_website_nav.create_time as temp_website_nav_create_time, temp_website_nav.updater as temp_website_nav_updater, 
     temp_website_nav.update_time as temp_website_nav_update_time
+            <!-- 以下字段属于扩展 -->
+    ,temp_website_pnav.web_nav_name as temp_website_nav_webNavPname 
+    ,temp_creater.user_cn_name as temp_website_nav_createrDisplay
+    ,temp_updater.user_cn_name as temp_website_nav_updaterDisplay
+  </sql>
+  <sql id="Base_extend">
+    LEFT JOIN t_website_nav temp_website_pnav ON temp_website_pnav.web_nav_id = temp_website_nav.web_nav_pid <!-- 扩展 -->
+    INNER JOIN t_user temp_creater ON temp_creater.user_id = temp_website_nav.creater <!-- 扩展 -->
+    INNER JOIN t_user temp_updater ON temp_updater.user_id = temp_website_nav.updater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.website.WebsiteNavExample" >
     select
@@ -87,6 +99,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_website_nav temp_website_nav
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -101,6 +114,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_website_nav temp_website_nav
+	<include refid="Base_extend" />
     where temp_website_nav.web_nav_id = #{webNavId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -198,6 +212,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.website.WebsiteNavExample" resultType="java.lang.Integer" >
     select count(*) from t_website_nav temp_website_nav
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

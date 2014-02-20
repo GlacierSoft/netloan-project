@@ -125,6 +125,8 @@ public class ParameterIntegralService {
         parameterIntegral.setIntegralId(RandomGUID.getRandomGUID());
         parameterIntegral.setCreater(pricipalUser.getUserId());
         parameterIntegral.setCreateTime(new Date());
+        parameterIntegral.setUpdater(pricipalUser.getUserId());
+        parameterIntegral.setUpdateTime(new Date());
         count = parameterIntegralMapper.insert(parameterIntegral);
         if (count == 1) {
             returnResult.setSuccess(true);

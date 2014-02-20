@@ -125,6 +125,8 @@ public class ParameterCreditService {
         parameterCredit.setCreditId(RandomGUID.getRandomGUID());
         parameterCredit.setCreater(pricipalUser.getUserId());
         parameterCredit.setCreateTime(new Date());
+        parameterCredit.setUpdater(pricipalUser.getUserId());
+        parameterCredit.setUpdateTime(new Date());
         count = parameterCreditMapper.insert(parameterCredit);
         if (count == 1) {
             returnResult.setSuccess(true);

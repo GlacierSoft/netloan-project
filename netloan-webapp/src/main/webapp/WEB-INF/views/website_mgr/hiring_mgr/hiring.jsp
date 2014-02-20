@@ -71,7 +71,7 @@
 				width:120,
 				sortable:true
 			},{
-				field:'creater',
+				field:'createrDisplay',
 				title:'录入人',
 				sortable:true,
 				width:100
@@ -81,7 +81,7 @@
 				sortable:true,
 				width:200
 			},{
-				field:'updater',
+				field:'updaterDisplay',
 				title:'更新人',
 				sortable:true,
 				width:100

@@ -26,9 +26,15 @@
 		</tr>
 		<tr>
 			<td>创建者：</td>
-			<td><input class="spinner" style="width:168px" value="${serviceData.creater}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="${serviceData.createrDisplay}" readonly="readonly"/></td>
 			<td>创建时间：</td>
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${serviceData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>更新者：</td>
+			<td><input class="spinner" style="width:168px" value="${serviceData.updaterDisplay}" readonly="readonly"/></td>
+			<td>更新时间：</td>
+			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${serviceData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>
@@ -38,10 +44,5 @@
 </form>
 
 <script type="text/javascript">
-	var webServiceStatus = '${serviceData.webServiceStatus}';
-	if(webServiceStatus == "enable"){
-		$('#service_mgr_service_form_webServiceStatus').val("启用");
-	}else{
-		$('#service_mgr_service_form_webServiceStatus').val("禁用");
-	}  
+	$('#service_mgr_service_form_webServiceStatus').val(renderGridValue('${serviceData.webServiceStatus}',fields.status));
 </script>

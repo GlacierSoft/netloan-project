@@ -20,13 +20,13 @@
 		</tr>
 		<tr>
 			<td>创建者：</td>
-			<td><input class="spinner" style="width:168px" value="${hiringData.creater}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="${hiringData.createrDisplay}" readonly="readonly"/></td>
 			<td>创建时间：</td>
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${hiringData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>更新人：</td>
-			<td><input class="spinner" style="width:168px" value="${hiringData.updater}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="${hiringData.updaterDisplay}" readonly="readonly"/></td>
 			<td>更新时间：</td>
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${hiringData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
@@ -38,10 +38,5 @@
 </form>
 
 <script type="text/javascript">
-	var webHiringStatus = '${hiringData.webHiringStatus}';
-	if(webHiringStatus == "enable"){
-		$('#hiring_mgr_hiring_form_webHiringStatus').val("启用");
-	}else{
-		$('#hiring_mgr_hiring_form_webHiringStatus').val("禁用");
-	}  
+	$('#hiring_mgr_hiring_form_webHiringStatus').val(renderGridValue('${hiringData.webHiringStatus}',fields.status));
 </script>
