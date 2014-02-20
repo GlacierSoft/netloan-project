@@ -2,11 +2,16 @@ package com.glacier.netloan.entity.website;
 
 import java.util.Date;
 
+import javax.validation.constraints.Max;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class WebsiteHelp {
     private String webHelpId;
 
+    @Length(min = 1, max = 25, message = "{WebsiteHelp.webHelpTheme.illegal}")
     private String webHelpTheme;
 
     private String webHelpType;
@@ -14,9 +19,11 @@ public class WebsiteHelp {
     private String webHelpStatus;
 
     private String accessory;
-
+    
+    @Max(value = 99, message = "{WebsiteHelp.webClaNum.illegal}")
     private Integer webClaNum;
 
+    @Length(max = 255, message = "{WebsiteHelp.remark.illegal}")
     private String remark;
 
     private String creater;
@@ -38,7 +45,8 @@ public class WebsiteHelp {
 
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
-
+    
+    @Length(min = 1, message = "{WebsiteHelp.webHelpContent.illegal}")
     private String webHelpContent;
 
     public String getWebHelpId() {

@@ -13,6 +13,8 @@
     <result column="temp_parameter_integral_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_parameter_integral_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_parameter_integral_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_parameter_integral_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_parameter_integral_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -79,6 +81,13 @@
     temp_parameter_integral.integral_num as temp_parameter_integral_integral_num, temp_parameter_integral.remark as temp_parameter_integral_remark, 
     temp_parameter_integral.creater as temp_parameter_integral_creater, temp_parameter_integral.create_time as temp_parameter_integral_create_time, 
     temp_parameter_integral.updater as temp_parameter_integral_updater, temp_parameter_integral.update_time as temp_parameter_integral_update_time
+ 	<!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_parameter_integral_createrDisplay
+    ,temp_updater.user_cn_name as temp_parameter_integral_updaterDisplay
+  </sql>
+   <sql id="Base_extend">
+    LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_parameter_integral.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_parameter_integral.updater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.basicdatas.ParameterIntegralExample" >
     select
@@ -87,6 +96,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_parameter_integral temp_parameter_integral
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -101,6 +111,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_parameter_integral temp_parameter_integral
+    <include refid="Base_extend" />
     where temp_parameter_integral.integral_id = #{integralId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -198,6 +209,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.basicdatas.ParameterIntegralExample" resultType="java.lang.Integer" >
     select count(*) from t_parameter_integral temp_parameter_integral
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

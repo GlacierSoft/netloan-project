@@ -2,11 +2,16 @@ package com.glacier.netloan.entity.website;
 
 import java.util.Date;
 
+import javax.validation.constraints.Max;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class WebsiteService {
     private String webServiceId;
 
+    @Length(min = 1, max = 25, message = "{WebsiteHelp.webHelpTheme.illegal}")
     private String webServiceName;
 
     private String webServiceQq;
@@ -16,9 +21,11 @@ public class WebsiteService {
     private String webServiceStatus;
 
     private String accessory;
-
+    
+    @Max(value = 99, message = "{WebsiteService.webServiceNum.illegal}")
     private Integer webServiceNum;
 
+    @Length(max = 255, message = "{WebsiteService.remark.illegal}")
     private String remark;
 
     private String creater;

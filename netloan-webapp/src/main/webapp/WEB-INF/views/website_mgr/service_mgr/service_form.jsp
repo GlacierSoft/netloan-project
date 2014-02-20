@@ -9,7 +9,7 @@
 			<td>
 				<input type="hidden" id="service_mgr_service_form_webServiceId" name="webServiceId" value="${serviceData.webServiceId}" />
 <%-- 				<input id="service_mgr_service_form_webServiceName"  name="webServiceName" class="easyui-validatebox spinner" style="width:268px" value="${serviceData.webServiceName}" required="true"  validType="customReg['^[\u0391-\uFFE5]{2,10}$','<fmt:message key="WebsiteService.webServiceName.illegal"/>']"/> --%>
-				<input id="service_mgr_service_form_webServiceName"  name="webServiceName" class="easyui-validatebox spinner" style="width:268px" value="${serviceData.webServiceName}" required="true"  validType="length[2,10]" invalidMessage="客服名称必须在2到10个字符之间"/>
+				<input id="service_mgr_service_form_webServiceName"  name="webServiceName" class="easyui-validatebox spinner" style="width:268px" value="${serviceData.webServiceName}" required="true"  validType="length[1,25]" invalidMessage="客服名称必须在1到25个字符之间"/>
 			</td>
 		</tr>
 		<tr>
@@ -22,7 +22,7 @@
 		</tr>
 		<tr>
 			<td>客服序号：</td>
-			<td><input id="service_mgr_service_form_webServiceNum" name="webServiceNum" class="easyui-numberspinner spinner" value="${serviceData.webServiceNum}" data-options="min:0,max:999,required:true,missingMessage:'请填写客服序号'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
+			<td><input id="service_mgr_service_form_webServiceNum" name="webServiceNum" class="easyui-numberspinner spinner" value="${serviceData.webServiceNum}" data-options="min:0,max:99,required:true,missingMessage:'请填写客服序号'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr>
 <%-- 		<tr>
 			<td>客服头像：</td>

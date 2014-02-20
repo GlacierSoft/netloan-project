@@ -2,19 +2,26 @@ package com.glacier.netloan.entity.website;
 
 import java.util.Date;
 
+import javax.validation.constraints.Max;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class WebsiteHiring {
     private String webHiringId;
 
+    @Length(min = 1, max = 25, message = "{WebsiteHiring.webHiringTheme.illegal}")
     private String webHiringTheme;
 
     private String webHiringStatus;
 
     private String accessory;
 
+    @Max(value = 99, message = "{WebsiteHiring.webHiringNum.illegal}")
     private Integer webHiringNum;
 
+    @Length(max = 255, message = "{WebsiteHiring.remark.illegal}")
     private String remark;
 
     private String creater;
@@ -37,6 +44,7 @@ public class WebsiteHiring {
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
+    @Length(min = 1, message = "{WebsiteHiring.webHiringContent.illegal}")
     private String webHiringContent;
 
     public String getWebHiringId() {

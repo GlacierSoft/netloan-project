@@ -50,18 +50,6 @@ public class WebsiteHelpService {
 	 */
     public Object getWebsiteHelp(String webHelpId) {
     	WebsiteHelp websiteHelp = websiteHelpMapper.selectByPrimaryKey(webHelpId);
-    	/*if (null != websiteHelp.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-            User userTemp = userMapper.selectByPrimaryKey(websiteHelp.getCreater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	websiteHelp.setCreater(userTemp.getUserCnName());
-            }
-        }
-    	if (null != websiteHelp.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-            User userTemp = userMapper.selectByPrimaryKey(websiteHelp.getUpdater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	websiteHelp.setUpdater(userTemp.getUserCnName());
-            }
-        }*/
         return websiteHelp;
     }
     
@@ -86,20 +74,6 @@ public class WebsiteHelpService {
         	websiteHelpExample.setOrderByClause(pager.getOrderBy("temp_website_help_"));
         }
         List<WebsiteHelp>  websiteHelps = websiteHelpMapper.selectByExample(websiteHelpExample); // 查询所有帮助中心列表
-      /*  for (WebsiteHelp helpTemp : websiteHelps) {
-        	if (null != helpTemp.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-                User userTemp = userMapper.selectByPrimaryKey(helpTemp.getCreater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	helpTemp.setCreater(userTemp.getUserCnName());
-                }
-            }
-        	if (null != helpTemp.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-                User userTemp = userMapper.selectByPrimaryKey(helpTemp.getUpdater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	helpTemp.setUpdater(userTemp.getUserCnName());
-                }
-            }
-        }*/
         int total = websiteHelpMapper.countByExample(websiteHelpExample); // 查询总页数
         returnResult.setRows(websiteHelps);
         returnResult.setTotal(total);

@@ -2,6 +2,10 @@ package com.glacier.netloan.entity.website;
 
 import java.util.Date;
 
+import javax.validation.constraints.Max;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class WebsiteNav {
@@ -21,15 +25,18 @@ public class WebsiteNav {
 	public void setWebNavPname(String webNavPname) {
 		this.webNavPname = webNavPname;
 	}
-
+	
+	@Length(min = 1, max = 25, message = "{WebsiteNav.webNavName.illegal}")
 	private String webNavName;
 
     private String webNavUrl;
 
     private String webNavStatus;
 
+    @Max(value = 99, message = "{WebsiteNav.webNavNum.illegal}")
     private Integer webNavNum;
 
+    @Length(max = 255, message = "{WebsiteNav.remark.illegal}")
     private String remark;
 
     private String creater;

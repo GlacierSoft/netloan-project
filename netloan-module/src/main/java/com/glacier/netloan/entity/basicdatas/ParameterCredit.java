@@ -2,31 +2,51 @@ package com.glacier.netloan.entity.basicdatas;
 
 import java.util.Date;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class ParameterCredit {
     private String creditId;
-
+    
+    @Pattern(regexp = "^[\u0391-\uFFE5]{2,10}$", message = "{ParameterCredit.creditName.illegal}")
     private String creditName;
 
+    @Max(value = 9999, message = "{ParameterCredit.creditBeginIntegral.illegal}")
     private Integer creditBeginIntegral;
-
+    
+    @Max(value = 9999, message = "{ParameterCredit.creditBeginIntegral.illegal}")
     private Integer creditEndIntegral;
 
     private String creditPhoto;
 
     private String accessory;
-
+    
+    @Max(value = 99, message = "{ParameterCredit.creditNum.illegal}")
     private Integer creditNum;
-
+    
+    @Length(max = 255, message = "{ParameterCredit.remark.illegal}")
     private String remark;
 
     private String creater;
+    
+    /**
+     * 自定义字段
+     */
+    private String createrDisplay;
     
     @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date createTime;
 
     private String updater;
+    
+    /**
+     * 自定义字段
+     */
+    private String updaterDisplay;
     
     @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date updateTime;
@@ -127,7 +147,23 @@ public class ParameterCredit {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

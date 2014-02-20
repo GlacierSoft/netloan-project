@@ -52,18 +52,6 @@ public class ParameterIntegralService {
 	 */
 	public Object getIntegral(String IntegralId){
 		ParameterIntegral parameterCredit = parameterIntegralMapper.selectByPrimaryKey(IntegralId);
-    	if (null != parameterCredit.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-            User userTemp = userMapper.selectByPrimaryKey(parameterCredit.getCreater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	parameterCredit.setCreater(userTemp.getUserCnName());
-            }
-        }
-    	if (null != parameterCredit.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-            User userTemp = userMapper.selectByPrimaryKey(parameterCredit.getUpdater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	parameterCredit.setUpdater(userTemp.getUserCnName());
-            }
-        }
         return parameterCredit;
 	}
 	

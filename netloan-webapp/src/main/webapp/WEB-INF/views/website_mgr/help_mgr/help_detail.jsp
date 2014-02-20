@@ -43,22 +43,6 @@
 	</table>
 </form>
 
-<!-- <script type="text/javascript">
-	var webHelpStatus = '${helpData.webHelpStatus}';
-	var webHelpType = '${helpData.webHelpType}';
-	if(webHelpStatus == "enable"){
-		$('#service_mgr_service_form_webHelpStatus').val("启用");
-	}else{
-		$('#service_mgr_service_form_webHelpStatus').val("禁用");
-	}  
-	if(webHelpType == "borrow"){
-		$('#service_mgr_service_form_webHelpType').val("借款");
-	}else if(webHelpType == "invest"){
-		$('#service_mgr_service_form_webHelpType').val("投资");
-	}else{
-		$('#help_mgr_help_form_webHelpStatus').val("基金");
-	}  
-</script> -->
 <script type="text/javascript">
 	$('#help_mgr_help_form_webHelpStatus').val(renderGridValue('${helpData.webHelpStatus}',fields.status));
 	$('#help_mgr_help_form_webHelpType').val(renderGridValue('${helpData.webHelpType}',fields.webHelpType));

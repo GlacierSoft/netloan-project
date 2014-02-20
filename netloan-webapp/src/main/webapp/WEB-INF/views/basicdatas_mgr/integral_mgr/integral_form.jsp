@@ -13,15 +13,15 @@
 		</tr>
 		<tr>
 			<td>开始积分：</td>
-			<td><input name="integralBegin" class="easyui-numberspinner spinner" value="${integralData.integralBegin}" data-options="min:0,max:999,required:true,missingMessage:'请选择积分级别开始积分'" style="width: 270px;height:18px;"/></td>
+			<td><input name="integralBegin" class="easyui-numberspinner spinner" value="${integralData.integralBegin}" data-options="min:0,max:9999,required:true,missingMessage:'请选择积分级别开始积分'" style="width: 270px;height:18px;"/></td>
 		</tr>
 		<tr>
 			<td>结束积分：</td>
-			<td><input name="integralEnd" class="easyui-numberspinner spinner" value="${integralData.integralEnd}" data-options="min:0,max:999,required:true,missingMessage:'请选择积分级别开始积分'" style="width: 270px;height:18px;"/></td>
+			<td><input name="integralEnd" class="easyui-numberspinner spinner" value="${integralData.integralEnd}" data-options="min:0,max:9999,required:true,missingMessage:'请选择积分级别开始积分'" style="width: 270px;height:18px;"/></td>
 		</tr>
 		<tr>
 			<td>排序：</td>
-			<td><input name="integralNum" class="easyui-numberspinner spinner" value="${integralData.integralNum}" data-options="min:0,max:999,missingMessage:'请输入信用级别排序'" style="width: 270px;height:18px;" min="1" max="99"/></td>
+			<td><input name="integralNum" class="easyui-numberspinner spinner" value="${integralData.integralNum}" data-options="min:0,max:99,missingMessage:'请输入信用级别排序'" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>
