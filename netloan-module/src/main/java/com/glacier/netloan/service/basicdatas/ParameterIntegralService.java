@@ -110,6 +110,10 @@ public class ParameterIntegralService {
             returnResult.setMsg("会员积分级别名称重复");
             return returnResult;
         }
+        if(parameterIntegral.getIntegralBegin() > parameterIntegral.getIntegralEnd()){
+        	returnResult.setMsg("开始积分不能大于结束积分");
+            return returnResult;
+        }
         parameterIntegral.setIntegralId(RandomGUID.getRandomGUID());
         parameterIntegral.setCreater(pricipalUser.getUserId());
         parameterIntegral.setCreateTime(new Date());
@@ -146,7 +150,11 @@ public class ParameterIntegralService {
         if (count > 0) {
             returnResult.setMsg("会员积分级别名称重复");
             return returnResult;
-        }                              
+        }       
+        if(parameterIntegral.getIntegralBegin() > parameterIntegral.getIntegralEnd()){
+        	returnResult.setMsg("开始积分不能大于结束积分");
+            return returnResult;
+        }
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         parameterIntegral.setUpdater(pricipalUser.getUserId());

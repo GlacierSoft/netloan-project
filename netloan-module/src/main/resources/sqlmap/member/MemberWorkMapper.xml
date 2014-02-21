@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.glacier.netloan.dao.member.MemberWorkMapper" >
   <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.member.MemberWork" >
-    <id column="temp_member_work_member_id" property="memberId" jdbcType="CHAR" />
+    <id column="temp_member_work_member_id" property="memberId" jdbcType="VARCHAR" />
     <result column="temp_member_work_unit_name" property="unitName" jdbcType="VARCHAR" />
     <result column="temp_member_work_unit_phone" property="unitPhone" jdbcType="VARCHAR" />
     <result column="temp_member_work_unit_adress" property="unitAdress" jdbcType="VARCHAR" />
@@ -96,11 +96,11 @@
     select 
     <include refid="Base_Column_List" />
     from t_member_work temp_member_work
-    where temp_member_work.member_id = #{memberId,jdbcType=CHAR}
+    where temp_member_work.member_id = #{memberId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_member_work
-    where member_id = #{memberId,jdbcType=CHAR}
+    where member_id = #{memberId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.member.MemberWorkExample" >
     delete from t_member_work temp_member_work
@@ -112,7 +112,7 @@
     insert into t_member_work (member_id, unit_name, unit_phone, 
       unit_adress, work_age, salary, 
       proof_person, proof_phone)
-    values (#{memberId,jdbcType=CHAR}, #{unitName,jdbcType=VARCHAR}, #{unitPhone,jdbcType=VARCHAR}, 
+    values (#{memberId,jdbcType=VARCHAR}, #{unitName,jdbcType=VARCHAR}, #{unitPhone,jdbcType=VARCHAR}, 
       #{unitAdress,jdbcType=VARCHAR}, #{workAge,jdbcType=INTEGER}, #{salary,jdbcType=REAL}, 
       #{proofPerson,jdbcType=VARCHAR}, #{proofPhone,jdbcType=VARCHAR})
   </insert>
@@ -146,7 +146,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="memberId != null" >
-        #{memberId,jdbcType=CHAR},
+        #{memberId,jdbcType=VARCHAR},
       </if>
       <if test="unitName != null" >
         #{unitName,jdbcType=VARCHAR},
@@ -181,7 +181,7 @@
     update t_member_work temp_member_work
     <set >
       <if test="record.memberId != null" >
-        temp_member_work.member_id = #{record.memberId,jdbcType=CHAR},
+        temp_member_work.member_id = #{record.memberId,jdbcType=VARCHAR},
       </if>
       <if test="record.unitName != null" >
         temp_member_work.unit_name = #{record.unitName,jdbcType=VARCHAR},
@@ -211,7 +211,7 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update t_member_work temp_member_work
-    set temp_member_work.member_id = #{record.memberId,jdbcType=CHAR},
+    set temp_member_work.member_id = #{record.memberId,jdbcType=VARCHAR},
       temp_member_work.unit_name = #{record.unitName,jdbcType=VARCHAR},
       temp_member_work.unit_phone = #{record.unitPhone,jdbcType=VARCHAR},
       temp_member_work.unit_adress = #{record.unitAdress,jdbcType=VARCHAR},
@@ -248,7 +248,7 @@
         proof_phone = #{proofPhone,jdbcType=VARCHAR},
       </if>
     </set>
-    where member_id = #{memberId,jdbcType=CHAR}
+    where member_id = #{memberId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.member.MemberWork" >
     update t_member_work
@@ -259,6 +259,6 @@
       salary = #{salary,jdbcType=REAL},
       proof_person = #{proofPerson,jdbcType=VARCHAR},
       proof_phone = #{proofPhone,jdbcType=VARCHAR}
-    where member_id = #{memberId,jdbcType=CHAR}
+    where member_id = #{memberId,jdbcType=VARCHAR}
   </update>
 </mapper>

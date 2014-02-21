@@ -2,6 +2,8 @@ package com.glacier.netloan.entity.member;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class Member {
     private String memberId;
 
@@ -23,6 +25,7 @@ public class Member {
 
     private String email;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date registrationTime;
 
     private Float creditIntegral;
@@ -33,8 +36,10 @@ public class Member {
 
     private String type;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date validTime;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date expireTime;
 
     private String accessory;
@@ -66,11 +71,23 @@ public class Member {
     private String secondContactAddress;
 
     private String creater;
+    
+    /**
+     * 自定义字段
+     */
+    private String createrDisplay;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
-
+    
+    /**
+     * 自定义字段
+     */
+    private String updaterDisplay;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getMemberId() {
@@ -352,8 +369,24 @@ public class Member {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+    
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
 
-    @Override
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

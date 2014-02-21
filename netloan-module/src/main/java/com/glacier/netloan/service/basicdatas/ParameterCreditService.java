@@ -110,6 +110,10 @@ public class ParameterCreditService {
             returnResult.setMsg("会员信用级别名称重复");
             return returnResult;
         }
+        if(parameterCredit.getCreditBeginIntegral() > parameterCredit.getCreditEndIntegral()){
+        	returnResult.setMsg("开始积分不能大于结束积分");
+            return returnResult;
+        }
         parameterCredit.setCreditId(RandomGUID.getRandomGUID());
         parameterCredit.setCreater(pricipalUser.getUserId());
         parameterCredit.setCreateTime(new Date());
@@ -145,6 +149,10 @@ public class ParameterCreditService {
         count = parameterCreditMapper.countByExample(parameterCreditExample);// 查找相同信用等级名称的会员数量
         if (count > 0) {
             returnResult.setMsg("会员信用级别名称重复");
+            return returnResult;
+        }
+        if(parameterCredit.getCreditBeginIntegral() > parameterCredit.getCreditEndIntegral()){
+        	returnResult.setMsg("开始积分不能大于结束积分");
             return returnResult;
         }
         Subject pricipalSubject = SecurityUtils.getSubject();

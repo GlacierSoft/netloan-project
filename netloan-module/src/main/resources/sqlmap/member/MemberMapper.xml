@@ -37,6 +37,8 @@
     <result column="temp_member_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_member_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_member_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -115,6 +117,13 @@
     temp_member.second_contact_address as temp_member_second_contact_address, temp_member.creater as temp_member_creater, 
     temp_member.create_time as temp_member_create_time, temp_member.updater as temp_member_updater, 
     temp_member.update_time as temp_member_update_time
+     <!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_member_createrDisplay
+    ,temp_updater.user_cn_name as temp_member_updaterDisplay
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_member.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_member.updater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.member.MemberExample" >
     select
@@ -123,6 +132,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_member temp_member
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -137,6 +147,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_member temp_member
+    <include refid="Base_extend" />
     where temp_member.member_id = #{memberId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -394,6 +405,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.member.MemberExample" resultType="java.lang.Integer" >
     select count(*) from t_member temp_member
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

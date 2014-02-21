@@ -18,11 +18,11 @@
 		</tr>
 		<tr>
 			<td>帮助中心类型：</td>
-			<td><input id="help_mgr_help_form_webHelpType" name="webHelpType" required="true" value="${helpData.webHelpType}"/></td>
+			<td><input id="help_mgr_help_form_webHelpType" name="webHelpType" value="${helpData.webHelpType}"/></td>
 		</tr>
 		<tr>
 			<td>帮助中心状态：</td>
-			<td><input id="help_mgr_help_form_webHelpStatus" name="webHelpStatus" required="true" value="${helpData.webHelpStatus}"/></td>
+			<td><input id="help_mgr_help_form_webHelpStatus" name="webHelpStatus" value="${helpData.webHelpStatus}"/></td>
 		</tr>
 		<tr>
 			<td>序号：</td>

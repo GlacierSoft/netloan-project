@@ -16,7 +16,6 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
-import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dao.website.WebsiteHelpMapper;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.website.WebsiteHelp;
@@ -36,9 +35,6 @@ public class WebsiteHelpService {
 
 	@Autowired
 	private WebsiteHelpMapper websiteHelpMapper;
-	
-	@Autowired
-    private UserMapper userMapper;
 	
 	/**
 	 * @Title: getWebsiteHelp 
