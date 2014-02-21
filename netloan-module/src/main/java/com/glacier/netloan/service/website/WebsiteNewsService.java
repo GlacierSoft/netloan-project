@@ -55,18 +55,6 @@ public class WebsiteNewsService {
 	 */
     public Object getNews(String webNewsId) {
     	WebsiteNews news = newsMapper.selectByPrimaryKey(webNewsId);
-    	if (null != news.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-            User userTemp = userMapper.selectByPrimaryKey(news.getCreater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	news.setCreater(userTemp.getUserCnName());
-            }
-        }
-    	if (null != news.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-            User userTemp = userMapper.selectByPrimaryKey(news.getUpdater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	news.setUpdater(userTemp.getUserCnName());
-            }
-        }
         return news;
     }
     
@@ -91,20 +79,6 @@ public class WebsiteNewsService {
         	websiteNewsExample.setOrderByClause(pnewsr.getOrderBy("temp_website_news_"));
         }
         List<WebsiteNews>  websiteNewss = newsMapper.selectByExample(websiteNewsExample); // 查询所有新闻列表
-        for (WebsiteNews newsTemp : websiteNewss) {
-        	if (null != newsTemp.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-                User userTemp = userMapper.selectByPrimaryKey(newsTemp.getCreater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	newsTemp.setCreater(userTemp.getUserCnName());
-                }
-            }
-        	if (null != newsTemp.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-                User userTemp = userMapper.selectByPrimaryKey(newsTemp.getUpdater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	newsTemp.setUpdater(userTemp.getUserCnName());
-                }
-            }
-        }
         int total = newsMapper.countByExample(websiteNewsExample); // 查询总页数
         returnResult.setRows(websiteNewss);
         returnResult.setTotal(total);
@@ -139,6 +113,8 @@ public class WebsiteNewsService {
         news.setWebNewsId(RandomGUID.getRandomGUID());
         news.setCreater(pricipalUser.getUserId());
         news.setCreateTime(new Date());
+        news.setUpdater(pricipalUser.getUserId());
+        news.setUpdateTime(new Date());
         count = newsMapper.insert(news);
         if (count == 1) {
             returnResult.setSuccess(true);

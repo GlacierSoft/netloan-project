@@ -12,6 +12,8 @@
     <result column="temp_website_news_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_website_news_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_website_news_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_website_news_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_website_news_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.glacier.netloan.entity.website.WebsiteNews" extends="BaseResultMap" >
     <result column="temp_website_news_web_news_content" property="webNewsContent" jdbcType="LONGVARCHAR" />
@@ -80,6 +82,13 @@
     temp_website_news.accessory as temp_website_news_accessory, temp_website_news.remark as temp_website_news_remark, 
     temp_website_news.creater as temp_website_news_creater, temp_website_news.create_time as temp_website_news_create_time, 
     temp_website_news.updater as temp_website_news_updater, temp_website_news.update_time as temp_website_news_update_time
+    <!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_website_news_creater_display
+    ,temp_updater.user_cn_name as temp_website_news_updater_display
+  </sql>
+  <sql id="Base_extend">
+    INNER JOIN t_user temp_creater ON temp_website_news.creater =  temp_creater.user_id<!-- 扩展 -->
+    INNER JOIN t_user temp_updater ON temp_website_news.updater =  temp_updater.user_id<!-- 扩展 -->
   </sql>
   <sql id="Blob_Column_List" >
     temp_website_news.web_news_content as temp_website_news_web_news_content
@@ -110,6 +119,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_website_news temp_website_news
+    <include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -126,6 +136,7 @@
     ,
     <include refid="Blob_Column_List" />
     from t_website_news temp_website_news
+    <include refid="Base_extend"/>
     where temp_website_news.web_news_id = #{webNewsId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -223,6 +234,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.website.WebsiteNewsExample" resultType="java.lang.Integer" >
     select count(*) from t_website_news temp_website_news
+    <include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

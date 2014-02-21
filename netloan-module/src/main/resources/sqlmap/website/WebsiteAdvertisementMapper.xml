@@ -13,6 +13,8 @@
     <result column="temp_website_advertisement_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_website_advertisement_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_website_advertisement_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_website_advertisement_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_website_advertisement_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.glacier.netloan.entity.website.WebsiteAdvertisement" extends="BaseResultMap" >
     <result column="temp_website_advertisement_web_adv_content" property="webAdvContent" jdbcType="LONGVARCHAR" />
@@ -83,9 +85,16 @@
     temp_website_advertisement.remark as temp_website_advertisement_remark, temp_website_advertisement.creater as temp_website_advertisement_creater, 
     temp_website_advertisement.create_time as temp_website_advertisement_create_time, 
     temp_website_advertisement.updater as temp_website_advertisement_updater, temp_website_advertisement.update_time as temp_website_advertisement_update_time
+    <!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_website_advertisement_creater_display
+    ,temp_updater.user_cn_name as temp_website_advertisement_updater_display
   </sql>
   <sql id="Blob_Column_List" >
     temp_website_advertisement.web_adv_content as temp_website_advertisement_web_adv_content
+  </sql>
+  <sql id="Base_extend">
+    INNER JOIN t_user temp_creater ON temp_website_advertisement.creater =  temp_creater.user_id<!-- 扩展 -->
+    INNER JOIN t_user temp_updater ON temp_website_advertisement.updater =  temp_updater.user_id<!-- 扩展 -->
   </sql>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.glacier.netloan.entity.website.WebsiteAdvertisementExample" >
     select
@@ -113,6 +122,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_website_advertisement temp_website_advertisement
+    <include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -129,6 +139,7 @@
     ,
     <include refid="Blob_Column_List" />
     from t_website_advertisement temp_website_advertisement
+    <include refid="Base_extend"/>
     where temp_website_advertisement.web_adv_id = #{webAdvId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -234,6 +245,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.website.WebsiteAdvertisementExample" resultType="java.lang.Integer" >
     select count(*) from t_website_advertisement temp_website_advertisement
+    <include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

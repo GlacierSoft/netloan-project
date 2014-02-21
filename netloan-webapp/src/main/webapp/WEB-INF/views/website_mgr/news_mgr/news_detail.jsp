@@ -19,13 +19,13 @@
 		</tr>
 		<tr>
 			<td>创建人：</td>
-			<td><input class="spinner" style="width:250px" value="${newsData.creater}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:250px" value="${newsData.createrDisplay}" readonly="readonly"/></td>
 			<td>创建时间：</td>
 			<td><input class="spinner" style="width:250px" value="<fmt:formatDate value="${newsData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>更新人：</td>
-			<td><input class="spinner" style="width:250px" value="${newsData.updater}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:250px" value="${newsData.updaterDisplay}" readonly="readonly"/></td>
 			<td>更新时间：</td>
 			<td><input class="spinner" style="width:250px" value="<fmt:formatDate value="${newsData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>

@@ -55,18 +55,6 @@ public class WebsiteAdvertisementService {
 	 */
     public Object getAdvertisement(String webAdvId) {
     	WebsiteAdvertisement websiteAdvertisement = advertisementMapper.selectByPrimaryKey(webAdvId);
-    	if (null != websiteAdvertisement.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-            User userTemp = userMapper.selectByPrimaryKey(websiteAdvertisement.getCreater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	websiteAdvertisement.setCreater(userTemp.getUserCnName());
-            }
-        }
-    	if (null != websiteAdvertisement.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-            User userTemp = userMapper.selectByPrimaryKey(websiteAdvertisement.getUpdater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	websiteAdvertisement.setUpdater(userTemp.getUserCnName());
-            }
-        }
         return websiteAdvertisement;
     }
     
@@ -91,20 +79,6 @@ public class WebsiteAdvertisementService {
         	websiteAdvertisementExample.setOrderByClause(padvertisementr.getOrderBy("temp_website_advertisement_"));
         }
         List<WebsiteAdvertisement>  websiteAdvertisements = advertisementMapper.selectByExample(websiteAdvertisementExample); // 查询所有广告列表
-        for (WebsiteAdvertisement advTemp : websiteAdvertisements) {
-        	if (null != advTemp.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-                User userTemp = userMapper.selectByPrimaryKey(advTemp.getCreater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	advTemp.setCreater(userTemp.getUserCnName());
-                }
-            }
-        	if (null != advTemp.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-                User userTemp = userMapper.selectByPrimaryKey(advTemp.getUpdater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	advTemp.setUpdater(userTemp.getUserCnName());
-                }
-            }
-        }
         int total = advertisementMapper.countByExample(websiteAdvertisementExample); // 查询总页数
         returnResult.setRows(websiteAdvertisements);
         returnResult.setTotal(total);
@@ -139,6 +113,8 @@ public class WebsiteAdvertisementService {
         advertisement.setWebAdvId(RandomGUID.getRandomGUID());
         advertisement.setCreater(pricipalUser.getUserId());
         advertisement.setCreateTime(new Date());
+        advertisement.setUpdater(pricipalUser.getUserId());
+        advertisement.setUpdateTime(new Date());
         count = advertisementMapper.insert(advertisement);
         if (count == 1) {
             returnResult.setSuccess(true);
