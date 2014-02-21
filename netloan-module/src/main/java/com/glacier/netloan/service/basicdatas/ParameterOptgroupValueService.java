@@ -156,6 +156,8 @@ public class ParameterOptgroupValueService {
         optgroupValue.setOptgroupValueId(RandomGUID.getRandomGUID());
         optgroupValue.setCreater(pricipalUser.getUserId());
         optgroupValue.setCreateTime(new Date());
+        optgroupValue.setUpdater(pricipalUser.getUserId());
+        optgroupValue.setUpdateTime(new Date());
         count = optgroupValueMapper.insert(optgroupValue);
         if (count == 1) {
             returnResult.setSuccess(true);

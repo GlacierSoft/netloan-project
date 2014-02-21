@@ -22,7 +22,7 @@ public class ParameterOptgroupValue {
     @Pattern(regexp = "^[a-zA-Z]{2,20}$", message = "{ParameterOptgroupValue.optgroupValueCode.illegal}")
     private String optgroupValueCode;
 
-    @Pattern(regexp = "^[\u0391-\uFFE5]{1,10}$", message = "{ParameterOptgroupValue.optgroupValueName.illegal}")
+    @Pattern(regexp = "^[\u0391-\uFFE5A-Z]{1,10}$", message = "{ParameterOptgroupValue.optgroupValueName.illegal}")
     private String optgroupValueName;
 
     private String status;

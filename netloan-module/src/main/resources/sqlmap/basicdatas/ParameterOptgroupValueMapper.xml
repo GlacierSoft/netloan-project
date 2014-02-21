@@ -89,6 +89,11 @@
     ,temp_creater.user_cn_name temp_parameter_optgroup_value_createrDisplay
     ,temp_updater.user_cn_name as temp_parameter_optgroup_value_updaterDisplay
   </sql>
+  <sql id="Base_extend">
+  	INNER JOIN t_parameter_optgroup temp_parameter_optgroup ON temp_parameter_optgroup_value.optgroup_id =  temp_parameter_optgroup.optgroup_id<!-- 扩展 -->
+    INNER JOIN t_user temp_creater ON temp_parameter_optgroup_value.creater =  temp_creater.user_id<!-- 扩展 -->
+    INNER JOIN t_user temp_updater ON temp_parameter_optgroup_value.updater =  temp_updater.user_id<!-- 扩展 -->
+  </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.basicdatas.ParameterOptgroupValueExample" >
     select
     <if test="distinct" >
@@ -96,9 +101,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_parameter_optgroup_value temp_parameter_optgroup_value
-    INNER JOIN t_parameter_optgroup temp_parameter_optgroup ON temp_parameter_optgroup.optgroup_id = temp_parameter_optgroup_value.optgroup_id <!-- 扩展 -->
-    INNER JOIN t_user temp_creater ON temp_creater.user_id = temp_parameter_optgroup_value.creater <!-- 扩展 -->
-    INNER JOIN t_user temp_updater ON temp_updater.user_id = temp_parameter_optgroup_value.updater <!-- 扩展 -->
+    <include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -113,9 +116,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_parameter_optgroup_value temp_parameter_optgroup_value
-    INNER JOIN t_parameter_optgroup temp_parameter_optgroup ON temp_parameter_optgroup.optgroup_id = temp_parameter_optgroup_value.optgroup_id <!-- 扩展 -->
-    INNER JOIN t_user temp_creater ON temp_creater.user_id = temp_parameter_optgroup_value.creater <!-- 扩展 -->
-    INNER JOIN t_user temp_updater ON temp_updater.user_id = temp_parameter_optgroup_value.updater <!-- 扩展 -->
+    <include refid="Base_extend"/>
     where temp_parameter_optgroup_value.optgroup_value_id = #{optgroupValueId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -213,6 +214,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.basicdatas.ParameterOptgroupValueExample" resultType="java.lang.Integer" >
     select count(*) from t_parameter_optgroup_value temp_parameter_optgroup_value
+    <include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
