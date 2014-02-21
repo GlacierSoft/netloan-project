@@ -55,18 +55,6 @@ public class ParameterSystemVariablesService {
      */
     public Object getSystemVariables(String systemVariablesId) {
     	ParameterSystemVariables systemVariables = systemVariablesMapper.selectByPrimaryKey(systemVariablesId);
-    	if (null != systemVariables.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-            User userTemp = userMapper.selectByPrimaryKey(systemVariables.getCreater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	systemVariables.setCreater(userTemp.getUserCnName());
-            }
-        }
-    	if (null != systemVariables.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-            User userTemp = userMapper.selectByPrimaryKey(systemVariables.getUpdater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	systemVariables.setUpdater(userTemp.getUserCnName());
-            }
-        }
         return systemVariables;
     }
 
@@ -90,20 +78,6 @@ public class ParameterSystemVariablesService {
             parameterSystemVariablesExample.setOrderByClause(pager.getOrderBy("temp_parameter_system_variables_"));// 必须外键inner join temp_parameter
         }
         List<ParameterSystemVariables> parameterSystemVariabless = systemVariablesMapper.selectByExample(parameterSystemVariablesExample); // 查询所有操作列表
-        for (ParameterSystemVariables variablesTemp : parameterSystemVariabless) {
-        	if (null != variablesTemp.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-                User userTemp = userMapper.selectByPrimaryKey(variablesTemp.getCreater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	variablesTemp.setCreater(userTemp.getUserCnName());
-                }
-            }
-        	if (null != variablesTemp.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-                User userTemp = userMapper.selectByPrimaryKey(variablesTemp.getUpdater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	variablesTemp.setUpdater(userTemp.getUserCnName());
-                }
-            }
-        }
         int total = systemVariablesMapper.countByExample(parameterSystemVariablesExample); // 查询总页数
         returnResult.setRows(parameterSystemVariabless);
         returnResult.setTotal(total);
@@ -130,6 +104,8 @@ public class ParameterSystemVariablesService {
         systemVariables.setVariablesId(RandomGUID.getRandomGUID());
         systemVariables.setCreater(pricipalUser.getUserId());
         systemVariables.setCreateTime(new Date());
+        systemVariables.setUpdater(pricipalUser.getUserId());
+        systemVariables.setUpdateTime(new Date());
         count = systemVariablesMapper.insert(systemVariables);
         if (count == 1) {
             returnResult.setSuccess(true);

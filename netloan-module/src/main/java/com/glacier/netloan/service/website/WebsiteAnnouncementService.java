@@ -55,18 +55,6 @@ public class WebsiteAnnouncementService {
 	 */
     public Object getAnnouncement(String webAnnId) {
     	WebsiteAnnouncement websiteAnnouncement = announcementMapper.selectByPrimaryKey(webAnnId);
-    	if (null != websiteAnnouncement.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-            User userTemp = userMapper.selectByPrimaryKey(websiteAnnouncement.getCreater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	websiteAnnouncement.setCreater(userTemp.getUserCnName());
-            }
-        }
-    	if (null != websiteAnnouncement.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-            User userTemp = userMapper.selectByPrimaryKey(websiteAnnouncement.getUpdater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	websiteAnnouncement.setUpdater(userTemp.getUserCnName());
-            }
-        }
         return websiteAnnouncement;
     }
     
@@ -91,20 +79,6 @@ public class WebsiteAnnouncementService {
         	websiteAnnouncementExample.setOrderByClause(pannouncementr.getOrderBy("temp_website_announcement_"));
         }
         List<WebsiteAnnouncement>  websiteAnnouncements = announcementMapper.selectByExample(websiteAnnouncementExample); // 查询所有公告列表
-        for (WebsiteAnnouncement annTemp : websiteAnnouncements) {
-        	if (null != annTemp.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-                User userTemp = userMapper.selectByPrimaryKey(annTemp.getCreater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	annTemp.setCreater(userTemp.getUserCnName());
-                }
-            }
-        	if (null != annTemp.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-                User userTemp = userMapper.selectByPrimaryKey(annTemp.getUpdater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	annTemp.setUpdater(userTemp.getUserCnName());
-                }
-            }
-        }
         int total = announcementMapper.countByExample(websiteAnnouncementExample); // 查询总页数
         returnResult.setRows(websiteAnnouncements);
         returnResult.setTotal(total);
@@ -139,6 +113,8 @@ public class WebsiteAnnouncementService {
         announcement.setWebAnnId(RandomGUID.getRandomGUID());
         announcement.setCreater(pricipalUser.getUserId());
         announcement.setCreateTime(new Date());
+        announcement.setUpdater(pricipalUser.getUserId());
+        announcement.setUpdateTime(new Date());
         count = announcementMapper.insert(announcement);
         if (count == 1) {
             returnResult.setSuccess(true);

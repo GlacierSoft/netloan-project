@@ -55,18 +55,6 @@ public class WebsiteLinkService {
 	 */
     public Object getLink(String webLinkId) {
     	WebsiteLink websiteLink = linkMapper.selectByPrimaryKey(webLinkId);
-    	if (null != websiteLink.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-            User userTemp = userMapper.selectByPrimaryKey(websiteLink.getCreater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	websiteLink.setCreater(userTemp.getUserCnName());
-            }
-        }
-    	if (null != websiteLink.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-            User userTemp = userMapper.selectByPrimaryKey(websiteLink.getUpdater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	websiteLink.setUpdater(userTemp.getUserCnName());
-            }
-        }
         return websiteLink;
     }
     
@@ -91,20 +79,6 @@ public class WebsiteLinkService {
         	websiteLinkExample.setOrderByClause(plinkr.getOrderBy("temp_website_link_"));
         }
         List<WebsiteLink>  websiteLinks = linkMapper.selectByExample(websiteLinkExample); // 查询所有友情链接列表
-        for (WebsiteLink linkTemp : websiteLinks) {
-        	if (null != linkTemp.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-                User userTemp = userMapper.selectByPrimaryKey(linkTemp.getCreater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	linkTemp.setCreater(userTemp.getUserCnName());
-                }
-            }
-        	if (null != linkTemp.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-                User userTemp = userMapper.selectByPrimaryKey(linkTemp.getUpdater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	linkTemp.setUpdater(userTemp.getUserCnName());
-                }
-            }
-        }
         int total = linkMapper.countByExample(websiteLinkExample); // 查询总页数
         returnResult.setRows(websiteLinks);
         returnResult.setTotal(total);
@@ -139,6 +113,8 @@ public class WebsiteLinkService {
         link.setWebLinkId(RandomGUID.getRandomGUID());
         link.setCreater(pricipalUser.getUserId());
         link.setCreateTime(new Date());
+        link.setUpdater(pricipalUser.getUserId());
+        link.setUpdateTime(new Date());
         count = linkMapper.insert(link);
         if (count == 1) {
             returnResult.setSuccess(true);

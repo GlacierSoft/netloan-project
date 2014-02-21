@@ -15,9 +15,15 @@
 		</tr>
 		<tr>
 			<td>创建人：</td>
-			<td><input class="spinner" style="width:168px" value="${announcementData.creater}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="${announcementData.createrDisplay}" readonly="readonly"/></td>
 			<td>创建时间：</td>
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${announcementData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>更新人：</td>
+			<td><input class="spinner" style="width:168px" value="${announcementData.updaterDisplay}" readonly="readonly"/></td>
+			<td>更新时间：</td>
+			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${announcementData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>
