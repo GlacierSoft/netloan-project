@@ -8,13 +8,13 @@
 			<td>下拉值代码：</td>
 			<td>
 				<input id="optgroup_mgr_optgroupValue_form_optgroupValueId" type="hidden" name="optgroupValueId" value="${optgroupValueData.optgroupValueId}" />
-				<input id="optgroup_mgr_optgroupValue_form_optgroupValueCode" name="optgroupValueCode" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupValueData.optgroupValueCode}" validType="customReg['^[a-zA-Z]{2,20}$','<fmt:message key="ParameterOptgroup.optgroupCode.illegal"/>']"/>
+				<input id="optgroup_mgr_optgroupValue_form_optgroupValueCode" name="optgroupValueCode" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupValueData.optgroupValueCode}" validType="customReg['^[a-zA-Z]{2,20}$','<fmt:message key="ParameterOptgroupValue.optgroupValueCode.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>
 			<td>下拉值名称：</td>
 			<td>
-				<input id="optgroup_mgr_optgroupValue_form_optgroupValueName" name="optgroupValueName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupValueData.optgroupValueName}" validType="customReg['^[\u0391-\uFFE5A-Z]{1,10}$','<fmt:message key="ParameterOptgroup.optgroupName.illegal"/>']"/>
+				<input id="optgroup_mgr_optgroupValue_form_optgroupValueName" name="optgroupValueName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupValueData.optgroupValueName}" validType="customReg['^[\u0391-\uFFE5A-Z]{1,10}$','<fmt:message key="ParameterOptgroupValue.optgroupValueName.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>
@@ -26,7 +26,7 @@
 		<tr>
 			<td>下拉值状态：</td>
 			<td class="forminputtable">
-				<input id="optgroup_mgr_optgroupValue_form_status" name="status" value="${optgroupValueData.status}"/>
+				<input id="optgroup_mgr_optgroupValue_form_status" name="status" value="${optgroupValueData.status}" class="easyui-combobox" style="height:18px;width:270px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/>
 			</td>
 		</tr>
 		<tr>
@@ -50,15 +50,4 @@
 	    smooth: true,       //该属性用以启用当前 easyui-tree 控件对平滑数据格式的支持
 	    lines : true
 	});	
-	// 初始化下拉值状态下拉框
-	$('#optgroup_mgr_optgroupValue_form_status').combobox({  
-		valueField : 'value',
-		height:18,
-		width:270,
-		textField : 'label',
-		panelHeight : 'auto',
-		editable : false,
-		required:true,
-		data : fields.status
-	});
 </script>

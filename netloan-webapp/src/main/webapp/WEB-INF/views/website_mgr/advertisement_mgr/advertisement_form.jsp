@@ -14,7 +14,7 @@
 		<tr>
 			<td>广告状态：</td>
 			<td>
-				<input id="advertisement_mgr_advertisement_form_webAdvStatus" name="webAdvStatus" value="${advertisementData.webAdvStatus}"/>
+				<input id="advertisement_mgr_advertisement_form_webAdvStatus" name="webAdvStatus" value="${advertisementData.webAdvStatus}" class="easyui-combobox" style="height:18px;width:300px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/>
 			</td>
 		</tr>
 		<tr>
@@ -33,19 +33,6 @@
 		</tr>
 	</table>
 </form>
-<script type="text/javascript">
-	// 初始化广告状态下拉框
-	$('#advertisement_mgr_advertisement_form_webAdvStatus').combobox({  
-		valueField : 'value',
-		height:18,
-		width:300,
-		textField : 'label',
-		panelHeight : 'auto',
-		editable : false,
-		required:true,
-		data : fields.status
-	});
-</script>
 <script>
 	KindEditor.options.filterMode = false;
 	KindEditor.ready(function(K) {

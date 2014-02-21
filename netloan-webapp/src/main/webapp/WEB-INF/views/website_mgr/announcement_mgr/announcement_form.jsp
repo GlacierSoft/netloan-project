@@ -14,7 +14,7 @@
 		<tr>
 			<td>公告状态：</td>
 			<td>
-				<input id="announcement_mgr_announcement_form_webAnnStatus" name="webAnnStatus" value="${announcementData.webAnnStatus}"/>
+				<input id="announcement_mgr_announcement_form_webAnnStatus" name="webAnnStatus" value="${announcementData.webAnnStatus}" class="easyui-combobox" style="height:18px;width:300px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/>
 			</td>
 		</tr>
 		<tr>
@@ -33,19 +33,6 @@
 		</tr>
 	</table>
 </form>
-<script type="text/javascript">
-	// 初始化公告状态下拉框
-	$('#announcement_mgr_announcement_form_webAnnStatus').combobox({  
-		valueField : 'value',
-		height:18,
-		width:300,
-		textField : 'label',
-		panelHeight : 'auto',
-		editable : false,
-		required:true,
-		data : fields.status
-	});
-</script>
 <script>
 	KindEditor.options.filterMode = false;
 	KindEditor.ready(function(K) {

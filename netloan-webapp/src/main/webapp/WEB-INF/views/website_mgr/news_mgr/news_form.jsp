@@ -14,7 +14,7 @@
 		<tr>
 			<td>新闻状态：</td>
 			<td>
-				<input id="news_mgr_news_form_webNewsStatus" name="webNewsStatus" value="${newsData.webNewsStatus}"/>
+				<input id="news_mgr_news_form_webNewsStatus" name="webNewsStatus" value="${newsData.webNewsStatus}" class="easyui-combobox" style="height:18px;width:300px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/>
 			</td>
 		</tr>
 		<tr>
@@ -33,19 +33,6 @@
 		</tr>
 	</table>
 </form>
-<script type="text/javascript">
-	// 初始化新闻状态下拉框
-	$('#news_mgr_news_form_webNewsStatus').combobox({  
-		valueField : 'value',
-		height:18,
-		width:300,
-		textField : 'label',
-		panelHeight : 'auto',
-		editable : false,
-		required:true,
-		data : fields.status
-	});
-</script>
 <script>
 	KindEditor.options.filterMode = false;
 	KindEditor.ready(function(K) {
