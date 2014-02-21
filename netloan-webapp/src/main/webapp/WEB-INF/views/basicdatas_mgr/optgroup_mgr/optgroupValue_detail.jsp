@@ -15,7 +15,7 @@
 		</tr>
 		<tr>
 			<td>下拉状态：</td>
-			<td><input class="spinner" style="width:168px" value="${optgroupValueData.statusName}" readonly="readonly"/></td>
+			<td><input id="optgroup_mgr_optgroupValue_detail_status" class="spinner" style="width:168px" readonly="readonly"/></td>
 			<td>下拉排序：</td>
 			<td><input class="spinner" style="width:168px" value="${optgroupValueData.optgroupValueNum}" readonly="readonly"/></td>
 		</tr>
@@ -38,3 +38,6 @@
 	</table>
 </form>
 
+<script type="text/javascript">
+	$('#optgroup_mgr_optgroupValue_detail_status').val(renderGridValue('${optgroupValueData.status}',fields.status));
+</script>

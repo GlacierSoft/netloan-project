@@ -13,7 +13,7 @@
 		</tr>
 		<tr>
 			<td>新闻状态：</td>
-			<td><input class="spinner" style="width:250px"  value="${newsData.webNewsStatus}" readonly="readonly"/></td>
+			<td><input id="news_mgr_news_detail_webNewsStatus" class="spinner" style="width:250px"  readonly="readonly"/></td>
 			<td>新闻排序：</td>
 			<td><input class="spinner" style="width:250px"  value="${newsData.webNewsNum}" readonly="readonly"/></td>
 		</tr>
@@ -43,4 +43,7 @@
 			items : []
 		});
 	});
+</script>
+<script type="text/javascript">
+	$('#news_mgr_news_detail_webNewsStatus').val(renderGridValue('${newsData.webNewsStatus}',fields.status));
 </script>
