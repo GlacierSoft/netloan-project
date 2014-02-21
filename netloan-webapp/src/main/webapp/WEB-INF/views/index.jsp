@@ -75,11 +75,6 @@
 			});
 			
 		</script>
-		<!-- 加入富文本编辑器kindeditor声明-->
-		<script>
-	        KindEditor.ready(function(K) {
-	        });
-		</script>
 	</head>
 	<body>
 		<div id="index_layout" class="easyui-layout" data-options="fit:true,border:false">

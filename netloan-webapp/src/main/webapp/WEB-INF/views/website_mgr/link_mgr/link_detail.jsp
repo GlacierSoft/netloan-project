@@ -25,7 +25,7 @@
 		</tr>
 		<tr>
 			<td>友情链接状态：</td>
-			<td><input class="spinner" style="width:168px"  value="${linkData.webLinkStatus}" readonly="readonly"/></td>
+			<td><input id="link_mgr_link_detail_webLinkStatus" class="spinner" style="width:168px" readonly="readonly"/></td>
 			<td>链接排序：</td>
 			<td><input class="spinner" style="width:168px"  value="${linkData.webLinkNum}" readonly="readonly"/></td>
 		</tr>
@@ -47,3 +47,6 @@
 		</tr>
 	</table>
 </form>
+<script type="text/javascript">
+	$('#link_mgr_link_detail_webLinkStatus').val(renderGridValue('${linkData.webLinkStatus}',fields.status));
+</script>

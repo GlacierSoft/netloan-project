@@ -59,3 +59,8 @@
 <!-- 加入富文本编辑器kindeditor-->
 <script charset="utf-8" src="${ctx}/resources/js/kindeditor/kindeditor.js"></script>
 <script charset="utf-8" src="${ctx}/resources/js/kindeditor/lang/zh_CN.js"></script>
+<!-- 加入富文本编辑器kindeditor声明-->
+<script>
+       KindEditor.ready(function(K) {
+       });
+</script>
