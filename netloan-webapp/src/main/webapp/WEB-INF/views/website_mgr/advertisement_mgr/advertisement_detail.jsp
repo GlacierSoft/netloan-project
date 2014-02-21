@@ -6,29 +6,44 @@
 	<table class="detailtable">
 		<tr>
 			<td>广告主题：</td>
-			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
-				<input type="hidden" name="roleId" value="${advertisementData.webAdvId}" />
-				<input class="spinner" style="width:168px"  value="${advertisementData.webAdvTheme}" readonly="readonly"/>
+			<td class="forminputtable" colspan="3"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
+				<input type="hidden" name="webAdvId" value="${advertisementData.webAdvId}" />
+				<input class="spinner" style="width:585px"  value="${advertisementData.webAdvTheme}" readonly="readonly"/>
 			</td>
-			<td>广告内容：</td>
-			<td colspan="3"><input class="spinner" style="width:168px"  value="${advertisementData.webAdvContent}" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>广告状态：</td>
+			<td><input id="advertisement_mgr_advertisement_detail_webAdvStatus" class="spinner" style="width:250px"  readonly="readonly"/></td>
+			<td>广告排序：</td>
+			<td><input class="spinner" style="width:250px"  value="${advertisementData.webAdvNum}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>创建人：</td>
-			<td><input class="spinner" style="width:168px" value="${advertisementData.createrDisplay}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:250px" value="${advertisementData.createrDisplay}" readonly="readonly"/></td>
 			<td>创建时间：</td>
-			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${advertisementData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:250px" value="<fmt:formatDate value="${advertisementData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>更新人：</td>
-			<td><input class="spinner" style="width:168px" value="${advertisementData.updaterDisplay}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:250px" value="${advertisementData.updaterDisplay}" readonly="readonly"/></td>
 			<td>更新时间：</td>
-			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${advertisementData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:250px" value="<fmt:formatDate value="${advertisementData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
-			<td>备注：</td>
-			<td colspan="3"><textarea class="spinner" style="width:416px" readonly="readonly">${advertisementData.remark}</textarea></td>
+			<td>广告内容：</td>
+			<td colspan="3"><textarea id="advertisement_mgr_advertisement_detail_webAdvContent" name="webAdvContent" class="spinner" style="width:600px;height:280px;" readonly="readonly">${advertisementData.webAdvContent}</textarea></td>
 		</tr>
+
 	</table>
 </form>
-
+<script>
+	KindEditor.ready(function(Detail) {
+		Detail.create('#advertisement_mgr_advertisement_detail_webAdvContent', {
+			themeType : 'qq',
+			items : []
+		});
+	});
+</script>
+<script type="text/javascript">
+	$('#advertisement_mgr_advertisement_detail_webAdvStatus').val(renderGridValue('${advertisementData.webAdvStatus}',fields.status));
+</script>

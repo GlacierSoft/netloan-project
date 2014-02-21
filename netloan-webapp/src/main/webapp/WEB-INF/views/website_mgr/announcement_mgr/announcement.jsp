@@ -43,11 +43,6 @@
 				width:120,
 				sortable:true
 			},{
-				field:'webAnnContent',
-				title:'公告内容',
-				width:120,
-				sortable:true
-			},{
 				field:'webAnnStatus',
 				title:'公告状态',
 				width:120,
@@ -61,13 +56,8 @@
 				width:120,
 				sortable:true
 			},{
-				field:'accessory',
-				title:'附件',
-				width:120,
-				sortable:true
-			},{
-				field:'remark',
-				title:'备注',
+				field:'webAnnNum',
+				title:'排序号',
 				width:120,
 				sortable:true
 			},{
@@ -123,8 +113,8 @@
 			$.easyui.showDialog({
 				title: rowData.webAnnTheme,
 				href : ctx + '/do/announcement/intoDetail.htm?webAnnId='+rowData.webAnnId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 250,
+				width : 720,
+				height : 520,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -135,8 +125,8 @@
 	glacier.website_mgr.announcement_mgr.announcement.addAnnouncement = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加公告',
-			width : 400,
-			height : 330,
+			width : 720,
+			height : 500,
 			queryUrl : ctx + '/do/announcement/intoForm.htm',
 			submitUrl : ctx + '/do/announcement/add.json',
 			successFun : function (){
@@ -149,8 +139,8 @@
 		var row = glacier.website_mgr.announcement_mgr.announcement.announcementDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.webAnnTheme+'】',
-			width : 400,
-			height : 330,
+			width : 720,
+			height : 500,
 			queryUrl : ctx + '/do/announcement/intoForm.htm',
 			submitUrl : ctx + '/do/announcement/edit.json',
 			queryParams : {

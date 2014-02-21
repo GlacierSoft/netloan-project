@@ -43,11 +43,6 @@
 				width:120,
 				sortable:true
 			},{
-				field:'webAdvContent',
-				title:'广告内容',
-				width:120,
-				sortable:true
-			},{
 				field:'webAdvStatus',
 				title:'广告状态',
 				width:120,
@@ -61,13 +56,8 @@
 				width:120,
 				sortable:true
 			},{
-				field:'accessory',
-				title:'附件',
-				width:120,
-				sortable:true
-			},{
-				field:'remark',
-				title:'备注',
+				field:'webAdvNum',
+				title:'排序号',
 				width:120,
 				sortable:true
 			},{
@@ -123,8 +113,8 @@
 			$.easyui.showDialog({
 				title: rowData.webAdvTheme,
 				href : ctx + '/do/advertisement/intoDetail.htm?webAdvId='+rowData.webAdvId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 250,
+				width : 720,
+				height : 520,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -135,8 +125,8 @@
 	glacier.website_mgr.advertisement_mgr.advertisement.addAdvertisement = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加广告',
-			width : 400,
-			height : 340,
+			width : 720,
+			height : 500,
 			queryUrl : ctx + '/do/advertisement/intoForm.htm',
 			submitUrl : ctx + '/do/advertisement/add.json',
 			successFun : function (){
@@ -149,8 +139,8 @@
 		var row = glacier.website_mgr.advertisement_mgr.advertisement.advertisementDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.webAdvTheme+'】',
-			width : 400,
-			height : 340,
+			width : 720,
+			height : 500,
 			queryUrl : ctx + '/do/advertisement/intoForm.htm',
 			submitUrl : ctx + '/do/advertisement/edit.json',
 			queryParams : {
