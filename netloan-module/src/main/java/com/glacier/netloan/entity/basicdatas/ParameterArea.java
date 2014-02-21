@@ -14,15 +14,10 @@ public class ParameterArea {
 
     private String areaPid;
     
+    /**
+     * 自定义字段，显示所属地区
+     */
     private String areaPname;
-
-    public String getAreaPname() {
-		return areaPname;
-	}
-
-	public void setAreaPname(String areaPname) {
-		this.areaPname = areaPname;
-	}
 
 	@Pattern(regexp = "^[\u0391-\uFFE5]{2,10}$", message = "{ParameterArea.areaName.illegal}")
 	private String areaName;
@@ -39,11 +34,21 @@ public class ParameterArea {
 
     private String creater;
 
+    /**
+     * 自定义字段，显示创建人真实名字
+     */
+    private String createrDisplay;
+    
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    /**
+     * 自定义字段，显示更新人的真实名字
+     */
+    private String updaterDisplay;
+    
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
@@ -135,7 +140,31 @@ public class ParameterArea {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public String getAreaPname() {
+		return areaPname;
+	}
+
+	public void setAreaPname(String areaPname) {
+		this.areaPname = areaPname;
+	}
+	
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

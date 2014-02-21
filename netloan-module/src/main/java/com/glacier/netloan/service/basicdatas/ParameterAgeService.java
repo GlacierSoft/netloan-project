@@ -54,20 +54,7 @@ public class ParameterAgeService {
 	 * @throws
 	 */
     public Object getAge(String ageId) {
-    	ParameterAge age = ageMapper.selectByPrimaryKey(ageId);
-    	if (null != age.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-            User userTemp = userMapper.selectByPrimaryKey(age.getCreater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	age.setCreater(userTemp.getUserCnName());
-            }
-        }
-    	if (null != age.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-            User userTemp = userMapper.selectByPrimaryKey(age.getUpdater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	age.setUpdater(userTemp.getUserCnName());
-            }
-        }
-        return age;
+        return ageMapper.selectByPrimaryKey(ageId);
     }
     
     /**
@@ -91,20 +78,6 @@ public class ParameterAgeService {
         	parameterAgeExample.setOrderByClause(pager.getOrderBy("temp_parameter_age_"));
         }
         List<ParameterAge>  parameterAges = ageMapper.selectByExample(parameterAgeExample); // 查询所有会员年龄别称列表
-        for (ParameterAge ageTemp : parameterAges) {
-        	if (null != ageTemp.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-                User userTemp = userMapper.selectByPrimaryKey(ageTemp.getCreater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	ageTemp.setCreater(userTemp.getUserCnName());
-                }
-            }
-        	if (null != ageTemp.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-                User userTemp = userMapper.selectByPrimaryKey(ageTemp.getUpdater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	ageTemp.setUpdater(userTemp.getUserCnName());
-                }
-            }
-        }
         int total = ageMapper.countByExample(parameterAgeExample); // 查询总页数
         returnResult.setRows(parameterAges);
         returnResult.setTotal(total);
@@ -139,6 +112,8 @@ public class ParameterAgeService {
         age.setAgeId(RandomGUID.getRandomGUID());
         age.setCreater(pricipalUser.getUserId());
         age.setCreateTime(new Date());
+        age.setUpdater(pricipalUser.getUserId());
+        age.setUpdateTime(new Date());
         count = ageMapper.insert(age);
         if (count == 1) {
             returnResult.setSuccess(true);

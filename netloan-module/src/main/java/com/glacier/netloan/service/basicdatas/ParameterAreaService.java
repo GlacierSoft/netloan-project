@@ -54,26 +54,7 @@ public class ParameterAreaService {
 	 * @throws
 	 */
     public Object getArea(String areaId) {
-    	ParameterArea area = areaMapper.selectByPrimaryKey(areaId);
-    	if (null != area.getAreaPid()) {// 根据父地区的所属Id查找到父地区的名字
-    		ParameterArea areaTemp = areaMapper.selectByPrimaryKey(area.getAreaPid());
-    		if (StringUtils.isNotBlank(areaTemp.getAreaName())) {
-    			area.setAreaPname(areaTemp.getAreaName());
-            }
-        }
-    	if (null != area.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-            User userTemp = userMapper.selectByPrimaryKey(area.getCreater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	area.setCreater(userTemp.getUserCnName());
-            }
-        }
-    	if (null != area.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-            User userTemp = userMapper.selectByPrimaryKey(area.getUpdater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	area.setUpdater(userTemp.getUserCnName());
-            }
-        }
-        return area;
+        return areaMapper.selectByPrimaryKey(areaId);
     }
 
     /**
@@ -84,22 +65,7 @@ public class ParameterAreaService {
      * @throws
      */
     public Object listAsTree() {
-        List<ParameterArea> areaList = areaMapper.selectByExample(new ParameterAreaExample());
-        for (ParameterArea areaTemp : areaList) {
-        	if (null != areaTemp.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-                User userTemp = userMapper.selectByPrimaryKey(areaTemp.getCreater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	areaTemp.setCreater(userTemp.getUserCnName());
-                }
-            }
-        	if (null != areaTemp.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-                User userTemp = userMapper.selectByPrimaryKey(areaTemp.getUpdater());
-                if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-                	areaTemp.setUpdater(userTemp.getUserCnName());
-                }
-            }
-        }
-        return areaList;
+        return areaMapper.selectByExample(new ParameterAreaExample());
     }
     
     /**
@@ -133,6 +99,8 @@ public class ParameterAreaService {
         }
         area.setCreater(pricipalUser.getUserId());
         area.setCreateTime(new Date());
+        area.setUpdater(pricipalUser.getUserId());
+        area.setUpdateTime(new Date());
         count = areaMapper.insert(area);
         if (count == 1) {
             returnResult.setSuccess(true);

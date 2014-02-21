@@ -54,11 +54,11 @@
 		},{
 			field : 'remark' , title : '备注' , width : 120
 		},{
-			field : 'creater' , title : '创建人' , width : 100
+			field : 'createrDisplay' , title : '创建人' , width : 100
 		},{
 			field : 'createTime' , title : '创建时间' , width : 200
 		},{
-			field:'updater', title:'更新人',	width:100
+			field:'updaterDisplay', title:'更新人',	width:100
 		},{
 			field:'updateTime',	title:'更新时间',	width:200
 		}]]
