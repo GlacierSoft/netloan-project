@@ -14,15 +14,10 @@ public class ParameterOptgroup {
 
     private String optgroupPid;
 
+    /**
+     * 自定义字段，显示上级下拉项
+     */
     private String optgroupPname;
-
-    public String getOptgroupPname() {
-		return optgroupPname;
-	}
-
-	public void setOptgroupPname(String optgroupPname) {
-		this.optgroupPname = optgroupPname;
-	}
 
 	/**
 	 * 下拉项代码必须由2-20个英文字符组成
@@ -45,10 +40,20 @@ public class ParameterOptgroup {
 
     private String creater;
 
+    /**
+     * 自定义字段，显示创建人真实名字
+     */
+    private String createrDisplay;
+    
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
+    
+    /**
+     * 自定义字段，显示更新人的真实名字
+     */
+    private String updaterDisplay;
 
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
@@ -149,7 +154,31 @@ public class ParameterOptgroup {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public String getOptgroupPname() {
+		return optgroupPname;
+	}
+
+	public void setOptgroupPname(String optgroupPname) {
+		this.optgroupPname = optgroupPname;
+	}
+
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

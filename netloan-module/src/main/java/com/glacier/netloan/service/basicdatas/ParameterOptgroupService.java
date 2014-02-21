@@ -58,26 +58,7 @@ public class ParameterOptgroupService {
 	 * @throws
 	 */
     public Object getOptgroup(String optgroupId) {
-    	ParameterOptgroup optgroup = optgroupMapper.selectByPrimaryKey(optgroupId);
-    	if (null != optgroup.getOptgroupPid()) {// 根据父地区的所属Id查找到父地区的名字
-    		ParameterOptgroup optgroupTemp = optgroupMapper.selectByPrimaryKey(optgroup.getOptgroupPid());
-    		if (StringUtils.isNotBlank(optgroupTemp.getOptgroupName())) {
-    			optgroup.setOptgroupPname(optgroupTemp.getOptgroupName());
-            }
-        }
-    	if (null != optgroup.getCreater()) {// 根据创建人的所属Id查找到创建人的名字
-            User userTemp = userMapper.selectByPrimaryKey(optgroup.getCreater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	optgroup.setCreater(userTemp.getUserCnName());
-            }
-        }
-    	if (null != optgroup.getUpdater()) {// 根据更新人的所属Id查找到更新人的名字
-            User userTemp = userMapper.selectByPrimaryKey(optgroup.getUpdater());
-            if (StringUtils.isNotBlank(userTemp.getUserCnName())) {
-            	optgroup.setUpdater(userTemp.getUserCnName());
-            }
-        }
-        return optgroup;
+        return optgroupMapper.selectByPrimaryKey(optgroupId);
     }
     
     /**
@@ -123,6 +104,8 @@ public class ParameterOptgroupService {
         }
         optgroup.setCreater(pricipalUser.getUserId());
         optgroup.setCreateTime(new Date());
+        optgroup.setUpdater(pricipalUser.getUserId());
+        optgroup.setUpdateTime(new Date());
         count = optgroupMapper.insert(optgroup);
         if (count == 1) {
             returnResult.setSuccess(true);

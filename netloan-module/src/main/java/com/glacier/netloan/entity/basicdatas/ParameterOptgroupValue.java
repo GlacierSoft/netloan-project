@@ -44,8 +44,9 @@ public class ParameterOptgroupValue {
     private String remark;
 
     private String creater;
+    
     /**
-     * 自定义字段
+     * 自定义字段,显示创建人真实名字
      */
     private String createrDisplay;
 
@@ -54,7 +55,7 @@ public class ParameterOptgroupValue {
 
     private String updater;
     /**
-     * 自定义字段
+     * 自定义字段，显示更新人真实名字
      */
     private String updaterDisplay;
 

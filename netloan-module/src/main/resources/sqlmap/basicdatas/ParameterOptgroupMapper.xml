@@ -14,6 +14,9 @@
     <result column="temp_parameter_optgroup_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_parameter_optgroup_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_parameter_optgroup_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_parameter_optgroup_Pname" property="optgroupPname" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_parameter_optgroup_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_parameter_optgroup_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -80,6 +83,15 @@
     temp_parameter_optgroup.optgroup_num as temp_parameter_optgroup_optgroup_num, temp_parameter_optgroup.remark as temp_parameter_optgroup_remark, 
     temp_parameter_optgroup.creater as temp_parameter_optgroup_creater, temp_parameter_optgroup.create_time as temp_parameter_optgroup_create_time, 
     temp_parameter_optgroup.updater as temp_parameter_optgroup_updater, temp_parameter_optgroup.update_time as temp_parameter_optgroup_update_time
+     <!-- 以下字段属于扩展 -->
+    ,temp_parameter_poptgroup.optgroup_name as temp_parameter_optgroup_Pname
+    ,temp_creater.user_cn_name as temp_parameter_optgroup_creater_display
+    ,temp_updater.user_cn_name as temp_parameter_optgroup_updater_display
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_parameter_optgroup temp_parameter_poptgroup ON temp_parameter_poptgroup.optgroup_id = temp_parameter_optgroup.optgroup_pid <!-- 扩展 -->
+    INNER JOIN t_user temp_creater ON temp_parameter_optgroup.creater =  temp_creater.user_id<!-- 扩展 -->
+    INNER JOIN t_user temp_updater ON temp_parameter_optgroup.updater =  temp_updater.user_id<!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.basicdatas.ParameterOptgroupExample" >
     select
@@ -88,6 +100,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_parameter_optgroup temp_parameter_optgroup
+    <include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -102,6 +115,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_parameter_optgroup temp_parameter_optgroup
+    <include refid="Base_extend"/>
     where temp_parameter_optgroup.optgroup_id = #{optgroupId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -207,6 +221,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.basicdatas.ParameterOptgroupExample" resultType="java.lang.Integer" >
     select count(*) from t_parameter_optgroup temp_parameter_optgroup
+    <include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
