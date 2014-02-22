@@ -6,15 +6,6 @@
 
 	$.util.namespace('glacier.member_mgr.integral_mgr.integral');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
-	//定义toolbar的操作，对操作进行控制
-	glacier.member_mgr.integral_mgr.integral.param = {
-			toolbarId : 'integralDataGrid_toolbar',
-			actions : {
-				edit:{flag:'edit',controlType:'single'},
-				del:{flag:'del',controlType:'multiple'}
-			}
-	};
-	
 	//初始化会员积分记录DataGrid
 	glacier.member_mgr.integral_mgr.integral.integralDataGrid = $('#integralDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
@@ -38,8 +29,23 @@
 				title:'ID',
 				checkbox:true
 			},{
+				field:'memberId',
+				title:'会员名称',
+				width:120,
+				sortable:true
+			},{
 				field:'type',
-				title:'会员积分记录类型',
+				title:'积分类型',
+				width:120,
+				sortable:true
+			},{
+				field:'changeType',
+				title:'改变类型',
+				width:120,
+				sortable:true
+			},{
+				field:'changeValue',
+				title:'改变值',
 				width:120,
 				sortable:true
 			},{
@@ -73,39 +79,10 @@
 		pintegralSize : 10,//注意，pintegralSize必须在pintegralList存在
 		pintegralList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#integralDataGrid_toolbar',
-		onCheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.member_mgr.integral_mgr.integral.param,this).check();
-		},
-		onCheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.member_mgr.integral_mgr.integral.param,this).check();
-		},
-		onUncheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.member_mgr.integral_mgr.integral.param,this).unCheck();
-		},
-		onUncheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.member_mgr.integral_mgr.integral.param,this).unCheck();
-		},
-		onSelect:function(rowIndex, rowData){//选择行事件触发
-			action_controller(glacier.member_mgr.integral_mgr.integral.param,this).select();
-		},
-		onUnselectAll:function(rows){
-			action_controller(glacier.member_mgr.integral_mgr.integral.param,this).unSelect();
-		},
+		toolbar:'#memberIntegralDataGrid_toolbar',
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
 			$(this).datagrid('clearChecked');
-		},
-		onDblClickRow:function(rowIndex, rowData){
-			$.easyui.showDialog({
-				title: rowData.type,
-				href : ctx + '/do/integral/intoDetail.htm?memberIntegralId='+rowData.memberIntegralId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 350,
-				resizable: false,
-				enableApplyButton : false,
-				enableSaveButton : false
-			});
 		}
 	});
 </script>
@@ -114,7 +91,7 @@
 <div class="easyui-layout" data-options="fit:true">
 	<div id="integralGridPanel" data-options="region:'center',border:true" >
 		<table id="integralDataGrid">
-			<glacierui:toolbar panelEnName="IntegralList" toolbarId="integralDataGrid_toolbar" menuEnName="integral"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+			<glacierui:toolbar panelEnName="MemberIntegralList" toolbarId="memberIntegralDataGrid_toolbar" menuEnName="memberIntegral"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 </div>
