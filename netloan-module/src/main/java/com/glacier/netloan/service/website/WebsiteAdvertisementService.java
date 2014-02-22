@@ -111,6 +111,7 @@ public class WebsiteAdvertisementService {
             return returnResult;
         }
         advertisement.setWebAdvId(RandomGUID.getRandomGUID());
+        advertisement.setClicks(0);
         advertisement.setCreater(pricipalUser.getUserId());
         advertisement.setCreateTime(new Date());
         advertisement.setUpdater(pricipalUser.getUserId());

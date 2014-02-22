@@ -111,6 +111,7 @@ public class WebsiteAnnouncementService {
             return returnResult;
         }
         announcement.setWebAnnId(RandomGUID.getRandomGUID());
+        announcement.setClicks(0);
         announcement.setCreater(pricipalUser.getUserId());
         announcement.setCreateTime(new Date());
         announcement.setUpdater(pricipalUser.getUserId());

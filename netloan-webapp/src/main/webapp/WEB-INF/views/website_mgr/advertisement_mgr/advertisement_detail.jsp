@@ -6,10 +6,12 @@
 	<table class="detailtable">
 		<tr>
 			<td>广告主题：</td>
-			<td class="forminputtable" colspan="3"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
+			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
 				<input type="hidden" name="webAdvId" value="${advertisementData.webAdvId}" />
-				<input class="spinner" style="width:585px"  value="${advertisementData.webAdvTheme}" readonly="readonly"/>
+				<input class="spinner" style="width:250px"  value="${advertisementData.webAdvTheme}" readonly="readonly"/>
 			</td>
+			<td>点击次数：</td>
+			<td><input class="spinner" style="width:250px"  value="${advertisementData.clicks}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>广告状态：</td>
