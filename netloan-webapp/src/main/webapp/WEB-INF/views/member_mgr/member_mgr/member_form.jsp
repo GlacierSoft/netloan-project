@@ -42,7 +42,7 @@
 					</tr>
 					<tr>
 						<td>个人描述：</td>
-						<td colspan="3"> <textarea id="member_mgr_member_form_personalDes" name="personalDes" style="width:635px;" maxlength="255" class="spinner formta">${memberData.personalDes}</textarea></td>
+						<td colspan="3"> <textarea id="member_mgr_member_form_personalDes" name="personalDes" style="width:635px;height:50px;" maxlength="255" class="spinner formta">${memberData.personalDes}</textarea></td>
 					</tr>
 				</table>
 		</fieldset>

@@ -149,8 +149,8 @@
 	glacier.member_mgr.member_mgr.member.addMember = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加会员信息',
-			width : 840,
-			height : 450,
+			width : 835,
+			height : 395,
 			queryUrl : ctx + '/do/member/intoForm.htm',
 			submitUrl : ctx + '/do/member/add.json',
 			successFun : function (){
@@ -164,8 +164,8 @@
 		var row = glacier.member_mgr.member_mgr.member.memberDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.memberName+'】',
-			width : 840,
-			height : 450,
+			width : 835,
+			height : 395,
 			queryUrl : ctx + '/do/member/intoForm.htm',
 			submitUrl : ctx + '/do/member/edit.json',
 			queryParams : {
