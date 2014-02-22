@@ -16,9 +16,11 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.member.MemberAuthMapper;
 import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.member.MemberWorkMapper;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.entity.member.MemberAuth;
 import com.glacier.netloan.entity.member.MemberExample;
 import com.glacier.netloan.entity.member.MemberWork;
 import com.glacier.netloan.entity.member.MemberWorkExample;
@@ -41,6 +43,9 @@ public class MemberService {
 	
 	@Autowired
 	private MemberWorkMapper memberWorkMapper;
+	
+	@Autowired
+	private MemberAuthMapper memberAuthMapper;
 	
 	/**
 	 * @Title: getMember 
@@ -136,6 +141,10 @@ public class MemberService {
         //增加会员工作信息
         memberWork.setMemberId(memberId);
         countWork = memberWorkMapper.insert(memberWork);
+        
+        //生成会员认证表信息
+       // MemberAuth memberAuth = new MemberAuth();
+        //memberAuth.setMemberId(memberId);
         if (count == 1 && countWork == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + member.getMemberName() + "] 会员信息已保存");
@@ -174,14 +183,15 @@ public class MemberService {
         member.setUpdateTime(new Date());
         count = memberMapper.updateByPrimaryKeySelective(member);
         //工作表的修改
-        MemberWorkExample memberWorkExample = new MemberWorkExample();
+        countWork = memberWorkMapper.updateByPrimaryKeySelective(memberWork);
+        /*MemberWorkExample memberWorkExample = new MemberWorkExample();
         memberWorkExample.createCriteria().andMemberIdEqualTo(memberWork.getMemberId());
         if(memberWorkMapper.countByExample(memberWorkExample) == 1){
         	countWork = memberWorkMapper.updateByPrimaryKeySelective(memberWork);
         }else{
         	memberWork.setMemberId(member.getMemberId());
         	countWork = memberWorkMapper.insert(memberWork);
-        }
+        }*/
         if (count == 1 && countWork == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + member.getMemberName() + "] 会员信息已修改");

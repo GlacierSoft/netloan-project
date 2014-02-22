@@ -136,8 +136,8 @@
 			$.easyui.showDialog({
 				title: rowData.memberName,
 				href : ctx + '/do/member/intoDetail.htm?memberId='+rowData.memberId,//从controller请求jsp页面进行渲染
-				width : 600,
-				height : 288,
+				width : 840,
+				height : 450,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

@@ -105,11 +105,11 @@
      <div title="工作信息" style="padding:15px">
     	<fieldset id="user_mgr_user_form_connetGenfieldset" style="padding:10px;" class="spinner">
 			<legend>工作信息</legend>  
-			<table class="formtable">
+<%-- 			<table class="formtable">
 					<tr>
 						<td>单位名称：</td>
 						<td colspan="3">
-							<%-- <input type="hidden" id="memberWork_mgr_memberWork_form_memberId" name="memberId" value="${memberWorkData.memberId}" /> --%>
+							<input type="hidden" id="memberWork_mgr_memberWork_form_memberId" name="memberId" value="${memberWorkData.memberId}" />
 							<input id="member_mgr_member_form_unitName" name="unitName" value="${memberWorkData.unitName}" style="width:268px"  class="easyui-validatebox spinner" data-options="required:true,validType:'length[1,25]'" invalidMessage="单位名称必须在1到25个字符之间" />
 						</td>
 					</tr>
@@ -123,13 +123,40 @@
 						<td>工作年限：</td>
 						<td><input id="member_mgr_member_form_workAge" name="workAge" value="${memberWorkData.workAge}" class="easyui-numberspinner spinner" required="true" data-options="min:0,max:99,required:true,missingMessage:'请填写年龄'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 						<td style="padding-left:10px;">年薪：</td>
-						<td><input id="member_mgr_member_form_salary" name="salary" value="${memberWorkData.salary}" style="width:268px"  class="easyui-validatebox spinner" data-options="required:true,validType:'integer'" /></td>
+						<td><input id="member_mgr_member_form_salary" name="salary" value="${memberWorkData.salary}" style="width:268px"  class="easyui-validatebox spinner" data-options="required:true,validType:'numeric('Float')'" /></td>
+						<td><input id="member_mgr_member_form_salary" name="salary" value="${memberWorkData.salary}" style="width:268px"  class="easyui-validatebox spinner" required=true /></td>
 					</tr>
 					<tr>
 						<td>证明人：</td>
 						<td><input id="member_mgr_member_form_proofPerson" name="proofPerson" value="${memberWorkData.proofPerson}" style="width:268px" class="easyui-validatebox spinner" required="true" data-options="required:true,validType:'length[1,10]'" invalidMessage="证明人必须在1到10个字符之间"/></td>
 						<td style="padding-left:10px;">证明人手机：</td>
 						<td><input id="member_mgr_member_form_proofPhone" name="proofPhone" value="${memberWorkData.proofPhone}" style="width:268px" class="easyui-validatebox spinner" data-options="required:true,validType:'mobile'"/></td>
+					</tr>
+				</table> --%>
+				<table class="formtable">
+					<tr>
+						<td>单位名称：</td>
+						<td colspan="3">
+							<input id="member_mgr_member_form_unitName" name="unitName" value="${memberWorkData.unitName}" style="width:268px"  />
+						</td>
+					</tr>
+					<tr>
+						<td>单位电话：</td>
+						<td><input id="member_mgr_member_form_unitPhone" name="unitPhone" value="${memberWorkData.unitPhone}" style="width:268px" /></td>
+						<td style="padding-left:10px;">单位地址：</td>
+						<td><input id="member_mgr_member_form_unitAdress" name="unitAdress"  value="${memberWorkData.unitAdress}" style="width:268px" /></td>
+					</tr>
+					<tr>
+						<td>工作年限：</td>
+						<td><input id="member_mgr_member_form_workAge" name="workAge" value="${memberWorkData.workAge}" style="width:268px"/></td>
+						<td style="padding-left:10px;">年薪：</td>
+						<td><input id="member_mgr_member_form_salary" name="salary" value="${memberWorkData.salary}" style="width:268px" /></td>
+					</tr>
+					<tr>
+						<td>证明人：</td>
+						<td><input id="member_mgr_member_form_proofPerson" name="proofPerson" value="${memberWorkData.proofPerson}" style="width:268px" /></td>
+						<td style="padding-left:10px;">证明人手机：</td>
+						<td><input id="member_mgr_member_form_proofPhone" name="proofPhone" value="${memberWorkData.proofPhone}" style="width:268px" /></td>
 					</tr>
 				</table>
 		</fieldset>

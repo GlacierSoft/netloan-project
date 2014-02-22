@@ -2,48 +2,144 @@
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<form method="post" style="padding:15px">
-	<table class="detailtable">
-		<tr>
-			<td>帮助中心主题：</td>
-			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
-				<input type="hidden" name="webHelpId" value="${helpData.webHelpId}" />
-				<input class="spinner" style="width:168px"  value="${helpData.webHelpTheme}" readonly="readonly"/></td>
-			<td>帮助中心内容：</td>
-			<td><input class="spinner" style="width:168px" value="${helpData.webHelpContent}" readonly="readonly"/></td>
-		</tr>
-		<tr>
-			<td>帮助中心类型：</td>
-			<td><input id="help_mgr_help_form_webHelpType" class="spinner" style="width:168px"  readonly="readonly"/></td>
-			<td>帮助中心状态：</td>
-			<td><input id="help_mgr_help_form_webHelpStatus" class="spinner" style="width:168px"  readonly="readonly"/></td>
-		</tr>
-		<tr>
-			<td>附件：</td>
-			<td><input  class="spinner" style="width:168px"  value="${helpData.accessory}" readonly="readonly"/></td>
-			<td>客服序号：</td>
-			<td><input class="spinner" style="width:168px"  value="${helpData.webClaNum}" readonly="readonly"/></td>
-		</tr>
-		<tr>
-			<td>创建者：</td>
-			<td><input class="spinner" style="width:168px" value="${helpData.createrDisplay}" readonly="readonly"/></td>
-			<td>创建时间：</td>
-			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${helpData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
-		</tr>
-		<tr>
-			<td>更新者：</td>
-			<td><input class="spinner" style="width:168px" value="${helpData.updaterDisplay}" readonly="readonly"/></td>
-			<td>更新时间：</td>
-			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${helpData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
-		</tr>
-		<tr>
-			<td>备注：</td>
-			<td colspan="3"><textarea class="spinner" style="width:416px" readonly="readonly">${helpData.remark}</textarea></td>
-		</tr>
-	</table>
+<form id="member_mgr_member_form" method="post" style="padding:15px">
+<div title="基本信息" style="padding:15px">
+    	<fieldset id="user_mgr_user_form_userGenfieldset" style="padding:10px;" class="spinner">
+			<legend>会员定义</legend>  
+			<table  class="detailtable">
+					<tr>
+						<td>会员名称：</td>
+						<td>
+							<input type="hidden" id="member_mgr_member_form_memberId" name="memberId" value="${memberData.memberId}" />
+							<input id="member_mgr_member_form_memberName" name="memberName" class="spinner" style="width:168px" value="${memberData.memberName}"  readonly="readonly"/>
+						</td>
+						</tr>
+					<tr>
+						<td>会员真实姓名：</td>
+						<td style="width:168px"><input id="member_mgr_member_form_memberRealName" name="memberRealName" class="spinner" style="width:168px" value="${memberData.memberRealName}"  readonly="readonly"/></td>
+						<td style="padding-left:10px;">会员年龄：</td>
+						<td style="width:168px"><input id="member_mgr_member_form_memberAge" name="memberAge" class="spinner" value="${memberData.memberAge}" readonly="readonly"/></td>
+					</tr>
+					<tr>
+						<td>婚姻状况：</td>
+						<td><input id="member_mgr_member_form_maritalStatus" name="maritalStatus" class="spinner" style="width:168px" value="${memberData.maritalStatus}" readonly="readonly"/></td>
+						<td style="padding-left:10px;">性别：</td>
+						<td><input id="member_mgr_member_form_sex" name="sex" class="spinner" style="width:168px" value="${memberData.sex}" readonly="readonly"/></td>
+					</tr>
+					<tr>
+						<td>会员状态：</td>
+						<td><input id="member_mgr_member_form_status" name="status" class="spinner" style="width:168px" value="${memberData.status}" readonly="readonly"/></td>
+						<td style="padding-left:10px;">会员类型：</td>
+						<td><input id="member_mgr_member_form_type" name="type" class="spinner" style="width:168px" value="${memberData.type}" readonly="readonly"/></td>
+					</tr>
+					<tr>
+						<td>附件：</td>
+						<td><input id="member_mgr_member_form_accessory" name="accessory" class="spinner" style="width:168px" value="${memberData.accessory}" readonly="readonly"/></td>
+						<td style="padding-left:10px;">最高学历：</td>
+						<td><input id="member_mgr_member_form_educational" name="educational" class="spinner" style="width:168px" value="${memberData.educational}" readonly="readonly"/></td>
+					</tr>
+					<tr>
+						<td>个人描述：</td>
+						<td colspan="3"> <textarea id="member_mgr_member_form_personalDes" name="personalDes" style="width:635px;" readonly="readonly" >${memberData.personalDes}</textarea></td>
+					</tr>
+				</table>
+		</fieldset>
+    </div>
+    <div title="联系方式" style="padding:15px">
+    	<fieldset id="user_mgr_user_form_connetGenfieldset" style="padding:10px;" class="spinner">
+			<legend>联系信息</legend>  
+			<table  class="detailtable">
+					<tr>
+						<td>手机号码：</td>
+						<td>
+							<input id="member_mgr_member_form_mobileNumber" name="mobileNumber" value="${memberData.mobileNumber}" class="spinner" style="width:168px" readonly="readonly"/>
+						</td>
+						<td style="padding-left:10px;">住宅电话：</td>
+						<td><input id="member_mgr_member_form_homePhone" name="homePhone" value="${memberData.homePhone}" class="spinner" style="width:168px" readonly="readonly"/></td>
+					</tr>
+						<tr>
+						<td>身份证：</td>
+						<td><input id="member_mgr_member_form_cardId" name="cardId" value="${memberData.cardId}" class="spinner" style="width:168px" readonly="readonly" /></td>
+						<td style="padding-left:10px;">邮件：</td>
+						<td><input id="member_mgr_member_form_email" name="email" value="${memberData.email}" class="spinner" style="width:168px" readonly="readonly" /></td>
+					</tr>
+					<tr>
+						<td>籍贯：</td>
+						<td><input id="member_mgr_member_form_hometown" name="hometown" class="spinner" style="width:168px" value="${memberData.hometown}" readonly="readonly"/></td>
+						<td style="padding-left:10px;">现居住地址：</td>
+						<td><input id="member_mgr_member_form_liveAddress" name="liveAddress" class="spinner" style="width:168px" value="${memberData.liveAddress}"  readonly="readonly" /></td>
+					</tr>
+					<tr>
+						<td>第一联系人：</td>
+						<td><input id="member_mgr_member_form_firstContact" name="firstContact"  class="spinner" style="width:168px" value="${memberData.firstContact}" readonly="readonly"/></td>
+						<td style="padding-left:10px;">第一联系人关系：</td>
+						<td><input id="member_mgr_member_form_firstContactRelation" name="firstContactRelation" class="spinner" style="width:168px" value="${memberData.firstContactRelation}" readonly="readonly"/></td>
+					</tr>
+					<tr>
+						<td>第一联系人手机：</td>
+						<td><input id="member_mgr_member_form_firstContactPhone" name="firstContactPhone" class="spinner" style="width:168px" value="${memberData.firstContactPhone}" readonly="readonly"/></td>
+						<td style="padding-left:10px;">第一联系人地址：</td>
+						<td><input id="member_mgr_member_form_firstContactAddress" name="firstContactAddress" class="spinner" style="width:168px" value="${memberData.firstContactAddress}" readonly="readonly" /></td>
+					</tr>
+					<tr>
+						<td>第二联系人：</td>
+						<td><input id="member_mgr_member_form_secondContact" name="secondContact" class="spinner" style="width:168px" value="${memberData.secondContact}" readonly="readonly"/></td>
+						<td style="padding-left:10px;">第二联系人关系：</td>
+						<td><input id="member_mgr_member_form_secondContactRelation" name="secondContactRelation" class="spinner" style="width:168px" value="${memberData.secondContactRelation}" readonly="readonly"/></td>
+					</tr>
+					<tr>
+						<td>第二联系人手机：</td>
+						<td><input id="member_mgr_member_form_secondContactPhone" name="secondContactPhone" value="${memberData.secondContactPhone}" class="spinner" style="width:168px" readonly="readonly"/></td>
+						<td style="padding-left:10px;">第二联系人地址：</td>
+						<td><input id="member_mgr_member_form_secondContactAddress" name="secondContactAddress" value="${memberData.secondContactAddress}" class="spinner" style="width:168px" readonly="readonly"/></td>
+					</tr>
+				</table>
+		</fieldset>
+    </div>
+     <div title="工作信息" style="padding:15px">
+    	<fieldset id="user_mgr_user_form_connetGenfieldset" style="padding:10px;" class="spinner">
+			<legend>工作信息</legend>  
+				<table  class="detailtable">
+					<tr>
+						<td>单位名称：</td>
+						<td colspan="3">
+							<input id="member_mgr_member_form_unitName" name="unitName" value="${memberWorkData.unitName}" class="spinner" style="width:168px" readonly="readonly" />
+						</td>
+					</tr>
+					<tr>
+						<td>单位电话：</td>
+						<td><input id="member_mgr_member_form_unitPhone" name="unitPhone" value="${memberWorkData.unitPhone}" class="spinner" style="width:168px" readonly="readonly"/></td>
+						<td style="padding-left:10px;">单位地址：</td>
+						<td><input id="member_mgr_member_form_unitAdress" name="unitAdress"  value="${memberWorkData.unitAdress}" class="spinner" style="width:168px" readonly="readonly"/></td>
+					</tr>
+					<tr>
+						<td>工作年限：</td>
+						<td><input id="member_mgr_member_form_workAge" name="workAge" value="${memberWorkData.workAge}" class="spinner" style="width:168px" readonly="readonly"/></td>
+						<td style="padding-left:10px;">年薪：</td>
+						<td><input id="member_mgr_member_form_salary" name="salary" value="${memberWorkData.salary}" class="spinner" style="width:168px" readonly="readonly"/></td>
+					</tr>
+					<tr>
+						<td>证明人：</td>
+						<td><input id="member_mgr_member_form_proofPerson" name="proofPerson" value="${memberWorkData.proofPerson}" class="spinner" style="width:168px" readonly="readonly"/></td>
+						<td style="padding-left:10px;">证明人手机：</td>
+						<td><input id="member_mgr_member_form_proofPhone" name="proofPhone" value="${memberWorkData.proofPhone}" class="spinner" style="width:168px" readonly="readonly"/></td>
+					</tr>
+				</table>
+		</fieldset>
+    </div>
 </form>
 
 <script type="text/javascript">
-	$('#help_mgr_help_form_webHelpStatus').val(renderGridValue('${helpData.webHelpStatus}',fields.status));
-	$('#help_mgr_help_form_webHelpType').val(renderGridValue('${helpData.webHelpType}',fields.webHelpType));
+	$('#member_mgr_member_form').tabs({
+		border:false,
+		onSelect:function(){
+			$("div").remove(".validatebox-tip");//解决关闭窗体偶尔出现验证条bug
+		}
+	});
+	$('#member_mgr_member_form_maritalStatus').val(renderGridValue('${memberData.maritalStatus}',fields.maritalStatus));
+	$('#member_mgr_member_form_sex').val(renderGridValue('${memberData.sex}',fields.sex));
+	$('#member_mgr_member_form_status').val(renderGridValue('${memberData.status}',fields.status));
+	$('#member_mgr_member_form_type').val(renderGridValue('${memberData.type}',fields.type));
+	$('#member_mgr_member_form_firstContactRelation').val(renderGridValue('${memberData.firstContactRelation}',fields.contactRelation));
+	$('#member_mgr_member_form_secondContactRelation').val(renderGridValue('${memberData.secondContactRelation}',fields.contactRelation));
 </script>

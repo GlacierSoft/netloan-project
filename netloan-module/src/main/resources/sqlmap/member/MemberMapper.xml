@@ -155,7 +155,7 @@
     where member_id = #{memberId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.member.MemberExample" >
-    delete from t_member temp_member
+    delete temp_member from t_member temp_member
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
