@@ -16,9 +16,9 @@
 						</tr>
 					<tr>
 						<td>会员真实姓名：</td>
-						<td style="width:168px"><input id="member_mgr_member_form_memberRealName" name="memberRealName" class="spinner" style="width:168px" value="${memberData.memberRealName}"  readonly="readonly"/></td>
+						<td><input id="member_mgr_member_form_memberRealName" name="memberRealName" class="spinner" style="width:168px" value="${memberData.memberRealName}"  readonly="readonly"/></td>
 						<td style="padding-left:10px;">会员年龄：</td>
-						<td style="width:168px"><input id="member_mgr_member_form_memberAge" name="memberAge" class="spinner" value="${memberData.memberAge}" readonly="readonly"/></td>
+						<td ><input id="member_mgr_member_form_memberAge" name="memberAge" class="spinner" style="width:168px;" value="${memberData.memberAge}" readonly="readonly"/></td>
 					</tr>
 					<tr>
 						<td>婚姻状况：</td>
@@ -40,7 +40,7 @@
 					</tr>
 					<tr>
 						<td>个人描述：</td>
-						<td colspan="3"> <textarea id="member_mgr_member_form_personalDes" name="personalDes" style="width:635px;" readonly="readonly" >${memberData.personalDes}</textarea></td>
+						<td colspan="3"> <textarea id="member_mgr_member_form_personalDes" name="personalDes" style="width:420px;" readonly="readonly" >${memberData.personalDes}</textarea></td>
 					</tr>
 				</table>
 		</fieldset>
