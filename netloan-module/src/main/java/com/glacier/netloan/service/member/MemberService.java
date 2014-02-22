@@ -143,8 +143,9 @@ public class MemberService {
         countWork = memberWorkMapper.insert(memberWork);
         
         //生成会员认证表信息
-       // MemberAuth memberAuth = new MemberAuth();
-        //memberAuth.setMemberId(memberId);
+        MemberAuth memberAuth = new MemberAuth();
+        memberAuth.setMemberId(memberId);
+        
         if (count == 1 && countWork == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + member.getMemberName() + "] 会员信息已保存");

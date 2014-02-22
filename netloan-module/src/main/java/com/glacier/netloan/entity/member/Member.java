@@ -2,13 +2,17 @@ package com.glacier.netloan.entity.member;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class Member {
     private String memberId;
 
+    @Length(min = 1, max = 10, message = "{Member.memberName.illegal}")
     private String memberName;
 
+    @Length(min = 6, max = 12, message = "{Member.memberPassword.illegal}")
     private String memberPassword;
 
     private String memberRealName;
