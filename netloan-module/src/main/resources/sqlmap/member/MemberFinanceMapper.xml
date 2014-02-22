@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.member.MemberFinanceMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.member.MemberFinance" >
+    <id column="temp_member_finance_member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="temp_member_finance_ave_income" property="aveIncome" jdbcType="REAL" />
+    <result column="temp_member_finance_ave_income_des" property="aveIncomeDes" jdbcType="VARCHAR" />
+    <result column="temp_member_finance_ave_expenses" property="aveExpenses" jdbcType="REAL" />
+    <result column="temp_member_finance_age_expenses_des" property="ageExpensesDes" jdbcType="VARCHAR" />
+    <result column="temp_member_finance_buy_estate" property="buyEstate" jdbcType="CHAR" />
+    <result column="temp_member_finance_housing_conditions" property="housingConditions" jdbcType="CHAR" />
+    <result column="temp_member_finance_estate_value" property="estateValue" jdbcType="REAL" />
+    <result column="temp_member_finance_buy_cat" property="buyCat" jdbcType="CHAR" />
+    <result column="temp_member_finance_cat_value" property="catValue" jdbcType="REAL" />
+    <result column="temp_member_finance_cat_auth" property="catAuth" jdbcType="CHAR" />
+    <result column="temp_member_finance_company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="temp_member_finance_companies_capital_con" property="companiesCapitalCon" jdbcType="VARCHAR" />
+    <result column="temp_member_finance_other_assets_described" property="otherAssetsDescribed" jdbcType="VARCHAR" />
+    <result column="temp_member_finance_first_united" property="firstUnited" jdbcType="VARCHAR" />
+    <result column="temp_member_finance_first_united_contact" property="firstUnitedContact" jdbcType="CHAR" />
+    <result column="temp_member_finance_first_united_phone" property="firstUnitedPhone" jdbcType="VARCHAR" />
+    <result column="temp_member_finance_second_united" property="secondUnited" jdbcType="VARCHAR" />
+    <result column="temp_member_finance_second_contact" property="secondContact" jdbcType="CHAR" />
+    <result column="temp_member_finance_second_phone" property="secondPhone" jdbcType="VARCHAR" />
+    <result column="temp_member_finance_estate_auth" property="estateAuth" jdbcType="CHAR" />
+    <result column="temp_member_finance_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_member_finance_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_member_finance_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_member_finance_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_member_finance.member_id as temp_member_finance_member_id, temp_member_finance.ave_income as temp_member_finance_ave_income, 
+    temp_member_finance.ave_income_des as temp_member_finance_ave_income_des, temp_member_finance.ave_expenses as temp_member_finance_ave_expenses, 
+    temp_member_finance.age_expenses_des as temp_member_finance_age_expenses_des, temp_member_finance.buy_estate as temp_member_finance_buy_estate, 
+    temp_member_finance.housing_conditions as temp_member_finance_housing_conditions, 
+    temp_member_finance.estate_value as temp_member_finance_estate_value, temp_member_finance.buy_cat as temp_member_finance_buy_cat, 
+    temp_member_finance.cat_value as temp_member_finance_cat_value, temp_member_finance.cat_auth as temp_member_finance_cat_auth, 
+    temp_member_finance.company_name as temp_member_finance_company_name, temp_member_finance.companies_capital_con as temp_member_finance_companies_capital_con, 
+    temp_member_finance.other_assets_described as temp_member_finance_other_assets_described, 
+    temp_member_finance.first_united as temp_member_finance_first_united, temp_member_finance.first_united_contact as temp_member_finance_first_united_contact, 
+    temp_member_finance.first_united_phone as temp_member_finance_first_united_phone, 
+    temp_member_finance.second_united as temp_member_finance_second_united, temp_member_finance.second_contact as temp_member_finance_second_contact, 
+    temp_member_finance.second_phone as temp_member_finance_second_phone, temp_member_finance.estate_auth as temp_member_finance_estate_auth, 
+    temp_member_finance.creater as temp_member_finance_creater, temp_member_finance.create_time as temp_member_finance_create_time, 
+    temp_member_finance.updater as temp_member_finance_updater, temp_member_finance.update_time as temp_member_finance_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.member.MemberFinanceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_member_finance temp_member_finance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_member_finance temp_member_finance
+    where temp_member_finance.member_id = #{memberId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_member_finance
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.member.MemberFinanceExample" >
+    delete from t_member_finance temp_member_finance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.member.MemberFinance" >
+    insert into t_member_finance (member_id, ave_income, ave_income_des, 
+      ave_expenses, age_expenses_des, buy_estate, 
+      housing_conditions, estate_value, buy_cat, 
+      cat_value, cat_auth, company_name, 
+      companies_capital_con, other_assets_described, 
+      first_united, first_united_contact, first_united_phone, 
+      second_united, second_contact, second_phone, 
+      estate_auth, creater, create_time, 
+      updater, update_time)
+    values (#{memberId,jdbcType=VARCHAR}, #{aveIncome,jdbcType=REAL}, #{aveIncomeDes,jdbcType=VARCHAR}, 
+      #{aveExpenses,jdbcType=REAL}, #{ageExpensesDes,jdbcType=VARCHAR}, #{buyEstate,jdbcType=CHAR}, 
+      #{housingConditions,jdbcType=CHAR}, #{estateValue,jdbcType=REAL}, #{buyCat,jdbcType=CHAR}, 
+      #{catValue,jdbcType=REAL}, #{catAuth,jdbcType=CHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{companiesCapitalCon,jdbcType=VARCHAR}, #{otherAssetsDescribed,jdbcType=VARCHAR}, 
+      #{firstUnited,jdbcType=VARCHAR}, #{firstUnitedContact,jdbcType=CHAR}, #{firstUnitedPhone,jdbcType=VARCHAR}, 
+      #{secondUnited,jdbcType=VARCHAR}, #{secondContact,jdbcType=CHAR}, #{secondPhone,jdbcType=VARCHAR}, 
+      #{estateAuth,jdbcType=CHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.member.MemberFinance" >
+    insert into t_member_finance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="aveIncome != null" >
+        ave_income,
+      </if>
+      <if test="aveIncomeDes != null" >
+        ave_income_des,
+      </if>
+      <if test="aveExpenses != null" >
+        ave_expenses,
+      </if>
+      <if test="ageExpensesDes != null" >
+        age_expenses_des,
+      </if>
+      <if test="buyEstate != null" >
+        buy_estate,
+      </if>
+      <if test="housingConditions != null" >
+        housing_conditions,
+      </if>
+      <if test="estateValue != null" >
+        estate_value,
+      </if>
+      <if test="buyCat != null" >
+        buy_cat,
+      </if>
+      <if test="catValue != null" >
+        cat_value,
+      </if>
+      <if test="catAuth != null" >
+        cat_auth,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="companiesCapitalCon != null" >
+        companies_capital_con,
+      </if>
+      <if test="otherAssetsDescribed != null" >
+        other_assets_described,
+      </if>
+      <if test="firstUnited != null" >
+        first_united,
+      </if>
+      <if test="firstUnitedContact != null" >
+        first_united_contact,
+      </if>
+      <if test="firstUnitedPhone != null" >
+        first_united_phone,
+      </if>
+      <if test="secondUnited != null" >
+        second_united,
+      </if>
+      <if test="secondContact != null" >
+        second_contact,
+      </if>
+      <if test="secondPhone != null" >
+        second_phone,
+      </if>
+      <if test="estateAuth != null" >
+        estate_auth,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="aveIncome != null" >
+        #{aveIncome,jdbcType=REAL},
+      </if>
+      <if test="aveIncomeDes != null" >
+        #{aveIncomeDes,jdbcType=VARCHAR},
+      </if>
+      <if test="aveExpenses != null" >
+        #{aveExpenses,jdbcType=REAL},
+      </if>
+      <if test="ageExpensesDes != null" >
+        #{ageExpensesDes,jdbcType=VARCHAR},
+      </if>
+      <if test="buyEstate != null" >
+        #{buyEstate,jdbcType=CHAR},
+      </if>
+      <if test="housingConditions != null" >
+        #{housingConditions,jdbcType=CHAR},
+      </if>
+      <if test="estateValue != null" >
+        #{estateValue,jdbcType=REAL},
+      </if>
+      <if test="buyCat != null" >
+        #{buyCat,jdbcType=CHAR},
+      </if>
+      <if test="catValue != null" >
+        #{catValue,jdbcType=REAL},
+      </if>
+      <if test="catAuth != null" >
+        #{catAuth,jdbcType=CHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companiesCapitalCon != null" >
+        #{companiesCapitalCon,jdbcType=VARCHAR},
+      </if>
+      <if test="otherAssetsDescribed != null" >
+        #{otherAssetsDescribed,jdbcType=VARCHAR},
+      </if>
+      <if test="firstUnited != null" >
+        #{firstUnited,jdbcType=VARCHAR},
+      </if>
+      <if test="firstUnitedContact != null" >
+        #{firstUnitedContact,jdbcType=CHAR},
+      </if>
+      <if test="firstUnitedPhone != null" >
+        #{firstUnitedPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="secondUnited != null" >
+        #{secondUnited,jdbcType=VARCHAR},
+      </if>
+      <if test="secondContact != null" >
+        #{secondContact,jdbcType=CHAR},
+      </if>
+      <if test="secondPhone != null" >
+        #{secondPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="estateAuth != null" >
+        #{estateAuth,jdbcType=CHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.member.MemberFinanceExample" resultType="java.lang.Integer" >
+    select count(*) from t_member_finance temp_member_finance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_member_finance temp_member_finance
+    <set >
+      <if test="record.memberId != null" >
+        temp_member_finance.member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aveIncome != null" >
+        temp_member_finance.ave_income = #{record.aveIncome,jdbcType=REAL},
+      </if>
+      <if test="record.aveIncomeDes != null" >
+        temp_member_finance.ave_income_des = #{record.aveIncomeDes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aveExpenses != null" >
+        temp_member_finance.ave_expenses = #{record.aveExpenses,jdbcType=REAL},
+      </if>
+      <if test="record.ageExpensesDes != null" >
+        temp_member_finance.age_expenses_des = #{record.ageExpensesDes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyEstate != null" >
+        temp_member_finance.buy_estate = #{record.buyEstate,jdbcType=CHAR},
+      </if>
+      <if test="record.housingConditions != null" >
+        temp_member_finance.housing_conditions = #{record.housingConditions,jdbcType=CHAR},
+      </if>
+      <if test="record.estateValue != null" >
+        temp_member_finance.estate_value = #{record.estateValue,jdbcType=REAL},
+      </if>
+      <if test="record.buyCat != null" >
+        temp_member_finance.buy_cat = #{record.buyCat,jdbcType=CHAR},
+      </if>
+      <if test="record.catValue != null" >
+        temp_member_finance.cat_value = #{record.catValue,jdbcType=REAL},
+      </if>
+      <if test="record.catAuth != null" >
+        temp_member_finance.cat_auth = #{record.catAuth,jdbcType=CHAR},
+      </if>
+      <if test="record.companyName != null" >
+        temp_member_finance.company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companiesCapitalCon != null" >
+        temp_member_finance.companies_capital_con = #{record.companiesCapitalCon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otherAssetsDescribed != null" >
+        temp_member_finance.other_assets_described = #{record.otherAssetsDescribed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstUnited != null" >
+        temp_member_finance.first_united = #{record.firstUnited,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstUnitedContact != null" >
+        temp_member_finance.first_united_contact = #{record.firstUnitedContact,jdbcType=CHAR},
+      </if>
+      <if test="record.firstUnitedPhone != null" >
+        temp_member_finance.first_united_phone = #{record.firstUnitedPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secondUnited != null" >
+        temp_member_finance.second_united = #{record.secondUnited,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secondContact != null" >
+        temp_member_finance.second_contact = #{record.secondContact,jdbcType=CHAR},
+      </if>
+      <if test="record.secondPhone != null" >
+        temp_member_finance.second_phone = #{record.secondPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.estateAuth != null" >
+        temp_member_finance.estate_auth = #{record.estateAuth,jdbcType=CHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_member_finance.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_member_finance.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_member_finance.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_member_finance.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_member_finance temp_member_finance
+    set temp_member_finance.member_id = #{record.memberId,jdbcType=VARCHAR},
+      temp_member_finance.ave_income = #{record.aveIncome,jdbcType=REAL},
+      temp_member_finance.ave_income_des = #{record.aveIncomeDes,jdbcType=VARCHAR},
+      temp_member_finance.ave_expenses = #{record.aveExpenses,jdbcType=REAL},
+      temp_member_finance.age_expenses_des = #{record.ageExpensesDes,jdbcType=VARCHAR},
+      temp_member_finance.buy_estate = #{record.buyEstate,jdbcType=CHAR},
+      temp_member_finance.housing_conditions = #{record.housingConditions,jdbcType=CHAR},
+      temp_member_finance.estate_value = #{record.estateValue,jdbcType=REAL},
+      temp_member_finance.buy_cat = #{record.buyCat,jdbcType=CHAR},
+      temp_member_finance.cat_value = #{record.catValue,jdbcType=REAL},
+      temp_member_finance.cat_auth = #{record.catAuth,jdbcType=CHAR},
+      temp_member_finance.company_name = #{record.companyName,jdbcType=VARCHAR},
+      temp_member_finance.companies_capital_con = #{record.companiesCapitalCon,jdbcType=VARCHAR},
+      temp_member_finance.other_assets_described = #{record.otherAssetsDescribed,jdbcType=VARCHAR},
+      temp_member_finance.first_united = #{record.firstUnited,jdbcType=VARCHAR},
+      temp_member_finance.first_united_contact = #{record.firstUnitedContact,jdbcType=CHAR},
+      temp_member_finance.first_united_phone = #{record.firstUnitedPhone,jdbcType=VARCHAR},
+      temp_member_finance.second_united = #{record.secondUnited,jdbcType=VARCHAR},
+      temp_member_finance.second_contact = #{record.secondContact,jdbcType=CHAR},
+      temp_member_finance.second_phone = #{record.secondPhone,jdbcType=VARCHAR},
+      temp_member_finance.estate_auth = #{record.estateAuth,jdbcType=CHAR},
+      temp_member_finance.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_member_finance.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_member_finance.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_member_finance.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.member.MemberFinance" >
+    update t_member_finance
+    <set >
+      <if test="aveIncome != null" >
+        ave_income = #{aveIncome,jdbcType=REAL},
+      </if>
+      <if test="aveIncomeDes != null" >
+        ave_income_des = #{aveIncomeDes,jdbcType=VARCHAR},
+      </if>
+      <if test="aveExpenses != null" >
+        ave_expenses = #{aveExpenses,jdbcType=REAL},
+      </if>
+      <if test="ageExpensesDes != null" >
+        age_expenses_des = #{ageExpensesDes,jdbcType=VARCHAR},
+      </if>
+      <if test="buyEstate != null" >
+        buy_estate = #{buyEstate,jdbcType=CHAR},
+      </if>
+      <if test="housingConditions != null" >
+        housing_conditions = #{housingConditions,jdbcType=CHAR},
+      </if>
+      <if test="estateValue != null" >
+        estate_value = #{estateValue,jdbcType=REAL},
+      </if>
+      <if test="buyCat != null" >
+        buy_cat = #{buyCat,jdbcType=CHAR},
+      </if>
+      <if test="catValue != null" >
+        cat_value = #{catValue,jdbcType=REAL},
+      </if>
+      <if test="catAuth != null" >
+        cat_auth = #{catAuth,jdbcType=CHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companiesCapitalCon != null" >
+        companies_capital_con = #{companiesCapitalCon,jdbcType=VARCHAR},
+      </if>
+      <if test="otherAssetsDescribed != null" >
+        other_assets_described = #{otherAssetsDescribed,jdbcType=VARCHAR},
+      </if>
+      <if test="firstUnited != null" >
+        first_united = #{firstUnited,jdbcType=VARCHAR},
+      </if>
+      <if test="firstUnitedContact != null" >
+        first_united_contact = #{firstUnitedContact,jdbcType=CHAR},
+      </if>
+      <if test="firstUnitedPhone != null" >
+        first_united_phone = #{firstUnitedPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="secondUnited != null" >
+        second_united = #{secondUnited,jdbcType=VARCHAR},
+      </if>
+      <if test="secondContact != null" >
+        second_contact = #{secondContact,jdbcType=CHAR},
+      </if>
+      <if test="secondPhone != null" >
+        second_phone = #{secondPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="estateAuth != null" >
+        estate_auth = #{estateAuth,jdbcType=CHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.member.MemberFinance" >
+    update t_member_finance
+    set ave_income = #{aveIncome,jdbcType=REAL},
+      ave_income_des = #{aveIncomeDes,jdbcType=VARCHAR},
+      ave_expenses = #{aveExpenses,jdbcType=REAL},
+      age_expenses_des = #{ageExpensesDes,jdbcType=VARCHAR},
+      buy_estate = #{buyEstate,jdbcType=CHAR},
+      housing_conditions = #{housingConditions,jdbcType=CHAR},
+      estate_value = #{estateValue,jdbcType=REAL},
+      buy_cat = #{buyCat,jdbcType=CHAR},
+      cat_value = #{catValue,jdbcType=REAL},
+      cat_auth = #{catAuth,jdbcType=CHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      companies_capital_con = #{companiesCapitalCon,jdbcType=VARCHAR},
+      other_assets_described = #{otherAssetsDescribed,jdbcType=VARCHAR},
+      first_united = #{firstUnited,jdbcType=VARCHAR},
+      first_united_contact = #{firstUnitedContact,jdbcType=CHAR},
+      first_united_phone = #{firstUnitedPhone,jdbcType=VARCHAR},
+      second_united = #{secondUnited,jdbcType=VARCHAR},
+      second_contact = #{secondContact,jdbcType=CHAR},
+      second_phone = #{secondPhone,jdbcType=VARCHAR},
+      estate_auth = #{estateAuth,jdbcType=CHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </update>
+</mapper>
