@@ -55,7 +55,7 @@ public class MemberEstateController extends AbstractController{
     // 进入会员房产信息Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoEstateDetailPage(String memberEstateId) {
-        ModelAndView mav = new ModelAndView("website_mgr/estate_mgr/estate_detail");
+        ModelAndView mav = new ModelAndView("member_mgr/estate_mgr/estate_detail");
         if(StringUtils.isNotBlank(memberEstateId)){
             mav.addObject("estateData", estateService.getEstate(memberEstateId));
         }

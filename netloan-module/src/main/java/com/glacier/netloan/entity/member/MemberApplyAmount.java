@@ -15,7 +15,7 @@ public class MemberApplyAmount {
 
     private String applyExplanation;
 
-    private String authorizedAmount;
+    private Float authorizedAmount;
 
     private String auditState;
 
@@ -85,11 +85,11 @@ public class MemberApplyAmount {
         this.applyExplanation = applyExplanation;
     }
 
-    public String getAuthorizedAmount() {
+    public Float getAuthorizedAmount() {
         return authorizedAmount;
     }
 
-    public void setAuthorizedAmount(String authorizedAmount) {
+    public void setAuthorizedAmount(Float authorizedAmount) {
         this.authorizedAmount = authorizedAmount;
     }
 

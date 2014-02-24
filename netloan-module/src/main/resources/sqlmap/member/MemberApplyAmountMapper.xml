@@ -8,7 +8,7 @@
     <result column="temp_member_apply_amount_original_amount" property="originalAmount" jdbcType="REAL" />
     <result column="temp_member_apply_amount_apply_money" property="applyMoney" jdbcType="REAL" />
     <result column="temp_member_apply_amount_apply_explanation" property="applyExplanation" jdbcType="VARCHAR" />
-    <result column="temp_member_apply_amount_authorized_amount" property="authorizedAmount" jdbcType="VARCHAR" />
+    <result column="temp_member_apply_amount_authorized_amount" property="authorizedAmount" jdbcType="REAL" />
     <result column="temp_member_apply_amount_audit_state" property="auditState" jdbcType="CHAR" />
     <result column="temp_member_apply_amount_process_explanation" property="processExplanation" jdbcType="VARCHAR" />
     <result column="temp_member_apply_amount_apply_date" property="applyDate" jdbcType="TIMESTAMP" />
@@ -132,7 +132,7 @@
       updater, update_time)
     values (#{applyAmountId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{applyType,jdbcType=CHAR}, 
       #{originalAmount,jdbcType=REAL}, #{applyMoney,jdbcType=REAL}, #{applyExplanation,jdbcType=VARCHAR}, 
-      #{authorizedAmount,jdbcType=VARCHAR}, #{auditState,jdbcType=CHAR}, #{processExplanation,jdbcType=VARCHAR}, 
+      #{authorizedAmount,jdbcType=REAL}, #{auditState,jdbcType=CHAR}, #{processExplanation,jdbcType=VARCHAR}, 
       #{applyDate,jdbcType=TIMESTAMP}, #{auditorId,jdbcType=VARCHAR}, #{auditDate,jdbcType=TIMESTAMP}, 
       #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
@@ -212,7 +212,7 @@
         #{applyExplanation,jdbcType=VARCHAR},
       </if>
       <if test="authorizedAmount != null" >
-        #{authorizedAmount,jdbcType=VARCHAR},
+        #{authorizedAmount,jdbcType=REAL},
       </if>
       <if test="auditState != null" >
         #{auditState,jdbcType=CHAR},
@@ -274,7 +274,7 @@
         temp_member_apply_amount.apply_explanation = #{record.applyExplanation,jdbcType=VARCHAR},
       </if>
       <if test="record.authorizedAmount != null" >
-        temp_member_apply_amount.authorized_amount = #{record.authorizedAmount,jdbcType=VARCHAR},
+        temp_member_apply_amount.authorized_amount = #{record.authorizedAmount,jdbcType=REAL},
       </if>
       <if test="record.auditState != null" >
         temp_member_apply_amount.audit_state = #{record.auditState,jdbcType=CHAR},
@@ -319,7 +319,7 @@
       temp_member_apply_amount.original_amount = #{record.originalAmount,jdbcType=REAL},
       temp_member_apply_amount.apply_money = #{record.applyMoney,jdbcType=REAL},
       temp_member_apply_amount.apply_explanation = #{record.applyExplanation,jdbcType=VARCHAR},
-      temp_member_apply_amount.authorized_amount = #{record.authorizedAmount,jdbcType=VARCHAR},
+      temp_member_apply_amount.authorized_amount = #{record.authorizedAmount,jdbcType=REAL},
       temp_member_apply_amount.audit_state = #{record.auditState,jdbcType=CHAR},
       temp_member_apply_amount.process_explanation = #{record.processExplanation,jdbcType=VARCHAR},
       temp_member_apply_amount.apply_date = #{record.applyDate,jdbcType=TIMESTAMP},
@@ -353,7 +353,7 @@
         apply_explanation = #{applyExplanation,jdbcType=VARCHAR},
       </if>
       <if test="authorizedAmount != null" >
-        authorized_amount = #{authorizedAmount,jdbcType=VARCHAR},
+        authorized_amount = #{authorizedAmount,jdbcType=REAL},
       </if>
       <if test="auditState != null" >
         audit_state = #{auditState,jdbcType=CHAR},
@@ -395,7 +395,7 @@
       original_amount = #{originalAmount,jdbcType=REAL},
       apply_money = #{applyMoney,jdbcType=REAL},
       apply_explanation = #{applyExplanation,jdbcType=VARCHAR},
-      authorized_amount = #{authorizedAmount,jdbcType=VARCHAR},
+      authorized_amount = #{authorizedAmount,jdbcType=REAL},
       audit_state = #{auditState,jdbcType=CHAR},
       process_explanation = #{processExplanation,jdbcType=VARCHAR},
       apply_date = #{applyDate,jdbcType=TIMESTAMP},

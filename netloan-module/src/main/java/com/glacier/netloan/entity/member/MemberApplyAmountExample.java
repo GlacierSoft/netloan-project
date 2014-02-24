@@ -535,62 +535,52 @@ public class MemberApplyAmountExample {
             return (Criteria) this;
         }
 
-        public Criteria andAuthorizedAmountEqualTo(String value) {
+        public Criteria andAuthorizedAmountEqualTo(Float value) {
             addCriterion("temp_member_apply_amount.authorized_amount =", value, "authorizedAmount");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorizedAmountNotEqualTo(String value) {
+        public Criteria andAuthorizedAmountNotEqualTo(Float value) {
             addCriterion("temp_member_apply_amount.authorized_amount <>", value, "authorizedAmount");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorizedAmountGreaterThan(String value) {
+        public Criteria andAuthorizedAmountGreaterThan(Float value) {
             addCriterion("temp_member_apply_amount.authorized_amount >", value, "authorizedAmount");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorizedAmountGreaterThanOrEqualTo(String value) {
+        public Criteria andAuthorizedAmountGreaterThanOrEqualTo(Float value) {
             addCriterion("temp_member_apply_amount.authorized_amount >=", value, "authorizedAmount");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorizedAmountLessThan(String value) {
+        public Criteria andAuthorizedAmountLessThan(Float value) {
             addCriterion("temp_member_apply_amount.authorized_amount <", value, "authorizedAmount");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorizedAmountLessThanOrEqualTo(String value) {
+        public Criteria andAuthorizedAmountLessThanOrEqualTo(Float value) {
             addCriterion("temp_member_apply_amount.authorized_amount <=", value, "authorizedAmount");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorizedAmountLike(String value) {
-            addCriterion("temp_member_apply_amount.authorized_amount like", value, "authorizedAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorizedAmountNotLike(String value) {
-            addCriterion("temp_member_apply_amount.authorized_amount not like", value, "authorizedAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorizedAmountIn(List<String> values) {
+        public Criteria andAuthorizedAmountIn(List<Float> values) {
             addCriterion("temp_member_apply_amount.authorized_amount in", values, "authorizedAmount");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorizedAmountNotIn(List<String> values) {
+        public Criteria andAuthorizedAmountNotIn(List<Float> values) {
             addCriterion("temp_member_apply_amount.authorized_amount not in", values, "authorizedAmount");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorizedAmountBetween(String value1, String value2) {
+        public Criteria andAuthorizedAmountBetween(Float value1, Float value2) {
             addCriterion("temp_member_apply_amount.authorized_amount between", value1, value2, "authorizedAmount");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorizedAmountNotBetween(String value1, String value2) {
+        public Criteria andAuthorizedAmountNotBetween(Float value1, Float value2) {
             addCriterion("temp_member_apply_amount.authorized_amount not between", value1, value2, "authorizedAmount");
             return (Criteria) this;
         }

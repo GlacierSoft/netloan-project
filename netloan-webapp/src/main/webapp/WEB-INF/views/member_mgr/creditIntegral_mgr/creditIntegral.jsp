@@ -47,7 +47,7 @@
 				title:'信用类型',
 				width:120,
 				sortable:true,
-				formatter: function(value,row,index){//数据格式化，例如enable显示启用，disable显示禁用
+				formatter: function(value,row,index){//数据格式化，例如('borrow'借款,'invest'投资)
 					return renderGridValue(value,fields.integralType);
 				}
 			},{
@@ -55,7 +55,7 @@
 				title:'改变类型',
 				width:120,
 				sortable:true,
-				formatter: function(value,row,index){//数据格式化，例如enable显示启用，disable显示禁用
+				formatter: function(value,row,index){//数据格式化，例如('increase'增加,'reduction'减少)
 					return renderGridValue(value,fields.changeType);
 				}
 			},{
