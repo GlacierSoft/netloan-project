@@ -46,12 +46,18 @@
 				field:'integralType',
 				title:'信用类型',
 				width:120,
-				sortable:true
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如enable显示启用，disable显示禁用
+					return renderGridValue(value,fields.integralType);
+				}
 			},{
 				field:'changeType',
 				title:'改变类型',
 				width:120,
-				sortable:true
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如enable显示启用，disable显示禁用
+					return renderGridValue(value,fields.changeType);
+				}
 			},{
 				field:'changeValue',
 				title:'改变值',
