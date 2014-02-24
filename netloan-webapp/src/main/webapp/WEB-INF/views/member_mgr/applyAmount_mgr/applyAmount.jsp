@@ -28,7 +28,7 @@
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
 		url: ctx + '/do/applyAmount/list.json',
-		sortName: 'memberId',//排序字段名称
+		sortName: 'applyDate',//排序字段名称
 		sortOrder: 'ASC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
 		idField:'applyAmountId',
@@ -61,11 +61,6 @@
 				width:120,
 				sortable:true
 			},{
-				field:'applyExplanation',
-				title:'申请说明',
-				width:120,
-				sortable:true
-			},{
 				field:'authorizedAmount',
 				title:'授权额度',
 				width:120,
@@ -79,16 +74,6 @@
 					return renderGridValue(value,fields.auditState);
 				}
 			},{
-				field:'processExplanation',
-				title:'处理说明',
-				width:120,
-				sortable:true
-			},{
-				field:'applyDate',
-				title:'申请时间',
-				width:120,
-				sortable:true
-			},{
 				field:'auditorDisplay',
 				title:'审核人',
 				width:120,
@@ -96,11 +81,6 @@
 			},{
 				field:'auditDate',
 				title:'审核时间',
-				width:120,
-				sortable:true
-			},{
-				field:'remark',
-				title:'备注',
 				width:120,
 				sortable:true
 			},{
@@ -157,7 +137,7 @@
 				title: rowData.webApplyAmountName,
 				href : ctx + '/do/applyAmount/intoDetail.htm?applyAmountId='+rowData.applyAmountId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 350,
+				height : 380,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

@@ -71,7 +71,7 @@ public class MemberApplyAmountService {
         	memberApplyAmountExample.setLimitEnd(papplyAmountr.getRows());
         }
         if (StringUtils.isNotBlank(papplyAmountr.getSort()) && StringUtils.isNotBlank(papplyAmountr.getOrder())) {// 设置排序信息
-        	memberApplyAmountExample.setOrderByClause(papplyAmountr.getOrderBy("temp_member_applyAmount_"));
+        	memberApplyAmountExample.setOrderByClause(papplyAmountr.getOrderBy("temp_member_apply_amount_"));
         }
         List<MemberApplyAmount>  memberApplyAmounts = applyAmountMapper.selectByExample(memberApplyAmountExample); // 查询所有会员积分列表
         int total = applyAmountMapper.countByExample(memberApplyAmountExample); // 查询总页数
@@ -105,9 +105,9 @@ public class MemberApplyAmountService {
         count = applyAmountMapper.insert(applyAmount);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("会员积分信息记录已保存");
+            returnResult.setMsg("申请额度信息已保存");
         } else {
-            returnResult.setMsg("发生未知错误，会员积分信息记录保存失败");
+            returnResult.setMsg("发生未知错误，申请额度信息保存失败");
         }
         return returnResult;
     }

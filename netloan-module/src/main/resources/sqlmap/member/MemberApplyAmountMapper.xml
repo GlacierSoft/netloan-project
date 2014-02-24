@@ -101,7 +101,7 @@
   </sql>
   <sql id="Base_extend">
   	INNER JOIN t_member temp_member ON temp_member_apply_amount.member_id =  temp_member.member_id<!-- 扩展 -->
-  	INNER JOIN t_user temp_auditor ON temp_member_apply_amount.auditor_id =  temp_auditor.user_id<!-- 扩展 -->
+  	LEFT JOIN t_user temp_auditor ON temp_member_apply_amount.auditor_id =  temp_auditor.user_id<!-- 扩展 -->
     INNER JOIN t_user temp_creater ON temp_member_apply_amount.creater =  temp_creater.user_id<!-- 扩展 -->
     INNER JOIN t_user temp_updater ON temp_member_apply_amount.updater =  temp_updater.user_id<!-- 扩展 -->
   </sql>

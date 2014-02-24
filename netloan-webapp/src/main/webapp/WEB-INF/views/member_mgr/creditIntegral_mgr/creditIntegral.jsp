@@ -38,8 +38,8 @@
 				title:'ID',
 				checkbox:true
 			},{
-				field:'memberId',
-				title:'会员ID',
+				field:'memberRealName',
+				title:'会员名称',
 				width:120,
 				sortable:true
 			},{
