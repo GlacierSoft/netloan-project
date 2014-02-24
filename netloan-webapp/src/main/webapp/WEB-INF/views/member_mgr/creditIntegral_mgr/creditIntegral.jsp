@@ -120,7 +120,7 @@
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
 				title: rowData.webCreditIntegralName,
-				href : ctx + '/do/creditIntegral/intoDetail.htm?webCreditIntegralId='+rowData.webCreditIntegralId,//从controller请求jsp页面进行渲染
+				href : ctx + '/do/creditIntegral/intoDetail.htm?creditIntegralId='+rowData.creditIntegralId,//从controller请求jsp页面进行渲染
 				width : 550,
 				height : 350,
 				resizable: false,

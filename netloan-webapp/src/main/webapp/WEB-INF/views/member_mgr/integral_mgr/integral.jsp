@@ -29,7 +29,7 @@
 				title:'ID',
 				checkbox:true
 			},{
-				field:'memberId',
+				field:'memberRealName',
 				title:'会员名称',
 				width:120,
 				sortable:true
@@ -60,7 +60,7 @@
 				width:120,
 				sortable:true
 			},{
-				field:'creater',
+				field:'createrDisplay',
 				title:'创建人',
 				sortable:true,
 				width:100
@@ -70,7 +70,7 @@
 				sortable:true,
 				width:200
 			},{
-				field:'updater',
+				field:'updaterDisplay',
 				title:'更新人',
 				sortable:true,
 				width:100
@@ -89,6 +89,17 @@
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
 			$(this).datagrid('clearChecked');
+		},
+		onDblClickRow:function(rowIndex, rowData){
+			$.easyui.showDialog({
+				title: rowData.webIntegralName,
+				href : ctx + '/do/memberIntegral/intoDetail.htm?memberIntegralId='+rowData.memberIntegralId,//从controller请求jsp页面进行渲染
+				width : 550,
+				height : 280,
+				resizable: false,
+				enableApplyButton : false,
+				enableSaveButton : false
+			});
 		}
 	});
 </script>

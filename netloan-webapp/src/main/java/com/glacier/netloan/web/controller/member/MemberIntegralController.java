@@ -55,7 +55,7 @@ public class MemberIntegralController extends AbstractController{
     // 进入会员积分记录Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoIntegralDetailPage(String memberIntegralId) {
-        ModelAndView mav = new ModelAndView("website_mgr/integral_mgr/integral_detail");
+        ModelAndView mav = new ModelAndView("member_mgr/integral_mgr/integral_detail");
         if(StringUtils.isNotBlank(memberIntegralId)){
             mav.addObject("integralData", integralService.getIntegral(memberIntegralId));
         }

@@ -5,6 +5,7 @@
  */
 package com.glacier.netloan.web.controller.member;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,11 +33,20 @@ public class MemberCreditIntegralController extends AbstractController{
     
     // 进入会员信用积分列表展示页面
     @RequestMapping(value = "/index.htm")
-    private Object intoIndexPcreditIntegral() {
+    private Object intoIndexCreditIntegral() {
         ModelAndView mav = new ModelAndView("member_mgr/creditIntegral_mgr/creditIntegral");
         return mav;
     }
     
+    // 进入会员申请额度Detail信息页面
+    @RequestMapping(value = "/intoDetail.htm")
+    private Object intoCreditIntegralDetailPage(String creditIntegralId) {
+        ModelAndView mav = new ModelAndView("member_mgr/creditIntegral_mgr/creditIntegral_detail");
+        if(StringUtils.isNotBlank(creditIntegralId)){
+            mav.addObject("creditIntegralData", creditIntegralService.getCreditIntegral(creditIntegralId));
+        }
+        return mav;
+    }
     
     // 获取表格结构的所有会员信用积分数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
