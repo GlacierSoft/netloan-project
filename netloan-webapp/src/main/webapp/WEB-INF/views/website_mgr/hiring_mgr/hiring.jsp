@@ -123,8 +123,8 @@
 			$.easyui.showDialog({
 				title: rowData.webHiringTheme,
 				href : ctx + '/do/hiring/intoDetail.htm?webHiringId='+rowData.webHiringId,//从controller请求jsp页面进行渲染
-				width : 600,
-				height : 280,
+				width : 705,
+				height : 530,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -136,8 +136,8 @@
 	glacier.website_mgr.hiring_mgr.hiring.addHiring = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加招聘信息',
-			width : 430,
-			height : 330,
+			width : 705,
+			height : 470,
 			queryUrl : ctx + '/do/hiring/intoForm.htm',
 			submitUrl : ctx + '/do/hiring/add.json',
 			successFun : function (){
@@ -151,8 +151,8 @@
 		var row = glacier.website_mgr.hiring_mgr.hiring.hiringDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.webHiringTheme+'】',
-			width : 430,
-			height : 330,
+			width : 720,
+			height : 450,
 			queryUrl : ctx + '/do/hiring/intoForm.htm',
 			submitUrl : ctx + '/do/hiring/edit.json',
 			queryParams : {

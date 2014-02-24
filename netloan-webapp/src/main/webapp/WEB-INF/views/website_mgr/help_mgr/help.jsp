@@ -131,8 +131,8 @@
 			$.easyui.showDialog({
 				title: rowData.webHelpTheme,
 				href : ctx + '/do/help/intoDetail.htm?webHelpId='+rowData.webHelpId,//从controller请求jsp页面进行渲染
-				width : 600,
-				height : 288,
+				width : 720,
+				height : 550,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -144,8 +144,8 @@
 	glacier.website_mgr.help_mgr.help.addHelp = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加帮助信息',
-			width : 440,
-			height : 360,
+			width : 700,
+			height : 500,
 			queryUrl : ctx + '/do/help/intoForm.htm',
 			submitUrl : ctx + '/do/help/add.json',
 			successFun : function (){
@@ -159,8 +159,8 @@
 		var row = glacier.website_mgr.help_mgr.help.helpDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.webHelpTheme+'】',
-			width : 440,
-			height : 360,
+			width : 700,
+			height : 500,
 			queryUrl : ctx + '/do/help/intoForm.htm',
 			submitUrl : ctx + '/do/help/edit.json',
 			queryParams : {

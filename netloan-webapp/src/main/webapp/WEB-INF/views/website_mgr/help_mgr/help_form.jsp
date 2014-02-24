@@ -5,41 +5,106 @@
 <form method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
-			<td>帮助中心主题：</td>
+			<td>主题：</td>
 			<td>
 				<input type="hidden" id="help_mgr_help_form_webHelpId" name="webHelpId" value="${helpData.webHelpId}" />
-<%-- 				<input id="help_mgr_help_form_webHelpTheme" name="webHelpTheme" style="width:268px" value="${helpData.webHelpTheme}" class="easyui-validatebox spinner"  required="true"  validType="customReg['^[\\u4E00-\\u9FA5\\uf900-\\ufa2d\\w]{2,16}$','<fmt:message key="WebsiteHelp.webHelpTheme.illegal"/>']"/> --%>
 				<input id="help_mgr_help_form_webHelpTheme" name="webHelpTheme" style="width:268px" value="${helpData.webHelpTheme}" class="easyui-validatebox spinner"  required="true"  validType="length[1,25]" invalidMessage="帮助中心主题必须在1到25个字符之间"/>
 			</td>
-		</tr>
-		<tr>
-			<td>帮助中心内容：</td>
-			<td><input id="help_mgr_help_form_webHelpContent" name="webHelpContent" class="easyui-validatebox spinner" style="width:268px" required="true" value="${helpData.webHelpContent}"/></td>
-		</tr>
-		<tr>
-			<td>帮助中心类型：</td>
-			<td><input id="help_mgr_help_form_webHelpType" name="webHelpType" value="${helpData.webHelpType}"/></td>
-		</tr>
-		<tr>
-			<td>帮助中心状态：</td>
-			<td><input id="help_mgr_help_form_webHelpStatus" name="webHelpStatus" value="${helpData.webHelpStatus}"/></td>
-		</tr>
-		<tr>
 			<td>序号：</td>
 			<td><input id="help_mgr_help_form_webClaNum" name="webClaNum" class="easyui-numberspinner spinner" value="${helpData.webClaNum}" data-options="min:0,max:99,required:true,missingMessage:'请填写序号'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
+		</tr>
+		<tr>
+			<td>类型：</td>
+			<td><input id="help_mgr_help_form_webHelpType" name="webHelpType" value="${helpData.webHelpType}"/></td>
+			<td>状态：</td>
+			<td><input id="help_mgr_help_form_webHelpStatus" name="webHelpStatus" value="${helpData.webHelpStatus}"/></td>
 		</tr>
 		<tr>
 			<td>附件：</td>
 			<td><input id="help_mgr_help_form_accessory" name="accessory" class="easyui-validatebox spinner" style="width:268px" value="${helpData.accessory}"/></td>
 		</tr>
 		<tr>
+			<td>内容：</td>
+			<td colspan="3">
+				<textarea id="help_mgr_help_form_webHelpContent" name="webHelpContent" style="width:600px;height:280px;">
+					${announcementData.webAnnContent}
+				</textarea>
+			</td>
+		</tr>
+	<%-- 	<tr>
 			<td>备注：</td>
 			<td><textarea id="help_mgr_help_form_remark" name="remark" style="width:268px;" maxlength="255" class="spinner formta">${helpData.remark}</textarea></td>
-		</tr>
+		</tr> --%>
 	</table>
 </form>
 
 <script type="text/javascript">
+	KindEditor.options.filterMode = false;
+	KindEditor.ready(function(K) {
+		K.each({
+			'plug-align' : {
+				name : '对齐方式',
+				method : {
+					'justifyleft' : '左对齐',
+					'justifycenter' : '居中对齐',
+					'justifyright' : '右对齐'
+				}
+			},
+			'plug-order' : {
+				name : '编号',
+				method : {
+					'insertorderedlist' : '数字编号',
+					'insertunorderedlist' : '项目编号'
+				}
+			},
+			'plug-indent' : {
+				name : '缩进',
+				method : {
+					'indent' : '向右缩进',
+					'outdent' : '向左缩进'
+				}
+			}
+		},function( pluginName, pluginData ){
+			var lang = {};
+			lang[pluginName] = pluginData.name;
+			KindEditor.lang( lang );
+			KindEditor.plugin( pluginName, function(K) {
+				var self = this;
+				self.clickToolbar( pluginName, function() {
+					var menu = self.createMenu({
+							name : pluginName,
+							width : pluginData.width || 100
+						});
+					K.each( pluginData.method, function( i, v ){
+						menu.addItem({
+							title : v,
+							checked : false,
+							iconClass : pluginName+'-'+i,
+							click : function() {
+								self.exec(i).hideMenu();
+							}
+						});
+					})
+				});
+			});
+		});
+		K.create('#help_mgr_help_form_webHelpContent', {
+			themeType : 'qq',
+			allowFileManager : true,
+			afterBlur : function() {
+				this.sync();
+				K.ctrl(document, 13, function() {
+					K('form[name=myform]')[0].submit();
+				});
+				K.ctrl(this.edit.doc, 13, function() {
+					K('form[name=myform]')[0].submit();
+				});
+			},
+			items : [
+				'bold','italic','underline','fontname','fontsize','forecolor','hilitecolor','plug-align','plug-order','plug-indent','link','code','emoticons','flash','table','lineheight','fullscreen'
+			]
+		});
+	});
 	// 初始化新闻状态下拉框
 	$('#help_mgr_help_form_webHelpStatus').combobox({  
 		valueField : 'value',
