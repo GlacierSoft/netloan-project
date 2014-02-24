@@ -71,7 +71,7 @@
 				width:120,
 				sortable:true,
 				formatter: function(value,row,index){//数据格式化，例如authstr显示'待审核',pass显示'通过',failure显示'失败'
-					return renderGridValue(value,fields.auditState);
+					return renderGridValue(value,fields.auths);
 				}
 			},{
 				field:'auditorDisplay',

@@ -63,5 +63,5 @@
 	$('#applyAmount_mgr_applyAmount_detail_applyType').val(renderGridValue('${applyAmountData.applyType}',fields.applyType));
 </script>
 <script type="text/javascript">
-	$('#applyAmount_mgr_applyAmount_detail_auditState').val(renderGridValue('${applyAmountData.auditState}',fields.auditState));
+	$('#applyAmount_mgr_applyAmount_detail_auditState').val(renderGridValue('${applyAmountData.auditState}',fields.auths));
 </script>
