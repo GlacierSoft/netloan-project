@@ -54,6 +54,7 @@ public class ParameterOptgroupValue {
     private Date createTime;
 
     private String updater;
+    
     /**
      * 自定义字段，显示更新人真实名字
      */

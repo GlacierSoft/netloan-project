@@ -40,7 +40,8 @@
 	KindEditor.ready(function(Detail) {
 		Detail.create('#news_mgr_news_detail_webNewsContent', {
 			themeType : 'qq',
-			items : []
+			items : [],
+			readonlyMode : true
 		});
 	});
 </script>

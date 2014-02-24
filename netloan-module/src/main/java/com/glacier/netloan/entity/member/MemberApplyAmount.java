@@ -2,10 +2,17 @@ package com.glacier.netloan.entity.member;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class MemberApplyAmount {
     private String applyAmountId;
 
     private String memberId;
+    
+    /**
+     * 自定义字段，显示会员真实名字
+     */
+    private String memberRealName;
 
     private String applyType;
 
@@ -21,20 +28,39 @@ public class MemberApplyAmount {
 
     private String processExplanation;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date applyDate;
 
     private String auditorId;
+    
+    /**
+     * 自定义字段，显示审核真实名称
+     */
+    private String auditorDisplay;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date auditDate;
 
     private String remark;
 
     private String creater;
 
+    /**
+     * 自定义字段,显示创建人真实名字
+     */
+    private String createrDisplay;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date createTime;
 
     private String updater;
 
+    /**
+     * 自定义字段，显示更新人真实名字
+     */
+    private String updaterDisplay;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date updateTime;
 
     public String getApplyAmountId() {
@@ -172,8 +198,40 @@ public class MemberApplyAmount {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+    
+    public String getMemberRealName() {
+		return memberRealName;
+	}
 
-    @Override
+	public void setMemberRealName(String memberRealName) {
+		this.memberRealName = memberRealName;
+	}
+	
+	public String getAuditorDisplay() {
+		return auditorDisplay;
+	}
+
+	public void setAuditorDisplay(String auditorDisplay) {
+		this.auditorDisplay = auditorDisplay;
+	}
+
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

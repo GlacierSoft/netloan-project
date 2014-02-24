@@ -54,10 +54,10 @@ public class MemberApplyAmountController extends AbstractController{
     
     // 进入会员申请额度Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
-    private Object intoApplyAmountDetailPage(String memberApplyAmountId) {
+    private Object intoApplyAmountDetailPage(String applyAmountId) {
         ModelAndView mav = new ModelAndView("member_mgr/applyAmount_mgr/applyAmount_detail");
-        if(StringUtils.isNotBlank(memberApplyAmountId)){
-            mav.addObject("applyAmountData", applyAmountService.getApplyAmount(memberApplyAmountId));
+        if(StringUtils.isNotBlank(applyAmountId)){
+            mav.addObject("applyAmountData", applyAmountService.getApplyAmount(applyAmountId));
         }
         return mav;
     }

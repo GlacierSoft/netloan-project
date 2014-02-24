@@ -42,7 +42,8 @@
 	KindEditor.ready(function(Detail) {
 		Detail.create('#advertisement_mgr_advertisement_detail_webAdvContent', {
 			themeType : 'qq',
-			items : []
+			items : [],
+			readonlyMode : true
 		});
 	});
 </script>

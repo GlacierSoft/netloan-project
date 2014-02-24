@@ -38,8 +38,8 @@
 				title:'ID',
 				checkbox:true
 			},{
-				field:'memberId',
-				title:'会员ID',
+				field:'memberRealName',
+				title:'会员名称',
 				width:120,
 				sortable:true
 			},{
@@ -89,7 +89,7 @@
 				width:120,
 				sortable:true
 			},{
-				field:'auditorId',
+				field:'auditorDisplay',
 				title:'审核人',
 				width:120,
 				sortable:true
@@ -99,12 +99,12 @@
 				width:120,
 				sortable:true
 			},{
-				field:'memberId',
+				field:'remark',
 				title:'备注',
 				width:120,
 				sortable:true
 			},{
-				field:'remark',
+				field:'createrDisplay',
 				title:'创建人',
 				sortable:true,
 				width:100
@@ -155,7 +155,7 @@
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
 				title: rowData.webApplyAmountName,
-				href : ctx + '/do/applyAmount/intoDetail.htm?webApplyAmountId='+rowData.webApplyAmountId,//从controller请求jsp页面进行渲染
+				href : ctx + '/do/applyAmount/intoDetail.htm?applyAmountId='+rowData.applyAmountId,//从controller请求jsp页面进行渲染
 				width : 550,
 				height : 350,
 				resizable: false,
