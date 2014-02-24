@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.system.MemberQueryDTO;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberWork;
 import com.glacier.netloan.service.member.MemberService;
@@ -59,8 +60,8 @@ public class MemberController extends AbstractController{
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(JqPager pmember) {
-        return memberService.listAsGrid(pmember);
+    private Object listActionAsGridByMenuId(MemberQueryDTO memberQueryDTO, JqPager pmember) {
+        return memberService.listAsGrid(memberQueryDTO,pmember);
     }
     
     // 增加会员
@@ -70,23 +71,25 @@ public class MemberController extends AbstractController{
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
-        return memberService.addMemberandWork(member, memberWork);
+        return memberService.addMemberandWorkandAuth(member, memberWork);
     }
     
     // 修改会员
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object editMember(@Valid Member member,@Valid MemberWork memberWork, BindingResult bindingResult) {
+    private Object editMember(@Valid Member member,BindingResult bindingResult,@Valid MemberWork memberWork,BindingResult bindingResultWork) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
+        if (bindingResultWork.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResultWork);
+        }
         return memberService.editMemberandWork(member, memberWork);
     }
-    
     // 批量删除会员
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
     public Object delMember(@RequestParam List<String> memberIds,@RequestParam List<String> memberNames) {
-    	return memberService.delMemberandWork(memberIds, memberNames);
+    	return memberService.delMemberandWorkandAuth(memberIds, memberNames);
     }
 }

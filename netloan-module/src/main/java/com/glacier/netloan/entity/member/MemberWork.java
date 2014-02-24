@@ -1,8 +1,11 @@
 package com.glacier.netloan.entity.member;
 
+import org.hibernate.validator.constraints.Length;
+
 public class MemberWork {
     private String memberId;
 
+    @Length(min = 5, max = 10, message = "{Member.memberName.illegal}")
     private String unitName;
 
     private String unitPhone;

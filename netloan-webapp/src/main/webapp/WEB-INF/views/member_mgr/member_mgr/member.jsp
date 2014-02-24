@@ -221,7 +221,27 @@
 		var obj = $.parseJSON('{"'+name+'":"'+value+'"}');//将值和对象封装成obj作为参数传递给后台
 		glacier.member_mgr.member_mgr.member.memberDataGrid.datagrid('load',obj);
 	};
-	
+	//下拉项的值
+	$('#memberSearchForm_status').combobox({  
+		valueField : 'value',
+		//height:18,
+		width:80,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		//required:true,
+		data : fields.status
+	});
+	$('#memberSearchForm_type').combobox({  
+		valueField : 'value',
+		//height:18,
+		width:80,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		//required:true,
+		data : fields.type
+	});
 </script>
 
 <!-- 所有客服列表面板和表格 -->
@@ -230,5 +250,31 @@
 		<table id="memberDataGrid">
 			<glacierui:toolbar panelEnName="MemberList" toolbarId="memberDataGrid_toolbar" menuEnName="member"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
+	</div>
+	<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
+		<form id="memberSearchForm">
+			<table>
+				<tr>
+					<td>会员名称：</td>
+					<td><input name="memberName" style="width: 80px;" class="spinner"/></td>
+					<td>会员真实姓名：</td>
+					<td><input name="memberRealName" style="width: 80px;" class="spinner"/></td>
+					<td>状态：</td>
+					<td><input id="memberSearchForm_status" name="status" style="width: 80px;" class="spinner"/></td>
+					<td>类型：</td>
+					<td><input id="memberSearchForm_type" name="type" style="width: 80px;" class="spinner"/></td>
+					<td>录入时间：</td>
+					<td>
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;" />
+						-
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;" />
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.member_mgr.member_mgr.member.memberDataGrid.datagrid('load',glacier.serializeObject($('#memberSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#memberSearchForm input').val('');glacier.member_mgr.member_mgr.member.memberDataGrid.datagrid('load',{});">重置条件</a>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </div>

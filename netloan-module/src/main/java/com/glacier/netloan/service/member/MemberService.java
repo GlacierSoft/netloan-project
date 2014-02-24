@@ -19,9 +19,12 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.member.MemberAuthMapper;
 import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.member.MemberWorkMapper;
+import com.glacier.netloan.dto.query.system.MemberQueryDTO;
 import com.glacier.netloan.entity.member.Member;
-import com.glacier.netloan.entity.member.MemberAuth;
+import com.glacier.netloan.entity.member.MemberAuthExample;
+import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
 import com.glacier.netloan.entity.member.MemberExample;
+import com.glacier.netloan.entity.member.MemberExample.Criteria;
 import com.glacier.netloan.entity.member.MemberWork;
 import com.glacier.netloan.entity.member.MemberWorkExample;
 import com.glacier.netloan.entity.system.User;
@@ -80,10 +83,13 @@ public class MemberService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pager) {
+    public Object listAsGrid(MemberQueryDTO memberQueryDTO,JqPager pager) {
         
         JqGridReturn returnResult = new JqGridReturn();
         MemberExample memberExample = new MemberExample();;
+        
+        Criteria queryCriteria = memberExample.createCriteria();
+        memberQueryDTO.setQueryCondition(queryCriteria);
 
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	memberExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
@@ -100,16 +106,17 @@ public class MemberService {
     }
 
     /**
-     * @Title: addMember 
-     * @Description: TODO(新增会员) 
+     * @Title: addMemberandWorkandAuth 
+     * @Description: TODO(新增会员,工作，认证) 
      * @param @param member
+     * @param @param memberWork
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "MemberList_add")
-    public Object addMemberandWork(Member member,MemberWork memberWork) {
+    public Object addMemberandWorkandAuth(Member member,MemberWork memberWork) {
     	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -143,8 +150,9 @@ public class MemberService {
         countWork = memberWorkMapper.insert(memberWork);
         
         //生成会员认证表信息
-        MemberAuth memberAuth = new MemberAuth();
-        memberAuth.setMemberId(memberId);
+        MemberAuthWithBLOBs memberAuthWithBLOBs = new MemberAuthWithBLOBs();
+        memberAuthWithBLOBs.setMemberId(memberId);
+        memberAuthMapper.insert(memberAuthWithBLOBs);
         
         if (count == 1 && countWork == 1) {
             returnResult.setSuccess(true);
@@ -156,9 +164,10 @@ public class MemberService {
     }
     
     /**
-     * @Title: editMember 
-     * @Description: TODO(修改会员) 
+     * @Title: editMemberandWork 
+     * @Description: TODO(修改会员，工作) 
      * @param @param member
+     * @param @param memberWork
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
@@ -177,22 +186,17 @@ public class MemberService {
             returnResult.setMsg("会员名称重复");
             return returnResult;
         }
+        
         //会员表的修改
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         member.setUpdater(pricipalUser.getUserId());
         member.setUpdateTime(new Date());
         count = memberMapper.updateByPrimaryKeySelective(member);
+        
         //工作表的修改
         countWork = memberWorkMapper.updateByPrimaryKeySelective(memberWork);
-        /*MemberWorkExample memberWorkExample = new MemberWorkExample();
-        memberWorkExample.createCriteria().andMemberIdEqualTo(memberWork.getMemberId());
-        if(memberWorkMapper.countByExample(memberWorkExample) == 1){
-        	countWork = memberWorkMapper.updateByPrimaryKeySelective(memberWork);
-        }else{
-        	memberWork.setMemberId(member.getMemberId());
-        	countWork = memberWorkMapper.insert(memberWork);
-        }*/
+
         if (count == 1 && countWork == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + member.getMemberName() + "] 会员信息已修改");
@@ -203,8 +207,8 @@ public class MemberService {
     }
     
    /**
-     * @Title: delMember 
-     * @Description: TODO(删除会员) 
+     * @Title: delMemberandWorkandAuth 
+     * @Description: TODO(删除会员，工作，认证) 
      * @param @param memberIds
      * @param @param annThemes
      * @param @return    设定文件 
@@ -213,20 +217,29 @@ public class MemberService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "MemberList_del")
-    public Object delMemberandWork(List<String> memberIds, List<String> memberNames) {
+    public Object delMemberandWorkandAuth(List<String> memberIds, List<String> memberNames) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         int countWork = 0;
+        int countAuth = 0;
         if (memberIds.size() > 0) {
-        	//会员表的删除
-        	MemberExample memberExample = new MemberExample();
-        	memberExample.createCriteria().andMemberIdIn(memberIds);
-            count = memberMapper.deleteByExample(memberExample);
+        	
             //工作表的删除
             MemberWorkExample memberWorkExample = new MemberWorkExample();
             memberWorkExample.createCriteria().andMemberIdIn(memberIds);
             countWork = memberWorkMapper.deleteByExample(memberWorkExample);
-            if (count > 0 && countWork >0) {
+            
+            //会员认证表的删除
+            MemberAuthExample memberAuthExample = new MemberAuthExample();
+            memberAuthExample.createCriteria().andMemberIdIn(memberIds);
+            countAuth = memberAuthMapper.deleteByExample(memberAuthExample);
+            
+            //会员表的删除
+        	MemberExample memberExample = new MemberExample();
+        	memberExample.createCriteria().andMemberIdIn(memberIds);
+            count = memberMapper.deleteByExample(memberExample);
+            
+            if (count > 0 && countWork >0 && countAuth > 0) {
                 returnResult.setSuccess(true);
                 returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(memberNames, ",") + " ]操作");
             } else {

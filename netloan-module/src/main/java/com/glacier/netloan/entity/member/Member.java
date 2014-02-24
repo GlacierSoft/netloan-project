@@ -2,6 +2,8 @@ package com.glacier.netloan.entity.member;
 
 import java.util.Date;
 
+import javax.validation.constraints.Pattern;
+
 import org.hibernate.validator.constraints.Length;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -9,10 +11,11 @@ import com.alibaba.fastjson.annotation.JSONField;
 public class Member {
     private String memberId;
 
-    @Length(min = 1, max = 10, message = "{Member.memberName.illegal}")
+    @Length(min = 5, max = 10, message = "{Member.memberName.illegal}")
     private String memberName;
 
-    @Length(min = 6, max = 12, message = "{Member.memberPassword.illegal}")
+//    @Length(min = 6, max = 12, message = "{Member.memberPassword.illegal}")
+    @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9_]{4,15}", message = "{User.username.illegal}")
     private String memberPassword;
 
     private String memberRealName;

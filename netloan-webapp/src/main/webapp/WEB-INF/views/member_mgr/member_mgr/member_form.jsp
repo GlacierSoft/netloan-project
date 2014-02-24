@@ -18,9 +18,9 @@
 					</tr>
 					<tr>
 						<td>会员密码：</td>
-						<td><input id="member_mgr_member_form_memberPassword" name="memberPassword" class="easyui-validatebox spinner" style="width:268px" required="true" value="${memberData.memberPassword}"/></td>
+						<td><input id="member_mgr_member_form_memberPassword" name="memberPassword" value="${memberData.memberPassword}" class="easyui-validatebox spinner" style="width:268px" required="true" /></td>
 						<td style="padding-left:10px;">会员年龄：</td>
-						<td><input id="member_mgr_member_form_memberAge" name="memberAge" value="${memberData.memberAge}" class="easyui-numberspinner spinner" required="true" data-options="min:0,max:99,required:true,missingMessage:'请填写年龄'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
+						<td><input id="member_mgr_member_form_memberAge" name="memberAge" value="${memberData.memberAge}" class="easyui-numberspinner spinner" data-options="min:0,max:99,required:true,missingMessage:'请填写年龄'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 					</tr>
 					<tr>
 						<td>婚姻状况：</td>
@@ -69,7 +69,7 @@
 						<td>籍贯：</td>
 						<td><input id="member_mgr_member_form_hometown" name="hometown" class="easyui-validatebox spinner" style="width:268px" required="true" value="${memberData.hometown}"/></td>
 						<td style="padding-left:10px;">现居住地址：</td>
-						<td><input id="member_mgr_member_form_liveAddress" name="liveAddress" class="easyui-validatebox spinner" value="${memberData.liveAddress}"  required="true" /></td>
+						<td><input id="member_mgr_member_form_liveAddress" name="liveAddress" class="easyui-validatebox spinner" style="width:268px" value="${memberData.liveAddress}"  required="true" /></td>
 					</tr>
 					<tr>
 						<td>第一联系人：</td>
@@ -79,9 +79,9 @@
 					</tr>
 					<tr>
 						<td>第一联系人手机：</td>
-						<td><input id="member_mgr_member_form_firstContactPhone" name="firstContactPhone" style="width:268px" value="${memberData.firstContactPhone}" class="easyui-validatebox spinner" data-options="required:true,validType:'mobile'"/></td>
+						<td><input id="member_mgr_member_form_firstContactPhone" name="firstContactPhone" style="width:268px" value="${memberData.firstContactPhone}" class="easyui-validatebox spinner" data-options="validType:'mobile'"/></td>
 						<td style="padding-left:10px;">第一联系人地址：</td>
-						<td><input id="member_mgr_member_form_firstContactAddress" name="firstContactAddress" value="${memberData.firstContactAddress}" class="easyui-validatebox spinner" style="width:268px" required="true" /></td>
+						<td><input id="member_mgr_member_form_firstContactAddress" name="firstContactAddress" value="${memberData.firstContactAddress}" class="easyui-validatebox spinner" style="width:268px"  /></td>
 					</tr>
 					<tr>
 						<td>第二联系人：</td>
@@ -91,13 +91,15 @@
 					</tr>
 					<tr>
 						<td>第二联系人手机：</td>
-						<td><input id="member_mgr_member_form_secondContactPhone" name="secondContactPhone" value="${memberData.secondContactPhone}" style="width:268px" class="easyui-validatebox spinner" data-options="required:true,validType:'mobile'"/></td>
+						<td><input id="member_mgr_member_form_secondContactPhone" name="secondContactPhone" value="${memberData.secondContactPhone}" style="width:268px" class="easyui-validatebox spinner" data-options="validType:'mobile'"/></td>
 						<td style="padding-left:10px;">第二联系人地址：</td>
-						<td><input id="member_mgr_member_form_secondContactAddress" name="secondContactAddress" value="${memberData.secondContactAddress}" style="width:268px" required="true" class="easyui-validatebox spinner"/></td>
+						<td><input id="member_mgr_member_form_secondContactAddress" name="secondContactAddress" value="${memberData.secondContactAddress}" style="width:268px"  class="easyui-validatebox spinner"/></td>
 					</tr>
 					<%-- <tr>
 						<td>备注：</td>
-						<td colspan="3"><textarea id="member_mgr_member_form_remark" name="remark" style="width:645px;height:40px;" maxlength="255" class="spinner formta">${memberData.remark}</textarea></td>
+						<td colspan="3"><textarea id="member_mgr_member_form_remark" name="remark" style="width:645px;height:40px;" 
+
+maxlength="255" class="spinner formta">${memberData.remark}</textarea></td>
 					</tr> --%>
 				</table>
 		</fieldset>
@@ -109,28 +111,50 @@
 					<tr>
 						<td>单位名称：</td>
 						<td colspan="3">
-							<input type="hidden" id="memberWork_mgr_memberWork_form_memberId" name="memberId" value="${memberWorkData.memberId}" />
-							<input id="member_mgr_member_form_unitName" name="unitName" value="${memberWorkData.unitName}" style="width:268px"  class="easyui-validatebox spinner" data-options="required:true,validType:'length[1,25]'" invalidMessage="单位名称必须在1到25个字符之间" />
+							<input type="hidden" id="memberWork_mgr_memberWork_form_memberId" name="memberId" 
+
+value="${memberWorkData.memberId}" />
+							<input id="member_mgr_member_form_unitName" name="unitName" value="${memberWorkData.unitName}" 
+
+style="width:268px"  class="easyui-validatebox spinner" data-options="required:true,validType:'length[1,25]'" invalidMessage="单位名称必须在1到25个字符之间" />
 						</td>
 					</tr>
 					<tr>
 						<td>单位电话：</td>
-						<td><input id="member_mgr_member_form_unitPhone" name="unitPhone" value="${memberWorkData.unitPhone}" style="width:268px" class="easyui-validatebox spinner" data-options="required:true,validType:'tel'"/></td>
+						<td><input id="member_mgr_member_form_unitPhone" name="unitPhone" value="${memberWorkData.unitPhone}" 
+
+style="width:268px" class="easyui-validatebox spinner" data-options="required:true,validType:'tel'"/></td>
 						<td style="padding-left:10px;">单位地址：</td>
-						<td><input id="member_mgr_member_form_unitAdress" name="unitAdress"  value="${memberWorkData.unitAdress}" style="width:268px" class="easyui-validatebox spinner"  required="true"/></td>
+						<td><input id="member_mgr_member_form_unitAdress" name="unitAdress"  value="${memberWorkData.unitAdress}" 
+
+style="width:268px" class="easyui-validatebox spinner"  required="true"/></td>
 					</tr>
 					<tr>
 						<td>工作年限：</td>
-						<td><input id="member_mgr_member_form_workAge" name="workAge" value="${memberWorkData.workAge}" class="easyui-numberspinner spinner" required="true" data-options="min:0,max:99,required:true,missingMessage:'请填写年龄'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
+						<td><input id="member_mgr_member_form_workAge" name="workAge" value="${memberWorkData.workAge}" class="easyui-
+
+numberspinner spinner" required="true" data-options="min:0,max:99,required:true,missingMessage:'请填写年龄'" value="10" style="width: 270px;height:18px;" min="1" 
+
+max="99"/></td>
 						<td style="padding-left:10px;">年薪：</td>
-						<td><input id="member_mgr_member_form_salary" name="salary" value="${memberWorkData.salary}" style="width:268px"  class="easyui-validatebox spinner" data-options="required:true,validType:'numeric('Float')'" /></td>
-						<td><input id="member_mgr_member_form_salary" name="salary" value="${memberWorkData.salary}" style="width:268px"  class="easyui-validatebox spinner" required=true /></td>
+						<td><input id="member_mgr_member_form_salary" name="salary" value="${memberWorkData.salary}" style="width:268px"  
+
+class="easyui-validatebox spinner" data-options="required:true,validType:'numeric('Float')'" /></td>
+						<td><input id="member_mgr_member_form_salary" name="salary" value="${memberWorkData.salary}" style="width:268px"  
+
+class="easyui-validatebox spinner" required=true /></td>
 					</tr>
 					<tr>
 						<td>证明人：</td>
-						<td><input id="member_mgr_member_form_proofPerson" name="proofPerson" value="${memberWorkData.proofPerson}" style="width:268px" class="easyui-validatebox spinner" required="true" data-options="required:true,validType:'length[1,10]'" invalidMessage="证明人必须在1到10个字符之间"/></td>
+						<td><input id="member_mgr_member_form_proofPerson" name="proofPerson" value="${memberWorkData.proofPerson}" 
+
+style="width:268px" class="easyui-validatebox spinner" required="true" data-options="required:true,validType:'length[1,10]'" invalidMessage="证明人必须在1到10个字符之
+
+间"/></td>
 						<td style="padding-left:10px;">证明人手机：</td>
-						<td><input id="member_mgr_member_form_proofPhone" name="proofPhone" value="${memberWorkData.proofPhone}" style="width:268px" class="easyui-validatebox spinner" data-options="required:true,validType:'mobile'"/></td>
+						<td><input id="member_mgr_member_form_proofPhone" name="proofPhone" value="${memberWorkData.proofPhone}" 
+
+style="width:268px" class="easyui-validatebox spinner" data-options="required:true,validType:'mobile'"/></td>
 					</tr>
 				</table> --%>
 				<table class="formtable">
@@ -218,7 +242,7 @@
 		textField : 'label',
 		panelHeight : 'auto',
 		editable : false,
-		required:true,
+		//required:true,
 		data : fields.contactRelation
 	});
 	$('#member_mgr_member_form_secondContactRelation').combobox({  
@@ -228,7 +252,7 @@
 		textField : 'label',
 		panelHeight : 'auto',
 		editable : false,
-		required:true,
+		//required:true,
 		data : fields.contactRelation
 	});
 </script>
