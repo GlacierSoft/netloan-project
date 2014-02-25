@@ -124,7 +124,7 @@
 				title: rowData.webLinkName,
 				href : ctx + '/do/link/intoDetail.htm?webLinkId='+rowData.webLinkId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 350,
+				height : 320,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

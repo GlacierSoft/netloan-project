@@ -136,8 +136,8 @@
 			$.easyui.showDialog({
 				title: '【'+rowData.memberRealName+'】申请额度详细信息',
 				href : ctx + '/do/applyAmount/intoDetail.htm?applyAmountId='+rowData.applyAmountId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 380,
+				width : 530,
+				height : 370,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

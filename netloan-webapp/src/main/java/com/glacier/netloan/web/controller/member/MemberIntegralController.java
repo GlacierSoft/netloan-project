@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.member.MemberIntegralQueryDTO;
 import com.glacier.netloan.entity.member.MemberIntegral;
 import com.glacier.netloan.service.member.MemberIntegralService;
 
@@ -65,8 +66,8 @@ public class MemberIntegralController extends AbstractController{
     // 获取表格结构的所有会员积分记录数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listIntegralAsGridByMenuId(JqPager pintegralr) {
-        return integralService.listAsGrid(pintegralr);
+    private Object listIntegralAsGridByMenuId(MemberIntegralQueryDTO  memberIntegralQueryDTO, JqPager pintegralr) {
+        return integralService.listAsGrid(memberIntegralQueryDTO, pintegralr);
     }
     
     // 增加会员积分记录

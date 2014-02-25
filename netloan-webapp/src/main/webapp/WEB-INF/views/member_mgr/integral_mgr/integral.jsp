@@ -69,16 +69,6 @@
 				title:'创建时间',
 				sortable:true,
 				width:200
-			},{
-				field:'updaterDisplay',
-				title:'更新人',
-				sortable:true,
-				width:100
-			},{
-				field:'updateTime',
-				title:'更新时间',
-				sortable:true,
-				width:200
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
@@ -94,13 +84,34 @@
 			$.easyui.showDialog({
 				title: '【'+rowData.memberRealName+'】积分详细信息',
 				href : ctx + '/do/memberIntegral/intoDetail.htm?memberIntegralId='+rowData.memberIntegralId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 280,
+				width : 530,
+				height : 250,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
 			});
 		}
+	});
+	//下拉项的值
+	$('#memberIntegralSearchForm_type').combobox({  
+		valueField : 'value',
+		height:18,
+		width:80,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		//required:true,
+		data : fields.type
+	});
+	$('#memberIntegralSearchForm_changeType').combobox({  
+		valueField : 'value',
+		height:18,
+		width:80,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		//required:true,
+		data : fields.changeType
 	});
 </script>
 
@@ -110,5 +121,29 @@
 		<table id="integralDataGrid">
 			<glacierui:toolbar panelEnName="MemberIntegralList" toolbarId="memberIntegralDataGrid_toolbar" menuEnName="memberIntegral"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
+	</div>
+	<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
+		<form id="memberIntegralSearchForm">
+			<table>
+				<tr>
+					<td>会员名称：</td>
+					<td><input name="memberRealName" style="width: 80px;" class="spinner"/></td>
+					<td>积分类型：</td>
+					<td><input id="memberIntegralSearchForm_type" name="type" style="width: 80px;" class="spinner"/></td>
+					<td>改变类型：</td>
+					<td><input id="memberIntegralSearchForm_changeType" name="changeType" style="width: 80px;" class="spinner"/></td>
+					<td>录入时间：</td>
+					<td>
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 150px;" />
+						-
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 150px;" />
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.member_mgr.integral_mgr.integral.integralDataGrid.datagrid('load',glacier.serializeObject($('#memberIntegralSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#memberIntegralSearchForm input').val('');glacier.member_mgr.integral_mgr.integral.integralDataGrid.datagrid('load',{});">重置条件</a>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </div>

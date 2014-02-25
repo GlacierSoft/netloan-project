@@ -138,8 +138,8 @@
 			$.easyui.showDialog({
 				title: '【'+rowData.memberRealName+'】房产详细信息',
 				href : ctx + '/do/estate/intoDetail.htm?estateId='+rowData.estateId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 330,
+				width : 530,
+				height : 320,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

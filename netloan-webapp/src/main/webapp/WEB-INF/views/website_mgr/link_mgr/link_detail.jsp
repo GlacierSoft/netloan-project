@@ -16,10 +16,6 @@
 			<td colspan="3"><input class="spinner" style="width:416px"  value="${linkData.webLinkUrl}" readonly="readonly"/></td>
 		</tr>
 		<tr>
-			<td>友情链接内容：</td>
-			<td colspan="3"><input class="spinner" style="width:416px"  value="${linkData.webLinkUrl}" readonly="readonly"/></td>
-		</tr>
-		<tr>
 			<td>友情链接图像：</td>
 			<td colspan="3"><input class="spinner" style="width:416px"  value="${linkData.webLinkPhoto}" readonly="readonly"/></td>
 		</tr>

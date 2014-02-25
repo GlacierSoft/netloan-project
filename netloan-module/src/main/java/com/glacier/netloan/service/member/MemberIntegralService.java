@@ -21,8 +21,10 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.member.MemberIntegralMapper;
+import com.glacier.netloan.dto.query.member.MemberIntegralQueryDTO;
 import com.glacier.netloan.entity.member.MemberIntegral;
 import com.glacier.netloan.entity.member.MemberIntegralExample;
+import com.glacier.netloan.entity.member.MemberIntegralExample.Criteria;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -61,11 +63,14 @@ public class MemberIntegralService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pintegralr) {
+    public Object listAsGrid(MemberIntegralQueryDTO  memberIntegralQueryDTO, JqPager pintegralr) {
         
         JqGridReturn returnResult = new JqGridReturn();
         MemberIntegralExample memberIntegralExample = new MemberIntegralExample();
 
+        Criteria queryCriteria = memberIntegralExample.createCriteria();
+        memberIntegralQueryDTO.setQueryCondition(queryCriteria);
+        
         if (null != pintegralr.getPage() && null != pintegralr.getRows()) {// 设置排序信息
         	memberIntegralExample.setLimitStart((pintegralr.getPage() - 1) * pintegralr.getRows());
         	memberIntegralExample.setLimitEnd(pintegralr.getRows());

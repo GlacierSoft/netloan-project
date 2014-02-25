@@ -118,7 +118,7 @@
 			$.easyui.showDialog({
 				title: rowData.optgroupValueName,
 				href : ctx + '/do/optgroupValue/intoDetail.htm?optgroupValueId='+rowData.optgroupValueId,//从controller请求jsp页面进行渲染
-				width : 540,
+				width : 530,
 				height : 270,
 				resizable: false,
 				enableApplyButton : false,

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 public class MemberIntegralExample {
     protected String orderByClause;
 
@@ -124,7 +125,13 @@ public class MemberIntegralExample {
             }
             criteria.add(new Criterion(condition, value1, value2));
         }
-
+        
+        //扩展查询条件
+        public Criteria andMemberRealNameLike(String value) {
+            addCriterion("temp_member.member_real_name like", value, "memberRealName");
+            return (Criteria) this;
+        }
+        
         public Criteria andMemberIntegralIdIsNull() {
             addCriterion("temp_member_integral.member_integral_id is null");
             return (Criteria) this;
