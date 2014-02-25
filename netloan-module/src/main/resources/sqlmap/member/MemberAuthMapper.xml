@@ -57,6 +57,8 @@
     <result column="temp_member_auth_work_remark" property="workRemark" jdbcType="VARCHAR" />
     <result column="temp_member_auth_work_time" property="workTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_auth_work_num" property="workNum" jdbcType="INTEGER" />
+    <result column="temp_member_auth_memberName" property="memberName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_auth_memberRealName" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->   
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.glacier.netloan.entity.member.MemberAuthWithBLOBs" extends="BaseResultMap" >
     <result column="temp_member_auth_info_accessory" property="infoAccessory" jdbcType="LONGVARCHAR" />
@@ -156,6 +158,9 @@
     temp_member_auth.work_auth as temp_member_auth_work_auth, temp_member_auth.work_auditor as temp_member_auth_work_auditor, 
     temp_member_auth.work_remark as temp_member_auth_work_remark, temp_member_auth.work_time as temp_member_auth_work_time, 
     temp_member_auth.work_num as temp_member_auth_work_num
+                <!-- 以下字段属于扩展 -->
+    ,temp_member.member_name as temp_member_auth_memberName 
+    ,temp_member.member_real_name as temp_member_auth_memberRealName
   </sql>
   <sql id="Blob_Column_List" >
     temp_member_auth.info_accessory as temp_member_auth_info_accessory, temp_member_auth.vip_accessory as temp_member_auth_vip_accessory, 
@@ -163,6 +168,9 @@
     temp_member_auth.credit_accessory as temp_member_auth_credit_accessory, temp_member_auth.company_accessory as temp_member_auth_company_accessory, 
     temp_member_auth.real_name_accessory as temp_member_auth_real_name_accessory, temp_member_auth.id_card_accessory as temp_member_auth_id_card_accessory, 
     temp_member_auth.work_accessory as temp_member_auth_work_accessory
+  </sql>
+   <sql id="Base_extend"><!-- 扩展 -->
+  	LEFT JOIN t_member temp_member ON temp_member.member_id = temp_member_auth.member_id <!-- 扩展 -->
   </sql>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.glacier.netloan.entity.member.MemberAuthExample" >
     select
@@ -190,6 +198,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_member_auth temp_member_auth
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -206,6 +215,7 @@
     ,
     <include refid="Blob_Column_List" />
     from t_member_auth temp_member_auth
+    <include refid="Base_extend" />
     where temp_member_auth.member_id = #{memberId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -659,6 +669,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.member.MemberAuthExample" resultType="java.lang.Integer" >
     select count(*) from t_member_auth temp_member_auth
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

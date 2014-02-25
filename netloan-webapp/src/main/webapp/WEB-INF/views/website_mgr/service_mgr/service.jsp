@@ -129,7 +129,7 @@
 				title: rowData.webServiceName,
 				href : ctx + '/do/service/intoDetail.htm?webServiceId='+rowData.webServiceId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 260,
+				height : 290,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

@@ -43,11 +43,6 @@
 				width:120,
 				sortable:true
 			},{
-				field:'webHelpContent',
-				title:'帮助中心内容',
-				width:120,
-				sortable:true
-			},{
 				field:'webHelpType',
 				title:'帮助中心类型',
 				width:120,
@@ -132,7 +127,7 @@
 				title: rowData.webHelpTheme,
 				href : ctx + '/do/help/intoDetail.htm?webHelpId='+rowData.webHelpId,//从controller请求jsp页面进行渲染
 				width : 720,
-				height : 550,
+				height : 540,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

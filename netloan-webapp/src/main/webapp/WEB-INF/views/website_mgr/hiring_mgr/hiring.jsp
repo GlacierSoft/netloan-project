@@ -43,11 +43,6 @@
 				width:120,
 				sortable:true
 			},{
-				field:'webHiringContent',
-				title:'招聘管理内容',
-				width:120,
-				sortable:true
-			},{
 				field:'webHiringStatus',
 				title:'招聘管理状态',
 				width:120,
@@ -123,8 +118,8 @@
 			$.easyui.showDialog({
 				title: rowData.webHiringTheme,
 				href : ctx + '/do/hiring/intoDetail.htm?webHiringId='+rowData.webHiringId,//从controller请求jsp页面进行渲染
-				width : 705,
-				height : 530,
+				width : 720,
+				height : 520,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

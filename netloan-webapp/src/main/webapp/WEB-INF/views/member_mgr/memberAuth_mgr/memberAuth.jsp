@@ -39,8 +39,13 @@
 				title:'ID',
 				checkbox:true
 			},{
-				field:'infoName',
-				title:'基本信息认证名称',
+				field:'memberName',
+				title:'会员名称',
+				width:120,
+				sortable:true
+			},{
+				field:'memberRealName',
+				title:'会员真实名称',
 				width:120,
 				sortable:true
 			},{
@@ -52,11 +57,6 @@
 					return renderGridValue(value,fields.auths);
 				}
 			},{
-				field:'vipName',
-				title:'VIP认证名称',
-				width:120,
-				sortable:true
-			},{
 				field:'vipAuth',
 				title:'VIP认证状态',
 				width:120,
@@ -64,11 +64,6 @@
 				formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
 					return renderGridValue(value,fields.auths);
 				}
-			},{
-				field:'emailName',
-				title:'邮箱认证名称',
-				width:120,
-				sortable:true
 			},{
 				field:'emailAuth',
 				title:'邮箱认证状态',
@@ -78,11 +73,6 @@
 					return renderGridValue(value,fields.auths);
 				}
 			},{
-				field:'mobileName',
-				title:'手机认证名称',
-				width:120,
-				sortable:true
-			},{
 				field:'mobileAuth',
 				title:'手机认证状态',
 				width:120,
@@ -90,11 +80,6 @@
 				formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
 					return renderGridValue(value,fields.auths);
 				}
-			},{
-				field:'creditName',
-				title:'信用认证名称',
-				width:120,
-				sortable:true
 			},{
 				field:'creditAuth',
 				title:'信用认证状态',
@@ -104,11 +89,6 @@
 					return renderGridValue(value,fields.auths);
 				}
 			},{
-				field:'companyName',
-				title:'企业认证名称',
-				width:120,
-				sortable:true
-			},{
 				field:'companyAuth',
 				title:'企业认证状态',
 				width:120,
@@ -116,11 +96,6 @@
 				formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
 					return renderGridValue(value,fields.auths);
 				}
-			},{
-				field:'realName',
-				title:'真实姓名认证名称',
-				width:120,
-				sortable:true
 			},{
 				field:'realNameAuth',
 				title:'真实姓名认证状态',
@@ -130,11 +105,6 @@
 					return renderGridValue(value,fields.auths);
 				}
 			},{
-				field:'idCardName',
-				title:'身份证认证名称',
-				width:120,
-				sortable:true
-			},{
 				field:'idCardAuth',
 				title:'身份证认证状态',
 				width:120,
@@ -142,11 +112,6 @@
 				formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
 					return renderGridValue(value,fields.auths);
 				}
-			},{
-				field:'workName',
-				title:'工作认证名称',
-				width:120,
-				sortable:true
 			},{
 				field:'workAuth',
 				title:'工作认证状态',
@@ -268,31 +233,26 @@
 			});
 		}
 	};
-	//客服资料模糊查询
-	glacier.member_mgr.memberAuth_mgr.memberAuth.quickquery = function(value,name){
-		var obj = $.parseJSON('{"'+name+'":"'+value+'"}');//将值和对象封装成obj作为参数传递给后台
-		glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('load',obj);
-	};
 	//下拉项的值
-	$('#memberSearchForm_status').combobox({  
+	$('#memberAuthSearchForm_authType').combobox({  
 		valueField : 'value',
 		//height:18,
-		width:80,
+		width:100,
 		textField : 'label',
 		panelHeight : 'auto',
 		editable : false,
 		//required:true,
-		data : fields.status
+		data : fields.authType
 	});
-	$('#memberSearchForm_type').combobox({  
+	$('#memberAuthSearchForm_auths').combobox({  
 		valueField : 'value',
 		//height:18,
-		width:80,
+		width:100,
 		textField : 'label',
 		panelHeight : 'auto',
 		editable : false,
 		//required:true,
-		data : fields.type
+		data : fields.auths
 	});
 </script>
 
@@ -304,26 +264,21 @@
 		</table>
 	</div>
 	<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
-		<form id="memberSearchForm">
+		<form id="memberAuthSearchForm">
 			<table>
 				<tr>
 					<td>会员名称：</td>
 					<td><input name="memberName" style="width: 80px;" class="spinner"/></td>
 					<td>会员真实姓名：</td>
 					<td><input name="memberRealName" style="width: 80px;" class="spinner"/></td>
+					<td>认证：</td>
+					<td><input id="memberAuthSearchForm_authType" name="authType" class="spinner"/></td>
 					<td>状态：</td>
-					<td><input id="memberSearchForm_status" name="status" style="width: 80px;" class="spinner"/></td>
-					<td>类型：</td>
-					<td><input id="memberSearchForm_type" name="type" style="width: 80px;" class="spinner"/></td>
-					<td>录入时间：</td>
+					<td><input id="memberAuthSearchForm_auths" name="auths" class="spinner"/></td>
+					
 					<td>
-						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;" />
-						-
-						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;" />
-					</td>
-					<td>
-						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('load',glacier.serializeObject($('#memberSearchForm')));">查询</a>
-						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#memberSearchForm input').val('');glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('load',{});">重置条件</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('load',glacier.serializeObject($('#memberAuthSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#memberAuthSearchForm input').val('');glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>

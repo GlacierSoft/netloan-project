@@ -5,7 +5,35 @@ import java.util.Date;
 public class MemberAuth {
     private String memberId;
 
-    private String infoName;
+    /**
+     * 自定义字段
+     */
+    private String memberName;
+    
+    /**
+     * 自定义字段
+     */
+    private String memberRealName;
+    
+    
+    
+    public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+	public String getMemberRealName() {
+		return memberRealName;
+	}
+
+	public void setMemberRealName(String memberRealName) {
+		this.memberRealName = memberRealName;
+	}
+
+	private String infoName;
 
     private String infoAuth;
 
