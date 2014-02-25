@@ -83,11 +83,6 @@
 				sortable:true,
 				width:90
 			},{
-				field:'late',
-				title:'迟还次数',
-				sortable:true,
-				width:70
-			},{
 				field:'websiteSubstitute',
 				title:'网站代还次数',
 				sortable:true,
@@ -165,8 +160,8 @@
 			$.easyui.showDialog({
 				title: '【'+rowData.memberRealName+'】申请额度详细信息',
 				href : ctx + '/do/memberStatistics/intoDetail.htm?statisticsId='+rowData.statisticsId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 380,
+				width : 580,
+				height : 350,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
