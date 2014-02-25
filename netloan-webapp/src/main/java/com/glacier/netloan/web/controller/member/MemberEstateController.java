@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.member.MemberEstateQueryDTO;
 import com.glacier.netloan.entity.member.MemberEstate;
 import com.glacier.netloan.service.member.MemberEstateService;
 
@@ -65,8 +66,8 @@ public class MemberEstateController extends AbstractController{
     // 获取表格结构的所有会员房产信息数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listEstateAsGridByMenuId(JqPager pestater) {
-        return estateService.listAsGrid(pestater);
+    private Object listEstateAsGridByMenuId(MemberEstateQueryDTO memberEstateQueryDTO, JqPager pestater) {
+        return estateService.listAsGrid(memberEstateQueryDTO, pestater);
     }
     
     // 增加会员房产信息

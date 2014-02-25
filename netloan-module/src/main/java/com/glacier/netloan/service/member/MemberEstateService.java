@@ -21,8 +21,10 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.member.MemberEstateMapper;
+import com.glacier.netloan.dto.query.member.MemberEstateQueryDTO;
 import com.glacier.netloan.entity.member.MemberEstate;
 import com.glacier.netloan.entity.member.MemberEstateExample;
+import com.glacier.netloan.entity.member.MemberEstateExample.Criteria;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -61,11 +63,14 @@ public class MemberEstateService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pestater) {
+    public Object listAsGrid(MemberEstateQueryDTO memberEstateQueryDTO, JqPager pestater) {
         
         JqGridReturn returnResult = new JqGridReturn();
         MemberEstateExample memberEstateExample = new MemberEstateExample();
 
+        Criteria queryCriteria = memberEstateExample.createCriteria();
+        memberEstateQueryDTO.setQueryCondition(queryCriteria);
+        
         if (null != pestater.getPage() && null != pestater.getRows()) {// 设置排序信息
         	memberEstateExample.setLimitStart((pestater.getPage() - 1) * pestater.getRows());
         	memberEstateExample.setLimitEnd(pestater.getRows());

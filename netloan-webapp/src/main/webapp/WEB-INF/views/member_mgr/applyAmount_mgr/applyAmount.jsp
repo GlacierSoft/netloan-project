@@ -144,7 +144,27 @@
 			});
 		}
 	});
-	
+	//下拉项的值
+	$('#memberApplyAmountSearchForm_applyType').combobox({  
+		valueField : 'value',
+		height:18,
+		width:80,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		//required:true,
+		data : fields.applyType
+	});
+	$('#memberApplyAmountSearchForm_auditState').combobox({  
+		valueField : 'value',
+		height:18,
+		width:80,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		//required:true,
+		data : fields.auths
+	});
 </script>
 
 <!-- 所有会员申请额度列表面板和表格 -->
@@ -153,5 +173,29 @@
 		<table id="applyAmountDataGrid">
 			<glacierui:toolbar panelEnName="ApplyAmountList" toolbarId="applyAmountDataGrid_toolbar" menuEnName="applyAmount"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
+	</div>
+	<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
+		<form id="memberApplyAmountSearchForm">
+			<table>
+				<tr>
+					<td>会员名称：</td>
+					<td><input name="memberRealName" style="width: 80px;" class="spinner"/></td>
+					<td>申请类型：</td>
+					<td><input id="memberApplyAmountSearchForm_applyType" name="applyType" style="width: 80px;" class="spinner"/></td>
+					<td>审核状态：</td>
+					<td><input id="memberApplyAmountSearchForm_auditState" name="auditState" style="width: 80px;" class="spinner"/></td>
+					<td>录入时间：</td>
+					<td>
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 150px;" />
+						-
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 150px;" />
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.member_mgr.applyAmount_mgr.applyAmount.applyAmountDataGrid.datagrid('load',glacier.serializeObject($('#memberApplyAmountSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#memberApplyAmountSearchForm input').val('');glacier.member_mgr.applyAmount_mgr.applyAmount.applyAmountDataGrid.datagrid('load',{});">重置条件</a>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </div>

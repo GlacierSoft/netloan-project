@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.member.MemberApplyAmountQueryDTO;
 import com.glacier.netloan.entity.member.MemberApplyAmount;
 import com.glacier.netloan.service.member.MemberApplyAmountService;
 
@@ -65,8 +66,8 @@ public class MemberApplyAmountController extends AbstractController{
     // 获取表格结构的所有会员申请额度数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listApplyAmountAsGridByMenuId(JqPager papplyAmountr) {
-        return applyAmountService.listAsGrid(papplyAmountr);
+    private Object listApplyAmountAsGridByMenuId(MemberApplyAmountQueryDTO memberEstateQueryDTO, JqPager papplyAmountr) {
+        return applyAmountService.listAsGrid(memberEstateQueryDTO, papplyAmountr);
     }
     
     // 增加会员申请额度

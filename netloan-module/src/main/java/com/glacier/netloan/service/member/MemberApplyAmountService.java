@@ -21,8 +21,10 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.member.MemberApplyAmountMapper;
+import com.glacier.netloan.dto.query.member.MemberApplyAmountQueryDTO;
 import com.glacier.netloan.entity.member.MemberApplyAmount;
 import com.glacier.netloan.entity.member.MemberApplyAmountExample;
+import com.glacier.netloan.entity.member.MemberApplyAmountExample.Criteria;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -61,11 +63,14 @@ public class MemberApplyAmountService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager papplyAmountr) {
+    public Object listAsGrid(MemberApplyAmountQueryDTO memberEstateQueryDTO, JqPager papplyAmountr) {
         
         JqGridReturn returnResult = new JqGridReturn();
         MemberApplyAmountExample memberApplyAmountExample = new MemberApplyAmountExample();
 
+        Criteria queryCriteria = memberApplyAmountExample.createCriteria();
+        memberEstateQueryDTO.setQueryCondition(queryCriteria);
+        
         if (null != papplyAmountr.getPage() && null != papplyAmountr.getRows()) {// 设置排序信息
         	memberApplyAmountExample.setLimitStart((papplyAmountr.getPage() - 1) * papplyAmountr.getRows());
         	memberApplyAmountExample.setLimitEnd(papplyAmountr.getRows());
