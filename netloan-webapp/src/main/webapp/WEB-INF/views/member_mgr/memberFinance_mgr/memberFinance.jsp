@@ -96,6 +96,17 @@
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
 			$(this).datagrid('clearChecked');
+		},
+		onDblClickRow:function(rowIndex, rowData){
+			$.easyui.showDialog({
+				title: rowData.memberName,
+				href : ctx + '/do/memberFinance/intoDetail.htm?memberId='+rowData.memberId,//从controller请求jsp页面进行渲染
+				width : 645,
+				height : 390,
+				resizable: false,
+				enableApplyButton : false,
+				enableSaveButton : false
+			});
 		}
 	});
 </script>
@@ -106,5 +117,31 @@
 		<table id="memberFinanceDataGrid">
 			<glacierui:toolbar panelEnName="MemberFinanceList" toolbarId="memberFinanceDataGrid_toolbar" menuEnName="memberFinance"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
+	</div>
+	<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
+		<form id="memberFinanceSearchForm">
+			<table>
+				<tr>
+					<td>会员名称：</td>
+					<td><input name="memberName" style="width: 80px;" class="spinner"/></td>
+					<td>月均收入：</td>
+					<td><input name="aveIncome" style="width: 80px;" class="spinner"/></td>
+					<td>是否购房：</td>
+					<td><input id="memberFinanceSearchForm_buyEstate" name="buyEstate" style="width: 80px;" class="spinner"/></td>
+					<td>是否购车：</td>
+					<td><input id="memberFinanceSearchForm_buyCar" name="buyCar" style="width: 80px;" class="spinner"/></td>
+					<td>录入时间：</td>
+					<td>
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;" />
+						-
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;" />
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.member_mgr.memberFinance_mgr.memberFinance.memberFinanceDataGrid.datagrid('load',glacier.serializeObject($('#memberFinanceSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#memberSearchForm input').val('');glacier.member_mgr.memberFinance_mgr.memberFinance.memberFinanceDataGrid.datagrid('load',{});">重置条件</a>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </div>

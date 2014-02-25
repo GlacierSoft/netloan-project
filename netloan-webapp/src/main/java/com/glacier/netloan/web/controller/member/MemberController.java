@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
-import com.glacier.netloan.dto.query.system.MemberQueryDTO;
+import com.glacier.netloan.dto.query.member.MemberQueryDTO;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberWork;
 import com.glacier.netloan.service.member.MemberService;

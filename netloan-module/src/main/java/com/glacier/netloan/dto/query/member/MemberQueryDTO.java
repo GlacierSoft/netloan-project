@@ -1,4 +1,4 @@
-package com.glacier.netloan.dto.query.system;
+package com.glacier.netloan.dto.query.member;
 
 import java.util.Date;
 
