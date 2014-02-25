@@ -3,11 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 获取项目根path -->
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
-<!-- 项目path全局对象，方便js调用-->
-<script type="text/javascript" charset="utf-8">
-	var ctx = '${ctx}';
-	var fields = eval('(${fields})');
-</script>
 
 <!-- 引入网站标识icon -->
 <link rel="shortcut icon" href="${ctx}/resources/images/favicon/favicon.ico"></link>
@@ -57,10 +52,12 @@
 <script src="${ctx}/resources/js/common/glacier.util.js" type="text/javascript"></script>
 
 <!-- 加入富文本编辑器kindeditor-->
-<script charset="utf-8" src="${ctx}/resources/js/kindeditor/kindeditor.js"></script>
-<script charset="utf-8" src="${ctx}/resources/js/kindeditor/lang/zh_CN.js"></script>
+<script src="${ctx}/resources/js/kindeditor/kindeditor.js" type="text/javascript" charset="utf-8"></script>
+<script src="${ctx}/resources/js/kindeditor/lang/zh_CN.js" type="text/javascript" charset="utf-8"></script>
 <!-- 加入富文本编辑器kindeditor声明-->
-<script>
+<script type="text/javascript" charset="utf-8">
+	   var ctx = '${ctx}';//项目访问路径
+	   var fields = eval('(${fields})');//加载系统字段
        KindEditor.ready(function(K) {
        });
 </script>

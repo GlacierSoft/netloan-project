@@ -47,5 +47,20 @@ public class CommonController {
         //进入首页初始化导航信息
         return mav;
     }
+    
+    /**
+     * 
+     * @Title: mappingIndexPage 
+     * @Description: TODO(使用/index.htm一样可以访问主页) 
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    @RequestMapping(value = "/index.htm")
+    private Object mappingIndexPage(){
+        ModelAndView mav = new ModelAndView("index");
+        //进入首页初始化导航信息
+        return mav;
+    }
 
 }

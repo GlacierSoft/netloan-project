@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- 引入jstl解析标签 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="zh-cn">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>冰川网贷平台</title>
    	<!-- 引入公用的js和样式库 -->
 	<jsp:include page="inc.jsp"/>
@@ -34,7 +33,7 @@
 	        </div>
 	        <div class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav">
-	            <li class="active"><a href="#">主页</a></li>
+	            <li class="active"><a href="${ctx}/index.htm">主页</a></li>
 	            <li class="dropdown">
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">我要投资<b class="caret"></b></a>
 	              <ul class="dropdown-menu">
@@ -53,6 +52,7 @@
 	                <li><a href="#">风险保障</a></li>
 	              </ul>
 	            </li>
+	            <li><a href="member/index.htm">个人中心</a></li>
 	            <li><a href="#contact">联系我们</a></li>
 	          </ul>
 		          <form class="navbar-form navbar-right" role="search">
