@@ -2,9 +2,16 @@ package com.glacier.netloan.entity.member;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class MemberFinance {
     private String memberId;
 
+    /**
+     * 自定义字段
+     */
+    private String memberName;
+    
     private Float aveIncome;
 
     private String aveIncomeDes;
@@ -15,15 +22,13 @@ public class MemberFinance {
 
     private String buyEstate;
 
-    private String housingConditions;
-
     private Float estateValue;
 
-    private String buyCat;
+    private String buyCar;
 
-    private Float catValue;
+    private Float carValue;
 
-    private String catAuth;
+    private String carAuth;
 
     private String companyName;
 
@@ -47,10 +52,22 @@ public class MemberFinance {
 
     private String creater;
 
+    /**
+     * 自定义字段
+     */
+    private String createrDisplay;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    /**
+     * 自定义字段
+     */
+    private String updaterDisplay;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getMemberId() {
@@ -101,14 +118,6 @@ public class MemberFinance {
         this.buyEstate = buyEstate;
     }
 
-    public String getHousingConditions() {
-        return housingConditions;
-    }
-
-    public void setHousingConditions(String housingConditions) {
-        this.housingConditions = housingConditions;
-    }
-
     public Float getEstateValue() {
         return estateValue;
     }
@@ -117,28 +126,28 @@ public class MemberFinance {
         this.estateValue = estateValue;
     }
 
-    public String getBuyCat() {
-        return buyCat;
+    public String getBuyCar() {
+        return buyCar;
     }
 
-    public void setBuyCat(String buyCat) {
-        this.buyCat = buyCat;
+    public void setBuyCar(String buyCar) {
+        this.buyCar = buyCar;
     }
 
-    public Float getCatValue() {
-        return catValue;
+    public Float getCarValue() {
+        return carValue;
     }
 
-    public void setCatValue(Float catValue) {
-        this.catValue = catValue;
+    public void setCarValue(Float carValue) {
+        this.carValue = carValue;
     }
 
-    public String getCatAuth() {
-        return catAuth;
+    public String getCarAuth() {
+        return carAuth;
     }
 
-    public void setCatAuth(String catAuth) {
-        this.catAuth = catAuth;
+    public void setCarAuth(String carAuth) {
+        this.carAuth = carAuth;
     }
 
     public String getCompanyName() {
@@ -253,7 +262,31 @@ public class MemberFinance {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
@@ -271,11 +304,10 @@ public class MemberFinance {
             && (this.getAveExpenses() == null ? other.getAveExpenses() == null : this.getAveExpenses().equals(other.getAveExpenses()))
             && (this.getAgeExpensesDes() == null ? other.getAgeExpensesDes() == null : this.getAgeExpensesDes().equals(other.getAgeExpensesDes()))
             && (this.getBuyEstate() == null ? other.getBuyEstate() == null : this.getBuyEstate().equals(other.getBuyEstate()))
-            && (this.getHousingConditions() == null ? other.getHousingConditions() == null : this.getHousingConditions().equals(other.getHousingConditions()))
             && (this.getEstateValue() == null ? other.getEstateValue() == null : this.getEstateValue().equals(other.getEstateValue()))
-            && (this.getBuyCat() == null ? other.getBuyCat() == null : this.getBuyCat().equals(other.getBuyCat()))
-            && (this.getCatValue() == null ? other.getCatValue() == null : this.getCatValue().equals(other.getCatValue()))
-            && (this.getCatAuth() == null ? other.getCatAuth() == null : this.getCatAuth().equals(other.getCatAuth()))
+            && (this.getBuyCar() == null ? other.getBuyCar() == null : this.getBuyCar().equals(other.getBuyCar()))
+            && (this.getCarValue() == null ? other.getCarValue() == null : this.getCarValue().equals(other.getCarValue()))
+            && (this.getCarAuth() == null ? other.getCarAuth() == null : this.getCarAuth().equals(other.getCarAuth()))
             && (this.getCompanyName() == null ? other.getCompanyName() == null : this.getCompanyName().equals(other.getCompanyName()))
             && (this.getCompaniesCapitalCon() == null ? other.getCompaniesCapitalCon() == null : this.getCompaniesCapitalCon().equals(other.getCompaniesCapitalCon()))
             && (this.getOtherAssetsDescribed() == null ? other.getOtherAssetsDescribed() == null : this.getOtherAssetsDescribed().equals(other.getOtherAssetsDescribed()))
@@ -302,11 +334,10 @@ public class MemberFinance {
         result = prime * result + ((getAveExpenses() == null) ? 0 : getAveExpenses().hashCode());
         result = prime * result + ((getAgeExpensesDes() == null) ? 0 : getAgeExpensesDes().hashCode());
         result = prime * result + ((getBuyEstate() == null) ? 0 : getBuyEstate().hashCode());
-        result = prime * result + ((getHousingConditions() == null) ? 0 : getHousingConditions().hashCode());
         result = prime * result + ((getEstateValue() == null) ? 0 : getEstateValue().hashCode());
-        result = prime * result + ((getBuyCat() == null) ? 0 : getBuyCat().hashCode());
-        result = prime * result + ((getCatValue() == null) ? 0 : getCatValue().hashCode());
-        result = prime * result + ((getCatAuth() == null) ? 0 : getCatAuth().hashCode());
+        result = prime * result + ((getBuyCar() == null) ? 0 : getBuyCar().hashCode());
+        result = prime * result + ((getCarValue() == null) ? 0 : getCarValue().hashCode());
+        result = prime * result + ((getCarAuth() == null) ? 0 : getCarAuth().hashCode());
         result = prime * result + ((getCompanyName() == null) ? 0 : getCompanyName().hashCode());
         result = prime * result + ((getCompaniesCapitalCon() == null) ? 0 : getCompaniesCapitalCon().hashCode());
         result = prime * result + ((getOtherAssetsDescribed() == null) ? 0 : getOtherAssetsDescribed().hashCode());

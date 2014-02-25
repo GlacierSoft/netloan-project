@@ -525,76 +525,6 @@ public class MemberFinanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andHousingConditionsIsNull() {
-            addCriterion("temp_member_finance.housing_conditions is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andHousingConditionsIsNotNull() {
-            addCriterion("temp_member_finance.housing_conditions is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andHousingConditionsEqualTo(String value) {
-            addCriterion("temp_member_finance.housing_conditions =", value, "housingConditions");
-            return (Criteria) this;
-        }
-
-        public Criteria andHousingConditionsNotEqualTo(String value) {
-            addCriterion("temp_member_finance.housing_conditions <>", value, "housingConditions");
-            return (Criteria) this;
-        }
-
-        public Criteria andHousingConditionsGreaterThan(String value) {
-            addCriterion("temp_member_finance.housing_conditions >", value, "housingConditions");
-            return (Criteria) this;
-        }
-
-        public Criteria andHousingConditionsGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_member_finance.housing_conditions >=", value, "housingConditions");
-            return (Criteria) this;
-        }
-
-        public Criteria andHousingConditionsLessThan(String value) {
-            addCriterion("temp_member_finance.housing_conditions <", value, "housingConditions");
-            return (Criteria) this;
-        }
-
-        public Criteria andHousingConditionsLessThanOrEqualTo(String value) {
-            addCriterion("temp_member_finance.housing_conditions <=", value, "housingConditions");
-            return (Criteria) this;
-        }
-
-        public Criteria andHousingConditionsLike(String value) {
-            addCriterion("temp_member_finance.housing_conditions like", value, "housingConditions");
-            return (Criteria) this;
-        }
-
-        public Criteria andHousingConditionsNotLike(String value) {
-            addCriterion("temp_member_finance.housing_conditions not like", value, "housingConditions");
-            return (Criteria) this;
-        }
-
-        public Criteria andHousingConditionsIn(List<String> values) {
-            addCriterion("temp_member_finance.housing_conditions in", values, "housingConditions");
-            return (Criteria) this;
-        }
-
-        public Criteria andHousingConditionsNotIn(List<String> values) {
-            addCriterion("temp_member_finance.housing_conditions not in", values, "housingConditions");
-            return (Criteria) this;
-        }
-
-        public Criteria andHousingConditionsBetween(String value1, String value2) {
-            addCriterion("temp_member_finance.housing_conditions between", value1, value2, "housingConditions");
-            return (Criteria) this;
-        }
-
-        public Criteria andHousingConditionsNotBetween(String value1, String value2) {
-            addCriterion("temp_member_finance.housing_conditions not between", value1, value2, "housingConditions");
-            return (Criteria) this;
-        }
-
         public Criteria andEstateValueIsNull() {
             addCriterion("temp_member_finance.estate_value is null");
             return (Criteria) this;
@@ -655,203 +585,203 @@ public class MemberFinanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andBuyCatIsNull() {
-            addCriterion("temp_member_finance.buy_cat is null");
+        public Criteria andBuyCarIsNull() {
+            addCriterion("temp_member_finance.buy_car is null");
             return (Criteria) this;
         }
 
-        public Criteria andBuyCatIsNotNull() {
-            addCriterion("temp_member_finance.buy_cat is not null");
+        public Criteria andBuyCarIsNotNull() {
+            addCriterion("temp_member_finance.buy_car is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBuyCatEqualTo(String value) {
-            addCriterion("temp_member_finance.buy_cat =", value, "buyCat");
+        public Criteria andBuyCarEqualTo(String value) {
+            addCriterion("temp_member_finance.buy_car =", value, "buyCar");
             return (Criteria) this;
         }
 
-        public Criteria andBuyCatNotEqualTo(String value) {
-            addCriterion("temp_member_finance.buy_cat <>", value, "buyCat");
+        public Criteria andBuyCarNotEqualTo(String value) {
+            addCriterion("temp_member_finance.buy_car <>", value, "buyCar");
             return (Criteria) this;
         }
 
-        public Criteria andBuyCatGreaterThan(String value) {
-            addCriterion("temp_member_finance.buy_cat >", value, "buyCat");
+        public Criteria andBuyCarGreaterThan(String value) {
+            addCriterion("temp_member_finance.buy_car >", value, "buyCar");
             return (Criteria) this;
         }
 
-        public Criteria andBuyCatGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_member_finance.buy_cat >=", value, "buyCat");
+        public Criteria andBuyCarGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_member_finance.buy_car >=", value, "buyCar");
             return (Criteria) this;
         }
 
-        public Criteria andBuyCatLessThan(String value) {
-            addCriterion("temp_member_finance.buy_cat <", value, "buyCat");
+        public Criteria andBuyCarLessThan(String value) {
+            addCriterion("temp_member_finance.buy_car <", value, "buyCar");
             return (Criteria) this;
         }
 
-        public Criteria andBuyCatLessThanOrEqualTo(String value) {
-            addCriterion("temp_member_finance.buy_cat <=", value, "buyCat");
+        public Criteria andBuyCarLessThanOrEqualTo(String value) {
+            addCriterion("temp_member_finance.buy_car <=", value, "buyCar");
             return (Criteria) this;
         }
 
-        public Criteria andBuyCatLike(String value) {
-            addCriterion("temp_member_finance.buy_cat like", value, "buyCat");
+        public Criteria andBuyCarLike(String value) {
+            addCriterion("temp_member_finance.buy_car like", value, "buyCar");
             return (Criteria) this;
         }
 
-        public Criteria andBuyCatNotLike(String value) {
-            addCriterion("temp_member_finance.buy_cat not like", value, "buyCat");
+        public Criteria andBuyCarNotLike(String value) {
+            addCriterion("temp_member_finance.buy_car not like", value, "buyCar");
             return (Criteria) this;
         }
 
-        public Criteria andBuyCatIn(List<String> values) {
-            addCriterion("temp_member_finance.buy_cat in", values, "buyCat");
+        public Criteria andBuyCarIn(List<String> values) {
+            addCriterion("temp_member_finance.buy_car in", values, "buyCar");
             return (Criteria) this;
         }
 
-        public Criteria andBuyCatNotIn(List<String> values) {
-            addCriterion("temp_member_finance.buy_cat not in", values, "buyCat");
+        public Criteria andBuyCarNotIn(List<String> values) {
+            addCriterion("temp_member_finance.buy_car not in", values, "buyCar");
             return (Criteria) this;
         }
 
-        public Criteria andBuyCatBetween(String value1, String value2) {
-            addCriterion("temp_member_finance.buy_cat between", value1, value2, "buyCat");
+        public Criteria andBuyCarBetween(String value1, String value2) {
+            addCriterion("temp_member_finance.buy_car between", value1, value2, "buyCar");
             return (Criteria) this;
         }
 
-        public Criteria andBuyCatNotBetween(String value1, String value2) {
-            addCriterion("temp_member_finance.buy_cat not between", value1, value2, "buyCat");
+        public Criteria andBuyCarNotBetween(String value1, String value2) {
+            addCriterion("temp_member_finance.buy_car not between", value1, value2, "buyCar");
             return (Criteria) this;
         }
 
-        public Criteria andCatValueIsNull() {
-            addCriterion("temp_member_finance.cat_value is null");
+        public Criteria andCarValueIsNull() {
+            addCriterion("temp_member_finance.car_value is null");
             return (Criteria) this;
         }
 
-        public Criteria andCatValueIsNotNull() {
-            addCriterion("temp_member_finance.cat_value is not null");
+        public Criteria andCarValueIsNotNull() {
+            addCriterion("temp_member_finance.car_value is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCatValueEqualTo(Float value) {
-            addCriterion("temp_member_finance.cat_value =", value, "catValue");
+        public Criteria andCarValueEqualTo(Float value) {
+            addCriterion("temp_member_finance.car_value =", value, "carValue");
             return (Criteria) this;
         }
 
-        public Criteria andCatValueNotEqualTo(Float value) {
-            addCriterion("temp_member_finance.cat_value <>", value, "catValue");
+        public Criteria andCarValueNotEqualTo(Float value) {
+            addCriterion("temp_member_finance.car_value <>", value, "carValue");
             return (Criteria) this;
         }
 
-        public Criteria andCatValueGreaterThan(Float value) {
-            addCriterion("temp_member_finance.cat_value >", value, "catValue");
+        public Criteria andCarValueGreaterThan(Float value) {
+            addCriterion("temp_member_finance.car_value >", value, "carValue");
             return (Criteria) this;
         }
 
-        public Criteria andCatValueGreaterThanOrEqualTo(Float value) {
-            addCriterion("temp_member_finance.cat_value >=", value, "catValue");
+        public Criteria andCarValueGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_member_finance.car_value >=", value, "carValue");
             return (Criteria) this;
         }
 
-        public Criteria andCatValueLessThan(Float value) {
-            addCriterion("temp_member_finance.cat_value <", value, "catValue");
+        public Criteria andCarValueLessThan(Float value) {
+            addCriterion("temp_member_finance.car_value <", value, "carValue");
             return (Criteria) this;
         }
 
-        public Criteria andCatValueLessThanOrEqualTo(Float value) {
-            addCriterion("temp_member_finance.cat_value <=", value, "catValue");
+        public Criteria andCarValueLessThanOrEqualTo(Float value) {
+            addCriterion("temp_member_finance.car_value <=", value, "carValue");
             return (Criteria) this;
         }
 
-        public Criteria andCatValueIn(List<Float> values) {
-            addCriterion("temp_member_finance.cat_value in", values, "catValue");
+        public Criteria andCarValueIn(List<Float> values) {
+            addCriterion("temp_member_finance.car_value in", values, "carValue");
             return (Criteria) this;
         }
 
-        public Criteria andCatValueNotIn(List<Float> values) {
-            addCriterion("temp_member_finance.cat_value not in", values, "catValue");
+        public Criteria andCarValueNotIn(List<Float> values) {
+            addCriterion("temp_member_finance.car_value not in", values, "carValue");
             return (Criteria) this;
         }
 
-        public Criteria andCatValueBetween(Float value1, Float value2) {
-            addCriterion("temp_member_finance.cat_value between", value1, value2, "catValue");
+        public Criteria andCarValueBetween(Float value1, Float value2) {
+            addCriterion("temp_member_finance.car_value between", value1, value2, "carValue");
             return (Criteria) this;
         }
 
-        public Criteria andCatValueNotBetween(Float value1, Float value2) {
-            addCriterion("temp_member_finance.cat_value not between", value1, value2, "catValue");
+        public Criteria andCarValueNotBetween(Float value1, Float value2) {
+            addCriterion("temp_member_finance.car_value not between", value1, value2, "carValue");
             return (Criteria) this;
         }
 
-        public Criteria andCatAuthIsNull() {
-            addCriterion("temp_member_finance.cat_auth is null");
+        public Criteria andCarAuthIsNull() {
+            addCriterion("temp_member_finance.car_auth is null");
             return (Criteria) this;
         }
 
-        public Criteria andCatAuthIsNotNull() {
-            addCriterion("temp_member_finance.cat_auth is not null");
+        public Criteria andCarAuthIsNotNull() {
+            addCriterion("temp_member_finance.car_auth is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCatAuthEqualTo(String value) {
-            addCriterion("temp_member_finance.cat_auth =", value, "catAuth");
+        public Criteria andCarAuthEqualTo(String value) {
+            addCriterion("temp_member_finance.car_auth =", value, "carAuth");
             return (Criteria) this;
         }
 
-        public Criteria andCatAuthNotEqualTo(String value) {
-            addCriterion("temp_member_finance.cat_auth <>", value, "catAuth");
+        public Criteria andCarAuthNotEqualTo(String value) {
+            addCriterion("temp_member_finance.car_auth <>", value, "carAuth");
             return (Criteria) this;
         }
 
-        public Criteria andCatAuthGreaterThan(String value) {
-            addCriterion("temp_member_finance.cat_auth >", value, "catAuth");
+        public Criteria andCarAuthGreaterThan(String value) {
+            addCriterion("temp_member_finance.car_auth >", value, "carAuth");
             return (Criteria) this;
         }
 
-        public Criteria andCatAuthGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_member_finance.cat_auth >=", value, "catAuth");
+        public Criteria andCarAuthGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_member_finance.car_auth >=", value, "carAuth");
             return (Criteria) this;
         }
 
-        public Criteria andCatAuthLessThan(String value) {
-            addCriterion("temp_member_finance.cat_auth <", value, "catAuth");
+        public Criteria andCarAuthLessThan(String value) {
+            addCriterion("temp_member_finance.car_auth <", value, "carAuth");
             return (Criteria) this;
         }
 
-        public Criteria andCatAuthLessThanOrEqualTo(String value) {
-            addCriterion("temp_member_finance.cat_auth <=", value, "catAuth");
+        public Criteria andCarAuthLessThanOrEqualTo(String value) {
+            addCriterion("temp_member_finance.car_auth <=", value, "carAuth");
             return (Criteria) this;
         }
 
-        public Criteria andCatAuthLike(String value) {
-            addCriterion("temp_member_finance.cat_auth like", value, "catAuth");
+        public Criteria andCarAuthLike(String value) {
+            addCriterion("temp_member_finance.car_auth like", value, "carAuth");
             return (Criteria) this;
         }
 
-        public Criteria andCatAuthNotLike(String value) {
-            addCriterion("temp_member_finance.cat_auth not like", value, "catAuth");
+        public Criteria andCarAuthNotLike(String value) {
+            addCriterion("temp_member_finance.car_auth not like", value, "carAuth");
             return (Criteria) this;
         }
 
-        public Criteria andCatAuthIn(List<String> values) {
-            addCriterion("temp_member_finance.cat_auth in", values, "catAuth");
+        public Criteria andCarAuthIn(List<String> values) {
+            addCriterion("temp_member_finance.car_auth in", values, "carAuth");
             return (Criteria) this;
         }
 
-        public Criteria andCatAuthNotIn(List<String> values) {
-            addCriterion("temp_member_finance.cat_auth not in", values, "catAuth");
+        public Criteria andCarAuthNotIn(List<String> values) {
+            addCriterion("temp_member_finance.car_auth not in", values, "carAuth");
             return (Criteria) this;
         }
 
-        public Criteria andCatAuthBetween(String value1, String value2) {
-            addCriterion("temp_member_finance.cat_auth between", value1, value2, "catAuth");
+        public Criteria andCarAuthBetween(String value1, String value2) {
+            addCriterion("temp_member_finance.car_auth between", value1, value2, "carAuth");
             return (Criteria) this;
         }
 
-        public Criteria andCatAuthNotBetween(String value1, String value2) {
-            addCriterion("temp_member_finance.cat_auth not between", value1, value2, "catAuth");
+        public Criteria andCarAuthNotBetween(String value1, String value2) {
+            addCriterion("temp_member_finance.car_auth not between", value1, value2, "carAuth");
             return (Criteria) this;
         }
 

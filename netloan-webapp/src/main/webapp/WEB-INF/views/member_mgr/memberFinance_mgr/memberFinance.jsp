@@ -36,6 +36,11 @@
 				title:'ID',
 				checkbox:true
 			},{
+				field:'memberName',
+				title:'会员名称',
+				width:120,
+				sortable:true
+			},{
 				field:'aveIncome',
 				title:'月均收入',
 				width:120,
@@ -51,26 +56,18 @@
 				width:120,
 				sortable:true,
 				formatter: function(value,row,index){//数据格式化，例如('borrow'借款,'invest'投资)
-					return renderGridValue(value,fields.type);
+					return renderGridValue(value,fields.buyEstate);
 				}
 			},{
-				field:'housingConditions',
-				title:'住房条件',
-				width:120,
-				sortable:true,
-				formatter: function(value,row,index){//数据格式化，例如('increase'增加,'reduction'减少)
-					return renderGridValue(value,fields.changeType);
-				}
-			},{
-				field:'buyCat',
+				field:'buyCar',
 				title:'是否购车',
 				width:120,
 				sortable:true,
 				formatter: function(value,row,index){//数据格式化，例如('increase'增加,'reduction'减少)
-					return renderGridValue(value,fields.changeType);
+					return renderGridValue(value,fields.buyCar);
 				}
 			},{
-				field:'creater',
+				field:'createrDisplay',
 				title:'创建人',
 				sortable:true,
 				width:100
@@ -80,7 +77,7 @@
 				sortable:true,
 				width:200
 			},{
-				field:'updater',
+				field:'updaterDisplay',
 				title:'更新人',
 				sortable:true,
 				width:100

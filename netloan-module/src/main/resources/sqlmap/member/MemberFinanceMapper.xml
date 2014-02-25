@@ -8,11 +8,10 @@
     <result column="temp_member_finance_ave_expenses" property="aveExpenses" jdbcType="REAL" />
     <result column="temp_member_finance_age_expenses_des" property="ageExpensesDes" jdbcType="VARCHAR" />
     <result column="temp_member_finance_buy_estate" property="buyEstate" jdbcType="CHAR" />
-    <result column="temp_member_finance_housing_conditions" property="housingConditions" jdbcType="CHAR" />
     <result column="temp_member_finance_estate_value" property="estateValue" jdbcType="REAL" />
-    <result column="temp_member_finance_buy_cat" property="buyCat" jdbcType="CHAR" />
-    <result column="temp_member_finance_cat_value" property="catValue" jdbcType="REAL" />
-    <result column="temp_member_finance_cat_auth" property="catAuth" jdbcType="CHAR" />
+    <result column="temp_member_finance_buy_car" property="buyCar" jdbcType="CHAR" />
+    <result column="temp_member_finance_car_value" property="carValue" jdbcType="REAL" />
+    <result column="temp_member_finance_car_auth" property="carAuth" jdbcType="CHAR" />
     <result column="temp_member_finance_company_name" property="companyName" jdbcType="VARCHAR" />
     <result column="temp_member_finance_companies_capital_con" property="companiesCapitalCon" jdbcType="VARCHAR" />
     <result column="temp_member_finance_other_assets_described" property="otherAssetsDescribed" jdbcType="VARCHAR" />
@@ -27,6 +26,9 @@
     <result column="temp_member_finance_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_finance_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_member_finance_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_member_finance_memberName" property="memberName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_finance_updaterDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->    
+    <result column="temp_member_finance_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -90,9 +92,8 @@
     temp_member_finance.member_id as temp_member_finance_member_id, temp_member_finance.ave_income as temp_member_finance_ave_income, 
     temp_member_finance.ave_income_des as temp_member_finance_ave_income_des, temp_member_finance.ave_expenses as temp_member_finance_ave_expenses, 
     temp_member_finance.age_expenses_des as temp_member_finance_age_expenses_des, temp_member_finance.buy_estate as temp_member_finance_buy_estate, 
-    temp_member_finance.housing_conditions as temp_member_finance_housing_conditions, 
-    temp_member_finance.estate_value as temp_member_finance_estate_value, temp_member_finance.buy_cat as temp_member_finance_buy_cat, 
-    temp_member_finance.cat_value as temp_member_finance_cat_value, temp_member_finance.cat_auth as temp_member_finance_cat_auth, 
+    temp_member_finance.estate_value as temp_member_finance_estate_value, temp_member_finance.buy_car as temp_member_finance_buy_car, 
+    temp_member_finance.car_value as temp_member_finance_car_value, temp_member_finance.car_auth as temp_member_finance_car_auth, 
     temp_member_finance.company_name as temp_member_finance_company_name, temp_member_finance.companies_capital_con as temp_member_finance_companies_capital_con, 
     temp_member_finance.other_assets_described as temp_member_finance_other_assets_described, 
     temp_member_finance.first_united as temp_member_finance_first_united, temp_member_finance.first_united_contact as temp_member_finance_first_united_contact, 
@@ -101,6 +102,15 @@
     temp_member_finance.second_phone as temp_member_finance_second_phone, temp_member_finance.estate_auth as temp_member_finance_estate_auth, 
     temp_member_finance.creater as temp_member_finance_creater, temp_member_finance.create_time as temp_member_finance_create_time, 
     temp_member_finance.updater as temp_member_finance_updater, temp_member_finance.update_time as temp_member_finance_update_time
+                 <!-- 以下字段属于扩展 -->
+    ,temp_member.member_name as temp_member_finance_memberName 
+    ,temp_creater.user_cn_name as temp_member_finance_createrDisplay
+    ,temp_updater.user_cn_name as temp_member_finance_updaterDisplay
+  </sql>
+  <sql id="Base_extend"><!-- 扩展 -->
+  	LEFT JOIN t_member temp_member ON temp_member.member_id = temp_member_finance.member_id <!-- 扩展 -->
+  	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_member_finance.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_member_finance.updater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.member.MemberFinanceExample" >
     select
@@ -109,6 +119,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_member_finance temp_member_finance
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -123,6 +134,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_member_finance temp_member_finance
+    <include refid="Base_extend" />
     where temp_member_finance.member_id = #{memberId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -130,7 +142,7 @@
     where member_id = #{memberId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.member.MemberFinanceExample" >
-    delete from t_member_finance temp_member_finance
+    delete temp_member_finance from t_member_finance temp_member_finance
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -138,22 +150,22 @@
   <insert id="insert" parameterType="com.glacier.netloan.entity.member.MemberFinance" >
     insert into t_member_finance (member_id, ave_income, ave_income_des, 
       ave_expenses, age_expenses_des, buy_estate, 
-      housing_conditions, estate_value, buy_cat, 
-      cat_value, cat_auth, company_name, 
-      companies_capital_con, other_assets_described, 
-      first_united, first_united_contact, first_united_phone, 
-      second_united, second_contact, second_phone, 
-      estate_auth, creater, create_time, 
-      updater, update_time)
+      estate_value, buy_car, car_value, 
+      car_auth, company_name, companies_capital_con, 
+      other_assets_described, first_united, first_united_contact, 
+      first_united_phone, second_united, second_contact, 
+      second_phone, estate_auth, creater, 
+      create_time, updater, update_time
+      )
     values (#{memberId,jdbcType=VARCHAR}, #{aveIncome,jdbcType=REAL}, #{aveIncomeDes,jdbcType=VARCHAR}, 
       #{aveExpenses,jdbcType=REAL}, #{ageExpensesDes,jdbcType=VARCHAR}, #{buyEstate,jdbcType=CHAR}, 
-      #{housingConditions,jdbcType=CHAR}, #{estateValue,jdbcType=REAL}, #{buyCat,jdbcType=CHAR}, 
-      #{catValue,jdbcType=REAL}, #{catAuth,jdbcType=CHAR}, #{companyName,jdbcType=VARCHAR}, 
-      #{companiesCapitalCon,jdbcType=VARCHAR}, #{otherAssetsDescribed,jdbcType=VARCHAR}, 
-      #{firstUnited,jdbcType=VARCHAR}, #{firstUnitedContact,jdbcType=CHAR}, #{firstUnitedPhone,jdbcType=VARCHAR}, 
-      #{secondUnited,jdbcType=VARCHAR}, #{secondContact,jdbcType=CHAR}, #{secondPhone,jdbcType=VARCHAR}, 
-      #{estateAuth,jdbcType=CHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+      #{estateValue,jdbcType=REAL}, #{buyCar,jdbcType=CHAR}, #{carValue,jdbcType=REAL}, 
+      #{carAuth,jdbcType=CHAR}, #{companyName,jdbcType=VARCHAR}, #{companiesCapitalCon,jdbcType=VARCHAR}, 
+      #{otherAssetsDescribed,jdbcType=VARCHAR}, #{firstUnited,jdbcType=VARCHAR}, #{firstUnitedContact,jdbcType=CHAR}, 
+      #{firstUnitedPhone,jdbcType=VARCHAR}, #{secondUnited,jdbcType=VARCHAR}, #{secondContact,jdbcType=CHAR}, 
+      #{secondPhone,jdbcType=VARCHAR}, #{estateAuth,jdbcType=CHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.member.MemberFinance" >
     insert into t_member_finance
@@ -176,20 +188,17 @@
       <if test="buyEstate != null" >
         buy_estate,
       </if>
-      <if test="housingConditions != null" >
-        housing_conditions,
-      </if>
       <if test="estateValue != null" >
         estate_value,
       </if>
-      <if test="buyCat != null" >
-        buy_cat,
+      <if test="buyCar != null" >
+        buy_car,
       </if>
-      <if test="catValue != null" >
-        cat_value,
+      <if test="carValue != null" >
+        car_value,
       </if>
-      <if test="catAuth != null" >
-        cat_auth,
+      <if test="carAuth != null" >
+        car_auth,
       </if>
       <if test="companyName != null" >
         company_name,
@@ -253,20 +262,17 @@
       <if test="buyEstate != null" >
         #{buyEstate,jdbcType=CHAR},
       </if>
-      <if test="housingConditions != null" >
-        #{housingConditions,jdbcType=CHAR},
-      </if>
       <if test="estateValue != null" >
         #{estateValue,jdbcType=REAL},
       </if>
-      <if test="buyCat != null" >
-        #{buyCat,jdbcType=CHAR},
+      <if test="buyCar != null" >
+        #{buyCar,jdbcType=CHAR},
       </if>
-      <if test="catValue != null" >
-        #{catValue,jdbcType=REAL},
+      <if test="carValue != null" >
+        #{carValue,jdbcType=REAL},
       </if>
-      <if test="catAuth != null" >
-        #{catAuth,jdbcType=CHAR},
+      <if test="carAuth != null" >
+        #{carAuth,jdbcType=CHAR},
       </if>
       <if test="companyName != null" >
         #{companyName,jdbcType=VARCHAR},
@@ -314,6 +320,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.member.MemberFinanceExample" resultType="java.lang.Integer" >
     select count(*) from t_member_finance temp_member_finance
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -339,20 +346,17 @@
       <if test="record.buyEstate != null" >
         temp_member_finance.buy_estate = #{record.buyEstate,jdbcType=CHAR},
       </if>
-      <if test="record.housingConditions != null" >
-        temp_member_finance.housing_conditions = #{record.housingConditions,jdbcType=CHAR},
-      </if>
       <if test="record.estateValue != null" >
         temp_member_finance.estate_value = #{record.estateValue,jdbcType=REAL},
       </if>
-      <if test="record.buyCat != null" >
-        temp_member_finance.buy_cat = #{record.buyCat,jdbcType=CHAR},
+      <if test="record.buyCar != null" >
+        temp_member_finance.buy_car = #{record.buyCar,jdbcType=CHAR},
       </if>
-      <if test="record.catValue != null" >
-        temp_member_finance.cat_value = #{record.catValue,jdbcType=REAL},
+      <if test="record.carValue != null" >
+        temp_member_finance.car_value = #{record.carValue,jdbcType=REAL},
       </if>
-      <if test="record.catAuth != null" >
-        temp_member_finance.cat_auth = #{record.catAuth,jdbcType=CHAR},
+      <if test="record.carAuth != null" >
+        temp_member_finance.car_auth = #{record.carAuth,jdbcType=CHAR},
       </if>
       <if test="record.companyName != null" >
         temp_member_finance.company_name = #{record.companyName,jdbcType=VARCHAR},
@@ -409,11 +413,10 @@
       temp_member_finance.ave_expenses = #{record.aveExpenses,jdbcType=REAL},
       temp_member_finance.age_expenses_des = #{record.ageExpensesDes,jdbcType=VARCHAR},
       temp_member_finance.buy_estate = #{record.buyEstate,jdbcType=CHAR},
-      temp_member_finance.housing_conditions = #{record.housingConditions,jdbcType=CHAR},
       temp_member_finance.estate_value = #{record.estateValue,jdbcType=REAL},
-      temp_member_finance.buy_cat = #{record.buyCat,jdbcType=CHAR},
-      temp_member_finance.cat_value = #{record.catValue,jdbcType=REAL},
-      temp_member_finance.cat_auth = #{record.catAuth,jdbcType=CHAR},
+      temp_member_finance.buy_car = #{record.buyCar,jdbcType=CHAR},
+      temp_member_finance.car_value = #{record.carValue,jdbcType=REAL},
+      temp_member_finance.car_auth = #{record.carAuth,jdbcType=CHAR},
       temp_member_finance.company_name = #{record.companyName,jdbcType=VARCHAR},
       temp_member_finance.companies_capital_con = #{record.companiesCapitalCon,jdbcType=VARCHAR},
       temp_member_finance.other_assets_described = #{record.otherAssetsDescribed,jdbcType=VARCHAR},
@@ -450,20 +453,17 @@
       <if test="buyEstate != null" >
         buy_estate = #{buyEstate,jdbcType=CHAR},
       </if>
-      <if test="housingConditions != null" >
-        housing_conditions = #{housingConditions,jdbcType=CHAR},
-      </if>
       <if test="estateValue != null" >
         estate_value = #{estateValue,jdbcType=REAL},
       </if>
-      <if test="buyCat != null" >
-        buy_cat = #{buyCat,jdbcType=CHAR},
+      <if test="buyCar != null" >
+        buy_car = #{buyCar,jdbcType=CHAR},
       </if>
-      <if test="catValue != null" >
-        cat_value = #{catValue,jdbcType=REAL},
+      <if test="carValue != null" >
+        car_value = #{carValue,jdbcType=REAL},
       </if>
-      <if test="catAuth != null" >
-        cat_auth = #{catAuth,jdbcType=CHAR},
+      <if test="carAuth != null" >
+        car_auth = #{carAuth,jdbcType=CHAR},
       </if>
       <if test="companyName != null" >
         company_name = #{companyName,jdbcType=VARCHAR},
@@ -517,11 +517,10 @@
       ave_expenses = #{aveExpenses,jdbcType=REAL},
       age_expenses_des = #{ageExpensesDes,jdbcType=VARCHAR},
       buy_estate = #{buyEstate,jdbcType=CHAR},
-      housing_conditions = #{housingConditions,jdbcType=CHAR},
       estate_value = #{estateValue,jdbcType=REAL},
-      buy_cat = #{buyCat,jdbcType=CHAR},
-      cat_value = #{catValue,jdbcType=REAL},
-      cat_auth = #{catAuth,jdbcType=CHAR},
+      buy_car = #{buyCar,jdbcType=CHAR},
+      car_value = #{carValue,jdbcType=REAL},
+      car_auth = #{carAuth,jdbcType=CHAR},
       company_name = #{companyName,jdbcType=VARCHAR},
       companies_capital_con = #{companiesCapitalCon,jdbcType=VARCHAR},
       other_assets_described = #{otherAssetsDescribed,jdbcType=VARCHAR},
