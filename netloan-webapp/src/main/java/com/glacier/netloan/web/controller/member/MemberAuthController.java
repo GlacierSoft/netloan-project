@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.member.MemberAuthQueryDTO;
 import com.glacier.netloan.service.member.MemberAuthService;
 
 @Controller
@@ -27,7 +28,7 @@ public class MemberAuthController {
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(JqPager pmember) {
-        return memberAuthService.listAsGrid(pmember);
+    private Object listActionAsGridByMenuId(MemberAuthQueryDTO memberAuthQueryDTO,JqPager pmember) {
+        return memberAuthService.listAsGrid(memberAuthQueryDTO,pmember);
     }
 }

@@ -159,7 +159,7 @@
     temp_member_auth.work_remark as temp_member_auth_work_remark, temp_member_auth.work_time as temp_member_auth_work_time, 
     temp_member_auth.work_num as temp_member_auth_work_num
                 <!-- 以下字段属于扩展 -->
-    ,temp_member.member_name as temp_member_auth_memberName 
+    ,temp_member.member_name as temp_member_auth_memberName
     ,temp_member.member_real_name as temp_member_auth_memberRealName
   </sql>
   <sql id="Blob_Column_List" >

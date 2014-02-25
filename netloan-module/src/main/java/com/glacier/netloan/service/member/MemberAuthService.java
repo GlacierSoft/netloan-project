@@ -11,8 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dao.member.MemberAuthMapper;
+import com.glacier.netloan.dto.query.member.MemberAuthQueryDTO;
 import com.glacier.netloan.entity.member.MemberAuth;
 import com.glacier.netloan.entity.member.MemberAuthExample;
+import com.glacier.netloan.entity.member.MemberAuthExample.Criteria;
 
 @Service
 @Transactional(readOnly = true , propagation = Propagation.REQUIRED)
@@ -42,14 +44,13 @@ public class MemberAuthService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pager) {
-//    	public Object listAsGrid(MemberQueryDTO memberQueryDTO,JqPager pager) {
+   	public Object listAsGrid(MemberAuthQueryDTO memberAuthQueryDTO,JqPager pager) {
         
         JqGridReturn returnResult = new JqGridReturn();
         MemberAuthExample memberAuthExample = new MemberAuthExample();;
         
-        //Criteria queryCriteria = memberAuthExample.createCriteria();
-        //memberQueryDTO.setQueryCondition(queryCriteria);
+        Criteria queryCriteria = memberAuthExample.createCriteria();
+        memberAuthQueryDTO.setQueryCondition(queryCriteria);
 
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	memberAuthExample.setLimitStart((pager.getPage() - 1) * pager.getRows());

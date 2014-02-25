@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.glacier.netloan.entity.member.MemberFinanceExample.Criteria;
+
 public class MemberAuthExample {
     protected String orderByClause;
 
@@ -123,6 +125,18 @@ public class MemberAuthExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
+        }
+
+        //扩展会员名称查询
+        public Criteria andMemberNameLike(String value) {
+            addCriterion("temp_member.member_name like", value, "memberName");
+            return (Criteria) this;
+        }
+        
+        //扩展会员名称查询
+        public Criteria andmemberRealNameLike(String value) {
+            addCriterion("temp_member.member_real_name like", value, "memberRealName");
+            return (Criteria) this;
         }
 
         public Criteria andMemberIdIsNull() {
