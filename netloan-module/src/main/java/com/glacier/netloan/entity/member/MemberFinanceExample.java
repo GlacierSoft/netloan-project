@@ -124,6 +124,11 @@ public class MemberFinanceExample {
             }
             criteria.add(new Criterion(condition, value1, value2));
         }
+        //扩展会员名称查询
+        public Criteria andMemberNameLike(String value) {
+            addCriterion("temp_member.member_name like", value, "memberName");
+            return (Criteria) this;
+        }
 
         public Criteria andMemberIdIsNull() {
             addCriterion("temp_member_finance.member_id is null");

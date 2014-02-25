@@ -5,17 +5,17 @@ import java.util.Date;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
-import com.glacier.netloan.entity.member.Member;
-import com.glacier.netloan.entity.member.MemberExample.Criteria;
+import com.glacier.netloan.entity.member.MemberFinanceExample.Criteria;
+import com.glacier.netloan.entity.member.MemberFinance;
 
 /**
- * @ClassName: MemberQueryDTO 
- * @Description: TODO(会员查询DTO) 
+ * @ClassName: MemberFinanceQueryDTO 
+ * @Description: TODO(会员财务查询QueryDTO) 
  * @author yuzexu
  * @email 804346249@QQ.com
- * @date 2014-2-22下午5:03:42
+ * @date 2014-2-25上午9:53:51
  */
-public class MemberQueryDTO extends Member{
+public class MemberFinanceQueryDTO extends MemberFinance{
 	private Date createStartTime;
 
     private Date createEndTime;
@@ -40,23 +40,20 @@ public class MemberQueryDTO extends Member{
    	 if(null != this.getMemberName() && StringUtils.isNotBlank(this.getMemberName())){//会员名称Like查询
             queryCriteria.andMemberNameLike("%" + this.getMemberName() + "%");
         }
-   	 if(null != this.getMemberRealName() && StringUtils.isNotBlank(this.getMemberRealName())){//会员真实名称Like查询
-            queryCriteria.andMemberRealNameLike("%" + this.getMemberRealName() + "%");
-        }
-   	 if(null != this.getStatus()){//状态Enum查询
-        queryCriteria.andStatusEqualTo(this.getStatus().toString());
+   	 if(null != this.getBuyEstate()){//是否购房Enum查询
+        queryCriteria.andBuyEstateEqualTo(this.getBuyEstate().toString());
    	 	}
-	 if(null != this.getType()){//类型Enum查询
-	        queryCriteria.andTypeEqualTo(this.getType().toString());
-	   	}
+   	 if(null != this.getBuyCar()){//是否购房Enum查询
+        queryCriteria.andBuyCarEqualTo(this.getBuyCar().toString());
+   	 	}
      if(null != createStartTime && null != createEndTime){//创建时间段查询
-           queryCriteria.andRegistrationTimeBetween(createStartTime, createEndTime); 
+           queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 
      }else{
           if(null != createStartTime){
-              queryCriteria.andRegistrationTimeGreaterThanOrEqualTo(createStartTime);
+              queryCriteria.andCreateTimeGreaterThanOrEqualTo(createStartTime);
           }
           if(null != createEndTime){
-              queryCriteria.andRegistrationTimeLessThanOrEqualTo(createEndTime);
+              queryCriteria.andCreateTimeLessThanOrEqualTo(createEndTime);
           }
            
        }

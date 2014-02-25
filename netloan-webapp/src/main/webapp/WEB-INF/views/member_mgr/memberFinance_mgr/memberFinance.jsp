@@ -101,13 +101,35 @@
 			$.easyui.showDialog({
 				title: rowData.memberName,
 				href : ctx + '/do/memberFinance/intoDetail.htm?memberId='+rowData.memberId,//从controller请求jsp页面进行渲染
-				width : 645,
-				height : 390,
+				width : 800,
+				height : 600,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
 			});
 		}
+	});
+	
+	//下拉项的值
+	$('#memberFinanceSearchForm_buyEstate').combobox({  
+		valueField : 'value',
+		//height:18,
+		width:80,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		//required:true,
+		data : fields.buyEstate
+	});
+	$('#memberFinanceSearchForm_buyCar').combobox({  
+		valueField : 'value',
+		//height:18,
+		width:80,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		//required:true,
+		data : fields.buyCar
 	});
 </script>
 
@@ -124,8 +146,8 @@
 				<tr>
 					<td>会员名称：</td>
 					<td><input name="memberName" style="width: 80px;" class="spinner"/></td>
-					<td>月均收入：</td>
-					<td><input name="aveIncome" style="width: 80px;" class="spinner"/></td>
+					<!-- <td>月均收入：</td>
+					<td><input name="aveIncome" style="width: 80px;" class="spinner"/></td> -->
 					<td>是否购房：</td>
 					<td><input id="memberFinanceSearchForm_buyEstate" name="buyEstate" style="width: 80px;" class="spinner"/></td>
 					<td>是否购车：</td>
@@ -138,7 +160,7 @@
 					</td>
 					<td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.member_mgr.memberFinance_mgr.memberFinance.memberFinanceDataGrid.datagrid('load',glacier.serializeObject($('#memberFinanceSearchForm')));">查询</a>
-						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#memberSearchForm input').val('');glacier.member_mgr.memberFinance_mgr.memberFinance.memberFinanceDataGrid.datagrid('load',{});">重置条件</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#memberFinanceSearchForm input').val('');glacier.member_mgr.memberFinance_mgr.memberFinance.memberFinanceDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>

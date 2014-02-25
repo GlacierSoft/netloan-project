@@ -11,8 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dao.member.MemberFinanceMapper;
+import com.glacier.netloan.dto.query.member.MemberFinanceQueryDTO;
 import com.glacier.netloan.entity.member.MemberFinance;
 import com.glacier.netloan.entity.member.MemberFinanceExample;
+import com.glacier.netloan.entity.member.MemberFinanceExample.Criteria;
 
 @Service
 @Transactional(readOnly = true , propagation = Propagation.REQUIRED)
@@ -42,10 +44,13 @@ public class MemberFinanceService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pintegralr) {
+    public Object listAsGrid(MemberFinanceQueryDTO memberFinanceQueryDTO,JqPager pintegralr) {
         
         JqGridReturn returnResult = new JqGridReturn();
         MemberFinanceExample memberFinanceExample = new MemberFinanceExample();
+        
+        Criteria queryCriteria = memberFinanceExample.createCriteria();
+        memberFinanceQueryDTO.setQueryCondition(queryCriteria);
 
         if (null != pintegralr.getPage() && null != pintegralr.getRows()) {// 设置排序信息
         	memberFinanceExample.setLimitStart((pintegralr.getPage() - 1) * pintegralr.getRows());

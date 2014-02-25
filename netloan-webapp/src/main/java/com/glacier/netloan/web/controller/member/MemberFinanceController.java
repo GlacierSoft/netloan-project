@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.member.MemberFinanceQueryDTO;
 import com.glacier.netloan.service.member.MemberFinanceService;
 
 @Controller
@@ -26,20 +27,10 @@ public class MemberFinanceController {
         return mav;
     }
     
-    // 进入会员财务记录Form表单页面
-    @RequestMapping(value = "/intoForm.htm")
-    private Object intoMemberFinanceFormPmemberFinance(String memberId) {
-        ModelAndView mav = new ModelAndView("member_mgr/memberFinance_mgr/memberFinance_form");
-        if(StringUtils.isNotBlank(memberId)){
-            mav.addObject("memberFinanceData", memberFinanceService.getMemberFinance(memberId));
-        }
-        return mav;
-    }
-    
     // 进入会员财务记录Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoMemberFinanceDetailPage(String memberId) {
-        ModelAndView mav = new ModelAndView("website_mgr/memberFinance_mgr/memberFinance_detail");
+        ModelAndView mav = new ModelAndView("member_mgr/memberFinance_mgr/memberFinance_detail");
         if(StringUtils.isNotBlank(memberId)){
             mav.addObject("memberFinanceData", memberFinanceService.getMemberFinance(memberId));
         }
@@ -49,8 +40,8 @@ public class MemberFinanceController {
     // 获取表格结构的所有会员财务记录数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listMemberFinanceAsGridByMenuId(JqPager pmemberFinancer) {
-        return memberFinanceService.listAsGrid(pmemberFinancer);
+    private Object listMemberFinanceAsGridByMenuId(MemberFinanceQueryDTO memberFinanceQueryDTO, JqPager pmemberFinancer) {
+        return memberFinanceService.listAsGrid(memberFinanceQueryDTO,pmemberFinancer);
     }
     
 
