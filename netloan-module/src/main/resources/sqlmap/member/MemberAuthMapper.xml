@@ -58,7 +58,16 @@
     <result column="temp_member_auth_work_time" property="workTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_auth_work_num" property="workNum" jdbcType="INTEGER" />
     <result column="temp_member_auth_memberName" property="memberName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_member_auth_memberRealName" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->   
+    <result column="temp_member_auth_memberRealName" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_auth_infoAuditorDisplay" property="infoAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_auth_vipAuditorDisplay" property="vipAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->  
+    <result column="temp_member_auth_emailAuditorDisplay" property="emailAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_auth_mobileAuditorDisplay" property="mobileAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->  
+    <result column="temp_member_auth_creditAuditorDisplay" property="creditAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_auth_companyAuditorDisplay" property="companyAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->  
+    <result column="temp_member_auth_realNameAuditorDisplay" property="realNameAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_auth_idCardAuditorDisplay" property="idCardAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->  
+    <result column="temp_member_auth_workAuditorDisplay" property="workAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->  
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.glacier.netloan.entity.member.MemberAuthWithBLOBs" extends="BaseResultMap" >
     <result column="temp_member_auth_info_accessory" property="infoAccessory" jdbcType="LONGVARCHAR" />
@@ -161,6 +170,16 @@
                 <!-- 以下字段属于扩展 -->
     ,temp_member.member_name as temp_member_auth_memberName
     ,temp_member.member_real_name as temp_member_auth_memberRealName
+    ,temp_infoAuditor.user_cn_name as temp_member_auth_infoAuditorDisplay
+    ,temp_vipAuditor.user_cn_name as temp_member_auth_vipAuditorDisplay
+    ,temp_emailAuditor.user_cn_name as temp_member_auth_emailAuditorDisplay
+    ,temp_mobileAuditor.user_cn_name as temp_member_auth_mobileAuditorDisplay
+    ,temp_creditAuditor.user_cn_name as temp_member_auth_creditAuditorDisplay
+    ,temp_companyAuditor.user_cn_name as temp_member_auth_companyAuditorDisplay
+    ,temp_realNameAuditor.user_cn_name as temp_member_auth_realNameAuditorDisplay
+    ,temp_idCardAuditor.user_cn_name as temp_member_auth_idCardAuditorDisplay
+    ,temp_workAuditor.user_cn_name as temp_member_auth_workAuditorDisplay
+    
   </sql>
   <sql id="Blob_Column_List" >
     temp_member_auth.info_accessory as temp_member_auth_info_accessory, temp_member_auth.vip_accessory as temp_member_auth_vip_accessory, 
@@ -171,6 +190,15 @@
   </sql>
    <sql id="Base_extend"><!-- 扩展 -->
   	LEFT JOIN t_member temp_member ON temp_member.member_id = temp_member_auth.member_id <!-- 扩展 -->
+  	LEFT JOIN t_user temp_infoAuditor ON temp_infoAuditor.user_id = temp_member_auth.info_auditor <!-- 扩展 -->
+    LEFT JOIN t_user temp_vipAuditor ON temp_vipAuditor.user_id = temp_member_auth.vip_auditor <!-- 扩展 -->
+    LEFT JOIN t_user temp_emailAuditor ON temp_emailAuditor.user_id = temp_member_auth.email_auditor <!-- 扩展 -->
+    LEFT JOIN t_user temp_mobileAuditor ON temp_mobileAuditor.user_id = temp_member_auth.mobile_auditor <!-- 扩展 -->
+    LEFT JOIN t_user temp_creditAuditor ON temp_creditAuditor.user_id = temp_member_auth.credit_auditor <!-- 扩展 -->
+    LEFT JOIN t_user temp_companyAuditor ON temp_companyAuditor.user_id = temp_member_auth.company_auditor <!-- 扩展 -->
+    LEFT JOIN t_user temp_realNameAuditor ON temp_realNameAuditor.user_id = temp_member_auth.real_name_auditor <!-- 扩展 -->
+    LEFT JOIN t_user temp_idCardAuditor ON temp_idCardAuditor.user_id = temp_member_auth.id_card_auditor <!-- 扩展 -->
+    LEFT JOIN t_user temp_workAuditor ON temp_workAuditor.user_id = temp_member_auth.work_auditor <!-- 扩展 -->
   </sql>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.glacier.netloan.entity.member.MemberAuthExample" >
     select

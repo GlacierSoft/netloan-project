@@ -15,7 +15,6 @@
 						</td>
 						<td style="padding-left:10px;">注册时间：</td>
 						<td ><input id="member_mgr_member_form_registrationTime" name="registrationTime" class="spinner" style="width:168px;" value="<fmt:formatDate value="${memberData.registrationTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
-						</tr>
 					<tr>
 						<td>会员真实姓名：</td>
 						<td><input id="member_mgr_member_form_memberRealName" name="memberRealName" class="spinner" style="width:168px" value="${memberData.memberRealName}"  readonly="readonly"/></td>

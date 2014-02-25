@@ -1,5 +1,6 @@
 package com.glacier.netloan.web.controller.member;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,16 @@ public class MemberAuthController {
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmember() {
         ModelAndView mav = new ModelAndView("member_mgr/memberAuth_mgr/memberAuth");
+        return mav;
+    }
+    
+    // 进入会员认证记录Detail信息页面
+    @RequestMapping(value = "/intoDetail.htm")
+    private Object intoMemberAuthDetailPage(String memberId) {
+        ModelAndView mav = new ModelAndView("member_mgr/memberAuth_mgr/memberAuth_detail");
+        if(StringUtils.isNotBlank(memberId)){
+            mav.addObject("memberAuthData", memberAuthService.getMemberAuth(memberId));
+        }
         return mav;
     }
     

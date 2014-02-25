@@ -27,7 +27,7 @@
     <result column="temp_member_finance_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_member_finance_update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_finance_memberName" property="memberName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_member_finance_updaterDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->    
+    <result column="temp_member_finance_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->    
     <result column="temp_member_finance_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >

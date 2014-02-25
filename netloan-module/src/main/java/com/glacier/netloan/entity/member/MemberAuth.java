@@ -38,6 +38,11 @@ public class MemberAuth {
     private String infoAuth;
 
     private String infoAuditor;
+    
+    /**
+     * 自定义字段
+     */
+    private String infoAuditorDisplay;
 
     private String infoRemark;
 
@@ -50,6 +55,11 @@ public class MemberAuth {
     private String vipAuth;
 
     private String vipAuditor;
+    
+    /**
+     * 自定义字段
+     */
+    private String vipAuditorDisplay;
 
     private String vipRemark;
 
@@ -62,7 +72,12 @@ public class MemberAuth {
     private String emailAuth;
 
     private String emailAuditor;
-
+    
+    /**
+     * 自定义字段
+     */
+    private String emailAuditorDisplay;
+    
     private String emailRemark;
 
     private Date emailTime;
@@ -74,6 +89,11 @@ public class MemberAuth {
     private String mobileAuth;
 
     private String mobileAuditor;
+    
+    /**
+     * 自定义字段
+     */
+    private String mobileAuditorDisplay;
 
     private String mobileRemark;
 
@@ -86,6 +106,11 @@ public class MemberAuth {
     private String creditAuth;
 
     private String creditAuditor;
+    
+    /**
+     * 自定义字段
+     */
+    private String creditAuditorDisplay;
 
     private String creditRemark;
 
@@ -98,6 +123,11 @@ public class MemberAuth {
     private String companyAuth;
 
     private String companyAuditor;
+    
+    /**
+     * 自定义字段
+     */
+    private String companyAuditorDisplay;
 
     private String companyRemark;
 
@@ -110,6 +140,11 @@ public class MemberAuth {
     private String realNameAuth;
 
     private String realNameAuditor;
+    
+    /**
+     * 自定义字段
+     */
+    private String realNameAuditorDisplay;
 
     private String realNameRemark;
 
@@ -122,6 +157,11 @@ public class MemberAuth {
     private String idCardAuth;
 
     private String idCardAuditor;
+    
+    /**
+     * 自定义字段
+     */
+    private String idCardAuditorDisplay;
 
     private String idCardRemark;
 
@@ -134,6 +174,11 @@ public class MemberAuth {
     private String workAuth;
 
     private String workAuditor;
+    
+    /**
+     * 自定义字段
+     */
+    private String workAuditorDisplay;
 
     private String workRemark;
 
@@ -581,7 +626,79 @@ public class MemberAuth {
         this.workNum = workNum;
     }
 
-    @Override
+    public String getInfoAuditorDisplay() {
+		return infoAuditorDisplay;
+	}
+
+	public void setInfoAuditorDisplay(String infoAuditorDisplay) {
+		this.infoAuditorDisplay = infoAuditorDisplay;
+	}
+
+	public String getVipAuditorDisplay() {
+		return vipAuditorDisplay;
+	}
+
+	public void setVipAuditorDisplay(String vipAuditorDisplay) {
+		this.vipAuditorDisplay = vipAuditorDisplay;
+	}
+
+	public String getEmailAuditorDisplay() {
+		return emailAuditorDisplay;
+	}
+
+	public void setEmailAuditorDisplay(String emailAuditorDisplay) {
+		this.emailAuditorDisplay = emailAuditorDisplay;
+	}
+
+	public String getMobileAuditorDisplay() {
+		return mobileAuditorDisplay;
+	}
+
+	public void setMobileAuditorDisplay(String mobileAuditorDisplay) {
+		this.mobileAuditorDisplay = mobileAuditorDisplay;
+	}
+
+	public String getCreditAuditorDisplay() {
+		return creditAuditorDisplay;
+	}
+
+	public void setCreditAuditorDisplay(String creditAuditorDisplay) {
+		this.creditAuditorDisplay = creditAuditorDisplay;
+	}
+
+	public String getCompanyAuditorDisplay() {
+		return companyAuditorDisplay;
+	}
+
+	public void setCompanyAuditorDisplay(String companyAuditorDisplay) {
+		this.companyAuditorDisplay = companyAuditorDisplay;
+	}
+
+	public String getRealNameAuditorDisplay() {
+		return realNameAuditorDisplay;
+	}
+
+	public void setRealNameAuditorDisplay(String realNameAuditorDisplay) {
+		this.realNameAuditorDisplay = realNameAuditorDisplay;
+	}
+
+	public String getIdCardAuditorDisplay() {
+		return idCardAuditorDisplay;
+	}
+
+	public void setIdCardAuditorDisplay(String idCardAuditorDisplay) {
+		this.idCardAuditorDisplay = idCardAuditorDisplay;
+	}
+
+	public String getWorkAuditorDisplay() {
+		return workAuditorDisplay;
+	}
+
+	public void setWorkAuditorDisplay(String workAuditorDisplay) {
+		this.workAuditorDisplay = workAuditorDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
