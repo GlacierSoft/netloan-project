@@ -92,7 +92,7 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.webIntegralName,
+				title: '【'+rowData.memberRealName+'】积分详细信息',
 				href : ctx + '/do/memberIntegral/intoDetail.htm?memberIntegralId='+rowData.memberIntegralId,//从controller请求jsp页面进行渲染
 				width : 550,
 				height : 280,

@@ -38,8 +38,8 @@
 				title:'ID',
 				checkbox:true
 			},{
-				field:'memberId',
-				title:'会员ID',
+				field:'memberRealName',
+				title:'会员名称',
 				width:120,
 				sortable:true
 			},{
@@ -105,16 +105,6 @@
 				title:'创建时间',
 				sortable:true,
 				width:200
-			},{
-				field:'updaterDisplay',
-				title:'更新人',
-				sortable:true,
-				width:100
-			},{
-				field:'updateTime',
-				title:'更新时间',
-				sortable:true,
-				width:200
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
@@ -146,10 +136,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.webEstateName,
-				href : ctx + '/do/estate/intoDetail.htm?webEstateId='+rowData.webEstateId,//从controller请求jsp页面进行渲染
+				title: '【'+rowData.memberRealName+'】房产详细信息',
+				href : ctx + '/do/estate/intoDetail.htm?estateId='+rowData.estateId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 350,
+				height : 330,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

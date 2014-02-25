@@ -119,10 +119,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.webCreditIntegralName,
+				title: '【'+rowData.memberRealName+'】信用积分详细信息',
 				href : ctx + '/do/creditIntegral/intoDetail.htm?creditIntegralId='+rowData.creditIntegralId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 350,
+				height : 280,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

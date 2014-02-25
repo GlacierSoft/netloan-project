@@ -134,7 +134,7 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.webApplyAmountName,
+				title: '【'+rowData.memberRealName+'】申请额度详细信息',
 				href : ctx + '/do/applyAmount/intoDetail.htm?applyAmountId='+rowData.applyAmountId,//从controller请求jsp页面进行渲染
 				width : 550,
 				height : 380,

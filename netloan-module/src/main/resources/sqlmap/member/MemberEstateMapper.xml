@@ -18,6 +18,9 @@
     <result column="temp_member_estate_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_estate_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_member_estate_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_member_estate_memberRealName" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_estate_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_estate_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -86,6 +89,15 @@
     temp_member_estate.outstand_balances as temp_member_estate_outstand_balances, temp_member_estate.mortgage_bank as temp_member_estate_mortgage_bank, 
     temp_member_estate.creater as temp_member_estate_creater, temp_member_estate.create_time as temp_member_estate_create_time, 
     temp_member_estate.updater as temp_member_estate_updater, temp_member_estate.update_time as temp_member_estate_update_time
+  	<!-- 以下字段属于扩展 -->
+    ,temp_member.member_real_name as temp_member_estate_memberRealName
+    ,temp_creater.user_cn_name as temp_member_estate_createrDisplay
+    ,temp_updater.user_cn_name as temp_member_estate_updaterDisplay
+  </sql>
+  <sql id="Base_extend">
+  	INNER JOIN t_member temp_member ON temp_member_estate.member_id =  temp_member.member_id<!-- 扩展 -->
+    INNER JOIN t_user temp_creater ON temp_member_estate.creater =  temp_creater.user_id<!-- 扩展 -->
+    INNER JOIN t_user temp_updater ON temp_member_estate.updater =  temp_updater.user_id<!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.member.MemberEstateExample" >
     select
@@ -94,6 +106,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_member_estate temp_member_estate
+    <include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -108,6 +121,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_member_estate temp_member_estate
+    <include refid="Base_extend"/>
     where temp_member_estate.estate_id = #{estateId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -239,6 +253,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.member.MemberEstateExample" resultType="java.lang.Integer" >
     select count(*) from t_member_estate temp_member_estate
+    <include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
