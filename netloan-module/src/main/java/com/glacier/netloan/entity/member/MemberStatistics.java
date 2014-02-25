@@ -2,10 +2,17 @@ package com.glacier.netloan.entity.member;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class MemberStatistics {
     private String statisticsId;
 
     private String memberId;
+    
+    /**
+     * 自定义字段，显示会员真实名字
+     */
+    private String memberRealName;
 
     private Float totalBorrowings;
 
@@ -43,10 +50,12 @@ public class MemberStatistics {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date updateTime;
 
     public String getStatisticsId() {
@@ -65,7 +74,15 @@ public class MemberStatistics {
         this.memberId = memberId;
     }
 
-    public Float getTotalBorrowings() {
+    public String getMemberRealName() {
+		return memberRealName;
+	}
+
+	public void setMemberRealName(String memberRealName) {
+		this.memberRealName = memberRealName;
+	}
+
+	public Float getTotalBorrowings() {
         return totalBorrowings;
     }
 
