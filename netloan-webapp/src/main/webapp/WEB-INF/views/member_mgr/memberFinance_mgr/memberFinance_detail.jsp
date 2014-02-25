@@ -19,14 +19,6 @@
 			
 		</tr>
 		<tr>
-			<td>收入构成描述：</td>
-			<td colspan="3"><textarea class="spinner" style="width:416px" readonly="readonly">${memberFinanceData.aveIncomeDes}</textarea></td>
-		</tr>
-		<tr>
-			<td>支出构成描述：</td>
-			<td colspan="3"><textarea class="spinner" style="width:416px" readonly="readonly">${memberFinanceData.ageExpensesDes}</textarea></td>
-		</tr>
-		<tr>
 			<td>是否购房：</td>
 			<td><input id="memberFinance_mgr_memberFinance_detail_buyEstate" class="spinner" style="width:168px" readonly="readonly"/></td>
 			<td>是否购车：</td>
@@ -49,10 +41,6 @@
 			<td><input class="spinner" style="width:168px" value="${memberFinanceData.companyName}" readonly="readonly"/></td>
 			<td>参股企业出资额：</td>
 			<td><input class="spinner" style="width:168px" value="${memberFinanceData.companiesCapitalCon}" readonly="readonly"/></td>
-		</tr>
-		<tr>
-			<td>其他资产描述：</td>
-			<td colspan="3"><textarea class="spinner" style="width:416px" readonly="readonly">${memberFinanceData.otherAssetsDescribed}</textarea></td>
 		</tr>
 		<tr>
 			<td>第一联保人：</td>
@@ -83,6 +71,18 @@
 			<td><input class="spinner" style="width:168px" value="${memberFinanceData.updaterDisplay}" readonly="readonly"/></td>
 			<td>更新时间：</td>
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${memberFinanceData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>收入构成描述：</td>
+			<td colspan="3"><textarea class="spinner" style="width:416px" readonly="readonly">${memberFinanceData.aveIncomeDes}</textarea></td>
+		</tr>
+		<tr>
+			<td>支出构成描述：</td>
+			<td colspan="3"><textarea class="spinner" style="width:416px" readonly="readonly">${memberFinanceData.ageExpensesDes}</textarea></td>
+		</tr>
+		<tr>
+			<td>其他资产描述：</td>
+			<td colspan="3"><textarea class="spinner" style="width:416px" readonly="readonly">${memberFinanceData.otherAssetsDescribed}</textarea></td>
 		</tr>
 	</table>
 </form>
