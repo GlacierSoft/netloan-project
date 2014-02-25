@@ -66,8 +66,8 @@ public class MemberApplyAmountController extends AbstractController{
     // 获取表格结构的所有会员申请额度数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listApplyAmountAsGridByMenuId(MemberApplyAmountQueryDTO memberEstateQueryDTO, JqPager papplyAmountr) {
-        return applyAmountService.listAsGrid(memberEstateQueryDTO, papplyAmountr);
+    private Object listApplyAmountAsGridByMenuId(MemberApplyAmountQueryDTO memberApplyAmountQueryDTO, JqPager applyAmount) {
+        return applyAmountService.listAsGrid(memberApplyAmountQueryDTO, applyAmount);
     }
     
     // 增加会员申请额度

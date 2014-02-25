@@ -63,20 +63,20 @@ public class MemberApplyAmountService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(MemberApplyAmountQueryDTO memberEstateQueryDTO, JqPager papplyAmountr) {
+    public Object listAsGrid(MemberApplyAmountQueryDTO memberApplyAmountQueryDTO, JqPager applyAmount) {
         
         JqGridReturn returnResult = new JqGridReturn();
         MemberApplyAmountExample memberApplyAmountExample = new MemberApplyAmountExample();
 
         Criteria queryCriteria = memberApplyAmountExample.createCriteria();
-        memberEstateQueryDTO.setQueryCondition(queryCriteria);
+        memberApplyAmountQueryDTO.setQueryCondition(queryCriteria);
         
-        if (null != papplyAmountr.getPage() && null != papplyAmountr.getRows()) {// 设置排序信息
-        	memberApplyAmountExample.setLimitStart((papplyAmountr.getPage() - 1) * papplyAmountr.getRows());
-        	memberApplyAmountExample.setLimitEnd(papplyAmountr.getRows());
+        if (null != applyAmount.getPage() && null != applyAmount.getRows()) {// 设置排序信息
+        	memberApplyAmountExample.setLimitStart((applyAmount.getPage() - 1) * applyAmount.getRows());
+        	memberApplyAmountExample.setLimitEnd(applyAmount.getRows());
         }
-        if (StringUtils.isNotBlank(papplyAmountr.getSort()) && StringUtils.isNotBlank(papplyAmountr.getOrder())) {// 设置排序信息
-        	memberApplyAmountExample.setOrderByClause(papplyAmountr.getOrderBy("temp_member_apply_amount_"));
+        if (StringUtils.isNotBlank(applyAmount.getSort()) && StringUtils.isNotBlank(applyAmount.getOrder())) {// 设置排序信息
+        	memberApplyAmountExample.setOrderByClause(applyAmount.getOrderBy("temp_member_apply_amount_"));
         }
         List<MemberApplyAmount>  memberApplyAmounts = applyAmountMapper.selectByExample(memberApplyAmountExample); // 查询所有会员积分列表
         int total = applyAmountMapper.countByExample(memberApplyAmountExample); // 查询总页数
