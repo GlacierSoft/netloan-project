@@ -13,6 +13,8 @@
 							<input type="hidden" id="member_mgr_member_form_memberId" name="memberId" value="${memberData.memberId}" />
 							<input id="member_mgr_member_form_memberName" name="memberName" class="spinner" style="width:168px" value="${memberData.memberName}"  readonly="readonly"/>
 						</td>
+						<td style="padding-left:10px;">注册时间：</td>
+						<td ><input id="member_mgr_member_form_registrationTime" name="registrationTime" class="spinner" style="width:168px;" value="<fmt:formatDate value="${memberData.registrationTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 						</tr>
 					<tr>
 						<td>会员真实姓名：</td>
@@ -37,6 +39,18 @@
 						<td><input id="member_mgr_member_form_accessory" name="accessory" class="spinner" style="width:168px" value="${memberData.accessory}" readonly="readonly"/></td>
 						<td style="padding-left:10px;">最高学历：</td>
 						<td><input id="member_mgr_member_form_educational" name="educational" class="spinner" style="width:168px" value="${memberData.educational}" readonly="readonly"/></td>
+					</tr>
+					<tr>
+						<td>积分：</td>
+						<td><input id="member_mgr_member_form_integral" name="integral" class="spinner" style="width:168px" value="${memberData.integral}" readonly="readonly"/></td>
+						<td style="padding-left:10px;">信用积分：</td>
+						<td><input id="member_mgr_member_form_creditIntegral" name="creditIntegral" class="spinner" style="width:168px" value="${memberData.creditIntegral}" readonly="readonly"/></td>
+					</tr>
+					<tr>
+						<td>创建人：</td>
+						<td><input class="spinner" style="width:168px" value="${memberData.createrDisplay}" readonly="readonly"/></td>
+						<td style="padding-left:10px;">创建时间：</td>
+						<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${memberData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 					</tr>
 					<tr>
 						<td>个人描述：</td>
@@ -92,6 +106,18 @@
 						<td><input id="member_mgr_member_form_secondContactPhone" name="secondContactPhone" value="${memberData.secondContactPhone}" class="spinner" style="width:168px" readonly="readonly"/></td>
 						<td style="padding-left:10px;">第二联系人地址：</td>
 						<td><input id="member_mgr_member_form_secondContactAddress" name="secondContactAddress" value="${memberData.secondContactAddress}" class="spinner" style="width:168px" readonly="readonly"/></td>
+					</tr>
+					<tr>
+						<td>等级开始时间：</td>
+						<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${memberData.validTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+						<td style="padding-left:10px;">等级到期时间：</td>
+						<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${memberData.expireTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+					</tr>
+					<tr>
+						<td>更新人：</td>
+						<td><input class="spinner" style="width:168px" value="${memberData.updaterDisplay}" readonly="readonly"/></td>
+						<td style="padding-left:10px;">更新时间：</td>
+						<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${memberData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 					</tr>
 				</table>
 		</fieldset>

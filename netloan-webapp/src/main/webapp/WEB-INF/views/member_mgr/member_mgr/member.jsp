@@ -137,7 +137,7 @@
 				title: rowData.memberName,
 				href : ctx + '/do/member/intoDetail.htm?memberId='+rowData.memberId,//从controller请求jsp页面进行渲染
 				width : 645,
-				height : 390,
+				height : 450,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
