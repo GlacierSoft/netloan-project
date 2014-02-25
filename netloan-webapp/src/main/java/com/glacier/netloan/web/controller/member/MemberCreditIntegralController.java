@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.member.MemberCreditIntegralQueryDTO;
 import com.glacier.netloan.service.member.MemberCreditIntegralService;
 
 /** 
@@ -51,8 +52,8 @@ public class MemberCreditIntegralController extends AbstractController{
     // 获取表格结构的所有会员信用积分数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listCreditIntegralAsGridByMenuId(JqPager pcreditIntegralr) {
-        return creditIntegralService.listAsGrid(pcreditIntegralr);
+    private Object listCreditIntegralAsGridByMenuId(MemberCreditIntegralQueryDTO memberCreditIntegralQueryDTO,JqPager pcreditIntegralr) {
+        return creditIntegralService.listAsGrid(memberCreditIntegralQueryDTO, pcreditIntegralr);
     }
     
 }

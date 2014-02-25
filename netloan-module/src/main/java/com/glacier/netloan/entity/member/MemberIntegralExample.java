@@ -105,6 +105,12 @@ public class MemberIntegralExample {
             return criteria;
         }
 
+        //扩展查询条件
+        public Criteria andMemberRealNameLike(String value) {
+            addCriterion("temp_member.member_real_name like", value, "memberRealName");
+            return (Criteria) this;
+        }
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -124,12 +130,6 @@ public class MemberIntegralExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-        
-        //扩展查询条件
-        public Criteria andMemberRealNameLike(String value) {
-            addCriterion("temp_member.member_real_name like", value, "memberRealName");
-            return (Criteria) this;
         }
         
         public Criteria andMemberIntegralIdIsNull() {

@@ -103,6 +103,12 @@ public class MemberCreditIntegralExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
+        
+        //扩展查询条件
+        public Criteria andMemberRealNameLike(String value) {
+            addCriterion("temp_member.member_real_name like", value, "memberRealName");
+            return (Criteria) this;
+        }
 
         protected void addCriterion(String condition) {
             if (condition == null) {

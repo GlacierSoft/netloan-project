@@ -119,7 +119,27 @@
 			});
 		}
 	});
-	
+	//下拉项的值
+	$('#memberCreditIntegralSearchForm_integralType').combobox({  
+		valueField : 'value',
+		height:18,
+		width:80,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		//required:true,
+		data : fields.integralType
+	});
+	$('#memberCreditIntegralSearchForm_changeType').combobox({  
+		valueField : 'value',
+		height:18,
+		width:80,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		//required:true,
+		data : fields.changeType
+	});
 </script>
 
 <!-- 所有会员信用积分列表面板和表格 -->
@@ -128,5 +148,29 @@
 		<table id="creditIntegralDataGrid">
 			<glacierui:toolbar panelEnName="CreditIntegralList" toolbarId="creditIntegralDataGrid_toolbar" menuEnName="creditIntegral"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
+	</div>
+	<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
+		<form id="memberCreditIntegralSearchForm">
+			<table>
+				<tr>
+					<td>会员名称：</td>
+					<td><input name="memberRealName" style="width: 80px;" class="spinner"/></td>
+					<td>信用类型：</td>
+					<td><input id="memberCreditIntegralSearchForm_integralType" name="integralType" style="width: 80px;" class="spinner"/></td>
+					<td>改变类型：</td>
+					<td><input id="memberCreditIntegralSearchForm_changeType" name="changeType" style="width: 80px;" class="spinner"/></td>
+					<td>录入时间：</td>
+					<td>
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 150px;" />
+						-
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 150px;" />
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.member_mgr.creditIntegral_mgr.creditIntegral.creditIntegralDataGrid.datagrid('load',glacier.serializeObject($('#memberCreditIntegralSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#memberCreditIntegralSearchForm input').val('');glacier.member_mgr.creditIntegral_mgr.creditIntegral.creditIntegralDataGrid.datagrid('load',{});">重置条件</a>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </div>
