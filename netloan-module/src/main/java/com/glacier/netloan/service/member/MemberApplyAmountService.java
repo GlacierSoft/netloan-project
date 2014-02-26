@@ -130,12 +130,17 @@ public class MemberApplyAmountService {
     public Object auditApplyAmount(MemberApplyAmount applyAmount) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         
-        Subject pricipalSubject = SecurityUtils.getSubject();
+        Subject pricipalSubject = SecurityUtils.getSubject();// 查找当前系统登录用户
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        applyAmount.setUpdater(pricipalUser.getUserId());
-        applyAmount.setUpdateTime(new Date());
-        applyAmount.setAuditorId(pricipalUser.getUserId());
-        applyAmount.setAuditDate(new Date());
+        applyAmount.setUpdater(pricipalUser.getUserId());// 更新人为当前系统登录用户
+        applyAmount.setUpdateTime(new Date());// 更新时间为当前系统时间
+        applyAmount.setAuditorId(pricipalUser.getUserId());// 审核人为当前系统登录用户
+        applyAmount.setAuditDate(new Date());// 审核时间为当前系统时间
+        if (StringUtils.isNotBlank(applyAmount.getAuditState())) {// 如果审核状态为非“通过”，则审核金额为零
+        	if (!applyAmount.getAuditState().equals("pass")) {
+        		applyAmount.setAuthorizedAmount((float) 0.00);
+        	}
+        }
         
         int count = 0;
         count = applyAmountMapper.updateByPrimaryKeySelective(applyAmount);

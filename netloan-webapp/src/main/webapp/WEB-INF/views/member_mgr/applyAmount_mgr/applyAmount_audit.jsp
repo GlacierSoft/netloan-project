@@ -40,14 +40,14 @@
 		<tr>
 			<td>审核金额：</td>
 			<td>
-				<input name="authorizedAmount" class="easyui-validatebox spinner" style="width:416px" required="true" value="${applyAmountData.authorizedAmount}" />
+				<input name="authorizedAmount" class="easyui-validatebox spinner" style="width:412px" required="true" value="${applyAmountData.authorizedAmount}" />
 			</td>
 		</tr>
 	</table>
 	<table>
 		<tr>
 			<td>审核说明：</td>
-			<td><textarea name="processExplanation" style="width:416px;" maxlength="255" class="spinner formta">${applyAmountData.processExplanation}</textarea></td>
+			<td><textarea name="processExplanation" style="width:412px;" maxlength="255" class="spinner formta">${applyAmountData.processExplanation}</textarea></td>
 		</tr>
 	</table>
 </form>
@@ -56,7 +56,7 @@
 	$('#applyAmount_mgr_applyAmount_audit_auditState').combobox({  
 		valueField : 'value',
 		height:18,
-		width:270,
+		width:417,
 		textField : 'label',
 		panelHeight : 'auto',
 		editable : false,
