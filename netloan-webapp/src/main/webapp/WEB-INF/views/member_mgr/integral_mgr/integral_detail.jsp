@@ -34,7 +34,5 @@
 </form>
 <script type="text/javascript">
 	$('#integral_mgr_integral_detail_integralType').val(renderGridValue('${integralData.type}',fields.type));
-</script>
-<script type="text/javascript">
 	$('#integral_mgr_integral_detail_type').val(renderGridValue('${integralData.changeType}',fields.changeType));
 </script>

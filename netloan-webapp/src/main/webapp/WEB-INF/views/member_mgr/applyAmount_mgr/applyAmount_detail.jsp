@@ -26,19 +26,19 @@
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${applyAmountData.applyDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
-			<td>授权额度：</td>
-			<td><input class="spinner" style="width:168px" value="${applyAmountData.authorizedAmount}" readonly="readonly"/></td>
-			<td>审核时间：</td>
-			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${applyAmountData.auditDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
-		</tr>
-		<tr>
 			<td>审核状态：</td>
 			<td><input id="applyAmount_mgr_applyAmount_detail_auditState" class="spinner" style="width:168px" readonly="readonly"/></td>
 			<td>审核人：</td>
 			<td><input class="spinner" style="width:168px" value="${applyAmountData.auditorDisplay}" readonly="readonly"/></td>
 		</tr>
 		<tr>
-			<td>处理说明：</td>
+			<td>审核额度：</td>
+			<td><input class="spinner" style="width:168px" value="${applyAmountData.authorizedAmount}" readonly="readonly"/></td>
+			<td>审核时间：</td>
+			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${applyAmountData.auditDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>审核说明：</td>
 			<td colspan="3"><input class="spinner" style="width:416px" value="${applyAmountData.processExplanation}" readonly="readonly"/></td>
 		</tr>
 		<tr>
@@ -61,7 +61,5 @@
 </form>
 <script type="text/javascript">
 	$('#applyAmount_mgr_applyAmount_detail_applyType').val(renderGridValue('${applyAmountData.applyType}',fields.applyType));
-</script>
-<script type="text/javascript">
 	$('#applyAmount_mgr_applyAmount_detail_auditState').val(renderGridValue('${applyAmountData.auditState}',fields.auths));
 </script>

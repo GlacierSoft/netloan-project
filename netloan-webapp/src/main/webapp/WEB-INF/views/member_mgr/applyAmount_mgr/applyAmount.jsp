@@ -11,7 +11,7 @@
 			toolbarId : 'applyAmountDataGrid_toolbar',
 			actions : {
 				edit:{flag:'edit',controlType:'single'},
-				del:{flag:'del',controlType:'multiple'}
+				del:{flag:'audit',controlType:'single'}
 			}
 	};
 	
@@ -61,11 +61,6 @@
 				width:120,
 				sortable:true
 			},{
-				field:'authorizedAmount',
-				title:'授权额度',
-				width:120,
-				sortable:true
-			},{
 				field:'auditState',
 				title:'审核状态',
 				width:120,
@@ -74,6 +69,11 @@
 					return renderGridValue(value,fields.auths);
 				}
 			},{
+				field:'authorizedAmount',
+				title:'审核额度',
+				width:120,
+				sortable:true
+			},{
 				field:'auditorDisplay',
 				title:'审核人',
 				width:120,
@@ -81,7 +81,7 @@
 			},{
 				field:'auditDate',
 				title:'审核时间',
-				width:120,
+				width:200,
 				sortable:true
 			},{
 				field:'createrDisplay',
@@ -91,16 +91,6 @@
 			},{
 				field:'createTime',
 				title:'创建时间',
-				sortable:true,
-				width:200
-			},{
-				field:'updaterDisplay',
-				title:'更新人',
-				sortable:true,
-				width:100
-			},{
-				field:'updateTime',
-				title:'更新时间',
 				sortable:true,
 				width:200
 			}
@@ -144,6 +134,25 @@
 			});
 		}
 	});
+	
+	//点击审核按钮触发方法
+	glacier.member_mgr.applyAmount_mgr.applyAmount.auditApplyAmount = function(){
+		var row = glacier.member_mgr.applyAmount_mgr.applyAmount.applyAmountDataGrid.datagrid("getSelected");
+		glacier.basicAddOrEditDialog({
+			title : '审核【'+row.memberRealName+'】审核额度信息',
+			width : 540,
+			height : 360,
+			queryUrl : ctx + '/do/applyAmount/intoAudit.htm',
+			submitUrl : ctx + '/do/applyAmount/audit.json',
+			queryParams : {
+				applyAmountId : row.applyAmountId
+			},
+			successFun : function (){
+				glacier.member_mgr.applyAmount_mgr.applyAmount.applyAmountDataGrid.datagrid('reload');
+			}
+		});
+	};
+	
 	//下拉项的值
 	$('#memberApplyAmountSearchForm_applyType').combobox({  
 		valueField : 'value',

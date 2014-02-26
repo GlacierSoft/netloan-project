@@ -43,12 +43,12 @@ public class MemberApplyAmountController extends AbstractController{
         return mav;
     }
     
-    // 进入会员申请额度Form表单页面
-    @RequestMapping(value = "/intoForm.htm")
-    private Object intoApplyAmountFormPapplyAmount(String memberApplyAmountId) {
-        ModelAndView mav = new ModelAndView("member_mgr/applyAmount_mgr/applyAmount_form");
-        if(StringUtils.isNotBlank(memberApplyAmountId)){
-            mav.addObject("applyAmountData", applyAmountService.getApplyAmount(memberApplyAmountId));
+    // 进入会员申请额度Audit表单页面
+    @RequestMapping(value = "/intoAudit.htm")
+    private Object intoApplyAmountAuditPage(String applyAmountId) {
+        ModelAndView mav = new ModelAndView("member_mgr/applyAmount_mgr/applyAmount_audit");
+        if(StringUtils.isNotBlank(applyAmountId)){
+            mav.addObject("applyAmountData", applyAmountService.getApplyAmount(applyAmountId));
         }
         return mav;
     }
@@ -79,4 +79,15 @@ public class MemberApplyAmountController extends AbstractController{
         }
         return applyAmountService.addApplyAmount(applyAmount);
     }
+    
+    // 审核会员申请额度信息
+    @RequestMapping(value = "/audit.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object auditApplyAmount(@Valid MemberApplyAmount applyAmount, BindingResult bindingResult) {
+    	if (bindingResult.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResult);
+        }
+        return applyAmountService.auditApplyAmount(applyAmount);
+    }
+   
 }

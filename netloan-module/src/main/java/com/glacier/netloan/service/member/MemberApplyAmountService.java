@@ -116,4 +116,35 @@ public class MemberApplyAmountService {
         }
         return returnResult;
     }
+    
+    /**
+     * @Title: auditApplyAmount 
+     * @Description: TODO(审核会员审核额度) 
+     * @param @param applyAmount
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "ApplyAmounts_audit")
+    public Object auditApplyAmount(MemberApplyAmount applyAmount) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        applyAmount.setUpdater(pricipalUser.getUserId());
+        applyAmount.setUpdateTime(new Date());
+        applyAmount.setAuditorId(pricipalUser.getUserId());
+        applyAmount.setAuditDate(new Date());
+        
+        int count = 0;
+        count = applyAmountMapper.updateByPrimaryKeySelective(applyAmount);
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("会员审核额度成功");
+        } else {
+            returnResult.setMsg("发生未知错误，会员审核额度失败");
+        }
+        return returnResult;
+    }
 }
