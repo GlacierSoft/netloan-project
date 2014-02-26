@@ -38,7 +38,6 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
         boolean rememberMe = isRememberMe(request);
         String ip = IpUtil.getIpAddr((HttpServletRequest) request);
         String host = ip + IpUtil.getIpInfo(ip);
-
         char[] charPassword = null;
 
         if (StringUtils.isNotBlank(password)) {

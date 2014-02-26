@@ -19,12 +19,12 @@
  */
 package com.glacier.netloan.web.controller.common;
 
-import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.glacier.jqueryui.util.JqReturnJson;
 
 /**
  * @ClassName: CommonController 
@@ -66,10 +66,19 @@ public class CommonController {
         return mav;
     }
     
-    @RequestMapping(value = "/login.json", method = RequestMethod.POST)
-    public String login(@RequestParam(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM) String username) {
-        System.out.println(username);
-        return "login";
+    @RequestMapping(value = "/login.json")
+    @ResponseBody
+    public Object login() {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        returnResult.setMsg("login");
+        return returnResult;
+    }
+    
+    @RequestMapping(value = "/loginSucceed.json")
+    @ResponseBody
+    public Object loginSucceed() {
+        JqReturnJson returnResult = new JqReturnJson(true,"loginSucceed");// 构建返回结果，默认结果为false
+        return returnResult;
     }
 
 }
