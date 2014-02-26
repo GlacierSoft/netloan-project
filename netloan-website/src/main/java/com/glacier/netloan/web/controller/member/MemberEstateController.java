@@ -62,12 +62,6 @@ public class MemberEstateController extends AbstractController{
         return mav;
     }
     
-    // 获取表格结构的所有会员房产信息数据
-    @RequestMapping(value = "/list.json", method = RequestMethod.POST)
-    @ResponseBody
-    private Object listEstateAsGridByMenuId(JqPager pestater) {
-        return estateService.listAsGrid(pestater);
-    }
     
     // 增加会员房产信息
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)

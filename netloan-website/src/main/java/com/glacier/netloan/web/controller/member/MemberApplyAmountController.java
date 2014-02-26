@@ -62,12 +62,6 @@ public class MemberApplyAmountController extends AbstractController{
         return mav;
     }
     
-    // 获取表格结构的所有会员申请额度数据
-    @RequestMapping(value = "/list.json", method = RequestMethod.POST)
-    @ResponseBody
-    private Object listApplyAmountAsGridByMenuId(JqPager papplyAmountr) {
-        return applyAmountService.listAsGrid(papplyAmountr);
-    }
     
     // 增加会员申请额度
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
