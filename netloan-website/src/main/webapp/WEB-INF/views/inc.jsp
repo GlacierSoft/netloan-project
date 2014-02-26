@@ -18,7 +18,16 @@
 
 <!-- 自定义主页样式 -->
 <link rel="stylesheet" href="${ctx}/resources/css/index.css"></link>
-<link rel="stylesheet" href="${ctx}/resources/css/ie8.css"></link>
+
+ <!--[if lt IE 9]>
+ 	<link rel="stylesheet" href="${ctx}/resources/css/ie8.css"></link>
+ </script><![endif]-->
+
+ <!--[if lt IE 9]>
+   <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+   <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
+ <![endif]-->
+
 
 <script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
 <script src="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/js/bootstrap.min.js"></script>

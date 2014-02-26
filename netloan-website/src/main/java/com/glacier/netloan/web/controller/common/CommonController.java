@@ -19,8 +19,11 @@
  */
 package com.glacier.netloan.web.controller.common;
 
+import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -61,6 +64,12 @@ public class CommonController {
         ModelAndView mav = new ModelAndView("index");
         //进入首页初始化导航信息
         return mav;
+    }
+    
+    @RequestMapping(value = "/login.json", method = RequestMethod.POST)
+    public String login(@RequestParam(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM) String username) {
+        System.out.println(username);
+        return "login";
     }
 
 }

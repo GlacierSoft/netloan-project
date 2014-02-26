@@ -18,12 +18,20 @@
 	<!-- Shiro Filter -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/do/login.htm" />
-		<property name="successUrl" value="/do/index.htm" />
-		<property name="unauthorizedUrl" value="/do/login.htm" />
+		<property name="loginUrl" value="/login.json" />
+		<property name="successUrl" value="/index.htm" />
+		<property name="unauthorizedUrl" value="/login.htm" />
+		<property name="filters">
+			<util:map>
+				<entry key="authc">
+					<bean class="com.glacier.netloan.web.filter.CaptchaFormAuthenticationFilter"/>
+				</entry>
+			</util:map>
+		</property>
 		<property name="filterChainDefinitions">
 			<value>
-				/safe = user
+				/login.json = authc
+				/safe/* = user
 			</value>
 		</property>
 	</bean>
