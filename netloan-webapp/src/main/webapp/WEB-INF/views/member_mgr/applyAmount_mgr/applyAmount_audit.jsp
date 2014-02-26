@@ -40,7 +40,7 @@
 		<tr>
 			<td>审核金额：</td>
 			<td>
-				<input name="authorizedAmount" class="easyui-validatebox spinner" style="width:412px" required="true" value="${applyAmountData.authorizedAmount}" />
+				<input name="authorizedAmount" class="easyui-numberbox spinner" style="width:412px" required="true" min="0" max="10000000" value="${applyAmountData.authorizedAmount}" />
 			</td>
 		</tr>
 	</table>
