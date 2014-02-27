@@ -3,57 +3,57 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <form id="member_mgr_memberAuth_form" method="post" style="padding:15px">
-	<table id="memberAuthDetailDataGrid" class="detailtable" data-options="fit:true">
+	<table id="memberAuthDetailDataGrid" class="detailtable" data-options="fit:true" >
 		<thead>   
 	        <tr>   
-	            <th data-options="field:'infoName'">认证名称：</th>   
-	            <th data-options="field:'infoAuth'">状态：</th>   
-	            <th data-options="field:'opera'">操作：</th>   
+	            <th style="width: 190px;">认证名称：</th>   
+	            <th style="width: 190px;">状态：</th>   
+	            <th style="width: 190px;">操作：</th>   
 	        </tr>   
 	    </thead> 
 	    <tbody>
 			<tr>
-				<td>${memberAuthData.infoName}</td>
+				<td><input id="member_mgr_memberAuth_form_infoName" name="infoName" class="spinner" style="width:168px" value="${memberAuthData.infoName}" readonly="readonly"/></td>
 				<td><input id="member_mgr_memberAuth_form_infoAuth" name="infoAuth" class="spinner" style="width:168px" value="${memberAuthData.infoAuth}" readonly="readonly"/></td>
 				<td><a id="infoAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
 			</tr>
 			<tr>
-				<td>${memberAuthData.vipName}</td>
+				<td><input id="member_mgr_memberAuth_form_vipName" name="vipName" class="spinner" style="width:168px" value="${memberAuthData.vipName}" readonly="readonly"/></td>
 				<td><input id="member_mgr_memberAuth_form_vipAuth" name="vipAuth" class="spinner" style="width:168px" value="${memberAuthData.vipAuth}" readonly="readonly"/></td>
 				<td><a id="vipAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
 			</tr>
 			<tr>
-				<td>${memberAuthData.emailName}</td>
+				<td><input id="member_mgr_memberAuth_form_emailName" name="emailName" class="spinner" style="width:168px" value="${memberAuthData.emailName}" readonly="readonly"/></td>
 				<td><input id="member_mgr_memberAuth_form_emailAuth" name="emailAuth" class="spinner" style="width:168px" value="${memberAuthData.emailAuth}" readonly="readonly"/></td>
 				<td><a id="emailAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
 			</tr>
 			<tr>
-				<td>${memberAuthData.mobileName}</td>
+				<td><input id="member_mgr_memberAuth_form_mobileName" name="mobileName" class="spinner" style="width:168px" value="${memberAuthData.mobileName}" readonly="readonly"/></td>
 				<td><input id="member_mgr_memberAuth_form_mobileAuth" name="mobileAuth" class="spinner" style="width:168px" value="${memberAuthData.mobileAuth}" readonly="readonly"/></td>
 				<td><a id="mobileAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
 			</tr>
 			<tr>
-				<td>${memberAuthData.creditName}</td>
+				<td><input id="member_mgr_memberAuth_form_creditName" name="creditName" class="spinner" style="width:168px" value="${memberAuthData.creditName}" readonly="readonly"/></td>
 				<td><input id="member_mgr_memberAuth_form_creditAuth" name="creditAuth" class="spinner" style="width:168px" value="${memberAuthData.creditAuth}" readonly="readonly"/></td>
 				<td><a id="creditAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
 			</tr>
 			<tr>
-				<td>${memberAuthData.companyName}</td>
+				<td><input id="member_mgr_memberAuth_form_companyName" name="companyName" class="spinner" style="width:168px" value="${memberAuthData.companyName}" readonly="readonly"/></td>
 				<td><input id="member_mgr_memberAuth_form_companyAuth" name="companyAuth" class="spinner" style="width:168px" value="${memberAuthData.companyAuth}" readonly="readonly"/></td>
 				<td><a id="companyAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
 			</tr>
 			<tr>
-				<td>${memberAuthData.realName}</td>
+				<td><input id="member_mgr_memberAuth_form_realName" name="realName" class="spinner" style="width:168px" value="${memberAuthData.realName}" readonly="readonly"/></td>
 				<td><input id="member_mgr_memberAuth_form_realNameAuth" name="realNameAuth" class="spinner" style="width:168px" value="${memberAuthData.realNameAuth}" readonly="readonly"/></td>
 				<td><a id="realNameAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
 			</tr>
 			<tr>
-				<td>${memberAuthData.idCardName}</td>
+				<td><input id="member_mgr_memberAuth_form_idCardName" name="idCardName" class="spinner" style="width:168px" value="${memberAuthData.idCardName}" readonly="readonly"/></td>
 				<td><input id="member_mgr_memberAuth_form_idCardAuth" name="idCardAuth" class="spinner" style="width:168px" value="${memberAuthData.idCardAuth}" readonly="readonly"/></td>
 				<td><a id="idCardAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
 			</tr>
 			<tr>
-				<td>${memberAuthData.workName}</td>
+				<td><input id="member_mgr_memberAuth_form_workName" name="workName" class="spinner" style="width:168px" value="${memberAuthData.workName}" readonly="readonly"/></td>
 				<td><input id="member_mgr_memberAuth_form_workAuth" name="workAuth" class="spinner" style="width:168px" value="${memberAuthData.workAuth}" readonly="readonly"/></td>
 				<td><a id="workAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
 			</tr>
@@ -86,102 +86,111 @@
  			submitUrl : ctx + '/do/memberAuth/edit.json',
  			successFun : function (){
  				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+ 				$('#memberAuthShow').dialog('destroy');//关闭窗体
  			}
  		});
     }); 
     $('#vipAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"会员vip认证",
-			width : 800,
-			height : 520,
+			width : 730,
+			height : 510,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.vipName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json',
 			successFun : function (){
 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+				$('#memberAuthShow').dialog('destroy');//关闭窗体
 			}
 		});
    }); 
     $('#emailAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"邮箱认证",
-			width : 800,
-			height : 520,
+			width : 730,
+			height : 510,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.emailName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json',
 			successFun : function (){
 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+				$('#memberAuthShow').dialog('destroy');//关闭窗体
 			}
 		});
    }); 
     $('#mobileAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"手机认证",
-			width : 800,
-			height : 520,
+			width : 730,
+			height : 510,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.mobileName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json',
 			successFun : function (){
 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+				$('#memberAuthShow').dialog('destroy');//关闭窗体
 			}
 		});
    }); 
     $('#creditAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"信用认证",
-			width : 800,
-			height : 520,
+			width : 730,
+			height : 510,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.creditName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json',
 			successFun : function (){
 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+				$('#memberAuthShow').dialog('destroy');//关闭窗体
 			}
 		});
    }); 
     $('#companyAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"企业认证",
-			width : 800,
-			height : 520,
+			width : 730,
+			height : 510,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.companyName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json',
 			successFun : function (){
 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+				$('#memberAuthShow').dialog('destroy');//关闭窗体
 			}
 		});
    }); 
     $('#realNameAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"实名认证",
-			width : 800,
-			height : 520,
+			width : 730,
+			height : 510,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.realName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json',
 			successFun : function (){
 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+				$('#memberAuthShow').dialog('destroy');//关闭窗体
 			}
 		});
    }); 
     $('#idCardAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"身份证认证",
-			width : 800,
-			height : 520,
+			width : 730,
+			height : 510,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.idCardName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json',
 			successFun : function (){
 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+				$('#memberAuthShow').dialog('destroy');//关闭窗体
 			}
 		});
    }); 
     $('#workAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"工作认证",
-			width : 800,
-			height : 520,
+			width : 730,
+			height : 510,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.workName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json',
 			successFun : function (){
 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+				$('#memberAuthShow').dialog('destroy');//关闭窗体
 			}
 		});
    }); 

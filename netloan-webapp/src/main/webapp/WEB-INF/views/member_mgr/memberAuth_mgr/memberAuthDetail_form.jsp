@@ -13,14 +13,14 @@
 			<td>审核意见：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_memberId" type="hidden" name="memberId" class="spinner" style="width:168px" value="${memberAuthData.memberId}" />
-				<textarea id="member_mgr_memberAuth_form_infoRemark" name="infoRemark" style="width:400px;" maxlength="255" class="spinner formta">${memberAuthData.infoRemark}</textarea>
+				<textarea id="member_mgr_memberAuth_form_infoRemark" name="infoRemark" class="easyui-validatebox spinner" required="true" style="width:400px;" maxlength="255" class="spinner formta">${memberAuthData.infoRemark}</textarea>
 			</td>
 		</tr>
 		<tr>
 			<td>审核结果：</td>
 			<td>
-				<input id="member_mgr_memberAuth_form_infoAuthPass" name="infoAuth"  type="radio" value="pass"/>审核通过
-				<input id="member_mgr_memberAuth_form_infoAuthFailure" name="infoAuth"  type="radio" value="failure"/>审核不通过
+				<input id="member_mgr_memberAuth_form_infoAuthPass"  name="infoAuth" class="easyui-validatebox spinner" required="true"  type="radio" value="pass"/>审核通过
+				<input id="member_mgr_memberAuth_form_infoAuthFailure"  name="infoAuth" class="easyui-validatebox spinner" required="true"  type="radio" value="failure"/>审核不通过
 			</td>
 		</tr>
 		
@@ -34,7 +34,7 @@
 			<td>审核意见：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_memberId" type="hidden" name="memberId" class="spinner" style="width:168px" value="${memberAuthData.memberId}" />
-				<textarea id="member_mgr_memberAuth_form_vipRemark" name="vipRemark" style="width:400px;" maxlength="255" class="spinner formta">${memberAuthData.vipRemark}</textarea>
+				<textarea id="member_mgr_memberAuth_form_vipRemark" name="vipRemark" style="width:600px;" maxlength="255" class="spinner formta">${memberAuthData.vipRemark}</textarea>
 			</td>
 		</tr>
 		<tr>
@@ -55,7 +55,7 @@
 			<td>审核意见：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_memberId" type="hidden" name="memberId" class="spinner" style="width:168px" value="${memberAuthData.memberId}" />
-				<textarea id="member_mgr_memberAuth_form_emailRemark" name="emailRemark" style="width:400px;" maxlength="255" class="spinner formta">${memberAuthData.emailRemark}</textarea>
+				<textarea id="member_mgr_memberAuth_form_emailRemark" name="emailRemark" style="width:600px;" maxlength="255" class="spinner formta">${memberAuthData.emailRemark}</textarea>
 			</td>
 		</tr>
 		<tr>
@@ -76,7 +76,7 @@
 			<td>审核意见：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_memberId" type="hidden" name="memberId" class="spinner" style="width:168px" value="${memberAuthData.memberId}" />
-				<textarea id="member_mgr_memberAuth_form_mobileRemark" name="mobileRemark" style="width:400px;" maxlength="255" class="spinner formta">${memberAuthData.mobileRemark}</textarea>
+				<textarea id="member_mgr_memberAuth_form_mobileRemark" name="mobileRemark" style="width:600px;" maxlength="255" class="spinner formta">${memberAuthData.mobileRemark}</textarea>
 			</td>
 		</tr>
 		<tr>
@@ -97,7 +97,7 @@
 			<td>审核意见：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_memberId" type="hidden" name="memberId" class="spinner" style="width:168px" value="${memberAuthData.memberId}" />
-				<textarea id="member_mgr_memberAuth_form_creditRemark" name="creditRemark" style="width:400px;" maxlength="255" class="spinner formta">${memberAuthData.creditRemark}</textarea>
+				<textarea id="member_mgr_memberAuth_form_creditRemark" name="creditRemark" style="width:600px;" maxlength="255" class="spinner formta">${memberAuthData.creditRemark}</textarea>
 			</td>
 		</tr>
 		<tr>
@@ -118,7 +118,7 @@
 			<td>审核意见：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_memberId" type="hidden" name="memberId" class="spinner" style="width:168px" value="${memberAuthData.memberId}" />
-				<textarea id="member_mgr_memberAuth_form_companyRemark" name="companyRemark" style="width:400px;" maxlength="255" class="spinner formta">${memberAuthData.companyRemark}</textarea>
+				<textarea id="member_mgr_memberAuth_form_companyRemark" name="companyRemark" style="width:600px;" maxlength="255" class="spinner formta">${memberAuthData.companyRemark}</textarea>
 			</td>
 		</tr>
 		<tr>
@@ -139,7 +139,7 @@
 			<td>审核意见：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_memberId" type="hidden" name="memberId" class="spinner" style="width:168px" value="${memberAuthData.memberId}" />
-				<textarea id="member_mgr_memberAuth_form_realNameRemark" name="realNameRemark" style="width:400px;" maxlength="255" class="spinner formta">${memberAuthData.realNameRemark}</textarea>
+				<textarea id="member_mgr_memberAuth_form_realNameRemark" name="realNameRemark" style="width:600px;" maxlength="255" class="spinner formta">${memberAuthData.realNameRemark}</textarea>
 			</td>
 		</tr>
 		<tr>
@@ -160,7 +160,7 @@
 			<td>审核意见：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_memberId" type="hidden" name="memberId" class="spinner" style="width:168px" value="${memberAuthData.memberId}" />
-				<textarea id="member_mgr_memberAuth_form_idCardRemark" name="idCardRemark" style="width:400px;" maxlength="255" class="spinner formta">${memberAuthData.idCardRemark}</textarea>
+				<textarea id="member_mgr_memberAuth_form_idCardRemark" name="idCardRemark" style="width:600px;" maxlength="255" class="spinner formta">${memberAuthData.idCardRemark}</textarea>
 			</td>
 		</tr>
 		<tr>
@@ -181,7 +181,7 @@
 			<td>审核意见：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_memberId" type="hidden" name="memberId" class="spinner" style="width:168px" value="${memberAuthData.memberId}" />
-				<textarea id="member_mgr_memberAuth_form_workRemark" name="workRemark" style="width:400px;" maxlength="255" class="spinner formta">${memberAuthData.workRemark}</textarea>
+				<textarea id="member_mgr_memberAuth_form_workRemark" name="workRemark" style="width:600px;" maxlength="255" class="spinner formta">${memberAuthData.workRemark}</textarea>
 			</td>
 		</tr>
 		<tr>
@@ -267,7 +267,7 @@
 		}else if('${auth}'== '企业认证'){
 			$('#table_member_mgr_memberAuth_form_company').show();
 		}else if('${auth}'== '真实姓名认证'){
-			$('#table_member_mgr_memberAuth_form_realName').hide();
+			$('#table_member_mgr_memberAuth_form_realName').show();
 		}else if('${auth}'== '身份证认证'){
 			$('#table_member_mgr_memberAuth_form_idCard').show();
 		}else{

@@ -179,10 +179,11 @@
 			}
 		}); */
 		$.easyui.showDialog({
+			id: 'memberAuthShow',
 			title: '认证【'+row.memberName+'】',
 			href : ctx + '/do/memberAuth/intoForm.htm?memberId='+row.memberId,//从controller请求jsp页面进行渲染
-			width : 835,
-			height : 395,
+			width : 600,
+			height : 380,
 			resizable: false,
 			enableApplyButton : false,
 			enableSaveButton : false
