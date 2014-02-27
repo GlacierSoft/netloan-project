@@ -9,18 +9,22 @@
 			<td>查看会员信息明细：</td>
 			<td><a id="infoAuthbtn1" href="#" class="easyui-linkbutton" data-options="">查看</a></td>
 		</tr>
+		<%-- <tr>
+			<td>排序：</td>
+			<td><input id="member_mgr_memberAuth_form_infoNum" name="infoNum" class="easyui-numberspinner spinner" value="${memberAuthData.infoNum}" data-options="min:0,max:99,required:true,missingMessage:'请填写序号'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
+		</tr> --%>
 		<tr>
 			<td>审核意见：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_memberId" type="hidden" name="memberId" class="spinner" style="width:168px" value="${memberAuthData.memberId}" />
-				<textarea id="member_mgr_memberAuth_form_infoRemark" name="infoRemark" class="easyui-validatebox spinner" required="true" style="width:400px;" maxlength="255" class="spinner formta">${memberAuthData.infoRemark}</textarea>
+				<textarea id="member_mgr_memberAuth_form_infoRemark" name="infoRemark" style="width:400px;" maxlength="255" class="spinner formta">${memberAuthData.infoRemark}</textarea>
 			</td>
 		</tr>
 		<tr>
 			<td>审核结果：</td>
 			<td>
-				<input id="member_mgr_memberAuth_form_infoAuthPass"  name="infoAuth" class="easyui-validatebox spinner" required="true"  type="radio" value="pass"/>审核通过
-				<input id="member_mgr_memberAuth_form_infoAuthFailure"  name="infoAuth" class="easyui-validatebox spinner" required="true"  type="radio" value="failure"/>审核不通过
+				<input id="member_mgr_memberAuth_form_infoAuthPass"  name="infoAuth"   type="radio" value="pass"/>审核通过
+				<input id="member_mgr_memberAuth_form_infoAuthFailure"  name="infoAuth"  type="radio" value="failure"/>审核不通过
 			</td>
 		</tr>
 		
@@ -30,6 +34,10 @@
 			<td>vip会员附件：</td>
 			<td><textarea id="member_mgr_memberAuth_form_vipAccessory"   name="vipAccessory" class="spinner" style="display:none;width:600px;height:280px;" readonly="readonly">${memberAuthData.vipAccessory}</textarea></td>
 		</tr>
+		<%-- <tr>
+			<td>排序：</td>
+			<td><input id="member_mgr_memberAuth_form_infoNum" name="infoNum" class="easyui-numberspinner spinner" value="${memberAuthData.infoNum}" data-options="min:0,max:99,required:true,missingMessage:'请填写序号'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
+		</tr> --%>
 		<tr>
 			<td>审核意见：</td>
 			<td>
