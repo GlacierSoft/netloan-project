@@ -3,7 +3,7 @@
 <mapper namespace="com.glacier.netloan.dao.member.MemberTokenMapper" >
   <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.member.MemberToken" >
     <id column="temp_member_token_member_id" property="memberId" jdbcType="VARCHAR" />
-    <result column="temp_member_token_user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="temp_member_token_username" property="username" jdbcType="VARCHAR" />
     <result column="temp_member_token_password" property="password" jdbcType="VARCHAR" />
     <result column="temp_member_token_salt" property="salt" jdbcType="VARCHAR" />
   </resultMap>
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    temp_member_token.member_id as temp_member_token_member_id, temp_member_token.user_name as temp_member_token_user_name, 
+    temp_member_token.member_id as temp_member_token_member_id, temp_member_token.username as temp_member_token_username, 
     temp_member_token.password as temp_member_token_password, temp_member_token.salt as temp_member_token_salt
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.member.MemberTokenExample" >
@@ -103,9 +103,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.glacier.netloan.entity.member.MemberToken" >
-    insert into t_member_token (member_id, user_name, password, 
+    insert into t_member_token (member_id, username, password, 
       salt)
-    values (#{memberId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{memberId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{salt,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.member.MemberToken" >
@@ -114,8 +114,8 @@
       <if test="memberId != null" >
         member_id,
       </if>
-      <if test="userName != null" >
-        user_name,
+      <if test="username != null" >
+        username,
       </if>
       <if test="password != null" >
         password,
@@ -128,8 +128,8 @@
       <if test="memberId != null" >
         #{memberId,jdbcType=VARCHAR},
       </if>
-      <if test="userName != null" >
-        #{userName,jdbcType=VARCHAR},
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
@@ -151,8 +151,8 @@
       <if test="record.memberId != null" >
         temp_member_token.member_id = #{record.memberId,jdbcType=VARCHAR},
       </if>
-      <if test="record.userName != null" >
-        temp_member_token.user_name = #{record.userName,jdbcType=VARCHAR},
+      <if test="record.username != null" >
+        temp_member_token.username = #{record.username,jdbcType=VARCHAR},
       </if>
       <if test="record.password != null" >
         temp_member_token.password = #{record.password,jdbcType=VARCHAR},
@@ -168,7 +168,7 @@
   <update id="updateByExample" parameterType="map" >
     update t_member_token temp_member_token
     set temp_member_token.member_id = #{record.memberId,jdbcType=VARCHAR},
-      temp_member_token.user_name = #{record.userName,jdbcType=VARCHAR},
+      temp_member_token.username = #{record.username,jdbcType=VARCHAR},
       temp_member_token.password = #{record.password,jdbcType=VARCHAR},
       temp_member_token.salt = #{record.salt,jdbcType=VARCHAR}
     <if test="_parameter != null" >
@@ -178,8 +178,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.member.MemberToken" >
     update t_member_token
     <set >
-      <if test="userName != null" >
-        user_name = #{userName,jdbcType=VARCHAR},
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
@@ -192,7 +192,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.member.MemberToken" >
     update t_member_token
-    set user_name = #{userName,jdbcType=VARCHAR},
+    set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       salt = #{salt,jdbcType=VARCHAR}
     where member_id = #{memberId,jdbcType=VARCHAR}

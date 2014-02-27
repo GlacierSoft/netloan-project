@@ -194,73 +194,73 @@ public class MemberTokenExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserNameIsNull() {
-            addCriterion("temp_member_token.user_name is null");
+        public Criteria andUsernameIsNull() {
+            addCriterion("temp_member_token.username is null");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameIsNotNull() {
-            addCriterion("temp_member_token.user_name is not null");
+        public Criteria andUsernameIsNotNull() {
+            addCriterion("temp_member_token.username is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameEqualTo(String value) {
-            addCriterion("temp_member_token.user_name =", value, "userName");
+        public Criteria andUsernameEqualTo(String value) {
+            addCriterion("temp_member_token.username =", value, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameNotEqualTo(String value) {
-            addCriterion("temp_member_token.user_name <>", value, "userName");
+        public Criteria andUsernameNotEqualTo(String value) {
+            addCriterion("temp_member_token.username <>", value, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameGreaterThan(String value) {
-            addCriterion("temp_member_token.user_name >", value, "userName");
+        public Criteria andUsernameGreaterThan(String value) {
+            addCriterion("temp_member_token.username >", value, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_member_token.user_name >=", value, "userName");
+        public Criteria andUsernameGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_member_token.username >=", value, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameLessThan(String value) {
-            addCriterion("temp_member_token.user_name <", value, "userName");
+        public Criteria andUsernameLessThan(String value) {
+            addCriterion("temp_member_token.username <", value, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameLessThanOrEqualTo(String value) {
-            addCriterion("temp_member_token.user_name <=", value, "userName");
+        public Criteria andUsernameLessThanOrEqualTo(String value) {
+            addCriterion("temp_member_token.username <=", value, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameLike(String value) {
-            addCriterion("temp_member_token.user_name like", value, "userName");
+        public Criteria andUsernameLike(String value) {
+            addCriterion("temp_member_token.username like", value, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameNotLike(String value) {
-            addCriterion("temp_member_token.user_name not like", value, "userName");
+        public Criteria andUsernameNotLike(String value) {
+            addCriterion("temp_member_token.username not like", value, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameIn(List<String> values) {
-            addCriterion("temp_member_token.user_name in", values, "userName");
+        public Criteria andUsernameIn(List<String> values) {
+            addCriterion("temp_member_token.username in", values, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameNotIn(List<String> values) {
-            addCriterion("temp_member_token.user_name not in", values, "userName");
+        public Criteria andUsernameNotIn(List<String> values) {
+            addCriterion("temp_member_token.username not in", values, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameBetween(String value1, String value2) {
-            addCriterion("temp_member_token.user_name between", value1, value2, "userName");
+        public Criteria andUsernameBetween(String value1, String value2) {
+            addCriterion("temp_member_token.username between", value1, value2, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameNotBetween(String value1, String value2) {
-            addCriterion("temp_member_token.user_name not between", value1, value2, "userName");
+        public Criteria andUsernameNotBetween(String value1, String value2) {
+            addCriterion("temp_member_token.username not between", value1, value2, "username");
             return (Criteria) this;
         }
 

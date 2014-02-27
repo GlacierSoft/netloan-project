@@ -3,7 +3,7 @@ package com.glacier.netloan.entity.member;
 public class MemberToken {
     private String memberId;
 
-    private String userName;
+    private String username;
 
     private String password;
 
@@ -17,12 +17,12 @@ public class MemberToken {
         this.memberId = memberId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -54,7 +54,7 @@ public class MemberToken {
         }
         MemberToken other = (MemberToken) that;
         return (this.getMemberId() == null ? other.getMemberId() == null : this.getMemberId().equals(other.getMemberId()))
-            && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
+            && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
             && (this.getSalt() == null ? other.getSalt() == null : this.getSalt().equals(other.getSalt()));
     }
@@ -64,7 +64,7 @@ public class MemberToken {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getMemberId() == null) ? 0 : getMemberId().hashCode());
-        result = prime * result + ((getUserName() == null) ? 0 : getUserName().hashCode());
+        result = prime * result + ((getUsername() == null) ? 0 : getUsername().hashCode());
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         result = prime * result + ((getSalt() == null) ? 0 : getSalt().hashCode());
         return result;
