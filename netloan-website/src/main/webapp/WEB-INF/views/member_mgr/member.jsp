@@ -19,9 +19,9 @@
   
   
   
-  <!-- NAVBAR ============================= -->
+  
   <body>
-        <!-- Fixed navbar -->
+        <!-- NAVBAR START============================= -->
 	    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	      <div class="container">
 	        <div class="navbar-header">
@@ -34,54 +34,46 @@
 	          <a class="navbar-brand" href="#">冰川进销存平台</a>
 	        </div>
 	        <div class="navbar-collapse collapse">
-		          <ul class="nav navbar-nav">
-		            <li><a href="${ctx}/index.htm">主页</a></li>
-		            <li class="dropdown">
-		              <a href="#" class="dropdown-toggle" data-toggle="dropdown">我要投资<b class="caret"></b></a>
-		              <ul class="dropdown-menu">
-		                <li><a href="#">流转标</a></li>
-		                <li><a href="#">净值标</a></li>
-		                <li><a href="#">信用标</a></li>
-		                <li><a href="#">抵押标</a></li>
-		              </ul>
-		            </li>
-		            <li><a href="#contact">我要借款</a></li>
-		            <li class="dropdown">
-		              <a href="#" class="dropdown-toggle" data-toggle="dropdown">新手引导<b class="caret"></b></a>
-		              <ul class="dropdown-menu">
-		                <li><a href="#">借款流程</a></li>
-		                <li><a href="#">投资流程</a></li>
-		                <li><a href="#">风险保障</a></li>
-		              </ul>
-		            </li>
-		            <li class="active"><a href="#contact">个人中心</a></li>
-		            <li><a href="#contact">联系我们</a></li>
-		          </ul>
-		          <c:choose>
-				   <c:when test="${currentUser.userId == ''}">  
-		         		<form class="navbar-form navbar-right" role="search">
-					      <div id="userrname_form_group" class="form-group">
-					      	<label for="username" class="sr-only">用户名</label>
-					        <input id="username" name="username" type="text" class="form-control" placeholder="用户名">
-					      </div>
-					      <div id="password_form_group" class="form-group">
-					      	<label for="password" class="sr-only">密码</label>
-					        <input id="password" name="password" type="password" class="form-control" placeholder="密码">
-					      </div>
-					      <a href="#" class="btn btn-success" role="button" onclick="memberLogin();">登录</a>
-				   		</form>     
+	          <ul class="nav navbar-nav">
+	            <li><a href="${ctx}/index.htm">主页</a></li>
+	            <li class="dropdown">
+	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">我要投资<b class="caret"></b></a>
+	              <ul class="dropdown-menu">
+	                <li><a href="#">流转标</a></li>
+	                <li><a href="#">净值标</a></li>
+	                <li><a href="#">信用标</a></li>
+	                <li><a href="#">抵押标</a></li>
+	              </ul>
+	            </li>
+	            <li><a href="#contact">我要借款</a></li>
+	            <li class="dropdown">
+	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">新手引导<b class="caret"></b></a>
+	              <ul class="dropdown-menu">
+	                <li><a href="#">借款流程</a></li>
+	                <li><a href="#">投资流程</a></li>
+	                <li><a href="#">风险保障</a></li>
+	              </ul>
+	            </li>
+	            <li class="active"><a href="${ctx}/member/index.htm">个人中心</a></li>
+	            <li><a href="#contact">联系我们</a></li>
+	          </ul>
+	          <p class="navbar-text navbar-right">
+	          	<c:choose>
+				   <c:when test="${empty currentMember}">  
+		         		<span>您好，<a href="${ctx}/login.htm" class="navbar-link">请登录</a></span>
 				   </c:when>
-				   <c:otherwise> 
-				   		<p class="navbar-text navbar-right">
-				   			<span>您好！<a href="#" class="navbar-link">${currentUser.userCnName}</a><span class="badge">42</span></span>
-				   			<span><a href="#" class="navbar-link">个人中心</a></span>
-				   			<span><a href="#" class="navbar-link">退出</a></span>
-				   		</p>
+			   		<c:otherwise> 
+				   		<span>您好！<a href="#" class="navbar-link">${currentMember.memberRealName}</a><span class="badge">42</span></span>
+				   		<span><a href="${ctx}/member/index.htm" class="navbar-link">个人中心</a></span>
+				   		<span><a href="#" class="navbar-link">退出</a></span>
 				   </c:otherwise>
 				</c:choose>
+   				</p>
 	        </div>
 	      </div>
 	    </nav>
+	    <!-- NAVBAR END============================= -->
+	    <!-- CONTAINER START======================== -->
 	    <div class="container">
 	    <div class="row">
 		    <div class="col-md-2">
@@ -156,34 +148,6 @@
 				</div>
 	    	</div>
 	    </div>
+	    <!-- CONTAINER START======================== -->
   </body>
 </html>
-
-<script>
-function memberLogin(){
-	var validate = true;
-	var $username = $('#username');
-	if($username.val() === ''){
-		$('#userrname_form_group').addClass("has-error");
-		$username.focus();
-		validate = false;
-	}
-	var $password = $('#password');
-	if($password.val() === ''){
-		$('#password_form_group').addClass("has-error");
-		$password.focus();
-		validate =  false;
-	}
-	if(validate){//验证通过用户登录
-		$.ajax({
-			   type: "POST",
-			   url: ctx + "/login.json",
-			   data: {username:$username.val(),password:$password.val()},
-			   dataType:'json',
-			   success: function(r){
-				   	//console.log(r);
-			   }
-		});
-	}
-};
-</script>

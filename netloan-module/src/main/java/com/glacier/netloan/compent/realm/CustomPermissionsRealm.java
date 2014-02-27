@@ -39,7 +39,7 @@ import com.glacier.security.util.Encodes;
 /**
  * 
  * @ClassName: CustomPermissionsRealm
- * @Description: TODO(自定义执行认证和授权的类)
+ * @Description: TODO(管理员进行自定义执行认证和授权的类)
  * @author zhenfei.zhang
  * @email zhangzhenfei_email@163.com
  * @date 2012-12-27 下午2:03:58

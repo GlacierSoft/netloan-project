@@ -12,15 +12,9 @@
   </head>
 
   
-  
-  
-  <!-- NAVBAR
-================================================== -->
   <body>
-    <div class="navbar-wrapper">
-      <div class="container">
-        <!-- Fixed navbar -->
-	    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    	<!-- NAVBAR START============================= -->
+	    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	      <div class="container">
 	        <div class="navbar-header">
 	          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -52,29 +46,28 @@
 	                <li><a href="#">风险保障</a></li>
 	              </ul>
 	            </li>
-	            <li><a href="member/index.htm">个人中心</a></li>
+	            <li><a href="${ctx}/member/index.htm">个人中心</a></li>
 	            <li><a href="#contact">联系我们</a></li>
 	          </ul>
-		          <form class="navbar-form navbar-right" role="search">
-				      <div class="form-group">
-				      	<label for="username" class="sr-only">用户名</label>
-				        <input type="text" class="form-control" placeholder="用户名">
-				      </div>
-				      <div class="form-group">
-				      	<label for="password" class="sr-only">密码</label>
-				        <input type="password" class="form-control" placeholder="密码">
-				      </div>
-				      <button type="submit" class="btn btn-info">登录</button>
-			    </form>
+	          	<p class="navbar-text navbar-right">
+	          	<c:choose>
+				   <c:when test="${empty currentMember}">  
+		         		<span>您好，<a href="${ctx}/login.htm" class="navbar-link">请登录</a></span>
+				   </c:when>
+			   		<c:otherwise> 
+				   		<span>您好！<a href="#" class="navbar-link">${currentMember.memberRealName}</a><span class="badge">42</span></span>
+				   		<span><a href="${ctx}/member/index.htm" class="navbar-link">个人中心</a></span>
+				   		<span><a href="#" class="navbar-link">退出</a></span>
+				   </c:otherwise>
+				</c:choose>
+   				</p>
 	        </div>
 	      </div>
-	    </div>
-      </div>
-    </div>
+	    </nav>
+	    <!-- NAVBAR END============================= -->
 
 
-    <!-- Carousel
-    ================================================== -->
+    <!-- Carousel ============================= -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators">
@@ -120,10 +113,7 @@
 
 
 
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
+    <!-- Marketing messaging and featurettes ====================== -->
     <div class="container marketing">
 
       <!-- Three columns of text below the carousel -->
@@ -198,10 +188,8 @@
         <p>&copy; 2013 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
       </footer>
 
-    </div><!-- /.container -->
-
-
-    <script src="http://cdn.bootcss.com/holder/2.0/holder.min.js"></script>
+    </div>
+	<!-- /.container -->
   </body>
 </html>
 

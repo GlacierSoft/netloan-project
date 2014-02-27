@@ -57,7 +57,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             Subject subject = getSubject(request, response);
             subject.login(token);
             HttpSession session = ((HttpServletRequest) request).getSession(false);
-            session.setAttribute("currentUser", subject.getPrincipal());
+            session.setAttribute("currentMember", subject.getPrincipal());
             return onLoginSuccess(token, subject, request, response);
         } catch (AuthenticationException e) {
             return onLoginFailure(token, e, request, response);

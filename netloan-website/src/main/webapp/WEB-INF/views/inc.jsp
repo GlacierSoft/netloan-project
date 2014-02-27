@@ -28,7 +28,9 @@
    <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
  <![endif]-->
 
-
+<!-- CDN加速的可以用自己的JS替换 -->
 <script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/holder/2.0/holder.min.js"></script>
+
 <script src="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/js/bootstrap.min.js"></script>
 

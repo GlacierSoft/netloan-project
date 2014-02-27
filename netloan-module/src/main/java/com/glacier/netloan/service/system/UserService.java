@@ -86,10 +86,11 @@ public class UserService {
 
     public static void main(String[] args) {
         User user = new User();
-        user.setUsername("admin");
-        user.setPassword("admin");
+        user.setUsername("zhangsan");
+        user.setPassword("zhangsan");
         UserService userService = new UserService();
         userService.entryptPassword(user);
+        System.out.println(user);
     }
 
     /**

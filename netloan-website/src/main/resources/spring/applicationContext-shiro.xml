@@ -7,7 +7,7 @@
 	default-lazy-init="true">
 
 	<!-- 自定义的realm，自定义登录验证和认证方法 -->
-	<bean id="customPermissionsRealm" class="com.glacier.netloan.compent.realm.CustomPermissionsRealm" />
+	<bean id="customPermissionsRealm" class="com.glacier.netloan.compent.realm.MemberPermissionsRealm" />
 
 	<!-- shiro的安全管理，整合了事务 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
@@ -18,8 +18,8 @@
 	<!-- Shiro Filter -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/login.json" /><!-- 登录失败请求url -->
-		<property name="successUrl" value="/loginSucceed.json" /><!-- 登录成功以及登录失败请求url -->
+		<property name="loginUrl" value="/login.htm" /><!-- 登录失败请求url -->
+		<property name="successUrl" value="/index.htm" /><!-- 登录成功以及登录失败请求url -->
 		<property name="unauthorizedUrl" value="/login.htm" /><!-- 未授权会员查看url -->
 		<property name="filters">
 			<util:map>
@@ -30,8 +30,8 @@
 		</property>
 		<property name="filterChainDefinitions">
 			<value>
-				/login.json = authc
-				/safe/* = user
+				/login.htm = authc
+				/member/* = user
 			</value>
 		</property>
 	</bean>
