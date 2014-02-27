@@ -67,9 +67,12 @@ public class MemberController extends AbstractController{
     // 增加会员
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addMember(@Valid Member member,@Valid MemberWork memberWork, BindingResult bindingResult) {
+    private Object addMember(@Valid Member member,BindingResult bindingResult,@Valid MemberWork memberWork,BindingResult bindingResultWork) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
+        }
+        if (bindingResultWork.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResultWork);
         }
         return memberService.addMemberandWorkandAuth(member, memberWork);
     }
@@ -79,9 +82,11 @@ public class MemberController extends AbstractController{
     @ResponseBody
     private Object editMember(@Valid Member member,BindingResult bindingResult,@Valid MemberWork memberWork,BindingResult bindingResultWork) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
+        	System.out.println("        eeeeeeeeee     ");
             return returnErrorBindingResult(bindingResult);
         }
         if (bindingResultWork.hasErrors()) {// 后台校验的错误信息
+        	System.out.println("        aaaaaaaaaaa     ");
             return returnErrorBindingResult(bindingResultWork);
         }
         return memberService.editMemberandWork(member, memberWork);

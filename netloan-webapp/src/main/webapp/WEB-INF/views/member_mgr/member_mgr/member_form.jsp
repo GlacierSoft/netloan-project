@@ -7,7 +7,7 @@
     	<fieldset id="user_mgr_user_form_userGenfieldset" style="padding:10px;" class="spinner">
 			<legend>会员定义</legend>  
 			<table class="formtable">
-					<tr>
+					<tr>	
 						<td>会员名称：</td>
 						<td>
 							<input type="hidden" id="member_mgr_member_form_memberId" name="memberId" value="${memberData.memberId}" />
@@ -18,7 +18,7 @@
 					</tr>
 					<tr>
 						<td>会员密码：</td>
-						<td><input id="member_mgr_member_form_memberPassword" name="memberPassword" value="${memberData.memberPassword}" class="easyui-validatebox spinner" style="width:268px" required="true" /></td>
+						<td><input id="member_mgr_member_form_memberPassword" name="memberPassword" value="${memberData.memberPassword}" class="easyui-validatebox spinner" style="width:268px" required="true" validType="length[6,12]" invalidMessage="密码必须在6到12个字符之间"/></td>
 						<td style="padding-left:10px;">会员年龄：</td>
 						<td><input id="member_mgr_member_form_memberAge" name="memberAge" value="${memberData.memberAge}" class="easyui-numberspinner spinner" data-options="min:0,max:99,required:true,missingMessage:'请填写年龄'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 					</tr>
@@ -54,7 +54,7 @@
 					<tr>
 						<td>手机号码：</td>
 						<td>
-							<input id="member_mgr_member_form_mobileNumber" name="mobileNumber" value="${memberData.mobileNumber}" style="width:268px" class="easyui-validatebox spinner" data-options="required:true,validType:'mobile'"/>
+							<input id="member_mgr_member_form_mobileNumber" name="mobileNumber" value="${memberData.mobileNumber}" style="width:268px" class="easyui-validatebox spinner" required="true" validType="customReg['^[1][3458][0-9]{9}$','<fmt:message key="Member.mobileNumber.illegal"/>']"/>
 						</td>
 						<td style="padding-left:10px;">住宅电话：</td>
 						<td><input id="member_mgr_member_form_homePhone" name="homePhone" value="${memberData.homePhone}" style="width:268px" class="easyui-validatebox spinner" data-options="required:true,validType:'tel'"/></td>
@@ -79,7 +79,7 @@
 					</tr>
 					<tr>
 						<td>第一联系人手机：</td>
-						<td><input id="member_mgr_member_form_firstContactPhone" name="firstContactPhone" style="width:268px" value="${memberData.firstContactPhone}" class="easyui-validatebox spinner" data-options="validType:'mobile'"/></td>
+						<td><input id="member_mgr_member_form_firstContactPhone" name="firstContactPhone" style="width:268px" value="${memberData.firstContactPhone}" class="easyui-validatebox spinner" validType="customReg['^[1][3458][0-9]{9}$','<fmt:message key="Member.mobileNumber.illegal"/>']"/></td>
 						<td style="padding-left:10px;">第一联系人地址：</td>
 						<td><input id="member_mgr_member_form_firstContactAddress" name="firstContactAddress" value="${memberData.firstContactAddress}" class="easyui-validatebox spinner" style="width:268px"  /></td>
 					</tr>
@@ -91,7 +91,7 @@
 					</tr>
 					<tr>
 						<td>第二联系人手机：</td>
-						<td><input id="member_mgr_member_form_secondContactPhone" name="secondContactPhone" value="${memberData.secondContactPhone}" style="width:268px" class="easyui-validatebox spinner" data-options="validType:'mobile'"/></td>
+						<td><input id="member_mgr_member_form_secondContactPhone" name="secondContactPhone" value="${memberData.secondContactPhone}" style="width:268px" class="easyui-validatebox spinner" validType="customReg['^[1][3458][0-9]{9}$','<fmt:message key="Member.mobileNumber.illegal"/>']"/></td>
 						<td style="padding-left:10px;">第二联系人地址：</td>
 						<td><input id="member_mgr_member_form_secondContactAddress" name="secondContactAddress" value="${memberData.secondContactAddress}" style="width:268px"  class="easyui-validatebox spinner"/></td>
 					</tr>
@@ -107,57 +107,35 @@ maxlength="255" class="spinner formta">${memberData.remark}</textarea></td>
      <div title="工作信息" style="padding:15px">
     	<fieldset id="user_mgr_user_form_connetGenfieldset" style="padding:10px;" class="spinner">
 			<legend>工作信息</legend>  
-<%-- 			<table class="formtable">
+			<table class="formtable">
 					<tr>
 						<td>单位名称：</td>
 						<td colspan="3">
-							<input type="hidden" id="memberWork_mgr_memberWork_form_memberId" name="memberId" 
-
-value="${memberWorkData.memberId}" />
-							<input id="member_mgr_member_form_unitName" name="unitName" value="${memberWorkData.unitName}" 
-
-style="width:268px"  class="easyui-validatebox spinner" data-options="required:true,validType:'length[1,25]'" invalidMessage="单位名称必须在1到25个字符之间" />
+							<input type="hidden" id="memberWork_mgr_memberWork_form_memberId" name="memberId" value="${memberWorkData.memberId}" />
+							<input id="member_mgr_member_form_unitName" name="unitName" value="${memberWorkData.unitName}" style="width:268px"  class="easyui-validatebox spinner" data-options="required:true,validType:'length[1,25]'" invalidMessage="单位名称必须在1到25个字符之间" />
 						</td>
 					</tr>
 					<tr>
 						<td>单位电话：</td>
-						<td><input id="member_mgr_member_form_unitPhone" name="unitPhone" value="${memberWorkData.unitPhone}" 
-
-style="width:268px" class="easyui-validatebox spinner" data-options="required:true,validType:'tel'"/></td>
+						<td><input id="member_mgr_member_form_unitPhone" name="unitPhone" value="${memberWorkData.unitPhone}" style="width:268px" class="easyui-validatebox spinner" data-options="required:true,validType:'tel'"/></td>
 						<td style="padding-left:10px;">单位地址：</td>
-						<td><input id="member_mgr_member_form_unitAdress" name="unitAdress"  value="${memberWorkData.unitAdress}" 
-
-style="width:268px" class="easyui-validatebox spinner"  required="true"/></td>
+						<td><input id="member_mgr_member_form_unitAdress" name="unitAdress"  value="${memberWorkData.unitAdress}" style="width:268px" class="easyui-validatebox spinner"  required="true"/></td>
 					</tr>
 					<tr>
 						<td>工作年限：</td>
-						<td><input id="member_mgr_member_form_workAge" name="workAge" value="${memberWorkData.workAge}" class="easyui-
-
-numberspinner spinner" required="true" data-options="min:0,max:99,required:true,missingMessage:'请填写年龄'" value="10" style="width: 270px;height:18px;" min="1" 
-
-max="99"/></td>
+						<td><input id="member_mgr_member_form_workAge" name="workAge" value="${memberWorkData.workAge}" class="easyui-numberspinner spinner" required="true" data-options="min:0,max:99,required:true,missingMessage:'请填写年龄'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 						<td style="padding-left:10px;">年薪：</td>
-						<td><input id="member_mgr_member_form_salary" name="salary" value="${memberWorkData.salary}" style="width:268px"  
-
-class="easyui-validatebox spinner" data-options="required:true,validType:'numeric('Float')'" /></td>
-						<td><input id="member_mgr_member_form_salary" name="salary" value="${memberWorkData.salary}" style="width:268px"  
-
-class="easyui-validatebox spinner" required=true /></td>
+						<%-- <td><input id="member_mgr_member_form_salary" name="salary" value="${memberWorkData.salary}" style="width:268px"  class="easyui-validatebox spinner" data-options="required:true,validType:'numeric('Float')'" /></td> --%>
+						<td><input id="member_mgr_member_form_salary" name="salary" value="${memberWorkData.salary}" style="width:268px"  class="easyui-validatebox spinner" required=true /></td>
 					</tr>
 					<tr>
 						<td>证明人：</td>
-						<td><input id="member_mgr_member_form_proofPerson" name="proofPerson" value="${memberWorkData.proofPerson}" 
-
-style="width:268px" class="easyui-validatebox spinner" required="true" data-options="required:true,validType:'length[1,10]'" invalidMessage="证明人必须在1到10个字符之
-
-间"/></td>
+						<td><input id="member_mgr_member_form_proofPerson" name="proofPerson" value="${memberWorkData.proofPerson}" style="width:268px" class="easyui-validatebox spinner" required="true" data-options="required:true,validType:'length[1,10]'" invalidMessage="证明人必须在1到10个字符之间"/></td>
 						<td style="padding-left:10px;">证明人手机：</td>
-						<td><input id="member_mgr_member_form_proofPhone" name="proofPhone" value="${memberWorkData.proofPhone}" 
-
-style="width:268px" class="easyui-validatebox spinner" data-options="required:true,validType:'mobile'"/></td>
+						<td><input id="member_mgr_member_form_proofPhone" name="proofPhone" value="${memberWorkData.proofPhone}" style="width:268px" class="easyui-validatebox spinner" validType="customReg['^[1][3458][0-9]{9}$','<fmt:message key="Member.mobileNumber.illegal"/>']"/></td>
 					</tr>
-				</table> --%>
-				<table class="formtable">
+				</table>
+				<%-- <table class="formtable">
 					<tr>
 						<td>单位名称：</td>
 						<td colspan="3">
@@ -182,7 +160,7 @@ style="width:268px" class="easyui-validatebox spinner" data-options="required:tr
 						<td style="padding-left:10px;">证明人手机：</td>
 						<td><input id="member_mgr_member_form_proofPhone" name="proofPhone" value="${memberWorkData.proofPhone}" style="width:268px" /></td>
 					</tr>
-				</table>
+				</table> --%>
 		</fieldset>
     </div>
 </form>

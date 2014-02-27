@@ -17,6 +17,7 @@
 			<td>审核意见：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_memberId" type="hidden" name="memberId" class="spinner" style="width:168px" value="${memberAuthData.memberId}" />
+				<input id="member_mgr_memberAuth_form_memberName" type="hidden" name="memberName" class="spinner" style="width:168px" value="${memberAuthData.memberName}" />
 				<textarea id="member_mgr_memberAuth_form_infoRemark" name="infoRemark" style="width:400px;" maxlength="255" class="spinner formta">${memberAuthData.infoRemark}</textarea>
 			</td>
 		</tr>

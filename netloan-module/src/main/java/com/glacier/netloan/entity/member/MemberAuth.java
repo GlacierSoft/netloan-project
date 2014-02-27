@@ -2,7 +2,6 @@ package com.glacier.netloan.entity.member;
 
 import java.util.Date;
 
-import org.hibernate.validator.constraints.Length;
 
 public class MemberAuth {
     private String memberId;
@@ -46,7 +45,7 @@ public class MemberAuth {
      */
     private String infoAuditorDisplay;
 
-    @Length(min = 1,max = 255, message = "{MemberAuth.infoRemark.illegal}")
+   // @Length(min = 1,max = 255, message = "{MemberAuth.infoRemark.illegal}")
     private String infoRemark;
 
     private Date infoTime;
@@ -64,7 +63,7 @@ public class MemberAuth {
      */
     private String vipAuditorDisplay;
 
-    @Length(min = 1,max = 255, message = "{MemberAuth.vipRemark.illegal}")
+    //@Length(min = 1,max = 255, message = "{MemberAuth.vipRemark.illegal}")
     private String vipRemark;
 
     private Date vipTime;
@@ -82,7 +81,7 @@ public class MemberAuth {
      */
     private String emailAuditorDisplay;
     
-    @Length(min = 1,max = 255, message = "{MemberAuth.emailRemark.illegal}")
+    //@Length(min = 1,max = 255, message = "{MemberAuth.emailRemark.illegal}")
     private String emailRemark;
 
     private Date emailTime;
@@ -100,7 +99,7 @@ public class MemberAuth {
      */
     private String mobileAuditorDisplay;
 
-    @Length(min = 1,max = 255, message = "{MemberAuth.mobileRemark.illegal}")
+    //@Length(min = 1,max = 255, message = "{MemberAuth.mobileRemark.illegal}")
     private String mobileRemark;
 
     private Date mobileTime;
@@ -118,7 +117,7 @@ public class MemberAuth {
      */
     private String creditAuditorDisplay;
 
-    @Length(min = 1,max = 255, message = "{MemberAuth.creditRemark.illegal}")
+    //@Length(min = 1,max = 255, message = "{MemberAuth.creditRemark.illegal}")
     private String creditRemark;
 
     private Date creditTime;
@@ -136,7 +135,7 @@ public class MemberAuth {
      */
     private String companyAuditorDisplay;
 
-    @Length(min = 1,max = 255, message = "{MemberAuth.companyRemark.illegal}")
+    //@Length(min = 1,max = 255, message = "{MemberAuth.companyRemark.illegal}")
     private String companyRemark;
 
     private Date companyTime;
@@ -154,7 +153,7 @@ public class MemberAuth {
      */
     private String realNameAuditorDisplay;
 
-    @Length(min = 1,max = 255, message = "{MemberAuth.realNameRemark.illegal}")
+    //@Length(min = 1,max = 255, message = "{MemberAuth.realNameRemark.illegal}")
     private String realNameRemark;
 
     private Date realNameTime;
@@ -172,7 +171,7 @@ public class MemberAuth {
      */
     private String idCardAuditorDisplay;
 
-    @Length(min = 1,max = 255, message = "{MemberAuth.idCardRemark.illegal}")
+    //@Length(min = 1,max = 255, message = "{MemberAuth.idCardRemark.illegal}")
     private String idCardRemark;
 
     private Date idCardTime;
@@ -190,7 +189,7 @@ public class MemberAuth {
      */
     private String workAuditorDisplay;
 
-    @Length(min = 1,max = 255, message = "{MemberAuth.workRemark.illegal}")
+    //@Length(min = 1,max = 255, message = "{MemberAuth.workRemark.illegal}")
     private String workRemark;
 
     private Date workTime;

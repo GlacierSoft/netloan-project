@@ -134,6 +134,12 @@ public class MemberService {
             return returnResult;
         }
         //增加会员信息
+        if(member.getFirstContactRelation() == null || member.getFirstContactRelation().equals("")){
+        	member.setFirstContactRelation("family");
+        }
+        if(member.getSecondContactRelation() == null || member.getSecondContactRelation().equals("")){
+        	member.setSecondContactRelation("family");
+        }
         
         member.setMemberId(memberId);
         member.setIntegral((float) 0);
@@ -152,6 +158,24 @@ public class MemberService {
         //生成会员认证表信息
         MemberAuthWithBLOBs memberAuthWithBLOBs = new MemberAuthWithBLOBs();
         memberAuthWithBLOBs.setMemberId(memberId);
+        memberAuthWithBLOBs.setInfoName("基本信息认证");
+        memberAuthWithBLOBs.setInfoAuth("noapply");
+        memberAuthWithBLOBs.setVipName("VIP认证");
+        memberAuthWithBLOBs.setVipAuth("noapply");
+        memberAuthWithBLOBs.setEmailName("邮箱认证");
+        memberAuthWithBLOBs.setEmailAuth("noapply");
+        memberAuthWithBLOBs.setMobileName("手机认证");
+        memberAuthWithBLOBs.setMobileAuth("noapply");
+        memberAuthWithBLOBs.setCreditName("信用认证");
+        memberAuthWithBLOBs.setCreditAuth("noapply");
+        memberAuthWithBLOBs.setCompanyName("企业认证");
+        memberAuthWithBLOBs.setCompanyAuth("noapply");
+        memberAuthWithBLOBs.setRealName("真实姓名认证");
+        memberAuthWithBLOBs.setRealNameAuth("noapply");
+        memberAuthWithBLOBs.setIdCardName("身份证认证");
+        memberAuthWithBLOBs.setIdCardAuth("noapply");
+        memberAuthWithBLOBs.setWorkName("工作认证");
+        memberAuthWithBLOBs.setWorkAuth("noapply");
         memberAuthMapper.insert(memberAuthWithBLOBs);
         
         if (count == 1 && countWork == 1) {
