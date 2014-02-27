@@ -1039,8 +1039,11 @@
       <if test="infoName != null" >
         info_name = #{infoName,jdbcType=VARCHAR},
       </if>
-      <if test="infoAuth != null" >
+      <!-- <if test="infoAuth != null && (!infoAuth.equals(''))" > -->
+       <if test="infoAuth != null" >
+        <if test="!infoAuth.equals('')" > 
         info_auth = #{infoAuth,jdbcType=CHAR},
+        </if>
       </if>
       <if test="infoAuditor != null" >
         info_auditor = #{infoAuditor,jdbcType=VARCHAR},
@@ -1058,7 +1061,10 @@
         vip_name = #{vipName,jdbcType=VARCHAR},
       </if>
       <if test="vipAuth != null" >
+      <if test="!vipAuth.equals('')" >
+<!--       <if test="vipAuth != null && vipAuth.equals('')" > -->
         vip_auth = #{vipAuth,jdbcType=CHAR},
+      </if>
       </if>
       <if test="vipAuditor != null" >
         vip_auditor = #{vipAuditor,jdbcType=VARCHAR},
@@ -1076,7 +1082,10 @@
         email_name = #{emailName,jdbcType=VARCHAR},
       </if>
       <if test="emailAuth != null" >
+      <if test="!emailAuth.equals('')" >
+<!--       <if test="emailAuth != null && emailAuth.equals('')" > -->
         email_auth = #{emailAuth,jdbcType=CHAR},
+      </if>
       </if>
       <if test="emailAuditor != null" >
         email_auditor = #{emailAuditor,jdbcType=VARCHAR},
@@ -1094,7 +1103,10 @@
         mobile_name = #{mobileName,jdbcType=VARCHAR},
       </if>
       <if test="mobileAuth != null" >
+      <if test="!mobileAuth.equals('')" >
+<!--       <if test="mobileAuth != null && mobileAuth.equals('')" > -->
         mobile_auth = #{mobileAuth,jdbcType=CHAR},
+      </if>
       </if>
       <if test="mobileAuditor != null" >
         mobile_auditor = #{mobileAuditor,jdbcType=VARCHAR},
@@ -1112,7 +1124,10 @@
         credit_name = #{creditName,jdbcType=VARCHAR},
       </if>
       <if test="creditAuth != null" >
+      <if test="!creditAuth.equals('')" >
+<!--       <if test="creditAuth != null && creditAuth.equals('')" > -->
         credit_auth = #{creditAuth,jdbcType=CHAR},
+      </if>
       </if>
       <if test="creditAuditor != null" >
         credit_auditor = #{creditAuditor,jdbcType=VARCHAR},
@@ -1130,7 +1145,10 @@
         company_name = #{companyName,jdbcType=VARCHAR},
       </if>
       <if test="companyAuth != null" >
+      <if test="!companyAuth.equals('')" >
+<!--       <if test="companyAuth != null && companyAuth.equals('')" > -->
         company_auth = #{companyAuth,jdbcType=CHAR},
+      </if>
       </if>
       <if test="companyAuditor != null" >
         company_auditor = #{companyAuditor,jdbcType=VARCHAR},
@@ -1148,7 +1166,10 @@
         real_name = #{realName,jdbcType=VARCHAR},
       </if>
       <if test="realNameAuth != null" >
+      <if test="!realNameAuth.equals('')" >
+<!--       <if test="realNameAuth != null && realNameAuth.equals('')" > -->
         real_name_auth = #{realNameAuth,jdbcType=CHAR},
+      </if>
       </if>
       <if test="realNameAuditor != null" >
         real_name_auditor = #{realNameAuditor,jdbcType=VARCHAR},
@@ -1166,7 +1187,10 @@
         id_card_name = #{idCardName,jdbcType=VARCHAR},
       </if>
       <if test="idCardAuth != null" >
+      <if test="!idCardAuth.equals('')" >
+<!--       <if test="idCardAuth != null && idCardAuth.equals('')" > -->
         id_card_auth = #{idCardAuth,jdbcType=CHAR},
+      </if>
       </if>
       <if test="idCardAuditor != null" >
         id_card_auditor = #{idCardAuditor,jdbcType=VARCHAR},
@@ -1184,7 +1208,10 @@
         work_name = #{workName,jdbcType=VARCHAR},
       </if>
       <if test="workAuth != null" >
+      <if test="!workAuth.equals('')" >
+<!--       <if test="workAuth != null && workAuth.equals('')" > -->
         work_auth = #{workAuth,jdbcType=CHAR},
+      </if>
       </if>
       <if test="workAuditor != null" >
         work_auditor = #{workAuditor,jdbcType=VARCHAR},

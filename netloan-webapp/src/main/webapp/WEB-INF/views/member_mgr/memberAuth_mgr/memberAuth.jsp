@@ -154,7 +154,7 @@
 				title: rowData.memberName,
 				href : ctx + '/do/memberAuth/intoDetail.htm?memberId='+rowData.memberId,//从controller请求jsp页面进行渲染
 				width : 800,
-				height : 620,
+				height : 600,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -162,6 +162,33 @@
 		}
 	});
 
+	//点击审核按钮触发方法
+	glacier.member_mgr.memberAuth_mgr.memberAuth.authMemberAuth = function(){
+		var row = glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid("getSelected");
+/* 		glacier.basicAddOrEditDialog({
+			title : '认证【'+row.memberName+'】',
+			width : 835,
+			height : 395,
+			queryUrl : ctx + '/do/memberAuth/intoForm.htm',
+			//submitUrl : ctx + '/do/memberAuth/auth.json',
+			queryParams : {
+				memberId : row.memberId
+			},
+			successFun : function (){
+				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+			}
+		}); */
+		$.easyui.showDialog({
+			title: '认证【'+row.memberName+'】',
+			href : ctx + '/do/memberAuth/intoForm.htm?memberId='+row.memberId,//从controller请求jsp页面进行渲染
+			width : 835,
+			height : 395,
+			resizable: false,
+			enableApplyButton : false,
+			enableSaveButton : false
+		});
+	};
+	
 	//点击增加按钮触发方法
 	glacier.member_mgr.memberAuth_mgr.memberAuth.addMember = function(){
 		glacier.basicAddOrEditDialog({
@@ -184,10 +211,10 @@
 			width : 835,
 			height : 395,
 			queryUrl : ctx + '/do/memberAuth/intoForm.htm',
-			submitUrl : ctx + '/do/memberAuth/edit.json',
-			queryParams : {
-				memberId : row.memberId
-			},
+			//submitUrl : ctx + '/do/memberAuth/edit.json',
+			//queryParams : {
+			//	memberId : row.memberId
+			//},
 			successFun : function (){
 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
 			}
