@@ -10,7 +10,17 @@
   <version>0.0.1-SNAPSHOT</version>
   
   <dependencies>
+ 		<!-- avax.mail begin -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+		</dependency>
+        <!-- avax.mail end -->
 		<!-- apache common begin -->
+		<dependency>
+		  <groupId>org.apache.commons</groupId>
+		  <artifactId>commons-email</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
