@@ -15,6 +15,7 @@
 
 <!-- 引入bootstrap样式 -->
 <link rel="stylesheet" href="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/css/bootstrap.min.css"></link>
+<link rel="stylesheet" href="${ctx}/resources/js/bootstrap-switch/bootstrap-switch.min.css"></link>
 <!-- 自定义主页样式 -->
 <link rel="stylesheet" href="${ctx}/resources/css/index.css"></link>
 
@@ -32,4 +33,6 @@
 <script src="http://cdn.bootcss.com/holder/2.0/holder.min.js"></script>
 
 <script src="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/js/bootstrap.min.js"></script>
+<script src="${ctx}/resources/js/bootstrap-switch/bootstrap-switch.min.js" type="text/javascript"></script>
+<script src="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/js/alert.js" type="text/javascript"></script>
 

@@ -22,7 +22,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- avax.mail begin -->
 		<javax.mail.version>1.4.7</javax.mail.version>
-		<javax.activation.version>1.1.1</javax.activation.version>		
 		<!-- avax.mail end -->
 		<!-- apache common begin -->
 		<commons.io.version>2.4</commons.io.version>
@@ -78,11 +77,6 @@
 				<groupId>javax.mail</groupId>
 				<artifactId>mail</artifactId>
 				<version>${javax.mail.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.activation</groupId>
-				<artifactId>activation</artifactId>
-				<version>${javax.activation.version}</version>
 			</dependency>
             <!-- avax.mail end -->
 			<!-- apache common begin -->

@@ -15,10 +15,6 @@
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>javax.activation</groupId>
-			<artifactId>activation</artifactId>
-		</dependency>
         <!-- avax.mail end -->
 		<!-- apache common begin -->
 		<dependency>
