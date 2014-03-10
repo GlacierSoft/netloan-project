@@ -103,10 +103,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			      <input type="password" class="form-control" id="password" name="password" placeholder="密码" required />
 			    </div>
 			  </div>
-			 <li>验证码：<input type="text" name="validateCode" />
+<%-- 			 <li>验证码：<input type="text" name="validateCode" />
 				 &nbsp;&nbsp;<img id="validateCodeImg" src="<%=basePath%>/validateCode.htm" />
 				 &nbsp;&nbsp;<a href="#" onclick="javascript:reloadValidateCode();">看不清？</a>
-				 </li>
+				 </li> --%>
 			  <div class="form-group">
 			    <label for="inputPassword" class="col-sm-5 control-label">还没加入冰川网贷？<a href="${ctx}/intoregister.htm" class="navbar-link">立即注册</a></label>
 			    <div class="col-sm-2"></div>
