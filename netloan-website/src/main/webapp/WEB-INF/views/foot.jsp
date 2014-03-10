@@ -13,14 +13,4 @@
         <p>版权所有&copy; 2013 珠海冰川软件有限公司, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
       </footer>
 	    <!-- FOOTER END============================= -->
-	    <div class="footer">
-			<div class="container">
-				<div class="footer-inner"> 2013 © Metronic by keenthemes. </div>
-				<div class="footer-tools">
-					<span class="go-top">
-						<i class="icon-angle-up"></i>
-					</span>
-				</div>
-			</div>
-		</div>
-		
+	   
