@@ -97,7 +97,7 @@
 		<listener-class>
 			com.glacier.netloan.web.listener.SystemInitListener
 		</listener-class>
-	</listener>
+	</listener> 
 	
 	<!-- 出错页面定义 -->
 	<error-page>

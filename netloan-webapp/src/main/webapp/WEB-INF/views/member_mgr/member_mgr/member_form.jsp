@@ -123,14 +123,14 @@ maxlength="255" class="spinner formta">${memberData.remark}</textarea></td>
 					</tr>
 					<tr>
 						<td>工作年限：</td>
-						<td><input id="member_mgr_member_form_workAge" name="workAge" value="${memberWorkData.workAge}" class="easyui-numberspinner spinner"  data-options="min:0,max:99,required:true,missingMessage:'请填写年龄'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
+						<td><input id="member_mgr_member_form_workAge" name="workAge" value="${memberWorkData.workAge}" class="easyui-numberspinner spinner"  data-options="min:0,max:99,missingMessage:'请填写年龄'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 						<td style="padding-left:10px;">年薪：</td>
 						<%-- <td><input id="member_mgr_member_form_salary" name="salary" value="${memberWorkData.salary}" style="width:268px"  class="easyui-validatebox spinner" data-options="required:true,validType:'numeric('Float')'" /></td> --%>
-						<td><input id="member_mgr_member_form_salary" name="salary" value="${memberWorkData.salary}" style="width:268px"  class="easyui-validatebox spinner" validType="customReg['^\d+\.*\d*$','<fmt:message key="MemberWork.salary.illegal"/>']" />万</td>
+						<td><input id="member_mgr_member_form_salary" name="salary" value="${memberWorkData.salary}" style="width:268px"  class="easyui-validatebox spinner" validType="customReg['^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$','<fmt:message key="MemberWork.salary.illegal"/>']" />万</td>
 					</tr>
 					<tr>
 						<td>证明人：</td>
-						<td><input id="member_mgr_member_form_proofPerson" name="proofPerson" value="${memberWorkData.proofPerson}" style="width:268px" class="easyui-validatebox spinner"  data-options="required:true,validType:'length[1,10]'" invalidMessage="证明人必须在1到10个字符之间"/></td>
+						<td><input id="member_mgr_member_form_proofPerson" name="proofPerson" value="${memberWorkData.proofPerson}" style="width:268px" class="easyui-validatebox spinner"  data-options="validType:'length[1,10]'" invalidMessage="证明人必须在1到10个字符之间"/></td>
 						<td style="padding-left:10px;">证明人手机：</td>
 						<td><input id="member_mgr_member_form_proofPhone" name="proofPhone" value="${memberWorkData.proofPhone}" style="width:268px" class="easyui-validatebox spinner" validType="customReg['^[1][3458][0-9]{9}$','<fmt:message key="Member.mobileNumber.illegal"/>']"/></td>
 					</tr>

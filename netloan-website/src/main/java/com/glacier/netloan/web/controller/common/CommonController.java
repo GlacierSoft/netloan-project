@@ -19,6 +19,14 @@
  */
 package com.glacier.netloan.web.controller.common;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +35,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.util.ValidateCode;
 
 /**
  * @ClassName: CommonController
@@ -79,5 +88,36 @@ public class CommonController {
         }
         return "login";
     }
-
+    /**
+     * 生成验证码
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping(value = "/validateCode.htm")
+    public void validateCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    	System.out.println("aaaaaaaaaaaaa");
+        response.setHeader("Pragma","No-cache");  
+        response.setHeader("Cache-Control","no-cache");  
+        response.setDateHeader("Expires", 0);  
+        System.out.println("11111111111");
+        String verifyCode = ValidateCode.generateTextCode(ValidateCode.TYPE_NUM_ONLY, 4, null);
+        System.out.println("2222222222");
+        request.getSession().setAttribute("validateCode", verifyCode);
+        System.out.println("33333333333333");
+        response.setContentType("image/jpeg");
+        System.out.println("444444444444");
+        BufferedImage bim = ValidateCode.generateImageCode(verifyCode, 90, 30, 3, true, Color.WHITE, Color.BLACK, null);
+        System.out.println("5555555555555");
+        ImageIO.write(bim, "JPEG", response.getOutputStream());
+        System.out.println("bbbbbbbbbbbbb");
+    }
+    @RequestMapping(value = "/logout.htm")
+    public String logout(){
+    	if (null != SecurityUtils.getSubject() && null != SecurityUtils.getSubject().getSession()) {
+            SecurityUtils.getSubject().logout();// ，默认把登录用户注销
+        }
+    	return "index";
+    }
+    
 }

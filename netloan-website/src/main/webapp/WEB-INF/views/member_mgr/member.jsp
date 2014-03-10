@@ -21,58 +21,8 @@
   
   
   <body>
-        <!-- NAVBAR START============================= -->
-	    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-	      <div class="container">
-	        <div class="navbar-header">
-	          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-	            <span class="sr-only">Toggle navigation</span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	          </button>
-	          <a class="navbar-brand" href="#">冰川进销存平台</a>
-	        </div>
-	        <div class="navbar-collapse collapse">
-	          <ul class="nav navbar-nav">
-	            <li><a href="${ctx}/index.htm">主页</a></li>
-	            <li class="dropdown">
-	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">我要投资<b class="caret"></b></a>
-	              <ul class="dropdown-menu">
-	                <li><a href="#">流转标</a></li>
-	                <li><a href="#">净值标</a></li>
-	                <li><a href="#">信用标</a></li>
-	                <li><a href="#">抵押标</a></li>
-	              </ul>
-	            </li>
-	            <li><a href="#contact">我要借款</a></li>
-	            <li class="dropdown">
-	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">新手引导<b class="caret"></b></a>
-	              <ul class="dropdown-menu">
-	                <li><a href="#">借款流程</a></li>
-	                <li><a href="#">投资流程</a></li>
-	                <li><a href="#">风险保障</a></li>
-	              </ul>
-	            </li>
-	            <li class="active"><a href="${ctx}/member/index.htm">个人中心</a></li>
-	            <li><a href="#contact">联系我们</a></li>
-	          </ul>
-	          <p class="navbar-text navbar-right">
-	          	<c:choose>
-				   <c:when test="${empty currentMember}">  
-		         		<span>您好，<a href="${ctx}/login.htm" class="navbar-link">请登录</a></span>
-				   </c:when>
-			   		<c:otherwise> 
-				   		<span>您好！<a href="#" class="navbar-link">${currentMember.memberRealName}</a><span class="badge">42</span></span>
-				   		<span><a href="${ctx}/member/index.htm" class="navbar-link">个人中心</a></span>
-				   		<span><a href="#" class="navbar-link">退出</a></span>
-				   </c:otherwise>
-				</c:choose>
-   				</p>
-	        </div>
-	      </div>
-	    </nav>
-	    <!-- NAVBAR END============================= -->
+  <jsp:include page="../nav.jsp"/>
+       
 	    <!-- CONTAINER START======================== -->
 	    <div class="container">
 	    <div class="row">
@@ -143,11 +93,40 @@
 				    <h3 class="panel-title">我的个人信息</h3>
 				  </div>
 				  <div class="panel-body">
-				    Panel content
+				     <table class="table">
+			            <tr>
+			              <td rowspan="4">头像</td>
+			              <td>用户名：</td>
+			              <td>${currentMember.memberRealName}</td>
+			              <td>信用积分</td>
+			              <td>123</td>
+			            </tr>
+			            <tr>
+			              <td>注册时间：</td>
+			              <td>${currentMember.registrationTime}</td>
+			              <td>会员到期：</td>
+			              <td>${currentMember.expireTime}</td>
+			            </tr>
+			            <tr>
+			              <td>会员积分：</td>
+			              <td>120</td>
+			              <td>最后登录ip:</td>
+			              <td>61.145.244.204</td>
+			            </tr>
+			            <tr>
+			              <td>信用额度：</td>
+			              <td>12000</td>
+			              <td>个人统计:</td>
+			              <td>61.145.244.204</td>
+			            </tr>
+			        </table>
 				  </div>
 				</div>
 	    	</div>
 	    </div>
+	    <jsp:include page="../foot.jsp"/>
+	    </div>
 	    <!-- CONTAINER START======================== -->
+	      
   </body>
 </html>

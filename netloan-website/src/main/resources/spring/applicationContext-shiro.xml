@@ -19,7 +19,7 @@
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/login.htm" /><!-- 登录失败请求url -->
-		<property name="successUrl" value="/index.htm" /><!-- 登录成功以及登录失败请求url -->
+		<property name="successUrl" value="/member/index.htm" /><!-- 登录成功以及登录失败请求url -->
 		<property name="unauthorizedUrl" value="/login.htm" /><!-- 未授权会员查看url -->
 		<property name="filters">
 			<util:map>
@@ -30,7 +30,10 @@
 		</property>
 		<property name="filterChainDefinitions">
 			<value>
+			   /validateCode.htm = anon
 				/login.htm = authc
+				/resources/** = anon
+				/logout = logout
 				/member/* = user
 			</value>
 		</property>

@@ -54,7 +54,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
         CaptchaUsernamePasswordToken token = (CaptchaUsernamePasswordToken) createToken(request, response);
         try {
-            // doCaptchaValidate( (HttpServletRequest)request,token);
+            doCaptchaValidate( (HttpServletRequest)request,token);
             Subject subject = getSubject(request, response);
             subject.login(token);
             HttpSession session = ((HttpServletRequest) request).getSession(false);

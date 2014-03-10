@@ -15,7 +15,6 @@
 
 <!-- 引入bootstrap样式 -->
 <link rel="stylesheet" href="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/css/bootstrap.min.css"></link>
-
 <!-- 自定义主页样式 -->
 <link rel="stylesheet" href="${ctx}/resources/css/index.css"></link>
 

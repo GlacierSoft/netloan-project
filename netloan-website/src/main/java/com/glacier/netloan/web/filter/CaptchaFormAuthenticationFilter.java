@@ -11,16 +11,22 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.glacier.basic.exception.IncorrectCaptchaException;
 import com.glacier.basic.util.IpUtil;
 import com.glacier.netloan.compent.realm.CaptchaUsernamePasswordToken;
+import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.service.member.MemberCreditIntegralService;
 
 public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
 
     public static final String DEFAULT_CAPTCHA_PARAM = "captcha";
 
     private String captchaParam = DEFAULT_CAPTCHA_PARAM;
+    
+    @Autowired
+    private MemberCreditIntegralService memberCreditIntegralService;
 
     public String getCaptchaParam() {
         return captchaParam;
@@ -31,7 +37,6 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     }
 
     protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
-
         String username = getUsername(request);
         String password = getPassword(request);
         String captcha = getCaptcha(request);
@@ -58,6 +63,8 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             subject.login(token);
             HttpSession session = ((HttpServletRequest) request).getSession(false);
             session.setAttribute("currentMember", subject.getPrincipal());
+            Member member = (Member) subject.getPrincipal();
+            
             return onLoginSuccess(token, subject, request, response);
         } catch (AuthenticationException e) {
             return onLoginFailure(token, e, request, response);

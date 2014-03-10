@@ -30,10 +30,13 @@
 		</property>
 		<property name="filterChainDefinitions">
 			<value>
-				/do/login.htm = authc
+				/** = anon
+				/resources/images/kaptcha.jpg = anon
+				<!-- /do/login.htm = authc
 				/resources/** = anon
+				/netloan/resources/images/kaptcha.jpg = anon
 				/logout = logout
-				/** = user
+				/** = user -->
 			</value>
 		</property>
 	</bean>

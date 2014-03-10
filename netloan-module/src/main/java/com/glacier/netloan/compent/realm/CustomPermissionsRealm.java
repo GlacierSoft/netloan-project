@@ -24,6 +24,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.netloan.dao.system.AuthorityMapper;
 import com.glacier.netloan.dao.system.LoginLogMapper;
