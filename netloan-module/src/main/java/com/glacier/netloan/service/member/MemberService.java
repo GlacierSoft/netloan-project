@@ -18,6 +18,7 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.member.MemberAuthMapper;
 import com.glacier.netloan.dao.member.MemberMapper;
+import com.glacier.netloan.dao.member.MemberTokenMapper;
 import com.glacier.netloan.dao.member.MemberWorkMapper;
 import com.glacier.netloan.dto.query.member.MemberQueryDTO;
 import com.glacier.netloan.entity.member.Member;
@@ -25,10 +26,13 @@ import com.glacier.netloan.entity.member.MemberAuthExample;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
 import com.glacier.netloan.entity.member.MemberExample;
 import com.glacier.netloan.entity.member.MemberExample.Criteria;
+import com.glacier.netloan.entity.member.MemberToken;
 import com.glacier.netloan.entity.member.MemberWork;
 import com.glacier.netloan.entity.member.MemberWorkExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
+import com.glacier.security.util.Digests;
+import com.glacier.security.util.Encodes;
 
 /**
  * @ClassName: MemberService 
@@ -45,11 +49,39 @@ public class MemberService {
 	private MemberMapper memberMapper;
 	
 	@Autowired
+	private MemberTokenMapper memberTokenMapper;
+	
+	@Autowired
 	private MemberWorkMapper memberWorkMapper;
 	
 	@Autowired
 	private MemberAuthMapper memberAuthMapper;
 	
+	 /**
+     * 加密方式
+     */
+    public static final String HASH_ALGORITHM = "SHA-1";
+
+    /**
+     * 计算次数
+     */
+    public static final int HASH_INTERATIONS = 1024;
+
+    /**
+     * 盐值长度
+     */
+    public static final int SALT_SIZE = 8;
+	
+    /**
+     * 设定盐值和设定安全的密码，生成随机的salt并经过1024次 sha-1 hash
+     */
+    private void entryptPassword(MemberToken memberToken) {
+        byte[] salt = Digests.generateSalt(SALT_SIZE);
+        memberToken.setSalt(Encodes.encodeHex(salt));
+        byte[] hashPassword = Digests.sha1(memberToken.getPassword().getBytes(), salt, HASH_INTERATIONS);
+        memberToken.setPassword(Encodes.encodeHex(hashPassword));
+    }
+    
 	/**
 	 * @Title: getMember 
 	 * @Description: TODO(根据会员Id获取会员信息) 
@@ -104,7 +136,106 @@ public class MemberService {
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
     }
-
+    
+    public Object isUsernameRepeat(Member member){
+    	  JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+          MemberExample memberExample = new MemberExample();
+          // 防止会员名称重复
+          memberExample.createCriteria().andMemberNameEqualTo(member.getMemberName());
+          int count = memberMapper.countByExample(memberExample);// 查找相同名称的会员数量
+          if (count > 0) {
+              returnResult.setMsg("会员名称重复");
+          }else{
+        	  returnResult.setSuccess(true);
+          }
+          return returnResult;
+    }
+    
+    /**
+     * @Title: addMemberReception 
+     * @Description: TODO(前台注册会员，同时生成工作表和认证表) 
+     * @param  @param member
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
+     */
+    @Transactional(readOnly = false)
+    public Object addMemberReception(Member member){
+    	//Subject pricipalSubject = SecurityUtils.getSubject();
+        //User pricipalUser = (User) pricipalSubject.getPrincipal();
+        
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        MemberExample memberExample = new MemberExample();
+        int count = 0;
+        int countWork = 0;
+        int countToken = 0;
+        String memberId = RandomGUID.getRandomGUID();
+        
+        //设置membertoken信息
+        MemberToken memberToken = new MemberToken();
+        memberToken.setMemberId(memberId);
+        memberToken.setUsername(member.getMemberName());
+        memberToken.setPassword(member.getMemberPassword());
+        this.entryptPassword(memberToken);
+       
+        
+        //增加会员信息
+        
+        member.setMemberId(memberId);
+        member.setMemberPassword(memberToken.getPassword());
+        member.setFirstContactRelation("family");
+        member.setSecondContactRelation("family");
+        member.setIntegral((float) 0);
+        member.setCreditIntegral((float) 0);
+        member.setRegistrationTime(new Date());
+        member.setCreater(memberId);
+        member.setCreateTime(new Date());
+        member.setUpdater(memberId);
+        member.setUpdateTime(new Date());
+        count = memberMapper.insert(member);
+        
+        //增加membertoken信息 要先增加member记录，才能再生成外键表的记录
+        countToken = memberTokenMapper.insert(memberToken);
+        
+        //增加会员工作信息
+        MemberWork memberWork = new MemberWork();
+        memberWork.setMemberId(memberId);
+        countWork = memberWorkMapper.insert(memberWork);
+        
+        //生成会员认证表信息
+        MemberAuthWithBLOBs memberAuthWithBLOBs = new MemberAuthWithBLOBs();
+        memberAuthWithBLOBs.setMemberId(memberId);
+        memberAuthWithBLOBs.setInfoName("基本信息认证");
+        memberAuthWithBLOBs.setInfoAuth("noapply");
+        memberAuthWithBLOBs.setVipName("VIP认证");
+        memberAuthWithBLOBs.setVipAuth("noapply");
+        memberAuthWithBLOBs.setEmailName("邮箱认证");
+        memberAuthWithBLOBs.setEmailAuth("noapply");
+        memberAuthWithBLOBs.setMobileName("手机认证");
+        memberAuthWithBLOBs.setMobileAuth("noapply");
+        memberAuthWithBLOBs.setCreditName("信用认证");
+        memberAuthWithBLOBs.setCreditAuth("noapply");
+        memberAuthWithBLOBs.setCompanyName("企业认证");
+        memberAuthWithBLOBs.setCompanyAuth("noapply");
+        memberAuthWithBLOBs.setRealName("真实姓名认证");
+        memberAuthWithBLOBs.setRealNameAuth("noapply");
+        memberAuthWithBLOBs.setIdCardName("身份证认证");
+        memberAuthWithBLOBs.setIdCardAuth("noapply");
+        memberAuthWithBLOBs.setWorkName("工作认证");
+        memberAuthWithBLOBs.setWorkAuth("noapply");
+        memberAuthMapper.insert(memberAuthWithBLOBs);
+        
+        if (count == 1 && countWork == 1 && countToken == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("[" + member.getMemberName() + "] 会员信息已保存");
+            returnResult.setObj(member);
+        } else {
+            returnResult.setMsg("发生未知错误，会员信息保存失败");
+        }
+        return returnResult;
+    }
+    
     /**
      * @Title: addMemberandWorkandAuth 
      * @Description: TODO(新增会员,工作，认证) 
@@ -125,6 +256,7 @@ public class MemberService {
         MemberExample memberExample = new MemberExample();
         int count = 0;
         int countWork = 0;
+        int countToken = 0;
         String memberId = RandomGUID.getRandomGUID();
         // 防止会员名称重复
         memberExample.createCriteria().andMemberNameEqualTo(member.getMemberName());
@@ -133,6 +265,15 @@ public class MemberService {
             returnResult.setMsg("会员名称重复");
             return returnResult;
         }
+        
+        //设置membertoken信息
+        MemberToken memberToken = new MemberToken();
+        memberToken.setMemberId(memberId);
+        memberToken.setUsername(member.getMemberName());
+        memberToken.setPassword(member.getMemberPassword());
+        this.entryptPassword(memberToken);
+       
+        
         //增加会员信息
         if(member.getFirstContactRelation() == null || member.getFirstContactRelation().equals("")){
         	member.setFirstContactRelation("family");
@@ -142,6 +283,7 @@ public class MemberService {
         }
         
         member.setMemberId(memberId);
+        member.setMemberPassword(memberToken.getPassword());
         member.setIntegral((float) 0);
         member.setCreditIntegral((float) 0);
         member.setRegistrationTime(new Date());
@@ -150,6 +292,9 @@ public class MemberService {
         member.setUpdater(pricipalUser.getUserId());
         member.setUpdateTime(new Date());
         count = memberMapper.insert(member);
+        
+        //增加membertoken信息 要先增加member记录，才能再生成外键表的记录
+        countToken = memberTokenMapper.insert(memberToken);
         
         //增加会员工作信息
         memberWork.setMemberId(memberId);
@@ -178,7 +323,7 @@ public class MemberService {
         memberAuthWithBLOBs.setWorkAuth("noapply");
         memberAuthMapper.insert(memberAuthWithBLOBs);
         
-        if (count == 1 && countWork == 1) {
+        if (count == 1 && countWork == 1 && countToken == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + member.getMemberName() + "] 会员信息已保存");
         } else {

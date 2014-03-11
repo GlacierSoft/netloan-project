@@ -47,7 +47,7 @@
 		         		<span><a href="${ctx}/intoregister.htm" class="navbar-link">注册</a></span>
 				   </c:when>
 			   		<c:otherwise> 
-				   		<span>您好！<a href="#" class="navbar-link">${currentMember.memberRealName}${registerName}</a><span class="badge">42</span> |</span>
+				   		<span>您好！<a href="#" class="navbar-link">${currentMember.memberRealName}</a><span class="badge">42</span> |</span>
 				   		<span><a href="${ctx}/member/index.htm" class="navbar-link">个人中心</a> |</span>
 				   		<span><a href="${ctx}/logout.htm" class="navbar-link">退出</a></span>
 				   </c:otherwise>

@@ -1,11 +1,14 @@
 package com.glacier.netloan.web.controller.common;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,20 +16,39 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
+import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.service.member.MemberService;
 
 @Controller
 public class RegisterController extends AbstractController{
+	
+	@Autowired
+	private MemberService memberService;
 
 	@RequestMapping(value = "/intoregister.htm")
     public String intoregister(){
     	return "register";
     }
 	@RequestMapping(value = "/register.htm",method = RequestMethod.POST)
-	public Object register(@Valid Member member,BindingResult bindingResult,HttpSession session){
+	public Object register(@Valid Member member,BindingResult bindingResult,String captcha,HttpServletRequest request, HttpSession session){
+		String isCaptcha = (String) request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+		if (StringUtils.isBlank(captcha) || !isCaptcha.equalsIgnoreCase(captcha)) {
+            //throw new IncorrectCaptchaException("验证码错误！");
+        	request.setAttribute("errorCaptcha", "errorCaptcha");//通过设置errorCaptcha的 值，来判断验证码是否正确。
+        	request.setAttribute("member", member);
+        	return "register";
+        }
 		if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
+		//判断用户名是否重复
+		 JqReturnJson returnResult = (JqReturnJson) memberService.isUsernameRepeat(member);
+		if(!returnResult.isSuccess()){
+			request.setAttribute("usernameRepeat", "usernameRepeat");//通过设置usernameRepeat的 值，来判断用户名是否重复。
+			request.setAttribute("member", member);
+			return "register";
+		}
 		ModelAndView mav = new ModelAndView("sendMailSuccess");
 		
 		// 创建一个临时用户注册ID
@@ -36,6 +58,7 @@ public class RegisterController extends AbstractController{
         String url = "http://localhost:8080/netloan-website//mailBack.htm?registerId=" + registerId;
         
         session.setAttribute(registerId, member.getMemberName());
+        session.setAttribute("memberSimple", member);
         // 设置session的有效时间，为10分钟，10分钟内没有点击链接的话，注册将失败
         session.setMaxInactiveInterval(600); 
       
@@ -65,7 +88,6 @@ public class RegisterController extends AbstractController{
         try {
 			email.setSubject("冰川网贷注册");//设置邮件名称
 			email.setHtmlMsg("点击<a href='" + url + "'>" + url + "</a>完成注册！");//设置邮件内容
-			System.out.println("ddddddddd      "+member.getEmail());
 			email.addTo(member.getEmail());//给会员发邮件
 			//email.addTo("804346249@qq.com");
 			//email.addTo("13798985542@163.com");
@@ -78,7 +100,7 @@ public class RegisterController extends AbstractController{
 	}
 	
 	@RequestMapping(value = "/mailBack.htm")
-	public Object mailBack(String registerId,HttpSession session){
+	public Object mailBack(String registerId,HttpServletRequest request,HttpSession session){
 		if(registerId == null){
 			return "index";
 		}
@@ -88,7 +110,13 @@ public class RegisterController extends AbstractController{
             return "index"; 
         } 						
         session.setAttribute("registerName", registerName);
-		return "index";
+        JqReturnJson returnResult = (JqReturnJson) memberService.addMemberReception((Member) session.getAttribute("memberSimple"));
+        request.setAttribute("returnResult", returnResult);
+        session.setAttribute("currentMember", returnResult.getObj());
+        if(!returnResult.isSuccess()){
+        	return "index";
+        }
+		return "member_mgr/member";
 	}
 	
 	@RequestMapping(value = "/sendMailSuccess.htm")

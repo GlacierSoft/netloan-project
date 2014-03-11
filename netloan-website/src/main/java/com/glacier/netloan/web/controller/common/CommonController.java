@@ -28,9 +28,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -88,6 +91,26 @@ public class CommonController {
         }
         return "login";
     }
+    
+    /**
+     * @Title: fail
+     * @Description: TODO(该方法调用前会被Filter拦截，交给shiro验证，如果验证失败会调用该方法)
+     * @param @param userName
+     * @param @param model
+     * @param @return 设定文件
+     * @return String 返回类型
+     * @throws
+     */
+    @RequestMapping(value = "/login.htm", method = RequestMethod.POST)
+    public String fail(@RequestParam(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM)
+    String username, Model model) {
+        if (null != SecurityUtils.getSubject() && null != SecurityUtils.getSubject().getSession()) {
+            SecurityUtils.getSubject().logout();// 进入登录页面，默认把登录用户注销
+        }
+        model.addAttribute(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM, username);
+        return "login";
+    }
+    
     /**
      * 生成验证码
      * @param request

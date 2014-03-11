@@ -81,7 +81,7 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
         String username = token.getUsername();
         if (null != username && !"".equals(username)) {
             MemberTokenExample memberTokenExample = new MemberTokenExample();
-            //memberTokenExample.createCriteria().andUsernameEqualTo(username);
+            memberTokenExample.createCriteria().andUsernameEqualTo(username);
             MemberToken tokenMember= memberTokenMapper.selectByExample(memberTokenExample).get(0);
             if (null != tokenMember) {
                 // 用户状态为启用或隐藏让其通过认证

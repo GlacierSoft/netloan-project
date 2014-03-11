@@ -64,10 +64,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="form-group">
 					<label id="login_kaptcha_span" class="col-sm-2 control-label ">验证码</label>
 					<div class="col-sm-2">
-						<img style="width:120px;height:32px;" class="img-responsive" id="login_kaptcha" src="${pageContext.request.contextPath}/resources/images/kaptcha.jpg" />
-					</div>
-					<div class="col-sm-4">
 						<input type="text" id="captcha" name="captcha" maxlength="4" class="form-control" placeholder="验证码" required />
+					</div>
+					<div class="col-sm-2">
+						<img style="width:120px;height:32px;" class="img-responsive" id="login_kaptcha" src="${pageContext.request.contextPath}/resources/images/kaptcha.jpg" />
 					</div>
 				</div>
 			  <div class="form-group">
@@ -135,6 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<%
 			String error = (String) request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
 			if(error != null){
+				 System.out.println("error");
 		%>
 			<script type="text/javascript">
 				$('#danger_alert').fadeIn();

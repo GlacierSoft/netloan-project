@@ -56,11 +56,14 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
         try {
             doCaptchaValidate( (HttpServletRequest)request,token);
             Subject subject = getSubject(request, response);
+            System.out.println("这个yid");
             subject.login(token);
+            System.out.println("这个没用吧");
             HttpSession session = ((HttpServletRequest) request).getSession(false);
             session.setAttribute("currentUser", subject.getPrincipal());
             return onLoginSuccess(token, subject, request, response);
         } catch (AuthenticationException e) {
+        	System.out.println("有来到吗");
             return onLoginFailure(token, e, request, response);
         }
     }
