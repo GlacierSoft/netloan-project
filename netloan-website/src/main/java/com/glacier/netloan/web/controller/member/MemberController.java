@@ -35,6 +35,13 @@ public class MemberController extends AbstractController{
         return mav;
     }
     
+    // 进入会员列表展示页面
+    @RequestMapping(value = "/memberDetail.htm")
+    private Object intoMemberDetail() {
+        ModelAndView mav = new ModelAndView("member_mgr/memberDetail");
+        return mav;
+    }
+    
     // 进入会员Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoMemberFormPmember(String memberId) {

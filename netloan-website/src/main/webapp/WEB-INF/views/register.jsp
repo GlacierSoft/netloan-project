@@ -49,25 +49,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  <div class="form-group">
 			    <label for="email" class="col-sm-2 control-label">常用邮箱</label>
 			    <div class="col-sm-6">
-			      <input type="email" class="form-control" id="email_form-control" name="email" placeholder="常用邮箱" required autofocus value="${member.email}"  />
+			      <input type="email" class="form-control" id="email_form-group" name="email" placeholder="常用邮箱" required autofocus value="${member.email}"  />
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="memberName" class="col-sm-2 control-label">用户名</label>
 			    <div class="col-sm-6">
-			      <input type="text" class="form-control" id="memberName_form-control" name="memberName" placeholder="用户名" required  value="${member.memberName}"/>
+			      <input type="text" class="form-control" id="memberName_form-group" name="memberName" placeholder="用户名" required  value="${member.memberName}"/>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="memberPassword" class="col-sm-2 control-label">密码</label>
 			    <div class="col-sm-6">
-			      <input type="password" class="form-control" id="memberPassword_form-control" name="memberPassword" placeholder="密码" required value="${member.memberPassword}"/>
+			      <input type="password" class="form-control" id="memberPassword_form-group" name="memberPassword" placeholder="密码" required value="${member.memberPassword}"/>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="comfirPassword" class="col-sm-2 control-label">确认密码</label>
 			    <div class="col-sm-6">
-			      <input type="password" class="form-control" id="comfirPassword_form-control" placeholder="确认密码" required value="${member.memberPassword}"/>
+			      <input type="password" class="form-control" id="comfirPassword_form-group" placeholder="确认密码" required value="${member.memberPassword}"/>
 			    </div>
 			  </div>
 		  	<div class="form-group">
@@ -100,8 +100,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				//表单验证
 				validaForm = function(){
-					var $memberPassword = $('#memberPassword_form-control');
-					var $comfirPassword = $('#comfirPassword_form-control');
+					var $memberPassword = $('#memberPassword_form-group');
+					var $comfirPassword = $('#comfirPassword_form-group');
 					if($memberPassword.val().length < 6){
 						$memberPassword.addClass("has-error");
 						$memberPassword.focus();
@@ -148,17 +148,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript">
 			var errorCaptcha = '${errorCaptcha}';
 			var usernameRepeat = '${usernameRepeat}';
+			var emailRepeat = '${emailRepeat}';
 			if(errorCaptcha != ""){
 				$('#danger_alert').fadeIn();
 				$('#danger_alert h4').html('验证码错误，请重新输入！');
 		 	  	$('#captcha_form_group').addClass("has-error");
 		 	  	$('#captcha').focus();
 			}
+			if(emailRepeat != ""){
+				$('#danger_alert').fadeIn();
+				$('#danger_alert h4').html('该邮箱已注册，请重新输入！');
+		 	  	$('#email_form-group').addClass("has-error");
+		 	  	$('#email_form-group').focus();
+			}
 			if(usernameRepeat != ""){
 				$('#danger_alert').fadeIn();
 				$('#danger_alert h4').html('用户名重复，请重新输入！');
-		 	  	$('#memberName_form-control').addClass("has-error");
-		 	  	$('#memberName_form-control').focus();
+		 	  	$('#memberName_form-group').addClass("has-error");
+		 	  	$('#memberName_form-group').focus();
 			}
 			setTimeout(function(){//延迟3秒隐藏
 				$('#danger_alert').fadeOut();

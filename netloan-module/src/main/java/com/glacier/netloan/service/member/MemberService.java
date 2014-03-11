@@ -136,7 +136,15 @@ public class MemberService {
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
     }
-    
+    /**
+     * @Title: isUsernameRepeat 
+     * @Description: TODO(判断会员名是否重复) 
+     * @param  @param member
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
+     */
     public Object isUsernameRepeat(Member member){
     	  JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
           MemberExample memberExample = new MemberExample();
@@ -150,7 +158,28 @@ public class MemberService {
           }
           return returnResult;
     }
-    
+    /**
+     * @Title: isEmailRepeat 
+     * @Description: TODO(判断邮箱是否重复) 
+     * @param  @param member
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
+     */
+    public Object isEmailRepeat(Member member){
+  	  JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        MemberExample memberExample = new MemberExample();
+        // 防止邮箱重复
+        memberExample.createCriteria().andEmailEqualTo(member.getEmail());
+        int count = memberMapper.countByExample(memberExample);// 查找相同邮箱的会员数量
+        if (count > 0) {
+            returnResult.setMsg("该邮箱已注册！");
+        }else{
+      	  returnResult.setSuccess(true);
+        }
+        return returnResult;
+  }
     /**
      * @Title: addMemberReception 
      * @Description: TODO(前台注册会员，同时生成工作表和认证表) 

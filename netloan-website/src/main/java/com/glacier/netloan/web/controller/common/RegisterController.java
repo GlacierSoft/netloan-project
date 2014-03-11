@@ -43,12 +43,20 @@ public class RegisterController extends AbstractController{
             return returnErrorBindingResult(bindingResult);
         }
 		//判断用户名是否重复
-		 JqReturnJson returnResult = (JqReturnJson) memberService.isUsernameRepeat(member);
-		if(!returnResult.isSuccess()){
+		 JqReturnJson returnisUsernameRepeat = (JqReturnJson) memberService.isUsernameRepeat(member);
+		if(!returnisUsernameRepeat.isSuccess()){
 			request.setAttribute("usernameRepeat", "usernameRepeat");//通过设置usernameRepeat的 值，来判断用户名是否重复。
 			request.setAttribute("member", member);
 			return "register";
 		}
+		//判断用户名是否重复isEmailRepeat
+		 JqReturnJson returnisEmailRepeat = (JqReturnJson) memberService.isEmailRepeat(member);
+		if(!returnisEmailRepeat.isSuccess()){
+			request.setAttribute("emailRepeat", "emailRepeat");//通过设置emailRepeat的 值，来判断邮箱是否重复。
+			request.setAttribute("member", member);
+			return "register";
+		}
+		
 		ModelAndView mav = new ModelAndView("sendMailSuccess");
 		
 		// 创建一个临时用户注册ID
