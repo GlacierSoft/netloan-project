@@ -38,7 +38,7 @@
 	              </ul>
 	            </li>
 	            <li><a href="${ctx}/member/index.htm">个人中心</a></li>
-	            <li><a href="#contact">联系我们</a></li>
+	            <li><a href="${ctx}/aboutUs.htm">关于我们</a></li>
 	          </ul>
 	          	<p class="navbar-text navbar-right">
 	          	<c:choose>

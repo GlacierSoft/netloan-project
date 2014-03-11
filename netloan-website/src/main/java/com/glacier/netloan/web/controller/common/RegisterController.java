@@ -131,4 +131,19 @@ public class RegisterController extends AbstractController{
 	public Object sendMailSuccess(){
 		return "sendMailSuccess";
 	}
+	//转到“关于我们”页面
+	@RequestMapping(value = "/aboutUs.htm")
+	public Object aboutUs(){
+		return "about_mgr/aboutUs";
+	}
+	//转到“招纳贤士”页面
+	@RequestMapping(value = "/hiring.htm")
+	public Object hiring(){
+		return "about_mgr/hiring";
+	}
+	//转到“联系我们”页面
+	@RequestMapping(value = "/contactUs.htm")
+	public Object contactUs(){
+		return "about_mgr/contactUs";
+	}
 }

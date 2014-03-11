@@ -6,9 +6,14 @@
 body {
   padding-bottom: 40px;
   color: #5a5a5a;
-  font-family: Microsoft YaHei,verdana, arial, tahoma, helvetica, sans-serif;
+  font-family: 'Microsoft YaHei','SimSun','verdana','tahoma',serif;
 	margin: 0;
 	padding: 0;
+}
+
+
+h1,h2,h3,h4,h5,h6{
+		color: #019add;
 }
 
 
@@ -91,6 +96,10 @@ body {
 
 .featurette-divider {
   margin: 80px 0; /* Space out the Bootstrap <hr> more */
+}
+
+.featurette-divider2 {
+  margin: 30px 0; /* Space out the Bootstrap <hr> more */
 }
 
 /* Thin out the marketing headings */
