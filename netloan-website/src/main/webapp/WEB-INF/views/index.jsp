@@ -9,7 +9,6 @@
     <title>冰川网贷平台</title>
    	<!-- 引入公用的js和样式库 -->
 	<jsp:include page="inc.jsp"/>
-
   </head>
 
   <body>
@@ -25,7 +24,7 @@
       </ol>
       <div class="carousel-inner">
         <div class="item active">
-          <img src="${pageContext.request.contextPath}/resources/images/index/1.jpg" alt="First slide">
+          <img src="${pageContext.request.contextPath}/resources/images/index/3.jpg" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
 <!--               <h1>Example headline.</h1> -->
@@ -45,7 +44,7 @@
           </div>
         </div>
         <div class="item">
-          <img src="${pageContext.request.contextPath}/resources/images/index/3.jpg" alt="Third slide">
+          <img src="${pageContext.request.contextPath}/resources/images/index/1.jpg" alt="Third slide">
           <div class="container">
             <div class="carousel-caption">
 <!--               <h1>One more for good measure.</h1> -->

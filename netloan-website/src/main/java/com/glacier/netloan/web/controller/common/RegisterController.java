@@ -146,4 +146,19 @@ public class RegisterController extends AbstractController{
 	public Object contactUs(){
 		return "about_mgr/contactUs";
 	}
+	//转到“新手引导、借款流程”页面
+	@RequestMapping(value = "/borrowingProcess.htm")
+	public Object borrowingProcess(){
+		return "newbie_mgr/borrowingProcess";
+	}
+	//转到“投资流程”页面
+	@RequestMapping(value = "/investmentProcess.htm")
+	public Object investmentProcess(){
+		return "newbie_mgr/investmentProcess";
+	}
+	//转到“风险保障”页面
+	@RequestMapping(value = "/riskGuarantee.htm")
+	public Object riskGuarantee(){
+		return "newbie_mgr/riskGuarantee";
+	}
 }

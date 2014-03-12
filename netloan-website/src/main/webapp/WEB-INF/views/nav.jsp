@@ -30,11 +30,11 @@
 	            </li>
 	            <li><a href="#contact">我要借款</a></li>
 	            <li class="dropdown">
-	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">新手引导<b class="caret"></b></a>
+	              <a href="${ctx}/borrowingProcess.htm" class="dropdown-toggle" data-toggle="dropdown">新手引导<b class="caret"></b></a>
 	              <ul class="dropdown-menu">
-	                <li><a href="#">借款流程</a></li>
-	                <li><a href="#">投资流程</a></li>
-	                <li><a href="#">风险保障</a></li>
+	                <li><a href="${ctx}/borrowingProcess.htm">借款流程</a></li>
+	                <li><a href="${ctx}/investmentProcess.htm">投资流程</a></li>
+	                <li><a href="${ctx}/riskGuarantee.htm">风险保障</a></li>
 	              </ul>
 	            </li>
 	            <li><a href="${ctx}/member/index.htm">个人中心</a></li>
