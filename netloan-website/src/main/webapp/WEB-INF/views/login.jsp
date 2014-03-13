@@ -40,6 +40,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <h4 style="text-align:center;"></h4>
       </div> 
     </div>
+    <div id="success_alert" style="width:100%;position: absolute;top:0px;z-index:5000;display: none;">
+	      <div class="alert alert-success fade in">
+	        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	        <h4 style="text-align:center;"></h4>
+	      </div> 
+	    </div>
      <div class="container">
       	<div class="panel panel-primary">
 		  <div class="panel-heading panel-title">会员登录</div>
@@ -93,6 +99,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$('#captcha').val('');
 		        	$(this).hide().attr('src','${pageContext.request.contextPath}/resources/images/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();     
 			    });
+				
+				var registerName = '${registerName}';
+				if(registerName != ''){
+					$('#success_alert').fadeIn();
+					$('#success_alert h4').html('注册成功！请重新登录');
+					setTimeout(function(){//延迟3秒隐藏
+						$('#success_alert').fadeOut();
+					},3000)
+				}
 				
 				/* $('#captcha').val('').keyup(function() {
 				    var target = this;

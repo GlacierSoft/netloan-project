@@ -18,6 +18,7 @@ import com.glacier.basic.util.IpUtil;
 import com.glacier.netloan.compent.realm.CaptchaUsernamePasswordToken;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.service.member.MemberCreditIntegralService;
+import com.glacier.netloan.service.member.MemberService;
 
 public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
 
@@ -27,6 +28,9 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     
     @Autowired
     private MemberCreditIntegralService memberCreditIntegralService;
+    
+    @Autowired
+    private MemberService memberService;
 
     public String getCaptchaParam() {
         return captchaParam;
@@ -48,7 +52,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
         if (StringUtils.isNotBlank(password)) {
             charPassword = password.toCharArray();
         }
-
+        System.out.println(username+" aa "+charPassword+" nn "+rememberMe+" cc "+host+" dd "+"  ee "+captcha);
         return new CaptchaUsernamePasswordToken(username, charPassword, rememberMe, host, captcha);
     }
 
@@ -63,6 +67,8 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             subject.login(token);
             HttpSession session = ((HttpServletRequest) request).getSession(false);
             session.setAttribute("currentMember", subject.getPrincipal());
+            Member member = (Member) subject.getPrincipal();
+            session.setAttribute("currentMemberWork", memberService.getMemberWork(member.getMemberId()));
             return onLoginSuccess(token, subject, request, response);
         } catch (AuthenticationException e) {
             return onLoginFailure(token, e, request, response);

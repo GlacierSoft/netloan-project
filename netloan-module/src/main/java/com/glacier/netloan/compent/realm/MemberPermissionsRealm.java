@@ -14,7 +14,9 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.apache.shiro.web.session.HttpServletSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.HttpServletBean;
 
 import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.member.MemberTokenMapper;
@@ -77,17 +79,24 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
-        CaptchaUsernamePasswordToken token = (CaptchaUsernamePasswordToken) authcToken;
+    	CaptchaUsernamePasswordToken token = (CaptchaUsernamePasswordToken) authcToken;
         String username = token.getUsername();
         if (null != username && !"".equals(username)) {
             MemberTokenExample memberTokenExample = new MemberTokenExample();
             memberTokenExample.createCriteria().andUsernameEqualTo(username);
             MemberToken tokenMember= memberTokenMapper.selectByExample(memberTokenExample).get(0);
+            System.out.println("ccccccccc");
             if (null != tokenMember) {
                 // 用户状态为启用或隐藏让其通过认证
                 byte[] salt = Encodes.decodeHex(tokenMember.getSalt());
+                for(char r : token.getPassword()){
+                	System.out.println("rrrrrrrr  "+r);
+                }
+                System.out.println("rrrrrrrr  "+token.getPassword());
                 Member principalMember = memberMapper.selectByPrimaryKey(tokenMember.getMemberId());
+                System.out.println("kkkkkk");
                 AuthenticationInfo info = new SimpleAuthenticationInfo(principalMember, tokenMember.getPassword(), ByteSource.Util.bytes(salt), getName());// 将用户的所有信息作为认证对象返回
+                System.out.println("tttttt");
                 clearCache(info.getPrincipals());// 认证成功后清除之前的缓存
                 return info;
             } else {

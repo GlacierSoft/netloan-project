@@ -264,6 +264,47 @@ public class MemberService {
         }
         return returnResult;
     }
+    /**
+     * @Title: editMemberReception 
+     * @Description: TODO(前台个人信息的修改) 
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
+     */
+    @Transactional(readOnly = false)
+    public Object editMemberReception(Member member,MemberWork memberWork){
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        //MemberExample memberExample = new MemberExample();
+        int count = 0;
+        int countWork = 0;
+        // 防止会员名称重复
+       /* memberExample.createCriteria().andMemberIdNotEqualTo(member.getMemberId()).andMemberNameEqualTo(member.getMemberName());
+        count = memberMapper.countByExample(memberExample);// 查找相同名称的会员数量
+        if (count > 0) {
+            returnResult.setMsg("会员名称重复");
+            return returnResult;
+        }*/
+        
+        //会员表的修改
+        //Subject pricipalSubject = SecurityUtils.getSubject();
+        //User pricipalUser = (User) pricipalSubject.getPrincipal();
+        member.setUpdater(member.getMemberId());
+        member.setUpdateTime(new Date());
+        count = memberMapper.updateByPrimaryKeySelective(member);
+        
+        //工作表的修改
+        countWork = memberWorkMapper.updateByPrimaryKeySelective(memberWork);
+
+        if (count == 1 && countWork == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("会员信息保存成功");
+            //returnResult.setMsg("[" + member.getMemberName() + "] 会员信息已修改");
+        } else {
+            returnResult.setMsg("发生未知错误，会员信息修改失败");
+        }
+        return returnResult;
+    }
     
     /**
      * @Title: addMemberandWorkandAuth 

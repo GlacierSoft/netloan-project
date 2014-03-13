@@ -36,4 +36,5 @@
 <script src="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/js/bootstrap.min.js"></script>
 <script src="${ctx}/resources/js/bootstrap-switch/bootstrap-switch.min.js" type="text/javascript"></script>
 <script src="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/js/alert.js" type="text/javascript"></script>
+<script src="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/js/popover.js" type="text/javascript"></script>
 

@@ -4,10 +4,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -15,21 +19,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.glacier.basic.util.IpUtil;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.compent.realm.CaptchaUsernamePasswordToken;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.entity.member.MemberWork;
 import com.glacier.netloan.service.member.MemberService;
+import com.glacier.security.util.Encodes;
 
 @Controller
 public class RegisterController extends AbstractController{
 	
 	@Autowired
 	private MemberService memberService;
-
+	/**
+	 * @Title: intoregister 
+	 * @Description: TODO(前台注册转向页面) 
+	 * @param  @return设定文件
+	 * @return String  返回类型
+	 * @throws 
+	 *
+	 */
 	@RequestMapping(value = "/intoregister.htm")
     public String intoregister(){
     	return "register";
     }
+	/**
+	 * @Title: register 
+	 * @Description: TODO(前台注册功能) 
+	 * @param  @param member
+	 * @param  @param bindingResult
+	 * @param  @param captcha
+	 * @param  @param request
+	 * @param  @param session
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 *
+	 */
 	@RequestMapping(value = "/register.htm",method = RequestMethod.POST)
 	public Object register(@Valid Member member,BindingResult bindingResult,String captcha,HttpServletRequest request, HttpSession session){
 		String isCaptcha = (String) request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
@@ -39,6 +67,7 @@ public class RegisterController extends AbstractController{
         	request.setAttribute("member", member);
         	return "register";
         }
+		session.setAttribute("isCaptcha", isCaptcha);
 		if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
@@ -106,7 +135,17 @@ public class RegisterController extends AbstractController{
 		}
 		return mav;
 	}
-	
+	/**
+	 * @Title: mailBack 
+	 * @Description: TODO(点击邮件验证，转向页面。) 
+	 * @param  @param registerId
+	 * @param  @param request
+	 * @param  @param session
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 *
+	 */
 	@RequestMapping(value = "/mailBack.htm")
 	public Object mailBack(String registerId,HttpServletRequest request,HttpSession session){
 		if(registerId == null){
@@ -118,18 +157,56 @@ public class RegisterController extends AbstractController{
             return "index"; 
         } 						
         session.setAttribute("registerName", registerName);
-        JqReturnJson returnResult = (JqReturnJson) memberService.addMemberReception((Member) session.getAttribute("memberSimple"));
+        Member member = (Member) session.getAttribute("memberSimple");
+        JqReturnJson returnResult = (JqReturnJson) memberService.addMemberReception(member);
         request.setAttribute("returnResult", returnResult);
-        session.setAttribute("currentMember", returnResult.getObj());
+        //session.setAttribute("currentMember", returnResult.getObj());
         if(!returnResult.isSuccess()){
         	return "index";
         }
-		return "member_mgr/member";
+     
+		return "login";
 	}
-	
+	/**
+	 * @Title: sendMailSuccess 
+	 * @Description: TODO(邮件发送成功，转向页面) 
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 *
+	 */
 	@RequestMapping(value = "/sendMailSuccess.htm")
 	public Object sendMailSuccess(){
 		return "sendMailSuccess";
+	}
+	/**
+	 * @Title: perfectRegister 
+	 * @Description: TODO(前台完善用户信息) 
+	 * @param  @param member
+	 * @param  @param memberWork
+	 * @param  @param session
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 *
+	 */
+	@RequestMapping(value = "/perfectRegister.htm")
+	public Object perfectRegister(@Valid Member member,BindingResult bindingResult,@Valid MemberWork memberWork,BindingResult bindingResultWork,HttpServletRequest request,HttpSession session){
+		if (bindingResult.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResult);
+        }
+        if (bindingResultWork.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResultWork);
+        }
+		JqReturnJson perfectRegister = (JqReturnJson) memberService.editMemberReception(member, memberWork);
+		Member loginMember = (Member) memberService.getMember(member.getMemberId());
+		MemberWork loginMemberWork = (MemberWork) memberService.getMemberWork(member.getMemberId());
+		session.removeAttribute("currentMember");
+		session.removeAttribute("currentMemberWork");
+		session.setAttribute("currentMember",loginMember);
+        session.setAttribute("currentMemberWork",loginMemberWork);
+        request.setAttribute("perfectRegister", perfectRegister);
+		return "member_mgr/memberDetail";
 	}
 	//转到“关于我们”页面
 	@RequestMapping(value = "/aboutUs.htm")

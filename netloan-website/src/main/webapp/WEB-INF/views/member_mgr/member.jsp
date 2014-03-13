@@ -39,11 +39,11 @@
 					    <div id="collapseOne" class="panel-collapse collapse in">
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
-							  <button type="button" class="btn btn-info">我的主页</button>
-							  <button type="button" class="btn btn-default">充值提现</button>
-							  <button type="button" class="btn btn-default">平台认证</button>
-							  <button type="button" class="btn btn-default">个人设置</button>
-							  <button type="button" class="btn btn-default">邮箱设置</button>
+					          <a href="${ctx}/member/index.htm" class="btn btn-info" role="button">我的主页</a>
+					          <a href="#" class="btn btn-default" role="button">充值提现</a>
+					          <a href="#" class="btn btn-default" role="button">平台认证</a>
+							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">个人设置</a>
+							  <a href="#" class="btn btn-default" role="button">邮箱设置</a>
 							</div>
 					      </div>
 					    </div>
@@ -59,9 +59,9 @@
 					    <div id="collapseTwo" class="panel-collapse collapse">
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
-					          <button type="button" class="btn btn-default">借款列表</button>
-							  <button type="button" class="btn btn-default">还款管理</button>
-							  <button type="button" class="btn btn-default">贷款统计</button>
+							  <a href="#" class="btn btn-default" role="button">借款列表</a>
+							  <a href="#" class="btn btn-default" role="button">还款管理</a>
+							  <a href="#" class="btn btn-default" role="button">贷款统计</a>
 							</div>
 					      </div>
 					    </div>
@@ -77,10 +77,10 @@
 					    <div id="collapseThree" class="panel-collapse collapse">
 					      <div class="panel-body">
 					      	<div class="btn-group-vertical">
-					          <button type="button" class="btn btn-default">我的投标</button>
-							  <button type="button" class="btn btn-default">我关注的借款</button>
-							  <button type="button" class="btn btn-default">投资统计</button>
-							  <button type="button" class="btn btn-default">自动投标</button>
+					      	  <a href="#" class="btn btn-default" role="button">我的投标</a>
+					      	  <a href="#" class="btn btn-default" role="button">我关注的借款</a>
+					      	  <a href="#" class="btn btn-default" role="button">投资统计</a>
+					      	  <a href="#" class="btn btn-default" role="button">自动投标</a> 
 					      </div>
 					    </div>
 					  </div>
