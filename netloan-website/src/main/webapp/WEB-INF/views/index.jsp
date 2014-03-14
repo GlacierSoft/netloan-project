@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- 引入jstl解析标签 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="zh-cn">
@@ -214,31 +215,17 @@
       <div class="row featurette">
         <div class="col-md-12">
           <table class="table table-hover">
-	        <tbody>
-	          <tr>
-	            <td>冰川贷李欣贺入选2014年“中国商业创新50人”大奖 </td>
-	            <td>2014-02-27</td>
-	          </tr>
-	          <tr>
-	            <td>冰川贷李欣贺参加2013互联网金融年度论坛  </td>
-	            <td>2014-02-27</td>
-	          </tr>
-	          <tr>
-	            <td>冰川贷公司斩获2013中关村十大评选两项大奖  </td>
-	            <td>2014-02-27</td>
-	          </tr>
-	          <tr>
-	            <td>冰川贷李欣贺受邀出席中国财富管理50人论坛 </td>
-	            <td>2014-02-27</td>
-	          </tr>
-	          <tr>
-	            <td>冰川贷李欣贺入选2014年“中国商业创新50人”大奖 </td>
-	            <td>2014-02-27</td>
-	          </tr>
-	      	</tbody>
+	        <c:forEach items="${announcementDatas.rows}" var="announcement" begin="0" end="4" step="1">
+		        <tbody>
+		          <tr>
+		            <td class="col-md-9">${announcement.webAnnTheme}</td>
+		            <td class="col-md-3"><fmt:formatDate value="${announcement.createTime}" type="both"/></td>
+		          </tr>
+		      	</tbody>
+	      	</c:forEach>
 	      	<tfoot>
 	          <tr>
-	            <th colspan="2"><h4 align="center"><a  href="#" >查看更多网站动态 >></a></h4></th>
+	            <th colspan="2"><h4 align="center"><a  href="#" >查看更多网站公告 >></a></h4></th>
 	          </tr>
 	        </tfoot>
 	      </table>
@@ -249,31 +236,17 @@
       <div class="row featurette">
         <div class="col-md-12">
           <table class="table table-hover">
-	        <tbody>
-	          <tr>
-	            <td>冰川贷李欣贺入选2014年“中国商业创新50人”大奖 </td>
-	            <td>2014-02-27</td>
-	          </tr>
-	          <tr>
-	            <td>冰川贷李欣贺参加2013互联网金融年度论坛  </td>
-	            <td>2014-02-27</td>
-	          </tr>
-	          <tr>
-	            <td>冰川贷公司斩获2013中关村十大评选两项大奖  </td>
-	            <td>2014-02-27</td>
-	          </tr>
-	          <tr>
-	            <td>冰川贷李欣贺受邀出席中国财富管理50人论坛 </td>
-	            <td>2014-02-27</td>
-	          </tr>
-	          <tr>
-	            <td>冰川贷李欣贺入选2014年“中国商业创新50人”大奖 </td>
-	            <td>2014-02-27</td>
-	          </tr>
-	      	</tbody>
+	        <c:forEach items="${newsDatas.rows}" var="news" begin="0" end="4" step="1">
+		        <tbody>
+		          <tr>
+		            <td class="col-md-9">${news.webNewsTheme}</td>
+		            <td class="col-md-3"><fmt:formatDate value="${news.createTime}" type="both"/></td>
+		          </tr>
+		      	</tbody>
+	      	</c:forEach>
 	      	<tfoot>
 	          <tr>
-	            <th colspan="2"><h4 align="center"><a  href="#" >查看更多网站动态 >></a></h4></th>
+	            <th colspan="2"><h4 align="center"><a  href="#" >查看更多网站新闻 >></a></h4></th>
 	          </tr>
 	        </tfoot>
 	      </table>

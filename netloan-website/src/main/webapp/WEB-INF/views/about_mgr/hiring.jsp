@@ -50,47 +50,16 @@
 			          </div>
 			          
 			          <h3  style="padding-top: 20px;">招聘职位</h3>
-				      <div>
-				          <table class="table table-hover">
-					        <tbody>
-					          <tr>
-					            <td>招聘投资/理财主管2名 </td>
-					            <td>2014-02-27</td>
-					          </tr>
-					          <tr>
-					            <td>招聘信贷经理/信贷助理/信贷秘书2名  </td>
-					            <td>2014-02-27</td>
-					          </tr>
-					          <tr>
-					            <td>招聘投资/理财顾问10名  </td>
-					            <td>2014-02-27</td>
-					          </tr>
-					          <tr>
-					            <td>招聘金融信贷专员5名 </td>
-					            <td>2014-02-27</td>
-					          </tr>
-					          <tr>
-					            <td>招聘系统开发/维护10名  </td>
-					            <td>2014-02-27</td>
-					          </tr>
-					      	</tbody>
-					      	<tfoot>
-					          <tr>
-					            <th colspan="2"><h4 align="center"><a  href="#" >查看更多招聘信息>></a></h4></th>
-					          </tr>
-					        </tfoot>
-					      </table>
-				      </div>
 				      
 			          <div>
 				          <table class="table table-hover">
-				          	<c:forEach items="${hiringDatas.rows}" var="hiring" >
-					        <tbody>
-					          <tr>
-					            <td style="width: 600px;">${hiring.webHiringTheme}</td>
-					            <td>${hiring.createTime}</td>
-					          </tr>
-					      	</tbody>
+				          	<c:forEach items="${hiringDatas.rows}" var="hiring"  begin="0" end="4" step="1">
+						        <tbody>
+						          <tr>
+						            <td style="width: 600px;">${hiring.webHiringTheme}</td>
+						            <td>${hiring.createTime}</td>
+						          </tr>
+						      	</tbody>
 					      	</c:forEach>
 					      	<tfoot>
 					          <tr>

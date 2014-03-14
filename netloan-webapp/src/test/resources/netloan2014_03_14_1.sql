@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50067
 File Encoding         : 65001
 
-Date: 2014-03-14 10:53:54
+Date: 2014-03-14 13:36:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1922,11 +1922,11 @@ CREATE TABLE `t_website_hiring` (
 -- ----------------------------
 -- Records of t_website_hiring
 -- ----------------------------
+INSERT INTO `t_website_hiring` VALUES ('34561fa9f66ac61df8e98ea2391341e6', '招聘投资/理财顾问10名 ', '招聘投资/理财顾问10名', 'enable', 'asdf', '3', 'sf', '8b25651c2d896297530b64e4b80ec503', '2014-02-20 14:25:29', '8b25651c2d896297530b64e4b80ec503', '2014-03-14 10:48:10');
 INSERT INTO `t_website_hiring` VALUES ('7777a1a9f65a86675dcc82ca4f574f7b', '招聘信贷经理/信贷助理/信贷秘书2名 ', '招聘信贷经理/信贷助理/信贷秘书2名 <br />', 'enable', 'asdf', '2', 'asdasdf', '8b25651c2d896297530b64e4b80ec503', '2014-02-19 13:53:13', '8b25651c2d896297530b64e4b80ec503', '2014-03-14 10:47:56');
 INSERT INTO `t_website_hiring` VALUES ('7bacad18f86870b6c6ae4f1d94ec8902', '招聘金融信贷专员5名 ', '招聘金融信贷专员5名招聘金融信贷专员5名', 'enable', '', '4', null, '8b25651c2d896297530b64e4b80ec503', '2014-02-24 15:29:33', '8b25651c2d896297530b64e4b80ec503', '2014-03-14 10:48:31');
 INSERT INTO `t_website_hiring` VALUES ('86d2cabfc0253442feb472f3917f745d', '招聘投资/理财主管2名 ', '					招聘投资/理财主管2名 <br />\r\n				', 'enable', 'dd', '1', 'dd', '8b25651c2d896297530b64e4b80ec503', '2014-02-18 14:58:17', '8b25651c2d896297530b64e4b80ec503', '2014-03-14 10:48:53');
 INSERT INTO `t_website_hiring` VALUES ('db5c1fa9f66ac61df8e98ea2391341e6', '招聘系统开发/维护10名 ', '招聘系统开发/维护10名招聘系统开发/维护10名', 'enable', '', '5', null, '8b25651c2d896297530b64e4b80ec503', '2014-03-14 10:48:44', '8b25651c2d896297530b64e4b80ec503', '2014-03-14 10:48:44');
-INSERT INTO `t_website_hiring` VALUES ('sf', '招聘投资/理财顾问10名 ', '招聘投资/理财顾问10名', 'enable', 'asdf', '3', 'sf', '8b25651c2d896297530b64e4b80ec503', '2014-02-20 14:25:29', '8b25651c2d896297530b64e4b80ec503', '2014-03-14 10:48:10');
 
 -- ----------------------------
 -- Table structure for `t_website_link`

@@ -4,36 +4,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.glacier.basic.util.IpUtil;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqReturnJson;
-import com.glacier.netloan.compent.realm.CaptchaUsernamePasswordToken;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberWork;
 import com.glacier.netloan.service.member.MemberService;
-import com.glacier.security.util.Encodes;
 
 @Controller
 public class RegisterController extends AbstractController{
 	
 	@Autowired
 	private MemberService memberService;
+	
 	/**
 	 * @Title: intoregister 
 	 * @Description: TODO(前台注册转向页面) 

@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.service.website.WebsiteAnnouncementService;
+import com.glacier.netloan.service.website.WebsiteNewsService;
 import com.glacier.netloan.util.ValidateCode;
 
 /**
@@ -48,6 +52,12 @@ import com.glacier.netloan.util.ValidateCode;
 @Controller
 public class CommonController {
 
+	@Autowired
+	private WebsiteAnnouncementService announcementService;//注入公告业务类
+	
+	@Autowired
+	private WebsiteNewsService newsService;//注入新闻业务类
+	
     /**
      * 
      * @Title: index
@@ -59,8 +69,10 @@ public class CommonController {
      *             <p>
      */
     @RequestMapping(value = "/")
-    private Object index() {
+    private Object index(JqPager pager) {
         ModelAndView mav = new ModelAndView("index");
+        mav.addObject("announcementDatas", announcementService.listAsGrid(pager));//主页加载公告信息
+        mav.addObject("newsDatas", newsService.listAsGrid(pager));//主页加载新闻信息
         // 进入首页初始化导航信息
         return mav;
     }
@@ -76,8 +88,10 @@ public class CommonController {
      *             <p>
      */
     @RequestMapping(value = "/index.htm")
-    private Object mappingIndexPage() {
+    private Object mappingIndexPage(JqPager pager) {
         ModelAndView mav = new ModelAndView("index");
+        mav.addObject("announcementDatas", announcementService.listAsGrid(pager));//主页加载公告信息
+        mav.addObject("newsDatas", newsService.listAsGrid(pager));//主页加载新闻信息
         // 进入首页初始化导航信息
         return mav;
     }
@@ -133,13 +147,27 @@ public class CommonController {
         ImageIO.write(bim, "JPEG", response.getOutputStream());
         System.out.println("bbbbbbbbbbbbb");
     }
+    
+//    @RequestMapping(value = "/logout.htm")
+//    public String logout(){
+//    	if (null != SecurityUtils.getSubject() && null != SecurityUtils.getSubject().getSession()) {
+//            SecurityUtils.getSubject().logout();// ，默认把登录用户注销
+//        }
+//    	return "index";
+//    }
+    
     @RequestMapping(value = "/logout.htm")
-    public String logout(){
+    public Object logout(JqPager pager){
+    	ModelAndView mav = new ModelAndView("index");
     	if (null != SecurityUtils.getSubject() && null != SecurityUtils.getSubject().getSession()) {
             SecurityUtils.getSubject().logout();// ，默认把登录用户注销
         }
-    	return "index";
+    	mav.addObject("announcementDatas", announcementService.listAsGrid(pager));//主页加载公告信息
+        mav.addObject("newsDatas", newsService.listAsGrid(pager));//主页加载新闻信息
+        // 进入首页初始化导航信息
+        return mav;
     }
+    
     @RequestMapping(value = "/aa.htm")
     public String aa(){
     	return "demoValidators";
