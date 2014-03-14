@@ -27,9 +27,6 @@
           <img src="${pageContext.request.contextPath}/resources/images/index/3.jpg" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
-<!--               <h1>Example headline.</h1> -->
-<%--               <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p> --%>
-<!--               <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p> -->
             </div>
           </div>
         </div>
@@ -37,9 +34,6 @@
           <img src="${pageContext.request.contextPath}/resources/images/index/2.jpg" alt="Second slide">
           <div class="container">
             <div class="carousel-caption">
-<!--               <h1>Another example headline.</h1> -->
-<!--               <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p> -->
-<!--               <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p> -->
             </div>
           </div>
         </div>
@@ -47,9 +41,6 @@
           <img src="${pageContext.request.contextPath}/resources/images/index/1.jpg" alt="Third slide">
           <div class="container">
             <div class="carousel-caption">
-<!--               <h1>One more for good measure.</h1> -->
-<!--               <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p> -->
-<!--               <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p> -->
             </div>
           </div>
         </div>
@@ -83,11 +74,9 @@
         </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->
 
-
 	  <h3>投资列表</h3>
       <div class="row featurette">
         <div class="col-md-12">
-        
           <table class="table table-bordered">
 	        <thead>
 	          <tr>
@@ -153,7 +142,6 @@
 	  <h3>借款列表</h3>
       <div class="row featurette">
         <div class="col-md-12">
-        
           <table class="table table-bordered">
 	        <thead>
 	          <tr>
@@ -221,12 +209,45 @@
 	      </table>
         </div>
       </div>
-   
 
- 	  <h3>最新动态</h3>
+ 	  <h3>最新公告</h3>
       <div class="row featurette">
         <div class="col-md-12">
-        
+          <table class="table table-hover">
+	        <tbody>
+	          <tr>
+	            <td>冰川贷李欣贺入选2014年“中国商业创新50人”大奖 </td>
+	            <td>2014-02-27</td>
+	          </tr>
+	          <tr>
+	            <td>冰川贷李欣贺参加2013互联网金融年度论坛  </td>
+	            <td>2014-02-27</td>
+	          </tr>
+	          <tr>
+	            <td>冰川贷公司斩获2013中关村十大评选两项大奖  </td>
+	            <td>2014-02-27</td>
+	          </tr>
+	          <tr>
+	            <td>冰川贷李欣贺受邀出席中国财富管理50人论坛 </td>
+	            <td>2014-02-27</td>
+	          </tr>
+	          <tr>
+	            <td>冰川贷李欣贺入选2014年“中国商业创新50人”大奖 </td>
+	            <td>2014-02-27</td>
+	          </tr>
+	      	</tbody>
+	      	<tfoot>
+	          <tr>
+	            <th colspan="2"><h4 align="center"><a  href="#" >查看更多网站动态 >></a></h4></th>
+	          </tr>
+	        </tfoot>
+	      </table>
+        </div>
+      </div>
+      
+      <h3>最新新闻</h3>
+      <div class="row featurette">
+        <div class="col-md-12">
           <table class="table table-hover">
 	        <tbody>
 	          <tr>
@@ -262,7 +283,6 @@
       <hr class="featurette-divider2">
 
       <!-- /END THE FEATURETTES -->
-
 
       <!-- FOOTER -->
         <jsp:include page="foot.jsp"/>

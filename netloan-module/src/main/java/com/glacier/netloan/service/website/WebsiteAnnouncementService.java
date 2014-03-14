@@ -66,17 +66,17 @@ public class WebsiteAnnouncementService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pannouncementr) {
+    public Object listAsGrid(JqPager pager) {
         
         JqGridReturn returnResult = new JqGridReturn();
         WebsiteAnnouncementExample websiteAnnouncementExample = new WebsiteAnnouncementExample();
 
-        if (null != pannouncementr.getPage() && null != pannouncementr.getRows()) {// 设置排序信息
-        	websiteAnnouncementExample.setLimitStart((pannouncementr.getPage() - 1) * pannouncementr.getRows());
-        	websiteAnnouncementExample.setLimitEnd(pannouncementr.getRows());
+        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
+        	websiteAnnouncementExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
+        	websiteAnnouncementExample.setLimitEnd(pager.getRows());
         }
-        if (StringUtils.isNotBlank(pannouncementr.getSort()) && StringUtils.isNotBlank(pannouncementr.getOrder())) {// 设置排序信息
-        	websiteAnnouncementExample.setOrderByClause(pannouncementr.getOrderBy("temp_website_announcement_"));
+        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
+        	websiteAnnouncementExample.setOrderByClause(pager.getOrderBy("temp_website_announcement_"));
         }
         List<WebsiteAnnouncement>  websiteAnnouncements = announcementMapper.selectByExample(websiteAnnouncementExample); // 查询所有公告列表
         int total = announcementMapper.countByExample(websiteAnnouncementExample); // 查询总页数

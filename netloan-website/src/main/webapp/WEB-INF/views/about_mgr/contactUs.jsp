@@ -31,7 +31,7 @@
 			  		<div class="bs-example">
 				      <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
 				        <li><a href="${ctx}/aboutUs.htm">公司简介</a></li>
-				        <li><a href="${ctx}/hiring.htm">招纳贤士</a></li>
+				        <li><a href="${ctx}/hiring/hiring.htm">招纳贤士</a></li>
 				        <li class="active"><a href="${ctx}/contactUs.htm">联系我们</a></li>
 				      </ul>
 			  		</div>
@@ -67,25 +67,25 @@
 				            <ul>
 				              <li>如果您在使用冰川贷(glacier.com)的过程中有任何疑问请您与冰川贷客服人员联系。</li>
 				              <li>客服电话：400-027-8080</li>
-				              <li>在线帮助：<a href="/help/terms.action" target="_blank">www.renrendai.com/help/terms.action</a></li>
+				              <li>在线帮助：<a href="/help/terms.action" target="_blank">www.glacier.com/help/terms.action</a></li>
 				            </ul>
 				          </div>
 				          <div>
 				            <h3>媒体采访</h3>
-				            <p>如果有媒体采访需求，请将您的媒体名称、采访提纲、联系方式发至：<br><a href="mailto:PR@renrendai.com" target="_blank">PR@renrendai.com</a>，我们会尽快与您联系。</p>
+				            <p>如果有媒体采访需求，请将您的媒体名称、采访提纲、联系方式发至：<br><a href="mailto:PR@glacier.com" target="_blank">PR@glacier.com</a>，我们会尽快与您联系。</p>
 				          </div>
 				          <div>
 				            <h3>商务合作</h3>
-				            <p>如果贵公司希望与我们建立商务合作关系，形成优势互补，请将合作意向进行简要描述并发送邮件至：<br><a href="mailto:BD@renrendai.com" target="_blank">BD@renrendai.com</a>，我们会尽快与您联系。</p>
+				            <p>如果贵公司希望与我们建立商务合作关系，形成优势互补，请将合作意向进行简要描述并发送邮件至：<br><a href="mailto:BD@glacier.com" target="_blank">BD@glacier.com</a>，我们会尽快与您联系。</p>
 				          </div>
 				          <div>
 				            <h3>信息同步</h3>
 				            <p>如果您还希望了解我们更多信息，请关注我们的新浪微博、腾讯微博、微信或博客。</p>
 				            <ul>
-				              <li>新浪博客：<a href="http://blog.sina.com.cn/renrendai" target="_blank">blog.sina.com.cn/renrendai</a></li>
-				              <li>新浪微博：<a href="http://e.weibo.com/renrendai" target="_blank">e.weibo.com/renrendai</a></li>
-				              <li>腾讯微博：<a href="http://t.qq.com/renrendai" target="_blank">t.qq.com/renrendai</a></li>
-				              <li>微信公众平台：renrendai</li>
+				              <li>新浪博客：<a href="http://blog.sina.com.cn/glacier" target="_blank">blog.sina.com.cn/glacier</a></li>
+				              <li>新浪微博：<a href="http://e.weibo.com/glacier" target="_blank">e.weibo.com/glacier</a></li>
+				              <li>腾讯微博：<a href="http://t.qq.com/glacier" target="_blank">t.qq.com/glacier</a></li>
+				              <li>微信公众平台：glacier</li>
 				            </ul>
 				            <div>
 				              <p><img src="${pageContext.request.contextPath}/resources/images/index/weixin.jpg" width="150" height="150" alt="微信二维码"></p>

@@ -31,7 +31,7 @@
 			  		<div class="bs-example">
 				      <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
 				        <li><a href="${ctx}/aboutUs.htm">公司简介</a></li>
-				        <li class="active"><a href="${ctx}/hiring.htm">招纳贤士</a></li>
+				        <li class="active"><a href="${ctx}/hiring/hiring.htm">招纳贤士</a></li>
 				        <li><a href="${ctx}/contactUs.htm">联系我们</a></li>
 				      </ul>
 			  		</div>
@@ -81,7 +81,25 @@
 					        </tfoot>
 					      </table>
 				      </div>
-			          
+				      
+			          <div>
+				          <table class="table table-hover">
+				          	<c:forEach items="${hiringDatas.rows}" var="hiring" >
+					        <tbody>
+					          <tr>
+					            <td style="width: 600px;">${hiring.webHiringTheme}</td>
+					            <td>${hiring.createTime}</td>
+					          </tr>
+					      	</tbody>
+					      	</c:forEach>
+					      	<tfoot>
+					          <tr>
+					            <th colspan="2"><h4 align="center"><a  href="#" >查看更多招聘信息>></a></h4></th>
+					          </tr>
+					        </tfoot>
+					      </table>
+				      </div>
+				                
 			          <div>
 			            <h3>我们会为你提供</h3>
 			            <ul>
@@ -94,6 +112,7 @@
 			          <div>
 			            <p>请发送您的简历至<a href="mailto:hr@renrendai.com" target="_blank">hr@renrendai.com</a>，标题请注明所申请职位。</p>
 			          </div>
+			          
 				  </div>
 				</div>
 	    	</div>

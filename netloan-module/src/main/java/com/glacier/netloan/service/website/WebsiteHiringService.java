@@ -64,7 +64,7 @@ public class WebsiteHiringService {
     public Object listAsGrid(JqPager pager) {
         
         JqGridReturn returnResult = new JqGridReturn();
-        WebsiteHiringExample websiteHiringExample = new WebsiteHiringExample();;
+        WebsiteHiringExample websiteHiringExample = new WebsiteHiringExample();
 
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	websiteHiringExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
@@ -79,7 +79,7 @@ public class WebsiteHiringService {
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
     }
-
+    
     /**
      * @Title: addWebsiteHiring 
      * @Description: TODO(新增招聘管理) 

@@ -38,7 +38,14 @@
 	              </ul>
 	            </li>
 	            <li><a href="${ctx}/member/index.htm">个人中心</a></li>
-	            <li><a href="${ctx}/aboutUs.htm">关于我们</a></li>
+	            <li class="dropdown">
+	              <a href="${ctx}/aboutUs.htm" class="dropdown-toggle" data-toggle="dropdown">关于我们<b class="caret"></b></a>
+	              <ul class="dropdown-menu">
+	                <li><a href="${ctx}/aboutUs.htm">公司简介</a></li>
+	                <li><a href="${ctx}/hiring/hiring.htm">招纳贤士</a></li>
+	                <li><a href="${ctx}/contactUs.htm">联系我们</a></li>
+	              </ul>
+	            </li>
 	          </ul>
 	          	<p class="navbar-text navbar-right">
 	          	<c:choose>

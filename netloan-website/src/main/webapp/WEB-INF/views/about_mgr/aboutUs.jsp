@@ -26,7 +26,7 @@
 			  		<div class="bs-example">
 				      <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
 				        <li class="active"><a href="${ctx}/aboutUs.htm">公司简介</a></li>
-				        <li><a href="${ctx}/hiring.htm">招纳贤士</a></li>
+				        <li><a href="${ctx}/hiring/hiring.htm">招纳贤士</a></li>
 				        <li><a href="${ctx}/contactUs.htm">联系我们</a></li>
 				      </ul>
 			  		</div>
