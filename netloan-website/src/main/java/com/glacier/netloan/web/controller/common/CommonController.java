@@ -140,5 +140,8 @@ public class CommonController {
         }
     	return "index";
     }
-    
+    @RequestMapping(value = "/aa.htm")
+    public String aa(){
+    	return "demoValidators";
+    }
 }

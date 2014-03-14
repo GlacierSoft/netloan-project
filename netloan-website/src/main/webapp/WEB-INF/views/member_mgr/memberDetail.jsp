@@ -105,7 +105,7 @@
 				     <div id="myTabContent" class="tab-content">
 				     
 				       <div class="tab-pane fade in active" id="tabPersonalDetails">
-				       		<form class="form-horizontal" role="form" action="${pageContext.request.contextPath}/perfectRegister.htm" method="post">
+				       		<form id="personalMessageForm" class=" form-horizontal" role="form"  method="post" >
 				       		<div class="bs-example bs-example-tabs">
 						     <ul id="myTab" class="nav nav-tabs">
 						       <li class="active"><a href="#tabPersonalBase" data-toggle="tab">基本信息</a></li>
@@ -123,19 +123,19 @@
 							  		  	<input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
 									    <label for="memberRealName" class="col-sm-2 control-label">*真实姓名:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" id="memberRealName" name="memberRealName" value="${currentMember.memberRealName}"  placeholder="真实姓名" required >
+									      <input type="text" class="form-control" id="memberRealName" name="memberRealName" value="${currentMember.memberRealName}"  placeholder="真实姓名" >
 									    </div>
 									  </div>
 									  <div class="form-group">
 									    <label for="cardId" class="col-sm-2 control-label">*身份证:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" id="cardId" name="cardId" value="${currentMember.cardId}"  placeholder="身份证" required >
+									      <input type="text" class="form-control" id="cardId" name="cardId" value="${currentMember.cardId}"  placeholder="身份证"  >
 									    </div>
 									  </div>
 									  <div class="form-group">
 									    <label for="mobileNumber" class="col-sm-2 control-label">*手机号码:</label>
 									    <div class="col-sm-4">
-									      <input type="tel" class="form-control" name="mobileNumber" id="mobileNumber" value="${currentMember.mobileNumber}"  placeholder="手机号码" required>
+									      <input type="tel" class="form-control" name="mobileNumber" id="mobileNumber" value="${currentMember.mobileNumber}"  placeholder="手机号码" >
 									    </div>
 									  </div>
 									  <div class="form-group">
@@ -170,13 +170,13 @@
 									    </div>
 									    <label for="memberAge" class="col-sm-2 control-label">会员年龄:</label>
 									    <div class="col-sm-4">
-									      <input type="number" class="form-control" name="memberAge" id="memberAge" value="${currentMember.memberAge}" placeholder="会员年龄">
+									      <input type="text" class="form-control" name="memberAge" id="memberAge" value="${currentMember.memberAge}" placeholder="会员年龄">
 									    </div>
 									  </div>
 									  <div class="form-group">
-									     <label for="hometown" class="col-sm-2 control-label">籍贯:</label>
+									     <label for="hometown" class="validate[required] col-sm-2 control-label">籍贯:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" name="hometown" id="hometown" value="${currentMember.hometown}"  placeholder="籍贯">
+									      <input type="text" class=" form-control" name="hometown" id="hometown" value="${currentMember.hometown}"  placeholder="籍贯">
 									    </div>
 									    <label for="homePhone" class="col-sm-2 control-label">住宅电话:</label>
 									    <div class="col-sm-4">
@@ -345,8 +345,60 @@
 				},3000)
 			}		
 	      	
+	      		
+	      	$("#personalMessageForm").validate({
+	    		rules:{
+	    			memberRealName:"required",
+	    			cardId:{
+	    				required:true,
+	    				isIdCardNo:true
+	    			},
+	    			mobileNumber:{
+	    				required:true,
+	    				isMobile:true
+	    			},
+	    			homePhone:"isPhone",
+	    			memberAge:"digits",
+	    			firstContactPhone:"isMobile",
+	    			secondContactPhone:"isMobile",
+	    			workAge:"number",
+	    			salary:"number",
+	    			proofPhone:"isMobile"
+	    		},
+	    		messages:{
+	    			memberRealName:"真实姓名不能为空",
+	    			cardId:{
+	    				required:"身份证不能为空",
+	    				
+	    			},
+	    			mobileNumber:{
+	    				required:"手机号码不能为空",	
+	    			},
+	    			memberAge:"年龄只能为数字",
+	    			workAge:"只能为数字",
+	    			salary:"只能为数字"
+	    		},
+	    		submitHandler:function(){
+	    			$.ajax({
+	    				   type: "POST",
+	    				   url: ctx+"/perfectRegister.htm",
+	    				   data: $("#personalMessageForm").serialize(),
+	    				   success: function(msg){
+	    					   $('#success_alert').fadeIn();
+	    						$('#success_alert h4').html(msg.msg);
+	    						setTimeout(function(){//延迟3秒隐藏
+	    							$('#success_alert').fadeOut();
+	    						},3000)
+	    				   }
+	    				});
+	    		} 
+	    	});
+	
+
       	});
+      	
 		</script>
+		
 		 <div id="success_alert" style="width:100%;position: absolute;top:0px;z-index:5000;display: none;">
 	      <div class="alert alert-success fade in">
 	        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

@@ -240,7 +240,8 @@ public class MemberService {
         memberAuthWithBLOBs.setVipName("VIP认证");
         memberAuthWithBLOBs.setVipAuth("noapply");
         memberAuthWithBLOBs.setEmailName("邮箱认证");
-        memberAuthWithBLOBs.setEmailAuth("noapply");
+        memberAuthWithBLOBs.setEmailAuth("pass");
+        memberAuthWithBLOBs.setEmailTime(new Date());
         memberAuthWithBLOBs.setMobileName("手机认证");
         memberAuthWithBLOBs.setMobileAuth("noapply");
         memberAuthWithBLOBs.setCreditName("信用认证");

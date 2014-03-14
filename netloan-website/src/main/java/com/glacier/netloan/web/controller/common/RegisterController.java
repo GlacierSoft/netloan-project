@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.basic.util.IpUtil;
@@ -206,7 +207,7 @@ public class RegisterController extends AbstractController{
 		session.setAttribute("currentMember",loginMember);
         session.setAttribute("currentMemberWork",loginMemberWork);
         request.setAttribute("perfectRegister", perfectRegister);
-		return "member_mgr/memberDetail";
+		return perfectRegister;
 	}
 	//转到“关于我们”页面
 	@RequestMapping(value = "/aboutUs.htm")
