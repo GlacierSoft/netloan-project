@@ -47,10 +47,10 @@
 		frozenColumns : [ [{//冻结列，当表格宽度压缩展示不全时候，该列不会缩小
 			field : 'webNavId' , title : 'ID' , hidden:true
 		},{
-			field : 'webNavName' , title : '导航' , width : 150
+			field : 'webNavName' , title : '导航' , width : 300
 		}]],
 		columns : [ [{
-			field : 'webNavUrl' , title : '导航url' , width : 150
+			field : 'webNavUrl' , title : '导航url' , width : 300
 		},{
 			field : 'webNavNum' , title : '排序' , width : 150
 		},{

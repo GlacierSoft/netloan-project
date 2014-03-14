@@ -40,7 +40,7 @@
 			},{
 				field:'webHelpTheme',
 				title:'帮助中心主题',
-				width:120,
+				width:280,
 				sortable:true
 			},{
 				field:'webHelpType',
@@ -64,23 +64,18 @@
 				width:120,
 				sortable:true
 			},{
-				field:'accessory',
-				title:'附件',
-				width:120,
-				sortable:true
-			},{
 				field:'remark',
 				title:'备注',
 				width:120,
 				sortable:true
 			},{
 				field:'createrDisplay',
-				title:'录入人',
+				title:'创建人',
 				sortable:true,
 				width:100
 			},{
 				field:'createTime',
-				title:'录入时间',
+				title:'创建时间',
 				sortable:true,
 				width:200
 			},{

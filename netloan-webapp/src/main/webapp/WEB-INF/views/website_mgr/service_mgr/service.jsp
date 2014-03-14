@@ -40,12 +40,12 @@
 			},{
 				field:'webServiceName',
 				title:'客服名称',
-				width:120,
+				width:180,
 				sortable:true
 			},{
 				field:'webServiceQq',
 				title:'QQ号',
-				width:120,
+				width:180,
 				sortable:true
 			},{
 				field:'webServicePhoto',

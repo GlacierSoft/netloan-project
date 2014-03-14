@@ -5,7 +5,7 @@
 <form method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
-			<td>主题：</td>
+			<td>职位：</td>
 			<td>
 				<input type="hidden" id="hiring_mgr_hiring_form_webHiringId" name="webHiringId" value="${hiringData.webHiringId}" />
 				<input id="hiring_mgr_hiring_form_webHiringTheme" name="webHiringTheme" style="width:268px" value="${hiringData.webHiringTheme}" class="easyui-validatebox spinner"  required="true"  validType="length[1,25]" invalidMessage="招聘管理主题必须在1到25个字符之间"/>

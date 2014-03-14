@@ -11,7 +11,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 public class WebsiteNews {
     private String webNewsId;
 
-    @Length(min = 1, max = 25, message = "{WebsiteNews.webNewsTheme.illegal}")
+    @Length(min = 1, max = 50, message = "{WebsiteNews.webNewsTheme.illegal}")
     private String webNewsTheme;
 
     private String webNewsStatus;

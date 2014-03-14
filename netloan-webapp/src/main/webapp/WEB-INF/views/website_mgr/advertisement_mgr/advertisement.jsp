@@ -40,7 +40,7 @@
 			},{
 				field:'webAdvTheme',
 				title:'广告主题',
-				width:120,
+				width:280,
 				sortable:true
 			},{
 				field:'webAdvStatus',
@@ -50,11 +50,6 @@
 				formatter: function(value,row,index){//数据格式化，例如enable显示启用，disable显示禁用
 					return renderGridValue(value,fields.status);
 				}
-			},{
-				field:'clicks',
-				title:'点击次数',
-				width:120,
-				sortable:true
 			},{
 				field:'webAdvNum',
 				title:'排序号',

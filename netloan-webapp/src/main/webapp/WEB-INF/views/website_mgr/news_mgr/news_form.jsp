@@ -8,19 +8,19 @@
 			<td>新闻主题：</td>
 			<td>
 				<input type="hidden" id="news_mgr_news_form_webNewsId" name="webNewsId" value="${newsData.webNewsId}" />
-				<input id="news_mgr_news_form_webNewsTheme" name="webNewsTheme" class="easyui-validatebox spinner" style="width:298px" required="true" maxlength="25" value="${newsData.webNewsTheme}"/>
+				<input id="news_mgr_news_form_webNewsTheme" name="webNewsTheme" class="easyui-validatebox spinner" style="width:598px" required="true" maxlength="50" value="${newsData.webNewsTheme}"/>
 			</td>
 		</tr>
 		<tr>
 			<td>新闻状态：</td>
 			<td>
-				<input id="news_mgr_news_form_webNewsStatus" name="webNewsStatus" value="${newsData.webNewsStatus}" class="easyui-combobox" style="height:18px;width:300px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/>
+				<input id="news_mgr_news_form_webNewsStatus" name="webNewsStatus" value="${newsData.webNewsStatus}" class="easyui-combobox" style="height:18px;width:600px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/>
 			</td>
 		</tr>
 		<tr>
 			<td>新闻排序：</td>
 			<td>
-				<input name="webNewsNum" class="easyui-numberspinner spinner" value="${newsData.webNewsNum}" data-options="min:0,max:999,missingMessage:'请输入新闻排序'" value="10" style="width: 300px;height:18px;" min="1" max="99"/>
+				<input name="webNewsNum" class="easyui-numberspinner spinner" value="${newsData.webNewsNum}" data-options="min:0,max:999,missingMessage:'请输入新闻排序'" value="10" style="width: 600px;height:18px;" min="1" max="99"/>
 			</td>
 		</tr>
 		<tr>

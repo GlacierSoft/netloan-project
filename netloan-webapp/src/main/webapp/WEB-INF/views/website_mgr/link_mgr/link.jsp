@@ -40,7 +40,7 @@
 			},{
 				field:'webLinkName',
 				title:'友情链接名称',
-				width:120,
+				width:180,
 				sortable:true
 			},{
 				field:'webLinkUrl',

@@ -11,7 +11,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 public class WebsiteAnnouncement {
     private String webAnnId;
 
-    @Length(min = 1, max = 25, message = "{WebsiteAnnouncement.webAnnTheme.illegal}")
+    @Length(min = 1, max = 50, message = "{WebsiteAnnouncement.webAnnTheme.illegal}")
     private String webAnnTheme;
 
     private String webAnnStatus;

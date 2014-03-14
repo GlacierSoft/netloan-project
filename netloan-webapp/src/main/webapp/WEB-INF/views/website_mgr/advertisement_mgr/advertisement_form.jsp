@@ -8,19 +8,19 @@
 			<td>广告主题：</td>
 			<td>
 				<input type="hidden" id="advertisement_mgr_advertisement_form_webAdvId" name="webAdvId" value="${advertisementData.webAdvId}" />
-				<input id="advertisement_mgr_advertisement_form_webAdvTheme" name="webAdvTheme" class="easyui-validatebox spinner" style="width:298px" required="true" maxlength="25" value="${advertisementData.webAdvTheme}"/>
+				<input id="advertisement_mgr_advertisement_form_webAdvTheme" name="webAdvTheme" class="easyui-validatebox spinner" style="width:598px" required="true" maxlength="50" value="${advertisementData.webAdvTheme}"/>
 			</td>
 		</tr>
 		<tr>
 			<td>广告状态：</td>
 			<td>
-				<input id="advertisement_mgr_advertisement_form_webAdvStatus" name="webAdvStatus" value="${advertisementData.webAdvStatus}" class="easyui-combobox" style="height:18px;width:300px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/>
+				<input id="advertisement_mgr_advertisement_form_webAdvStatus" name="webAdvStatus" value="${advertisementData.webAdvStatus}" class="easyui-combobox" style="height:18px;width:600px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/>
 			</td>
 		</tr>
 		<tr>
 			<td>广告排序：</td>
 			<td>
-				<input name="webAdvNum" class="easyui-numberspinner spinner" value="${advertisementData.webAdvNum}" data-options="min:0,max:999,missingMessage:'请输入广告排序'" value="10" style="width: 300px;height:18px;" min="1" max="99"/>
+				<input name="webAdvNum" class="easyui-numberspinner spinner" value="${advertisementData.webAdvNum}" data-options="min:0,max:999,missingMessage:'请输入广告排序'" value="10" style="width: 600px;height:18px;" min="1" max="99"/>
 			</td>
 		</tr>
 		<tr>

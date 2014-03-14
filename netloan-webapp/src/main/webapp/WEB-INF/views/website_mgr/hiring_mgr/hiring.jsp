@@ -40,7 +40,7 @@
 			},{
 				field:'webHiringTheme',
 				title:'招聘管理主题',
-				width:120,
+				width:280,
 				sortable:true
 			},{
 				field:'webHiringStatus',
@@ -61,18 +61,13 @@
 				width:120,
 				sortable:true
 			},{
-				field:'remark',
-				title:'备注',
-				width:120,
-				sortable:true
-			},{
 				field:'createrDisplay',
-				title:'录入人',
+				title:'创建人',
 				sortable:true,
 				width:100
 			},{
 				field:'createTime',
-				title:'录入时间',
+				title:'创建时间',
 				sortable:true,
 				width:200
 			},{

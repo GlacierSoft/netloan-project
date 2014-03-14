@@ -40,7 +40,7 @@
 			},{
 				field:'webNewsTheme',
 				title:'新闻主题',
-				width:220,
+				width:280,
 				sortable:true
 			},{
 				field:'webNewsStatus',

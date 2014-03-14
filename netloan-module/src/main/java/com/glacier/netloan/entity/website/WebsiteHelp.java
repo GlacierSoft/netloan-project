@@ -11,7 +11,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 public class WebsiteHelp {
     private String webHelpId;
 
-    @Length(min = 1, max = 25, message = "{WebsiteHelp.webHelpTheme.illegal}")
+    @Length(min = 1, max = 50, message = "{WebsiteHelp.webHelpTheme.illegal}")
     private String webHelpTheme;
 
     private String webHelpType;

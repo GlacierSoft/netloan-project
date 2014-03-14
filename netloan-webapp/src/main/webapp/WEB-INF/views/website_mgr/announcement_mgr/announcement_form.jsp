@@ -8,19 +8,19 @@
 			<td>公告主题：</td>
 			<td>
 				<input type="hidden" id="announcement_mgr_announcement_form_webAnnId" name="webAnnId" value="${announcementData.webAnnId}" />
-				<input id="announcement_mgr_announcement_form_webAnnTheme" name="webAnnTheme" class="easyui-validatebox spinner" style="width:298px" required="true" maxlength="25" value="${announcementData.webAnnTheme}"/>
+				<input id="announcement_mgr_announcement_form_webAnnTheme" name="webAnnTheme" class="easyui-validatebox spinner" style="width:598px" required="true" maxlength="50" value="${announcementData.webAnnTheme}"/>
 			</td>
 		</tr>
 		<tr>
 			<td>公告状态：</td>
 			<td>
-				<input id="announcement_mgr_announcement_form_webAnnStatus" name="webAnnStatus" value="${announcementData.webAnnStatus}" class="easyui-combobox" style="height:18px;width:300px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/>
+				<input id="announcement_mgr_announcement_form_webAnnStatus" name="webAnnStatus" value="${announcementData.webAnnStatus}" class="easyui-combobox" style="height:18px;width:600px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/>
 			</td>
 		</tr>
 		<tr>
 			<td>公告排序：</td>
 			<td>
-				<input name="webAnnNum" class="easyui-numberspinner spinner" value="${announcementData.webAnnNum}" data-options="min:0,max:999,missingMessage:'请输入公告排序'" value="10" style="width: 300px;height:18px;" min="1" max="99"/>
+				<input name="webAnnNum" class="easyui-numberspinner spinner" value="${announcementData.webAnnNum}" data-options="min:0,max:999,missingMessage:'请输入公告排序'" value="10" style="width: 600px;height:18px;" min="1" max="99"/>
 			</td>
 		</tr>
 		<tr>
