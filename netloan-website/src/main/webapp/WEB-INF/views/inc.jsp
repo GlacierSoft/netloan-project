@@ -13,14 +13,16 @@
 <link rel="shortcut icon" href="${ctx}/resources/images/favicon/favicon.ico"></link>
 <link rel="icon" href="${ctx}/resources/images/favicon/favicon.ico"></link>
 
+<!-- jquery form验证 css -->
+<link rel="stylesheet" href="${ctx}/resources/css/screen.css"></link>
+
 <!-- 引入bootstrap样式 -->
 <link rel="stylesheet" href="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/css/bootstrap.min.css"></link>
 <link rel="stylesheet" href="${ctx}/resources/js/bootstrap-switch/bootstrap-switch.min.css"></link>
 <link rel="stylesheet" href="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/css/sticky-footer-navbar.css"></link>
-<!-- jquery form验证 css -->
-<%-- <link rel="stylesheet" href="${ctx}/resources/css/screen.css"></link> --%>
-<!-- 自定义主页样式 -->
 
+<!-- 自定义主页样式 -->
+<link rel="stylesheet" href="${ctx}/resources/css/index.css"></link>
  <!--[if lt IE 9]>
  	<link rel="stylesheet" href="${ctx}/resources/css/ie8.css"></link>
  </script><![endif]-->
