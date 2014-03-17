@@ -95,7 +95,7 @@
 				  <div class="panel-body">
 				   <div class="bs-example bs-example-tabs">
 				     <ul id="myTab" class="nav nav-tabs">
-				       <li class="active"><a href="#tabPersonalDetails" data-toggle="tab">个人详细信息</a></li>
+				       <li class="active"><a href="${ctx}/member/memberDetail.htm" class="btn " role="button">个人详细信息</a></li>
 				       <li><a href="#tabUpdatePassword" data-toggle="tab">修改密码</a></li>
 				       <li><a href="#tabchangeMobile" data-toggle="tab">更换手机</a></li>
 				       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
@@ -380,15 +380,19 @@
 	    		},
 	    		submitHandler:function(){
 	    			$.ajax({
-	    				   type: "POST",
+	    				   type: 'POST',
 	    				   url: ctx+"/perfectRegister.htm",
+	    				   contentType : 'application/json',
+	    				   /* data: $("#personalMessageForm").serialize(), */
 	    				   data: $("#personalMessageForm").serialize(),
-	    				   success: function(msg){
-	    					   $('#success_alert').fadeIn();
-	    						$('#success_alert h4').html(msg.msg);
+	    				   dataType: 'json',
+	    				   success: function(r){
+	    					   /* $('#success_alert').fadeIn();
+	    						$('#success_alert h4').html(r.msg);
 	    						setTimeout(function(){//延迟3秒隐藏
 	    							$('#success_alert').fadeOut();
-	    						},3000)
+	    						},3000) */
+	    						alert("tt");
 	    				   }
 	    				});
 	    		} 

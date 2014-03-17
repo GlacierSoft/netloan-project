@@ -11,8 +11,10 @@ import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
@@ -184,14 +186,20 @@ public class RegisterController extends AbstractController{
 	 * @throws 
 	 *
 	 */
-	@RequestMapping(value = "/perfectRegister.htm")
-	public Object perfectRegister(@Valid Member member,BindingResult bindingResult,@Valid MemberWork memberWork,BindingResult bindingResultWork,HttpServletRequest request,HttpSession session){
+	@RequestMapping(value = "/perfectRegister.htm", method = RequestMethod.POST)
+	@ResponseBody
+	public Object perfectRegister(@RequestBody @Valid Member member,BindingResult bindingResult,@RequestBody @Valid MemberWork memberWork,BindingResult bindingResultWork,HttpServletRequest request,HttpSession session){
 		if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
         if (bindingResultWork.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResultWork);
         }
+        System.out.println(" aaaaa "+member.getCardId());
+        System.out.println(" aaaaa "+member.getMemberId());
+        System.out.println(" aaaaa "+member.getEmail());
+        System.out.println(" aaaaa "+member.getHomePhone());
+        System.out.println(" aaaaa "+member.getMemberRealName());
 		JqReturnJson perfectRegister = (JqReturnJson) memberService.editMemberReception(member, memberWork);
 		Member loginMember = (Member) memberService.getMember(member.getMemberId());
 		MemberWork loginMemberWork = (MemberWork) memberService.getMemberWork(member.getMemberId());

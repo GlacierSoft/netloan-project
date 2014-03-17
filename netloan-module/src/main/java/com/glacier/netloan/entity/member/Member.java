@@ -1,5 +1,6 @@
 package com.glacier.netloan.entity.member;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -7,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-public class Member {
+public class Member implements Serializable{
     private String memberId;
 
     @Length(min = 1, max = 10, message = "{Member.memberName.illegal}")
@@ -481,4 +482,8 @@ public class Member {
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         return result;
     }
+
+	public Member() {
+	}
+    
 }
