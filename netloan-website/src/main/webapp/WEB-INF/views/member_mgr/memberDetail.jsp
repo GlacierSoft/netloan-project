@@ -105,7 +105,7 @@
 				     <div id="myTabContent" class="tab-content">
 				     
 				       <div class="tab-pane fade in active" id="tabPersonalDetails">
-				       		<form id="personalMessageForm" class=" form-horizontal" role="form"  method="post" >
+				       		<form id="personalMessageForm"  class=" form-horizontal" role="form"  method="post" >
 				       		<div class="bs-example bs-example-tabs">
 						     <ul id="myTab" class="nav nav-tabs">
 						       <li class="active"><a href="#tabPersonalBase" data-toggle="tab">基本信息</a></li>
@@ -380,25 +380,19 @@
 	    		},
 	    		submitHandler:function(){
 	    			$.ajax({
-	    				   type: 'POST',
+	    				   type: "POST",
 	    				   url: ctx+"/perfectRegister.htm",
-	    				   contentType : 'application/json',
-	    				   /* data: $("#personalMessageForm").serialize(), */
+	    				   dataType: "json",
 	    				   data: $("#personalMessageForm").serialize(),
-	    				   dataType: 'json',
-	    				   success: function(r){
-	    					   /* $('#success_alert').fadeIn();
-	    						$('#success_alert h4').html(r.msg);
-	    						setTimeout(function(){//延迟3秒隐藏
-	    							$('#success_alert').fadeOut();
-	    						},3000) */
-	    						alert("tt");
-	    				   }
+		    			   success: function(r) {
+		    				  alert("提交成功！");
+		                    },
+		                    error: function() {
+		                        alert("提交出错！");
+		                    }
 	    				});
 	    		} 
 	    	});
-	
-
       	});
       	
 		</script>
