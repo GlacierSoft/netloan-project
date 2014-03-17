@@ -385,7 +385,11 @@
 	    				   dataType: "json",
 	    				   data: $("#personalMessageForm").serialize(),
 		    			   success: function(r) {
-		    				  alert("提交成功！");
+		    				    $('#success_alert').fadeIn();
+	    						$('#success_alert h4').html(r.msg);
+	    						setTimeout(function(){//延迟3秒隐藏
+	    							$('#success_alert').fadeOut();
+	    						},3000)
 		                    },
 		                    error: function() {
 		                        alert("提交出错！");
@@ -397,7 +401,8 @@
       	
 		</script>
 		
-		 <div id="success_alert" style="width:100%;position: absolute;top:0px;z-index:5000;display: none;">
+		 <div id="success_alert" style="width:100%;position: absolute;top:0px;z-index:5000;display: none;"> 
+	     
 	      <div class="alert alert-success fade in">
 	        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 	        <h4 style="text-align:center;"></h4>

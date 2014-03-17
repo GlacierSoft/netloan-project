@@ -85,18 +85,13 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
             MemberTokenExample memberTokenExample = new MemberTokenExample();
             memberTokenExample.createCriteria().andUsernameEqualTo(username);
             MemberToken tokenMember= memberTokenMapper.selectByExample(memberTokenExample).get(0);
-            System.out.println("ccccccccc");
             if (null != tokenMember) {
                 // 用户状态为启用或隐藏让其通过认证
                 byte[] salt = Encodes.decodeHex(tokenMember.getSalt());
                 for(char r : token.getPassword()){
-                	System.out.println("rrrrrrrr  "+r);
                 }
-                System.out.println("rrrrrrrr  "+token.getPassword());
                 Member principalMember = memberMapper.selectByPrimaryKey(tokenMember.getMemberId());
-                System.out.println("kkkkkk");
                 AuthenticationInfo info = new SimpleAuthenticationInfo(principalMember, tokenMember.getPassword(), ByteSource.Util.bytes(salt), getName());// 将用户的所有信息作为认证对象返回
-                System.out.println("tttttt");
                 clearCache(info.getPrincipals());// 认证成功后清除之前的缓存
                 return info;
             } else {

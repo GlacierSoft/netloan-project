@@ -52,7 +52,6 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
         if (StringUtils.isNotBlank(password)) {
             charPassword = password.toCharArray();
         }
-        System.out.println(username+" aa "+charPassword+" nn "+rememberMe+" cc "+host+" dd "+"  ee "+captcha);
         return new CaptchaUsernamePasswordToken(username, charPassword, rememberMe, host, captcha);
     }
 

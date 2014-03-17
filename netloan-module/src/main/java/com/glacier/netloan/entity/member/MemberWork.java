@@ -1,10 +1,9 @@
 package com.glacier.netloan.entity.member;
 
-import java.io.Serializable;
 
 import org.hibernate.validator.constraints.Length;
 
-public class MemberWork implements Serializable{
+public class MemberWork{
     private String memberId;
 
     @Length(min = 1, max = 10, message = "{MemberWork.unitName.illegal}")
