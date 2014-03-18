@@ -363,7 +363,12 @@
 	    			secondContactPhone:"isMobile",
 	    			workAge:"number",
 	    			salary:"number",
-	    			proofPhone:"isMobile"
+	    			proofPhone:"isMobile",
+	    			unitName:{
+	    				required:true,
+	    				rangelength:[1,10]
+	    			},
+	    			unitPhone:"isPhone"
 	    		},
 	    		messages:{
 	    			memberRealName:"真实姓名不能为空",
@@ -376,7 +381,11 @@
 	    			},
 	    			memberAge:"年龄只能为数字",
 	    			workAge:"只能为数字",
-	    			salary:"只能为数字"
+	    			salary:"只能为数字",
+	    			unitName:{
+	    				required:"单位名称不能为空",
+	    				rangelength:"单位名称长度为1-10个字符"
+	    			}
 	    		},
 	    		submitHandler:function(){
 	    			$.ajax({
@@ -385,6 +394,7 @@
 	    				   dataType: "json",
 	    				   data: $("#personalMessageForm").serialize(),
 		    			   success: function(r) {
+		    				   
 		    				    $('#success_alert').fadeIn();
 	    						$('#success_alert h4').html(r.msg);
 	    						setTimeout(function(){//延迟3秒隐藏
