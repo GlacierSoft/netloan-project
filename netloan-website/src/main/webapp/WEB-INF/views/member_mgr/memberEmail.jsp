@@ -39,11 +39,11 @@
 					    <div id="collapseOne" class="panel-collapse collapse in">
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
-					          <a href="${ctx}/member/index.htm" class="btn btn-info" role="button">我的主页</a>
+					          <a href="${ctx}/member/index.htm" class="btn btn-default" role="button">我的主页</a>
 					          <a href="#" class="btn btn-default" role="button">充值提现</a>
 					          <a href="#" class="btn btn-default" role="button">平台认证</a>
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">个人设置</a>
-							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">邮箱设置</a>
+							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-info" role="button">邮箱设置</a>
 							</div>
 					      </div>
 					    </div>
@@ -90,34 +90,22 @@
 	    	<div class="col-md-10">
 	    		<div class="panel panel-default">
 				  <div class="panel-heading">
-				    <h3 class="panel-title">我的个人信息</h3>
+				    <h3 class="panel-title">邮箱设置</h3>
 				  </div>
 				  <div class="panel-body">
 				     <table class="table">
-			            <tr>
-			              <td rowspan="4">头像</td>
-			              <td>用户名：</td>
-			              <td>${currentMember.memberRealName}</td>
-			              <td>信用积分</td>
-			              <td>123</td>
+			            <tr rowspan="2" >
+			              <td  colspan="3" style="color:red;">邮箱设置</td>
 			            </tr>
 			            <tr>
-			              <td>注册时间：</td>
-			              <td>${currentMember.registrationTime}</td>
-			              <td>会员到期：</td>
-			              <td>${currentMember.expireTime}</td>
-			            </tr>
-			            <tr>
-			              <td>会员积分：</td>
-			              <td>120</td>
-			              <td>最后登录ip:</td>
-			              <td>61.145.244.204</td>
-			            </tr>
-			            <tr>
-			              <td>信用额度：</td>
-			              <td>12000</td>
-			              <td>个人统计:</td>
-			              <td>61.145.244.204</td>
+			              <td>邮箱地址:</td>
+			              <td>${currentMember.email}</td>
+			              <c:if test="${currentMember.email != ''}">
+			              <td><p style="color:red;">(改邮箱已绑定)</p></td>
+			              </c:if>
+			              <c:if test="${currentMember.email == ''}">
+			              <td><p>(改邮箱未绑定)</p></td>
+			              </c:if>
 			            </tr>
 			        </table>
 				  </div>

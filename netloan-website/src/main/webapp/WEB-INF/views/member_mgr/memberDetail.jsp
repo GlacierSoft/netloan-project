@@ -43,7 +43,7 @@
 					          <a href="#" class="btn btn-default" role="button">充值提现</a>
 					          <a href="#" class="btn btn-default" role="button">平台认证</a>
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-info" role="button">个人设置</a>
-							  <a href="#" class="btn btn-default" role="button">邮箱设置</a>
+							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">邮箱设置</a>
 							</div>
 					      </div>
 					    </div>
@@ -303,7 +303,37 @@
 				       </div>
 				    
 				       <div class="tab-pane fade" id="tabUpdatePassword">
-				         <p>修改密码</p>
+				         <form id="updatememberPasswordForm" class="form-horizontal" role="form" method="post" >
+						  <div class="form-group">
+						    <label for="memberName" class="col-sm-2 control-label" style="color:red;">会员登录密码修改</label>
+						    <div class="col-sm-6">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="memberName" class="col-sm-2 control-label">原密码:</label>
+						    <div class="col-sm-6">
+						      <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
+						      <input type="text" class="form-control" id="oldPassword_form-group" name="oldPassword" placeholder="输入您现在的帐号密码"  />
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="memberPassword" class="col-sm-2 control-label">新密码:</label>
+						    <div class="col-sm-6">
+						      <input type="password" class="form-control" id="memberPassword_form-group" name="memberPassword" placeholder="输入您的新密码"  />
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="comfirPassword" class="col-sm-2 control-label">确认新密码:</label>
+						    <div class="col-sm-6">
+						      <input type="password" class="form-control" id="comfirPassword_form-group" name="comfirPassword" placeholder="请再次输入您的新密码" />
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-offset-2 col-sm-10">
+						      <button id="updatememberPasswordForm_form-group" type="submit" class="btn btn-primary">提    交</button>
+						    </div>
+						  </div>
+						</form>
 				       </div>
 				       <div class="tab-pane fade" id="tabchangeMobile">
 				         <p>更换手机</p>
@@ -345,7 +375,7 @@
 				},3000)
 			}		
 	      	
-	      		
+	      	
 	      	$("#personalMessageForm").validate({
 	    		rules:{
 	    			memberRealName:"required",
@@ -407,13 +437,82 @@
 	    				});
 	    		} 
 	    	});
+	      	$("#updatememberPasswordForm").validate({
+	      		rules:{
+	    			oldPassword:{
+	    				required:true,
+	    				rangelength:[6,12]
+	    			},
+	    			memberPassword:{
+	    				required:true,
+	    				rangelength:[6,12]
+	    			},
+	    			comfirPassword:{
+	    				required:true,
+	    				rangelength:[6,12],
+	    				equalTo:"#memberPassword_form-group"
+	    			}
+	    		},
+	    		messages:{
+	    			oldPassword:{
+	    				required:"原密码不能为空",
+	    				rangelength:"密码长度必须为为6-12位"
+	    			},
+	    			memberPassword:{
+	    				required:"新密码不能为空",	
+	    				rangelength:"密码长度必须为为6-12位"
+	    			},
+	    			comfirPassword:{
+	    				required:"确认密码不能为空",
+	    				rangelength:"密码长度必须为为6-12位",
+	    				equalTo:"确认密码必须和新密码一致"
+	    			}
+	    		},
+	    		submitHandler:function(){
+	    			 $.ajax({
+	    				   type: "POST",
+	    				   url: ctx+"/member/updatememberPassword.htm",
+	    				   dataType: "json",
+	    				   data: $("#updatememberPasswordForm").serialize(),
+		    			   success: function(r) {
+		    				    
+	    						if(r.success){
+	    							$('#success_alert').fadeIn();
+		    						$('#success_alert h4').html(r.msg);
+		    						setTimeout(function(){//延迟3秒隐藏
+		    							$('#success_alert').fadeOut();
+		    						},3000)
+		    						
+		    						$("#oldPassword_form-group").val("");
+		    						$("#memberPassword_form-group").val("");
+		    						$("#comfirPassword_form-group").val("");
+	    						}else{
+	    							$('#danger_alert').fadeIn();
+		    						$('#danger_alert h4').html(r.msg);
+		    						setTimeout(function(){//延迟3秒隐藏
+		    							$('#danger_alert').fadeOut();
+		    						},3000)
+	    						}
+	    						
+		                    },
+		                    error: function() {
+		                        alert("提交出错！");
+		                    }
+	    				}); 
+	    		} 
+	      	});
       	});
       	
 		</script>
 		
 		 <div id="success_alert" style="width:100%;position: absolute;top:0px;z-index:5000;display: none;"> 
-	     
 	      <div class="alert alert-success fade in">
+	        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	        <h4 style="text-align:center;"></h4>
+	      </div> 
+	    </div>
+	    <div id="danger_alert" style="width:100%;position: absolute;top:0px;z-index:5000;display: none;"> 
+	      <div class="alert alert-danger fade in">
 	        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 	        <h4 style="text-align:center;"></h4>
 	      </div> 

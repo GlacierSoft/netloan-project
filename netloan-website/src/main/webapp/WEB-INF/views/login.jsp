@@ -54,13 +54,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  <div class="form-group">
 			    <label for="username" class="col-sm-2 control-label">用户名/邮箱/手机</label>
 			    <div class="col-sm-6">
-			      <input type=text class="form-control" id="username" name="username" placeholder="用户名/邮箱/手机" required autofocus />
+			      <input type=text class="form-control" id="username" name="username" placeholder="用户名/邮箱/手机" value="${member.memberName}" required autofocus />
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="password" class="col-sm-2 control-label">密码</label>
 			    <div class="col-sm-6">
-			      <input type="password" class="form-control" id="password" name="password" placeholder="密码" required />
+			      <input type="password" class="form-control" id="password" name="password" placeholder="密码" value="${member.memberPassword}" required />
 			    </div>
 			  </div>
 <%-- 			 <li>验证码：<input type="text" name="validateCode" />

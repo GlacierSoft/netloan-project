@@ -21,6 +21,8 @@ package com.glacier.netloan.web.controller.common;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.service.website.WebsiteAnnouncementService;
 import com.glacier.netloan.service.website.WebsiteNewsService;
 
@@ -108,11 +111,14 @@ public class CommonController {
      */
     @RequestMapping(value = "/login.htm", method = RequestMethod.POST)
     public String fail(@RequestParam(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM)
-    String username, Model model) {
+    String username,String password, Model model,Member member,HttpServletRequest request) {
         if (null != SecurityUtils.getSubject() && null != SecurityUtils.getSubject().getSession()) {
             SecurityUtils.getSubject().logout();// 进入登录页面，默认把登录用户注销
         }
         model.addAttribute(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM, username);
+        member.setMemberName(username);
+        member.setMemberPassword(password);
+        request.setAttribute("member", member);
         return "login";
     }
     
