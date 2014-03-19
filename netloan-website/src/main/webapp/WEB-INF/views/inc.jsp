@@ -45,4 +45,6 @@
 <script src="${ctx}/resources/js/jquery/jquery.validate.js" type="text/javascript"></script>
 <script src="${ctx}/resources/js/jquery/jquery.netloan_website_validate.js" type="text/javascript"></script>
 
-
+<!-- bootstrap分页插件 -->
+<script src="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/js/bootstrap-paginator.js"></script>
+<script src="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/js/qunit-1.11.0.js"></script>

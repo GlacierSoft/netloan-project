@@ -35,12 +35,19 @@ public class WebsiteHiringController extends AbstractController{
 	
 	//转到“招纳贤士”页面
 	@RequestMapping(value = "/hiring.htm")
-	public Object hiring(JqPager pager){
+	public Object hiring(JqPager pager, @RequestParam int p){
 		ModelAndView mav = new ModelAndView("about_mgr/hiring");
-		mav.addObject("hiringDatas", websiteHiringService.listAsGrid(pager));
+		mav.addObject("hiringDatas", websiteHiringService.listAsWebsite(pager, p));
 		return mav;
 	}
 	
+	//转到“招纳贤士”列表页面
+	@RequestMapping(value = "/hiringList.htm")
+	public Object hiringList(JqPager pager, @RequestParam int p){
+		ModelAndView mav = new ModelAndView("about_mgr/hiringList");
+		mav.addObject("hiringDatas", websiteHiringService.listAsWebsite(pager, p));
+		return mav;
+	}
 	
 	 // 进入招聘管理列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -69,12 +76,12 @@ public class WebsiteHiringController extends AbstractController{
         return mav;
     }
     
-    // 获取表格结构的所有菜单数据
-    @RequestMapping(value = "/list.json", method = RequestMethod.POST)
-    @ResponseBody
-    private Object listActionAsGridByMenuId(JqPager page) {
-        return websiteHiringService.listAsGrid(page);
-    }
+//    // 获取表格结构的所有菜单数据
+//    @RequestMapping(value = "/list.json", method = RequestMethod.POST)
+//    @ResponseBody
+//    private Object listActionAsGridByMenuId(JqPager page) {
+//        return websiteHiringService.listAsGrid(page);
+//    }
     
     // 增加招聘管理
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)

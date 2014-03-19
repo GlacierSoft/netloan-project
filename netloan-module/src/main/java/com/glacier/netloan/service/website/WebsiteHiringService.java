@@ -55,7 +55,7 @@ public class WebsiteHiringService {
     
     /**
      * @Title: listAsGrid 
-     * @Description: TODO(获取所有招聘管理信息) 
+     * @Description: TODO(表格获取所有招聘管理信息) 
      * @param @param pager
      * @param @return    设定文件 
      * @return Object    返回类型 
@@ -77,6 +77,39 @@ public class WebsiteHiringService {
         int total = websiteHiringMapper.countByExample(websiteHiringExample); // 查询总页数
         returnResult.setRows(websiteHirings);
         returnResult.setTotal(total);
+        return returnResult;// 返回ExtGrid表
+    }
+    
+    /**
+     * @Title: listAsWebsite 
+     * @Description: TODO(前台展示页面获取所有招聘管理信息) 
+     * @param @param pager
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    public Object listAsWebsite(JqPager pager, int p) {
+        
+        JqGridReturn returnResult = new JqGridReturn();
+        WebsiteHiringExample websiteHiringExample = new WebsiteHiringExample();
+
+        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
+        	websiteHiringExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
+        	websiteHiringExample.setLimitEnd(pager.getRows());
+        }
+        pager.setSort("createTime");// 定义排序字段
+        pager.setOrder("DESC");// 升序还是降序
+        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
+        	websiteHiringExample.setOrderByClause(pager.getOrderBy("temp_website_hiring_"));
+        }
+        int startTemp = ((p-1)*5);//根据前台返回的页数进行设置
+        websiteHiringExample.setLimitStart(startTemp);
+        websiteHiringExample.setLimitEnd(5);
+        List<WebsiteHiring>  websiteHirings = websiteHiringMapper.selectByExample(websiteHiringExample); // 查询所有招聘管理列表
+        int total = websiteHiringMapper.countByExample(websiteHiringExample); // 查询总页数
+        returnResult.setRows(websiteHirings);
+        returnResult.setTotal(total);
+        returnResult.setP(p);
         return returnResult;// 返回ExtGrid表
     }
     

@@ -23,6 +23,11 @@ public class JqGridReturn {
      * 总共条数
      */
     private int total = 0;
+    
+    /**
+     * 当前页数
+     */
+    private int p = 1;
 
     /**
      * 内容数据
@@ -71,8 +76,16 @@ public class JqGridReturn {
     public void setFooter(List<?> footer) {
         this.footer = footer;
     }
+    
+    public int getP() {
+		return p;
+	}
 
-    @Override
+	public void setP(int p) {
+		this.p = p;
+	}
+
+	@Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
     }

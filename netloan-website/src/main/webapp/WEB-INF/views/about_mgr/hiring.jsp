@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- 引入jstl解析标签 -->
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %><!-- 引入自定义权限标签 -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="zh-cn">
@@ -31,7 +32,7 @@
 			  		<div class="bs-example">
 				      <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
 				        <li><a href="${ctx}/aboutUs.htm">公司简介</a></li>
-				        <li class="active"><a href="${ctx}/hiring/hiring.htm">招纳贤士</a></li>
+				        <li class="active"><a href="${ctx}/hiring/hiring.htm?&p=1">招纳贤士</a></li>
 				        <li><a href="${ctx}/contactUs.htm">联系我们</a></li>
 				      </ul>
 			  		</div>
@@ -53,17 +54,23 @@
 				      
 			          <div>
 				          <table class="table table-hover">
-				          	<c:forEach items="${hiringDatas.rows}" var="hiring"  begin="0" end="4" step="1">
+				          	<c:forEach items="${hiringDatas.rows}" var="hiring">
 						        <tbody>
 						          <tr>
-						            <td style="width: 600px;">${hiring.webHiringTheme}</td>
-						            <td>${hiring.createTime}</td>
+						            <td class="col-md-9">${hiring.webHiringTheme}</td>
+						            <td class="col-md-3"><fmt:formatDate value="${hiring.createTime}" type="both"/></td>
 						          </tr>
 						      	</tbody>
 					      	</c:forEach>
 					      	<tfoot>
 					          <tr>
-					            <th colspan="2"><h4 align="center"><a  href="#" >查看更多招聘信息>></a></h4></th>
+					            <th colspan="2">
+					            
+					            	<div align="right">
+									    <ul id='pageHiring'></ul>
+									</div>
+
+								</th>
 					          </tr>
 					        </tfoot>
 					      </table>
@@ -89,5 +96,63 @@
 	    <hr class="featurette-divider2">
 	    <jsp:include page="../foot.jsp"/>
 	    </div>
+	    
+<!-- 分页显示表格数据 -->
+<script type="text/javascript">
+	$(function(){
+		//获得浏览器参数
+		$.extend({
+			getUrlVars: function(){
+				var vars = [], hash;
+				var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+				for(var i = 0; i < hashes.length; i++){
+					hash = hashes[i].split('=');
+					vars.push(hash[0]);
+					vars[hash[0]] = hash[1];
+				}
+				return vars;
+			},
+			getUrlVar: function(name){
+				return $.getUrlVars()[name];
+			}
+		});
+	
+	//封装浏览器参数
+	var composeUrlParams=function(){
+		var param='';
+		$.each($.getUrlVars(), function(i, item) {
+			if(item!='p'){
+				var val=$.getUrlVar(item);
+				if(val) param += "&" + item+"="+val;
+			}
+		});
+		return param;
+	}
+	
+	var element = $('#pageHiring');
+	
+	//设置分页的总页数
+	var total=${hiringDatas.total}/5;
+	if(parseInt(total)==total){
+		var total = parseInt(total);
+	}else {
+		var total = parseInt(total)+1;
+	}
+	
+	var options = {
+	    bootstrapMajorVersion:3,
+	    currentPage: ${hiringDatas.p},
+	    numberOfPages: 5,
+	    totalPages:total,
+	    pageUrl: function(type, page, current){
+	    	return "${ctx}/hiring/hiring.htm?"+composeUrlParams()+"&p="+page;
+	    	}
+	}
+	
+	element.bootstrapPaginator(options);
+	})
+</script>
+	    
+	    
   </body>
 </html>
