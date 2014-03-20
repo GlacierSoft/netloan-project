@@ -38,6 +38,14 @@ public class WebsiteNewsController extends AbstractController{
     @Autowired
     private WebsiteNewsService newsService;// 注入新闻业务Bean
     
+    //转到“网站新闻”页面
+  	@RequestMapping(value = "/news.htm")
+  	public Object hiring(JqPager pager, @RequestParam int p){
+  		ModelAndView mav = new ModelAndView("about_mgr/news");
+  		mav.addObject("newsDatas", newsService.listAsWebsite(pager, p));
+  		return mav;
+  	}
+  	
     // 进入新闻列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPnews() {

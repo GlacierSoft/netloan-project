@@ -38,6 +38,14 @@ public class WebsiteAnnouncementController extends AbstractController{
     @Autowired
     private WebsiteAnnouncementService announcementService;// 注入公告业务Bean
     
+    //转到“网站公告”页面
+  	@RequestMapping(value = "/announcement.htm")
+  	public Object announcement(JqPager pager, @RequestParam int p){
+  		ModelAndView mav = new ModelAndView("about_mgr/announcement");
+  		mav.addObject("announcementDatas", announcementService.listAsWebsite(pager, p));
+  		return mav;
+  	}
+  	
     // 进入公告列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPannouncement() {

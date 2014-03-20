@@ -34,8 +34,8 @@
 					      <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
 					        <li><a href="${ctx}/aboutUs.htm">公司简介</a></li>
 					        <li><a href="${ctx}/announcement/announcement.htm?&p=1">网站公告</a></li>
-						    <li><a href="${ctx}/news/news.htm?&p=1">网站新闻</a></li>
-					        <li class="active"><a href="${ctx}/hiring/hiring.htm?&p=1">招纳贤士</a></li>
+						    <li class="active"><a href="${ctx}/news/news.htm?&p=1">网站新闻</a></li>
+					        <li><a href="${ctx}/hiring/hiring.htm?&p=1">招纳贤士</a></li>
 					        <li><a href="${ctx}/contactUs.htm">联系我们</a></li>
 					      </ul>
 				  		</div>
@@ -52,24 +52,24 @@
 	    	<div class="col-md-10">
 	    		<div class="panel panel-default">
 				  <div class="panel-heading">
-				    <h3 class="panel-title">关于我们 / 招纳贤士</h3>
+				    <h3 class="panel-title">关于我们 / 网站新闻</h3>
 				  </div>
 				  <div class="panel-body">
-			          <h2>招贤纳士</h2>
+			          <h2>网站新闻</h2>
 			          <div>
 			           <p>我们是一支在互联网和金融领域非常优秀的团队！我们有梦有理想，我们积极乐观，脚踏实地，充满激情！如果你也和我们一样，那么欢迎你加入我们的团队！</p>
 			           <p></p>
 			          </div>
 			          
-			          <h3  style="padding-top: 20px;">招聘职位</h3>
+			          <h3  style="padding-top: 20px;">新闻列表</h3>
 				      
 			          <div>
 				          <table class="table table-hover">
-				          	<c:forEach items="${hiringDatas.rows}" var="hiring">
+				          	<c:forEach items="${newsDatas.rows}" var="news">
 						        <tbody>
 						          <tr>
-						            <td class="col-md-9">${hiring.webHiringTheme}</td>
-						            <td class="col-md-3"><fmt:formatDate value="${hiring.createTime}" type="both"/></td>
+						            <td class="col-md-9">${news.webNewsTheme}</td>
+						            <td class="col-md-3"><fmt:formatDate value="${news.createTime}" type="both"/></td>
 						          </tr>
 						      	</tbody>
 					      	</c:forEach>
@@ -78,7 +78,7 @@
 					            <th colspan="2">
 					            
 					            	<div align="right">
-									    <ul id='pageHiring'></ul>
+									    <ul id='pageNews'></ul>
 									</div>
 
 								</th>
@@ -87,18 +87,6 @@
 					      </table>
 				      </div>
 				                
-			          <div>
-			            <h3>我们会为你提供</h3>
-			            <ul>
-			              <li>在全新的互联网金融行业里开启个人事业的机会</li>
-			              <li>富有竞争力的薪酬待遇</li>
-			              <li>轻松惬意的工作氛围和充满活力的团队文化</li>
-			              <li>完善的培训体系和更多的晋升机会</li>
-			            </ul>
-			          </div>
-			          <div>
-			            <p>请发送您的简历至<a href="mailto:hr@renrendai.com" target="_blank">hr@renrendai.com</a>，标题请注明所申请职位。</p>
-			          </div>
 			          
 				  </div>
 				</div>
@@ -140,10 +128,10 @@
 		return param;
 	}
 	
-	var element = $('#pageHiring');
+	var element = $('#pageNews');
 	
 	//设置分页的总页数
-	var total=${hiringDatas.total}/5;
+	var total=${newsDatas.total}/10;
 	if(parseInt(total)==total){
 		var total = parseInt(total);
 	}else {
@@ -152,11 +140,11 @@
 	
 	var options = {
 	    bootstrapMajorVersion:3,
-	    currentPage: ${hiringDatas.p},
+	    currentPage: ${newsDatas.p},
 	    numberOfPages: 5,
 	    totalPages:total,
 	    pageUrl: function(type, page, current){
-	    	return "${ctx}/hiring/hiring.htm?"+composeUrlParams()+"&p="+page;
+	    	return "${ctx}/news/news.htm?"+composeUrlParams()+"&p="+page;
 	    	}
 	}
 	

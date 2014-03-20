@@ -66,22 +66,48 @@ public class WebsiteNewsService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pnewsr) {
+    public Object listAsGrid(JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
         WebsiteNewsExample websiteNewsExample = new WebsiteNewsExample();
 
-        if (null != pnewsr.getPage() && null != pnewsr.getRows()) {// 设置排序信息
-        	websiteNewsExample.setLimitStart((pnewsr.getPage() - 1) * pnewsr.getRows());
-        	websiteNewsExample.setLimitEnd(pnewsr.getRows());
+        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
+        	websiteNewsExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
+        	websiteNewsExample.setLimitEnd(pager.getRows());
         }
-        if (StringUtils.isNotBlank(pnewsr.getSort()) && StringUtils.isNotBlank(pnewsr.getOrder())) {// 设置排序信息
-        	websiteNewsExample.setOrderByClause(pnewsr.getOrderBy("temp_website_news_"));
+        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
+        	websiteNewsExample.setOrderByClause(pager.getOrderBy("temp_website_news_"));
         }
         List<WebsiteNews>  websiteNewss = newsMapper.selectByExample(websiteNewsExample); // 查询所有新闻列表
         int total = newsMapper.countByExample(websiteNewsExample); // 查询总页数
         returnResult.setRows(websiteNewss);
         returnResult.setTotal(total);
+        return returnResult;// 返回ExtGrid表
+    }
+
+    public Object listAsWebsite(JqPager pager, int p) {
+        
+    	JqGridReturn returnResult = new JqGridReturn();
+        WebsiteNewsExample websiteNewsExample = new WebsiteNewsExample();
+        websiteNewsExample.createCriteria().andWebNewsStatusEqualTo("enable");
+
+        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
+        	websiteNewsExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
+        	websiteNewsExample.setLimitEnd(pager.getRows());
+        }
+        pager.setSort("createTime");// 定义排序字段
+        pager.setOrder("DESC");// 升序还是降序
+        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
+        	websiteNewsExample.setOrderByClause(pager.getOrderBy("temp_website_news_"));
+        }
+        int startTemp = ((p-1)*10);//根据前台返回的页数进行设置
+        websiteNewsExample.setLimitStart(startTemp);
+        websiteNewsExample.setLimitEnd(10);
+        List<WebsiteNews>  websiteNewss = newsMapper.selectByExample(websiteNewsExample); // 查询所有新闻列表
+        int total = newsMapper.countByExample(websiteNewsExample); // 查询总页数
+        returnResult.setRows(websiteNewss);
+        returnResult.setTotal(total);
+        returnResult.setP(p);
         return returnResult;// 返回ExtGrid表
     }
 

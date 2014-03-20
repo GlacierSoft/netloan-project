@@ -86,6 +86,41 @@ public class WebsiteAnnouncementService {
     }
 
     /**
+     * @Title: listAsWebsite 
+     * @Description: TODO(前台展示网站公告信息) 
+     * @param @param pager
+     * @param @param p
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    public Object listAsWebsite(JqPager pager, int p) {
+        
+    	JqGridReturn returnResult = new JqGridReturn();
+        WebsiteAnnouncementExample websiteAnnouncementExample = new WebsiteAnnouncementExample();
+        websiteAnnouncementExample.createCriteria().andWebAnnStatusEqualTo("enable");
+
+        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
+        	websiteAnnouncementExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
+        	websiteAnnouncementExample.setLimitEnd(pager.getRows());
+        }
+        pager.setSort("createTime");// 定义排序字段
+        pager.setOrder("DESC");// 升序还是降序
+        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
+        	websiteAnnouncementExample.setOrderByClause(pager.getOrderBy("temp_website_announcement_"));
+        }
+        int startTemp = ((p-1)*10);//根据前台返回的页数进行设置
+        websiteAnnouncementExample.setLimitStart(startTemp);
+        websiteAnnouncementExample.setLimitEnd(10);
+        List<WebsiteAnnouncement>  websiteAnnouncements = announcementMapper.selectByExample(websiteAnnouncementExample); // 查询所有公告列表
+        int total = announcementMapper.countByExample(websiteAnnouncementExample); // 查询总页数
+        returnResult.setRows(websiteAnnouncements);
+        returnResult.setTotal(total);
+        returnResult.setP(p);
+        return returnResult;// 返回ExtGrid表
+    }
+    
+    /**
      * @Title: addAnnouncement 
      * @Description: TODO(新增公告) 
      * @param @param announcement
