@@ -21,6 +21,8 @@
 <link rel="stylesheet" href="${ctx}/resources/js/bootstrap-switch/bootstrap-switch.min.css"></link>
 <link rel="stylesheet" href="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/css/sticky-footer-navbar.css"></link>
 
+
+
 <!-- 自定义主页样式 -->
 <link rel="stylesheet" href="${ctx}/resources/css/index.css"></link>
  <!--[if lt IE 9]>
@@ -48,3 +50,21 @@
 <!-- bootstrap分页插件 -->
 <script src="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/js/bootstrap-paginator.js"></script>
 <script src="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/js/qunit-1.11.0.js"></script>
+
+<!-- 自定义js -->
+<%-- <script src="${ctx}/resources/js/common/extJquery.js" type="text/javascript"></script>
+<script src="${ctx}/resources/js/common/glacier.util.js" type="text/javascript"></script> --%>
+
+<!-- 加入富文本编辑器kindeditor-->
+<script src="${ctx}/resources/js/kindeditor/kindeditor.js" type="text/javascript" charset="utf-8"></script>
+<script src="${ctx}/resources/js/kindeditor/lang/zh_CN.js" type="text/javascript" charset="utf-8"></script>
+<!-- 加入富文本编辑器kindeditor声明-->
+<script type="text/javascript" charset="utf-8">
+	   var ctx = '${ctx}';//项目访问路径
+	 //该变量在kindeditor控件有需要哦！！！
+		var basePath = '${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/';
+		var fields = eval('(${fields})');//加载系统字段
+       KindEditor.ready(function(K) {
+       });
+	   
+</script>

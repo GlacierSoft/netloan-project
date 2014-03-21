@@ -41,7 +41,7 @@
 					        <div class="btn-group-vertical">
 					          <a href="${ctx}/member/index.htm" class="btn btn-default" role="button">我的主页</a>
 					          <a href="#" class="btn btn-default" role="button">充值提现</a>
-					          <a href="#" class="btn btn-default" role="button">平台认证</a>
+					          <a href="${ctx}/member/memberAuth.htm" class="btn btn-default" role="button">平台认证</a>
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-info" role="button">个人设置</a>
 							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">邮箱设置</a>
 							</div>

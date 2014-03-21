@@ -20,6 +20,8 @@ import com.glacier.netloan.dao.basicdatas.ParameterCreditMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditExample;
+import com.glacier.netloan.entity.basicdatas.ParameterIntegral;
+import com.glacier.netloan.entity.basicdatas.ParameterIntegralExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -194,4 +196,15 @@ public class ParameterCreditService {
     	}
 		return returnResult;
      }
+    
+    public Object listCredits(){
+    	ParameterCreditExample parameterCreditExample = new ParameterCreditExample();
+    	JqPager pager = new JqPager();
+    	pager.setSort("creditNum");
+    	pager.setOrder("DESC");
+    	parameterCreditExample.setOrderByClause(pager.getOrderBy("temp_parameter_credit_"));
+    	List<ParameterCredit>  parameterCredits = parameterCreditMapper.selectByExample(parameterCreditExample); // 查询所有操作列表
+        
+        return parameterCredits;
+    }
 }

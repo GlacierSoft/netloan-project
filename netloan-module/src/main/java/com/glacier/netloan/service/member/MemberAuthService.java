@@ -16,6 +16,7 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.member.MemberAuthMapper;
 import com.glacier.netloan.dto.query.member.MemberAuthQueryDTO;
+import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberAuth;
 import com.glacier.netloan.entity.member.MemberAuthExample;
 import com.glacier.netloan.entity.member.MemberAuthExample.Criteria;
@@ -103,6 +104,36 @@ public class MemberAuthService {
         
 		return returnResult;
 	}
-	
+   	/**
+   	 * @Title: editMemberAuthReception 
+   	 * @Description: TODO(前台修改会员认证) 
+   	 * @param  @param memberAuth
+   	 * @param  @return设定文件
+   	 * @return Object  返回类型
+   	 * @throws 
+   	 *
+   	 */
+   	@Transactional(readOnly = false)
+	public Object editMemberAuthReception(MemberAuthWithBLOBs memberAuthWithBLOBs) {
+		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+		int count = 0;
+
+		Subject pricipalSubject = SecurityUtils.getSubject();
+        Member pricipalMember = (Member) pricipalSubject.getPrincipal();
+        
+        memberAuthWithBLOBs.setInfoTime(new Date());
+        memberAuthWithBLOBs.setInfoAuditor(pricipalMember.getMemberId());
+     
+        count = memberAuthMapper.updateByPrimaryKeySelective(memberAuthWithBLOBs);
+        
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("[" + memberAuthWithBLOBs.getMemberName() + "]会员认证信息审核成功");
+        } else {
+            returnResult.setMsg("发生未知错误，会员认证信息审核失败");
+        }
+        
+		return returnResult;
+	}
    
 }
