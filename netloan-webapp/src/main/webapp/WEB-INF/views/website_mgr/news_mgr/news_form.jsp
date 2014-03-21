@@ -86,6 +86,11 @@
 		K.create('#news_mgr_news_form_webNewsContent', {
 			themeType : 'qq',
 			allowFileManager : true,
+			
+			uploadJson : '../resources/js/kindeditor/jsp/upload_json.jsp',
+            fileManagerJson : '../resources/js/kindeditor/jsp/file_manager_json.jsp',
+            allowFileManager : true,
+            
 			afterBlur : function() {
 				this.sync();
 				K.ctrl(document, 13, function() {
@@ -96,7 +101,7 @@
 				});
 			},
 			items : [
-				'bold','italic','underline','fontname','fontsize','forecolor','hilitecolor','plug-align','plug-order','plug-indent','link','code','emoticons','flash','table','lineheight','fullscreen'
+				'bold','italic','underline','fontname','fontsize','forecolor','hilitecolor','plug-align','plug-order','plug-indent','link','code','emoticons','flash','table','lineheight','fullscreen','image'
 			]
 		});
 	});
