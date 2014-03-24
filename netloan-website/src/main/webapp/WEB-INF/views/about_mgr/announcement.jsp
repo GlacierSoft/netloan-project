@@ -68,8 +68,9 @@
 				          	<c:forEach items="${announcementDatas.rows}" var="announcement">
 						        <tbody>
 						          <tr>
-						            <td class="col-md-9">${announcement.webAnnTheme}</td>
+						            <td class="col-md-7">${announcement.webAnnTheme}</td>
 						            <td class="col-md-3"><fmt:formatDate value="${announcement.createTime}" type="both"/></td>
+						          	<td class="col-md-2"><a href="${ctx}/announcement/announcementDetail.htm?&webAnnId=${announcement.webAnnId}">查看详细</a></td>
 						          </tr>
 						      	</tbody>
 					      	</c:forEach>

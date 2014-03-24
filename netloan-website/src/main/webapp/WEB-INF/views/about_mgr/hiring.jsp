@@ -68,14 +68,15 @@
 				          	<c:forEach items="${hiringDatas.rows}" var="hiring">
 						        <tbody>
 						          <tr>
-						            <td class="col-md-9">${hiring.webHiringTheme}</td>
+						            <td class="col-md-7">${hiring.webHiringTheme}</td>
 						            <td class="col-md-3"><fmt:formatDate value="${hiring.createTime}" type="both"/></td>
+						          	<td class="col-md-2"><a href="${ctx}/hiring/hiringDetail.htm?&webHiringId=${hiring.webHiringId}">查看详细</a></td>
 						          </tr>
 						      	</tbody>
 					      	</c:forEach>
 					      	<tfoot>
 					          <tr>
-					            <th colspan="2">
+					            <th colspan="3">
 					            
 					            	<div align="right">
 									    <ul id='pageHiring'></ul>

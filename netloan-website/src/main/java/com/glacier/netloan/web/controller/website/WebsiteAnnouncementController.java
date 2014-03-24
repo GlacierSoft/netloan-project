@@ -46,6 +46,14 @@ public class WebsiteAnnouncementController extends AbstractController{
   		return mav;
   	}
   	
+  	//转到“网站公告”页面
+  	@RequestMapping(value = "/announcementDetail.htm")
+  	public Object announcementDetail(String webAnnId){
+  		ModelAndView mav = new ModelAndView("about_mgr/announcementDetail");
+  		mav.addObject("announcementData", announcementService.getAnnouncement(webAnnId));
+  		return mav;
+  	}
+  	
     // 进入公告列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPannouncement() {

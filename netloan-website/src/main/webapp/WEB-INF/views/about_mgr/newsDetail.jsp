@@ -55,39 +55,16 @@
 				    <h3 class="panel-title">关于我们 / 网站新闻</h3>
 				  </div>
 				  <div class="panel-body">
-			          <h2>网站新闻</h2>
-			          <div>
-			           <p>我们是一支在互联网和金融领域非常优秀的团队！我们有梦有理想，我们积极乐观，脚踏实地，充满激情！如果你也和我们一样，那么欢迎你加入我们的团队！</p>
-			           <p></p>
-			          </div>
 			          
-			          <h3  style="padding-top: 20px;">新闻列表</h3>
+			          <h3>新闻详细</h3>
 				      
 			          <div>
-				          <table class="table table-hover">
-				          	<c:forEach items="${newsDatas.rows}" var="news">
-						        <tbody>
-						          <tr>
-						            <td class="col-md-7">${news.webNewsTheme}</td>
-						            <td class="col-md-3"><fmt:formatDate value="${news.createTime}" type="both"/></td>
-						          	<td class="col-md-2"><a href="${ctx}/news/newsDetail.htm?&webNewsId=${news.webNewsId}">查看详细</a></td>
-						          </tr>
-						      	</tbody>
-					      	</c:forEach>
-					      	<tfoot>
-					          <tr>
-					            <th colspan="2">
-					            
-					            	<div align="right">
-									    <ul id='pageNews'></ul>
-									</div>
-
-								</th>
-					          </tr>
-					        </tfoot>
-					      </table>
+							<div align="center">${newsData.webNewsTheme}</div>
+							<h5></h5>
+					        <div>${newsData.webNewsContent}</div>
+					        <h5></h5>
+					        <div align="right">发布时间：<fmt:formatDate value="${newsData.createTime}" type="both"/></div>
 				      </div>
-				                
 			          
 				  </div>
 				</div>
@@ -95,64 +72,7 @@
 	    </div>
 	    <hr class="featurette-divider2">
 	    <jsp:include page="../foot.jsp"/>
-	    </div>
-	    
-<!-- 分页显示表格数据 -->
-<script type="text/javascript">
-	$(function(){
-		//获得浏览器参数
-		$.extend({
-			getUrlVars: function(){
-				var vars = [], hash;
-				var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-				for(var i = 0; i < hashes.length; i++){
-					hash = hashes[i].split('=');
-					vars.push(hash[0]);
-					vars[hash[0]] = hash[1];
-				}
-				return vars;
-			},
-			getUrlVar: function(name){
-				return $.getUrlVars()[name];
-			}
-		});
-	
-	//封装浏览器参数
-	var composeUrlParams=function(){
-		var param='';
-		$.each($.getUrlVars(), function(i, item) {
-			if(item!='p'){
-				var val=$.getUrlVar(item);
-				if(val) param += "&" + item+"="+val;
-			}
-		});
-		return param;
-	}
-	
-	var element = $('#pageNews');
-	
-	//设置分页的总页数
-	var total=${newsDatas.total}/10;
-	if(parseInt(total)==total){
-		var total = parseInt(total);
-	}else {
-		var total = parseInt(total)+1;
-	}
-	
-	var options = {
-	    bootstrapMajorVersion:3,
-	    currentPage: ${newsDatas.p},
-	    numberOfPages: 5,
-	    totalPages:total,
-	    pageUrl: function(type, page, current){
-	    	return "${ctx}/news/news.htm?"+composeUrlParams()+"&p="+page;
-	    	}
-	}
-	
-	element.bootstrapPaginator(options);
-	})
-</script>
-	    
+	    </div>   
 	    
   </body>
 </html>

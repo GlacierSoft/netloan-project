@@ -46,6 +46,14 @@ public class WebsiteNewsController extends AbstractController{
   		return mav;
   	}
   	
+  	//转到“网站新闻”详细页面
+  	@RequestMapping(value = "/newsDetail.htm")
+  	public Object newsDetail(String webNewsId){
+  		ModelAndView mav = new ModelAndView("about_mgr/newsDetail");
+  		mav.addObject("newsData", newsService.getNews(webNewsId));
+  		return mav;
+  	}
+  	
     // 进入新闻列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPnews() {

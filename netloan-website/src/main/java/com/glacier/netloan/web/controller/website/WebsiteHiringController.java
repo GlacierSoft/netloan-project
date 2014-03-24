@@ -41,6 +41,14 @@ public class WebsiteHiringController extends AbstractController{
 		return mav;
 	}
 	
+	//转到“招纳贤士”详细页面
+	@RequestMapping(value = "/hiringDetail.htm")
+	public Object hiringDetail(String webHiringId){
+		ModelAndView mav = new ModelAndView("about_mgr/hiringDetail");
+		mav.addObject("hiringData", websiteHiringService.getWebsiteHiring(webHiringId));
+		return mav;
+	}
+	
 	//转到“招纳贤士”列表页面
 	@RequestMapping(value = "/hiringList.htm")
 	public Object hiringList(JqPager pager, @RequestParam int p){
