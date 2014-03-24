@@ -65,18 +65,18 @@
 				      
 			          <div>
 				          <table class="table table-hover">
-				          	<c:forEach items="${newsDatas.rows}" var="news">
-						        <tbody>
+				          	<tbody>
+				          		<c:forEach items="${newsDatas.rows}" var="news">
 						          <tr>
 						            <td class="col-md-7">${news.webNewsTheme}</td>
 						            <td class="col-md-3"><fmt:formatDate value="${news.createTime}" type="both"/></td>
 						          	<td class="col-md-2"><a href="${ctx}/news/newsDetail.htm?&webNewsId=${news.webNewsId}">查看详细</a></td>
 						          </tr>
-						      	</tbody>
-					      	</c:forEach>
+					      		</c:forEach>
+					      	</tbody>
 					      	<tfoot>
 					          <tr>
-					            <th colspan="2">
+					            <th colspan="3">
 					            
 					            	<div align="right">
 									    <ul id='pageNews'></ul>

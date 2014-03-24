@@ -65,18 +65,18 @@
 				      
 			          <div>
 				          <table class="table table-hover">
-				          	<c:forEach items="${announcementDatas.rows}" var="announcement">
-						        <tbody>
-						          <tr>
-						            <td class="col-md-7">${announcement.webAnnTheme}</td>
-						            <td class="col-md-3"><fmt:formatDate value="${announcement.createTime}" type="both"/></td>
-						          	<td class="col-md-2"><a href="${ctx}/announcement/announcementDetail.htm?&webAnnId=${announcement.webAnnId}">查看详细</a></td>
-						          </tr>
-						      	</tbody>
-					      	</c:forEach>
+				          	<tbody>
+					          	<c:forEach items="${announcementDatas.rows}" var="announcement">
+							          <tr>
+							            <td class="col-md-7">${announcement.webAnnTheme}</td>
+							            <td class="col-md-3"><fmt:formatDate value="${announcement.createTime}" type="both"/></td>
+							          	<td class="col-md-2"><a href="${ctx}/announcement/announcementDetail.htm?&webAnnId=${announcement.webAnnId}">查看详细</a></td>
+							          </tr>
+						      	</c:forEach>
+						    </tbody>
 					      	<tfoot>
 					          <tr>
-					            <th colspan="2">
+					            <th colspan="3">
 					            
 					            	<div align="right">
 									    <ul id='pageAnn'></ul>
@@ -87,7 +87,6 @@
 					        </tfoot>
 					      </table>
 				      </div>
-				                
 			          
 				  </div>
 				</div>

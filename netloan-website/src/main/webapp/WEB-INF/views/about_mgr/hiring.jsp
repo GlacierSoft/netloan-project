@@ -65,15 +65,15 @@
 				      
 			          <div>
 				          <table class="table table-hover">
-				          	<c:forEach items="${hiringDatas.rows}" var="hiring">
-						        <tbody>
+				          	<tbody>
+				          		<c:forEach items="${hiringDatas.rows}" var="hiring">
 						          <tr>
 						            <td class="col-md-7">${hiring.webHiringTheme}</td>
 						            <td class="col-md-3"><fmt:formatDate value="${hiring.createTime}" type="both"/></td>
 						          	<td class="col-md-2"><a href="${ctx}/hiring/hiringDetail.htm?&webHiringId=${hiring.webHiringId}">查看详细</a></td>
 						          </tr>
-						      	</tbody>
-					      	</c:forEach>
+					      		</c:forEach>
+					      	</tbody>
 					      	<tfoot>
 					          <tr>
 					            <th colspan="3">
