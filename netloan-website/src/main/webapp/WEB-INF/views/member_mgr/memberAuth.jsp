@@ -109,7 +109,7 @@
 					            
 					            <tr >
 					              <td >等级</td>
-					              <c:forEach var="parameterCredit" items="${sessionScope.parameterCredits}" varStatus="status">
+					              <c:forEach var="parameterCredit" items="${requestScope.parameterCredits}" varStatus="status">
 								  	<td> 
       								<c:out value="${parameterCredit.creditName}" escapeXml="false"/>
       								</td>
@@ -124,7 +124,7 @@
 					            </tr>
 					            <tr>
 					              <td>分数</td>
-					               <c:forEach var="parameterCredit" items="${sessionScope.parameterCredits}" varStatus="status">
+					               <c:forEach var="parameterCredit" items="${requestScope.parameterCredits}" varStatus="status">
 								  	<td> 
 								  	<c:if test="${parameterCredit.creditBeginIntegral == 100}">
 								  		100以上
@@ -163,48 +163,48 @@
 					            </tr> 
 					            <tr>
 					              <td rowspan="2" style="text-align:center;vertical-align: middle;">基本信息</td>
-					              <td>${sessionScope.memberAuthWithBLOBs.infoName}</td>
-					              <td>通过</td>
+					              <td>${requestScope.memberAuthWithBLOBs.infoName}</td>
+					              <td id="memberAuth_infoAuth"></td>
 					              <td>10</td>
 					            </tr>
 					            <tr>
-					              <td>${sessionScope.memberAuthWithBLOBs.workName}</td>
-					              <td>通过</td>
+					              <td>${requestScope.memberAuthWithBLOBs.workName}</td>
+					              <td id="memberAuth_form_workAuth"></td>
 					              <td>10</td>
 					            </tr>
 					            <tr>
 					              <td rowspan="7" style="vertical-align: middle;">必要信用认证</td>
-					              <td>${sessionScope.memberAuthWithBLOBs.idCardName}</td>
-					              <td>审核中</td>
+					              <td>${requestScope.memberAuthWithBLOBs.idCardName}</td>
+					              <td id="memberAuth_form_idCardAuth"></td>
 					              <td>0</td>
 					            </tr>
 					            <tr>
-					              <td>${sessionScope.memberAuthWithBLOBs.emailName}</td>
-					              <td>通过</td>
+					              <td>${requestScope.memberAuthWithBLOBs.emailName}</td>
+					              <td id="memberAuth_form_emailAuth"></td>
 					              <td>10</td>
 					            </tr>
 					            <tr>
-					              <td>${sessionScope.memberAuthWithBLOBs.mobileName}</td>
-					              <td>待上传</td>
+					              <td>${requestScope.memberAuthWithBLOBs.mobileName}</td>
+					              <td id="memberAuth_form_mobileAuth"></td>
 					              <td>0</td>
 					            </tr>
 					            <tr>
-					              <td>${sessionScope.memberAuthWithBLOBs.creditName}</td>
-					              <td>待上传</td>
+					              <td>${requestScope.memberAuthWithBLOBs.creditName}</td>
+					              <td id="memberAuth_form_creditAuth"></td>
 					              <td>0</td>
 					            </tr>
 					            <tr>
-					              <td>${sessionScope.memberAuthWithBLOBs.companyName}</td>
-					              <td>待上传</td>
+					              <td>${requestScope.memberAuthWithBLOBs.companyName}</td>
+					              <td id="memberAuth_form_companyAuth"></td>
 					              <td>0</td>
 					            </tr>
 					            <tr>
-					              <td>${sessionScope.memberAuthWithBLOBs.realName}</td>
-					              <td>待上传</td>
+					              <td>${requestScope.memberAuthWithBLOBs.realName}</td>
+					              <td id="memberAuth_form_realNameAuth"></td>
 					              <td>0</td>
 					            </tr>
 					            <tr>
-					              <td>${sessionScope.memberAuthWithBLOBs.vipName}</td>
+					              <td>${requestScope.memberAuthWithBLOBs.vipName}</td>
 					              <td id="memberAuth_form_vipAuth"></td>
 					              <td>0</td>
 					            </tr>
@@ -223,7 +223,7 @@
 					          <img src="${pageContext.request.contextPath}/resources/images/index/4.jpg" alt="Generic placeholder image">
 					          <h2>身份认证</h2>
 					          <div class="bs-example" style="padding-bottom:24px;">
-							      <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+							      <button class="btn btn-primary btn-lg"  data-backdrop="static" data-toggle="modal" data-target="#idCardAccessoryModal"  >
 							        	点击上传
 							      </button>
 							    </div><!-- /example -->
@@ -232,7 +232,7 @@
 					          <img src="${pageContext.request.contextPath}/resources/images/index/5.jpg"  alt="Generic placeholder image">
 					          <h2>企业认证</h2>
 					         <div class="bs-example" style="padding-bottom: 24px;">
-							      <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+							      <button class="btn btn-primary btn-lg" data-backdrop="static" data-toggle="modal" data-target="#myModal">
 							        	点击上传
 							      </button>
 							    </div><!-- /example -->
@@ -241,7 +241,7 @@
 					          <img src="${pageContext.request.contextPath}/resources/images/index/6.jpg"  alt="Generic placeholder image">
 					          <h2>信用认证</h2>
 					          <div class="bs-example" style="padding-bottom: 24px;">
-							      <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+							      <button class="btn btn-primary btn-lg" data-backdrop="static" data-toggle="modal" data-target="#creditAccessoryModal">
 							        	点击上传
 							      </button>
 							    </div><!-- /example -->
@@ -249,7 +249,67 @@
 					      </div><!-- /.row -->	 
 				
 					       <!-- sample modal content -->
-						    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						    <div id="idCardAccessoryModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="idCardAccessoryModalLabel" aria-hidden="true">
+						      <div class="modal-dialog">
+						        <div class="modal-content">
+						           <form id="member_idCardAccessoryForm"  class=" form-horizontal" role="form"  method="post" >
+							          <div class="modal-header">
+							            <h4 class="modal-title" id="myModalLabel">会员认证</h4>
+							          </div>
+							          <div class="modal-body">
+							            <h5>身份认证：</h5>
+							            <p>您上传的身份证扫描件需和您绑定的身份证一致，否则将无法通过认证。</p>
+							            <h5>认证说明：</h5>
+							            <p>1、您上传的身份证扫描件需和您绑定的身份证一致，否则将无法通过认证。</p>
+							            <p>2、本人近期生活照。</p>
+							            <p>3、请确认您上传的资料是清晰的、未经修改的照片，每张照片最大限制为1M。</p>
+							            <h4>文件上传</h4>
+							            <textarea id="member_idCardAccessory" name="webHelpContent" style="width:500px;height:150px;">
+											 ${memberAuthWithBLOBs.idCardAccessory}
+										</textarea>
+										<br>
+							            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，晓风网贷会将你加入系统黑名单，永久取消您在晓风网贷的借款资格。</p>
+							          </div>
+							          <div class="modal-footer">
+							          	<button type="button" class="btn btn-primary" onclick="submitIdCardAccessoryForm();">保  存</button>
+							            <button type="button" class="btn btn-default" data-dismiss="modal">关  闭</button>
+							          </div>
+									</form>
+						        </div><!-- /.modal-content -->
+						      </div><!-- /.modal-dialog -->
+						    </div><!-- /.modal --> 		
+						    <!-- sample modal content -->
+						    <div id="#companyAccessoryModalModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="#companyAccessoryModalModalLabel" aria-hidden="true">
+						      <div class="modal-dialog">
+						        <div class="modal-content">
+						          <div class="modal-header">
+						            <h4 class="modal-title" id="myModalLabel">会员认证</h4>
+						          </div>
+						          <div class="modal-body">
+						            <h4>企业认证：</h4>
+						            <p>您的工作状况是冰川网贷评估您信用状况的主要依据。请您填写真实可靠的工作信息。</p>
+									<hr>
+						            <h5>认证说明：</h5>
+						            <p>1、您上传的身份证扫描件需和您绑定的身份证一致，否则将无法通过认证。</p>
+						            <p>2、本人近期生活照。</p>
+						            <p>3、请确认您上传的资料是清晰的、未经修改的照片，每张照片最大限制为1M。</p>
+						            <h4>文件上传</h4>
+						            <textarea id="member_companyAccessory" name="webHelpContent" style="width:400px;height:200px;">
+										 <img src="${memberAuthWithBLOBs.companyAccessory}"  alt="" /> 
+									</textarea>
+									<br>
+						            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，晓风网贷会将你加入系统黑名单，永久取消您在晓风网贷的借款资格。</p>
+						          </div>
+						          <div class="modal-footer">
+						          	<button type="button" class="btn btn-primary" data-dismiss="modal">保  存</button>
+						            <button type="button" class="btn btn-default" data-dismiss="modal">关  闭</button>
+						          </div>
+						
+						        </div><!-- /.modal-content -->
+						      </div><!-- /.modal-dialog -->
+						    </div><!-- /.modal --> 		
+						    <!-- sample modal content -->
+						    <div id="creditAccessoryModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="creditAccessoryModalLabel" aria-hidden="true">
 						      <div class="modal-dialog">
 						        <div class="modal-content">
 						          <div class="modal-header">
@@ -264,8 +324,8 @@
 						            <p>2、本人近期生活照。</p>
 						            <p>3、请确认您上传的资料是清晰的、未经修改的照片，每张照片最大限制为1M。</p>
 						            <h4>文件上传</h4>
-						            <textarea id="member_idCardAccessory" name="webHelpContent" style="width:500px;height:150px;">
-										 <img src="${memberAuthWithBLOBs.idCardAccessory}"  alt="" /> 
+						            <textarea id="member_creditAccessory" name="webHelpContent" style="width:500px;height:150px;">
+										 <img src="${memberAuthWithBLOBs.creditAccessory}"  alt="" /> 
 									</textarea>
 									<br>
 						            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，晓风网贷会将你加入系统黑名单，永久取消您在晓风网贷的借款资格。</p>
@@ -295,79 +355,109 @@
 	      
   </body>
 	<script type="text/javascript">
-	/* $('#memberAuth_form_vipAuth').html(renderGridValue('${sessionScope.memberauth.vipAuth}',fields.auths)); */
 	
 		//下拉项emun的值
-		/* $('#memberAuth_infoAuth').val(renderGridValue('${sessionScope.memberauth.infoAuth}',fields.auths));
-	 	$('#memberAuth_form_vipAuth').val(renderGridValue('${sessionScope.memberauth.vipAuth}',fields.auths));
-	 	$('#memberAuth_form_emailAuth').val(renderGridValue('${sessionScope.memberauth.emailAuth}',fields.auths));
-	 	$('#memberAuth_form_mobileAuth').val(renderGridValue('${sessionScope.memberauth.mobileAuth}',fields.auths));
-		$('#memberAuth_form_creditAuth').val(renderGridValue('${sessionScope.memberauth.creditAuth}',fields.auths));
-	 	$('#memberAuth_form_companyAuth').val(renderGridValue('${sessionScope.memberauth.companyAuth}',fields.auths));
-		$('#memberAuth_form_realNameAuth').val(renderGridValue('${sessionScope.memberauth.realNameAuth}',fields.auths));
-		$('#memberAuth_form_idCardAuth').val(renderGridValue('${sessionScope.memberauth.idCardAuth}',fields.auths));
-		$('#memberAuth_form_workAuth').val(renderGridValue('${sessionScope.memberauth.workAuth}',fields.auths));   */
+		 $('#memberAuth_infoAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.infoAuth}',fields.auths));
+	 	$('#memberAuth_form_vipAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.vipAuth}',fields.auths));
+	 	$('#memberAuth_form_emailAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.emailAuth}',fields.auths));
+	 	$('#memberAuth_form_mobileAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.mobileAuth}',fields.auths));
+		$('#memberAuth_form_creditAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.creditAuth}',fields.auths));
+	 	$('#memberAuth_form_companyAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.companyAuth}',fields.auths));
+		$('#memberAuth_form_realNameAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.realNameAuth}',fields.auths));
+		$('#memberAuth_form_idCardAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.idCardAuth}',fields.auths));
+		$('#memberAuth_form_workAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.workAuth}',fields.auths));   
 		
 		//编辑器
+		var editor;
 		KindEditor.options.filterMode = false;
 		KindEditor.ready(function(K) {
-			K.create('#member_idCardAccessory', {
-				themeType : 'qq',
-				//uploadJson : ctx+'/member/uploadFile.htm',
+			editor = K.create('#member_idCardAccessory', {
+				//themeType : 'qq',
+				width : "500px",
+				minWidth : "500px",
+				height : "200px",
+				minHeight : "200px",
+				resizeType : 0,
+				uploadJson : ctx+'/member/uploadFile.htm?whichAuth=idCardAuth',
 				allowFileManager : true,
 				allowImageRemote : false,
-				//fillDescAfterUploadImage : false,
-				items : ['image'],
-				 afterUpload : function(data) {
-					 if (data.error == 0) {
-						 alert(data.message);
-	                		shwodialog(data);
-	                } else {
-	                	alert(data.message);
-	                		shwodialog(data);
-	                } 
-		        }  
-		       /*  afterBlur : function() {
-					this.sync();
-					K.ctrl(document, 13, function() {
-						K('form[name=myform]')[0].submit();
-					});
-					K.ctrl(this.edit.doc, 13, function() {
-						K('form[name=myform]')[0].submit();
-					});
-				} */
+				items : ['image']
 			});
-			 function shwodialog(data){
-				var dialog = K.dialog({
-			        width : 300,
-			        title : '文件上传',							
-			        body : '<div style="margin:10px;"><strong>'+data.message+'</strong></div>',
-			        closeBtn : {
-			                name : '关闭',
-			                click : function(data) {
-			                        dialog.remove();
-			                }
-			        },
-			        yesBtn : {
-			                name : '确定',
-			                click : function(data) {
-			                        //alert(this.value);
-			                		//dialog.remove();
-			                	//插入图片到编辑器
-			                    //$("#member_idCardAccessory").append(data.url);
-			                	dialog.remove();
-			                }
-			        },
-			        noBtn : {
-			                name : '取消',
-			                click : function(data) {
-			                        dialog.remove();
-			                }
-			        }
-			}); 
-			}  
-			
 		});
-		
+		function submitIdCardAccessoryForm()
+		{
+			$.ajax({
+				type: "POST",
+				url: ctx+'/member/idCardAccessoryForm.htm?whichAuth=idCardAuth',
+				data: {"member_idCardAccessory":editor.html()},
+				success: function(data)
+				{
+					alert("操作成功"+data);
+					alert("msg  "+data.msg);
+					alert("success  "+data.success);
+					$('#idCardAccessoryModal').modal('hide');
+					if(data.success)
+					{
+						//$("#contentView").html(data);
+						//$("textarea[name=member_idCardAccessory]").val("");
+						//editor.html("");
+						alert("操作成功"+data.msg);
+						
+						//successdialog(data);
+						
+					}
+				},
+				error: function()
+				{
+					alert("操作失败");
+				}
+			});
+		}
+		KindEditor.ready(function(K) {
+			K.create('#member_creditAccessory', {
+				themeType : 'qq',
+				uploadJson : ctx+'/member/uploadFile.htm?whichAuth=creditAuth',
+				allowFileManager : true,
+				allowImageRemote : false,
+				items : ['image']
+			});
+		});
+		KindEditor.ready(function(K) {
+			K.create('#member_companyAccessory', {
+				themeType : 'qq',
+				uploadJson : ctx+'/member/uploadFile.htm?whichAuth=companyAuth',
+				allowFileManager : true,
+				allowImageRemote : false,
+				items : ['image']
+			});
+		});
+		function successdialog(data){
+			var dialog = K.dialog({
+					        width : 500,
+					        title : '保存成功',
+					        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
+					        closeBtn : {
+					                name : '关闭',
+					                click : function(e) {
+					                        dialog.remove();
+					                }
+					        },
+					        yesBtn : {
+					                name : '确定',
+					                click : function(e) {
+					                        //alert(this.value);
+					                        //$('#idCardAccessoryModal').modal('hide')
+					                	dialog.remove();
+					                }
+					        },
+					        noBtn : {
+					                name : '取消',
+					                click : function(e) {
+					                        dialog.remove();
+					                }
+					        }
+					        
+						});
+		}
   	</script>
 </html>

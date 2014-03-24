@@ -109,27 +109,27 @@ public class MemberController extends AbstractController{
     }
     //进行会员平台认证页面
     @RequestMapping(value = "/memberAuth.htm")
-    public Object intoMemberAuth(HttpSession session){
+    public Object intoMemberAuth(HttpServletRequest request,HttpSession session){
     	ModelAndView mav = new ModelAndView("member_mgr/memberAuth");
     	List<ParameterCredit>  parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
     	
     	Member member = (Member)session.getAttribute("currentMember");
     	MemberAuthWithBLOBs memberAuthWithBLOBs = (MemberAuthWithBLOBs) memberAuthService.getMemberAuth(member.getMemberId());
-    	session.removeAttribute("parameterCredits");
-    	session.removeAttribute("memberauth");
-    	session.setAttribute("parameterCredits", parameterCredits);
-    	session.setAttribute("memberAuthWithBLOBs", memberAuthWithBLOBs);
-    	System.out.println("aaaaaaaa  "+session.getServletContext().getAttribute("fields"));
+    	//session.removeAttribute("parameterCredits");
+    	//session.removeAttribute("memberAuthWithBLOBs");
+    	//session.setAttribute("parameterCredits", parameterCredits);
+    	request.setAttribute("parameterCredits", parameterCredits);
+    	//session.setAttribute("memberAuthWithBLOBs", memberAuthWithBLOBs);
+    	request.setAttribute("memberAuthWithBLOBs", memberAuthWithBLOBs);
+    	//System.out.println("aaaaaaaa  "+session.getServletContext().getAttribute("fields"));
     	return mav;
     }
     
     @RequestMapping(value = "/uploadFile.htm", method = RequestMethod.POST)
     @ResponseBody
-    public Object uploadFile(HttpSession session,HttpServletRequest request,HttpServletResponse response){
-    	
+    public Object uploadFile(HttpSession session,HttpServletRequest request,HttpServletResponse response,String whichAuth){
     	JSONObject obj = new JSONObject();
-    	Member member = (Member)session.getAttribute("currentMember");
-    	MemberAuthWithBLOBs memberAuthWithBLOBs = (MemberAuthWithBLOBs) memberAuthService.getMemberAuth(member.getMemberId());
+    	
 
     	//文件保存目录路径
         String savePath = session.getServletContext().getRealPath("/") + "/resources/upload/attached/";
@@ -238,8 +238,7 @@ public class MemberController extends AbstractController{
 						obj.put("message", "上传文件失败。");
 						return obj.toJSONString();
 					 }
-					 memberAuthWithBLOBs.setIdCardAccessory(saveUrl + newFileName);
-					 memberAuthService.editMemberAuthReception(memberAuthWithBLOBs);
+					 
 					 obj.put("error", 0);
 					 obj.put("message", "上传文件成功。");
 					 obj.put("url", saveUrl + newFileName);
@@ -589,7 +588,7 @@ public class MemberController extends AbstractController{
 			}
 		}
 	}
-
+	
 	@SuppressWarnings("rawtypes")
 	class TypeComparator implements Comparator {
 		public int compare(Object a, Object b) {
@@ -606,6 +605,30 @@ public class MemberController extends AbstractController{
 						.compareTo((String) hashB.get("filetype"));
 			}
 		}
+	}
+	
+	@RequestMapping(value = "/idCardAccessoryForm.htm")
+	@ResponseBody
+	private Object idCardAccessoryForm(String member_idCardAccessory,HttpServletRequest request,HttpSession session,String whichAuth){
+		JqReturnJson jqReturnJson = new JqReturnJson();
+		Member member = (Member)session.getAttribute("currentMember");
+    	MemberAuthWithBLOBs memberAuthWithBLOBs = (MemberAuthWithBLOBs) memberAuthService.getMemberAuth(member.getMemberId());
+    	if(whichAuth.equals("idCardAuth")){
+    		memberAuthWithBLOBs.setIdCardAccessory(member_idCardAccessory);
+    		memberAuthWithBLOBs.setIdCardAuth("authstr");
+		 }else if(whichAuth.equals("creditAuth")){
+			 memberAuthWithBLOBs.setCreditAccessory(member_idCardAccessory);
+			 memberAuthWithBLOBs.setCreditAuth("authstr");
+		 }else if(whichAuth.equals("companyAuth")){
+			 memberAuthWithBLOBs.setCompanyAccessory(member_idCardAccessory);
+			 memberAuthWithBLOBs.setCompanyAuth("authstr");
+		 }
+    	
+		System.out.println("kakkaka  :"+member_idCardAccessory);
+		//jqReturnJson.setMsg("看看成功");
+		//jqReturnJson.setSuccess(true);
+		request.setAttribute("memberAuthWithBLOBs", memberAuthWithBLOBs);
+		return memberAuthService.editMemberAuthReception(memberAuthWithBLOBs);
 	}
 	
     // 进入会员Form表单页面
