@@ -215,17 +215,18 @@
       <div class="row featurette">
         <div class="col-md-12">
           <table class="table table-hover">
-	        <c:forEach items="${announcementDatas.rows}" var="announcement" begin="0" end="4" step="1">
-		        <tbody>
-		          <tr>
-		            <td class="col-md-9">${announcement.webAnnTheme}</td>
-		            <td class="col-md-3"><fmt:formatDate value="${announcement.createTime}" type="both"/></td>
-		          </tr>
-		      	</tbody>
-	      	</c:forEach>
+	      	<tbody>
+	          	<c:forEach items="${announcementDatas.rows}" var="announcement" begin="0" end="4" step="1">
+			          <tr>
+			            <td class="col-md-8">${announcement.webAnnTheme}</td>
+			            <td class="col-md-2"><fmt:formatDate value="${announcement.createTime}" type="both"/></td>
+			          	<td class="col-md-2"><a href="${ctx}/announcement/announcementDetail.htm?&webAnnId=${announcement.webAnnId}">查看详细</a></td>
+			          </tr>
+		      	</c:forEach>
+		    </tbody>
 	      	<tfoot>
 	          <tr>
-	            <th colspan="2"><h4 align="center"><a  href="#" >查看更多网站公告 >></a></h4></th>
+	            <th colspan="3"><h4 align="center"><a  href="#" >查看更多网站公告 >></a></h4></th>
 	          </tr>
 	        </tfoot>
 	      </table>
@@ -236,17 +237,18 @@
       <div class="row featurette">
         <div class="col-md-12">
           <table class="table table-hover">
-	        <c:forEach items="${newsDatas.rows}" var="news" begin="0" end="4" step="1">
-		        <tbody>
+	      	<tbody>
+          		<c:forEach items="${newsDatas.rows}" var="news" begin="0" end="4" step="1">
 		          <tr>
-		            <td class="col-md-9">${news.webNewsTheme}</td>
-		            <td class="col-md-3"><fmt:formatDate value="${news.createTime}" type="both"/></td>
+		            <td class="col-md-8">${news.webNewsTheme}</td>
+		            <td class="col-md-2"><fmt:formatDate value="${news.createTime}" type="both"/></td>
+		          	<td class="col-md-2"><a href="${ctx}/news/newsDetail.htm?&webNewsId=${news.webNewsId}">查看详细</a></td>
 		          </tr>
-		      	</tbody>
-	      	</c:forEach>
+	      		</c:forEach>
+	      	</tbody>
 	      	<tfoot>
 	          <tr>
-	            <th colspan="2"><h4 align="center"><a  href="#" >查看更多网站新闻 >></a></h4></th>
+	            <th colspan="3"><h4 align="center"><a  href="#" >查看更多网站新闻 >></a></h4></th>
 	          </tr>
 	        </tfoot>
 	      </table>
