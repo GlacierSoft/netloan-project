@@ -465,6 +465,7 @@
 				uploadJson : ctx+'/member/uploadFile.htm',
 				allowFileManager : true,
 				allowImageRemote : false,
+				urlType:'domain',
 				items : ['image']
 			});
 			companyeditor = K.create('#member_companyAccessory', {
