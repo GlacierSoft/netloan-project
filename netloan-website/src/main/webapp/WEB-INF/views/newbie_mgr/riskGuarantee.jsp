@@ -23,13 +23,22 @@
 	  	<div class="row">
 		    <div class="col-md-2">
 			    <div class="panel-group" id="accordion">
-			  		<div class="bs-example">
-				      <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
-				        <li><a href="${ctx}/borrowingProcess.htm">借款流程</a></li>
-				        <li><a href="${ctx}/investmentProcess.htm">投资流程</a></li>
-				        <li class="active"><a href="${ctx}/riskGuarantee.htm">风险保障</a></li>
-				      </ul>
-			  		</div>
+			    	<div class="panel panel-default">
+				  		<div class="bs-example">
+					      <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
+					        <li><a href="${ctx}/borrowingProcess.htm">借款流程</a></li>
+					        <li><a href="${ctx}/investmentProcess.htm">投资流程</a></li>
+					        <li class="active"><a href="${ctx}/riskGuarantee.htm">风险保障</a></li>
+					      </ul>
+				  		</div>
+				  	</div>
+				  	<div class="panel panel-default">
+						<img src="${pageContext.request.contextPath}/resources/images/newbie/about001.jpg" alt="联系我们">
+					</div>
+					<div class="panel panel-default">
+						<img src="${pageContext.request.contextPath}/resources/images/index/weixin.jpg" width="163" height="163" alt="联系我们">
+						<p>扫描二维码关注冰川贷微信，获取冰川贷最新动态 </p>
+					</div>
 			  	</div>
 	  		</div>
 	    	<div class="col-md-10">
