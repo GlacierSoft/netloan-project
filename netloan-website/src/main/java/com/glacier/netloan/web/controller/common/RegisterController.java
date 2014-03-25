@@ -234,4 +234,9 @@ public class RegisterController extends AbstractController{
 	public Object riskGuarantee(){
 		return "newbie_mgr/riskGuarantee";
 	}
+	//转到“我要借款”页面
+	@RequestMapping(value = "/borrow.htm")
+	public Object borrow(){
+		return "borrow_mgr/borrow";
+	}
 }
