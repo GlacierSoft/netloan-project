@@ -6,7 +6,9 @@
 package com.glacier.netloan.service.member;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -22,10 +24,13 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.member.MemberIntegralMapper;
 import com.glacier.netloan.dto.query.member.MemberIntegralQueryDTO;
+import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberIntegral;
 import com.glacier.netloan.entity.member.MemberIntegralExample;
 import com.glacier.netloan.entity.member.MemberIntegralExample.Criteria;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.website.WebsiteAnnouncement;
+import com.glacier.netloan.entity.website.WebsiteAnnouncementExample;
 import com.glacier.netloan.util.MethodLog;
 
 /** 
@@ -54,6 +59,54 @@ public class MemberIntegralService {
     	MemberIntegral memberIntegral = integralMapper.selectByPrimaryKey(memberIntegralId);
         return memberIntegral;
     }
+    /**
+     * @Description: TODO(前台会员积分显示列表) 
+     * @param  @param pager
+     * @param  @param p
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
+     */
+    public Object listAsWebsite(JqPager pager, int p) {
+        
+    	JqGridReturn returnResult = new JqGridReturn();
+    	MemberIntegralExample memberIntegralExample = new MemberIntegralExample();
+    	MemberIntegralExample memberIntegralExampleAll = new MemberIntegralExample();
+    	
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+    	Member pricipalMember = (Member) pricipalSubject.getPrincipal();
+    	
+    	memberIntegralExample.createCriteria().andMemberIdEqualTo(pricipalMember.getMemberId());
+    	 
+        pager.setSort("createTime");// 定义排序字段
+        pager.setOrder("DESC");// 升序还是降序
+        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
+        	memberIntegralExample.setOrderByClause(pager.getOrderBy("temp_member_integral_"));
+        }
+        int startTemp = ((p-1)*10);//根据前台返回的页数进行设置
+        memberIntegralExample.setLimitStart(startTemp);
+        memberIntegralExample.setLimitEnd(10);
+        List<MemberIntegral>  memberIntegrals = integralMapper.selectByExample(memberIntegralExample); // 查询所有公告列表
+        List<MemberIntegral>  memberIntegralAll = integralMapper.selectByExample(memberIntegralExampleAll); // 查询所有公告列表
+        int totalIntegral = 0;
+        for(MemberIntegral memberIntegral : memberIntegralAll){
+        	if(memberIntegral.getChangeType().equals("increase")){
+        		totalIntegral +=memberIntegral.getChangeValue();
+        	}else if(memberIntegral.getChangeType().equals("reduction")){
+        		totalIntegral -=memberIntegral.getChangeValue();
+        	}
+        	
+        }
+        int total = integralMapper.countByExample(memberIntegralExample); // 查询总页数
+        returnResult.setRows(memberIntegrals);
+        returnResult.setTotal(total);
+        returnResult.setP(p);
+        Map<String,Object> integralMap = new HashMap<String,Object>();
+        integralMap.put("returnResult", returnResult);
+        integralMap.put("totalIntegral", totalIntegral);
+        return integralMap;// 返回ExtGrid表
+    }
     
     /**
      * @Title: listAsGrid 
@@ -70,6 +123,7 @@ public class MemberIntegralService {
 
         Criteria queryCriteria = memberIntegralExample.createCriteria();
         memberIntegralQueryDTO.setQueryCondition(queryCriteria);
+        
         
         if (null != pintegralr.getPage() && null != pintegralr.getRows()) {// 设置排序信息
         	memberIntegralExample.setLimitStart((pintegralr.getPage() - 1) * pintegralr.getRows());

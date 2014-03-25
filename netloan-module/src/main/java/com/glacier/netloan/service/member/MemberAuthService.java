@@ -128,9 +128,10 @@ public class MemberAuthService {
         
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + memberAuthWithBLOBs.getMemberName() + "]会员认证信息审核成功");
+            returnResult.setObj(memberAuthWithBLOBs);
+            returnResult.setMsg("[" + memberAuthWithBLOBs.getMemberName() + "]会员认证资料已上传");
         } else {
-            returnResult.setMsg("发生未知错误，会员认证信息审核失败");
+            returnResult.setMsg("发生未知错误，会员认证资料已上传");
         }
         
 		return returnResult;

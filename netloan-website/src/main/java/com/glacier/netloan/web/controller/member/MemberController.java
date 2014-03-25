@@ -35,6 +35,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,6 +60,7 @@ import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
 import com.glacier.netloan.entity.member.MemberWork;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
 import com.glacier.netloan.service.member.MemberAuthService;
+import com.glacier.netloan.service.member.MemberIntegralService;
 import com.glacier.netloan.service.member.MemberService;
 
 
@@ -74,6 +76,9 @@ public class MemberController extends AbstractController{
 	
 	@Autowired
 	private MemberAuthService memberAuthService;
+	
+	@Autowired
+	private MemberIntegralService memberIntegralService;
 	
 	// 进入会员个人主页展示页面
     @RequestMapping(value = "/index.htm")
@@ -109,19 +114,25 @@ public class MemberController extends AbstractController{
     }
     //进行会员平台认证页面
     @RequestMapping(value = "/memberAuth.htm")
-    public Object intoMemberAuth(HttpServletRequest request,HttpSession session){
+    public Object intoMemberAuth(JqPager pager,int p,HttpServletRequest request,HttpSession session){
     	ModelAndView mav = new ModelAndView("member_mgr/memberAuth");
+    	Map<String,Object> integralMap = new HashMap<String,Object>();
     	List<ParameterCredit>  parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
     	
     	Member member = (Member)session.getAttribute("currentMember");
     	MemberAuthWithBLOBs memberAuthWithBLOBs = (MemberAuthWithBLOBs) memberAuthService.getMemberAuth(member.getMemberId());
-    	//session.removeAttribute("parameterCredits");
-    	//session.removeAttribute("memberAuthWithBLOBs");
-    	//session.setAttribute("parameterCredits", parameterCredits);
     	request.setAttribute("parameterCredits", parameterCredits);
-    	//session.setAttribute("memberAuthWithBLOBs", memberAuthWithBLOBs);
     	request.setAttribute("memberAuthWithBLOBs", memberAuthWithBLOBs);
-    	//System.out.println("aaaaaaaa  "+session.getServletContext().getAttribute("fields"));
+    	
+    	if(p == 0 ){
+    		integralMap = (Map<String, Object>) memberIntegralService.listAsWebsite(pager, 1);
+    		mav.addObject("memberIntegralDatas", integralMap.get("returnResult"));
+    	}else{
+    		integralMap = (Map<String, Object>) memberIntegralService.listAsWebsite(pager, p);
+    		mav.addObject("memberIntegralDatas", integralMap.get("returnResult"));
+      		request.setAttribute("memberIntegraldo", "memberIntegraldo");
+    	}
+		request.setAttribute("totalIntegral", integralMap.get("totalIntegral"));
     	return mav;
     }
     
@@ -607,26 +618,33 @@ public class MemberController extends AbstractController{
 		}
 	}
 	
-	@RequestMapping(value = "/idCardAccessoryForm.htm")
+	@RequestMapping(value = "/memberAccessoryForm.htm")
 	@ResponseBody
-	private Object idCardAccessoryForm(String member_idCardAccessory,HttpServletRequest request,HttpSession session,String whichAuth){
-		JqReturnJson jqReturnJson = new JqReturnJson();
+	private Object memberAccessoryForm(String member_Accessory,HttpServletRequest request,HttpSession session,String whichAuth){
 		Member member = (Member)session.getAttribute("currentMember");
     	MemberAuthWithBLOBs memberAuthWithBLOBs = (MemberAuthWithBLOBs) memberAuthService.getMemberAuth(member.getMemberId());
     	if(whichAuth.equals("idCardAuth")){
-    		memberAuthWithBLOBs.setIdCardAccessory(member_idCardAccessory);
-    		memberAuthWithBLOBs.setIdCardAuth("authstr");
+    		memberAuthWithBLOBs.setIdCardAccessory(member_Accessory);
+    		if("".equals(member_Accessory)||member_Accessory == null){
+    			memberAuthWithBLOBs.setIdCardAuth("noapply");
+    		}else{
+    			memberAuthWithBLOBs.setIdCardAuth("authstr");
+    		}
 		 }else if(whichAuth.equals("creditAuth")){
-			 memberAuthWithBLOBs.setCreditAccessory(member_idCardAccessory);
-			 memberAuthWithBLOBs.setCreditAuth("authstr");
+			 memberAuthWithBLOBs.setCreditAccessory(member_Accessory);
+			 if("".equals(member_Accessory)||member_Accessory == null){
+	    			memberAuthWithBLOBs.setCreditAuth("noapply");
+	    		}else{
+	    			 memberAuthWithBLOBs.setCreditAuth("authstr");
+	    		}
 		 }else if(whichAuth.equals("companyAuth")){
-			 memberAuthWithBLOBs.setCompanyAccessory(member_idCardAccessory);
-			 memberAuthWithBLOBs.setCompanyAuth("authstr");
+			 memberAuthWithBLOBs.setCompanyAccessory(member_Accessory);
+			 if("".equals(member_Accessory)||member_Accessory == null){
+	    			memberAuthWithBLOBs.setCompanyAuth("noapply");
+	    		}else{
+	    			memberAuthWithBLOBs.setCompanyAuth("authstr");
+	    		}
 		 }
-    	
-		System.out.println("kakkaka  :"+member_idCardAccessory);
-		//jqReturnJson.setMsg("看看成功");
-		//jqReturnJson.setSuccess(true);
 		request.setAttribute("memberAuthWithBLOBs", memberAuthWithBLOBs);
 		return memberAuthService.editMemberAuthReception(memberAuthWithBLOBs);
 	}

@@ -41,7 +41,7 @@
 					        <div class="btn-group-vertical">
 					          <a href="${ctx}/member/index.htm" class="btn btn-default" role="button">我的主页</a>
 					          <a href="#" class="btn btn-default" role="button">充值提现</a>
-					          <a href="${ctx}/member/memberAuth.htm" class="btn btn-default" role="button">平台认证</a>
+					          <a href="${ctx}/member/memberAuth.htm?&p=0" class="btn btn-default" role="button">平台认证</a>
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-info" role="button">个人设置</a>
 							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">邮箱设置</a>
 							</div>
@@ -160,7 +160,6 @@
 									    <label for="educational" class="col-sm-2 control-label">最高学历:</label>
 									    <div class="col-sm-4">
 									       <select class="form-control col-sm-6" name="educational" id="educational" >
-											  <option>请选择</option>
 											  <option value="高中或以下">高中或以下</option>
 											  <option value="大专">大专</option>
 											  <option value="本科">本科</option>

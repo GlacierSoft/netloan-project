@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- 引入jstl解析标签 -->
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %><!-- 引入自定义权限标签 -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="zh-cn">
@@ -41,7 +42,7 @@
 					        <div class="btn-group-vertical">
 					          <a href="${ctx}/member/index.htm" class="btn btn-info" role="button">我的主页</a>
 					          <a href="#" class="btn btn-default" role="button">充值提现</a>
-					          <a href="${ctx}/member/memberAuth.htm" class="btn btn-default" role="button">平台认证</a>
+					          <a href="${ctx}/member/memberAuth.htm?&p=0" class="btn btn-default" role="button">平台认证</a>
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">个人设置</a>
 							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">邮箱设置</a>
 							</div>
@@ -103,9 +104,9 @@
 			            </tr>
 			            <tr>
 			              <td>注册时间：</td>
-			              <td>${currentMember.registrationTime}</td>
+			              <td><fmt:formatDate value="${currentMember.registrationTime}" type="both"/></td>
 			              <td>会员到期：</td>
-			              <td>${currentMember.expireTime}</td>
+			              <td><fmt:formatDate value="${currentMember.expireTime}" type="both"/></td>
 			            </tr>
 			            <tr>
 			              <td>会员积分：</td>

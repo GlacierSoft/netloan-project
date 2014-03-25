@@ -5,14 +5,17 @@
  */
 package com.glacier.netloan.web.controller.member;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,6 +37,9 @@ public class MemberIntegralController extends AbstractController{
 
     @Autowired
     private MemberIntegralService integralService;// 注入会员积分记录业务Bean
+    
+    
+    
     
     // 进入会员积分记录列表展示页面
     @RequestMapping(value = "/index.htm")
