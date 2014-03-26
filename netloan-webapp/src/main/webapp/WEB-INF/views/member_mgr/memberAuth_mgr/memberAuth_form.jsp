@@ -81,7 +81,7 @@
     	 glacier.basicAddOrEditDialog({
  			title : '${memberAuthData.memberName}'+"基本信息认证",
  			width : 600,
-			height : 300,
+			height : 310,
  			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.infoName}',
  			submitUrl : ctx + '/do/memberAuth/edit.json',
  			successFun : function (){
@@ -93,8 +93,8 @@
     $('#vipAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"会员vip认证",
-			width : 730,
-			height : 510,
+			width : 760,
+			height : 560,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.vipName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json',
 			successFun : function (){
@@ -106,8 +106,8 @@
     $('#emailAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"邮箱认证",
-			width : 730,
-			height : 510,
+			width : 760,
+			height : 560,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.emailName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json',
 			successFun : function (){
@@ -119,8 +119,8 @@
     $('#mobileAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"手机认证",
-			width : 730,
-			height : 510,
+			width : 760,
+			height : 560,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.mobileName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json',
 			successFun : function (){
@@ -132,8 +132,8 @@
     $('#creditAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"信用认证",
-			width : 730,
-			height : 510,
+			width : 760,
+			height : 560,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.creditName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json',
 			successFun : function (){
@@ -145,8 +145,8 @@
     $('#companyAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"企业认证",
-			width : 730,
-			height : 510,
+			width : 760,
+			height : 560,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.companyName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json',
 			successFun : function (){
@@ -158,8 +158,8 @@
     $('#realNameAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"实名认证",
-			width : 730,
-			height : 510,
+			width : 760,
+			height : 560,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.realName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json',
 			successFun : function (){
@@ -171,8 +171,8 @@
     $('#idCardAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"身份证认证",
-			width : 730,
-			height : 510,
+			width : 760,
+			height : 560,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.idCardName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json',
 			successFun : function (){
@@ -184,8 +184,8 @@
     $('#workAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"工作认证",
-			width : 730,
-			height : 510,
+			width : 760,
+			height : 560,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.workName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json',
 			successFun : function (){

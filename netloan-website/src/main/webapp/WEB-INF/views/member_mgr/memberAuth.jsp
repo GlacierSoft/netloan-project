@@ -477,6 +477,7 @@
 				uploadJson : ctx+'/member/uploadFile.htm',
 				allowFileManager : true,
 				allowImageRemote : false,
+				urlType:'domain',
 				items : ['image']
 			});
 			crediteditor = K.create('#member_creditAccessory', {
@@ -488,6 +489,7 @@
 				uploadJson : ctx+'/member/uploadFile.htm?whichAuth=creditAuth',
 				allowFileManager : true,
 				allowImageRemote : false,
+				urlType:'domain',
 				items : ['image']
 			});  
 		});

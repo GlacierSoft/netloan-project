@@ -22,13 +22,23 @@
 			</td>
 		</tr>
 		<tr>
+			<td>信用积分：</td>
+			<td>
+				<input id="member_mgr_memberAuth_form_integralType" type="hidden" name="integralType" class="spinner" style="width:168px" value="infoAuth" />
+				<input id="member_mgr_memberAuth_form_info_changeValue" name="changeValue"  type="text" class="easyui-numberspinner spinner" data-options="min:0,max:99,required:true,missingMessage:'请填写信用积分'" value="10" style="width: 270px;height:18px;" min="1" max="99"/>
+			</td>
+		</tr>
+		<tr>
+			<td>积分改变类型：</td>
+			<td><input id="member_mgr_memberAuth_form_info_changeType" name="changeType" value="${memberCreditIntegralData.changeType}"/></td>
+		</tr>
+		<tr>
 			<td>审核结果：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_infoAuthPass"  name="infoAuth"   type="radio" value="pass"/>审核通过
 				<input id="member_mgr_memberAuth_form_infoAuthFailure"  name="infoAuth"  type="radio" value="failure"/>审核不通过
 			</td>
 		</tr>
-		
 	</table>
 	<table  id="table_member_mgr_memberAuth_form_vip" class="formtable">
 		<tr>
@@ -47,13 +57,23 @@
 			</td>
 		</tr>
 		<tr>
+			<td>信用积分：</td>
+			<td>
+				<input id="member_mgr_memberAuth_form_integralType" type="hidden" name="integralType" class="spinner" style="width:168px" value="vipAuth" />
+				<input id="member_mgr_memberAuth_form_vip_changeValue" name="changeValue"  type="text" class="easyui-numberspinner spinner" data-options="min:0,max:99,required:true,missingMessage:'请填写信用积分'" value="10" style="width: 270px;height:18px;" min="1" max="99" />
+			</td>
+		</tr>
+		<tr>
+			<td>积分改变类型：</td>
+			<td><input id="member_mgr_memberAuth_form_vip_changeType" name="changeType" value="${memberCreditIntegralData.changeType}"/></td>
+		</tr>
+		<tr>
 			<td>审核结果：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_vipAuthPass" name="vipAuth"  type="radio" value="pass"/>审核通过
 				<input id="member_mgr_memberAuth_form_vipAuthFailure" name="vipAuth"  type="radio" value="failure"/>审核不通过
 			</td>
 		</tr>
-		
 	</table>
 	<table id="table_member_mgr_memberAuth_form_email" class="formtable">
 		<tr>
@@ -68,13 +88,23 @@
 			</td>
 		</tr>
 		<tr>
+			<td>信用积分：</td>
+			<td>
+				<input id="member_mgr_memberAuth_form_integralType" type="hidden" name="integralType" class="spinner" style="width:168px" value="emailAuth" />
+				<input id="member_mgr_memberAuth_form_email_changeValue" name="changeValue"  type="text" class="easyui-numberspinner spinner" data-options="min:0,max:99,required:true,missingMessage:'请填写信用积分'" value="10" style="width: 270px;height:18px;" min="1" max="99"/>
+			</td>
+		</tr>
+		<tr>
+			<td>积分改变类型：</td>
+			<td><input id="member_mgr_memberAuth_form_email_changeType" name="changeType" value="${memberCreditIntegralData.changeType}"/></td>
+		</tr>
+		<tr>
 			<td>审核结果：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_emailAuthPass" name="emailAuth"  type="radio" value="pass"/>审核通过
 				<input id="member_mgr_memberAuth_form_emailAuthFailure" name="emailAuth"  type="radio" value="failure"/>审核不通过
 			</td>
 		</tr>
-		
 	</table>
 	<table id="table_member_mgr_memberAuth_form_mobile" class="formtable">
 		<tr>
@@ -89,13 +119,23 @@
 			</td>
 		</tr>
 		<tr>
+			<td>信用积分：</td>
+			<td>
+				<input id="member_mgr_memberAuth_form_integralType" type="hidden" name="integralType" class="spinner" style="width:168px" value="mobileAuth" />
+				<input id="member_mgr_memberAuth_form_mobile_changeValue" name="changeValue"  type="text" class="easyui-numberspinner spinner" data-options="min:0,max:99,required:true,missingMessage:'请填写信用积分'" value="10" style="width: 270px;height:18px;" min="1" max="99"/>
+			</td>
+		</tr>
+		<tr>
+			<td>积分改变类型：</td>
+			<td><input id="member_mgr_memberAuth_form_mobile_changeType" name="changeType" value="${memberCreditIntegralData.changeType}"/></td>
+		</tr>
+		<tr>
 			<td>审核结果：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_mobileAuthPass" name="mobileAuth"  type="radio" value="pass"/>审核通过
 				<input id="member_mgr_memberAuth_form_mobileAuthFailure" name="mobileAuth"  type="radio" value="failure"/>审核不通过
 			</td>
 		</tr>
-		
 	</table>
 	<table  id="table_member_mgr_memberAuth_form_credit" class="formtable">
 		<tr>
@@ -110,13 +150,23 @@
 			</td>
 		</tr>
 		<tr>
+			<td>信用积分：</td>
+			<td>
+				<input id="member_mgr_memberAuth_form_integralType" type="hidden" name="integralType" class="spinner" style="width:168px" value="creditAuth" />
+				<input id="member_mgr_memberAuth_form_credit_changeValue" name="changeValue"  type="text" class="easyui-numberspinner spinner" data-options="min:0,max:99,required:true,missingMessage:'请填写信用积分'" value="10" style="width: 270px;height:18px;" min="1" max="99"/>
+			</td>
+		</tr>
+		<tr>
+			<td>积分改变类型：</td>
+			<td><input id="member_mgr_memberAuth_form_credit_changeType" name="changeType" value="${memberCreditIntegralData.changeType}"/></td>
+		</tr>
+		<tr>
 			<td>审核结果：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_creditAuthPass" name="creditAuth"  type="radio" value="pass"/>审核通过
 				<input id="member_mgr_memberAuth_form_creditAuthFailure" name="creditAuth"  type="radio" value="failure"/>审核不通过
 			</td>
 		</tr>
-		
 	</table>
 	<table id="table_member_mgr_memberAuth_form_company" class="formtable">
 		<tr>
@@ -129,6 +179,17 @@
 				<input id="member_mgr_memberAuth_form_memberId" type="hidden" name="memberId" class="spinner" style="width:168px" value="${memberAuthData.memberId}" />
 				<textarea id="member_mgr_memberAuth_form_companyRemark" name="companyRemark" style="width:600px;" maxlength="255" class="spinner formta">${memberAuthData.companyRemark}</textarea>
 			</td>
+		</tr>
+		<tr>
+			<td>信用积分：</td>
+			<td>
+				<input id="member_mgr_memberAuth_form_integralType" type="hidden" name="integralType" class="spinner" style="width:168px" value="companyAuth" />
+				<input id="member_mgr_memberAuth_form_company_changeValue" name="changeValue"  type="text" class="easyui-numberspinner spinner" data-options="min:0,max:99,required:true,missingMessage:'请填写信用积分'" value="10" style="width: 270px;height:18px;" min="1" max="99"/>
+			</td>
+		</tr>
+		<tr>
+			<td>积分改变类型：</td>
+			<td><input id="member_mgr_memberAuth_form_company_changeType" name="changeType" value="${memberCreditIntegralData.changeType}"/></td>
 		</tr>
 		<tr>
 			<td>审核结果：</td>
@@ -152,6 +213,17 @@
 			</td>
 		</tr>
 		<tr>
+			<td>信用积分：</td>
+			<td>
+				<input id="member_mgr_memberAuth_form_integralType" type="hidden" name="integralType" class="spinner" style="width:168px" value="realNameAuth" />
+				<input id="member_mgr_memberAuth_form_realName_changeValue" name="changeValue"  type="text" class="easyui-numberspinner spinner" data-options="min:0,max:99,required:true,missingMessage:'请填写信用积分'" value="10" style="width: 270px;height:18px;" min="1" max="99"/>
+			</td>
+		</tr>
+		<tr>
+			<td>积分改变类型：</td>
+			<td><input id="member_mgr_memberAuth_form_realName_changeType" name="changeType" value="${memberCreditIntegralData.changeType}"/></td>
+		</tr>
+		<tr>
 			<td>审核结果：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_realNameAuthPass" name="realNameAuth"  type="radio" value="pass"/>审核通过
@@ -171,6 +243,17 @@
 				<input id="member_mgr_memberAuth_form_memberId" type="hidden" name="memberId" class="spinner" style="width:168px" value="${memberAuthData.memberId}" />
 				<textarea id="member_mgr_memberAuth_form_idCardRemark" name="idCardRemark" style="width:600px;" maxlength="255" class="spinner formta">${memberAuthData.idCardRemark}</textarea>
 			</td>
+		</tr>
+		<tr>
+			<td>信用积分：</td>
+			<td>
+				<input id="member_mgr_memberAuth_form_integralType" type="hidden" name="integralType" class="spinner" style="width:168px" value="idCardAuth" />
+				<input id="member_mgr_memberAuth_form_idCard_changeValue" name="changeValue"  type="text" class="easyui-numberspinner spinner" data-options="min:0,max:99,required:true,missingMessage:'请填写信用积分'" value="10" style="width: 270px;height:18px;" min="1" max="99"/>
+			</td>
+		</tr>
+		<tr>
+			<td>积分改变类型：</td>
+			<td><input id="member_mgr_memberAuth_form_idCard_changeType" name="changeType" value="${memberCreditIntegralData.changeType}"/></td>
 		</tr>
 		<tr>
 			<td>审核结果：</td>
@@ -194,6 +277,17 @@
 			</td>
 		</tr>
 		<tr>
+			<td>信用积分：</td>
+			<td>
+				<input id="member_mgr_memberAuth_form_integralType" type="hidden" name="integralType" class="spinner" style="width:168px" value="workAuth" />
+				<input id="member_mgr_memberAuth_form_work_changeValue" name="changeValue"  type="text" class="easyui-numberspinner spinner" data-options="min:0,max:99,required:true,missingMessage:'请填写信用积分'" value="10" style="width: 270px;height:18px;" min="1" max="99"/>
+			</td>
+		</tr>
+		<tr>
+			<td>积分改变类型：</td>
+			<td><input id="member_mgr_memberAuth_form_work_changeType" name="changeType" value="${memberCreditIntegralData.changeType}"/></td>
+		</tr>
+		<tr>
 			<td>审核结果：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_workAuthPass" name="workAuth"  type="radio" value="pass"/>审核通过
@@ -206,6 +300,115 @@
 
 <script type="text/javascript">
 		
+		/* //初始化下拉框
+		$('#member_mgr_memberAuth_form_info_changeType').combobox({  
+			valueField : 'value',
+			height:18,
+			width:270,
+			textField : 'label',
+			panelHeight : 'auto',
+			editable : false,
+			required:true,
+			data : fields.changeType
+		});
+		
+		//初始化下拉框
+		$('#member_mgr_memberAuth_form_vip_changeType').combobox({  
+			valueField : 'value',
+			height:18,
+			width:270,
+			textField : 'label',
+			panelHeight : 'auto',
+			editable : false,
+			required:true,
+			data : fields.changeType
+		});
+		
+		//初始化下拉框
+		$('#member_mgr_memberAuth_form_email_changeType').combobox({  
+			valueField : 'value',
+			height:18,
+			width:270,
+			textField : 'label',
+			panelHeight : 'auto',
+			editable : false,
+			required:true,
+			data : fields.changeType
+		});
+		
+		//初始化下拉框
+		$('#member_mgr_memberAuth_form_mobile_changeType').combobox({  
+			valueField : 'value',
+			height:18,
+			width:270,
+			textField : 'label',
+			panelHeight : 'auto',
+			editable : false,
+			required:true,
+			data : fields.changeType
+		});
+		
+		//初始化下拉框
+		$('#member_mgr_memberAuth_form_credit_changeType').combobox({  
+			valueField : 'value',
+			height:18,
+			width:270,
+			textField : 'label',
+			panelHeight : 'auto',
+			editable : false,
+			required:true,
+			data : fields.changeType
+		});
+		
+		//初始化下拉框
+		$('#member_mgr_memberAuth_form_company_changeType').combobox({  
+			valueField : 'value',
+			height:18,
+			width:270,
+			textField : 'label',
+			panelHeight : 'auto',
+			editable : false,
+			required:true,
+			data : fields.changeType
+		});
+		
+		//初始化下拉框
+		$('#member_mgr_memberAuth_form_realName_changeType').combobox({  
+			valueField : 'value',
+			height:18,
+			width:270,
+			textField : 'label',
+			panelHeight : 'auto',
+			editable : false,
+			required:true,
+			data : fields.changeType
+		});
+		
+		//初始化下拉框
+		$('#member_mgr_memberAuth_form_idCard_changeType').combobox({  
+			valueField : 'value',
+			height:18,
+			width:270,
+			textField : 'label',
+			panelHeight : 'auto',
+			editable : false,
+			required:true,
+			data : fields.changeType
+		});
+		
+		//初始化下拉框
+		$('#member_mgr_memberAuth_form_work_changeType').combobox({  
+			valueField : 'value',
+			height:18,
+			width:270,
+			textField : 'label',
+			panelHeight : 'auto',
+			editable : false,
+			required:true,
+			data : fields.changeType
+		}); */
+		
+		//初始化是否审核单选按钮。
 		if('${memberAuthData.infoAuth}' == 'pass'){
 			$('#member_mgr_memberAuth_form_infoAuthPass').attr("checked","checked");
 		}else if('${memberAuthData.infoAuth}' == 'failure'){
@@ -252,7 +455,7 @@
 			$('#member_mgr_memberAuth_form_vipAuthFailure').attr("checked","checked");
 		}
 		
-		
+		//页面一进来就先全部隐藏
 		$('#table_member_mgr_memberAuth_form_info').hide();
 		$('#table_member_mgr_memberAuth_form_vip').hide();
 		$('#table_member_mgr_memberAuth_form_email').hide();
@@ -263,6 +466,7 @@
 		$('#table_member_mgr_memberAuth_form_idCard').hide();
 		$('#table_member_mgr_memberAuth_form_work').hide();
 
+		//判断是通过哪个按钮进来的
 		if('${auth}'== '基本信息认证'){
 			$('#table_member_mgr_memberAuth_form_info').show();
 		}else if('${auth}'== 'VIP认证'){
@@ -282,7 +486,8 @@
 		}else{
 			$('#table_member_mgr_memberAuth_form_work').show();
 		}
-
+		
+		//基本信息认证的
 	    $('#infoAuthbtn1').bind('click', function(){    
 	    	 $.easyui.showDialog({
 					title: '${memberAuthData.memberName}'+"基本信息",

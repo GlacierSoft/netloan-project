@@ -73,7 +73,6 @@ public class ParameterCreditController extends AbstractController{
     @ResponseBody
     //private Object addCredit(@Valid ParameterCredit parameterCredit, BindingResult bindingResult,@RequestParam(value = "photo", required = false)MultipartFile photo, HttpServletRequest req) {
     private Object addCredit(@Valid ParameterCredit parameterCredit, BindingResult bindingResult) {	
-    	System.out.println("呼呼呼");
     	if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }

@@ -15,6 +15,7 @@ import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.member.MemberAuthQueryDTO;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
+import com.glacier.netloan.entity.member.MemberCreditIntegral;
 import com.glacier.netloan.service.member.MemberAuthService;
 import com.glacier.netloan.service.member.MemberService;
 
@@ -58,7 +59,6 @@ public class MemberAuthController extends AbstractController{
  // 进入会员认证记录Detail信息页面
     @RequestMapping(value = "/intoAuthDetail.htm")
     private Object intoMemberAuthInfoDetailPage(String memberId,String auth) {
-    	System.out.println("ddddddddddd    "+auth);
         ModelAndView mav = new ModelAndView("member_mgr/memberAuth_mgr/memberAuthDetail_form");
         if(StringUtils.isNotBlank(memberId)){
         	//mav.addObject("memberData", memberService.getMember(memberId));
@@ -79,10 +79,15 @@ public class MemberAuthController extends AbstractController{
  // 修改会员
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object editMemberAuth(@Valid MemberAuthWithBLOBs memberAuthWithBLOBs,BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {// 后台校验的错误信息
+    private Object editMemberAuth(MemberAuthWithBLOBs memberAuthWithBLOBs,MemberCreditIntegral memberCreditIntegral) {
+    //private Object editMemberAuth(@Valid MemberAuthWithBLOBs memberAuthWithBLOBs,BindingResult bindingResult,@Valid MemberCreditIntegral memberCreditIntegral,BindingResult bindingResultCredit ) {
+    	/*if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
-        return memberAuthService.editMemberAuth(memberAuthWithBLOBs);
+        if (bindingResultCredit.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResultCredit);
+        }*/
+    	System.out.println("wo  que   ");
+        return memberAuthService.editMemberAuthAndAddCredit(memberAuthWithBLOBs,memberCreditIntegral);
     }
 }

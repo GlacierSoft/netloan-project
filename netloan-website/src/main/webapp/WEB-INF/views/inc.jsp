@@ -14,7 +14,7 @@
 <link rel="icon" href="${ctx}/resources/images/favicon/favicon.ico"></link>
 
 <!-- jquery form验证 css -->
-<link rel="stylesheet" href="${ctx}/resources/css/screen.css"></link>
+<link rel="stylesheet" href="${ctx}/resources/css/jqFormValidata/screen.css"></link>
 
 <!-- 引入bootstrap样式 -->
 <link rel="stylesheet" href="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/css/bootstrap.min.css"></link>
