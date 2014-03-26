@@ -5,13 +5,10 @@
 
 /*借款介绍*/
 .lc_middle_items { width: 244px; float: left; border-left: 1px solid #E4E4E4; position: relative; }
-.lc_middle_items_top { width: 225px; height: 60px; line-height: 60px; color: #e4e4e4;; font-size: 18px; padding-left: 20px; }
-.lc_middle_items_middle { width: 245px; background-color: #ffffff; }
-.lc_middle_items_middle_top { width: 206px; height: 200px; padding: 15px 19px 15px 19px; font-size: 12px; line-height: 24px; color: #878787; }
-.lc_middle_items_middle_middle { width: 380px; padding: 0px; height: 200px; background-color: #EAEAEA; z-index: 100; left: 0; bottom: 90px; border: 1px #CCC solid; position: absolute; display: none; }
-.lc_middle_items_middle_middle ul { }
-.lc_middle_items_middle_middle ul li { font-size: 12px; line-height: 24px; color: #333; padding: 0 0 0 10px; text-align: left; }
-.lc_middle_items_middle_bot { width: 206px; padding: 0px 19px 15px 19px; }
+.lc_middle_items_top { width: 282px; height: 60px; line-height: 60px; color: #e4e4e4;; font-size: 18px; padding-left: 20px; }
+.lc_middle_items_middle { width: 282px; background-color: #ffffff; }
+.lc_middle_items_middle_top { width: 282px; height: 200px; padding: 15px 19px 15px 19px; font-size: 12px; line-height: 24px; color: #878787; }
+.lc_middle_items_middle_bot { width: 282px; padding: 0px 19px 15px 19px; }
 .lc_middle_items_middle_bot .bot { font-size: 16px; margin: 0 auto; width: 125px; height: 34px; line-height: 34px; background: url(../images/borrow/bg_sprite.png) no-repeat -317px 0px; display: block; text-align: center; color: #00A8E8; }
 .lc_middle_items_middle_bot .bot:hover { background: url(../images/borrow/bg_sprite.png) no-repeat -316px -52px; color: #fff; }
 .borrow_detail_more { padding: 0 15px 20px 0; text-align: right; }

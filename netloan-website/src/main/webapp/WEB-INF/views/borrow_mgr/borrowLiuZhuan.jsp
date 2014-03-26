@@ -31,7 +31,7 @@
 			            说明：债权人将手中的债权拆分成小额等份的债权转让给众多投资者,并且承诺到期进行还款的一种理财标种，称为流转标。投资者对于流转标的购买份额最小为100元/份，流转期限由借款人确定,流转的周期不同，回报收益不同；通常流转期限越长，回报收益则越高。
 			          </div>
 			          <div class="borrow_detail_more">
-			           <a href="${ctx}/borrowLiuZhuan.htm">详情介绍&gt;&gt;</a>
+			           <a href="###">详情介绍&gt;&gt;</a>
 			          </div>
 			          <div class="lc_middle_items_middle_bot">
 			            <a href="/flow_detail.html" class="bot">立即申请</a>

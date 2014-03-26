@@ -239,4 +239,24 @@ public class RegisterController extends AbstractController{
 	public Object borrow(){
 		return "borrow_mgr/borrow";
 	}
+	//转到“流转标详细”页面
+	@RequestMapping(value = "/borrowLiuZhuan.htm")
+	public Object borrowLiuZhuan(){
+		return "borrow_mgr/borrowLiuZhuan";
+	}
+	//转到“抵押标详细”页面
+	@RequestMapping(value = "/borrowDiYa.htm")
+	public Object borrowDiYa(){
+		return "borrow_mgr/borrowDiYa";
+	}
+	//转到“信用标详细”页面
+	@RequestMapping(value = "/borrowXinYong.htm")
+	public Object borrowXinYong(){
+		return "borrow_mgr/borrowXinYong";
+	}
+	//转到“净值标详细”页面
+	@RequestMapping(value = "/borrowJingZhi.htm")
+	public Object borrowJingZhi(){
+		return "borrow_mgr/borrowJingZhi";
+	}
 }
