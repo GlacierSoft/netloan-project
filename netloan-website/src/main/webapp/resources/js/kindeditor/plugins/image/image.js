@@ -20,7 +20,7 @@ KindEditor.plugin('image', function(K) {
 		filePostName = K.undef(self.filePostName, 'imgFile'),
 		fillDescAfterUploadImage = K.undef(self.fillDescAfterUploadImage, false),
 		lang = self.lang(name + '.');
-	
+
 
 	self.plugin.imageDialog = function(options) {
 		var imageUrl = options.imageUrl,
