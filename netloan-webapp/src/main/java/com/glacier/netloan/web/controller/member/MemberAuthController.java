@@ -79,15 +79,10 @@ public class MemberAuthController extends AbstractController{
  // 修改会员
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object editMemberAuth(MemberAuthWithBLOBs memberAuthWithBLOBs,MemberCreditIntegral memberCreditIntegral) {
-    //private Object editMemberAuth(@Valid MemberAuthWithBLOBs memberAuthWithBLOBs,BindingResult bindingResult,@Valid MemberCreditIntegral memberCreditIntegral,BindingResult bindingResultCredit ) {
-    	/*if (bindingResult.hasErrors()) {// 后台校验的错误信息
+    private Object editMemberAuth(@Valid MemberAuthWithBLOBs memberAuthWithBLOBs,BindingResult bindingResult,String auth) {
+    	if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
-        if (bindingResultCredit.hasErrors()) {// 后台校验的错误信息
-            return returnErrorBindingResult(bindingResultCredit);
-        }*/
-    	System.out.println("wo  que   ");
-        return memberAuthService.editMemberAuthAndAddCredit(memberAuthWithBLOBs,memberCreditIntegral);
+        return memberAuthService.editMemberAuth(memberAuthWithBLOBs,auth);
     }
 }

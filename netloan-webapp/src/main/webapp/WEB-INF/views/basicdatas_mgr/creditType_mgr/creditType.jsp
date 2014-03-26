@@ -16,7 +16,7 @@
 	};
 	
 	//初始化角色DataGrid
-	glacier.basicdatas_mgr.creditType_mgr.creditType.creditDataGrid = $('#creditDataGrid').datagrid({
+	glacier.basicdatas_mgr.creditType_mgr.creditType.creditTypeDataGrid = $('#creditTypeDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
@@ -27,29 +27,32 @@
 		singleSelect:true,//限制单选
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
-		url: ctx + '/do/credit/list.json',
+		url: ctx + '/do/creditType/list.json',
 		sortName: 'createTime',//排序字段名称
 		sortOrder: 'ASC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
-		idField:'creditId',
+		idField:'creditTypeId',
 		columns:[[
 			{
-				field:'creditId',
+				field:'creditTypeId',
 				title:'ID',
 				checkbox:true
 			},{
-				field:'creditName',
-				title:'会员信用等级名称',
+				field:'creditType',
+				title:'信用积分类型',
 				width:120,
 				sortable:true
 			},{
-				field:'creditBeginIntegral',
-				title:'会员开始积分',
+				field:'changeType',
+				title:'改变类型',
 				width:120,
-				sortable:true
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
+					return renderGridValue(value,fields.changeType);
+				}
 			},{
-				field:'creditEndIntegral',
-				title:'会员结束积分',
+				field:'changeValue',
+				title:'信用积分',
 				width:120,
 				sortable:true
 			},{
@@ -68,7 +71,7 @@
 		pageSize : 10,//注意，pageSize必须在pageList存在
 		pageList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#creditDataGrid_toolbar',
+		toolbar:'#creditTypeDataGrid_toolbar',
 		onCheck:function(rowIndex,rowData){//在用户勾选一行的时候触发事件
 			action_controller(glacier.basicdatas_mgr.creditType_mgr.creditType.param,this).check();
 		},
@@ -93,8 +96,8 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.creditName,
-				href : ctx + '/do/credit/intoDetail.htm?creditId='+rowData.creditId,//从controller请求jsp页面进行渲染
+				title: rowData.creditType,
+				href : ctx + '/do/creditType/intoDetail.htm?creditTypeId='+rowData.creditTypeId,//从controller请求jsp页面进行渲染
 				width : 600,
 				height : 260,
 				resizable: false,
@@ -104,52 +107,52 @@
 		}
 	});
 	//点击增加按钮触发方法
-	glacier.basicdatas_mgr.creditType_mgr.creditType.addCredit = function(){
+	glacier.basicdatas_mgr.creditType_mgr.creditType.addCreditType = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加会员信用级别',
 			width : 440,
 			height : 300,
-			queryUrl : ctx + '/do/credit/intoForm.htm',
-			submitUrl : ctx + '/do/credit/add.json',
+			queryUrl : ctx + '/do/creditType/intoForm.htm',
+			submitUrl : ctx + '/do/creditType/add.json',
 			successFun : function (){
-				glacier.basicdatas_mgr.creditType_mgr.creditType.creditDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.creditType_mgr.creditType.creditTypeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	
 	//点击编辑按钮触发方法
-	glacier.basicdatas_mgr.creditType_mgr.creditType.editCredit = function(){
-		var row = glacier.basicdatas_mgr.creditType_mgr.creditType.creditDataGrid.datagrid("getSelected");
+	glacier.basicdatas_mgr.creditType_mgr.creditType.editCreditType = function(){
+		var row = glacier.basicdatas_mgr.creditType_mgr.creditType.creditTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.creditName+'】',
+			title : '编辑【'+row.creditType+'】',
 			width : 440,
 			height : 300,
-			queryUrl : ctx + '/do/credit/intoForm.htm',
-			submitUrl : ctx + '/do/credit/edit.json',
+			queryUrl : ctx + '/do/creditType/intoForm.htm',
+			submitUrl : ctx + '/do/creditType/edit.json',
 			queryParams : {
-				creditId : row.creditId
+				creditTypeId : row.creditTypeId
 			},
 			successFun : function (){
-				glacier.basicdatas_mgr.creditType_mgr.creditType.creditDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.creditType_mgr.creditType.creditTypeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	//点击删除按钮触发方法
-	glacier.basicdatas_mgr.creditType_mgr.creditType.delCredit = function(){
-		var rows = glacier.basicdatas_mgr.creditType_mgr.creditType.creditDataGrid.datagrid("getChecked");
-		var creditIds = [];//删除的id标识
-		var creditNames = [];//日志记录引用名称
+	glacier.basicdatas_mgr.creditType_mgr.creditType.delCreditType = function(){
+		var rows = glacier.basicdatas_mgr.creditType_mgr.creditType.creditTypeDataGrid.datagrid("getChecked");
+		var creditTypeIds = [];//删除的id标识
+		var creditTypes = [];//日志记录引用名称
 		for(var i =0;i<rows.length;i++){
-			creditIds.push(rows[i].creditId);
-			creditNames.push(rows[i].creditName);
+			creditTypeIds.push(rows[i].creditTypeId);
+			creditTypes.push(rows[i].creditType);
 		}
-		if(creditIds.length > 0){
+		if(creditTypeIds.length > 0){
 			$.messager.confirm('请确认', '是否要删除该记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
-						   url: ctx + '/do/credit/del.json',
-						   data: {creditIds:creditIds.join(','),creditNames:creditNames.join(',')},
+						   url: ctx + '/do/creditType/del.json',
+						   data: {creditTypeIds:creditTypeIds.join(','),creditTypes:creditTypes.join(',')},
 						   dataType:'json',
 						   success: function(r){
 							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
@@ -158,7 +161,7 @@
 										timeout:3000,
 										msg:r.msg
 									});
-								   glacier.basicdatas_mgr.creditType_mgr.creditType.creditDataGrid.datagrid('reload');
+								   glacier.basicdatas_mgr.creditType_mgr.creditType.creditTypeDataGrid.datagrid('reload');
 							   }else{
 									$.messager.show({//后台验证弹出错误提示信息框
 										title:'错误提示',
@@ -179,8 +182,8 @@
 <!-- 所有角色列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="creditGridPanel" data-options="region:'center',border:true" >
-		<table id="creditDataGrid">
-			<glacierui:toolbar panelEnName="CreditList" toolbarId="creditDataGrid_toolbar" menuEnName="credit"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+		<table id="creditTypeDataGrid">
+			<glacierui:toolbar panelEnName="CreditTypeList" toolbarId="creditTypeDataGrid_toolbar" menuEnName="creditType"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 </div>

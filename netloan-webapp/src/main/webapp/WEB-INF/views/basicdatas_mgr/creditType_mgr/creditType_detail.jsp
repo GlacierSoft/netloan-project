@@ -5,36 +5,37 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>会员信用等级名称：</td>
+			<td>信用类型名称：</td>
 			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
-				<input type="hidden" name="creditId" value="${creditData.creditId}" />
-				<input class="spinner" style="width:150px"  value="${creditData.creditName}" readonly="readonly"/>
+				<input type="hidden" name="creditTypeId" value="${creditTypeData.creditTypeId}" />
+				<input class="spinner" style="width:150px"  value="${creditTypeData.creditType}" readonly="readonly"/>
 			</td>
-			<td>排序：</td>
-			<td><input class="spinner" style="width:168px" value="${creditData.creditNum}" readonly="readonly"/></td>
 		</tr>
 		<tr>
-			<td>会员开始积分：</td>
-			<td><input class="spinner" style="width:150px"  value="${creditData.creditBeginIntegral}" readonly="readonly"/></td>
-			<td>会员结束积分：</td>
-			<td colspan="3"><input class="spinner" style="width:150px"  value="${creditData.creditEndIntegral}" readonly="readonly"/></td>
+			<td>信用类型积分：</td>
+			<td><input class="spinner" style="width:150px"  value="${creditTypeData.changeValue}" readonly="readonly"/></td>
+			<td>积分状态：</td>
+			<td colspan="3"><input id="changeType" class="spinner" style="width:150px"  value="${creditTypeData.changeType}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>创建者：</td>
-			<td><input class="spinner" style="width:150px" value="${creditData.createrDisplay}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:150px" value="${creditTypeData.createrDisplay}" readonly="readonly"/></td>
 			<td>创建时间：</td>
-			<td><input class="spinner" style="width:150px" value="<fmt:formatDate value="${creditData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:150px" value="<fmt:formatDate value="${creditTypeData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>更新人：</td>
-			<td><input class="spinner" style="width:168px" value="${creditData.updaterDisplay}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="${creditTypeData.updaterDisplay}" readonly="readonly"/></td>
 			<td>更新时间：</td>
-			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${creditData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${creditTypeData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>
-			<td colspan="3"><textarea class="spinner" style="width:416px" readonly="readonly">${creditData.remark}</textarea></td>
+			<td colspan="3"><textarea class="spinner" style="width:416px" readonly="readonly">${creditTypeData.remark}</textarea></td>
 		</tr>
 	</table>
 </form>
+<script type="text/javascript">
 
+	$('#changeType').val(renderGridValue('${creditTypeData.changeType}',fields.changeType));
+</script>

@@ -2,6 +2,8 @@ package com.glacier.netloan.entity.basicdatas;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class ParameterCreditType {
     private String creditTypeId;
 
@@ -13,12 +15,24 @@ public class ParameterCreditType {
 
     private String remark;
 
+    /**
+     * 自定义字段
+     */
+    private String createrDisplay;
+    
     private String creater;
-
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date createTime;
 
+    /**
+     * 自定义字段
+     */
+    private String updaterDisplay;
+    
     private String updater;
-
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date updateTime;
 
     public String getCreditTypeId() {
@@ -93,7 +107,23 @@ public class ParameterCreditType {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

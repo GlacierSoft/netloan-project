@@ -83,7 +83,7 @@
  			width : 600,
 			height : 310,
  			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.infoName}',
- 			submitUrl : ctx + '/do/memberAuth/edit.json',
+ 			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.infoName}',
  			successFun : function (){
  				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
  				$('#memberAuthShow').dialog('destroy');//关闭窗体
@@ -96,7 +96,7 @@
 			width : 760,
 			height : 560,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.vipName}',
-			submitUrl : ctx + '/do/memberAuth/edit.json',
+			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.vipName}',
 			successFun : function (){
 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
 				$('#memberAuthShow').dialog('destroy');//关闭窗体
@@ -109,7 +109,7 @@
 			width : 760,
 			height : 560,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.emailName}',
-			submitUrl : ctx + '/do/memberAuth/edit.json',
+			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.emailName}',
 			successFun : function (){
 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
 				$('#memberAuthShow').dialog('destroy');//关闭窗体
@@ -122,7 +122,7 @@
 			width : 760,
 			height : 560,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.mobileName}',
-			submitUrl : ctx + '/do/memberAuth/edit.json',
+			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.mobileName}',
 			successFun : function (){
 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
 				$('#memberAuthShow').dialog('destroy');//关闭窗体
@@ -135,7 +135,7 @@
 			width : 760,
 			height : 560,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.creditName}',
-			submitUrl : ctx + '/do/memberAuth/edit.json',
+			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.creditName}',
 			successFun : function (){
 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
 				$('#memberAuthShow').dialog('destroy');//关闭窗体
@@ -148,7 +148,7 @@
 			width : 760,
 			height : 560,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.companyName}',
-			submitUrl : ctx + '/do/memberAuth/edit.json',
+			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.companyName}',
 			successFun : function (){
 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
 				$('#memberAuthShow').dialog('destroy');//关闭窗体
@@ -161,7 +161,7 @@
 			width : 760,
 			height : 560,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.realName}',
-			submitUrl : ctx + '/do/memberAuth/edit.json',
+			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.realName}',
 			successFun : function (){
 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
 				$('#memberAuthShow').dialog('destroy');//关闭窗体
@@ -174,7 +174,7 @@
 			width : 760,
 			height : 560,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.idCardName}',
-			submitUrl : ctx + '/do/memberAuth/edit.json',
+			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.idCardName}',
 			successFun : function (){
 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
 				$('#memberAuthShow').dialog('destroy');//关闭窗体
@@ -187,7 +187,7 @@
 			width : 760,
 			height : 560,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.workName}',
-			submitUrl : ctx + '/do/memberAuth/edit.json',
+			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.workName}',
 			successFun : function (){
 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
 				$('#memberAuthShow').dialog('destroy');//关闭窗体

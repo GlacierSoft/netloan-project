@@ -98,7 +98,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_parameter_credit temp_parameter_credit
-    <include refid="Base_extend" />
+    <include refid="Base_extend" /><!-- 扩展 -->
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -113,7 +113,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_parameter_credit temp_parameter_credit
-    <include refid="Base_extend" />
+    <include refid="Base_extend" /><!-- 扩展 -->
     where temp_parameter_credit.credit_id = #{creditId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -219,7 +219,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.basicdatas.ParameterCreditExample" resultType="java.lang.Integer" >
     select count(*) from t_parameter_credit temp_parameter_credit
-    <include refid="Base_extend" />
+    <include refid="Base_extend" /><!-- 扩展 -->
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
