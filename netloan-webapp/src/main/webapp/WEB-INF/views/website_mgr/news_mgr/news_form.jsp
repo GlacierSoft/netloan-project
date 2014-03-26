@@ -90,7 +90,7 @@
 			uploadJson : '../resources/js/kindeditor/jsp/upload_json.jsp',
             fileManagerJson : '../resources/js/kindeditor/jsp/file_manager_json.jsp',
             allowFileManager : true,
-            
+            urlType:'domain',
 			afterBlur : function() {
 				this.sync();
 				K.ctrl(document, 13, function() {
