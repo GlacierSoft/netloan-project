@@ -21,11 +21,11 @@
     <div class="container">
   	<div class="row">
     	<div class="col-md-12">
-			<h2 style="margin-bottom: 25px;">冰川贷借款 - 流转标详细介绍</h2>
+			<h2 style="margin-bottom: 25px;">冰川贷借款 - 抵押标详细介绍</h2>
 			
 			<div class="col-md-12">
 			 	<div class="panel panel-default">       
-			        <div class="lc_middle_items_top lc_blue"  style="width: 1108px;">流转标</div>
+			        <div class="lc_middle_items_top lc_blue"  style="width: 1108px;">抵押标</div>
 			        
 			        
 			        <div class="jk_mid fn_clear">
@@ -34,9 +34,8 @@
 					        <div class="jk_mid_con_k jk_mid_con_k_border">
 					          <div class="jk_mid_con_k_title">申请条件</div>
 					          <div class="jk_mid_con_k_con">
-					            <p >20-55周岁的中国公民&nbsp;&nbsp;<br />
-					              在现单位工作满3个月<br />
-					              月收入3000以上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+					            <p >22-65周岁的中国公民&nbsp;&nbsp;<br />
+					              	在现居住地居住满6个月<br />
 					            </p>
 					            <div class="jk_mid_con_but"><a href="/borrow/loan.html?type=flow" class="sq_but">立即申请</a></div>
 					          </div>
@@ -49,7 +48,7 @@
 					              借款年利率：&nbsp;10%-24%&#160;<br />
 					              借款期限：&nbsp;1、2、3、6、9、12个月<br />
 					              审核时间：&nbsp;1-3个工作日<br />
-					            还款方式：&nbsp;到期一次性还本息</p>
+					            还款方式：&nbsp;等额本息，按月付息</p>
 					          </div>
 					        </div>
 					        
@@ -65,9 +64,11 @@
 					          <div class="jk_mid_con_k_title">必要申请材料</div>
 					          <div class="jk_mid_con_k_con">
 					            <p >身份证&#160;  <br />
-					              个人征信报告（可去当地人民银行打印）&#160;  <br />
-					              带公司公章的劳动合同或工作证明&#160;  <br />
-					            近3个月工资卡银行流水&#160;  </p>
+							              个人征信报告（可去当地人民银行打印）&#160;  <br />
+							              经营证明:<br />
+							     a）注册满6个月的营业执照 <br />
+							     b）经营场地租赁合同＋90天内的租金发票或水电单据<br />
+							            可体现经营情况的近6个月常用银行卡流水（对公账户或个人账户）</p>
 					          </div>
 					        </div>
 					        

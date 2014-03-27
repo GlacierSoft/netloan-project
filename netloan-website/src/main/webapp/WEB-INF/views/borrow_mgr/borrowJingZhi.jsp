@@ -21,11 +21,11 @@
     <div class="container">
   	<div class="row">
     	<div class="col-md-12">
-			<h2 style="margin-bottom: 25px;">冰川贷借款 - 流转标详细介绍</h2>
+			<h2 style="margin-bottom: 25px;">冰川贷借款 - 净值标详细介绍</h2>
 			
 			<div class="col-md-12">
 			 	<div class="panel panel-default">       
-			        <div class="lc_middle_items_top lc_blue"  style="width: 1108px;">流转标</div>
+			        <div class="lc_middle_items_top lc_blue"  style="width: 1108px;">净值标</div>
 			        
 			        
 			        <div class="jk_mid fn_clear">
@@ -34,10 +34,9 @@
 					        <div class="jk_mid_con_k jk_mid_con_k_border">
 					          <div class="jk_mid_con_k_title">申请条件</div>
 					          <div class="jk_mid_con_k_con">
-					            <p >20-55周岁的中国公民&nbsp;&nbsp;<br />
-					              在现单位工作满3个月<br />
-					              月收入3000以上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
-					            </p>
+					             <p >20-55周岁的中国公民<br />
+								            发净值标的账户待收金额必须大于20万元
+								 </p>
 					            <div class="jk_mid_con_but"><a href="/borrow/loan.html?type=flow" class="sq_but">立即申请</a></div>
 					          </div>
 					        </div>
@@ -45,11 +44,11 @@
 					        <div class="jk_mid_con_k jk_mid_con_k_border">
 					          <div class="jk_mid_con_k_title">借款方式</div>
 					          <div class="jk_mid_con_k_con">
-					            <p >借款额度：50,000&nbsp;-200,000<br />
-					              借款年利率：&nbsp;10%-24%&#160;<br />
-					              借款期限：&nbsp;1、2、3、6、9、12个月<br />
-					              审核时间：&nbsp;1-3个工作日<br />
-					            还款方式：&nbsp;到期一次性还本息</p>
+					            <p >借款额度：账户待收金额必须大于20万元 <br />
+							      	借款年利率：&nbsp;1%-20%&#160;<br />
+							                    借款期限：&nbsp;1个月<br />
+							                    审核时间：&nbsp;1-3个工作日<br />
+							                    还款方式：&nbsp;等额本息，每月还款 </p>
 					          </div>
 					        </div>
 					        
@@ -57,17 +56,7 @@
 					          <div class="jk_mid_con_k_title">费用说明</div>
 					          <div class="jk_mid_con_k_con">
 					            <p >成交服务费<br />
-					              用户成功借款后按借款期限一次性从所得借款中直接扣除收取，1个月内统一收取借款金额的1%。从第2个月开始，每个月加收0.4%的手续费（年手续费合计为5.4%）。借款手续费不计息，不退还，在借款金额中直接扣除。作为成交服务费。 </p>
-					          </div>
-					        </div>
-					        
-					        <div class="jk_mid_con_k">
-					          <div class="jk_mid_con_k_title">必要申请材料</div>
-					          <div class="jk_mid_con_k_con">
-					            <p >身份证&#160;  <br />
-					              个人征信报告（可去当地人民银行打印）&#160;  <br />
-					              带公司公章的劳动合同或工作证明&#160;  <br />
-					            近3个月工资卡银行流水&#160;  </p>
+              						按借款期限收取成交管理费，每月0.1%（暂定，后期如有调整以最新调整费用为准）</p>
 					          </div>
 					        </div>
 					        

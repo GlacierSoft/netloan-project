@@ -21,11 +21,11 @@
     <div class="container">
   	<div class="row">
     	<div class="col-md-12">
-			<h2 style="margin-bottom: 25px;">冰川贷借款 - 流转标详细介绍</h2>
+			<h2 style="margin-bottom: 25px;">冰川贷借款 - 信用标详细介绍</h2>
 			
 			<div class="col-md-12">
 			 	<div class="panel panel-default">       
-			        <div class="lc_middle_items_top lc_blue"  style="width: 1108px;">流转标</div>
+			        <div class="lc_middle_items_top lc_blue"  style="width: 1108px;">信用标</div>
 			        
 			        
 			        <div class="jk_mid fn_clear">
@@ -34,9 +34,10 @@
 					        <div class="jk_mid_con_k jk_mid_con_k_border">
 					          <div class="jk_mid_con_k_title">申请条件</div>
 					          <div class="jk_mid_con_k_con">
-					            <p >20-55周岁的中国公民&nbsp;&nbsp;<br />
-					              在现单位工作满3个月<br />
-					              月收入3000以上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+					            <p>18周岁以上的中国公民&nbsp;<br/>
+					            	在现单位工作满6个月 	<br/>
+					            	有固定自有住房、有稳定工作 <br/>
+					            	信用良好，无严重逾期、无个人信用卡逾期不良记录<br/>
 					            </p>
 					            <div class="jk_mid_con_but"><a href="/borrow/loan.html?type=flow" class="sq_but">立即申请</a></div>
 					          </div>
@@ -45,11 +46,11 @@
 					        <div class="jk_mid_con_k jk_mid_con_k_border">
 					          <div class="jk_mid_con_k_title">借款方式</div>
 					          <div class="jk_mid_con_k_con">
-					            <p >借款额度：50,000&nbsp;-200,000<br />
-					              借款年利率：&nbsp;10%-24%&#160;<br />
-					              借款期限：&nbsp;1、2、3、6、9、12个月<br />
-					              审核时间：&nbsp;1-3个工作日<br />
-					            还款方式：&nbsp;到期一次性还本息</p>
+					             <p >借款额度：50,00&nbsp;-100,000<br />
+								              借款年利率：1-24%&#160;<br />
+								              借款期限：&nbsp;1-12个月<br />
+								              审核时间：&nbsp;1-3个工作日<br />
+								              还款方式：&nbsp;等额本息 </p>
 					          </div>
 					        </div>
 					        
@@ -57,17 +58,19 @@
 					          <div class="jk_mid_con_k_title">费用说明</div>
 					          <div class="jk_mid_con_k_con">
 					            <p >成交服务费<br />
-					              用户成功借款后按借款期限一次性从所得借款中直接扣除收取，1个月内统一收取借款金额的1%。从第2个月开始，每个月加收0.4%的手续费（年手续费合计为5.4%）。借款手续费不计息，不退还，在借款金额中直接扣除。作为成交服务费。 </p>
+								          用户成功借款后按借款期限一次性从所得借款中直接扣除收取，1个月内统一收取借款金额的1%。从第2个月开始，每个月加收0.4%的手续费（年手续费合计为5.4%）。借款手续费不计息，不退还，在借款金额中直接扣除。作为成交服务费。<br/>
+									信用借款标未补偿本金前借款人还款，本息按正常标准还款，另外逾期每天按千分之二收取罚息，投标人和晋商贷各收取千分之一。 <br />
+									信用借款标补偿本金后借款人还款，本息按正常标准还款，另外逾期每天按千分之二收取罚息，本金利息及罚息全部为晋商贷收取。 <br />
 					          </div>
 					        </div>
 					        
 					        <div class="jk_mid_con_k">
 					          <div class="jk_mid_con_k_title">必要申请材料</div>
 					          <div class="jk_mid_con_k_con">
-					            <p >身份证&#160;  <br />
-					              个人征信报告（可去当地人民银行打印）&#160;  <br />
-					              带公司公章的劳动合同或工作证明&#160;  <br />
-					            近3个月工资卡银行流水&#160;  </p>
+					             <p >身份证&#160; <br />
+								              个人征信报告（可去当地人民银行打印）&#160; <br />
+								              带公司公章的劳动合同或工作证明&#160; <br />
+								              近3个月工资卡银行流水&#160; </p>
 					          </div>
 					        </div>
 					        
