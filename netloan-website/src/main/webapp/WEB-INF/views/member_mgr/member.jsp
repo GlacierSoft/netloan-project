@@ -44,6 +44,7 @@
 					          <a href="#" class="btn btn-default" role="button">充值提现</a>
 					          <a href="${ctx}/member/memberAuth.htm?&p=0" class="btn btn-default" role="button">平台认证</a>
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">个人设置</a>
+							   <a href="${ctx}/member/memberPhotoInto.htm" class="btn btn-default" role="button">头像上传</a>
 							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">邮箱设置</a>
 							</div>
 					      </div>
@@ -94,9 +95,9 @@
 				    <h3 class="panel-title">我的个人信息</h3>
 				  </div>
 				  <div class="panel-body">
-				     <table class="table">
-			            <tr>
-			              <td rowspan="4">头像</td>
+				     <table class="table table-bordered" style="text-align:center;vertical-align: middle;">
+			            <tr><!-- style="width:100px;heigth:100px" -->
+			              <td rowspan="4" ><img src="${currentMember.memberPhoto}" style="width: 120px;height: 120px ;"/></td>
 			              <td>用户名：</td>
 			              <td>${currentMember.memberRealName}</td>
 			              <td>信用积分</td>

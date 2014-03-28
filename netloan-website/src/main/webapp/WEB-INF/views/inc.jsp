@@ -29,6 +29,9 @@
 <!-- 自定义借款页面样式 -->
 <link rel="stylesheet" href="${ctx}/resources/css/borrow.css"></link>
 
+<!-- 自定义借款页面样式 -->
+<link rel="stylesheet" href="${ctx}/resources/js/kindeditor/themes/default/default.css"></link>
+
  <!--[if lt IE 9]>
  	<link rel="stylesheet" href="${ctx}/resources/css/ie8.css"></link>
  </script><![endif]-->

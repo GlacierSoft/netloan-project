@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-public class Member{
+public class Member {
     private String memberId;
 
     @Length(min = 1, max = 10, message = "{Member.memberName.illegal}")
@@ -17,6 +17,8 @@ public class Member{
     private String memberPassword;
 
     private String memberRealName;
+
+    private String memberPhoto;
 
     private Integer memberAge;
 
@@ -30,7 +32,7 @@ public class Member{
 
     private String email;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date registrationTime;
 
     private Float creditIntegral;
@@ -41,10 +43,10 @@ public class Member{
 
     private String type;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date validTime;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date expireTime;
 
     private String accessory;
@@ -76,8 +78,7 @@ public class Member{
     private String secondContactAddress;
 
     private String creater;
-    
-    /**
+	/**
      * 自定义字段
      */
     private String createrDisplay;
@@ -86,8 +87,7 @@ public class Member{
     private Date createTime;
 
     private String updater;
-    
-    /**
+	/**
      * 自定义字段
      */
     private String updaterDisplay;
@@ -125,6 +125,14 @@ public class Member{
 
     public void setMemberRealName(String memberRealName) {
         this.memberRealName = memberRealName;
+    }
+
+    public String getMemberPhoto() {
+        return memberPhoto;
+    }
+
+    public void setMemberPhoto(String memberPhoto) {
+        this.memberPhoto = memberPhoto;
     }
 
     public Integer getMemberAge() {
@@ -374,8 +382,8 @@ public class Member{
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
-    
-    public String getCreaterDisplay() {
+	
+	public String getCreaterDisplay() {
 		return createrDisplay;
 	}
 
@@ -390,8 +398,8 @@ public class Member{
 	public void setUpdaterDisplay(String updaterDisplay) {
 		this.updaterDisplay = updaterDisplay;
 	}
-
-	@Override
+	
+    @Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
@@ -407,6 +415,7 @@ public class Member{
             && (this.getMemberName() == null ? other.getMemberName() == null : this.getMemberName().equals(other.getMemberName()))
             && (this.getMemberPassword() == null ? other.getMemberPassword() == null : this.getMemberPassword().equals(other.getMemberPassword()))
             && (this.getMemberRealName() == null ? other.getMemberRealName() == null : this.getMemberRealName().equals(other.getMemberRealName()))
+            && (this.getMemberPhoto() == null ? other.getMemberPhoto() == null : this.getMemberPhoto().equals(other.getMemberPhoto()))
             && (this.getMemberAge() == null ? other.getMemberAge() == null : this.getMemberAge().equals(other.getMemberAge()))
             && (this.getMobileNumber() == null ? other.getMobileNumber() == null : this.getMobileNumber().equals(other.getMobileNumber()))
             && (this.getSex() == null ? other.getSex() == null : this.getSex().equals(other.getSex()))
@@ -448,6 +457,7 @@ public class Member{
         result = prime * result + ((getMemberName() == null) ? 0 : getMemberName().hashCode());
         result = prime * result + ((getMemberPassword() == null) ? 0 : getMemberPassword().hashCode());
         result = prime * result + ((getMemberRealName() == null) ? 0 : getMemberRealName().hashCode());
+        result = prime * result + ((getMemberPhoto() == null) ? 0 : getMemberPhoto().hashCode());
         result = prime * result + ((getMemberAge() == null) ? 0 : getMemberAge().hashCode());
         result = prime * result + ((getMobileNumber() == null) ? 0 : getMobileNumber().hashCode());
         result = prime * result + ((getSex() == null) ? 0 : getSex().hashCode());
@@ -481,8 +491,4 @@ public class Member{
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         return result;
     }
-
-	public Member() {
-	}
-    
 }

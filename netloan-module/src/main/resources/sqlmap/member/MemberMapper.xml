@@ -6,6 +6,7 @@
     <result column="temp_member_member_name" property="memberName" jdbcType="VARCHAR" />
     <result column="temp_member_member_password" property="memberPassword" jdbcType="VARCHAR" />
     <result column="temp_member_member_real_name" property="memberRealName" jdbcType="VARCHAR" />
+    <result column="temp_member_member_photo" property="memberPhoto" jdbcType="VARCHAR" />
     <result column="temp_member_member_age" property="memberAge" jdbcType="INTEGER" />
     <result column="temp_member_mobile_number" property="mobileNumber" jdbcType="VARCHAR" />
     <result column="temp_member_sex" property="sex" jdbcType="CHAR" />
@@ -37,7 +38,7 @@
     <result column="temp_member_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_member_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_member_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+	<result column="temp_member_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_member_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -101,12 +102,12 @@
   <sql id="Base_Column_List" >
     temp_member.member_id as temp_member_member_id, temp_member.member_name as temp_member_member_name, 
     temp_member.member_password as temp_member_member_password, temp_member.member_real_name as temp_member_member_real_name, 
-    temp_member.member_age as temp_member_member_age, temp_member.mobile_number as temp_member_mobile_number, 
-    temp_member.sex as temp_member_sex, temp_member.marital_status as temp_member_marital_status, 
-    temp_member.card_id as temp_member_card_id, temp_member.email as temp_member_email, 
-    temp_member.registration_time as temp_member_registration_time, temp_member.credit_integral as temp_member_credit_integral, 
-    temp_member.integral as temp_member_integral, temp_member.status as temp_member_status, 
-    temp_member.type as temp_member_type, temp_member.valid_time as temp_member_valid_time, 
+    temp_member.member_photo as temp_member_member_photo, temp_member.member_age as temp_member_member_age, 
+    temp_member.mobile_number as temp_member_mobile_number, temp_member.sex as temp_member_sex, 
+    temp_member.marital_status as temp_member_marital_status, temp_member.card_id as temp_member_card_id, 
+    temp_member.email as temp_member_email, temp_member.registration_time as temp_member_registration_time, 
+    temp_member.credit_integral as temp_member_credit_integral, temp_member.integral as temp_member_integral, 
+    temp_member.status as temp_member_status, temp_member.type as temp_member_type, temp_member.valid_time as temp_member_valid_time, 
     temp_member.expire_time as temp_member_expire_time, temp_member.accessory as temp_member_accessory, 
     temp_member.educational as temp_member_educational, temp_member.personal_des as temp_member_personal_des, 
     temp_member.hometown as temp_member_hometown, temp_member.live_address as temp_member_live_address, 
@@ -117,11 +118,11 @@
     temp_member.second_contact_address as temp_member_second_contact_address, temp_member.creater as temp_member_creater, 
     temp_member.create_time as temp_member_create_time, temp_member.updater as temp_member_updater, 
     temp_member.update_time as temp_member_update_time
-     <!-- 以下字段属于扩展 -->
+	 <!-- 以下字段属于扩展 -->
     ,temp_creater.user_cn_name as temp_member_createrDisplay
     ,temp_updater.user_cn_name as temp_member_updaterDisplay
   </sql>
-  <sql id="Base_extend">
+   <sql id="Base_extend">
   	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_member.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_member.updater <!-- 扩展 -->
   </sql>
@@ -132,7 +133,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_member temp_member
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -147,7 +148,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_member temp_member
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     where temp_member.member_id = #{memberId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -162,29 +163,31 @@
   </delete>
   <insert id="insert" parameterType="com.glacier.netloan.entity.member.Member" >
     insert into t_member (member_id, member_name, member_password, 
-      member_real_name, member_age, mobile_number, 
-      sex, marital_status, card_id, 
-      email, registration_time, credit_integral, 
-      integral, status, type, valid_time, 
-      expire_time, accessory, educational, 
-      personal_des, hometown, live_address, 
-      home_phone, first_contact, first_contact_relation, 
-      first_contact_phone, first_contact_address, 
-      second_contact, second_contact_relation, second_contact_phone, 
-      second_contact_address, creater, create_time, 
-      updater, update_time)
+      member_real_name, member_photo, member_age, 
+      mobile_number, sex, marital_status, 
+      card_id, email, registration_time, 
+      credit_integral, integral, status, 
+      type, valid_time, expire_time, 
+      accessory, educational, personal_des, 
+      hometown, live_address, home_phone, 
+      first_contact, first_contact_relation, first_contact_phone, 
+      first_contact_address, second_contact, second_contact_relation, 
+      second_contact_phone, second_contact_address, 
+      creater, create_time, updater, 
+      update_time)
     values (#{memberId,jdbcType=VARCHAR}, #{memberName,jdbcType=VARCHAR}, #{memberPassword,jdbcType=VARCHAR}, 
-      #{memberRealName,jdbcType=VARCHAR}, #{memberAge,jdbcType=INTEGER}, #{mobileNumber,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=CHAR}, #{maritalStatus,jdbcType=CHAR}, #{cardId,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{registrationTime,jdbcType=TIMESTAMP}, #{creditIntegral,jdbcType=REAL}, 
-      #{integral,jdbcType=REAL}, #{status,jdbcType=CHAR}, #{type,jdbcType=CHAR}, #{validTime,jdbcType=TIMESTAMP}, 
-      #{expireTime,jdbcType=TIMESTAMP}, #{accessory,jdbcType=VARCHAR}, #{educational,jdbcType=VARCHAR}, 
-      #{personalDes,jdbcType=VARCHAR}, #{hometown,jdbcType=VARCHAR}, #{liveAddress,jdbcType=VARCHAR}, 
-      #{homePhone,jdbcType=VARCHAR}, #{firstContact,jdbcType=VARCHAR}, #{firstContactRelation,jdbcType=CHAR}, 
-      #{firstContactPhone,jdbcType=VARCHAR}, #{firstContactAddress,jdbcType=VARCHAR}, 
-      #{secondContact,jdbcType=VARCHAR}, #{secondContactRelation,jdbcType=CHAR}, #{secondContactPhone,jdbcType=VARCHAR}, 
-      #{secondContactAddress,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+      #{memberRealName,jdbcType=VARCHAR}, #{memberPhoto,jdbcType=VARCHAR}, #{memberAge,jdbcType=INTEGER}, 
+      #{mobileNumber,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{maritalStatus,jdbcType=CHAR}, 
+      #{cardId,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{registrationTime,jdbcType=TIMESTAMP}, 
+      #{creditIntegral,jdbcType=REAL}, #{integral,jdbcType=REAL}, #{status,jdbcType=CHAR}, 
+      #{type,jdbcType=CHAR}, #{validTime,jdbcType=TIMESTAMP}, #{expireTime,jdbcType=TIMESTAMP}, 
+      #{accessory,jdbcType=VARCHAR}, #{educational,jdbcType=VARCHAR}, #{personalDes,jdbcType=VARCHAR}, 
+      #{hometown,jdbcType=VARCHAR}, #{liveAddress,jdbcType=VARCHAR}, #{homePhone,jdbcType=VARCHAR}, 
+      #{firstContact,jdbcType=VARCHAR}, #{firstContactRelation,jdbcType=CHAR}, #{firstContactPhone,jdbcType=VARCHAR}, 
+      #{firstContactAddress,jdbcType=VARCHAR}, #{secondContact,jdbcType=VARCHAR}, #{secondContactRelation,jdbcType=CHAR}, 
+      #{secondContactPhone,jdbcType=VARCHAR}, #{secondContactAddress,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.member.Member" >
     insert into t_member
@@ -200,6 +203,9 @@
       </if>
       <if test="memberRealName != null" >
         member_real_name,
+      </if>
+      <if test="memberPhoto != null" >
+        member_photo,
       </if>
       <if test="memberAge != null" >
         member_age,
@@ -308,6 +314,9 @@
       <if test="memberRealName != null" >
         #{memberRealName,jdbcType=VARCHAR},
       </if>
+      <if test="memberPhoto != null" >
+        #{memberPhoto,jdbcType=VARCHAR},
+      </if>
       <if test="memberAge != null" >
         #{memberAge,jdbcType=INTEGER},
       </if>
@@ -405,7 +414,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.member.MemberExample" resultType="java.lang.Integer" >
     select count(*) from t_member temp_member
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -424,6 +433,9 @@
       </if>
       <if test="record.memberRealName != null" >
         temp_member.member_real_name = #{record.memberRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberPhoto != null" >
+        temp_member.member_photo = #{record.memberPhoto,jdbcType=VARCHAR},
       </if>
       <if test="record.memberAge != null" >
         temp_member.member_age = #{record.memberAge,jdbcType=INTEGER},
@@ -529,6 +541,7 @@
       temp_member.member_name = #{record.memberName,jdbcType=VARCHAR},
       temp_member.member_password = #{record.memberPassword,jdbcType=VARCHAR},
       temp_member.member_real_name = #{record.memberRealName,jdbcType=VARCHAR},
+      temp_member.member_photo = #{record.memberPhoto,jdbcType=VARCHAR},
       temp_member.member_age = #{record.memberAge,jdbcType=INTEGER},
       temp_member.mobile_number = #{record.mobileNumber,jdbcType=VARCHAR},
       temp_member.sex = #{record.sex,jdbcType=CHAR},
@@ -575,6 +588,9 @@
       </if>
       <if test="memberRealName != null" >
         member_real_name = #{memberRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberPhoto != null" >
+        member_photo = #{memberPhoto,jdbcType=VARCHAR},
       </if>
       <if test="memberAge != null" >
         member_age = #{memberAge,jdbcType=INTEGER},
@@ -677,6 +693,7 @@
     set member_name = #{memberName,jdbcType=VARCHAR},
       member_password = #{memberPassword,jdbcType=VARCHAR},
       member_real_name = #{memberRealName,jdbcType=VARCHAR},
+      member_photo = #{memberPhoto,jdbcType=VARCHAR},
       member_age = #{memberAge,jdbcType=INTEGER},
       mobile_number = #{mobileNumber,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=CHAR},

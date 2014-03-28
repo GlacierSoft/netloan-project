@@ -48,6 +48,7 @@ import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequ
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
@@ -57,9 +58,11 @@ import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberAuth;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
+import com.glacier.netloan.entity.member.MemberCreditIntegral;
 import com.glacier.netloan.entity.member.MemberWork;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
 import com.glacier.netloan.service.member.MemberAuthService;
+import com.glacier.netloan.service.member.MemberCreditIntegralService;
 import com.glacier.netloan.service.member.MemberIntegralService;
 import com.glacier.netloan.service.member.MemberService;
 
@@ -80,12 +83,20 @@ public class MemberController extends AbstractController{
 	@Autowired
 	private MemberIntegralService memberIntegralService;
 	
+	@Autowired
+	private MemberCreditIntegralService memberCreditIntegralService;
+	
 	// 进入会员个人主页展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmember() {
         ModelAndView mav = new ModelAndView("member_mgr/member");
         return mav;
     }
+  //转到头像上传页面。
+  	@RequestMapping(value = "/memberPhotoInto.htm")
+  	public Object memberPhotoInto(){
+  		return "member_mgr/memberPhoto";
+  	}
     
     // 进入会员个人详细信息展示页面
     @RequestMapping(value = "/memberDetail.htm")
@@ -121,8 +132,13 @@ public class MemberController extends AbstractController{
     	
     	Member member = (Member)session.getAttribute("currentMember");
     	MemberAuthWithBLOBs memberAuthWithBLOBs = (MemberAuthWithBLOBs) memberAuthService.getMemberAuth(member.getMemberId());
+    	List<MemberCreditIntegral>  memberCreditIntegrals = (List<MemberCreditIntegral>) memberCreditIntegralService.listByMemberId(member.getMemberId());
+    	JSONArray json = new JSONArray();  
+        json.addAll(memberCreditIntegrals);  
     	request.setAttribute("parameterCredits", parameterCredits);
+    	request.setAttribute("json", json);
     	request.setAttribute("memberAuthWithBLOBs", memberAuthWithBLOBs);
+    	request.setAttribute("memberCreditIntegrals", memberCreditIntegrals);
     	
     	if(p == 0 ){
     		integralMap = (Map<String, Object>) memberIntegralService.listAsWebsite(pager, 1);
@@ -178,7 +194,6 @@ public class MemberController extends AbstractController{
 			return obj.toJSONString();
     	}
     	String dirName = request.getParameter("dir");
-    	System.out.println("dirName is "+dirName);
     	if (dirName == null) {
     		dirName = "image";
     	}
@@ -223,7 +238,6 @@ public class MemberController extends AbstractController{
 					 String fileName = file.getOriginalFilename();
 					 String contentType=file.getContentType();
 					 String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-					    System.out.println("tttt  "+fileExt);
 					 if(fileSize > maxSize){
 						 	obj.put("error", 1);
 							obj.put("message", "上传文件大小超过限制。");

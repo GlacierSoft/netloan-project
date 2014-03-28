@@ -84,7 +84,12 @@ public class MemberCreditIntegralService {
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
     }
-
+    public Object listByMemberId(String memberId){
+    	MemberCreditIntegralExample memberCreditIntegralExample = new MemberCreditIntegralExample();
+    	memberCreditIntegralExample.createCriteria().andMemberIdEqualTo(memberId);
+    	List<MemberCreditIntegral>  memberCreditIntegrals = creditIntegralMapper.selectByExample(memberCreditIntegralExample); // 查询所有会员积分列表
+    	return memberCreditIntegrals;
+    }
     /**
      * @Title: addCreditIntegral 
      * @Description: TODO(新增会员信用积分) 

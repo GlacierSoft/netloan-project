@@ -188,12 +188,14 @@ public class RegisterController extends AbstractController{
 	@RequestMapping(value = "/perfectRegister.htm", method = RequestMethod.POST)
 	@ResponseBody
 	public Object perfectRegister(@Valid Member member,BindingResult bindingResult,@Valid MemberWork memberWork,BindingResult bindingResultWork,HttpServletRequest request,HttpSession session){
+		 System.out.println("aa 又有哦哟哦耶  ");
 		if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
         if (bindingResultWork.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResultWork);
         }
+        System.out.println("aa   "+member.getMemberPhoto());
 		JqReturnJson perfectRegister = (JqReturnJson) memberService.editMemberReception(member, memberWork);
 		Member loginMember = (Member) memberService.getMember(member.getMemberId());
 		MemberWork loginMemberWork = (MemberWork) memberService.getMemberWork(member.getMemberId());
@@ -202,6 +204,18 @@ public class RegisterController extends AbstractController{
 		session.setAttribute("currentMember",loginMember);
         session.setAttribute("currentMemberWork",loginMemberWork);
         request.setAttribute("perfectRegister", perfectRegister);
+		return perfectRegister;
+	}
+	@RequestMapping(value = "/perfectMemberPhoto.htm", method = RequestMethod.POST)
+	@ResponseBody
+	public Object perfectMemberPhoto(@Valid Member member,HttpSession session){
+		 
+        System.out.println("aa   "+member.getMemberPhoto());
+		JqReturnJson perfectRegister = (JqReturnJson) memberService.editMemberPhotoReception(member);
+		
+		Member loginMember = (Member) memberService.getMember(member.getMemberId());
+		session.removeAttribute("currentMember");
+		session.setAttribute("currentMember",loginMember);
 		return perfectRegister;
 	}
 	//转到“关于我们”页面

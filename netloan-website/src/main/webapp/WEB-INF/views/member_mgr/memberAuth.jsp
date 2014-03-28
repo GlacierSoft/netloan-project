@@ -43,6 +43,7 @@
 					          <a href="#" class="btn btn-default" role="button">充值提现</a>
 					          <a href="${ctx}/member/memberAuth.htm?&p=0" class="btn btn-info" role="button">平台认证</a>
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">个人设置</a>
+							   <a href="${ctx}/member/memberPhotoInto.htm" class="btn btn-default" role="button">头像上传</a>
 							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">邮箱设置</a>
 							</div>
 					      </div>
@@ -181,49 +182,49 @@
 					            <tr>
 					              <td rowspan="2" style="text-align:center;vertical-align: middle;">基本信息</td>
 					              <td>${requestScope.memberAuthWithBLOBs.infoName}</td>
-					              <td id="memberAuth_infoAuth"></td>
-					              <td>10</td>
+					              <td id="memberAuth_form_infoAuth"></td>
+					              <td id="memberAuth_form_infoAuth_creditIntegral">0</td>
 					            </tr>
 					            <tr>
 					              <td>${requestScope.memberAuthWithBLOBs.workName}</td>
 					              <td id="memberAuth_form_workAuth"></td>
-					              <td>10</td>
+					              <td id="memberAuth_form_workAuth_creditIntegral">0</td>
 					            </tr>
 					            <tr>
 					              <td rowspan="7" style="vertical-align: middle;">必要信用认证</td>
 					              <td>${requestScope.memberAuthWithBLOBs.idCardName}</td>
 					              <td id="memberAuth_form_idCardAuth"></td>
-					              <td>0</td>
+					              <td id="memberAuth_form_idCardAuth_creditIntegral">0</td>
 					            </tr>
 					            <tr>
 					              <td>${requestScope.memberAuthWithBLOBs.emailName}</td>
 					              <td id="memberAuth_form_emailAuth"></td>
-					              <td>10</td>
+					              <td id="memberAuth_form_emailAuth_creditIntegral">0</td>
 					            </tr>
 					            <tr>
 					              <td>${requestScope.memberAuthWithBLOBs.mobileName}</td>
 					              <td id="memberAuth_form_mobileAuth"></td>
-					              <td>0</td>
+					              <td id="memberAuth_form_mobileAuth_creditIntegral">0</td>
 					            </tr>
 					            <tr>
 					              <td>${requestScope.memberAuthWithBLOBs.creditName}</td>
 					              <td id="memberAuth_form_creditAuth"></td>
-					              <td>0</td>
+					              <td id="memberAuth_form_creditAuth_creditIntegral">0</td>
 					            </tr>
 					            <tr>
 					              <td>${requestScope.memberAuthWithBLOBs.companyName}</td>
 					              <td id="memberAuth_form_companyAuth"></td>
-					              <td>0</td>
+					              <td id="memberAuth_form_companyAuth_creditIntegral">0</td>
 					            </tr>
 					            <tr>
 					              <td>${requestScope.memberAuthWithBLOBs.realName}</td>
 					              <td id="memberAuth_form_realNameAuth"></td>
-					              <td>0</td>
+					              <td id="memberAuth_form_realNameAuth_creditIntegral">0</td>
 					            </tr>
 					            <tr>
 					              <td>${requestScope.memberAuthWithBLOBs.vipName}</td>
 					              <td id="memberAuth_form_vipAuth"></td>
-					              <td>0</td>
+					              <td id="memberAuth_form_vipAuth_creditIntegral">0</td>
 					            </tr>
 					        </table>
 				       </div>
@@ -236,7 +237,10 @@
 					       	<p class="text-primary">为了保证审核效率，确保贷款用户尽快通过审核，我们将优先为五项必要认证材料上传齐全的用户提供审核服务。五项必要认证 缺失的用户，无法得到贷款。</p>	
 					  		<!-- Three columns of text below the carousel -->
 					      <div class="row center-block" style="text-align: center;">
-					        <div class="col-lg-4 center-block">
+					        <div class="col-lg-4 center-block" style="border: 1px solid #DDDDDD;">
+				        	<div style="text-align: right;">
+				        	<button id="idCard_auth"  type="button" class="btn btn-success" disabled="disabled">审核通过</button>
+				        	</div>
 					          <img src="${pageContext.request.contextPath}/resources/images/index/4.jpg"  alt="Generic placeholder image">
 					          <h3>身份认证</h3>
 					          <div class="bs-example " style="padding-bottom:24px;">
@@ -245,26 +249,31 @@
 							      </button>
 							    </div><!-- /example -->
 					        </div><!-- /.col-lg-4 -->
-					        <div class="col-lg-4 center-block">
+					        <div class="col-lg-4 center-block" style="border: 1px solid #DDDDDD;">
+					        <div style="text-align: right;">
+				        	<button id="company_auth" type="button" class="btn btn-success" disabled="disabled">审核通过</button>
+				        	</div>
 					          <img src="${pageContext.request.contextPath}/resources/images/index/5.jpg" alt="Generic placeholder image">
 					          <h3>企业认证</h3>
-					         <div class="bs-example " >
+					         <div class="bs-example " style="padding-bottom:24px;">
 							      <button class="btn btn-primary btn-lg " data-backdrop="static" data-toggle="modal" data-target="#companyAccessoryModal">
 							        	点击上传
 							      </button>
 							    </div><!-- /example -->
 					        </div><!-- /.col-lg-4 -->
-					        <div class="col-lg-4 ">
+					        <div class="col-lg-4 center-block" style="border: 1px solid #DDDDDD;">
+					        <div style="text-align: right;">
+				        	<button id="credit_auth" type="button" class="btn  btn-success" disabled="disabled">审核通过</button>
+				        	</div>
 					          <img src="${pageContext.request.contextPath}/resources/images/index/6.jpg"   alt="Generic placeholder image">
 					          <h3>信用认证</h3>
-					          <div class="bs-example " >
+					          <div class="bs-example " style="padding-bottom:24px;">
 							      <button class="btn btn-primary btn-lg " data-backdrop="static" data-toggle="modal" data-target="#creditAccessoryModal">
 							        	点击上传
 							      </button>
 							    </div><!-- /example -->
 					        </div><!-- /.col-lg-4 -->
 					      </div><!-- /.row -->	 
-				
 					       <!-- sample modal content -->
 						    <div id="idCardAccessoryModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="idCardAccessoryModalLabel" aria-hidden="true">
 						      <div class="modal-dialog">
@@ -281,9 +290,18 @@
 							            <p>2、本人近期生活照。</p>
 							            <p>3、请确认您上传的资料是清晰的、未经修改的照片，每张照片最大限制为1M。</p>
 							            <h4>文件上传</h4>
-							            <textarea id="member_idCardAccessory" name="webHelpContent" style="width:500px;height:150px;">
-											 ${memberAuthWithBLOBs.idCardAccessory}
-										</textarea>
+							            <c:choose>
+										    <c:when test="${memberAuthWithBLOBs.idCardAuth=='pass'}"> 
+												<textarea id="member_idCardAccessory_readonly" name="webHelpContent" readonly="readonly" style="width:500px;height:150px;">
+													 ${memberAuthWithBLOBs.idCardAccessory}
+												</textarea>
+								            </c:when>
+								   			<c:otherwise> 
+									   			<textarea id="member_idCardAccessory" name="webHelpContent" style="width:500px;height:150px;">
+													 ${memberAuthWithBLOBs.idCardAccessory}
+												</textarea>
+								   		    </c:otherwise>
+										</c:choose>
 										<br>
 							            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，晓风网贷会将你加入系统黑名单，永久取消您在晓风网贷的借款资格。</p>
 							          </div>
@@ -329,9 +347,18 @@
 										  <li>3、 请确认您上传的资料是清晰的、未经修改的照片，每张照片最大限制为1M</li>
 										</ul>
 						            <h4>文件上传</h4>
-						            <textarea id="member_companyAccessory" name="webHelpContent" style="width:500px;height:200px;">
-										 ${memberAuthWithBLOBs.companyAccessory} 
-									</textarea>
+						            <c:choose>
+									    <c:when test="${memberAuthWithBLOBs.companyAuth=='pass'}"> 
+											<textarea id="member_companyAccessory_readonly" name="webHelpContent" readonly="readonly" style="width:500px;height:200px;">
+												 ${memberAuthWithBLOBs.companyAccessory} 
+											</textarea>
+							            </c:when>
+							   			<c:otherwise> 
+								   			<textarea id="member_companyAccessory" name="webHelpContent" style="width:500px;height:200px;">
+												 ${memberAuthWithBLOBs.companyAccessory} 
+											</textarea>
+							   		    </c:otherwise>
+									</c:choose>
 									<br>
 						            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，晓风网贷会将你加入系统黑名单，永久取消您在晓风网贷的借款资格。</p>
 						          </div>
@@ -365,9 +392,18 @@
 						            <p>2、上传您的个人信用报告原件的照片，每页信用报告须独立照相，并将整份信用报告按页码先后顺序完整上传。</p>
 						            <p>3、请确认您上传的资料是清晰的、未经修改的照片，每张照片最大限制为1M。</p>
 						            <h4>文件上传</h4>
-						            <textarea id="member_creditAccessory" name="webHelpContent" style="width:500px;height:150px;">
-										${memberAuthWithBLOBs.creditAccessory}
-									</textarea>
+									<c:choose>
+									    <c:when test="${memberAuthWithBLOBs.creditAuth=='pass'}"> 
+								         	<textarea id="member_creditAccessory_readonly" name="webHelpContent" readonly="readonly" style="width:500px;height:150px;">
+												${memberAuthWithBLOBs.creditAccessory}
+											</textarea>
+							            </c:when>
+							   			<c:otherwise> 
+								   			<textarea id="member_creditAccessory" name="webHelpContent" style="width:500px;height:150px;">
+												${memberAuthWithBLOBs.creditAccessory}
+											</textarea>
+							   		    </c:otherwise>
+									</c:choose>
 									<br>
 						            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，晓风网贷会将你加入系统黑名单，永久取消您在晓风网贷的借款资格。</p>
 						          </div>
@@ -426,11 +462,9 @@
 				        </table>
 				       </div>
 				     </div>
-				     </div>
-				   </div><!-- /example -->
+				</div>
+			</div><!-- /example -->
 				    
-				  </div>
-			</div>
 	    </div>
 	    <jsp:include page="../foot.jsp"/>
 	    </div>
@@ -438,9 +472,40 @@
 	      
   </body>
 	<script type="text/javascript">
-	
+		
+		var json = '${requestScope.json}';
+		var parseJson = $.parseJSON(json);
+		var memberCreditIntegrals = '${requestScope.memberCreditIntegrals}';
+		for(var i = 0;i<parseJson.length;i++){
+			if(parseJson[i].integralType == 'infoAuth'){
+				$('#memberAuth_form_infoAuth_creditIntegral').html(parseJson[i].changeValue);
+			} else if(parseJson[i].integralType == 'vipAuth'){
+				$('#memberAuth_form_vipAuth_creditIntegral').html(parseJson[i].changeValue);
+			}else if(parseJson[i].integralType == 'emailAuth'){
+				$('#memberAuth_form_emailAuth_creditIntegral').html(parseJson[i].changeValue);
+			}else if(parseJson[i].integralType == 'mobileAuth'){
+				$('#memberAuth_form_mobileAuth_creditIntegral').html(parseJson[i].changeValue);
+			}else if(parseJson[i].integralType == 'creditAuth'){
+				$('#memberAuth_form_creditAuth_creditIntegral').html(parseJson[i].changeValue);
+			}else if(parseJson[i].integralType == 'companyAuth'){
+				$('#memberAuth_form_companyAuth_creditIntegral').html(parseJson[i].changeValue);
+			}else if(parseJson[i].integralType == 'realNameAuth'){
+				$('#memberAuth_form_realNameAuth_creditIntegral').html(parseJson[i].changeValue);
+			}else if(parseJson[i].integralType == 'idCardAuth'){
+				$('#memberAuth_form_idCardAuth_creditIntegral').html(parseJson[i].changeValue);
+			}else if(parseJson[i].integralType == 'workAuth'){
+				$('#memberAuth_form_workAuth_creditIntegral').html(parseJson[i].changeValue);
+			} 
+		}
+
+		//通过renderGridValue方法。将数据库的枚举类型转换为相对应的中文名称
+		$('#idCard_auth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.idCardAuth}',fields.auths));	
+		$('#company_auth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.companyAuth}',fields.auths));	
+		$('#credit_auth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.creditAuth}',fields.auths));	
+		
+		
 		//下拉项emun的值
-		$('#memberAuth_infoAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.infoAuth}',fields.auths));
+		$('#memberAuth_form_infoAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.infoAuth}',fields.auths));
 	 	$('#memberAuth_form_vipAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.vipAuth}',fields.auths));
 	 	$('#memberAuth_form_emailAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.emailAuth}',fields.auths));
 	 	$('#memberAuth_form_mobileAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.mobileAuth}',fields.auths));
@@ -454,6 +519,9 @@
 		var idCardeditor;
 		var crediteditor;
 		var companyeditor;
+		var idCardeditor_readonly;
+		var crediteditor_readonly;
+		var companyeditor_readonly;
 		KindEditor.options.filterMode = false;
 		KindEditor.ready(function(K) {
 			idCardeditor = K.create('#member_idCardAccessory', {
@@ -492,6 +560,33 @@
 				urlType:'domain',
 				items : ['image']
 			});  
+			idCardeditor_readonly = K.create('#member_idCardAccessory_readonly', {
+				width : "500px",
+				minWidth : "500px",
+				height : "200px",
+				minHeight : "200px",
+				resizeType : 0,
+				items : [],
+				readonlyMode : true
+			});
+			companyeditor_readonly = K.create('#member_companyAccessory_readonly', {
+				width : "500px",
+				minWidth : "500px",
+				height : "200px",
+				minHeight : "200px",
+				resizeType : 0,
+				items : [],
+				readonlyMode : true
+			});
+			crediteditor_readonly = K.create('#member_creditAccessory_readonly', {
+				width : "500px",
+				minWidth : "500px",
+				height : "200px",
+				minHeight : "200px",
+				resizeType : 0,
+				items : [],
+				readonlyMode : true
+			});  
 		});
 		function submitIdCardAccessoryForm()
 		{
@@ -503,6 +598,7 @@
 					var data = $.parseJSON(data);
 					if(data.success){
 						$('#memberAuth_form_idCardAuth').html(renderGridValue(data.obj.idCardAuth,fields.auths));
+						$('#idCard_auth').html(renderGridValue(data.obj.idCardAuth,fields.auths));	
 						successdialog(data);
 					}
 				}
@@ -518,6 +614,7 @@
 					var data = $.parseJSON(data);
 					if(data.success){
 						$('#memberAuth_form_creditAuth').html(renderGridValue(data.obj.creditAuth,fields.auths));
+						$('#credit_auth').html(renderGridValue(data.obj.creditAuth,fields.auths));	
 						successdialog(data);
 					}
 				}
@@ -533,6 +630,7 @@
 					var data = $.parseJSON(data);
 					if(data.success){
 						$('#memberAuth_form_companyAuth').html(renderGridValue(data.obj.companyAuth,fields.auths));
+						$('#company_auth').html(renderGridValue(data.obj.companyAuth,fields.auths));	
 						successdialog(data);
 					}
 				}

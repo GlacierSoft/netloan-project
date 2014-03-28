@@ -16,20 +16,27 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.basicdatas.ParameterCreditTypeMapper;
 import com.glacier.netloan.dao.member.MemberAuthMapper;
+import com.glacier.netloan.dao.member.MemberCreditIntegralMapper;
 import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.member.MemberTokenMapper;
 import com.glacier.netloan.dao.member.MemberWorkMapper;
+import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.member.MemberQueryDTO;
+import com.glacier.netloan.entity.basicdatas.ParameterCreditType;
+import com.glacier.netloan.entity.basicdatas.ParameterCreditTypeExample;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberAuthExample;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
+import com.glacier.netloan.entity.member.MemberCreditIntegral;
 import com.glacier.netloan.entity.member.MemberExample;
 import com.glacier.netloan.entity.member.MemberExample.Criteria;
 import com.glacier.netloan.entity.member.MemberToken;
 import com.glacier.netloan.entity.member.MemberWork;
 import com.glacier.netloan.entity.member.MemberWorkExample;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.util.MethodLog;
 import com.glacier.security.util.Digests;
 import com.glacier.security.util.Encodes;
@@ -56,6 +63,15 @@ public class MemberService {
 	
 	@Autowired
 	private MemberAuthMapper memberAuthMapper;
+	
+	@Autowired
+    private ParameterCreditTypeMapper creditTypeMapper;
+	
+	@Autowired
+	private MemberCreditIntegralMapper memberCreditIntegralMapper;
+	
+	@Autowired
+	private UserMapper userMapper;
 	
 	 /**
      * 加密方式
@@ -250,6 +266,7 @@ public class MemberService {
         int count = 0;
         int countWork = 0;
         int countToken = 0;
+        int creditCount = 0;
         String memberId = RandomGUID.getRandomGUID();
         
         //设置membertoken信息
@@ -307,7 +324,35 @@ public class MemberService {
         memberAuthWithBLOBs.setWorkAuth("noapply");
         memberAuthMapper.insert(memberAuthWithBLOBs);
         
-        if (count == 1 && countWork == 1 && countToken == 1) {
+        //增加邮箱认证信用积分
+        ParameterCreditType parameterCreditType = null;
+        ParameterCreditTypeExample parameterCreditTypeExample = new ParameterCreditTypeExample();
+        MemberCreditIntegral memberCreditIntegral = new MemberCreditIntegral();
+        parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("emailAuth");
+		List<ParameterCreditType>  parameterCreditTypes = creditTypeMapper.selectByExample(parameterCreditTypeExample); // 查询所有信用积分类型列表
+		parameterCreditType = parameterCreditTypes.get(0);
+		
+		String creditIntegralId = RandomGUID.getRandomGUID();
+		memberCreditIntegral.setCreditIntegralId(creditIntegralId);
+		memberCreditIntegral.setMemberId(memberId);
+		
+		memberCreditIntegral.setIntegralType(parameterCreditType.getCreditType());
+		memberCreditIntegral.setChangeType(parameterCreditType.getChangeType());
+		memberCreditIntegral.setChangeValue(parameterCreditType.getChangeValue());
+       
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUsernameEqualTo("admin");
+        List<User> users = userMapper.selectByExample(userExample);
+        
+        memberCreditIntegral.setCreater(users.get(0).getUserId());
+        memberCreditIntegral.setCreateTime(new Date());
+        memberCreditIntegral.setUpdater(users.get(0).getUserId());
+        memberCreditIntegral.setUpdateTime(new Date());
+        
+        creditCount = memberCreditIntegralMapper.insert(memberCreditIntegral);
+        
+        
+        if (count == 1 && countWork == 1 && countToken == 1 && creditCount == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + member.getMemberName() + "] 会员信息已保存");
             returnResult.setObj(member);
@@ -349,7 +394,32 @@ public class MemberService {
         }
         return returnResult;
     }
-    
+    /**
+     * @Title: editMemberPhotoReception 
+     * @Description: TODO(上传个人头像) 
+     * @param  @param member
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
+     */
+    @Transactional(readOnly = false)
+    public Object editMemberPhotoReception(Member member){
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        //会员表的修改
+        member.setUpdater(member.getMemberId());
+        member.setUpdateTime(new Date());
+        count = memberMapper.updateByPrimaryKeySelective(member);
+        
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("个人头像保存成功");
+        } else {
+            returnResult.setMsg("发生未知错误，个人头像上传失败");
+        }
+        return returnResult;
+    }
     /**
      * @Title: addMemberandWorkandAuth 
      * @Description: TODO(新增会员,工作，认证) 

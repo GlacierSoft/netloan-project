@@ -405,6 +405,76 @@ public class MemberExample {
             return (Criteria) this;
         }
 
+        public Criteria andMemberPhotoIsNull() {
+            addCriterion("temp_member.member_photo is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberPhotoIsNotNull() {
+            addCriterion("temp_member.member_photo is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberPhotoEqualTo(String value) {
+            addCriterion("temp_member.member_photo =", value, "memberPhoto");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberPhotoNotEqualTo(String value) {
+            addCriterion("temp_member.member_photo <>", value, "memberPhoto");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberPhotoGreaterThan(String value) {
+            addCriterion("temp_member.member_photo >", value, "memberPhoto");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberPhotoGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_member.member_photo >=", value, "memberPhoto");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberPhotoLessThan(String value) {
+            addCriterion("temp_member.member_photo <", value, "memberPhoto");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberPhotoLessThanOrEqualTo(String value) {
+            addCriterion("temp_member.member_photo <=", value, "memberPhoto");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberPhotoLike(String value) {
+            addCriterion("temp_member.member_photo like", value, "memberPhoto");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberPhotoNotLike(String value) {
+            addCriterion("temp_member.member_photo not like", value, "memberPhoto");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberPhotoIn(List<String> values) {
+            addCriterion("temp_member.member_photo in", values, "memberPhoto");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberPhotoNotIn(List<String> values) {
+            addCriterion("temp_member.member_photo not in", values, "memberPhoto");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberPhotoBetween(String value1, String value2) {
+            addCriterion("temp_member.member_photo between", value1, value2, "memberPhoto");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberPhotoNotBetween(String value1, String value2) {
+            addCriterion("temp_member.member_photo not between", value1, value2, "memberPhoto");
+            return (Criteria) this;
+        }
+
         public Criteria andMemberAgeIsNull() {
             addCriterion("temp_member.member_age is null");
             return (Criteria) this;

@@ -258,11 +258,60 @@
       <hr class="featurette-divider2">
 
       <!-- /END THE FEATURETTES -->
-
+      <form id="personalMessageForm"  class=" form-horizontal" role="form" action="${pageContext.request.contextPath}/perfectRegister.htm" method="post" >
+      <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
+		<label for="personalDes" class="col-sm-2 control-label">个人头像:</label>
+	     <div class="col-sm-10" style="float: left;">
+			<div style="float: left;padding-right: 20px;">
+			<input class="ke-input-text" type="text" name="memberPhoto" id="url" value="${currentMember.memberPhoto}" readonly="readonly" />
+			<input type="button" id="uploadButton" value="Upload" />
+			</div>
+			<div id="memberPhotoDiv" style="width: 120px;height: 120px ;margin-left:50px;float: left;border: 1px solid;">
+			
+			</div>
+			
+	    <%--  <div class="form-group">
+		    <label for="unitName" class="col-sm-2 control-label">单位名称:</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="unitName" name="unitName" value="${currentMemberWork.unitName}"  placeholder="单位名称">
+		    </div>
+		  </div> --%>
+		   <button  id="login_submit" type="submit" class="btn btn-primary btn-lg">提交</button>
+	    </div> 
+	   </form>
       <!-- FOOTER -->
         <jsp:include page="foot.jsp"/>
 
     </div>
 	<!-- /.container -->
   </body>
+   <script type="text/javascript">
+	    
+	    //个人头像上传。
+	    KindEditor.ready(function(K) {
+				var uploadbutton = K.uploadbutton({
+					button : K('#uploadButton')[0],
+					fieldName : 'imgFile',
+					url : ctx+'/member/uploadFile.htm?dir=image',
+						//'../php/upload_json.php?dir=file'
+					afterUpload : function(data) {
+						if (data.error === 0) {
+							var url = K.formatUrl(data.url, 'domain');
+							K('#url').val(url);
+							K('#url').html(url);
+							$("#memberPhotoDiv").append("<img src="+url+" style='"+"width: 120px;height: 120px ;'"+" />");
+							//$("#memberPhotoDiv").html(url);
+						} else {
+							alert(data.message);
+						}
+					},
+					afterError : function(str) {
+						alert('自定义错误信息: ' + str);
+					}
+				});
+				uploadbutton.fileBox.change(function(e) {
+					uploadbutton.submit();
+				});
+			});
+	</script>
 </html>

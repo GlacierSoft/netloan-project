@@ -88,6 +88,8 @@ public class MemberIntegralService {
         memberIntegralExample.setLimitStart(startTemp);
         memberIntegralExample.setLimitEnd(10);
         List<MemberIntegral>  memberIntegrals = integralMapper.selectByExample(memberIntegralExample); // 查询所有公告列表
+        
+        memberIntegralExampleAll.createCriteria().andMemberIdEqualTo(pricipalMember.getMemberId());
         List<MemberIntegral>  memberIntegralAll = integralMapper.selectByExample(memberIntegralExampleAll); // 查询所有公告列表
         int totalIntegral = 0;
         for(MemberIntegral memberIntegral : memberIntegralAll){

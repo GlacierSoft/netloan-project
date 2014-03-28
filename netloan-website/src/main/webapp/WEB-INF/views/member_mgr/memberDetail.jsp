@@ -43,6 +43,7 @@
 					          <a href="#" class="btn btn-default" role="button">充值提现</a>
 					          <a href="${ctx}/member/memberAuth.htm?&p=0" class="btn btn-default" role="button">平台认证</a>
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-info" role="button">个人设置</a>
+							  <a href="${ctx}/member/memberPhotoInto.htm" class="btn btn-default" role="button">头像上传</a>
 							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">邮箱设置</a>
 							</div>
 					      </div>
@@ -188,12 +189,32 @@
 									      <input type="text" class="form-control" name="liveAddress" id="liveAddress" value="${currentMember.liveAddress}"  placeholder="现居住地址">
 									    </div>
 									  </div>
-			 							<div class="form-group">
+			 						  <div class="form-group">
 									    <label for="personalDes" class="col-sm-2 control-label">个人描述:</label>
 									    <div class="col-sm-10">
 									      <textarea class="form-control" rows="3" name="personalDes" id="personalDes" >${currentMember.personalDes}</textarea>
 									    </div>
 									  </div>
+									  <%-- <div class="form-group">
+									    <label for="personalDes" class="col-sm-2 control-label">个人头像:</label>
+									     <div class="col-sm-10" style="float: left;">
+									      	<textarea id="currentMember_memberPhoto" name="memberPhoto" style="width:100px;height:100px;">
+												${currentMember.memberPhoto}
+											</textarea>
+											<div style="float: left;padding-right: 20px;">
+											<input class="ke-input-text" type="text" name="memberPhoto" id="url" value="${currentMember.memberPhoto}" readonly="readonly" />
+											<input type="button" id="uploadButton" value="Upload" />
+											</div>
+											<div id="memberPhotoDiv" style="width: 120px;height: 120px ;float: left;border: 1px solid;">
+											
+											</div>
+											<div class="upload">
+												<input class="ke-input-text" type="text" id="url" value="" readonly="readonly" />
+											 	<input type="button" id="uploadButton" value="Upload" />
+											</div>
+									    </div> 
+									    
+									  </div> --%>
 						       </div>
 						       <div class="tab-pane fade" id="tabPersonalContact">
 						          <br>
@@ -335,7 +356,7 @@
 						</form>
 				       </div>
 				       <div class="tab-pane fade" id="tabchangeMobile">
-				         <p>更换手机</p>
+				          <p>更换手机</p>
 				       </div>
 				       <div class="tab-pane fade" id="tabnotification">
 				         <p>通知设置</p>
@@ -353,7 +374,8 @@
 	    </div>
 	    <!-- CONTAINER START======================== -->
 	    <script type="text/javascript">
-	      
+	  
+
       	$(function() {
 			$(".alert").alert();
 			
