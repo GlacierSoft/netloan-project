@@ -2,7 +2,6 @@ package com.glacier.netloan.entity.member;
 
 import java.util.Date;
 
-
 import org.hibernate.validator.constraints.Length;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -12,7 +11,7 @@ public class Member {
 
     @Length(min = 1, max = 10, message = "{Member.memberName.illegal}")
     private String memberName;
-    //@Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9_]{4,15}", message = "{Member.memberPassword.illegal}")
+	//@Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9_]{4,15}", message = "{Member.memberPassword.illegal}")
     @Length(min = 6, max = 12, message = "{Member.memberPassword.illegal}")
     private String memberPassword;
 
@@ -38,6 +37,8 @@ public class Member {
     private Float creditIntegral;
 
     private Float integral;
+
+    private Float creditamount;
 
     private String status;
 
@@ -205,6 +206,14 @@ public class Member {
 
     public void setIntegral(Float integral) {
         this.integral = integral;
+    }
+
+    public Float getCreditamount() {
+        return creditamount;
+    }
+
+    public void setCreditamount(Float creditamount) {
+        this.creditamount = creditamount;
     }
 
     public String getStatus() {
@@ -382,8 +391,8 @@ public class Member {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
-	
-	public String getCreaterDisplay() {
+
+    public String getCreaterDisplay() {
 		return createrDisplay;
 	}
 
@@ -398,8 +407,8 @@ public class Member {
 	public void setUpdaterDisplay(String updaterDisplay) {
 		this.updaterDisplay = updaterDisplay;
 	}
-	
-    @Override
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
@@ -425,6 +434,7 @@ public class Member {
             && (this.getRegistrationTime() == null ? other.getRegistrationTime() == null : this.getRegistrationTime().equals(other.getRegistrationTime()))
             && (this.getCreditIntegral() == null ? other.getCreditIntegral() == null : this.getCreditIntegral().equals(other.getCreditIntegral()))
             && (this.getIntegral() == null ? other.getIntegral() == null : this.getIntegral().equals(other.getIntegral()))
+            && (this.getCreditamount() == null ? other.getCreditamount() == null : this.getCreditamount().equals(other.getCreditamount()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
             && (this.getValidTime() == null ? other.getValidTime() == null : this.getValidTime().equals(other.getValidTime()))
@@ -467,6 +477,7 @@ public class Member {
         result = prime * result + ((getRegistrationTime() == null) ? 0 : getRegistrationTime().hashCode());
         result = prime * result + ((getCreditIntegral() == null) ? 0 : getCreditIntegral().hashCode());
         result = prime * result + ((getIntegral() == null) ? 0 : getIntegral().hashCode());
+        result = prime * result + ((getCreditamount() == null) ? 0 : getCreditamount().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         result = prime * result + ((getValidTime() == null) ? 0 : getValidTime().hashCode());

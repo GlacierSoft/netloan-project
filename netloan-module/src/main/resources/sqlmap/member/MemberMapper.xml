@@ -16,6 +16,7 @@
     <result column="temp_member_registration_time" property="registrationTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_credit_integral" property="creditIntegral" jdbcType="REAL" />
     <result column="temp_member_integral" property="integral" jdbcType="REAL" />
+    <result column="temp_member_creditAmount" property="creditamount" jdbcType="REAL" />
     <result column="temp_member_status" property="status" jdbcType="CHAR" />
     <result column="temp_member_type" property="type" jdbcType="CHAR" />
     <result column="temp_member_valid_time" property="validTime" jdbcType="TIMESTAMP" />
@@ -107,7 +108,8 @@
     temp_member.marital_status as temp_member_marital_status, temp_member.card_id as temp_member_card_id, 
     temp_member.email as temp_member_email, temp_member.registration_time as temp_member_registration_time, 
     temp_member.credit_integral as temp_member_credit_integral, temp_member.integral as temp_member_integral, 
-    temp_member.status as temp_member_status, temp_member.type as temp_member_type, temp_member.valid_time as temp_member_valid_time, 
+    temp_member.creditAmount as temp_member_creditAmount, temp_member.status as temp_member_status, 
+    temp_member.type as temp_member_type, temp_member.valid_time as temp_member_valid_time, 
     temp_member.expire_time as temp_member_expire_time, temp_member.accessory as temp_member_accessory, 
     temp_member.educational as temp_member_educational, temp_member.personal_des as temp_member_personal_des, 
     temp_member.hometown as temp_member_hometown, temp_member.live_address as temp_member_live_address, 
@@ -118,11 +120,11 @@
     temp_member.second_contact_address as temp_member_second_contact_address, temp_member.creater as temp_member_creater, 
     temp_member.create_time as temp_member_create_time, temp_member.updater as temp_member_updater, 
     temp_member.update_time as temp_member_update_time
-	 <!-- 以下字段属于扩展 -->
+	<!-- 以下字段属于扩展 -->
     ,temp_creater.user_cn_name as temp_member_createrDisplay
     ,temp_updater.user_cn_name as temp_member_updaterDisplay
   </sql>
-   <sql id="Base_extend">
+  <sql id="Base_extend">
   	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_member.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_member.updater <!-- 扩展 -->
   </sql>
@@ -166,28 +168,28 @@
       member_real_name, member_photo, member_age, 
       mobile_number, sex, marital_status, 
       card_id, email, registration_time, 
-      credit_integral, integral, status, 
-      type, valid_time, expire_time, 
-      accessory, educational, personal_des, 
-      hometown, live_address, home_phone, 
-      first_contact, first_contact_relation, first_contact_phone, 
-      first_contact_address, second_contact, second_contact_relation, 
-      second_contact_phone, second_contact_address, 
-      creater, create_time, updater, 
-      update_time)
+      credit_integral, integral, creditAmount, 
+      status, type, valid_time, 
+      expire_time, accessory, educational, 
+      personal_des, hometown, live_address, 
+      home_phone, first_contact, first_contact_relation, 
+      first_contact_phone, first_contact_address, 
+      second_contact, second_contact_relation, second_contact_phone, 
+      second_contact_address, creater, create_time, 
+      updater, update_time)
     values (#{memberId,jdbcType=VARCHAR}, #{memberName,jdbcType=VARCHAR}, #{memberPassword,jdbcType=VARCHAR}, 
       #{memberRealName,jdbcType=VARCHAR}, #{memberPhoto,jdbcType=VARCHAR}, #{memberAge,jdbcType=INTEGER}, 
       #{mobileNumber,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{maritalStatus,jdbcType=CHAR}, 
       #{cardId,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{registrationTime,jdbcType=TIMESTAMP}, 
-      #{creditIntegral,jdbcType=REAL}, #{integral,jdbcType=REAL}, #{status,jdbcType=CHAR}, 
-      #{type,jdbcType=CHAR}, #{validTime,jdbcType=TIMESTAMP}, #{expireTime,jdbcType=TIMESTAMP}, 
-      #{accessory,jdbcType=VARCHAR}, #{educational,jdbcType=VARCHAR}, #{personalDes,jdbcType=VARCHAR}, 
-      #{hometown,jdbcType=VARCHAR}, #{liveAddress,jdbcType=VARCHAR}, #{homePhone,jdbcType=VARCHAR}, 
-      #{firstContact,jdbcType=VARCHAR}, #{firstContactRelation,jdbcType=CHAR}, #{firstContactPhone,jdbcType=VARCHAR}, 
-      #{firstContactAddress,jdbcType=VARCHAR}, #{secondContact,jdbcType=VARCHAR}, #{secondContactRelation,jdbcType=CHAR}, 
-      #{secondContactPhone,jdbcType=VARCHAR}, #{secondContactAddress,jdbcType=VARCHAR}, 
-      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{creditIntegral,jdbcType=REAL}, #{integral,jdbcType=REAL}, #{creditamount,jdbcType=REAL}, 
+      #{status,jdbcType=CHAR}, #{type,jdbcType=CHAR}, #{validTime,jdbcType=TIMESTAMP}, 
+      #{expireTime,jdbcType=TIMESTAMP}, #{accessory,jdbcType=VARCHAR}, #{educational,jdbcType=VARCHAR}, 
+      #{personalDes,jdbcType=VARCHAR}, #{hometown,jdbcType=VARCHAR}, #{liveAddress,jdbcType=VARCHAR}, 
+      #{homePhone,jdbcType=VARCHAR}, #{firstContact,jdbcType=VARCHAR}, #{firstContactRelation,jdbcType=CHAR}, 
+      #{firstContactPhone,jdbcType=VARCHAR}, #{firstContactAddress,jdbcType=VARCHAR}, 
+      #{secondContact,jdbcType=VARCHAR}, #{secondContactRelation,jdbcType=CHAR}, #{secondContactPhone,jdbcType=VARCHAR}, 
+      #{secondContactAddress,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.member.Member" >
     insert into t_member
@@ -233,6 +235,9 @@
       </if>
       <if test="integral != null" >
         integral,
+      </if>
+      <if test="creditamount != null" >
+        creditAmount,
       </if>
       <if test="status != null" >
         status,
@@ -343,6 +348,9 @@
       </if>
       <if test="integral != null" >
         #{integral,jdbcType=REAL},
+      </if>
+      <if test="creditamount != null" >
+        #{creditamount,jdbcType=REAL},
       </if>
       <if test="status != null" >
         #{status,jdbcType=CHAR},
@@ -464,6 +472,9 @@
       <if test="record.integral != null" >
         temp_member.integral = #{record.integral,jdbcType=REAL},
       </if>
+      <if test="record.creditamount != null" >
+        temp_member.creditAmount = #{record.creditamount,jdbcType=REAL},
+      </if>
       <if test="record.status != null" >
         temp_member.status = #{record.status,jdbcType=CHAR},
       </if>
@@ -551,6 +562,7 @@
       temp_member.registration_time = #{record.registrationTime,jdbcType=TIMESTAMP},
       temp_member.credit_integral = #{record.creditIntegral,jdbcType=REAL},
       temp_member.integral = #{record.integral,jdbcType=REAL},
+      temp_member.creditAmount = #{record.creditamount,jdbcType=REAL},
       temp_member.status = #{record.status,jdbcType=CHAR},
       temp_member.type = #{record.type,jdbcType=CHAR},
       temp_member.valid_time = #{record.validTime,jdbcType=TIMESTAMP},
@@ -618,6 +630,9 @@
       </if>
       <if test="integral != null" >
         integral = #{integral,jdbcType=REAL},
+      </if>
+      <if test="creditamount != null" >
+        creditAmount = #{creditamount,jdbcType=REAL},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=CHAR},
@@ -703,6 +718,7 @@
       registration_time = #{registrationTime,jdbcType=TIMESTAMP},
       credit_integral = #{creditIntegral,jdbcType=REAL},
       integral = #{integral,jdbcType=REAL},
+      creditAmount = #{creditamount,jdbcType=REAL},
       status = #{status,jdbcType=CHAR},
       type = #{type,jdbcType=CHAR},
       valid_time = #{validTime,jdbcType=TIMESTAMP},

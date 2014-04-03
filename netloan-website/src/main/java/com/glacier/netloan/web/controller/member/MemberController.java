@@ -61,6 +61,7 @@ import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
 import com.glacier.netloan.entity.member.MemberCreditIntegral;
 import com.glacier.netloan.entity.member.MemberWork;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
+import com.glacier.netloan.service.member.MemberApplyAmountService;
 import com.glacier.netloan.service.member.MemberAuthService;
 import com.glacier.netloan.service.member.MemberCreditIntegralService;
 import com.glacier.netloan.service.member.MemberIntegralService;
@@ -86,10 +87,26 @@ public class MemberController extends AbstractController{
 	@Autowired
 	private MemberCreditIntegralService memberCreditIntegralService;
 	
+	@Autowired
+	private MemberApplyAmountService memberApplyAmountService;
+	
 	// 进入会员个人主页展示页面
     @RequestMapping(value = "/index.htm")
-    private Object intoIndexPmember() {
+    private Object intoIndexPmember(HttpServletRequest request,HttpSession session) {
         ModelAndView mav = new ModelAndView("member_mgr/member");
+        
+        List<ParameterCredit>  parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
+    	Member member = (Member)session.getAttribute("currentMember");
+    	List<MemberCreditIntegral>  memberCreditIntegrals = (List<MemberCreditIntegral>) memberCreditIntegralService.listByMemberId(member.getMemberId());
+        Map<String,Object> map = totalIntegralAndPhoto(parameterCredits, memberCreditIntegrals);
+        
+        int totalIntegral = memberIntegralService.totalIntegral();
+        
+        //获取信用总分和图标
+    	request.setAttribute("totalIntegralCredit", map.get("totalIntegralCredit"));
+    	request.setAttribute("totalCreditPhoto", map.get("totalCreditPhoto"));
+    	//获取会员积分总数
+    	request.setAttribute("totalIntegral", totalIntegral);
         return mav;
     }
   //转到头像上传页面。
@@ -128,30 +145,61 @@ public class MemberController extends AbstractController{
     public Object intoMemberAuth(JqPager pager,int p,HttpServletRequest request,HttpSession session){
     	ModelAndView mav = new ModelAndView("member_mgr/memberAuth");
     	Map<String,Object> integralMap = new HashMap<String,Object>();
+    	Map<String,Object> applyAmountServiceMap = new HashMap<String,Object>();
+    	//获取全部信用积分的范围列表
     	List<ParameterCredit>  parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
-    	
+    	//通过获取member的Id，来得到改会员的所有信用积分
     	Member member = (Member)session.getAttribute("currentMember");
     	MemberAuthWithBLOBs memberAuthWithBLOBs = (MemberAuthWithBLOBs) memberAuthService.getMemberAuth(member.getMemberId());
     	List<MemberCreditIntegral>  memberCreditIntegrals = (List<MemberCreditIntegral>) memberCreditIntegralService.listByMemberId(member.getMemberId());
-    	JSONArray json = new JSONArray();  
-        json.addAll(memberCreditIntegrals);  
+    	//通过该会员的所有信用积分和基础资料的信用积分得到，该会员的信用总分和图标
+    	Map<String,Object> totalIntegralAndPhotoMap = totalIntegralAndPhoto(parameterCredits, memberCreditIntegrals);
+    	//通过json来传递该会员的所有信用积分到前台
+    	JSONArray jsonMemberCreditIntegrals = new JSONArray();  
+    	jsonMemberCreditIntegrals.addAll(memberCreditIntegrals);
+    	//通过request传递到前台。
     	request.setAttribute("parameterCredits", parameterCredits);
-    	request.setAttribute("json", json);
+    	request.setAttribute("json", jsonMemberCreditIntegrals);
     	request.setAttribute("memberAuthWithBLOBs", memberAuthWithBLOBs);
     	request.setAttribute("memberCreditIntegrals", memberCreditIntegrals);
-    	
+    	//获取信用总分和图标
+    	request.setAttribute("totalIntegralCredit", totalIntegralAndPhotoMap.get("totalIntegralCredit"));
+    	request.setAttribute("totalCreditPhoto", totalIntegralAndPhotoMap.get("totalCreditPhoto"));
+    	//第一次访问该页面，p默认为0
     	if(p == 0 ){
+    		//获取会员积分和申请额度分页列表。
     		integralMap = (Map<String, Object>) memberIntegralService.listAsWebsite(pager, 1);
-    		mav.addObject("memberIntegralDatas", integralMap.get("returnResult"));
+    		applyAmountServiceMap = (Map<String, Object>) memberApplyAmountService.listAsWebsite(pager, 1);
+    		session.setAttribute("memberIntegralDatas", integralMap.get("returnResult"));
+    		session.setAttribute("memberApplyAmountDatas", applyAmountServiceMap.get("returnResult"));
     	}else{
-    		integralMap = (Map<String, Object>) memberIntegralService.listAsWebsite(pager, p);
-    		mav.addObject("memberIntegralDatas", integralMap.get("returnResult"));
-      		request.setAttribute("memberIntegraldo", "memberIntegraldo");
+    			integralMap = (Map<String, Object>) memberIntegralService.listAsWebsite(pager, p);
+    			session.removeAttribute("memberIntegralDatas");
+    			session.setAttribute("memberIntegralDatas", integralMap.get("returnResult"));
+    			request.setAttribute("memberIntegraldo", "memberIntegraldo");
     	}
+    	//获取会员积分总分
 		request.setAttribute("totalIntegral", integralMap.get("totalIntegral"));
     	return mav;
     }
-    
+    //获取会员信用总分和信用图标
+    public Map totalIntegralAndPhoto(List<ParameterCredit> parameterCredits,List<MemberCreditIntegral>  memberCreditIntegrals){
+    	int totalIntegralCredit = 0;
+    	String totalCreditPhoto = null;
+    	Map<String,Object> map = new HashMap<String, Object>();
+    	for(MemberCreditIntegral memberCreditIntegral : memberCreditIntegrals){
+    		totalIntegralCredit += memberCreditIntegral.getChangeValue();
+    	}
+    	for(ParameterCredit parameterCredit : parameterCredits){
+    		if(totalIntegralCredit >= parameterCredit.getCreditBeginIntegral() && totalIntegralCredit < parameterCredit.getCreditEndIntegral()){
+    			totalCreditPhoto = parameterCredit.getCreditPhoto();
+    			break;
+    		}
+    	}
+    	map.put("totalIntegralCredit", totalIntegralCredit);
+    	map.put("totalCreditPhoto", totalCreditPhoto);
+    	return map;
+    }
     @RequestMapping(value = "/uploadFile.htm", method = RequestMethod.POST)
     @ResponseBody
     public Object uploadFile(HttpSession session,HttpServletRequest request,HttpServletResponse response,String whichAuth){

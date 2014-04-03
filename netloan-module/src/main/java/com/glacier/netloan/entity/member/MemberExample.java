@@ -1065,6 +1065,66 @@ public class MemberExample {
             return (Criteria) this;
         }
 
+        public Criteria andCreditamountIsNull() {
+            addCriterion("temp_member.creditAmount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreditamountIsNotNull() {
+            addCriterion("temp_member.creditAmount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreditamountEqualTo(Float value) {
+            addCriterion("temp_member.creditAmount =", value, "creditamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreditamountNotEqualTo(Float value) {
+            addCriterion("temp_member.creditAmount <>", value, "creditamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreditamountGreaterThan(Float value) {
+            addCriterion("temp_member.creditAmount >", value, "creditamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreditamountGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_member.creditAmount >=", value, "creditamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreditamountLessThan(Float value) {
+            addCriterion("temp_member.creditAmount <", value, "creditamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreditamountLessThanOrEqualTo(Float value) {
+            addCriterion("temp_member.creditAmount <=", value, "creditamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreditamountIn(List<Float> values) {
+            addCriterion("temp_member.creditAmount in", values, "creditamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreditamountNotIn(List<Float> values) {
+            addCriterion("temp_member.creditAmount not in", values, "creditamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreditamountBetween(Float value1, Float value2) {
+            addCriterion("temp_member.creditAmount between", value1, value2, "creditamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreditamountNotBetween(Float value1, Float value2) {
+            addCriterion("temp_member.creditAmount not between", value1, value2, "creditamount");
+            return (Criteria) this;
+        }
+
         public Criteria andStatusIsNull() {
             addCriterion("temp_member.status is null");
             return (Criteria) this;

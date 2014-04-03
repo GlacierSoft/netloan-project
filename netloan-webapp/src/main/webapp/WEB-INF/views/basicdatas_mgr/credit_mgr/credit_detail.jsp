@@ -20,6 +20,16 @@
 			<td colspan="3"><input class="spinner" style="width:150px"  value="${creditData.creditEndIntegral}" readonly="readonly"/></td>
 		</tr>
 		<tr>
+			<td>信用等级图标：</td>
+			<td>
+			<div id="creditPhotoDiv" style="border: 1px #DDDDDD;">
+				<img id="creditPhotoDivImg"  src="${creditData.creditPhoto}" style="width: 34px;height: 24px ;" />
+			</div>
+			</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
 			<td>创建者：</td>
 			<td><input class="spinner" style="width:150px" value="${creditData.createrDisplay}" readonly="readonly"/></td>
 			<td>创建时间：</td>

@@ -6,12 +6,16 @@
 package com.glacier.netloan.service.member;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,11 +25,16 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.member.MemberApplyAmountMapper;
+import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.member.MemberApplyAmountQueryDTO;
+import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberApplyAmount;
 import com.glacier.netloan.entity.member.MemberApplyAmountExample;
+import com.glacier.netloan.entity.member.MemberApplyAmount;
+import com.glacier.netloan.entity.member.MemberIntegralExample;
 import com.glacier.netloan.entity.member.MemberApplyAmountExample.Criteria;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.util.MethodLog;
 
 /** 
@@ -41,6 +50,83 @@ public class MemberApplyAmountService {
 
 	@Autowired
     private MemberApplyAmountMapper applyAmountMapper;
+	
+	@Autowired
+	private UserMapper userMapper;
+	
+	
+	@Transactional(readOnly = false)
+    public Object addApplyAmountReception(MemberApplyAmount applyAmount) {
+		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        Member pricipalMember = (Member) pricipalSubject.getPrincipal();
+        
+        //判断最后一次申请额度离现在是否有30天
+        MemberApplyAmount memberApplyAmount = applyAmountMapper.selectMaxCreatTime(pricipalMember.getMemberId());
+        Date lastCreateTime = memberApplyAmount.getCreateTime();
+        Date nowDate = new Date();
+        long between = 0;
+        between = nowDate.getTime() - lastCreateTime.getTime();
+        long day = between / (24 * 60 * 60 * 1000);
+        //如果没有大于30天，则不能再添加
+        if(day >30){
+	        UserExample userExample = new UserExample();
+	        userExample.createCriteria().andUsernameEqualTo("admin");
+	        List<User> users = userMapper.selectByExample(userExample);
+	        
+	        int count = 0;
+	        applyAmount.setApplyAmountId(RandomGUID.getRandomGUID());
+	        applyAmount.setMemberId(pricipalMember.getMemberId());
+	        applyAmount.setOriginalAmount(pricipalMember.getCreditamount());
+	        applyAmount.setAuditState("authstr");
+	        applyAmount.setApplyDate(new Date());
+	        applyAmount.setCreater(users.get(0).getUserId());
+	        applyAmount.setCreateTime(new Date());
+	        applyAmount.setUpdater(users.get(0).getUserId());
+	        applyAmount.setUpdateTime(new Date());
+	        count = applyAmountMapper.insert(applyAmount);
+	        if (count == 1) {
+	            returnResult.setSuccess(true);
+	            returnResult.setMsg("申请额度信息已提交审核");
+	        } else {
+	            returnResult.setMsg("发生未知错误，申请额度信息提交审核失败");
+	        }
+        }else{
+        	returnResult.setMsg("一个月内不能重复申请额度");
+        }
+        return returnResult;
+    }
+	
+	public Object listAsWebsite(JqPager pager, int p) {
+        
+    	JqGridReturn returnResult = new JqGridReturn();
+    	MemberApplyAmountExample memberApplyAmountExample = new MemberApplyAmountExample();
+
+    	
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+    	Member pricipalMember = (Member) pricipalSubject.getPrincipal();
+    	
+    	memberApplyAmountExample.createCriteria().andMemberIdEqualTo(pricipalMember.getMemberId());
+    	 
+        pager.setSort("createTime");// 定义排序字段
+        pager.setOrder("DESC");// 升序还是降序
+        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
+        	memberApplyAmountExample.setOrderByClause(pager.getOrderBy("temp_member_apply_amount_"));
+        }
+        int showPageNum = 5;
+        int startTemp = ((p-1)*showPageNum);//根据前台返回的页数进行设置
+        memberApplyAmountExample.setLimitStart(startTemp);
+        memberApplyAmountExample.setLimitEnd(showPageNum);
+        List<MemberApplyAmount>  memberApplyAmounts = applyAmountMapper.selectByExample(memberApplyAmountExample); // 查询所有公告列表
+        
+        int total = applyAmountMapper.countByExample(memberApplyAmountExample); // 查询总页数
+        returnResult.setRows(memberApplyAmounts);
+        returnResult.setTotal(total);
+        returnResult.setP(p);
+        Map<String,Object> integralMap = new HashMap<String,Object>();
+        integralMap.put("returnResult", returnResult);
+        return integralMap;// 返回ExtGrid表
+    }
 
 	/**
 	 * @Title: getApplyAmount

@@ -25,9 +25,13 @@
 						<td>审核说明：</td>
 						<td colspan="3"><textarea class="spinner" style="width:600px" readonly="readonly">${memberAuthData.infoRemark}</textarea></td>
 					</tr>
-					<tr>
+					<%-- <tr>
 						<td>附件：</td>
 						<td colspan="3"><textarea id="member_mgr_memberAuth_form_infoAccessory" name="infoAccessory" class="spinner" style="width:600px;height:280px;" readonly="readonly">${memberAuthData.infoAccessory}</textarea></td>
+					</tr> --%>
+					<tr id="member_mgr_memberAuth_form_info">
+						<td>查看会员信息明细：</td>
+						<td><a id="infoAuthbtn1" href="#" class="easyui-linkbutton" data-options="">查看</a></td>
 					</tr>
 				</table>
 		</fieldset>
@@ -257,15 +261,44 @@
 						<td>审核说明：</td>
 						<td colspan="3"><textarea class="spinner" style="width:600px" readonly="readonly">${memberAuthData.workRemark}</textarea></td>
 					</tr>
-					<tr>
+					<tr id="member_mgr_memberAuth_form_workinfo">
+						<td>查看会员工作信息：</td>
+						<td><a id="workAuthbtn1" href="#" class="easyui-linkbutton" data-options="">查看</a></td>
+					</tr>
+					<%-- <tr>
 						<td>附件：</td>
 						<td colspan="3"><textarea id="member_mgr_memberAuth_form_workAccessory" name="workAccessory" class="spinner" style="width:600px;height:280px;" readonly="readonly">${memberAuthData.workAccessory}</textarea></td>
-					</tr>
+					</tr> --%>
 				</table>
 		</fieldset>
     </div> 
 </form>
 <script type="text/javascript">
+
+	//基本信息认证的
+	$('#infoAuthbtn1').bind('click', function(){    
+		 $.easyui.showDialog({
+				title: '${memberAuthData.memberName}'+"基本信息",
+				href : ctx + '/do/member/intoDetail.htm?memberId='+'${memberAuthData.memberId}',//从controller请求jsp页面进行渲染
+				width : 645,
+				height : 450,
+				resizable: false,
+				enableApplyButton : false,
+				enableSaveButton : false
+			});
+	}); 
+	//工作认证的
+	$('#workAuthbtn1').bind('click', function(){    
+		 $.easyui.showDialog({
+				title: '${memberAuthData.memberName}'+"基本信息",
+				href : ctx + '/do/member/intoDetail.htm?memberId='+'${memberAuthData.memberId}',//从controller请求jsp页面进行渲染
+				width : 645,
+				height : 450,
+				resizable: false,
+				enableApplyButton : false,
+				enableSaveButton : false
+			});
+	}); 
 	//tab
 	$('#member_mgr_memberAuth_form').tabs({
 		border:false,

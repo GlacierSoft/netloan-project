@@ -1,6 +1,9 @@
+
+
 $.util.namespace('glacier');
 
 /**
+ * 
  * 增加数组判断是否包含某元素功能
  * 
  * @param true/false

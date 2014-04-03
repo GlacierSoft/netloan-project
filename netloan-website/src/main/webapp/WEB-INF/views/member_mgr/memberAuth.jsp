@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- 引入jstl解析标签 -->
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %><!-- 引入自定义权限标签 -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="zh-cn">
@@ -97,28 +98,39 @@
 				   <div class="bs-example bs-example-tabs">
 				     <ul id="myTab" class="nav nav-tabs">
 				     <c:choose>
-					   <c:when test="${empty memberIntegraldo}">  
+					   <c:when test="${empty memberIntegraldo && empty memberApplyAmountpage}">  
 			         		 <li class="active"><a href="#netLoanAuth" data-toggle="tab" class="btn " role="button">冰川网贷认证</a></li>
 						     <li><a href="#uploasdData" data-toggle="tab">资料上传</a></li>
+						     <li><a href="#applyCreditAmount" data-toggle="tab">额度申请</a></li>
 						     <li><a href="#memberIntegral" data-toggle="tab">会员积分记录</a></li>
 					   </c:when>
-				   		<c:otherwise> 
-					   		<li><a href="#netLoanAuth" data-toggle="tab">冰川网贷认证</a></li>
+					   <c:when test="${memberIntegraldo == 'memberIntegraldo' && empty memberApplyAmountpage}">  
+			         		 <li><a href="#netLoanAuth" data-toggle="tab">冰川网贷认证</a></li>
 						     <li><a href="#uploasdData" data-toggle="tab">资料上传</a></li>
+						     <li><a href="#applyCreditAmount" data-toggle="tab">额度申请</a></li>
 						     <li class="active"><a href="#memberIntegral" data-toggle="tab"  class="btn " role="button">会员积分记录</a></li>
-					   </c:otherwise>
+					   </c:when>
+					   <c:when test="${empty memberIntegraldo && memberApplyAmountpage == 'memberApplyAmountpage'}">  
+			         		 <li><a href="#netLoanAuth" data-toggle="tab">冰川网贷认证</a></li>
+						     <li><a href="#uploasdData" data-toggle="tab">资料上传</a></li>
+						     <li class="active"><a href="#applyCreditAmount"  data-toggle="tab" class="btn " role="button">额度申请</a></li>
+						     <li><a href="#memberIntegral" data-toggle="tab">会员积分记录</a></li>
+					   </c:when>
 					</c:choose>
 				      
 				     </ul>
 				      <br>
 				     <div id="myTabContent" class="tab-content">
 				       <c:choose>
-						    <c:when test="${empty memberIntegraldo}"> 
-					        <div class="tab-pane fade in active" id="netLoanAuth">
-				            </c:when>
-				   			<c:otherwise> 
-				   			<div class="tab-pane" id="netLoanAuth">
-				   		    </c:otherwise>
+						   <c:when test="${empty memberIntegraldo && empty memberApplyAmountpage}">  
+			         		 <div class="tab-pane fade in active" id="netLoanAuth">
+						   </c:when>
+						   <c:when test="${memberIntegraldo == 'memberIntegraldo' && empty memberApplyAmountpage}">  
+				         		 <div class="tab-pane" id="netLoanAuth">
+						   </c:when>
+						   <c:when test="${empty memberIntegraldo && memberApplyAmountpage == 'memberApplyAmountpage'}">  
+				         		 <div class="tab-pane" id="netLoanAuth">
+						   </c:when>
 						</c:choose>
 				       		<table class="table table-bordered" style="text-align:center;margin:0 auto;">
 				       			<tr>
@@ -132,13 +144,6 @@
       								<c:out value="${parameterCredit.creditName}" escapeXml="false"/>
       								</td>
 								  </c:forEach>
-					              <!-- <td>AA</td>
-					              <td>A</td>
-					              <td>B</td>
-					              <td>C</td>
-					              <td>D</td>
-					              <td>E</td>
-					              <td>HR</td> -->
 					            </tr>
 					            <tr>
 					              <td>分数</td>
@@ -158,20 +163,21 @@
 								  </c:forEach>
 					            </tr>
 					            <tr>
-					              <td>标志</td>
-					              <td>图标</td>
-					              <td>图标</td>
-					              <td>图标</td>
-					              <td>图标</td>
-					              <td>图标</td>
-					              <td>图标</td>
-					              <td>图标</td>
+					            	<td>标志</td>
+					              <c:forEach var="parameterCredit" items="${requestScope.parameterCredits}" varStatus="status">
+								  	<td> 
+      								<img id="creditPhotoDivImg"  src="${parameterCredit.creditPhoto}" style="width: 34px;height: 24px ;" />
+      								</td>
+								  </c:forEach>
 					            </tr>
 					        </table>
 					        <br>
 					        <table class="table table-bordered" style="text-align:center;vertical-align: middle;">
 				       			 <tr>
-					              <td colspan="4">信用总分：50分（图标）</td>
+					              <td id="totalCreditIntegral" colspan="4">
+					              <strong>信用总分：${requestScope.totalIntegralCredit}分</strong>
+					              <img id="creditPhotoDivImg"  src="${requestScope.totalCreditPhoto}" style="width: 34px;height: 24px ;" />
+					              </td>
 					            </tr>
 					            <tr>
 					              <td>项目</td>
@@ -306,7 +312,14 @@
 							            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，晓风网贷会将你加入系统黑名单，永久取消您在晓风网贷的借款资格。</p>
 							          </div>
 							          <div class="modal-footer">
-							          	<button type="button" class="btn btn-primary" onclick="submitIdCardAccessoryForm();">保  存</button>
+							          	<c:choose>
+										    <c:when test="${memberAuthWithBLOBs.idCardAuth=='pass'}"> 
+												<button type="button" class="btn btn-primary" data-dismiss="modal">保  存</button>
+								            </c:when>
+								   			<c:otherwise> 
+									   			<button type="button" class="btn btn-primary" onclick="submitIdCardAccessoryForm();">保  存</button>
+								   		    </c:otherwise>
+										</c:choose>
 							            <button type="button" class="btn btn-default" data-dismiss="modal">关  闭</button>
 							          </div>
 									</form>
@@ -363,7 +376,14 @@
 						            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，晓风网贷会将你加入系统黑名单，永久取消您在晓风网贷的借款资格。</p>
 						          </div>
 						          <div class="modal-footer">
-						          	<button type="button" class="btn btn-primary" onclick="submitCompanyAccessoryForm();">保  存</button>
+						           <c:choose>
+									    <c:when test="${memberAuthWithBLOBs.companyAuth=='pass'}"> 
+											<button type="button" class="btn btn-primary" data-dismiss="modal">保  存</button>
+							            </c:when>
+							   			<c:otherwise> 
+								   			<button type="button" class="btn btn-primary" onclick="submitCompanyAccessoryForm();">保  存</button>
+							   		    </c:otherwise>
+									</c:choose>
 						            <button type="button" class="btn btn-default" data-dismiss="modal">关  闭</button>
 						          </div>
 								</form>
@@ -408,7 +428,14 @@
 						            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，晓风网贷会将你加入系统黑名单，永久取消您在晓风网贷的借款资格。</p>
 						          </div>
 						          <div class="modal-footer">
-						          	<button type="button" class="btn btn-primary" onclick="submitCreditAccessoryForm();">保  存</button>
+						          <c:choose>
+									    <c:when test="${memberAuthWithBLOBs.creditAuth=='pass'}"> 
+											<button type="button" class="btn btn-primary" data-dismiss="modal">保  存</button>
+							            </c:when>
+							   			<c:otherwise> 
+								   			<button type="button" class="btn btn-primary" onclick="submitCreditAccessoryForm();">保  存</button>
+							   		    </c:otherwise>
+									</c:choose>
 						            <button type="button" class="btn btn-default" data-dismiss="modal">关  闭</button>
 						          </div>
 								</form>
@@ -416,15 +443,17 @@
 						      </div><!-- /.modal-dialog -->
 						    </div><!-- /.modal --> 		
 				       </div>
-				       	<c:choose>
-						    <c:when test="${empty memberIntegraldo}"> 
-					         <div class="tab-pane fade" id="memberIntegral">
-				            </c:when>
-				   			<c:otherwise> 
-				   			 <div class="tab-pane fade in active" id="memberIntegral">
-				   		    </c:otherwise>
+				      <c:choose>
+						   <c:when test="${empty memberIntegraldo && empty memberApplyAmountpage}">  
+			         		 <div class="tab-pane fade" id="memberIntegral">
+						   </c:when>
+						   <c:when test="${memberIntegraldo == 'memberIntegraldo' && empty memberApplyAmountpage}">  
+				         		 <div class="tab-pane fade in active" id="memberIntegral">
+						   </c:when>
+						   <c:when test="${empty memberIntegraldo && memberApplyAmountpage == 'memberApplyAmountpage'}">  
+				         		 <div class="tab-pane fade" id="memberIntegral">
+						   </c:when>
 						</c:choose>
-				      
 				         <table id="memberIntegralTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
 				         	<tbody>
 				         	<tr>
@@ -461,10 +490,109 @@
 					        </tfoot>
 				        </table>
 				       </div>
+						 <c:choose>
+						   <c:when test="${empty memberIntegraldo && empty memberApplyAmountpage}">  
+			         		  <div class="tab-pane fade" id="applyCreditAmount">
+						   </c:when>
+						   <c:when test="${memberIntegraldo == 'memberIntegraldo' && empty memberApplyAmountpage}">  
+				         		  <div class="tab-pane fade" id="applyCreditAmount">
+						   </c:when>
+						   <c:when test="${empty memberIntegraldo && memberApplyAmountpage == 'memberApplyAmountpage'}">  
+				         		 <div class="tab-pane fade in active" id="applyCreditAmount">
+						   </c:when>
+						</c:choose>
+					   	<blockquote>
+						  <span class="text-muted"><strong>当前信用额度：<span class="text-danger">${currentMember.creditamount}</span>元 ,可用信用额度：<span class="text-danger">-990000</span>元</strong></span>
+						</blockquote>
+						<hr>
+						<form id="member_applyCreditAmountForm"  class=" form-horizontal" role="form"  method="post" >
+						 <div class="form-group">
+						    <label for="memberName" class="col-sm-3 control-label">申请账户:</label>
+						    <div class="col-sm-4">
+								<span>${currentMember.memberName}</span>						    
+						    </div>
+						 </div>
+						 <div class="form-group">
+						    <label for="applyType" class="col-sm-3 control-label">申请类型:</label>
+						    <div class="col-sm-4">
+						    	<span>信用额度</span>
+						      <input type="hidden" class="form-control" id="applyType" name="applyType" value="internet"  placeholder="" >
+						    </div>
+						 </div>
+						 <div class="form-group">
+						    <label for="applyMoney" class="col-sm-3 control-label">申请额度:</label>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="applyMoney" name="applyMoney" value=""  placeholder="申请额度" >
+						    </div>
+						 </div>
+						 <div class="form-group">
+						    <label for="applyExplanation" class="col-sm-3 control-label">详细说明:</label>
+						    <div class="col-sm-8">
+						      <textarea class="form-control" rows="3" name="applyExplanation" id="applyExplanation" ></textarea>
+						      <p class="text-warning">温馨提示：额度申请原则上每次最多申请1万。 额度申请后，无论申请是否批准，
+									必须隔一个月后才能再次申请，每个月只能申请一次。如有问题,请与客服联系</p>
+						    </div>
+						 </div>
+						 <div class="form-group">
+						 	<label for="personalDes" class="col-sm-3 control-label"></label>
+						    <div class=" col-sm-9">
+						      <button type="submit" class="btn btn-primary btn-lg">确定</button>
+						    </div>
+						 </div>
+				        </form>
+				       
+				      	<blockquote style="margin-top:50px;">
+						       	<h5 class="text-danger"><strong>额度申请列表：</strong></h5>
+						</blockquote>
+				         <table id="memberApplyAmountTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
+				         	<tbody>
+				            <tr>
+				              <td><strong>序号</strong></td>
+				              <td><strong>申请类型</strong></td>
+				              <td><strong>申请额度</strong></td>
+				              <td><strong>通过额度</strong></td>
+				              <td><strong>状态</strong></td>
+				              <td><strong>申请时间</strong></td>
+				            </tr>
+								  		
+				            <c:forEach items="${memberApplyAmountDatas.rows}" var="memberApplyAmount" varStatus="status">
+						      	<tr>
+						      	  <td>${status.index+1}</td>
+					              <td id="applyType${status.index}" class="applyType">
+					              <script type="text/javascript">
+					             $('#applyType'+${status.index}).html(renderGridValue('${memberApplyAmount.applyType}',fields.applyType));
+					              </script>
+					              </td>
+					              <td>${memberApplyAmount.applyMoney}</td>
+					              <td>${memberApplyAmount.authorizedAmount}</td>
+					              <td id="auditState${status.index}" class="auditState">
+					              ${memberApplyAmount.auditState}
+					              <script type="text/javascript">
+					             $('#auditState'+${status.index}).html(renderGridValue('${memberApplyAmount.auditState}',fields.auditState));
+					              </script>
+					              </td>
+					              <td><fmt:formatDate value="${memberApplyAmount.applyDate}" type="both"/></td>
+					            </tr>
+					      	</c:forEach>
+				            </tbody>
+				            <tfoot>
+					          <tr>
+					            <th colspan="6">
+					            	<div align="right">
+									    <ul id='pagememberApplyAmount'></ul>
+									</div>
+								</th>
+					          </tr>
+					        </tfoot>
+				        </table>
+				       </div>
 				     </div>
 				</div>
 			</div><!-- /example -->
-				    
+			
+		</div>
+		</div>		    
+	    
 	    </div>
 	    <jsp:include page="../foot.jsp"/>
 	    </div>
@@ -473,9 +601,44 @@
   </body>
 	<script type="text/javascript">
 		
+	
+	
+	$("#member_applyCreditAmountForm").validate({
+		rules:{
+			applyMoney:{
+				required:true,
+				number:true
+			}
+		},
+		messages:{
+			applyMoney:{
+				required:"申请额度不能为空",
+				number:"申请额度只能为数字"
+			}
+		},
+		submitHandler:function(){
+			$.ajax({
+				   type: "POST",
+				   url: ctx+"/applyAmount/add.htm",
+				   dataType: "json",
+				   data: $("#member_applyCreditAmountForm").serialize(),
+    			   success: function(r) {
+    				   
+						$("#applyMoney").val("")
+						$("#applyExplanation").val("");
+	    				successdialog(r);
+                    },
+                    error: function() {
+                        alert("提交出错！");
+                    }
+				});
+		} 
+	});
+	
 		var json = '${requestScope.json}';
 		var parseJson = $.parseJSON(json);
 		var memberCreditIntegrals = '${requestScope.memberCreditIntegrals}';
+		//循环遍历出每个认证的信用积分，再将每个积分相加。
 		for(var i = 0;i<parseJson.length;i++){
 			if(parseJson[i].integralType == 'infoAuth'){
 				$('#memberAuth_form_infoAuth_creditIntegral').html(parseJson[i].changeValue);
@@ -497,6 +660,8 @@
 				$('#memberAuth_form_workAuth_creditIntegral').html(parseJson[i].changeValue);
 			} 
 		}
+		//$('#totalCreditIntegral').html("<strong>信用总分："+totalIntegralCredit+"分</strong>");
+		
 
 		//通过renderGridValue方法。将数据库的枚举类型转换为相对应的中文名称
 		$('#idCard_auth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.idCardAuth}',fields.auths));	
@@ -676,6 +841,7 @@
 				getUrlVars: function(){
 					var vars = [], hash;
 					var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+					//alert("  aa   "+hashes);
 					for(var i = 0; i < hashes.length; i++){
 						hash = hashes[i].split('=');
 						vars.push(hash[0]);
@@ -687,9 +853,22 @@
 					return $.getUrlVars()[name];
 				}
 			});
+			
 		
 		//封装浏览器参数
-		var composeUrlParams=function(){
+		var composeUrlParams1=function(){
+			var param='';
+			$.each($.getUrlVars(), function(i, item) {
+				if(item!='p'){
+					var val=$.getUrlVar(item);
+					if(val) param += "&" + item+"="+val;
+				}
+			});
+			//alert("aa  "+param);
+			return param;
+		}
+		//封装浏览器参数
+		var composeUrlParams2=function(){
 			var param='';
 			$.each($.getUrlVars(), function(i, item) {
 				if(item!='p'){
@@ -701,27 +880,47 @@
 			return param;
 		}
 		
-		var element = $('#pagememberIntegral');
+		var elementpagememberIntegral = $('#pagememberIntegral');
+		var elementpagememberApplyAmount = $('#pagememberApplyAmount');
 		
-		//设置分页的总页数
-		var total=${memberIntegralDatas.total}/10;
-		if(parseInt(total)==total){
-			var total = parseInt(total);
+		//积分的设置分页的总页数
+		var totalmemberIntegral=${memberIntegralDatas.total}/10;
+		if(parseInt(totalmemberIntegral)==totalmemberIntegral){
+			var totalmemberIntegral = parseInt(totalmemberIntegral);
 		}else {
-			var total = parseInt(total)+1;
+			var totalmemberIntegral = parseInt(totalmemberIntegral)+1;
 		}
 		
-		var options = {
+		var memberIntegralOptions = {
 		    bootstrapMajorVersion:3,
 		    currentPage: ${memberIntegralDatas.p},
 		    numberOfPages: 5,
-		    totalPages:total,
+		    totalPages:totalmemberIntegral,
 		    pageUrl: function(type, page, current){
-		    	return "${ctx}/member/memberAuth.htm?"+composeUrlParams()+"&p="+page;
+		    	return "${ctx}/member/memberAuth.htm?"+composeUrlParams1()+"&p="+page;
 		    	}
 		}
 		
-		element.bootstrapPaginator(options);
+		//额度申请的设置分页的总页数
+		var totalmemberApplyAmount=${memberApplyAmountDatas.total}/5;
+		if(parseInt(totalmemberApplyAmount)==totalmemberApplyAmount){
+			var totalmemberApplyAmount = parseInt(totalmemberApplyAmount);
+		}else {
+			var totalmemberApplyAmount = parseInt(totalmemberApplyAmount)+1;
+		}
+		
+		var memberApplyAmountOptions = {
+		    bootstrapMajorVersion:3,
+		    currentPage: ${memberApplyAmountDatas.p},
+		    numberOfPages: 5,
+		    totalPages:totalmemberApplyAmount,
+		    pageUrl: function(type, page, current){
+		    	return "${ctx}/applyAmount/applyAmountPage.htm?"+composeUrlParams1()+"&p="+page;
+		    	}
+		}
+		
+		elementpagememberIntegral.bootstrapPaginator(memberIntegralOptions);
+		elementpagememberApplyAmount.bootstrapPaginator(memberApplyAmountOptions);
 		})
 </script>
 </html>

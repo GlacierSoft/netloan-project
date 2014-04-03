@@ -317,6 +317,7 @@
 						    <div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10">
 						      <button type="submit" class="btn btn-primary btn-lg">保  存</button>
+						      <button type="submit" class="btn btn-primary btn-lg">保存并提交审核</button>
 						    </div>
 						  	</div>
 						   </form>  
@@ -446,11 +447,14 @@
 	    				   data: $("#personalMessageForm").serialize(),
 		    			   success: function(r) {
 		    				   
-		    				    $('#success_alert').fadeIn();
+		    				    /* $('#success_alert').fadeIn();
 	    						$('#success_alert h4').html(r.msg);
 	    						setTimeout(function(){//延迟3秒隐藏
 	    							$('#success_alert').fadeOut();
-	    						},3000)
+	    						},3000) */
+	    						if(r.success){
+	    							successdialog(r);	
+	    						}
 		                    },
 		                    error: function() {
 		                        alert("提交出错！");
@@ -523,7 +527,34 @@
 	    		} 
 	      	});
       	});
-      	
+      	function successdialog(data){
+			KindEditor.ready(function(K) {
+			var dialog = K.dialog({
+					        width : 300,
+					        title : '保存成功',
+					        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
+					        closeBtn : {
+					                name : '关闭',
+					                click : function(e) {
+					                        dialog.remove();
+					                }
+					        },
+					        yesBtn : {
+					                name : '确定',
+					                click : function(e) {
+					                		dialog.remove();
+					                }
+					        }/* ,
+					        noBtn : {
+					                name : '取消',
+					                click : function(e) {
+					                        dialog.remove();
+					                }
+					        } */
+					        
+						});
+			});
+		}
 		</script>
 		
 		 <div id="success_alert" style="width:100%;position: absolute;top:0px;z-index:5000;display: none;"> 

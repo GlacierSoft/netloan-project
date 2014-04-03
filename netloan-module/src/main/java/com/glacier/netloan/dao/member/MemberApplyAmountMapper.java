@@ -27,4 +27,7 @@ public interface MemberApplyAmountMapper {
     int updateByPrimaryKeySelective(MemberApplyAmount record);
 
     int updateByPrimaryKey(MemberApplyAmount record);
+    
+    MemberApplyAmount selectMaxCreatTime(String memberId);
+    
 }

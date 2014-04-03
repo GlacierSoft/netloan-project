@@ -380,6 +380,7 @@ public class MemberService {
        
         member.setUpdater(member.getMemberId());
         member.setUpdateTime(new Date());
+        member.setCreditamount(300f);
         count = memberMapper.updateByPrimaryKeySelective(member);
         
         //工作表的修改

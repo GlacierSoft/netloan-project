@@ -88,6 +88,7 @@ public class CustomPermissionsRealm extends AuthorizingRealm {
                     for (String action : actionString) {
                         // shiro权限字符串为：“当前资源英文名称:操作名英文名称”
                         // 对action进行分割，避免权限范围对其造成的影响
+                    	System.out.println("action   "+action);
                         String[] authStr = action.split(":");
                         authInfo.addStringPermission(authority.getMenuEnName() + ":" + authStr[0]);// 设置权限操作(设置Permission)
                     }

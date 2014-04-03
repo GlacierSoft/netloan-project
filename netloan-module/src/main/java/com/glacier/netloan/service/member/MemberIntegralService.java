@@ -72,7 +72,6 @@ public class MemberIntegralService {
         
     	JqGridReturn returnResult = new JqGridReturn();
     	MemberIntegralExample memberIntegralExample = new MemberIntegralExample();
-    	MemberIntegralExample memberIntegralExampleAll = new MemberIntegralExample();
     	
     	Subject pricipalSubject = SecurityUtils.getSubject();
     	Member pricipalMember = (Member) pricipalSubject.getPrincipal();
@@ -89,8 +88,24 @@ public class MemberIntegralService {
         memberIntegralExample.setLimitEnd(10);
         List<MemberIntegral>  memberIntegrals = integralMapper.selectByExample(memberIntegralExample); // 查询所有公告列表
         
-        memberIntegralExampleAll.createCriteria().andMemberIdEqualTo(pricipalMember.getMemberId());
-        List<MemberIntegral>  memberIntegralAll = integralMapper.selectByExample(memberIntegralExampleAll); // 查询所有公告列表
+        int total = integralMapper.countByExample(memberIntegralExample); // 查询总页数
+        returnResult.setRows(memberIntegrals);
+        returnResult.setTotal(total);
+        returnResult.setP(p);
+        Map<String,Object> integralMap = new HashMap<String,Object>();
+        integralMap.put("returnResult", returnResult);
+        integralMap.put("totalIntegral", totalIntegral());
+        return integralMap;// 返回ExtGrid表
+    }
+    //获取会员总积分
+    public int totalIntegral(){
+    	MemberIntegralExample memberIntegralExampleAll = new MemberIntegralExample();
+    	
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+    	Member pricipalMember = (Member) pricipalSubject.getPrincipal();
+    	
+    	memberIntegralExampleAll.createCriteria().andMemberIdEqualTo(pricipalMember.getMemberId());
+    	List<MemberIntegral>  memberIntegralAll = integralMapper.selectByExample(memberIntegralExampleAll); // 查询所有公告列表
         int totalIntegral = 0;
         for(MemberIntegral memberIntegral : memberIntegralAll){
         	if(memberIntegral.getChangeType().equals("increase")){
@@ -100,16 +115,8 @@ public class MemberIntegralService {
         	}
         	
         }
-        int total = integralMapper.countByExample(memberIntegralExample); // 查询总页数
-        returnResult.setRows(memberIntegrals);
-        returnResult.setTotal(total);
-        returnResult.setP(p);
-        Map<String,Object> integralMap = new HashMap<String,Object>();
-        integralMap.put("returnResult", returnResult);
-        integralMap.put("totalIntegral", totalIntegral);
-        return integralMap;// 返回ExtGrid表
+        return totalIntegral;
     }
-    
     /**
      * @Title: listAsGrid 
      * @Description: TODO(获取所有会员积分记录信息) 

@@ -94,14 +94,20 @@
 				  <div class="panel-heading">
 				    <h3 class="panel-title">我的个人信息</h3>
 				  </div>
-				  <div class="panel-body">
-				     <table class="table table-bordered" style="text-align:center;vertical-align: middle;">
+				  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
+				     <table class="table" >
 			            <tr><!-- style="width:100px;heigth:100px" -->
-			              <td rowspan="4" ><img src="${currentMember.memberPhoto}" style="width: 120px;height: 120px ;"/></td>
+			              <td rowspan="5" >
+			              
+			              <div style=" text-align:center;vertical-align: middle;">
+			              <img src="${currentMember.memberPhoto}" style="width: 120px;height: 120px ;"/>
+			              <a href="${ctx}/member/memberPhotoInto.htm" role="button"><p style="padding:10px;">更换头像</p></a>
+			              </div>
+			              </td>
 			              <td>用户名：</td>
 			              <td>${currentMember.memberRealName}</td>
 			              <td>信用积分</td>
-			              <td>123</td>
+			              <td><img id="creditPhotoDivImg"  src="${requestScope.totalCreditPhoto}" style="width: 34px;height: 24px ;" /></td>
 			            </tr>
 			            <tr>
 			              <td>注册时间：</td>
@@ -111,16 +117,136 @@
 			            </tr>
 			            <tr>
 			              <td>会员积分：</td>
-			              <td>120</td>
+			              <td>${requestScope.totalIntegral}</td>
 			              <td>最后登录ip:</td>
 			              <td>61.145.244.204</td>
 			            </tr>
 			            <tr>
 			              <td>信用额度：</td>
-			              <td>12000</td>
+			              <td>${currentMember.creditamount}</td>
+			              <td></td>
+			              <td></td>
+			            </tr>
+			             <tr>
 			              <td>个人统计:</td>
 			              <td>61.145.244.204</td>
+			              <td></td>
+			              <td></td>
 			            </tr>
+			        </table>
+			        <div style="border: 1px solid #DDDDDD;">
+			        <div class="row" style="padding:10px;">
+					  <div class="col-md-2 text-right"><img alt="" src="${ctx}/resources/images/member/wenxintisi.jpg"><span class="text-danger"><strong>温馨提示：</strong></span></div>
+					  <div class="col-md-2"><span>未读站内信<a href="#" class="navbar-link"><span class="badge">3</span></a>封</span></div>
+					  <div class="col-md-2"><span>等待审核借款<a href="#" class="navbar-link"><span class="badge">0</span></a>个</span></div>
+					  <div class="col-md-2"><span>本月待还款<a href="#" class="navbar-link"><span class="badge">0</span></a>个</span></div>
+					  <div class="col-md-4"><span>本月待收款<a href="#" class="navbar-link"><span class="badge">0</span></a>个</span></div>
+					</div>
+					<div class="row" style="padding:10px;">
+					  <div class="col-md-2"></div>
+					  <div class="col-md-2"><span>逾期待还款<a href="#" class="navbar-link"><span class="badge">0</span></a>个</span></div>
+					  <div class="col-md-2"><span>上传资料<a href="#" class="navbar-link"><span class="badge">1</span></a></span></div>
+					  <div class="col-md-2"></div>
+					  <div class="col-md-4"></div>
+					</div>
+			       <%--  <table class="table " >
+			            <tr><!-- style="width:100px;heigth:100px" -->
+			              <td class="text-right"><img alt="" src="${ctx}/resources/images/member/wenxintisi.jpg"><span class="text-danger"><strong>温馨提示：</strong></span></td>
+			              <td><span>未读站内信<a href="#" class="navbar-link"><span class="badge">3</span></a>封</span></td>
+			              <td><span>等待审核借款<a href="#" class="navbar-link"><span class="badge">0</span></a>个</span></td>
+			              <td><span>本月待还款<a href="#" class="navbar-link"><span class="badge">0</span></a>个</span></td>
+			              <td><span>本月待收款<a href="#" class="navbar-link"><span class="badge">0</span></a>个</span></td>
+			            </tr>
+			            <tr>
+			              <td></td>
+			              <td><span>逾期待还款<a href="#" class="navbar-link"><span class="badge">0</span></a>个</span></td>
+			              <td><span>上传资料<a href="#" class="navbar-link"><span class="badge">1</span></a></span></td>
+			              <td></td>
+			              <td></td>
+			            </tr>
+			        </table> --%>
+			        </div>
+			        <div style="margin:40px;text-align:center;vertical-align: middle;">
+			        <table style="width:800px;padding: 10px;">
+			        	<tr style="padding: 10px;">
+			        		<td><img alt="" src="${ctx}/resources/images/member/chongzhi.jpg"></td>
+			        		<td><img alt="" src="${ctx}/resources/images/member/daichu.jpg"></td>
+			        		<td><img alt="" src="${ctx}/resources/images/member/zhaiquanzhuanrang.jpg"></td>
+			        		<td><img alt="" src="${ctx}/resources/images/member/huankuan.jpg"></td>
+			        		<td><img alt="" src="${ctx}/resources/images/member/daishoukuan.jpg"></td>
+			        		<td><img alt="" src="${ctx}/resources/images/member/zijinliushui.jpg"></td>
+			        		<td><img alt="" src="${ctx}/resources/images/member/jiekuan.jpg"></td>
+			        	</tr>
+			        	<tr style="height:40px;margin: 10px;">
+			        		<td><a href="#" class="navbar-link"><span>我要借款</span></a></td>
+			        		<td><a href="#" class="navbar-link"><span>我要贷出</span></a></td>
+			        		<td><a href="#" class="navbar-link"><span>债权转让</span></a></td>
+			        		<td><a href="#" class="navbar-link"><span>我要还款</span></a></td>
+			        		<td><a href="#" class="navbar-link"><span>待收款</span></a></td>
+			        		<td><a href="#" class="navbar-link"><span>资金流水</span></a></td>
+			        		<td><a href="#" class="navbar-link"><span>我要借款</span></a></td>
+			        	</tr>
+			        </table>
+			        </div>
+			        <blockquote>
+					       	<h5 class="text-danger"><strong>账户详情：</strong></h5>
+					</blockquote>
+					<table class="table table-bordered" style="padding: 10px;">
+						<tr>
+			        		<td colspan="3"><span><strong>账户总汇：</strong></span></td>
+			        	</tr>
+			        	<tr >
+			        		<td><span>账户总额：￥0.00</span></td>
+			        		<td><span>可用余额：￥0.00</span></td>
+			        		<td><span>冻结金额：￥0.00</span></td>
+			        	</tr>
+			        	<tr>
+			        		<td><span>总收益：￥0.00</span></td>
+			        		<td><span>利息收益：￥0.00</span></td>
+			        		<td><span>其他收益：￥0.00</span></td>
+			        	</tr>
+			        	<tr>
+			        		<td colspan="3"><span><strong>投资总汇：</strong></span></td>
+			        	</tr>
+			        	<tr >
+			        		<td><span>已收总额：￥0.00</span></td>
+			        		<td><span>已收本金：￥0.00</span></td>
+			        		<td><span>已收利息：￥0.00</span></td>
+			        	</tr>
+			        	<tr>
+			        		<td><span>待收总额：￥0.00</span></td>
+			        		<td><span>待收本金：￥0.00</span></td>
+			        		<td><span>待收利息：￥0.00</span></td>
+			        	</tr>
+			        	<tr>
+			        		<td colspan="3"><span><strong>借款总汇：</strong></span></td>
+			        	</tr>
+			        	<tr >
+			        		<td><span>已还总额：￥0.00</span></td>
+			        		<td><span>已还本金：￥0.00</span></td>
+			        		<td><span>已还利息：￥0.00</span></td>
+			        	</tr>
+			        	<tr>
+			        		<td><span>待还总额：￥0.00</span></td>
+			        		<td><span>待还本金：￥0.00</span></td>
+			        		<td><span>待还利息：￥0.00</span></td>
+			        	</tr>
+			        	<tr>
+			        		<td colspan="3"><span><strong>额度总汇：</strong></span></td>
+			        	</tr>
+			        	<tr >
+			        		<td><span>借款总额度：￥500.00</span></td>
+			        		<td><span>可用额度：￥500.00</span></td>
+			        		<td><span></span></td>
+			        	</tr>
+			        	<tr>
+			        		<td colspan="3"><span><strong>最近还款：</strong></span></td>
+			        	</tr>
+			        	<tr >
+			        		<td><span>最近还款日：</span></td>
+			        		<td><span>最近还款金额：</span></td>
+			        		<td><span></span></td>
+			        	</tr>
 			        </table>
 				  </div>
 				</div>

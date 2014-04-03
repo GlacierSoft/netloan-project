@@ -23,10 +23,22 @@
 			<td>排序：</td>
 			<td><input name="creditNum" class="easyui-numberspinner spinner" value="${creditData.creditNum}" data-options="min:0,max:999,missingMessage:'请输入信用级别排序'" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr>
-<%-- 		<tr>
+		<tr>
 	    	<td>级别图标:</td>
-	    	<td><input id="credit_mgr_credit_form_creditPhoto" name="photo" type="file" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditData.creditPhoto}"/></td>
-	    </tr> --%>
+	    	<td>
+	    	<input class="ke-input-text" type="text" name=creditPhoto id="url" value="${creditData.creditPhoto}" readonly="readonly" />
+	    	<input type="button" id="uploadButton" value="Upload"/>
+	    	</td>
+	    </tr>
+	    <tr>
+			<td></td>
+			<td>
+			<div id="creditPhotoDiv" style="border: 1px #DDDDDD;">
+				<img id="creditPhotoDivImg"  src="${creditData.creditPhoto}" style="width: 34px;height: 24px ;" />
+			</div>
+			</td>
+		</tr>
+	   
 		<tr>
 			<td>备注：</td>
 			<td><textarea name="remark" style="width:268px;" maxlength="255" class="spinner formta">${creditData.remark}</textarea></td>
@@ -35,10 +47,30 @@
 </form>
 
 <script type="text/javascript">
-/* 	var webNavStatus = '${websiteNavData.webNavStatus}';
-	if(webNavStatus == "enabled"){
-		$('#nav_mgr_nav_form_webNavStatus').val("启用");
-	}else{
-		$('#nav_mgr_nav_form_webNavStatus').val("禁用");
-	}   */
+		//图标上传。
+	    KindEditor.ready(function(K) {
+				var uploadbutton = K.uploadbutton({
+					button : K('#uploadButton')[0],
+					fieldName : 'imgFile',
+					//url : ctx+'/member/uploadFile.htm?dir=image',
+					url : ctx+'/resources/js/kindeditor/jsp/upload_json.jsp?dir=image',
+						//'../php/upload_json.php?dir=file'
+					afterUpload : function(data) {
+						if (data.error === 0) {
+							var url = K.formatUrl(data.url, 'domain');
+							K('#url').val(url);
+							//K('#url').html(url);
+							$("#creditPhotoDivImg").attr("src",url);
+						} else {
+							alert(data.message);
+						}
+					},
+					afterError : function(str) {
+						alert('自定义错误信息: ' + str);
+					}
+				});
+				uploadbutton.fileBox.change(function(e) {
+					uploadbutton.submit();
+				});
+			});
 </script>

@@ -85,9 +85,18 @@ public class RegisterController extends AbstractController{
 		
 		// 创建一个临时用户注册ID
         String registerId = ""+Math.random() * Math.random();
+        
+        /** 
+         * 得到web系统url路径的方法 
+         * */  
+        //得到web的url路径：http://localhost:8080/ssh1/  
+        String path = request.getContextPath();  
+        String basePath = request.getScheme()+"://"+request.getServerName()+  
+        ":"+request.getServerPort()+path+"/";  
 		
-        //邮件发送成功后，用户点在邮箱中点击这个链接回到注册网站。        
-        String url = "http://localhost:8080/netloan-website//mailBack.htm?registerId=" + registerId;
+        //邮件发送成功后，用户点在邮箱中点击这个链接回到注册网站。
+        //http://localhost:8080/netloan-website//mailBack.htm?registerId=" + registerId;
+        String url = basePath+"mailBack.htm?registerId=" + registerId;
         
         session.setAttribute(registerId, member.getMemberName());
         session.setAttribute("memberSimple", member);
@@ -188,14 +197,12 @@ public class RegisterController extends AbstractController{
 	@RequestMapping(value = "/perfectRegister.htm", method = RequestMethod.POST)
 	@ResponseBody
 	public Object perfectRegister(@Valid Member member,BindingResult bindingResult,@Valid MemberWork memberWork,BindingResult bindingResultWork,HttpServletRequest request,HttpSession session){
-		 System.out.println("aa 又有哦哟哦耶  ");
 		if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
         if (bindingResultWork.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResultWork);
         }
-        System.out.println("aa   "+member.getMemberPhoto());
 		JqReturnJson perfectRegister = (JqReturnJson) memberService.editMemberReception(member, memberWork);
 		Member loginMember = (Member) memberService.getMember(member.getMemberId());
 		MemberWork loginMemberWork = (MemberWork) memberService.getMemberWork(member.getMemberId());
@@ -210,7 +217,6 @@ public class RegisterController extends AbstractController{
 	@ResponseBody
 	public Object perfectMemberPhoto(@Valid Member member,HttpSession session){
 		 
-        System.out.println("aa   "+member.getMemberPhoto());
 		JqReturnJson perfectRegister = (JqReturnJson) memberService.editMemberPhotoReception(member);
 		
 		Member loginMember = (Member) memberService.getMember(member.getMemberId());

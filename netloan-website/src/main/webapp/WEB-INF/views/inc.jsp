@@ -59,8 +59,9 @@
 <script src="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/js/qunit-1.11.0.js"></script>
 
 <!-- 自定义js -->
-<script src="${ctx}/resources/js/common/extJquery.js" type="text/javascript"></script>
-<script src="${ctx}/resources/js/common/glacier.util.js" type="text/javascript"></script> 
+<%-- <script src="${ctx}/resources/js/common/extJquery.js" type="text/javascript"></script>  
+<script src="${ctx}/resources/js/common/glacier.util.js" type="text/javascript"></script> --%>
+<script src="${ctx}/resources/js/glacier/glacier.js" type="text/javascript"></script>
 
 <!-- 加入富文本编辑器kindeditor-->
 <script src="${ctx}/resources/js/kindeditor/kindeditor.js" type="text/javascript" charset="utf-8"></script>

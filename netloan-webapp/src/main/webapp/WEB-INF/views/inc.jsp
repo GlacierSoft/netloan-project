@@ -15,6 +15,8 @@
 <link href="${ctx}/resources/js/jquery-extensions-master/jeasyui-extensions/jquery-easyui-portal/portal.css" rel="stylesheet" type="text/css" />
 <!-- 引入自定义样式 -->
 <link href="${ctx}/resources/css/main.css" rel="stylesheet" type="text/css" />
+<!-- kindeditor上传按钮样式 -->
+<link rel="stylesheet" href="${ctx}/resources/js/kindeditor/themes/default/default.css"></link>
 
 
 <!-- 引入easyui-->
