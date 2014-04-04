@@ -23,6 +23,11 @@
         var tel = /^[0-9]{6}$/;
         return this.optional(element) || (tel.test(value));
     }, "请正确填写您的邮政编码");
+    // 银行卡号验证
+    jQuery.validator.addMethod("isBankCardNum", function(value, element) {
+        var bankCard = /^[0-9]{19}$/;
+        return this.optional(element) || (bankCard.test(value));
+    }, "请正确填写您的银行卡号，卡号位数为19位");
   //增加身份证验证
 	  function isIdCardNo(num) {
 	      var factorArr = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1);

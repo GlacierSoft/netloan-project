@@ -18,6 +18,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.basicdatas.ParameterCreditTypeMapper;
 import com.glacier.netloan.dao.member.MemberAuthMapper;
 import com.glacier.netloan.dao.member.MemberCreditIntegralMapper;
+import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dto.query.member.MemberAuthQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditType;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditTypeExample;
@@ -42,6 +43,9 @@ public class MemberAuthService {
 	
 	@Autowired
     private ParameterCreditTypeMapper creditTypeMapper;
+	
+	@Autowired
+	private MemberMapper memberMapper;
 	
 	/**
 	 * @Title: getMemberAuth 
@@ -100,16 +104,19 @@ public class MemberAuthService {
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
 		int count = 0;
 		int creditCount = 0;
+		float memberChangeCredit = 0;
+		int ChangeCreditCount = 0;
 		List<MemberCreditIntegral> memberCreditIntegrals = null;
 		ParameterCreditType parameterCreditType = null;
 		//获取当前登录用户，也就是审核人
 		Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
+        //获取当前被操作会员信息
+        Member member = memberMapper.selectByPrimaryKey(memberAuthWithBLOBs.getMemberId());
         //创建对象
         MemberCreditIntegral memberCreditIntegral = new MemberCreditIntegral();
         ParameterCreditTypeExample parameterCreditTypeExample = new ParameterCreditTypeExample();
         MemberCreditIntegralExample memberCreditIntegralExample = new MemberCreditIntegralExample();
-        
         	//判断是通过哪个按钮进来的
       		if(auth.trim().equals("基本信息认证")){
       			//判断是否有重复的信用认证积分
@@ -119,18 +126,15 @@ public class MemberAuthService {
       				if(memberCreditIntegrals.size() == 0){
     	      			//判断是哪个认证，添加信用积分记录
     	      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("infoAuth");
-    	      			List<ParameterCreditType>  parameterCreditTypes = creditTypeMapper.selectByExample(parameterCreditTypeExample); // 查询所有信用积分类型列表
-    	      			parameterCreditType = parameterCreditTypes.get(0);
-    	      			memberCreditIntegral.setIntegralType(parameterCreditType.getCreditType());
-    	      			memberCreditIntegral.setChangeType(parameterCreditType.getChangeType());
-    	      			memberCreditIntegral.setChangeValue(parameterCreditType.getChangeValue());
+    	      			//调用方法为会员信用积分设置值，因为很多地方都是一样的，所以抽出来作为一个方法。
+    	      			this.memberCreditSet(parameterCreditTypeExample, parameterCreditType, memberCreditIntegral);
           			}
       			}else if(memberAuthWithBLOBs.getInfoAuth().equals("failure")){
       				if(memberCreditIntegrals.size() != 0){
-      					memberCreditIntegralMapper.deleteByPrimaryKey(memberCreditIntegrals.get(0).getCreditIntegralId());
+      					//调用方法为会员信用积分总分设置值，因为很多地方都是一样的，所以抽出来作为一个方法。
+      					this.memberCreditTotleSet(memberCreditIntegrals, memberChangeCredit, member, ChangeCreditCount);
       				}
       			}
-      			
       			//修改认证记录表
       			memberAuthWithBLOBs.setInfoTime(new Date());
                 memberAuthWithBLOBs.setInfoAuditor(pricipalUser.getUserId());
@@ -142,65 +146,37 @@ public class MemberAuthService {
       				if(memberCreditIntegrals.size() == 0){
     	      			//判断是哪个认证，添加信用积分记录
     	      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("vipAuth");
-    	      			List<ParameterCreditType>  parameterCreditTypes = creditTypeMapper.selectByExample(parameterCreditTypeExample); // 查询所有信用积分类型列表
-    	      			parameterCreditType = parameterCreditTypes.get(0);
-    	      			memberCreditIntegral.setIntegralType(parameterCreditType.getCreditType());
-    	      			memberCreditIntegral.setChangeType(parameterCreditType.getChangeType());
-    	      			memberCreditIntegral.setChangeValue(parameterCreditType.getChangeValue());
+    	      			//调用方法为会员信用积分设置值，因为很多都是一样的，所以抽出来作为一个方法。
+    	      			this.memberCreditSet(parameterCreditTypeExample, parameterCreditType, memberCreditIntegral);
           			}
       			}else if(memberAuthWithBLOBs.getVipAuth().equals("failure")){
       				if(memberCreditIntegrals.size() != 0){
-      					memberCreditIntegralMapper.deleteByPrimaryKey(memberCreditIntegrals.get(0).getCreditIntegralId());
+      					//调用方法为会员信用积分总分设置值，因为很多地方都是一样的，所以抽出来作为一个方法。
+      					this.memberCreditTotleSet(memberCreditIntegrals, memberChangeCredit, member, ChangeCreditCount);
       				}
       			}	
-      			
-      			
       			//修改认证记录表
       			memberAuthWithBLOBs.setVipAuditor(pricipalUser.getUserId());
             	memberAuthWithBLOBs.setVipTime(new Date());
       		}else if(auth.trim().equals("邮箱认证")){
       			//邮箱认证可以忽略
-      				
-      			//判断是哪个认证，添加信用积分记录
-      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("emailAuth");
-      			List<ParameterCreditType>  parameterCreditTypes = creditTypeMapper.selectByExample(parameterCreditTypeExample); // 查询所有信用积分类型列表
-      			parameterCreditType = parameterCreditTypes.get(0);
-      			memberCreditIntegral.setIntegralType(parameterCreditType.getCreditType());
-      			memberCreditIntegral.setChangeType(parameterCreditType.getChangeType());
-      			memberCreditIntegral.setChangeValue(parameterCreditType.getChangeValue());
-      			//修改认证记录表
-      			memberAuthWithBLOBs.setEmailAuditor(pricipalUser.getUserId());
-            	memberAuthWithBLOBs.setEmailTime(new Date());
       		}else if(auth.trim().equals("手机认证")){
       			//邮箱认证可以忽略
-      			//判断是哪个认证，添加信用积分记录
-      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("mobileAuth");
-      			List<ParameterCreditType>  parameterCreditTypes = creditTypeMapper.selectByExample(parameterCreditTypeExample); // 查询所有信用积分类型列表
-      			parameterCreditType = parameterCreditTypes.get(0);
-      			memberCreditIntegral.setIntegralType(parameterCreditType.getCreditType());
-      			memberCreditIntegral.setChangeType(parameterCreditType.getChangeType());
-      			memberCreditIntegral.setChangeValue(parameterCreditType.getChangeValue());
-      			//修改认证记录表
-      			memberAuthWithBLOBs.setMobileAuditor(pricipalUser.getUserId());
-            	memberAuthWithBLOBs.setMobileTime(new Date());
       		}else if(auth.trim().equals("信用认证")){
       			//判断是否有重复的信用认证积分
       			memberCreditIntegralExample.createCriteria().andMemberIdEqualTo(memberAuthWithBLOBs.getMemberId()).andIntegralTypeEqualTo("creditAuth");
       			memberCreditIntegrals = memberCreditIntegralMapper.selectByExample(memberCreditIntegralExample);
-      			
       			if(memberAuthWithBLOBs.getCreditAuth().equals("pass")){
       				if(memberCreditIntegrals.size() == 0){
-      	      			//判断是哪个认证，添加信用积分记录
-      		      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("creditAuth");
-      		      			List<ParameterCreditType>  parameterCreditTypes = creditTypeMapper.selectByExample(parameterCreditTypeExample); // 查询所有信用积分类型列表
-      		      			parameterCreditType = parameterCreditTypes.get(0);
-      		      			memberCreditIntegral.setIntegralType(parameterCreditType.getCreditType());
-      		      			memberCreditIntegral.setChangeType(parameterCreditType.getChangeType());
-      		      			memberCreditIntegral.setChangeValue(parameterCreditType.getChangeValue());
+  	      				//判断是哪个认证，添加信用积分记录
+  		      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("creditAuth");
+  		      			//调用方法为会员信用积分设置值，因为很多都是一样的，所以抽出来作为一个方法。
+    	      			this.memberCreditSet(parameterCreditTypeExample, parameterCreditType, memberCreditIntegral);
       	      			}
       			}else if(memberAuthWithBLOBs.getCreditAuth().equals("failure")){
       				if(memberCreditIntegrals.size() != 0){
-      					memberCreditIntegralMapper.deleteByPrimaryKey(memberCreditIntegrals.get(0).getCreditIntegralId());
+      					//调用方法为会员信用积分总分设置值，因为很多地方都是一样的，所以抽出来作为一个方法。
+      					this.memberCreditTotleSet(memberCreditIntegrals, memberChangeCredit, member, ChangeCreditCount);
       				}
       			}	
       			//修改认证记录表
@@ -214,15 +190,13 @@ public class MemberAuthService {
       				if(memberCreditIntegrals.size() == 0){
     	      			//判断是哪个认证，添加信用积分记录
     	      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("companyAuth");
-    	      			List<ParameterCreditType>  parameterCreditTypes = creditTypeMapper.selectByExample(parameterCreditTypeExample); // 查询所有信用积分类型列表
-    	      			parameterCreditType = parameterCreditTypes.get(0);
-    	      			memberCreditIntegral.setIntegralType(parameterCreditType.getCreditType());
-    	      			memberCreditIntegral.setChangeType(parameterCreditType.getChangeType());
-    	      			memberCreditIntegral.setChangeValue(parameterCreditType.getChangeValue());
+    	      			//调用方法为会员信用积分设置值，因为很多都是一样的，所以抽出来作为一个方法。
+    	      			this.memberCreditSet(parameterCreditTypeExample, parameterCreditType, memberCreditIntegral);
           			}
       			}else if(memberAuthWithBLOBs.getCompanyAuth().equals("failure")){
       				if(memberCreditIntegrals.size() != 0){
-      					memberCreditIntegralMapper.deleteByPrimaryKey(memberCreditIntegrals.get(0).getCreditIntegralId());
+      					//调用方法为会员信用积分总分设置值，因为很多地方都是一样的，所以抽出来作为一个方法。
+      					this.memberCreditTotleSet(memberCreditIntegrals, memberChangeCredit, member, ChangeCreditCount);
       				}
       			}	
       			//修改认证记录表
@@ -236,15 +210,13 @@ public class MemberAuthService {
       				if(memberCreditIntegrals.size() == 0){
     	      			//判断是哪个认证，添加信用积分记录
     	      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("realNameAuth");
-    	      			List<ParameterCreditType>  parameterCreditTypes = creditTypeMapper.selectByExample(parameterCreditTypeExample); // 查询所有信用积分类型列表
-    	      			parameterCreditType = parameterCreditTypes.get(0);
-    	      			memberCreditIntegral.setIntegralType(parameterCreditType.getCreditType());
-    	      			memberCreditIntegral.setChangeType(parameterCreditType.getChangeType());
-    	      			memberCreditIntegral.setChangeValue(parameterCreditType.getChangeValue());
+    	      			//调用方法为会员信用积分设置值，因为很多都是一样的，所以抽出来作为一个方法。
+    	      			this.memberCreditSet(parameterCreditTypeExample, parameterCreditType, memberCreditIntegral);
           			}
       			}else if(memberAuthWithBLOBs.getRealNameAuth().equals("failure")){
       				if(memberCreditIntegrals.size() != 0){
-      					memberCreditIntegralMapper.deleteByPrimaryKey(memberCreditIntegrals.get(0).getCreditIntegralId());
+      					//调用方法为会员信用积分总分设置值，因为很多地方都是一样的，所以抽出来作为一个方法。
+      					this.memberCreditTotleSet(memberCreditIntegrals, memberChangeCredit, member, ChangeCreditCount);
       				}
       			}	
       			//修改认证记录表
@@ -258,15 +230,13 @@ public class MemberAuthService {
       				if(memberCreditIntegrals.size() == 0){
     	      			//判断是哪个认证，添加信用积分记录
     	      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("idCardAuth");
-    	      			List<ParameterCreditType>  parameterCreditTypes = creditTypeMapper.selectByExample(parameterCreditTypeExample); // 查询所有信用积分类型列表
-    	      			parameterCreditType = parameterCreditTypes.get(0);
-    	      			memberCreditIntegral.setIntegralType(parameterCreditType.getCreditType());
-    	      			memberCreditIntegral.setChangeType(parameterCreditType.getChangeType());
-    	      			memberCreditIntegral.setChangeValue(parameterCreditType.getChangeValue());
+    	      			//调用方法为会员信用积分设置值，因为很多都是一样的，所以抽出来作为一个方法。
+    	      			this.memberCreditSet(parameterCreditTypeExample, parameterCreditType, memberCreditIntegral);
           			}
       			}else if(memberAuthWithBLOBs.getIdCardAuth().equals("failure")){
       				if(memberCreditIntegrals.size() != 0){
-      					memberCreditIntegralMapper.deleteByPrimaryKey(memberCreditIntegrals.get(0).getCreditIntegralId());
+      					//调用方法为会员信用积分总分设置值，因为很多地方都是一样的，所以抽出来作为一个方法。
+      					this.memberCreditTotleSet(memberCreditIntegrals, memberChangeCredit, member, ChangeCreditCount);
       				}
       			}	
       			//修改认证记录表
@@ -276,20 +246,17 @@ public class MemberAuthService {
       			//判断是否有重复的信用认证积分
       			memberCreditIntegralExample.createCriteria().andMemberIdEqualTo(memberAuthWithBLOBs.getMemberId()).andIntegralTypeEqualTo("workAuth");
       			memberCreditIntegrals = memberCreditIntegralMapper.selectByExample(memberCreditIntegralExample);
-      			
       			if(memberAuthWithBLOBs.getWorkAuth().equals("pass")){
       				if(memberCreditIntegrals.size() == 0){
     	      			//判断是哪个认证，添加信用积分记录
     	      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("workAuth");
-    	      			List<ParameterCreditType>  parameterCreditTypes = creditTypeMapper.selectByExample(parameterCreditTypeExample); // 查询所有信用积分类型列表
-    	      			parameterCreditType = parameterCreditTypes.get(0);
-    	      			memberCreditIntegral.setIntegralType(parameterCreditType.getCreditType());
-    	      			memberCreditIntegral.setChangeType(parameterCreditType.getChangeType());
-    	      			memberCreditIntegral.setChangeValue(parameterCreditType.getChangeValue());
+    	      			//调用方法为会员信用积分设置值，因为很多都是一样的，所以抽出来作为一个方法。
+    	      			this.memberCreditSet(parameterCreditTypeExample, parameterCreditType, memberCreditIntegral);
           			}
       			}else if(memberAuthWithBLOBs.getWorkAuth().equals("failure")){
       				if(memberCreditIntegrals.size() != 0){
-      					memberCreditIntegralMapper.deleteByPrimaryKey(memberCreditIntegrals.get(0).getCreditIntegralId());
+      					//调用方法为会员信用积分总分设置值，因为很多地方都是一样的，所以抽出来作为一个方法。
+      					this.memberCreditTotleSet(memberCreditIntegrals, memberChangeCredit, member, ChangeCreditCount);
       				}
       			}	
       			//修改认证记录表
@@ -307,12 +274,17 @@ public class MemberAuthService {
 	        memberCreditIntegral.setUpdateTime(new Date());
 	        
 	        creditCount = memberCreditIntegralMapper.insert(memberCreditIntegral);
+	        //改变会员表里面的信用积分的值
+	        memberChangeCredit = member.getCreditIntegral();
+	        memberChangeCredit += memberCreditIntegral.getChangeValue();
+	        member.setCreditIntegral(memberChangeCredit);
+	        ChangeCreditCount = memberMapper.updateByPrimaryKeySelective(member);
       	}else{
       		creditCount = 1;
+      		ChangeCreditCount = 1;
       	}
         count = memberAuthMapper.updateByPrimaryKeySelective(memberAuthWithBLOBs);
-        
-        if (count == 1 && creditCount == 1) {
+        if (count == 1 && creditCount == 1 && ChangeCreditCount ==1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + memberAuthWithBLOBs.getMemberName() + "]会员认证信息审核成功");
         } else {
@@ -320,6 +292,43 @@ public class MemberAuthService {
         }
 		return returnResult;
 	}
+   	/**
+   	 * @Title: memberCreditSet 
+   	 * @Description: TODO(是一些公用的代码提取出来作为方法，以供调用) 
+   	 * @param  @param parameterCreditTypeExample
+   	 * @param  @param parameterCreditType
+   	 * @param  @param memberCreditIntegral设定文件
+   	 * @return void  返回类型
+   	 * @throws 
+   	 *
+   	 */
+   	public void memberCreditSet(ParameterCreditTypeExample parameterCreditTypeExample,ParameterCreditType parameterCreditType,MemberCreditIntegral memberCreditIntegral){
+   			List<ParameterCreditType>  parameterCreditTypes = creditTypeMapper.selectByExample(parameterCreditTypeExample); // 查询所有信用积分类型列表
+			parameterCreditType = parameterCreditTypes.get(0);
+			memberCreditIntegral.setIntegralType(parameterCreditType.getCreditType());
+			memberCreditIntegral.setChangeType(parameterCreditType.getChangeType());
+			memberCreditIntegral.setChangeValue(parameterCreditType.getChangeValue());
+   	}
+   	/**
+   	 * @Title: memberCreditTotleSet 
+   	 * @Description: TODO(是一些公用的代码提取出来作为方法，以供调用) 
+   	 * @param  @param memberCreditIntegrals
+   	 * @param  @param memberChangeCredit
+   	 * @param  @param member
+   	 * @param  @param ChangeCreditCount设定文件
+   	 * @return void  返回类型
+   	 * @throws 
+   	 *
+   	 */
+   	public void memberCreditTotleSet(List<MemberCreditIntegral> memberCreditIntegrals,float memberChangeCredit,Member member,int ChangeCreditCount){
+   		MemberCreditIntegral memberCreditIntegral2 = memberCreditIntegrals.get(0);
+		memberChangeCredit = member.getCreditIntegral();
+		memberChangeCredit -= memberCreditIntegral2.getChangeValue();
+      	member.setCreditIntegral(memberChangeCredit);
+      	ChangeCreditCount = memberMapper.updateByPrimaryKeySelective(member);
+      	//审核不通过删除，相对应的信用积分记录
+      	memberCreditIntegralMapper.deleteByPrimaryKey(memberCreditIntegral2.getCreditIntegralId());
+   	}
    	/**
    	 * @Title: editMemberAuthReception 
    	 * @Description: TODO(前台修改会员认证) 

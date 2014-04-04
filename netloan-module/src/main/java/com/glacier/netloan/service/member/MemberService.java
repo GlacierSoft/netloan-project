@@ -282,6 +282,8 @@ public class MemberService {
         
         member.setMemberId(memberId);
         member.setMemberPassword(memberToken.getPassword());
+        member.setCreditIntegral(10f);
+        member.setCreditamount(300f);
         member.setFirstContactRelation("family");
         member.setSecondContactRelation("family");
         member.setIntegral((float) 0);
@@ -384,7 +386,6 @@ public class MemberService {
        
         member.setUpdater(member.getMemberId());
         member.setUpdateTime(new Date());
-        member.setCreditamount(300f);
         count = memberMapper.updateByPrimaryKeySelective(member);
         
         //工作表的修改

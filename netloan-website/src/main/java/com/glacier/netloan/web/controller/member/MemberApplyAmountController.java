@@ -87,7 +87,7 @@ public class MemberApplyAmountController extends AbstractController{
     	MemberAuthWithBLOBs memberAuthWithBLOBs = (MemberAuthWithBLOBs) memberAuthService.getMemberAuth(member.getMemberId());
     	List<MemberCreditIntegral>  memberCreditIntegrals = (List<MemberCreditIntegral>) memberCreditIntegralService.listByMemberId(member.getMemberId());
     	//通过该会员的所有信用积分和基础资料的信用积分得到，该会员的信用总分和图标
-    	Map<String,Object> totalIntegralAndPhotoMap = new MemberController().totalIntegralAndPhoto(parameterCredits, memberCreditIntegrals);
+    	Map<String,Object> totalIntegralAndPhotoMap = new MemberController().totalIntegralAndPhoto(parameterCredits, member.getCreditIntegral());
     	//通过json来传递该会员的所有信用积分到前台
     	JSONArray jsonMemberCreditIntegrals = new JSONArray();  
     	jsonMemberCreditIntegrals.addAll(memberCreditIntegrals);

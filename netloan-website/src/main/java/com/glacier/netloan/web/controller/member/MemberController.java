@@ -100,15 +100,19 @@ public class MemberController extends AbstractController{
         Subject pricipalSubject = SecurityUtils.getSubject();
         Member pricipalMember = (Member) pricipalSubject.getPrincipal();
         
-        List<ParameterCredit>  parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
+        Member member = (Member) memberService.getMember(pricipalMember.getMemberId());
+        session.removeAttribute("currentMember");
+        session.setAttribute("currentMember", member);
+        float memberCreditTotal = member.getCreditIntegral();
     	//Member member = (Member)session.getAttribute("currentMember");
-    	List<MemberCreditIntegral>  memberCreditIntegrals = (List<MemberCreditIntegral>) memberCreditIntegralService.listByMemberId(pricipalMember.getMemberId());
-    	Map<String,Object> map = totalIntegralAndPhoto(parameterCredits, memberCreditIntegrals);
-        
+    	//List<MemberCreditIntegral>  memberCreditIntegrals = (List<MemberCreditIntegral>) memberCreditIntegralService.listByMemberId(pricipalMember.getMemberId());
+        //获取全部信用积分的范围列表
+    	List<ParameterCredit>  parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
+        Map<String,Object> map = totalIntegralAndPhoto(parameterCredits,memberCreditTotal);
         int totalIntegral = memberIntegralService.totalIntegral();
         
         //获取信用总分和图标
-    	request.setAttribute("totalIntegralCredit", map.get("totalIntegralCredit"));
+    	//request.setAttribute("totalIntegralCredit", map.get("totalIntegralCredit"));
     	request.setAttribute("totalCreditPhoto", map.get("totalCreditPhoto"));
     	//获取会员积分总数
     	request.setAttribute("totalIntegral", totalIntegral);
@@ -164,11 +168,15 @@ public class MemberController extends AbstractController{
     	//获取全部信用积分的范围列表
     	List<ParameterCredit>  parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
     	//通过获取member的Id，来得到改会员的所有信用积分
-    	Member member = (Member)session.getAttribute("currentMember");
+    	Member memberOld = (Member)session.getAttribute("currentMember");
+    	Member member = (Member) memberService.getMember(memberOld.getMemberId());
+        session.removeAttribute("currentMember");
+        session.setAttribute("currentMember", member);
+        
     	MemberAuthWithBLOBs memberAuthWithBLOBs = (MemberAuthWithBLOBs) memberAuthService.getMemberAuth(member.getMemberId());
     	List<MemberCreditIntegral>  memberCreditIntegrals = (List<MemberCreditIntegral>) memberCreditIntegralService.listByMemberId(member.getMemberId());
     	//通过该会员的所有信用积分和基础资料的信用积分得到，该会员的信用总分和图标
-    	Map<String,Object> totalIntegralAndPhotoMap = totalIntegralAndPhoto(parameterCredits, memberCreditIntegrals);
+    	Map<String,Object> totalIntegralAndPhotoMap = totalIntegralAndPhoto(parameterCredits, member.getCreditIntegral());
     	//通过json来传递该会员的所有信用积分到前台
     	JSONArray jsonMemberCreditIntegrals = new JSONArray();  
     	jsonMemberCreditIntegrals.addAll(memberCreditIntegrals);
@@ -178,7 +186,7 @@ public class MemberController extends AbstractController{
     	request.setAttribute("memberAuthWithBLOBs", memberAuthWithBLOBs);
     	request.setAttribute("memberCreditIntegrals", memberCreditIntegrals);
     	//获取信用总分和图标
-    	request.setAttribute("totalIntegralCredit", totalIntegralAndPhotoMap.get("totalIntegralCredit"));
+    	//request.setAttribute("totalIntegralCredit", totalIntegralAndPhotoMap.get("totalIntegralCredit"));
     	request.setAttribute("totalCreditPhoto", totalIntegralAndPhotoMap.get("totalCreditPhoto"));
     	//第一次访问该页面，p默认为0
     	if(p == 0 ){
@@ -198,20 +206,16 @@ public class MemberController extends AbstractController{
     	return mav;
     }
     //获取会员信用总分和信用图标
-    public Map totalIntegralAndPhoto(List<ParameterCredit> parameterCredits,List<MemberCreditIntegral>  memberCreditIntegrals){
-    	int totalIntegralCredit = 0;
+    public Map totalIntegralAndPhoto(List<ParameterCredit> parameterCredits,float memberCreditTotal){
     	String totalCreditPhoto = null;
     	Map<String,Object> map = new HashMap<String, Object>();
-    	for(MemberCreditIntegral memberCreditIntegral : memberCreditIntegrals){
-    		totalIntegralCredit += memberCreditIntegral.getChangeValue();
-    	}
     	for(ParameterCredit parameterCredit : parameterCredits){
-    		if(totalIntegralCredit >= parameterCredit.getCreditBeginIntegral() && totalIntegralCredit < parameterCredit.getCreditEndIntegral()){
+    		if(memberCreditTotal >= parameterCredit.getCreditBeginIntegral() && memberCreditTotal < parameterCredit.getCreditEndIntegral()){
     			totalCreditPhoto = parameterCredit.getCreditPhoto();
     			break;
     		}
     	}
-    	map.put("totalIntegralCredit", totalIntegralCredit);
+    	//map.put("totalIntegralCredit", memberCreditTotal);
     	map.put("totalCreditPhoto", totalCreditPhoto);
     	return map;
     }

@@ -112,7 +112,7 @@
     where bank_card_id = #{bankCardId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.finance.FinanceBankCardExample" >
-    delete from t_finance_bank_card temp_finance_bank_card
+    delete temp_finance_bank_card from t_finance_bank_card temp_finance_bank_card
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

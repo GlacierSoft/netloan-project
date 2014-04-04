@@ -175,7 +175,8 @@
 					        <table class="table table-bordered" style="text-align:center;vertical-align: middle;">
 				       			 <tr>
 					              <td id="totalCreditIntegral" colspan="4">
-					              <strong>信用总分：${requestScope.totalIntegralCredit}分</strong>
+					              <%-- <strong>信用总分：${requestScope.totalIntegralCredit}分</strong> --%>
+					              <strong>信用总分：${currentMember.creditIntegral}分</strong>
 					              <img id="creditPhotoDivImg"  src="${requestScope.totalCreditPhoto}" style="width: 34px;height: 24px ;" />
 					              </td>
 					            </tr>

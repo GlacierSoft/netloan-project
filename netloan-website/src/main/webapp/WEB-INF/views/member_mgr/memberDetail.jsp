@@ -324,7 +324,7 @@
 						  </div>
 						    <div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10">
-						      <button type="submit" class="btn btn-primary btn-lg">保  存</button>
+						      <button id="onlyPost" type="submit" class="btn btn-primary btn-lg">保  存</button>
 						      <button id="postAuthBut" type="submit" class="btn btn-primary btn-lg">保存并提交审核</button>
 						    </div>
 						  	</div>
@@ -334,44 +334,191 @@
 				       <div class="tab-pane fade" id="tabUpdatePassword">
 				         <form id="updatememberPasswordForm" class="form-horizontal" role="form" method="post" >
 						  <div class="form-group">
-						    <label for="memberName" class="col-sm-2 control-label" style="color:red;">会员登录密码修改</label>
-						    <div class="col-sm-6">
+						    <label for="memberName" class="col-sm-3 control-label" style="color:red;">会员登录密码修改</label>
+						    <div class="col-sm-9">
 						    </div>
 						  </div>
 						  <div class="form-group">
-						    <label for="memberName" class="col-sm-2 control-label">原密码:</label>
-						    <div class="col-sm-6">
+						    <label for="memberName" class="col-sm-3 control-label">原密码:</label>
+						    <div class="col-sm-9">
 						      <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
 						      <input type="text" class="form-control" id="oldPassword_form-group" name="oldPassword" placeholder="输入您现在的帐号密码"  />
 						    </div>
 						  </div>
 						  <div class="form-group">
-						    <label for="memberPassword" class="col-sm-2 control-label">新密码:</label>
-						    <div class="col-sm-6">
+						    <label for="memberPassword" class="col-sm-3 control-label">新密码:</label>
+						    <div class="col-sm-9">
 						      <input type="password" class="form-control" id="memberPassword_form-group" name="memberPassword" placeholder="输入您的新密码"  />
 						    </div>
 						  </div>
 						  <div class="form-group">
-						    <label for="comfirPassword" class="col-sm-2 control-label">确认新密码:</label>
-						    <div class="col-sm-6">
+						    <label for="comfirPassword" class="col-sm-3 control-label">确认新密码:</label>
+						    <div class="col-sm-9">
 						      <input type="password" class="form-control" id="comfirPassword_form-group" name="comfirPassword" placeholder="请再次输入您的新密码" />
 						    </div>
 						  </div>
 						  <div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-10">
+						    <div class="col-sm-offset-3 col-sm-9">
 						      <button id="updatememberPasswordForm_form-group" type="submit" class="btn btn-primary">提    交</button>
 						    </div>
 						  </div>
 						</form>
 				       </div>
 				       <div class="tab-pane fade" id="tabchangeMobile">
-				          <p>更换手机</p>
+				          <form id="updatePhoneForm" class="form-horizontal" role="form" method="post" >
+						  <div class="form-group">
+						    <label for="memberName" class="col-sm-3 control-label" style="color:red;">手机绑定</label>
+						    <div class="col-sm-9">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="memberName" class="col-sm-3 control-label"></label>
+						    <%-- <label for="memberName" class="col-sm-2 ">手机号码：${currentMember.mobileNumber}</label> --%>
+						    <div class="col-sm-9">
+						  	  手机号码：${currentMember.mobileNumber}
+						    </div> 
+						  </div>
+						  <div class="form-group">
+						    <label for="memberName" class="col-sm-3 control-label" style="color:red;">手机变更</label>
+						    <div class="col-sm-9">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="mobileNumber" class="col-sm-3 control-label">手机号码:</label>
+						    <div class="col-sm-6">
+						      <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
+						      <input type="text" class="form-control" id="mobileNumber_form-group" name="mobileNumber" placeholder="输入您要更改的手机号码"  />
+						    </div>
+						    <div class="col-sm-3">
+						       <button id="updatePhoneForm_form-group" type="submit" class="btn btn-primary">发送手机验证码</button>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="memberPassword" class="col-sm-3 control-label">验证码:</label>
+						    <div class="col-sm-6">
+						      <input type="password" class="form-control" id="memberPassword_form-group" name="memberPassword" placeholder="输入手机验证码"  />
+						    </div>
+						     <div class="col-sm-3">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="comfirPassword" class="col-sm-3 control-label">变更原因:</label>
+						    <div class="col-sm-9">
+						      <textarea class="form-control" rows="3" name="changeReason" id="changeReason" ></textarea>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-offset-3 col-sm-9">
+						      <button id="updatePhoneForm_form-group" type="submit" class="btn btn-primary">手机变更</button>
+						    </div>
+						  </div>
+						</form>
 				       </div>
 				       <div class="tab-pane fade" id="tabnotification">
 				         <p>通知设置</p>
 				       </div>
 				       <div class="tab-pane fade" id="tabbankCard">
-				         <p>银行卡设置</p>
+				         <form id="bankCardForm" class="form-horizontal" role="form" method="post" >
+						  <div class="form-group">
+						    <label for="memberName" class="col-sm-2 control-label" style="color:red;">提现银行</label>
+						    <div class="col-sm-10">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="mobileNumber" class="col-sm-3 control-label">真实姓名:</label>
+						    <div class="col-sm-9">
+						      <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="openingBank" class="col-sm-3 control-label">开户行:</label>
+						    <div class="col-sm-6">
+						      <input type="text" class="form-control" id="openingBank_form-group" name="openingBank" placeholder="输入您的开户银行名称"  />
+						    </div>
+						     <div class="col-sm-3">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="subbranch" class="col-sm-3 control-label">支行:</label>
+						    <div class="col-sm-6">
+						      <input type="text" class="form-control" id="subbranch_form-group" name="subbranch" placeholder="输入您的开户支行"  />
+						    </div>
+						     <div class="col-sm-3">
+						    </div>
+						  </div>
+						   <div class="form-group">
+						    <label for="cardNumber" class="col-sm-3 control-label">卡号:</label>
+						    <div class="col-sm-6">
+						      <input type="text" class="form-control" id="cardNumber_form-group" name="cardNumber" placeholder="输入您的卡号"  />
+						    </div>
+						     <div class="col-sm-3">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="cardName" class="col-sm-3 control-label">银行卡名称:</label>
+						    <div class="col-sm-6">
+						      <input type="text" class="form-control" id="cardName_form-group" name="cardName" placeholder="输入您的银行卡名称"  />
+						    </div>
+						     <div class="col-sm-3">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-offset-3 col-sm-9">
+						      <button id="bankCardForm_form-group" type="submit" class="btn btn-primary">提  交</button>
+						    </div>
+						  </div>
+						</form>
+						<blockquote style="margin-top:50px;">
+						       	<h5 class="text-danger"><strong>银行卡列表：</strong></h5>
+						</blockquote>
+				         <table id="bankCardTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
+				         	<tbody>
+				            <tr>
+				              <td><strong>真实姓名</strong></td>
+				              <td><strong>开户行</strong></td>
+				              <td><strong>支行</strong></td>
+				              <td><strong>卡号</strong></td>
+				              <td><strong>状态</strong></td>
+				              <td><strong>操作</strong></td>
+				            </tr>
+							 <tr>
+				              <td>雨泽*</td>
+				              <td>工商银行</td>
+				              <td>香洲支行g></td>
+				              <td>123456789123456789</td>
+				              <td>已绑定</td>
+				              <td><a href="#"><strong>申请变更</strong></a></td>
+				            </tr>	  		
+				            <%-- <c:forEach items="${memberApplyAmountDatas.rows}" var="memberApplyAmount" varStatus="status">
+						      	<tr>
+						      	  <td>${status.index+1}</td>
+					              <td id="applyType${status.index}" class="applyType">
+					              <script type="text/javascript">
+					             $('#applyType'+${status.index}).html(renderGridValue('${memberApplyAmount.applyType}',fields.applyType));
+					              </script>
+					              </td>
+					              <td>${memberApplyAmount.applyMoney}</td>
+					              <td>${memberApplyAmount.authorizedAmount}</td>
+					              <td id="auditState${status.index}" class="auditState">
+					              ${memberApplyAmount.auditState}
+					              <script type="text/javascript">
+					             $('#auditState'+${status.index}).html(renderGridValue('${memberApplyAmount.auditState}',fields.auditState));
+					              </script>
+					              </td>
+					              <td><fmt:formatDate value="${memberApplyAmount.applyDate}" type="both"/></td>
+					            </tr>
+					      	</c:forEach> --%>
+				            </tbody>
+				            <tfoot>
+					          <tr>
+					            <th colspan="6">
+					            	<div align="right">
+									    <ul id='pageBankCard'></ul>
+									</div>
+								</th>
+					          </tr>
+					        </tfoot>
+				        </table>
 				       </div>
 				     </div>
 				   </div><!-- /example -->
@@ -388,8 +535,9 @@
 	    	$("#postAuth").val("postAuth");
 	        }); 
 		 if('${requestScope.infoAndWorAuthstr}' == 'infoAndWorRealOnly'){
-			$("form[id='personalMessageForm'] input,textarea").prop("readonly", true);
-			$("form[id='personalMessageForm'] select,button").prop("disabled", true);
+			$("form[id='personalMessageForm'] input,textarea[id='personalDes']").prop("readonly", true);
+			$("form[id='personalMessageForm'] select,button[id='onlyPost'],button[id='postAuthBut']").prop("disabled", true);
+			//$("button[id='postAuthBut']").prop("disabled", true);
 		} 
       	$(function() {
 			$(".alert").alert();
@@ -468,10 +616,48 @@
 	    						},3000) */
 	    						successdialog(r);
 	    						 if(r.obj == 'infoAndWorRealOnly'){
-	    								$("form[id='personalMessageForm'] input,textarea").prop("readonly", true);
-	    								$("form[id='personalMessageForm'] select,button").prop("disabled", true);
+	    								$("form[id='personalMessageForm'] input,textarea[id='personalDes']").prop("readonly", true);
+	    								$("form[id='personalMessageForm'] select,button[id='onlyPost'],button[id='postAuthBut']").prop("disabled", true);
 	    							}
 	    						 
+		                    },
+		                    error: function() {
+		                        alert("提交出错！");
+		                    }
+	    				});
+	    		} 
+	    	});
+	      	$("#bankCardForm").validate({
+	    		rules:{
+	    			openingBank:"required",
+	    			subbranch:"required",
+	    			cardNumber:{
+	    				required:true,
+	    				digits:true,
+	    				isBankCardNum:true
+	    			},
+	    			cardName:"required"
+	    		},
+	    		messages:{
+	    			openingBank:"开户行不能为空",
+	    			subbranch:"支行不能为空",
+	    			cardNumber:{
+	    				required:"卡号不能为空",
+	    				digits:"卡号必须为数字",
+	    			},
+	    			cardName:"银行卡名称不能为空"
+	    		},
+	    		submitHandler:function(){
+	    			$.ajax({
+	    				   type: "POST",
+	    				   url: ctx+"/bankCard/addBankCard.htm",
+	    				   dataType: "json",
+	    				   data: $("#bankCardForm").serialize(),
+		    			   success: function(r) {
+	    						successdialog(r);
+	    						if(r.success){
+	    							$("form[id='bankCardForm'] input").val("");	
+	    						}
 		                    },
 		                    error: function() {
 		                        alert("提交出错！");
