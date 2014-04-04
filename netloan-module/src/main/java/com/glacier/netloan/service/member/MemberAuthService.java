@@ -296,7 +296,7 @@ public class MemberAuthService {
       			memberAuthWithBLOBs.setWorkAuditor(pricipalUser.getUserId());
             	memberAuthWithBLOBs.setWorkTime(new Date());
       		}
-      	if(memberCreditIntegrals.size() == 0){
+      	if(memberCreditIntegrals.size() == 0 && memberCreditIntegral.getChangeValue() != null && memberCreditIntegral.getIntegralType() != null){
 			//新增会员信用积分。
 	        String creditIntegralId = RandomGUID.getRandomGUID();
 	        memberCreditIntegral.setMemberId(memberAuthWithBLOBs.getMemberId());

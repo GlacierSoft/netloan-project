@@ -34,6 +34,8 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -60,6 +62,7 @@ import com.glacier.netloan.entity.member.MemberAuth;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
 import com.glacier.netloan.entity.member.MemberCreditIntegral;
 import com.glacier.netloan.entity.member.MemberWork;
+import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
 import com.glacier.netloan.service.member.MemberApplyAmountService;
 import com.glacier.netloan.service.member.MemberAuthService;
@@ -94,11 +97,13 @@ public class MemberController extends AbstractController{
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmember(HttpServletRequest request,HttpSession session) {
         ModelAndView mav = new ModelAndView("member_mgr/member");
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        Member pricipalMember = (Member) pricipalSubject.getPrincipal();
         
         List<ParameterCredit>  parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
-    	Member member = (Member)session.getAttribute("currentMember");
-    	List<MemberCreditIntegral>  memberCreditIntegrals = (List<MemberCreditIntegral>) memberCreditIntegralService.listByMemberId(member.getMemberId());
-        Map<String,Object> map = totalIntegralAndPhoto(parameterCredits, memberCreditIntegrals);
+    	//Member member = (Member)session.getAttribute("currentMember");
+    	List<MemberCreditIntegral>  memberCreditIntegrals = (List<MemberCreditIntegral>) memberCreditIntegralService.listByMemberId(pricipalMember.getMemberId());
+    	Map<String,Object> map = totalIntegralAndPhoto(parameterCredits, memberCreditIntegrals);
         
         int totalIntegral = memberIntegralService.totalIntegral();
         
@@ -117,8 +122,18 @@ public class MemberController extends AbstractController{
     
     // 进入会员个人详细信息展示页面
     @RequestMapping(value = "/memberDetail.htm")
-    private Object intoMemberDetail() {
+    private Object intoMemberDetail(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("member_mgr/memberDetail");
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        Member pricipalMember = (Member) pricipalSubject.getPrincipal();
+        MemberAuthWithBLOBs memberAuthWithBLOBs = (MemberAuthWithBLOBs)memberAuthService.getMemberAuth(pricipalMember.getMemberId());
+        
+        if((memberAuthWithBLOBs.getInfoAuth().equals("noapply") && memberAuthWithBLOBs.getWorkAuth().equals("noapply"))||
+        		(memberAuthWithBLOBs.getInfoAuth().equals("failure") && memberAuthWithBLOBs.getWorkAuth().equals("failure"))){
+        	request.setAttribute("infoAndWorAuthstr", "infoAndWorEdit");        	
+        }else{
+        	request.setAttribute("infoAndWorAuthstr", "infoAndWorRealOnly");
+        }
         return mav;
     }
     

@@ -27,6 +27,7 @@ import com.glacier.netloan.dto.query.member.MemberQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditType;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditTypeExample;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.entity.member.MemberAuth;
 import com.glacier.netloan.entity.member.MemberAuthExample;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
 import com.glacier.netloan.entity.member.MemberCreditIntegral;
@@ -300,6 +301,11 @@ public class MemberService {
         memberWork.setMemberId(memberId);
         countWork = memberWorkMapper.insert(memberWork);
         
+        //获取管理员id
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUsernameEqualTo("admin");
+        List<User> users = userMapper.selectByExample(userExample);
+        
         //生成会员认证表信息
         MemberAuthWithBLOBs memberAuthWithBLOBs = new MemberAuthWithBLOBs();
         memberAuthWithBLOBs.setMemberId(memberId);
@@ -309,6 +315,8 @@ public class MemberService {
         memberAuthWithBLOBs.setVipAuth("noapply");
         memberAuthWithBLOBs.setEmailName("邮箱认证");
         memberAuthWithBLOBs.setEmailAuth("pass");
+        memberAuthWithBLOBs.setEmailAuditor(users.get(0).getUserId());
+        memberAuthWithBLOBs.setEmailRemark("邮箱验证通过");
         memberAuthWithBLOBs.setEmailTime(new Date());
         memberAuthWithBLOBs.setMobileName("手机认证");
         memberAuthWithBLOBs.setMobileAuth("noapply");
@@ -340,10 +348,6 @@ public class MemberService {
 		memberCreditIntegral.setChangeType(parameterCreditType.getChangeType());
 		memberCreditIntegral.setChangeValue(parameterCreditType.getChangeValue());
        
-        UserExample userExample = new UserExample();
-        userExample.createCriteria().andUsernameEqualTo("admin");
-        List<User> users = userMapper.selectByExample(userExample);
-        
         memberCreditIntegral.setCreater(users.get(0).getUserId());
         memberCreditIntegral.setCreateTime(new Date());
         memberCreditIntegral.setUpdater(users.get(0).getUserId());
@@ -370,7 +374,7 @@ public class MemberService {
      *
      */
     @Transactional(readOnly = false)
-    public Object editMemberReception(Member member,MemberWork memberWork){
+    public Object editMemberReception(Member member,MemberWork memberWork,String postAuth){
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         //MemberExample memberExample = new MemberExample();
         int count = 0;
@@ -385,10 +389,17 @@ public class MemberService {
         
         //工作表的修改
         countWork = memberWorkMapper.updateByPrimaryKeySelective(memberWork);
-
+        //将基本信息和工作信息提交审核
+        if(postAuth.equalsIgnoreCase("postAuth")){
+        	MemberAuthWithBLOBs memberAuthWithBLOBs = memberAuthMapper.selectByPrimaryKey(member.getMemberId());
+        	memberAuthWithBLOBs.setInfoAuth("authstr");
+        	memberAuthWithBLOBs.setWorkAuth("authstr");
+        	memberAuthMapper.updateByPrimaryKeySelective(memberAuthWithBLOBs);
+        }
         if (count == 1 && countWork == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("会员信息保存成功");
+            
             //returnResult.setMsg("[" + member.getMemberName() + "] 会员信息已修改");
         } else {
             returnResult.setMsg("发生未知错误，会员信息修改失败");

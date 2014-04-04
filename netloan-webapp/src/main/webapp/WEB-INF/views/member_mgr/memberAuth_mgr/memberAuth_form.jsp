@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- 引入jstl解析标签 -->
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -14,47 +15,128 @@
 	    <tbody>
 			<tr>
 				<td><input id="member_mgr_memberAuth_form_infoName" name="infoName" class="spinner" style="width:168px" value="${memberAuthData.infoName}" readonly="readonly"/></td>
-				<td><input id="member_mgr_memberAuth_form_infoAuth" name="infoAuth" class="spinner" style="width:168px" value="${memberAuthData.infoAuth}" readonly="readonly"/></td>
+				<td>
+				<c:choose>
+				    <c:when test="${memberAuthData.infoAuth == 'authstr'}"> 
+						<input id="member_mgr_memberAuth_form_infoAuth" name="infoAuth" class="spinner" style="width:168px;color: red;font-weight: bold;" value="${memberAuthData.infoAuth}" readonly="readonly"/>
+		            </c:when>
+		   			<c:otherwise> 
+			   			<input id="member_mgr_memberAuth_form_infoAuth" name="infoAuth" class="spinner" style="width:168px" value="${memberAuthData.infoAuth}" readonly="readonly"/>
+		   		    </c:otherwise>
+				</c:choose>
+				</td>
 				<td><a id="infoAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
 			</tr>
 			<tr>
 				<td><input id="member_mgr_memberAuth_form_vipName" name="vipName" class="spinner" style="width:168px" value="${memberAuthData.vipName}" readonly="readonly"/></td>
-				<td><input id="member_mgr_memberAuth_form_vipAuth" name="vipAuth" class="spinner" style="width:168px" value="${memberAuthData.vipAuth}" readonly="readonly"/></td>
+				<td>
+				<c:choose>
+				    <c:when test="${memberAuthData.vipAuth == 'authstr'}"> 
+						<input id="member_mgr_memberAuth_form_vipAuth" name="vipAuth" class="spinner" style="width:168px;color: red;font-weight: bold;" value="${memberAuthData.vipAuth}" readonly="readonly"/>
+		            </c:when>
+		   			<c:otherwise> 
+		   				<input id="member_mgr_memberAuth_form_vipAuth" name="vipAuth" class="spinner" style="width:168px" value="${memberAuthData.vipAuth}" readonly="readonly"/>
+		   		    </c:otherwise>
+				</c:choose>
+				</td>
 				<td><a id="vipAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
 			</tr>
-			<tr>
+			<%--<tr>
 				<td><input id="member_mgr_memberAuth_form_emailName" name="emailName" class="spinner" style="width:168px" value="${memberAuthData.emailName}" readonly="readonly"/></td>
-				<td><input id="member_mgr_memberAuth_form_emailAuth" name="emailAuth" class="spinner" style="width:168px" value="${memberAuthData.emailAuth}" readonly="readonly"/></td>
+				<td>
+				<c:choose>
+				    <c:when test="${memberAuthData.emailAuth == 'authstr'}"> 
+						<input id="member_mgr_memberAuth_form_emailAuth" name="emailAuth" class="spinner" style="width:168px;color: red;font-weight: bold;" value="${memberAuthData.emailAuth}" readonly="readonly"/>
+		            </c:when>
+		   			<c:otherwise> 
+		   				<input id="member_mgr_memberAuth_form_emailAuth" name="emailAuth" class="spinner" style="width:168px" value="${memberAuthData.emailAuth}" readonly="readonly"/>
+		   		    </c:otherwise>
+				</c:choose>
+				</td>
 				<td><a id="emailAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
 			</tr>
-			<tr>
+			 <tr>
 				<td><input id="member_mgr_memberAuth_form_mobileName" name="mobileName" class="spinner" style="width:168px" value="${memberAuthData.mobileName}" readonly="readonly"/></td>
-				<td><input id="member_mgr_memberAuth_form_mobileAuth" name="mobileAuth" class="spinner" style="width:168px" value="${memberAuthData.mobileAuth}" readonly="readonly"/></td>
+				<td>
+				<c:choose>
+				    <c:when test="${memberAuthData.mobileAuth == 'authstr'}"> 
+						<input id="member_mgr_memberAuth_form_mobileAuth" name="mobileAuth" class="spinner" style="width:168px;color: red;font-weight: bold;" value="${memberAuthData.mobileAuth}" readonly="readonly"/>
+		            </c:when>
+		   			<c:otherwise> 
+		   				<input id="member_mgr_memberAuth_form_mobileAuth" name="mobileAuth" class="spinner" style="width:168px" value="${memberAuthData.mobileAuth}" readonly="readonly"/>
+		   		    </c:otherwise>
+				</c:choose>
+				</td>
 				<td><a id="mobileAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
-			</tr>
+			</tr> --%>
 			<tr>
 				<td><input id="member_mgr_memberAuth_form_creditName" name="creditName" class="spinner" style="width:168px" value="${memberAuthData.creditName}" readonly="readonly"/></td>
-				<td><input id="member_mgr_memberAuth_form_creditAuth" name="creditAuth" class="spinner" style="width:168px" value="${memberAuthData.creditAuth}" readonly="readonly"/></td>
+				<td>
+				<c:choose>
+				    <c:when test="${memberAuthData.creditAuth == 'authstr'}"> 
+						<input id="member_mgr_memberAuth_form_creditAuth" name="creditAuth" class="spinner" style="width:168px;color: red;font-weight: bold;" value="${memberAuthData.creditAuth}" readonly="readonly"/>
+		            </c:when>
+		   			<c:otherwise> 
+		   				<input id="member_mgr_memberAuth_form_creditAuth" name="creditAuth" class="spinner" style="width:168px" value="${memberAuthData.creditAuth}" readonly="readonly"/>
+		   		    </c:otherwise>
+				</c:choose>
+				</td>
 				<td><a id="creditAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
 			</tr>
 			<tr>
 				<td><input id="member_mgr_memberAuth_form_companyName" name="companyName" class="spinner" style="width:168px" value="${memberAuthData.companyName}" readonly="readonly"/></td>
-				<td><input id="member_mgr_memberAuth_form_companyAuth" name="companyAuth" class="spinner" style="width:168px" value="${memberAuthData.companyAuth}" readonly="readonly"/></td>
+				<td>
+				<c:choose>
+				    <c:when test="${memberAuthData.companyAuth == 'authstr'}"> 
+						<input id="member_mgr_memberAuth_form_companyAuth" name="companyAuth" class="spinner" style="width:168px;color: red;font-weight: bold;" value="${memberAuthData.companyAuth}" readonly="readonly"/>
+		            </c:when>
+		   			<c:otherwise> 
+		   				<input id="member_mgr_memberAuth_form_companyAuth" name="companyAuth" class="spinner" style="width:168px" value="${memberAuthData.companyAuth}" readonly="readonly"/>
+		   		    </c:otherwise>
+				</c:choose>
+				</td>
 				<td><a id="companyAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
 			</tr>
 			<tr>
 				<td><input id="member_mgr_memberAuth_form_realName" name="realName" class="spinner" style="width:168px" value="${memberAuthData.realName}" readonly="readonly"/></td>
-				<td><input id="member_mgr_memberAuth_form_realNameAuth" name="realNameAuth" class="spinner" style="width:168px" value="${memberAuthData.realNameAuth}" readonly="readonly"/></td>
+				<td>
+				<c:choose>
+				    <c:when test="${memberAuthData.realNameAuth == 'authstr'}"> 
+						<input id="member_mgr_memberAuth_form_realNameAuth" name="realNameAuth" class="spinner" style="width:168px;color: red;font-weight: bold;" value="${memberAuthData.realNameAuth}" readonly="readonly"/>
+		            </c:when>
+		   			<c:otherwise> 
+		   				<input id="member_mgr_memberAuth_form_realNameAuth" name="realNameAuth" class="spinner" style="width:168px" value="${memberAuthData.realNameAuth}" readonly="readonly"/>
+		   		    </c:otherwise>
+				</c:choose>
+				</td>
 				<td><a id="realNameAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
 			</tr>
 			<tr>
 				<td><input id="member_mgr_memberAuth_form_idCardName" name="idCardName" class="spinner" style="width:168px" value="${memberAuthData.idCardName}" readonly="readonly"/></td>
-				<td><input id="member_mgr_memberAuth_form_idCardAuth" name="idCardAuth" class="spinner" style="width:168px" value="${memberAuthData.idCardAuth}" readonly="readonly"/></td>
+				<td>
+				<c:choose>
+				    <c:when test="${memberAuthData.idCardAuth == 'authstr'}"> 
+						<input id="member_mgr_memberAuth_form_idCardAuth" name="idCardAuth" class="spinner" style="width:168px;color: red;font-weight: bold;" value="${memberAuthData.idCardAuth}" readonly="readonly"/>
+		            </c:when>
+		   			<c:otherwise> 
+						<input id="member_mgr_memberAuth_form_idCardAuth" name="idCardAuth" class="spinner" style="width:168px" value="${memberAuthData.idCardAuth}" readonly="readonly"/>
+		   		    </c:otherwise>
+				</c:choose>
+				</td>
 				<td><a id="idCardAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
 			</tr>
 			<tr>
 				<td><input id="member_mgr_memberAuth_form_workName" name="workName" class="spinner" style="width:168px" value="${memberAuthData.workName}" readonly="readonly"/></td>
-				<td><input id="member_mgr_memberAuth_form_workAuth" name="workAuth" class="spinner" style="width:168px" value="${memberAuthData.workAuth}" readonly="readonly"/></td>
+				<td>
+				<c:choose>
+				    <c:when test="${memberAuthData.workAuth == 'authstr'}"> 
+						<input id="member_mgr_memberAuth_form_workAuth" name="workAuth" class="spinner" style="width:168px;color: red;font-weight: bold;" value="${memberAuthData.workAuth}" readonly="readonly"/>
+		            </c:when>
+		   			<c:otherwise> 
+						<input id="member_mgr_memberAuth_form_workAuth" name="workAuth" class="spinner" style="width:168px" value="${memberAuthData.workAuth}" readonly="readonly"/>
+		   		    </c:otherwise>
+				</c:choose>
+				</td>
 				<td><a id="workAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
 			</tr>
 		</tbody>

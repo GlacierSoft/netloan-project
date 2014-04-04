@@ -19,7 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.entity.member.MemberAuth;
+import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
 import com.glacier.netloan.entity.member.MemberWork;
+import com.glacier.netloan.service.member.MemberAuthService;
 import com.glacier.netloan.service.member.MemberService;
 
 @Controller
@@ -27,6 +30,9 @@ public class RegisterController extends AbstractController{
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private MemberAuthService memberAuthService;
 	
 	/**
 	 * @Title: intoregister 
@@ -196,14 +202,16 @@ public class RegisterController extends AbstractController{
 	 */
 	@RequestMapping(value = "/perfectRegister.htm", method = RequestMethod.POST)
 	@ResponseBody
-	public Object perfectRegister(@Valid Member member,BindingResult bindingResult,@Valid MemberWork memberWork,BindingResult bindingResultWork,HttpServletRequest request,HttpSession session){
+	public Object perfectRegister(@Valid Member member,BindingResult bindingResult,@Valid MemberWork memberWork,BindingResult bindingResultWork,
+			HttpServletRequest request,HttpSession session,String postAuth){
 		if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
         if (bindingResultWork.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResultWork);
         }
-		JqReturnJson perfectRegister = (JqReturnJson) memberService.editMemberReception(member, memberWork);
+        ModelAndView mav = new ModelAndView();
+		JqReturnJson perfectRegister = (JqReturnJson) memberService.editMemberReception(member, memberWork,postAuth);
 		Member loginMember = (Member) memberService.getMember(member.getMemberId());
 		MemberWork loginMemberWork = (MemberWork) memberService.getMemberWork(member.getMemberId());
 		session.removeAttribute("currentMember");
@@ -211,6 +219,14 @@ public class RegisterController extends AbstractController{
 		session.setAttribute("currentMember",loginMember);
         session.setAttribute("currentMemberWork",loginMemberWork);
         request.setAttribute("perfectRegister", perfectRegister);
+        //判断是否是按保存并提交审核按钮，
+        MemberAuthWithBLOBs memberAuthWithBLOBs = (MemberAuthWithBLOBs)memberAuthService.getMemberAuth(member.getMemberId());
+        if((memberAuthWithBLOBs.getInfoAuth().equals("noapply") && memberAuthWithBLOBs.getWorkAuth().equals("noapply"))||
+        		(memberAuthWithBLOBs.getInfoAuth().equals("failure") && memberAuthWithBLOBs.getWorkAuth().equals("failure"))){
+        	
+        }else{
+        	perfectRegister.setObj("infoAndWorRealOnly");
+        }
 		return perfectRegister;
 	}
 	@RequestMapping(value = "/perfectMemberPhoto.htm", method = RequestMethod.POST)

@@ -122,6 +122,8 @@
 								  
 							  		  <div class="form-group">
 							  		  	<input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
+									    <!-- 判断是按保存按钮还是保存并提交审核按钮 -->
+									    <input type="hidden" class="form-control" id="postAuth" name="postAuth" value="">
 									    <label for="memberRealName" class="col-sm-2 control-label">*真实姓名:</label>
 									    <div class="col-sm-4">
 									      <input type="text" class="form-control" id="memberRealName" name="memberRealName" value="${currentMember.memberRealName}"  placeholder="真实姓名" >
@@ -136,13 +138,13 @@
 									  <div class="form-group">
 									    <label for="mobileNumber" class="col-sm-2 control-label">*手机号码:</label>
 									    <div class="col-sm-4">
-									      <input type="tel" class="form-control" name="mobileNumber" id="mobileNumber" value="${currentMember.mobileNumber}"  placeholder="手机号码" >
+									      <input type="tel"  class="form-control" name="mobileNumber" id="mobileNumber" value="${currentMember.mobileNumber}"  placeholder="手机号码" >
 									    </div>
 									  </div>
 									  <div class="form-group">
 									    <label for="sex" class="col-sm-2 control-label">性别:</label>
 									  	<div class="col-sm-4">
-									       <select class="form-control col-sm-6" name="sex" id="sex">
+									       <select class="form-control col-sm-6" name="sex" id="sex" >
 											  <option value="man">男</option>
 											  <option value="woman">女</option>
 											  <option value="secret">保密</option>
@@ -314,10 +316,16 @@
 						       </div>
 						     </div>
 						   </div><!-- /example -->
+						   <div class="form-group">
+						    <div class="col-sm-2"></div>
+						    <div class="col-sm-10">
+						      <p class="text-warning">温馨提示:按保存并提交审核按钮之后，将不能再修改用户信息。</p>
+						    </div>
+						  </div>
 						    <div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10">
 						      <button type="submit" class="btn btn-primary btn-lg">保  存</button>
-						      <button type="submit" class="btn btn-primary btn-lg">保存并提交审核</button>
+						      <button id="postAuthBut" type="submit" class="btn btn-primary btn-lg">保存并提交审核</button>
 						    </div>
 						  	</div>
 						   </form>  
@@ -375,8 +383,14 @@
 	    </div>
 	    <!-- CONTAINER START======================== -->
 	    <script type="text/javascript">
-	  
-
+	  	//通过设置这个隐藏文本的值来判断是保存按钮还是保存并提交审核按钮。进行相应的操作。
+	    $('#postAuthBut').bind('click', function(){    
+	    	$("#postAuth").val("postAuth");
+	        }); 
+		 if('${requestScope.infoAndWorAuthstr}' == 'infoAndWorRealOnly'){
+			$("form[id='personalMessageForm'] input,textarea").prop("readonly", true);
+			$("form[id='personalMessageForm'] select,button").prop("disabled", true);
+		} 
       	$(function() {
 			$(".alert").alert();
 			
@@ -452,9 +466,12 @@
 	    						setTimeout(function(){//延迟3秒隐藏
 	    							$('#success_alert').fadeOut();
 	    						},3000) */
-	    						if(r.success){
-	    							successdialog(r);	
-	    						}
+	    						successdialog(r);
+	    						 if(r.obj == 'infoAndWorRealOnly'){
+	    								$("form[id='personalMessageForm'] input,textarea").prop("readonly", true);
+	    								$("form[id='personalMessageForm'] select,button").prop("disabled", true);
+	    							}
+	    						 
 		                    },
 		                    error: function() {
 		                        alert("提交出错！");

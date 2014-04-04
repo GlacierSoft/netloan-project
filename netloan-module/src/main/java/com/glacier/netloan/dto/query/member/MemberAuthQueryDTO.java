@@ -45,43 +45,36 @@ public class MemberAuthQueryDTO extends MemberAuth{
 	     }
 	   	 if(null != auths && null != authType){
 	   		 if(authType.equals("infoAuth")){
-	   			 
 	   			queryCriteria.andInfoAuthEqualTo(auths.toString());
-	   			
 	   		 }else if(authType.equals("vipAuth")){
-	   			 
 	   			queryCriteria.andVipAuthEqualTo(auths.toString());
-	   			
 	   		 }else if(authType.equals("emailAuth")){
-	   			 
 	    		queryCriteria.andEmailAuthEqualTo(auths.toString());
-	    			
 	    	 }else if(authType.equals("mobileAuth")){
-	    		 
 	    		queryCriteria.andMobileAuthEqualTo(auths.toString());
-	    			
 	    	 }else if(authType.equals("creditAuth")){
-	    		 
 	    		queryCriteria.andCreditAuthEqualTo(auths.toString());
-	    			
 			 }else if(authType.equals("companyAuth")){
-				 
 		   		queryCriteria.andCompanyAuthEqualTo(auths.toString());
-		   			
 	   		 }else if(authType.equals("realNameAuth")){
-	   			 
 	    		queryCriteria.andRealNameAuthEqualTo(auths.toString());
-	    			
 	   		 }else if(authType.equals("idCardAuth")){
-	   			 
 	    		queryCriteria.andIdCardAuthEqualTo(auths.toString());
-	    			
-	   		 }else{
-	   			 
+	   		 }else if(authType.equals("workAuth")){
 	   			 queryCriteria.andWorkAuthEqualTo(auths.toString());
-	   			 	
 	   		 }
 	   	 }
+	   	 /*if(null != auths && null == authType){
+	   		queryCriteria.andInfoAuthEqualTo(auths.toString());
+   			queryCriteria.andVipAuthEqualTo(auths.toString());
+    		queryCriteria.andEmailAuthEqualTo(auths.toString());
+    		queryCriteria.andMobileAuthEqualTo(auths.toString());
+    		queryCriteria.andCreditAuthEqualTo(auths.toString());
+	   		queryCriteria.andCompanyAuthEqualTo(auths.toString());
+    		queryCriteria.andRealNameAuthEqualTo(auths.toString());
+    		queryCriteria.andIdCardAuthEqualTo(auths.toString());
+   			queryCriteria.andWorkAuthEqualTo(auths.toString());
+	   	 }*/
    }
    
    @Override

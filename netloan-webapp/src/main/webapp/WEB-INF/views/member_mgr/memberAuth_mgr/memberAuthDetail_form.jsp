@@ -176,9 +176,13 @@
 		</tr>
 	</table>
 	<table id="table_member_mgr_memberAuth_form_work" class="formtable">
-		<tr>
+		<%-- <tr>
 			<td>工作附件：</td>
 			<td><textarea id="member_mgr_memberAuth_form_workAccessory"  name="workAccessory" class="spinner" style="display:none;width:600px;height:280px;" readonly="readonly">${memberAuthData.workAccessory}</textarea></td>
+		</tr> --%>
+		<tr id="table_member_mgr_memberAuth_form_info">
+			<td>查看会员工作信息：</td>
+			<td><a id="workAuthbtn1" href="#" class="easyui-linkbutton" data-options="">查看</a></td>
 		</tr>
 		<tr>
 			<td>审核意见：</td>
@@ -285,6 +289,18 @@
 	    $('#infoAuthbtn1').bind('click', function(){    
 	    	 $.easyui.showDialog({
 					title: '${memberAuthData.memberName}'+"基本信息",
+					href : ctx + '/do/member/intoDetail.htm?memberId='+'${memberAuthData.memberId}',//从controller请求jsp页面进行渲染
+					width : 645,
+					height : 450,
+					resizable: false,
+					enableApplyButton : false,
+					enableSaveButton : false
+				});
+	    }); 
+	  //基本信息认证的
+	    $('#workAuthbtn1').bind('click', function(){    
+	    	 $.easyui.showDialog({
+					title: '${memberAuthData.memberName}'+"工作信息",
 					href : ctx + '/do/member/intoDetail.htm?memberId='+'${memberAuthData.memberId}',//从controller请求jsp页面进行渲染
 					width : 645,
 					height : 450,

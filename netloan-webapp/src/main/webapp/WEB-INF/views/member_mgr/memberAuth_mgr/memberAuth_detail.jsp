@@ -87,10 +87,10 @@
 						<td>审核说明：</td>
 						<td colspan="3"><textarea class="spinner" style="width:600px" readonly="readonly">${memberAuthData.emailRemark}</textarea></td>
 					</tr>
-					<tr>
+					<%-- <tr>
 						<td>附件：</td>
 						<td colspan="3"><textarea id="member_mgr_memberAuth_form_emailAccessory" name="emailAccessory" class="spinner" style="width:600px;height:280px;" readonly="readonly">${memberAuthData.emailAccessory}</textarea></td>
-					</tr>
+					</tr> --%>
 				</table>
 		</fieldset>
     </div>
@@ -116,10 +116,10 @@
 						<td>审核说明：</td>
 						<td colspan="3"><textarea class="spinner" style="width:600px" readonly="readonly">${memberAuthData.mobileRemark}</textarea></td>
 					</tr>
-					<tr>
+					<%-- <tr>
 						<td>附件：</td>
 						<td colspan="3"><textarea id="member_mgr_memberAuth_form_mobileAccessory" name="mobileAccessory" class="spinner" style="width:600px;height:280px;" readonly="readonly">${memberAuthData.mobileAccessory}</textarea></td>
-					</tr>
+					</tr> --%>
 				</table>
 		</fieldset>
     </div>
