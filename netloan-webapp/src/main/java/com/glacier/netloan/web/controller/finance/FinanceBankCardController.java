@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.entity.finance.FinanceBankCard;
+import com.glacier.netloan.entity.member.MemberApplyAmount;
 import com.glacier.netloan.service.finance.FinanceBankCardService;
 
 /**
@@ -40,6 +41,24 @@ public class FinanceBankCardController extends AbstractController {
         return mav;
     }
     
+    // 进入会员申请额度Audit表单页面
+    @RequestMapping(value = "/intoAudit.htm")
+    private Object intoBankCardAuditPage(String bankCardId) {
+        ModelAndView mav = new ModelAndView("finance_mgr/bankCard_mgr/bankCard_audit");
+        if(StringUtils.isNotBlank(bankCardId)){
+            mav.addObject("bankCardData", bankCardService.getFinanceBankCard(bankCardId));
+        }
+        return mav;
+    }
+ // 审核会员申请额度信息
+    @RequestMapping(value = "/audit.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object auditBankCard(@Valid FinanceBankCard bankCard, BindingResult bindingResult) {
+    	if (bindingResult.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResult);
+        }
+        return bankCardService.auditApplyAmount(bankCard);
+    }
     // 进入会员银行卡Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoFinanceBankCardFormPbankCard(String bankCardId) {

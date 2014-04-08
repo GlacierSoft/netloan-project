@@ -482,14 +482,6 @@
 				              <td><strong>状态</strong></td>
 				              <td><strong>操作</strong></td>
 				            </tr>
-							 <tr>
-				              <td>雨泽*</td>
-				              <td>工商银行</td>
-				              <td>香洲支行g></td>
-				              <td>123456789123456789</td>
-				              <td>已绑定</td>
-				              <td><a href="#"><strong>申请变更</strong></a></td>
-				            </tr>	  		
 				            <c:forEach items="${memberBankCardDatas}" var="bankCard" varStatus="indexStatus">
 						      	<tr>
 						      	  <td>${currentMember.memberRealName}</td>
@@ -502,7 +494,33 @@
 					             $('#auditState'+${indexStatus.index}).html(renderGridValue('${bankCard.status}',fields.auditState));
 					              </script>
 					              </td>
-					              <td></td>
+					              <td>
+					              <c:choose>
+									   <c:when test="${bankCard.status == 'pass'}">  
+						         		 <a href="#"><strong>申请变更</strong></a>
+									   </c:when>
+									   <c:when test="${bankCard.status == 'authstr' || bankCard.status == 'failure'}"> 
+							         	<a id="bandCardCancel${indexStatus.index}" class="${bankCard.bankCardId}" href="#"><strong>取消</strong></a>
+							         	<script type="text/javascript">
+										    $("#bandCardCancel"+${indexStatus.index}).bind('click', function(){   
+										    	var valCalss=$("#bandCardCancel"+${indexStatus.index}).attr("class");//这里获取class值
+										    	$.ajax({
+													   type: "GET",
+													   url: ctx+"/bankCard/del.htm?bankCardId="+valCalss,
+													   dataType: "json",
+									 			   	 success: function(r) {
+									 			   		deletedialog(r);
+									                 },
+									                 error: function() {
+									                     alert("提交出错！");
+									                 }
+													});
+										    });
+										</script>
+							         	<%-- <a href="${ctx}/member/memberPhotoInto.htm" class="btn btn-default" role="button"><strong>取消</strong></a> --%>
+									   </c:when>
+									</c:choose>
+					              </td>
 					            </tr>
 					      	</c:forEach> 
 				            </tbody>
@@ -786,6 +804,34 @@
 			var dialog = K.dialog({
 					        width : 300,
 					        title : '保存成功',
+					        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
+					        closeBtn : {
+					                name : '关闭',
+					                click : function(e) {
+					                        dialog.remove();
+					                }
+					        },
+					        yesBtn : {
+					                name : '确定',
+					                click : function(e) {
+					                		dialog.remove();
+					                }
+					        }/* ,
+					        noBtn : {
+					                name : '取消',
+					                click : function(e) {
+					                        dialog.remove();
+					                }
+					        } */
+					        
+						});
+			});
+		}
+      	function deletedialog(data){
+			KindEditor.ready(function(K) {
+			var dialog = K.dialog({
+					        width : 300,
+					        title : '删除成功',
 					        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
 					        closeBtn : {
 					                name : '关闭',

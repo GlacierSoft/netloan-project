@@ -121,7 +121,7 @@ public class FinanceBankCardService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "bankCardId_add")
+    @MethodLog(opera = "bankCardList_add")
     public Object addFinanceBankCard(FinanceBankCard financeBankCard) {
     	
         Subject pricipalSubject = SecurityUtils.getSubject();
@@ -162,7 +162,7 @@ public class FinanceBankCardService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "bankCardId_edit")
+    @MethodLog(opera = "bankCardList_edit")
     public Object editFinanceBankCard(FinanceBankCard financeBankCard) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         FinanceBankCardExample financeBankCardExample = new FinanceBankCardExample();
@@ -198,7 +198,7 @@ public class FinanceBankCardService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "bankCardId_del")
+    @MethodLog(opera = "bankCardList_del")
     public Object delFinanceBankCard(List<String> bankCardIds, List<String> cardNames) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
@@ -215,5 +215,52 @@ public class FinanceBankCardService {
         }
         return returnResult;
     }
+    /**
+     * @Title: delFinanceBankCardWebsit 
+     * @Description: TODO(前台删除会员银行卡) 
+     * @param  @param bankCardId
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
+     */
+    @Transactional(readOnly = false)
+    public Object delFinanceBankCardWebsit(String bankCardId) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        	FinanceBankCardExample financeBankCardExample = new FinanceBankCardExample();
+        	financeBankCardExample.createCriteria().andBankCardIdEqualTo(bankCardId);
+            count = financeBankCardMapper.deleteByExample(financeBankCardExample);
+            if (count == 1) {
+                returnResult.setSuccess(true);
+                returnResult.setMsg("成功删除了会员银行卡");
+            } else {
+                returnResult.setMsg("发生未知错误，会员银行卡信息删除失败");
+            }
+        return returnResult;
+    }
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "bankCardList_audit")
+	public Object auditApplyAmount(FinanceBankCard bankCard) {
+		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+	    
+	    Subject pricipalSubject = SecurityUtils.getSubject();// 查找当前系统登录用户
+	    User pricipalUser = (User) pricipalSubject.getPrincipal();
+	    bankCard.setUpdater(pricipalUser.getUserId());// 更新人为当前系统登录用户
+	    bankCard.setUpdateTime(new Date());// 更新时间为当前系统时间
+	    bankCard.setAuditor(pricipalUser.getUserId());// 审核人为当前系统登录用户
+	    bankCard.setAuditDate(new Date());// 审核时间为当前系统时间
+	    
+	    
+	    int count = 0;
+	    count = financeBankCardMapper.updateByPrimaryKeySelective(bankCard);
+	    if (count == 1) {
+	        returnResult.setSuccess(true);
+	        returnResult.setMsg("会员银行卡审核成功");
+	    } else {
+	        returnResult.setMsg("发生未知错误，会员银行卡审核失败");
+	    }
+	    return returnResult;
+	}
 
 }

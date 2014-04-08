@@ -1,5 +1,8 @@
 package com.glacier.netloan.web.controller.finance;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +33,11 @@ public class FinanceBankCardController extends AbstractController {
 		//JqReturnJson returnResult = (JqReturnJson) bankCardService.addFinanceBankCardWebsit(bankCard);
 		
 		return bankCardService.addFinanceBankCardWebsit(bankCard);
+	}
+	@RequestMapping(value = "del.htm")
+	@ResponseBody
+	public Object del(String bankCardId){
+		
+		return bankCardService.delFinanceBankCardWebsit(bankCardId);
 	}
 }

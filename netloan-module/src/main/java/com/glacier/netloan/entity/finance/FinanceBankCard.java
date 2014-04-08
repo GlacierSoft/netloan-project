@@ -2,10 +2,17 @@ package com.glacier.netloan.entity.finance;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class FinanceBankCard {
     private String bankCardId;
 
     private String memberId;
+    
+    /**
+     * 自定义字段，显示会员真实名字
+     */
+    private String memberRealName;
 
     private String openingBank;
 
@@ -19,16 +26,24 @@ public class FinanceBankCard {
 
     private String auditor;
 
+    /**
+     * 自定义字段，显示审核真实名称
+     */
+    private String auditorDisplay;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditDate;
 
     private String remark;
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getBankCardId() {
@@ -143,7 +158,23 @@ public class FinanceBankCard {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public String getMemberRealName() {
+		return memberRealName;
+	}
+
+	public void setMemberRealName(String memberRealName) {
+		this.memberRealName = memberRealName;
+	}
+
+	public String getAuditorDisplay() {
+		return auditorDisplay;
+	}
+
+	public void setAuditorDisplay(String auditorDisplay) {
+		this.auditorDisplay = auditorDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

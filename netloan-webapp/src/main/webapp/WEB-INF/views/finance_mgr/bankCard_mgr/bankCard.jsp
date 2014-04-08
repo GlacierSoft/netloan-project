@@ -11,6 +11,7 @@
 			toolbarId : 'bankCardDataGrid_toolbar',
 			actions : {
 				edit:{flag:'edit',controlType:'single'},
+				audit:{flag:'audit',controlType:'single'},
 				del:{flag:'del',controlType:'multiple'}
 			}
 	};
@@ -38,6 +39,11 @@
 				title:'ID',
 				checkbox:true
 			},{
+				field:'memberRealName',
+				title:'会员名称',
+				width:120,
+				sortable:true
+			},{
 				field:'openingBank',
 				title:'开户行',
 				width:120,
@@ -63,31 +69,11 @@
 				width:120,
 				sortable:true,
 				formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
-					return renderGridValue(value,fields.status);
+					return renderGridValue(value,fields.bankCardAuths);
 				}
-			},{
-				field:'remark',
-				title:'备注',
-				width:120,
-				sortable:true
-			},{
-				field:'createrDisplay',
-				title:'创建人',
-				sortable:true,
-				width:100
 			},{
 				field:'createTime',
 				title:'创建时间',
-				sortable:true,
-				width:200
-			},{
-				field:'updaterDisplay',
-				title:'更新人',
-				sortable:true,
-				width:100
-			},{
-				field:'updateTime',
-				title:'更新时间',
 				sortable:true,
 				width:200
 			}
@@ -121,10 +107,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.cardName,
+				title: '【'+rowData.memberRealName+'】会员银行卡详细信息',
 				href : ctx + '/do/bankCard/intoDetail.htm?bankCardId='+rowData.bankCardId,//从controller请求jsp页面进行渲染
-				width : 720,
-				height : 540,
+				width : 540,
+				height : 300,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -133,7 +119,7 @@
 	});
 
 	//点击增加按钮触发方法
-	glacier.finance_mgr.bankCard_mgr.bankCard.addBankCard = function(){
+	/* glacier.finance_mgr.bankCard_mgr.bankCard.addBankCard = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加银行卡',
 			width : 700,
@@ -155,6 +141,23 @@
 			height : 500,
 			queryUrl : ctx + '/do/bankCard/intoForm.htm',
 			submitUrl : ctx + '/do/bankCard/edit.json',
+			queryParams : {
+				bankCardId : row.bankCardId
+			},
+			successFun : function (){
+				glacier.finance_mgr.bankCard_mgr.bankCard.bankCardDataGrid.datagrid('reload');
+			}
+		});
+	}; */
+	//点击审核按钮触发方法
+	glacier.finance_mgr.bankCard_mgr.bankCard.auditBankCard = function(){
+		var row = glacier.finance_mgr.bankCard_mgr.bankCard.bankCardDataGrid.datagrid("getSelected");
+		glacier.basicAddOrEditDialog({
+			title : '审核【'+row.memberRealName+'】审核额度信息',
+			width : 540,
+			height : 360,
+			queryUrl : ctx + '/do/bankCard/intoAudit.htm',
+			submitUrl : ctx + '/do/bankCard/audit.json',
 			queryParams : {
 				bankCardId : row.bankCardId
 			},
