@@ -534,6 +534,7 @@
 	    $('#postAuthBut').bind('click', function(){    
 	    	$("#postAuth").val("postAuth");
 	        }); 
+	  	//通过
 		 if('${requestScope.infoAndWorAuthstr}' == 'infoAndWorRealOnly'){
 			$("form[id='personalMessageForm'] input,textarea[id='personalDes']").prop("readonly", true);
 			$("form[id='personalMessageForm'] select,button[id='onlyPost'],button[id='postAuthBut']").prop("disabled", true);
