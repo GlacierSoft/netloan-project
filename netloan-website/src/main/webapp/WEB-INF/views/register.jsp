@@ -100,14 +100,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				//表单验证
 				validaForm = function(){
+					var $memberName = $('#memberName_form-group');
 					var $memberPassword = $('#memberPassword_form-group');
 					var $comfirPassword = $('#comfirPassword_form-group');
-					if($memberPassword.val().length < 6){
+					if($memberName.val().length > 10){
+						$memberName.addClass("has-error");
+						$memberName.focus();
+						
+						$('#danger_alert').fadeIn();
+						$('#danger_alert h4').html('用户名不能大于10位！');
+						setTimeout(function(){//延迟3秒隐藏
+							$('#danger_alert').fadeOut();
+						},3000)
+						return false;
+					}
+					if($memberPassword.val().length < 6 || $memberPassword.val().length > 12){
 						$memberPassword.addClass("has-error");
 						$memberPassword.focus();
 						
 						$('#danger_alert').fadeIn();
-						$('#danger_alert h4').html('密码不能小于6位！');
+						$('#danger_alert h4').html('密码不能小于6位或者不能大于12位！');
 						setTimeout(function(){//延迟3秒隐藏
 							$('#danger_alert').fadeOut();
 						},3000)

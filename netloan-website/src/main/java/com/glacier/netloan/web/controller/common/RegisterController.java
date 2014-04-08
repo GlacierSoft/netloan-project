@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -43,7 +44,11 @@ public class RegisterController extends AbstractController{
 	 *
 	 */
 	@RequestMapping(value = "/intoregister.htm")
-    public String intoregister(){
+    public String intoregister(HttpSession session){
+		session.removeAttribute("currentMember");
+		if (null != SecurityUtils.getSubject() && null != SecurityUtils.getSubject().getSession()) {
+            SecurityUtils.getSubject().logout();// 进入注册页面，默认把登录用户注销
+        }
     	return "register";
     }
 	/**
@@ -61,6 +66,9 @@ public class RegisterController extends AbstractController{
 	 */
 	@RequestMapping(value = "/register.htm",method = RequestMethod.POST)
 	public Object register(@Valid Member member,BindingResult bindingResult,String captcha,HttpServletRequest request, HttpSession session){
+		if (bindingResult.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResult);
+        }
 		String isCaptcha = (String) request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
 		if (StringUtils.isBlank(captcha) || !isCaptcha.equalsIgnoreCase(captcha)) {
             //throw new IncorrectCaptchaException("验证码错误！");
@@ -69,9 +77,7 @@ public class RegisterController extends AbstractController{
         	return "register";
         }
 		session.setAttribute("isCaptcha", isCaptcha);
-		if (bindingResult.hasErrors()) {// 后台校验的错误信息
-            return returnErrorBindingResult(bindingResult);
-        }
+		
 		//判断用户名是否重复
 		 JqReturnJson returnisUsernameRepeat = (JqReturnJson) memberService.isUsernameRepeat(member);
 		if(!returnisUsernameRepeat.isSuccess()){
@@ -79,7 +85,7 @@ public class RegisterController extends AbstractController{
 			request.setAttribute("member", member);
 			return "register";
 		}
-		//判断用户名是否重复isEmailRepeat
+		//判断邮箱是否重复isEmailRepeat
 		 JqReturnJson returnisEmailRepeat = (JqReturnJson) memberService.isEmailRepeat(member);
 		if(!returnisEmailRepeat.isSuccess()){
 			request.setAttribute("emailRepeat", "emailRepeat");//通过设置emailRepeat的 值，来判断邮箱是否重复。

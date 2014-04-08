@@ -427,6 +427,7 @@
 						  <div class="form-group">
 						    <label for="mobileNumber" class="col-sm-3 control-label">真实姓名:</label>
 						    <div class="col-sm-9">
+						    ${currentMember.memberRealName}
 						      <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
 						    </div>
 						  </div>
@@ -489,25 +490,21 @@
 				              <td>已绑定</td>
 				              <td><a href="#"><strong>申请变更</strong></a></td>
 				            </tr>	  		
-				            <%-- <c:forEach items="${memberApplyAmountDatas.rows}" var="memberApplyAmount" varStatus="status">
+				            <c:forEach items="${memberBankCardDatas}" var="bankCard" varStatus="indexStatus">
 						      	<tr>
-						      	  <td>${status.index+1}</td>
-					              <td id="applyType${status.index}" class="applyType">
+						      	  <td>${currentMember.memberRealName}</td>
+					              <td>${bankCard.openingBank}</td>
+					              <td>${bankCard.subbranch}</td>
+					              <td>${bankCard.cardNumber}</td>
+					              <td id="auditState${indexStatus.index}" class="auditState">
+					              ${bankCard.status}
 					              <script type="text/javascript">
-					             $('#applyType'+${status.index}).html(renderGridValue('${memberApplyAmount.applyType}',fields.applyType));
+					             $('#auditState'+${indexStatus.index}).html(renderGridValue('${bankCard.status}',fields.auditState));
 					              </script>
 					              </td>
-					              <td>${memberApplyAmount.applyMoney}</td>
-					              <td>${memberApplyAmount.authorizedAmount}</td>
-					              <td id="auditState${status.index}" class="auditState">
-					              ${memberApplyAmount.auditState}
-					              <script type="text/javascript">
-					             $('#auditState'+${status.index}).html(renderGridValue('${memberApplyAmount.auditState}',fields.auditState));
-					              </script>
-					              </td>
-					              <td><fmt:formatDate value="${memberApplyAmount.applyDate}" type="both"/></td>
+					              <td></td>
 					            </tr>
-					      	</c:forEach> --%>
+					      	</c:forEach> 
 				            </tbody>
 				            <tfoot>
 					          <tr>
@@ -530,11 +527,64 @@
 	    </div>
 	    <!-- CONTAINER START======================== -->
 	    <script type="text/javascript">
+	    <!-- 分页显示表格数据 -->
+		/* $(function(){
+			//获得浏览器参数
+			$.extend({
+				getUrlVars: function(){
+					var vars = [], hash;
+					var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+					//alert("  aa   "+hashes);
+					for(var i = 0; i < hashes.length; i++){
+						hash = hashes[i].split('=');
+						vars.push(hash[0]);
+						vars[hash[0]] = hash[1];
+					}
+					return vars;
+				},
+				getUrlVar: function(name){
+					return $.getUrlVars()[name];
+				}
+			});
+			
+		
+		//封装浏览器参数
+		var composeUrlParams=function(){
+			var param='';
+			$.each($.getUrlVars(), function(i, item) {
+				if(item!='p'){
+					var val=$.getUrlVar(item);
+					if(val) param += "&" + item+"="+val;
+				}
+			});
+			//alert("aa  "+param);
+			return param;
+		}
+		var pageBankCard = $('#pageBankCard');
+		//积分的设置分页的总页数
+		var totalmemberIntegral=${memberIntegralDatas.total}/5;
+		if(parseInt(totalmemberIntegral)==totalmemberIntegral){
+			var totalmemberIntegral = parseInt(totalmemberIntegral);
+		}else {
+			var totalmemberIntegral = parseInt(totalmemberIntegral)+1;
+		}
+		
+		var memberIntegralOptions = {
+		    bootstrapMajorVersion:3,
+		    currentPage: ${memberIntegralDatas.p},
+		    numberOfPages: 5,
+		    totalPages:totalmemberIntegral,
+		    pageUrl: function(type, page, current){
+		    	return "${ctx}/member/memberAuth.htm?"+composeUrlParams()+"&p="+page;
+		    	}
+		}
+		pageBankCard.bootstrapPaginator(memberIntegralOptions); */
+		
 	  	//通过设置这个隐藏文本的值来判断是保存按钮还是保存并提交审核按钮。进行相应的操作。
 	    $('#postAuthBut').bind('click', function(){    
 	    	$("#postAuth").val("postAuth");
 	        }); 
-	  	//通过
+	  	//通过判断是待审核或已审核，将表单改为只读状态。
 		 if('${requestScope.infoAndWorAuthstr}' == 'infoAndWorRealOnly'){
 			$("form[id='personalMessageForm'] input,textarea[id='personalDes']").prop("readonly", true);
 			$("form[id='personalMessageForm'] select,button[id='onlyPost'],button[id='postAuthBut']").prop("disabled", true);

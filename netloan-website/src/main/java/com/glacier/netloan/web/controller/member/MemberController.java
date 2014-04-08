@@ -53,10 +53,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.glacier.core.controller.AbstractController;
+import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dto.query.member.MemberQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
+import com.glacier.netloan.entity.finance.FinanceBankCard;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberAuth;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
@@ -64,6 +66,7 @@ import com.glacier.netloan.entity.member.MemberCreditIntegral;
 import com.glacier.netloan.entity.member.MemberWork;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
+import com.glacier.netloan.service.finance.FinanceBankCardService;
 import com.glacier.netloan.service.member.MemberApplyAmountService;
 import com.glacier.netloan.service.member.MemberAuthService;
 import com.glacier.netloan.service.member.MemberCreditIntegralService;
@@ -92,6 +95,9 @@ public class MemberController extends AbstractController{
 	
 	@Autowired
 	private MemberApplyAmountService memberApplyAmountService;
+	
+	@Autowired
+	private FinanceBankCardService financeBankCardService;
 	
 	// 进入会员个人主页展示页面
     @RequestMapping(value = "/index.htm")
@@ -131,6 +137,13 @@ public class MemberController extends AbstractController{
         Subject pricipalSubject = SecurityUtils.getSubject();
         Member pricipalMember = (Member) pricipalSubject.getPrincipal();
         MemberAuthWithBLOBs memberAuthWithBLOBs = (MemberAuthWithBLOBs)memberAuthService.getMemberAuth(pricipalMember.getMemberId());
+        
+        JqPager pager = new JqPager();
+        pager.setSort("createTime");// 定义排序字段
+        pager.setOrder("DESC");// 升序还是降序
+        JqGridReturn returnResult = (JqGridReturn) financeBankCardService.listAsGrid(pager);
+        List<FinanceBankCard> bandCards =  (List<FinanceBankCard>) returnResult.getRows();
+        request.setAttribute("memberBankCardDatas", bandCards);
         
         if((memberAuthWithBLOBs.getInfoAuth().equals("noapply") && memberAuthWithBLOBs.getWorkAuth().equals("noapply"))||
         		(memberAuthWithBLOBs.getInfoAuth().equals("failure") && memberAuthWithBLOBs.getWorkAuth().equals("failure"))){
