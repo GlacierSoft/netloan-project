@@ -512,7 +512,7 @@
 									 			   		deletedialog(r);
 									                 },
 									                 error: function() {
-									                     alert("提交出错！");
+									                     alert("删除出错！");
 									                 }
 													});
 										    });
