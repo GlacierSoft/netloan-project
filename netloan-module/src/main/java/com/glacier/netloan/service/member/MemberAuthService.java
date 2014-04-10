@@ -19,6 +19,7 @@ import com.glacier.netloan.dao.basicdatas.ParameterCreditTypeMapper;
 import com.glacier.netloan.dao.member.MemberAuthMapper;
 import com.glacier.netloan.dao.member.MemberCreditIntegralMapper;
 import com.glacier.netloan.dao.member.MemberMapper;
+import com.glacier.netloan.dao.member.MemberMessageNoticeMapper;
 import com.glacier.netloan.dto.query.member.MemberAuthQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditType;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditTypeExample;
@@ -46,6 +47,9 @@ public class MemberAuthService {
 	
 	@Autowired
 	private MemberMapper memberMapper;
+	
+	@Autowired
+	private MemberMessageNoticeMapper memberMessageNoticeMapper;
 	
 	/**
 	 * @Title: getMemberAuth 

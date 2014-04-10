@@ -2,17 +2,30 @@ package com.glacier.netloan.entity.member;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class MemberMessageNotice {
     private String messageNoticeId;
 
+    /**
+     * 自定义字段
+     */
+    private String senderDisplay;
+    
     private String sender;
 
+    /**
+     * 自定义字段
+     */
+    private String addresseeDisplay;
+    
     private String addressee;
 
     private String title;
 
     private String content;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date sendtime;
 
     private String letterstatus;
@@ -23,10 +36,22 @@ public class MemberMessageNotice {
 
     private String creater;
 
+    /**
+     * 自定义字段
+     */
+    private String createrDisplay;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
+    
+    /**
+     * 自定义字段
+     */
+    private String updaterDisplay;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getMessageNoticeId() {
@@ -132,8 +157,40 @@ public class MemberMessageNotice {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+    
+    public String getSenderDisplay() {
+		return senderDisplay;
+	}
 
-    @Override
+	public void setSenderDisplay(String senderDisplay) {
+		this.senderDisplay = senderDisplay;
+	}
+
+	public String getAddresseeDisplay() {
+		return addresseeDisplay;
+	}
+
+	public void setAddresseeDisplay(String addresseeDisplay) {
+		this.addresseeDisplay = addresseeDisplay;
+	}
+
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

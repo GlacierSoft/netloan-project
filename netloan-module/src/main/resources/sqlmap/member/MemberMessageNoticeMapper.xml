@@ -15,6 +15,10 @@
     <result column="temp_member_message_notice_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_message_notice_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_member_message_notice_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_member_message_notice_senderDisplay" property="senderDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_message_notice_addresseeDisplay" property="addresseeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_message_notice_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_message_notice_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -82,6 +86,17 @@
     temp_member_message_notice.letterType as temp_member_message_notice_letterType, temp_member_message_notice.remark as temp_member_message_notice_remark, 
     temp_member_message_notice.creater as temp_member_message_notice_creater, temp_member_message_notice.create_time as temp_member_message_notice_create_time, 
     temp_member_message_notice.updater as temp_member_message_notice_updater, temp_member_message_notice.update_time as temp_member_message_notice_update_time
+    <!-- 以下字段属于扩展 -->
+    ,temp_addressee.member_name as temp_member_message_notice_addresseeDisplay
+    ,temp_sender.user_cn_name as temp_member_message_notice_senderDisplay
+    ,temp_creater.user_cn_name as temp_member_message_notice_createrDisplay
+    ,temp_updater.user_cn_name as temp_member_message_notice_updaterDisplay
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_member temp_addressee ON temp_addressee.member_id = temp_member_message_notice.addressee <!-- 扩展 -->
+  	LEFT JOIN t_user temp_sender ON temp_sender.user_id = temp_member_message_notice.sender <!-- 扩展 -->
+  	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_member_message_notice.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_member_message_notice.updater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.member.MemberMessageNoticeExample" >
     select
@@ -90,6 +105,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_member_message_notice temp_member_message_notice
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -104,6 +120,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_member_message_notice temp_member_message_notice
+    <include refid="Base_extend" />
     where temp_member_message_notice.message_notice_id = #{messageNoticeId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -111,7 +128,7 @@
     where message_notice_id = #{messageNoticeId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.member.MemberMessageNoticeExample" >
-    delete from t_member_message_notice temp_member_message_notice
+    delete temp_member_message_notice from t_member_message_notice temp_member_message_notice
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -215,6 +232,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.member.MemberMessageNoticeExample" resultType="java.lang.Integer" >
     select count(*) from t_member_message_notice temp_member_message_notice
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
