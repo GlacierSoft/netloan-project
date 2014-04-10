@@ -60,8 +60,8 @@ public class MemberController extends AbstractController{
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(MemberQueryDTO memberQueryDTO, JqPager pmember) {
-        return memberService.listAsGrid(memberQueryDTO,pmember);
+    private Object listActionAsGridByMenuId(JqPager jqPager, MemberQueryDTO memberQueryDTO, String q) {
+        return memberService.listAsGrid(jqPager, memberQueryDTO, q);
     }
     
     // 增加会员

@@ -42,6 +42,7 @@
 					          <a href="${ctx}/member/index.htm" class="btn btn-default" role="button">我的主页</a>
 					          <a href="#" class="btn btn-default" role="button">充值提现</a>
 					          <a href="${ctx}/member/memberAuth.htm?&p=0" class="btn btn-default" role="button">平台认证</a>
+							  <a href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1" class="btn btn-default" role="button">站内信</a>
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-info" role="button">个人设置</a>
 							  <a href="${ctx}/member/memberPhotoInto.htm" class="btn btn-default" role="button">头像上传</a>
 							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">邮箱设置</a>
@@ -500,7 +501,7 @@
 						         		 <a href="#"><strong>申请变更</strong></a>
 									   </c:when>
 									   <c:when test="${bankCard.status == 'authstr' || bankCard.status == 'failure'}"> 
-							         	<a id="bandCardCancel${indexStatus.index}" class="${bankCard.bankCardId}" href="#"><strong>取消</strong></a>
+							         	<a id="bandCardCancel${indexStatus.index}" class="${bankCard.bankCardId}" href="javascript:void(0);"><strong>取消</strong></a>
 							         	<script type="text/javascript">
 										    $("#bandCardCancel"+${indexStatus.index}).bind('click', function(){   
 										    	var valCalss=$("#bandCardCancel"+${indexStatus.index}).attr("class");//这里获取class值

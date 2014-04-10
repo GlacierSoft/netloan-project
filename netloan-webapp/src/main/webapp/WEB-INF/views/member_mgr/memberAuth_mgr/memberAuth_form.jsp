@@ -266,8 +266,8 @@
     $('#workAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"工作认证",
-			width : 760,
-			height : 560,
+			width : 600,
+			height : 310,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.workName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.workName}',
 			successFun : function (){

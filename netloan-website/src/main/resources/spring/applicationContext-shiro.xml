@@ -35,6 +35,7 @@
 				/resources/** = anon
 				/logout = logout
 				/member/* = user
+				/messageNotice/* = user
 			</value>
 		</property>
 	</bean>

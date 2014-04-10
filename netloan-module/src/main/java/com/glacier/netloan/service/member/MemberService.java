@@ -20,6 +20,7 @@ import com.glacier.netloan.dao.basicdatas.ParameterCreditTypeMapper;
 import com.glacier.netloan.dao.member.MemberAuthMapper;
 import com.glacier.netloan.dao.member.MemberCreditIntegralMapper;
 import com.glacier.netloan.dao.member.MemberMapper;
+import com.glacier.netloan.dao.member.MemberMessageNoticeMapper;
 import com.glacier.netloan.dao.member.MemberTokenMapper;
 import com.glacier.netloan.dao.member.MemberWorkMapper;
 import com.glacier.netloan.dao.system.UserMapper;
@@ -32,6 +33,7 @@ import com.glacier.netloan.entity.member.MemberAuthExample;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
 import com.glacier.netloan.entity.member.MemberCreditIntegral;
 import com.glacier.netloan.entity.member.MemberExample;
+import com.glacier.netloan.entity.member.MemberMessageNotice;
 import com.glacier.netloan.entity.member.MemberExample.Criteria;
 import com.glacier.netloan.entity.member.MemberToken;
 import com.glacier.netloan.entity.member.MemberWork;
@@ -73,6 +75,9 @@ public class MemberService {
 	
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private MemberMessageNoticeMapper memberMessageNoticeMapper;
 	
 	 /**
      * 加密方式
@@ -132,20 +137,20 @@ public class MemberService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(MemberQueryDTO memberQueryDTO,JqPager pager) {
+    public Object listAsGrid(JqPager jqPager, MemberQueryDTO memberQueryDTO, String q) {
         
         JqGridReturn returnResult = new JqGridReturn();
         MemberExample memberExample = new MemberExample();;
         
         Criteria queryCriteria = memberExample.createCriteria();
-        memberQueryDTO.setQueryCondition(queryCriteria);
+        memberQueryDTO.setQueryCondition(queryCriteria, q);
 
-        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
-        	memberExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
-        	memberExample.setLimitEnd(pager.getRows());
+        if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息
+        	memberExample.setLimitStart((jqPager.getPage() - 1) * jqPager.getRows());
+        	memberExample.setLimitEnd(jqPager.getRows());
         }
-        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
-        	memberExample.setOrderByClause(pager.getOrderBy("temp_member_"));
+        if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
+        	memberExample.setOrderByClause(jqPager.getOrderBy("temp_member_"));
         }
         List<Member>  members = memberMapper.selectByExample(memberExample); // 查询所有会员列表
         int total = memberMapper.countByExample(memberExample); // 查询总页数
@@ -268,6 +273,7 @@ public class MemberService {
         int countWork = 0;
         int countToken = 0;
         int creditCount = 0;
+        int MessageNoticeCount = 0;
         String memberId = RandomGUID.getRandomGUID();
         
         //设置membertoken信息
@@ -357,8 +363,24 @@ public class MemberService {
         
         creditCount = memberCreditIntegralMapper.insert(memberCreditIntegral);
         
+        //增加邮箱认证审核通过的信息通知
+        MemberMessageNotice memberMessageNotice = new MemberMessageNotice();
+        memberMessageNotice.setMessageNoticeId(RandomGUID.getRandomGUID());
+   		memberMessageNotice.setSender(users.get(0).getUserId());
+   		memberMessageNotice.setAddressee(memberId);
+   		memberMessageNotice.setTitle("邮箱认证审核通知");
+		memberMessageNotice.setContent("您的邮箱认证审核状况:通过");
+        memberMessageNotice.setSendtime(new Date());
+        memberMessageNotice.setLetterstatus("unread");
+        memberMessageNotice.setLettertype("system");
+        memberMessageNotice.setCreater(users.get(0).getUserId());
+        memberMessageNotice.setCreateTime(new Date());
+        memberMessageNotice.setUpdater(users.get(0).getUserId());
+        memberMessageNotice.setUpdateTime(new Date());
+        MessageNoticeCount = memberMessageNoticeMapper.insert(memberMessageNotice);
         
-        if (count == 1 && countWork == 1 && countToken == 1 && creditCount == 1) {
+        
+        if (count == 1 && countWork == 1 && countToken == 1 && creditCount == 1 && MessageNoticeCount == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + member.getMemberName() + "] 会员信息已保存");
             returnResult.setObj(member);

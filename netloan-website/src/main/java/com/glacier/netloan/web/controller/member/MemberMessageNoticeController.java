@@ -2,9 +2,12 @@ package com.glacier.netloan.web.controller.member;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -15,8 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
+import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.member.MemberMessageNoticeQueryDTO;
+import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberMessageNotice;
 import com.glacier.netloan.service.member.MemberMessageNoticeService;
 
@@ -33,7 +38,40 @@ public class MemberMessageNoticeController extends AbstractController{
 	
 	@Autowired
 	private MemberMessageNoticeService memberMessageNoticeService;// 注入消息通知业务Bean
-
+	
+	/**
+	 * @Title: intoMessageNotice 
+	 * @Description: TODO(跳转到信息通知页面，同时加载列表) 
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 *
+	 */
+	@RequestMapping(value ="/intoMessageNotice.htm")
+	private Object intoMessageNotice(JqPager pager,int p,HttpServletRequest request){
+		 ModelAndView mav = new ModelAndView("member_mgr/memberMessageNotice");
+		 
+		 Subject pricipalSubject = SecurityUtils.getSubject();
+	     Member pricipalMember = (Member) pricipalSubject.getPrincipal();
+	     //设置查询DTO收信人的id
+	     MemberMessageNoticeQueryDTO memberMessageNoticeQueryDTO = new MemberMessageNoticeQueryDTO();
+	     memberMessageNoticeQueryDTO.setAddressee(pricipalMember.getMemberId());
+	     
+	     //获取信息通知列表
+	     JqGridReturn returnResult = (JqGridReturn) memberMessageNoticeService.listAsGridWebsite(memberMessageNoticeQueryDTO, pager,p);
+	     request.setAttribute("messageNoticeDatas", returnResult);
+	     
+	     return mav;
+	}
+	// 前台查看消息通知Detail信息页面
+    @RequestMapping(value = "/messageNoticeDetail.json")
+    @ResponseBody
+    private Object messageNoticeDetail(String messageNoticeId) {
+    	MemberMessageNotice memberMessageNotice = (MemberMessageNotice) memberMessageNoticeService.getMemberMessageNotice(messageNoticeId);
+    	memberMessageNotice.setLetterstatus("read");
+    	memberMessageNoticeService.editMessageNoticeWebsit(memberMessageNotice);
+        return memberMessageNoticeService.getMemberMessageNotice(messageNoticeId);
+    }
 	// 进入消息通知列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmessageNotice() {
@@ -61,7 +99,7 @@ public class MemberMessageNoticeController extends AbstractController{
         return mav;
     }
     
-    // 获取表格结构的所有菜单数据
+ // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listActionAsGridByMenuId(MemberMessageNoticeQueryDTO memberMessageNoticeQueryDTO,JqPager pservicer) {

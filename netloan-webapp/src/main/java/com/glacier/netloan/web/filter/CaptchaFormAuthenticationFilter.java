@@ -17,6 +17,7 @@ import com.glacier.basic.util.IpUtil;
 import com.glacier.netloan.compent.realm.CaptchaUsernamePasswordToken;
 
 public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
+	
 
     public static final String DEFAULT_CAPTCHA_PARAM = "captcha";
 
@@ -72,5 +73,5 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             throw new IncorrectCaptchaException("验证码错误！");
         }
     }
-
+    
 }

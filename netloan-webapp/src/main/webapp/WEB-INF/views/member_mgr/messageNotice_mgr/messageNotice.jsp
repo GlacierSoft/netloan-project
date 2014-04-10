@@ -29,7 +29,7 @@
 		selectOnCheck:false,//选择的时候复选框打勾
 		url: ctx + '/do/messageNotice/list.json',
 		sortName: 'createTime',//排序字段名称
-		sortOrder: 'ASC',//升序还是降序
+		sortOrder: 'DESC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
 		idField:'messageNoticeId',
 		columns:[[
@@ -178,12 +178,75 @@
 			});
 		}
 	};
-	//客服资料模糊查询
-	glacier.member_mgr.messageNotice_mgr.messageNotice.quickquery = function(value,name){
-		var obj = $.parseJSON('{"'+name+'":"'+value+'"}');//将值和对象封装成obj作为参数传递给后台
-		glacier.member_mgr.messageNotice_mgr.messageNotice.messageNoticeDataGrid.datagrid('load',obj);
-	};
 	
+	$('#messageNoticeSearchForm_letterstatus').combobox({  
+		valueField : 'value',
+		//height:18,
+		width:100,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		//required:true,
+		data : fields.letterstatus
+	});
+	
+	//用于combogrid的客户信息绑定
+	$('#messageNoticeSearchForm_addressee').combogrid({
+		panelWidth:450,
+		fit:true,//控件自动resize占满窗口大小
+		//iconCls:'icon-save',//图标样式
+		border:false,//是否存在边框
+		fitColumns:true,//自动填充行
+		nowrap: true,//禁止单元格中的文字自动换行
+		autoRowHeight: false,//禁止设置自动行高以适应内容
+		striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
+		singleSelect:true,//限制单选
+		checkOnSelect:false,//选择复选框的时候选择该行
+		selectOnCheck:false,//选择的时候复选框打勾
+	    value:'${messageNoticeData.addresseeDisplay}',    
+	    idField:'memberId',    
+	    textField:'memberName',    
+	    url: ctx + '/do/member/list.json',
+	    sortName: 'createTime',//排序字段名称
+		sortOrder: 'ASC',//升序还是降序
+		remoteSort: true,//开启远程排序，默认为false
+	    columns : [ [ 
+   		{
+   			field:'memberId',
+   			title:'ID',
+   			checkbox:true
+   		},{
+   			field : 'memberName',
+   			title : '会员姓名',
+   			width : 80,
+   			sortable:true
+   		}, {
+   			field : 'sex',
+   			title : '客户性别',
+   			width : 60,
+   			sortable:true,
+   			formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
+   				return renderGridValue(value,fields.sex);
+   			}
+   		}, {
+   			field : 'mobileNumber',
+   			title : '手机号码',
+   			width : 100,
+   			sortable:true
+   		}, {
+   			field : 'cardId',
+   			title : '身份证号码',
+   			width : 150,
+   			sortable:true
+   		} ] ],
+   		pagination : true,//True 就会在 datagrid 的底部显示分页栏
+   		pageSize : 10,//注意，pageSize必须在pageList存在
+   		pageList : [2,10,50,100],//从session中获取
+   		rownumbers : true,//True 就会显示行号的列
+		loadMsg : '数据加载中....',
+		mode : 'remote',
+		delay : 200
+	});
 </script>
 
 <!-- 所有客服列表面板和表格 -->
@@ -192,5 +255,29 @@
 		<table id="messageNoticeDataGrid">
 			<glacierui:toolbar panelEnName="MessageNoticeList" toolbarId="messageNoticeDataGrid_toolbar" menuEnName="messageNotice"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
+	</div>
+	<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
+		<form id="messageNoticeSearchForm">
+			<table>
+				<tr>
+					<td>标题名称：</td>
+					<td><input name="title" style="width: 80px;" class="spinner"/></td>
+					<td>会员名：</td>
+					<td><input id="messageNoticeSearchForm_addressee" name="addressee" style="width: 80px;" class="spinner"/></td>
+					<td>信件状态：</td>
+					<td><input id="messageNoticeSearchForm_letterstatus" name="letterstatus" class="spinner"/></td>
+					<td>录入时间：</td>
+					<td>
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;" />
+						-
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;" />
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.member_mgr.messageNotice_mgr.messageNotice.messageNoticeDataGrid.datagrid('load',glacier.serializeObject($('#messageNoticeSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#messageNoticeSearchForm input').val('');glacier.member_mgr.messageNotice_mgr.messageNotice.messageNoticeDataGrid.datagrid('load',{});">重置条件</a>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </div>

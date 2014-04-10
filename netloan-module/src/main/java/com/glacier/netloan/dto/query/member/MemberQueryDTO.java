@@ -36,7 +36,10 @@ public class MemberQueryDTO extends Member{
         this.createEndTime = createEndTime;
     }
     
-    public void setQueryCondition(Criteria queryCriteria){
+    public void setQueryCondition(Criteria queryCriteria, String q){
+    if(null != q && StringUtils.isNotBlank(q)){//会员名称Like查询
+            queryCriteria.andMemberNameLike("%" + q + "%");
+        }
    	 if(null != this.getMemberName() && StringUtils.isNotBlank(this.getMemberName())){//会员名称Like查询
             queryCriteria.andMemberNameLike("%" + this.getMemberName() + "%");
         }

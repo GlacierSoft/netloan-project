@@ -14,9 +14,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.apache.shiro.web.session.HttpServletSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.HttpServletBean;
 
 import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.member.MemberTokenMapper;
@@ -41,7 +39,7 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
     
     @Autowired
     private MemberMapper memberMapper;
-
+    
     public MemberPermissionsRealm() {
         setName("MemberPermissionsRealm");
     }
@@ -90,6 +88,7 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
                 byte[] salt = Encodes.decodeHex(tokenMember.getSalt());
                 for(char r : token.getPassword()){
                 }
+                //通过会员id来获取会员信息
                 Member principalMember = memberMapper.selectByPrimaryKey(tokenMember.getMemberId());
                 AuthenticationInfo info = new SimpleAuthenticationInfo(principalMember, tokenMember.getPassword(), ByteSource.Util.bytes(salt), getName());// 将用户的所有信息作为认证对象返回
                 clearCache(info.getPrincipals());// 认证成功后清除之前的缓存
@@ -131,5 +130,5 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
         matcher.setHashIterations(UserService.HASH_INTERATIONS);
         setCredentialsMatcher(matcher);
     }
-
+    
 }

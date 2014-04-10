@@ -15,12 +15,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.glacier.basic.exception.IncorrectCaptchaException;
 import com.glacier.basic.util.IpUtil;
+import com.glacier.jqueryui.util.JqGridReturn;
+import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.compent.realm.CaptchaUsernamePasswordToken;
+import com.glacier.netloan.dto.query.member.MemberMessageNoticeQueryDTO;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.service.member.MemberCreditIntegralService;
+import com.glacier.netloan.service.member.MemberMessageNoticeService;
 import com.glacier.netloan.service.member.MemberService;
 
 public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
+	
+    @Autowired
+    private MemberMessageNoticeService memberMessageNoticeService;
 
     public static final String DEFAULT_CAPTCHA_PARAM = "captcha";
 
@@ -65,9 +72,11 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             Subject subject = getSubject(request, response);
             subject.login(token);
             HttpSession session = ((HttpServletRequest) request).getSession(false);
-            session.setAttribute("currentMember", subject.getPrincipal());
             Member member = (Member) subject.getPrincipal();
+            session.setAttribute("currentMember", member);
             session.setAttribute("currentMemberWork", memberService.getMemberWork(member.getMemberId()));
+            int messageNoticCount = loginTotalMessageNotic(member.getMemberId());
+            session.setAttribute("messageNoticCount", messageNoticCount);
             return onLoginSuccess(token, subject, request, response);
         } catch (AuthenticationException e) {
             return onLoginFailure(token, e, request, response);
@@ -81,5 +90,22 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             throw new IncorrectCaptchaException("验证码错误！");
         }
     }
-
+    /**
+     * @Title: loginTotalMessageNotic 
+     * @Description: TODO(登录之后获取改会员的信息通知条数) 
+     * @param  @return设定文件
+     * @return int  返回类型
+     * @throws 
+     *
+     */
+    public int loginTotalMessageNotic(String memberId){
+    	//设置查询DTO收信人的id
+	     MemberMessageNoticeQueryDTO memberMessageNoticeQueryDTO = new MemberMessageNoticeQueryDTO();
+	     memberMessageNoticeQueryDTO.setAddressee(memberId);
+	     memberMessageNoticeQueryDTO.setLetterstatus("unread");
+	     JqPager pager = new JqPager();
+    	//获取信息通知列表
+	     JqGridReturn returnResult = (JqGridReturn) memberMessageNoticeService.listAsGridWebsite(memberMessageNoticeQueryDTO, pager,1);
+	     return returnResult.getTotal();
+    }
 }

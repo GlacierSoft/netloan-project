@@ -188,7 +188,7 @@
 			<td>审核意见：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_memberId" type="hidden" name="memberId" class="spinner" style="width:168px" value="${memberAuthData.memberId}" />
-				<textarea id="member_mgr_memberAuth_form_workRemark" name="workRemark" style="width:600px;" maxlength="255" class="spinner formta">${memberAuthData.workRemark}</textarea>
+				<textarea id="member_mgr_memberAuth_form_workRemark" name="workRemark" style="width:400px;" maxlength="255" class="spinner formta">${memberAuthData.workRemark}</textarea>
 			</td>
 		</tr>
 		<tr>

@@ -118,17 +118,6 @@
    		rownumbers : true,//True 就会显示行号的列
 		loadMsg : '数据加载中....',
 		mode : 'remote',
-		delay : 200,
-		keyHandler : {
-			query : function(q) {
-				$(this).combogrid('grid').datagrid('reload', {
-					memberName : q
-				});
-			}
-		} 
-		/* filter: function(q, row){
-			var opts = $(this).combogrid('options');
-			return row[opts.textField].indexOf(q) == 0;
-		} */
+		delay : 200
 	});
 </script>
