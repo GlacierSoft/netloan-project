@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.borrow.ReceivablesNotesMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.borrow.ReceivablesNotes" >
+    <id column="temp_receivables_notes_rece_notes_id" property="receNotesId" jdbcType="VARCHAR" />
+    <result column="temp_receivables_notes_tender_notes_id" property="tenderNotesId" jdbcType="VARCHAR" />
+    <result column="temp_receivables_notes_receivables_total" property="receivablesTotal" jdbcType="REAL" />
+    <result column="temp_receivables_notes_should_rece_money" property="shouldReceMoney" jdbcType="REAL" />
+    <result column="temp_receivables_notes_alr_rece_money" property="alrReceMoney" jdbcType="REAL" />
+    <result column="temp_receivables_notes_not_rece_money" property="notReceMoney" jdbcType="REAL" />
+    <result column="temp_receivables_notes_alr_overdue_interest" property="alrOverdueInterest" jdbcType="REAL" />
+    <result column="temp_receivables_notes_rece_state" property="receState" jdbcType="CHAR" />
+    <result column="temp_receivables_notes_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_receivables_notes_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_receivables_notes_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_receivables_notes_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_receivables_notes_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_receivables_notes.rece_notes_id as temp_receivables_notes_rece_notes_id, temp_receivables_notes.tender_notes_id as temp_receivables_notes_tender_notes_id, 
+    temp_receivables_notes.receivables_total as temp_receivables_notes_receivables_total, 
+    temp_receivables_notes.should_rece_money as temp_receivables_notes_should_rece_money, 
+    temp_receivables_notes.alr_rece_money as temp_receivables_notes_alr_rece_money, temp_receivables_notes.not_rece_money as temp_receivables_notes_not_rece_money, 
+    temp_receivables_notes.alr_overdue_interest as temp_receivables_notes_alr_overdue_interest, 
+    temp_receivables_notes.rece_state as temp_receivables_notes_rece_state, temp_receivables_notes.remark as temp_receivables_notes_remark, 
+    temp_receivables_notes.creater as temp_receivables_notes_creater, temp_receivables_notes.create_time as temp_receivables_notes_create_time, 
+    temp_receivables_notes.updater as temp_receivables_notes_updater, temp_receivables_notes.update_time as temp_receivables_notes_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_receivables_notes temp_receivables_notes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_receivables_notes temp_receivables_notes
+    where temp_receivables_notes.rece_notes_id = #{receNotesId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_receivables_notes
+    where rece_notes_id = #{receNotesId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotesExample" >
+    delete from t_receivables_notes temp_receivables_notes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotes" >
+    insert into t_receivables_notes (rece_notes_id, tender_notes_id, receivables_total, 
+      should_rece_money, alr_rece_money, not_rece_money, 
+      alr_overdue_interest, rece_state, remark, 
+      creater, create_time, updater, 
+      update_time)
+    values (#{receNotesId,jdbcType=VARCHAR}, #{tenderNotesId,jdbcType=VARCHAR}, #{receivablesTotal,jdbcType=REAL}, 
+      #{shouldReceMoney,jdbcType=REAL}, #{alrReceMoney,jdbcType=REAL}, #{notReceMoney,jdbcType=REAL}, 
+      #{alrOverdueInterest,jdbcType=REAL}, #{receState,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotes" >
+    insert into t_receivables_notes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="receNotesId != null" >
+        rece_notes_id,
+      </if>
+      <if test="tenderNotesId != null" >
+        tender_notes_id,
+      </if>
+      <if test="receivablesTotal != null" >
+        receivables_total,
+      </if>
+      <if test="shouldReceMoney != null" >
+        should_rece_money,
+      </if>
+      <if test="alrReceMoney != null" >
+        alr_rece_money,
+      </if>
+      <if test="notReceMoney != null" >
+        not_rece_money,
+      </if>
+      <if test="alrOverdueInterest != null" >
+        alr_overdue_interest,
+      </if>
+      <if test="receState != null" >
+        rece_state,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="receNotesId != null" >
+        #{receNotesId,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderNotesId != null" >
+        #{tenderNotesId,jdbcType=VARCHAR},
+      </if>
+      <if test="receivablesTotal != null" >
+        #{receivablesTotal,jdbcType=REAL},
+      </if>
+      <if test="shouldReceMoney != null" >
+        #{shouldReceMoney,jdbcType=REAL},
+      </if>
+      <if test="alrReceMoney != null" >
+        #{alrReceMoney,jdbcType=REAL},
+      </if>
+      <if test="notReceMoney != null" >
+        #{notReceMoney,jdbcType=REAL},
+      </if>
+      <if test="alrOverdueInterest != null" >
+        #{alrOverdueInterest,jdbcType=REAL},
+      </if>
+      <if test="receState != null" >
+        #{receState,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotesExample" resultType="java.lang.Integer" >
+    select count(*) from t_receivables_notes temp_receivables_notes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_receivables_notes temp_receivables_notes
+    <set >
+      <if test="record.receNotesId != null" >
+        temp_receivables_notes.rece_notes_id = #{record.receNotesId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenderNotesId != null" >
+        temp_receivables_notes.tender_notes_id = #{record.tenderNotesId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivablesTotal != null" >
+        temp_receivables_notes.receivables_total = #{record.receivablesTotal,jdbcType=REAL},
+      </if>
+      <if test="record.shouldReceMoney != null" >
+        temp_receivables_notes.should_rece_money = #{record.shouldReceMoney,jdbcType=REAL},
+      </if>
+      <if test="record.alrReceMoney != null" >
+        temp_receivables_notes.alr_rece_money = #{record.alrReceMoney,jdbcType=REAL},
+      </if>
+      <if test="record.notReceMoney != null" >
+        temp_receivables_notes.not_rece_money = #{record.notReceMoney,jdbcType=REAL},
+      </if>
+      <if test="record.alrOverdueInterest != null" >
+        temp_receivables_notes.alr_overdue_interest = #{record.alrOverdueInterest,jdbcType=REAL},
+      </if>
+      <if test="record.receState != null" >
+        temp_receivables_notes.rece_state = #{record.receState,jdbcType=CHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_receivables_notes.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_receivables_notes.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_receivables_notes.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_receivables_notes.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_receivables_notes.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_receivables_notes temp_receivables_notes
+    set temp_receivables_notes.rece_notes_id = #{record.receNotesId,jdbcType=VARCHAR},
+      temp_receivables_notes.tender_notes_id = #{record.tenderNotesId,jdbcType=VARCHAR},
+      temp_receivables_notes.receivables_total = #{record.receivablesTotal,jdbcType=REAL},
+      temp_receivables_notes.should_rece_money = #{record.shouldReceMoney,jdbcType=REAL},
+      temp_receivables_notes.alr_rece_money = #{record.alrReceMoney,jdbcType=REAL},
+      temp_receivables_notes.not_rece_money = #{record.notReceMoney,jdbcType=REAL},
+      temp_receivables_notes.alr_overdue_interest = #{record.alrOverdueInterest,jdbcType=REAL},
+      temp_receivables_notes.rece_state = #{record.receState,jdbcType=CHAR},
+      temp_receivables_notes.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_receivables_notes.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_receivables_notes.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_receivables_notes.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_receivables_notes.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotes" >
+    update t_receivables_notes
+    <set >
+      <if test="tenderNotesId != null" >
+        tender_notes_id = #{tenderNotesId,jdbcType=VARCHAR},
+      </if>
+      <if test="receivablesTotal != null" >
+        receivables_total = #{receivablesTotal,jdbcType=REAL},
+      </if>
+      <if test="shouldReceMoney != null" >
+        should_rece_money = #{shouldReceMoney,jdbcType=REAL},
+      </if>
+      <if test="alrReceMoney != null" >
+        alr_rece_money = #{alrReceMoney,jdbcType=REAL},
+      </if>
+      <if test="notReceMoney != null" >
+        not_rece_money = #{notReceMoney,jdbcType=REAL},
+      </if>
+      <if test="alrOverdueInterest != null" >
+        alr_overdue_interest = #{alrOverdueInterest,jdbcType=REAL},
+      </if>
+      <if test="receState != null" >
+        rece_state = #{receState,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where rece_notes_id = #{receNotesId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotes" >
+    update t_receivables_notes
+    set tender_notes_id = #{tenderNotesId,jdbcType=VARCHAR},
+      receivables_total = #{receivablesTotal,jdbcType=REAL},
+      should_rece_money = #{shouldReceMoney,jdbcType=REAL},
+      alr_rece_money = #{alrReceMoney,jdbcType=REAL},
+      not_rece_money = #{notReceMoney,jdbcType=REAL},
+      alr_overdue_interest = #{alrOverdueInterest,jdbcType=REAL},
+      rece_state = #{receState,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where rece_notes_id = #{receNotesId,jdbcType=VARCHAR}
+  </update>
+</mapper>

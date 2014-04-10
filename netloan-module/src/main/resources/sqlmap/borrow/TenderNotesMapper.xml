@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.borrow.TenderNotesMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.borrow.TenderNotes" >
+    <id column="temp_tender_notes_tender_notes_id" property="tenderNotesId" jdbcType="VARCHAR" />
+    <result column="temp_tender_notes_loan_id" property="loanId" jdbcType="VARCHAR" />
+    <result column="temp_tender_notes_member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="temp_tender_notes_sub_sum" property="subSum" jdbcType="REAL" />
+    <result column="temp_tender_notes_tender_money" property="tenderMoney" jdbcType="REAL" />
+    <result column="temp_tender_notes_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_tender_notes_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_tender_notes_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_tender_notes_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_tender_notes_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_tender_notes.tender_notes_id as temp_tender_notes_tender_notes_id, temp_tender_notes.loan_id as temp_tender_notes_loan_id, 
+    temp_tender_notes.member_id as temp_tender_notes_member_id, temp_tender_notes.sub_sum as temp_tender_notes_sub_sum, 
+    temp_tender_notes.tender_money as temp_tender_notes_tender_money, temp_tender_notes.remark as temp_tender_notes_remark, 
+    temp_tender_notes.creater as temp_tender_notes_creater, temp_tender_notes.create_time as temp_tender_notes_create_time, 
+    temp_tender_notes.updater as temp_tender_notes_updater, temp_tender_notes.update_time as temp_tender_notes_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.TenderNotesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_tender_notes temp_tender_notes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_tender_notes temp_tender_notes
+    where temp_tender_notes.tender_notes_id = #{tenderNotesId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_tender_notes
+    where tender_notes_id = #{tenderNotesId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.borrow.TenderNotesExample" >
+    delete from t_tender_notes temp_tender_notes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.borrow.TenderNotes" >
+    insert into t_tender_notes (tender_notes_id, loan_id, member_id, 
+      sub_sum, tender_money, remark, 
+      creater, create_time, updater, 
+      update_time)
+    values (#{tenderNotesId,jdbcType=VARCHAR}, #{loanId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
+      #{subSum,jdbcType=REAL}, #{tenderMoney,jdbcType=REAL}, #{remark,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.borrow.TenderNotes" >
+    insert into t_tender_notes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tenderNotesId != null" >
+        tender_notes_id,
+      </if>
+      <if test="loanId != null" >
+        loan_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="subSum != null" >
+        sub_sum,
+      </if>
+      <if test="tenderMoney != null" >
+        tender_money,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tenderNotesId != null" >
+        #{tenderNotesId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanId != null" >
+        #{loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="subSum != null" >
+        #{subSum,jdbcType=REAL},
+      </if>
+      <if test="tenderMoney != null" >
+        #{tenderMoney,jdbcType=REAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.TenderNotesExample" resultType="java.lang.Integer" >
+    select count(*) from t_tender_notes temp_tender_notes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_tender_notes temp_tender_notes
+    <set >
+      <if test="record.tenderNotesId != null" >
+        temp_tender_notes.tender_notes_id = #{record.tenderNotesId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanId != null" >
+        temp_tender_notes.loan_id = #{record.loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberId != null" >
+        temp_tender_notes.member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subSum != null" >
+        temp_tender_notes.sub_sum = #{record.subSum,jdbcType=REAL},
+      </if>
+      <if test="record.tenderMoney != null" >
+        temp_tender_notes.tender_money = #{record.tenderMoney,jdbcType=REAL},
+      </if>
+      <if test="record.remark != null" >
+        temp_tender_notes.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_tender_notes.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_tender_notes.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_tender_notes.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_tender_notes.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_tender_notes temp_tender_notes
+    set temp_tender_notes.tender_notes_id = #{record.tenderNotesId,jdbcType=VARCHAR},
+      temp_tender_notes.loan_id = #{record.loanId,jdbcType=VARCHAR},
+      temp_tender_notes.member_id = #{record.memberId,jdbcType=VARCHAR},
+      temp_tender_notes.sub_sum = #{record.subSum,jdbcType=REAL},
+      temp_tender_notes.tender_money = #{record.tenderMoney,jdbcType=REAL},
+      temp_tender_notes.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_tender_notes.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_tender_notes.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_tender_notes.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_tender_notes.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.borrow.TenderNotes" >
+    update t_tender_notes
+    <set >
+      <if test="loanId != null" >
+        loan_id = #{loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="subSum != null" >
+        sub_sum = #{subSum,jdbcType=REAL},
+      </if>
+      <if test="tenderMoney != null" >
+        tender_money = #{tenderMoney,jdbcType=REAL},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where tender_notes_id = #{tenderNotesId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.borrow.TenderNotes" >
+    update t_tender_notes
+    set loan_id = #{loanId,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=VARCHAR},
+      sub_sum = #{subSum,jdbcType=REAL},
+      tender_money = #{tenderMoney,jdbcType=REAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where tender_notes_id = #{tenderNotesId,jdbcType=VARCHAR}
+  </update>
+</mapper>

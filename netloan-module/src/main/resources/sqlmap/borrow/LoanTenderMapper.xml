@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.borrow.LoanTenderMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.borrow.LoanTender" >
+    <id column="temp_loan_tender_loan_tender_id" property="loanTenderId" jdbcType="VARCHAR" />
+    <result column="temp_loan_tender_loanr_tender_name" property="loanrTenderName" jdbcType="VARCHAR" />
+    <result column="temp_loan_tender_description" property="description" jdbcType="VARCHAR" />
+    <result column="temp_loan_tender_state" property="state" jdbcType="CHAR" />
+    <result column="temp_loan_tender_lowest_loan_amount" property="lowestLoanAmount" jdbcType="REAL" />
+    <result column="temp_loan_tender_largest_loan_amount" property="largestLoanAmount" jdbcType="REAL" />
+    <result column="temp_loan_tender_loan_money_multiple" property="loanMoneyMultiple" jdbcType="REAL" />
+    <result column="temp_loan_tender_lowest_apr" property="lowestApr" jdbcType="REAL" />
+    <result column="temp_loan_tender_largest_apr" property="largestApr" jdbcType="REAL" />
+    <result column="temp_loan_tender_loan_deadlines_mon" property="loanDeadlinesMon" jdbcType="VARCHAR" />
+    <result column="temp_loan_tender_loan_deadlines_day" property="loanDeadlinesDay" jdbcType="VARCHAR" />
+    <result column="temp_loan_tender_wait_bid_deadlines" property="waitBidDeadlines" jdbcType="VARCHAR" />
+    <result column="temp_loan_tender_lowest_bid_money" property="lowestBidMoney" jdbcType="VARCHAR" />
+    <result column="temp_loan_tender_largest_bid_money" property="largestBidMoney" jdbcType="VARCHAR" />
+    <result column="temp_loan_tender_is_bid_reward" property="isBidReward" jdbcType="CHAR" />
+    <result column="temp_loan_tender_is_bid_pwd" property="isBidPwd" jdbcType="CHAR" />
+    <result column="temp_loan_tender_lowest_reward_pro" property="lowestRewardPro" jdbcType="REAL" />
+    <result column="temp_loan_tender_largest_reward_pro" property="largestRewardPro" jdbcType="REAL" />
+    <result column="temp_loan_tender_lowest_reward_money" property="lowestRewardMoney" jdbcType="REAL" />
+    <result column="temp_loan_tender_largest_reward_money" property="largestRewardMoney" jdbcType="REAL" />
+    <result column="temp_loan_tender_vip_freeze_bail" property="vipFreezeBail" jdbcType="REAL" />
+    <result column="temp_loan_tender_general_freeze_bail" property="generalFreezeBail" jdbcType="REAL" />
+    <result column="temp_loan_tender_adv_over_month" property="advOverMonth" jdbcType="REAL" />
+    <result column="temp_loan_tender_adv_over_day" property="advOverDay" jdbcType="REAL" />
+    <result column="temp_loan_tender_loan_mana_fee_month" property="loanManaFeeMonth" jdbcType="REAL" />
+    <result column="temp_loan_tender_loan_mana_fee_day" property="loanManaFeeDay" jdbcType="REAL" />
+    <result column="temp_loan_tender_limited_periods" property="limitedPeriods" jdbcType="REAL" />
+    <result column="temp_loan_tender_over_limited_fee" property="overLimitedFee" jdbcType="REAL" />
+    <result column="temp_loan_tender_subscription_state" property="subscriptionState" jdbcType="CHAR" />
+    <result column="temp_loan_tender_guarantee_agency_id" property="guaranteeAgencyId" jdbcType="VARCHAR" />
+    <result column="temp_loan_tender_anti_guarantee_id" property="antiGuaranteeId" jdbcType="VARCHAR" />
+    <result column="temp_loan_tender_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_loan_tender_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_loan_tender_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_loan_tender_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_loan_tender_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_loan_tender.loan_tender_id as temp_loan_tender_loan_tender_id, temp_loan_tender.loanr_tender_name as temp_loan_tender_loanr_tender_name, 
+    temp_loan_tender.description as temp_loan_tender_description, temp_loan_tender.state as temp_loan_tender_state, 
+    temp_loan_tender.lowest_loan_amount as temp_loan_tender_lowest_loan_amount, temp_loan_tender.largest_loan_amount as temp_loan_tender_largest_loan_amount, 
+    temp_loan_tender.loan_money_multiple as temp_loan_tender_loan_money_multiple, temp_loan_tender.lowest_apr as temp_loan_tender_lowest_apr, 
+    temp_loan_tender.largest_apr as temp_loan_tender_largest_apr, temp_loan_tender.loan_deadlines_mon as temp_loan_tender_loan_deadlines_mon, 
+    temp_loan_tender.loan_deadlines_day as temp_loan_tender_loan_deadlines_day, temp_loan_tender.wait_bid_deadlines as temp_loan_tender_wait_bid_deadlines, 
+    temp_loan_tender.lowest_bid_money as temp_loan_tender_lowest_bid_money, temp_loan_tender.largest_bid_money as temp_loan_tender_largest_bid_money, 
+    temp_loan_tender.is_bid_reward as temp_loan_tender_is_bid_reward, temp_loan_tender.is_bid_pwd as temp_loan_tender_is_bid_pwd, 
+    temp_loan_tender.lowest_reward_pro as temp_loan_tender_lowest_reward_pro, temp_loan_tender.largest_reward_pro as temp_loan_tender_largest_reward_pro, 
+    temp_loan_tender.lowest_reward_money as temp_loan_tender_lowest_reward_money, temp_loan_tender.largest_reward_money as temp_loan_tender_largest_reward_money, 
+    temp_loan_tender.vip_freeze_bail as temp_loan_tender_vip_freeze_bail, temp_loan_tender.general_freeze_bail as temp_loan_tender_general_freeze_bail, 
+    temp_loan_tender.adv_over_month as temp_loan_tender_adv_over_month, temp_loan_tender.adv_over_day as temp_loan_tender_adv_over_day, 
+    temp_loan_tender.loan_mana_fee_month as temp_loan_tender_loan_mana_fee_month, temp_loan_tender.loan_mana_fee_day as temp_loan_tender_loan_mana_fee_day, 
+    temp_loan_tender.limited_periods as temp_loan_tender_limited_periods, temp_loan_tender.over_limited_fee as temp_loan_tender_over_limited_fee, 
+    temp_loan_tender.subscription_state as temp_loan_tender_subscription_state, temp_loan_tender.guarantee_agency_id as temp_loan_tender_guarantee_agency_id, 
+    temp_loan_tender.anti_guarantee_id as temp_loan_tender_anti_guarantee_id, temp_loan_tender.remark as temp_loan_tender_remark, 
+    temp_loan_tender.creater as temp_loan_tender_creater, temp_loan_tender.create_time as temp_loan_tender_create_time, 
+    temp_loan_tender.updater as temp_loan_tender_updater, temp_loan_tender.update_time as temp_loan_tender_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.LoanTenderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_loan_tender temp_loan_tender
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_loan_tender temp_loan_tender
+    where temp_loan_tender.loan_tender_id = #{loanTenderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_loan_tender
+    where loan_tender_id = #{loanTenderId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.borrow.LoanTenderExample" >
+    delete from t_loan_tender temp_loan_tender
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.borrow.LoanTender" >
+    insert into t_loan_tender (loan_tender_id, loanr_tender_name, description, 
+      state, lowest_loan_amount, largest_loan_amount, 
+      loan_money_multiple, lowest_apr, largest_apr, 
+      loan_deadlines_mon, loan_deadlines_day, wait_bid_deadlines, 
+      lowest_bid_money, largest_bid_money, is_bid_reward, 
+      is_bid_pwd, lowest_reward_pro, largest_reward_pro, 
+      lowest_reward_money, largest_reward_money, vip_freeze_bail, 
+      general_freeze_bail, adv_over_month, adv_over_day, 
+      loan_mana_fee_month, loan_mana_fee_day, limited_periods, 
+      over_limited_fee, subscription_state, guarantee_agency_id, 
+      anti_guarantee_id, remark, creater, 
+      create_time, updater, update_time
+      )
+    values (#{loanTenderId,jdbcType=VARCHAR}, #{loanrTenderName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{state,jdbcType=CHAR}, #{lowestLoanAmount,jdbcType=REAL}, #{largestLoanAmount,jdbcType=REAL}, 
+      #{loanMoneyMultiple,jdbcType=REAL}, #{lowestApr,jdbcType=REAL}, #{largestApr,jdbcType=REAL}, 
+      #{loanDeadlinesMon,jdbcType=VARCHAR}, #{loanDeadlinesDay,jdbcType=VARCHAR}, #{waitBidDeadlines,jdbcType=VARCHAR}, 
+      #{lowestBidMoney,jdbcType=VARCHAR}, #{largestBidMoney,jdbcType=VARCHAR}, #{isBidReward,jdbcType=CHAR}, 
+      #{isBidPwd,jdbcType=CHAR}, #{lowestRewardPro,jdbcType=REAL}, #{largestRewardPro,jdbcType=REAL}, 
+      #{lowestRewardMoney,jdbcType=REAL}, #{largestRewardMoney,jdbcType=REAL}, #{vipFreezeBail,jdbcType=REAL}, 
+      #{generalFreezeBail,jdbcType=REAL}, #{advOverMonth,jdbcType=REAL}, #{advOverDay,jdbcType=REAL}, 
+      #{loanManaFeeMonth,jdbcType=REAL}, #{loanManaFeeDay,jdbcType=REAL}, #{limitedPeriods,jdbcType=REAL}, 
+      #{overLimitedFee,jdbcType=REAL}, #{subscriptionState,jdbcType=CHAR}, #{guaranteeAgencyId,jdbcType=VARCHAR}, 
+      #{antiGuaranteeId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.borrow.LoanTender" >
+    insert into t_loan_tender
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loanTenderId != null" >
+        loan_tender_id,
+      </if>
+      <if test="loanrTenderName != null" >
+        loanr_tender_name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="lowestLoanAmount != null" >
+        lowest_loan_amount,
+      </if>
+      <if test="largestLoanAmount != null" >
+        largest_loan_amount,
+      </if>
+      <if test="loanMoneyMultiple != null" >
+        loan_money_multiple,
+      </if>
+      <if test="lowestApr != null" >
+        lowest_apr,
+      </if>
+      <if test="largestApr != null" >
+        largest_apr,
+      </if>
+      <if test="loanDeadlinesMon != null" >
+        loan_deadlines_mon,
+      </if>
+      <if test="loanDeadlinesDay != null" >
+        loan_deadlines_day,
+      </if>
+      <if test="waitBidDeadlines != null" >
+        wait_bid_deadlines,
+      </if>
+      <if test="lowestBidMoney != null" >
+        lowest_bid_money,
+      </if>
+      <if test="largestBidMoney != null" >
+        largest_bid_money,
+      </if>
+      <if test="isBidReward != null" >
+        is_bid_reward,
+      </if>
+      <if test="isBidPwd != null" >
+        is_bid_pwd,
+      </if>
+      <if test="lowestRewardPro != null" >
+        lowest_reward_pro,
+      </if>
+      <if test="largestRewardPro != null" >
+        largest_reward_pro,
+      </if>
+      <if test="lowestRewardMoney != null" >
+        lowest_reward_money,
+      </if>
+      <if test="largestRewardMoney != null" >
+        largest_reward_money,
+      </if>
+      <if test="vipFreezeBail != null" >
+        vip_freeze_bail,
+      </if>
+      <if test="generalFreezeBail != null" >
+        general_freeze_bail,
+      </if>
+      <if test="advOverMonth != null" >
+        adv_over_month,
+      </if>
+      <if test="advOverDay != null" >
+        adv_over_day,
+      </if>
+      <if test="loanManaFeeMonth != null" >
+        loan_mana_fee_month,
+      </if>
+      <if test="loanManaFeeDay != null" >
+        loan_mana_fee_day,
+      </if>
+      <if test="limitedPeriods != null" >
+        limited_periods,
+      </if>
+      <if test="overLimitedFee != null" >
+        over_limited_fee,
+      </if>
+      <if test="subscriptionState != null" >
+        subscription_state,
+      </if>
+      <if test="guaranteeAgencyId != null" >
+        guarantee_agency_id,
+      </if>
+      <if test="antiGuaranteeId != null" >
+        anti_guarantee_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loanTenderId != null" >
+        #{loanTenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanrTenderName != null" >
+        #{loanrTenderName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="lowestLoanAmount != null" >
+        #{lowestLoanAmount,jdbcType=REAL},
+      </if>
+      <if test="largestLoanAmount != null" >
+        #{largestLoanAmount,jdbcType=REAL},
+      </if>
+      <if test="loanMoneyMultiple != null" >
+        #{loanMoneyMultiple,jdbcType=REAL},
+      </if>
+      <if test="lowestApr != null" >
+        #{lowestApr,jdbcType=REAL},
+      </if>
+      <if test="largestApr != null" >
+        #{largestApr,jdbcType=REAL},
+      </if>
+      <if test="loanDeadlinesMon != null" >
+        #{loanDeadlinesMon,jdbcType=VARCHAR},
+      </if>
+      <if test="loanDeadlinesDay != null" >
+        #{loanDeadlinesDay,jdbcType=VARCHAR},
+      </if>
+      <if test="waitBidDeadlines != null" >
+        #{waitBidDeadlines,jdbcType=VARCHAR},
+      </if>
+      <if test="lowestBidMoney != null" >
+        #{lowestBidMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="largestBidMoney != null" >
+        #{largestBidMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="isBidReward != null" >
+        #{isBidReward,jdbcType=CHAR},
+      </if>
+      <if test="isBidPwd != null" >
+        #{isBidPwd,jdbcType=CHAR},
+      </if>
+      <if test="lowestRewardPro != null" >
+        #{lowestRewardPro,jdbcType=REAL},
+      </if>
+      <if test="largestRewardPro != null" >
+        #{largestRewardPro,jdbcType=REAL},
+      </if>
+      <if test="lowestRewardMoney != null" >
+        #{lowestRewardMoney,jdbcType=REAL},
+      </if>
+      <if test="largestRewardMoney != null" >
+        #{largestRewardMoney,jdbcType=REAL},
+      </if>
+      <if test="vipFreezeBail != null" >
+        #{vipFreezeBail,jdbcType=REAL},
+      </if>
+      <if test="generalFreezeBail != null" >
+        #{generalFreezeBail,jdbcType=REAL},
+      </if>
+      <if test="advOverMonth != null" >
+        #{advOverMonth,jdbcType=REAL},
+      </if>
+      <if test="advOverDay != null" >
+        #{advOverDay,jdbcType=REAL},
+      </if>
+      <if test="loanManaFeeMonth != null" >
+        #{loanManaFeeMonth,jdbcType=REAL},
+      </if>
+      <if test="loanManaFeeDay != null" >
+        #{loanManaFeeDay,jdbcType=REAL},
+      </if>
+      <if test="limitedPeriods != null" >
+        #{limitedPeriods,jdbcType=REAL},
+      </if>
+      <if test="overLimitedFee != null" >
+        #{overLimitedFee,jdbcType=REAL},
+      </if>
+      <if test="subscriptionState != null" >
+        #{subscriptionState,jdbcType=CHAR},
+      </if>
+      <if test="guaranteeAgencyId != null" >
+        #{guaranteeAgencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="antiGuaranteeId != null" >
+        #{antiGuaranteeId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.LoanTenderExample" resultType="java.lang.Integer" >
+    select count(*) from t_loan_tender temp_loan_tender
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_loan_tender temp_loan_tender
+    <set >
+      <if test="record.loanTenderId != null" >
+        temp_loan_tender.loan_tender_id = #{record.loanTenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanrTenderName != null" >
+        temp_loan_tender.loanr_tender_name = #{record.loanrTenderName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        temp_loan_tender.description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        temp_loan_tender.state = #{record.state,jdbcType=CHAR},
+      </if>
+      <if test="record.lowestLoanAmount != null" >
+        temp_loan_tender.lowest_loan_amount = #{record.lowestLoanAmount,jdbcType=REAL},
+      </if>
+      <if test="record.largestLoanAmount != null" >
+        temp_loan_tender.largest_loan_amount = #{record.largestLoanAmount,jdbcType=REAL},
+      </if>
+      <if test="record.loanMoneyMultiple != null" >
+        temp_loan_tender.loan_money_multiple = #{record.loanMoneyMultiple,jdbcType=REAL},
+      </if>
+      <if test="record.lowestApr != null" >
+        temp_loan_tender.lowest_apr = #{record.lowestApr,jdbcType=REAL},
+      </if>
+      <if test="record.largestApr != null" >
+        temp_loan_tender.largest_apr = #{record.largestApr,jdbcType=REAL},
+      </if>
+      <if test="record.loanDeadlinesMon != null" >
+        temp_loan_tender.loan_deadlines_mon = #{record.loanDeadlinesMon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanDeadlinesDay != null" >
+        temp_loan_tender.loan_deadlines_day = #{record.loanDeadlinesDay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.waitBidDeadlines != null" >
+        temp_loan_tender.wait_bid_deadlines = #{record.waitBidDeadlines,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lowestBidMoney != null" >
+        temp_loan_tender.lowest_bid_money = #{record.lowestBidMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.largestBidMoney != null" >
+        temp_loan_tender.largest_bid_money = #{record.largestBidMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isBidReward != null" >
+        temp_loan_tender.is_bid_reward = #{record.isBidReward,jdbcType=CHAR},
+      </if>
+      <if test="record.isBidPwd != null" >
+        temp_loan_tender.is_bid_pwd = #{record.isBidPwd,jdbcType=CHAR},
+      </if>
+      <if test="record.lowestRewardPro != null" >
+        temp_loan_tender.lowest_reward_pro = #{record.lowestRewardPro,jdbcType=REAL},
+      </if>
+      <if test="record.largestRewardPro != null" >
+        temp_loan_tender.largest_reward_pro = #{record.largestRewardPro,jdbcType=REAL},
+      </if>
+      <if test="record.lowestRewardMoney != null" >
+        temp_loan_tender.lowest_reward_money = #{record.lowestRewardMoney,jdbcType=REAL},
+      </if>
+      <if test="record.largestRewardMoney != null" >
+        temp_loan_tender.largest_reward_money = #{record.largestRewardMoney,jdbcType=REAL},
+      </if>
+      <if test="record.vipFreezeBail != null" >
+        temp_loan_tender.vip_freeze_bail = #{record.vipFreezeBail,jdbcType=REAL},
+      </if>
+      <if test="record.generalFreezeBail != null" >
+        temp_loan_tender.general_freeze_bail = #{record.generalFreezeBail,jdbcType=REAL},
+      </if>
+      <if test="record.advOverMonth != null" >
+        temp_loan_tender.adv_over_month = #{record.advOverMonth,jdbcType=REAL},
+      </if>
+      <if test="record.advOverDay != null" >
+        temp_loan_tender.adv_over_day = #{record.advOverDay,jdbcType=REAL},
+      </if>
+      <if test="record.loanManaFeeMonth != null" >
+        temp_loan_tender.loan_mana_fee_month = #{record.loanManaFeeMonth,jdbcType=REAL},
+      </if>
+      <if test="record.loanManaFeeDay != null" >
+        temp_loan_tender.loan_mana_fee_day = #{record.loanManaFeeDay,jdbcType=REAL},
+      </if>
+      <if test="record.limitedPeriods != null" >
+        temp_loan_tender.limited_periods = #{record.limitedPeriods,jdbcType=REAL},
+      </if>
+      <if test="record.overLimitedFee != null" >
+        temp_loan_tender.over_limited_fee = #{record.overLimitedFee,jdbcType=REAL},
+      </if>
+      <if test="record.subscriptionState != null" >
+        temp_loan_tender.subscription_state = #{record.subscriptionState,jdbcType=CHAR},
+      </if>
+      <if test="record.guaranteeAgencyId != null" >
+        temp_loan_tender.guarantee_agency_id = #{record.guaranteeAgencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.antiGuaranteeId != null" >
+        temp_loan_tender.anti_guarantee_id = #{record.antiGuaranteeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_loan_tender.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_loan_tender.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_loan_tender.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_loan_tender.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_loan_tender.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_loan_tender temp_loan_tender
+    set temp_loan_tender.loan_tender_id = #{record.loanTenderId,jdbcType=VARCHAR},
+      temp_loan_tender.loanr_tender_name = #{record.loanrTenderName,jdbcType=VARCHAR},
+      temp_loan_tender.description = #{record.description,jdbcType=VARCHAR},
+      temp_loan_tender.state = #{record.state,jdbcType=CHAR},
+      temp_loan_tender.lowest_loan_amount = #{record.lowestLoanAmount,jdbcType=REAL},
+      temp_loan_tender.largest_loan_amount = #{record.largestLoanAmount,jdbcType=REAL},
+      temp_loan_tender.loan_money_multiple = #{record.loanMoneyMultiple,jdbcType=REAL},
+      temp_loan_tender.lowest_apr = #{record.lowestApr,jdbcType=REAL},
+      temp_loan_tender.largest_apr = #{record.largestApr,jdbcType=REAL},
+      temp_loan_tender.loan_deadlines_mon = #{record.loanDeadlinesMon,jdbcType=VARCHAR},
+      temp_loan_tender.loan_deadlines_day = #{record.loanDeadlinesDay,jdbcType=VARCHAR},
+      temp_loan_tender.wait_bid_deadlines = #{record.waitBidDeadlines,jdbcType=VARCHAR},
+      temp_loan_tender.lowest_bid_money = #{record.lowestBidMoney,jdbcType=VARCHAR},
+      temp_loan_tender.largest_bid_money = #{record.largestBidMoney,jdbcType=VARCHAR},
+      temp_loan_tender.is_bid_reward = #{record.isBidReward,jdbcType=CHAR},
+      temp_loan_tender.is_bid_pwd = #{record.isBidPwd,jdbcType=CHAR},
+      temp_loan_tender.lowest_reward_pro = #{record.lowestRewardPro,jdbcType=REAL},
+      temp_loan_tender.largest_reward_pro = #{record.largestRewardPro,jdbcType=REAL},
+      temp_loan_tender.lowest_reward_money = #{record.lowestRewardMoney,jdbcType=REAL},
+      temp_loan_tender.largest_reward_money = #{record.largestRewardMoney,jdbcType=REAL},
+      temp_loan_tender.vip_freeze_bail = #{record.vipFreezeBail,jdbcType=REAL},
+      temp_loan_tender.general_freeze_bail = #{record.generalFreezeBail,jdbcType=REAL},
+      temp_loan_tender.adv_over_month = #{record.advOverMonth,jdbcType=REAL},
+      temp_loan_tender.adv_over_day = #{record.advOverDay,jdbcType=REAL},
+      temp_loan_tender.loan_mana_fee_month = #{record.loanManaFeeMonth,jdbcType=REAL},
+      temp_loan_tender.loan_mana_fee_day = #{record.loanManaFeeDay,jdbcType=REAL},
+      temp_loan_tender.limited_periods = #{record.limitedPeriods,jdbcType=REAL},
+      temp_loan_tender.over_limited_fee = #{record.overLimitedFee,jdbcType=REAL},
+      temp_loan_tender.subscription_state = #{record.subscriptionState,jdbcType=CHAR},
+      temp_loan_tender.guarantee_agency_id = #{record.guaranteeAgencyId,jdbcType=VARCHAR},
+      temp_loan_tender.anti_guarantee_id = #{record.antiGuaranteeId,jdbcType=VARCHAR},
+      temp_loan_tender.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_loan_tender.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_loan_tender.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_loan_tender.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_loan_tender.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.borrow.LoanTender" >
+    update t_loan_tender
+    <set >
+      <if test="loanrTenderName != null" >
+        loanr_tender_name = #{loanrTenderName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=CHAR},
+      </if>
+      <if test="lowestLoanAmount != null" >
+        lowest_loan_amount = #{lowestLoanAmount,jdbcType=REAL},
+      </if>
+      <if test="largestLoanAmount != null" >
+        largest_loan_amount = #{largestLoanAmount,jdbcType=REAL},
+      </if>
+      <if test="loanMoneyMultiple != null" >
+        loan_money_multiple = #{loanMoneyMultiple,jdbcType=REAL},
+      </if>
+      <if test="lowestApr != null" >
+        lowest_apr = #{lowestApr,jdbcType=REAL},
+      </if>
+      <if test="largestApr != null" >
+        largest_apr = #{largestApr,jdbcType=REAL},
+      </if>
+      <if test="loanDeadlinesMon != null" >
+        loan_deadlines_mon = #{loanDeadlinesMon,jdbcType=VARCHAR},
+      </if>
+      <if test="loanDeadlinesDay != null" >
+        loan_deadlines_day = #{loanDeadlinesDay,jdbcType=VARCHAR},
+      </if>
+      <if test="waitBidDeadlines != null" >
+        wait_bid_deadlines = #{waitBidDeadlines,jdbcType=VARCHAR},
+      </if>
+      <if test="lowestBidMoney != null" >
+        lowest_bid_money = #{lowestBidMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="largestBidMoney != null" >
+        largest_bid_money = #{largestBidMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="isBidReward != null" >
+        is_bid_reward = #{isBidReward,jdbcType=CHAR},
+      </if>
+      <if test="isBidPwd != null" >
+        is_bid_pwd = #{isBidPwd,jdbcType=CHAR},
+      </if>
+      <if test="lowestRewardPro != null" >
+        lowest_reward_pro = #{lowestRewardPro,jdbcType=REAL},
+      </if>
+      <if test="largestRewardPro != null" >
+        largest_reward_pro = #{largestRewardPro,jdbcType=REAL},
+      </if>
+      <if test="lowestRewardMoney != null" >
+        lowest_reward_money = #{lowestRewardMoney,jdbcType=REAL},
+      </if>
+      <if test="largestRewardMoney != null" >
+        largest_reward_money = #{largestRewardMoney,jdbcType=REAL},
+      </if>
+      <if test="vipFreezeBail != null" >
+        vip_freeze_bail = #{vipFreezeBail,jdbcType=REAL},
+      </if>
+      <if test="generalFreezeBail != null" >
+        general_freeze_bail = #{generalFreezeBail,jdbcType=REAL},
+      </if>
+      <if test="advOverMonth != null" >
+        adv_over_month = #{advOverMonth,jdbcType=REAL},
+      </if>
+      <if test="advOverDay != null" >
+        adv_over_day = #{advOverDay,jdbcType=REAL},
+      </if>
+      <if test="loanManaFeeMonth != null" >
+        loan_mana_fee_month = #{loanManaFeeMonth,jdbcType=REAL},
+      </if>
+      <if test="loanManaFeeDay != null" >
+        loan_mana_fee_day = #{loanManaFeeDay,jdbcType=REAL},
+      </if>
+      <if test="limitedPeriods != null" >
+        limited_periods = #{limitedPeriods,jdbcType=REAL},
+      </if>
+      <if test="overLimitedFee != null" >
+        over_limited_fee = #{overLimitedFee,jdbcType=REAL},
+      </if>
+      <if test="subscriptionState != null" >
+        subscription_state = #{subscriptionState,jdbcType=CHAR},
+      </if>
+      <if test="guaranteeAgencyId != null" >
+        guarantee_agency_id = #{guaranteeAgencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="antiGuaranteeId != null" >
+        anti_guarantee_id = #{antiGuaranteeId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where loan_tender_id = #{loanTenderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.borrow.LoanTender" >
+    update t_loan_tender
+    set loanr_tender_name = #{loanrTenderName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      state = #{state,jdbcType=CHAR},
+      lowest_loan_amount = #{lowestLoanAmount,jdbcType=REAL},
+      largest_loan_amount = #{largestLoanAmount,jdbcType=REAL},
+      loan_money_multiple = #{loanMoneyMultiple,jdbcType=REAL},
+      lowest_apr = #{lowestApr,jdbcType=REAL},
+      largest_apr = #{largestApr,jdbcType=REAL},
+      loan_deadlines_mon = #{loanDeadlinesMon,jdbcType=VARCHAR},
+      loan_deadlines_day = #{loanDeadlinesDay,jdbcType=VARCHAR},
+      wait_bid_deadlines = #{waitBidDeadlines,jdbcType=VARCHAR},
+      lowest_bid_money = #{lowestBidMoney,jdbcType=VARCHAR},
+      largest_bid_money = #{largestBidMoney,jdbcType=VARCHAR},
+      is_bid_reward = #{isBidReward,jdbcType=CHAR},
+      is_bid_pwd = #{isBidPwd,jdbcType=CHAR},
+      lowest_reward_pro = #{lowestRewardPro,jdbcType=REAL},
+      largest_reward_pro = #{largestRewardPro,jdbcType=REAL},
+      lowest_reward_money = #{lowestRewardMoney,jdbcType=REAL},
+      largest_reward_money = #{largestRewardMoney,jdbcType=REAL},
+      vip_freeze_bail = #{vipFreezeBail,jdbcType=REAL},
+      general_freeze_bail = #{generalFreezeBail,jdbcType=REAL},
+      adv_over_month = #{advOverMonth,jdbcType=REAL},
+      adv_over_day = #{advOverDay,jdbcType=REAL},
+      loan_mana_fee_month = #{loanManaFeeMonth,jdbcType=REAL},
+      loan_mana_fee_day = #{loanManaFeeDay,jdbcType=REAL},
+      limited_periods = #{limitedPeriods,jdbcType=REAL},
+      over_limited_fee = #{overLimitedFee,jdbcType=REAL},
+      subscription_state = #{subscriptionState,jdbcType=CHAR},
+      guarantee_agency_id = #{guaranteeAgencyId,jdbcType=VARCHAR},
+      anti_guarantee_id = #{antiGuaranteeId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where loan_tender_id = #{loanTenderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

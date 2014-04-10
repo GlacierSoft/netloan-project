@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.borrow.RepaymentNotesMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.borrow.RepaymentNotes" >
+    <id column="temp_repayment_notes_repay_notes_id" property="repayNotesId" jdbcType="VARCHAR" />
+    <result column="temp_repayment_notes_loan_id" property="loanId" jdbcType="VARCHAR" />
+    <result column="temp_repayment_notes_repayment_total" property="repaymentTotal" jdbcType="REAL" />
+    <result column="temp_repayment_notes_should_pay_money" property="shouldPayMoney" jdbcType="REAL" />
+    <result column="temp_repayment_notes_alr_pay_money" property="alrPayMoney" jdbcType="REAL" />
+    <result column="temp_repayment_notes_not_pay_money" property="notPayMoney" jdbcType="REAL" />
+    <result column="temp_repayment_notes_alr_overdue_interest" property="alrOverdueInterest" jdbcType="REAL" />
+    <result column="temp_repayment_notes_alr_overdue_urge" property="alrOverdueUrge" jdbcType="REAL" />
+    <result column="temp_repayment_notes_alr_overdue_mana" property="alrOverdueMana" jdbcType="REAL" />
+    <result column="temp_repayment_notes_repay_state" property="repayState" jdbcType="CHAR" />
+    <result column="temp_repayment_notes_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_repayment_notes_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_repayment_notes_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_repayment_notes_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_repayment_notes_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_repayment_notes.repay_notes_id as temp_repayment_notes_repay_notes_id, temp_repayment_notes.loan_id as temp_repayment_notes_loan_id, 
+    temp_repayment_notes.repayment_total as temp_repayment_notes_repayment_total, temp_repayment_notes.should_pay_money as temp_repayment_notes_should_pay_money, 
+    temp_repayment_notes.alr_pay_money as temp_repayment_notes_alr_pay_money, temp_repayment_notes.not_pay_money as temp_repayment_notes_not_pay_money, 
+    temp_repayment_notes.alr_overdue_interest as temp_repayment_notes_alr_overdue_interest, 
+    temp_repayment_notes.alr_overdue_urge as temp_repayment_notes_alr_overdue_urge, temp_repayment_notes.alr_overdue_mana as temp_repayment_notes_alr_overdue_mana, 
+    temp_repayment_notes.repay_state as temp_repayment_notes_repay_state, temp_repayment_notes.remark as temp_repayment_notes_remark, 
+    temp_repayment_notes.creater as temp_repayment_notes_creater, temp_repayment_notes.create_time as temp_repayment_notes_create_time, 
+    temp_repayment_notes.updater as temp_repayment_notes_updater, temp_repayment_notes.update_time as temp_repayment_notes_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.RepaymentNotesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_repayment_notes temp_repayment_notes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_repayment_notes temp_repayment_notes
+    where temp_repayment_notes.repay_notes_id = #{repayNotesId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_repayment_notes
+    where repay_notes_id = #{repayNotesId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.borrow.RepaymentNotesExample" >
+    delete from t_repayment_notes temp_repayment_notes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.borrow.RepaymentNotes" >
+    insert into t_repayment_notes (repay_notes_id, loan_id, repayment_total, 
+      should_pay_money, alr_pay_money, not_pay_money, 
+      alr_overdue_interest, alr_overdue_urge, alr_overdue_mana, 
+      repay_state, remark, creater, 
+      create_time, updater, update_time
+      )
+    values (#{repayNotesId,jdbcType=VARCHAR}, #{loanId,jdbcType=VARCHAR}, #{repaymentTotal,jdbcType=REAL}, 
+      #{shouldPayMoney,jdbcType=REAL}, #{alrPayMoney,jdbcType=REAL}, #{notPayMoney,jdbcType=REAL}, 
+      #{alrOverdueInterest,jdbcType=REAL}, #{alrOverdueUrge,jdbcType=REAL}, #{alrOverdueMana,jdbcType=REAL}, 
+      #{repayState,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.borrow.RepaymentNotes" >
+    insert into t_repayment_notes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="repayNotesId != null" >
+        repay_notes_id,
+      </if>
+      <if test="loanId != null" >
+        loan_id,
+      </if>
+      <if test="repaymentTotal != null" >
+        repayment_total,
+      </if>
+      <if test="shouldPayMoney != null" >
+        should_pay_money,
+      </if>
+      <if test="alrPayMoney != null" >
+        alr_pay_money,
+      </if>
+      <if test="notPayMoney != null" >
+        not_pay_money,
+      </if>
+      <if test="alrOverdueInterest != null" >
+        alr_overdue_interest,
+      </if>
+      <if test="alrOverdueUrge != null" >
+        alr_overdue_urge,
+      </if>
+      <if test="alrOverdueMana != null" >
+        alr_overdue_mana,
+      </if>
+      <if test="repayState != null" >
+        repay_state,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="repayNotesId != null" >
+        #{repayNotesId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanId != null" >
+        #{loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentTotal != null" >
+        #{repaymentTotal,jdbcType=REAL},
+      </if>
+      <if test="shouldPayMoney != null" >
+        #{shouldPayMoney,jdbcType=REAL},
+      </if>
+      <if test="alrPayMoney != null" >
+        #{alrPayMoney,jdbcType=REAL},
+      </if>
+      <if test="notPayMoney != null" >
+        #{notPayMoney,jdbcType=REAL},
+      </if>
+      <if test="alrOverdueInterest != null" >
+        #{alrOverdueInterest,jdbcType=REAL},
+      </if>
+      <if test="alrOverdueUrge != null" >
+        #{alrOverdueUrge,jdbcType=REAL},
+      </if>
+      <if test="alrOverdueMana != null" >
+        #{alrOverdueMana,jdbcType=REAL},
+      </if>
+      <if test="repayState != null" >
+        #{repayState,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.RepaymentNotesExample" resultType="java.lang.Integer" >
+    select count(*) from t_repayment_notes temp_repayment_notes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_repayment_notes temp_repayment_notes
+    <set >
+      <if test="record.repayNotesId != null" >
+        temp_repayment_notes.repay_notes_id = #{record.repayNotesId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanId != null" >
+        temp_repayment_notes.loan_id = #{record.loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repaymentTotal != null" >
+        temp_repayment_notes.repayment_total = #{record.repaymentTotal,jdbcType=REAL},
+      </if>
+      <if test="record.shouldPayMoney != null" >
+        temp_repayment_notes.should_pay_money = #{record.shouldPayMoney,jdbcType=REAL},
+      </if>
+      <if test="record.alrPayMoney != null" >
+        temp_repayment_notes.alr_pay_money = #{record.alrPayMoney,jdbcType=REAL},
+      </if>
+      <if test="record.notPayMoney != null" >
+        temp_repayment_notes.not_pay_money = #{record.notPayMoney,jdbcType=REAL},
+      </if>
+      <if test="record.alrOverdueInterest != null" >
+        temp_repayment_notes.alr_overdue_interest = #{record.alrOverdueInterest,jdbcType=REAL},
+      </if>
+      <if test="record.alrOverdueUrge != null" >
+        temp_repayment_notes.alr_overdue_urge = #{record.alrOverdueUrge,jdbcType=REAL},
+      </if>
+      <if test="record.alrOverdueMana != null" >
+        temp_repayment_notes.alr_overdue_mana = #{record.alrOverdueMana,jdbcType=REAL},
+      </if>
+      <if test="record.repayState != null" >
+        temp_repayment_notes.repay_state = #{record.repayState,jdbcType=CHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_repayment_notes.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_repayment_notes.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_repayment_notes.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_repayment_notes.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_repayment_notes.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_repayment_notes temp_repayment_notes
+    set temp_repayment_notes.repay_notes_id = #{record.repayNotesId,jdbcType=VARCHAR},
+      temp_repayment_notes.loan_id = #{record.loanId,jdbcType=VARCHAR},
+      temp_repayment_notes.repayment_total = #{record.repaymentTotal,jdbcType=REAL},
+      temp_repayment_notes.should_pay_money = #{record.shouldPayMoney,jdbcType=REAL},
+      temp_repayment_notes.alr_pay_money = #{record.alrPayMoney,jdbcType=REAL},
+      temp_repayment_notes.not_pay_money = #{record.notPayMoney,jdbcType=REAL},
+      temp_repayment_notes.alr_overdue_interest = #{record.alrOverdueInterest,jdbcType=REAL},
+      temp_repayment_notes.alr_overdue_urge = #{record.alrOverdueUrge,jdbcType=REAL},
+      temp_repayment_notes.alr_overdue_mana = #{record.alrOverdueMana,jdbcType=REAL},
+      temp_repayment_notes.repay_state = #{record.repayState,jdbcType=CHAR},
+      temp_repayment_notes.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_repayment_notes.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_repayment_notes.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_repayment_notes.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_repayment_notes.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.borrow.RepaymentNotes" >
+    update t_repayment_notes
+    <set >
+      <if test="loanId != null" >
+        loan_id = #{loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentTotal != null" >
+        repayment_total = #{repaymentTotal,jdbcType=REAL},
+      </if>
+      <if test="shouldPayMoney != null" >
+        should_pay_money = #{shouldPayMoney,jdbcType=REAL},
+      </if>
+      <if test="alrPayMoney != null" >
+        alr_pay_money = #{alrPayMoney,jdbcType=REAL},
+      </if>
+      <if test="notPayMoney != null" >
+        not_pay_money = #{notPayMoney,jdbcType=REAL},
+      </if>
+      <if test="alrOverdueInterest != null" >
+        alr_overdue_interest = #{alrOverdueInterest,jdbcType=REAL},
+      </if>
+      <if test="alrOverdueUrge != null" >
+        alr_overdue_urge = #{alrOverdueUrge,jdbcType=REAL},
+      </if>
+      <if test="alrOverdueMana != null" >
+        alr_overdue_mana = #{alrOverdueMana,jdbcType=REAL},
+      </if>
+      <if test="repayState != null" >
+        repay_state = #{repayState,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where repay_notes_id = #{repayNotesId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.borrow.RepaymentNotes" >
+    update t_repayment_notes
+    set loan_id = #{loanId,jdbcType=VARCHAR},
+      repayment_total = #{repaymentTotal,jdbcType=REAL},
+      should_pay_money = #{shouldPayMoney,jdbcType=REAL},
+      alr_pay_money = #{alrPayMoney,jdbcType=REAL},
+      not_pay_money = #{notPayMoney,jdbcType=REAL},
+      alr_overdue_interest = #{alrOverdueInterest,jdbcType=REAL},
+      alr_overdue_urge = #{alrOverdueUrge,jdbcType=REAL},
+      alr_overdue_mana = #{alrOverdueMana,jdbcType=REAL},
+      repay_state = #{repayState,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where repay_notes_id = #{repayNotesId,jdbcType=VARCHAR}
+  </update>
+</mapper>

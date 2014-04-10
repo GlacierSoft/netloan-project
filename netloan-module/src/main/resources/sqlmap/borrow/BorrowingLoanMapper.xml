@@ -1,0 +1,1010 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.borrow.BorrowingLoanMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.borrow.BorrowingLoan" >
+    <id column="temp_borrowing_loan_loan_id" property="loanId" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_loan_code" property="loanCode" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_loan_title" property="loanTitle" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_loan_picture" property="loanPicture" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_loan_tender_id" property="loanTenderId" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_loan_purpose_id" property="loanPurposeId" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_loan_deadlines_id" property="loanDeadlinesId" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_failed_reason" property="failedReason" jdbcType="CHAR" />
+    <result column="temp_borrowing_loan_is_day_marked" property="isDayMarked" jdbcType="CHAR" />
+    <result column="temp_borrowing_loan_is_bid_reward" property="isBidReward" jdbcType="CHAR" />
+    <result column="temp_borrowing_loan_bid_pro_reward" property="bidProReward" jdbcType="REAL" />
+    <result column="temp_borrowing_loan_fixed_app_reward" property="fixedAppReward" jdbcType="REAL" />
+    <result column="temp_borrowing_loan_is_bid_marked" property="isBidMarked" jdbcType="CHAR" />
+    <result column="temp_borrowing_loan_ready_rec_money" property="readyRecMoney" jdbcType="REAL" />
+    <result column="temp_borrowing_loan_is_bid_pwd" property="isBidPwd" jdbcType="CHAR" />
+    <result column="temp_borrowing_loan_bid_pwd" property="bidPwd" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_loan_management_fees" property="loanManagementFees" jdbcType="REAL" />
+    <result column="temp_borrowing_loan_repayment_type_id" property="repaymentTypeId" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_loan_total" property="loanTotal" jdbcType="REAL" />
+    <result column="temp_borrowing_loan_loan_apr" property="loanApr" jdbcType="REAL" />
+    <result column="temp_borrowing_loan_lowest_bid_money" property="lowestBidMoney" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_largest_bid_money" property="largestBidMoney" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_lowest_sub" property="lowestSub" jdbcType="REAL" />
+    <result column="temp_borrowing_loan_sub_total" property="subTotal" jdbcType="REAL" />
+    <result column="temp_borrowing_loan_alr_sub_sum" property="alrSubSum" jdbcType="REAL" />
+    <result column="temp_borrowing_loan_alr_tender_pro" property="alrTenderPro" jdbcType="REAL" />
+    <result column="temp_borrowing_loan_tender_sum" property="tenderSum" jdbcType="REAL" />
+    <result column="temp_borrowing_loan_wait_bid_deadlines" property="waitBidDeadlines" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_loan_detail" property="loanDetail" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_is_account_funds" property="isAccountFunds" jdbcType="CHAR" />
+    <result column="temp_borrowing_loan_is_loan_funds" property="isLoanFunds" jdbcType="CHAR" />
+    <result column="temp_borrowing_loan_is_credit_amount" property="isCreditAmount" jdbcType="CHAR" />
+    <result column="temp_borrowing_loan_is_bid_funds" property="isBidFunds" jdbcType="CHAR" />
+    <result column="temp_borrowing_loan_is_automatic_bid" property="isAutomaticBid" jdbcType="CHAR" />
+    <result column="temp_borrowing_loan_is_recommend" property="isRecommend" jdbcType="CHAR" />
+    <result column="temp_borrowing_loan_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_borrowing_loan_loan_date" property="loanDate" jdbcType="TIMESTAMP" />
+    <result column="temp_borrowing_loan_member_ip" property="memberIp" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_loan_state" property="loanState" jdbcType="CHAR" />
+    <result column="temp_borrowing_loan_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_first_audit_state" property="firstAuditState" jdbcType="CHAR" />
+    <result column="temp_borrowing_loan_first_auditor_id" property="firstAuditorId" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_first_advice" property="firstAdvice" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_first_mes_notice" property="firstMesNotice" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_first_audit_date" property="firstAuditDate" jdbcType="TIMESTAMP" />
+    <result column="temp_borrowing_loan_second_audit_state" property="secondAuditState" jdbcType="CHAR" />
+    <result column="temp_borrowing_loan_second_auditor_id" property="secondAuditorId" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_second_advice" property="secondAdvice" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_second_mes_notice" property="secondMesNotice" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_second_audit_date" property="secondAuditDate" jdbcType="TIMESTAMP" />
+    <result column="temp_borrowing_loan_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_borrowing_loan_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_borrowing_loan.loan_id as temp_borrowing_loan_loan_id, temp_borrowing_loan.loan_code as temp_borrowing_loan_loan_code, 
+    temp_borrowing_loan.member_id as temp_borrowing_loan_member_id, temp_borrowing_loan.loan_title as temp_borrowing_loan_loan_title, 
+    temp_borrowing_loan.loan_picture as temp_borrowing_loan_loan_picture, temp_borrowing_loan.loan_tender_id as temp_borrowing_loan_loan_tender_id, 
+    temp_borrowing_loan.loan_purpose_id as temp_borrowing_loan_loan_purpose_id, temp_borrowing_loan.loan_deadlines_id as temp_borrowing_loan_loan_deadlines_id, 
+    temp_borrowing_loan.failed_reason as temp_borrowing_loan_failed_reason, temp_borrowing_loan.is_day_marked as temp_borrowing_loan_is_day_marked, 
+    temp_borrowing_loan.is_bid_reward as temp_borrowing_loan_is_bid_reward, temp_borrowing_loan.bid_pro_reward as temp_borrowing_loan_bid_pro_reward, 
+    temp_borrowing_loan.fixed_app_reward as temp_borrowing_loan_fixed_app_reward, temp_borrowing_loan.is_bid_marked as temp_borrowing_loan_is_bid_marked, 
+    temp_borrowing_loan.ready_rec_money as temp_borrowing_loan_ready_rec_money, temp_borrowing_loan.is_bid_pwd as temp_borrowing_loan_is_bid_pwd, 
+    temp_borrowing_loan.bid_pwd as temp_borrowing_loan_bid_pwd, temp_borrowing_loan.loan_management_fees as temp_borrowing_loan_loan_management_fees, 
+    temp_borrowing_loan.repayment_type_id as temp_borrowing_loan_repayment_type_id, temp_borrowing_loan.loan_total as temp_borrowing_loan_loan_total, 
+    temp_borrowing_loan.loan_apr as temp_borrowing_loan_loan_apr, temp_borrowing_loan.lowest_bid_money as temp_borrowing_loan_lowest_bid_money, 
+    temp_borrowing_loan.largest_bid_money as temp_borrowing_loan_largest_bid_money, temp_borrowing_loan.lowest_sub as temp_borrowing_loan_lowest_sub, 
+    temp_borrowing_loan.sub_total as temp_borrowing_loan_sub_total, temp_borrowing_loan.alr_sub_sum as temp_borrowing_loan_alr_sub_sum, 
+    temp_borrowing_loan.alr_tender_pro as temp_borrowing_loan_alr_tender_pro, temp_borrowing_loan.tender_sum as temp_borrowing_loan_tender_sum, 
+    temp_borrowing_loan.wait_bid_deadlines as temp_borrowing_loan_wait_bid_deadlines, 
+    temp_borrowing_loan.loan_detail as temp_borrowing_loan_loan_detail, temp_borrowing_loan.is_account_funds as temp_borrowing_loan_is_account_funds, 
+    temp_borrowing_loan.is_loan_funds as temp_borrowing_loan_is_loan_funds, temp_borrowing_loan.is_credit_amount as temp_borrowing_loan_is_credit_amount, 
+    temp_borrowing_loan.is_bid_funds as temp_borrowing_loan_is_bid_funds, temp_borrowing_loan.is_automatic_bid as temp_borrowing_loan_is_automatic_bid, 
+    temp_borrowing_loan.is_recommend as temp_borrowing_loan_is_recommend, temp_borrowing_loan.create_time as temp_borrowing_loan_create_time, 
+    temp_borrowing_loan.loan_date as temp_borrowing_loan_loan_date, temp_borrowing_loan.member_ip as temp_borrowing_loan_member_ip, 
+    temp_borrowing_loan.loan_state as temp_borrowing_loan_loan_state, temp_borrowing_loan.remark as temp_borrowing_loan_remark, 
+    temp_borrowing_loan.first_audit_state as temp_borrowing_loan_first_audit_state, temp_borrowing_loan.first_auditor_id as temp_borrowing_loan_first_auditor_id, 
+    temp_borrowing_loan.first_advice as temp_borrowing_loan_first_advice, temp_borrowing_loan.first_mes_notice as temp_borrowing_loan_first_mes_notice, 
+    temp_borrowing_loan.first_audit_date as temp_borrowing_loan_first_audit_date, temp_borrowing_loan.second_audit_state as temp_borrowing_loan_second_audit_state, 
+    temp_borrowing_loan.second_auditor_id as temp_borrowing_loan_second_auditor_id, temp_borrowing_loan.second_advice as temp_borrowing_loan_second_advice, 
+    temp_borrowing_loan.second_mes_notice as temp_borrowing_loan_second_mes_notice, temp_borrowing_loan.second_audit_date as temp_borrowing_loan_second_audit_date, 
+    temp_borrowing_loan.creater as temp_borrowing_loan_creater, temp_borrowing_loan.updater as temp_borrowing_loan_updater, 
+    temp_borrowing_loan.update_time as temp_borrowing_loan_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.BorrowingLoanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_borrowing_loan temp_borrowing_loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_borrowing_loan temp_borrowing_loan
+    where temp_borrowing_loan.loan_id = #{loanId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_borrowing_loan
+    where loan_id = #{loanId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.borrow.BorrowingLoanExample" >
+    delete from t_borrowing_loan temp_borrowing_loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.borrow.BorrowingLoan" >
+    insert into t_borrowing_loan (loan_id, loan_code, member_id, 
+      loan_title, loan_picture, loan_tender_id, 
+      loan_purpose_id, loan_deadlines_id, failed_reason, 
+      is_day_marked, is_bid_reward, bid_pro_reward, 
+      fixed_app_reward, is_bid_marked, ready_rec_money, 
+      is_bid_pwd, bid_pwd, loan_management_fees, 
+      repayment_type_id, loan_total, loan_apr, 
+      lowest_bid_money, largest_bid_money, lowest_sub, 
+      sub_total, alr_sub_sum, alr_tender_pro, 
+      tender_sum, wait_bid_deadlines, loan_detail, 
+      is_account_funds, is_loan_funds, is_credit_amount, 
+      is_bid_funds, is_automatic_bid, is_recommend, 
+      create_time, loan_date, member_ip, 
+      loan_state, remark, first_audit_state, 
+      first_auditor_id, first_advice, first_mes_notice, 
+      first_audit_date, second_audit_state, second_auditor_id, 
+      second_advice, second_mes_notice, second_audit_date, 
+      creater, updater, update_time
+      )
+    values (#{loanId,jdbcType=VARCHAR}, #{loanCode,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
+      #{loanTitle,jdbcType=VARCHAR}, #{loanPicture,jdbcType=VARCHAR}, #{loanTenderId,jdbcType=VARCHAR}, 
+      #{loanPurposeId,jdbcType=VARCHAR}, #{loanDeadlinesId,jdbcType=VARCHAR}, #{failedReason,jdbcType=CHAR}, 
+      #{isDayMarked,jdbcType=CHAR}, #{isBidReward,jdbcType=CHAR}, #{bidProReward,jdbcType=REAL}, 
+      #{fixedAppReward,jdbcType=REAL}, #{isBidMarked,jdbcType=CHAR}, #{readyRecMoney,jdbcType=REAL}, 
+      #{isBidPwd,jdbcType=CHAR}, #{bidPwd,jdbcType=VARCHAR}, #{loanManagementFees,jdbcType=REAL}, 
+      #{repaymentTypeId,jdbcType=VARCHAR}, #{loanTotal,jdbcType=REAL}, #{loanApr,jdbcType=REAL}, 
+      #{lowestBidMoney,jdbcType=VARCHAR}, #{largestBidMoney,jdbcType=VARCHAR}, #{lowestSub,jdbcType=REAL}, 
+      #{subTotal,jdbcType=REAL}, #{alrSubSum,jdbcType=REAL}, #{alrTenderPro,jdbcType=REAL}, 
+      #{tenderSum,jdbcType=REAL}, #{waitBidDeadlines,jdbcType=VARCHAR}, #{loanDetail,jdbcType=VARCHAR}, 
+      #{isAccountFunds,jdbcType=CHAR}, #{isLoanFunds,jdbcType=CHAR}, #{isCreditAmount,jdbcType=CHAR}, 
+      #{isBidFunds,jdbcType=CHAR}, #{isAutomaticBid,jdbcType=CHAR}, #{isRecommend,jdbcType=CHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{loanDate,jdbcType=TIMESTAMP}, #{memberIp,jdbcType=VARCHAR}, 
+      #{loanState,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, #{firstAuditState,jdbcType=CHAR}, 
+      #{firstAuditorId,jdbcType=VARCHAR}, #{firstAdvice,jdbcType=VARCHAR}, #{firstMesNotice,jdbcType=VARCHAR}, 
+      #{firstAuditDate,jdbcType=TIMESTAMP}, #{secondAuditState,jdbcType=CHAR}, #{secondAuditorId,jdbcType=VARCHAR}, 
+      #{secondAdvice,jdbcType=VARCHAR}, #{secondMesNotice,jdbcType=VARCHAR}, #{secondAuditDate,jdbcType=TIMESTAMP}, 
+      #{creater,jdbcType=VARCHAR}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.borrow.BorrowingLoan" >
+    insert into t_borrowing_loan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loanId != null" >
+        loan_id,
+      </if>
+      <if test="loanCode != null" >
+        loan_code,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="loanTitle != null" >
+        loan_title,
+      </if>
+      <if test="loanPicture != null" >
+        loan_picture,
+      </if>
+      <if test="loanTenderId != null" >
+        loan_tender_id,
+      </if>
+      <if test="loanPurposeId != null" >
+        loan_purpose_id,
+      </if>
+      <if test="loanDeadlinesId != null" >
+        loan_deadlines_id,
+      </if>
+      <if test="failedReason != null" >
+        failed_reason,
+      </if>
+      <if test="isDayMarked != null" >
+        is_day_marked,
+      </if>
+      <if test="isBidReward != null" >
+        is_bid_reward,
+      </if>
+      <if test="bidProReward != null" >
+        bid_pro_reward,
+      </if>
+      <if test="fixedAppReward != null" >
+        fixed_app_reward,
+      </if>
+      <if test="isBidMarked != null" >
+        is_bid_marked,
+      </if>
+      <if test="readyRecMoney != null" >
+        ready_rec_money,
+      </if>
+      <if test="isBidPwd != null" >
+        is_bid_pwd,
+      </if>
+      <if test="bidPwd != null" >
+        bid_pwd,
+      </if>
+      <if test="loanManagementFees != null" >
+        loan_management_fees,
+      </if>
+      <if test="repaymentTypeId != null" >
+        repayment_type_id,
+      </if>
+      <if test="loanTotal != null" >
+        loan_total,
+      </if>
+      <if test="loanApr != null" >
+        loan_apr,
+      </if>
+      <if test="lowestBidMoney != null" >
+        lowest_bid_money,
+      </if>
+      <if test="largestBidMoney != null" >
+        largest_bid_money,
+      </if>
+      <if test="lowestSub != null" >
+        lowest_sub,
+      </if>
+      <if test="subTotal != null" >
+        sub_total,
+      </if>
+      <if test="alrSubSum != null" >
+        alr_sub_sum,
+      </if>
+      <if test="alrTenderPro != null" >
+        alr_tender_pro,
+      </if>
+      <if test="tenderSum != null" >
+        tender_sum,
+      </if>
+      <if test="waitBidDeadlines != null" >
+        wait_bid_deadlines,
+      </if>
+      <if test="loanDetail != null" >
+        loan_detail,
+      </if>
+      <if test="isAccountFunds != null" >
+        is_account_funds,
+      </if>
+      <if test="isLoanFunds != null" >
+        is_loan_funds,
+      </if>
+      <if test="isCreditAmount != null" >
+        is_credit_amount,
+      </if>
+      <if test="isBidFunds != null" >
+        is_bid_funds,
+      </if>
+      <if test="isAutomaticBid != null" >
+        is_automatic_bid,
+      </if>
+      <if test="isRecommend != null" >
+        is_recommend,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="loanDate != null" >
+        loan_date,
+      </if>
+      <if test="memberIp != null" >
+        member_ip,
+      </if>
+      <if test="loanState != null" >
+        loan_state,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="firstAuditState != null" >
+        first_audit_state,
+      </if>
+      <if test="firstAuditorId != null" >
+        first_auditor_id,
+      </if>
+      <if test="firstAdvice != null" >
+        first_advice,
+      </if>
+      <if test="firstMesNotice != null" >
+        first_mes_notice,
+      </if>
+      <if test="firstAuditDate != null" >
+        first_audit_date,
+      </if>
+      <if test="secondAuditState != null" >
+        second_audit_state,
+      </if>
+      <if test="secondAuditorId != null" >
+        second_auditor_id,
+      </if>
+      <if test="secondAdvice != null" >
+        second_advice,
+      </if>
+      <if test="secondMesNotice != null" >
+        second_mes_notice,
+      </if>
+      <if test="secondAuditDate != null" >
+        second_audit_date,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loanId != null" >
+        #{loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanCode != null" >
+        #{loanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanTitle != null" >
+        #{loanTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="loanPicture != null" >
+        #{loanPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="loanTenderId != null" >
+        #{loanTenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanPurposeId != null" >
+        #{loanPurposeId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanDeadlinesId != null" >
+        #{loanDeadlinesId,jdbcType=VARCHAR},
+      </if>
+      <if test="failedReason != null" >
+        #{failedReason,jdbcType=CHAR},
+      </if>
+      <if test="isDayMarked != null" >
+        #{isDayMarked,jdbcType=CHAR},
+      </if>
+      <if test="isBidReward != null" >
+        #{isBidReward,jdbcType=CHAR},
+      </if>
+      <if test="bidProReward != null" >
+        #{bidProReward,jdbcType=REAL},
+      </if>
+      <if test="fixedAppReward != null" >
+        #{fixedAppReward,jdbcType=REAL},
+      </if>
+      <if test="isBidMarked != null" >
+        #{isBidMarked,jdbcType=CHAR},
+      </if>
+      <if test="readyRecMoney != null" >
+        #{readyRecMoney,jdbcType=REAL},
+      </if>
+      <if test="isBidPwd != null" >
+        #{isBidPwd,jdbcType=CHAR},
+      </if>
+      <if test="bidPwd != null" >
+        #{bidPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="loanManagementFees != null" >
+        #{loanManagementFees,jdbcType=REAL},
+      </if>
+      <if test="repaymentTypeId != null" >
+        #{repaymentTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanTotal != null" >
+        #{loanTotal,jdbcType=REAL},
+      </if>
+      <if test="loanApr != null" >
+        #{loanApr,jdbcType=REAL},
+      </if>
+      <if test="lowestBidMoney != null" >
+        #{lowestBidMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="largestBidMoney != null" >
+        #{largestBidMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="lowestSub != null" >
+        #{lowestSub,jdbcType=REAL},
+      </if>
+      <if test="subTotal != null" >
+        #{subTotal,jdbcType=REAL},
+      </if>
+      <if test="alrSubSum != null" >
+        #{alrSubSum,jdbcType=REAL},
+      </if>
+      <if test="alrTenderPro != null" >
+        #{alrTenderPro,jdbcType=REAL},
+      </if>
+      <if test="tenderSum != null" >
+        #{tenderSum,jdbcType=REAL},
+      </if>
+      <if test="waitBidDeadlines != null" >
+        #{waitBidDeadlines,jdbcType=VARCHAR},
+      </if>
+      <if test="loanDetail != null" >
+        #{loanDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="isAccountFunds != null" >
+        #{isAccountFunds,jdbcType=CHAR},
+      </if>
+      <if test="isLoanFunds != null" >
+        #{isLoanFunds,jdbcType=CHAR},
+      </if>
+      <if test="isCreditAmount != null" >
+        #{isCreditAmount,jdbcType=CHAR},
+      </if>
+      <if test="isBidFunds != null" >
+        #{isBidFunds,jdbcType=CHAR},
+      </if>
+      <if test="isAutomaticBid != null" >
+        #{isAutomaticBid,jdbcType=CHAR},
+      </if>
+      <if test="isRecommend != null" >
+        #{isRecommend,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loanDate != null" >
+        #{loanDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberIp != null" >
+        #{memberIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loanState != null" >
+        #{loanState,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="firstAuditState != null" >
+        #{firstAuditState,jdbcType=CHAR},
+      </if>
+      <if test="firstAuditorId != null" >
+        #{firstAuditorId,jdbcType=VARCHAR},
+      </if>
+      <if test="firstAdvice != null" >
+        #{firstAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="firstMesNotice != null" >
+        #{firstMesNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="firstAuditDate != null" >
+        #{firstAuditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="secondAuditState != null" >
+        #{secondAuditState,jdbcType=CHAR},
+      </if>
+      <if test="secondAuditorId != null" >
+        #{secondAuditorId,jdbcType=VARCHAR},
+      </if>
+      <if test="secondAdvice != null" >
+        #{secondAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="secondMesNotice != null" >
+        #{secondMesNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="secondAuditDate != null" >
+        #{secondAuditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.BorrowingLoanExample" resultType="java.lang.Integer" >
+    select count(*) from t_borrowing_loan temp_borrowing_loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_borrowing_loan temp_borrowing_loan
+    <set >
+      <if test="record.loanId != null" >
+        temp_borrowing_loan.loan_id = #{record.loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanCode != null" >
+        temp_borrowing_loan.loan_code = #{record.loanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberId != null" >
+        temp_borrowing_loan.member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanTitle != null" >
+        temp_borrowing_loan.loan_title = #{record.loanTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanPicture != null" >
+        temp_borrowing_loan.loan_picture = #{record.loanPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanTenderId != null" >
+        temp_borrowing_loan.loan_tender_id = #{record.loanTenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanPurposeId != null" >
+        temp_borrowing_loan.loan_purpose_id = #{record.loanPurposeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanDeadlinesId != null" >
+        temp_borrowing_loan.loan_deadlines_id = #{record.loanDeadlinesId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.failedReason != null" >
+        temp_borrowing_loan.failed_reason = #{record.failedReason,jdbcType=CHAR},
+      </if>
+      <if test="record.isDayMarked != null" >
+        temp_borrowing_loan.is_day_marked = #{record.isDayMarked,jdbcType=CHAR},
+      </if>
+      <if test="record.isBidReward != null" >
+        temp_borrowing_loan.is_bid_reward = #{record.isBidReward,jdbcType=CHAR},
+      </if>
+      <if test="record.bidProReward != null" >
+        temp_borrowing_loan.bid_pro_reward = #{record.bidProReward,jdbcType=REAL},
+      </if>
+      <if test="record.fixedAppReward != null" >
+        temp_borrowing_loan.fixed_app_reward = #{record.fixedAppReward,jdbcType=REAL},
+      </if>
+      <if test="record.isBidMarked != null" >
+        temp_borrowing_loan.is_bid_marked = #{record.isBidMarked,jdbcType=CHAR},
+      </if>
+      <if test="record.readyRecMoney != null" >
+        temp_borrowing_loan.ready_rec_money = #{record.readyRecMoney,jdbcType=REAL},
+      </if>
+      <if test="record.isBidPwd != null" >
+        temp_borrowing_loan.is_bid_pwd = #{record.isBidPwd,jdbcType=CHAR},
+      </if>
+      <if test="record.bidPwd != null" >
+        temp_borrowing_loan.bid_pwd = #{record.bidPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanManagementFees != null" >
+        temp_borrowing_loan.loan_management_fees = #{record.loanManagementFees,jdbcType=REAL},
+      </if>
+      <if test="record.repaymentTypeId != null" >
+        temp_borrowing_loan.repayment_type_id = #{record.repaymentTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanTotal != null" >
+        temp_borrowing_loan.loan_total = #{record.loanTotal,jdbcType=REAL},
+      </if>
+      <if test="record.loanApr != null" >
+        temp_borrowing_loan.loan_apr = #{record.loanApr,jdbcType=REAL},
+      </if>
+      <if test="record.lowestBidMoney != null" >
+        temp_borrowing_loan.lowest_bid_money = #{record.lowestBidMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.largestBidMoney != null" >
+        temp_borrowing_loan.largest_bid_money = #{record.largestBidMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lowestSub != null" >
+        temp_borrowing_loan.lowest_sub = #{record.lowestSub,jdbcType=REAL},
+      </if>
+      <if test="record.subTotal != null" >
+        temp_borrowing_loan.sub_total = #{record.subTotal,jdbcType=REAL},
+      </if>
+      <if test="record.alrSubSum != null" >
+        temp_borrowing_loan.alr_sub_sum = #{record.alrSubSum,jdbcType=REAL},
+      </if>
+      <if test="record.alrTenderPro != null" >
+        temp_borrowing_loan.alr_tender_pro = #{record.alrTenderPro,jdbcType=REAL},
+      </if>
+      <if test="record.tenderSum != null" >
+        temp_borrowing_loan.tender_sum = #{record.tenderSum,jdbcType=REAL},
+      </if>
+      <if test="record.waitBidDeadlines != null" >
+        temp_borrowing_loan.wait_bid_deadlines = #{record.waitBidDeadlines,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanDetail != null" >
+        temp_borrowing_loan.loan_detail = #{record.loanDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isAccountFunds != null" >
+        temp_borrowing_loan.is_account_funds = #{record.isAccountFunds,jdbcType=CHAR},
+      </if>
+      <if test="record.isLoanFunds != null" >
+        temp_borrowing_loan.is_loan_funds = #{record.isLoanFunds,jdbcType=CHAR},
+      </if>
+      <if test="record.isCreditAmount != null" >
+        temp_borrowing_loan.is_credit_amount = #{record.isCreditAmount,jdbcType=CHAR},
+      </if>
+      <if test="record.isBidFunds != null" >
+        temp_borrowing_loan.is_bid_funds = #{record.isBidFunds,jdbcType=CHAR},
+      </if>
+      <if test="record.isAutomaticBid != null" >
+        temp_borrowing_loan.is_automatic_bid = #{record.isAutomaticBid,jdbcType=CHAR},
+      </if>
+      <if test="record.isRecommend != null" >
+        temp_borrowing_loan.is_recommend = #{record.isRecommend,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_borrowing_loan.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.loanDate != null" >
+        temp_borrowing_loan.loan_date = #{record.loanDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.memberIp != null" >
+        temp_borrowing_loan.member_ip = #{record.memberIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanState != null" >
+        temp_borrowing_loan.loan_state = #{record.loanState,jdbcType=CHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_borrowing_loan.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstAuditState != null" >
+        temp_borrowing_loan.first_audit_state = #{record.firstAuditState,jdbcType=CHAR},
+      </if>
+      <if test="record.firstAuditorId != null" >
+        temp_borrowing_loan.first_auditor_id = #{record.firstAuditorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstAdvice != null" >
+        temp_borrowing_loan.first_advice = #{record.firstAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstMesNotice != null" >
+        temp_borrowing_loan.first_mes_notice = #{record.firstMesNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstAuditDate != null" >
+        temp_borrowing_loan.first_audit_date = #{record.firstAuditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.secondAuditState != null" >
+        temp_borrowing_loan.second_audit_state = #{record.secondAuditState,jdbcType=CHAR},
+      </if>
+      <if test="record.secondAuditorId != null" >
+        temp_borrowing_loan.second_auditor_id = #{record.secondAuditorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secondAdvice != null" >
+        temp_borrowing_loan.second_advice = #{record.secondAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secondMesNotice != null" >
+        temp_borrowing_loan.second_mes_notice = #{record.secondMesNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secondAuditDate != null" >
+        temp_borrowing_loan.second_audit_date = #{record.secondAuditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creater != null" >
+        temp_borrowing_loan.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updater != null" >
+        temp_borrowing_loan.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_borrowing_loan.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_borrowing_loan temp_borrowing_loan
+    set temp_borrowing_loan.loan_id = #{record.loanId,jdbcType=VARCHAR},
+      temp_borrowing_loan.loan_code = #{record.loanCode,jdbcType=VARCHAR},
+      temp_borrowing_loan.member_id = #{record.memberId,jdbcType=VARCHAR},
+      temp_borrowing_loan.loan_title = #{record.loanTitle,jdbcType=VARCHAR},
+      temp_borrowing_loan.loan_picture = #{record.loanPicture,jdbcType=VARCHAR},
+      temp_borrowing_loan.loan_tender_id = #{record.loanTenderId,jdbcType=VARCHAR},
+      temp_borrowing_loan.loan_purpose_id = #{record.loanPurposeId,jdbcType=VARCHAR},
+      temp_borrowing_loan.loan_deadlines_id = #{record.loanDeadlinesId,jdbcType=VARCHAR},
+      temp_borrowing_loan.failed_reason = #{record.failedReason,jdbcType=CHAR},
+      temp_borrowing_loan.is_day_marked = #{record.isDayMarked,jdbcType=CHAR},
+      temp_borrowing_loan.is_bid_reward = #{record.isBidReward,jdbcType=CHAR},
+      temp_borrowing_loan.bid_pro_reward = #{record.bidProReward,jdbcType=REAL},
+      temp_borrowing_loan.fixed_app_reward = #{record.fixedAppReward,jdbcType=REAL},
+      temp_borrowing_loan.is_bid_marked = #{record.isBidMarked,jdbcType=CHAR},
+      temp_borrowing_loan.ready_rec_money = #{record.readyRecMoney,jdbcType=REAL},
+      temp_borrowing_loan.is_bid_pwd = #{record.isBidPwd,jdbcType=CHAR},
+      temp_borrowing_loan.bid_pwd = #{record.bidPwd,jdbcType=VARCHAR},
+      temp_borrowing_loan.loan_management_fees = #{record.loanManagementFees,jdbcType=REAL},
+      temp_borrowing_loan.repayment_type_id = #{record.repaymentTypeId,jdbcType=VARCHAR},
+      temp_borrowing_loan.loan_total = #{record.loanTotal,jdbcType=REAL},
+      temp_borrowing_loan.loan_apr = #{record.loanApr,jdbcType=REAL},
+      temp_borrowing_loan.lowest_bid_money = #{record.lowestBidMoney,jdbcType=VARCHAR},
+      temp_borrowing_loan.largest_bid_money = #{record.largestBidMoney,jdbcType=VARCHAR},
+      temp_borrowing_loan.lowest_sub = #{record.lowestSub,jdbcType=REAL},
+      temp_borrowing_loan.sub_total = #{record.subTotal,jdbcType=REAL},
+      temp_borrowing_loan.alr_sub_sum = #{record.alrSubSum,jdbcType=REAL},
+      temp_borrowing_loan.alr_tender_pro = #{record.alrTenderPro,jdbcType=REAL},
+      temp_borrowing_loan.tender_sum = #{record.tenderSum,jdbcType=REAL},
+      temp_borrowing_loan.wait_bid_deadlines = #{record.waitBidDeadlines,jdbcType=VARCHAR},
+      temp_borrowing_loan.loan_detail = #{record.loanDetail,jdbcType=VARCHAR},
+      temp_borrowing_loan.is_account_funds = #{record.isAccountFunds,jdbcType=CHAR},
+      temp_borrowing_loan.is_loan_funds = #{record.isLoanFunds,jdbcType=CHAR},
+      temp_borrowing_loan.is_credit_amount = #{record.isCreditAmount,jdbcType=CHAR},
+      temp_borrowing_loan.is_bid_funds = #{record.isBidFunds,jdbcType=CHAR},
+      temp_borrowing_loan.is_automatic_bid = #{record.isAutomaticBid,jdbcType=CHAR},
+      temp_borrowing_loan.is_recommend = #{record.isRecommend,jdbcType=CHAR},
+      temp_borrowing_loan.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_borrowing_loan.loan_date = #{record.loanDate,jdbcType=TIMESTAMP},
+      temp_borrowing_loan.member_ip = #{record.memberIp,jdbcType=VARCHAR},
+      temp_borrowing_loan.loan_state = #{record.loanState,jdbcType=CHAR},
+      temp_borrowing_loan.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_borrowing_loan.first_audit_state = #{record.firstAuditState,jdbcType=CHAR},
+      temp_borrowing_loan.first_auditor_id = #{record.firstAuditorId,jdbcType=VARCHAR},
+      temp_borrowing_loan.first_advice = #{record.firstAdvice,jdbcType=VARCHAR},
+      temp_borrowing_loan.first_mes_notice = #{record.firstMesNotice,jdbcType=VARCHAR},
+      temp_borrowing_loan.first_audit_date = #{record.firstAuditDate,jdbcType=TIMESTAMP},
+      temp_borrowing_loan.second_audit_state = #{record.secondAuditState,jdbcType=CHAR},
+      temp_borrowing_loan.second_auditor_id = #{record.secondAuditorId,jdbcType=VARCHAR},
+      temp_borrowing_loan.second_advice = #{record.secondAdvice,jdbcType=VARCHAR},
+      temp_borrowing_loan.second_mes_notice = #{record.secondMesNotice,jdbcType=VARCHAR},
+      temp_borrowing_loan.second_audit_date = #{record.secondAuditDate,jdbcType=TIMESTAMP},
+      temp_borrowing_loan.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_borrowing_loan.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_borrowing_loan.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.borrow.BorrowingLoan" >
+    update t_borrowing_loan
+    <set >
+      <if test="loanCode != null" >
+        loan_code = #{loanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanTitle != null" >
+        loan_title = #{loanTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="loanPicture != null" >
+        loan_picture = #{loanPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="loanTenderId != null" >
+        loan_tender_id = #{loanTenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanPurposeId != null" >
+        loan_purpose_id = #{loanPurposeId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanDeadlinesId != null" >
+        loan_deadlines_id = #{loanDeadlinesId,jdbcType=VARCHAR},
+      </if>
+      <if test="failedReason != null" >
+        failed_reason = #{failedReason,jdbcType=CHAR},
+      </if>
+      <if test="isDayMarked != null" >
+        is_day_marked = #{isDayMarked,jdbcType=CHAR},
+      </if>
+      <if test="isBidReward != null" >
+        is_bid_reward = #{isBidReward,jdbcType=CHAR},
+      </if>
+      <if test="bidProReward != null" >
+        bid_pro_reward = #{bidProReward,jdbcType=REAL},
+      </if>
+      <if test="fixedAppReward != null" >
+        fixed_app_reward = #{fixedAppReward,jdbcType=REAL},
+      </if>
+      <if test="isBidMarked != null" >
+        is_bid_marked = #{isBidMarked,jdbcType=CHAR},
+      </if>
+      <if test="readyRecMoney != null" >
+        ready_rec_money = #{readyRecMoney,jdbcType=REAL},
+      </if>
+      <if test="isBidPwd != null" >
+        is_bid_pwd = #{isBidPwd,jdbcType=CHAR},
+      </if>
+      <if test="bidPwd != null" >
+        bid_pwd = #{bidPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="loanManagementFees != null" >
+        loan_management_fees = #{loanManagementFees,jdbcType=REAL},
+      </if>
+      <if test="repaymentTypeId != null" >
+        repayment_type_id = #{repaymentTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanTotal != null" >
+        loan_total = #{loanTotal,jdbcType=REAL},
+      </if>
+      <if test="loanApr != null" >
+        loan_apr = #{loanApr,jdbcType=REAL},
+      </if>
+      <if test="lowestBidMoney != null" >
+        lowest_bid_money = #{lowestBidMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="largestBidMoney != null" >
+        largest_bid_money = #{largestBidMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="lowestSub != null" >
+        lowest_sub = #{lowestSub,jdbcType=REAL},
+      </if>
+      <if test="subTotal != null" >
+        sub_total = #{subTotal,jdbcType=REAL},
+      </if>
+      <if test="alrSubSum != null" >
+        alr_sub_sum = #{alrSubSum,jdbcType=REAL},
+      </if>
+      <if test="alrTenderPro != null" >
+        alr_tender_pro = #{alrTenderPro,jdbcType=REAL},
+      </if>
+      <if test="tenderSum != null" >
+        tender_sum = #{tenderSum,jdbcType=REAL},
+      </if>
+      <if test="waitBidDeadlines != null" >
+        wait_bid_deadlines = #{waitBidDeadlines,jdbcType=VARCHAR},
+      </if>
+      <if test="loanDetail != null" >
+        loan_detail = #{loanDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="isAccountFunds != null" >
+        is_account_funds = #{isAccountFunds,jdbcType=CHAR},
+      </if>
+      <if test="isLoanFunds != null" >
+        is_loan_funds = #{isLoanFunds,jdbcType=CHAR},
+      </if>
+      <if test="isCreditAmount != null" >
+        is_credit_amount = #{isCreditAmount,jdbcType=CHAR},
+      </if>
+      <if test="isBidFunds != null" >
+        is_bid_funds = #{isBidFunds,jdbcType=CHAR},
+      </if>
+      <if test="isAutomaticBid != null" >
+        is_automatic_bid = #{isAutomaticBid,jdbcType=CHAR},
+      </if>
+      <if test="isRecommend != null" >
+        is_recommend = #{isRecommend,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loanDate != null" >
+        loan_date = #{loanDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberIp != null" >
+        member_ip = #{memberIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loanState != null" >
+        loan_state = #{loanState,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="firstAuditState != null" >
+        first_audit_state = #{firstAuditState,jdbcType=CHAR},
+      </if>
+      <if test="firstAuditorId != null" >
+        first_auditor_id = #{firstAuditorId,jdbcType=VARCHAR},
+      </if>
+      <if test="firstAdvice != null" >
+        first_advice = #{firstAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="firstMesNotice != null" >
+        first_mes_notice = #{firstMesNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="firstAuditDate != null" >
+        first_audit_date = #{firstAuditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="secondAuditState != null" >
+        second_audit_state = #{secondAuditState,jdbcType=CHAR},
+      </if>
+      <if test="secondAuditorId != null" >
+        second_auditor_id = #{secondAuditorId,jdbcType=VARCHAR},
+      </if>
+      <if test="secondAdvice != null" >
+        second_advice = #{secondAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="secondMesNotice != null" >
+        second_mes_notice = #{secondMesNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="secondAuditDate != null" >
+        second_audit_date = #{secondAuditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where loan_id = #{loanId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.borrow.BorrowingLoan" >
+    update t_borrowing_loan
+    set loan_code = #{loanCode,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=VARCHAR},
+      loan_title = #{loanTitle,jdbcType=VARCHAR},
+      loan_picture = #{loanPicture,jdbcType=VARCHAR},
+      loan_tender_id = #{loanTenderId,jdbcType=VARCHAR},
+      loan_purpose_id = #{loanPurposeId,jdbcType=VARCHAR},
+      loan_deadlines_id = #{loanDeadlinesId,jdbcType=VARCHAR},
+      failed_reason = #{failedReason,jdbcType=CHAR},
+      is_day_marked = #{isDayMarked,jdbcType=CHAR},
+      is_bid_reward = #{isBidReward,jdbcType=CHAR},
+      bid_pro_reward = #{bidProReward,jdbcType=REAL},
+      fixed_app_reward = #{fixedAppReward,jdbcType=REAL},
+      is_bid_marked = #{isBidMarked,jdbcType=CHAR},
+      ready_rec_money = #{readyRecMoney,jdbcType=REAL},
+      is_bid_pwd = #{isBidPwd,jdbcType=CHAR},
+      bid_pwd = #{bidPwd,jdbcType=VARCHAR},
+      loan_management_fees = #{loanManagementFees,jdbcType=REAL},
+      repayment_type_id = #{repaymentTypeId,jdbcType=VARCHAR},
+      loan_total = #{loanTotal,jdbcType=REAL},
+      loan_apr = #{loanApr,jdbcType=REAL},
+      lowest_bid_money = #{lowestBidMoney,jdbcType=VARCHAR},
+      largest_bid_money = #{largestBidMoney,jdbcType=VARCHAR},
+      lowest_sub = #{lowestSub,jdbcType=REAL},
+      sub_total = #{subTotal,jdbcType=REAL},
+      alr_sub_sum = #{alrSubSum,jdbcType=REAL},
+      alr_tender_pro = #{alrTenderPro,jdbcType=REAL},
+      tender_sum = #{tenderSum,jdbcType=REAL},
+      wait_bid_deadlines = #{waitBidDeadlines,jdbcType=VARCHAR},
+      loan_detail = #{loanDetail,jdbcType=VARCHAR},
+      is_account_funds = #{isAccountFunds,jdbcType=CHAR},
+      is_loan_funds = #{isLoanFunds,jdbcType=CHAR},
+      is_credit_amount = #{isCreditAmount,jdbcType=CHAR},
+      is_bid_funds = #{isBidFunds,jdbcType=CHAR},
+      is_automatic_bid = #{isAutomaticBid,jdbcType=CHAR},
+      is_recommend = #{isRecommend,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      loan_date = #{loanDate,jdbcType=TIMESTAMP},
+      member_ip = #{memberIp,jdbcType=VARCHAR},
+      loan_state = #{loanState,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      first_audit_state = #{firstAuditState,jdbcType=CHAR},
+      first_auditor_id = #{firstAuditorId,jdbcType=VARCHAR},
+      first_advice = #{firstAdvice,jdbcType=VARCHAR},
+      first_mes_notice = #{firstMesNotice,jdbcType=VARCHAR},
+      first_audit_date = #{firstAuditDate,jdbcType=TIMESTAMP},
+      second_audit_state = #{secondAuditState,jdbcType=CHAR},
+      second_auditor_id = #{secondAuditorId,jdbcType=VARCHAR},
+      second_advice = #{secondAdvice,jdbcType=VARCHAR},
+      second_mes_notice = #{secondMesNotice,jdbcType=VARCHAR},
+      second_audit_date = #{secondAuditDate,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where loan_id = #{loanId,jdbcType=VARCHAR}
+  </update>
+</mapper>

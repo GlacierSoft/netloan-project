@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.borrow.RepaymentTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.borrow.RepaymentType" >
+    <id column="temp_repayment_type_repayment_type_id" property="repaymentTypeId" jdbcType="VARCHAR" />
+    <result column="temp_repayment_type_repayment_typer_name" property="repaymentTyperName" jdbcType="VARCHAR" />
+    <result column="temp_repayment_type_algorithm_info" property="algorithmInfo" jdbcType="VARCHAR" />
+    <result column="temp_repayment_type_state" property="state" jdbcType="CHAR" />
+    <result column="temp_repayment_type_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_repayment_type_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_repayment_type_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_repayment_type_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_repayment_type_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_repayment_type.repayment_type_id as temp_repayment_type_repayment_type_id, temp_repayment_type.repayment_typer_name as temp_repayment_type_repayment_typer_name, 
+    temp_repayment_type.algorithm_info as temp_repayment_type_algorithm_info, temp_repayment_type.state as temp_repayment_type_state, 
+    temp_repayment_type.remark as temp_repayment_type_remark, temp_repayment_type.creater as temp_repayment_type_creater, 
+    temp_repayment_type.create_time as temp_repayment_type_create_time, temp_repayment_type.updater as temp_repayment_type_updater, 
+    temp_repayment_type.update_time as temp_repayment_type_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.RepaymentTypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_repayment_type temp_repayment_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_repayment_type temp_repayment_type
+    where temp_repayment_type.repayment_type_id = #{repaymentTypeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_repayment_type
+    where repayment_type_id = #{repaymentTypeId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.borrow.RepaymentTypeExample" >
+    delete from t_repayment_type temp_repayment_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.borrow.RepaymentType" >
+    insert into t_repayment_type (repayment_type_id, repayment_typer_name, 
+      algorithm_info, state, remark, 
+      creater, create_time, updater, 
+      update_time)
+    values (#{repaymentTypeId,jdbcType=VARCHAR}, #{repaymentTyperName,jdbcType=VARCHAR}, 
+      #{algorithmInfo,jdbcType=VARCHAR}, #{state,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.borrow.RepaymentType" >
+    insert into t_repayment_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="repaymentTypeId != null" >
+        repayment_type_id,
+      </if>
+      <if test="repaymentTyperName != null" >
+        repayment_typer_name,
+      </if>
+      <if test="algorithmInfo != null" >
+        algorithm_info,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="repaymentTypeId != null" >
+        #{repaymentTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentTyperName != null" >
+        #{repaymentTyperName,jdbcType=VARCHAR},
+      </if>
+      <if test="algorithmInfo != null" >
+        #{algorithmInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.RepaymentTypeExample" resultType="java.lang.Integer" >
+    select count(*) from t_repayment_type temp_repayment_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_repayment_type temp_repayment_type
+    <set >
+      <if test="record.repaymentTypeId != null" >
+        temp_repayment_type.repayment_type_id = #{record.repaymentTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repaymentTyperName != null" >
+        temp_repayment_type.repayment_typer_name = #{record.repaymentTyperName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.algorithmInfo != null" >
+        temp_repayment_type.algorithm_info = #{record.algorithmInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        temp_repayment_type.state = #{record.state,jdbcType=CHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_repayment_type.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_repayment_type.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_repayment_type.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_repayment_type.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_repayment_type.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_repayment_type temp_repayment_type
+    set temp_repayment_type.repayment_type_id = #{record.repaymentTypeId,jdbcType=VARCHAR},
+      temp_repayment_type.repayment_typer_name = #{record.repaymentTyperName,jdbcType=VARCHAR},
+      temp_repayment_type.algorithm_info = #{record.algorithmInfo,jdbcType=VARCHAR},
+      temp_repayment_type.state = #{record.state,jdbcType=CHAR},
+      temp_repayment_type.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_repayment_type.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_repayment_type.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_repayment_type.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_repayment_type.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.borrow.RepaymentType" >
+    update t_repayment_type
+    <set >
+      <if test="repaymentTyperName != null" >
+        repayment_typer_name = #{repaymentTyperName,jdbcType=VARCHAR},
+      </if>
+      <if test="algorithmInfo != null" >
+        algorithm_info = #{algorithmInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where repayment_type_id = #{repaymentTypeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.borrow.RepaymentType" >
+    update t_repayment_type
+    set repayment_typer_name = #{repaymentTyperName,jdbcType=VARCHAR},
+      algorithm_info = #{algorithmInfo,jdbcType=VARCHAR},
+      state = #{state,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where repayment_type_id = #{repaymentTypeId,jdbcType=VARCHAR}
+  </update>
+</mapper>
