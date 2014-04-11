@@ -318,7 +318,7 @@
 	//点击将信息标记为未读按钮
   	$("#markUnread").bind('click', function(){   
   		/* $("input[name='messageNoticeIds']:checked").each(function() {messageNoticeIds.push($(this).val());}); */
-  		$('input:checkbox:checked').each(function() {
+  		$("input[name='messageNoticeIds']:checked").each(function() {
   			messageNoticeIds.push($(this).val());
         });
   		if(messageNoticeIds.length == 0){
@@ -334,7 +334,7 @@
     });
   //点击将信息标记为已读按钮
   	$("#markRead").bind('click', function(){   
-  		$('input:checkbox:checked').each(function() {
+  		$("input[name='messageNoticeIds']:checked").each(function() {
   			messageNoticeIds.push($(this).val());
         });
   		if(messageNoticeIds.length == 0){
