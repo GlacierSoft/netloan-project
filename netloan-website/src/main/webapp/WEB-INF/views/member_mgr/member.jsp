@@ -138,7 +138,7 @@
 			        <div style="border: 1px solid #DDDDDD;">
 			        <div class="row" style="padding:10px;">
 					  <div class="col-md-2 text-right"><img alt="" src="${ctx}/resources/images/member/wenxintisi.jpg"><span class="text-danger"><strong>温馨提示：</strong></span></div>
-					  <div class="col-md-2"><span>未读站内信<a href="#" class="navbar-link"><span class="badge">3</span></a>封</span></div>
+					  <div class="col-md-2"><span>未读站内信<a href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1" class="navbar-link"><span class="badge">${messageNoticCount}</span></a>封</span></div>
 					  <div class="col-md-2"><span>等待审核借款<a href="#" class="navbar-link"><span class="badge">0</span></a>个</span></div>
 					  <div class="col-md-2"><span>本月待还款<a href="#" class="navbar-link"><span class="badge">0</span></a>个</span></div>
 					  <div class="col-md-4"><span>本月待收款<a href="#" class="navbar-link"><span class="badge">0</span></a>个</span></div>

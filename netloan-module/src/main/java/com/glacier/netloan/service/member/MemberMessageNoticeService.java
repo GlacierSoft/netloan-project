@@ -230,4 +230,30 @@ public class MemberMessageNoticeService {
         }
         return returnResult;
     }
+    /**
+     * @Title: delMemberMessageNotice 
+     * @Description: TODO(删除消息通知) 
+     * @param @param messageNoticeIds
+     * @param @param annThemes
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    public Object delMessageNoticeWebsit(List<String> messageNoticeIds) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        if (messageNoticeIds.size() > 0) {
+        	MemberMessageNoticeExample memberMessageNoticeExample = new MemberMessageNoticeExample();
+        	memberMessageNoticeExample.createCriteria().andMessageNoticeIdIn(messageNoticeIds);
+            count = memberMessageNoticeMapper.deleteByExample(memberMessageNoticeExample);
+            if (count > 0) {
+                returnResult.setSuccess(true);
+                returnResult.setMsg("成功删除");
+            } else {
+                returnResult.setMsg("发生未知错误，消息通知信息删除失败");
+            }
+        }
+        return returnResult;
+    }
 }

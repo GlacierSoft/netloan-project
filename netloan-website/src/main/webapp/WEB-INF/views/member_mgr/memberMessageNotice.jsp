@@ -98,20 +98,22 @@
 				  <div class="panel-body">
 				  <div id="messageNoticeList">
 				  <div style="padding-top:10px;padding-bottom: 20px;">
-				  	<a href="#" class="btn btn-default" role="button">删除</a>
-					<a href="#" class="btn btn-default" role="button">标记为已读</a>
-					<a href="#" class="btn btn-default" role="button">标记为未读</a>
-					<a href="#" class="btn btn-default" role="button">未读信息</a>
+				  	<a id="deleteMessageNotice" href="javascript:void(0);" class="btn btn-primary" role="button">删除</a>
+					<a id="markRead" href="javascript:void(0);" class="btn btn-primary" role="button">标记为已读</a>
+					<a id="markUnread" href="javascript:void(0);" class="btn btn-primary" role="button">标记为未读</a>
+					<a href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1&letterstatus=unread" class="btn btn-primary" role="button">未读信息</a>
 				  </div>
 				  	<table id="messageNoticeTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
-				         	<tbody>
-				            <tr>
-				              <td><input type="checkbox" value=""></td>
+				  		<thead>
+				  			<tr>
+				              <td><input id="totalCheckbox" type="checkbox" value="" /></td>
 				              <td><strong>标记</strong></td>
 				              <td><strong>发件人</strong></td>
 				              <td><strong>标题</strong></td>
 				              <td><strong>发送时间</strong></td>
 				            </tr>
+				  		</thead>
+				         	<tbody>
 							<c:if test="${empty messageNoticeDatas.rows}">
 							<tr>
 					            <td colspan="5"><strong>暂无信息</strong></td>
@@ -121,12 +123,7 @@
 				            <c:forEach items="${messageNoticeDatas.rows}" var="messageNotice" varStatus="status">
 						      	<tr>
 						      	  	<td>
-						      	  	<!-- <div class="checkbox">
-									  <label>
-									    <input type="checkbox" value="">
-									  </label>
-									</div> -->
-									<input type="checkbox" value="">
+									<input name="messageNoticeIds" type="checkbox" value="${messageNotice.messageNoticeId}">
 									</td>	
 					              <td id="messageNotice_letterstatus${status.index}">
 					              <script type="text/javascript">
@@ -144,6 +141,7 @@
 													   url: ctx+"/messageNotice/messageNoticeDetail.json?messageNoticeId="+valCalss,
 													   dataType: "json",
 									 			   	 success: function(r) {
+									 			   		 $("#nav_messageNoticCount").html(${messageNoticCount});
 									 			   		 $("#messageNoticeList").hide();
 									 			   		 $("#sender").html(r.senderDisplay);
 									 			   		 $("#addressee").html(r.addresseeDisplay);
@@ -175,39 +173,40 @@
 					        </tfoot>
 				        </table><!-- display:block; -->
 				       </div>
-				        <table id="messageNoticeDetailTable" class="table table-condensed" style="display:block;margin-top:20px;text-align:center;vertical-align: middle;">
+				        <table id="messageNoticeDetailTable" class="table" style="display:none;margin-top:20px;text-align:center;vertical-align: middle;">
 				        	<tr>
 				              <td>发件人：</td>
-				              <td><span id="sender"></span></td>
+				              <td><span id="sender" style="float: left;"></span></td>
 				              <td></td>
 				              <td></td>
 				            </tr>
 				            <tr>
 				              <td>收件人：</td>
-				              <td id="addressee"></td>
+				              <td><span id="addressee" style="float: left;"></span></td>
 				              <td></td>
 				              <td></td>
 				            </tr>
 				            <tr>
 				              <td>标题：</td>
-				              <td id="title"></td>
+				              <td><span id="title" style="float: left;" ></span></td>
 				              <td></td>
 				              <td></td>
 				            </tr>
 				            <tr>
 				              <td>日期：</td>
-				              <td id="sendTime"></td>
+				              <td><span id="sendTime" style="float: left;"></span></td>
 				              <td></td>
 				              <td></td>
 				            </tr>
 				            <tr>
 				              <td>内容：</td>
-				              <td id="content"></td>
+				              <td><span id="content" style="float: left;"></span></td>
 				              <td></td>
 				              <td></td>
 				            </tr>
 				            <tr>
-				              <td> <a href="javascript:void(0);" class="btn btn-default" role="button" onclick="$('#messageNoticeList').show();$('#messageNoticeDetailTable').hide();">返回</a></td>
+				              <!-- <td> <a id="" href="javascript:void(0);" class="btn btn-default" role="button" onclick="$('#messageNoticeList').show();$('#messageNoticeDetailTable').hide();">返回</a></td> -->
+				              <td> <a id="messageNoticeListReturn" href="javascript:void(0);" class="btn btn-primary" role="button" >返回</a></td>
 				              <td></td>
 				              <td></td>
 				              <td></td>
@@ -224,7 +223,11 @@
 	      
   </body>
   	<script type="text/javascript">
-  <!-- 分页显示表格数据 -->
+  	//定义成全局变量
+	 var valp = '';//获取p参数，也就是第几页
+	 var messageNoticeIds = [];//删除的id标识
+	 
+	  <!-- 分页显示表格数据 开始 -->
 		$(function(){
 			//获得浏览器参数
 			$.extend({
@@ -252,6 +255,13 @@
 					if(val) param += "&" + item+"="+val;
 				}
 			});
+			//获取p参数，也就是第几页,不是分页功能的代码，
+			$.each($.getUrlVars(), function(i, item) {
+				if(item=='p'){
+					valp=$.getUrlVar(item);
+					return false;
+				}
+			});
 			return param;
 		}
 		
@@ -273,8 +283,129 @@
 		    	return "${ctx}/messageNotice/intoMessageNotice.htm?"+composeUrlParams()+"&p="+page;
 		    	}
 		}
-		
 		elementpagemessageNotice.bootstrapPaginator(messageNoticeOptions);
 		})
+	<!-- 分页显示表格数据 结束 -->
+	$("#totalCheckbox").attr("checked",false);	
+	//点击总的复选框触发事件
+	$("#totalCheckbox").change(function() {
+		var checked =$("#totalCheckbox").is(":checked");
+           if (checked) {
+        	    $("input[name='messageNoticeIds']").prop("checked",true);
+           }else{
+        	    $("input[name='messageNoticeIds']").prop("checked",false);
+           } 
+       });
+	//点击查询未读信息按钮
+	$("#messageNoticeListReturn").bind('click', function(){   
+  		window.location.href="${ctx}/messageNotice/intoMessageNotice.htm?&p="+valp;
+    });
+	//点击删除信息按钮
+  	$("#deleteMessageNotice").bind('click', function(){   
+  		$('input:checkbox:checked').each(function() {
+  			messageNoticeIds.push($(this).val());
+        });
+  		if(messageNoticeIds.length == 0){
+  			promptdialog("请选择要删除的信息");
+  			return false;
+  		}
+  		if(messageNoticeIds.length > 0){
+  			var data = "确定要将所选的信件删除";
+  			var url = "${ctx}/messageNotice/intoMessageNotice.htm?&p=1&delete=delete&messageNoticeIds="+messageNoticeIds;
+  			messagedialog(data,url);
+  		}
+    });
+	//点击将信息标记为未读按钮
+  	$("#markUnread").bind('click', function(){   
+  		/* $("input[name='messageNoticeIds']:checked").each(function() {messageNoticeIds.push($(this).val());}); */
+  		$('input:checkbox:checked').each(function() {
+  			messageNoticeIds.push($(this).val());
+        });
+  		if(messageNoticeIds.length == 0){
+  			promptdialog("请选择要标记的内容");
+  			return false;
+  		}
+  		if(messageNoticeIds.length > 0){
+  			var data = "确定要将所选的信件标记为未读";
+  			var url = "${ctx}/messageNotice/intoMessageNotice.htm?&p="+valp+"&unread=unread&messageNoticeIds="+messageNoticeIds;
+  			messagedialog(data,url);
+  			//window.location.href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1&unread=unread&messageNoticeIds="+messageNoticeIds;
+  		}
+    });
+  //点击将信息标记为已读按钮
+  	$("#markRead").bind('click', function(){   
+  		$('input:checkbox:checked').each(function() {
+  			messageNoticeIds.push($(this).val());
+        });
+  		if(messageNoticeIds.length == 0){
+  			promptdialog("请选择要标记的内容");
+  			return false;
+  		}
+  		if(messageNoticeIds.length > 0){
+  			var data = "确定要将所选的信件标记为已读";
+  			var url = "${ctx}/messageNotice/intoMessageNotice.htm?&p="+valp+"&read=read&messageNoticeIds="+messageNoticeIds;
+  			messagedialog(data,url);
+  			//window.location.href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1&read=read&messageNoticeIds="+messageNoticeIds;
+  		}
+    });
+		//警告对话框
+		function promptdialog(data){
+			KindEditor.ready(function(K) {
+			var dialog = K.dialog({
+					        width : 300,
+					        title : '警告',
+					        body : '<div style="margin:10px;color:red;"><strong>'+data+'</strong></div>',
+					        css : {
+				                border : '1px solid #A0A0A0',
+				                background : 'red'
+				       	 	},
+					        closeBtn : {
+					                name : '关闭',
+					                click : function(e) {
+					                        dialog.remove();
+					                }
+					        },
+					        yesBtn : {
+					                name : '确定',
+					                click : function(e) {
+					                		dialog.remove();
+					                }
+					        }
+						});
+			});
+		}
+		//信息提示对话框
+		function messagedialog(data,url){
+			KindEditor.ready(function(K) {
+			var dialog = K.dialog({
+					        width : 300,
+					        title : '信息提示',
+					        body : '<div style="margin:10px;"><strong>'+data+'</strong></div>',
+					        css : {
+				                border : '1px solid #A0A0A0',
+				                background : 'red'
+				       	 	},
+					        closeBtn : {
+					                name : '关闭',
+					                click : function(e) {
+					                        dialog.remove();
+					                }
+					        },
+					        yesBtn : {
+					                name : '确定',
+					                click : function(e) {
+					                		dialog.remove();
+					                		window.location.href=url;
+					                }
+					        },
+					        noBtn : {
+					                name : '取消',
+					                click : function(e) {
+					                        dialog.remove();
+					                }
+				        }
+						});
+			});
+		}
 	</script>
 </html>

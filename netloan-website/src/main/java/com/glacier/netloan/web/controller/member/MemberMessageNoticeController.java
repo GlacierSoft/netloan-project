@@ -1,8 +1,10 @@
 package com.glacier.netloan.web.controller.member;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -48,29 +50,91 @@ public class MemberMessageNoticeController extends AbstractController{
 	 *
 	 */
 	@RequestMapping(value ="/intoMessageNotice.htm")
-	private Object intoMessageNotice(JqPager pager,int p,HttpServletRequest request){
+	private Object intoMessageNotice(JqPager pager,int p,String delete,String letterstatus,String unread,String read,String messageNoticeIds,HttpServletRequest request,HttpSession session){
 		 ModelAndView mav = new ModelAndView("member_mgr/memberMessageNotice");
-		 
+		 String[] messageNoticeIdArrays = null;
 		 Subject pricipalSubject = SecurityUtils.getSubject();
 	     Member pricipalMember = (Member) pricipalSubject.getPrincipal();
 	     //设置查询DTO收信人的id
 	     MemberMessageNoticeQueryDTO memberMessageNoticeQueryDTO = new MemberMessageNoticeQueryDTO();
 	     memberMessageNoticeQueryDTO.setAddressee(pricipalMember.getMemberId());
-	     
+	     //为点击查看未读信息设置条件
+	     if(letterstatus != null && !"".equals(letterstatus)){
+	    	 memberMessageNoticeQueryDTO.setLetterstatus(letterstatus);
+	     }
+	     //将传过来的id转为数组
+	     if(messageNoticeIds != null && !"".equals(messageNoticeIds)){
+	    	 messageNoticeIdArrays = messageNoticeIds.split(",");
+	     }
+	     //将选中的信息删除
+	     if(delete != null && !delete.equals("")){
+	    	 List<String> messageNoticeIdLists = Arrays.asList(messageNoticeIdArrays);
+	    	 memberMessageNoticeService.delMessageNoticeWebsit(messageNoticeIdLists);
+	     }
+	     //将选中的信息信件状态改为未读
+	     if(unread != null && !unread.equals("")){
+	    	 for(String messageNoticeId :messageNoticeIdArrays){
+		    	 MemberMessageNotice memberMessageNotice = (MemberMessageNotice) memberMessageNoticeService.getMemberMessageNotice(messageNoticeId);
+		    	 if((memberMessageNotice.getLetterstatus()).equals("unread")){
+		    		 continue;
+		    	 }else if((memberMessageNotice.getLetterstatus()).equals("read")){
+		    		 memberMessageNotice.setLetterstatus("unread");
+			    	 memberMessageNoticeService.editMessageNoticeWebsit(memberMessageNotice);
+		    	 }
+		     }
+	     }
+	     //将选中的信息信件状态改为已读
+	     if(read != null && !read.equals("")){
+	    	 for(String messageNoticeId :messageNoticeIdArrays){
+		    	 MemberMessageNotice memberMessageNotice = (MemberMessageNotice) memberMessageNoticeService.getMemberMessageNotice(messageNoticeId);
+		    	 if((memberMessageNotice.getLetterstatus()).equals("read")){
+		    		 continue;
+		    	 }else if((memberMessageNotice.getLetterstatus()).equals("unread")){
+		    		 memberMessageNotice.setLetterstatus("read");
+			    	 memberMessageNoticeService.editMessageNoticeWebsit(memberMessageNotice);
+		    	 }
+		     }
+	     }
 	     //获取信息通知列表
 	     JqGridReturn returnResult = (JqGridReturn) memberMessageNoticeService.listAsGridWebsite(memberMessageNoticeQueryDTO, pager,p);
 	     request.setAttribute("messageNoticeDatas", returnResult);
-	     
+	     //获取会员信息通知条数
+	     loginTotalMessageNotic(pricipalMember.getMemberId(),session);
 	     return mav;
 	}
 	// 前台查看消息通知Detail信息页面
     @RequestMapping(value = "/messageNoticeDetail.json")
     @ResponseBody
-    private Object messageNoticeDetail(String messageNoticeId) {
+    private Object messageNoticeDetail(String messageNoticeId,HttpSession session) {
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+        Member pricipalMember = (Member) pricipalSubject.getPrincipal();
+        
     	MemberMessageNotice memberMessageNotice = (MemberMessageNotice) memberMessageNoticeService.getMemberMessageNotice(messageNoticeId);
     	memberMessageNotice.setLetterstatus("read");
     	memberMessageNoticeService.editMessageNoticeWebsit(memberMessageNotice);
+    	//获取会员信息通知条数
+    	loginTotalMessageNotic(pricipalMember.getMemberId(),session);
         return memberMessageNoticeService.getMemberMessageNotice(messageNoticeId);
+    }
+    /**
+     * @Title: loginTotalMessageNotic 
+     * @Description: TODO(重新获取改会员的信息通知条数) 
+     * @param  @param memberId
+     * @param  @return设定文件
+     * @throws 
+     *
+     */
+    public void loginTotalMessageNotic(String memberId,HttpSession session){
+    	//设置查询DTO收信人的id
+	     MemberMessageNoticeQueryDTO memberMessageNoticeQueryDTO = new MemberMessageNoticeQueryDTO();
+	     memberMessageNoticeQueryDTO.setAddressee(memberId);
+	     memberMessageNoticeQueryDTO.setLetterstatus("unread");
+	     JqPager pager = new JqPager();
+    	//获取信息通知列表
+	     JqGridReturn returnResult = (JqGridReturn) memberMessageNoticeService.listAsGridWebsite(memberMessageNoticeQueryDTO, pager,1);
+	     int messageNoticCount = returnResult.getTotal();
+	     session.removeAttribute("messageNoticCount");
+	     session.setAttribute("messageNoticCount", messageNoticCount);
     }
 	// 进入消息通知列表展示页面
     @RequestMapping(value = "/index.htm")

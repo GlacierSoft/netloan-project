@@ -56,7 +56,7 @@
 		         		<span><a href="${ctx}/intoregister.htm" class="navbar-link">注册</a></span>
 				   </c:when>
 			   		<c:otherwise> 
-				   		<span>您好！${currentMember.memberName}<a href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1" class="navbar-link"><span class="badge">${messageNoticCount}</span></a> |</span>
+				   		<span>您好！${currentMember.memberName}<a  href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1" class="navbar-link"><span id="nav_messageNoticCount" class="badge">${messageNoticCount}</span></a> |</span>
 				   		<span><a href="${ctx}/member/index.htm" class="navbar-link">个人中心</a> |</span>
 				   		<span><a href="${ctx}/logout.htm" class="navbar-link">退出</a></span>
 				   </c:otherwise>

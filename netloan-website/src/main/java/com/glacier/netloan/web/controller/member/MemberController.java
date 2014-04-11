@@ -56,6 +56,7 @@ import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dto.query.member.MemberMessageNoticeQueryDTO;
 import com.glacier.netloan.dto.query.member.MemberQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.finance.FinanceBankCard;
@@ -71,6 +72,7 @@ import com.glacier.netloan.service.member.MemberApplyAmountService;
 import com.glacier.netloan.service.member.MemberAuthService;
 import com.glacier.netloan.service.member.MemberCreditIntegralService;
 import com.glacier.netloan.service.member.MemberIntegralService;
+import com.glacier.netloan.service.member.MemberMessageNoticeService;
 import com.glacier.netloan.service.member.MemberService;
 
 
@@ -99,6 +101,9 @@ public class MemberController extends AbstractController{
 	@Autowired
 	private FinanceBankCardService financeBankCardService;
 	
+	@Autowired
+	private MemberMessageNoticeService memberMessageNoticeService;
+	
 	// 进入会员个人主页展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmember(HttpServletRequest request,HttpSession session) {
@@ -122,7 +127,29 @@ public class MemberController extends AbstractController{
     	request.setAttribute("totalCreditPhoto", map.get("totalCreditPhoto"));
     	//获取会员积分总数
     	request.setAttribute("totalIntegral", totalIntegral);
+    	//获取会员信息通知条数
+    	loginTotalMessageNotic(member.getMemberId(),session);
         return mav;
+    }
+    /**
+     * @Title: loginTotalMessageNotic 
+     * @Description: TODO(重新获取改会员的信息通知条数) 
+     * @param  @param memberId
+     * @param  @return设定文件
+     * @throws 
+     *
+     */
+    public void loginTotalMessageNotic(String memberId,HttpSession session){
+    	//设置查询DTO收信人的id
+	     MemberMessageNoticeQueryDTO memberMessageNoticeQueryDTO = new MemberMessageNoticeQueryDTO();
+	     memberMessageNoticeQueryDTO.setAddressee(memberId);
+	     memberMessageNoticeQueryDTO.setLetterstatus("unread");
+	     JqPager pager = new JqPager();
+    	//获取信息通知列表
+	     JqGridReturn returnResult = (JqGridReturn) memberMessageNoticeService.listAsGridWebsite(memberMessageNoticeQueryDTO, pager,1);
+	     int messageNoticCount = returnResult.getTotal();
+	     session.removeAttribute("messageNoticCount");
+	     session.setAttribute("messageNoticCount", messageNoticCount);
     }
   //转到头像上传页面。
   	@RequestMapping(value = "/memberPhotoInto.htm")
