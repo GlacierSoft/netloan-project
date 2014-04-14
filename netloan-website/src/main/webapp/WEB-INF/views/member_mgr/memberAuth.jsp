@@ -102,18 +102,21 @@
 					   <c:when test="${empty memberIntegraldo && empty memberApplyAmountpage}">  
 			         		 <li class="active"><a href="#netLoanAuth" data-toggle="tab" class="btn " role="button">冰川网贷认证</a></li>
 						     <li><a href="#uploasdData" data-toggle="tab">资料上传</a></li>
+						     <li><a href="#applicationMemberVIP" data-toggle="tab">申请会员VIP</a></li>
 						     <li><a href="#applyCreditAmount" data-toggle="tab">额度申请</a></li>
 						     <li><a href="#memberIntegral" data-toggle="tab">会员积分记录</a></li>
 					   </c:when>
 					   <c:when test="${memberIntegraldo == 'memberIntegraldo' && empty memberApplyAmountpage}">  
 			         		 <li><a href="#netLoanAuth" data-toggle="tab">冰川网贷认证</a></li>
 						     <li><a href="#uploasdData" data-toggle="tab">资料上传</a></li>
+						      <li><a href="#applicationMemberVIP" data-toggle="tab">申请会员VIP</a></li>
 						     <li><a href="#applyCreditAmount" data-toggle="tab">额度申请</a></li>
 						     <li class="active"><a href="#memberIntegral" data-toggle="tab"  class="btn " role="button">会员积分记录</a></li>
 					   </c:when>
 					   <c:when test="${empty memberIntegraldo && memberApplyAmountpage == 'memberApplyAmountpage'}">  
 			         		 <li><a href="#netLoanAuth" data-toggle="tab">冰川网贷认证</a></li>
 						     <li><a href="#uploasdData" data-toggle="tab">资料上传</a></li>
+						     <li><a href="#applicationMemberVIP" data-toggle="tab">申请会员VIP</a></li>
 						     <li class="active"><a href="#applyCreditAmount"  data-toggle="tab" class="btn " role="button">额度申请</a></li>
 						     <li><a href="#memberIntegral" data-toggle="tab">会员积分记录</a></li>
 					   </c:when>
@@ -492,6 +495,68 @@
 					        </tfoot>
 				        </table>
 				       </div>
+			         	<div class="tab-pane fade" id="applicationMemberVIP">
+			         	<p style="color:red;">只需交纳少量会员费即可成为网站会员，会员可享受以下特权。</p>
+			         	<p style="color:red;">投资者：</p>
+			         	<p style="color:red;">网站合作商提供投资担保，享受100%本金保障。对于担保标、推荐标，还能100%保利息。（普通用户仅保障本金） 有专业客服跟踪服务，体验尊贵感受。 享有尊贵VIP身份标识。</p>
+			         	<p style="color:red;">借款者：</p>
+			         	<p style="color:red;">享有借款资格，及时缓解资金压力。 参与网站举行的各种活动。</p>
+			         	<br/>
+				        <div class="row">
+				        	<div class="col-md-3"></div>
+				        	<div class="col-md-3">您的状态是：</div>
+  							<div id="memberType" class="col-md-3">${currentMember.memberName}</div>
+  							<div class="col-md-3"></div>
+				        </div>
+				        <div class="row">
+				        	<div class="col-md-3"></div>
+				        	<div class="col-md-3">用 户 名：</div>
+  							<div class="col-md-3">${currentMember.memberName}</div>
+  							<div class="col-md-3"></div>
+				        </div>
+				        <div class="row">
+				        	<div class="col-md-3"></div>
+				        	<div class="col-md-3">姓 名：</div>
+  							<div class="col-md-3">${currentMember.memberRealName}</div>
+  							<div class="col-md-3"></div>
+				        </div>
+				        <div class="row">
+				        	<div class="col-md-3"></div>
+				        	<div class="col-md-3">邮 箱：</div>
+  							<div class="col-md-3">${currentMember.email}</div>
+  							<div class="col-md-3"></div>
+				        </div>
+				        <div class="row">
+				        	<div class="col-md-3"></div>
+				        	<div class="col-md-3">会员VIP申请状态：</div>
+  							<div id="memberVIPType" class="col-md-3"></div>
+  							<div class="col-md-3"></div>
+				        </div>
+				        <br/>
+				        <p class="text-warning">温馨提示：只有通过基本信息认证，工作认证，身份证认证，邮箱认证，手机认证，信用认证，企业认证等，
+				        	才能申请VIP会员。</p>
+				         <div class="row">
+				        	<div class="col-md-3"></div>
+				        	<c:choose>
+							    <c:when test="${memberAuthWithBLOBs.creditAuth=='pass' && memberAuthWithBLOBs.infoAuth=='pass'
+							    				&& memberAuthWithBLOBs.emailAuth=='pass' 
+							    				&& memberAuthWithBLOBs.companyAuth=='pass' && memberAuthWithBLOBs.idCardAuth=='pass'
+							    				&& memberAuthWithBLOBs.workAuth=='pass'}"> 
+							    	<c:if test="${memberAuthWithBLOBs.vipAuth=='noapply' || memberAuthWithBLOBs.vipAuth=='failure'}">
+							    		<div class="col-md-3"><a id="applicationVIPBtn" href="javascript:void(0);" class="btn btn-default" role="button">确定申请</a></div>
+							    	</c:if>
+							    	<c:if test="${memberAuthWithBLOBs.vipAuth=='authstr' || memberAuthWithBLOBs.vipAuth=='pass'}">
+							    		<div class="col-md-3"><a id="applicationVIPBtn" href="javascript:void(0);" class="btn btn-default" disabled = "true" role="button">确定申请</a></div>
+							    	</c:if>
+					            </c:when>
+					   			<c:otherwise> 
+					   				<div class="col-md-3"><a id="applicationVIPBtn" href="javascript:void(0);" class="btn btn-default" disabled = "true" role="button">确定申请</a></div>
+					   		    </c:otherwise>
+							</c:choose>
+  							<div class="col-md-3"></div>
+  							<div class="col-md-3"></div>
+				        </div>
+				       </div>
 						 <c:choose>
 						   <c:when test="${empty memberIntegraldo && empty memberApplyAmountpage}">  
 			         		  <div class="tab-pane fade" id="applyCreditAmount">
@@ -602,7 +667,26 @@
 	      
   </body>
 	<script type="text/javascript">
-		
+	//为对应的会员type显示对应的文字
+	$('#memberType').html(renderGridValue('${currentMember.type}',fields.type));
+	$('#memberVIPType').html(renderGridValue('${memberAuthWithBLOBs.vipAuth}',fields.auths));
+	//点击申请会员vip按钮
+	$("#applicationVIPBtn").bind('click', function(){   
+    	$.ajax({
+			   type: "GET",
+			   url: ctx+"/member/applicationVIP.json?memberId=${currentMember.memberId}",
+			   dataType: "json",
+			   success: function(r) {
+				   $('#memberVIPType').html(renderGridValue(r.obj.vipAuth,fields.auths));
+				   $("#applicationVIPBtn").attr("disabled", true);
+				   $('#memberAuth_form_vipAuth').html(renderGridValue(r.obj.vipAuth,fields.auths));
+				   vipdialog(r);
+                },
+                error: function() {
+                    alert("申请会员VIP出错！");
+                }
+			});
+    });
 	
 	
 	$("#member_applyCreditAmountForm").validate({
@@ -835,7 +919,27 @@
 						});
 			});
 		}
-
+		function vipdialog(data){
+			KindEditor.ready(function(K) {
+			var dialog = K.dialog({
+					        width : 300,
+					        title : '申请成功',
+					        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
+					        closeBtn : {
+					                name : '关闭',
+					                click : function(e) {
+					                        dialog.remove();
+					                }
+					        },
+					        yesBtn : {
+					                name : '确定',
+					                click : function(e) {
+					                		dialog.remove();
+					                }
+					        },
+						});
+			});
+		}
 	  	<!-- 分页显示表格数据 -->
 		$(function(){
 			//获得浏览器参数

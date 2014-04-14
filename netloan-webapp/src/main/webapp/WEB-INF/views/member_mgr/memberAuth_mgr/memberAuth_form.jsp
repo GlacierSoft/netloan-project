@@ -175,8 +175,8 @@
     $('#vipAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"会员vip认证",
-			width : 760,
-			height : 560,
+			width : 600,
+			height : 310,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.vipName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.vipName}',
 			successFun : function (){

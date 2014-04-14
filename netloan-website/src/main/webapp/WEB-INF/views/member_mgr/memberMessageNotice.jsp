@@ -102,6 +102,7 @@
 					<a id="markRead" href="javascript:void(0);" class="btn btn-primary" role="button">标记为已读</a>
 					<a id="markUnread" href="javascript:void(0);" class="btn btn-primary" role="button">标记为未读</a>
 					<a href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1&letterstatus=unread" class="btn btn-primary" role="button">未读信息</a>
+					<a href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1&letterstatus=read" class="btn btn-primary" role="button">已读信息</a>
 				  </div>
 				  	<table id="messageNoticeTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
 				  		<thead>
@@ -162,6 +163,7 @@
 					      	</c:forEach>
 					      	</c:if>	
 				            </tbody>
+				            <c:if test="${!empty messageNoticeDatas.rows}">  
 				            <tfoot>
 					          <tr>
 					            <th colspan="5">
@@ -171,6 +173,7 @@
 								</th>
 					          </tr>
 					        </tfoot>
+					       </c:if>	
 				        </table><!-- display:block; -->
 				       </div>
 				        <table id="messageNoticeDetailTable" class="table" style="display:none;margin-top:20px;text-align:center;vertical-align: middle;">

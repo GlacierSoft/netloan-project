@@ -411,5 +411,13 @@ public class MemberController extends AbstractController{
 		request.setAttribute("memberAuthWithBLOBs", memberAuthWithBLOBs);
 		return memberAuthService.editMemberAuthReception(memberAuthWithBLOBs);
 	}
-	
+	@RequestMapping(value = "/applicationVIP.json")
+	@ResponseBody
+	private Object applicationVIP(String memberId,HttpServletRequest request){
+		JqReturnJson jqReturnJson = (JqReturnJson)memberService.applicationVIP(memberId);
+		MemberAuthWithBLOBs memberAuthWithBLOBs = (MemberAuthWithBLOBs) memberAuthService.getMemberAuth(memberId);
+    	request.setAttribute("memberAuthWithBLOBs", memberAuthWithBLOBs);
+    	jqReturnJson.setObj(memberAuthWithBLOBs);
+		return jqReturnJson;
+	}
 }

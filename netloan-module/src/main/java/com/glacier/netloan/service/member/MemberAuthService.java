@@ -1,5 +1,6 @@
 package com.glacier.netloan.service.member;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -186,6 +187,12 @@ public class MemberAuthService {
       			memberCreditIntegralExample.createCriteria().andMemberIdEqualTo(memberAuthWithBLOBs.getMemberId()).andIntegralTypeEqualTo("vipAuth");
       			memberCreditIntegrals = memberCreditIntegralMapper.selectByExample(memberCreditIntegralExample);
       			if(memberAuthWithBLOBs.getVipAuth().equals("pass")){
+      				//计算出当前时间到下一年的时间,设置会员VIP的有效时间
+      		        long dateTimes = new Date().getTime()+(365*24*60*60*1000L);
+      		        member.setExpireTime(new Date(dateTimes));
+      		        member.setValidTime(new Date(dateTimes));
+      		        member.setUpdater(pricipalUser.getUserId());
+      		        member.setUpdateTime(new Date());
       				if(memberCreditIntegrals.size() == 0){
     	      			//判断是哪个认证，添加信用积分记录
     	      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("vipAuth");
@@ -365,7 +372,7 @@ public class MemberAuthService {
 	        memberCreditIntegral.setUpdateTime(new Date());
 	        
 	        creditCount = memberCreditIntegralMapper.insert(memberCreditIntegral);
-	        //改变会员表里面的信用积分的值
+	        //改变会员表里面的信用积分的值，如果是审核vip会员，会相对应的改变会员的有效期限。
 	        memberChangeCredit = member.getCreditIntegral();
 	        memberChangeCredit += memberCreditIntegral.getChangeValue();
 	        member.setCreditIntegral(memberChangeCredit);

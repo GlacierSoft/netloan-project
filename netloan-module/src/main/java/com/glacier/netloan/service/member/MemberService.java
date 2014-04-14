@@ -28,7 +28,6 @@ import com.glacier.netloan.dto.query.member.MemberQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditType;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditTypeExample;
 import com.glacier.netloan.entity.member.Member;
-import com.glacier.netloan.entity.member.MemberAuth;
 import com.glacier.netloan.entity.member.MemberAuthExample;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
 import com.glacier.netloan.entity.member.MemberCreditIntegral;
@@ -290,6 +289,8 @@ public class MemberService {
         member.setMemberPassword(memberToken.getPassword());
         member.setCreditIntegral(10f);
         member.setCreditamount(300f);
+        member.setType("general");
+        member.setStatus("enable");
         member.setFirstContactRelation("family");
         member.setSecondContactRelation("family");
         member.setIntegral((float) 0);
@@ -386,6 +387,24 @@ public class MemberService {
             returnResult.setObj(member);
         } else {
             returnResult.setMsg("发生未知错误，会员信息保存失败");
+        }
+        return returnResult;
+    }
+    @Transactional(readOnly = false)
+    public Object applicationVIP(String memberId){
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	int count = 0;
+    	
+        
+        MemberAuthWithBLOBs memberAuthWithBLOBs = memberAuthMapper.selectByPrimaryKey(memberId);
+        memberAuthWithBLOBs.setVipAuth("authstr");
+    	count = memberAuthMapper.updateByPrimaryKeySelective(memberAuthWithBLOBs);
+        //count = memberMapper.updateByPrimaryKeySelective(member);
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("申请会员VIP成功，等待审核");
+        } else {
+            returnResult.setMsg("发生未知错误，申请会员VIP失败");
         }
         return returnResult;
     }

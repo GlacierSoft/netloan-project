@@ -30,11 +30,11 @@
 		</tr>
 	</table>
 	<table  id="table_member_mgr_memberAuth_form_vip" class="formtable">
-		<tr>
+		<%-- <tr>
 			<td>vip会员附件：</td>
 			<td><textarea id="member_mgr_memberAuth_form_vipAccessory"   name="vipAccessory" class="spinner" style="display:none;width:600px;height:280px;" readonly="readonly">${memberAuthData.vipAccessory}</textarea></td>
 		</tr>
-		<%-- <tr>
+		<tr>
 			<td>排序：</td>
 			<td><input id="member_mgr_memberAuth_form_infoNum" name="infoNum" class="easyui-numberspinner spinner" value="${memberAuthData.infoNum}" data-options="min:0,max:99,required:true,missingMessage:'请填写序号'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr> --%>
@@ -42,7 +42,7 @@
 			<td>审核意见：</td>
 			<td>
 				<input id="member_mgr_memberAuth_form_memberId" type="hidden" name="memberId" class="spinner" style="width:168px" value="${memberAuthData.memberId}" />
-				<textarea id="member_mgr_memberAuth_form_vipRemark" name="vipRemark" style="width:600px;" maxlength="255" class="spinner formta">${memberAuthData.vipRemark}</textarea>
+				<textarea id="member_mgr_memberAuth_form_vipRemark" name="vipRemark" style="width:400px;" maxlength="255" class="spinner formta">${memberAuthData.vipRemark}</textarea>
 			</td>
 		</tr>
 		<tr>
