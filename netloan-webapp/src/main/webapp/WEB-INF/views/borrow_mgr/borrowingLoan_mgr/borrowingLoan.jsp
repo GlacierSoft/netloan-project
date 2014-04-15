@@ -20,7 +20,7 @@
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
-		fitColumns:true,//自动填充行
+ 		//fitColumns:true,//自动填充行
 		nowrap: true,//禁止单元格中的文字自动换行
 		autoRowHeight: false,//禁止设置自动行高以适应内容
 		striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
@@ -40,7 +40,7 @@
 			},{
 				field:'loanCode',
 				title:'借款编号',
-				width:280,
+				width:120,
 				sortable:true
 			},{
 				field:'memberId',
@@ -51,26 +51,26 @@
 				field:'loanTitle',
 				title:'借款标题',
 				sortable:true,
-				width:100
+				width:120
 			},{
 				field:'loanPicture',
 				title:'借款图片',
 				sortable:true,
-				width:200
+				width:120
 			},{
 				field:'loanTenderId',
 				title:'借款标的',
 				sortable:true,
-				width:100
+				width:120
 			},{
 				field:'loanPurposeId',
 				title:'借款目的',
 				sortable:true,
-				width:200
+				width:120
 			},{
 				field:'loanDeadlinesId',
 				title:'借款期限',
-				width:280,
+				width:120,
 				sortable:true
 			},{
 				field:'failedReason',
@@ -81,26 +81,26 @@
 				field:'isDayMarked',
 				title:'置为天标',
 				sortable:true,
-				width:100
+				width:120
 			},{
 				field:'isBidReward',
 				title:'是否有投标奖励',
 				sortable:true,
-				width:200
+				width:120
 			},{
 				field:'bidProReward',
 				title:'按投标金额比例奖励',
 				sortable:true,
-				width:100
+				width:120
 			},{
 				field:'fixedAppReward',
 				title:'按固定金额分摊奖励',
 				sortable:true,
-				width:200
+				width:120
 			},{
 				field:'isBidMarked',
 				title:'是否有投标待收限制',
-				width:280,
+				width:120,
 				sortable:true
 			},{
 				field:'readyRecMoney',
@@ -111,26 +111,26 @@
 				field:'isBidPwd',
 				title:'是否设置投标密码',
 				sortable:true,
-				width:100
+				width:120
 			},{
 				field:'bidPwd',
 				title:'投标密码',
 				sortable:true,
-				width:200
+				width:120
 			},{
 				field:'loanManagementFees',
 				title:'借款管理费',
 				sortable:true,
-				width:100
+				width:120
 			},{
 				field:'repaymentTypeId',
 				title:'还款方式',
 				sortable:true,
-				width:200
+				width:120
 			},{
 				field:'loanTotal',
 				title:'借款总额',
-				width:280,
+				width:120,
 				sortable:true
 			},{
 				field:'loanApr',
@@ -141,26 +141,23 @@
 				field:'lowestBidMoney',
 				title:'最低投标金额',
 				sortable:true,
-				width:100
+				width:120
 			},{
 				field:'largestBidMoney',
 				title:'最高投标金额',
 				sortable:true,
-				width:200
+				width:120
 			},{
 				field:'lowestSub',
 				title:'最小认购单位(元)',
 				sortable:true,
-				width:100
+				width:120
 			},{
 				field:'subTotal',
 				title:'认购总份数',
 				sortable:true,
-				width:200
-			}
-			
-			
-			,{
+				width:120
+			},{
 				field:'creater',
 				title:'创建人',
 				sortable:true,
