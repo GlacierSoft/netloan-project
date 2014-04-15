@@ -2365,6 +2365,266 @@ public class MemberExample {
             return (Criteria) this;
         }
 
+        public Criteria andLastLoginTimeIsNull() {
+            addCriterion("temp_member.last_login_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginTimeIsNotNull() {
+            addCriterion("temp_member.last_login_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginTimeEqualTo(Date value) {
+            addCriterion("temp_member.last_login_time =", value, "lastLoginTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginTimeNotEqualTo(Date value) {
+            addCriterion("temp_member.last_login_time <>", value, "lastLoginTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginTimeGreaterThan(Date value) {
+            addCriterion("temp_member.last_login_time >", value, "lastLoginTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("temp_member.last_login_time >=", value, "lastLoginTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginTimeLessThan(Date value) {
+            addCriterion("temp_member.last_login_time <", value, "lastLoginTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginTimeLessThanOrEqualTo(Date value) {
+            addCriterion("temp_member.last_login_time <=", value, "lastLoginTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginTimeIn(List<Date> values) {
+            addCriterion("temp_member.last_login_time in", values, "lastLoginTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginTimeNotIn(List<Date> values) {
+            addCriterion("temp_member.last_login_time not in", values, "lastLoginTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginTimeBetween(Date value1, Date value2) {
+            addCriterion("temp_member.last_login_time between", value1, value2, "lastLoginTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginTimeNotBetween(Date value1, Date value2) {
+            addCriterion("temp_member.last_login_time not between", value1, value2, "lastLoginTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpAddressIsNull() {
+            addCriterion("temp_member.last_login_ip_address is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpAddressIsNotNull() {
+            addCriterion("temp_member.last_login_ip_address is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpAddressEqualTo(String value) {
+            addCriterion("temp_member.last_login_ip_address =", value, "lastLoginIpAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpAddressNotEqualTo(String value) {
+            addCriterion("temp_member.last_login_ip_address <>", value, "lastLoginIpAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpAddressGreaterThan(String value) {
+            addCriterion("temp_member.last_login_ip_address >", value, "lastLoginIpAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpAddressGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_member.last_login_ip_address >=", value, "lastLoginIpAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpAddressLessThan(String value) {
+            addCriterion("temp_member.last_login_ip_address <", value, "lastLoginIpAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpAddressLessThanOrEqualTo(String value) {
+            addCriterion("temp_member.last_login_ip_address <=", value, "lastLoginIpAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpAddressLike(String value) {
+            addCriterion("temp_member.last_login_ip_address like", value, "lastLoginIpAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpAddressNotLike(String value) {
+            addCriterion("temp_member.last_login_ip_address not like", value, "lastLoginIpAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpAddressIn(List<String> values) {
+            addCriterion("temp_member.last_login_ip_address in", values, "lastLoginIpAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpAddressNotIn(List<String> values) {
+            addCriterion("temp_member.last_login_ip_address not in", values, "lastLoginIpAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpAddressBetween(String value1, String value2) {
+            addCriterion("temp_member.last_login_ip_address between", value1, value2, "lastLoginIpAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpAddressNotBetween(String value1, String value2) {
+            addCriterion("temp_member.last_login_ip_address not between", value1, value2, "lastLoginIpAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginCountIsNull() {
+            addCriterion("temp_member.login_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginCountIsNotNull() {
+            addCriterion("temp_member.login_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginCountEqualTo(Integer value) {
+            addCriterion("temp_member.login_count =", value, "loginCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginCountNotEqualTo(Integer value) {
+            addCriterion("temp_member.login_count <>", value, "loginCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginCountGreaterThan(Integer value) {
+            addCriterion("temp_member.login_count >", value, "loginCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("temp_member.login_count >=", value, "loginCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginCountLessThan(Integer value) {
+            addCriterion("temp_member.login_count <", value, "loginCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginCountLessThanOrEqualTo(Integer value) {
+            addCriterion("temp_member.login_count <=", value, "loginCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginCountIn(List<Integer> values) {
+            addCriterion("temp_member.login_count in", values, "loginCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginCountNotIn(List<Integer> values) {
+            addCriterion("temp_member.login_count not in", values, "loginCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginCountBetween(Integer value1, Integer value2) {
+            addCriterion("temp_member.login_count between", value1, value2, "loginCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("temp_member.login_count not between", value1, value2, "loginCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIsNull() {
+            addCriterion("temp_member.remark is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIsNotNull() {
+            addCriterion("temp_member.remark is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkEqualTo(String value) {
+            addCriterion("temp_member.remark =", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotEqualTo(String value) {
+            addCriterion("temp_member.remark <>", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkGreaterThan(String value) {
+            addCriterion("temp_member.remark >", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_member.remark >=", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLessThan(String value) {
+            addCriterion("temp_member.remark <", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLessThanOrEqualTo(String value) {
+            addCriterion("temp_member.remark <=", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLike(String value) {
+            addCriterion("temp_member.remark like", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotLike(String value) {
+            addCriterion("temp_member.remark not like", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIn(List<String> values) {
+            addCriterion("temp_member.remark in", values, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotIn(List<String> values) {
+            addCriterion("temp_member.remark not in", values, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkBetween(String value1, String value2) {
+            addCriterion("temp_member.remark between", value1, value2, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotBetween(String value1, String value2) {
+            addCriterion("temp_member.remark not between", value1, value2, "remark");
+            return (Criteria) this;
+        }
+
         public Criteria andCreaterIsNull() {
             addCriterion("temp_member.creater is null");
             return (Criteria) this;

@@ -159,7 +159,7 @@ public class MemberController extends AbstractController{
     
     // 进入会员个人详细信息展示页面
     @RequestMapping(value = "/memberDetail.htm")
-    private Object intoMemberDetail(HttpServletRequest request) {
+    private Object intoMemberDetail(HttpServletRequest request,String addBankCard) {
         ModelAndView mav = new ModelAndView("member_mgr/memberDetail");
         Subject pricipalSubject = SecurityUtils.getSubject();
         Member pricipalMember = (Member) pricipalSubject.getPrincipal();
@@ -177,6 +177,9 @@ public class MemberController extends AbstractController{
         	request.setAttribute("infoAndWorAuthstr", "infoAndWorEdit");        	
         }else{
         	request.setAttribute("infoAndWorAuthstr", "infoAndWorRealOnly");
+        }
+        if(addBankCard != null){
+        	request.setAttribute("addBankCard", "addBankCard");
         }
         return mav;
     }

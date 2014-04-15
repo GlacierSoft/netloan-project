@@ -147,7 +147,7 @@ public class MemberAuthService {
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         //获取当前被操作会员信息
         Member member = memberMapper.selectByPrimaryKey(memberAuthWithBLOBs.getMemberId());
-        //创建对象
+        //创建会员信用积分对象
         MemberCreditIntegral memberCreditIntegral = new MemberCreditIntegral();
         //创建信息通知对象
         MemberMessageNotice memberMessageNotice = new MemberMessageNotice();
@@ -164,20 +164,20 @@ public class MemberAuthService {
     	      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("infoAuth");
     	      			//调用方法为会员信用积分设置值，因为很多地方都是一样的，所以抽出来作为一个方法。
     	      			this.memberCreditSet(parameterCreditTypeExample, parameterCreditType, memberCreditIntegral);
-    	      			//为信息通知对象设置值,并新增相应的信息通知
-    	      			memberMessageNotice.setTitle("基本信息认证审核通知");
-    	      			memberMessageNotice.setContent("您的基本信息认证审核状况:通过");
-    	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
           			}
+      				//为信息通知对象设置值,并新增相应的信息通知
+	      			memberMessageNotice.setTitle("基本信息认证审核通知");
+	      			memberMessageNotice.setContent("您的基本信息认证审核状况:通过");
+	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       			}else if(memberAuthWithBLOBs.getInfoAuth().equals("failure")){
       				if(memberCreditIntegrals.size() != 0){
       					//调用方法为会员信用积分总分设置值，因为很多地方都是一样的，所以抽出来作为一个方法。
       					this.memberCreditTotleSet(memberCreditIntegrals, memberChangeCredit, member, ChangeCreditCount);
-      					//为信息通知对象设置值,并新增相应的信息通知
-    	      			memberMessageNotice.setTitle("基本信息认证审核通知");
-    	      			memberMessageNotice.setContent("您的基本信息认证审核状况:不通过");
-    	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       				}
+      				//为信息通知对象设置值,并新增相应的信息通知
+	      			memberMessageNotice.setTitle("基本信息认证审核通知");
+	      			memberMessageNotice.setContent("您的基本信息认证审核状况:不通过");
+	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       			}
       			//修改认证记录表
       			memberAuthWithBLOBs.setInfoTime(new Date());
@@ -198,20 +198,20 @@ public class MemberAuthService {
     	      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("vipAuth");
     	      			//调用方法为会员信用积分设置值，因为很多都是一样的，所以抽出来作为一个方法。
     	      			this.memberCreditSet(parameterCreditTypeExample, parameterCreditType, memberCreditIntegral);
-    	      			//为信息通知对象设置值,并新增相应的信息通知
-    	      			memberMessageNotice.setTitle("VIP认证审核通知");
-    	      			memberMessageNotice.setContent("您的VIP认证审核状况:通过");
-    	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
           			}
+      				//为信息通知对象设置值,并新增相应的信息通知
+	      			memberMessageNotice.setTitle("VIP认证审核通知");
+	      			memberMessageNotice.setContent("您的VIP认证审核状况:通过");
+	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       			}else if(memberAuthWithBLOBs.getVipAuth().equals("failure")){
       				if(memberCreditIntegrals.size() != 0){
       					//调用方法为会员信用积分总分设置值，因为很多地方都是一样的，所以抽出来作为一个方法。
       					this.memberCreditTotleSet(memberCreditIntegrals, memberChangeCredit, member, ChangeCreditCount);
-      					//为信息通知对象设置值,并新增相应的信息通知
-    	      			memberMessageNotice.setTitle("VIP认证审核通知");
-    	      			memberMessageNotice.setContent("您的VIP认证审核状况:不通过");
-    	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       				}
+      				//为信息通知对象设置值,并新增相应的信息通知
+	      			memberMessageNotice.setTitle("VIP认证审核通知");
+	      			memberMessageNotice.setContent("您的VIP认证审核状况:不通过");
+	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       			}	
       			//修改认证记录表
       			memberAuthWithBLOBs.setVipAuditor(pricipalUser.getUserId());
@@ -230,20 +230,20 @@ public class MemberAuthService {
   		      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("creditAuth");
   		      			//调用方法为会员信用积分设置值，因为很多都是一样的，所以抽出来作为一个方法。
     	      			this.memberCreditSet(parameterCreditTypeExample, parameterCreditType, memberCreditIntegral);
-    	      			//为信息通知对象设置值,并新增相应的信息通知
-    	      			memberMessageNotice.setTitle("信用认证审核通知");
-    	      			memberMessageNotice.setContent("您的信用认证审核状况:通过");
-    	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       	      			}
+      				//为信息通知对象设置值,并新增相应的信息通知
+	      			memberMessageNotice.setTitle("信用认证审核通知");
+	      			memberMessageNotice.setContent("您的信用认证审核状况:通过");
+	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       			}else if(memberAuthWithBLOBs.getCreditAuth().equals("failure")){
       				if(memberCreditIntegrals.size() != 0){
       					//调用方法为会员信用积分总分设置值，因为很多地方都是一样的，所以抽出来作为一个方法。
       					this.memberCreditTotleSet(memberCreditIntegrals, memberChangeCredit, member, ChangeCreditCount);
-      					//为信息通知对象设置值,并新增相应的信息通知
-    	      			memberMessageNotice.setTitle("信用认证审核通知");
-    	      			memberMessageNotice.setContent("您的信用认证审核状况:不通过");
-    	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       				}
+      				//为信息通知对象设置值,并新增相应的信息通知
+	      			memberMessageNotice.setTitle("信用认证审核通知");
+	      			memberMessageNotice.setContent("您的信用认证审核状况:不通过");
+	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       			}	
       			//修改认证记录表
       			memberAuthWithBLOBs.setCreditAuditor(pricipalUser.getUserId());
@@ -258,20 +258,20 @@ public class MemberAuthService {
     	      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("companyAuth");
     	      			//调用方法为会员信用积分设置值，因为很多都是一样的，所以抽出来作为一个方法。
     	      			this.memberCreditSet(parameterCreditTypeExample, parameterCreditType, memberCreditIntegral);
-    	      			//为信息通知对象设置值,并新增相应的信息通知
-    	      			memberMessageNotice.setTitle("企业认证审核通知");
-    	      			memberMessageNotice.setContent("您的企业认证审核状况:通过");
-    	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
           			}
+      				//为信息通知对象设置值,并新增相应的信息通知
+	      			memberMessageNotice.setTitle("企业认证审核通知");
+	      			memberMessageNotice.setContent("您的企业认证审核状况:通过");
+	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       			}else if(memberAuthWithBLOBs.getCompanyAuth().equals("failure")){
       				if(memberCreditIntegrals.size() != 0){
       					//调用方法为会员信用积分总分设置值，因为很多地方都是一样的，所以抽出来作为一个方法。
       					this.memberCreditTotleSet(memberCreditIntegrals, memberChangeCredit, member, ChangeCreditCount);
-      					//为信息通知对象设置值,并新增相应的信息通知
-    	      			memberMessageNotice.setTitle("企业认证审核通知");
-    	      			memberMessageNotice.setContent("您的企业认证审核状况:不通过");
-    	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       				}
+      				//为信息通知对象设置值,并新增相应的信息通知
+	      			memberMessageNotice.setTitle("企业认证审核通知");
+	      			memberMessageNotice.setContent("您的企业认证审核状况:不通过");
+	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       			}	
       			//修改认证记录表
       			memberAuthWithBLOBs.setCompanyAuditor(pricipalUser.getUserId());
@@ -286,20 +286,20 @@ public class MemberAuthService {
     	      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("realNameAuth");
     	      			//调用方法为会员信用积分设置值，因为很多都是一样的，所以抽出来作为一个方法。
     	      			this.memberCreditSet(parameterCreditTypeExample, parameterCreditType, memberCreditIntegral);
-    	      			//为信息通知对象设置值,并新增相应的信息通知
-    	      			memberMessageNotice.setTitle("真实姓名认证审核通知");
-    	      			memberMessageNotice.setContent("您的真实姓名认证审核状况:通过");
-    	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
           			}
+      				//为信息通知对象设置值,并新增相应的信息通知
+	      			memberMessageNotice.setTitle("真实姓名认证审核通知");
+	      			memberMessageNotice.setContent("您的真实姓名认证审核状况:通过");
+	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       			}else if(memberAuthWithBLOBs.getRealNameAuth().equals("failure")){
       				if(memberCreditIntegrals.size() != 0){
       					//调用方法为会员信用积分总分设置值，因为很多地方都是一样的，所以抽出来作为一个方法。
       					this.memberCreditTotleSet(memberCreditIntegrals, memberChangeCredit, member, ChangeCreditCount);
-      					//为信息通知对象设置值,并新增相应的信息通知
-    	      			memberMessageNotice.setTitle("真实姓名认证审核通知");
-    	      			memberMessageNotice.setContent("您的真实姓名认证审核状况:不通过");
-    	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       				}
+      				//为信息通知对象设置值,并新增相应的信息通知
+	      			memberMessageNotice.setTitle("真实姓名认证审核通知");
+	      			memberMessageNotice.setContent("您的真实姓名认证审核状况:不通过");
+	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       			}	
       			//修改认证记录表
       			memberAuthWithBLOBs.setRealNameAuditor(pricipalUser.getUserId());
@@ -314,20 +314,20 @@ public class MemberAuthService {
     	      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("idCardAuth");
     	      			//调用方法为会员信用积分设置值，因为很多都是一样的，所以抽出来作为一个方法。
     	      			this.memberCreditSet(parameterCreditTypeExample, parameterCreditType, memberCreditIntegral);
-    	      			//为信息通知对象设置值,并新增相应的信息通知
-    	      			memberMessageNotice.setTitle("身份证认证审核通知");
-    	      			memberMessageNotice.setContent("您的身份证认证审核状况:通过");
-    	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
           			}
+      				//为信息通知对象设置值,并新增相应的信息通知
+	      			memberMessageNotice.setTitle("身份证认证审核通知");
+	      			memberMessageNotice.setContent("您的身份证认证审核状况:通过");
+	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       			}else if(memberAuthWithBLOBs.getIdCardAuth().equals("failure")){
       				if(memberCreditIntegrals.size() != 0){
       					//调用方法为会员信用积分总分设置值，因为很多地方都是一样的，所以抽出来作为一个方法。
       					this.memberCreditTotleSet(memberCreditIntegrals, memberChangeCredit, member, ChangeCreditCount);
-      					//为信息通知对象设置值,并新增相应的信息通知
-    	      			memberMessageNotice.setTitle("身份证认证审核通知");
-    	      			memberMessageNotice.setContent("您的身份证认证审核状况:不通过");
-    	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       				}
+      				//为信息通知对象设置值,并新增相应的信息通知
+	      			memberMessageNotice.setTitle("身份证认证审核通知");
+	      			memberMessageNotice.setContent("您的身份证认证审核状况:不通过");
+	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       			}	
       			//修改认证记录表
       			memberAuthWithBLOBs.setIdCardAuditor(pricipalUser.getUserId());
@@ -342,20 +342,20 @@ public class MemberAuthService {
     	      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("workAuth");
     	      			//调用方法为会员信用积分设置值，因为很多都是一样的，所以抽出来作为一个方法。
     	      			this.memberCreditSet(parameterCreditTypeExample, parameterCreditType, memberCreditIntegral);
-    	      			//为信息通知对象设置值,并新增相应的信息通知
-    	      			memberMessageNotice.setTitle("工作认证审核通知");
-    	      			memberMessageNotice.setContent("您的工作认证审核状况:通过");
-    	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
           			}
+      				//为信息通知对象设置值,并新增相应的信息通知
+	      			memberMessageNotice.setTitle("工作认证审核通知");
+	      			memberMessageNotice.setContent("您的工作认证审核状况:通过");
+	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       			}else if(memberAuthWithBLOBs.getWorkAuth().equals("failure")){
       				if(memberCreditIntegrals.size() != 0){
       					//调用方法为会员信用积分总分设置值，因为很多地方都是一样的，所以抽出来作为一个方法。
       					this.memberCreditTotleSet(memberCreditIntegrals, memberChangeCredit, member, ChangeCreditCount);
-      					//为信息通知对象设置值,并新增相应的信息通知
-    	      			memberMessageNotice.setTitle("工作认证审核通知");
-    	      			memberMessageNotice.setContent("您的工作认证审核状况:不通过");
-    	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       				}
+      				//为信息通知对象设置值,并新增相应的信息通知
+	      			memberMessageNotice.setTitle("工作认证审核通知");
+	      			memberMessageNotice.setContent("您的工作认证审核状况:不通过");
+	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
       			}	
       			//修改认证记录表
       			memberAuthWithBLOBs.setWorkAuditor(pricipalUser.getUserId());

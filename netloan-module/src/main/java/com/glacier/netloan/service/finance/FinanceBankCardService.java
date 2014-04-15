@@ -49,26 +49,34 @@ public class FinanceBankCardService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         FinanceBankCardExample financeBankCardExample = new FinanceBankCardExample();
         int count = 0;
-        // 防止会员银行卡名称重复
-        financeBankCardExample.createCriteria().andCardNumberEqualTo(financeBankCard.getCardNumber());
-        count = financeBankCardMapper.countByExample(financeBankCardExample);// 查找相同名称的会员银行卡数量
-        if (count > 0) {
-            returnResult.setMsg("会员银行卡号不能重复");
-            return returnResult;
+        int bankCount = 0;
+        financeBankCardExample.createCriteria().andMemberIdEqualTo(financeBankCard.getMemberId());
+        bankCount = financeBankCardMapper.selectByExample(financeBankCardExample).size();
+        if(bankCount < 2){
+        	// 防止会员银行卡名称重复
+            financeBankCardExample.createCriteria().andCardNumberEqualTo(financeBankCard.getCardNumber());
+            count = financeBankCardMapper.countByExample(financeBankCardExample);// 查找相同名称的会员银行卡数量
+            if (count > 0) {
+                returnResult.setMsg("会员银行卡号不能重复");
+                return returnResult;
+            }
+            financeBankCard.setBankCardId(RandomGUID.getRandomGUID());
+            financeBankCard.setStatus("authstr");
+            financeBankCard.setCreater(financeBankCard.getMemberId());
+            financeBankCard.setCreateTime(new Date());
+            financeBankCard.setUpdater(financeBankCard.getMemberId());
+            financeBankCard.setUpdateTime(new Date());
+            count = financeBankCardMapper.insert(financeBankCard);
+            if (count == 1) {
+                returnResult.setSuccess(true);
+                returnResult.setMsg("[" + financeBankCard.getCardName() + "] 会员银行卡信息已保存");
+            } else {
+                returnResult.setMsg("发生未知错误，会员银行卡信息保存失败");
+            }
+        }else{
+        	returnResult.setMsg("会员绑定银行卡不能超过两张，请申请变更已绑定的银行卡");
         }
-        financeBankCard.setBankCardId(RandomGUID.getRandomGUID());
-        financeBankCard.setStatus("authstr");
-        financeBankCard.setCreater(financeBankCard.getMemberId());
-        financeBankCard.setCreateTime(new Date());
-        financeBankCard.setUpdater(financeBankCard.getMemberId());
-        financeBankCard.setUpdateTime(new Date());
-        count = financeBankCardMapper.insert(financeBankCard);
-        if (count == 1) {
-            returnResult.setSuccess(true);
-            returnResult.setMsg("[" + financeBankCard.getCardName() + "] 会员银行卡信息已保存");
-        } else {
-            returnResult.setMsg("发生未知错误，会员银行卡信息保存失败");
-        }
+        
         return returnResult;
     }
 	

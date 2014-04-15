@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.glacier.basic.util.IpUtil;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.entity.member.Member;
@@ -174,6 +175,10 @@ public class RegisterController extends AbstractController{
         } 						
         session.setAttribute("registerName", registerName);
         Member member = (Member) session.getAttribute("memberSimple");
+        //获取最后登录ip地址
+        String ip = IpUtil.getIpAddr((HttpServletRequest) request);
+        String host = ip + IpUtil.getIpInfo(ip);
+        member.setLastLoginIpAddress(host);
         JqReturnJson returnResult = (JqReturnJson) memberService.addMemberReception(member);
         request.setAttribute("returnResult", returnResult);
         //session.setAttribute("currentMember", returnResult.getObj());

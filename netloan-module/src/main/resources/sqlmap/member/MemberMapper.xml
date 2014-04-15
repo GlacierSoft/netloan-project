@@ -35,6 +35,10 @@
     <result column="temp_member_second_contact_relation" property="secondContactRelation" jdbcType="CHAR" />
     <result column="temp_member_second_contact_phone" property="secondContactPhone" jdbcType="VARCHAR" />
     <result column="temp_member_second_contact_address" property="secondContactAddress" jdbcType="VARCHAR" />
+    <result column="temp_member_last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="temp_member_last_login_ip_address" property="lastLoginIpAddress" jdbcType="VARCHAR" />
+    <result column="temp_member_login_count" property="loginCount" jdbcType="INTEGER" />
+    <result column="temp_member_remark" property="remark" jdbcType="VARCHAR" />
     <result column="temp_member_creater" property="creater" jdbcType="VARCHAR" />
     <result column="temp_member_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_updater" property="updater" jdbcType="VARCHAR" />
@@ -117,7 +121,9 @@
     temp_member.first_contact_relation as temp_member_first_contact_relation, temp_member.first_contact_phone as temp_member_first_contact_phone, 
     temp_member.first_contact_address as temp_member_first_contact_address, temp_member.second_contact as temp_member_second_contact, 
     temp_member.second_contact_relation as temp_member_second_contact_relation, temp_member.second_contact_phone as temp_member_second_contact_phone, 
-    temp_member.second_contact_address as temp_member_second_contact_address, temp_member.creater as temp_member_creater, 
+    temp_member.second_contact_address as temp_member_second_contact_address, temp_member.last_login_time as temp_member_last_login_time, 
+    temp_member.last_login_ip_address as temp_member_last_login_ip_address, temp_member.login_count as temp_member_login_count, 
+    temp_member.remark as temp_member_remark, temp_member.creater as temp_member_creater, 
     temp_member.create_time as temp_member_create_time, temp_member.updater as temp_member_updater, 
     temp_member.update_time as temp_member_update_time
 	<!-- 以下字段属于扩展 -->
@@ -175,8 +181,10 @@
       home_phone, first_contact, first_contact_relation, 
       first_contact_phone, first_contact_address, 
       second_contact, second_contact_relation, second_contact_phone, 
-      second_contact_address, creater, create_time, 
-      updater, update_time)
+      second_contact_address, last_login_time, 
+      last_login_ip_address, login_count, remark, 
+      creater, create_time, updater, 
+      update_time)
     values (#{memberId,jdbcType=VARCHAR}, #{memberName,jdbcType=VARCHAR}, #{memberPassword,jdbcType=VARCHAR}, 
       #{memberRealName,jdbcType=VARCHAR}, #{memberPhoto,jdbcType=VARCHAR}, #{memberAge,jdbcType=INTEGER}, 
       #{mobileNumber,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{maritalStatus,jdbcType=CHAR}, 
@@ -188,8 +196,10 @@
       #{homePhone,jdbcType=VARCHAR}, #{firstContact,jdbcType=VARCHAR}, #{firstContactRelation,jdbcType=CHAR}, 
       #{firstContactPhone,jdbcType=VARCHAR}, #{firstContactAddress,jdbcType=VARCHAR}, 
       #{secondContact,jdbcType=VARCHAR}, #{secondContactRelation,jdbcType=CHAR}, #{secondContactPhone,jdbcType=VARCHAR}, 
-      #{secondContactAddress,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+      #{secondContactAddress,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{lastLoginIpAddress,jdbcType=VARCHAR}, #{loginCount,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.member.Member" >
     insert into t_member
@@ -292,6 +302,18 @@
       </if>
       <if test="secondContactAddress != null" >
         second_contact_address,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="lastLoginIpAddress != null" >
+        last_login_ip_address,
+      </if>
+      <if test="loginCount != null" >
+        login_count,
+      </if>
+      <if test="remark != null" >
+        remark,
       </if>
       <if test="creater != null" >
         creater,
@@ -405,6 +427,18 @@
       </if>
       <if test="secondContactAddress != null" >
         #{secondContactAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIpAddress != null" >
+        #{lastLoginIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="loginCount != null" >
+        #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
       </if>
       <if test="creater != null" >
         #{creater,jdbcType=VARCHAR},
@@ -529,6 +563,18 @@
       <if test="record.secondContactAddress != null" >
         temp_member.second_contact_address = #{record.secondContactAddress,jdbcType=VARCHAR},
       </if>
+      <if test="record.lastLoginTime != null" >
+        temp_member.last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastLoginIpAddress != null" >
+        temp_member.last_login_ip_address = #{record.lastLoginIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginCount != null" >
+        temp_member.login_count = #{record.loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        temp_member.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
       <if test="record.creater != null" >
         temp_member.creater = #{record.creater,jdbcType=VARCHAR},
       </if>
@@ -581,6 +627,10 @@
       temp_member.second_contact_relation = #{record.secondContactRelation,jdbcType=CHAR},
       temp_member.second_contact_phone = #{record.secondContactPhone,jdbcType=VARCHAR},
       temp_member.second_contact_address = #{record.secondContactAddress,jdbcType=VARCHAR},
+      temp_member.last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      temp_member.last_login_ip_address = #{record.lastLoginIpAddress,jdbcType=VARCHAR},
+      temp_member.login_count = #{record.loginCount,jdbcType=INTEGER},
+      temp_member.remark = #{record.remark,jdbcType=VARCHAR},
       temp_member.creater = #{record.creater,jdbcType=VARCHAR},
       temp_member.create_time = #{record.createTime,jdbcType=TIMESTAMP},
       temp_member.updater = #{record.updater,jdbcType=VARCHAR},
@@ -688,6 +738,18 @@
       <if test="secondContactAddress != null" >
         second_contact_address = #{secondContactAddress,jdbcType=VARCHAR},
       </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIpAddress != null" >
+        last_login_ip_address = #{lastLoginIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="loginCount != null" >
+        login_count = #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="creater != null" >
         creater = #{creater,jdbcType=VARCHAR},
       </if>
@@ -737,6 +799,10 @@
       second_contact_relation = #{secondContactRelation,jdbcType=CHAR},
       second_contact_phone = #{secondContactPhone,jdbcType=VARCHAR},
       second_contact_address = #{secondContactAddress,jdbcType=VARCHAR},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      last_login_ip_address = #{lastLoginIpAddress,jdbcType=VARCHAR},
+      login_count = #{loginCount,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
       creater = #{creater,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       updater = #{updater,jdbcType=VARCHAR},

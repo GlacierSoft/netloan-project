@@ -1,5 +1,8 @@
 package com.glacier.netloan.compent.realm;
 
+
+import java.util.Date;
+
 import javax.annotation.PostConstruct;
 
 import org.apache.shiro.authc.AuthenticationException;
@@ -21,6 +24,8 @@ import com.glacier.netloan.dao.member.MemberTokenMapper;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberToken;
 import com.glacier.netloan.entity.member.MemberTokenExample;
+import com.glacier.netloan.entity.system.LoginLog;
+import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.service.system.UserService;
 import com.glacier.security.util.Encodes;
 
@@ -86,12 +91,11 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
             if (null != tokenMember) {
                 // 用户状态为启用或隐藏让其通过认证
                 byte[] salt = Encodes.decodeHex(tokenMember.getSalt());
-                for(char r : token.getPassword()){
-                }
                 //通过会员id来获取会员信息
                 Member principalMember = memberMapper.selectByPrimaryKey(tokenMember.getMemberId());
                 AuthenticationInfo info = new SimpleAuthenticationInfo(principalMember, tokenMember.getPassword(), ByteSource.Util.bytes(salt), getName());// 将用户的所有信息作为认证对象返回
                 clearCache(info.getPrincipals());// 认证成功后清除之前的缓存
+                updatePrincipalMemberInfo(token, principalMember);// 更新用户登录信息
                 return info;
             } else {
                 throw new DisabledAccountException();
@@ -100,7 +104,30 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
         return null;
     }
 
+    /**
+     * @param token
+     * @param principalUser
+     * @Title: updatePrincipalUserInfo
+     * @Description: TODO(更新用户登录信息)
+     * @param
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws 备注
+     *             <p>
+     *             已检查测试:Green
+     *             <p>
+     */
 
+    private void updatePrincipalMemberInfo(CaptchaUsernamePasswordToken token, Member principalMember) {
+            Member lastTokenMember = new Member();
+            lastTokenMember.setMemberId(principalMember.getMemberId());
+            lastTokenMember.setLastLoginIpAddress(token.getHost());
+            lastTokenMember.setLastLoginTime(new Date());// 设定最后登录时间
+            lastTokenMember.setLoginCount(principalMember.getLoginCount() + 1);
+            memberMapper.updateByPrimaryKeySelective(lastTokenMember);//更新会员信息
+    }
     /**
      * 更新用户授权信息缓存.
      */

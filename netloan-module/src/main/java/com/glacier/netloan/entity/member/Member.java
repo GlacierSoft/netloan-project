@@ -8,8 +8,8 @@ import com.alibaba.fastjson.annotation.JSONField;
 
 public class Member {
     private String memberId;
-
-    @Length(min = 1, max = 10, message = "{Member.memberName.illegal}")
+	
+	@Length(min = 1, max = 10, message = "{Member.memberName.illegal}")
     private String memberName;
 	//@Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9_]{4,15}", message = "{Member.memberPassword.illegal}")
     @Length(min = 6, max = 12, message = "{Member.memberPassword.illegal}")
@@ -78,22 +78,32 @@ public class Member {
 
     private String secondContactAddress;
 
+    private Date lastLoginTime;
+
+    private String lastLoginIpAddress;
+
+    private Integer loginCount;
+
+    private String remark;
+
     private String creater;
+	
 	/**
      * 自定义字段
      */
     private String createrDisplay;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
+	
 	/**
      * 自定义字段
      */
     private String updaterDisplay;
-    
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getMemberId() {
@@ -360,6 +370,38 @@ public class Member {
         this.secondContactAddress = secondContactAddress;
     }
 
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+
+    public String getLastLoginIpAddress() {
+        return lastLoginIpAddress;
+    }
+
+    public void setLastLoginIpAddress(String lastLoginIpAddress) {
+        this.lastLoginIpAddress = lastLoginIpAddress;
+    }
+
+    public Integer getLoginCount() {
+        return loginCount;
+    }
+
+    public void setLoginCount(Integer loginCount) {
+        this.loginCount = loginCount;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     public String getCreater() {
         return creater;
     }
@@ -391,7 +433,7 @@ public class Member {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
-
+    
     public String getCreaterDisplay() {
 		return createrDisplay;
 	}
@@ -453,6 +495,10 @@ public class Member {
             && (this.getSecondContactRelation() == null ? other.getSecondContactRelation() == null : this.getSecondContactRelation().equals(other.getSecondContactRelation()))
             && (this.getSecondContactPhone() == null ? other.getSecondContactPhone() == null : this.getSecondContactPhone().equals(other.getSecondContactPhone()))
             && (this.getSecondContactAddress() == null ? other.getSecondContactAddress() == null : this.getSecondContactAddress().equals(other.getSecondContactAddress()))
+            && (this.getLastLoginTime() == null ? other.getLastLoginTime() == null : this.getLastLoginTime().equals(other.getLastLoginTime()))
+            && (this.getLastLoginIpAddress() == null ? other.getLastLoginIpAddress() == null : this.getLastLoginIpAddress().equals(other.getLastLoginIpAddress()))
+            && (this.getLoginCount() == null ? other.getLoginCount() == null : this.getLoginCount().equals(other.getLoginCount()))
+            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdater() == null ? other.getUpdater() == null : this.getUpdater().equals(other.getUpdater()))
@@ -496,6 +542,10 @@ public class Member {
         result = prime * result + ((getSecondContactRelation() == null) ? 0 : getSecondContactRelation().hashCode());
         result = prime * result + ((getSecondContactPhone() == null) ? 0 : getSecondContactPhone().hashCode());
         result = prime * result + ((getSecondContactAddress() == null) ? 0 : getSecondContactAddress().hashCode());
+        result = prime * result + ((getLastLoginTime() == null) ? 0 : getLastLoginTime().hashCode());
+        result = prime * result + ((getLastLoginIpAddress() == null) ? 0 : getLastLoginIpAddress().hashCode());
+        result = prime * result + ((getLoginCount() == null) ? 0 : getLoginCount().hashCode());
+        result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdater() == null) ? 0 : getUpdater().hashCode());

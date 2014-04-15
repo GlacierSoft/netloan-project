@@ -296,6 +296,8 @@ public class MemberService {
         member.setIntegral((float) 0);
         member.setCreditIntegral((float) 0);
         member.setRegistrationTime(new Date());
+        member.setLastLoginTime(new Date());
+        member.setLoginCount(1);
         member.setCreater(memberId);
         member.setCreateTime(new Date());
         member.setUpdater(memberId);

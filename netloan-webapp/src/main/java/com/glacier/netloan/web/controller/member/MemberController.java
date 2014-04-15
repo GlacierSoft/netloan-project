@@ -82,11 +82,9 @@ public class MemberController extends AbstractController{
     @ResponseBody
     private Object editMember(@Valid Member member,BindingResult bindingResult,@Valid MemberWork memberWork,BindingResult bindingResultWork) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
-        	System.out.println("        eeeeeeeeee     ");
             return returnErrorBindingResult(bindingResult);
         }
         if (bindingResultWork.hasErrors()) {// 后台校验的错误信息
-        	System.out.println("        aaaaaaaaaaa     ");
             return returnErrorBindingResult(bindingResultWork);
         }
         return memberService.editMemberandWork(member, memberWork);

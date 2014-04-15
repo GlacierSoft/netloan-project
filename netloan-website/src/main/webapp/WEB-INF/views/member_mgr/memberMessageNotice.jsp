@@ -228,6 +228,7 @@
   	<script type="text/javascript">
   	//定义成全局变量
 	 var valp = '';//获取p参数，也就是第几页
+	 var letterstatus = '';////获取letterstatus参数
 	 var messageNoticeIds = [];//删除的id标识
 	 
 	  <!-- 分页显示表格数据 开始 -->
@@ -240,8 +241,11 @@
 					for(var i = 0; i < hashes.length; i++){
 						hash = hashes[i].split('=');
 						vars.push(hash[0]);
+						
 						vars[hash[0]] = hash[1];
+						
 					}
+					//console.log(vars);
 					return vars;
 				},
 				getUrlVar: function(name){
@@ -265,6 +269,7 @@
 					return false;
 				}
 			});
+			//到这里结束，这部分不是分页代码
 			return param;
 		}
 		
@@ -287,6 +292,13 @@
 		    	}
 		}
 		elementpagemessageNotice.bootstrapPaginator(messageNoticeOptions);
+		
+		//点击查询未读信息返回的按钮
+		 $("#messageNoticeListReturn").bind('click', function(){   
+	  		//window.location.href="${ctx}/messageNotice/intoMessageNotice.htm?&p="+valp;
+	  		window.location.href="${ctx}/messageNotice/intoMessageNotice.htm?"+composeUrlParams()+"&p="+valp;
+	  		
+	    }); 
 		})
 	<!-- 分页显示表格数据 结束 -->
 	$("#totalCheckbox").attr("checked",false);	
@@ -299,10 +311,7 @@
         	    $("input[name='messageNoticeIds']").prop("checked",false);
            } 
        });
-	//点击查询未读信息按钮
-	$("#messageNoticeListReturn").bind('click', function(){   
-  		window.location.href="${ctx}/messageNotice/intoMessageNotice.htm?&p="+valp;
-    });
+	
 	//点击删除信息按钮
   	$("#deleteMessageNotice").bind('click', function(){   
   		$('input:checkbox:checked').each(function() {

@@ -97,16 +97,29 @@
 				  <div class="panel-body">
 				   <div class="bs-example bs-example-tabs">
 				     <ul id="myTab" class="nav nav-tabs">
+				      <c:if test="${empty addBankCard}">
 				       <li class="active"><a href="${ctx}/member/memberDetail.htm" class="btn " role="button">个人详细信息</a></li>
 				       <li><a href="#tabUpdatePassword" data-toggle="tab">修改密码</a></li>
 				       <li><a href="#tabchangeMobile" data-toggle="tab">更换手机</a></li>
 				       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
 				       <li><a href="#tabbankCard" data-toggle="tab">银行卡设置</a></li>
+				       </c:if>
+				       <c:if test="${addBankCard == 'addBankCard' }">
+				       	   <li><a href="${ctx}/member/memberDetail.htm" class="btn " role="button">个人详细信息</a></li>
+					       <li><a href="#tabUpdatePassword" data-toggle="tab">修改密码</a></li>
+					       <li><a href="#tabchangeMobile" data-toggle="tab">更换手机</a></li>
+					       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
+					       <li  class="active"><a href="#tabbankCard" data-toggle="tab">银行卡设置</a></li>
+				       </c:if>
 				     </ul>
 				      <br>
 				     <div id="myTabContent" class="tab-content">
-				     
-				       <div class="tab-pane fade in active" id="tabPersonalDetails">
+				     	<c:if test="${empty addBankCard}">
+				        <div class="tab-pane fade in active" id="tabPersonalDetails">
+				        </c:if>
+				        <c:if test="${addBankCard == 'addBankCard' }">
+				        <div class="tab-pane fade" id="tabPersonalDetails">
+				        </c:if>
 				       		<form id="personalMessageForm"  class=" form-horizontal" role="form"  method="post" >
 				       		<div class="bs-example bs-example-tabs">
 						     <ul id="myTab" class="nav nav-tabs">
@@ -418,7 +431,12 @@
 				       <div class="tab-pane fade" id="tabnotification">
 				         <p>通知设置</p>
 				       </div>
-				       <div class="tab-pane fade" id="tabbankCard">
+				       <c:if test="${empty addBankCard}">
+				        <div class="tab-pane fade" id="tabbankCard">
+				        </c:if>
+				        <c:if test="${addBankCard == 'addBankCard' }">
+				        <div class="tab-pane fade in active" id="tabbankCard">
+				        </c:if>
 				         <form id="bankCardForm" class="form-horizontal" role="form" method="post" >
 						  <div class="form-group">
 						    <label for="memberName" class="col-sm-2 control-label" style="color:red;">提现银行</label>
@@ -505,7 +523,9 @@
 							         	<script type="text/javascript">
 										    $("#bandCardCancel"+${indexStatus.index}).bind('click', function(){   
 										    	var valCalss=$("#bandCardCancel"+${indexStatus.index}).attr("class");//这里获取class值
-										    	$.ajax({
+										    	var url = ctx+"/bankCard/del.htm?bankCardId="+valCalss+"&addBankCard=addBankCard";
+										    	comfireDeletedialog(url);
+										    	/* $.ajax({
 													   type: "GET",
 													   url: ctx+"/bankCard/del.htm?bankCardId="+valCalss,
 													   dataType: "json",
@@ -515,7 +535,7 @@
 									                 error: function() {
 									                     alert("删除出错！");
 									                 }
-													});
+													}); */
 										    });
 										</script>
 							         	<%-- <a href="${ctx}/member/memberPhotoInto.htm" class="btn btn-default" role="button"><strong>取消</strong></a> --%>
@@ -724,10 +744,10 @@
 	    				   dataType: "json",
 	    				   data: $("#bankCardForm").serialize(),
 		    			   success: function(r) {
-	    						successdialog(r);
-	    						if(r.success){
+		    				   successAddBankCard(r);
+	    						/* if(r.success){
 	    							$("form[id='bankCardForm'] input").val("");	
-	    						}
+	    						} */
 		                    },
 		                    error: function() {
 		                        alert("提交出错！");
@@ -817,17 +837,36 @@
 					                click : function(e) {
 					                		dialog.remove();
 					                }
-					        }/* ,
-					        noBtn : {
-					                name : '取消',
-					                click : function(e) {
-					                        dialog.remove();
-					                }
-					        } */
-					        
+					        }
 						});
 			});
 		}
+			function successAddBankCard(data){
+				KindEditor.ready(function(K) {
+				var dialog = K.dialog({
+						        width : 500,
+						        title : '保存成功',
+						        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
+						        closeBtn : {
+						                name : '关闭',
+						                click : function(e) {
+						                        dialog.remove();
+						                }
+						        },
+						        yesBtn : {
+						                name : '确定',
+						                click : function(e) {
+						                	dialog.remove();
+						                	if(data.success){
+						                		window.location.href="${ctx}/member/memberDetail.htm?addBankCard=addBankCard";
+						                	}else{
+						                		$("form[id='bankCardForm'] input").val("");	
+						                	}
+						                }
+						        }
+							});
+				});
+			}
       	function deletedialog(data){
 			KindEditor.ready(function(K) {
 			var dialog = K.dialog({
@@ -845,13 +884,35 @@
 					                click : function(e) {
 					                		dialog.remove();
 					                }
-					        }/* ,
+					        }
+						});
+			});
+		}
+      	function comfireDeletedialog(url){
+			KindEditor.ready(function(K) {
+			var dialog = K.dialog({
+					        width : 300,
+					        title : '删除成功',
+					        body : '<div style="margin:10px;"><strong>确定删除？</strong></div>',
+					        closeBtn : {
+					                name : '关闭',
+					                click : function(e) {
+					                        dialog.remove();
+					                }
+					        },
+					        yesBtn : {
+					                name : '确定',
+					                click : function(e) {
+					                		dialog.remove();
+					                		window.location.href=url;
+					                }
+					        },
 					        noBtn : {
 					                name : '取消',
 					                click : function(e) {
 					                        dialog.remove();
 					                }
-					        } */
+					        }
 					        
 						});
 			});

@@ -120,7 +120,7 @@
 			              <td>会员积分：</td>
 			              <td>${requestScope.totalIntegral}</td>
 			              <td>最后登录ip:</td>
-			              <td>61.145.244.204</td>
+			              <td>${currentMember.lastLoginIpAddress}</td>
 			            </tr>
 			            <tr>
 			              <td>信用额度：</td>

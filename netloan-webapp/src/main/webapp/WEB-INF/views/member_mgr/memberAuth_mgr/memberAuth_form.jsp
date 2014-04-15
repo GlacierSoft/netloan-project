@@ -25,7 +25,16 @@
 		   		    </c:otherwise>
 				</c:choose>
 				</td>
-				<td><a id="infoAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
+				<td>
+				<c:choose>
+				    <c:when test="${memberAuthData.infoAuth == 'noapply'}"> 
+						<a id="infoAuthbtn" href="#" class="easyui-linkbutton" disabled="disabled" data-options="">审核</a>
+		            </c:when>
+		   			<c:otherwise> 
+		   				<a id="infoAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a>
+		   		    </c:otherwise>
+				</c:choose>
+				</td>
 			</tr>
 			<tr>
 				<td><input id="member_mgr_memberAuth_form_vipName" name="vipName" class="spinner" style="width:168px" value="${memberAuthData.vipName}" readonly="readonly"/></td>
@@ -39,7 +48,16 @@
 		   		    </c:otherwise>
 				</c:choose>
 				</td>
-				<td><a id="vipAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
+				<td>
+				<c:choose>
+				    <c:when test="${memberAuthData.vipAuth == 'noapply'}"> 
+						<a id="vipAuthbtn" href="#" class="easyui-linkbutton" disabled="disabled" data-options="">审核</a>
+		            </c:when>
+		   			<c:otherwise> 
+		   				<a id="vipAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a>
+		   		    </c:otherwise>
+				</c:choose>
+				</td>
 			</tr>
 			<%--<tr>
 				<td><input id="member_mgr_memberAuth_form_emailName" name="emailName" class="spinner" style="width:168px" value="${memberAuthData.emailName}" readonly="readonly"/></td>
@@ -81,7 +99,16 @@
 		   		    </c:otherwise>
 				</c:choose>
 				</td>
-				<td><a id="creditAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
+				<td>
+				<c:choose>
+				    <c:when test="${memberAuthData.creditAuth == 'noapply'}"> 
+						<a id="vipAuthbtn" href="#" class="easyui-linkbutton" disabled="disabled"  data-options="">审核</a>
+		            </c:when>
+		   			<c:otherwise> 
+		   				<a id="creditAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a>
+		   		    </c:otherwise>
+				</c:choose>
+				</td>
 			</tr>
 			<tr>
 				<td><input id="member_mgr_memberAuth_form_companyName" name="companyName" class="spinner" style="width:168px" value="${memberAuthData.companyName}" readonly="readonly"/></td>
@@ -95,7 +122,16 @@
 		   		    </c:otherwise>
 				</c:choose>
 				</td>
-				<td><a id="companyAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
+				<td>
+				<c:choose>
+				    <c:when test="${memberAuthData.companyAuth == 'noapply'}"> 
+						<a id="companyAuthbtn" href="#" class="easyui-linkbutton" disabled="disabled" data-options="">审核</a>
+		            </c:when>
+		   			<c:otherwise> 
+		   				<a id="companyAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a>
+		   		    </c:otherwise>
+				</c:choose>
+				</td>
 			</tr>
 			<tr>
 				<td><input id="member_mgr_memberAuth_form_realName" name="realName" class="spinner" style="width:168px" value="${memberAuthData.realName}" readonly="readonly"/></td>
@@ -109,7 +145,16 @@
 		   		    </c:otherwise>
 				</c:choose>
 				</td>
-				<td><a id="realNameAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
+				<td>
+				<c:choose>
+				    <c:when test="${memberAuthData.realNameAuth == 'noapply'}"> 
+						<a id="realNameAuthbtn" href="#" class="easyui-linkbutton" disabled="disabled" data-options="">审核</a>
+		            </c:when>
+		   			<c:otherwise> 
+		   				<a id="realNameAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a>
+		   		    </c:otherwise>
+				</c:choose>
+				</td>
 			</tr>
 			<tr>
 				<td><input id="member_mgr_memberAuth_form_idCardName" name="idCardName" class="spinner" style="width:168px" value="${memberAuthData.idCardName}" readonly="readonly"/></td>
@@ -123,7 +168,16 @@
 		   		    </c:otherwise>
 				</c:choose>
 				</td>
-				<td><a id="idCardAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
+				<td>
+				<c:choose>
+				    <c:when test="${memberAuthData.idCardAuth == 'noapply'}"> 
+						<a id="idCardAuthbtn" href="#" class="easyui-linkbutton" disabled="disabled" data-options="">审核</a>
+		            </c:when>
+		   			<c:otherwise> 
+		   				<a id="idCardAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a>
+		   		    </c:otherwise>
+				</c:choose>
+				</td>
 			</tr>
 			<tr>
 				<td><input id="member_mgr_memberAuth_form_workName" name="workName" class="spinner" style="width:168px" value="${memberAuthData.workName}" readonly="readonly"/></td>
@@ -137,12 +191,21 @@
 		   		    </c:otherwise>
 				</c:choose>
 				</td>
-				<td><a id="workAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a></td>
+				<td>
+				<c:choose>
+				    <c:when test="${memberAuthData.workAuth == 'noapply'}"> 
+						<a id="" href="#" class="easyui-linkbutton" disabled="disabled" data-options="">审核</a>
+		            </c:when>
+		   			<c:otherwise> 
+		   				<a id="workAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a>
+		   		    </c:otherwise>
+				</c:choose>
+				</td>
 			</tr>
 		</tbody>
 	</table>
 </form>
-
+<p style="color:red;">温馨提示：状态为未申请不能进行审核操作！</p>
 <script type="text/javascript">
 	//下拉项emun的值
 	$('#member_mgr_memberAuth_form_infoAuth').val(renderGridValue('${memberAuthData.infoAuth}',fields.auths));
