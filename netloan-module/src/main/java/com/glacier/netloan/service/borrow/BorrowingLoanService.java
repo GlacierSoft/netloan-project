@@ -46,16 +46,16 @@ public class BorrowingLoanService {
     private UserMapper userMapper;
 	
 	/**
-	 * @Title: getAdvertisement 
+	 * @Title: getBorrowingLoan 
 	 * @Description: TODO(根据借款Id获取借款信息) 
-	 * @param @param webAdvId
+	 * @param @param loanId
 	 * @param @return    设定文件 
 	 * @return Object    返回类型 
 	 * @throws
 	 */
-    public Object getAdvertisement(String loanId) {
-    	BorrowingLoan websiteAdvertisement = borrowingLoanMapper.selectByPrimaryKey(loanId);
-        return websiteAdvertisement;
+    public Object getBorrowingLoan(String loanId) {
+    	BorrowingLoan borrowingLoan = borrowingLoanMapper.selectByPrimaryKey(loanId);
+        return borrowingLoan;
     }
     
     /**
@@ -86,7 +86,7 @@ public class BorrowingLoanService {
     }
 
     /**
-     * @Title: addAdvertisement 
+     * @Title: addBorrowingLoan 
      * @Description: TODO(新增借款) 
      * @param @param borrowingLoan
      * @param @return    设定文件 
@@ -94,8 +94,8 @@ public class BorrowingLoanService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "AdvertisementList_add")
-    public Object addAdvertisement(BorrowingLoan borrowingLoan) {
+    @MethodLog(opera = "BorrowingLoanList_add")
+    public Object addBorrowingLoan(BorrowingLoan borrowingLoan) {
     	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -126,7 +126,7 @@ public class BorrowingLoanService {
     }
     
     /**
-     * @Title: editAdvertisement 
+     * @Title: editBorrowingLoan 
      * @Description: TODO(修改借款) 
      * @param @param borrowingLoan
      * @param @return    设定文件 
@@ -134,8 +134,8 @@ public class BorrowingLoanService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "AdvertisementList_edit")
-    public Object editAdvertisement(BorrowingLoan borrowingLoan) {
+    @MethodLog(opera = "BorrowingLoanList_edit")
+    public Object editBorrowingLoan(BorrowingLoan borrowingLoan) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
         int count = 0;
@@ -161,17 +161,17 @@ public class BorrowingLoanService {
     }
     
     /**
-     * @Title: delAdvertisement 
+     * @Title: delBorrowingLoan 
      * @Description: TODO(删除借款) 
-     * @param @param webAdvIds
-     * @param @param advThemes
+     * @param @param loanIds
+     * @param @param loanCodes
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "AdvertisementList_del")
-    public Object delAdvertisement(List<String> loanIds, List<String> loanCodes) {
+    @MethodLog(opera = "BorrowingLoanList_del")
+    public Object delBorrowingLoan(List<String> loanIds, List<String> loanCodes) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         if (loanIds.size() > 0) {

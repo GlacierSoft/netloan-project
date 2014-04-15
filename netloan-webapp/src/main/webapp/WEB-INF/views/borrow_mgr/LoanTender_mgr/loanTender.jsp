@@ -51,7 +51,10 @@
 				field:'state',
 				title:'状态',
 				width:120,
-				sortable:true
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如open显示启用，close显示禁用
+					return renderGridValue(value,fields.state);
+				}
 			},{
 				field:'lowestLoanAmount',
 				title:'最小借款额度',
@@ -106,12 +109,18 @@
 				field:'isBidReward',
 				title:'是否有投标奖励',
 				width:120,
-				sortable:true
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如yes显示是，no显示否
+					return renderGridValue(value,fields.yesOrNo);
+				}
 			},{
 				field:'isBidPwd',
 				title:'是否设置投标密码',
 				width:120,
-				sortable:true
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如yes显示是，no显示否
+					return renderGridValue(value,fields.yesOrNo);
+				}
 			},{
 				field:'lowestRewardPro',
 				title:'最低奖励比例',
@@ -176,7 +185,10 @@
 				field:'subscriptionState',
 				title:'是否开启认购模式',
 				width:120,
-				sortable:true
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如open显示启用，close显示禁用
+					return renderGridValue(value,fields.state);
+				}
 			},{
 				field:'guaranteeAgencyId',
 				title:'担保机构id',

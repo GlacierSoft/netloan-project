@@ -8,7 +8,7 @@
 			<td>标种类型名称：</td>
 			<td>
 				<input type="hidden" id="loanTender_mgr_loanTender_detail_loanTenderId" name="loanTenderId" value="${loanTenderData.loanTenderId}" />
-				<input id="loanTender_mgr_loanTender_detail_loanrTenderName" name="loanrTenderName" style="width:198px" value="${loanTenderData.loanrTenderName}" class="spinner"  required="true"  validType="length[1,25]" invalidMessage="招聘管理主题必须在1到25个字符之间"/>
+				<input id="loanTender_mgr_loanTender_detail_loanrTenderName" name="loanrTenderName" style="width:198px" value="${loanTenderData.loanrTenderName}" class="spinner"/>
 			</td>
 			<td>状态：</td>
 			<td>
@@ -47,9 +47,9 @@
 		</tr>
 		<tr>
 			<td>是否有投标奖励：</td>
-			<td><input id="loanTender_mgr_loanTender_detail_isBidReward" name="isBidReward" class="spinner" style="width:198px" value="${loanTenderData.isBidReward}"/></td>
+			<td><input id="loanTender_mgr_loanTender_detail_isBidReward" class="spinner" style="width:198px"/></td>
 			<td>是否设置投标密码：</td>
-			<td><input id="loanTender_mgr_loanTender_detail_isBidPwd" name="isBidPwd" class="spinner" style="width:198px" value="${loanTenderData.isBidPwd}"/></td>
+			<td><input id="loanTender_mgr_loanTender_detail_isBidPwd" class="spinner" style="width:198px"/></td>
 		</tr>
 		<tr>
 			<td>最低奖励比例：</td>
@@ -89,7 +89,7 @@
 		</tr>
 		<tr>
 			<td>是否开启认购模式：</td>
-			<td><input id="loanTender_mgr_loanTender_detail_subscriptionState" name="subscriptionState" class="spinner" style="width:198px" value="${loanTenderData.subscriptionState}"/></td>
+			<td><input id="loanTender_mgr_loanTender_detail_subscriptionState" class="spinner" style="width:198px"/></td>
 			<td>担保机构id：</td>
 			<td><input id="loanTender_mgr_loanTender_detail_guaranteeAgencyId" name="guaranteeAgencyId" class="spinner" style="width:198px" value="${loanTenderData.guaranteeAgencyId}"/></td>
 		</tr>
@@ -108,4 +108,13 @@
 </form>
 <script type="text/javascript">
 	$('#loanTender_mgr_loanTender_detail_state').val(renderGridValue('${loanTenderData.state}',fields.state));
+</script>
+<script type="text/javascript">
+	$('#loanTender_mgr_loanTender_detail_isBidReward').val(renderGridValue('${loanTenderData.isBidReward}',fields.yesOrNo));
+</script>
+<script type="text/javascript">
+	$('#loanTender_mgr_loanTender_detail_isBidPwd').val(renderGridValue('${loanTenderData.isBidPwd}',fields.yesOrNo));
+</script>
+<script type="text/javascript">
+	$('#loanTender_mgr_loanTender_detail_subscriptionState').val(renderGridValue('${loanTenderData.subscriptionState}',fields.state));
 </script>

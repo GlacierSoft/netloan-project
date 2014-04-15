@@ -26,7 +26,7 @@ import com.glacier.netloan.service.borrow.BorrowingLoanService;
 
 /** 
  * @ClassName: BorrowingLoanController 
- * @Description: TODO(广告的控制器) 
+ * @Description: TODO(借款的控制器) 
  * @author xichao.dong
  * @email 406592176@QQ.com
  * @date 2014-1-21 下午2:39:20  
@@ -36,66 +36,66 @@ import com.glacier.netloan.service.borrow.BorrowingLoanService;
 public class BorrowingLoanController extends AbstractController{
 
     @Autowired
-    private BorrowingLoanService borrowingLoanService;// 注入广告业务Bean
+    private BorrowingLoanService borrowingLoanService;// 注入借款业务Bean
     
-    // 进入广告列表展示页面
+    // 进入借款列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPborrowingLoan() {
         ModelAndView mav = new ModelAndView("borrow_mgr/borrowingLoan_mgr/borrowingLoan");
         return mav;
     }
     
-    // 进入广告Form表单页面
+    // 进入借款Form表单页面
     @RequestMapping(value = "/intoForm.htm")
-    private Object intoAdvertisementFormPborrowingLoan(String webAdvId) {
+    private Object intoBorrowingLoanFormPborrowingLoan(String loanId) {
         ModelAndView mav = new ModelAndView("borrow_mgr/borrowingLoan_mgr/borrowingLoan_form");
-        if(StringUtils.isNotBlank(webAdvId)){
-            mav.addObject("borrowingLoanData", borrowingLoanService.getAdvertisement(webAdvId));
+        if(StringUtils.isNotBlank(loanId)){
+            mav.addObject("borrowingLoanData", borrowingLoanService.getBorrowingLoan(loanId));
         }
         return mav;
     }
     
-    // 进入广告Detail信息页面
+    // 进入借款Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
-    private Object intoAdvertisementDetailPage(String webAdvId) {
+    private Object intoBorrowingLoanDetailPage(String loanId) {
         ModelAndView mav = new ModelAndView("borrow_mgr/borrowingLoan_mgr/borrowingLoan_detail");
-        if(StringUtils.isNotBlank(webAdvId)){
-            mav.addObject("borrowingLoanData", borrowingLoanService.getAdvertisement(webAdvId));
+        if(StringUtils.isNotBlank(loanId)){
+            mav.addObject("borrowingLoanData", borrowingLoanService.getBorrowingLoan(loanId));
         }
         return mav;
     }
     
-    // 获取表格结构的所有广告数据
+    // 获取表格结构的所有借款数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listAdvertisementAsGridByMenuId(JqPager jqPager) {
+    private Object listBorrowingLoanAsGridByMenuId(JqPager jqPager) {
         return borrowingLoanService.listAsGrid(jqPager);
     }
     
-    // 增加广告
+    // 增加借款
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addAdvertisement(@Valid BorrowingLoan borrowingLoan, BindingResult bindingResult) {
+    private Object addBorrowingLoan(@Valid BorrowingLoan borrowingLoan, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
-        return borrowingLoanService.addAdvertisement(borrowingLoan);
+        return borrowingLoanService.addBorrowingLoan(borrowingLoan);
     }
     
-    // 修改广告
+    // 修改借款
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object editAdvertisement(@Valid BorrowingLoan borrowingLoan, BindingResult bindingResult) {
+    private Object editBorrowingLoan(@Valid BorrowingLoan borrowingLoan, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
-        return borrowingLoanService.editAdvertisement(borrowingLoan);
+        return borrowingLoanService.editBorrowingLoan(borrowingLoan);
     }
     
-    // 批量删除广告
+    // 批量删除借款
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
     public Object delAdv(@RequestParam List<String> loanIds,@RequestParam List<String> loanCodes) {
-    	return borrowingLoanService.delAdvertisement(loanIds, loanCodes);
+    	return borrowingLoanService.delBorrowingLoan(loanIds, loanCodes);
     }
 }

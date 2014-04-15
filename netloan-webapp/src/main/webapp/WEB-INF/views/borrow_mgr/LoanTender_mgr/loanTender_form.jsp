@@ -47,9 +47,9 @@
 		</tr>
 		<tr>
 			<td>是否有投标奖励：</td>
-			<td><input id="loanTender_mgr_loanTender_form_isBidReward" name="isBidReward" class="easyui-validatebox spinner" style="width:198px" value="${loanTenderData.isBidReward}"/></td>
+			<td><input id="loanTender_mgr_loanTender_form_isBidReward" name="isBidReward" value="${loanTenderData.isBidReward}" class="easyui-combobox" style="height:18px;width:200px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,data : fields.yesOrNo"/></td>
 			<td>是否设置投标密码：</td>
-			<td><input id="loanTender_mgr_loanTender_form_isBidPwd" name="isBidPwd" class="easyui-validatebox spinner" style="width:198px" value="${loanTenderData.isBidPwd}"/></td>
+			<td><input id="loanTender_mgr_loanTender_form_isBidPwd" name="isBidPwd" value="${loanTenderData.isBidPwd}" class="easyui-combobox" style="height:18px;width:200px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,data : fields.yesOrNo"/></td>
 		</tr>
 		<tr>
 			<td>最低奖励比例：</td>
@@ -89,7 +89,7 @@
 		</tr>
 		<tr>
 			<td>是否开启认购模式：</td>
-			<td><input id="loanTender_mgr_loanTender_form_subscriptionState" name="subscriptionState" class="easyui-validatebox spinner" style="width:198px" value="${loanTenderData.subscriptionState}"/></td>
+			<td><input id="loanTender_mgr_loanTender_form_subscriptionState" name="subscriptionState" value="${loanTenderData.subscriptionState}" class="easyui-combobox" style="height:18px;width:200px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,data : fields.state"/></td>
 			<td>担保机构id：</td>
 			<td><input id="loanTender_mgr_loanTender_form_guaranteeAgencyId" name="guaranteeAgencyId" class="easyui-validatebox spinner" style="width:198px" value="${loanTenderData.guaranteeAgencyId}"/></td>
 		</tr>
