@@ -57,10 +57,10 @@ public class LoanTenderController extends AbstractController{
     
     // 进入标种类型Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
-    private Object intoAdvertisementDetailPage(String webAdvId) {
+    private Object intoAdvertisementDetailPage(String loanTenderId) {
         ModelAndView mav = new ModelAndView("borrow_mgr/loanTender_mgr/loanTender_detail");
-        if(StringUtils.isNotBlank(webAdvId)){
-            mav.addObject("loanTenderData", loanTenderService.getAdvertisement(webAdvId));
+        if(StringUtils.isNotBlank(loanTenderId)){
+            mav.addObject("loanTenderData", loanTenderService.getAdvertisement(loanTenderId));
         }
         return mav;
     }
@@ -95,7 +95,7 @@ public class LoanTenderController extends AbstractController{
     // 批量删除标种类型
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
-    public Object delAdv(@RequestParam List<String> loanIds,@RequestParam List<String> loanCodes) {
-    	return loanTenderService.delAdvertisement(loanIds, loanCodes);
+    public Object delLoanTender(@RequestParam List<String> loanTenderIds,@RequestParam List<String> loanrTenderNames) {
+    	return loanTenderService.delLoanTender(loanTenderIds, loanrTenderNames);
     }
 }

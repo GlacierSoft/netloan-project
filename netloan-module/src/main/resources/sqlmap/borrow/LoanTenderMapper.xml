@@ -145,7 +145,7 @@
     where loan_tender_id = #{loanTenderId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.borrow.LoanTenderExample" >
-    delete from t_loan_tender temp_loan_tender
+    delete temp_loan_tender from t_loan_tender temp_loan_tender
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

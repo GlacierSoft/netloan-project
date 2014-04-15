@@ -94,7 +94,7 @@ public class LoanTenderService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "AdvertisementList_add")
+    @MethodLog(opera = "LoanTenderList_add")
     public Object addAdvertisement(LoanTender loanTender) {
     	
         Subject pricipalSubject = SecurityUtils.getSubject();
@@ -134,7 +134,7 @@ public class LoanTenderService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "AdvertisementList_edit")
+    @MethodLog(opera = "LoanTenderList_edit")
     public Object editAdvertisement(LoanTender loanTender) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         LoanTenderExample loanTenderExample = new LoanTenderExample();
@@ -170,17 +170,17 @@ public class LoanTenderService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "AdvertisementList_del")
-    public Object delAdvertisement(List<String> loanIds, List<String> loanCodes) {
+    @MethodLog(opera = "LoanTenderList_del")
+    public Object delLoanTender(List<String> loanTenderIds, List<String> loanrTenderNames) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
-        if (loanIds.size() > 0) {
+        if (loanTenderIds.size() > 0) {
         	LoanTenderExample loanTenderExample = new LoanTenderExample();
-        	loanTenderExample.createCriteria().andLoanTenderIdIn(loanIds);
+        	loanTenderExample.createCriteria().andLoanTenderIdIn(loanTenderIds);
             count = loanTenderMapper.deleteByExample(loanTenderExample);
             if (count > 0) {
                 returnResult.setSuccess(true);
-                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(loanCodes, ",") + " ]标种类型");
+                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(loanrTenderNames, ",") + " ]标种类型");
             } else {
                 returnResult.setMsg("发生未知错误，标种类型信息删除失败");
             }

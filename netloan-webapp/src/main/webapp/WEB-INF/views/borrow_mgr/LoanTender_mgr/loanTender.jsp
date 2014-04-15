@@ -31,7 +31,7 @@
 		sortName: 'loanrTenderName',//排序字段名称
 		sortOrder: 'ASC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
-		idField:'loanId',
+		idField:'loanTenderId',
 		columns:[[
 			{
 				field:'loanTenderId',
@@ -243,9 +243,9 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.loanCode,
-				href : ctx + '/do/loanTender/intoDetail.htm?loanId='+rowData.loanId,//从controller请求jsp页面进行渲染
-				width : 720,
+				title: rowData.loanrTenderName,
+				href : ctx + '/do/loanTender/intoDetail.htm?loanTenderId='+rowData.loanTenderId,//从controller请求jsp页面进行渲染
+				width : 780,
 				height : 520,
 				resizable: false,
 				enableApplyButton : false,
@@ -270,13 +270,13 @@
 	glacier.borrow_mgr.loanTender_mgr.loanTender.editLoanTender = function(){
 		var row = glacier.borrow_mgr.loanTender_mgr.loanTender.loanTenderDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.loanCode+'】',
-			width : 720,
+			title : '编辑【'+row.loanrTenderName+'】',
+			width : 780,
 			height : 500,
 			queryUrl : ctx + '/do/loanTender/intoForm.htm',
 			submitUrl : ctx + '/do/loanTender/edit.json',
 			queryParams : {
-				loanId : row.loanId
+				loanTenderId : row.loanTenderId
 			},
 			successFun : function (){
 				glacier.borrow_mgr.loanTender_mgr.loanTender.loanTenderDataGrid.datagrid('reload');
@@ -286,19 +286,19 @@
 	//点击删除按钮触发方法
 	glacier.borrow_mgr.loanTender_mgr.loanTender.delLoanTender = function(){
 		var rows = glacier.borrow_mgr.loanTender_mgr.loanTender.loanTenderDataGrid.datagrid("getChecked");
-		var loanIds = [];//删除的id标识
-		var loanCodes = [];//借款主题
+		var loanTenderIds = [];//删除的id标识
+		var loanrTenderNames = [];//借款主题
 		for(var i=0;i<rows.length;i++){
-			loanIds.push(rows[i].loanId);
-			loanCodes.push(rows[i].loanCode);
+			loanTenderIds.push(rows[i].loanTenderId);
+			loanrTenderNames.push(rows[i].loanrTenderName);
 		}
-		if(loanIds.length > 0){
+		if(loanTenderIds.length > 0){
 			$.messager.confirm('请确认', '是否要删除该记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
 						   url: ctx + '/do/loanTender/del.json',
-						   data: {loanIds:loanIds.join(','),loanCodes:loanCodes.join(',')},
+						   data: {loanTenderIds:loanTenderIds.join(','),loanrTenderNames:loanrTenderNames.join(',')},
 						   dataType:'json',
 						   success: function(r){
 							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
