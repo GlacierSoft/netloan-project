@@ -25,6 +25,7 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.member.MemberApplyAmountMapper;
+import com.glacier.netloan.dao.member.MemberMessageNoticeMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.member.MemberApplyAmountQueryDTO;
 import com.glacier.netloan.entity.member.Member;
@@ -32,6 +33,7 @@ import com.glacier.netloan.entity.member.MemberApplyAmount;
 import com.glacier.netloan.entity.member.MemberApplyAmountExample;
 import com.glacier.netloan.entity.member.MemberApplyAmount;
 import com.glacier.netloan.entity.member.MemberIntegralExample;
+import com.glacier.netloan.entity.member.MemberMessageNotice;
 import com.glacier.netloan.entity.member.MemberApplyAmountExample.Criteria;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
@@ -53,6 +55,9 @@ public class MemberApplyAmountService {
 	
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private MemberMessageNoticeMapper memberMessageNoticeMapper;
 	
 	
 	@Transactional(readOnly = false)
@@ -85,9 +90,21 @@ public class MemberApplyAmountService {
 	        applyAmount.setUpdater(users.get(0).getUserId());
 	        applyAmount.setUpdateTime(new Date());
 	        count = applyAmountMapper.insert(applyAmount);
+	        
+	        //创建信息通知对象
+	        MemberMessageNotice memberMessageNotice = new MemberMessageNotice();
+	        
 	        if (count == 1) {
 	            returnResult.setSuccess(true);
 	            returnResult.setMsg("申请额度信息已提交审核");
+	            if(applyAmount.getAuditState().equals("bankCard")){
+	  				memberMessageNotice.setTitle("会员申请额度审核通知");
+	  	  			memberMessageNotice.setContent("您的申请额度金额为["+applyAmount.getApplyMoney()+"]审核状态:通过,通过金额为["+applyAmount.getAuthorizedAmount()+"]");
+	  			}else if(applyAmount.getAuditState().equals("failure")){
+	  				memberMessageNotice.setTitle("会员银行卡审核通知");
+	  	  			memberMessageNotice.setContent("您的申请额度金额为["+applyAmount.getApplyMoney()+"]审核状态:不通过");
+	  			}
+	  			this.addMessageNotice(memberMessageNotice,applyAmount.getMemberId());
 	        } else {
 	            returnResult.setMsg("发生未知错误，申请额度信息提交审核失败");
 	        }
@@ -96,7 +113,43 @@ public class MemberApplyAmountService {
         }
         return returnResult;
     }
-	
+	/**
+   	 * @Title: addMessageNotice 
+   	 * @Description: TODO(对审核认证后添加相对应的信息通知) 
+   	 * @param  @param memberMessageNotice
+   	 * @param  @return设定文件
+   	 * @return int  返回类型
+   	 * @throws 
+   	 *
+   	 */
+   	public int addMessageNotice(MemberMessageNotice memberMessageNotice,String memberId){
+   		
+   		Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        
+   		memberMessageNotice.setMessageNoticeId(RandomGUID.getRandomGUID());
+   		memberMessageNotice.setSender(pricipalUser.getUserId());
+   		memberMessageNotice.setAddressee(memberId);
+        memberMessageNotice.setSendtime(new Date());
+        memberMessageNotice.setLetterstatus("unread");
+        memberMessageNotice.setLettertype("system");
+        memberMessageNotice.setCreater(pricipalUser.getUserId());
+        memberMessageNotice.setCreateTime(new Date());
+        memberMessageNotice.setUpdater(pricipalUser.getUserId());
+        memberMessageNotice.setUpdateTime(new Date());
+        int count = memberMessageNoticeMapper.insert(memberMessageNotice);
+        return count;
+   	}
+   	/**
+   	 * @Title: listAsWebsite 
+   	 * @Description: TODO(前台的分页功能) 
+   	 * @param  @param pager
+   	 * @param  @param p
+   	 * @param  @return设定文件
+   	 * @return Object  返回类型
+   	 * @throws 
+   	 *
+   	 */
 	public Object listAsWebsite(JqPager pager, int p) {
         
     	JqGridReturn returnResult = new JqGridReturn();

@@ -112,7 +112,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_member_apply_amount temp_member_apply_amount
-    <include refid="Base_extend"/>
+    <include refid="Base_extend"/><!-- 扩展 -->
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

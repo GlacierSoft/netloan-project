@@ -106,7 +106,6 @@ public class ParameterCreditController extends AbstractController{
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
     private Object delCredit(@RequestParam List<String> creditIds,@RequestParam List<String> creditNames) {
-    	System.out.println("dddd   "+creditIds+"  ddd   "+creditNames);
         return parameterCreditService.delCredit(creditIds, creditNames);
     }
 }

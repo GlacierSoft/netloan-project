@@ -17,8 +17,10 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceBankCardMapper;
+import com.glacier.netloan.dao.member.MemberMessageNoticeMapper;
 import com.glacier.netloan.entity.finance.FinanceBankCard;
 import com.glacier.netloan.entity.finance.FinanceBankCardExample;
+import com.glacier.netloan.entity.member.MemberMessageNotice;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -32,9 +34,12 @@ import com.glacier.netloan.util.MethodLog;
 @Service
 @Transactional(readOnly = true ,propagation = Propagation.REQUIRED)
 public class FinanceBankCardService {
+	
 	@Autowired
 	private FinanceBankCardMapper financeBankCardMapper;
 	
+	@Autowired
+	private MemberMessageNoticeMapper memberMessageNoticeMapper;
 	/**
 	 * @Title: addFinanceBankCardWebsit 
 	 * @Description: TODO(前台增加会员银行卡) 
@@ -247,6 +252,15 @@ public class FinanceBankCardService {
             }
         return returnResult;
     }
+    /**
+     * @Title: auditApplyAmount 
+     * @Description: TODO(银行卡后台审核) 
+     * @param  @param bankCard
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
+     */
     @Transactional(readOnly = false)
     @MethodLog(opera = "bankCardList_audit")
 	public Object auditApplyAmount(FinanceBankCard bankCard) {
@@ -259,16 +273,52 @@ public class FinanceBankCardService {
 	    bankCard.setAuditor(pricipalUser.getUserId());// 审核人为当前系统登录用户
 	    bankCard.setAuditDate(new Date());// 审核时间为当前系统时间
 	    
+	    //创建信息通知对象
+        MemberMessageNotice memberMessageNotice = new MemberMessageNotice();
 	    
 	    int count = 0;
 	    count = financeBankCardMapper.updateByPrimaryKeySelective(bankCard);
 	    if (count == 1) {
 	        returnResult.setSuccess(true);
 	        returnResult.setMsg("会员银行卡审核成功");
+  			if(bankCard.getStatus().equals("bankCard")){
+  				memberMessageNotice.setTitle("会员银行卡审核通知");
+  	  			memberMessageNotice.setContent("您的银行卡号为["+bankCard.getCardNumber()+"]审核状态:通过");
+  			}else if(bankCard.getStatus().equals("failure")){
+  				memberMessageNotice.setTitle("会员银行卡审核通知");
+  	  			memberMessageNotice.setContent("您的银行卡号为["+bankCard.getCardNumber()+"]审核状态:不通过");
+  			}
+  			this.addMessageNotice(memberMessageNotice,bankCard.getMemberId());
 	    } else {
 	        returnResult.setMsg("发生未知错误，会员银行卡审核失败");
 	    }
 	    return returnResult;
 	}
-
+	/**
+   	 * @Title: addMessageNotice 
+   	 * @Description: TODO(对审核认证后添加相对应的信息通知) 
+   	 * @param  @param memberMessageNotice
+   	 * @param  @return设定文件
+   	 * @return int  返回类型
+   	 * @throws 
+   	 *
+   	 */
+   	public int addMessageNotice(MemberMessageNotice memberMessageNotice,String memberId){
+   		
+   		Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        
+   		memberMessageNotice.setMessageNoticeId(RandomGUID.getRandomGUID());
+   		memberMessageNotice.setSender(pricipalUser.getUserId());
+   		memberMessageNotice.setAddressee(memberId);
+        memberMessageNotice.setSendtime(new Date());
+        memberMessageNotice.setLetterstatus("unread");
+        memberMessageNotice.setLettertype("system");
+        memberMessageNotice.setCreater(pricipalUser.getUserId());
+        memberMessageNotice.setCreateTime(new Date());
+        memberMessageNotice.setUpdater(pricipalUser.getUserId());
+        memberMessageNotice.setUpdateTime(new Date());
+        int count = memberMessageNoticeMapper.insert(memberMessageNotice);
+        return count;
+   	}
 }

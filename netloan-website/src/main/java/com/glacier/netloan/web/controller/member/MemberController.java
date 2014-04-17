@@ -36,6 +36,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.util.SavedRequest;
+import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -59,6 +61,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dto.query.member.MemberMessageNoticeQueryDTO;
 import com.glacier.netloan.dto.query.member.MemberQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
+import com.glacier.netloan.entity.basicdatas.ParameterQuestion;
 import com.glacier.netloan.entity.finance.FinanceBankCard;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberAuth;
@@ -67,6 +70,7 @@ import com.glacier.netloan.entity.member.MemberCreditIntegral;
 import com.glacier.netloan.entity.member.MemberWork;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
+import com.glacier.netloan.service.basicdatas.ParameterQuestionService;
 import com.glacier.netloan.service.finance.FinanceBankCardService;
 import com.glacier.netloan.service.member.MemberApplyAmountService;
 import com.glacier.netloan.service.member.MemberAuthService;
@@ -104,9 +108,19 @@ public class MemberController extends AbstractController{
 	@Autowired
 	private MemberMessageNoticeService memberMessageNoticeService;
 	
+	@Autowired
+	private ParameterQuestionService parameterQuestionService;
+	
 	// 进入会员个人主页展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmember(HttpServletRequest request,HttpSession session) {
+    	
+    	//String url = WebUtils.getSavedRequest(request).getRequestUrl();
+    	//SavedRequest savedRequest = WebUtils.getSavedRequest(request);
+    	
+    	//System.out.println("1:"+savedRequest.getRequestURI());
+    	//System.out.println("2:"+url);
+    	
         ModelAndView mav = new ModelAndView("member_mgr/member");
         Subject pricipalSubject = SecurityUtils.getSubject();
         Member pricipalMember = (Member) pricipalSubject.getPrincipal();
@@ -164,20 +178,25 @@ public class MemberController extends AbstractController{
         Subject pricipalSubject = SecurityUtils.getSubject();
         Member pricipalMember = (Member) pricipalSubject.getPrincipal();
         MemberAuthWithBLOBs memberAuthWithBLOBs = (MemberAuthWithBLOBs)memberAuthService.getMemberAuth(pricipalMember.getMemberId());
-        
+        //对于前台查询列表，设置pager的值
         JqPager pager = new JqPager();
         pager.setSort("createTime");// 定义排序字段
         pager.setOrder("DESC");// 升序还是降序
+        //查询密保问题数据，放到rqquest.setAttribute中
+        JqGridReturn parameterQuestionResult = (JqGridReturn) parameterQuestionService.listAsGrid(pager);
+        request.setAttribute("parameterQuestionResult", parameterQuestionResult);
+        //查询银行卡列表
         JqGridReturn returnResult = (JqGridReturn) financeBankCardService.listAsGrid(pager);
         List<FinanceBankCard> bandCards =  (List<FinanceBankCard>) returnResult.getRows();
         request.setAttribute("memberBankCardDatas", bandCards);
-        
-        if((memberAuthWithBLOBs.getInfoAuth().equals("noapply") && memberAuthWithBLOBs.getWorkAuth().equals("noapply"))||
-        		(memberAuthWithBLOBs.getInfoAuth().equals("failure") && memberAuthWithBLOBs.getWorkAuth().equals("failure"))){
-        	request.setAttribute("infoAndWorAuthstr", "infoAndWorEdit");        	
+        //判断会员基本信息认证和工作认证状态，让相对应的表单是否可编辑
+        if((memberAuthWithBLOBs.getInfoAuth().equals("authstr") && memberAuthWithBLOBs.getWorkAuth().equals("authstr"))||
+        		(memberAuthWithBLOBs.getInfoAuth().equals("pass") && memberAuthWithBLOBs.getWorkAuth().equals("pass"))){
+        	request.setAttribute("infoAndWorAuthstr", "infoAndWorRealOnly");        	       	
         }else{
-        	request.setAttribute("infoAndWorAuthstr", "infoAndWorRealOnly");
+        	request.setAttribute("infoAndWorAuthstr", "infoAndWorEdit"); 
         }
+        //判断是否是增加银行卡表单提交过来的，以addBankCard字符串作为标记。
         if(addBankCard != null){
         	request.setAttribute("addBankCard", "addBankCard");
         }

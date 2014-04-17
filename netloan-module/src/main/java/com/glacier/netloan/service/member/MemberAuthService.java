@@ -1,6 +1,5 @@
 package com.glacier.netloan.service.member;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 

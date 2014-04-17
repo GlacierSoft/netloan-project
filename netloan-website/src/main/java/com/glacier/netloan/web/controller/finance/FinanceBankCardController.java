@@ -19,9 +19,11 @@ import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.entity.basicdatas.ParameterQuestion;
 import com.glacier.netloan.entity.finance.FinanceBankCard;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
+import com.glacier.netloan.service.basicdatas.ParameterQuestionService;
 import com.glacier.netloan.service.finance.FinanceBankCardService;
 import com.glacier.netloan.service.member.MemberAuthService;
 
@@ -37,6 +39,9 @@ public class FinanceBankCardController extends AbstractController {
 	
 	@Autowired
 	private FinanceBankCardService financeBankCardService;
+	
+	@Autowired
+	private ParameterQuestionService parameterQuestionService;
 	
 	@RequestMapping(value = "/addBankCard.htm")
 	@ResponseBody
@@ -55,28 +60,32 @@ public class FinanceBankCardController extends AbstractController {
 		 //删除银行卡
         bankCardService.delFinanceBankCardWebsit(bankCardId);
 		
-		ModelAndView mav = new ModelAndView("member_mgr/memberDetail");
+        ModelAndView mav = new ModelAndView("member_mgr/memberDetail");
         Subject pricipalSubject = SecurityUtils.getSubject();
         Member pricipalMember = (Member) pricipalSubject.getPrincipal();
         MemberAuthWithBLOBs memberAuthWithBLOBs = (MemberAuthWithBLOBs)memberAuthService.getMemberAuth(pricipalMember.getMemberId());
-        
+        //对于前台查询列表，设置pager的值
         JqPager pager = new JqPager();
         pager.setSort("createTime");// 定义排序字段
         pager.setOrder("DESC");// 升序还是降序
+        //查询密保问题数据，放到rqquest.setAttribute中
+        List<ParameterQuestion> parameterQuestionResult = (List<ParameterQuestion>)parameterQuestionService.listAsGrid(pager);
+        request.setAttribute("parameterQuestionResult", parameterQuestionResult);
+        //查询银行卡列表
         JqGridReturn returnResult = (JqGridReturn) financeBankCardService.listAsGrid(pager);
         List<FinanceBankCard> bandCards =  (List<FinanceBankCard>) returnResult.getRows();
         request.setAttribute("memberBankCardDatas", bandCards);
-        
-        if((memberAuthWithBLOBs.getInfoAuth().equals("noapply") && memberAuthWithBLOBs.getWorkAuth().equals("noapply"))||
-        		(memberAuthWithBLOBs.getInfoAuth().equals("failure") && memberAuthWithBLOBs.getWorkAuth().equals("failure"))){
-        	request.setAttribute("infoAndWorAuthstr", "infoAndWorEdit");        	
+        //判断会员基本信息认证和工作认证状态，让相对应的表单是否可编辑
+        if((memberAuthWithBLOBs.getInfoAuth().equals("authstr") && memberAuthWithBLOBs.getWorkAuth().equals("authstr"))||
+        		(memberAuthWithBLOBs.getInfoAuth().equals("pass") && memberAuthWithBLOBs.getWorkAuth().equals("pass"))){
+        	request.setAttribute("infoAndWorAuthstr", "infoAndWorRealOnly");        	       	
         }else{
-        	request.setAttribute("infoAndWorAuthstr", "infoAndWorRealOnly");
+        	request.setAttribute("infoAndWorAuthstr", "infoAndWorEdit"); 
         }
+        //判断是否是增加银行卡表单提交过来的，以addBankCard字符串作为标记。
         if(addBankCard != null){
         	request.setAttribute("addBankCard", "addBankCard");
         }
-       
         return mav;
 	}
 	/*@RequestMapping(value = "del.htm")

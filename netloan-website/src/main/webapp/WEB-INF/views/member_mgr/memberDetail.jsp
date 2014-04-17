@@ -103,6 +103,7 @@
 				       <li><a href="#tabchangeMobile" data-toggle="tab">更换手机</a></li>
 				       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
 				       <li><a href="#tabbankCard" data-toggle="tab">银行卡设置</a></li>
+				       <li><a href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
 				       </c:if>
 				       <c:if test="${addBankCard == 'addBankCard' }">
 				       	   <li><a href="${ctx}/member/memberDetail.htm" class="btn " role="button">个人详细信息</a></li>
@@ -110,6 +111,7 @@
 					       <li><a href="#tabchangeMobile" data-toggle="tab">更换手机</a></li>
 					       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
 					       <li  class="active"><a href="#tabbankCard" data-toggle="tab">银行卡设置</a></li>
+					       <li><a href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
 				       </c:if>
 				     </ul>
 				      <br>
@@ -556,6 +558,74 @@
 					        </tfoot>
 				        </table>
 				       </div>
+				       
+				       <div class="tab-pane fade" id="updateSecretSecurity">
+				         <form id="updateSecretSecurityForm" class="form-horizontal" role="form" method="post" >
+						  <div class="form-group">
+						    <label for="memberName" class="col-sm-3 control-label" style="color:red;">会员申请密码保护</label>
+						    <div class="col-sm-9">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="questions" class="col-sm-3 control-label">问题一:</label>
+						    <div class="col-sm-9">
+						      <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
+						      <select class="form-control" name="questions1" id="questions1"  required="required">
+						      		<option value="">请选择</option>
+						      	<c:forEach items="${parameterQuestionResult.rows}" var="question" varStatus="indexStatus">
+						      		<option value="${question.questionId }">${question.questionDes }</option>
+						      	</c:forEach>
+							 </select>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="updateSecretSecurityForm_answers1" class="col-sm-3 control-label">问题一答案:</label>
+						    <div class="col-sm-9">
+						      <input type="text" class="form-control" id="updateSecretSecurityForm_answers1" name="answers1" placeholder="请输入问题一的答案"  />
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="questions" class="col-sm-3 control-label">问题二:</label>
+						    <div class="col-sm-9">
+						      <select class="form-control" name="questions2" id="questions2" required="required" >
+						      		<option value="">请选择</option>
+								  <c:forEach items="${parameterQuestionResult.rows}" var="question" varStatus="indexStatus">
+						      		<option value="${question.questionId }">${question.questionDes }</option>
+						      	  </c:forEach>
+							 </select>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="updateSecretSecurityForm_answers2" class="col-sm-3 control-label">问题二答案:</label>
+						    <div class="col-sm-9">
+						      <input type="text" class="form-control" id="updateSecretSecurityForm_answers2" name="answers2" placeholder="请输入问题二的答案"  />
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="questions" class="col-sm-3 control-label">问题三:</label>
+						    <div class="col-sm-9">
+						      <select class="form-control" name="questions3" id="questions3" required="required" >
+						      		<option value="">请选择</option>
+								  <c:forEach items="${parameterQuestionResult.rows}" var="question" varStatus="indexStatus">
+						      		<option value="${question.questionId }">${question.questionDes }</option>
+						      	</c:forEach>
+							 </select>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="updateSecretSecurityForm_answers3" class="col-sm-3 control-label">问题三答案:</label>
+						    <div class="col-sm-9">
+						      <input type="text" class="form-control" id="updateSecretSecurityForm_answers3" name="answers3" placeholder="请输入问题三的答案" />
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-offset-3 col-sm-9">
+						      <button id="updatememberPasswordForm_form-group" type="submit" class="btn btn-primary">提    交</button>
+						    </div>
+						  </div>
+						</form>
+				       </div>
+				       
 				     </div>
 				   </div><!-- /example -->
 				  </div>
@@ -566,58 +636,6 @@
 	    </div>
 	    <!-- CONTAINER START======================== -->
 	    <script type="text/javascript">
-	    <!-- 分页显示表格数据 -->
-		/* $(function(){
-			//获得浏览器参数
-			$.extend({
-				getUrlVars: function(){
-					var vars = [], hash;
-					var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-					//alert("  aa   "+hashes);
-					for(var i = 0; i < hashes.length; i++){
-						hash = hashes[i].split('=');
-						vars.push(hash[0]);
-						vars[hash[0]] = hash[1];
-					}
-					return vars;
-				},
-				getUrlVar: function(name){
-					return $.getUrlVars()[name];
-				}
-			});
-			
-		
-		//封装浏览器参数
-		var composeUrlParams=function(){
-			var param='';
-			$.each($.getUrlVars(), function(i, item) {
-				if(item!='p'){
-					var val=$.getUrlVar(item);
-					if(val) param += "&" + item+"="+val;
-				}
-			});
-			//alert("aa  "+param);
-			return param;
-		}
-		var pageBankCard = $('#pageBankCard');
-		//积分的设置分页的总页数
-		var totalmemberIntegral=${memberIntegralDatas.total}/5;
-		if(parseInt(totalmemberIntegral)==totalmemberIntegral){
-			var totalmemberIntegral = parseInt(totalmemberIntegral);
-		}else {
-			var totalmemberIntegral = parseInt(totalmemberIntegral)+1;
-		}
-		
-		var memberIntegralOptions = {
-		    bootstrapMajorVersion:3,
-		    currentPage: ${memberIntegralDatas.p},
-		    numberOfPages: 5,
-		    totalPages:totalmemberIntegral,
-		    pageUrl: function(type, page, current){
-		    	return "${ctx}/member/memberAuth.htm?"+composeUrlParams()+"&p="+page;
-		    	}
-		}
-		pageBankCard.bootstrapPaginator(memberIntegralOptions); */
 		
 	  	//通过设置这个隐藏文本的值来判断是保存按钮还是保存并提交审核按钮。进行相应的操作。
 	    $('#postAuthBut').bind('click', function(){    
@@ -820,6 +838,69 @@
 	    		} 
 	      	});
       	});
+      	$("#updateSecretSecurityForm").validate({
+    		rules:{
+    			answers1:"required",
+    			answers2:"required",
+    			answers3:"required",
+    			questions1:{
+    				//min:1
+    				//minlength:4
+    				//equalTo:"#questions2",
+    				//equalTo:"#questions3"
+    			},
+    			questions2:{
+    				//min:1
+    				//minlength:4
+    				//equalTo:"#questions1",
+    				//equalTo:"#questions3"
+    			},
+    			questions3:{
+    				//min:1
+    				//minlength:4
+    				//equalTo:"#questions1",
+    				//equalTo:"#questions2"
+    			} 
+    		},
+    		messages:{
+    			answers1:"问题答案一不能为空",
+    			answers2:"问题答案二不能为空",
+    			answers3:"问题答案三不能为空",
+    			questions1:{
+    				required:'问题一必选'
+    				//equalTo:'所选问题不能重复'
+    			},
+    			questions2:{
+    				required:'问题二必选'
+    				//equalTo:'所选问题不能重复'
+    			},
+    			questions3:{
+    				required:'问题三必选'
+    				//equalTo:'所选问题不能重复'
+    			} 
+    		},
+    		submitHandler:function(){
+    			var flag = true;
+    			if($("#questions1").val() == $("#questions2").val() || $("#questions1").val() == $("#questions3").val() ||$("#questions2").val() == $("#questions3").val() ){
+    				notClonedialog("所选问题不能重复");
+    				flag = false;
+    			}
+    			if(flag){
+       			 $.ajax({
+  				   type: "POST",
+  				   url: ctx+"/secretSecurity/addSecretSecurity.json",
+  				   dataType: "json",
+  				   data: $("#updateSecretSecurityForm").serialize(),
+	    			   success: function(r) {
+	    				   addSecretSecuritydialog(r);
+	                    },
+	                    error: function() {
+	                        alert("提交出错！");
+	                    }
+  				}); 
+    			}
+    		} 
+    	});
       	function successdialog(data){
 			KindEditor.ready(function(K) {
 			var dialog = K.dialog({
@@ -867,11 +948,11 @@
 							});
 				});
 			}
-      	function deletedialog(data){
+      	function addSecretSecuritydialog(data){
 			KindEditor.ready(function(K) {
 			var dialog = K.dialog({
 					        width : 300,
-					        title : '删除成功',
+					        title : '添加成功',
 					        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
 					        closeBtn : {
 					                name : '关闭',
@@ -883,6 +964,7 @@
 					                name : '确定',
 					                click : function(e) {
 					                		dialog.remove();
+					                		window.location.href="${ctx}/member/memberDetail.htm";
 					                }
 					        }
 						});
@@ -914,6 +996,27 @@
 					                }
 					        }
 					        
+						});
+			});
+		}
+      	function notClonedialog(msg){
+			KindEditor.ready(function(K) {
+			var dialog = K.dialog({
+					        width : 300,
+					        title : '警告',
+					        body : '<div style="margin:10px;"><strong>'+msg+'</strong></div>',
+					        closeBtn : {
+					                name : '关闭',
+					                click : function(e) {
+					                        dialog.remove();
+					                }
+					        },
+					        yesBtn : {
+					                name : '确定',
+					                click : function(e) {
+					                		dialog.remove();
+					                }
+					        }
 						});
 			});
 		}
