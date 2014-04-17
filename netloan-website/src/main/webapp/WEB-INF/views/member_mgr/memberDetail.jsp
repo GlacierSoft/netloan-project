@@ -97,29 +97,37 @@
 				  <div class="panel-body">
 				   <div class="bs-example bs-example-tabs">
 				     <ul id="myTab" class="nav nav-tabs">
-				      <c:if test="${empty addBankCard}">
+				      <c:if test="${empty addBankCard && empty updateSecretSecurity}">
 				       <li class="active"><a href="${ctx}/member/memberDetail.htm" class="btn " role="button">个人详细信息</a></li>
-				       <li><a href="#tabUpdatePassword" data-toggle="tab">修改密码</a></li>
+				       <li id="tabchangeMobileLi"><a  id="tabchangeMobileTab" href="#tabUpdatePassword" data-toggle="tab">修改密码</a></li>
 				       <li><a href="#tabchangeMobile" data-toggle="tab">更换手机</a></li>
 				       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
 				       <li><a href="#tabbankCard" data-toggle="tab">银行卡设置</a></li>
-				       <li><a href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
+				       <li id="updateSecretSecurityLi"><a id="updateSecretSecurityTab" href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
 				       </c:if>
 				       <c:if test="${addBankCard == 'addBankCard' }">
 				       	   <li><a href="${ctx}/member/memberDetail.htm" class="btn " role="button">个人详细信息</a></li>
-					       <li><a href="#tabUpdatePassword" data-toggle="tab">修改密码</a></li>
+					       <li id="tabchangeMobileLi"><a id="tabchangeMobileTab" href="#tabUpdatePassword" data-toggle="tab">修改密码</a></li>
 					       <li><a href="#tabchangeMobile" data-toggle="tab">更换手机</a></li>
 					       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
-					       <li  class="active"><a href="#tabbankCard" data-toggle="tab">银行卡设置</a></li>
-					       <li><a href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
+					       <li class="active"><a href="#tabbankCard" data-toggle="tab">银行卡设置</a></li>
+					       <li id="updateSecretSecurityLi"><a  id="updateSecretSecurityTab" href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
+				       </c:if>
+				        <c:if test="${!empty updateSecretSecurity }">
+				       	   <li><a href="${ctx}/member/memberDetail.htm" class="btn " role="button">个人详细信息</a></li>
+					       <li id="tabchangeMobileLi"><a id="tabchangeMobileTab" href="#tabUpdatePassword" data-toggle="tab">修改密码</a></li>
+					       <li><a href="#tabchangeMobile" data-toggle="tab">更换手机</a></li>
+					       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
+					       <li><a href="#tabbankCard" data-toggle="tab">银行卡设置</a></li>
+					       <li id="updateSecretSecurityLi" class="active"><a id="updateSecretSecurityTab" href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
 				       </c:if>
 				     </ul>
 				      <br>
 				     <div id="myTabContent" class="tab-content">
-				     	<c:if test="${empty addBankCard}">
+				     	<c:if test="${empty addBankCard && empty updateSecretSecurity}">
 				        <div class="tab-pane fade in active" id="tabPersonalDetails">
 				        </c:if>
-				        <c:if test="${addBankCard == 'addBankCard' }">
+				        <c:if test="${addBankCard == 'addBankCard' || !empty updateSecretSecurity}">
 				        <div class="tab-pane fade" id="tabPersonalDetails">
 				        </c:if>
 				       		<form id="personalMessageForm"  class=" form-horizontal" role="form"  method="post" >
@@ -558,8 +566,14 @@
 					        </tfoot>
 				        </table>
 				       </div>
-				       
-				       <div class="tab-pane fade" id="updateSecretSecurity">
+				       <!-- 银行卡tab结束 -->
+				       <c:if test="${empty updateSecretSecurity}">
+				        <div class="tab-pane fade" id="updateSecretSecurity">
+				        </c:if>
+				        <c:if test="${!empty updateSecretSecurity}">
+				        <div class="tab-pane fade in active" id="updateSecretSecurity">
+				        </c:if>
+				       	<c:if test="${empty SecretSecurityResult.rows || updateSecretSecurity == 'updateSecretSecurity'}">
 				         <form id="updateSecretSecurityForm" class="form-horizontal" role="form" method="post" >
 						  <div class="form-group">
 						    <label for="memberName" class="col-sm-3 control-label" style="color:red;">会员申请密码保护</label>
@@ -624,8 +638,66 @@
 						    </div>
 						  </div>
 						</form>
+						</c:if>
+						<c:if test="${!empty SecretSecurityResult && updateSecretSecurity != 'updateSecretSecurity'}">
+				         <form id="answerSecretSecurityForm" class="form-horizontal" role="form" method="post" >
+						  <div class="form-group">
+						    <label for="memberName" class="col-sm-3 control-label" style="color:red;">用户安全问题保护验证 </label>
+						    <div class="col-sm-9">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="questions" class="col-sm-3 control-label">问题一:</label>
+						    <div class="col-sm-9">
+						      <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
+						      <input type="hidden" class="form-control" id="questionId1" name="questionId1" value="${SecretSecurityResult.rows[0].questionId}" >
+						      <label class="control-label">${SecretSecurityResult.rows[0].questionDes}</label>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="updateSecretSecurityForm_answers1" class="col-sm-3 control-label">问题一答案:</label>
+						    <div class="col-sm-9">
+						      <input type="text" class="form-control" id="updateSecretSecurityForm_answers1" name="answers1" placeholder="请输入问题一的答案"  />
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="questions" class="col-sm-3 control-label">问题二:</label>
+						    <div class="col-sm-9">
+						     <input type="hidden" class="form-control" id="questionId2" name="questionId2" value="${SecretSecurityResult.rows[1].questionId}" >
+						     <label for="questions" class="control-label">${SecretSecurityResult.rows[1].questionDes}</label>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="updateSecretSecurityForm_answers2" class="col-sm-3 control-label">问题二答案:</label>
+						    <div class="col-sm-9">
+						      <input type="text" class="form-control" id="updateSecretSecurityForm_answers2" name="answers2" placeholder="请输入问题二的答案"  />
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="questions" class="col-sm-3 control-label">问题三:</label>
+						    <div class="col-sm-9">
+						      <input type="hidden" class="form-control" id="questionId3" name="questionId3" value="${SecretSecurityResult.rows[2].questionId}" >	
+						      <label for="questions" class="control-label">${SecretSecurityResult.rows[2].questionDes}</label>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="updateSecretSecurityForm_answers3" class="col-sm-3 control-label">问题三答案:</label>
+						    <div class="col-sm-9">
+						      <input type="text" class="form-control" id="updateSecretSecurityForm_answers3" name="answers3" placeholder="请输入问题三的答案" />
+						    </div>
+						  </div>
+						  <div class="form-group" id="diverrorAnswer" style="display: none;">
+						    <div class="col-sm-offset-3 col-sm-9"><label id="errorAnswer" class="control-label" style="color:red;"></label></div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-offset-3 col-sm-9">
+						      <button id="updatememberPasswordForm_form-group" type="submit" class="btn btn-primary">提    交</button>
+						    </div>
+						  </div>
+						</form>
+						</c:if>
 				       </div>
-				       
+				       <!-- 一个tab结束 -->
 				     </div>
 				   </div><!-- /example -->
 				  </div>
@@ -636,7 +708,30 @@
 	    </div>
 	    <!-- CONTAINER START======================== -->
 	    <script type="text/javascript">
-		
+	    $('#tabchangeMobileTab').bind('click', function(){    
+	      	if("${SecretSecurityResult.rows[0].secretSecurityId}" == ''){
+	    		//notClonedialog("请先设置密保问题");
+	    		alert("请先设置密保问题");
+	    		window.location.href="${ctx}/member/memberDetail.htm?updateSecretSecurity=updateSecretSecurity";
+	    	}else{
+	    		//notClonedialog("请先回答安全问题");
+	    		alert("请先回答安全问题");
+	    		window.location.href="${ctx}/member/memberDetail.htm?updateSecretSecurity=updatePassword";
+	    	}
+	    }); 
+	    $('#updateSecretSecurityTab').bind('click', function(){    
+	      	if("${SecretSecurityResult.rows[0].secretSecurityId}" == ''){
+	    		notClonedialog("请先设置密保问题");
+	    	}else{
+	    		notClonedialog("请先回答密保问题");
+	    	}
+	    	/* var ee = "${SecretSecurityResult.rows}";
+	    	console.log(ee);
+	    	var ce = ee.split(",");
+	    	console.log(ce.length);
+	      	console.log("${SecretSecurityResult.rows[0].secretSecurityId}");
+	      	var ee = "${SecretSecurityResult.rows[0].secretSecurityId}"; */
+	    }); 
 	  	//通过设置这个隐藏文本的值来判断是保存按钮还是保存并提交审核按钮。进行相应的操作。
 	    $('#postAuthBut').bind('click', function(){    
 	    	$("#postAuth").val("postAuth");
@@ -845,21 +940,12 @@
     			answers3:"required",
     			questions1:{
     				//min:1
-    				//minlength:4
-    				//equalTo:"#questions2",
-    				//equalTo:"#questions3"
     			},
     			questions2:{
     				//min:1
-    				//minlength:4
-    				//equalTo:"#questions1",
-    				//equalTo:"#questions3"
     			},
     			questions3:{
     				//min:1
-    				//minlength:4
-    				//equalTo:"#questions1",
-    				//equalTo:"#questions2"
     			} 
     		},
     		messages:{
@@ -868,15 +954,12 @@
     			answers3:"问题答案三不能为空",
     			questions1:{
     				required:'问题一必选'
-    				//equalTo:'所选问题不能重复'
     			},
     			questions2:{
     				required:'问题二必选'
-    				//equalTo:'所选问题不能重复'
     			},
     			questions3:{
     				required:'问题三必选'
-    				//equalTo:'所选问题不能重复'
     			} 
     		},
     		submitHandler:function(){
@@ -899,6 +982,50 @@
 	                    }
   				}); 
     			}
+    		} 
+    	});
+      	$("#answerSecretSecurityForm").validate({
+    		rules:{
+    			answers1:"required",
+    			answers2:"required",
+    			answers3:"required",
+    		},
+    		messages:{
+    			answers1:"问题答案一不能为空",
+    			answers2:"问题答案二不能为空",
+    			answers3:"问题答案三不能为空",
+    		},
+    		submitHandler:function(){
+    			$("#diverrorAnswer").hide();
+       			 $.ajax({
+  				   type: "POST",
+  				   url: ctx+"/secretSecurity/compareSecretSecurity.json",
+  				   dataType: "json",
+  				   data: $("#answerSecretSecurityForm").serialize(),
+	    			   success: function(r) {
+	    				   if(r.success){
+	    					   if("${updateSecretSecurity}" == 'updatePassword'){
+	    						   $("#tabchangeMobileLi").attr("class","active");
+	    						   $("#tabUpdatePassword").attr("class","tab-pane fade in active");
+	    						   $("#updateSecretSecurityLi").attr("class","");
+	    						   $("#updateSecretSecurity").attr("class","tab-pane fade");
+	    					   }else{
+	    						   window.location.href="${ctx}/member/memberDetail.htm?updateSecretSecurity=updateSecretSecurity";
+	    					   }
+	    				   }else{
+	    					   var msgs = r.obj;
+	    					   var msg = '';
+	    					   for(var i =0;i<msgs.length;i++){
+	    							msg +=msgs[i]+"\n";
+	    						}
+	    					   $("#errorAnswer").html(msg);
+	    					   $("#diverrorAnswer").show();
+	    				   }
+	                    },
+	                    error: function() {
+	                        alert("提交出错！");
+	                    }
+  				}); 
     		} 
     	});
       	function successdialog(data){
@@ -1003,8 +1130,29 @@
 			KindEditor.ready(function(K) {
 			var dialog = K.dialog({
 					        width : 300,
-					        title : '警告',
+					        title : '提示信息',
 					        body : '<div style="margin:10px;"><strong>'+msg+'</strong></div>',
+					        closeBtn : {
+					                name : '关闭',
+					                click : function(e) {
+					                        dialog.remove();
+					                }
+					        },
+					        yesBtn : {
+					                name : '确定',
+					                click : function(e) {
+					                		dialog.remove();
+					                }
+					        }
+						});
+			});
+		}
+      	function notClonedialog(data){
+			KindEditor.ready(function(K) {
+			var dialog = K.dialog({
+					        width : 300,
+					        title : '提示信息',
+					        body : '<div style="margin:10px;"><strong>'+data+'</strong></div>',
 					        closeBtn : {
 					                name : '关闭',
 					                click : function(e) {

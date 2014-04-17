@@ -72,7 +72,7 @@ public class FinanceBankCardController extends AbstractController {
         List<ParameterQuestion> parameterQuestionResult = (List<ParameterQuestion>)parameterQuestionService.listAsGrid(pager);
         request.setAttribute("parameterQuestionResult", parameterQuestionResult);
         //查询银行卡列表
-        JqGridReturn returnResult = (JqGridReturn) financeBankCardService.listAsGrid(pager);
+        JqGridReturn returnResult = (JqGridReturn) financeBankCardService.listAsGridWebsite(pricipalMember.getMemberId(), pager);
         List<FinanceBankCard> bandCards =  (List<FinanceBankCard>) returnResult.getRows();
         request.setAttribute("memberBankCardDatas", bandCards);
         //判断会员基本信息认证和工作认证状态，让相对应的表单是否可编辑

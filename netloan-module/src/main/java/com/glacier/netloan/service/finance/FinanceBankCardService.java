@@ -124,7 +124,34 @@ public class FinanceBankCardService {
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
     }
-
+    /**
+     * @Title: listAsGrid 
+     * @Description: TODO(前台的会员银行卡list) 
+     * @param  @param memberId
+     * @param  @param pager
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
+     */
+    public Object listAsGridWebsite(String memberId,JqPager pager) {
+        
+        JqGridReturn returnResult = new JqGridReturn();
+        FinanceBankCardExample financeBankCardExample = new FinanceBankCardExample();;
+        financeBankCardExample.createCriteria().andMemberIdEqualTo(memberId);
+        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
+        	financeBankCardExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
+        	financeBankCardExample.setLimitEnd(pager.getRows());
+        }
+        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
+        	financeBankCardExample.setOrderByClause(pager.getOrderBy("temp_finance_bank_card_"));
+        }
+        List<FinanceBankCard>  financeBankCards = financeBankCardMapper.selectByExample(financeBankCardExample); // 查询所有会员银行卡列表
+        int total = financeBankCardMapper.countByExample(financeBankCardExample); // 查询总页数
+        returnResult.setRows(financeBankCards);
+        returnResult.setTotal(total);
+        return returnResult;// 返回ExtGrid表
+    }
     /**
      * @Title: addFinanceBankCard 
      * @Description: TODO(新增会员银行卡) 

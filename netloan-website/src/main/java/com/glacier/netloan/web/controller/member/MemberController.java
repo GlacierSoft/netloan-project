@@ -77,6 +77,7 @@ import com.glacier.netloan.service.member.MemberAuthService;
 import com.glacier.netloan.service.member.MemberCreditIntegralService;
 import com.glacier.netloan.service.member.MemberIntegralService;
 import com.glacier.netloan.service.member.MemberMessageNoticeService;
+import com.glacier.netloan.service.member.MemberSecretSecurityService;
 import com.glacier.netloan.service.member.MemberService;
 
 
@@ -110,6 +111,9 @@ public class MemberController extends AbstractController{
 	
 	@Autowired
 	private ParameterQuestionService parameterQuestionService;
+	
+	@Autowired
+	private MemberSecretSecurityService memberSecretSecurityService;
 	
 	// 进入会员个人主页展示页面
     @RequestMapping(value = "/index.htm")
@@ -173,7 +177,7 @@ public class MemberController extends AbstractController{
     
     // 进入会员个人详细信息展示页面
     @RequestMapping(value = "/memberDetail.htm")
-    private Object intoMemberDetail(HttpServletRequest request,String addBankCard) {
+    private Object intoMemberDetail(HttpServletRequest request,String addBankCard,String updateSecretSecurity) {
         ModelAndView mav = new ModelAndView("member_mgr/memberDetail");
         Subject pricipalSubject = SecurityUtils.getSubject();
         Member pricipalMember = (Member) pricipalSubject.getPrincipal();
@@ -185,8 +189,11 @@ public class MemberController extends AbstractController{
         //查询密保问题数据，放到rqquest.setAttribute中
         JqGridReturn parameterQuestionResult = (JqGridReturn) parameterQuestionService.listAsGrid(pager);
         request.setAttribute("parameterQuestionResult", parameterQuestionResult);
+        //查询该会员是否已设置了密保信息，
+        JqGridReturn SecretSecurityResult = (JqGridReturn)memberSecretSecurityService.listAsGridWebsite(pricipalMember.getMemberId(), pager);
+        request.setAttribute("SecretSecurityResult", SecretSecurityResult);
         //查询银行卡列表
-        JqGridReturn returnResult = (JqGridReturn) financeBankCardService.listAsGrid(pager);
+        JqGridReturn returnResult = (JqGridReturn) financeBankCardService.listAsGridWebsite(pricipalMember.getMemberId(), pager);
         List<FinanceBankCard> bandCards =  (List<FinanceBankCard>) returnResult.getRows();
         request.setAttribute("memberBankCardDatas", bandCards);
         //判断会员基本信息认证和工作认证状态，让相对应的表单是否可编辑
@@ -198,7 +205,11 @@ public class MemberController extends AbstractController{
         }
         //判断是否是增加银行卡表单提交过来的，以addBankCard字符串作为标记。
         if(addBankCard != null){
-        	request.setAttribute("addBankCard", "addBankCard");
+        	request.setAttribute("addBankCard", addBankCard);
+        }
+        //判断是否是修改密保设置提交过来的，以updateSecretSecurity字符串作为标记。
+        if(updateSecretSecurity != null){
+        	request.setAttribute("updateSecretSecurity", updateSecretSecurity);
         }
         return mav;
     }

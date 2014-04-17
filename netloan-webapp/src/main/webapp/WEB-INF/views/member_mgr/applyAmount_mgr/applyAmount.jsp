@@ -188,7 +188,7 @@
 			<table>
 				<tr>
 					<td>会员名称：</td>
-					<td><input name="memberRealName" style="width: 80px;" class="spinner"/></td>
+					<td><input id="memberApplyAmountSearchForm_memberRealName" name="memberRealName" style="width: 80px;" class="spinner"/></td>
 					<td>申请类型：</td>
 					<td><input id="memberApplyAmountSearchForm_applyType" name="applyType" style="width: 80px;" class="spinner"/></td>
 					<td>审核状态：</td>
