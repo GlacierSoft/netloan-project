@@ -98,4 +98,10 @@ public class BorrowingLoanController extends AbstractController{
     public Object delAdv(@RequestParam List<String> loanIds,@RequestParam List<String> loanCodes) {
     	return borrowingLoanService.delBorrowingLoan(loanIds, loanCodes);
     }
+    
+	//转到“流转标申请页面”页面
+	@RequestMapping(value = "/enteringLiuZhuan.htm")
+	public Object enteringLiuZhuan(){
+		return "borrow_mgr/enteringLiuZhuan";
+	}
 }

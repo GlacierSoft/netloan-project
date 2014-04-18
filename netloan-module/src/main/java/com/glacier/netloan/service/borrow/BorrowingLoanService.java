@@ -94,11 +94,8 @@ public class BorrowingLoanService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "BorrowingLoanList_add")
-    public Object addBorrowingLoan(BorrowingLoan borrowingLoan) {
+    public Object addBorrowingLoan(BorrowingLoan borrowingLoan, String memberId) {
     	
-        Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
         
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
@@ -111,9 +108,11 @@ public class BorrowingLoanService {
             return returnResult;
         }
         borrowingLoan.setLoanId(RandomGUID.getRandomGUID());
-        borrowingLoan.setCreater(pricipalUser.getUserId());
+        borrowingLoan.setMemberId(memberId);
+        borrowingLoan.setLoanTenderId("2587bd0ecc859e35f2874f2aff0d4852");
+        borrowingLoan.setCreater(memberId);
         borrowingLoan.setCreateTime(new Date());
-        borrowingLoan.setUpdater(pricipalUser.getUserId());
+        borrowingLoan.setUpdater(memberId);
         borrowingLoan.setUpdateTime(new Date());
         count = borrowingLoanMapper.insert(borrowingLoan);
         if (count == 1) {

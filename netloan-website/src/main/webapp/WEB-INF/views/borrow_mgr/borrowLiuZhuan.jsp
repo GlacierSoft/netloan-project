@@ -71,7 +71,7 @@
 					          </div>
 					        </div>
 					        
-					        <div class="jk_mid_bot_but"><a href="/borrow/loan.html?type=flow" class="sq_but">立即申请</a></div>
+					        <div class="jk_mid_bot_but"><a href="${ctx}/borrowingLoan/enteringLiuZhuan.htm" class="sq_but">立即申请</a></div>
 					        
 						</div>
 					</div>					

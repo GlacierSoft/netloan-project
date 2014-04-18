@@ -35,6 +35,7 @@
 				/resources/** = anon
 				/logout = logout
 				/member/* = user
+				/borrowingLoan/* = user
 				/messageNotice/* = user
 			</value>
 		</property>
