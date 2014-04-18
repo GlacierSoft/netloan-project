@@ -186,6 +186,9 @@ public class BorrowingLoanService {
         if ("".equals(borrowingLoan.getIsBidPwd()) && StringUtils.isBlank(borrowingLoan.getIsBidPwd())) {
         	borrowingLoan.setIsBidPwd(null);
         }
+        if ("firstSucess".equals(borrowingLoan.getFirstAuditState())) {
+        	borrowingLoan.setLoanState("secondAuditor");
+        }
         count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);
         if (count == 1) {
             returnResult.setSuccess(true);
@@ -219,6 +222,9 @@ public class BorrowingLoanService {
         }
         if ("".equals(borrowingLoan.getIsBidPwd()) && StringUtils.isBlank(borrowingLoan.getIsBidPwd())) {
         	borrowingLoan.setIsBidPwd(null);
+        }
+        if ("secondSucess".equals(borrowingLoan.getSecondAuditState())) {
+        	borrowingLoan.setLoanState("tendering");
         }
         count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);
         if (count == 1) {
