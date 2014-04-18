@@ -68,8 +68,8 @@ public class BorrowingLoanController extends AbstractController{
     // 获取表格结构的所有借款数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listBorrowingLoanAsGridByMenuId(JqPager jqPager) {
-        return borrowingLoanService.listAsGrid(jqPager);
+    private Object listBorrowingLoanAsGridByMenuId(JqPager jqPager, String loanState) {
+        return borrowingLoanService.listAsGrid(jqPager, loanState);
     }
     
     // 增加借款

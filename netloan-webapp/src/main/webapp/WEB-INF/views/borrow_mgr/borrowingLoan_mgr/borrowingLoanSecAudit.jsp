@@ -4,19 +4,19 @@
 
 <script type="text/javascript">
 
-	$.util.namespace('glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+	$.util.namespace('glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanSecAudit');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
 	//定义toolbar的操作，对操作进行控制
-	glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.param = {
-			toolbarId : 'borrowingLoanDataGrid_toolbar',
+	glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanSecAudit.param = {
+			toolbarId : 'borrowingLoanSecAuditDataGrid_toolbar',
 			actions : {
-				edit:{flag:'edit',controlType:'single'},
+				edit:{flag:'audit',controlType:'single'},
 				del:{flag:'del',controlType:'multiple'}
 			}
 	};
 	
 	//初始化借款DataGrid
-	glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.borrowingLoanDataGrid = $('#borrowingLoanDataGrid').datagrid({
+	glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanSecAudit.borrowingLoanSecAuditDataGrid = $('#borrowingLoanSecAuditDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
@@ -28,6 +28,7 @@
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
 		url: ctx + '/do/borrowingLoan/list.json',
+		queryParams: {loanState: 'secondAuditor'},
 		sortName: 'loanCode',//排序字段名称
 		sortOrder: 'ASC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
@@ -342,27 +343,27 @@
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
-		pborrowingLoanSize : 10,//注意，pborrowingLoanSize必须在pborrowingLoanList存在
-		pborrowingLoanList : [2,10,50,100],//从session中获取
+		borrowingLoanSize : 10,//注意，pborrowingLoanSize必须在pborrowingLoanList存在
+		borrowingLoanList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#borrowingLoanDataGrid_toolbar',
+		toolbar:'#borrowingLoanSecAuditDataGrid_toolbar',
 		onCheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.param,this).check();
+			action_controller(glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanSecAudit.param,this).check();
 		},
 		onCheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.param,this).check();
+			action_controller(glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanSecAudit.param,this).check();
 		},
 		onUncheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.param,this).unCheck();
+			action_controller(glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanSecAudit.param,this).unCheck();
 		},
 		onUncheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.param,this).unCheck();
+			action_controller(glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanSecAudit.param,this).unCheck();
 		},
 		onSelect:function(rowIndex, rowData){//选择行事件触发
-			action_controller(glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.param,this).select();
+			action_controller(glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanSecAudit.param,this).select();
 		},
 		onUnselectAll:function(rows){
-			action_controller(glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.param,this).unSelect();
+			action_controller(glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanSecAudit.param,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
@@ -380,89 +381,36 @@
 			});
 		}
 	});
-	//点击增加按钮触发方法
-	glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.addAdvertisement = function(){
+	//点击审核按钮触发方法
+	glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanSecAudit.auditBorrowingLoanSecAudit = function(){
+		var row = glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanSecAudit.borrowingLoanSecAuditDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '增加借款',
+			title : '审核【'+row.loanCode+'】',
 			width : 720,
 			height : 500,
-			queryUrl : ctx + '/do/borrowingLoan/intoForm.htm',
-			submitUrl : ctx + '/do/borrowingLoan/add.json',
-			successFun : function (){
-				glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.borrowingLoanDataGrid.datagrid('reload');
-			}
-		});
-	};
-	//点击编辑按钮触发方法
-	glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.editAdvertisement = function(){
-		var row = glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.borrowingLoanDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.loanCode+'】',
-			width : 720,
-			height : 500,
-			queryUrl : ctx + '/do/borrowingLoan/intoForm.htm',
-			submitUrl : ctx + '/do/borrowingLoan/edit.json',
+			queryUrl : ctx + '/do/borrowingLoan/intoSecAudit.htm',
+			submitUrl : ctx + '/do/borrowingLoan/secondAudit.json',
 			queryParams : {
 				loanId : row.loanId
 			},
 			successFun : function (){
-				glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.borrowingLoanDataGrid.datagrid('reload');
+				glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanSecAudit.borrowingLoanSecAuditDataGrid.datagrid('reload');
 			}
 		});
 	};
-	//点击删除按钮触发方法
-	glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.delAdvertisement = function(){
-		var rows = glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.borrowingLoanDataGrid.datagrid("getChecked");
-		var loanIds = [];//删除的id标识
-		var loanCodes = [];//借款主题
-		for(var i=0;i<rows.length;i++){
-			loanIds.push(rows[i].loanId);
-			loanCodes.push(rows[i].loanCode);
-		}
-		if(loanIds.length > 0){
-			$.messager.confirm('请确认', '是否要删除该记录', function(r){
-				if (r){
-					$.ajax({
-						   type: "POST",
-						   url: ctx + '/do/borrowingLoan/del.json',
-						   data: {loanIds:loanIds.join(','),loanCodes:loanCodes.join(',')},
-						   dataType:'json',
-						   success: function(r){
-							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
-								   $.messager.show({
-										title:'提示',
-										timeout:3000,
-										msg:r.msg
-									});
-								   glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.borrowingLoanDataGrid.datagrid('reload');
-							   }else{
-									$.messager.show({//后台验证弹出错误提示信息框
-										title:'错误提示',
-										width:380,
-										height:120,
-										msg: '<span style="color:red">'+r.msg+'<span>',
-										timeout:4500
-									});
-								}
-						   }
-					});
-				}
-			});
-		}
-	};
 	//借款资料模糊查询
-	glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.quickquery = function(value,name){
+	glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanSecAudit.quickquery = function(value,name){
 		var obj = $.parseJSON('{"'+name+'":"'+value+'"}');//将值和对象封装成obj作为参数传递给后台
-		glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.borrowingLoanDataGrid.datagrid('load',obj);
+		glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanSecAudit.borrowingLoanSecAuditDataGrid.datagrid('load',obj);
 	};
 	
 </script>
 
 <!-- 所有借款列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
-	<div id="borrowingLoanGridPanel" data-options="region:'center',border:true" >
-		<table id="borrowingLoanDataGrid">
-			<glacierui:toolbar panelEnName="BorrowingLoanList" toolbarId="borrowingLoanDataGrid_toolbar" menuEnName="borrowingLoan"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+	<div id="borrowingLoanSecAuditGridPanel" data-options="region:'center',border:true" >
+		<table id="borrowingLoanSecAuditDataGrid">
+			<glacierui:toolbar panelEnName="BorrowingLoanSecAuditList" toolbarId="borrowingLoanSecAuditDataGrid_toolbar" menuEnName="borrowingLoanSecAudit"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 </div>

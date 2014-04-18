@@ -40,8 +40,22 @@ public class BorrowingLoanController extends AbstractController{
     
     // 进入借款列表展示页面
     @RequestMapping(value = "/index.htm")
-    private Object intoIndexPborrowingLoan() {
+    private Object intoIndexBorrowingLoan() {
         ModelAndView mav = new ModelAndView("borrow_mgr/borrowingLoan_mgr/borrowingLoan");
+        return mav;
+    }
+    
+    // 进入初审借款列表展示页面
+    @RequestMapping(value = "/borrowingLoanFirstAudit.htm")
+    private Object intoIndexBorrowingLoanFirstAudit() {
+        ModelAndView mav = new ModelAndView("borrow_mgr/borrowingLoan_mgr/borrowingLoanFirstAudit");
+        return mav;
+    }
+    
+	// 进入复审借款列表展示页面
+    @RequestMapping(value = "/borrowingLoanSecAudit.htm")
+    private Object intoIndexBorrowingLoanSecAudit() {
+        ModelAndView mav = new ModelAndView("borrow_mgr/borrowingLoan_mgr/borrowingLoanSecAudit");
         return mav;
     }
     
@@ -65,11 +79,31 @@ public class BorrowingLoanController extends AbstractController{
         return mav;
     }
     
+    // 进入初审借款信息页面
+    @RequestMapping(value = "/intoFirstAudit.htm")
+    private Object intoFirstAudit(String loanId) {
+        ModelAndView mav = new ModelAndView("borrow_mgr/borrowingLoan_mgr/borrowingLoan_firstAudit");
+        if(StringUtils.isNotBlank(loanId)){
+            mav.addObject("borrowingLoanData", borrowingLoanService.getBorrowingLoan(loanId));
+        }
+        return mav;
+    }
+    
+    // 进入复审借款信息页面
+    @RequestMapping(value = "/intoSecAudit.htm")
+    private Object intoSecAudit(String loanId) {
+        ModelAndView mav = new ModelAndView("borrow_mgr/borrowingLoan_mgr/borrowingLoan_secAudit");
+        if(StringUtils.isNotBlank(loanId)){
+            mav.addObject("borrowingLoanData", borrowingLoanService.getBorrowingLoan(loanId));
+        }
+        return mav;
+    }
+    
     // 获取表格结构的所有借款数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listBorrowingLoanAsGridByMenuId(JqPager jqPager) {
-        return borrowingLoanService.listAsGrid(jqPager);
+    private Object listBorrowingLoanAsGridByMenuId(JqPager jqPager, String loanState) {
+        return borrowingLoanService.listAsGrid(jqPager, loanState);
     }
     
     // 增加借款
@@ -80,6 +114,20 @@ public class BorrowingLoanController extends AbstractController{
             return returnErrorBindingResult(bindingResult);
         }
         return borrowingLoanService.addBorrowingLoan(borrowingLoan, memberId);
+    }
+    
+    // 初审借款
+    @RequestMapping(value = "/firstAudit.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object firstAudit(BorrowingLoan borrowingLoan) {
+        return borrowingLoanService.firstAuditBorrowingLoan(borrowingLoan);
+    }
+    
+    // 复审借款
+    @RequestMapping(value = "/secondAudit.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object secondAudit(BorrowingLoan borrowingLoan) {
+        return borrowingLoanService.secondAuditBorrowingLoan(borrowingLoan);
     }
     
     // 修改借款

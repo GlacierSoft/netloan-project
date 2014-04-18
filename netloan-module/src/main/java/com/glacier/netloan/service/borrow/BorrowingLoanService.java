@@ -66,10 +66,13 @@ public class BorrowingLoanService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager jqPager) {
+    public Object listAsGrid(JqPager jqPager, String loanState) {
         
         JqGridReturn returnResult = new JqGridReturn();
         BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
+        if (null != loanState && StringUtils.isNotBlank(loanState)) {
+        	borrowingLoanExample.createCriteria().andLoanStateEqualTo(loanState);
+        }
 
         if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息
         	borrowingLoanExample.setLimitStart((jqPager.getPage() - 1) * jqPager.getRows());
@@ -155,6 +158,74 @@ public class BorrowingLoanService {
             returnResult.setMsg("[" + borrowingLoan.getLoanCode() + "] 借款信息已修改");
         } else {
             returnResult.setMsg("发生未知错误，借款信息修改失败");
+        }
+        return returnResult;
+    }
+    
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "BorrowingLoanList_firstAudit")
+    public Object firstAuditBorrowingLoan(BorrowingLoan borrowingLoan) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        borrowingLoan.setUpdater(pricipalUser.getUserId());
+        borrowingLoan.setUpdateTime(new Date());
+        if ("".equals(borrowingLoan.getFailedReason()) && StringUtils.isBlank(borrowingLoan.getFailedReason())) {
+        	borrowingLoan.setFailedReason(null);
+        }
+        if ("".equals(borrowingLoan.getIsDayMarked()) && StringUtils.isBlank(borrowingLoan.getIsDayMarked())) {
+        	borrowingLoan.setIsDayMarked(null);
+        }
+        if ("".equals(borrowingLoan.getIsBidReward()) && StringUtils.isBlank(borrowingLoan.getIsBidReward())) {
+        	borrowingLoan.setIsBidReward(null);
+        }
+        if ("".equals(borrowingLoan.getIsBidMarked()) && StringUtils.isBlank(borrowingLoan.getIsBidMarked())) {
+        	borrowingLoan.setIsBidMarked(null);
+        }
+        if ("".equals(borrowingLoan.getIsBidPwd()) && StringUtils.isBlank(borrowingLoan.getIsBidPwd())) {
+        	borrowingLoan.setIsBidPwd(null);
+        }
+        count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("[" + borrowingLoan.getLoanCode() + "] 初审借款信息成功");
+        } else {
+            returnResult.setMsg("发生未知错误，初审借款信息失败");
+        }
+        return returnResult;
+    }
+    
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "BorrowingLoanList_secondAudit")
+    public Object secondAuditBorrowingLoan(BorrowingLoan borrowingLoan) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        borrowingLoan.setUpdater(pricipalUser.getUserId());
+        borrowingLoan.setUpdateTime(new Date());
+        if ("".equals(borrowingLoan.getFailedReason()) && StringUtils.isBlank(borrowingLoan.getFailedReason())) {
+        	borrowingLoan.setFailedReason(null);
+        }
+        if ("".equals(borrowingLoan.getIsDayMarked()) && StringUtils.isBlank(borrowingLoan.getIsDayMarked())) {
+        	borrowingLoan.setIsDayMarked(null);
+        }
+        if ("".equals(borrowingLoan.getIsBidReward()) && StringUtils.isBlank(borrowingLoan.getIsBidReward())) {
+        	borrowingLoan.setIsBidReward(null);
+        }
+        if ("".equals(borrowingLoan.getIsBidMarked()) && StringUtils.isBlank(borrowingLoan.getIsBidMarked())) {
+        	borrowingLoan.setIsBidMarked(null);
+        }
+        if ("".equals(borrowingLoan.getIsBidPwd()) && StringUtils.isBlank(borrowingLoan.getIsBidPwd())) {
+        	borrowingLoan.setIsBidPwd(null);
+        }
+        count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("[" + borrowingLoan.getLoanCode() + "] 复审借款信息成功");
+        } else {
+            returnResult.setMsg("发生未知错误，复审借款信息失败");
         }
         return returnResult;
     }
