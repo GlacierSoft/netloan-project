@@ -413,4 +413,30 @@
 			<glacierui:toolbar panelEnName="BorrowingLoanFirstAuditList" toolbarId="borrowingLoanFirstAuditDataGrid_toolbar" menuEnName="borrowingLoanFirstAudit"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
+	<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
+		<form id="borrowingLoanSearchForm">
+			<table>
+				<tr>
+					<td>借款编号：</td>
+					<td><input id="borrowingLoanSearchForm_loanCode" name="loanCode" style="width: 80px;" class="spinner"/></td>
+					<td>会员名称：</td>
+					<td><input id="borrowingLoanSearchForm_memberIp" name="memberIp" style="width: 80px;" class="spinner"/></td>
+					<td>借款标题：</td>
+					<td><input id="borrowingLoanSearchForm_loanTitle" name="loanTitle" style="width: 80px;" class="spinner"/></td>
+					<td>借款状态：</td>
+					<td><input id="borrowingLoanSearchForm_loanState" name="loanState" style="width: 80px;" class="spinner"/></td>
+					<td>录入时间：</td>
+					<td>
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 150px;" />
+						-
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 150px;" />
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanFirstAudit.borrowingLoanFirstAuditDataGrid.datagrid('load',glacier.serializeObject($('#borrowingLoanSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#borrowingLoanSearchForm input').val('');glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanFirstAudit.borrowingLoanFirstAuditDataGrid.datagrid('load',{});">重置条件</a>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
 </div>
