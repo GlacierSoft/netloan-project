@@ -23,8 +23,10 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.system.UserMapper;
+import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.BorrowingLoanExample;
+import com.glacier.netloan.entity.borrow.BorrowingLoanExample.Criteria;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -66,10 +68,14 @@ public class BorrowingLoanService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager jqPager, String loanState) {
+    public Object listAsGrid(JqPager jqPager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String loanState) {
         
         JqGridReturn returnResult = new JqGridReturn();
         BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
+        
+        Criteria queryCriteria = borrowingLoanExample.createCriteria();
+        borrowingLoanQueryDTO.setQueryCondition(queryCriteria);
+        
         if (null != loanState && StringUtils.isNotBlank(loanState)) {
         	borrowingLoanExample.createCriteria().andLoanStateEqualTo(loanState);
         }

@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
 
@@ -68,8 +69,8 @@ public class BorrowingLoanController extends AbstractController{
     // 获取表格结构的所有借款数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listBorrowingLoanAsGridByMenuId(JqPager jqPager, String loanState) {
-        return borrowingLoanService.listAsGrid(jqPager, loanState);
+    private Object listBorrowingLoanAsGridByMenuId(JqPager jqPager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String loanState) {
+        return borrowingLoanService.listAsGrid(jqPager, borrowingLoanQueryDTO, loanState);
     }
     
     // 增加借款
