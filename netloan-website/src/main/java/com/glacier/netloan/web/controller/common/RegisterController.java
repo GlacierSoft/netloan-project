@@ -21,7 +21,6 @@ import com.glacier.basic.util.IpUtil;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.entity.member.Member;
-import com.glacier.netloan.entity.member.MemberAuth;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
 import com.glacier.netloan.entity.member.MemberWork;
 import com.glacier.netloan.service.member.MemberAuthService;
@@ -98,7 +97,6 @@ public class RegisterController extends AbstractController{
 		
 		// 创建一个临时用户注册ID
         String registerId = ""+Math.random() * Math.random();
-        
         /** 
          * 得到web系统url路径的方法 
          * */  
@@ -106,28 +104,21 @@ public class RegisterController extends AbstractController{
         String path = request.getContextPath();  
         String basePath = request.getScheme()+"://"+request.getServerName()+  
         ":"+request.getServerPort()+path+"/";  
-		
         //邮件发送成功后，用户点在邮箱中点击这个链接回到注册网站。
         //http://localhost:8080/netloan-website//mailBack.htm?registerId=" + registerId;
         String url = basePath+"mailBack.htm?registerId=" + registerId;
-        
+        //将验证邮箱链接后面的registerId存到session中
         session.setAttribute(registerId, member.getMemberName());
         session.setAttribute("memberSimple", member);
         // 设置session的有效时间，为10分钟，10分钟内没有点击链接的话，注册将失败
         session.setMaxInactiveInterval(600); 
-      
         //基于org.apache.commons.mail,封装好的mail，发邮件流程比较简单，比原生态mail简单。
         HtmlEmail email = new HtmlEmail();
-
         email.setHostName("smtp.qq.com");// QQ郵箱服務器
 		//email.setHostName("smtp.163.com");// 163郵箱服務器
 		//email.setHostName("smtp.gmail.com");// gmail郵箱服務器
 		email.setSmtpPort(465);//设置端口号
-		
-		email.setAuthenticator(new DefaultAuthenticator("1240033960@qq.com","zx5304960"));
-		//email.setAuthenticator(new DefaultAuthenticator("13798985542@163.com","13556470042"));
-		//email.setAuthenticator(new DefaultAuthenticator("yuzexu1@gmail.com","zx5304960"));
-		
+		email.setAuthenticator(new DefaultAuthenticator("1240033960@qq.com","zx5304960"));//用1240033960@qq.com这个邮箱发送验证邮件的
 		email.setTLS(true);//tls要设置为true,没有设置会报错。
 		email.setSSL(true);//ssl要设置为true,没有设置会报错。
 		try {
@@ -138,14 +129,11 @@ public class RegisterController extends AbstractController{
 			e1.printStackTrace();
 		}
 		email.setCharset("UTF-8");//没有设置会乱码。
-        
         try {
 			email.setSubject("冰川网贷注册");//设置邮件名称
 			email.setHtmlMsg("点击<a href='" + url + "'>" + url + "</a>完成注册！");//设置邮件内容
 			email.addTo(member.getEmail());//给会员发邮件
 			//email.addTo("804346249@qq.com");
-			//email.addTo("13798985542@163.com");
-			//email.addTo("1240033960@qq.com");
 			email.send();//邮件发送
 		} catch (EmailException e) {
 			throw new RuntimeException(e);
@@ -181,11 +169,9 @@ public class RegisterController extends AbstractController{
         member.setLastLoginIpAddress(host);
         JqReturnJson returnResult = (JqReturnJson) memberService.addMemberReception(member);
         request.setAttribute("returnResult", returnResult);
-        //session.setAttribute("currentMember", returnResult.getObj());
         if(!returnResult.isSuccess()){
         	return "index";
         }
-     
 		return "login";
 	}
 	/**
@@ -221,8 +207,8 @@ public class RegisterController extends AbstractController{
         if (bindingResultWork.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResultWork);
         }
-        ModelAndView mav = new ModelAndView();
-		JqReturnJson perfectRegister = (JqReturnJson) memberService.editMemberReception(member, memberWork,postAuth);
+        //前台完善会员基本信息和工作信息
+		JqReturnJson perfectRegister = (JqReturnJson) memberService.editMemberReception(member,memberWork,postAuth);
 		Member loginMember = (Member) memberService.getMember(member.getMemberId());
 		MemberWork loginMemberWork = (MemberWork) memberService.getMemberWork(member.getMemberId());
 		session.removeAttribute("currentMember");
@@ -230,22 +216,31 @@ public class RegisterController extends AbstractController{
 		session.setAttribute("currentMember",loginMember);
         session.setAttribute("currentMemberWork",loginMemberWork);
         request.setAttribute("perfectRegister", perfectRegister);
-        //判断是否是按保存并提交审核按钮，
+        //判断是否是按保存并提交审核按钮，重新获取会员的认证状态
         MemberAuthWithBLOBs memberAuthWithBLOBs = (MemberAuthWithBLOBs)memberAuthService.getMemberAuth(member.getMemberId());
-        if((memberAuthWithBLOBs.getInfoAuth().equals("noapply") && memberAuthWithBLOBs.getWorkAuth().equals("noapply"))||
-        		(memberAuthWithBLOBs.getInfoAuth().equals("failure") && memberAuthWithBLOBs.getWorkAuth().equals("failure"))){
-        	
+        //只有会员基本信息认证和工作认证，没有申请或审核失败，就可以进行修改。
+        if((memberAuthWithBLOBs.getInfoAuth().equals("noapply") || memberAuthWithBLOBs.getWorkAuth().equals("noapply"))||
+        		(memberAuthWithBLOBs.getInfoAuth().equals("failure") || memberAuthWithBLOBs.getWorkAuth().equals("failure"))){
+        	//不做任何操作
         }else{
         	perfectRegister.setObj("infoAndWorRealOnly");
         }
 		return perfectRegister;
 	}
+	/**
+	 * @Title: perfectMemberPhoto 
+	 * @Description: TODO(前台会员更改头像) 
+	 * @param  @param member
+	 * @param  @param session
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 *
+	 */
 	@RequestMapping(value = "/perfectMemberPhoto.htm", method = RequestMethod.POST)
 	@ResponseBody
 	public Object perfectMemberPhoto(@Valid Member member,HttpSession session){
-		 
 		JqReturnJson perfectRegister = (JqReturnJson) memberService.editMemberPhotoReception(member);
-		
 		Member loginMember = (Member) memberService.getMember(member.getMemberId());
 		session.removeAttribute("currentMember");
 		session.setAttribute("currentMember",loginMember);

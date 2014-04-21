@@ -392,11 +392,19 @@ public class MemberService {
         }
         return returnResult;
     }
+    /**
+     * @Title: applicationVIP 
+     * @Description: TODO(会员前台申请vip审核) 
+     * @param  @param memberId
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
+     */
     @Transactional(readOnly = false)
     public Object applicationVIP(String memberId){
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
     	int count = 0;
-    	
         
         MemberAuthWithBLOBs memberAuthWithBLOBs = memberAuthMapper.selectByPrimaryKey(memberId);
         memberAuthWithBLOBs.setVipAuth("authstr");
@@ -424,13 +432,10 @@ public class MemberService {
         //MemberExample memberExample = new MemberExample();
         int count = 0;
         int countWork = 0;
-       
         //会员表的修改
-       
         member.setUpdater(member.getMemberId());
         member.setUpdateTime(new Date());
         count = memberMapper.updateByPrimaryKeySelective(member);
-        
         //工作表的修改
         countWork = memberWorkMapper.updateByPrimaryKeySelective(memberWork);
         //将基本信息和工作信息提交审核
@@ -443,7 +448,6 @@ public class MemberService {
         if (count == 1 && countWork == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("会员信息保存成功");
-            
             //returnResult.setMsg("[" + member.getMemberName() + "] 会员信息已修改");
         } else {
             returnResult.setMsg("发生未知错误，会员信息修改失败");

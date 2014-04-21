@@ -16,14 +16,8 @@
 		}
 	</style>
   </head>
-
-  
-  
-  
-  
   <body>
   <jsp:include page="../nav.jsp"/>
-       
 	    <!-- CONTAINER START======================== -->
 	    <div class="container">
 	    <div class="row">
@@ -121,7 +115,6 @@
 						     <li><a href="#memberIntegral" data-toggle="tab">会员积分记录</a></li>
 					   </c:when>
 					</c:choose>
-				      
 				     </ul>
 				      <br>
 				     <div id="myTabContent" class="tab-content">
@@ -140,7 +133,6 @@
 				       			<tr>
 					              <td colspan="8">信用等级及信用对应分数</td>
 					            </tr> 
-					            
 					            <tr >
 					              <td >等级</td>
 					              <c:forEach var="parameterCredit" items="${requestScope.parameterCredits}" varStatus="status">
@@ -687,8 +679,6 @@
                 }
 			});
     });
-	
-	
 	$("#member_applyCreditAmountForm").validate({
 		rules:{
 			applyMoney:{
@@ -745,15 +735,13 @@
 			}else if(parseJson[i].integralType == 'workAuth'){
 				$('#memberAuth_form_workAuth_creditIntegral').html(parseJson[i].changeValue);
 			} 
-		}
+		} 
 		//$('#totalCreditIntegral').html("<strong>信用总分："+totalIntegralCredit+"分</strong>");
 		
-
 		//通过renderGridValue方法。将数据库的枚举类型转换为相对应的中文名称
 		$('#idCard_auth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.idCardAuth}',fields.auths));	
 		$('#company_auth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.companyAuth}',fields.auths));	
 		$('#credit_auth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.creditAuth}',fields.auths));	
-		
 		
 		//下拉项emun的值
 		$('#memberAuth_form_infoAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.infoAuth}',fields.auths));
@@ -781,7 +769,8 @@
 				height : "200px",
 				minHeight : "200px",
 				resizeType : 0,
-				uploadJson : ctx+'/member/uploadFile.htm',
+				//uploadJson : ctx+'/member/uploadFile.htm',
+				uploadJson : ctx+'/resources/js/kindeditor/jsp/upload_json.jsp',
 				allowFileManager : true,
 				allowImageRemote : false,
 				urlType:'domain',
@@ -793,7 +782,8 @@
 				height : "200px",
 				minHeight : "200px",
 				resizeType : 0,
-				uploadJson : ctx+'/member/uploadFile.htm',
+				//uploadJson : ctx+'/member/uploadFile.htm',
+				uploadJson : ctx+'/resources/js/kindeditor/jsp/upload_json.jsp',
 				allowFileManager : true,
 				allowImageRemote : false,
 				urlType:'domain',
@@ -805,7 +795,8 @@
 				height : "200px",
 				minHeight : "200px",
 				resizeType : 0,
-				uploadJson : ctx+'/member/uploadFile.htm?whichAuth=creditAuth',
+				//uploadJson : ctx+'/member/uploadFile.htm',
+				uploadJson : ctx+'/resources/js/kindeditor/jsp/upload_json.jsp',
 				allowFileManager : true,
 				allowImageRemote : false,
 				urlType:'domain',

@@ -16,14 +16,8 @@
 		}
 	</style>
   </head>
-
-  
-  
-  
-  
   <body>
   <jsp:include page="../nav.jsp"/>
-       
 	    <!-- CONTAINER START======================== -->
 	    <div class="container">
 	    <div class="row">
@@ -99,7 +93,6 @@
 				     <table class="table" >
 			            <tr><!-- style="width:100px;heigth:100px" -->
 			              <td rowspan="5" >
-			              
 			              <div style=" text-align:center;vertical-align: middle;">
 			              <img src="${currentMember.memberPhoto}" style="width: 120px;height: 120px ;"/>
 			              <a href="${ctx}/member/memberPhotoInto.htm" role="button"><p style="padding:10px;">更换头像</p></a>
@@ -150,22 +143,6 @@
 					  <div class="col-md-2"></div>
 					  <div class="col-md-4"></div>
 					</div>
-			       <%--  <table class="table " >
-			            <tr><!-- style="width:100px;heigth:100px" -->
-			              <td class="text-right"><img alt="" src="${ctx}/resources/images/member/wenxintisi.jpg"><span class="text-danger"><strong>温馨提示：</strong></span></td>
-			              <td><span>未读站内信<a href="#" class="navbar-link"><span class="badge">3</span></a>封</span></td>
-			              <td><span>等待审核借款<a href="#" class="navbar-link"><span class="badge">0</span></a>个</span></td>
-			              <td><span>本月待还款<a href="#" class="navbar-link"><span class="badge">0</span></a>个</span></td>
-			              <td><span>本月待收款<a href="#" class="navbar-link"><span class="badge">0</span></a>个</span></td>
-			            </tr>
-			            <tr>
-			              <td></td>
-			              <td><span>逾期待还款<a href="#" class="navbar-link"><span class="badge">0</span></a>个</span></td>
-			              <td><span>上传资料<a href="#" class="navbar-link"><span class="badge">1</span></a></span></td>
-			              <td></td>
-			              <td></td>
-			            </tr>
-			        </table> --%>
 			        </div>
 			        <div style="margin:40px;text-align:center;vertical-align: middle;">
 			        <table style="width:800px;padding: 10px;">
@@ -256,6 +233,5 @@
 	    <jsp:include page="../foot.jsp"/>
 	    </div>
 	    <!-- CONTAINER START======================== -->
-	      
   </body>
 </html>

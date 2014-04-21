@@ -331,10 +331,10 @@ public class FinanceBankCardService {
    	 *
    	 */
    	public int addMessageNotice(MemberMessageNotice memberMessageNotice,String memberId){
-   		
+   	    //获取当前登录用户
    		Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
+        //为信息通知对象设置值
    		memberMessageNotice.setMessageNoticeId(RandomGUID.getRandomGUID());
    		memberMessageNotice.setSender(pricipalUser.getUserId());
    		memberMessageNotice.setAddressee(memberId);

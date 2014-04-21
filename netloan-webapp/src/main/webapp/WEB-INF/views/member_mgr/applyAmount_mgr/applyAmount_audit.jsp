@@ -32,11 +32,13 @@
 			<td>审核状态：</td>
 			<td>
 				<input type="hidden" name="applyAmountId" value="${applyAmountData.applyAmountId}" />
+				<input type="hidden" name="memberId" value="${applyAmountData.memberId}" />
+				<input type="hidden" name="applyMoney" value="${applyAmountData.applyMoney}" />
 				<input id="applyAmount_mgr_applyAmount_audit_auditState" name="auditState" value="${applyAmountData.auditState}" class="easyui-combobox" />
 			</td>
 		</tr>
 	</table>
-	<table id="auditTableInfo"  style="display:none;">
+	<table id="auditTableInfo"  ><!-- style="display:none;" -->
 		<tr>
 			<td>审核金额：</td>
 			<td>

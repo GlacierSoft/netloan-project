@@ -104,10 +104,10 @@ public class MemberAuthService {
    	 *
    	 */
    	public int addMessageNotice(MemberMessageNotice memberMessageNotice,String memberId){
-   		
+   		//获取当前登录用户
    		Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
+        //查询所属会员个人的额度申请列表
    		memberMessageNotice.setMessageNoticeId(RandomGUID.getRandomGUID());
    		memberMessageNotice.setSender(pricipalUser.getUserId());
    		memberMessageNotice.setAddressee(memberId);

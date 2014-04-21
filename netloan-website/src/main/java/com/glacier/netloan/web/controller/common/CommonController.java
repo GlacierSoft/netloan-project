@@ -19,7 +19,6 @@
  */
 package com.glacier.netloan.web.controller.common;
 
-import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -91,7 +90,14 @@ public class CommonController {
         // 进入首页初始化导航信息
         return mav;
     }
-
+    /**
+     * @Title: postLogin 
+     * @Description: TODO(跳转到登录页面) 
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
+     */
     @RequestMapping(value = "/login.htm")
     public Object postLogin() {
         if (null != SecurityUtils.getSubject() && null != SecurityUtils.getSubject().getSession()) {
@@ -99,6 +105,21 @@ public class CommonController {
         }
         return "login";
     }
+    
+    /*@RequestMapping(value = "/MyRequestURI.htm")
+    public Object MyRequestURI(HttpSession session,HttpServletRequest request){
+    	
+    	String MyRequestURI = (String) session.getAttribute("MyRequestURI");
+    	ModelAndView mav = new ModelAndView(MyRequestURI);
+    	System.out.println("MyRequestURI   :"+MyRequestURI);
+    	String requestURI = WebUtils.getPathWithinApplication(WebUtils.toHttp(request));
+    	System.out.println("requestURI   :"+requestURI);
+    	String url = WebUtils.getSavedRequest(request).getRequestUrl();
+    	System.out.println("url   :"+url);
+    	String reurl = "/"+request.getContextPath();
+    	//return "redirect:"+url; 
+    	return "index";
+    }*/
     
     /**
      * @Title: fail
@@ -121,33 +142,15 @@ public class CommonController {
         request.setAttribute("member", member);
         return "login";
     }
-    
     /**
-     * 生成验证码
-     * @param request
-     * @param response
-     * @throws IOException
+     * @Title: logout 
+     * @Description: TODO(退出系统) 
+     * @param  @param pager
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
      */
-/*    @RequestMapping(value = "/validateCode.htm")
-    public void validateCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setHeader("Pragma","No-cache");  
-        response.setHeader("Cache-Control","no-cache");  
-        response.setDateHeader("Expires", 0);  
-        String verifyCode = ValidateCode.generateTextCode(ValidateCode.TYPE_NUM_ONLY, 4, null);
-        request.getSession().setAttribute("validateCode", verifyCode);
-        response.setContentType("image/jpeg");
-        BufferedImage bim = ValidateCode.generateImageCode(verifyCode, 90, 30, 3, true, Color.WHITE, Color.BLACK, null);
-        ImageIO.write(bim, "JPEG", response.getOutputStream());
-    }*/
-    
-//    @RequestMapping(value = "/logout.htm")
-//    public String logout(){
-//    	if (null != SecurityUtils.getSubject() && null != SecurityUtils.getSubject().getSession()) {
-//            SecurityUtils.getSubject().logout();// ，默认把登录用户注销
-//        }
-//    	return "index";
-//    }
-    
     @RequestMapping(value = "/logout.htm")
     public Object logout(JqPager pager){
     	ModelAndView mav = new ModelAndView("index");
@@ -158,10 +161,5 @@ public class CommonController {
         mav.addObject("newsDatas", newsService.listAsGrid(pager));//主页加载新闻信息
         // 进入首页初始化导航信息
         return mav;
-    }
-    
-    @RequestMapping(value = "/aa.htm")
-    public String aa(){
-    	return "demoValidators";
     }
 }

@@ -15,11 +15,6 @@
 		}
 	</style>
   </head>
-
-  
-  
-  
-  
   <body>
   <jsp:include page="../nav.jsp"/>
        
@@ -221,26 +216,6 @@
 									      <textarea class="form-control" rows="3" name="personalDes" id="personalDes" >${currentMember.personalDes}</textarea>
 									    </div>
 									  </div>
-									  <%-- <div class="form-group">
-									    <label for="personalDes" class="col-sm-2 control-label">个人头像:</label>
-									     <div class="col-sm-10" style="float: left;">
-									      	<textarea id="currentMember_memberPhoto" name="memberPhoto" style="width:100px;height:100px;">
-												${currentMember.memberPhoto}
-											</textarea>
-											<div style="float: left;padding-right: 20px;">
-											<input class="ke-input-text" type="text" name="memberPhoto" id="url" value="${currentMember.memberPhoto}" readonly="readonly" />
-											<input type="button" id="uploadButton" value="Upload" />
-											</div>
-											<div id="memberPhotoDiv" style="width: 120px;height: 120px ;float: left;border: 1px solid;">
-											
-											</div>
-											<div class="upload">
-												<input class="ke-input-text" type="text" id="url" value="" readonly="readonly" />
-											 	<input type="button" id="uploadButton" value="Upload" />
-											</div>
-									    </div> 
-									    
-									  </div> --%>
 						       </div>
 						       <div class="tab-pane fade" id="tabPersonalContact">
 						          <br>
@@ -725,12 +700,6 @@
 	    	}else{
 	    		notClonedialog("请先回答密保问题");
 	    	}
-	    	/* var ee = "${SecretSecurityResult.rows}";
-	    	console.log(ee);
-	    	var ce = ee.split(",");
-	    	console.log(ce.length);
-	      	console.log("${SecretSecurityResult.rows[0].secretSecurityId}");
-	      	var ee = "${SecretSecurityResult.rows[0].secretSecurityId}"; */
 	    }); 
 	  	//通过设置这个隐藏文本的值来判断是保存按钮还是保存并提交审核按钮。进行相应的操作。
 	    $('#postAuthBut').bind('click', function(){    
@@ -744,7 +713,6 @@
 		} 
       	$(function() {
 			$(".alert").alert();
-			
 			//用jq将下列框的值初始化。
 	 		$('#sex').val('${currentMember.sex}');
 		    $('#maritalStatus').val('${currentMember.maritalStatus}');
@@ -761,7 +729,6 @@
 					$('#success_alert').fadeOut();
 				},3000)
 			}		
-	      	
 	      	
 	      	$("#personalMessageForm").validate({
 	    		rules:{
@@ -811,18 +778,11 @@
 	    				   dataType: "json",
 	    				   data: $("#personalMessageForm").serialize(),
 		    			   success: function(r) {
-		    				   
-		    				    /* $('#success_alert').fadeIn();
-	    						$('#success_alert h4').html(r.msg);
-	    						setTimeout(function(){//延迟3秒隐藏
-	    							$('#success_alert').fadeOut();
-	    						},3000) */
 	    						successdialog(r);
 	    						 if(r.obj == 'infoAndWorRealOnly'){
 	    								$("form[id='personalMessageForm'] input,textarea[id='personalDes']").prop("readonly", true);
 	    								$("form[id='personalMessageForm'] select,button[id='onlyPost'],button[id='postAuthBut']").prop("disabled", true);
 	    							}
-	    						 
 		                    },
 		                    error: function() {
 		                        alert("提交出错！");

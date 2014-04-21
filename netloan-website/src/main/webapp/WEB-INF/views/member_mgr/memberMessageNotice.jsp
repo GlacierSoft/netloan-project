@@ -16,11 +16,6 @@
 		}
 	</style>
   </head>
-
-  
-  
-  
-  
   <body>
   <jsp:include page="../nav.jsp"/>
        

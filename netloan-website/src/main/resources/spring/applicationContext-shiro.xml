@@ -14,11 +14,15 @@
 		<property name="realm" ref="customPermissionsRealm" />
 		<property name="cacheManager" ref="shiroEhcacheManager" />
 	</bean>
+	
+ 	<bean id="sysUserFilter" class="com.glacier.netloan.web.filter.SysUserFilter"/>
+	<bean id="forceLogoutFilter" class="com.glacier.netloan.web.filter.MyAccessControlFilter"/> 
 
 	<!-- Shiro Filter -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/login.htm" /><!-- 登录失败请求url -->
+		<!-- <property name="successUrl" value="/MyRequestURI.htm" /> --><!-- 登录成功以及登录失败请求url -->
 		<property name="successUrl" value="/member/index.htm" /><!-- 登录成功以及登录失败请求url -->
 		<property name="unauthorizedUrl" value="/login.htm" /><!-- 未授权会员查看url -->
 		<property name="filters">
@@ -26,17 +30,26 @@
 				<entry key="authc">
 					<bean class="com.glacier.netloan.web.filter.CaptchaFormAuthenticationFilter"/>
 				</entry>
+				<entry key="sysUser" value-ref="sysUserFilter"/>
+				<entry key="forceLogout" value-ref="forceLogoutFilter"/>
 			</util:map>
 		</property>
 		<property name="filterChainDefinitions">
 			<value>
-			   /validateCode.htm = anon
+				/validateCode.htm = anon
 				/login.htm = authc
 				/resources/** = anon
 				/logout = logout
 				/member/* = user
 				/borrowingLoan/* = user
 				/messageNotice/* = user
+			   <!-- /validateCode.htm = anon
+				/login.htm = authc
+				/resources/** = anon
+				/logout = logout
+				/member/* = forceLogout
+				/borrowingLoan/* = forceLogout,sysUser
+				/messageNotice/* = forceLogout,sysUser -->
 			</value>
 		</property>
 	</bean>
