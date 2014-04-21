@@ -43,7 +43,7 @@
 				width:120,
 				sortable:true
 			},{
-				field:'memberId',
+				field:'memberDisplay',
 				title:'借款人',
 				width:120,
 				sortable:true
@@ -57,7 +57,7 @@
 				title:'借款状态',
 				sortable:true,
 				width:120,
-				formatter: function(value,row,index){//数据格式化，例如yes显示是，no显示否
+				formatter: function(value,row,index){//借款状态字段的数据格式化
 					return renderGridValue(value,fields.loanState);
 				}
 			},{
@@ -66,7 +66,7 @@
 				sortable:true,
 				width:120
 			},{
-				field:'loanTenderId',
+				field:'loanTenderDisplay',
 				title:'借款标的',
 				sortable:true,
 				width:120
@@ -85,7 +85,7 @@
 				title:'流标原因',
 				width:120,
 				sortable:true,
-				formatter: function(value,row,index){//数据格式化，
+				formatter: function(value,row,index){//数据格式化
 					return renderGridValue(value,fields.yesOrNo);
 				}
 			},{
@@ -267,7 +267,7 @@
 					return renderGridValue(value,fields.firstAuditState);
 				}
 			},{
-				field:'firstAuditorId',
+				field:'firstAuditorDisplay',
 				title:'初审审核人',
 				sortable:true,
 				width:120
@@ -295,7 +295,7 @@
 					return renderGridValue(value,fields.secondAuditState);
 				}
 			},{
-				field:'secondAuditorId',
+				field:'secondAuditorDisplay',
 				title:'复审审核人',
 				sortable:true,
 				width:120
@@ -320,7 +320,7 @@
 				sortable:true,
 				width:120
 			},{
-				field:'creater',
+				field:'createrDisplay',
 				title:'创建人',
 				sortable:true,
 				width:100
@@ -330,7 +330,7 @@
 				sortable:true,
 				width:200
 			},{
-				field:'updater',
+				field:'updaterDisplay',
 				title:'更新人',
 				sortable:true,
 				width:100
@@ -372,8 +372,8 @@
 			$.easyui.showDialog({
 				title: rowData.loanCode,
 				href : ctx + '/do/borrowingLoan/intoDetail.htm?loanId='+rowData.loanId,//从controller请求jsp页面进行渲染
-				width : 720,
-				height : 520,
+				width : 750,
+				height : 540,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

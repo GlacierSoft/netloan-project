@@ -2,12 +2,19 @@ package com.glacier.netloan.entity.borrow;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class BorrowingLoan {
     private String loanId;
 
     private String loanCode;
 
     private String memberId;
+    
+    /**
+     * 自定义字段
+     */
+    private String memberDisplay;
 
     private String loanTitle;
 
@@ -15,6 +22,11 @@ public class BorrowingLoan {
 
     private String loanTenderId;
 
+    /**
+     * 自定义字段
+     */
+    private String loanTenderDisplay;
+    
     private String loanPurposeId;
 
     private String loanDeadlinesId;
@@ -75,8 +87,10 @@ public class BorrowingLoan {
 
     private String isRecommend;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date loanDate;
 
     private String memberIp;
@@ -88,27 +102,50 @@ public class BorrowingLoan {
     private String firstAuditState;
 
     private String firstAuditorId;
+    
+    /**
+     * 自定义字段
+     */
+    private String firstAuditorDisplay;
 
     private String firstAdvice;
 
     private String firstMesNotice;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date firstAuditDate;
 
     private String secondAuditState;
 
     private String secondAuditorId;
+    
+    /**
+     * 自定义字段
+     */
+    private String secondAuditorDisplay;
 
     private String secondAdvice;
 
     private String secondMesNotice;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date secondAuditDate;
 
     private String creater;
 
+    /**
+     * 自定义字段
+     */
+    private String createrDisplay;
+    
     private String updater;
+    
+    /**
+     * 自定义字段
+     */
+    private String updaterDisplay;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getLoanId() {
@@ -542,8 +579,56 @@ public class BorrowingLoan {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+    
+    public String getMemberDisplay() {
+		return memberDisplay;
+	}
 
-    @Override
+	public void setMemberDisplay(String memberDisplay) {
+		this.memberDisplay = memberDisplay;
+	}
+
+	public String getLoanTenderDisplay() {
+		return loanTenderDisplay;
+	}
+
+	public void setLoanTenderDisplay(String loanTenderDisplay) {
+		this.loanTenderDisplay = loanTenderDisplay;
+	}
+
+	public String getFirstAuditorDisplay() {
+		return firstAuditorDisplay;
+	}
+
+	public void setFirstAuditorDisplay(String firstAuditorDisplay) {
+		this.firstAuditorDisplay = firstAuditorDisplay;
+	}
+
+	public String getSecondAuditorDisplay() {
+		return secondAuditorDisplay;
+	}
+
+	public void setSecondAuditorDisplay(String secondAuditorDisplay) {
+		this.secondAuditorDisplay = secondAuditorDisplay;
+	}
+
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

@@ -108,13 +108,7 @@
 </form>
 <script type="text/javascript">
 	$('#loanTender_mgr_loanTender_detail_state').val(renderGridValue('${loanTenderData.state}',fields.state));
-</script>
-<script type="text/javascript">
 	$('#loanTender_mgr_loanTender_detail_isBidReward').val(renderGridValue('${loanTenderData.isBidReward}',fields.yesOrNo));
-</script>
-<script type="text/javascript">
 	$('#loanTender_mgr_loanTender_detail_isBidPwd').val(renderGridValue('${loanTenderData.isBidPwd}',fields.yesOrNo));
-</script>
-<script type="text/javascript">
 	$('#loanTender_mgr_loanTender_detail_subscriptionState').val(renderGridValue('${loanTenderData.subscriptionState}',fields.state));
 </script>
