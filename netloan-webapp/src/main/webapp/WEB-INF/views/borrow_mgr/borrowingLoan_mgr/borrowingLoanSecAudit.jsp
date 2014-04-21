@@ -386,8 +386,8 @@
 		var row = glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanSecAudit.borrowingLoanSecAuditDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '审核【'+row.loanCode+'】',
-			width : 720,
-			height : 500,
+			width : 750,
+			height : 540,
 			queryUrl : ctx + '/do/borrowingLoan/intoSecAudit.htm',
 			submitUrl : ctx + '/do/borrowingLoan/secondAudit.json',
 			queryParams : {

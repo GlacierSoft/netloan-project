@@ -168,6 +168,14 @@ public class BorrowingLoanService {
         return returnResult;
     }
     
+    /**
+     * @Title: firstAuditBorrowingLoan 
+     * @Description: TODO(借款进行初审) 
+     * @param @param borrowingLoan
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
     @Transactional(readOnly = false)
     @MethodLog(opera = "BorrowingLoanList_firstAudit")
     public Object firstAuditBorrowingLoan(BorrowingLoan borrowingLoan) {
@@ -175,6 +183,8 @@ public class BorrowingLoanService {
         int count = 0;
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
+        borrowingLoan.setFirstAuditorId(pricipalUser.getUserId());
+        borrowingLoan.setFirstAuditDate(new Date());
         borrowingLoan.setUpdater(pricipalUser.getUserId());
         borrowingLoan.setUpdateTime(new Date());
         if ("".equals(borrowingLoan.getFailedReason()) && StringUtils.isBlank(borrowingLoan.getFailedReason())) {
@@ -205,6 +215,14 @@ public class BorrowingLoanService {
         return returnResult;
     }
     
+    /**
+     * @Title: secondAuditBorrowingLoan 
+     * @Description: TODO(借款进行复审) 
+     * @param @param borrowingLoan
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
     @Transactional(readOnly = false)
     @MethodLog(opera = "BorrowingLoanList_secondAudit")
     public Object secondAuditBorrowingLoan(BorrowingLoan borrowingLoan) {
@@ -212,6 +230,8 @@ public class BorrowingLoanService {
         int count = 0;
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
+        borrowingLoan.setSecondAuditorId(pricipalUser.getUserId());
+        borrowingLoan.setSecondAuditDate(new Date());
         borrowingLoan.setUpdater(pricipalUser.getUserId());
         borrowingLoan.setUpdateTime(new Date());
         if ("".equals(borrowingLoan.getFailedReason()) && StringUtils.isBlank(borrowingLoan.getFailedReason())) {
