@@ -174,7 +174,7 @@
 					    <td class="col-md-6" align="right">借款详情：</td>
 					    <td class="col-md-6"><textarea name="loanDetail" class="txt420"></textarea></td>
 					  </tr>
-					  <!-- <tr>
+					  <tr>
 					  	<td class="col-md-6" align="right">投标奖励</td>
 					    <td class="col-md-6">
 					    	<input type="radio" name="isBidReward" checked="checked" id="isBidReward" value="no" />
@@ -185,8 +185,8 @@
 					  	<td class="col-md-6" align="right"></td>
 					    <td class="col-md-6">
 					      	<input type="radio" name="excitationType" id="radio_2" value="2" />
-					     	 固定总额按投标比例分配奖励
-					     	<input type="text" id="sum" name="paramMap.sum" value="" class="inp100x gray" disabled="disabled"/>
+					     	按投标金额比例奖励
+					     	<input type="text" id="bidProReward" name="bidProReward" class="inp100x gray" disabled="disabled"/>
 					      元
 					    </td>
 					  </tr>
@@ -194,18 +194,11 @@
 					  	<td class="col-md-6" align="right"></td>
 					    <td class="col-md-6">
 					     	<input type="radio" name="excitationType" id="radio_3" value="3" />
-					      	借款总额百分比分配奖励
-					      	<input type="text" id="sumRate" name="paramMap.sumRate" maxlength="20" value="" class="inp100x gray" disabled="disabled"/>
+					      	按固定金额分摊奖励
+					      	<input type="text" id="fixedAppReward" name="fixedAppReward" maxlength="20" class="inp100x gray" disabled="disabled"/>
 					      	%
 					    </td>
 					  </tr>
-					  <tr>
-					    <td class="col-md-6" align="right"> 验证码：</td>
-					    <td class="col-md-6"><input type="text" class="inp100x" name="paramMap.code" id="code"/>
-							 <img src="" title="点击更换验证码" style="cursor: pointer;"
-							 	  id="codeNum" width="46" height="18" onclick="javascript:switchCode()" />
-					    </td>
-					  </tr> -->
 					  <tr>
 					  	<td class="col-md-6" align="right"></td>
 					    <td class="col-md-6">

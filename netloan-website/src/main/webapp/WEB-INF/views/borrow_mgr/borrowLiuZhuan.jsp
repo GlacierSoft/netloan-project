@@ -38,7 +38,7 @@
 					              在现单位工作满3个月<br />
 					              月收入3000以上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
 					            </p>
-					            <div class="jk_mid_con_but"><a href="/borrow/loan.html?type=flow" class="sq_but">立即申请</a></div>
+					            <div class="jk_mid_con_but"><a href="${ctx}/borrowingLoan/enteringLiuZhuan.htm" class="sq_but">立即申请</a></div>
 					          </div>
 					        </div>
 					        
