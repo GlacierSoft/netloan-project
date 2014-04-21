@@ -47,13 +47,21 @@
     			<form id="enteringLiuZhuan" class="form-horizontal" role="form" method="post" >
 		          <table>
 		          	<tbody>
+		          	  <tr>
+			            <td class="col-md-6" align="right">
+			            	<span style="color:#F00">*</span>借款编号：
+			            </td>
+			            <td class="col-md-6">
+			            	<input id="memberId" name="memberId" type="hidden" value="${currentMember.memberId}" >
+			            	<input id="loanCode" name="loanCode" type="text" class="inp280" maxlength="12"/>
+			            </td>
+			          </tr>
 			          <tr>
 			            <td class="col-md-6" align="right">
 			            	<span style="color:#F00">*</span>借款标题：
 			            </td>
 			            <td class="col-md-6">
-			            	<input id="memberId" name="memberId" type="hidden" value="${currentMember.memberId}" >
-			            	<input id="loanCode" name="loanCode" type="text" class="inp280" maxlength="12" value=""/>
+			            	<input id="loanTitle" name="loanTitle" type="text" class="inp280" maxlength="12"/>
 			            </td>
 			          </tr>
 					  <tr>
@@ -70,7 +78,7 @@
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right">借款标的：</td>
-					    <td class="col-md-6"><span id="typeName" class="fred">流转标</span></td>
+					    <td class="col-md-6"> <input type="hidden" id="loanTenderId" name="loanTenderId" value="2587bd0ecc859e35f2874f2aff0d4852"/>流转标</td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>借款目的：</td>
@@ -92,18 +100,18 @@
 					    <td class="col-md-6">
 						    <select name="loanDeadlinesId" id="loanDeadlinesId" class="sel_140">
 							    <option value="">--请选择--</option>
-							    <option value="1">1个月</option>
-							    <option value="2">2个月</option>
-							    <option value="3">3个月</option>
-							    <option value="4">4个月</option>
-							    <option value="5">5个月</option>
-							    <option value="6">6个月</option>
-							    <option value="7">7个月</option>
-							    <option value="8">8个月</option>
-							    <option value="9">9个月</option>
-							    <option value="10">10个月</option>
-							    <option value="11">11个月</option>
-							    <option value="12">12个月</option>
+							    <option value="1个月">1个月</option>
+							    <option value="2个月">2个月</option>
+							    <option value="3个月">3个月</option>
+							    <option value="4个月">4个月</option>
+							    <option value="5个月">5个月</option>
+							    <option value="6个月">6个月</option>
+							    <option value="7个月">7个月</option>
+							    <option value="8个月">8个月</option>
+							    <option value="9个月">9个月</option>
+							    <option value="10个月">10个月</option>
+							    <option value="11个月">11个月</option>
+							    <option value="12个月">12个月</option>
 							</select>
 					    </td>
 					  </tr>
@@ -114,9 +122,71 @@
 					     </td>
 					  </tr>
 					  <tr>
+					  	<td class="col-md-6" align="right">投标奖励</td>
+					    <td class="col-md-6">
+					    	<input type="radio" name="isBidReward" checked="checked" id="isBidReward" value="no" />
+					      	不设置奖励
+					    </td>
+					  </tr>
+					  <tr>
+					  	<td class="col-md-6" align="right"></td>
+					    <td class="col-md-6">
+					      	<input type="radio" name="excitationType" id="radio_2" value="2" />
+					     	按投标金额比例奖励
+					     	<input type="text" id="bidProReward" name="bidProReward" class="inp100x gray" disabled="disabled"/>
+					      元
+					    </td>
+					  </tr>
+					  <tr>
+					  	<td class="col-md-6" align="right"></td>
+					    <td class="col-md-6">
+					     	<input type="radio" name="excitationType" id="radio_3" value="3" />
+					      	按固定金额分摊奖励
+					      	<input type="text" id="fixedAppReward" name="fixedAppReward" maxlength="20" class="inp100x gray" disabled="disabled"/>
+					      	%
+					    </td>
+					  </tr>
+					  <tr>
+					  	<td class="col-md-6" align="right"></td>
+					    <td class="col-md-6">
+					    	<input type="radio" id="isBidMarked" name="isBidMarked" checked="checked" value="no" />
+					      	是否有投标待收限制
+					    </td>
+					  </tr>
+					  <tr>
+			            <td class="col-md-6" align="right">
+			            	<span style="color:#F00">*</span>待收金额设置：
+			            </td>
+			            <td class="col-md-6">
+			            	<input id="readyRecMoney" name="readyRecMoney" type="text" class="inp280" maxlength="12"/>
+			            </td>
+			          </tr>
+					  <tr>
+					  	<td class="col-md-6" align="right">是否设置投标密码</td>
+					    <td class="col-md-6">
+					    	<input type="radio" id="isBidPwd" name="isBidPwd" checked="checked" value="no" />
+					      	不设置密码
+					    </td>
+					  </tr>
+					  <tr>
+					  	<td class="col-md-6" align="right"></td>
+					    <td class="col-md-6">
+					      	投标密码
+					      	<input type="text" id="bidPwd" name="bidPwd" maxlength="20" class="inp100x gray" disabled="disabled"/>
+					    </td>
+					  </tr>
+					  <tr>
+			            <td class="col-md-6" align="right">
+			            	<span style="color:#F00">*</span>借款管理费：
+			            </td>
+			            <td class="col-md-6">
+			            	<input id="loanManagementFees" name="loanManagementFees" type="text" class="inp280" maxlength="12"/>
+			            </td>
+			          </tr>
+					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>还款方式：</td>
 					    <td class="col-md-6">
-					    <select name="repaymentTypeId" id=""repaymentTypeId"" class="sel_140">
+					    <select name="repaymentTypeId" id="repaymentTypeId" class="sel_140">
 						    <option value="">--请选择--</option>
 						    <option value="1">等额本息</option>
 						    <option value="2">按月付息，到期还本</option>
@@ -126,11 +196,11 @@
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>借款总额：</td>
-					    <td class="col-md-6"><input type="text" id="loanTotal" name="loanTotal" class="inp280" value=""/></td>
+					    <td class="col-md-6"><input type="text" id="loanTotal" name="loanTotal" class="inp280"/></td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>年利率：</td>
-					    <td class="col-md-6"><input type="text" name="loanApr" maxlength="5" value="" class="inp280" />%</td>
+					    <td class="col-md-6"><input type="text" name="loanApr"  class="inp280" />%</td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最低投标金额：</td>
@@ -159,6 +229,25 @@
 						</td>
 					  </tr>
 					  <tr>
+					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最小认购单位(元)：</td>
+					    <td class="col-md-6">
+					    <select name="lowestSub" id="lowestSub" class="sel_140">
+						    <option value="100">100</option>
+						    <option value="200">200</option>
+						    <option value="500">500</option>
+						    <option value="1000">1000</option>
+						</select>
+					    </td>
+					  </tr>
+					  <tr>
+					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>认购总份数：</td>
+					    <td class="col-md-6"><input type="text" name="subTotal"  class="inp280" /></td>
+					  </tr>
+					  <tr>
+					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>投标数量：</td>
+					    <td class="col-md-6"><input type="text" name="tenderSum"  class="inp280" /></td>
+					  </tr>
+					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>筹标期限：</td>
 					    <td class="col-md-6">
 					    <select name="waitBidDeadlines" id="waitBidDeadlines" class="sel_140">
@@ -171,33 +260,54 @@
 					    </td>
 					  </tr>
 					  <tr>
+					  	<td class="col-md-6" align="right">公开帐户资金情况</td>
+					    <td class="col-md-6">
+					    	<input type="radio" id="isAccountFunds" name="isAccountFunds" value="yes" />是
+					    	<input type="radio" id="isAccountFunds" name="isAccountFunds" value="no" />否
+					    </td>
+					  </tr>
+					  <tr>
+					  	<td class="col-md-6" align="right">公开借款资金情况</td>
+					    <td class="col-md-6">
+					    	<input type="radio" id="isLoanFunds" name="isLoanFunds" value="yes" />是
+					    	<input type="radio" id="isLoanFunds" name="isLoanFunds" value="no" />否
+					    </td>
+					  </tr>
+					  <tr>
+					  	<td class="col-md-6" align="right">公开信用额度情况</td>
+					    <td class="col-md-6">
+					    	<input type="radio" id="isCreditAmount" name="isCreditAmount" value="yes" />是
+					    	<input type="radio" id="isCreditAmount" name="isCreditAmount" value="no" />否
+					    </td>
+					  </tr>
+					  <tr>
+					  	<td class="col-md-6" align="right">公开投标资金情况</td>
+					    <td class="col-md-6">
+					    	<input type="radio" id="isBidFunds" name="isBidFunds" value="yes" />是
+					    	<input type="radio" id="isBidFunds" name="isBidFunds" value="no" />否
+					    </td>
+					  </tr>
+					  <tr>
+					  	<td class="col-md-6" align="right">是否允许自动投标</td>
+					    <td class="col-md-6">
+					    	<input type="radio" id="isAutomaticBid" name="isAutomaticBid" value="yes" />是
+					    	<input type="radio" id="isAutomaticBid" name="isAutomaticBid" value="no" />否
+					    </td>
+					  </tr>
+					  <tr>
+					  	<td class="col-md-6" align="right">是否设为推荐</td>
+					    <td class="col-md-6">
+					    	<input type="radio" id="isRecommend" name="isRecommend" value="yes" />是
+					    	<input type="radio" id="isRecommend" name="isRecommend" value="no" />否
+					    </td>
+					  </tr>
+					  <tr>
+					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>借款备注：</td>
+					    <td class="col-md-6"><input type="text" name="remark" class="inp280" /></td>
+					  </tr>
+					  <tr>
 					    <td class="col-md-6" align="right">借款详情：</td>
 					    <td class="col-md-6"><textarea name="loanDetail" class="txt420"></textarea></td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">投标奖励</td>
-					    <td class="col-md-6">
-					    	<input type="radio" name="isBidReward" checked="checked" id="isBidReward" value="no" />
-					      	不设置奖励
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right"></td>
-					    <td class="col-md-6">
-					      	<input type="radio" name="excitationType" id="radio_2" value="2" />
-					     	按投标金额比例奖励
-					     	<input type="text" id="bidProReward" name="bidProReward" class="inp100x gray" disabled="disabled"/>
-					      元
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right"></td>
-					    <td class="col-md-6">
-					     	<input type="radio" name="excitationType" id="radio_3" value="3" />
-					      	按固定金额分摊奖励
-					      	<input type="text" id="fixedAppReward" name="fixedAppReward" maxlength="20" class="inp100x gray" disabled="disabled"/>
-					      	%
-					    </td>
 					  </tr>
 					  <tr>
 					  	<td class="col-md-6" align="right"></td>
