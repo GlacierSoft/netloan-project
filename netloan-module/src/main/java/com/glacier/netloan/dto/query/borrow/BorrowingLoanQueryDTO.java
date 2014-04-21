@@ -51,6 +51,9 @@ public class BorrowingLoanQueryDTO extends BorrowingLoan{
     	if(null != this.getLoanTitle() && StringUtils.isNotBlank(this.getLoanTitle())){//根据借款标题查询
 	        queryCriteria.andLoanTitleLike("%" + this.getLoanTitle() + "%");
 	    }
+    	if(null != this.getMemberDisplay() && StringUtils.isNotBlank(this.getMemberDisplay())){//根据借款会员名称
+	        queryCriteria.andMemberDisplayLike("%" + this.getMemberDisplay() + "%");
+	    }
 	   	if(null != this.getLoanState()){//根据借款状态查询
 	        queryCriteria.andLoanStateEqualTo(this.getLoanState().toString());
 	   	}

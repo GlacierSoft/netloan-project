@@ -419,12 +419,11 @@
 				<tr>
 					<td>借款编号：</td>
 					<td><input id="borrowingLoanSearchForm_loanCode" name="loanCode" style="width: 80px;" class="spinner"/></td>
-					<td>会员名称：</td>
-					<td><input id="borrowingLoanSearchForm_memberIp" name="memberIp" style="width: 80px;" class="spinner"/></td>
+					<td>借款人：</td>
+					<td><input id="borrowingLoanSearchForm_memberDisplay" name="memberDisplay" style="width: 80px;" class="spinner"/></td>
 					<td>借款标题：</td>
-					<td><input id="borrowingLoanSearchForm_loanTitle" name="loanTitle" style="width: 80px;" class="spinner"/></td>
-					<td>借款状态：</td>
-					<td><input id="borrowingLoanSearchForm_loanState" name="loanState" style="width: 80px;" class="spinner"/></td>
+					<td><input id="borrowingLoanSearchForm_loanTitle" name="loanTitle" style="width: 80px;" class="spinner"/>
+						<input type="hidden" id="borrowingLoanSearchForm_loanState" name="loanState" value="firstAudit" style="width: 80px;" class="spinner"/></td>
 					<td>录入时间：</td>
 					<td>
 						<input name="createStartTime" class="easyui-datetimebox" style="width: 150px;" />

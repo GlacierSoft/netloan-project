@@ -104,6 +104,12 @@ public class BorrowingLoanExample {
             return criteria;
         }
 
+        //扩展查询条件
+        public Criteria andMemberDisplayLike(String value) {
+            addCriterion("temp_member.member_real_name like", value, "memberDisplay");
+            return (Criteria) this;
+        }
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");

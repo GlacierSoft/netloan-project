@@ -456,6 +456,18 @@
 		glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoan.borrowingLoanDataGrid.datagrid('load',obj);
 	};
 	
+	//借款状态下拉项的值
+	$('#borrowingLoanSearchForm_loanState').combobox({  
+		valueField : 'value',
+		height:18,
+		width:80,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		//required:true,
+		data : fields.loanState
+	});
+	
 </script>
 
 <!-- 所有借款列表面板和表格 -->
@@ -471,8 +483,8 @@
 				<tr>
 					<td>借款编号：</td>
 					<td><input id="borrowingLoanSearchForm_loanCode" name="loanCode" style="width: 80px;" class="spinner"/></td>
-					<td>会员名称：</td>
-					<td><input id="borrowingLoanSearchForm_memberIp" name="memberIp" style="width: 80px;" class="spinner"/></td>
+					<td>借款人：</td>
+					<td><input id="borrowingLoanSearchForm_memberDisplay" name="memberDisplay" style="width: 80px;" class="spinner"/></td>
 					<td>借款标题：</td>
 					<td><input id="borrowingLoanSearchForm_loanTitle" name="loanTitle" style="width: 80px;" class="spinner"/></td>
 					<td>借款状态：</td>
