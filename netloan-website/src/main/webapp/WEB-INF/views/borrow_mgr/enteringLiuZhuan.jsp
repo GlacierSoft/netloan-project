@@ -45,7 +45,7 @@
     		<h5>借款基本信息</h5>
     		<div>
     			<form id="enteringLiuZhuan" class="form-horizontal" role="form" method="post" >
-		          <table>
+		          <table  style="width: 950px;">
 		          	<tbody>
 		          	  <tr>
 			            <td class="col-md-6" align="right">
@@ -262,42 +262,42 @@
 					  <tr>
 					  	<td class="col-md-6" align="right">公开帐户资金情况</td>
 					    <td class="col-md-6">
-					    	<input type="radio" id="isAccountFunds" name="isAccountFunds" value="yes" />是
+					    	<input type="radio" id="isAccountFunds" name="isAccountFunds" checked="checked" value="yes" />是
 					    	<input type="radio" id="isAccountFunds" name="isAccountFunds" value="no" />否
 					    </td>
 					  </tr>
 					  <tr>
 					  	<td class="col-md-6" align="right">公开借款资金情况</td>
 					    <td class="col-md-6">
-					    	<input type="radio" id="isLoanFunds" name="isLoanFunds" value="yes" />是
+					    	<input type="radio" id="isLoanFunds" name="isLoanFunds" checked="checked" value="yes" />是
 					    	<input type="radio" id="isLoanFunds" name="isLoanFunds" value="no" />否
 					    </td>
 					  </tr>
 					  <tr>
 					  	<td class="col-md-6" align="right">公开信用额度情况</td>
 					    <td class="col-md-6">
-					    	<input type="radio" id="isCreditAmount" name="isCreditAmount" value="yes" />是
+					    	<input type="radio" id="isCreditAmount" name="isCreditAmount" checked="checked" value="yes" />是
 					    	<input type="radio" id="isCreditAmount" name="isCreditAmount" value="no" />否
 					    </td>
 					  </tr>
 					  <tr>
 					  	<td class="col-md-6" align="right">公开投标资金情况</td>
 					    <td class="col-md-6">
-					    	<input type="radio" id="isBidFunds" name="isBidFunds" value="yes" />是
+					    	<input type="radio" id="isBidFunds" name="isBidFunds" checked="checked" value="yes" />是
 					    	<input type="radio" id="isBidFunds" name="isBidFunds" value="no" />否
 					    </td>
 					  </tr>
 					  <tr>
 					  	<td class="col-md-6" align="right">是否允许自动投标</td>
 					    <td class="col-md-6">
-					    	<input type="radio" id="isAutomaticBid" name="isAutomaticBid" value="yes" />是
+					    	<input type="radio" id="isAutomaticBid" name="isAutomaticBid" checked="checked" value="yes" />是
 					    	<input type="radio" id="isAutomaticBid" name="isAutomaticBid" value="no" />否
 					    </td>
 					  </tr>
 					  <tr>
 					  	<td class="col-md-6" align="right">是否设为推荐</td>
 					    <td class="col-md-6">
-					    	<input type="radio" id="isRecommend" name="isRecommend" value="yes" />是
+					    	<input type="radio" id="isRecommend" name="isRecommend" checked="checked" value="yes" />是
 					    	<input type="radio" id="isRecommend" name="isRecommend" value="no" />否
 					    </td>
 					  </tr>

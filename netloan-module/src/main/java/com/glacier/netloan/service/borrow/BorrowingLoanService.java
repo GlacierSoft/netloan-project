@@ -123,7 +123,7 @@ public class BorrowingLoanService {
         	borrowingLoanExample.setLimitEnd(jqPager.getRows());
         }
         if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
-        	borrowingLoanExample.setOrderByClause(jqPager.getOrderBy("temp_borrowingLoan_"));
+        	borrowingLoanExample.setOrderByClause(jqPager.getOrderBy("temp_borrowing_loan_"));
         }
         List<BorrowingLoan>  borrowingLoans = borrowingLoanMapper.selectByExample(borrowingLoanExample); // 查询所有借款列表
         int total = borrowingLoanMapper.countByExample(borrowingLoanExample); // 查询总页数
