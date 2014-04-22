@@ -105,4 +105,22 @@ public class BorrowingLoanController extends AbstractController{
 	public Object enteringLiuZhuan(){
 		return "borrow_mgr/enteringLiuZhuan";
 	}
+	
+	//转到“抵押标申请页面”页面
+	@RequestMapping(value = "/enteringDiYa.htm")
+	public Object enteringDiYa(){
+		return "borrow_mgr/enteringDiYa";
+	}
+	
+	//转到“信用标申请页面”页面
+	@RequestMapping(value = "/enteringXinYong.htm")
+	public Object enteringXinYong(){
+		return "borrow_mgr/enteringXinYong";
+	}
+	
+	//转到“净值标申请页面”页面
+	@RequestMapping(value = "/enteringJingZhi.htm")
+	public Object enteringJingZhi(){
+		return "borrow_mgr/enteringJingZhi";
+	}
 }

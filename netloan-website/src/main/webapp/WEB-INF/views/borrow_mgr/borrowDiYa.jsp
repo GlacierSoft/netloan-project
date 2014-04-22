@@ -37,7 +37,7 @@
 					            <p >22-65周岁的中国公民&nbsp;&nbsp;<br />
 					              	在现居住地居住满6个月<br />
 					            </p>
-					            <div class="jk_mid_con_but"><a href="/borrow/loan.html?type=flow" class="sq_but">立即申请</a></div>
+					            <div class="jk_mid_con_but"><a href="${ctx}/borrowingLoan/enteringDiYa.htm" class="sq_but">立即申请</a></div>
 					          </div>
 					        </div>
 					        
@@ -72,7 +72,7 @@
 					          </div>
 					        </div>
 					        
-					        <div class="jk_mid_bot_but"><a href="/borrow/loan.html?type=flow" class="sq_but">立即申请</a></div>
+					        <div class="jk_mid_bot_but"><a href="${ctx}/borrowingLoan/enteringDiYa.htm" class="sq_but">立即申请</a></div>
 					        
 						</div>
 					</div>					

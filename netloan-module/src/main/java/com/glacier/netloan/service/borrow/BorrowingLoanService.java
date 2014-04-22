@@ -154,7 +154,7 @@ public class BorrowingLoanService {
         }
         borrowingLoan.setLoanId(RandomGUID.getRandomGUID());
         borrowingLoan.setMemberId(memberId);
-        borrowingLoan.setLoanTenderId("2587bd0ecc859e35f2874f2aff0d4852");
+        borrowingLoan.setLoanState("firstAudit");
         borrowingLoan.setCreater(memberId);
         borrowingLoan.setCreateTime(new Date());
         borrowingLoan.setUpdater(memberId);

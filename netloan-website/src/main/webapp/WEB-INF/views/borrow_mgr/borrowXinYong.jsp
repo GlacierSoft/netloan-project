@@ -39,7 +39,7 @@
 					            	有固定自有住房、有稳定工作 <br/>
 					            	信用良好，无严重逾期、无个人信用卡逾期不良记录<br/>
 					            </p>
-					            <div class="jk_mid_con_but"><a href="/borrow/loan.html?type=flow" class="sq_but">立即申请</a></div>
+					            <div class="jk_mid_con_but"><a href="${ctx}/borrowingLoan/enteringXinYong.htm" class="sq_but">立即申请</a></div>
 					          </div>
 					        </div>
 					        
@@ -74,7 +74,7 @@
 					          </div>
 					        </div>
 					        
-					        <div class="jk_mid_bot_but"><a href="/borrow/loan.html?type=flow" class="sq_but">立即申请</a></div>
+					        <div class="jk_mid_bot_but"><a href="${ctx}/borrowingLoan/enteringXinYong.htm" class="sq_but">立即申请</a></div>
 					        
 						</div>
 					</div>					
