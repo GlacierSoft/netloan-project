@@ -117,17 +117,17 @@
 				<tr>
 					<td>借款详情：</td>
 					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_loanDetail" name="loanDetail" class="spinner" style="width:198px" value="${borrowingLoanData.loanDetail}" readonly="readonly"/></td>
-					<td>公开帐户资金情况：</td>
+					<td>是否公开帐户资金：</td>
 					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_isAccountFunds" name="isAccountFunds" class="spinner" style="width:198px" value="${borrowingLoanData.isAccountFunds}" readonly="readonly"/></td>
 				</tr>
 				<tr>
-					<td>公开借款资金情况：</td>
+					<td>是否公开借款资金：</td>
 					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_isLoanFunds" name="isLoanFunds" class="spinner" style="width:198px" value="${borrowingLoanData.isLoanFunds}" readonly="readonly"/></td>
-					<td>公开信用额度情况：</td>
+					<td>是否公开信用额度：</td>
 					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_isCreditAmount" name="isCreditAmount" class="spinner" style="width:198px" value="${borrowingLoanData.isCreditAmount}" readonly="readonly"/></td>
 				</tr>
 				<tr>
-					<td>公开投标资金情况：</td>
+					<td>是否公开投标资金：</td>
 					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_isBidFunds" name="isBidFunds" class="spinner" style="width:198px" value="${borrowingLoanData.isBidFunds}" readonly="readonly"/></td>
 					<td>是否允许自动投标：</td>
 					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_isAutomaticBid" name="isAutomaticBid" class="spinner" style="width:198px" value="${borrowingLoanData.isAutomaticBid}" readonly="readonly"/></td>

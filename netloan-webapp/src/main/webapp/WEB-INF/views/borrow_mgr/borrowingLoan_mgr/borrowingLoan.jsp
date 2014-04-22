@@ -94,7 +94,7 @@
 				sortable:true,
 				width:120,
 				formatter: function(value,row,index){//数据格式化，例如yes显示是，no显示否
-					return renderGridValue(value,fields.failedReason);
+					return renderGridValue(value,fields.yesOrNo);
 				}
 			},{
 				field:'isBidReward',
@@ -207,7 +207,7 @@
 				width:120
 			},{
 				field:'isAccountFunds',
-				title:'公开帐户资金情况',
+				title:'是否公开帐户资金',
 				sortable:true,
 				width:120,
 				formatter: function(value,row,index){//数据格式化，例如yes显示是，no显示否
@@ -215,7 +215,7 @@
 				}
 			},{
 				field:'isLoanFunds',
-				title:'公开借款资金情况',
+				title:'是否公开借款资金',
 				sortable:true,
 				width:120,
 				formatter: function(value,row,index){//数据格式化，例如yes显示是，no显示否
@@ -223,7 +223,7 @@
 				}
 			},{
 				field:'isCreditAmount',
-				title:'公开信用额度情况',
+				title:'是否公开信用额度',
 				sortable:true,
 				width:120,
 				formatter: function(value,row,index){//数据格式化，例如yes显示是，no显示否
@@ -231,7 +231,7 @@
 				}
 			},{
 				field:'isBidFunds',
-				title:'公开投标资金情况',
+				title:'是否公开投标资金',
 				sortable:true,
 				width:120,
 				formatter: function(value,row,index){//数据格式化，例如yes显示是，no显示否
