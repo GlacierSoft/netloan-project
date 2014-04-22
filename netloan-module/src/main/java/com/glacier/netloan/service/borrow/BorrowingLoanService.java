@@ -80,11 +80,9 @@ public class BorrowingLoanService {
         
         jqPager.setSort("createTime");// 定义排序字段
         jqPager.setOrder("DESC");// 升序还是降序
-        System.out.println("aa  "+loanState);
-        if (null != loanState && StringUtils.isNotBlank(loanState)) {
-        	borrowingLoanExample.createCriteria().andLoanStateEqualTo(loanState);
-        	System.out.println("cc  "+loanState);
-        }
+        /*if (null != loanState && StringUtils.isNotBlank(loanState)) {
+        	queryCriteria.andLoanStateEqualTo(loanState);
+        }*/
         if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
         	borrowingLoanExample.setOrderByClause(jqPager.getOrderBy("temp_borrowing_loan_"));
         }

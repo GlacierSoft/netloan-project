@@ -25,11 +25,11 @@
 		    <h3 class="panel-title">借款条件筛选</h3>
 		  </div>
 		  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
-		     <form id="borrowingConditionsForm"  class=" form-horizontal" role="form"  method="post" >
+		     <form id="borrowingConditionsForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/investment/index.htm?&p=1" >
 		      <div class="form-group">
-			    <label for="cardId" class="col-sm-1 control-label" >关键字</label>
+			    <label for="loanTitle" class="col-sm-1 control-label" >关键字</label>
 			    <div class="col-sm-3">
-			      <input type="text" class="form-control" id="cardId" name="cardId" value=""  placeholder="身份证"  >
+			      <input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${borrowingLoanQueryDTO.loanTitle}"  placeholder="借款标题"  />
 			    </div>
 			    <label for="cardId" class="col-sm-1 control-label" >还款方式</label>
 			    <div class="col-sm-3">
@@ -40,9 +40,9 @@
 					    <option value="4">一次性还款</option>
 					</select>
 			    </div>
-			    <label for="cardId" class="col-sm-1 control-label" >借款目的</label>
+			    <label for="loanPurposeId" class="col-sm-1 control-label" >借款目的</label>
 			    <div class="col-sm-3">
-			       <select class="form-control col-sm-3" name="educational" id="educational" >
+			       <select class="form-control col-sm-3" name="loanPurposeId" id="loanPurposeId" >
 					  <option value="">--请选择--</option>
 					    <option value="长期使用">长期使用</option>
 					    <option value="资金周转">资金周转</option>
@@ -57,55 +57,54 @@
 			  <div class="form-group">
 			    <label for="cardId" class="col-sm-1 control-label" >金额范围</label>
 			    <div class="col-sm-2">
-			      <select class="form-control col-sm-2" name="educational" id="educational" >
-					  <option value="">--请选择--</option>
-					    <option value="50">50</option>
-					    <option value="1000">1000</option>
-					    <option value="5000">5000</option>
-					    <option value="1万">1万</option>
-					    <option value="5万">5万</option>
-					    <option value="10万">10万</option>
-					    <option value="20万">20万</option>
-					    <option value="50万">50万</option>
-					    <option value="100万">100万</option>
-					    <option value="100万以上">100万以上</option>
+			      <select class="form-control col-sm-2" name="loanTotalStart" id="loanTotalStart">
+					  <option value="0">--请选择--</option>
+					    <option value="50.0">50</option>
+					    <option value="1000.0">1000</option>
+					    <option value="5000.0">5000</option>
+					    <option value="10000.0">1万</option>
+					    <option value="50000.0">5万</option>
+					    <option value="100000.0">10万</option>
+					    <option value="200000.0">20万</option>
+					    <option value="500000.0">50万</option>
+					    <option value="1000000.0">100万</option>
+					    <option value="1000001.0">100万以上</option>
 					</select>
 			    </div>
 			    <span style="float: left;">至</span>
 			    <div class="col-sm-2">
-			     <select class="form-control col-sm-2" name="educational" id="educational" >
-					  <option value="">--请选择--</option>
-					    <option value="50">50</option>
-					    <option value="1000">1000</option>
-					    <option value="5000">5000</option>
-					    <option value="1万">1万</option>
-					    <option value="5万">5万</option>
-					    <option value="10万">10万</option>
-					    <option value="20万">20万</option>
-					    <option value="50万">50万</option>
-					    <option value="100万">100万</option>
-					    <option value="100万以上">100万以上</option>
+			     <select class="form-control col-sm-2" name="loanTotalEnd" id="loanTotalEnd" >
+					    <option value="0">--请选择--</option>
+					    <option value="50.0">50</option>
+					    <option value="1000.0">1000</option>
+					    <option value="5000.0">5000</option>
+					    <option value="10000.0">1万</option>
+					    <option value="50000.0">5万</option>
+					    <option value="100000.0">10万</option>
+					    <option value="200000.0">20万</option>
+					    <option value="500000.0">50万</option>
+					    <option value="1000000.0">100万</option>
+					    <option value="1000001.0">100万以上</option>
 					</select>
 			    </div>
-			    <label for="cardId" class="col-sm-1 control-label" >期限</label>
+			    <label for="waitBidDeadlines" class="col-sm-1 control-label" >期限</label>
 			    <div class="col-sm-2">
-			       <input type="text" class="form-control" id="cardId" name="cardId" value=""  placeholder="身份证"  >
+			       <input type="text" class="form-control" id="waitBidDeadlines" name="waitBidDeadlines" value="${borrowingLoanQueryDTO.waitBidDeadlines }" placeholder="筹标期限"  />
 			    </div>
 			    <label for="cardId" class="col-sm-1 control-label" >奖励</label>
 			    <div class="col-sm-2">
 			       <select class="form-control col-sm-3" name="educational" id="educational" >
 					  <option value="">--请选择--</option>
-					    <option value="长期使用">按投标金额比例奖励</option>
-					    <option value="资金周转">按固定金额分摊奖励</option>
+					    <option value="按投标金额比例奖励">按投标金额比例奖励</option>
+					    <option value="按固定金额分摊奖">按固定金额分摊奖励</option>
 					</select>
 			    </div>
 			  </div>
 			   <div class="form-group">
-			    <div class="col-sm-4"></div>
-			    <div class="col-sm-4 text-center">
-			      <button id="onlyPost" type="submit" class="btn btn-primary btn-lg btn-block">搜&nbsp;&nbsp;&nbsp;索</button>
-			    </div>
-			    <div class="col-sm-4"></div>
+			    <div class="col-sm-3"></div>
+			    <div class="col-sm-3 text-center"><button id="borrowingConditionsFormButton" type="submit" class="btn btn-primary btn-lg btn-block">搜&nbsp;&nbsp;索</button></div>
+			    <div class="col-sm-3"><button id="borrowingConditionsFormButton" type="reset" class="btn btn-primary btn-lg btn-block">重&nbsp;&nbsp;置</button></div>
+			    <div class="col-sm-3"></div>
 			  	</div>
 		     </form>
 		  </div>
@@ -117,77 +116,67 @@
 				    <h3 class="panel-title">借款列表</h3>
 				  </div>
 				  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
-				      <div class="bs-example bs-example-tabs">
-				      <ul id="myTab" class="nav nav-tabs">
-				        <%-- <li class="active"><a href="${ctx}/investment/index.htm?&p=1" data-toggle="tab">全部借款</a></li>
-				        <li><a href="${ctx}/investment/index.htm?&p=1&loanState=secondAuditor" data-toggle="tab">复审中的借款</a></li>
-				        <li><a href="${ctx}/investment/index.htm?&p=1&loanState=repaymenting" data-toggle="tab">还款中的借款</a></li>
-				        <li><a href="${ctx}/investment/index.htm?&p=1&loanState=completed" data-toggle="tab">已完成的借款</a></li>
-				        <li><a href="${ctx}/investment/index.htm?&p=1&loanState=repaymenting" data-toggle="tab">逾期的黑名单</a></li> --%>
-				        <li><a href="${ctx}/investment/index.htm?&p=1" class="btn btn-primary" role="button">全部借款</a></li>
-				        <li><a href="${ctx}/investment/index.htm?&p=1&loanState=secondAuditor" class="btn btn-primary" role="button">复审中的借款</a></li>
-				        <li><a href="${ctx}/investment/index.htm?&p=1&loanState=repaymenting" class="btn btn-primary" role="button">还款中的借款</a></li>
-				        <li><a href="${ctx}/investment/index.htm?&p=1&loanState=completed" class="btn btn-primary" role="button">逾期的黑名单</a></li>
-				        <li><a href="${ctx}/investment/index.htm?&p=1&loanState=repaymenting" class="btn btn-primary" role="button">已完成的借款</a></li>
-				      </ul>
-				      	<ul>
-				       
-				        </ul>
-				      <div id="myTabContent" class="tab-content">
-				        <div class="tab-pane fade in active" id="allBorrowing">
-				        <br>
-					        <table class="table" style="width:900px;padding: 10px;">
-					        <c:if test="${empty borrowingDatas.rows}">
-							<tr>
-					            <td colspan="5"><strong>暂无信息</strong></td>
-					          </tr>
-							</c:if>	  		
-							<c:if test="${!empty borrowingDatas.rows}">  	
-							<c:forEach items="${borrowingDatas.rows}" var="borrowingLoan" varStatus="status">
-					        	<tr>
-					        	<td rowspan="4"><img src="${currentMember.memberPhoto}" style="width: 100px;height: 100px ;"/></td>
-					        	<td colspan="4">${borrowingLoan.loanTitle }</td>
-					        	</tr>
-					        	<tr>
-					        		<td>借款金额：${borrowingLoan.loanTotal }元</td>
-					        		<td>利率：${borrowingLoan.loanApr }/ 年</td>
-					        		<td>投标奖：0.00 元</td>
-					        		<td>招标期限：${borrowingLoan.waitBidDeadlines } 个月</td>
-					        		<td rowspan="3" style="text-align:center;vertical-align: middle;"><button id="onlyPost" type="submit" class="btn btn-primary btn-lg btn-block">${borrowingLoan.loanState }</button></td>
-					        	</tr>
-					        	<tr>
-					        		<td>发布者：${borrowingLoan.memberDisplay } </td>
-					        		<td>${borrowingLoan.loanPurposeId }</td>
-					        		<td>已完成投标：10000 元</td>
-					        		<td>投资完成：100.00%</td>
-					        	</tr>
-					        	<tr>
-					        		<td>信用等级：3级</td>
-					        		<td>按月分期还款</td>
-					        		<td>投标的状态：还款中</td>
-					        		<td>图片</td>
-					        	</tr>
-					        	</c:forEach>
-					      		</c:if>	
-					      		<c:if test="${!empty borrowingDatas.rows}">
-					        	<tfoot>
-						          <tr>
-						            <th colspan="6">
-						            	<div align="right">
-										    <ul id='pageborrowingLoan'></ul>
-										</div>
-									</th>
-						          </tr>
-						        </tfoot>
-						        </c:if>	  
-					        </table>
-				        </div>
-				        <div class="tab-pane fade" id="profile">
-				          <p>Food truck fixie locavore, accusamus mcsweeney's marfatown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
-				        </div>
-				      </div>
-				    </div><!-- /example -->
-				    
+				    <div style="padding-top:10px;padding-bottom: 20px;">
+					<a href="${ctx}/investment/index.htm?&p=1" class="btn btn-primary" role="button">全部借款</a></li>
+				    <a href="${ctx}/investment/index.htm?&p=1&loanState=secondAuditor" class="btn btn-primary" role="button">复审中的借款</a>
+				    <a href="${ctx}/investment/index.htm?&p=1&loanState=repaymenting" class="btn btn-primary" role="button">还款中的借款</a>
+				    <a href="${ctx}/investment/index.htm?&p=1&loanState=completed" class="btn btn-primary" role="button">已完成的借款</a>
+				    <a href="${ctx}/investment/index.htm?&p=1&loanState=completed" class="btn btn-primary" role="button">逾期的黑名单</a>
+				  	</div>
+				  	<table class="table" style="width:900px;padding: 10px;">
+			        <c:if test="${empty borrowingDatas.rows}">
+					<tr>
+			            <td colspan="5"><strong>暂无信息</strong></td>
+			          </tr>
+					</c:if>	  		
+					<c:if test="${!empty borrowingDatas.rows}">  	
+					<c:forEach items="${borrowingDatas.rows}" var="borrowingLoan" varStatus="status">
+			        	<tr>
+			        	<td rowspan="4" style="text-align:center;vertical-align: middle;"><img src="${currentMember.memberPhoto}" style="width: 100px;height: 100px ;"/></td>
+			        	<td colspan="4">${borrowingLoan.loanTitle }</td>
+			        	<td rowspan="4"style="text-align:center;vertical-align: middle;">
+			        	<button  id="borrowingLoan_loanState${status.index}"  type=button class="btn btn-primary btn-lg btn-block"></button>
+			        	<script type="text/javascript">
+					       $('#borrowingLoan_loanState'+${status.index}).html(renderGridValue('${borrowingLoan.loanState }',fields.loanState));
+					    </script>
+			        	</td>
+			        	</tr>
+			        	<tr>
+			        		<td>借款金额：${borrowingLoan.loanTotal }元</td>
+			        		<td>利率：${borrowingLoan.loanApr }%/ 年</td>
+			        		<td>投标奖：0.00 元</td>
+			        		<td>招标期限：${borrowingLoan.waitBidDeadlines } 个月</td>
+			        	</tr>
+			        	<tr>
+			        		<td>发布者：${borrowingLoan.memberDisplay } </td>
+			        		<td>${borrowingLoan.loanPurposeId }</td>
+			        		<td>已完成投标：10000 元</td>
+			        		<td>投资完成：100.00%</td>
+			        	</tr>
+			        	<tr>
+			        		<td>信用等级：3级</td>
+			        		<td>按月分期还款</td>
+			        		<td>投标的状态：<span id="borrowingLoan_loanState2${status.index}"></span>
+			        		<script type="text/javascript">
+					       		$('#borrowingLoan_loanState2'+${status.index}).html(renderGridValue('${borrowingLoan.loanState }',fields.loanState));
+					    	</script>
+			        		</td>
+			        		<td>图片</td>
+			        	</tr>
+			        	</c:forEach>
+			      		</c:if>	
+			      		<c:if test="${!empty borrowingDatas.rows}">
+			        	<tfoot>
+				          <tr>
+				            <th colspan="6">
+				            	<div align="right">
+								    <ul id='pageborrowingLoan'></ul>
+								</div>
+							</th>
+				          </tr>
+				        </tfoot>
+				        </c:if>	  
+			        </table>
 				  </div>
 				</div>
 	    	</div>
@@ -261,6 +250,19 @@
 	    <!-- CONTAINER START======================== -->
   </body>
   <script type="text/javascript">
+  if("${borrowingLoanQueryDTO.loanPurposeId }" != ''){
+		$("#loanPurposeId").val("${borrowingLoanQueryDTO.loanPurposeId }");	
+	}	
+  if("${borrowingLoanQueryDTO.loanTotalStart }" != 0.0){
+  		$("#loanTotalStart").val("${borrowingLoanQueryDTO.loanTotalStart }");	
+  	}
+  	if("${borrowingLoanQueryDTO.loanTotalEnd }" != 0.0){
+		$("#loanTotalEnd").val("${borrowingLoanQueryDTO.loanTotalEnd }");	
+	}
+  	/* if("${borrowingLoanQueryDTO.waitBidDeadlines }" != ''){
+		$("#waitBidDeadlines").val("${borrowingLoanQueryDTO.waitBidDeadlines }");	
+	} */
+  	//$("#loanTotalStart").val("50000");
 	  <!-- 分页显示表格数据 开始 -->
 		$(function(){
 			//获得浏览器参数

@@ -25,11 +25,11 @@ public class TenderNotesController {
     private BorrowingLoanService borrowingLoanService;// 注入借款业务Bean
 	
 	@RequestMapping(value="/index.htm")
-	private Object intoInvestment(JqPager jqPager,int p,String loanState,HttpServletRequest request){
-		BorrowingLoanQueryDTO borrowingLoanQueryDTO = new BorrowingLoanQueryDTO();
+	private Object intoInvestment(JqPager jqPager,int p,BorrowingLoanQueryDTO borrowingLoanQueryDTO,String loanState,HttpServletRequest request){
 		//获取信息通知列表
 		JqGridReturn returnResult = (JqGridReturn) borrowingLoanService.listAsGridWebsite(jqPager, borrowingLoanQueryDTO, loanState, p);
 		request.setAttribute("borrowingDatas", returnResult);
+		request.setAttribute("borrowingLoanQueryDTO", borrowingLoanQueryDTO);
 		return "investment_mgr/investment";
 	}
 	

@@ -26,8 +26,28 @@ public class BorrowingLoanQueryDTO extends BorrowingLoan{
 	private Date createStartTime;
 
     private Date createEndTime;
+    
+    private float loanTotalStart;
+    
+    private float loanTotalEnd;
+    
+    public float getLoanTotalStart() {
+		return loanTotalStart;
+	}
 
-    public Date getCreateStartTime() {
+	public void setLoanTotalStart(float loanTotalStart) {
+		this.loanTotalStart = loanTotalStart;
+	}
+
+	public float getLoanTotalEnd() {
+		return loanTotalEnd;
+	}
+
+	public void setLoanTotalEnd(float loanTotalEnd) {
+		this.loanTotalEnd = loanTotalEnd;
+	}
+
+	public Date getCreateStartTime() {
         return createStartTime;
     }
 
@@ -54,9 +74,28 @@ public class BorrowingLoanQueryDTO extends BorrowingLoan{
     	if(null != this.getMemberDisplay() && StringUtils.isNotBlank(this.getMemberDisplay())){//根据借款会员名称
 	        queryCriteria.andMemberDisplayLike("%" + this.getMemberDisplay() + "%");
 	    }
+    	if(null != this.getLoanPurposeId() && StringUtils.isNotBlank(this.getLoanPurposeId())){//根据借款目的
+	        queryCriteria.andLoanPurposeIdLike("%" + this.getLoanPurposeId() + "%");
+	    }
 	   	if(null != this.getLoanState()){//根据借款状态查询
 	        queryCriteria.andLoanStateEqualTo(this.getLoanState().toString());
 	   	}
+	   	if(null != this.getWaitBidDeadlines() && !"".equals(this.getWaitBidDeadlines().trim())){//根据筹标期限查询
+	   		queryCriteria.andWaitBidDeadlinesEqualTo(this.getWaitBidDeadlines().trim());
+	   	}
+	   	if(0 != loanTotalStart && 0 != loanTotalEnd && 1000001.0 != loanTotalStart && 1000001.0 != loanTotalEnd){//借款金额查询
+	           queryCriteria.andLoanTotalBetween(loanTotalStart, loanTotalEnd); 
+	    }else{
+	    	if(0 != loanTotalStart && 1000001.0 != loanTotalStart){
+	    		queryCriteria.andLoanTotalGreaterThanOrEqualTo(loanTotalStart);
+	    	}
+	    	if(0 != loanTotalEnd && 1000001.0 != loanTotalEnd){
+	    		queryCriteria.andLoanTotalLessThanOrEqualTo(loanTotalEnd);
+	    	}
+	    	if(loanTotalStart == 1000001.0 || loanTotalEnd == 1000001.0){
+	    		queryCriteria.andLoanTotalGreaterThanOrEqualTo((float) 1000001.0);
+	    	}
+	    }
 	    if(null != createStartTime && null != createEndTime){//创建时间段查询
 	           queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 
 	    }else{
