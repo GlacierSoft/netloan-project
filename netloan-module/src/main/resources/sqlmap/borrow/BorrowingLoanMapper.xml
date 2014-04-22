@@ -574,6 +574,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.BorrowingLoanExample" resultType="java.lang.Integer" >
     select count(*) from t_borrowing_loan temp_borrowing_loan
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

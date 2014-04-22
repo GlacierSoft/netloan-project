@@ -59,7 +59,45 @@ public class BorrowingLoanService {
     	BorrowingLoan borrowingLoan = borrowingLoanMapper.selectByPrimaryKey(loanId);
         return borrowingLoan;
     }
-    
+    /**
+     * @Title: listAsGridWebsite 
+     * @Description: TODO(前台会员借款列表) 
+     * @param  @param jqPager
+     * @param  @param borrowingLoanQueryDTO
+     * @param  @param loanState
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
+     */
+    public Object listAsGridWebsite(JqPager jqPager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String loanState,int p) {
+        
+        JqGridReturn returnResult = new JqGridReturn();
+        BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
+        
+        Criteria queryCriteria = borrowingLoanExample.createCriteria();
+        borrowingLoanQueryDTO.setQueryCondition(queryCriteria);
+        
+        jqPager.setSort("createTime");// 定义排序字段
+        jqPager.setOrder("DESC");// 升序还是降序
+        System.out.println("aa  "+loanState);
+        if (null != loanState && StringUtils.isNotBlank(loanState)) {
+        	borrowingLoanExample.createCriteria().andLoanStateEqualTo(loanState);
+        	System.out.println("cc  "+loanState);
+        }
+        if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
+        	borrowingLoanExample.setOrderByClause(jqPager.getOrderBy("temp_borrowing_loan_"));
+        }
+        int startTemp = ((p-1)*10);//根据前台返回的页数进行设置
+        borrowingLoanExample.setLimitStart(startTemp);
+        borrowingLoanExample.setLimitEnd(10);
+        List<BorrowingLoan>  borrowingLoans = borrowingLoanMapper.selectByExample(borrowingLoanExample); // 查询所有借款列表
+        int total = borrowingLoanMapper.countByExample(borrowingLoanExample); // 查询总页数
+        returnResult.setRows(borrowingLoans);
+        returnResult.setTotal(total);
+        returnResult.setP(p);
+        return returnResult;// 返回ExtGrid表
+    }
     /**
      * @Title: listAsGrid 
      * @Description: TODO(获取所有借款信息) 

@@ -20,13 +20,14 @@
 	          <ul class="nav navbar-nav">
 	            <li class="active"><a href="${ctx}/index.htm">主页</a></li>
 	            <li class="dropdown">
-	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">我要投资<b class="caret"></b></a>
+	              <a href="${ctx}/investment/index.htm?&p=1">我要投资</a>
+	              <%-- <a href="${ctx}/investment/index.htm" class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b></a>
 	              <ul class="dropdown-menu">
 	                <li><a href="#">流转标</a></li>
 	                <li><a href="#">净值标</a></li>
 	                <li><a href="#">信用标</a></li>
 	                <li><a href="#">抵押标</a></li>
-	              </ul>
+	              </ul> --%>
 	            </li>
 	            <li><a href="${ctx}/borrow.htm">我要借款</a></li>
 	            <li class="dropdown">
