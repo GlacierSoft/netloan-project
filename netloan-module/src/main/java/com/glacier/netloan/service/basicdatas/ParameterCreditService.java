@@ -196,7 +196,14 @@ public class ParameterCreditService {
     	}
 		return returnResult;
      }
-    
+    /**
+     * @Title: listCredits 
+     * @Description: TODO(查询基础信用积分信息) 
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
+     */
     public Object listCredits(){
     	ParameterCreditExample parameterCreditExample = new ParameterCreditExample();
     	JqPager pager = new JqPager();

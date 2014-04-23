@@ -22,9 +22,42 @@
 	    <div class="container">
 	    <div class="panel panel-default">
 		  <div class="panel-heading">
-		    <h3 class="panel-title">借款条件筛选</h3>
+		    <h3 class="panel-title">标的详情</h3>
 		  </div>
 		  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
+		  	<div class="row">
+			  <div class="col-md-3">
+			   <table class="table" style="background:#ECF1EF;; vertical-align: middle;border: 1px solid #DDDDDD;">
+			        	<tr>
+			        		<td style="padding-left: 20px;"><img src="${borrowingMember.memberPhoto}" style="width: 100px;height: 100px ;"/></td>
+			        	</tr>
+			        	<tr>
+			        		<td style="padding-left: 20px;"><span>会员等级:</span><img id="creditPhotoDivImg"  src="${borrowingMember.creditPhoto}" style="width: 34px;height: 24px ;" /></td>
+			        	</tr>
+			        	<tr>
+			        		<td style="padding-left: 20px;"><span>用 户 名:</span>${borrowingMember.memberName}</td>
+			        	</tr>
+			        	<tr>
+			        		<td style="padding-left: 20px;"><span>籍　　贯:</span>${borrowingMember.hometown}</td>
+			        	</tr>
+			        	<tr>
+			        		<td style="padding-left: 20px;"><span>居住城市:</span>${borrowingMember.liveAddress}</td>
+			        	</tr>
+			        	<tr>
+			        		<td style="padding-left: 20px;"><span>注册时间:</span><fmt:formatDate value="${borrowingMember.registrationTime}" type="both"/></td>
+			        	</tr>
+			        	<tr>
+			        		<td style="padding-left: 20px;"><span>最后登录:</span><fmt:formatDate value="${borrowingMember.lastLoginTime}" type="both"/></td>
+			        	</tr>
+			        </table>
+			  </div>
+			  <div class="col-md-9" >
+	       	  	<h3 style="color: #696969;"><strong>项目名称：${borrowingLoan.loanTitle}</strong></h3>
+	       	  	<span>借款金额：</span><fmt:formatNumber value="${borrowingLoan.loanTotal }" pattern="#,#00.00"/>元
+	       	  	<span>借款目的：</span>${borrowingLoan.loanPurposeId }
+	       	  	<img src="${ctx}/resources/images/borrow/investment.jpg" alt="investment">
+			  </div>
+			</div>
 		     <form id="borrowingConditionsForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/investment/index.htm?&p=1" >
 		      <div class="form-group">
 			    <label for="loanTitle" class="col-sm-1 control-label" >关键字</label>
@@ -124,36 +157,9 @@
 				    <a href="${ctx}/investment/index.htm?&p=1&loanState=completed" class="btn btn-primary" role="button">逾期的黑名单</a>
 				    <div style="float: right;">
 					    <span>排序：</span>
-					    <c:choose>
-						   <c:when test="${loanTotal == 'riseloanTotal'}">  
-						   	<a id="pageloanTotal" data-toggle="tooltip" data-placement="top" title="升序" href="${ctx}/investment/index.htm?&p=1&pagetype=riseloanTotal" class="btn btn-info btn-sm" role="button">
-						   	金额<img src="${ctx}/resources/images/borrow/page_up.jpg" alt="riseloanTotal"/></a>
-						   </c:when>
-					   		<c:otherwise> 
-					   			<a id="pageloanTotal" data-toggle="tooltip" data-placement="top" title="降序" href="${ctx}/investment/index.htm?&p=1&pagetype=downloanTotal" class="btn btn-info btn-sm" role="button">
-					   			金额<img src="${ctx}/resources/images/borrow/page_down.jpg" alt="downloanTotal"></a>
-						   </c:otherwise>
-						</c:choose>
-					    <c:choose>
-						   <c:when test="${credit == 'risecredit'}">  
-						   	<a id="pagecredit" data-toggle="tooltip" data-placement="top" title="升序" href="${ctx}/investment/index.htm?&p=1&pagetype=risecredit" class="btn btn-info btn-sm" role="button">
-						   	信用<img src="${ctx}/resources/images/borrow/page_up.jpg" alt="risecredit"></a>
-						   </c:when>
-					   		<c:otherwise> 
-					   			<a id="pagecredit" data-toggle="tooltip" data-placement="top" title="降序" href="${ctx}/investment/index.htm?&p=1&pagetype=downcredit" class="btn btn-info btn-sm" role="button">
-					   			信用<img src="${ctx}/resources/images/borrow/page_down.jpg" alt="downloanTotal"></a>
-						   </c:otherwise>
-						</c:choose>
-						<c:choose>
-						   <c:when test="${loanApr == 'riseloanApr'}">  
-						   <a id="pageloanApr" data-toggle="tooltip" data-placement="top" title="升序" href="${ctx}/investment/index.htm?&p=1&pagetype=riseloanApr" class="btn btn-info btn-sm" role="button">
-						   利率<img src="${ctx}/resources/images/borrow/page_up.jpg" alt="riseloanApr"></a>
-						   </c:when>
-					   		<c:otherwise> 
-					   			<a id="pageloanApr" data-toggle="tooltip" data-placement="top" title="降序" href="${ctx}/investment/index.htm?&p=1&pagetype=downloanApr" class="btn btn-info btn-sm" role="button">
-					   			利率<img src="${ctx}/resources/images/borrow/page_down.jpg" alt="downloanApr"></a>
-						   </c:otherwise>
-						</c:choose>
+					    <a id="pageloanTotal" href="${ctx}/investment/index.htm?&p=1&pagetype=loanTotal" class="btn btn-info btn-sm" role="button">金额</a>
+					    <a id="pagecredit" href="${ctx}/investment/index.htm?&p=1&pagetype=credit" class="btn btn-info btn-sm" role="button">信用</a>
+					    <a id="pageloanApr" href="${ctx}/investment/index.htm?&p=1&pagetype=loanApr" class="btn btn-info btn-sm" role="button">利率</a>
 				    </div>
 				  	</div>
 				  	<table class="table" style="width:900px;padding: 10px;">
@@ -166,11 +172,7 @@
 					<c:forEach items="${borrowingDatas.rows}" var="borrowingLoan" varStatus="status">
 			        	<tr>
 			        	<td rowspan="4" style="text-align:center;vertical-align: middle;"><img src="${borrowingLoan.loanPicture}" style="width: 100px;height: 100px ;"/></td>
-			        	<td colspan="4">
-			        	<a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }">
-			        	${borrowingLoan.loanTitle }
-			        	</a>
-			        	</td>
+			        	<td colspan="4">${borrowingLoan.loanTitle }</td>
 			        	<td rowspan="4"style="text-align:center;vertical-align: middle;">
 			        	<button  id="borrowingLoan_loanState${status.index}"  type=button class="btn btn-primary btn-lg btn-block"></button>
 			        	<script type="text/javascript">
@@ -179,9 +181,7 @@
 			        	</td>
 			        	</tr>
 			        	<tr>
-			        		<td>借款金额：
-			        		<span class="text-danger"><fmt:formatNumber value="${borrowingLoan.loanTotal }" pattern="#,#00.00"/>元</span>
-			        		</td>
+			        		<td>借款金额：${borrowingLoan.loanTotal }元</td>
 			        		<td>利率：${borrowingLoan.loanApr }%/ 年</td>
 			        		<td>投标奖：0.00 元</td>
 			        		<td>招标期限：${borrowingLoan.waitBidDeadlines } 个月</td>
@@ -193,20 +193,14 @@
 			        		<td>投资完成：100.00%</td>
 			        	</tr>
 			        	<tr>
-			        		<td>信用等级：<img id="creditPhotoDivImg"  src="${borrowingLoan.creditPhoto}" style="width: 34px;height: 24px ;" /></td>
+			        		<td>信用等级：3级</td>
 			        		<td>按月分期还款</td>
 			        		<td>投标的状态：<span id="borrowingLoan_loanState2${status.index}"></span>
 			        		<script type="text/javascript">
 					       		$('#borrowingLoan_loanState2'+${status.index}).html(renderGridValue('${borrowingLoan.loanState }',fields.loanState));
 					    	</script>
 			        		</td>
-			        		<td>
-			        		<div class="progress">
-			        		<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-							    <span class="sr-only">60% Complete (warning)</span>
-							  </div>
-							</div>
-			        		</td>
+			        		<td>图片</td>
 			        	</tr>
 			        	</c:forEach>
 			      		</c:if>	
@@ -295,19 +289,23 @@
 	    <!-- CONTAINER START======================== -->
   </body>
   <script type="text/javascript">
-  		/* 排序工具提示 */
-  		$('#pageloanTotal').tooltip('hide');
-  		$('#pagecredit').tooltip('hide');
-  		$('#pageloanApr').tooltip('hide');
-	  	if("${borrowingLoanQueryDTO.loanPurposeId }" != ''){
-			$("#loanPurposeId").val("${borrowingLoanQueryDTO.loanPurposeId }");	
-		}	
-	  	if("${borrowingLoanQueryDTO.loanTotalStart }" != 0.0){
-	  		$("#loanTotalStart").val("${borrowingLoanQueryDTO.loanTotalStart }");	
-	  	}
-	  	if("${borrowingLoanQueryDTO.loanTotalEnd }" != 0.0){
-			$("#loanTotalEnd").val("${borrowingLoanQueryDTO.loanTotalEnd }");	
-		}
+  if("${borrowingLoanQueryDTO.loanPurposeId }" != ''){
+		$("#loanPurposeId").val("${borrowingLoanQueryDTO.loanPurposeId }");	
+	}	
+  if("${borrowingLoanQueryDTO.loanTotalStart }" != 0.0){
+  		$("#loanTotalStart").val("${borrowingLoanQueryDTO.loanTotalStart }");	
+  	}
+  	if("${borrowingLoanQueryDTO.loanTotalEnd }" != 0.0){
+		$("#loanTotalEnd").val("${borrowingLoanQueryDTO.loanTotalEnd }");	
+	}
+  	/*  $("#pageloanTotal").toggle(
+  		  function () {
+  		    $(this).prop("href","${ctx}/investment/index.htm?&p=1&pagetype=riseloanTotal");
+  		  },
+  		  function () {
+  			$(this).prop("href","${ctx}/investment/index.htm?&p=1&pagetype=dowloanTotal");
+  		  }
+  		);  */
 	  <!-- 分页显示表格数据 开始 -->
 		$(function(){
 			//获得浏览器参数

@@ -15,6 +15,16 @@ public class BorrowingLoan {
      * 自定义字段
      */
     private String memberDisplay;
+    
+    /**
+     * 自定义字段,会员信用积分
+     */
+    private Float creditIntegral;
+    
+    /**
+     * 自定义字段,会员信用图标
+     */
+    private String creditPhoto;
 
     private String loanTitle;
 
@@ -626,6 +636,22 @@ public class BorrowingLoan {
 
 	public void setUpdaterDisplay(String updaterDisplay) {
 		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getCreditPhoto() {
+		return creditPhoto;
+	}
+
+	public void setCreditPhoto(String creditPhoto) {
+		this.creditPhoto = creditPhoto;
+	}
+
+	public Float getCreditIntegral() {
+		return creditIntegral;
+	}
+
+	public void setCreditIntegral(Float creditIntegral) {
+		this.creditIntegral = creditIntegral;
 	}
 
 	@Override

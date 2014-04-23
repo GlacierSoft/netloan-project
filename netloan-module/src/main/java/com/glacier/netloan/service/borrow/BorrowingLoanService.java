@@ -5,6 +5,7 @@
  */
 package com.glacier.netloan.service.borrow;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,10 +25,12 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
+import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.BorrowingLoanExample;
 import com.glacier.netloan.entity.borrow.BorrowingLoanExample.Criteria;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.service.basicdatas.ParameterCreditService;
 import com.glacier.netloan.util.MethodLog;
 
 /** 
@@ -46,6 +49,9 @@ public class BorrowingLoanService {
 
 	@Autowired
     private UserMapper userMapper;
+	
+	@Autowired
+	private ParameterCreditService parameterCreditService;
 	
 	/**
 	 * @Title: getBorrowingLoan 
@@ -70,7 +76,7 @@ public class BorrowingLoanService {
      * @throws 
      *
      */
-    public Object listAsGridWebsite(JqPager jqPager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String loanState,int p) {
+    public Object listAsGridWebsite(JqPager jqPager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String pagetype,int p) {
         
         JqGridReturn returnResult = new JqGridReturn();
         BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
@@ -78,11 +84,31 @@ public class BorrowingLoanService {
         Criteria queryCriteria = borrowingLoanExample.createCriteria();
         borrowingLoanQueryDTO.setQueryCondition(queryCriteria);
         
-        jqPager.setSort("createTime");// 定义排序字段
-        jqPager.setOrder("DESC");// 升序还是降序
-        /*if (null != loanState && StringUtils.isNotBlank(loanState)) {
-        	queryCriteria.andLoanStateEqualTo(loanState);
-        }*/
+        //根据前台传来的pagetype参数类型，相对应的进行排序
+        if(null == pagetype || "".equals(pagetype.trim())){
+        	jqPager.setSort("createTime");// 定义排序字段
+            jqPager.setOrder("DESC");// 升序还是降序
+        }else{
+        	if(pagetype.trim().equals("riseloanTotal")){
+            	jqPager.setSort("loanTotal");// 定义排序字段
+                jqPager.setOrder("ASC");// 升序还是降序
+            }else if(pagetype.trim().equals("downloanTotal")){
+            	jqPager.setSort("loanTotal");// 定义排序字段
+                jqPager.setOrder("DESC");// 升序还是降序
+            }else if(pagetype.trim().equals("risecredit")){
+            	jqPager.setSort("creditIntegral");// 定义排序字段
+                jqPager.setOrder("ASC");// 升序还是降序
+            }else if(pagetype.trim().equals("downcredit")){
+            	jqPager.setSort("creditIntegral");// 定义排序字段
+                jqPager.setOrder("DESC");// 升序还是降序
+            }else if(pagetype.trim().equals("riseloanApr")){
+            	jqPager.setSort("loanApr");// 定义排序字段
+                jqPager.setOrder("ASC");// 升序还是降序
+            }else if(pagetype.trim().equals("downloanApr")){
+            	jqPager.setSort("loanApr");// 定义排序字段
+                jqPager.setOrder("DESC");// 升序还是降序
+            }
+        }
         if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
         	borrowingLoanExample.setOrderByClause(jqPager.getOrderBy("temp_borrowing_loan_"));
         }
@@ -90,10 +116,23 @@ public class BorrowingLoanService {
         borrowingLoanExample.setLimitStart(startTemp);
         borrowingLoanExample.setLimitEnd(10);
         List<BorrowingLoan>  borrowingLoans = borrowingLoanMapper.selectByExample(borrowingLoanExample); // 查询所有借款列表
+        //查询基础信用积分的所有数据
+        List<ParameterCredit> parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
+        List<BorrowingLoan> allborrowingLoans = new ArrayList<BorrowingLoan>();//定义一个空的借款列表
+        //通过嵌套for循环，将会员的信用图标加到借款对象中去
+        for(BorrowingLoan borrowingLoan : borrowingLoans){
+        	for(ParameterCredit parameterCredit : parameterCredits){
+    			if(borrowingLoan.getCreditIntegral() >= parameterCredit.getCreditBeginIntegral() && borrowingLoan.getCreditIntegral() < parameterCredit.getCreditEndIntegral()){
+        			borrowingLoan.setCreditPhoto(parameterCredit.getCreditPhoto());
+        			break;
+        		}	
+        	}
+        	allborrowingLoans.add(borrowingLoan);
+        }
         int total = borrowingLoanMapper.countByExample(borrowingLoanExample); // 查询总页数
-        returnResult.setRows(borrowingLoans);
-        returnResult.setTotal(total);
-        returnResult.setP(p);
+        returnResult.setRows(allborrowingLoans);//设置查询数据
+        returnResult.setTotal(total);//设置总条数
+        returnResult.setP(p);//设置当前页
         return returnResult;// 返回ExtGrid表
     }
     /**

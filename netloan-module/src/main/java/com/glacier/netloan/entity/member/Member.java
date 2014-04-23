@@ -34,6 +34,11 @@ public class Member {
 	@JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date registrationTime;
 
+	/**
+     * 自定义字段,会员信用图标
+     */
+    private String creditPhoto;
+	
     private Float creditIntegral;
 
     private Float integral;
@@ -78,6 +83,7 @@ public class Member {
 
     private String secondContactAddress;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date lastLoginTime;
 
     private String lastLoginIpAddress;
@@ -448,6 +454,14 @@ public class Member {
 
 	public void setUpdaterDisplay(String updaterDisplay) {
 		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getCreditPhoto() {
+		return creditPhoto;
+	}
+
+	public void setCreditPhoto(String creditPhoto) {
+		this.creditPhoto = creditPhoto;
 	}
 
 	@Override

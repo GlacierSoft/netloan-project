@@ -50,6 +50,8 @@
 <script src="${ctx}/resources/js/bootstrap-switch/bootstrap-switch.min.js" type="text/javascript"></script>
 <script src="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/js/alert.js" type="text/javascript"></script>
 <script src="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/js/popover.js" type="text/javascript"></script>
+<!-- 工具提示 tooltip.js -->
+<script src="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/js/tooltip.js" type="text/javascript"></script>
 <!-- jquery form验证 -->
 <script src="${ctx}/resources/js/jquery/jquery.validate.js" type="text/javascript"></script>
 <script src="${ctx}/resources/js/jquery/jquery.netloan_website_validate.js" type="text/javascript"></script>

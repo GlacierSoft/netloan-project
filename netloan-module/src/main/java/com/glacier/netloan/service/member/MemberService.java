@@ -1,5 +1,6 @@
 package com.glacier.netloan.service.member;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,8 +26,10 @@ import com.glacier.netloan.dao.member.MemberTokenMapper;
 import com.glacier.netloan.dao.member.MemberWorkMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.member.MemberQueryDTO;
+import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditType;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditTypeExample;
+import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberAuthExample;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
@@ -39,6 +42,7 @@ import com.glacier.netloan.entity.member.MemberWork;
 import com.glacier.netloan.entity.member.MemberWorkExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
+import com.glacier.netloan.service.basicdatas.ParameterCreditService;
 import com.glacier.netloan.util.MethodLog;
 import com.glacier.security.util.Digests;
 import com.glacier.security.util.Encodes;
@@ -78,6 +82,9 @@ public class MemberService {
 	@Autowired
 	private MemberMessageNoticeMapper memberMessageNoticeMapper;
 	
+	@Autowired
+	private ParameterCreditService parameterCreditService;
+	
 	 /**
      * 加密方式
      */
@@ -113,6 +120,15 @@ public class MemberService {
 	 */
     public Object getMember(String memberId) {
     	Member member = memberMapper.selectByPrimaryKey(memberId);
+    	//查询基础信用积分的所有数据
+        List<ParameterCredit> parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
+        //通过嵌套for循环，将会员的信用图标加到会员对象中去
+        	for(ParameterCredit parameterCredit : parameterCredits){
+    			if(member.getCreditIntegral() >= parameterCredit.getCreditBeginIntegral() && member.getCreditIntegral() < parameterCredit.getCreditEndIntegral()){
+    				member.setCreditPhoto(parameterCredit.getCreditPhoto());
+        			break;
+        		}	
+        	}
         return member;
     }
     /**

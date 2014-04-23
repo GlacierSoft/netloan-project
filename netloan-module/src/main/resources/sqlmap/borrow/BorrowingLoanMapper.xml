@@ -62,6 +62,7 @@
     <result column="temp_borrowing_loan_secondAuditorDisplay" property="secondAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_borrowing_loan_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_borrowing_loan_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_borrowing_loan_credit_Integral" property="creditIntegral" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -152,6 +153,7 @@
     temp_borrowing_loan.update_time as temp_borrowing_loan_update_time
     <!-- 以下字段属于扩展 -->
     ,temp_member.member_real_name as temp_borrowing_loan_memberDisplay
+    ,temp_member.credit_integral as temp_borrowing_loan_credit_Integral
     ,temp_loanTender.loanr_tender_name as temp_borrowing_loan_loanTenderDisplay
     ,temp_firstAuditor.user_cn_name as temp_borrowing_loan_firstAuditorDisplay
     ,temp_secondAuditor.user_cn_name as temp_borrowing_loan_secondAuditorDisplay
