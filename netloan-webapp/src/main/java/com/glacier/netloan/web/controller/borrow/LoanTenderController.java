@@ -47,20 +47,20 @@ public class LoanTenderController extends AbstractController{
     
     // 进入标种类型Form表单页面
     @RequestMapping(value = "/intoForm.htm")
-    private Object intoAdvertisementFormPloanTender(String loanTenderId) {
+    private Object intoLoanTenderFormPloanTender(String loanTenderId) {
         ModelAndView mav = new ModelAndView("borrow_mgr/loanTender_mgr/loanTender_form");
         if(StringUtils.isNotBlank(loanTenderId)){
-            mav.addObject("loanTenderData", loanTenderService.getAdvertisement(loanTenderId));
+            mav.addObject("loanTenderData", loanTenderService.getLoanTender(loanTenderId));
         }
         return mav;
     }
     
     // 进入标种类型Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
-    private Object intoAdvertisementDetailPage(String loanTenderId) {
+    private Object intoLoanTenderDetailPage(String loanTenderId) {
         ModelAndView mav = new ModelAndView("borrow_mgr/loanTender_mgr/loanTender_detail");
         if(StringUtils.isNotBlank(loanTenderId)){
-            mav.addObject("loanTenderData", loanTenderService.getAdvertisement(loanTenderId));
+            mav.addObject("loanTenderData", loanTenderService.getLoanTender(loanTenderId));
         }
         return mav;
     }
@@ -68,28 +68,28 @@ public class LoanTenderController extends AbstractController{
     // 获取表格结构的所有标种类型数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listAdvertisementAsGridByMenuId(JqPager jqPager) {
+    private Object listLoanTenderAsGridByMenuId(JqPager jqPager) {
         return loanTenderService.listAsGrid(jqPager);
     }
     
     // 增加标种类型
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addAdvertisement(@Valid LoanTender loanTender, BindingResult bindingResult) {
+    private Object addLoanTender(@Valid LoanTender loanTender, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
-        return loanTenderService.addAdvertisement(loanTender);
+        return loanTenderService.addLoanTender(loanTender);
     }
     
     // 修改标种类型
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object editAdvertisement(@Valid LoanTender loanTender, BindingResult bindingResult) {
+    private Object editLoanTender(@Valid LoanTender loanTender, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
-        return loanTenderService.editAdvertisement(loanTender);
+        return loanTenderService.editLoanTender(loanTender);
     }
     
     // 批量删除标种类型

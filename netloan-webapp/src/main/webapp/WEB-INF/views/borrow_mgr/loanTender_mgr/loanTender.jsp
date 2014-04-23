@@ -15,7 +15,7 @@
 			}
 	};
 	
-	//初始化借款DataGrid
+	//初始化标种类型DataGrid
 	glacier.borrow_mgr.loanTender_mgr.loanTender.loanTenderDataGrid = $('#loanTenderDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
@@ -57,17 +57,17 @@
 				}
 			},{
 				field:'lowestLoanAmount',
-				title:'最小借款额度',
+				title:'最小标种类型额度',
 				width:120,
 				sortable:true
 			},{
 				field:'largestLoanAmount',
-				title:'最大借款额度',
+				title:'最大标种类型额度',
 				width:120,
 				sortable:true
 			},{
 				field:'loanMoneyMultiple',
-				title:'借款金额倍数',
+				title:'标种类型金额倍数',
 				width:120,
 				sortable:true
 			},{
@@ -82,12 +82,12 @@
 				sortable:true
 			},{
 				field:'loanDeadlinesMon',
-				title:'借款期限(月标)',
+				title:'标种类型期限(月标)',
 				width:120,
 				sortable:true
 			},{
 				field:'loanDeadlinesDay',
-				title:'借款期限(天标)',
+				title:'标种类型期限(天标)',
 				width:120,
 				sortable:true
 			},{
@@ -163,12 +163,12 @@
 				sortable:true
 			},{
 				field:'loanManaFeeMonth',
-				title:'借款管理费(月)',
+				title:'标种类型管理费(月)',
 				width:120,
 				sortable:true
 			},{
 				field:'loanManaFeeDay',
-				title:'借款管理费（天）',
+				title:'标种类型管理费（天）',
 				width:120,
 				sortable:true
 			},{
@@ -178,7 +178,7 @@
 				sortable:true
 			},{
 				field:'overLimitedFee',
-				title:'超出限定期数每月的借款费',
+				title:'超出限定期数每月的标种类型费',
 				width:120,
 				sortable:true
 			},{
@@ -268,7 +268,7 @@
 	//点击增加按钮触发方法
 	glacier.borrow_mgr.loanTender_mgr.loanTender.addLoanTender = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加借款',
+			title : '增加标种类型',
 			width : 780,
 			height : 500,
 			queryUrl : ctx + '/do/loanTender/intoForm.htm',
@@ -299,7 +299,7 @@
 	glacier.borrow_mgr.loanTender_mgr.loanTender.delLoanTender = function(){
 		var rows = glacier.borrow_mgr.loanTender_mgr.loanTender.loanTenderDataGrid.datagrid("getChecked");
 		var loanTenderIds = [];//删除的id标识
-		var loanrTenderNames = [];//借款主题
+		var loanrTenderNames = [];//标种类型主题
 		for(var i=0;i<rows.length;i++){
 			loanTenderIds.push(rows[i].loanTenderId);
 			loanrTenderNames.push(rows[i].loanrTenderName);
@@ -335,7 +335,7 @@
 			});
 		}
 	};
-	//借款资料模糊查询
+	//标种类型资料模糊查询
 	glacier.borrow_mgr.loanTender_mgr.loanTender.quickquery = function(value,name){
 		var obj = $.parseJSON('{"'+name+'":"'+value+'"}');//将值和对象封装成obj作为参数传递给后台
 		glacier.borrow_mgr.loanTender_mgr.loanTender.loanTenderDataGrid.datagrid('load',obj);
@@ -343,7 +343,7 @@
 	
 </script>
 
-<!-- 所有借款列表面板和表格 -->
+<!-- 所有标种类型列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="loanTenderGridPanel" data-options="region:'center',border:true" >
 		<table id="loanTenderDataGrid">

@@ -46,16 +46,16 @@ public class LoanTenderService {
     private UserMapper userMapper;
 	
 	/**
-	 * @Title: getAdvertisement 
+	 * @Title: getLoanTender 
 	 * @Description: TODO(根据标种类型Id获取标种类型信息) 
 	 * @param @param webAdvId
 	 * @param @return    设定文件 
 	 * @return Object    返回类型 
 	 * @throws
 	 */
-    public Object getAdvertisement(String loanId) {
-    	LoanTender websiteAdvertisement = loanTenderMapper.selectByPrimaryKey(loanId);
-        return websiteAdvertisement;
+    public Object getLoanTender(String loanId) {
+    	LoanTender websiteLoanTender = loanTenderMapper.selectByPrimaryKey(loanId);
+        return websiteLoanTender;
     }
     
     /**
@@ -76,7 +76,7 @@ public class LoanTenderService {
         	loanTenderExample.setLimitEnd(jqPager.getRows());
         }
         if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
-        	loanTenderExample.setOrderByClause(jqPager.getOrderBy("temp_loanTender_"));
+        	loanTenderExample.setOrderByClause(jqPager.getOrderBy("temp_loan_tender_"));
         }
         List<LoanTender>  loanTenders = loanTenderMapper.selectByExample(loanTenderExample); // 查询所有标种类型列表
         int total = loanTenderMapper.countByExample(loanTenderExample); // 查询总页数
@@ -86,7 +86,7 @@ public class LoanTenderService {
     }
 
     /**
-     * @Title: addAdvertisement 
+     * @Title: addLoanTender 
      * @Description: TODO(新增标种类型) 
      * @param @param loanTender
      * @param @return    设定文件 
@@ -95,7 +95,7 @@ public class LoanTenderService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "LoanTenderList_add")
-    public Object addAdvertisement(LoanTender loanTender) {
+    public Object addLoanTender(LoanTender loanTender) {
     	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -126,7 +126,7 @@ public class LoanTenderService {
     }
     
     /**
-     * @Title: editAdvertisement 
+     * @Title: editLoanTender 
      * @Description: TODO(修改标种类型) 
      * @param @param loanTender
      * @param @return    设定文件 
@@ -135,7 +135,7 @@ public class LoanTenderService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "LoanTenderList_edit")
-    public Object editAdvertisement(LoanTender loanTender) {
+    public Object editLoanTender(LoanTender loanTender) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         LoanTenderExample loanTenderExample = new LoanTenderExample();
         int count = 0;
@@ -161,7 +161,7 @@ public class LoanTenderService {
     }
     
     /**
-     * @Title: delAdvertisement 
+     * @Title: delLoanTender 
      * @Description: TODO(删除标种类型) 
      * @param @param webAdvIds
      * @param @param advThemes

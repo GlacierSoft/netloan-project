@@ -3,7 +3,7 @@
 <mapper namespace="com.glacier.netloan.dao.borrow.RepaymentTypeMapper" >
   <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.borrow.RepaymentType" >
     <id column="temp_repayment_type_repayment_type_id" property="repaymentTypeId" jdbcType="VARCHAR" />
-    <result column="temp_repayment_type_repayment_typer_name" property="repaymentTyperName" jdbcType="VARCHAR" />
+    <result column="temp_repayment_type_repayment_type_name" property="repaymentTypeName" jdbcType="VARCHAR" />
     <result column="temp_repayment_type_algorithm_info" property="algorithmInfo" jdbcType="VARCHAR" />
     <result column="temp_repayment_type_state" property="state" jdbcType="CHAR" />
     <result column="temp_repayment_type_remark" property="remark" jdbcType="VARCHAR" />
@@ -11,6 +11,8 @@
     <result column="temp_repayment_type_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_repayment_type_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_repayment_type_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_repayment_type_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_repayment_type_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -71,11 +73,18 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    temp_repayment_type.repayment_type_id as temp_repayment_type_repayment_type_id, temp_repayment_type.repayment_typer_name as temp_repayment_type_repayment_typer_name, 
+    temp_repayment_type.repayment_type_id as temp_repayment_type_repayment_type_id, temp_repayment_type.repayment_type_name as temp_repayment_type_repayment_type_name, 
     temp_repayment_type.algorithm_info as temp_repayment_type_algorithm_info, temp_repayment_type.state as temp_repayment_type_state, 
     temp_repayment_type.remark as temp_repayment_type_remark, temp_repayment_type.creater as temp_repayment_type_creater, 
     temp_repayment_type.create_time as temp_repayment_type_create_time, temp_repayment_type.updater as temp_repayment_type_updater, 
     temp_repayment_type.update_time as temp_repayment_type_update_time
+    <!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_repayment_type_creater_display
+    ,temp_updater.user_cn_name as temp_repayment_type_updater_display
+  </sql>
+   <sql id="Base_extend">
+    INNER JOIN t_user temp_creater ON temp_repayment_type.creater =  temp_creater.user_id<!-- 扩展 -->
+    INNER JOIN t_user temp_updater ON temp_repayment_type.updater =  temp_updater.user_id<!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.RepaymentTypeExample" >
     select
@@ -84,6 +93,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_repayment_type temp_repayment_type
+    <include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -98,6 +108,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_repayment_type temp_repayment_type
+    <include refid="Base_extend"/>
     where temp_repayment_type.repayment_type_id = #{repaymentTypeId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -105,17 +116,17 @@
     where repayment_type_id = #{repaymentTypeId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.borrow.RepaymentTypeExample" >
-    delete from t_repayment_type temp_repayment_type
+    delete temp_repayment_type from t_repayment_type temp_repayment_type
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.glacier.netloan.entity.borrow.RepaymentType" >
-    insert into t_repayment_type (repayment_type_id, repayment_typer_name, 
+    insert into t_repayment_type (repayment_type_id, repayment_type_name, 
       algorithm_info, state, remark, 
       creater, create_time, updater, 
       update_time)
-    values (#{repaymentTypeId,jdbcType=VARCHAR}, #{repaymentTyperName,jdbcType=VARCHAR}, 
+    values (#{repaymentTypeId,jdbcType=VARCHAR}, #{repaymentTypeName,jdbcType=VARCHAR}, 
       #{algorithmInfo,jdbcType=VARCHAR}, #{state,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, 
       #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
       #{updateTime,jdbcType=TIMESTAMP})
@@ -126,8 +137,8 @@
       <if test="repaymentTypeId != null" >
         repayment_type_id,
       </if>
-      <if test="repaymentTyperName != null" >
-        repayment_typer_name,
+      <if test="repaymentTypeName != null" >
+        repayment_type_name,
       </if>
       <if test="algorithmInfo != null" >
         algorithm_info,
@@ -155,8 +166,8 @@
       <if test="repaymentTypeId != null" >
         #{repaymentTypeId,jdbcType=VARCHAR},
       </if>
-      <if test="repaymentTyperName != null" >
-        #{repaymentTyperName,jdbcType=VARCHAR},
+      <if test="repaymentTypeName != null" >
+        #{repaymentTypeName,jdbcType=VARCHAR},
       </if>
       <if test="algorithmInfo != null" >
         #{algorithmInfo,jdbcType=VARCHAR},
@@ -183,6 +194,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.RepaymentTypeExample" resultType="java.lang.Integer" >
     select count(*) from t_repayment_type temp_repayment_type
+    <include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -193,8 +205,8 @@
       <if test="record.repaymentTypeId != null" >
         temp_repayment_type.repayment_type_id = #{record.repaymentTypeId,jdbcType=VARCHAR},
       </if>
-      <if test="record.repaymentTyperName != null" >
-        temp_repayment_type.repayment_typer_name = #{record.repaymentTyperName,jdbcType=VARCHAR},
+      <if test="record.repaymentTypeName != null" >
+        temp_repayment_type.repayment_type_name = #{record.repaymentTypeName,jdbcType=VARCHAR},
       </if>
       <if test="record.algorithmInfo != null" >
         temp_repayment_type.algorithm_info = #{record.algorithmInfo,jdbcType=VARCHAR},
@@ -225,7 +237,7 @@
   <update id="updateByExample" parameterType="map" >
     update t_repayment_type temp_repayment_type
     set temp_repayment_type.repayment_type_id = #{record.repaymentTypeId,jdbcType=VARCHAR},
-      temp_repayment_type.repayment_typer_name = #{record.repaymentTyperName,jdbcType=VARCHAR},
+      temp_repayment_type.repayment_type_name = #{record.repaymentTypeName,jdbcType=VARCHAR},
       temp_repayment_type.algorithm_info = #{record.algorithmInfo,jdbcType=VARCHAR},
       temp_repayment_type.state = #{record.state,jdbcType=CHAR},
       temp_repayment_type.remark = #{record.remark,jdbcType=VARCHAR},
@@ -240,8 +252,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.borrow.RepaymentType" >
     update t_repayment_type
     <set >
-      <if test="repaymentTyperName != null" >
-        repayment_typer_name = #{repaymentTyperName,jdbcType=VARCHAR},
+      <if test="repaymentTypeName != null" >
+        repayment_type_name = #{repaymentTypeName,jdbcType=VARCHAR},
       </if>
       <if test="algorithmInfo != null" >
         algorithm_info = #{algorithmInfo,jdbcType=VARCHAR},
@@ -269,7 +281,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.borrow.RepaymentType" >
     update t_repayment_type
-    set repayment_typer_name = #{repaymentTyperName,jdbcType=VARCHAR},
+    set repayment_type_name = #{repaymentTypeName,jdbcType=VARCHAR},
       algorithm_info = #{algorithmInfo,jdbcType=VARCHAR},
       state = #{state,jdbcType=CHAR},
       remark = #{remark,jdbcType=VARCHAR},

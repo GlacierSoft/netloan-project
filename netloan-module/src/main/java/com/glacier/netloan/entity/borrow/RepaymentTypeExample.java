@@ -195,73 +195,73 @@ public class RepaymentTypeExample {
             return (Criteria) this;
         }
 
-        public Criteria andRepaymentTyperNameIsNull() {
-            addCriterion("temp_repayment_type.repayment_typer_name is null");
+        public Criteria andRepaymentTypeNameIsNull() {
+            addCriterion("temp_repayment_type.repayment_type_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andRepaymentTyperNameIsNotNull() {
-            addCriterion("temp_repayment_type.repayment_typer_name is not null");
+        public Criteria andRepaymentTypeNameIsNotNull() {
+            addCriterion("temp_repayment_type.repayment_type_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRepaymentTyperNameEqualTo(String value) {
-            addCriterion("temp_repayment_type.repayment_typer_name =", value, "repaymentTyperName");
+        public Criteria andRepaymentTypeNameEqualTo(String value) {
+            addCriterion("temp_repayment_type.repayment_type_name =", value, "repaymentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andRepaymentTyperNameNotEqualTo(String value) {
-            addCriterion("temp_repayment_type.repayment_typer_name <>", value, "repaymentTyperName");
+        public Criteria andRepaymentTypeNameNotEqualTo(String value) {
+            addCriterion("temp_repayment_type.repayment_type_name <>", value, "repaymentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andRepaymentTyperNameGreaterThan(String value) {
-            addCriterion("temp_repayment_type.repayment_typer_name >", value, "repaymentTyperName");
+        public Criteria andRepaymentTypeNameGreaterThan(String value) {
+            addCriterion("temp_repayment_type.repayment_type_name >", value, "repaymentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andRepaymentTyperNameGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_repayment_type.repayment_typer_name >=", value, "repaymentTyperName");
+        public Criteria andRepaymentTypeNameGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_repayment_type.repayment_type_name >=", value, "repaymentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andRepaymentTyperNameLessThan(String value) {
-            addCriterion("temp_repayment_type.repayment_typer_name <", value, "repaymentTyperName");
+        public Criteria andRepaymentTypeNameLessThan(String value) {
+            addCriterion("temp_repayment_type.repayment_type_name <", value, "repaymentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andRepaymentTyperNameLessThanOrEqualTo(String value) {
-            addCriterion("temp_repayment_type.repayment_typer_name <=", value, "repaymentTyperName");
+        public Criteria andRepaymentTypeNameLessThanOrEqualTo(String value) {
+            addCriterion("temp_repayment_type.repayment_type_name <=", value, "repaymentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andRepaymentTyperNameLike(String value) {
-            addCriterion("temp_repayment_type.repayment_typer_name like", value, "repaymentTyperName");
+        public Criteria andRepaymentTypeNameLike(String value) {
+            addCriterion("temp_repayment_type.repayment_type_name like", value, "repaymentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andRepaymentTyperNameNotLike(String value) {
-            addCriterion("temp_repayment_type.repayment_typer_name not like", value, "repaymentTyperName");
+        public Criteria andRepaymentTypeNameNotLike(String value) {
+            addCriterion("temp_repayment_type.repayment_type_name not like", value, "repaymentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andRepaymentTyperNameIn(List<String> values) {
-            addCriterion("temp_repayment_type.repayment_typer_name in", values, "repaymentTyperName");
+        public Criteria andRepaymentTypeNameIn(List<String> values) {
+            addCriterion("temp_repayment_type.repayment_type_name in", values, "repaymentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andRepaymentTyperNameNotIn(List<String> values) {
-            addCriterion("temp_repayment_type.repayment_typer_name not in", values, "repaymentTyperName");
+        public Criteria andRepaymentTypeNameNotIn(List<String> values) {
+            addCriterion("temp_repayment_type.repayment_type_name not in", values, "repaymentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andRepaymentTyperNameBetween(String value1, String value2) {
-            addCriterion("temp_repayment_type.repayment_typer_name between", value1, value2, "repaymentTyperName");
+        public Criteria andRepaymentTypeNameBetween(String value1, String value2) {
+            addCriterion("temp_repayment_type.repayment_type_name between", value1, value2, "repaymentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andRepaymentTyperNameNotBetween(String value1, String value2) {
-            addCriterion("temp_repayment_type.repayment_typer_name not between", value1, value2, "repaymentTyperName");
+        public Criteria andRepaymentTypeNameNotBetween(String value1, String value2) {
+            addCriterion("temp_repayment_type.repayment_type_name not between", value1, value2, "repaymentTypeName");
             return (Criteria) this;
         }
 

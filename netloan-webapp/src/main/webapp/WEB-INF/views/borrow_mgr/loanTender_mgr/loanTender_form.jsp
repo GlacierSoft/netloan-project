@@ -100,7 +100,6 @@
 			<td><input id="loanTender_mgr_loanTender_form_remark" name="remark" class="easyui-validatebox spinner" style="width:198px" value="${loanTenderData.remark}"/></td>
 		</tr>
 		<tr>
-		<tr>
 			<td>描述：</td>
 			<td><textarea id="loanTender_mgr_loanTender_form_description" name="description" style="width:198px;" maxlength="255" class="spinner formta">${loanTenderData.description}</textarea></td>
 		</tr>

@@ -2,10 +2,12 @@ package com.glacier.netloan.entity.borrow;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class RepaymentType {
     private String repaymentTypeId;
 
-    private String repaymentTyperName;
+    private String repaymentTypeName;
 
     private String algorithmInfo;
 
@@ -14,11 +16,23 @@ public class RepaymentType {
     private String remark;
 
     private String creater;
+    
+    /**
+     * 自定义字段，显示创建人真实名字
+     */
+    private String createrDisplay;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
+    
+    /**
+     * 自定义字段，显示更新人的真实名字
+     */
+    private String updaterDisplay;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getRepaymentTypeId() {
@@ -29,12 +43,12 @@ public class RepaymentType {
         this.repaymentTypeId = repaymentTypeId;
     }
 
-    public String getRepaymentTyperName() {
-        return repaymentTyperName;
+    public String getRepaymentTypeName() {
+        return repaymentTypeName;
     }
 
-    public void setRepaymentTyperName(String repaymentTyperName) {
-        this.repaymentTyperName = repaymentTyperName;
+    public void setRepaymentTypeName(String repaymentTypeName) {
+        this.repaymentTypeName = repaymentTypeName;
     }
 
     public String getAlgorithmInfo() {
@@ -92,8 +106,24 @@ public class RepaymentType {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+    
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
 
-    @Override
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
@@ -106,7 +136,7 @@ public class RepaymentType {
         }
         RepaymentType other = (RepaymentType) that;
         return (this.getRepaymentTypeId() == null ? other.getRepaymentTypeId() == null : this.getRepaymentTypeId().equals(other.getRepaymentTypeId()))
-            && (this.getRepaymentTyperName() == null ? other.getRepaymentTyperName() == null : this.getRepaymentTyperName().equals(other.getRepaymentTyperName()))
+            && (this.getRepaymentTypeName() == null ? other.getRepaymentTypeName() == null : this.getRepaymentTypeName().equals(other.getRepaymentTypeName()))
             && (this.getAlgorithmInfo() == null ? other.getAlgorithmInfo() == null : this.getAlgorithmInfo().equals(other.getAlgorithmInfo()))
             && (this.getState() == null ? other.getState() == null : this.getState().equals(other.getState()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
@@ -121,7 +151,7 @@ public class RepaymentType {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getRepaymentTypeId() == null) ? 0 : getRepaymentTypeId().hashCode());
-        result = prime * result + ((getRepaymentTyperName() == null) ? 0 : getRepaymentTyperName().hashCode());
+        result = prime * result + ((getRepaymentTypeName() == null) ? 0 : getRepaymentTypeName().hashCode());
         result = prime * result + ((getAlgorithmInfo() == null) ? 0 : getAlgorithmInfo().hashCode());
         result = prime * result + ((getState() == null) ? 0 : getState().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
