@@ -59,7 +59,10 @@
 				field:'lowestLoanAmount',
 				title:'最小标种类型额度',
 				width:120,
-				sortable:true
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化
+					return formatNum(value);
+				}
 			},{
 				field:'largestLoanAmount',
 				title:'最大标种类型额度',

@@ -16,7 +16,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>最大借款额度：</td>
+			<td>最小借款额度：</td>
 			<td><input id="loanTender_mgr_loanTender_form_lowestLoanAmount" name="lowestLoanAmount" class="easyui-validatebox spinner" style="width:198px" value="${loanTenderData.lowestLoanAmount}"/></td>
 			<td>最大借款额度：</td>
 			<td><input id="loanTender_mgr_loanTender_form_largestLoanAmount" name="largestLoanAmount" class="easyui-validatebox spinner" style="width:198px" value="${loanTenderData.largestLoanAmount}"/></td>
@@ -105,3 +105,14 @@
 		</tr>
 	</table>
 </form>
+
+<script type="text/javascript">
+$('#loanTender_mgr_loanTender_form_lowestLoanAmount').numberbox({
+		required:true,
+		min:0,
+		max:99999999,
+		precision:0,
+		groupSeparator:',',
+		missingMessage:'请填写最小借款额度'
+	});
+</script>

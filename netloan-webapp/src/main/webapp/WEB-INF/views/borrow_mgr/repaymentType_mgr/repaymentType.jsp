@@ -49,12 +49,12 @@
 				sortable:true
 			},{
 				field:'state',
-				title:'还款方式状态',
+				title:'状态',
 				width:120,
 				sortable:true
 			},{
 				field:'remark',
-				title:'备注',
+				title:'描述',
 				width:120,
 				sortable:true
 			},{

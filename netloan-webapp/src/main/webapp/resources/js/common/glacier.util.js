@@ -27,6 +27,28 @@ function renderGridValue(value,fields){
 }
 
 /**
+ * 金额格式化格式
+ */
+function formatNum(strNum) {
+	if(strNum){
+		if (strNum.length <= 3) {
+			return strNum;
+		}
+		if (!/^(\+|-)?(\d+)(\.\d+)?$/.test(strNum)) {
+			return strNum;
+		}
+		var a = RegExp.$1, b = RegExp.$2, c = RegExp.$3;
+		var re = new RegExp();
+		re.compile("(\\d)(\\d{3})(,|$)");
+		while (re.test(b)) {
+			b = b.replace(re, "$1,$2$3");
+		}
+		return a + "" + b + "" + c;
+	}
+	return strNum;
+};
+
+/**
  * 更换主题方法，在系统中link引入easyui的主题，必须加上id为easyuiThemeName
  * @param themeName 主题的名称，和theme中文件夹名称对应
  */
