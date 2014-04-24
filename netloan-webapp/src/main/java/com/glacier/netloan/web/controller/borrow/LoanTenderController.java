@@ -6,6 +6,7 @@
 package com.glacier.netloan.web.controller.borrow;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -97,5 +98,19 @@ public class LoanTenderController extends AbstractController{
     @ResponseBody
     public Object delLoanTender(@RequestParam List<String> loanTenderIds,@RequestParam List<String> loanrTenderNames) {
     	return loanTenderService.delLoanTender(loanTenderIds, loanrTenderNames);
+    }
+    
+    // 根据标种类型Id获取还款方式列表
+    @RequestMapping(value = "/getTenderAndRepayment.json")
+    @ResponseBody
+    public Object getTenderAndRepayment(@RequestParam String loanTenderId) {
+        return loanTenderService.getTenderAndRepayment(loanTenderId);
+    }
+    
+    // 保存标种类型和还款方式关系
+    @RequestMapping(value = "/saveTenderAndRepayment", method = RequestMethod.POST)
+    @ResponseBody
+    public Object saveTenderAndRepayment(@RequestParam String loanTenderId, @RequestParam Set<String> repaymentTypeIds) {
+        return loanTenderService.saveTenderAndRepayment(loanTenderId, repaymentTypeIds);
     }
 }

@@ -1,7 +1,7 @@
 package com.glacier.netloan.dao.borrow;
 
-import com.glacier.netloan.entity.borrow.TenderRepayment;
 import com.glacier.netloan.entity.borrow.TenderRepaymentExample;
+import com.glacier.netloan.entity.borrow.TenderRepaymentKey;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,21 +10,15 @@ public interface TenderRepaymentMapper {
 
     int deleteByExample(TenderRepaymentExample example);
 
-    int deleteByPrimaryKey(String tenderRepaymentId);
+    int deleteByPrimaryKey(TenderRepaymentKey key);
 
-    int insert(TenderRepayment record);
+    int insert(TenderRepaymentKey record);
 
-    int insertSelective(TenderRepayment record);
+    int insertSelective(TenderRepaymentKey record);
 
-    List<TenderRepayment> selectByExample(TenderRepaymentExample example);
+    List<TenderRepaymentKey> selectByExample(TenderRepaymentExample example);
 
-    TenderRepayment selectByPrimaryKey(String tenderRepaymentId);
+    int updateByExampleSelective(@Param("record") TenderRepaymentKey record, @Param("example") TenderRepaymentExample example);
 
-    int updateByExampleSelective(@Param("record") TenderRepayment record, @Param("example") TenderRepaymentExample example);
-
-    int updateByExample(@Param("record") TenderRepayment record, @Param("example") TenderRepaymentExample example);
-
-    int updateByPrimaryKeySelective(TenderRepayment record);
-
-    int updateByPrimaryKey(TenderRepayment record);
+    int updateByExample(@Param("record") TenderRepaymentKey record, @Param("example") TenderRepaymentExample example);
 }

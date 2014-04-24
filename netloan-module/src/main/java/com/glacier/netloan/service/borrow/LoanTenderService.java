@@ -7,6 +7,7 @@ package com.glacier.netloan.service.borrow;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -22,9 +23,14 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.LoanTenderMapper;
-import com.glacier.netloan.dao.system.UserMapper;
+import com.glacier.netloan.dao.borrow.RepaymentTypeMapper;
+import com.glacier.netloan.dao.borrow.TenderRepaymentMapper;
 import com.glacier.netloan.entity.borrow.LoanTender;
 import com.glacier.netloan.entity.borrow.LoanTenderExample;
+import com.glacier.netloan.entity.borrow.RepaymentType;
+import com.glacier.netloan.entity.borrow.RepaymentTypeExample;
+import com.glacier.netloan.entity.borrow.TenderRepaymentExample;
+import com.glacier.netloan.entity.borrow.TenderRepaymentKey;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -41,9 +47,12 @@ public class LoanTenderService {
 
 	@Autowired
     private LoanTenderMapper loanTenderMapper;
-
+	
 	@Autowired
-    private UserMapper userMapper;
+	private RepaymentTypeMapper repaymentTypeMapper;
+	
+	@Autowired
+	private TenderRepaymentMapper tenderRepaymentMapper;
 	
 	/**
 	 * @Title: getLoanTender 
@@ -184,6 +193,65 @@ public class LoanTenderService {
             } else {
                 returnResult.setMsg("发生未知错误，标种类型信息删除失败");
             }
+        }
+        return returnResult;
+    }
+    
+    /**
+     * @Title: getTenderAndRepayment 
+     * @Description: TODO(根据标种类型Id获取到还款方式列表) 
+     * @param @param loanTenderId
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    public Object getTenderAndRepayment(String loanTenderId) {
+    	RepaymentTypeExample repaymentTypeExample =new RepaymentTypeExample();
+    	List<RepaymentType> repaymentTypes = repaymentTypeMapper.selectByExample(repaymentTypeExample);
+    	TenderRepaymentExample tenderRepaymentExample = new TenderRepaymentExample();
+    	tenderRepaymentExample.createCriteria().andLoanTenderIdEqualTo(loanTenderId);
+    	List<TenderRepaymentKey> tenderRepaymentList = tenderRepaymentMapper.selectByExample(tenderRepaymentExample);
+    	for (RepaymentType repaymentType : repaymentTypes) {
+    		TenderRepaymentKey tenderRepayment = new TenderRepaymentKey();
+    		tenderRepayment.setLoanTenderId(loanTenderId);
+    		tenderRepayment.setRepaymentTypeId(repaymentType.getRepaymentTypeId());
+    		if (tenderRepaymentList.contains(tenderRepayment)) {// 根据标种Id查找已经存在关系的还款方式
+    			repaymentType.setChecked(true);
+    		}
+    	}
+    	return repaymentTypes;
+    }
+    
+    /**
+     * @Title: saveTenderAndRepayment 
+     * @Description: TODO(保存标种类型和还款方式关系) 
+     * @param @param loanTenderId
+     * @param @param repaymentTypeIds
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "LoanTenderList_assign")
+    public Object saveTenderAndRepayment(String loanTenderId, Set<String> repaymentTypeIds) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        TenderRepaymentExample tenderRepaymentExample = new TenderRepaymentExample();
+        tenderRepaymentExample.createCriteria().andLoanTenderIdEqualTo(loanTenderId);
+        count = tenderRepaymentMapper.deleteByExample(tenderRepaymentExample);// 先把之前存在的关系删除
+        if (null != repaymentTypeIds && repaymentTypeIds.size() > 0) {
+        	for (String repaymentTypeId : repaymentTypeIds) {
+        		TenderRepaymentKey tenderRepayment = new TenderRepaymentKey();
+        		tenderRepayment.setLoanTenderId(loanTenderId);
+        		tenderRepayment.setRepaymentTypeId(repaymentTypeId);
+        		count += tenderRepaymentMapper.insert(tenderRepayment);// 插入标种类型和还款方式中间表数据
+        	}
+        }
+        if (count > 0) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("分配还款方式成功");
+        } else {
+            returnResult.setMsg("系统出现未知错误，分配还款方式失败");
         }
         return returnResult;
     }

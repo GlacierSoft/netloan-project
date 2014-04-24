@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.glacier.netloan.dao.borrow.TenderRepaymentMapper" >
-  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.borrow.TenderRepayment" >
-    <id column="temp_tender_repayment_tender_repayment_id" property="tenderRepaymentId" jdbcType="VARCHAR" />
-    <result column="temp_tender_repayment_repayment_type_id" property="repaymentTypeId" jdbcType="VARCHAR" />
-    <result column="temp_tender_repayment_loan_tender_id" property="loanTenderId" jdbcType="VARCHAR" />
-    <result column="temp_tender_repayment_remark" property="remark" jdbcType="VARCHAR" />
-    <result column="temp_tender_repayment_creater" property="creater" jdbcType="VARCHAR" />
-    <result column="temp_tender_repayment_create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="temp_tender_repayment_updater" property="updater" jdbcType="VARCHAR" />
-    <result column="temp_tender_repayment_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.borrow.TenderRepaymentKey" >
+    <id column="temp_tender_repayment_repayment_type_id" property="repaymentTypeId" jdbcType="VARCHAR" />
+    <id column="temp_tender_repayment_loan_tender_id" property="loanTenderId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,11 +64,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    temp_tender_repayment.tender_repayment_id as temp_tender_repayment_tender_repayment_id, 
     temp_tender_repayment.repayment_type_id as temp_tender_repayment_repayment_type_id, 
-    temp_tender_repayment.loan_tender_id as temp_tender_repayment_loan_tender_id, temp_tender_repayment.remark as temp_tender_repayment_remark, 
-    temp_tender_repayment.creater as temp_tender_repayment_creater, temp_tender_repayment.create_time as temp_tender_repayment_create_time, 
-    temp_tender_repayment.updater as temp_tender_repayment_updater, temp_tender_repayment.update_time as temp_tender_repayment_update_time
+    temp_tender_repayment.loan_tender_id as temp_tender_repayment_loan_tender_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.TenderRepaymentExample" >
     select
@@ -93,84 +84,37 @@
       limit ${limitStart} , ${limitEnd}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_tender_repayment temp_tender_repayment
-    where temp_tender_repayment.tender_repayment_id = #{tenderRepaymentId,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="com.glacier.netloan.entity.borrow.TenderRepaymentKey" >
     delete from t_tender_repayment
-    where tender_repayment_id = #{tenderRepaymentId,jdbcType=VARCHAR}
+    where repayment_type_id = #{repaymentTypeId,jdbcType=VARCHAR}
+      and loan_tender_id = #{loanTenderId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.borrow.TenderRepaymentExample" >
-    delete from t_tender_repayment temp_tender_repayment
+    delete temp_tender_repayment from t_tender_repayment temp_tender_repayment
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.glacier.netloan.entity.borrow.TenderRepayment" >
-    insert into t_tender_repayment (tender_repayment_id, repayment_type_id, 
-      loan_tender_id, remark, creater, 
-      create_time, updater, update_time
-      )
-    values (#{tenderRepaymentId,jdbcType=VARCHAR}, #{repaymentTypeId,jdbcType=VARCHAR}, 
-      #{loanTenderId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+  <insert id="insert" parameterType="com.glacier.netloan.entity.borrow.TenderRepaymentKey" >
+    insert into t_tender_repayment (repayment_type_id, loan_tender_id)
+    values (#{repaymentTypeId,jdbcType=VARCHAR}, #{loanTenderId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.borrow.TenderRepayment" >
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.borrow.TenderRepaymentKey" >
     insert into t_tender_repayment
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="tenderRepaymentId != null" >
-        tender_repayment_id,
-      </if>
       <if test="repaymentTypeId != null" >
         repayment_type_id,
       </if>
       <if test="loanTenderId != null" >
         loan_tender_id,
       </if>
-      <if test="remark != null" >
-        remark,
-      </if>
-      <if test="creater != null" >
-        creater,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updater != null" >
-        updater,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="tenderRepaymentId != null" >
-        #{tenderRepaymentId,jdbcType=VARCHAR},
-      </if>
       <if test="repaymentTypeId != null" >
         #{repaymentTypeId,jdbcType=VARCHAR},
       </if>
       <if test="loanTenderId != null" >
         #{loanTenderId,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null" >
-        #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="creater != null" >
-        #{creater,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updater != null" >
-        #{updater,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -183,29 +127,11 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update t_tender_repayment temp_tender_repayment
     <set >
-      <if test="record.tenderRepaymentId != null" >
-        temp_tender_repayment.tender_repayment_id = #{record.tenderRepaymentId,jdbcType=VARCHAR},
-      </if>
       <if test="record.repaymentTypeId != null" >
         temp_tender_repayment.repayment_type_id = #{record.repaymentTypeId,jdbcType=VARCHAR},
       </if>
       <if test="record.loanTenderId != null" >
         temp_tender_repayment.loan_tender_id = #{record.loanTenderId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.remark != null" >
-        temp_tender_repayment.remark = #{record.remark,jdbcType=VARCHAR},
-      </if>
-      <if test="record.creater != null" >
-        temp_tender_repayment.creater = #{record.creater,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createTime != null" >
-        temp_tender_repayment.create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.updater != null" >
-        temp_tender_repayment.updater = #{record.updater,jdbcType=VARCHAR},
-      </if>
-      <if test="record.updateTime != null" >
-        temp_tender_repayment.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -214,54 +140,10 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update t_tender_repayment temp_tender_repayment
-    set temp_tender_repayment.tender_repayment_id = #{record.tenderRepaymentId,jdbcType=VARCHAR},
-      temp_tender_repayment.repayment_type_id = #{record.repaymentTypeId,jdbcType=VARCHAR},
-      temp_tender_repayment.loan_tender_id = #{record.loanTenderId,jdbcType=VARCHAR},
-      temp_tender_repayment.remark = #{record.remark,jdbcType=VARCHAR},
-      temp_tender_repayment.creater = #{record.creater,jdbcType=VARCHAR},
-      temp_tender_repayment.create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      temp_tender_repayment.updater = #{record.updater,jdbcType=VARCHAR},
-      temp_tender_repayment.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    set temp_tender_repayment.repayment_type_id = #{record.repaymentTypeId,jdbcType=VARCHAR},
+      temp_tender_repayment.loan_tender_id = #{record.loanTenderId,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.borrow.TenderRepayment" >
-    update t_tender_repayment
-    <set >
-      <if test="repaymentTypeId != null" >
-        repayment_type_id = #{repaymentTypeId,jdbcType=VARCHAR},
-      </if>
-      <if test="loanTenderId != null" >
-        loan_tender_id = #{loanTenderId,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null" >
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="creater != null" >
-        creater = #{creater,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updater != null" >
-        updater = #{updater,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where tender_repayment_id = #{tenderRepaymentId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.borrow.TenderRepayment" >
-    update t_tender_repayment
-    set repayment_type_id = #{repaymentTypeId,jdbcType=VARCHAR},
-      loan_tender_id = #{loanTenderId,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR},
-      creater = #{creater,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      updater = #{updater,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where tender_repayment_id = #{tenderRepaymentId,jdbcType=VARCHAR}
   </update>
 </mapper>

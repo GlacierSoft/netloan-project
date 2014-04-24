@@ -32,6 +32,11 @@ public class RepaymentType {
      */
     private String updaterDisplay;
 
+    /**
+     * 自定义字段，标种类型进行分配还款方式用到
+     */
+    private boolean checked;
+    
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
@@ -121,6 +126,15 @@ public class RepaymentType {
 
 	public void setUpdaterDisplay(String updaterDisplay) {
 		this.updaterDisplay = updaterDisplay;
+	}
+
+	
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 
 	@Override

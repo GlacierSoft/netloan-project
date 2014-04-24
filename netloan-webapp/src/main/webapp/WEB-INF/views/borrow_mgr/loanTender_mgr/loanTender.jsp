@@ -10,6 +10,7 @@
 	glacier.borrow_mgr.loanTender_mgr.loanTender.param = {
 			toolbarId : 'loanTenderDataGrid_toolbar',
 			actions : {
+				assign:{flag:'assign',controlType:'single'},
 				edit:{flag:'edit',controlType:'single'},
 				del:{flag:'del',controlType:'multiple'}
 			}
@@ -338,6 +339,85 @@
 			});
 		}
 	};
+	
+	//显示为标种类型分配还款方式窗口
+	glacier.borrow_mgr.loanTender_mgr.loanTender.assignRepayment = function(){
+		var loanTenderId = glacier.borrow_mgr.loanTender_mgr.loanTender.loanTenderDataGrid.datagrid("getSelected").loanTenderId;
+		glacier.borrow_mgr.loanTender_mgr.loanTender.tenderRepaymentTreeGrid = $('#tenderRepaymentTreeGrid').treegrid({
+			url:ctx +'/do/loanTender/getTenderAndRepayment.json',//请求的URL
+			idField : 'repaymentTypeId',//定义了关键字段来标识一个树节点
+			singleSelect:false,//限制单选
+			checkOnSelect:true,
+			selectOnCheck:false,
+			queryParams:{loanTenderId:loanTenderId},//当请求远程数据时，发送的额外参数
+			fit : true,//控件自动resize占满窗口大小
+			fitColumns : true,//自动填充行
+			border : false,//是否存在边框
+			columns:[[
+				{
+					field:'repaymentTypeId',
+					title:'ID',
+					checkbox:true
+				},{
+					field:'repaymentTypeName',
+					title:'还款方式名称',
+					width:120
+				},{
+					field:'state',
+					title:'状态',
+					width:120
+				},{
+					field:'remark',
+					title:'备注',
+					width:200
+				}
+			]]
+		});
+		//显示分配还款方式窗口
+		glacier.borrow_mgr.loanTender_mgr.loanTender.tenderRepaymentWin = $('#tenderRepaymentWin').dialog({ 
+			title:'分配还款方式',
+		    width:650,  
+		    height:430,
+		    resizable:true,
+		    modal:true,
+		    minimizable:false,
+		    maximizable:true,
+		    buttons:[{
+				text:'保存',
+				iconCls:"icon-save",
+				handler:function(){
+					glacier.borrow_mgr.loanTender_mgr.loanTender.saveTenderAndRepayment(loanTenderId);
+				}
+			},{
+				text:'关闭',
+				iconCls:"icon-undo",
+				handler:function(){
+					glacier.borrow_mgr.loanTender_mgr.loanTender.tenderRepaymentWin.dialog('close');
+				}
+			}]
+		});
+	};
+	
+	//保存标种类型和还款方式关系
+	glacier.borrow_mgr.loanTender_mgr.loanTender.saveTenderAndRepayment = function(loanTenderId){
+		var repaymentTypeIds = [];
+		var repaymentTypeInputs = glacier.borrow_mgr.loanTender_mgr.loanTender.tenderRepaymentWin.find("input[name='repaymentTypeId']:checked");
+		for(var i=0;i<repaymentTypeInputs.length;i++){
+			repaymentTypeIds.push(repaymentTypeInputs[i].value);
+		}
+		//发送远程请求保存当前标种类型和还款方式关系设置
+		$.ajax({
+			   type: "POST",
+			   url: ctx + "/do/loanTender/saveTenderAndRepayment.json",
+			   data: {loanTenderId:loanTenderId,repaymentTypeIds:repaymentTypeIds.join(',')},
+			   dataType:'json',
+			   success: function(r){
+				   	glacier.show({msg:r.msg,result:r.success});
+				   	glacier.borrow_mgr.loanTender_mgr.loanTender.tenderRepaymentWin.dialog('close');
+			   }
+		});
+	};
+	
 	//标种类型资料模糊查询
 	glacier.borrow_mgr.loanTender_mgr.loanTender.quickquery = function(value,name){
 		var obj = $.parseJSON('{"'+name+'":"'+value+'"}');//将值和对象封装成obj作为参数传递给后台
@@ -353,4 +433,9 @@
 			<glacierui:toolbar panelEnName="LoanTenderList" toolbarId="loanTenderDataGrid_toolbar" menuEnName="loanTender"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
+</div>
+
+<!-- 自定义分配角色窗口 -->
+<div id="tenderRepaymentWin">
+	<table id="tenderRepaymentTreeGrid"></table>
 </div>
