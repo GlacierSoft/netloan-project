@@ -51,7 +51,10 @@
 				field:'state',
 				title:'状态',
 				width:120,
-				sortable:true
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如open显示启用，close显示禁用
+					return renderGridValue(value,fields.state);
+				}
 			},{
 				field:'remark',
 				title:'描述',
