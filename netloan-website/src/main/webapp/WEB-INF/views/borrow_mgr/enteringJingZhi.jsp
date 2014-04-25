@@ -82,7 +82,7 @@
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right">借款标的：</td>
-					    <td class="col-md-6"> <input type="hidden" id="loanTenderId" name="loanTenderId" value="2587bd0ecc859e35f2874f2aff0d4852"/>流转标</td>
+					    <td class="col-md-6"> <input type="hidden" id="loanTenderId" name="loanTenderId" value="9788195653f335695256551b82fcbac6"/>净值标</td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>借款目的：</td>
@@ -193,12 +193,19 @@
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>还款方式：</td>
 					    <td class="col-md-6">
-					    <select name="repaymentTypeId" id="repaymentTypeId" class="sel_140">
-						    <option value="">--请选择--</option>
-						    <option value="1">等额本息</option>
-						    <option value="2">按月付息，到期还本</option>
-						    <option value="4">一次性还款</option>
-						</select>
+<!-- 					    	<select name="repaymentTypeId" id="repaymentTypeId" class="sel_140" onFocus="funRepaymentTypeId()"> -->
+<!-- 							</select> -->
+							<select name="repaymentTypeId" id="repaymentTypeId" class="sel_140"> 
+					    		<c:forEach items="${loanTenderRepayDate}" var="loanTenderRepay">
+					            	<option value="${loanTenderRepay.key}">${loanTenderRepay.value}</option>
+					       		</c:forEach>
+							</select> 
+<!-- 					    <select name="repaymentTypeId" id="repaymentTypeId" class="sel_140"> -->
+<!-- 						    <option value="">--请选择--</option> -->
+<!-- 						    <option value="1">等额本息</option> -->
+<!-- 						    <option value="2">按月付息，到期还本</option> -->
+<!-- 						    <option value="4">一次性还款</option> -->
+<!-- 						</select> -->
 					    </td>
 					  </tr>
 					  <tr>
@@ -212,26 +219,15 @@
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最低投标金额：</td>
 					    <td class="col-md-6">
-					    <select name="lowestBidMoney" id="lowestBidMoney" class="sel_140">
-						    <option value="100">100</option>
-						    <option value="200">200</option>
-						    <option value="500">500</option>
-						    <option value="800">800</option>
-						    <option value="1000">1000</option>
-						</select>
+						    <select name="lowestBidMoney" id="lowestBidMoney" class="sel_140" onFocus="funLowestBidMoney()">
+							</select>
 					    </td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最多投标金额：</td>
 					    <td class="col-md-6">
-					    <select name="largestBidMoney" id="largestBidMoney" class="sel_140">
-						    <option value="">没有限制</option>
-						    <option value="1000">1000</option>
-						    <option value="5000">5000</option>
-						    <option value="10000">10000</option>
-						    <option value="20000">20000</option>
-						    <option value="50000">50000</option>
-						</select>
+							<select name="largestBidMoney" id="largestBidMoney" class="sel_140" onFocus="funLargestBidMoney()">
+							</select>
 						</td>
 					  </tr>
 					  <tr>
@@ -330,9 +326,6 @@
 		  		</form>    
 	    	</div>
     	</div>
-    	
-    	
-    	
     </div>
     <hr class="featurette-divider2">
     <jsp:include page="../foot.jsp"/>
@@ -446,6 +439,32 @@
 				}
 		    }
 		};
-    </script>
+		//动态加载后台的最低投标金额值
+		var lowestBidMoney="${loanTenderDate.lowestBidMoney}"; //这是一字符串 
+		var lowestBidMoneys=lowestBidMoney.split(","); //字符分割 
+		function funLowestBidMoney(){
+		  for (var i=0;i < lowestBidMoneys.length; i++) {
+		    document.enteringLiuZhuan.lowestBidMoney.options[i] = new Option(lowestBidMoneys[i],lowestBidMoneys[i]);
+		  }
+		};
+		//动态加载后台的最高投标金额值
+		var largestBidMoney="${loanTenderDate.largestBidMoney}"; //这是一字符串 
+		var largestBidMoneys=largestBidMoney.split(","); //字符分割 
+		function funLargestBidMoney(){
+		  for (var i=0;i < largestBidMoneys.length; i++) {
+		    document.enteringLiuZhuan.largestBidMoney.options[i] = new Option(largestBidMoneys[i],largestBidMoneys[i]);
+		  }
+		};
+		//动态加载后台的最高投标金额值
+		var repaymentTypeId="${loanTenderRepayDate}"; //这是一字符串 
+		function funRepaymentTypeId(){
+			alert(repaymentTypeId);
+			alert(repaymentTypeId[i]);
+		  for (var i=0;i < repaymentTypeId.length; i++) {
+			  alert("0000"+i);
+		    document.enteringLiuZhuan.largestBidMoney.options[i] = new Option(largestBidMoneys[i],largestBidMoneys[i]);
+		  }
+		};
+</script> 
   </body>
 </html>

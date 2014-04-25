@@ -6,7 +6,9 @@
 package com.glacier.netloan.service.borrow;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
@@ -63,8 +65,34 @@ public class LoanTenderService {
 	 * @throws
 	 */
     public Object getLoanTender(String loanId) {
-    	LoanTender websiteLoanTender = loanTenderMapper.selectByPrimaryKey(loanId);
-        return websiteLoanTender;
+    	LoanTender loanTender = loanTenderMapper.selectByPrimaryKey(loanId);
+        return loanTender;
+    }
+    
+    /**
+     * @Title: getLoanTenderRepay 
+     * @Description: TODO(根据标种类型Id查找相关联的还款方式) 
+     * @param @param loanId
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    public Object getLoanTenderRepay(String loanId) {
+       	RepaymentTypeExample repaymentTypeExample =new RepaymentTypeExample();
+    	List<RepaymentType> repaymentTypes = repaymentTypeMapper.selectByExample(repaymentTypeExample);
+    	TenderRepaymentExample tenderRepaymentExample = new TenderRepaymentExample();
+    	tenderRepaymentExample.createCriteria().andLoanTenderIdEqualTo(loanId);
+    	List<TenderRepaymentKey> tenderRepaymentList = tenderRepaymentMapper.selectByExample(tenderRepaymentExample);
+    	Map<String,String> map = new HashMap<String,String>();
+    	for (RepaymentType repaymentType : repaymentTypes) {
+    		TenderRepaymentKey tenderRepayment = new TenderRepaymentKey();
+    		tenderRepayment.setLoanTenderId(loanId);
+    		tenderRepayment.setRepaymentTypeId(repaymentType.getRepaymentTypeId());
+    		if (tenderRepaymentList.contains(tenderRepayment)) {// 根据标种Id查找已经存在关系的还款方式
+    			map.put(repaymentType.getRepaymentTypeId(),repaymentType.getRepaymentTypeName()); 
+    		}
+    	}
+        return map;
     }
     
     /**

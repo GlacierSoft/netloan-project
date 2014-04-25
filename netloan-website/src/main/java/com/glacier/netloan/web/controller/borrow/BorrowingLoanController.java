@@ -24,6 +24,7 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
+import com.glacier.netloan.service.borrow.LoanTenderService;
 
 /** 
  * @ClassName: BorrowingLoanController 
@@ -38,6 +39,9 @@ public class BorrowingLoanController extends AbstractController{
 
     @Autowired
     private BorrowingLoanService borrowingLoanService;// 注入借款业务Bean
+    
+    @Autowired
+    private LoanTenderService loanTenderService;
     
     // 进入借款列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -121,6 +125,10 @@ public class BorrowingLoanController extends AbstractController{
 	//转到“净值标申请页面”页面
 	@RequestMapping(value = "/enteringJingZhi.htm")
 	public Object enteringJingZhi(){
-		return "borrow_mgr/enteringJingZhi";
+		ModelAndView mav = new ModelAndView("borrow_mgr/enteringJingZhi");
+		mav.addObject("loanTenderDate",loanTenderService.getLoanTender("9788195653f335695256551b82fcbac6"));
+		//根据标种类型Id查找相关联的还款方式
+		mav.addObject("loanTenderRepayDate",loanTenderService.getLoanTenderRepay("9788195653f335695256551b82fcbac6"));
+		return mav;
 	}
 }
