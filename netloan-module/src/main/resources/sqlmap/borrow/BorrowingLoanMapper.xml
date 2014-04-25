@@ -58,6 +58,7 @@
     <result column="temp_borrowing_loan_update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="temp_borrowing_loan_memberDisplay" property="memberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_borrowing_loan_loanTenderDisplay" property="loanTenderDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_borrowing_loan_repaymentTypeDisplay" property="repaymentTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_borrowing_loan_firstAuditorDisplay" property="firstAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_borrowing_loan_secondAuditorDisplay" property="secondAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_borrowing_loan_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
@@ -155,6 +156,7 @@
     ,temp_member.member_real_name as temp_borrowing_loan_memberDisplay
     ,temp_member.credit_integral as temp_borrowing_loan_credit_Integral
     ,temp_loanTender.loanr_tender_name as temp_borrowing_loan_loanTenderDisplay
+    ,temp_repaymentType.repayment_type_name as temp_borrowing_loan_repaymentTypeDisplay
     ,temp_firstAuditor.user_cn_name as temp_borrowing_loan_firstAuditorDisplay
     ,temp_secondAuditor.user_cn_name as temp_borrowing_loan_secondAuditorDisplay
     ,temp_creater.user_cn_name as temp_borrowing_loan_createrDisplay
@@ -163,6 +165,7 @@
   <sql id="Base_extend">
     LEFT JOIN t_member temp_member ON temp_member.member_id = temp_borrowing_loan.member_id <!-- 扩展 -->
     LEFT JOIN t_loan_tender temp_loanTender ON temp_loanTender.loan_tender_id = temp_borrowing_loan.loan_tender_id <!-- 扩展 -->
+    LEFT JOIN t_repayment_type temp_repaymentType ON temp_repaymentType.repayment_type_id = temp_borrowing_loan.repayment_type_id <!-- 扩展 -->
     LEFT JOIN t_user temp_firstAuditor ON temp_firstAuditor.user_id = temp_borrowing_loan.first_auditor_id <!-- 扩展 -->
     LEFT JOIN t_user temp_secondAuditor ON temp_secondAuditor.user_id = temp_borrowing_loan.second_auditor_id <!-- 扩展 -->
     LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_borrowing_loan.creater <!-- 扩展 -->

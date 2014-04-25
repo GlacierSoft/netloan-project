@@ -146,7 +146,7 @@
 				sortable:true,
 				width:120
 			},{
-				field:'repaymentTypeId',
+				field:'repaymentTypeDisplay',
 				title:'还款方式',
 				sortable:true,
 				width:120

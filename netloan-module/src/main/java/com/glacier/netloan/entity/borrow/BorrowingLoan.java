@@ -62,6 +62,11 @@ public class BorrowingLoan {
     private Float loanManagementFees;
 
     private String repaymentTypeId;
+    
+    /**
+     * 自定义字段
+     */
+    private String repaymentTypeDisplay;
 
     private Float loanTotal;
 
@@ -652,6 +657,14 @@ public class BorrowingLoan {
 
 	public void setCreditIntegral(Float creditIntegral) {
 		this.creditIntegral = creditIntegral;
+	}
+
+	public String getRepaymentTypeDisplay() {
+		return repaymentTypeDisplay;
+	}
+
+	public void setRepaymentTypeDisplay(String repaymentTypeDisplay) {
+		this.repaymentTypeDisplay = repaymentTypeDisplay;
 	}
 
 	@Override
