@@ -679,6 +679,7 @@
 				</div>
 	    	</div>
 	    </div>
+	    <hr class="featurette-divider2">
 	    <jsp:include page="../foot.jsp"/>
 	    </div>
 	    <!-- CONTAINER START======================== -->

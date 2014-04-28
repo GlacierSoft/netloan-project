@@ -159,7 +159,7 @@
     ,temp_repaymentType.repayment_type_name as temp_borrowing_loan_repaymentTypeDisplay
     ,temp_firstAuditor.user_cn_name as temp_borrowing_loan_firstAuditorDisplay
     ,temp_secondAuditor.user_cn_name as temp_borrowing_loan_secondAuditorDisplay
-    ,temp_creater.user_cn_name as temp_borrowing_loan_createrDisplay
+    ,temp_creater.member_real_name as temp_borrowing_loan_createrDisplay
     ,temp_updater.user_cn_name as temp_borrowing_loan_updaterDisplay
   </sql>
   <sql id="Base_extend">
@@ -168,7 +168,7 @@
     LEFT JOIN t_repayment_type temp_repaymentType ON temp_repaymentType.repayment_type_id = temp_borrowing_loan.repayment_type_id <!-- 扩展 -->
     LEFT JOIN t_user temp_firstAuditor ON temp_firstAuditor.user_id = temp_borrowing_loan.first_auditor_id <!-- 扩展 -->
     LEFT JOIN t_user temp_secondAuditor ON temp_secondAuditor.user_id = temp_borrowing_loan.second_auditor_id <!-- 扩展 -->
-    LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_borrowing_loan.creater <!-- 扩展 -->
+    LEFT JOIN t_member temp_creater ON temp_creater.member_id = temp_borrowing_loan.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_borrowing_loan.updater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.BorrowingLoanExample" >

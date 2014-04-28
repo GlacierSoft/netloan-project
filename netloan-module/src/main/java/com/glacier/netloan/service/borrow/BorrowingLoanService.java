@@ -201,7 +201,7 @@ public class BorrowingLoanService {
         count = borrowingLoanMapper.insert(borrowingLoan);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + borrowingLoan.getLoanCode() + "] 借款信息已保存");
+            returnResult.setMsg("[" + borrowingLoan.getLoanCode() + "] 借款信息已保存,请等待管理员进行审核");
         } else {
             returnResult.setMsg("发生未知错误，借款信息保存失败");
         }

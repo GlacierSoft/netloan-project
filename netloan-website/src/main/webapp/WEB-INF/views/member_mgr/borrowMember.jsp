@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- 引入jstl解析标签 -->
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %><!-- 引入自定义权限标签 -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="zh-cn">
@@ -31,7 +32,7 @@
 					        </a>
 					      </h4>
 					    </div>
-					    <div id="collapseOne" class="panel-collapse collapse in">
+					    <div id="collapseOne" class="panel-collapse collapse">
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
 					          <a href="${ctx}/member/index.htm" class="btn btn-default" role="button">我的主页</a>
@@ -40,7 +41,7 @@
 							  <a href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1" class="btn btn-default" role="button">站内信</a>
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">个人设置</a>
 							  <a href="${ctx}/member/memberPhotoInto.htm" class="btn btn-default" role="button">头像上传</a>
-							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-info" role="button">邮箱设置</a>
+							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">邮箱设置</a>
 							</div>
 					      </div>
 					    </div>
@@ -53,10 +54,10 @@
 					        </a>
 					      </h4>
 					    </div>
-					    <div id="collapseTwo" class="panel-collapse collapse">
+					    <div id="collapseTwo" class="panel-collapse collapse in">
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
-							  <a href="#" class="btn btn-default" role="button">借款列表</a>
+							  <a href="${ctx}/borrowingLoan/borrowMember.htm?&p=1" class="btn btn-info" role="button">借款列表</a>
 							  <a href="#" class="btn btn-default" role="button">还款管理</a>
 							  <a href="#" class="btn btn-default" role="button">贷款统计</a>
 							</div>
@@ -87,24 +88,48 @@
 	    	<div class="col-md-10">
 	    		<div class="panel panel-default">
 				  <div class="panel-heading">
-				    <h3 class="panel-title">邮箱设置</h3>
+				    <h3 class="panel-title">会员中心 / 借款管理 / 借款列表</h3>
 				  </div>
 				  <div class="panel-body">
-				     <table class="table">
-			            <tr rowspan="2" >
-			              <td  colspan="3" style="color:red;">邮箱设置</td>
-			            </tr>
-			            <tr>
-			              <td>邮箱地址:</td>
-			              <td>${currentMember.email}</td>
-			              <c:if test="${currentMember.email != ''}">
-			              <td><p style="color:red;">(改邮箱已绑定)</p></td>
-			              </c:if>
-			              <c:if test="${currentMember.email == ''}">
-			              <td><p>(改邮箱未绑定)</p></td>
-			              </c:if>
-			            </tr>
-			        </table>
+			          <div>
+				          <table class="table table-hover">
+				          	<thead>
+					          <tr>
+					            <th>借款标题</th>
+					            <th>借款类型</th>
+					            <th>还款方式</th>
+					            <th>借款金额</th>
+					            <th>利率</th>
+					            <th>招标期限</th>
+					            <th>发布时间</th>
+					            <th></th>
+					          </tr>
+					        </thead>
+				          	<tbody>
+				          		<c:forEach items="${borrowingDatas.rows}" var="borrowingLoan">
+						          <tr>
+						            <td>${borrowingLoan.loanTitle}</td>
+						            <td>${borrowingLoan.loanTenderDisplay}</td>
+						            <td>${borrowingLoan.repaymentTypeDisplay}</td>
+						            <td>${borrowingLoan.loanTotal}</td>
+						            <td>${borrowingLoan.loanApr}</td>
+						            <td>${borrowingLoan.waitBidDeadlines}</td>
+						            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="both"/></td>
+						          	<td><a href="${ctx}/news/newsDetail.htm?&webNewsId=${news.webNewsId}">查看详细</a></td>
+						          </tr>
+					      		</c:forEach>
+					      	</tbody>
+					      	<tfoot>
+					          <tr>
+					            <th colspan="8">
+					            	<div align="right">
+									    <ul id='pageBorrows'></ul>
+									</div>
+								</th>
+					          </tr>
+					        </tfoot>
+					      </table>
+				      </div>
 				  </div>
 				</div>
 	    	</div>
@@ -113,6 +138,62 @@
 	    <jsp:include page="../foot.jsp"/>
 	    </div>
 	    <!-- CONTAINER START======================== -->
-	      
+
+<!-- 分页显示表格数据 -->
+<script type="text/javascript">
+	$(function(){
+		//获得浏览器参数
+		$.extend({
+			getUrlVars: function(){
+				var vars = [], hash;
+				var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+				for(var i = 0; i < hashes.length; i++){
+					hash = hashes[i].split('=');
+					vars.push(hash[0]);
+					vars[hash[0]] = hash[1];
+				}
+				return vars;
+			},
+			getUrlVar: function(name){
+				return $.getUrlVars()[name];
+			}
+		});
+	
+	//封装浏览器参数
+	var composeUrlParams=function(){
+		var param='';
+		$.each($.getUrlVars(), function(i, item) {
+			if(item!='p'){
+				var val=$.getUrlVar(item);
+				if(val) param += "&" + item+"="+val;
+			}
+		});
+		return param;
+	}
+	
+	var element = $('#pageBorrows');
+	
+	//设置分页的总页数
+	var total=${borrowingDatas.total}/10;
+	if(parseInt(total)==total){
+		var total = parseInt(total);
+	}else {
+		var total = parseInt(total)+1;
+	}
+	
+	var options = {
+	    bootstrapMajorVersion:3,
+	    currentPage: ${borrowingDatas.p},
+	    numberOfPages: 5,
+	    totalPages:total,
+	    pageUrl: function(type, page, current){
+	    	return "${ctx}/borrowingLoan/borrowMember.htm?"+composeUrlParams()+"&p="+page;
+	    	}
+	}
+	
+	element.bootstrapPaginator(options);
+	})
+</script>
+
   </body>
 </html>

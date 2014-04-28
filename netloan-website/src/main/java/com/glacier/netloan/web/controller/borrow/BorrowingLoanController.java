@@ -7,6 +7,7 @@ package com.glacier.netloan.web.controller.borrow;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
+import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
@@ -130,5 +132,30 @@ public class BorrowingLoanController extends AbstractController{
 		//根据标种类型Id查找相关联的还款方式
 		mav.addObject("loanTenderRepayDate",loanTenderService.getLoanTenderRepay("9788195653f335695256551b82fcbac6"));
 		return mav;
+	}
+	
+	//转到会员中心的我要借款的借款列表
+	@RequestMapping(value = "/borrowMember.htm")
+	public Object borrowMember(JqPager jqPager,int p,BorrowingLoanQueryDTO borrowingLoanQueryDTO,String pagetype,HttpServletRequest request){
+		//获取信息通知列表
+		JqGridReturn returnResult = (JqGridReturn) borrowingLoanService.listAsGridWebsite(jqPager, borrowingLoanQueryDTO, pagetype, p);
+		request.setAttribute("borrowingDatas", returnResult);
+		request.setAttribute("borrowingLoanQueryDTO", borrowingLoanQueryDTO);
+		if(null != pagetype){
+			if(pagetype.trim().equals("riseloanTotal")){
+				request.setAttribute("loanTotal", "downloanTotal");
+	        }else if(pagetype.trim().equals("downloanTotal")){
+	        	request.setAttribute("loanTotal", "riseloanTotal");
+	        }else if(pagetype.trim().equals("risecredit")){
+	        	request.setAttribute("credit", "downcredit");
+	        }else if(pagetype.trim().equals("downcredit")){
+	        	request.setAttribute("credit", "risecredit");
+	        }else if(pagetype.trim().equals("riseloanApr")){
+	        	request.setAttribute("loanApr", "downlloanApr");
+	        }else if(pagetype.trim().equals("downloanApr")){
+	        	request.setAttribute("loanApr", "riseloanApr");
+	        }
+		}
+		return "member_mgr/borrowMember";
 	}
 }
