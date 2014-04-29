@@ -38,6 +38,8 @@
     <result column="temp_loan_tender_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_loan_tender_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_loan_tender_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_loan_tender_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_loan_tender_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -116,6 +118,13 @@
     temp_loan_tender.anti_guarantee_id as temp_loan_tender_anti_guarantee_id, temp_loan_tender.remark as temp_loan_tender_remark, 
     temp_loan_tender.creater as temp_loan_tender_creater, temp_loan_tender.create_time as temp_loan_tender_create_time, 
     temp_loan_tender.updater as temp_loan_tender_updater, temp_loan_tender.update_time as temp_loan_tender_update_time
+    <!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_loan_tender_creater_display
+    ,temp_updater.user_cn_name as temp_loan_tender_updater_display
+  </sql>
+  <sql id="Base_extend">
+    INNER JOIN t_user temp_creater ON temp_loan_tender.creater =  temp_creater.user_id<!-- 扩展 -->
+    INNER JOIN t_user temp_updater ON temp_loan_tender.updater =  temp_updater.user_id<!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.LoanTenderExample" >
     select
@@ -124,6 +133,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_loan_tender temp_loan_tender
+    <include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -138,6 +148,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_loan_tender temp_loan_tender
+    <include refid="Base_extend"/>
     where temp_loan_tender.loan_tender_id = #{loanTenderId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -403,6 +414,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.LoanTenderExample" resultType="java.lang.Integer" >
     select count(*) from t_loan_tender temp_loan_tender
+    <include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

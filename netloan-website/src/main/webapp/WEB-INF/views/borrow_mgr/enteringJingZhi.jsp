@@ -398,7 +398,7 @@
 					                click : function(e) {
 					                	dialog.remove();
 					                	if(data.success){
-					                		window.location.href="${ctx}/borrow.htm";
+					                		window.location.href="${ctx}/investment/index.htm?&p=1";
 					                	}else{
 					                		dialog.remove();
 					                	}

@@ -103,7 +103,6 @@
 					            <th>年利率</th>
 					            <th>招标期限</th>
 					            <th>发布时间</th>
-					            <th></th>
 					          </tr>
 					        </thead>
 				          	<tbody>
@@ -122,7 +121,6 @@
 						            <td>${borrowingLoan.loanApr}</td>
 						            <td>${borrowingLoan.waitBidDeadlines}</td>
 						            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="both"/></td>
-						          	<td><a href="${ctx}/news/newsDetail.htm?&webNewsId=${news.webNewsId}">查看详细</a></td>
 						          </tr>
 					      		</c:forEach>
 					      	</tbody>
@@ -194,7 +192,7 @@
 	    numberOfPages: 5,
 	    totalPages:total,
 	    pageUrl: function(type, page, current){
-	    	return "${ctx}/borrowingLoan/borrowMember.htm?"+composeUrlParams()+"&p="+page;
+	    	return "${ctx}/borrowingLoan/memberBorrow.htm?"+composeUrlParams()+"&p="+page;
 	    	}
 	}
 	
