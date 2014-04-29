@@ -60,6 +60,20 @@ public class BorrowingLoanController extends AbstractController{
         return mav;
     }
     
+    // 进入收款还款展示页面
+    @RequestMapping(value = "/gatheringRepayment.htm")
+    private Object gatheringRepayment() {
+        ModelAndView mav = new ModelAndView("borrow_mgr/borrowingLoan_mgr/gatheringRepayment");
+        return mav;
+    }
+    
+    // 进入逾期借款展示页面
+    @RequestMapping(value = "/borrowingOverdue.htm")
+    private Object borrowingOverdue() {
+        ModelAndView mav = new ModelAndView("borrow_mgr/borrowingLoan_mgr/borrowingOverdue");
+        return mav;
+    }
+    
     // 进入借款Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoBorrowingLoanFormPborrowingLoan(String loanId) {
