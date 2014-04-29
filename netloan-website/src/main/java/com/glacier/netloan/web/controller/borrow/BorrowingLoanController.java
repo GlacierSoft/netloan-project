@@ -135,8 +135,8 @@ public class BorrowingLoanController extends AbstractController{
 	}
 	
 	//转到会员中心的我要借款的借款列表
-	@RequestMapping(value = "/borrowMember.htm")
-	public Object borrowMember(JqPager jqPager,int p,BorrowingLoanQueryDTO borrowingLoanQueryDTO,String pagetype,HttpServletRequest request){
+	@RequestMapping(value = "/memberBorrow.htm")
+	public Object memberBorrow(JqPager jqPager,int p,BorrowingLoanQueryDTO borrowingLoanQueryDTO,String pagetype,HttpServletRequest request){
 		//获取信息通知列表
 		JqGridReturn returnResult = (JqGridReturn) borrowingLoanService.listAsGridWebsite(jqPager, borrowingLoanQueryDTO, pagetype, p);
 		request.setAttribute("borrowingDatas", returnResult);
@@ -156,6 +156,6 @@ public class BorrowingLoanController extends AbstractController{
 	        	request.setAttribute("loanApr", "riseloanApr");
 	        }
 		}
-		return "member_mgr/borrowMember";
+		return "member_mgr/memberBorrow";
 	}
 }

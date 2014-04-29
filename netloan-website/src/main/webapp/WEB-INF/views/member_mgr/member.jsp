@@ -56,7 +56,7 @@
 					    <div id="collapseTwo" class="panel-collapse collapse">
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
-							  <a href="${ctx}/borrowingLoan/borrowMember.htm?&p=1" class="btn btn-default" role="button">借款列表</a>
+							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1" class="btn btn-default" role="button">借款列表</a>
 							  <a href="#" class="btn btn-default" role="button">还款管理</a>
 							  <a href="#" class="btn btn-default" role="button">贷款统计</a>
 							</div>
