@@ -57,8 +57,8 @@
 					    <div id="collapseTwo" class="panel-collapse collapse in">
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
-							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1" class="btn btn-info" role="button">借款列表</a>
-							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting" class="btn btn-default" role="button">还款管理</a>
+							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1" class="btn btn-default" role="button">借款列表</a>
+							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting" class="btn btn-info" role="button">还款管理</a>
 							  <a href="${ctx}/borrowingLoan/memberStatistics.htm?&memberId=${currentMember.memberId}" class="btn btn-default" role="button">贷款统计</a>
 							</div>
 					      </div>
@@ -88,7 +88,7 @@
 	    	<div class="col-md-10">
 	    		<div class="panel panel-default">
 				  <div class="panel-heading">
-				    <h3 class="panel-title">会员中心 / 借款管理 / 借款列表</h3>
+				    <h3 class="panel-title">会员中心 / 借款管理 / 还款管理</h3>
 				  </div>
 				  <div class="panel-body">
 			          <div>
@@ -97,13 +97,14 @@
 					          <tr>
 					            <th>借款标题</th>
 					            <th>借款类型</th>
-					            <th>借款状态</th>
-					            <th>借款金额</th>
 					            <th>还款方式</th>
+					            <th>借款金额</th>
 					            <th>年利率</th>
-					            <th>招标期限</th>
-					            <th>发布时间</th>
-					            <th></th>
+					            <th>借款时间</th>
+					            <th>偿还本息</th>
+					            <th>已还本息</th>
+					            <th>未还本息</th>
+					            <th>借款状态</th>
 					          </tr>
 					        </thead>
 				          	<tbody>
@@ -111,24 +112,25 @@
 						          <tr>
 						            <td>${borrowingLoan.loanTitle}</td>
 						            <td>${borrowingLoan.loanTenderDisplay}</td>
+						            <td>${borrowingLoan.repaymentTypeDisplay}</td>
+						            <td>${borrowingLoan.loanTotal}</td>
+						            <td>${borrowingLoan.loanApr}</td>
+						            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="date"/></td>
+						            <td>${borrowingLoan.loanTotal}</td>
+						            <td>${borrowingLoan.loanTotal}</td>
+						            <td>${borrowingLoan.loanTotal}</td>
 						            <td>
 						            	<span id="borrowingLoan_loanState2${status.index}"></span>
 						        		<script type="text/javascript">
 								       		$('#borrowingLoan_loanState2'+${status.index}).html(renderGridValue('${borrowingLoan.loanState }',fields.loanState));
 								    	</script>
 					    			</td>
-						            <td>${borrowingLoan.loanTotal}</td>
-						            <td>${borrowingLoan.repaymentTypeDisplay}</td>
-						            <td>${borrowingLoan.loanApr}</td>
-						            <td>${borrowingLoan.waitBidDeadlines}</td>
-						            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="both"/></td>
-						          	<td><a href="${ctx}/news/newsDetail.htm?&webNewsId=${news.webNewsId}">查看详细</a></td>
 						          </tr>
 					      		</c:forEach>
 					      	</tbody>
 					      	<tfoot>
 					          <tr>
-					            <th colspan="8">
+					            <th colspan="10">
 					            	<div align="right">
 									    <ul id='pageBorrows'></ul>
 									</div>

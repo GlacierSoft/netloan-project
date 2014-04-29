@@ -277,8 +277,8 @@ public class BorrowingLoanService {
         if ("".equals(borrowingLoan.getIsBidPwd()) && StringUtils.isBlank(borrowingLoan.getIsBidPwd())) {
         	borrowingLoan.setIsBidPwd(null);
         }
-        if ("firstSucess".equals(borrowingLoan.getFirstAuditState())) {
-        	borrowingLoan.setLoanState("secondAuditor");
+        if ("firstSucess".equals(borrowingLoan.getFirstAuditState())) {//初审通过，借款状态改为招标中
+        	borrowingLoan.setLoanState("tendering");
         }
         count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);
         if (count == 1) {
@@ -324,8 +324,8 @@ public class BorrowingLoanService {
         if ("".equals(borrowingLoan.getIsBidPwd()) && StringUtils.isBlank(borrowingLoan.getIsBidPwd())) {
         	borrowingLoan.setIsBidPwd(null);
         }
-        if ("secondSucess".equals(borrowingLoan.getSecondAuditState())) {
-        	borrowingLoan.setLoanState("tendering");
+        if ("secondSucess".equals(borrowingLoan.getSecondAuditState())) {//复审通过，借款状态改为还款中
+        	borrowingLoan.setLoanState("repaymenting");
         }
         count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);
         if (count == 1) {

@@ -19,6 +19,9 @@ public interface MemberStatisticsMapper {
     List<MemberStatistics> selectByExample(MemberStatisticsExample example);
 
     MemberStatistics selectByPrimaryKey(String statisticsId);
+    
+    // 新增方法，根据所属会员Id查找该会员的统计信息
+    MemberStatistics selectByMemberId(String memberId);
 
     int updateByExampleSelective(@Param("record") MemberStatistics record, @Param("example") MemberStatisticsExample example);
 

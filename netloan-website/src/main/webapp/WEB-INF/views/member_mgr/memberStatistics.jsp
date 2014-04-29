@@ -57,9 +57,9 @@
 					    <div id="collapseTwo" class="panel-collapse collapse in">
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
-							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1" class="btn btn-info" role="button">借款列表</a>
+							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1" class="btn btn-default" role="button">借款列表</a>
 							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting" class="btn btn-default" role="button">还款管理</a>
-							  <a href="${ctx}/borrowingLoan/memberStatistics.htm?&memberId=${currentMember.memberId}" class="btn btn-default" role="button">贷款统计</a>
+							  <a href="${ctx}/borrowingLoan/memberStatistics.htm?&memberId=${currentMember.memberId}" class="btn btn-info" role="button">贷款统计</a>
 							</div>
 					      </div>
 					    </div>
@@ -88,53 +88,61 @@
 	    	<div class="col-md-10">
 	    		<div class="panel panel-default">
 				  <div class="panel-heading">
-				    <h3 class="panel-title">会员中心 / 借款管理 / 借款列表</h3>
+				    <h3 class="panel-title">会员中心 / 借款管理 / 借款统计</h3>
 				  </div>
 				  <div class="panel-body">
 			          <div>
-				          <table class="table table-hover">
+				          <table class="table table-bordered">
 				          	<thead>
 					          <tr>
-					            <th>借款标题</th>
-					            <th>借款类型</th>
-					            <th>借款状态</th>
-					            <th>借款金额</th>
-					            <th>还款方式</th>
-					            <th>年利率</th>
-					            <th>招标期限</th>
-					            <th>发布时间</th>
-					            <th></th>
+					            <th colspan="9" style="text-align: center;" >还款统计</th>
 					          </tr>
 					        </thead>
 				          	<tbody>
-				          		<c:forEach items="${borrowingDatas.rows}" var="borrowingLoan" varStatus="status">
 						          <tr>
-						            <td>${borrowingLoan.loanTitle}</td>
-						            <td>${borrowingLoan.loanTenderDisplay}</td>
-						            <td>
-						            	<span id="borrowingLoan_loanState2${status.index}"></span>
-						        		<script type="text/javascript">
-								       		$('#borrowingLoan_loanState2'+${status.index}).html(renderGridValue('${borrowingLoan.loanState }',fields.loanState));
-								    	</script>
-					    			</td>
-						            <td>${borrowingLoan.loanTotal}</td>
-						            <td>${borrowingLoan.repaymentTypeDisplay}</td>
-						            <td>${borrowingLoan.loanApr}</td>
-						            <td>${borrowingLoan.waitBidDeadlines}</td>
-						            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="both"/></td>
-						          	<td><a href="${ctx}/news/newsDetail.htm?&webNewsId=${news.webNewsId}">查看详细</a></td>
+						            <td>总借款额</td> 
+						            <td>发布借款数</td>
+						            <td>已还本息</td>
+						            <td>成功借款数</td>
+						            <td>借款总笔数统计</td>
+						            <td>待还本息</td>
+						            <td>正常还清笔数</td>
+						            <td>提前还清笔数</td>
+						            <td>未还清笔数</td>
 						          </tr>
-					      		</c:forEach>
+						          <tr>
+						            <td>￥${memberStatisticsDate.totalBorrowings}</td>
+						            <td>${memberStatisticsDate.borrowSuccess}</td>
+						            <td>￥${memberStatisticsDate.alreadyTotal}</td>
+						            <td>${memberStatisticsDate.borrowSuccess}</td>
+						            <td>${memberStatisticsDate.totalBorrowings}</td>
+						            <td>￥${memberStatisticsDate.waitAlsoTotal}</td>
+						            <td>${memberStatisticsDate.totalBorrowings}</td>
+						            <td>${memberStatisticsDate.totalBorrowings}</td>
+						            <td>${memberStatisticsDate.totalBorrowings}</td>
+						          </tr>
 					      	</tbody>
-					      	<tfoot>
+					      </table>
+					      <table class="table table-bordered">
+				          	<thead>
 					          <tr>
-					            <th colspan="8">
-					            	<div align="right">
-									    <ul id='pageBorrows'></ul>
-									</div>
-								</th>
+					            <th colspan="4" style="text-align: center;" >逾期统计</th>
 					          </tr>
-					        </tfoot>
+					        </thead>
+				          	<tbody>
+						          <tr>
+						            <td>逾期本息</td> 
+						            <td>逾期次数</td>
+						            <td>逾期罚款</td>
+						            <td>严重逾期次数</td>
+						          </tr>
+						          <tr>
+						            <td>￥${memberStatisticsDate.alreadyTotal}</td>
+						            <td>￥${memberStatisticsDate.totalBorrowings}</td>
+						            <td>￥${memberStatisticsDate.totalBorrowings}</td>
+						            <td>￥${memberStatisticsDate.totalBorrowings}</td>
+						          </tr>
+					      	</tbody>
 					      </table>
 				      </div>
 				  </div>
@@ -145,62 +153,6 @@
 	    <jsp:include page="../foot.jsp"/>
 	    </div>
 	    <!-- CONTAINER START======================== -->
-
-<!-- 分页显示表格数据 -->
-<script type="text/javascript">
-	$(function(){
-		//获得浏览器参数
-		$.extend({
-			getUrlVars: function(){
-				var vars = [], hash;
-				var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-				for(var i = 0; i < hashes.length; i++){
-					hash = hashes[i].split('=');
-					vars.push(hash[0]);
-					vars[hash[0]] = hash[1];
-				}
-				return vars;
-			},
-			getUrlVar: function(name){
-				return $.getUrlVars()[name];
-			}
-		});
-	
-	//封装浏览器参数
-	var composeUrlParams=function(){
-		var param='';
-		$.each($.getUrlVars(), function(i, item) {
-			if(item!='p'){
-				var val=$.getUrlVar(item);
-				if(val) param += "&" + item+"="+val;
-			}
-		});
-		return param;
-	}
-	
-	var element = $('#pageBorrows');
-	
-	//设置分页的总页数
-	var total=${borrowingDatas.total}/10;
-	if(parseInt(total)==total){
-		var total = parseInt(total);
-	}else {
-		var total = parseInt(total)+1;
-	}
-	
-	var options = {
-	    bootstrapMajorVersion:3,
-	    currentPage: ${borrowingDatas.p},
-	    numberOfPages: 5,
-	    totalPages:total,
-	    pageUrl: function(type, page, current){
-	    	return "${ctx}/borrowingLoan/borrowMember.htm?"+composeUrlParams()+"&p="+page;
-	    	}
-	}
-	
-	element.bootstrapPaginator(options);
-	})
-</script>
 
   </body>
 </html>

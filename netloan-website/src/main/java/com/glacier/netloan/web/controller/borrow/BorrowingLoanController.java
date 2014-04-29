@@ -27,6 +27,7 @@ import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.borrow.LoanTenderService;
+import com.glacier.netloan.service.member.MemberStatisticsService;
 
 /** 
  * @ClassName: BorrowingLoanController 
@@ -44,6 +45,9 @@ public class BorrowingLoanController extends AbstractController{
     
     @Autowired
     private LoanTenderService loanTenderService;
+    
+    @Autowired
+    private MemberStatisticsService memberStatisticsService;
     
     // 进入借款列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -134,7 +138,7 @@ public class BorrowingLoanController extends AbstractController{
 		return mav;
 	}
 	
-	//转到会员中心的我要借款的借款列表
+	//转到会员中心的我要借款的“借款列表”和“还款管理”页面
 	@RequestMapping(value = "/memberBorrow.htm")
 	public Object memberBorrow(JqPager jqPager,int p,BorrowingLoanQueryDTO borrowingLoanQueryDTO,String pagetype,HttpServletRequest request){
 		//获取信息通知列表
@@ -156,6 +160,18 @@ public class BorrowingLoanController extends AbstractController{
 	        	request.setAttribute("loanApr", "riseloanApr");
 	        }
 		}
-		return "member_mgr/memberBorrow";
+		String website = "member_mgr/memberBorrow";
+		if ("repaymenting".equals(borrowingLoanQueryDTO.getLoanState())){
+			website = "member_mgr/memberRepayment";
+		}
+		return website;
+	}
+	
+	//转到会员中心的我要借款的“借款统计”页面
+	@RequestMapping(value = "/memberStatistics.htm")
+	public Object memberStatistics(String memberId){
+		ModelAndView mav = new ModelAndView("member_mgr/memberStatistics");
+		mav.addObject("memberStatisticsDate",memberStatisticsService.getStatisticsByMember(memberId));
+		return mav;
 	}
 }

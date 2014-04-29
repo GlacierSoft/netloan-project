@@ -53,24 +53,36 @@ public class MemberStatisticsService {
     }
     
     /**
-     * @Title: listAsGrid 
-     * @Description: TODO(获取所有会员财务统计信息) 
-     * @param @param pstatisticsr
+     * @Title: getStatisticsByMember 
+     * @Description: TODO(根据所属会员Id获得该会员财务统计信息) 
+     * @param @param memberId
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pstatisticsr) {
+    public Object getStatisticsByMember(String memberId) {
+        return statisticsMapper.selectByMemberId(memberId);
+    }
+    
+    /**
+     * @Title: listAsGrid 
+     * @Description: TODO(获取所有会员财务统计信息) 
+     * @param @param jqPager
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    public Object listAsGrid(JqPager jqPager) {
         
         JqGridReturn returnResult = new JqGridReturn();
         MemberStatisticsExample memberStatisticsExample = new MemberStatisticsExample();
 
-        if (null != pstatisticsr.getPage() && null != pstatisticsr.getRows()) {// 设置排序信息
-        	memberStatisticsExample.setLimitStart((pstatisticsr.getPage() - 1) * pstatisticsr.getRows());
-        	memberStatisticsExample.setLimitEnd(pstatisticsr.getRows());
+        if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息
+        	memberStatisticsExample.setLimitStart((jqPager.getPage() - 1) * jqPager.getRows());
+        	memberStatisticsExample.setLimitEnd(jqPager.getRows());
         }
-        if (StringUtils.isNotBlank(pstatisticsr.getSort()) && StringUtils.isNotBlank(pstatisticsr.getOrder())) {// 设置排序信息
-        	memberStatisticsExample.setOrderByClause(pstatisticsr.getOrderBy("temp_member_statistics_"));
+        if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
+        	memberStatisticsExample.setOrderByClause(jqPager.getOrderBy("temp_member_statistics_"));
         }
         List<MemberStatistics>  memberStatisticss = statisticsMapper.selectByExample(memberStatisticsExample); // 查询所有会员积分列表
         int total = statisticsMapper.countByExample(memberStatisticsExample); // 查询总页数
