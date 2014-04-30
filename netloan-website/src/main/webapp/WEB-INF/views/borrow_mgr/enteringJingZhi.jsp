@@ -13,29 +13,6 @@
 		body {
 		    padding-top: 70px;
 		}
-		.inp280 {
-		    border: 1px solid #CCCCCC;
-		    height: 20px;
-		    line-height: 20px;
-		    width: 280px;
-		}
-		.sel_140 {
-		    border: 1px solid #ADBCC7;
-		    font-size: 12px;
-		    height: 20px;
-		    width: 140px;
-		}
-		.inp100x {
-		    border: 1px solid #CCCCCC;
-		    height: 20px;
-		    line-height: 20px;
-		    width: 100px;
-		}
-		.txt420{
-		    border: 1px solid #CCCCCC;
-		    height: 100px;
-		    width: 280px;
-		}
 	</style>
   </head>
 
@@ -193,19 +170,11 @@
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>还款方式：</td>
 					    <td class="col-md-6">
-<!-- 					    	<select name="repaymentTypeId" id="repaymentTypeId" class="sel_140" onFocus="funRepaymentTypeId()"> -->
-<!-- 							</select> -->
 							<select name="repaymentTypeId" id="repaymentTypeId" class="sel_140"> 
 					    		<c:forEach items="${loanTenderRepayDate}" var="loanTenderRepay">
 					            	<option value="${loanTenderRepay.key}">${loanTenderRepay.value}</option>
 					       		</c:forEach>
 							</select> 
-<!-- 					    <select name="repaymentTypeId" id="repaymentTypeId" class="sel_140"> -->
-<!-- 						    <option value="">--请选择--</option> -->
-<!-- 						    <option value="1">等额本息</option> -->
-<!-- 						    <option value="2">按月付息，到期还本</option> -->
-<!-- 						    <option value="4">一次性还款</option> -->
-<!-- 						</select> -->
 					    </td>
 					  </tr>
 					  <tr>
@@ -452,16 +421,6 @@
 		var largestBidMoneys=largestBidMoney.split(","); //字符分割 
 		function funLargestBidMoney(){
 		  for (var i=0;i < largestBidMoneys.length; i++) {
-		    document.enteringLiuZhuan.largestBidMoney.options[i] = new Option(largestBidMoneys[i],largestBidMoneys[i]);
-		  }
-		};
-		//动态加载后台的最高投标金额值
-		var repaymentTypeId="${loanTenderRepayDate}"; //这是一字符串 
-		function funRepaymentTypeId(){
-			alert(repaymentTypeId);
-			alert(repaymentTypeId[i]);
-		  for (var i=0;i < repaymentTypeId.length; i++) {
-			  alert("0000"+i);
 		    document.enteringLiuZhuan.largestBidMoney.options[i] = new Option(largestBidMoneys[i],largestBidMoneys[i]);
 		  }
 		};

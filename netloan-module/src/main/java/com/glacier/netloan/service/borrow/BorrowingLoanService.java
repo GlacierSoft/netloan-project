@@ -196,8 +196,8 @@ public class BorrowingLoanService {
         borrowingLoan.setLoanState("firstAudit");
         borrowingLoan.setCreater(memberId);
         borrowingLoan.setCreateTime(new Date());
-        borrowingLoan.setUpdater(memberId);
-        borrowingLoan.setUpdateTime(new Date());
+//        borrowingLoan.setUpdater(memberId);
+//        borrowingLoan.setUpdateTime(new Date());
         count = borrowingLoanMapper.insert(borrowingLoan);
         if (count == 1) {
             returnResult.setSuccess(true);

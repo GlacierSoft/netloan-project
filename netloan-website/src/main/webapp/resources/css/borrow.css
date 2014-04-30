@@ -16,7 +16,7 @@
 .lc_green { background-color: #82B100; }
 .lc_yello { background-color: #F4AC00; }
 .lc_red { background-color: #E2547C; }
-/*//借款介绍*/
+/*借款介绍*/
 /*投资介绍详情*/
 .jk_mid { margin: 0 auto 50px; width: 980px; }
 .jk_mid_title { width: 935px; height: 60px; background-color: #00a3e4; padding-left: 45px; color: #ffffff; font-size: 24px; line-height: 60px; }
@@ -29,4 +29,29 @@
 .jk_mid_con_k_con a { color: #00a3e4; }
 .jk_mid_con_k_con span { color: #00a3e4; }
 .jk_mid_bot_but .sq_but { display: block; width: 99px; height: 41px; line-height: 41px; color: #fff; background: url(../images/borrow/bg_sprite.png) no-repeat -338px -405px; text-align: center; top: 0px; right: 0px; margin: 0 auto; margin-top: 20px; }
-/*//投资介绍详情*/
+/*投资介绍详情*/
+/*借款录入页面样式*/
+.inp280 {
+    border: 1px solid #CCCCCC;
+    height: 20px;
+    line-height: 20px;
+    width: 280px;
+}
+.sel_140 {
+    border: 1px solid #ADBCC7;
+    font-size: 12px;
+    height: 20px;
+    width: 140px;
+}
+.inp100x {
+    border: 1px solid #CCCCCC;
+    height: 20px;
+    line-height: 20px;
+    width: 100px;
+}
+.txt420{
+    border: 1px solid #CCCCCC;
+    height: 100px;
+    width: 280px;
+}
+/*借款录入页面样式*/

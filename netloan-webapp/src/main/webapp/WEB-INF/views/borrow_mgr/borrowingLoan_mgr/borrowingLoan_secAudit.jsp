@@ -89,7 +89,7 @@
 					<td>借款管理费：</td>
 					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_loanManagementFees" name="loanManagementFees" class="spinner" style="width:198px" value="${borrowingLoanData.loanManagementFees}" readonly="readonly"/></td>
 					<td>还款方式：</td>
-					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_repaymentTypeId" name="repaymentTypeId" class="spinner" style="width:198px" value="${borrowingLoanData.repaymentTypeId}" readonly="readonly"/></td>
+					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_repaymentTypeDisplay" name="repaymentTypeDisplay" class="spinner" style="width:198px" value="${borrowingLoanData.repaymentTypeDisplay}" readonly="readonly"/></td>
 				</tr>
 				<tr>
 					<td>借款总额：</td>
