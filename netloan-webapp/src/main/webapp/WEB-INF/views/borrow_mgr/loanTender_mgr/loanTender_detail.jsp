@@ -36,7 +36,7 @@
 		<tr>
 			<td>借款期限(天标)：</td>
 			<td><input id="loanTender_mgr_loanTender_detail_loanDeadlinesDay" name="loanDeadlinesDay" class="spinner" style="width:198px" value="${loanTenderData.loanDeadlinesDay}"/></td>
-			<td>有效期：</td>
+			<td>筹标期限：</td>
 			<td><input id="loanTender_mgr_loanTender_detail_waitBidDeadlines" name="waitBidDeadlines" class="spinner" style="width:198px" value="${loanTenderData.waitBidDeadlines}"/></td>
 		</tr>
 		<tr>

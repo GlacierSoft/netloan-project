@@ -200,13 +200,13 @@
 						</td>
 					  </tr>
 					  <tr>
-					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最小认购单位(元)：</td>
+					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最小认购单位：</td>
 					    <td class="col-md-6">
 					    <select name="lowestSub" id="lowestSub" class="sel_140">
-						    <option value="100">100</option>
-						    <option value="200">200</option>
-						    <option value="500">500</option>
-						    <option value="1000">1000</option>
+						    <option value="100">100元</option>
+						    <option value="200">200元</option>
+						    <option value="500">500元</option>
+						    <option value="1000">1000元</option>
 						</select>
 					    </td>
 					  </tr>
@@ -221,17 +221,8 @@
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>筹标期限：</td>
 					    <td class="col-md-6">
-					    <select name="waitBidDeadlines" id="waitBidDeadlines" class="sel_140">
-						    <option value="">--请选择--</option>
-						    <option value="0">0天</option>
-						    <option value="1">1天</option>
-						    <option value="2">2天</option>
-						    <option value="3">3天</option>
-						    <option value="4">4天</option>
-						    <option value="5">5天</option>
-						    <option value="6">6天</option>
-						    <option value="7">7天</option>
-						</select>
+							<select name="waitBidDeadlines" id="waitBidDeadlines" class="sel_140" onFocus="funWaitBidDeadlines()">
+							</select>
 					    </td>
 					  </tr>
 					  <tr>
@@ -285,6 +276,17 @@
 					    <td class="col-md-6"><textarea name="loanDetail" class="txt420"></textarea></td>
 					  </tr>
 					  <tr>
+					  	<td class="col-md-6" align="right">验证码：</td>
+					  	<td class="col-md-6">
+							<div class="col-md-6" align="left" style="padding: 0px; width: 120px;">
+								<input type="text" id="captcha" name="captcha" maxlength="4" class="form-control" placeholder="验证码"/>
+							</div>
+							<div class="col-md-6">
+								<img style="width:120px;height:32px;" class="img-responsive" id="login_kaptcha" src="${ctx}/resources/images/kaptcha.jpg" />
+							</div>
+					  	</td>
+					  </tr>
+					  <tr>
 					  	<td class="col-md-6" align="right"></td>
 					    <td class="col-md-6">
 						<button type="submit" class="btn btn-default">提交</button>
@@ -316,7 +318,8 @@
     			lowestSub:"required",
     			subTotal:"required",
     			tenderSum:"required",
-    			waitBidDeadlines:"required"
+    			waitBidDeadlines:"required",
+    			captcha:"required"
     		},
     		messages:{
     			loanCode:"借款编号不能为空",
@@ -333,7 +336,8 @@
     			lowestSub:"最小认购单位(元)不能为空",
     			subTotal:"认购总份数不能为空",
     			tenderSum:"投标数量不能为空",
-    			waitBidDeadlines:"筹标期限不能为空"
+    			waitBidDeadlines:"筹标期限不能为空",
+    			captcha:"验证码不能为空"
     		},
     		submitHandler:function(){
     			$.ajax({
@@ -376,6 +380,7 @@
 						});
 			});
 		};
+		//是否设置奖励
 		function displayIsBidReward(){
 			var isBidReward = document.enteringLiuZhuan.isBidReward;
 			var bidProReward = document.enteringLiuZhuan.bidProReward;
@@ -394,6 +399,7 @@
 			}
 
 		};
+		//是否设置密码
 		function displayIsBidPwd(){
 			var isBidPwd = document.enteringLiuZhuan.isBidPwd;
 			var bidPwd = document.enteringLiuZhuan.bidPwd;
@@ -413,7 +419,7 @@
 		var lowestBidMoneys=lowestBidMoney.split(","); //字符分割 
 		function funLowestBidMoney(){
 		  for (var i=0;i < lowestBidMoneys.length; i++) {
-		    document.enteringLiuZhuan.lowestBidMoney.options[i] = new Option(lowestBidMoneys[i],lowestBidMoneys[i]);
+		    document.enteringLiuZhuan.lowestBidMoney.options[i] = new Option(lowestBidMoneys[i]+"元",lowestBidMoneys[i]);
 		  }
 		};
 		//动态加载后台的最高投标金额值
@@ -421,9 +427,25 @@
 		var largestBidMoneys=largestBidMoney.split(","); //字符分割 
 		function funLargestBidMoney(){
 		  for (var i=0;i < largestBidMoneys.length; i++) {
-		    document.enteringLiuZhuan.largestBidMoney.options[i] = new Option(largestBidMoneys[i],largestBidMoneys[i]);
+		    document.enteringLiuZhuan.largestBidMoney.options[i] = new Option(largestBidMoneys[i]+"元",largestBidMoneys[i]);
 		  }
 		};
+		//动态加载后台的筹标期限值
+		var waitBidDeadlines="${loanTenderDate.waitBidDeadlines}"; //这是一字符串 
+		var waitBidDeadliness=waitBidDeadlines.split(","); //字符分割 
+		function funWaitBidDeadlines(){
+		  for (var i=0;i < waitBidDeadliness.length; i++) {
+		    document.enteringLiuZhuan.waitBidDeadlines.options[i] = new Option(waitBidDeadliness[i]+"天",waitBidDeadliness[i]);
+		  }
+		};
+		
+		//验证码验证
+		$(function() {
+			$('#login_kaptcha').click(function() {  
+				$('#captcha').val('');
+	        	$(this).hide().attr('src','${pageContext.request.contextPath}/resources/images/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();     
+		    });
+		});
 </script> 
   </body>
 </html>

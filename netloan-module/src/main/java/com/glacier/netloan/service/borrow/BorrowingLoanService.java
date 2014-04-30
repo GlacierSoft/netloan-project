@@ -179,8 +179,6 @@ public class BorrowingLoanService {
      */
     @Transactional(readOnly = false)
     public Object addBorrowingLoan(BorrowingLoan borrowingLoan, String memberId) {
-    	
-        
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
         int count = 0;

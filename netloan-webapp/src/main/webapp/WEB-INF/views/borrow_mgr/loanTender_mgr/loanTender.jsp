@@ -96,7 +96,7 @@
 				sortable:true
 			},{
 				field:'waitBidDeadlines',
-				title:'有效期',
+				title:'筹标期限',
 				width:120,
 				sortable:true
 			},{
