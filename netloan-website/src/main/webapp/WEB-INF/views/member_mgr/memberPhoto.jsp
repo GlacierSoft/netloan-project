@@ -129,7 +129,8 @@
 				var uploadbutton = K.uploadbutton({
 					button : K('#uploadButton')[0],
 					fieldName : 'imgFile',
-					url : ctx+'/member/uploadFile.htm?dir=image',
+					//url : ctx+'/member/uploadFile.htm?dir=image',
+					url : ctx+'/resources/js/kindeditor/jsp/upload_json.jsp?dir=image',
 						//'../php/upload_json.php?dir=file'
 					afterUpload : function(data) {
 						if (data.error === 0) {
