@@ -442,7 +442,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    document.enteringLiuZhuan.waitBidDeadlines.options[i] = new Option(waitBidDeadliness[i]+"天",waitBidDeadliness[i]);
 		  }
 		};
-		
 		//验证码验证
 		$(function() {
 			$('#login_kaptcha').click(function() {  
