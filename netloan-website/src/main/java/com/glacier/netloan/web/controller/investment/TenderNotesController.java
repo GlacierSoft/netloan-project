@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
+import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
+import com.glacier.netloan.service.member.MemberAuthService;
 import com.glacier.netloan.service.member.MemberService;
 /**
  * @ClassName: TenderNotesController 
@@ -28,6 +30,9 @@ public class TenderNotesController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private MemberAuthService memberAuthService;
 	
 	@RequestMapping(value="/index.htm")
 	private Object intoInvestment(JqPager jqPager,int p,BorrowingLoanQueryDTO borrowingLoanQueryDTO,String pagetype,HttpServletRequest request){
@@ -52,11 +57,22 @@ public class TenderNotesController {
 		}
 		return "investment_mgr/investment";
 	}
-	
+	/**
+	 * @Title: investmentdetail 
+	 * @Description: TODO(进入标的详情页面) 
+	 * @param  @param loanId
+	 * @param  @param memberId
+	 * @param  @param request
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 *
+	 */
 	@RequestMapping(value = "/investmentdetail.htm")
 	private Object investmentdetail(String loanId,String memberId,HttpServletRequest request){
-		request.setAttribute("borrowingMember", memberService.getMember(memberId));
-		request.setAttribute("borrowingLoan", borrowingLoanService.getBorrowingLoan(loanId));
+		request.setAttribute("borrowingMember", memberService.getMember(memberId));//获取改会员 信息数据
+		request.setAttribute("borrowingLoan", borrowingLoanService.getBorrowingLoan(loanId));//获取改会员 借款的信息数据
+		request.setAttribute("memberAuthWithBLOBs", memberAuthService.getMemberAuth(memberId));//获取改会员 的认证数据
 		return "investment_mgr/investmentdetail";
 	}
 	

@@ -2,6 +2,8 @@ package com.glacier.netloan.entity.member;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 
 public class MemberAuth {
     private String memberId;
@@ -48,6 +50,7 @@ public class MemberAuth {
    // @Length(min = 1,max = 255, message = "{MemberAuth.infoRemark.illegal}")
     private String infoRemark;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date infoTime;
 
     private Integer infoNum;
@@ -66,6 +69,7 @@ public class MemberAuth {
     //@Length(min = 1,max = 255, message = "{MemberAuth.vipRemark.illegal}")
     private String vipRemark;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date vipTime;
 
     private Integer vipNum;
@@ -84,6 +88,7 @@ public class MemberAuth {
     //@Length(min = 1,max = 255, message = "{MemberAuth.emailRemark.illegal}")
     private String emailRemark;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date emailTime;
 
     private Integer emailNum;
@@ -102,6 +107,7 @@ public class MemberAuth {
     //@Length(min = 1,max = 255, message = "{MemberAuth.mobileRemark.illegal}")
     private String mobileRemark;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date mobileTime;
 
     private Integer mobileNum;
@@ -120,6 +126,7 @@ public class MemberAuth {
     //@Length(min = 1,max = 255, message = "{MemberAuth.creditRemark.illegal}")
     private String creditRemark;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date creditTime;
 
     private Integer creditNum;
@@ -138,6 +145,7 @@ public class MemberAuth {
     //@Length(min = 1,max = 255, message = "{MemberAuth.companyRemark.illegal}")
     private String companyRemark;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date companyTime;
 
     private Integer companyNum;
@@ -156,6 +164,7 @@ public class MemberAuth {
     //@Length(min = 1,max = 255, message = "{MemberAuth.realNameRemark.illegal}")
     private String realNameRemark;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date realNameTime;
 
     private Integer realNameNum;
@@ -174,6 +183,7 @@ public class MemberAuth {
     //@Length(min = 1,max = 255, message = "{MemberAuth.idCardRemark.illegal}")
     private String idCardRemark;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date idCardTime;
 
     private Integer idCardNum;
@@ -192,6 +202,7 @@ public class MemberAuth {
     //@Length(min = 1,max = 255, message = "{MemberAuth.workRemark.illegal}")
     private String workRemark;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date workTime;
 
     private Integer workNum;

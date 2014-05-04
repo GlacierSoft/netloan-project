@@ -22,7 +22,7 @@
 	    <div class="container">
 	    <div class="panel panel-default">
 		  <div class="panel-heading">
-		    <h3 class="panel-title">标的详情</h3>
+		    <h3 class="panel-title"><strong>标的详情</strong></h3>
 		  </div>
 		  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
 		  	<div class="row">
@@ -53,319 +53,412 @@
 			  </div>
 			  <div class="col-md-9" >
 	       	  	<h3 style="color: #696969;"><strong>项目名称：${borrowingLoan.loanTitle}</strong></h3>
-	       	  	<span>借款金额：</span><fmt:formatNumber value="${borrowingLoan.loanTotal }" pattern="#,#00.00"/>元
+	       	  	<span>借款金额：</span><span style="color: red;font-size: 20px;"><fmt:formatNumber value="${borrowingLoan.loanTotal }" pattern="#,#00.00"/>元</span>
+	       	  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	       	  	<span>借款目的：</span>${borrowingLoan.loanPurposeId }
+	       	  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	       	  	<img src="${ctx}/resources/images/borrow/investment.jpg" alt="investment">
+	       	  	<div>
+	       	  	<span>借款年利率：</span><fmt:formatNumber value="${borrowingLoan.loanApr }" pattern="#,#00.00"/>%（月利率：<span id="monthLoanApr"></span>%）
+	       	  	<script type="text/javascript">
+	       	  		var monthLoanApr = "${borrowingLoan.loanApr }"/12;
+	       	 		$("#monthLoanApr").html(monthLoanApr);
+	       	  	</script>
+	       	  	<span>借款期限：：${borrowingLoan.waitBidDeadlines }</span>
+	       	  	</div>
+	       	  	<hr>
+	       	  	<div class="row">
+	       	  	<div class="col-md-3"><span>还差：￥ 2,000.00</span></div>
+	       	  	<div class="col-md-2" style="text-align:right;"><span>投标进度:</span></div>
+		       	<div class="col-md-2" style="text-align:left;">
+		       	  	<div class="progress" style="width:100px;">
+		        		<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+						    
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2" style="text-align:left;"><span>60%</span></div>
+	       	  	</div>
+	       	  	<div class="row">
+	       	  	<div class="col-md-4"><span>还款方式：${borrowingLoan.repaymentTypeDisplay } </span></div>
+	       	  	<div class="col-md-4"><span>投标奖励：无</span></div>
+		       	<div class="col-md-4"><span>交易类型：线上交易</span></div>
+	       	  	</div><br>
+	       	  	<div class="row">
+	       	  	<div class="col-md-4"><span>
+	       	  	最小投标金额： 
+	       	  	<c:if test="${empty borrowingLoan.lowestBidMoney }">没有限制</c:if>
+	       	  	<c:if test="${!empty borrowingLoan.lowestBidMoney }"><fmt:formatNumber value="${borrowingLoan.lowestBidMoney }" pattern="#,#00.00"/>元</c:if>
+	       	  	</span></div>
+	       	  	<div class="col-md-4"><span>
+	       	  	最大投标金额：  
+	       	  	<c:if test="${empty borrowingLoan.largestBidMoney }">没有限制</c:if>
+	       	  	<c:if test="${!empty borrowingLoan.largestBidMoney }"><fmt:formatNumber value="${borrowingLoan.largestBidMoney }" pattern="#,#00.00"/>元</c:if>
+	       	  	</span></div>
+		       	<div class="col-md-4"><span></span></div>
+	       	  	</div><br>
+	       	  	<div class="row">
+	       	  	<div class="col-md-8"><span>剩余时间：0天1小时59分9秒</span></div>
+	       	  	<div class="col-md-4"><span></span></div>
+	       	  	</div><br>
+	       	  	<div class="row">
+	       	  	<div class="col-md-8"><span>总投标数：0 浏览量：9</span></div>
+	       	  	<div class="col-md-4"><span></span></div>
+	       	  	</div><br>
+	       	  	<div class="row">
+	       	  	<div class="col-md-8"><span style="color: red;">投标1000.0元,年利率：10.0%,期限1个月,可获得利息收益：￥8.33元</span></div>
+	       	  	<div class="col-md-4"><span></span></div>
+	       	  	</div><br>
 			  </div>
 			</div>
-		     <form id="borrowingConditionsForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/investment/index.htm?&p=1" >
-		      <div class="form-group">
-			    <label for="loanTitle" class="col-sm-1 control-label" >关键字</label>
-			    <div class="col-sm-3">
-			      <input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${borrowingLoanQueryDTO.loanTitle}"  placeholder="借款标题"  />
-			    </div>
-			    <label for="cardId" class="col-sm-1 control-label" >还款方式</label>
-			    <div class="col-sm-3">
-			       <select  class="form-control col-sm-3" name="repaymentTypeId" id="repaymentTypeId">
-					    <option value="">--请选择--</option>
-					    <option value="1">等额本息</option>
-					    <option value="2">按月付息，到期还本</option>
-					    <option value="4">一次性还款</option>
-					</select>
-			    </div>
-			    <label for="loanPurposeId" class="col-sm-1 control-label" >借款目的</label>
-			    <div class="col-sm-3">
-			       <select class="form-control col-sm-3" name="loanPurposeId" id="loanPurposeId" >
-					  <option value="">--请选择--</option>
-					    <option value="长期使用">长期使用</option>
-					    <option value="资金周转">资金周转</option>
-					    <option value="短期周转">短期周转</option>
-					    <option value="创业借款">创业借款</option>
-					    <option value="其他借款">其他借款</option>
-					    <option value="普通借款">普通借款</option>
-					    <option value="随便玩玩">随便玩玩</option>
-					</select>
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label for="cardId" class="col-sm-1 control-label" >金额范围</label>
-			    <div class="col-sm-2">
-			      <select class="form-control col-sm-2" name="loanTotalStart" id="loanTotalStart">
-					  <option value="0">--请选择--</option>
-					    <option value="50.0">50</option>
-					    <option value="1000.0">1000</option>
-					    <option value="5000.0">5000</option>
-					    <option value="10000.0">1万</option>
-					    <option value="50000.0">5万</option>
-					    <option value="100000.0">10万</option>
-					    <option value="200000.0">20万</option>
-					    <option value="500000.0">50万</option>
-					    <option value="1000000.0">100万</option>
-					    <option value="1000001.0">100万以上</option>
-					</select>
-			    </div>
-			    <span style="float: left;">至</span>
-			    <div class="col-sm-2">
-			     <select class="form-control col-sm-2" name="loanTotalEnd" id="loanTotalEnd" >
-					    <option value="0">--请选择--</option>
-					    <option value="50.0">50</option>
-					    <option value="1000.0">1000</option>
-					    <option value="5000.0">5000</option>
-					    <option value="10000.0">1万</option>
-					    <option value="50000.0">5万</option>
-					    <option value="100000.0">10万</option>
-					    <option value="200000.0">20万</option>
-					    <option value="500000.0">50万</option>
-					    <option value="1000000.0">100万</option>
-					    <option value="1000001.0">100万以上</option>
-					</select>
-			    </div>
-			    <label for="waitBidDeadlines" class="col-sm-1 control-label" >期限</label>
-			    <div class="col-sm-2">
-			       <input type="text" class="form-control" id="waitBidDeadlines" name="waitBidDeadlines" value="${borrowingLoanQueryDTO.waitBidDeadlines }" placeholder="筹标期限"  />
-			    </div>
-			    <label for="cardId" class="col-sm-1 control-label" >奖励</label>
-			    <div class="col-sm-2">
-			       <select class="form-control col-sm-3" name="educational" id="educational" >
-					  <option value="">--请选择--</option>
-					    <option value="按投标金额比例奖励">按投标金额比例奖励</option>
-					    <option value="按固定金额分摊奖">按固定金额分摊奖励</option>
-					</select>
-			    </div>
-			  </div>
-			   <div class="form-group">
-			    <div class="col-sm-3"></div>
-			    <div class="col-sm-3 text-center"><button id="borrowingConditionsFormButton" type="submit" class="btn btn-primary btn-lg btn-block">搜&nbsp;&nbsp;索</button></div>
-			    <div class="col-sm-3"><button id="borrowingConditionsFormButton" type="reset" class="btn btn-primary btn-lg btn-block">重&nbsp;&nbsp;置</button></div>
-			    <div class="col-sm-3"></div>
-			  	</div>
-		     </form>
+		    
 		  </div>
 		</div>
 	    <div class="row">
-	    	<div class="col-md-10">
+	    	<div class="col-md-12">
 	    		<div class="panel panel-default">
 				  <div class="panel-heading">
-				    <h3 class="panel-title">借款列表</h3>
+				    <h3 class="panel-title"><strong>相关信息</strong></h3>
 				  </div>
 				  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
-				    <div style="padding-top:10px;padding-bottom: 20px;">
-					<a href="${ctx}/investment/index.htm?&p=1" class="btn btn-primary" role="button">全部借款</a></li>
-				    <a href="${ctx}/investment/index.htm?&p=1&loanState=secondAuditor" class="btn btn-primary" role="button">复审中的借款</a>
-				    <a href="${ctx}/investment/index.htm?&p=1&loanState=repaymenting" class="btn btn-primary" role="button">还款中的借款</a>
-				    <a href="${ctx}/investment/index.htm?&p=1&loanState=completed" class="btn btn-primary" role="button">已完成的借款</a>
-				    <a href="${ctx}/investment/index.htm?&p=1&loanState=completed" class="btn btn-primary" role="button">逾期的黑名单</a>
-				    <div style="float: right;">
-					    <span>排序：</span>
-					    <a id="pageloanTotal" href="${ctx}/investment/index.htm?&p=1&pagetype=loanTotal" class="btn btn-info btn-sm" role="button">金额</a>
-					    <a id="pagecredit" href="${ctx}/investment/index.htm?&p=1&pagetype=credit" class="btn btn-info btn-sm" role="button">信用</a>
-					    <a id="pageloanApr" href="${ctx}/investment/index.htm?&p=1&pagetype=loanApr" class="btn btn-info btn-sm" role="button">利率</a>
-				    </div>
-				  	</div>
-				  	<table class="table" style="width:900px;padding: 10px;">
-			        <c:if test="${empty borrowingDatas.rows}">
-					<tr>
-			            <td colspan="5"><strong>暂无信息</strong></td>
-			          </tr>
-					</c:if>	  		
-					<c:if test="${!empty borrowingDatas.rows}">  	
-					<c:forEach items="${borrowingDatas.rows}" var="borrowingLoan" varStatus="status">
-			        	<tr>
-			        	<td rowspan="4" style="text-align:center;vertical-align: middle;"><img src="${borrowingLoan.loanPicture}" style="width: 100px;height: 100px ;"/></td>
-			        	<td colspan="4">${borrowingLoan.loanTitle }</td>
-			        	<td rowspan="4"style="text-align:center;vertical-align: middle;">
-			        	<button  id="borrowingLoan_loanState${status.index}"  type=button class="btn btn-primary btn-lg btn-block"></button>
-			        	<script type="text/javascript">
-					       $('#borrowingLoan_loanState'+${status.index}).html(renderGridValue('${borrowingLoan.loanState }',fields.loanState));
-					    </script>
-			        	</td>
-			        	</tr>
-			        	<tr>
-			        		<td>借款金额：${borrowingLoan.loanTotal }元</td>
-			        		<td>利率：${borrowingLoan.loanApr }%/ 年</td>
-			        		<td>投标奖：0.00 元</td>
-			        		<td>招标期限：${borrowingLoan.waitBidDeadlines } 个月</td>
-			        	</tr>
-			        	<tr>
-			        		<td>发布者：${borrowingLoan.memberDisplay } </td>
-			        		<td>${borrowingLoan.loanPurposeId }</td>
-			        		<td>已完成投标：10000 元</td>
-			        		<td>投资完成：100.00%</td>
-			        	</tr>
-			        	<tr>
-			        		<td>信用等级：3级</td>
-			        		<td>按月分期还款</td>
-			        		<td>投标的状态：<span id="borrowingLoan_loanState2${status.index}"></span>
-			        		<script type="text/javascript">
-					       		$('#borrowingLoan_loanState2'+${status.index}).html(renderGridValue('${borrowingLoan.loanState }',fields.loanState));
-					    	</script>
-			        		</td>
-			        		<td>图片</td>
-			        	</tr>
-			        	</c:forEach>
-			      		</c:if>	
-			      		<c:if test="${!empty borrowingDatas.rows}">
-			        	<tfoot>
-				          <tr>
-				            <th colspan="6">
-				            	<div align="right">
-								    <ul id='pageborrowingLoan'></ul>
-								</div>
-							</th>
-				          </tr>
-				        </tfoot>
-				        </c:if>	  
-			        </table>
+				  	<div style="padding-left: 50px;">
+					  	<div class="row" >
+				       	  	<div class="col-md-3"><span style="color: red;">晓风网贷信用等级：
+				       	  	<img id="creditPhotoDivImg"  src="${borrowingLoan.creditPhoto}" style="width: 34px;height: 24px ;" /></span></div>
+				       	  	<div class="col-md-3"><span>晓风网贷信用额度：<fmt:formatNumber value="${borrowingMember.creditamount}" pattern="#,#00.00"/></span></div>
+			       	  	</div><br>
+			       	  	<div class="row" >
+				       	  	<div class="col-md-12"><span>以下基本信息资料，经用户同意披露。其中红色字体的信息，为通过晓风网贷审核的项目。</span></div>
+			       	  	</div>
+			       	  	<div class="row" >
+				       	  	<div class="col-md-12"><span>审核意见：sb</span></div>
+			       	  	</div><br>
+			       	  	<div class="row" ><div class="col-md-12"><span><strong>基本信息</strong></span></div></div><br>
+			       	  		<table class="table">
+				       	  		<tr>
+				       	  			<td>性别：男</td>
+				       	  			<td>年龄：0</td>
+				       	  			<td>婚姻状况：未婚</td>
+				       	  			<td>工作城市：吉林 吉林</td>
+				       	  		</tr>
+				       	  		<tr>
+				       	  			<td>公司行业：金融、保险业</td>
+				       	  			<td>公司规模：100-500人</td>
+				       	  			<td>职位：经理</td>
+				       	  			<td></td>
+				       	  		</tr>
+				       	  		<tr>
+				       	  			<td>毕业学校：南大</td>
+				       	  			<td>学历：本科</td>
+				       	  			<td>入学年份：2014-04-07</td>
+				       	  			<td></td>
+				       	  		</tr>
+				       	  		<tr>
+				       	  			<td>有无购房：无</td>
+				       	  			<td>有无购车：有</td>
+				       	  			<td></td>
+				       	  			<td></td>
+				       	  		</tr>
+				       	  		<tr>
+				       	  			<td>有无房贷：有</td>
+				       	  			<td>有无车贷：有</td>
+				       	  			<td></td>
+				       	  			<td></td>
+				       	  		</tr>
+				       	  	</table>
+			       	  	<div class="row" ><div class="col-md-12"><span><strong>晓风网贷借款记录</strong></span></div></div><br>
+			       	  	<table class="table">
+				       	  		<tr>
+				       	  			<td>发布借款标的：1</td>
+				       	  			<td>成功借款笔数：0</td>
+				       	  			<td>还清笔数：0</td>
+				       	  			<td>逾期次数：0</td>
+				       	  			<td>严重逾期次数：0</td>
+				       	  		</tr>
+				       	  		<tr>
+				       	  			<td>共借入：0</td>
+				       	  			<td>待还金额：0.00</td>
+				       	  			<td>逾期金额：0</td>
+				       	  			<td>共借出：0.00</td>
+				       	  			<td>待收金额：0.00</td>
+				       	  		</tr>
+				       	  	</table>
+			       	  	<br>
+		       	  	</div>
 				  </div>
 				</div>
 	    	</div>
-	    	 <div class="col-md-2">
-	    		<div class="panel-group" id="accordion">
-					  <div class="panel panel-default">
-					    <div class="panel-heading">
-					      <h4 class="panel-title">
-					        <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-					      	   信息中心
-					        </a>
-					      </h4>
-					    </div>
-					    <div id="collapseOne" class="panel-collapse collapse in">
-					      <div class="panel-body">
-					        <div class="btn-group-vertical">
-					          <a href="${ctx}/member/index.htm" class="btn btn-info" role="button">我的主页</a>
-					          <a href="#" class="btn btn-default" role="button">充值提现</a>
-					          <a href="${ctx}/member/memberAuth.htm?&p=0" class="btn btn-default" role="button">平台认证</a>
-					          <a href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1" class="btn btn-default" role="button">站内信</a>
-							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">个人设置</a>
-							  <a href="${ctx}/member/memberPhotoInto.htm" class="btn btn-default" role="button">头像上传</a>
-							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">邮箱设置</a>
-							</div>
-					      </div>
-					    </div>
-					  </div>
-					  <div class="panel panel-default">
-					    <div class="panel-heading">
-					      <h4 class="panel-title">
-					        <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-					         	 借款管理
-					        </a>
-					      </h4>
-					    </div>
-					    <div id="collapseTwo" class="panel-collapse collapse">
-					      <div class="panel-body">
-					        <div class="btn-group-vertical">
-							  <a href="#" class="btn btn-default" role="button">借款列表</a>
-							  <a href="#" class="btn btn-default" role="button">还款管理</a>
-							  <a href="#" class="btn btn-default" role="button">贷款统计</a>
-							</div>
-					      </div>
-					    </div>
-					  </div>
-					  <div class="panel panel-default">
-					    <div class="panel-heading">
-					      <h4 class="panel-title">
-					        <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-					    	      投资管理
-					        </a>
-					      </h4>
-					    </div>
-					    <div id="collapseThree" class="panel-collapse collapse">
-					      <div class="panel-body">
-					      	<div class="btn-group-vertical">
-					      	  <a href="#" class="btn btn-default" role="button">我的投标</a>
-					      	  <a href="#" class="btn btn-default" role="button">我关注的借款</a>
-					      	  <a href="#" class="btn btn-default" role="button">投资统计</a>
-					      	  <a href="#" class="btn btn-default" role="button">自动投标</a> 
-					      </div>
-					    </div>
-					  </div>
-					</div>
-				</div>
-	    	</div>
-	    	
 	    </div>
+	    <div class="row">
+	    	<div class="col-md-12">
+	    		<div class="panel panel-default">
+				  <div class="panel-heading">
+				    <h3 class="panel-title"><strong>审核记录</strong></h3>
+				  </div>
+				  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
+				  	<blockquote>
+					       	<h4>晓风网贷将以客观、公正的原则，最大程度地核实借入者信息的真实性，但不保证审核信息100%真实。如果借入者长期逾期，其提供的信息将被公布。</h4>
+					</blockquote>
+					<table class="table table-bordered" style="text-align:center;vertical-align: middle;">
+					            <tr>
+					              <td>项目</td>
+					              <td>审核项目</td>
+					              <td>状态</td>
+					              <td>审核时间</td>
+					            </tr> 
+					            <tr>
+					              <td rowspan="2" style="text-align:center;vertical-align: middle;">基本信息</td>
+					              <td>${requestScope.memberAuthWithBLOBs.infoName}</td>
+					              <td id="memberAuth_form_infoAuth"></td>
+					              <td id="memberAuth_form_infoAuth_creditIntegral">
+					              <fmt:formatDate value="${requestScope.memberAuthWithBLOBs.infoTime}" type="both"/>
+					              </td>
+					            </tr>
+					            <tr>
+					              <td>${requestScope.memberAuthWithBLOBs.workName}</td>
+					              <td id="memberAuth_form_workAuth"></td>
+					              <td id="memberAuth_form_workAuth_creditIntegral">
+								  <fmt:formatDate value="${requestScope.memberAuthWithBLOBs.infoTime}" type="both"/>
+								  </td>
+					            </tr>
+					            <tr>
+					              <td rowspan="7" style="vertical-align: middle;">必要信用认证</td>
+					              <td>${requestScope.memberAuthWithBLOBs.idCardName}</td>
+					              <td id="memberAuth_form_idCardAuth"></td>
+					              <td id="memberAuth_form_idCardAuth_creditIntegral">
+					              <fmt:formatDate value="${requestScope.memberAuthWithBLOBs.infoTime}" type="both"/>
+					              </td>
+					            </tr>
+					            <tr>
+					              <td>${requestScope.memberAuthWithBLOBs.emailName}</td>
+					              <td id="memberAuth_form_emailAuth"></td>
+					              <td id="memberAuth_form_emailAuth_creditIntegral">
+					              <fmt:formatDate value="${requestScope.memberAuthWithBLOBs.emailTime}" type="both"/>
+					              </td>
+					            </tr>
+					            <tr>
+					              <td>${requestScope.memberAuthWithBLOBs.mobileName}</td>
+					              <td id="memberAuth_form_mobileAuth"></td>
+					              <td id="memberAuth_form_mobileAuth_creditIntegral">
+					              <fmt:formatDate value="${requestScope.memberAuthWithBLOBs.mobileTime}" type="both"/>
+					              </td>
+					            </tr>
+					            <tr>
+					              <td>${requestScope.memberAuthWithBLOBs.creditName}</td>
+					              <td id="memberAuth_form_creditAuth"></td>
+					              <td id="memberAuth_form_creditAuth_creditIntegral">
+					              <fmt:formatDate value="${requestScope.memberAuthWithBLOBs.creditTime}" type="both"/>
+					              </td>
+					            </tr>
+					            <tr>
+					              <td>${requestScope.memberAuthWithBLOBs.companyName}</td>
+					              <td id="memberAuth_form_companyAuth"></td>
+					              <td id="memberAuth_form_companyAuth_creditIntegral">
+					              <fmt:formatDate value="${requestScope.memberAuthWithBLOBs.companyTime}" type="both"/>
+					              </td>
+					            </tr>
+					            <tr>
+					              <td>${requestScope.memberAuthWithBLOBs.realName}</td>
+					              <td id="memberAuth_form_realNameAuth"></td>
+					              <td id="memberAuth_form_realNameAuth_creditIntegral">
+					              <fmt:formatDate value="${requestScope.memberAuthWithBLOBs.realNameTime}" type="both"/>
+					              </td>
+					            </tr>
+					            <tr>
+					              <td>${requestScope.memberAuthWithBLOBs.vipName}</td>
+					              <td id="memberAuth_form_vipAuth"></td>
+					              <td id="memberAuth_form_vipAuth_creditIntegral">
+					              <fmt:formatDate value="${requestScope.memberAuthWithBLOBs.vipTime}" type="both"/>
+					              </td>
+					            </tr>
+					        </table>
+				  </div>
+				  </div>
+				</div>
+	    </div>
+	    <div class="row">
+	    	<div class="col-md-12">
+	    		<div class="panel panel-default">
+				  <div class="panel-heading">
+				    <h3 class="panel-title"><strong>还款详情</strong></h3>
+				  </div>
+				  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
+				  	<blockquote>
+					       	<h4>晓风网贷将以客观、公正的原则，最大程度地核实借入者信息的真实性，但不保证审核信息100%真实。如果借入者长期逾期，其提供的信息将被公布。</h4>
+					</blockquote>
+					<table class="table table-bordered" style="text-align:center;vertical-align: middle;">
+			            <tr>
+			              <td>序号</td>
+			              <td>还款日期</td>
+			              <td>已还本息</td>
+			              <td>待还本息</td>
+			              <td>已付罚息</td>
+			              <td>待还罚息</td>
+			              <td>状态</td>
+			            </tr> 
+			            <tr>
+			              <td>1/1</td>
+			              <td>2014-05-24</td>
+			              <td>0.00</td>
+			              <td>10083.33</td>
+			              <td>0.00</td>
+			              <td>0.00</td>
+			              <td>未偿还</td>
+			            </tr>
+			        </table>
+				  </div>
+	    		</div>
+	    	</div>
+	    </div>
+	    <div class="row">
+	    	<div class="col-md-12">
+	    		<div class="panel panel-default">
+				  <div class="panel-heading">
+				    <h3 class="panel-title"><strong>借款描述</strong></h3>
+				  </div>
+				  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
+				  	<div style="padding-left: 50px;">
+				  		<div class="row" >
+				  		<div class="col-md-12"><span><strong>我的借款描述：</strong></span></div>
+				  		</div><br>
+				  		<div class="row" >
+				  		<div class="col-md-12"><span>${borrowingLoan.loanDetail }</span></div>
+				  		</div><br>
+				  	</div>
+				  </div>
+	    		</div>
+	    	</div>
+	    </div>
+	    <div class="row">
+	    	<div class="col-md-12">
+	    		<div class="panel panel-default">
+				  <div class="panel-heading">
+				    <h3 class="panel-title"><strong>留言板</strong></h3>
+				  </div>
+				  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
+				  	<div style="padding-left: 20px;">
+				  	<form id="loanReviewForm" class="form-horizontal" role="form" action="${pageContext.request.contextPath}/login.htm" method="post" onsubmit="return validaForm();">
+					  	<span>咨询或评论：(字数在1-120之间)</span>
+					  	<br><br>
+					  	<div class="row" >
+					  		<div class="col-md-12"><textarea rows="4" cols="150"></textarea></div>
+					  	</div><br>
+					  	<div class="form-group">
+							<label id="login_kaptcha_span" class="col-sm-1 control-label ">验证码</label>
+							<div class="col-sm-2">
+								<input type="text" id="captcha" name="captcha" maxlength="4" class="form-control" placeholder="验证码" required />
+							</div>
+							<div class="col-sm-2">
+								<img style="width:120px;height:32px;" class="img-responsive" id="login_kaptcha" src="${pageContext.request.contextPath}/resources/images/kaptcha.jpg" />
+							</div>
+							<div class="col-sm-2">
+								 <button  id="login_submit" type="submit" class="btn btn-primary btn-block">提交</button>
+							</div>
+						</div>
+					</form>
+				  	</div>
+				  </div>
+	    		</div>
+	    	</div>
+	    </div>
+	    <div class="row">
+	    	<div class="col-md-12">
+	    		<div class="panel panel-default">
+				  <div class="panel-heading">
+				    <h3 class="panel-title"><strong>投资记录</strong></h3>
+				  </div>
+				  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
+				  	<div style="padding-left: 20px;">
+				  		<div class="row" style="text-align:center;vertical-align: middle;">
+				  		<div class="col-md-4"><span>目前总投标金额：￥10,000.00</span></div>
+				  		<div class="col-md-3"><span>剩余投标金额：￥0.00</span></div>
+				  		<div class="col-md-5"><span>剩余投标时间：</span></div>
+				  		</div><br>
+				  		<div class="row" >
+				  		<div class="col-md-12">
+				  			<table class="table table-bordered table-striped" style="text-align:center;vertical-align: middle;">
+				  				<tr>
+				  					<td>投资人</td>
+				  					<td>投资金额</td>
+				  					<td>投资时间</td>
+				  				</tr>
+				  				<tr>
+				  					<td>mx****</td>
+				  					<td><span style="color: red;">￥1,000.00</span></td>
+				  					<td><%-- <fmt:formatDate value="" type="both"/> --%>2014-04-24 13:46:33</td>
+				  				</tr>
+				  				<tr>
+				  					<td>沈鹏****</td>
+				  					<td><span style="color: red;">￥9,000.00</span></td>
+				  					<td><%-- <fmt:formatDate value="" type="both"/> --%>2014-04-24 13:48:49</td>
+				  				</tr>
+				  			</table>
+				  		</div>
+				  		</div><br>
+				  	</div>
+				  </div>
+	    		</div>
+	    	</div>
+	    </div>
+	    
 	    <jsp:include page="../foot.jsp"/>
 	    </div>
 	    <!-- CONTAINER START======================== -->
   </body>
   <script type="text/javascript">
-  if("${borrowingLoanQueryDTO.loanPurposeId }" != ''){
-		$("#loanPurposeId").val("${borrowingLoanQueryDTO.loanPurposeId }");	
-	}	
-  if("${borrowingLoanQueryDTO.loanTotalStart }" != 0.0){
-  		$("#loanTotalStart").val("${borrowingLoanQueryDTO.loanTotalStart }");	
-  	}
-  	if("${borrowingLoanQueryDTO.loanTotalEnd }" != 0.0){
-		$("#loanTotalEnd").val("${borrowingLoanQueryDTO.loanTotalEnd }");	
+	//更换验证码的值
+	$('#login_kaptcha').click(function() {  
+		$('#captcha').val('');
+       	$(this).hide().attr('src','${pageContext.request.contextPath}/resources/images/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();     
+    });
+  
+  
+	//下拉项emun的值
+	if("${requestScope.memberAuthWithBLOBs.infoAuth}" == 'pass'){
+		$('#memberAuth_form_infoAuth').html('<img src="${ctx}/resources/images/borrow/auth_pass.jpg" alt="auth_pass">');
+	}else{
+		$('#memberAuth_form_infoAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.infoAuth}',fields.auths));	
 	}
-  	/*  $("#pageloanTotal").toggle(
-  		  function () {
-  		    $(this).prop("href","${ctx}/investment/index.htm?&p=1&pagetype=riseloanTotal");
-  		  },
-  		  function () {
-  			$(this).prop("href","${ctx}/investment/index.htm?&p=1&pagetype=dowloanTotal");
-  		  }
-  		);  */
-	  <!-- 分页显示表格数据 开始 -->
-		$(function(){
-			//获得浏览器参数
-			$.extend({
-				getUrlVars: function(){
-					var vars = [], hash;
-					var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-					for(var i = 0; i < hashes.length; i++){
-						hash = hashes[i].split('=');
-						vars.push(hash[0]);
-						vars[hash[0]] = hash[1];
-					}
-					//console.log(vars);
-					return vars;
-				},
-				getUrlVar: function(name){
-					return $.getUrlVars()[name];
-				}
-			});
-		
-		//封装浏览器参数
-		var composeUrlParams=function(){
-			var param='';
-			$.each($.getUrlVars(), function(i, item) {
-				if(item!='p'){
-					var val=$.getUrlVar(item);
-					if(val) param += "&" + item+"="+val;
-				}
-			});
-			//获取p参数，也就是第几页,不是分页功能的代码，
-			$.each($.getUrlVars(), function(i, item) {
-				if(item=='p'){
-					valp=$.getUrlVar(item);
-					return false;
-				}
-			});
-			//到这里结束，这部分不是分页代码
-			return param;
-		}
-		
-		var elementpageborrowingLoan = $('#pageborrowingLoan');
-		
-		//积分的设置分页的总页数
-		var totalmessageNotice=${borrowingDatas.total}/10;
-		if(parseInt(totalmessageNotice)==totalmessageNotice){
-			var totalmessageNotice = parseInt(totalmessageNotice);
-		}else {
-			var totalmessageNotice = parseInt(totalmessageNotice)+1;
-		}
-		var messageNoticeOptions = {
-		    bootstrapMajorVersion:3,
-		    currentPage: ${borrowingDatas.p},
-		    numberOfPages: 10,
-		    totalPages:totalmessageNotice,
-		    pageUrl: function(type, page, current){
-		    	return "${ctx}/investment/index.htm?"+composeUrlParams()+"&p="+page;
-		    	}
-		}
-		elementpageborrowingLoan.bootstrapPaginator(messageNoticeOptions);
-		})
-	<!-- 分页显示表格数据 结束 -->
+	if("${requestScope.memberAuthWithBLOBs.vipAuth}" == 'pass'){
+		$('#memberAuth_form_vipAuth').html('<img src="${ctx}/resources/images/borrow/auth_pass.jpg" alt="auth_pass">');
+	}else{
+		$('#memberAuth_form_vipAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.vipAuth}',fields.auths));
+	}
+	if("${requestScope.memberAuthWithBLOBs.emailAuth}" == 'pass'){
+		$('#memberAuth_form_emailAuth').html('<img src="${ctx}/resources/images/borrow/auth_pass.jpg" alt="auth_pass">');
+	}else{
+		$('#memberAuth_form_emailAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.emailAuth}',fields.auths));
+	}
+	if("${requestScope.memberAuthWithBLOBs.mobileAuth}" == 'pass'){
+		$('#memberAuth_form_mobileAuth').html('<img src="${ctx}/resources/images/borrow/auth_pass.jpg" alt="auth_pass">');
+	}else{
+		$('#memberAuth_form_mobileAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.mobileAuth}',fields.auths));
+	}
+	if("${requestScope.memberAuthWithBLOBs.companyAuth}" == 'pass'){
+		$('#memberAuth_form_companyAuth').html('<img src="${ctx}/resources/images/borrow/auth_pass.jpg" alt="auth_pass">');
+	}else{
+		$('#memberAuth_form_companyAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.companyAuth}',fields.auths));	
+	}
+	if("${requestScope.memberAuthWithBLOBs.creditAuth}" == 'pass'){
+		$('#memberAuth_form_creditAuth').html('<img src="${ctx}/resources/images/borrow/auth_pass.jpg" alt="auth_pass">');
+	}else{
+		$('#memberAuth_form_creditAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.creditAuth}',fields.auths));	
+	}
+	if("${requestScope.memberAuthWithBLOBs.realNameAuth}" == 'pass'){
+		$('#memberAuth_form_realNameAuth').html('<img src="${ctx}/resources/images/borrow/auth_pass.jpg" alt="auth_pass">');
+	}else{
+		$('#memberAuth_form_realNameAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.realNameAuth}',fields.auths));
+	}
+	if("${requestScope.memberAuthWithBLOBs.idCardAuth}" == 'pass'){
+		$('#memberAuth_form_idCardAuth').html('<img src="${ctx}/resources/images/borrow/auth_pass.jpg" alt="auth_pass">');
+	}else{
+		$('#memberAuth_form_idCardAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.idCardAuth}',fields.auths));
+	}
+	if("${requestScope.memberAuthWithBLOBs.workAuth}" == 'pass'){
+		$('#memberAuth_form_workAuth').html('<img src="${ctx}/resources/images/borrow/auth_pass.jpg" alt="auth_pass">');
+	}else{
+		$('#memberAuth_form_workAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.workAuth}',fields.auths));   
+	}
+	
   </script>
 </html>

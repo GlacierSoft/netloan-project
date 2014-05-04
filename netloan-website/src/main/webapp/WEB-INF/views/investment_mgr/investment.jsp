@@ -22,7 +22,7 @@
 	    <div class="container">
 	    <div class="panel panel-default">
 		  <div class="panel-heading">
-		    <h3 class="panel-title">借款条件筛选</h3>
+		    <h3 class="panel-title"><strong>借款条件筛选</strong></h3>
 		  </div>
 		  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
 		     <form id="borrowingConditionsForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/investment/index.htm?&p=1" >
@@ -100,6 +100,24 @@
 					</select>
 			    </div>
 			  </div>
+			  <div class="form-group">
+			     <label for="cardId" class="col-sm-3 control-label" >只显示</label>
+			    <div class="col-sm-6 text-center">
+			    <label class="checkbox-inline">
+				  <input type="checkbox" id="inlineCheckbox1" value="option1"> 净值借款<img src="${ctx}/resources/images/borrow/jingzhi.jpg" alt="jingzhi">
+				</label>
+				<label class="checkbox-inline">
+				  <input type="checkbox" id="inlineCheckbox2" value="option2">秒还借款 <img src="${ctx}/resources/images/borrow/miaohuan.jpg" alt="miaohuan">
+				</label>
+				<label class="checkbox-inline">
+				  <input type="checkbox" id="inlineCheckbox3" value="option3">实地考察 <img src="${ctx}/resources/images/borrow/shidi.png" alt="shidi">
+				</label>
+				<label class="checkbox-inline">
+				  <input type="checkbox" id="inlineCheckbox3" value="option3"> 担保借款<img src="${ctx}/resources/images/borrow/danbao.png" alt="danbao">
+				</label>
+			    </div>
+			    <div class="col-sm-3"></div>
+			  </div>
 			   <div class="form-group">
 			    <div class="col-sm-3"></div>
 			    <div class="col-sm-3 text-center"><button id="borrowingConditionsFormButton" type="submit" class="btn btn-primary btn-lg btn-block">搜&nbsp;&nbsp;索</button></div>
@@ -110,10 +128,10 @@
 		  </div>
 		</div>
 	    <div class="row">
-	    	<div class="col-md-10">
+	    	<div class="col-md-9">
 	    		<div class="panel panel-default">
 				  <div class="panel-heading">
-				    <h3 class="panel-title">借款列表</h3>
+				    <h3 class="panel-title"><strong>借款列表</strong></h3>
 				  </div>
 				  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
 				    <div style="padding-top:10px;padding-bottom: 20px;">
@@ -165,7 +183,11 @@
 					<c:if test="${!empty borrowingDatas.rows}">  	
 					<c:forEach items="${borrowingDatas.rows}" var="borrowingLoan" varStatus="status">
 			        	<tr>
-			        	<td rowspan="4" style="text-align:center;vertical-align: middle;"><img src="${borrowingLoan.loanPicture}" style="width: 100px;height: 100px ;"/></td>
+			        	<td rowspan="4" style="text-align:center;vertical-align: middle;">
+			        	<a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }">
+			        	<img src="${borrowingLoan.loanPicture}" style="width: 100px;height: 100px ;"/>
+			        	</a>
+			        	</td>
 			        	<td colspan="4">
 			        	<a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }">
 			        	${borrowingLoan.loanTitle }
@@ -225,70 +247,90 @@
 				  </div>
 				</div>
 	    	</div>
-	    	 <div class="col-md-2">
+	    	 <div class="col-md-3">
 	    		<div class="panel-group" id="accordion">
 					  <div class="panel panel-default">
 					    <div class="panel-heading">
-					      <h4 class="panel-title">
-					        <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-					      	   信息中心
-					        </a>
-					      </h4>
+					      <h4 class="panel-title"><strong>借款标志说明</strong></h4>
 					    </div>
-					    <div id="collapseOne" class="panel-collapse collapse in">
-					      <div class="panel-body">
-					        <div class="btn-group-vertical">
-					          <a href="${ctx}/member/index.htm" class="btn btn-info" role="button">我的主页</a>
-					          <a href="#" class="btn btn-default" role="button">充值提现</a>
-					          <a href="${ctx}/member/memberAuth.htm?&p=0" class="btn btn-default" role="button">平台认证</a>
-					          <a href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1" class="btn btn-default" role="button">站内信</a>
-							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">个人设置</a>
-							  <a href="${ctx}/member/memberPhotoInto.htm" class="btn btn-default" role="button">头像上传</a>
-							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">邮箱设置</a>
-							</div>
-					      </div>
-					    </div>
+				      <div class="panel-body">
+					      <div class="row" >
+					  		<div class="col-md-12"><span>信用借款:<img src="${ctx}/resources/images/borrow/xin.jpg" alt="xinyong"></span></div>
+					  	  </div><br>
+					  	  <div class="row" >
+					  		<div class="col-md-5"><span>净值借款:<img src="${ctx}/resources/images/borrow/jingzhi.jpg" alt="jingzhi"></span></div>
+					  		<div class="col-md-7"><span>秒还借款:<img src="${ctx}/resources/images/borrow/miaohuan.jpg" alt="miaohuan"></span></div>
+					  	  </div><br>
+					  	  <div class="row" >
+					  		<div class="col-md-5"><span>担保借款:<img src="${ctx}/resources/images/borrow/danbao.png" alt="danbao"></span></div>
+					  		<div class="col-md-7"><span>通过抵押认证:<img src="${ctx}/resources/images/borrow/diya.jpg" alt="diya"></span></div>
+					  	  </div><br>
+					  	  <div class="row" >
+					  		<div class="col-md-6"><span>实地考察:<img src="${ctx}/resources/images/borrow/shidi.png" alt="shidi"></span></div>
+					  		<div class="col-md-6"><span>按天借款:<img src="${ctx}/resources/images/borrow/tianbiao.jpg" alt="tianbiao"></span></div>
+					  	  </div><br>
+				      </div>
 					  </div>
-					  <div class="panel panel-default">
-					    <div class="panel-heading">
-					      <h4 class="panel-title">
-					        <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-					         	 借款管理
-					        </a>
-					      </h4>
-					    </div>
-					    <div id="collapseTwo" class="panel-collapse collapse">
-					      <div class="panel-body">
-					        <div class="btn-group-vertical">
-							  <a href="#" class="btn btn-default" role="button">借款列表</a>
-							  <a href="#" class="btn btn-default" role="button">还款管理</a>
-							  <a href="#" class="btn btn-default" role="button">贷款统计</a>
-							</div>
-					      </div>
-					    </div>
-					  </div>
-					  <div class="panel panel-default">
-					    <div class="panel-heading">
-					      <h4 class="panel-title">
-					        <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-					    	      投资管理
-					        </a>
-					      </h4>
-					    </div>
-					    <div id="collapseThree" class="panel-collapse collapse">
-					      <div class="panel-body">
-					      	<div class="btn-group-vertical">
-					      	  <a href="#" class="btn btn-default" role="button">我的投标</a>
-					      	  <a href="#" class="btn btn-default" role="button">我关注的借款</a>
-					      	  <a href="#" class="btn btn-default" role="button">投资统计</a>
-					      	  <a href="#" class="btn btn-default" role="button">自动投标</a> 
-					      </div>
-					    </div>
-					  </div>
-					</div>
 				</div>
 	    	</div>
-	    	
+	    	<!-- 收益计算器，它会自动漂浮到借款标志说明下面,开始标签 -->
+	    	 <div class="col-md-3" style="margin-top: 20px;">
+	    		<div class="panel-group" id="accordion">
+					  <div class="panel panel-default">
+					    <div class="panel-heading">
+					      <h4 class="panel-title"><strong>收益计算器</strong></h4>
+					    </div>
+				      <div class="panel-body">
+					      <form id="loanReviewForm" class="form-horizontal" role="form" action="${pageContext.request.contextPath}/login.htm" method="post" onsubmit="return validaForm();">
+						  	  <div class="form-group">
+							    <label for="username" class="col-sm-5 control-label">投资金额:</label>
+							    <div class="col-sm-7">
+							      <input type=text class="form-control" id="username" name="username" placeholder="投资金额" value="${member.memberName}" required autofocus />
+							    </div>
+							  </div>
+							  <div class="form-group">
+							    <label for="password" class="col-sm-5 control-label">年利率:</label>
+							    <div class="col-sm-7">
+							      <input type="text" class="form-control" id="password" name="password" placeholder="年利率" value="${member.memberPassword}" required />
+							    </div>
+							  </div>
+							  <div class="form-group">
+							    <label for="username" class="col-sm-5 control-label">投资期限:</label>
+							    <div class="col-sm-7">
+							      <input type=text class="form-control" id="username" name="username" placeholder="投资期限" value="${member.memberName}" required autofocus />
+							    </div>
+							  </div>
+							  <div class="form-group">
+							    <label for="username" class="col-sm-5 control-label">还款方式:</label>
+							    <div class="col-sm-7">
+							      <input type=text class="form-control" id="username" name="username" placeholder="用户名/邮箱/手机" value="${member.memberName}" required autofocus />
+							    </div>
+							  </div>
+							  <div class="form-group">
+							    <label for="username" class="col-sm-5 control-label">投标奖励:</label>
+							    <div class="col-sm-5">
+							      <input type=text class="form-control" id="username" name="username" placeholder="0" value="${member.memberName}" />
+							    </div>
+							    <div class="col-sm-2" ><span style="float: left;text-align: left;">%</span></div>
+							  </div>
+							  <div class="form-group">
+							    <label for="username" class="col-sm-5 control-label">加现金:</label>
+							    <div class="col-sm-5">
+							      <input type=text class="form-control" id="username" name="username" placeholder="0" value="${member.memberName}"  />
+							    </div>
+							    <div class="col-sm-2"><span style="float: left;text-align: left;">元</span></div>
+							  </div>
+							  <div class="form-group">
+							    <div class="col-sm-12">
+							      <button  id="login_submit" type="submit" class="btn btn-danger btn-lg btn-block">计算</button>
+							    </div>
+							  </div>
+						</form>
+				      </div>
+					  </div>
+				</div>
+	    	</div>
+	    	<!-- 收益计算器，它会自动漂浮到借款标志说明下面,结束标签 -->
 	    </div>
 	    <jsp:include page="../foot.jsp"/>
 	    </div>
