@@ -5,7 +5,10 @@
  */
 package com.glacier.netloan.dto.query.borrow;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -31,7 +34,17 @@ public class BorrowingLoanQueryDTO extends BorrowingLoan{
     
     private float loanTotalEnd;
     
-    public float getLoanTotalStart() {
+    private String[] borrowTypes;
+    
+    public String[] getBorrowTypes() {
+		return borrowTypes;
+	}
+
+	public void setBorrowTypes(String[] borrowTypes) {
+		this.borrowTypes = borrowTypes;
+	}
+
+	public float getLoanTotalStart() {
 		return loanTotalStart;
 	}
 
@@ -82,6 +95,13 @@ public class BorrowingLoanQueryDTO extends BorrowingLoan{
 	   	}
 	   	if(null != this.getWaitBidDeadlines() && !"".equals(this.getWaitBidDeadlines().trim())){//根据筹标期限查询
 	   		queryCriteria.andWaitBidDeadlinesEqualTo(this.getWaitBidDeadlines().trim());
+	   	}
+	   	if(null != this.getBorrowTypes()){//根据借款类型查询
+	   		List<String> listBorrowTypes = Arrays.asList(borrowTypes);
+	   		queryCriteria.andLoanTenderIdIn(listBorrowTypes);
+	   	}
+	   	if(null != this.getRepaymentTypeId() && !"".equals(this.getRepaymentTypeId().trim())){//根据还款方式查询
+	   		queryCriteria.andRepaymentTypeIdEqualTo(this.getRepaymentTypeId());
 	   	}
 	   	if(0 != loanTotalStart && 0 != loanTotalEnd && 1000001.0 != loanTotalStart && 1000001.0 != loanTotalEnd){//借款金额查询
 	           queryCriteria.andLoanTotalBetween(loanTotalStart, loanTotalEnd); 

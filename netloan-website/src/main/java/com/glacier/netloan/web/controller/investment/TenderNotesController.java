@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.glacier.basic.util.JackJson;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
-import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
+import com.glacier.netloan.service.borrow.LoanTenderService;
+import com.glacier.netloan.service.borrow.RepaymentTypeService;
 import com.glacier.netloan.service.member.MemberAuthService;
 import com.glacier.netloan.service.member.MemberService;
 /**
@@ -34,12 +36,25 @@ public class TenderNotesController {
 	@Autowired
 	private MemberAuthService memberAuthService;
 	
+	@Autowired
+	private LoanTenderService loanTenderService;
+	
+	@Autowired
+	private RepaymentTypeService repaymentTypeService;
+	
 	@RequestMapping(value="/index.htm")
 	private Object intoInvestment(JqPager jqPager,int p,BorrowingLoanQueryDTO borrowingLoanQueryDTO,String pagetype,HttpServletRequest request){
 		//获取信息通知列表
 		JqGridReturn returnResult = (JqGridReturn) borrowingLoanService.listAsGridWebsite(jqPager, borrowingLoanQueryDTO, pagetype, p);
+		JqPager jqPagerLoanTender = new JqPager();
+		JqPager jqPagerRepaymentType = new JqPager();
+		JqGridReturn returnLoanTender = (JqGridReturn)loanTenderService.listAsGrid(jqPagerLoanTender);
+		JqGridReturn returnRepaymentType = (JqGridReturn)repaymentTypeService.listAsGrid(jqPagerRepaymentType);
 		request.setAttribute("borrowingDatas", returnResult);
 		request.setAttribute("borrowingLoanQueryDTO", borrowingLoanQueryDTO);
+		request.setAttribute("borrowTypes",JackJson.fromObjectToJson(borrowingLoanQueryDTO.getBorrowTypes()));
+		request.setAttribute("returnLoanTender", returnLoanTender);
+		request.setAttribute("returnRepaymentType", returnRepaymentType);
 		if(null != pagetype){
 			if(pagetype.trim().equals("riseloanTotal")){
 				request.setAttribute("loanTotal", "downloanTotal");
@@ -71,6 +86,7 @@ public class TenderNotesController {
 	@RequestMapping(value = "/investmentdetail.htm")
 	private Object investmentdetail(String loanId,String memberId,HttpServletRequest request){
 		request.setAttribute("borrowingMember", memberService.getMember(memberId));//获取改会员 信息数据
+		request.setAttribute("borrowingMemberWork", memberService.getMemberWork(memberId));//获取改会员 信息数据
 		request.setAttribute("borrowingLoan", borrowingLoanService.getBorrowingLoan(loanId));//获取改会员 借款的信息数据
 		request.setAttribute("memberAuthWithBLOBs", memberAuthService.getMemberAuth(memberId));//获取改会员 的认证数据
 		return "investment_mgr/investmentdetail";

@@ -2,20 +2,36 @@ package com.glacier.netloan.entity.borrow;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class LoanReview {
     private String loanReviewId;
 
     private String loanId;
+    
+    /**
+     * 自定义字段,借款标题
+     */
+    private String loanTitle;
 
     private String reviewContent;
 
     private String remark;
 
     private String creater;
-
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
-    public String getLoanReviewId() {
+    public String getLoanTitle() {
+		return loanTitle;
+	}
+
+	public void setLoanTitle(String loanTitle) {
+		this.loanTitle = loanTitle;
+	}
+
+	public String getLoanReviewId() {
         return loanReviewId;
     }
 

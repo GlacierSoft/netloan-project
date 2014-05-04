@@ -35,9 +35,9 @@
 			    <div class="col-sm-3">
 			       <select  class="form-control col-sm-3" name="repaymentTypeId" id="repaymentTypeId">
 					    <option value="">--请选择--</option>
-					    <option value="1">等额本息</option>
-					    <option value="2">按月付息，到期还本</option>
-					    <option value="4">一次性还款</option>
+					    <c:forEach items="${returnRepaymentType.rows}" var="repaymentType" varStatus="status">
+							<option value="${repaymentType.repaymentTypeId}">${repaymentType.repaymentTypeName}</option>
+						</c:forEach>
 					</select>
 			    </div>
 			    <label for="loanPurposeId" class="col-sm-1 control-label" >借款目的</label>
@@ -103,18 +103,45 @@
 			  <div class="form-group">
 			     <label for="cardId" class="col-sm-3 control-label" >只显示</label>
 			    <div class="col-sm-6 text-center">
-			    <label class="checkbox-inline">
-				  <input type="checkbox" id="inlineCheckbox1" value="option1"> 净值借款<img src="${ctx}/resources/images/borrow/jingzhi.jpg" alt="jingzhi">
-				</label>
-				<label class="checkbox-inline">
-				  <input type="checkbox" id="inlineCheckbox2" value="option2">秒还借款 <img src="${ctx}/resources/images/borrow/miaohuan.jpg" alt="miaohuan">
-				</label>
-				<label class="checkbox-inline">
-				  <input type="checkbox" id="inlineCheckbox3" value="option3">实地考察 <img src="${ctx}/resources/images/borrow/shidi.png" alt="shidi">
-				</label>
-				<label class="checkbox-inline">
-				  <input type="checkbox" id="inlineCheckbox3" value="option3"> 担保借款<img src="${ctx}/resources/images/borrow/danbao.png" alt="danbao">
-				</label>
+			    <c:if test="${empty returnLoanTender.rows}">
+					<tr>
+			            <td colspan="5"><strong>暂无信息</strong></td>
+			          </tr>
+				</c:if>	  		
+				<c:if test="${!empty returnLoanTender.rows}">  	
+				<c:forEach items="${returnLoanTender.rows}" var="borrowingLoanTender" varStatus="status">
+					<label class="checkbox-inline">
+					<c:if test="${empty borrowingLoanQueryDTO.borrowTypes}">
+						<input type="checkbox" id="inlineCheckbox1" name="borrowTypes" value="${borrowingLoanTender.loanTenderId}">
+					</c:if>	  
+					<c:if test="${!empty borrowingLoanQueryDTO.borrowTypes}">
+						 <input type="checkbox" id="borrowType${status.index}" name="borrowTypes" value="${borrowingLoanTender.loanTenderId}">
+				         <script type="text/javascript">
+				         		var borrowTypes = $.parseJSON('${borrowTypes}');
+				         		for(var i=0;i<borrowTypes.length;i++){
+				         			if($('#borrowType'+${status.index}).val() == borrowTypes[i]){
+				         				$('#borrowType'+${status.index}).prop("checked", true);
+					             	}				         			
+				         		}
+				         </script>
+					</c:if>	 
+						<c:choose>
+							   <c:when test="${borrowingLoanTender.loanrTenderName == '流转标'}">  
+							   	${borrowingLoanTender.loanrTenderName} <img src="${ctx}/resources/images/borrow/liu.png" alt="liuzhuan">
+							   </c:when>
+							   <c:when test="${borrowingLoanTender.loanrTenderName == '信用标'}">  
+							    ${borrowingLoanTender.loanrTenderName} <img src="${ctx}/resources/images/borrow/xin.jpg" alt="xinyong">
+							   </c:when>
+							   <c:when test="${borrowingLoanTender.loanrTenderName == '净值标'}">  
+							   	${borrowingLoanTender.loanrTenderName} <img src="${ctx}/resources/images/borrow/jingzhi.jpg" alt="jingzhi">
+							   </c:when>
+							   <c:when test="${borrowingLoanTender.loanrTenderName == '抵押标'}">  
+							   	${borrowingLoanTender.loanrTenderName} <img src="${ctx}/resources/images/borrow/diya.jpg" alt="diya">
+							   </c:when>
+						</c:choose>
+					</label>
+				</c:forEach>
+				</c:if>	
 			    </div>
 			    <div class="col-sm-3"></div>
 			  </div>
@@ -192,6 +219,20 @@
 			        	<a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }">
 			        	${borrowingLoan.loanTitle }
 			        	</a>
+			        	<c:choose>
+						   <c:when test="${borrowingLoan.loanTenderDisplay == '流转标'}">  
+						   	<img src="${ctx}/resources/images/borrow/liu.png" alt="liuzhuan">
+						   </c:when>
+						   <c:when test="${borrowingLoan.loanTenderDisplay == '信用标'}">  
+						   	<img src="${ctx}/resources/images/borrow/xin.jpg" alt="xinyong">
+						   </c:when>
+						   <c:when test="${borrowingLoan.loanTenderDisplay == '净值标'}">  
+						   	<img src="${ctx}/resources/images/borrow/jingzhi.jpg" alt="jingzhi">
+						   </c:when>
+						   <c:when test="${borrowingLoan.loanTenderDisplay == '抵押标'}">  
+						   	<img src="${ctx}/resources/images/borrow/diya.jpg" alt="diya">
+						   </c:when>
+						</c:choose>
 			        	</td>
 			        	<td rowspan="4"style="text-align:center;vertical-align: middle;">
 			        	<button  id="borrowingLoan_loanState${status.index}"  type=button class="btn btn-primary btn-lg btn-block"></button>
@@ -216,7 +257,7 @@
 			        	</tr>
 			        	<tr>
 			        		<td>信用等级：<img id="creditPhotoDivImg"  src="${borrowingLoan.creditPhoto}" style="width: 34px;height: 24px ;" /></td>
-			        		<td>按月分期还款</td>
+			        		<td>${borrowingLoan.repaymentTypeDisplay}</td>
 			        		<td>投标的状态：<span id="borrowingLoan_loanState2${status.index}"></span>
 			        		<script type="text/javascript">
 					       		$('#borrowingLoan_loanState2'+${status.index}).html(renderGridValue('${borrowingLoan.loanState }',fields.loanState));
@@ -254,83 +295,89 @@
 					      <h4 class="panel-title"><strong>借款标志说明</strong></h4>
 					    </div>
 				      <div class="panel-body">
-					      <div class="row" >
-					  		<div class="col-md-12"><span>信用借款:<img src="${ctx}/resources/images/borrow/xin.jpg" alt="xinyong"></span></div>
-					  	  </div><br>
 					  	  <div class="row" >
 					  		<div class="col-md-5"><span>净值借款:<img src="${ctx}/resources/images/borrow/jingzhi.jpg" alt="jingzhi"></span></div>
-					  		<div class="col-md-7"><span>秒还借款:<img src="${ctx}/resources/images/borrow/miaohuan.jpg" alt="miaohuan"></span></div>
+					  		<div class="col-md-7"><span>信用借款:<img src="${ctx}/resources/images/borrow/xin.jpg" alt="xinyong"></span></div>
 					  	  </div><br>
 					  	  <div class="row" >
 					  		<div class="col-md-5"><span>担保借款:<img src="${ctx}/resources/images/borrow/danbao.png" alt="danbao"></span></div>
-					  		<div class="col-md-7"><span>通过抵押认证:<img src="${ctx}/resources/images/borrow/diya.jpg" alt="diya"></span></div>
+					  		<div class="col-md-7"><span>流转标:	<img src="${ctx}/resources/images/borrow/liu.png" alt="liuzhuan"></span></div>
 					  	  </div><br>
-					  	  <div class="row" >
+					  	 <%--  <div class="row" >
 					  		<div class="col-md-6"><span>实地考察:<img src="${ctx}/resources/images/borrow/shidi.png" alt="shidi"></span></div>
 					  		<div class="col-md-6"><span>按天借款:<img src="${ctx}/resources/images/borrow/tianbiao.jpg" alt="tianbiao"></span></div>
-					  	  </div><br>
+					  	  </div><br> --%>
 				      </div>
 					  </div>
 				</div>
-	    	</div>
-	    	<!-- 收益计算器，它会自动漂浮到借款标志说明下面,开始标签 -->
-	    	 <div class="col-md-3" style="margin-top: 20px;">
-	    		<div class="panel-group" id="accordion">
-					  <div class="panel panel-default">
-					    <div class="panel-heading">
-					      <h4 class="panel-title"><strong>收益计算器</strong></h4>
-					    </div>
-				      <div class="panel-body">
-					      <form id="loanReviewForm" class="form-horizontal" role="form" action="${pageContext.request.contextPath}/login.htm" method="post" onsubmit="return validaForm();">
-						  	  <div class="form-group">
-							    <label for="username" class="col-sm-5 control-label">投资金额:</label>
-							    <div class="col-sm-7">
-							      <input type=text class="form-control" id="username" name="username" placeholder="投资金额" value="${member.memberName}" required autofocus />
-							    </div>
-							  </div>
-							  <div class="form-group">
-							    <label for="password" class="col-sm-5 control-label">年利率:</label>
-							    <div class="col-sm-7">
-							      <input type="text" class="form-control" id="password" name="password" placeholder="年利率" value="${member.memberPassword}" required />
-							    </div>
-							  </div>
-							  <div class="form-group">
-							    <label for="username" class="col-sm-5 control-label">投资期限:</label>
-							    <div class="col-sm-7">
-							      <input type=text class="form-control" id="username" name="username" placeholder="投资期限" value="${member.memberName}" required autofocus />
-							    </div>
-							  </div>
-							  <div class="form-group">
-							    <label for="username" class="col-sm-5 control-label">还款方式:</label>
-							    <div class="col-sm-7">
-							      <input type=text class="form-control" id="username" name="username" placeholder="用户名/邮箱/手机" value="${member.memberName}" required autofocus />
-							    </div>
-							  </div>
-							  <div class="form-group">
-							    <label for="username" class="col-sm-5 control-label">投标奖励:</label>
-							    <div class="col-sm-5">
-							      <input type=text class="form-control" id="username" name="username" placeholder="0" value="${member.memberName}" />
-							    </div>
-							    <div class="col-sm-2" ><span style="float: left;text-align: left;">%</span></div>
-							  </div>
-							  <div class="form-group">
-							    <label for="username" class="col-sm-5 control-label">加现金:</label>
-							    <div class="col-sm-5">
-							      <input type=text class="form-control" id="username" name="username" placeholder="0" value="${member.memberName}"  />
-							    </div>
-							    <div class="col-sm-2"><span style="float: left;text-align: left;">元</span></div>
-							  </div>
-							  <div class="form-group">
-							    <div class="col-sm-12">
-							      <button  id="login_submit" type="submit" class="btn btn-danger btn-lg btn-block">计算</button>
-							    </div>
-							  </div>
-						</form>
-				      </div>
-					  </div>
-				</div>
-	    	</div>
+				<!-- 收益计算器，它会自动漂浮到借款标志说明下面,开始标签 -->
+		    	 <div style="margin-top: 20px;">
+		    		<div class="panel-group" id="accordion">
+						  <div class="panel panel-default">
+						    <div class="panel-heading">
+						      <h4 class="panel-title"><strong>收益计算器</strong></h4>
+						    </div>
+					      <div class="panel-body">
+						      <form id="loanReviewForm" class="form-horizontal" role="form" action="${pageContext.request.contextPath}/login.htm" method="post" onsubmit="return validaForm();">
+							  	  <div class="form-group">
+								    <label for="investmentMoney" class="col-sm-5 control-label">投资金额:</label>
+								    <div class="col-sm-7">
+								      <input type=text class="form-control" id="investmentMoney" name="investmentMoney" placeholder="投资金额" value="${member.memberName}" required autofocus />
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="rate" class="col-sm-5 control-label">年利率:</label>
+								    <div class="col-sm-5">
+								      <input type="text" class="form-control" id="rate" name="rate" placeholder="年利率" value="${member.memberPassword}" required />
+								    </div>
+								    <div class="col-sm-2" ><span style="float: left;text-align: left;">%</span></div>
+								  </div>
+								  <div class="form-group">
+								    <label for="username" class="col-sm-5 control-label">投资期限:</label>
+								    <div class="col-sm-5">
+								      <input type=text class="form-control" id="username" name="username" placeholder="投资期限" value="${member.memberName}" required autofocus />
+								    </div>
+								    <div class="col-sm-2" ><span style="float: left;text-align: left;">月</span></div>
+								  </div>
+								  <div class="form-group">
+								    <label for="username" class="col-sm-5 control-label">还款方式:</label>
+								    <div class="col-sm-7">
+								      <%-- <input type=text class="form-control" id="username" name="username" placeholder="还款方式" value="${member.memberName}" required autofocus /> --%>
+								      <select  class="form-control" name="repaymentTypeName" id="repaymentTypeName">
+										    <option value="">--请选择--</option>
+										    <c:forEach items="${returnRepaymentType.rows}" var="repaymentType" varStatus="status">
+												<option value="${repaymentType.repaymentTypeName}">${repaymentType.repaymentTypeName}</option>
+											</c:forEach>
+										</select>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="username" class="col-sm-5 control-label">投标奖励:</label>
+								    <div class="col-sm-5">
+								      <input type=text class="form-control" id="username" name="username" placeholder="0" value="${member.memberName}" />
+								    </div>
+								    <div class="col-sm-2" ><span style="float: left;text-align: left;">%</span></div>
+								  </div>
+								  <div class="form-group">
+								    <label for="username" class="col-sm-5 control-label">加现金:</label>
+								    <div class="col-sm-5">
+								      <input type=text class="form-control" id="username" name="username" placeholder="0" value="${member.memberName}"  />
+								    </div>
+								    <div class="col-sm-2"><span style="float: left;text-align: left;">元</span></div>
+								  </div>
+								  <div class="form-group">
+								    <div class="col-sm-12">
+								      <button  id="login_submit" type="submit" class="btn btn-danger btn-lg btn-block">计算</button>
+								    </div>
+								  </div>
+							</form>
+					      </div>
+						  </div>
+					</div>
+		    	</div>
 	    	<!-- 收益计算器，它会自动漂浮到借款标志说明下面,结束标签 -->
+	    	</div>
+	    	
 	    </div>
 	    <jsp:include page="../foot.jsp"/>
 	    </div>
@@ -344,6 +391,9 @@
 	  	if("${borrowingLoanQueryDTO.loanPurposeId }" != ''){
 			$("#loanPurposeId").val("${borrowingLoanQueryDTO.loanPurposeId }");	
 		}	
+	  	if("${borrowingLoanQueryDTO.repaymentTypeId }" != ''){
+			$("#repaymentTypeId").val("${borrowingLoanQueryDTO.repaymentTypeId }");	
+		}
 	  	if("${borrowingLoanQueryDTO.loanTotalStart }" != 0.0){
 	  		$("#loanTotalStart").val("${borrowingLoanQueryDTO.loanTotalStart }");	
 	  	}

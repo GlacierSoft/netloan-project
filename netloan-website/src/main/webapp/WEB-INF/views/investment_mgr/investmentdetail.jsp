@@ -128,32 +128,41 @@
 				       	  	<div class="col-md-3"><span>晓风网贷信用额度：<fmt:formatNumber value="${borrowingMember.creditamount}" pattern="#,#00.00"/></span></div>
 			       	  	</div><br>
 			       	  	<div class="row" >
-				       	  	<div class="col-md-12"><span>以下基本信息资料，经用户同意披露。其中红色字体的信息，为通过晓风网贷审核的项目。</span></div>
+				       	  	<div class="col-md-12"><span>以下基本信息资料，经用户同意披露。其中红色字体的信息，为通过冰川贷审核的项目。</span></div>
 			       	  	</div>
 			       	  	<div class="row" >
-				       	  	<div class="col-md-12"><span>审核意见：sb</span></div>
+				       	  	<div class="col-md-12">审核意见：<span id="memberAuth_infoAuth"></span></div>
+				       	  	<script type="text/javascript">
+				       		 	$('#memberAuth_infoAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.infoAuth}',fields.auths));
+						    </script>
 			       	  	</div><br>
 			       	  	<div class="row" ><div class="col-md-12"><span><strong>基本信息</strong></span></div></div><br>
 			       	  		<table class="table">
 				       	  		<tr>
-				       	  			<td>性别：男</td>
-				       	  			<td>年龄：0</td>
-				       	  			<td>婚姻状况：未婚</td>
-				       	  			<td>工作城市：吉林 吉林</td>
+				       	  			<td>性别：<span id="borrowingMemberSex"></span></td>
+				       	  			<script type="text/javascript">
+						            	$('#borrowingMemberSex').html(renderGridValue('${borrowingMember.sex }',fields.sex));
+						            </script>
+				       	  			<td>年龄：${borrowingMember.memberAge }</td>
+				       	  			<td>婚姻状况：<span id="maritalStatus"></span></td>
+				       	  			<script type="text/javascript">
+						            	$('#maritalStatus').html(renderGridValue('${borrowingMember.maritalStatus }',fields.maritalStatus));
+						            </script>
+				       	  			<td></td>
 				       	  		</tr>
-				       	  		<tr>
+				       	  		<!-- <tr>
 				       	  			<td>公司行业：金融、保险业</td>
 				       	  			<td>公司规模：100-500人</td>
 				       	  			<td>职位：经理</td>
 				       	  			<td></td>
-				       	  		</tr>
+				       	  		</tr> -->
 				       	  		<tr>
-				       	  			<td>毕业学校：南大</td>
-				       	  			<td>学历：本科</td>
-				       	  			<td>入学年份：2014-04-07</td>
+				       	  			<td>工龄：${borrowingMemberWork.workAge }年</td>
+				       	  			<td>学历：${borrowingMember.educational }</td>
+				       	  			<td></td>
 				       	  			<td></td>
 				       	  		</tr>
-				       	  		<tr>
+				       	  		<!-- <tr>
 				       	  			<td>有无购房：无</td>
 				       	  			<td>有无购车：有</td>
 				       	  			<td></td>
@@ -164,7 +173,7 @@
 				       	  			<td>有无车贷：有</td>
 				       	  			<td></td>
 				       	  			<td></td>
-				       	  		</tr>
+				       	  		</tr> -->
 				       	  	</table>
 			       	  	<div class="row" ><div class="col-md-12"><span><strong>晓风网贷借款记录</strong></span></div></div><br>
 			       	  	<table class="table">
