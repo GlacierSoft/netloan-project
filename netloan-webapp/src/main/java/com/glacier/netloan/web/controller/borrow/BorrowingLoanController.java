@@ -121,7 +121,7 @@ public class BorrowingLoanController extends AbstractController{
         return borrowingLoanService.listAsGrid(jqPager, borrowingLoanQueryDTO, loanState);
     }
     
-    // 增加借款
+/*    // 增加借款
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
     private Object addBorrowingLoan(@Valid BorrowingLoan borrowingLoan, BindingResult bindingResult, String memberId) {
@@ -130,7 +130,7 @@ public class BorrowingLoanController extends AbstractController{
         }
         return borrowingLoanService.addBorrowingLoan(borrowingLoan, memberId);
     }
-    
+    */
     // 初审借款
     @RequestMapping(value = "/firstAudit.json", method = RequestMethod.POST)
     @ResponseBody

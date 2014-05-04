@@ -2,6 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- 引入jstl解析标签 -->
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %><!-- 引入自定义权限标签 -->
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
+
+<%@ page import="org.apache.shiro.web.filter.authc.FormAuthenticationFilter"%>
+<%@ page import="org.apache.shiro.authc.LockedAccountException"%>
+<%@ page import="com.glacier.basic.exception.IncorrectCaptchaException"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+%>
+
 <!DOCTYPE html>
 <html lang="zh-cn">
   <head>
@@ -46,16 +55,11 @@
 			            </td>
 			          </tr>
 					  <tr>
-					    <td class="col-md-6" align="right">
-					    	<span style="color:#F00">*</span>借款图片：
-					    </td>
+					  	<td class="col-md-6" align="right">借款图片:</td>
 					    <td class="col-md-6">
-						    <input type="hidden" id="loanPicture" name="loanPicture" value="images/default-img.jpg"/>
-					        <input type="radio" name="radio" id="r_1" checked="checked" value="1" />上传借款图片
-					        <input type="radio" name="radio" id="r_2" value="2" />使用用户头像 
-					        <input type="radio" name="radio" id="r_3" value="3" />使用系统头像
-					        <input type="hidden" id="radioval" name="paramMap.radioval" value=""/>
-					  	</td>
+							<input class="ke-input-text" type="hidden" name="loanPicture" id="url" value="${currentMember.memberPhoto}" readonly="readonly" />
+							<img id="loanPictureImg"  src="${currentMember.memberPhoto}" style="width: 120px;height: 120px ;" />
+					    </td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right">借款标的：</td>
@@ -446,6 +450,7 @@
 	        	$(this).hide().attr('src','${pageContext.request.contextPath}/resources/images/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();     
 		    });
 		});
-</script> 
+	</script> 
+
   </body>
 </html>

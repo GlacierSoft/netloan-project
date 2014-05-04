@@ -178,9 +178,14 @@ public class BorrowingLoanService {
      * @throws
      */
     @Transactional(readOnly = false)
-    public Object addBorrowingLoan(BorrowingLoan borrowingLoan, String memberId) {
+    public Object addBorrowingLoan(BorrowingLoan borrowingLoan, String memberId, boolean captchaBoolean) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
+        // 防止验证码错误
+        if (!captchaBoolean) {
+        	returnResult.setMsg("验证码错误，请重新输入");
+            return returnResult;
+        }
         int count = 0;
         // 防止借款主题重复
         borrowingLoanExample.createCriteria().andLoanCodeEqualTo(borrowingLoan.getLoanCode());

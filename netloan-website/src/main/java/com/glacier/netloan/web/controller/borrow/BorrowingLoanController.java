@@ -8,6 +8,7 @@ package com.glacier.netloan.web.controller.borrow;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -86,11 +87,16 @@ public class BorrowingLoanController extends AbstractController{
     // 增加借款
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addBorrowingLoan(@Valid BorrowingLoan borrowingLoan, BindingResult bindingResult, String memberId) {
+    private Object addBorrowingLoan(@Valid BorrowingLoan borrowingLoan, BindingResult bindingResult, String memberId, String captcha,HttpServletRequest request, HttpSession session) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
-        return borrowingLoanService.addBorrowingLoan(borrowingLoan, memberId);
+        String isCaptcha = (String) request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+        boolean captchaBoolean = true;
+        if (StringUtils.isBlank(captcha) || !isCaptcha.equalsIgnoreCase(captcha)) {
+        	captchaBoolean = false;
+        }
+        return borrowingLoanService.addBorrowingLoan(borrowingLoan, memberId, captchaBoolean);
     }
     
     // 修改借款
