@@ -2,6 +2,8 @@ package com.glacier.netloan.entity.finance;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class FinanceRechargeSet {
     private String financeRechargeSetId;
 
@@ -15,18 +17,38 @@ public class FinanceRechargeSet {
 
     private String feeWay;
 
+    private String auditorState;
+    
     private String auditor;
 
+    /**
+     * 自定义字段，显示审核人真实姓名
+     */
+    private String auditorDisplay;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditDate;
 
     private String remark;
 
     private String creater;
 
+    /**
+     * 自定义字段，显示创建人真实姓名
+     */
+    private String createrDisplay;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    /**
+     * 自定义字段，显示更新人真实姓名
+     */
+    private String updaterDisplay;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getFinanceRechargeSetId() {
@@ -77,6 +99,14 @@ public class FinanceRechargeSet {
         this.feeWay = feeWay;
     }
 
+    public String getAuditorState() {
+        return auditorState;
+    }
+
+    public void setAuditorState(String auditorState) {
+        this.auditorState = auditorState;
+    }
+    
     public String getAuditor() {
         return auditor;
     }
@@ -133,7 +163,31 @@ public class FinanceRechargeSet {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public String getAuditorDisplay() {
+		return auditorDisplay;
+	}
+
+	public void setAuditorDisplay(String auditorDisplay) {
+		this.auditorDisplay = auditorDisplay;
+	}
+
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
@@ -151,6 +205,7 @@ public class FinanceRechargeSet {
             && (this.getMemberType() == null ? other.getMemberType() == null : this.getMemberType().equals(other.getMemberType()))
             && (this.getValue() == null ? other.getValue() == null : this.getValue().equals(other.getValue()))
             && (this.getFeeWay() == null ? other.getFeeWay() == null : this.getFeeWay().equals(other.getFeeWay()))
+            && (this.getAuditorState() == null ? other.getAuditorState() == null : this.getAuditorState().equals(other.getAuditorState()))
             && (this.getAuditor() == null ? other.getAuditor() == null : this.getAuditor().equals(other.getAuditor()))
             && (this.getAuditDate() == null ? other.getAuditDate() == null : this.getAuditDate().equals(other.getAuditDate()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
@@ -170,6 +225,7 @@ public class FinanceRechargeSet {
         result = prime * result + ((getMemberType() == null) ? 0 : getMemberType().hashCode());
         result = prime * result + ((getValue() == null) ? 0 : getValue().hashCode());
         result = prime * result + ((getFeeWay() == null) ? 0 : getFeeWay().hashCode());
+        result = prime * result + ((getAuditorState() == null) ? 0 : getAuditorState().hashCode());
         result = prime * result + ((getAuditor() == null) ? 0 : getAuditor().hashCode());
         result = prime * result + ((getAuditDate() == null) ? 0 : getAuditDate().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
