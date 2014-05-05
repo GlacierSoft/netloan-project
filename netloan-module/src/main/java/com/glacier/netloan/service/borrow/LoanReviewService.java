@@ -1,5 +1,6 @@
 package com.glacier.netloan.service.borrow;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,8 +17,14 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.LoanReviewMapper;
+import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
+import com.glacier.netloan.entity.basicdatas.ParameterCredit;
+import com.glacier.netloan.entity.borrow.BorrowingLoan;
+import com.glacier.netloan.entity.borrow.BorrowingLoanExample;
 import com.glacier.netloan.entity.borrow.LoanReview;
 import com.glacier.netloan.entity.borrow.LoanReviewExample;
+import com.glacier.netloan.entity.borrow.BorrowingLoanExample.Criteria;
+import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -46,7 +53,46 @@ public class LoanReviewService {
     	LoanReview loanReview = loanReviewMapper.selectByPrimaryKey(loanReviewId);
         return loanReview;
     }
-    
+    /**
+     * @Title: listAsGridWebsite 
+     * @Description: TODO(前台借款留言列表) 
+     * @param  @param jqPager
+     * @param  @param borrowingLoanQueryDTO
+     * @param  @param pagetype
+     * @param  @param p
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
+     */
+    public Object listAsGridWebsite(JqPager jqPager,int p,String loanId) {
+        
+        JqGridReturn returnResult = new JqGridReturn();
+        LoanReviewExample loanReviewExample = new LoanReviewExample();;
+        loanReviewExample.createCriteria().andLoanIdEqualTo(loanId);//查询相对应的借款的留言
+        
+        if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息
+        	loanReviewExample.setLimitStart((jqPager.getPage() - 1) * jqPager.getRows());
+        	loanReviewExample.setLimitEnd(jqPager.getRows());
+        }
+        
+        jqPager.setSort("createTime");// 定义排序字段
+        jqPager.setOrder("DESC");// 升序还是降序
+        if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
+        	loanReviewExample.setOrderByClause(jqPager.getOrderBy("temp_loan_review_"));
+        }
+        
+        int startTemp = ((p-1)*5);//根据前台返回的页数进行设置
+        loanReviewExample.setLimitStart(startTemp);
+        loanReviewExample.setLimitEnd(5);
+        List<LoanReview>  loanReviews = loanReviewMapper.selectByExample(loanReviewExample); // 查询所有借款列表
+
+        int total = loanReviewMapper.countByExample(loanReviewExample); // 查询总页数
+        returnResult.setRows(loanReviews);//设置查询数据
+        returnResult.setTotal(total);//设置总条数
+        returnResult.setP(p);//设置当前页
+        return returnResult;// 返回ExtGrid表
+    }
     /**
      * @Title: listAsGrid 
      * @Description: TODO(获取所有借款留言信息) 
@@ -83,16 +129,15 @@ public class LoanReviewService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "ReviewList_add")
     public Object addLoanReview(LoanReview loanReview) {
     	
         Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        Member pricipalMember = (Member) pricipalSubject.getPrincipal();
         
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         loanReview.setLoanReviewId(RandomGUID.getRandomGUID());
-        loanReview.setCreater(pricipalUser.getUserId());
+        loanReview.setCreater(pricipalMember.getMemberId());
         loanReview.setCreateTime(new Date());
         count = loanReviewMapper.insert(loanReview);
         if (count == 1) {
@@ -113,7 +158,6 @@ public class LoanReviewService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "ReviewList_edit")
     public Object editLoanReview(LoanReview loanReview) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;

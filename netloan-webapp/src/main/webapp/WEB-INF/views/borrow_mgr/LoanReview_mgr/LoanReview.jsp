@@ -91,7 +91,7 @@
 				title: rowData.loanTitle,
 				href : ctx + '/do/LoanReview/intoDetail.htm?loanReviewId='+rowData.loanReviewId,//从controller请求jsp页面进行渲染
 				width : 720,
-				height : 540,
+				height : 200,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -145,7 +145,7 @@
 					$.ajax({
 						   type: "POST",
 						   url: ctx + '/do/LoanReview/del.json',
-						   data: {loanReviewIds:loanReviewIds.join(','),loanTitles:loanTitles.join(',')},
+						   data: {loanReviewIds:loanReviewIds.join(','),loanReviewTitle:loanTitles.join(',')},
 						   dataType:'json',
 						   success: function(r){
 							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理

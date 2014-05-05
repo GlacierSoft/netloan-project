@@ -11,7 +11,9 @@ import com.glacier.basic.util.JackJson;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
+import com.glacier.netloan.entity.borrow.LoanReview;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
+import com.glacier.netloan.service.borrow.LoanReviewService;
 import com.glacier.netloan.service.borrow.LoanTenderService;
 import com.glacier.netloan.service.borrow.RepaymentTypeService;
 import com.glacier.netloan.service.member.MemberAuthService;
@@ -41,6 +43,9 @@ public class TenderNotesController {
 	
 	@Autowired
 	private RepaymentTypeService repaymentTypeService;
+	
+	@Autowired
+	private LoanReviewService loanReviewService;
 	
 	@RequestMapping(value="/index.htm")
 	private Object intoInvestment(JqPager jqPager,int p,BorrowingLoanQueryDTO borrowingLoanQueryDTO,String pagetype,HttpServletRequest request){
@@ -81,16 +86,24 @@ public class TenderNotesController {
 	 * @param  @return设定文件
 	 * @return Object  返回类型
 	 * @throws 
-	 *
+	 *和LoanReviewController的addLoanReview相关
 	 */
 	@RequestMapping(value = "/investmentdetail.htm")
-	private Object investmentdetail(String loanId,String memberId,HttpServletRequest request){
-		request.setAttribute("borrowingMember", memberService.getMember(memberId));//获取改会员 信息数据
-		request.setAttribute("borrowingMemberWork", memberService.getMemberWork(memberId));//获取改会员 信息数据
-		request.setAttribute("borrowingLoan", borrowingLoanService.getBorrowingLoan(loanId));//获取改会员 借款的信息数据
-		request.setAttribute("memberAuthWithBLOBs", memberAuthService.getMemberAuth(memberId));//获取改会员 的认证数据
+	private Object investmentdetail(JqPager jqPager,int p,String loanId,String memberId,HttpServletRequest request){
+		request.setAttribute("borrowingMember", memberService.getMember(memberId));//获取该会员 信息数据
+		request.setAttribute("borrowingMemberWork", memberService.getMemberWork(memberId));//获取该会员 信息数据
+		request.setAttribute("borrowingLoan", borrowingLoanService.getBorrowingLoan(loanId));//获取该会员 借款的信息数据
+		request.setAttribute("memberAuthWithBLOBs", memberAuthService.getMemberAuth(memberId));//获取该会员 的认证数据
+		request.setAttribute("loanReviewDatas", loanReviewService.listAsGridWebsite(jqPager, p,loanId));//获取借款留言列表
 		return "investment_mgr/investmentdetail";
 	}
 	
+	@RequestMapping(value = "/confirmInvestment.htm")
+	private Object confirmInvestment(String loanId,String memberId,HttpServletRequest request){
+		request.setAttribute("borrowingMember", memberService.getMember(memberId));//获取该会员 信息数据
+		request.setAttribute("borrowingMemberWork", memberService.getMemberWork(memberId));//获取该会员 信息数据
+		request.setAttribute("borrowingLoan", borrowingLoanService.getBorrowingLoan(loanId));//获取该会员 借款的信息数据
+		return "investment_mgr/confirmInvestment";
+	}
 
 }

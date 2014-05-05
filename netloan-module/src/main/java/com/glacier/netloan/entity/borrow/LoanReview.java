@@ -18,12 +18,39 @@ public class LoanReview {
 
     private String remark;
 
+    
+    /**
+     * 自定义字段,留言人名称
+     */
+    private String memberDisplay;
+    
+    /**
+     * 自定义字段,留言人头像
+     */
+    private String memberPhoto;
+    
     private String creater;
     
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
-    public String getLoanTitle() {
+    public String getMemberDisplay() {
+		return memberDisplay;
+	}
+
+	public void setMemberDisplay(String memberDisplay) {
+		this.memberDisplay = memberDisplay;
+	}
+
+	public String getMemberPhoto() {
+		return memberPhoto;
+	}
+
+	public void setMemberPhoto(String memberPhoto) {
+		this.memberPhoto = memberPhoto;
+	}
+
+	public String getLoanTitle() {
 		return loanTitle;
 	}
 

@@ -57,14 +57,16 @@
 	       	  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	       	  	<span>借款目的：</span>${borrowingLoan.loanPurposeId }
 	       	  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	       	  	<img src="${ctx}/resources/images/borrow/investment.jpg" alt="investment">
+	       	  	<a href="${ctx}/investment/confirmInvestment.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingMember.memberId }&p=1">
+			        <img src="${ctx}/resources/images/borrow/investment.jpg" alt="investment">
+			    </a>
 	       	  	<div>
 	       	  	<span>借款年利率：</span><fmt:formatNumber value="${borrowingLoan.loanApr }" pattern="#,#00.00"/>%（月利率：<span id="monthLoanApr"></span>%）
 	       	  	<script type="text/javascript">
 	       	  		var monthLoanApr = "${borrowingLoan.loanApr }"/12;
 	       	 		$("#monthLoanApr").html(monthLoanApr);
 	       	  	</script>
-	       	  	<span>借款期限：：${borrowingLoan.waitBidDeadlines }</span>
+	       	  	<span>借款期限：${borrowingLoan.waitBidDeadlines }</span>
 	       	  	</div>
 	       	  	<hr>
 	       	  	<div class="row">
@@ -345,12 +347,41 @@
 				    <h3 class="panel-title"><strong>留言板</strong></h3>
 				  </div>
 				  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
+				  <table class="table" style="padding: 10px;">
+			        <c:if test="${empty loanReviewDatas.rows}">
+					<tr>
+			            <td colspan="3"><strong>暂无信息</strong></td>
+			          </tr>
+					</c:if>	  		
+					<c:if test="${!empty loanReviewDatas.rows}">  	
+					<c:forEach items="${loanReviewDatas.rows}" var="loanReview" varStatus="status">
+			        	<tr>
+			        		<td style="text-align:center;vertical-align: middle;"><img src="${loanReview.memberPhoto}" style="width: 60px;height: 60px ;"/> </td>
+			        		<td><span style="color: blue;">${loanReview.memberDisplay }</span>说：<br/>${loanReview.reviewContent }</td>
+			        		<td align="right"><fmt:formatDate value="${loanReview.createTime}" type="both"/></td>
+			        	</tr>
+			        	</c:forEach>
+			      		</c:if>	
+			      		<c:if test="${!empty loanReviewDatas.rows}">
+			        	<tfoot>
+				          <tr>
+				            <th colspan="3">
+				            	<div align="right">
+								    <ul id="pageLoanReview"></ul>
+								</div>
+							</th>
+				          </tr>
+				        </tfoot>
+				        </c:if>	  
+			        </table>
 				  	<div style="padding-left: 20px;">
-				  	<form id="loanReviewForm" class="form-horizontal" role="form" action="${pageContext.request.contextPath}/login.htm" method="post" onsubmit="return validaForm();">
+				  	<form id="loanReviewForm" class="form-horizontal" role="form" action="${ctx}/loanReview/addLoanReviewWebsite.htm" method="post" onsubmit="return validaForm();">
 					  	<span>咨询或评论：(字数在1-120之间)</span>
 					  	<br><br>
 					  	<div class="row" >
-					  		<div class="col-md-12"><textarea rows="4" cols="150"></textarea></div>
+					  		<input id="loanId" name="loanId" type="hidden" value="${borrowingLoan.loanId }" />
+					  		<input id="memberId" name="memberId" type="hidden" value="${borrowingMember.memberId }" />
+					  		<div class="col-md-12"><textarea id="reviewContent" name="reviewContent" rows="4" cols="150" required="required">${reviewContent}</textarea></div>
 					  	</div><br>
 					  	<div class="form-group">
 							<label id="login_kaptcha_span" class="col-sm-1 control-label ">验证码</label>
@@ -415,6 +446,63 @@
 	    <!-- CONTAINER START======================== -->
   </body>
   <script type="text/javascript">
+  
+  <!-- 分页显示表格数据 开始 -->
+	$(function(){
+		//获得浏览器参数
+		$.extend({
+			getUrlVars: function(){
+				var vars = [], hash;
+				var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+				for(var i = 0; i < hashes.length; i++){
+					hash = hashes[i].split('=');
+					vars.push(hash[0]);
+					vars[hash[0]] = hash[1];
+				}
+				return vars;
+			},
+			getUrlVar: function(name){
+				return $.getUrlVars()[name];
+			}
+		});
+	
+	//封装浏览器参数
+	var composeUrlParams=function(){
+		var param='';
+		$.each($.getUrlVars(), function(i, item) {
+			if(item!='p'){
+				var val=$.getUrlVar(item);
+				if(val) param += "&" + item+"="+val;
+			}
+		});
+		return param;
+	}
+	
+	var element = $('#pageLoanReview');
+	
+	//设置分页的总页数
+	var total=${loanReviewDatas.total}/5;
+	if(parseInt(total)==total){
+		var total = parseInt(total);
+	}else {
+		var total = parseInt(total)+1;
+	}
+	
+	var options = {
+	    bootstrapMajorVersion:1,
+	    currentPage: ${loanReviewDatas.p},
+	    numberOfPages: 5,
+	    totalPages:total,
+	    pageUrl: function(type, page, current){
+	    	return "${ctx}/investment/investmentdetail.htm?&p="+page+"&loanId=${borrowingLoan.loanId }&memberId=${borrowingMember.memberId }";
+	    	//return "${ctx}/investment/investmentdetail.htm?"+composeUrlParams()+"&p="+page+"&loanId=${borrowingLoan.loanId }&memberId=${borrowingMember.memberId }";
+	    	}
+	}
+	
+	element.bootstrapPaginator(options);
+	})
+<!-- 分页显示表格数据 结束 -->
+  
 	//更换验证码的值
 	$('#login_kaptcha').click(function() {  
 		$('#captcha').val('');
@@ -469,5 +557,47 @@
 		$('#memberAuth_form_workAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.workAuth}',fields.auths));   
 	}
 	
+	//表单验证
+	validaForm = function(){
+		var $reviewContent = $('#reviewContent');
+		if($reviewContent.val() === ''){
+			$reviewContent.focus();
+			return false;
+		}
+		var $captcha = $('#captcha');
+		if($captcha.val().length < 4){
+			
+			$captcha.focus();
+			return false;
+		}
+		
+		//$('#login_submit').attr('disabled', 'disabled').html('登录中...');
+		return true;
+	};
+	var errorCaptcha = "${errorCaptcha}";
+	if(errorCaptcha != ''){
+		captchadialog(errorCaptcha);
+	}
+	function captchadialog(data){
+		KindEditor.ready(function(K) {
+		var dialog = K.dialog({
+				        width : 300,
+				        title : '信息提示',
+				        body : '<div style="margin:10px;"><strong>'+data+'</strong></div>',
+				        closeBtn : {
+				                name : '关闭',
+				                click : function(e) {
+				                        dialog.remove();
+				                }
+				        },
+				        yesBtn : {
+				                name : '确定',
+				                click : function(e) {
+				                		dialog.remove();
+				                }
+				        },
+					});
+		});
+	}
   </script>
 </html>

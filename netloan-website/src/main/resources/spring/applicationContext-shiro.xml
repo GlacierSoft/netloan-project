@@ -43,6 +43,7 @@
 				/member/* = user
 				/borrowingLoan/* = user
 				/messageNotice/* = user
+				/loanReview/* = user
 			   <!-- /validateCode.htm = anon
 				/login.htm = authc
 				/resources/** = anon

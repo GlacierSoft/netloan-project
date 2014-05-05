@@ -9,6 +9,8 @@
     <result column="temp_loan_review_creater" property="creater" jdbcType="VARCHAR" />
     <result column="temp_loan_review_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_loan_review_loan_title" property="loanTitle" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_loan_review_memberDisplay" property="memberDisplay" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_loan_review_memberPhoto" property="memberPhoto" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -74,9 +76,12 @@
     temp_loan_review.creater as temp_loan_review_creater, temp_loan_review.create_time as temp_loan_review_create_time
     <!-- 以下字段属于扩展 -->
     ,temp_borrowing_loan.loan_title as temp_loan_review_loan_title
+    ,temp_creater.member_name as temp_loan_review_memberDisplay
+    ,temp_creater.member_photo as temp_loan_review_memberPhoto
   </sql>
   <sql id="Base_extend">
     LEFT JOIN t_borrowing_loan temp_borrowing_loan ON temp_borrowing_loan.loan_id = temp_loan_review.loan_id <!-- 扩展 -->
+    LEFT JOIN t_member temp_creater ON temp_creater.member_id = temp_loan_review.creater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.LoanReviewExample" >
     select

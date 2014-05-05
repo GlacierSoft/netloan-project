@@ -211,12 +211,12 @@
 					<c:forEach items="${borrowingDatas.rows}" var="borrowingLoan" varStatus="status">
 			        	<tr>
 			        	<td rowspan="4" style="text-align:center;vertical-align: middle;">
-			        	<a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }">
+			        	<a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }&p=1">
 			        	<img src="${borrowingLoan.loanPicture}" style="width: 100px;height: 100px ;"/>
 			        	</a>
 			        	</td>
 			        	<td colspan="4">
-			        	<a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }">
+			        	<a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }&p=1">
 			        	${borrowingLoan.loanTitle }
 			        	</a>
 			        	<c:choose>
