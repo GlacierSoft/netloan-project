@@ -1,8 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-<form method="post" style="padding:15px">
+<div method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
 			<td>流水号：</td>
@@ -81,10 +80,29 @@
 		</tr>
 		<tr>
 			<td>审核说明：</td>
-			<td colspan="3"><textarea class="spinner" style="width:445px" readonly="readonly">${withdrawData.auditRemark}</textarea></td>
+			<td colspan="3"><textarea class="spinner" style="height:30px;width:445px" readonly="readonly">${withdrawData.auditRemark}</textarea></td>
 		</tr>
 	</table>
-</form>
+</div>
 <script type="text/javascript">
 	$('#withdraw_mgr_withdraw_detail_auditState').val(renderGridValue('${withdrawData.auditState}',fields.auditState));
 </script>
+
+<form  method="post" style="padding:15px">
+	<table class="formtable">
+		<tr>
+			<td>审核提现记录：</td>
+			<td><input type="hidden" id="withdraw_mgr_withdraw_form_financeWithdrawId" name="financeWithdrawId" value="${withdrawData.financeWithdrawId}" />
+				<input type="hidden" id="withdraw_mgr_withdraw_form_withdrawCode" name="withdrawCode" value="${withdrawData.withdrawCode}"/>
+				<input id="withdraw_mgr_withdraw_form_auditState" name="auditState" type="radio" value="pass" /><span>审核通过</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input id="withdraw_mgr_withdraw_form_auditState" name="auditState" type="radio" value="failure"  checked="checked"/><span>审核失败</span></td>
+		</tr>
+		<tr>
+			<td>审核说明：</td>
+			<td colspan="3">
+				<textarea name="auditRemark" class="spinner" style="height:50px;width:430px">${withdrawData.auditRemark}</textarea>
+			</td>
+		</tr>
+	</table>
+</form>

@@ -10,8 +10,6 @@
 	glacier.finance_mgr.withdraw_mgr.withdraw.param = {
 			toolbarId : 'withdrawDataGrid_toolbar',
 			actions : {
-				edit:{flag:'edit',controlType:'single'},
-				del:{flag:'del',controlType:'multiple'},
 				audit:{flag:'audit',controlType:'single'}
 			}
 	};
@@ -21,7 +19,7 @@
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
-		fitColumns:true,//自动填充行
+		//fitColumns:true,//自动填充行
 		nowrap: true,//禁止单元格中的文字自动换行
 		autoRowHeight: false,//禁止设置自动行高以适应内容
 		striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
@@ -164,8 +162,8 @@
 			$.easyui.showDialog({
 				title: rowData.withdrawCode,
 				href : ctx + '/do/withdraw/intoDetail.htm?financeWithdrawId='+rowData.financeWithdrawId,//从controller请求jsp页面进行渲染
-				width : 570,
-				height : 350,
+				width : 580,
+				height : 400,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -207,8 +205,8 @@
 		var row = glacier.finance_mgr.withdraw_mgr.withdraw.withdrawDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '审核【'+row.withdrawName+'】',
-			width : 450,
-			height : 460,
+			width : 580,
+			height : 500,
 			queryUrl : ctx + '/do/withdraw/intoAudit.htm',
 			submitUrl : ctx + '/do/withdraw/audit.json',
 			queryParams : {

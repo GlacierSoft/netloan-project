@@ -7,9 +7,12 @@ package com.glacier.netloan.web.controller.finance;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.entity.finance.FinanceWithdraw;
 import com.glacier.netloan.service.finance.FinanceWithdrawService;
 
 /** 
@@ -49,6 +53,26 @@ public class FinanceWithdrawController extends AbstractController{
             mav.addObject("withdrawData", financeWithdrawService.getWithdraw(financeWithdrawId));
         }
         return mav;
+    }
+    
+    // 进入会员提现audit表单页面
+    @RequestMapping(value = "/intoAudit.htm")
+    private Object intoAuditWithdraw(String financeWithdrawId) {
+        ModelAndView mav = new ModelAndView("finance_mgr/withdraw_mgr/withdraw_audit");
+        if(StringUtils.isNotBlank(financeWithdrawId)){
+            mav.addObject("withdrawData", financeWithdrawService.getWithdraw(financeWithdrawId));
+        }
+        return mav;
+    }
+    
+    // 审核会员提现记录
+    @RequestMapping(value = "/audit.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object auditWithdraw(@Valid FinanceWithdraw financeWithdraw, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResult);
+        }
+        return financeWithdrawService.auditWithdraw(financeWithdraw);
     }
     
     // 获取表格结构的所有会员提现记录数据

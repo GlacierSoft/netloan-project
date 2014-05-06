@@ -1,8 +1,11 @@
 package com.glacier.netloan.service.finance;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -15,6 +18,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceWithdrawMapper;
 import com.glacier.netloan.entity.finance.FinanceWithdraw;
 import com.glacier.netloan.entity.finance.FinanceWithdrawExample;
+import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -145,6 +149,35 @@ public class FinanceWithdrawService {
         }
         return returnResult;
     }*/
+    
+    /**
+     * @Title: auditWithdraw 
+     * @Description: TODO(审核会员提现记录信息) 
+     * @param @param financeWithdraw
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "WithdrawList_audit")
+    public Object auditWithdraw(FinanceWithdraw financeWithdraw) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        financeWithdraw.setAuditor(pricipalUser.getUserId());
+        financeWithdraw.setAuditDate(new Date());
+        financeWithdraw.setUpdater(pricipalUser.getUserId());
+        financeWithdraw.setUpdateTime(new Date());
+        count = financeWithdrawMapper.updateByPrimaryKeySelective(financeWithdraw);
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("[" + financeWithdraw.getWithdrawCode() + "] 会员提现记录信息已审核");
+        } else {
+            returnResult.setMsg("发生未知错误，会员提现记录信息审核失败");
+        }
+        return returnResult;
+    }
     
     /**
      * @Title: delWithdraw 
