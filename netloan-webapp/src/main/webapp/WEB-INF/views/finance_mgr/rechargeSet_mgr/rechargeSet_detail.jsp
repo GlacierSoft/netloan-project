@@ -32,7 +32,7 @@
 			</td>
 			<td>审核状态：</td>
 			<td>
-				<input id="rechargeSet_mgr_rechargeSet_detail_auditorState" name="auditorState" value="${rechargeSetData.auditorState}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
+				<input id="rechargeSet_mgr_rechargeSet_detail_auditState" name="auditState" value="${rechargeSetData.auditState}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
@@ -62,5 +62,5 @@
 <script type="text/javascript">
 	$('#rechargeSet_mgr_rechargeSet_detail_memberType').val(renderGridValue('${rechargeSetData.memberType}',fields.memberType));
 	$('#rechargeSet_mgr_rechargeSet_detail_feeWay').val(renderGridValue('${rechargeSetData.feeWay}',fields.feeWay));
-	$('#rechargeSet_mgr_rechargeSet_detail_auditorState').val(renderGridValue('${rechargeSetData.auditorState}',fields.auditorState));
+	$('#rechargeSet_mgr_rechargeSet_detail_auditState').val(renderGridValue('${rechargeSetData.auditState}',fields.auditState));
 </script>

@@ -525,73 +525,73 @@ public class FinanceRechargeSetExample {
             return (Criteria) this;
         }
 
-        public Criteria andAuditorStateIsNull() {
-            addCriterion("temp_finance_recharge_set.auditor_state is null");
+        public Criteria andAuditStateIsNull() {
+            addCriterion("temp_finance_recharge_set.audit_state is null");
             return (Criteria) this;
         }
 
-        public Criteria andAuditorStateIsNotNull() {
-            addCriterion("temp_finance_recharge_set.auditor_state is not null");
+        public Criteria andAuditStateIsNotNull() {
+            addCriterion("temp_finance_recharge_set.audit_state is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAuditorStateEqualTo(String value) {
-            addCriterion("temp_finance_recharge_set.auditor_state =", value, "auditorState");
+        public Criteria andAuditStateEqualTo(String value) {
+            addCriterion("temp_finance_recharge_set.audit_state =", value, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andAuditorStateNotEqualTo(String value) {
-            addCriterion("temp_finance_recharge_set.auditor_state <>", value, "auditorState");
+        public Criteria andAuditStateNotEqualTo(String value) {
+            addCriterion("temp_finance_recharge_set.audit_state <>", value, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andAuditorStateGreaterThan(String value) {
-            addCriterion("temp_finance_recharge_set.auditor_state >", value, "auditorState");
+        public Criteria andAuditStateGreaterThan(String value) {
+            addCriterion("temp_finance_recharge_set.audit_state >", value, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andAuditorStateGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_finance_recharge_set.auditor_state >=", value, "auditorState");
+        public Criteria andAuditStateGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_recharge_set.audit_state >=", value, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andAuditorStateLessThan(String value) {
-            addCriterion("temp_finance_recharge_set.auditor_state <", value, "auditorState");
+        public Criteria andAuditStateLessThan(String value) {
+            addCriterion("temp_finance_recharge_set.audit_state <", value, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andAuditorStateLessThanOrEqualTo(String value) {
-            addCriterion("temp_finance_recharge_set.auditor_state <=", value, "auditorState");
+        public Criteria andAuditStateLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_recharge_set.audit_state <=", value, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andAuditorStateLike(String value) {
-            addCriterion("temp_finance_recharge_set.auditor_state like", value, "auditorState");
+        public Criteria andAuditStateLike(String value) {
+            addCriterion("temp_finance_recharge_set.audit_state like", value, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andAuditorStateNotLike(String value) {
-            addCriterion("temp_finance_recharge_set.auditor_state not like", value, "auditorState");
+        public Criteria andAuditStateNotLike(String value) {
+            addCriterion("temp_finance_recharge_set.audit_state not like", value, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andAuditorStateIn(List<String> values) {
-            addCriterion("temp_finance_recharge_set.auditor_state in", values, "auditorState");
+        public Criteria andAuditStateIn(List<String> values) {
+            addCriterion("temp_finance_recharge_set.audit_state in", values, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andAuditorStateNotIn(List<String> values) {
-            addCriterion("temp_finance_recharge_set.auditor_state not in", values, "auditorState");
+        public Criteria andAuditStateNotIn(List<String> values) {
+            addCriterion("temp_finance_recharge_set.audit_state not in", values, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andAuditorStateBetween(String value1, String value2) {
-            addCriterion("temp_finance_recharge_set.auditor_state between", value1, value2, "auditorState");
+        public Criteria andAuditStateBetween(String value1, String value2) {
+            addCriterion("temp_finance_recharge_set.audit_state between", value1, value2, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andAuditorStateNotBetween(String value1, String value2) {
-            addCriterion("temp_finance_recharge_set.auditor_state not between", value1, value2, "auditorState");
+        public Criteria andAuditStateNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_recharge_set.audit_state not between", value1, value2, "auditState");
             return (Criteria) this;
         }
 

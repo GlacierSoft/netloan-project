@@ -66,9 +66,9 @@
 			<td>审核充值设置：</td>
 			<td><input type="hidden" id="rechargeSet_mgr_rechargeSet_form_financeRechargeSetId" name="financeRechargeSetId" value="${rechargeSetData.financeRechargeSetId}" />
 				<input type="hidden" id="rechargeSet_mgr_rechargeSet_form_rechargeSetName" name="rechargeSetName" value="${rechargeSetData.rechargeSetName}"/>
-				<input id="rechargeSet_mgr_rechargeSet_form_auditorState" name="auditorState" type="radio" value="auditSucess" /><span>审核通过</span>
+				<input id="rechargeSet_mgr_rechargeSet_form_auditState" name="auditState" type="radio" value="pass" /><span>审核通过</span>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<input id="rechargeSet_mgr_rechargeSet_form_auditorState" name="auditorState" type="radio" value="auditFailure"  checked="checked"/><span>审核失败</span></td>
+				<input id="rechargeSet_mgr_rechargeSet_form_auditState" name="auditState" type="radio" value="failure"  checked="checked"/><span>审核失败</span></td>
 		</tr>
 	</table>
 </form>

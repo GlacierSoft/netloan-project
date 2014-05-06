@@ -75,12 +75,12 @@
 				width:120,
 				sortable:true
 			},{
-				field:'auditorState',
+				field:'auditState',
 				title:'审核状态',
 				width:120,
 				sortable:true,
 				formatter: function(value,row,index){//数据格式化，例如auditorSucess显示审核成功，auditorFailure显示审核失败
-					return renderGridValue(value,fields.auditorState);
+					return renderGridValue(value,fields.auditState);
 				}
 			},{
 				field:'auditorDisplay',

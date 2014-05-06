@@ -103,6 +103,7 @@ public class FinanceRechargeSetService {
         }
         financeRechargeSet.setFinanceRechargeSetId(RandomGUID.getRandomGUID());
         financeRechargeSet.setCreater(pricipalUser.getUserId());
+        financeRechargeSet.setAuditState("authstr");
         financeRechargeSet.setCreateTime(new Date());
         financeRechargeSet.setUpdater(pricipalUser.getUserId());
         financeRechargeSet.setUpdateTime(new Date());

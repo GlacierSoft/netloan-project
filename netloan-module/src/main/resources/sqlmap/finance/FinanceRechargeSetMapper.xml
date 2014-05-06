@@ -8,7 +8,7 @@
     <result column="temp_finance_recharge_set_member_type" property="memberType" jdbcType="CHAR" />
     <result column="temp_finance_recharge_set_value" property="value" jdbcType="REAL" />
     <result column="temp_finance_recharge_set_fee_way" property="feeWay" jdbcType="CHAR" />
-    <result column="temp_finance_recharge_set_auditor_state" property="auditorState" jdbcType="CHAR" />
+    <result column="temp_finance_recharge_set_audit_state" property="auditState" jdbcType="CHAR" />
     <result column="temp_finance_recharge_set_auditor" property="auditor" jdbcType="VARCHAR" />
     <result column="temp_finance_recharge_set_audit_date" property="auditDate" jdbcType="TIMESTAMP" />
     <result column="temp_finance_recharge_set_remark" property="remark" jdbcType="VARCHAR" />
@@ -83,7 +83,7 @@
     temp_finance_recharge_set.recharge_set_name as temp_finance_recharge_set_recharge_set_name, 
     temp_finance_recharge_set.recharge_rate as temp_finance_recharge_set_recharge_rate, 
     temp_finance_recharge_set.member_type as temp_finance_recharge_set_member_type, temp_finance_recharge_set.value as temp_finance_recharge_set_value, 
-    temp_finance_recharge_set.fee_way as temp_finance_recharge_set_fee_way, temp_finance_recharge_set.auditor_state as temp_finance_recharge_set_auditor_state, 
+    temp_finance_recharge_set.fee_way as temp_finance_recharge_set_fee_way, temp_finance_recharge_set.audit_state as temp_finance_recharge_set_audit_state, 
     temp_finance_recharge_set.auditor as temp_finance_recharge_set_auditor, temp_finance_recharge_set.audit_date as temp_finance_recharge_set_audit_date, 
     temp_finance_recharge_set.remark as temp_finance_recharge_set_remark, temp_finance_recharge_set.creater as temp_finance_recharge_set_creater, 
     temp_finance_recharge_set.create_time as temp_finance_recharge_set_create_time, temp_finance_recharge_set.updater as temp_finance_recharge_set_updater, 
@@ -136,13 +136,13 @@
   <insert id="insert" parameterType="com.glacier.netloan.entity.finance.FinanceRechargeSet" >
     insert into t_finance_recharge_set (finance_recharge_set_id, recharge_set_name, 
       recharge_rate, member_type, value, 
-      fee_way, auditor_state, auditor, 
+      fee_way, audit_state, auditor, 
       audit_date, remark, creater, 
       create_time, updater, update_time
       )
     values (#{financeRechargeSetId,jdbcType=VARCHAR}, #{rechargeSetName,jdbcType=VARCHAR}, 
       #{rechargeRate,jdbcType=REAL}, #{memberType,jdbcType=CHAR}, #{value,jdbcType=REAL}, 
-      #{feeWay,jdbcType=CHAR}, #{auditorState,jdbcType=CHAR}, #{auditor,jdbcType=VARCHAR}, 
+      #{feeWay,jdbcType=CHAR}, #{auditState,jdbcType=CHAR}, #{auditor,jdbcType=VARCHAR}, 
       #{auditDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
       )
@@ -168,8 +168,8 @@
       <if test="feeWay != null" >
         fee_way,
       </if>
-      <if test="auditorState != null" >
-        auditor_state,
+      <if test="auditState != null" >
+        audit_state,
       </if>
       <if test="auditor != null" >
         auditor,
@@ -212,8 +212,8 @@
       <if test="feeWay != null" >
         #{feeWay,jdbcType=CHAR},
       </if>
-      <if test="auditorState != null" >
-        #{auditorState,jdbcType=CHAR},
+      <if test="auditState != null" >
+        #{auditState,jdbcType=CHAR},
       </if>
       <if test="auditor != null" >
         #{auditor,jdbcType=VARCHAR},
@@ -266,8 +266,8 @@
       <if test="record.feeWay != null" >
         temp_finance_recharge_set.fee_way = #{record.feeWay,jdbcType=CHAR},
       </if>
-      <if test="record.auditorState != null" >
-        temp_finance_recharge_set.auditor_state = #{record.auditorState,jdbcType=CHAR},
+      <if test="record.auditState != null" >
+        temp_finance_recharge_set.audit_state = #{record.auditState,jdbcType=CHAR},
       </if>
       <if test="record.auditor != null" >
         temp_finance_recharge_set.auditor = #{record.auditor,jdbcType=VARCHAR},
@@ -303,7 +303,7 @@
       temp_finance_recharge_set.member_type = #{record.memberType,jdbcType=CHAR},
       temp_finance_recharge_set.value = #{record.value,jdbcType=REAL},
       temp_finance_recharge_set.fee_way = #{record.feeWay,jdbcType=CHAR},
-      temp_finance_recharge_set.auditor_state = #{record.auditorState,jdbcType=CHAR},
+      temp_finance_recharge_set.audit_state = #{record.auditState,jdbcType=CHAR},
       temp_finance_recharge_set.auditor = #{record.auditor,jdbcType=VARCHAR},
       temp_finance_recharge_set.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
       temp_finance_recharge_set.remark = #{record.remark,jdbcType=VARCHAR},
@@ -333,8 +333,8 @@
       <if test="feeWay != null" >
         fee_way = #{feeWay,jdbcType=CHAR},
       </if>
-      <if test="auditorState != null" >
-        auditor_state = #{auditorState,jdbcType=CHAR},
+      <if test="auditState != null" >
+        audit_state = #{auditState,jdbcType=CHAR},
       </if>
       <if test="auditor != null" >
         auditor = #{auditor,jdbcType=VARCHAR},
@@ -367,7 +367,7 @@
       member_type = #{memberType,jdbcType=CHAR},
       value = #{value,jdbcType=REAL},
       fee_way = #{feeWay,jdbcType=CHAR},
-      auditor_state = #{auditorState,jdbcType=CHAR},
+      audit_state = #{auditState,jdbcType=CHAR},
       auditor = #{auditor,jdbcType=VARCHAR},
       audit_date = #{auditDate,jdbcType=TIMESTAMP},
       remark = #{remark,jdbcType=VARCHAR},

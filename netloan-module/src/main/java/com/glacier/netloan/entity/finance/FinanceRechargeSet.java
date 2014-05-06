@@ -17,7 +17,7 @@ public class FinanceRechargeSet {
 
     private String feeWay;
 
-    private String auditorState;
+    private String auditState;
     
     private String auditor;
 
@@ -99,12 +99,12 @@ public class FinanceRechargeSet {
         this.feeWay = feeWay;
     }
 
-    public String getAuditorState() {
-        return auditorState;
+    public String getAuditState() {
+        return auditState;
     }
 
-    public void setAuditorState(String auditorState) {
-        this.auditorState = auditorState;
+    public void setAuditState(String auditState) {
+        this.auditState = auditState;
     }
     
     public String getAuditor() {
@@ -205,7 +205,7 @@ public class FinanceRechargeSet {
             && (this.getMemberType() == null ? other.getMemberType() == null : this.getMemberType().equals(other.getMemberType()))
             && (this.getValue() == null ? other.getValue() == null : this.getValue().equals(other.getValue()))
             && (this.getFeeWay() == null ? other.getFeeWay() == null : this.getFeeWay().equals(other.getFeeWay()))
-            && (this.getAuditorState() == null ? other.getAuditorState() == null : this.getAuditorState().equals(other.getAuditorState()))
+            && (this.getAuditState() == null ? other.getAuditState() == null : this.getAuditState().equals(other.getAuditState()))
             && (this.getAuditor() == null ? other.getAuditor() == null : this.getAuditor().equals(other.getAuditor()))
             && (this.getAuditDate() == null ? other.getAuditDate() == null : this.getAuditDate().equals(other.getAuditDate()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
@@ -225,7 +225,7 @@ public class FinanceRechargeSet {
         result = prime * result + ((getMemberType() == null) ? 0 : getMemberType().hashCode());
         result = prime * result + ((getValue() == null) ? 0 : getValue().hashCode());
         result = prime * result + ((getFeeWay() == null) ? 0 : getFeeWay().hashCode());
-        result = prime * result + ((getAuditorState() == null) ? 0 : getAuditorState().hashCode());
+        result = prime * result + ((getAuditState() == null) ? 0 : getAuditState().hashCode());
         result = prime * result + ((getAuditor() == null) ? 0 : getAuditor().hashCode());
         result = prime * result + ((getAuditDate() == null) ? 0 : getAuditDate().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
