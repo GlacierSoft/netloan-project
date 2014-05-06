@@ -12,6 +12,8 @@
     <result column="temp_tender_notes_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_tender_notes_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_tender_notes_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_tender_notes_loan_title" property="loanTitle" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_memberDisplay" property="memberDisplay" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -77,6 +79,13 @@
     temp_tender_notes.tender_money as temp_tender_notes_tender_money, temp_tender_notes.remark as temp_tender_notes_remark, 
     temp_tender_notes.creater as temp_tender_notes_creater, temp_tender_notes.create_time as temp_tender_notes_create_time, 
     temp_tender_notes.updater as temp_tender_notes_updater, temp_tender_notes.update_time as temp_tender_notes_update_time
+     <!-- 以下字段属于扩展 -->
+    ,temp_borrowing_loan.loan_title as temp_tender_notes_loan_title
+    ,temp_creater.member_name as temp_tender_notes_memberDisplay
+  </sql>
+  <sql id="Base_extend">
+    LEFT JOIN t_borrowing_loan temp_borrowing_loan ON temp_borrowing_loan.loan_id = temp_tender_notes.loan_id <!-- 扩展 -->
+    LEFT JOIN t_member temp_creater ON temp_creater.member_id = temp_tender_notes.creater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.TenderNotesExample" >
     select
@@ -85,6 +94,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_tender_notes temp_tender_notes
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -99,6 +109,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_tender_notes temp_tender_notes
+    <include refid="Base_extend" />
     where temp_tender_notes.tender_notes_id = #{tenderNotesId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -106,7 +117,7 @@
     where tender_notes_id = #{tenderNotesId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.borrow.TenderNotesExample" >
-    delete from t_tender_notes temp_tender_notes
+    delete temp_tender_notes from t_tender_notes temp_tender_notes
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -190,6 +201,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.TenderNotesExample" resultType="java.lang.Integer" >
     select count(*) from t_tender_notes temp_tender_notes
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

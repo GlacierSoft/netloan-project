@@ -2,11 +2,23 @@ package com.glacier.netloan.entity.borrow;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class TenderNotes {
     private String tenderNotesId;
 
     private String loanId;
 
+    /**
+     * 自定义字段,借款标题
+     */
+    private String loanTitle;
+    
+    /**
+     * 自定义字段,投标人名称
+     */
+    private String memberDisplay;
+    
     private String memberId;
 
     private Float subSum;
@@ -17,13 +29,31 @@ public class TenderNotes {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    public String getTenderNotesId() {
+    public String getLoanTitle() {
+		return loanTitle;
+	}
+
+	public void setLoanTitle(String loanTitle) {
+		this.loanTitle = loanTitle;
+	}
+
+	public String getMemberDisplay() {
+		return memberDisplay;
+	}
+
+	public void setMemberDisplay(String memberDisplay) {
+		this.memberDisplay = memberDisplay;
+	}
+
+	public String getTenderNotesId() {
         return tenderNotesId;
     }
 

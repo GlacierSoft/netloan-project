@@ -88,35 +88,69 @@
 	       	  		<div class="col-md-12"><span>请填写并确认下面投标金额</span>
 	       	  		&nbsp;<a href="#">设置交易密码</a></div>
 	       	  	</div>
-	       	  	<div class="row">
-	       	  		<div class="col-md-12"><span>最小认购金额：<fmt:formatNumber value="${borrowingLoan.lowestSub }" pattern="#,#00.00"/>元  当前年利率: <fmt:formatNumber value="${borrowingLoan.loanApr }" pattern="#,#00.00"/>% </span></div>
-	       	  	</div>
-	       	  	<div class="row">
-	       	  		<div class="col-md-12">认购总份数：${borrowingLoan.subTotal }份,还有：<span id="subLeave"></span>份 </div>
-	       	  		<script type="text/javascript">
-	       	  			$("#subLeave").html(${borrowingLoan.subTotal }-${borrowingLoan.alrSubSum });
-	       	  		</script>
-	       	  	</div>
-	       	  	<br>
-	       	  	<div class="row">
-		       	  	<div class="col-md-12">
-		       	  	<form id="loanReviewForm" class="form-horizontal" role="form" action="${ctx}/loanReview/addLoanReviewWebsite.htm" method="post" onsubmit="return validaForm();">
-					  	<div class="form-group">
-							<div class="col-sm-5">
-								<input type="text" id="captcha" name="captcha" class="form-control" value="1" required />
-							</div>
-							<div class="col-sm-1">份</div>
-							<div class="col-sm-4"><!-- style="background-image: url('${ctx}/resources/images/borrow/rengou.gif');" -->
-								 <button  id="login_submit" type="submit" class="btn btn-primary btn-block" >认购</button>
-							</div>
-							<div class="col-sm-2"></div>
-						</div>
-					</form>
-		       	  	</div>
-	       	  	</div>
-	       	  	<div class="row">
-	       	  	<div class="col-md-12">您的可投标金额为：<span style="color: red;">￥100,000.00</span>元，最多可认购：<span style="color: red;">10000份 </span></div>
-	       	  	</div>
+	       	  	<c:choose>
+					   <c:when test="${borrowingLoan.loanTenderDisplay == '净值标'}">  
+					   	<div class="row">
+			       	  		<div class="col-md-12"><span>最小认购金额：<fmt:formatNumber value="${borrowingLoan.lowestSub }" pattern="#,#00.00"/>元  当前年利率: <fmt:formatNumber value="${borrowingLoan.loanApr }" pattern="#,#00.00"/>% </span></div>
+			       	  	</div>
+			       	  	<div class="row">
+			       	  		<div class="col-md-12">认购总份数：${borrowingLoan.subTotal }份,还有：<span id="subLeave"></span>份 </div>
+			       	  		<script type="text/javascript">
+			       	  			$("#subLeave").html(${borrowingLoan.subTotal }-${borrowingLoan.alrSubSum });
+			       	  		</script>
+			       	  	</div>
+			       	  	<br>
+			       	  	<div class="row">
+				       	  	<div class="col-md-12">
+				       	  	<form id="loanReviewForm" class="form-horizontal" role="form" action="${ctx}/investment/addInvestment.htm" method="post" onsubmit="return validaForm();">
+							  	<div class="form-group">
+									<div class="col-sm-5">
+										<input type="text" id="subSum" name="subSum" class="form-control" value="1" required />
+									</div>
+									<div class="col-sm-1">份</div>
+									<div class="col-sm-4"><!-- style="background-image: url('${ctx}/resources/images/borrow/rengou.gif');" -->
+										 <button  id="login_submit" type="submit" class="btn btn-primary btn-block" >认购</button>
+									</div>
+									<div class="col-sm-2"></div>
+								</div>
+							</form>
+				       	  	</div>
+			       	  	</div>
+			       	  	<div class="row">
+			       	  	<div class="col-md-12">您的可投标金额为：<span style="color: red;">￥100,000.00</span>元，最多可认购：<span style="color: red;">10000份 </span></div>
+			       	  	</div>
+					   </c:when>
+					   <c:otherwise> 
+				   			<div class="row">
+				       	  		<div class="col-md-12"><span>最低投标金额：<fmt:formatNumber value="${borrowingLoan.lowestBidMoney }" pattern="#,#00.00"/>元 
+				       	  									最高投标金额：<fmt:formatNumber value="${borrowingLoan.largestBidMoney }" pattern="#,#00.00"/>元
+				       	  									<br> 当前年利率: <fmt:formatNumber value="${borrowingLoan.loanApr }" pattern="#,#00.00"/>% </span></div>
+				       	  	</div>
+				       	  	<br>
+				       	  	<div class="row">
+					       	  	<div class="col-md-12">
+					       	  	<form id="loanReviewForm" class="form-horizontal" role="form" action="${ctx}/loanReview/addLoanReviewWebsite.htm" method="post" onsubmit="return validaForm();">
+								  	<div class="form-group">
+								  		<label id="login_kaptcha_span" class="col-sm-3 control-label ">投标金额:</label>
+										<div class="col-sm-7">
+											<input type="text" id="tenderMoney" name="tenderMoney" class="form-control" value="" required />
+										</div>
+										<div class="col-sm-2">元</div>
+									</div>
+								</form>
+					       	  	</div>
+				       	  	</div>
+				       	  	<div class="row">
+				       	  	<div class="col-md-12"><span style="color: red;">注意：点击按钮表示您将确认投标金额并同意支付贷款</span></div>
+				       	  	</div>
+				       	  	<br>
+				       	  	<div class="row">
+				       	  	<div class="col-sm-3"></div>
+				       	  	<div class="col-md-6"><button  id="login_submit" type="submit" class="btn btn-primary btn-block" >确定投标</button></div>
+				       	  	<div class="col-sm-3"></div>
+				       	  	</div>
+					   </c:otherwise>
+				</c:choose>
 	       	  	<br>
 	       	  </div>
 			  </div>

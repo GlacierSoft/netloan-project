@@ -11,7 +11,7 @@ import com.glacier.basic.util.JackJson;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
-import com.glacier.netloan.entity.borrow.LoanReview;
+import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.borrow.LoanReviewService;
 import com.glacier.netloan.service.borrow.LoanTenderService;
@@ -97,7 +97,17 @@ public class TenderNotesController {
 		request.setAttribute("loanReviewDatas", loanReviewService.listAsGridWebsite(jqPager, p,loanId));//获取借款留言列表
 		return "investment_mgr/investmentdetail";
 	}
-	
+	/**
+	 * @Title: confirmInvestment 
+	 * @Description: TODO(进入确认投标页面) 
+	 * @param  @param loanId
+	 * @param  @param memberId
+	 * @param  @param request
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 *
+	 */
 	@RequestMapping(value = "/confirmInvestment.htm")
 	private Object confirmInvestment(String loanId,String memberId,HttpServletRequest request){
 		request.setAttribute("borrowingMember", memberService.getMember(memberId));//获取该会员 信息数据
@@ -105,5 +115,19 @@ public class TenderNotesController {
 		request.setAttribute("borrowingLoan", borrowingLoanService.getBorrowingLoan(loanId));//获取该会员 借款的信息数据
 		return "investment_mgr/confirmInvestment";
 	}
-
+	/**
+	 * @Title: addInvestment 
+	 * @Description: TODO(添加投标记录) 
+	 * @param  @param tenderNotes
+	 * @param  @param request
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 *
+	 */
+	@RequestMapping(value = "/addInvestment.htm")
+	private Object addInvestment(TenderNotes tenderNotes,HttpServletRequest request){
+		
+		return "investment_mgr/confirmInvestment";
+	}
 }
