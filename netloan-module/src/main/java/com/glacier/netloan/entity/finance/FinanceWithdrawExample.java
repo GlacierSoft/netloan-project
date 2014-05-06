@@ -195,6 +195,76 @@ public class FinanceWithdrawExample {
             return (Criteria) this;
         }
 
+        public Criteria andWithdrawCodeIsNull() {
+            addCriterion("temp_finance_withdraw.withdraw_code is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWithdrawCodeIsNotNull() {
+            addCriterion("temp_finance_withdraw.withdraw_code is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWithdrawCodeEqualTo(String value) {
+            addCriterion("temp_finance_withdraw.withdraw_code =", value, "withdrawCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andWithdrawCodeNotEqualTo(String value) {
+            addCriterion("temp_finance_withdraw.withdraw_code <>", value, "withdrawCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andWithdrawCodeGreaterThan(String value) {
+            addCriterion("temp_finance_withdraw.withdraw_code >", value, "withdrawCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andWithdrawCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_withdraw.withdraw_code >=", value, "withdrawCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andWithdrawCodeLessThan(String value) {
+            addCriterion("temp_finance_withdraw.withdraw_code <", value, "withdrawCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andWithdrawCodeLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_withdraw.withdraw_code <=", value, "withdrawCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andWithdrawCodeLike(String value) {
+            addCriterion("temp_finance_withdraw.withdraw_code like", value, "withdrawCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andWithdrawCodeNotLike(String value) {
+            addCriterion("temp_finance_withdraw.withdraw_code not like", value, "withdrawCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andWithdrawCodeIn(List<String> values) {
+            addCriterion("temp_finance_withdraw.withdraw_code in", values, "withdrawCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andWithdrawCodeNotIn(List<String> values) {
+            addCriterion("temp_finance_withdraw.withdraw_code not in", values, "withdrawCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andWithdrawCodeBetween(String value1, String value2) {
+            addCriterion("temp_finance_withdraw.withdraw_code between", value1, value2, "withdrawCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andWithdrawCodeNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_withdraw.withdraw_code not between", value1, value2, "withdrawCode");
+            return (Criteria) this;
+        }
+
         public Criteria andMemberIdIsNull() {
             addCriterion("temp_finance_withdraw.member_id is null");
             return (Criteria) this;
@@ -785,73 +855,73 @@ public class FinanceWithdrawExample {
             return (Criteria) this;
         }
 
-        public Criteria andStatusIsNull() {
-            addCriterion("temp_finance_withdraw.status is null");
+        public Criteria andAuditStateIsNull() {
+            addCriterion("temp_finance_withdraw.audit_state is null");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIsNotNull() {
-            addCriterion("temp_finance_withdraw.status is not null");
+        public Criteria andAuditStateIsNotNull() {
+            addCriterion("temp_finance_withdraw.audit_state is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStatusEqualTo(String value) {
-            addCriterion("temp_finance_withdraw.status =", value, "status");
+        public Criteria andAuditStateEqualTo(String value) {
+            addCriterion("temp_finance_withdraw.audit_state =", value, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotEqualTo(String value) {
-            addCriterion("temp_finance_withdraw.status <>", value, "status");
+        public Criteria andAuditStateNotEqualTo(String value) {
+            addCriterion("temp_finance_withdraw.audit_state <>", value, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThan(String value) {
-            addCriterion("temp_finance_withdraw.status >", value, "status");
+        public Criteria andAuditStateGreaterThan(String value) {
+            addCriterion("temp_finance_withdraw.audit_state >", value, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_finance_withdraw.status >=", value, "status");
+        public Criteria andAuditStateGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_withdraw.audit_state >=", value, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThan(String value) {
-            addCriterion("temp_finance_withdraw.status <", value, "status");
+        public Criteria andAuditStateLessThan(String value) {
+            addCriterion("temp_finance_withdraw.audit_state <", value, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThanOrEqualTo(String value) {
-            addCriterion("temp_finance_withdraw.status <=", value, "status");
+        public Criteria andAuditStateLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_withdraw.audit_state <=", value, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLike(String value) {
-            addCriterion("temp_finance_withdraw.status like", value, "status");
+        public Criteria andAuditStateLike(String value) {
+            addCriterion("temp_finance_withdraw.audit_state like", value, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotLike(String value) {
-            addCriterion("temp_finance_withdraw.status not like", value, "status");
+        public Criteria andAuditStateNotLike(String value) {
+            addCriterion("temp_finance_withdraw.audit_state not like", value, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIn(List<String> values) {
-            addCriterion("temp_finance_withdraw.status in", values, "status");
+        public Criteria andAuditStateIn(List<String> values) {
+            addCriterion("temp_finance_withdraw.audit_state in", values, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotIn(List<String> values) {
-            addCriterion("temp_finance_withdraw.status not in", values, "status");
+        public Criteria andAuditStateNotIn(List<String> values) {
+            addCriterion("temp_finance_withdraw.audit_state not in", values, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andStatusBetween(String value1, String value2) {
-            addCriterion("temp_finance_withdraw.status between", value1, value2, "status");
+        public Criteria andAuditStateBetween(String value1, String value2) {
+            addCriterion("temp_finance_withdraw.audit_state between", value1, value2, "auditState");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotBetween(String value1, String value2) {
-            addCriterion("temp_finance_withdraw.status not between", value1, value2, "status");
+        public Criteria andAuditStateNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_withdraw.audit_state not between", value1, value2, "auditState");
             return (Criteria) this;
         }
 
@@ -982,6 +1052,76 @@ public class FinanceWithdrawExample {
 
         public Criteria andAuditDateNotBetween(Date value1, Date value2) {
             addCriterion("temp_finance_withdraw.audit_date not between", value1, value2, "auditDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkIsNull() {
+            addCriterion("temp_finance_withdraw.audit_remark is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkIsNotNull() {
+            addCriterion("temp_finance_withdraw.audit_remark is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkEqualTo(String value) {
+            addCriterion("temp_finance_withdraw.audit_remark =", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkNotEqualTo(String value) {
+            addCriterion("temp_finance_withdraw.audit_remark <>", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkGreaterThan(String value) {
+            addCriterion("temp_finance_withdraw.audit_remark >", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_withdraw.audit_remark >=", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkLessThan(String value) {
+            addCriterion("temp_finance_withdraw.audit_remark <", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_withdraw.audit_remark <=", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkLike(String value) {
+            addCriterion("temp_finance_withdraw.audit_remark like", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkNotLike(String value) {
+            addCriterion("temp_finance_withdraw.audit_remark not like", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkIn(List<String> values) {
+            addCriterion("temp_finance_withdraw.audit_remark in", values, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkNotIn(List<String> values) {
+            addCriterion("temp_finance_withdraw.audit_remark not in", values, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkBetween(String value1, String value2) {
+            addCriterion("temp_finance_withdraw.audit_remark between", value1, value2, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_withdraw.audit_remark not between", value1, value2, "auditRemark");
             return (Criteria) this;
         }
 

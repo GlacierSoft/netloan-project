@@ -2,10 +2,19 @@ package com.glacier.netloan.entity.finance;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class FinanceWithdraw {
     private String financeWithdrawId;
 
+    private String withdrawCode;
+
     private String memberId;
+    
+    /**
+     * 自定义字段，显示充值会员真实姓名
+     */
+    private String memberDisplay;
 
     private String openingBank;
 
@@ -23,20 +32,40 @@ public class FinanceWithdraw {
 
     private Float withdrawRate;
 
-    private String status;
+    private String auditState;
 
     private String auditor;
 
+    /**
+     * 自定义字段，显示审核人真实姓名
+     */
+    private String auditorDisplay;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditDate;
+
+    private String auditRemark;
 
     private String remark;
 
     private String creater;
 
+    /**
+     * 自定义字段，显示审核人真实姓名
+     */
+    private String createrDisplay;
+
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    /**
+     * 自定义字段，显示更新人真实姓名
+     */
+    private String updaterDisplay;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getFinanceWithdrawId() {
@@ -45,6 +74,14 @@ public class FinanceWithdraw {
 
     public void setFinanceWithdrawId(String financeWithdrawId) {
         this.financeWithdrawId = financeWithdrawId;
+    }
+
+    public String getWithdrawCode() {
+        return withdrawCode;
+    }
+
+    public void setWithdrawCode(String withdrawCode) {
+        this.withdrawCode = withdrawCode;
     }
 
     public String getMemberId() {
@@ -119,12 +156,12 @@ public class FinanceWithdraw {
         this.withdrawRate = withdrawRate;
     }
 
-    public String getStatus() {
-        return status;
+    public String getAuditState() {
+        return auditState;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setAuditState(String auditState) {
+        this.auditState = auditState;
     }
 
     public String getAuditor() {
@@ -141,6 +178,14 @@ public class FinanceWithdraw {
 
     public void setAuditDate(Date auditDate) {
         this.auditDate = auditDate;
+    }
+
+    public String getAuditRemark() {
+        return auditRemark;
+    }
+
+    public void setAuditRemark(String auditRemark) {
+        this.auditRemark = auditRemark;
     }
 
     public String getRemark() {
@@ -183,7 +228,39 @@ public class FinanceWithdraw {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public String getMemberDisplay() {
+		return memberDisplay;
+	}
+
+	public void setMemberDisplay(String memberDisplay) {
+		this.memberDisplay = memberDisplay;
+	}
+
+	public String getAuditorDisplay() {
+		return auditorDisplay;
+	}
+
+	public void setAuditorDisplay(String auditorDisplay) {
+		this.auditorDisplay = auditorDisplay;
+	}
+
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
@@ -196,6 +273,7 @@ public class FinanceWithdraw {
         }
         FinanceWithdraw other = (FinanceWithdraw) that;
         return (this.getFinanceWithdrawId() == null ? other.getFinanceWithdrawId() == null : this.getFinanceWithdrawId().equals(other.getFinanceWithdrawId()))
+            && (this.getWithdrawCode() == null ? other.getWithdrawCode() == null : this.getWithdrawCode().equals(other.getWithdrawCode()))
             && (this.getMemberId() == null ? other.getMemberId() == null : this.getMemberId().equals(other.getMemberId()))
             && (this.getOpeningBank() == null ? other.getOpeningBank() == null : this.getOpeningBank().equals(other.getOpeningBank()))
             && (this.getSubbranch() == null ? other.getSubbranch() == null : this.getSubbranch().equals(other.getSubbranch()))
@@ -205,9 +283,10 @@ public class FinanceWithdraw {
             && (this.getArriveMoney() == null ? other.getArriveMoney() == null : this.getArriveMoney().equals(other.getArriveMoney()))
             && (this.getHandlingCharge() == null ? other.getHandlingCharge() == null : this.getHandlingCharge().equals(other.getHandlingCharge()))
             && (this.getWithdrawRate() == null ? other.getWithdrawRate() == null : this.getWithdrawRate().equals(other.getWithdrawRate()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getAuditState() == null ? other.getAuditState() == null : this.getAuditState().equals(other.getAuditState()))
             && (this.getAuditor() == null ? other.getAuditor() == null : this.getAuditor().equals(other.getAuditor()))
             && (this.getAuditDate() == null ? other.getAuditDate() == null : this.getAuditDate().equals(other.getAuditDate()))
+            && (this.getAuditRemark() == null ? other.getAuditRemark() == null : this.getAuditRemark().equals(other.getAuditRemark()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -220,6 +299,7 @@ public class FinanceWithdraw {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getFinanceWithdrawId() == null) ? 0 : getFinanceWithdrawId().hashCode());
+        result = prime * result + ((getWithdrawCode() == null) ? 0 : getWithdrawCode().hashCode());
         result = prime * result + ((getMemberId() == null) ? 0 : getMemberId().hashCode());
         result = prime * result + ((getOpeningBank() == null) ? 0 : getOpeningBank().hashCode());
         result = prime * result + ((getSubbranch() == null) ? 0 : getSubbranch().hashCode());
@@ -229,9 +309,10 @@ public class FinanceWithdraw {
         result = prime * result + ((getArriveMoney() == null) ? 0 : getArriveMoney().hashCode());
         result = prime * result + ((getHandlingCharge() == null) ? 0 : getHandlingCharge().hashCode());
         result = prime * result + ((getWithdrawRate() == null) ? 0 : getWithdrawRate().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getAuditState() == null) ? 0 : getAuditState().hashCode());
         result = prime * result + ((getAuditor() == null) ? 0 : getAuditor().hashCode());
         result = prime * result + ((getAuditDate() == null) ? 0 : getAuditDate().hashCode());
+        result = prime * result + ((getAuditRemark() == null) ? 0 : getAuditRemark().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());

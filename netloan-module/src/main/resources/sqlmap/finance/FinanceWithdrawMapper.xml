@@ -3,6 +3,7 @@
 <mapper namespace="com.glacier.netloan.dao.finance.FinanceWithdrawMapper" >
   <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.finance.FinanceWithdraw" >
     <id column="temp_finance_withdraw_finance_withdraw_id" property="financeWithdrawId" jdbcType="VARCHAR" />
+    <result column="temp_finance_withdraw_withdraw_code" property="withdrawCode" jdbcType="VARCHAR" />
     <result column="temp_finance_withdraw_member_id" property="memberId" jdbcType="VARCHAR" />
     <result column="temp_finance_withdraw_opening_bank" property="openingBank" jdbcType="VARCHAR" />
     <result column="temp_finance_withdraw_subbranch" property="subbranch" jdbcType="VARCHAR" />
@@ -12,14 +13,19 @@
     <result column="temp_finance_withdraw_arrive_money" property="arriveMoney" jdbcType="REAL" />
     <result column="temp_finance_withdraw_handling_charge" property="handlingCharge" jdbcType="REAL" />
     <result column="temp_finance_withdraw_withdraw_rate" property="withdrawRate" jdbcType="REAL" />
-    <result column="temp_finance_withdraw_status" property="status" jdbcType="CHAR" />
+    <result column="temp_finance_withdraw_audit_state" property="auditState" jdbcType="CHAR" />
     <result column="temp_finance_withdraw_auditor" property="auditor" jdbcType="VARCHAR" />
     <result column="temp_finance_withdraw_audit_date" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="temp_finance_withdraw_audit_remark" property="auditRemark" jdbcType="VARCHAR" />
     <result column="temp_finance_withdraw_remark" property="remark" jdbcType="VARCHAR" />
     <result column="temp_finance_withdraw_creater" property="creater" jdbcType="VARCHAR" />
     <result column="temp_finance_withdraw_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_finance_withdraw_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finance_withdraw_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_finance_withdraw_member_display" property="memberDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_finance_withdraw_auditor_display" property="auditorDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_finance_withdraw_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_finance_withdraw_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -81,15 +87,27 @@
   </sql>
   <sql id="Base_Column_List" >
     temp_finance_withdraw.finance_withdraw_id as temp_finance_withdraw_finance_withdraw_id, 
-    temp_finance_withdraw.member_id as temp_finance_withdraw_member_id, temp_finance_withdraw.opening_bank as temp_finance_withdraw_opening_bank, 
-    temp_finance_withdraw.subbranch as temp_finance_withdraw_subbranch, temp_finance_withdraw.card_name as temp_finance_withdraw_card_name, 
-    temp_finance_withdraw.card_number as temp_finance_withdraw_card_number, temp_finance_withdraw.withdraw_amount as temp_finance_withdraw_withdraw_amount, 
-    temp_finance_withdraw.arrive_money as temp_finance_withdraw_arrive_money, temp_finance_withdraw.handling_charge as temp_finance_withdraw_handling_charge, 
-    temp_finance_withdraw.withdraw_rate as temp_finance_withdraw_withdraw_rate, temp_finance_withdraw.status as temp_finance_withdraw_status, 
-    temp_finance_withdraw.auditor as temp_finance_withdraw_auditor, temp_finance_withdraw.audit_date as temp_finance_withdraw_audit_date, 
+    temp_finance_withdraw.withdraw_code as temp_finance_withdraw_withdraw_code, temp_finance_withdraw.member_id as temp_finance_withdraw_member_id, 
+    temp_finance_withdraw.opening_bank as temp_finance_withdraw_opening_bank, temp_finance_withdraw.subbranch as temp_finance_withdraw_subbranch, 
+    temp_finance_withdraw.card_name as temp_finance_withdraw_card_name, temp_finance_withdraw.card_number as temp_finance_withdraw_card_number, 
+    temp_finance_withdraw.withdraw_amount as temp_finance_withdraw_withdraw_amount, temp_finance_withdraw.arrive_money as temp_finance_withdraw_arrive_money, 
+    temp_finance_withdraw.handling_charge as temp_finance_withdraw_handling_charge, temp_finance_withdraw.withdraw_rate as temp_finance_withdraw_withdraw_rate, 
+    temp_finance_withdraw.audit_state as temp_finance_withdraw_audit_state, temp_finance_withdraw.auditor as temp_finance_withdraw_auditor, 
+    temp_finance_withdraw.audit_date as temp_finance_withdraw_audit_date, temp_finance_withdraw.audit_remark as temp_finance_withdraw_audit_remark, 
     temp_finance_withdraw.remark as temp_finance_withdraw_remark, temp_finance_withdraw.creater as temp_finance_withdraw_creater, 
     temp_finance_withdraw.create_time as temp_finance_withdraw_create_time, temp_finance_withdraw.updater as temp_finance_withdraw_updater, 
     temp_finance_withdraw.update_time as temp_finance_withdraw_update_time
+  	<!-- 以下字段属于扩展 -->
+  	,temp_member.member_real_name as temp_finance_withdraw_member_display
+    ,temp_auditor.user_cn_name as temp_finance_withdraw_auditor_display
+    ,temp_creater.user_cn_name as temp_finance_withdraw_creater_display
+    ,temp_updater.user_cn_name as temp_finance_withdraw_updater_display
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_member temp_member ON temp_member.member_id = temp_finance_withdraw.member_id <!-- 扩展 -->
+  	LEFT JOIN t_user temp_auditor ON temp_auditor.user_id = temp_finance_withdraw.auditor <!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_finance_withdraw.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_finance_withdraw.updater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.finance.FinanceWithdrawExample" >
     select
@@ -98,6 +116,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_finance_withdraw temp_finance_withdraw
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -112,6 +131,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_finance_withdraw temp_finance_withdraw
+    <include refid="Base_extend" />
     where temp_finance_withdraw.finance_withdraw_id = #{financeWithdrawId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -119,24 +139,26 @@
     where finance_withdraw_id = #{financeWithdrawId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.finance.FinanceWithdrawExample" >
-    delete from t_finance_withdraw temp_finance_withdraw
+    delete temp_finance_withdraw from t_finance_withdraw temp_finance_withdraw
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.glacier.netloan.entity.finance.FinanceWithdraw" >
-    insert into t_finance_withdraw (finance_withdraw_id, member_id, opening_bank, 
-      subbranch, card_name, card_number, 
-      withdraw_amount, arrive_money, handling_charge, 
-      withdraw_rate, status, auditor, 
-      audit_date, remark, creater, 
+    insert into t_finance_withdraw (finance_withdraw_id, withdraw_code, 
+      member_id, opening_bank, subbranch, 
+      card_name, card_number, withdraw_amount, 
+      arrive_money, handling_charge, withdraw_rate, 
+      audit_state, auditor, audit_date, 
+      audit_remark, remark, creater, 
       create_time, updater, update_time
       )
-    values (#{financeWithdrawId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{openingBank,jdbcType=VARCHAR}, 
-      #{subbranch,jdbcType=VARCHAR}, #{cardName,jdbcType=VARCHAR}, #{cardNumber,jdbcType=VARCHAR}, 
-      #{withdrawAmount,jdbcType=REAL}, #{arriveMoney,jdbcType=REAL}, #{handlingCharge,jdbcType=REAL}, 
-      #{withdrawRate,jdbcType=REAL}, #{status,jdbcType=CHAR}, #{auditor,jdbcType=VARCHAR}, 
-      #{auditDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+    values (#{financeWithdrawId,jdbcType=VARCHAR}, #{withdrawCode,jdbcType=VARCHAR}, 
+      #{memberId,jdbcType=VARCHAR}, #{openingBank,jdbcType=VARCHAR}, #{subbranch,jdbcType=VARCHAR}, 
+      #{cardName,jdbcType=VARCHAR}, #{cardNumber,jdbcType=VARCHAR}, #{withdrawAmount,jdbcType=REAL}, 
+      #{arriveMoney,jdbcType=REAL}, #{handlingCharge,jdbcType=REAL}, #{withdrawRate,jdbcType=REAL}, 
+      #{auditState,jdbcType=CHAR}, #{auditor,jdbcType=VARCHAR}, #{auditDate,jdbcType=TIMESTAMP}, 
+      #{auditRemark,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -145,6 +167,9 @@
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="financeWithdrawId != null" >
         finance_withdraw_id,
+      </if>
+      <if test="withdrawCode != null" >
+        withdraw_code,
       </if>
       <if test="memberId != null" >
         member_id,
@@ -173,14 +198,17 @@
       <if test="withdrawRate != null" >
         withdraw_rate,
       </if>
-      <if test="status != null" >
-        status,
+      <if test="auditState != null" >
+        audit_state,
       </if>
       <if test="auditor != null" >
         auditor,
       </if>
       <if test="auditDate != null" >
         audit_date,
+      </if>
+      <if test="auditRemark != null" >
+        audit_remark,
       </if>
       <if test="remark != null" >
         remark,
@@ -201,6 +229,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="financeWithdrawId != null" >
         #{financeWithdrawId,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawCode != null" >
+        #{withdrawCode,jdbcType=VARCHAR},
       </if>
       <if test="memberId != null" >
         #{memberId,jdbcType=VARCHAR},
@@ -229,14 +260,17 @@
       <if test="withdrawRate != null" >
         #{withdrawRate,jdbcType=REAL},
       </if>
-      <if test="status != null" >
-        #{status,jdbcType=CHAR},
+      <if test="auditState != null" >
+        #{auditState,jdbcType=CHAR},
       </if>
       <if test="auditor != null" >
         #{auditor,jdbcType=VARCHAR},
       </if>
       <if test="auditDate != null" >
         #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditRemark != null" >
+        #{auditRemark,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -257,6 +291,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.finance.FinanceWithdrawExample" resultType="java.lang.Integer" >
     select count(*) from t_finance_withdraw temp_finance_withdraw
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -266,6 +301,9 @@
     <set >
       <if test="record.financeWithdrawId != null" >
         temp_finance_withdraw.finance_withdraw_id = #{record.financeWithdrawId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.withdrawCode != null" >
+        temp_finance_withdraw.withdraw_code = #{record.withdrawCode,jdbcType=VARCHAR},
       </if>
       <if test="record.memberId != null" >
         temp_finance_withdraw.member_id = #{record.memberId,jdbcType=VARCHAR},
@@ -294,14 +332,17 @@
       <if test="record.withdrawRate != null" >
         temp_finance_withdraw.withdraw_rate = #{record.withdrawRate,jdbcType=REAL},
       </if>
-      <if test="record.status != null" >
-        temp_finance_withdraw.status = #{record.status,jdbcType=CHAR},
+      <if test="record.auditState != null" >
+        temp_finance_withdraw.audit_state = #{record.auditState,jdbcType=CHAR},
       </if>
       <if test="record.auditor != null" >
         temp_finance_withdraw.auditor = #{record.auditor,jdbcType=VARCHAR},
       </if>
       <if test="record.auditDate != null" >
         temp_finance_withdraw.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditRemark != null" >
+        temp_finance_withdraw.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
       </if>
       <if test="record.remark != null" >
         temp_finance_withdraw.remark = #{record.remark,jdbcType=VARCHAR},
@@ -326,6 +367,7 @@
   <update id="updateByExample" parameterType="map" >
     update t_finance_withdraw temp_finance_withdraw
     set temp_finance_withdraw.finance_withdraw_id = #{record.financeWithdrawId,jdbcType=VARCHAR},
+      temp_finance_withdraw.withdraw_code = #{record.withdrawCode,jdbcType=VARCHAR},
       temp_finance_withdraw.member_id = #{record.memberId,jdbcType=VARCHAR},
       temp_finance_withdraw.opening_bank = #{record.openingBank,jdbcType=VARCHAR},
       temp_finance_withdraw.subbranch = #{record.subbranch,jdbcType=VARCHAR},
@@ -335,9 +377,10 @@
       temp_finance_withdraw.arrive_money = #{record.arriveMoney,jdbcType=REAL},
       temp_finance_withdraw.handling_charge = #{record.handlingCharge,jdbcType=REAL},
       temp_finance_withdraw.withdraw_rate = #{record.withdrawRate,jdbcType=REAL},
-      temp_finance_withdraw.status = #{record.status,jdbcType=CHAR},
+      temp_finance_withdraw.audit_state = #{record.auditState,jdbcType=CHAR},
       temp_finance_withdraw.auditor = #{record.auditor,jdbcType=VARCHAR},
       temp_finance_withdraw.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      temp_finance_withdraw.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
       temp_finance_withdraw.remark = #{record.remark,jdbcType=VARCHAR},
       temp_finance_withdraw.creater = #{record.creater,jdbcType=VARCHAR},
       temp_finance_withdraw.create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -350,6 +393,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.finance.FinanceWithdraw" >
     update t_finance_withdraw
     <set >
+      <if test="withdrawCode != null" >
+        withdraw_code = #{withdrawCode,jdbcType=VARCHAR},
+      </if>
       <if test="memberId != null" >
         member_id = #{memberId,jdbcType=VARCHAR},
       </if>
@@ -377,14 +423,17 @@
       <if test="withdrawRate != null" >
         withdraw_rate = #{withdrawRate,jdbcType=REAL},
       </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=CHAR},
+      <if test="auditState != null" >
+        audit_state = #{auditState,jdbcType=CHAR},
       </if>
       <if test="auditor != null" >
         auditor = #{auditor,jdbcType=VARCHAR},
       </if>
       <if test="auditDate != null" >
         audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditRemark != null" >
+        audit_remark = #{auditRemark,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
@@ -406,7 +455,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.finance.FinanceWithdraw" >
     update t_finance_withdraw
-    set member_id = #{memberId,jdbcType=VARCHAR},
+    set withdraw_code = #{withdrawCode,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=VARCHAR},
       opening_bank = #{openingBank,jdbcType=VARCHAR},
       subbranch = #{subbranch,jdbcType=VARCHAR},
       card_name = #{cardName,jdbcType=VARCHAR},
@@ -415,9 +465,10 @@
       arrive_money = #{arriveMoney,jdbcType=REAL},
       handling_charge = #{handlingCharge,jdbcType=REAL},
       withdraw_rate = #{withdrawRate,jdbcType=REAL},
-      status = #{status,jdbcType=CHAR},
+      audit_state = #{auditState,jdbcType=CHAR},
       auditor = #{auditor,jdbcType=VARCHAR},
       audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      audit_remark = #{auditRemark,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       creater = #{creater,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
