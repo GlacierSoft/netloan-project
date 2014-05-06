@@ -105,6 +105,8 @@
 				       	  	<form id="loanReviewForm" class="form-horizontal" role="form" action="${ctx}/investment/addInvestment.htm" method="post" onsubmit="return validaForm();">
 							  	<div class="form-group">
 									<div class="col-sm-5">
+										<input id="loanId" name="loanId" type="hidden" value="${borrowingLoan.loanId }" />
+					  					<input id="memberId" name="memberId" type="hidden" value="${borrowingMember.memberId }" />
 										<input type="text" id="subSum" name="subSum" class="form-control" value="1" required />
 									</div>
 									<div class="col-sm-1">份</div>
@@ -129,10 +131,12 @@
 				       	  	<br>
 				       	  	<div class="row">
 					       	  	<div class="col-md-12">
-					       	  	<form id="loanReviewForm" class="form-horizontal" role="form" action="${ctx}/loanReview/addLoanReviewWebsite.htm" method="post" onsubmit="return validaForm();">
+					       	  	<form id="loanReviewForm" class="form-horizontal" role="form" action="${ctx}/investment/addInvestment.htm" method="post" onsubmit="return validaForm();">
 								  	<div class="form-group">
 								  		<label id="login_kaptcha_span" class="col-sm-3 control-label ">投标金额:</label>
 										<div class="col-sm-7">
+											<input id="loanId" name="loanId" type="hidden" value="${borrowingLoan.loanId }" />
+					  						<input id="memberId" name="memberId" type="hidden" value="${borrowingMember.memberId }" />
 											<input type="text" id="tenderMoney" name="tenderMoney" class="form-control" value="" required />
 										</div>
 										<div class="col-sm-2">元</div>

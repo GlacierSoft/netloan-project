@@ -162,8 +162,19 @@ public class BorrowingLoan {
 
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+    
+    private Float alrBidMoney;
+    
 
-    public String getLoanId() {
+    public Float getAlrBidMoney() {
+		return alrBidMoney;
+	}
+
+	public void setAlrBidMoney(Float alrBidMoney) {
+		this.alrBidMoney = alrBidMoney;
+	}
+
+	public String getLoanId() {
         return loanId;
     }
 
@@ -667,132 +678,134 @@ public class BorrowingLoan {
 		this.repaymentTypeDisplay = repaymentTypeDisplay;
 	}
 
-	@Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        BorrowingLoan other = (BorrowingLoan) that;
-        return (this.getLoanId() == null ? other.getLoanId() == null : this.getLoanId().equals(other.getLoanId()))
-            && (this.getLoanCode() == null ? other.getLoanCode() == null : this.getLoanCode().equals(other.getLoanCode()))
-            && (this.getMemberId() == null ? other.getMemberId() == null : this.getMemberId().equals(other.getMemberId()))
-            && (this.getLoanTitle() == null ? other.getLoanTitle() == null : this.getLoanTitle().equals(other.getLoanTitle()))
-            && (this.getLoanPicture() == null ? other.getLoanPicture() == null : this.getLoanPicture().equals(other.getLoanPicture()))
-            && (this.getLoanTenderId() == null ? other.getLoanTenderId() == null : this.getLoanTenderId().equals(other.getLoanTenderId()))
-            && (this.getLoanPurposeId() == null ? other.getLoanPurposeId() == null : this.getLoanPurposeId().equals(other.getLoanPurposeId()))
-            && (this.getLoanDeadlinesId() == null ? other.getLoanDeadlinesId() == null : this.getLoanDeadlinesId().equals(other.getLoanDeadlinesId()))
-            && (this.getFailedReason() == null ? other.getFailedReason() == null : this.getFailedReason().equals(other.getFailedReason()))
-            && (this.getIsDayMarked() == null ? other.getIsDayMarked() == null : this.getIsDayMarked().equals(other.getIsDayMarked()))
-            && (this.getIsBidReward() == null ? other.getIsBidReward() == null : this.getIsBidReward().equals(other.getIsBidReward()))
-            && (this.getBidProReward() == null ? other.getBidProReward() == null : this.getBidProReward().equals(other.getBidProReward()))
-            && (this.getFixedAppReward() == null ? other.getFixedAppReward() == null : this.getFixedAppReward().equals(other.getFixedAppReward()))
-            && (this.getIsBidMarked() == null ? other.getIsBidMarked() == null : this.getIsBidMarked().equals(other.getIsBidMarked()))
-            && (this.getReadyRecMoney() == null ? other.getReadyRecMoney() == null : this.getReadyRecMoney().equals(other.getReadyRecMoney()))
-            && (this.getIsBidPwd() == null ? other.getIsBidPwd() == null : this.getIsBidPwd().equals(other.getIsBidPwd()))
-            && (this.getBidPwd() == null ? other.getBidPwd() == null : this.getBidPwd().equals(other.getBidPwd()))
-            && (this.getLoanManagementFees() == null ? other.getLoanManagementFees() == null : this.getLoanManagementFees().equals(other.getLoanManagementFees()))
-            && (this.getRepaymentTypeId() == null ? other.getRepaymentTypeId() == null : this.getRepaymentTypeId().equals(other.getRepaymentTypeId()))
-            && (this.getLoanTotal() == null ? other.getLoanTotal() == null : this.getLoanTotal().equals(other.getLoanTotal()))
-            && (this.getLoanApr() == null ? other.getLoanApr() == null : this.getLoanApr().equals(other.getLoanApr()))
-            && (this.getLowestBidMoney() == null ? other.getLowestBidMoney() == null : this.getLowestBidMoney().equals(other.getLowestBidMoney()))
-            && (this.getLargestBidMoney() == null ? other.getLargestBidMoney() == null : this.getLargestBidMoney().equals(other.getLargestBidMoney()))
-            && (this.getLowestSub() == null ? other.getLowestSub() == null : this.getLowestSub().equals(other.getLowestSub()))
-            && (this.getSubTotal() == null ? other.getSubTotal() == null : this.getSubTotal().equals(other.getSubTotal()))
-            && (this.getAlrSubSum() == null ? other.getAlrSubSum() == null : this.getAlrSubSum().equals(other.getAlrSubSum()))
-            && (this.getAlrTenderPro() == null ? other.getAlrTenderPro() == null : this.getAlrTenderPro().equals(other.getAlrTenderPro()))
-            && (this.getTenderSum() == null ? other.getTenderSum() == null : this.getTenderSum().equals(other.getTenderSum()))
-            && (this.getWaitBidDeadlines() == null ? other.getWaitBidDeadlines() == null : this.getWaitBidDeadlines().equals(other.getWaitBidDeadlines()))
-            && (this.getLoanDetail() == null ? other.getLoanDetail() == null : this.getLoanDetail().equals(other.getLoanDetail()))
-            && (this.getIsAccountFunds() == null ? other.getIsAccountFunds() == null : this.getIsAccountFunds().equals(other.getIsAccountFunds()))
-            && (this.getIsLoanFunds() == null ? other.getIsLoanFunds() == null : this.getIsLoanFunds().equals(other.getIsLoanFunds()))
-            && (this.getIsCreditAmount() == null ? other.getIsCreditAmount() == null : this.getIsCreditAmount().equals(other.getIsCreditAmount()))
-            && (this.getIsBidFunds() == null ? other.getIsBidFunds() == null : this.getIsBidFunds().equals(other.getIsBidFunds()))
-            && (this.getIsAutomaticBid() == null ? other.getIsAutomaticBid() == null : this.getIsAutomaticBid().equals(other.getIsAutomaticBid()))
-            && (this.getIsRecommend() == null ? other.getIsRecommend() == null : this.getIsRecommend().equals(other.getIsRecommend()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getLoanDate() == null ? other.getLoanDate() == null : this.getLoanDate().equals(other.getLoanDate()))
-            && (this.getMemberIp() == null ? other.getMemberIp() == null : this.getMemberIp().equals(other.getMemberIp()))
-            && (this.getLoanState() == null ? other.getLoanState() == null : this.getLoanState().equals(other.getLoanState()))
-            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
-            && (this.getFirstAuditState() == null ? other.getFirstAuditState() == null : this.getFirstAuditState().equals(other.getFirstAuditState()))
-            && (this.getFirstAuditorId() == null ? other.getFirstAuditorId() == null : this.getFirstAuditorId().equals(other.getFirstAuditorId()))
-            && (this.getFirstAdvice() == null ? other.getFirstAdvice() == null : this.getFirstAdvice().equals(other.getFirstAdvice()))
-            && (this.getFirstMesNotice() == null ? other.getFirstMesNotice() == null : this.getFirstMesNotice().equals(other.getFirstMesNotice()))
-            && (this.getFirstAuditDate() == null ? other.getFirstAuditDate() == null : this.getFirstAuditDate().equals(other.getFirstAuditDate()))
-            && (this.getSecondAuditState() == null ? other.getSecondAuditState() == null : this.getSecondAuditState().equals(other.getSecondAuditState()))
-            && (this.getSecondAuditorId() == null ? other.getSecondAuditorId() == null : this.getSecondAuditorId().equals(other.getSecondAuditorId()))
-            && (this.getSecondAdvice() == null ? other.getSecondAdvice() == null : this.getSecondAdvice().equals(other.getSecondAdvice()))
-            && (this.getSecondMesNotice() == null ? other.getSecondMesNotice() == null : this.getSecondMesNotice().equals(other.getSecondMesNotice()))
-            && (this.getSecondAuditDate() == null ? other.getSecondAuditDate() == null : this.getSecondAuditDate().equals(other.getSecondAuditDate()))
-            && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
-            && (this.getUpdater() == null ? other.getUpdater() == null : this.getUpdater().equals(other.getUpdater()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
-    }
+	 @Override
+	    public boolean equals(Object that) {
+	        if (this == that) {
+	            return true;
+	        }
+	        if (that == null) {
+	            return false;
+	        }
+	        if (getClass() != that.getClass()) {
+	            return false;
+	        }
+	        BorrowingLoan other = (BorrowingLoan) that;
+	        return (this.getLoanId() == null ? other.getLoanId() == null : this.getLoanId().equals(other.getLoanId()))
+	            && (this.getLoanCode() == null ? other.getLoanCode() == null : this.getLoanCode().equals(other.getLoanCode()))
+	            && (this.getMemberId() == null ? other.getMemberId() == null : this.getMemberId().equals(other.getMemberId()))
+	            && (this.getLoanTitle() == null ? other.getLoanTitle() == null : this.getLoanTitle().equals(other.getLoanTitle()))
+	            && (this.getLoanPicture() == null ? other.getLoanPicture() == null : this.getLoanPicture().equals(other.getLoanPicture()))
+	            && (this.getLoanTenderId() == null ? other.getLoanTenderId() == null : this.getLoanTenderId().equals(other.getLoanTenderId()))
+	            && (this.getLoanPurposeId() == null ? other.getLoanPurposeId() == null : this.getLoanPurposeId().equals(other.getLoanPurposeId()))
+	            && (this.getLoanDeadlinesId() == null ? other.getLoanDeadlinesId() == null : this.getLoanDeadlinesId().equals(other.getLoanDeadlinesId()))
+	            && (this.getFailedReason() == null ? other.getFailedReason() == null : this.getFailedReason().equals(other.getFailedReason()))
+	            && (this.getIsDayMarked() == null ? other.getIsDayMarked() == null : this.getIsDayMarked().equals(other.getIsDayMarked()))
+	            && (this.getIsBidReward() == null ? other.getIsBidReward() == null : this.getIsBidReward().equals(other.getIsBidReward()))
+	            && (this.getBidProReward() == null ? other.getBidProReward() == null : this.getBidProReward().equals(other.getBidProReward()))
+	            && (this.getFixedAppReward() == null ? other.getFixedAppReward() == null : this.getFixedAppReward().equals(other.getFixedAppReward()))
+	            && (this.getIsBidMarked() == null ? other.getIsBidMarked() == null : this.getIsBidMarked().equals(other.getIsBidMarked()))
+	            && (this.getReadyRecMoney() == null ? other.getReadyRecMoney() == null : this.getReadyRecMoney().equals(other.getReadyRecMoney()))
+	            && (this.getIsBidPwd() == null ? other.getIsBidPwd() == null : this.getIsBidPwd().equals(other.getIsBidPwd()))
+	            && (this.getBidPwd() == null ? other.getBidPwd() == null : this.getBidPwd().equals(other.getBidPwd()))
+	            && (this.getLoanManagementFees() == null ? other.getLoanManagementFees() == null : this.getLoanManagementFees().equals(other.getLoanManagementFees()))
+	            && (this.getRepaymentTypeId() == null ? other.getRepaymentTypeId() == null : this.getRepaymentTypeId().equals(other.getRepaymentTypeId()))
+	            && (this.getLoanTotal() == null ? other.getLoanTotal() == null : this.getLoanTotal().equals(other.getLoanTotal()))
+	            && (this.getLoanApr() == null ? other.getLoanApr() == null : this.getLoanApr().equals(other.getLoanApr()))
+	            && (this.getLowestBidMoney() == null ? other.getLowestBidMoney() == null : this.getLowestBidMoney().equals(other.getLowestBidMoney()))
+	            && (this.getLargestBidMoney() == null ? other.getLargestBidMoney() == null : this.getLargestBidMoney().equals(other.getLargestBidMoney()))
+	            && (this.getLowestSub() == null ? other.getLowestSub() == null : this.getLowestSub().equals(other.getLowestSub()))
+	            && (this.getSubTotal() == null ? other.getSubTotal() == null : this.getSubTotal().equals(other.getSubTotal()))
+	            && (this.getAlrSubSum() == null ? other.getAlrSubSum() == null : this.getAlrSubSum().equals(other.getAlrSubSum()))
+	            && (this.getAlrTenderPro() == null ? other.getAlrTenderPro() == null : this.getAlrTenderPro().equals(other.getAlrTenderPro()))
+	            && (this.getTenderSum() == null ? other.getTenderSum() == null : this.getTenderSum().equals(other.getTenderSum()))
+	            && (this.getWaitBidDeadlines() == null ? other.getWaitBidDeadlines() == null : this.getWaitBidDeadlines().equals(other.getWaitBidDeadlines()))
+	            && (this.getLoanDetail() == null ? other.getLoanDetail() == null : this.getLoanDetail().equals(other.getLoanDetail()))
+	            && (this.getIsAccountFunds() == null ? other.getIsAccountFunds() == null : this.getIsAccountFunds().equals(other.getIsAccountFunds()))
+	            && (this.getIsLoanFunds() == null ? other.getIsLoanFunds() == null : this.getIsLoanFunds().equals(other.getIsLoanFunds()))
+	            && (this.getIsCreditAmount() == null ? other.getIsCreditAmount() == null : this.getIsCreditAmount().equals(other.getIsCreditAmount()))
+	            && (this.getIsBidFunds() == null ? other.getIsBidFunds() == null : this.getIsBidFunds().equals(other.getIsBidFunds()))
+	            && (this.getIsAutomaticBid() == null ? other.getIsAutomaticBid() == null : this.getIsAutomaticBid().equals(other.getIsAutomaticBid()))
+	            && (this.getIsRecommend() == null ? other.getIsRecommend() == null : this.getIsRecommend().equals(other.getIsRecommend()))
+	            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+	            && (this.getLoanDate() == null ? other.getLoanDate() == null : this.getLoanDate().equals(other.getLoanDate()))
+	            && (this.getMemberIp() == null ? other.getMemberIp() == null : this.getMemberIp().equals(other.getMemberIp()))
+	            && (this.getLoanState() == null ? other.getLoanState() == null : this.getLoanState().equals(other.getLoanState()))
+	            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
+	            && (this.getFirstAuditState() == null ? other.getFirstAuditState() == null : this.getFirstAuditState().equals(other.getFirstAuditState()))
+	            && (this.getFirstAuditorId() == null ? other.getFirstAuditorId() == null : this.getFirstAuditorId().equals(other.getFirstAuditorId()))
+	            && (this.getFirstAdvice() == null ? other.getFirstAdvice() == null : this.getFirstAdvice().equals(other.getFirstAdvice()))
+	            && (this.getFirstMesNotice() == null ? other.getFirstMesNotice() == null : this.getFirstMesNotice().equals(other.getFirstMesNotice()))
+	            && (this.getFirstAuditDate() == null ? other.getFirstAuditDate() == null : this.getFirstAuditDate().equals(other.getFirstAuditDate()))
+	            && (this.getSecondAuditState() == null ? other.getSecondAuditState() == null : this.getSecondAuditState().equals(other.getSecondAuditState()))
+	            && (this.getSecondAuditorId() == null ? other.getSecondAuditorId() == null : this.getSecondAuditorId().equals(other.getSecondAuditorId()))
+	            && (this.getSecondAdvice() == null ? other.getSecondAdvice() == null : this.getSecondAdvice().equals(other.getSecondAdvice()))
+	            && (this.getSecondMesNotice() == null ? other.getSecondMesNotice() == null : this.getSecondMesNotice().equals(other.getSecondMesNotice()))
+	            && (this.getSecondAuditDate() == null ? other.getSecondAuditDate() == null : this.getSecondAuditDate().equals(other.getSecondAuditDate()))
+	            && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
+	            && (this.getUpdater() == null ? other.getUpdater() == null : this.getUpdater().equals(other.getUpdater()))
+	            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+	            && (this.getAlrBidMoney() == null ? other.getAlrBidMoney() == null : this.getAlrBidMoney().equals(other.getAlrBidMoney()));
+	    }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getLoanId() == null) ? 0 : getLoanId().hashCode());
-        result = prime * result + ((getLoanCode() == null) ? 0 : getLoanCode().hashCode());
-        result = prime * result + ((getMemberId() == null) ? 0 : getMemberId().hashCode());
-        result = prime * result + ((getLoanTitle() == null) ? 0 : getLoanTitle().hashCode());
-        result = prime * result + ((getLoanPicture() == null) ? 0 : getLoanPicture().hashCode());
-        result = prime * result + ((getLoanTenderId() == null) ? 0 : getLoanTenderId().hashCode());
-        result = prime * result + ((getLoanPurposeId() == null) ? 0 : getLoanPurposeId().hashCode());
-        result = prime * result + ((getLoanDeadlinesId() == null) ? 0 : getLoanDeadlinesId().hashCode());
-        result = prime * result + ((getFailedReason() == null) ? 0 : getFailedReason().hashCode());
-        result = prime * result + ((getIsDayMarked() == null) ? 0 : getIsDayMarked().hashCode());
-        result = prime * result + ((getIsBidReward() == null) ? 0 : getIsBidReward().hashCode());
-        result = prime * result + ((getBidProReward() == null) ? 0 : getBidProReward().hashCode());
-        result = prime * result + ((getFixedAppReward() == null) ? 0 : getFixedAppReward().hashCode());
-        result = prime * result + ((getIsBidMarked() == null) ? 0 : getIsBidMarked().hashCode());
-        result = prime * result + ((getReadyRecMoney() == null) ? 0 : getReadyRecMoney().hashCode());
-        result = prime * result + ((getIsBidPwd() == null) ? 0 : getIsBidPwd().hashCode());
-        result = prime * result + ((getBidPwd() == null) ? 0 : getBidPwd().hashCode());
-        result = prime * result + ((getLoanManagementFees() == null) ? 0 : getLoanManagementFees().hashCode());
-        result = prime * result + ((getRepaymentTypeId() == null) ? 0 : getRepaymentTypeId().hashCode());
-        result = prime * result + ((getLoanTotal() == null) ? 0 : getLoanTotal().hashCode());
-        result = prime * result + ((getLoanApr() == null) ? 0 : getLoanApr().hashCode());
-        result = prime * result + ((getLowestBidMoney() == null) ? 0 : getLowestBidMoney().hashCode());
-        result = prime * result + ((getLargestBidMoney() == null) ? 0 : getLargestBidMoney().hashCode());
-        result = prime * result + ((getLowestSub() == null) ? 0 : getLowestSub().hashCode());
-        result = prime * result + ((getSubTotal() == null) ? 0 : getSubTotal().hashCode());
-        result = prime * result + ((getAlrSubSum() == null) ? 0 : getAlrSubSum().hashCode());
-        result = prime * result + ((getAlrTenderPro() == null) ? 0 : getAlrTenderPro().hashCode());
-        result = prime * result + ((getTenderSum() == null) ? 0 : getTenderSum().hashCode());
-        result = prime * result + ((getWaitBidDeadlines() == null) ? 0 : getWaitBidDeadlines().hashCode());
-        result = prime * result + ((getLoanDetail() == null) ? 0 : getLoanDetail().hashCode());
-        result = prime * result + ((getIsAccountFunds() == null) ? 0 : getIsAccountFunds().hashCode());
-        result = prime * result + ((getIsLoanFunds() == null) ? 0 : getIsLoanFunds().hashCode());
-        result = prime * result + ((getIsCreditAmount() == null) ? 0 : getIsCreditAmount().hashCode());
-        result = prime * result + ((getIsBidFunds() == null) ? 0 : getIsBidFunds().hashCode());
-        result = prime * result + ((getIsAutomaticBid() == null) ? 0 : getIsAutomaticBid().hashCode());
-        result = prime * result + ((getIsRecommend() == null) ? 0 : getIsRecommend().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getLoanDate() == null) ? 0 : getLoanDate().hashCode());
-        result = prime * result + ((getMemberIp() == null) ? 0 : getMemberIp().hashCode());
-        result = prime * result + ((getLoanState() == null) ? 0 : getLoanState().hashCode());
-        result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
-        result = prime * result + ((getFirstAuditState() == null) ? 0 : getFirstAuditState().hashCode());
-        result = prime * result + ((getFirstAuditorId() == null) ? 0 : getFirstAuditorId().hashCode());
-        result = prime * result + ((getFirstAdvice() == null) ? 0 : getFirstAdvice().hashCode());
-        result = prime * result + ((getFirstMesNotice() == null) ? 0 : getFirstMesNotice().hashCode());
-        result = prime * result + ((getFirstAuditDate() == null) ? 0 : getFirstAuditDate().hashCode());
-        result = prime * result + ((getSecondAuditState() == null) ? 0 : getSecondAuditState().hashCode());
-        result = prime * result + ((getSecondAuditorId() == null) ? 0 : getSecondAuditorId().hashCode());
-        result = prime * result + ((getSecondAdvice() == null) ? 0 : getSecondAdvice().hashCode());
-        result = prime * result + ((getSecondMesNotice() == null) ? 0 : getSecondMesNotice().hashCode());
-        result = prime * result + ((getSecondAuditDate() == null) ? 0 : getSecondAuditDate().hashCode());
-        result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
-        result = prime * result + ((getUpdater() == null) ? 0 : getUpdater().hashCode());
-        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        return result;
-    }
+	    @Override
+	    public int hashCode() {
+	        final int prime = 31;
+	        int result = 1;
+	        result = prime * result + ((getLoanId() == null) ? 0 : getLoanId().hashCode());
+	        result = prime * result + ((getLoanCode() == null) ? 0 : getLoanCode().hashCode());
+	        result = prime * result + ((getMemberId() == null) ? 0 : getMemberId().hashCode());
+	        result = prime * result + ((getLoanTitle() == null) ? 0 : getLoanTitle().hashCode());
+	        result = prime * result + ((getLoanPicture() == null) ? 0 : getLoanPicture().hashCode());
+	        result = prime * result + ((getLoanTenderId() == null) ? 0 : getLoanTenderId().hashCode());
+	        result = prime * result + ((getLoanPurposeId() == null) ? 0 : getLoanPurposeId().hashCode());
+	        result = prime * result + ((getLoanDeadlinesId() == null) ? 0 : getLoanDeadlinesId().hashCode());
+	        result = prime * result + ((getFailedReason() == null) ? 0 : getFailedReason().hashCode());
+	        result = prime * result + ((getIsDayMarked() == null) ? 0 : getIsDayMarked().hashCode());
+	        result = prime * result + ((getIsBidReward() == null) ? 0 : getIsBidReward().hashCode());
+	        result = prime * result + ((getBidProReward() == null) ? 0 : getBidProReward().hashCode());
+	        result = prime * result + ((getFixedAppReward() == null) ? 0 : getFixedAppReward().hashCode());
+	        result = prime * result + ((getIsBidMarked() == null) ? 0 : getIsBidMarked().hashCode());
+	        result = prime * result + ((getReadyRecMoney() == null) ? 0 : getReadyRecMoney().hashCode());
+	        result = prime * result + ((getIsBidPwd() == null) ? 0 : getIsBidPwd().hashCode());
+	        result = prime * result + ((getBidPwd() == null) ? 0 : getBidPwd().hashCode());
+	        result = prime * result + ((getLoanManagementFees() == null) ? 0 : getLoanManagementFees().hashCode());
+	        result = prime * result + ((getRepaymentTypeId() == null) ? 0 : getRepaymentTypeId().hashCode());
+	        result = prime * result + ((getLoanTotal() == null) ? 0 : getLoanTotal().hashCode());
+	        result = prime * result + ((getLoanApr() == null) ? 0 : getLoanApr().hashCode());
+	        result = prime * result + ((getLowestBidMoney() == null) ? 0 : getLowestBidMoney().hashCode());
+	        result = prime * result + ((getLargestBidMoney() == null) ? 0 : getLargestBidMoney().hashCode());
+	        result = prime * result + ((getLowestSub() == null) ? 0 : getLowestSub().hashCode());
+	        result = prime * result + ((getSubTotal() == null) ? 0 : getSubTotal().hashCode());
+	        result = prime * result + ((getAlrSubSum() == null) ? 0 : getAlrSubSum().hashCode());
+	        result = prime * result + ((getAlrTenderPro() == null) ? 0 : getAlrTenderPro().hashCode());
+	        result = prime * result + ((getTenderSum() == null) ? 0 : getTenderSum().hashCode());
+	        result = prime * result + ((getWaitBidDeadlines() == null) ? 0 : getWaitBidDeadlines().hashCode());
+	        result = prime * result + ((getLoanDetail() == null) ? 0 : getLoanDetail().hashCode());
+	        result = prime * result + ((getIsAccountFunds() == null) ? 0 : getIsAccountFunds().hashCode());
+	        result = prime * result + ((getIsLoanFunds() == null) ? 0 : getIsLoanFunds().hashCode());
+	        result = prime * result + ((getIsCreditAmount() == null) ? 0 : getIsCreditAmount().hashCode());
+	        result = prime * result + ((getIsBidFunds() == null) ? 0 : getIsBidFunds().hashCode());
+	        result = prime * result + ((getIsAutomaticBid() == null) ? 0 : getIsAutomaticBid().hashCode());
+	        result = prime * result + ((getIsRecommend() == null) ? 0 : getIsRecommend().hashCode());
+	        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
+	        result = prime * result + ((getLoanDate() == null) ? 0 : getLoanDate().hashCode());
+	        result = prime * result + ((getMemberIp() == null) ? 0 : getMemberIp().hashCode());
+	        result = prime * result + ((getLoanState() == null) ? 0 : getLoanState().hashCode());
+	        result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
+	        result = prime * result + ((getFirstAuditState() == null) ? 0 : getFirstAuditState().hashCode());
+	        result = prime * result + ((getFirstAuditorId() == null) ? 0 : getFirstAuditorId().hashCode());
+	        result = prime * result + ((getFirstAdvice() == null) ? 0 : getFirstAdvice().hashCode());
+	        result = prime * result + ((getFirstMesNotice() == null) ? 0 : getFirstMesNotice().hashCode());
+	        result = prime * result + ((getFirstAuditDate() == null) ? 0 : getFirstAuditDate().hashCode());
+	        result = prime * result + ((getSecondAuditState() == null) ? 0 : getSecondAuditState().hashCode());
+	        result = prime * result + ((getSecondAuditorId() == null) ? 0 : getSecondAuditorId().hashCode());
+	        result = prime * result + ((getSecondAdvice() == null) ? 0 : getSecondAdvice().hashCode());
+	        result = prime * result + ((getSecondMesNotice() == null) ? 0 : getSecondMesNotice().hashCode());
+	        result = prime * result + ((getSecondAuditDate() == null) ? 0 : getSecondAuditDate().hashCode());
+	        result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
+	        result = prime * result + ((getUpdater() == null) ? 0 : getUpdater().hashCode());
+	        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
+	        result = prime * result + ((getAlrBidMoney() == null) ? 0 : getAlrBidMoney().hashCode());
+	        return result;
+	    }
 }

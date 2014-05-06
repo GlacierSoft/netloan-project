@@ -103,13 +103,13 @@ public class BorrowingLoanExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
-
-        //扩展查询条件
+		
+		//扩展查询条件
         public Criteria andMemberDisplayLike(String value) {
             addCriterion("temp_member.member_real_name like", value, "memberDisplay");
             return (Criteria) this;
         }
-        
+		
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -3748,6 +3748,66 @@ public class BorrowingLoanExample {
 
         public Criteria andUpdateTimeNotBetween(Date value1, Date value2) {
             addCriterion("temp_borrowing_loan.update_time not between", value1, value2, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrBidMoneyIsNull() {
+            addCriterion("temp_borrowing_loan.alr_bid_money is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrBidMoneyIsNotNull() {
+            addCriterion("temp_borrowing_loan.alr_bid_money is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrBidMoneyEqualTo(Float value) {
+            addCriterion("temp_borrowing_loan.alr_bid_money =", value, "alrBidMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrBidMoneyNotEqualTo(Float value) {
+            addCriterion("temp_borrowing_loan.alr_bid_money <>", value, "alrBidMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrBidMoneyGreaterThan(Float value) {
+            addCriterion("temp_borrowing_loan.alr_bid_money >", value, "alrBidMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrBidMoneyGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_borrowing_loan.alr_bid_money >=", value, "alrBidMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrBidMoneyLessThan(Float value) {
+            addCriterion("temp_borrowing_loan.alr_bid_money <", value, "alrBidMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrBidMoneyLessThanOrEqualTo(Float value) {
+            addCriterion("temp_borrowing_loan.alr_bid_money <=", value, "alrBidMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrBidMoneyIn(List<Float> values) {
+            addCriterion("temp_borrowing_loan.alr_bid_money in", values, "alrBidMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrBidMoneyNotIn(List<Float> values) {
+            addCriterion("temp_borrowing_loan.alr_bid_money not in", values, "alrBidMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrBidMoneyBetween(Float value1, Float value2) {
+            addCriterion("temp_borrowing_loan.alr_bid_money between", value1, value2, "alrBidMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrBidMoneyNotBetween(Float value1, Float value2) {
+            addCriterion("temp_borrowing_loan.alr_bid_money not between", value1, value2, "alrBidMoney");
             return (Criteria) this;
         }
     }

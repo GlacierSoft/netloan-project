@@ -11,11 +11,13 @@ import com.glacier.basic.util.JackJson;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
+import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.borrow.LoanReviewService;
 import com.glacier.netloan.service.borrow.LoanTenderService;
 import com.glacier.netloan.service.borrow.RepaymentTypeService;
+import com.glacier.netloan.service.borrow.TenderNotesService;
 import com.glacier.netloan.service.member.MemberAuthService;
 import com.glacier.netloan.service.member.MemberService;
 /**
@@ -46,6 +48,9 @@ public class TenderNotesController {
 	
 	@Autowired
 	private LoanReviewService loanReviewService;
+	
+	@Autowired
+	private TenderNotesService tenderNotesService;
 	
 	@RequestMapping(value="/index.htm")
 	private Object intoInvestment(JqPager jqPager,int p,BorrowingLoanQueryDTO borrowingLoanQueryDTO,String pagetype,HttpServletRequest request){
@@ -127,7 +132,22 @@ public class TenderNotesController {
 	 */
 	@RequestMapping(value = "/addInvestment.htm")
 	private Object addInvestment(TenderNotes tenderNotes,HttpServletRequest request){
-		
-		return "investment_mgr/confirmInvestment";
+		tenderNotesService.addTenderNotes(tenderNotes);//添加投标记录
+		BorrowingLoan borrowingLoan = (BorrowingLoan) borrowingLoanService.getBorrowingLoan(tenderNotes.getLoanId());//获取所投标的借款数据
+		if(borrowingLoan.getSubTotal() == null){
+			//borrowingLoan.setAlrTenderPro(borrowingLoan/borrowingLoan.getSubTotal());
+		}else{
+			float alrSubSum = borrowingLoan.getAlrSubSum()+tenderNotes.getSubSum();
+			borrowingLoan.setAlrSubSum(alrSubSum);//更新借款数据中的已认购份数
+			borrowingLoan.setAlrTenderPro(alrSubSum/borrowingLoan.getSubTotal());
+		}
+		borrowingLoan.setTenderSum(borrowingLoan.getTenderSum()+1);//更新借款数据中的投标数量
+		request.setAttribute("borrowingMember", memberService.getMember(tenderNotes.getMemberId()));//获取该会员 信息数据
+		request.setAttribute("borrowingMemberWork", memberService.getMemberWork(tenderNotes.getMemberId()));//获取该会员 信息数据
+		request.setAttribute("borrowingLoan", borrowingLoanService.getBorrowingLoan(tenderNotes.getLoanId()));//获取该会员 借款的信息数据
+		request.setAttribute("memberAuthWithBLOBs", memberAuthService.getMemberAuth(tenderNotes.getMemberId()));//获取该会员 的认证数据
+		JqPager jqPager = new JqPager();
+		request.setAttribute("loanReviewDatas", loanReviewService.listAsGridWebsite(jqPager, 1,tenderNotes.getLoanId()));//获取借款留言列表
+		return "investment_mgr/investmentdetail";
 	}
 }

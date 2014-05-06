@@ -56,7 +56,8 @@
     <result column="temp_borrowing_loan_creater" property="creater" jdbcType="VARCHAR" />
     <result column="temp_borrowing_loan_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_borrowing_loan_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_borrowing_loan_memberDisplay" property="memberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_borrowing_loan_alr_bid_money" property="alrBidMoney" jdbcType="REAL" />
+	<result column="temp_borrowing_loan_memberDisplay" property="memberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_borrowing_loan_loanTenderDisplay" property="loanTenderDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_borrowing_loan_repaymentTypeDisplay" property="repaymentTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_borrowing_loan_firstAuditorDisplay" property="firstAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
@@ -151,8 +152,8 @@
     temp_borrowing_loan.second_auditor_id as temp_borrowing_loan_second_auditor_id, temp_borrowing_loan.second_advice as temp_borrowing_loan_second_advice, 
     temp_borrowing_loan.second_mes_notice as temp_borrowing_loan_second_mes_notice, temp_borrowing_loan.second_audit_date as temp_borrowing_loan_second_audit_date, 
     temp_borrowing_loan.creater as temp_borrowing_loan_creater, temp_borrowing_loan.updater as temp_borrowing_loan_updater, 
-    temp_borrowing_loan.update_time as temp_borrowing_loan_update_time
-    <!-- 以下字段属于扩展 -->
+    temp_borrowing_loan.update_time as temp_borrowing_loan_update_time, temp_borrowing_loan.alr_bid_money as temp_borrowing_loan_alr_bid_money
+	 <!-- 以下字段属于扩展 -->
     ,temp_member.member_real_name as temp_borrowing_loan_memberDisplay
     ,temp_member.credit_integral as temp_borrowing_loan_credit_Integral
     ,temp_loanTender.loanr_tender_name as temp_borrowing_loan_loanTenderDisplay
@@ -178,7 +179,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_borrowing_loan temp_borrowing_loan
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -193,7 +194,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_borrowing_loan temp_borrowing_loan
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     where temp_borrowing_loan.loan_id = #{loanId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -201,7 +202,7 @@
     where loan_id = #{loanId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.borrow.BorrowingLoanExample" >
-    delete from t_borrowing_loan temp_borrowing_loan
+    delete temp_borrowing_loan from t_borrowing_loan temp_borrowing_loan
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -224,8 +225,8 @@
       first_auditor_id, first_advice, first_mes_notice, 
       first_audit_date, second_audit_state, second_auditor_id, 
       second_advice, second_mes_notice, second_audit_date, 
-      creater, updater, update_time
-      )
+      creater, updater, update_time, 
+      alr_bid_money)
     values (#{loanId,jdbcType=VARCHAR}, #{loanCode,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
       #{loanTitle,jdbcType=VARCHAR}, #{loanPicture,jdbcType=VARCHAR}, #{loanTenderId,jdbcType=VARCHAR}, 
       #{loanPurposeId,jdbcType=VARCHAR}, #{loanDeadlinesId,jdbcType=VARCHAR}, #{failedReason,jdbcType=CHAR}, 
@@ -243,8 +244,8 @@
       #{firstAuditorId,jdbcType=VARCHAR}, #{firstAdvice,jdbcType=VARCHAR}, #{firstMesNotice,jdbcType=VARCHAR}, 
       #{firstAuditDate,jdbcType=TIMESTAMP}, #{secondAuditState,jdbcType=CHAR}, #{secondAuditorId,jdbcType=VARCHAR}, 
       #{secondAdvice,jdbcType=VARCHAR}, #{secondMesNotice,jdbcType=VARCHAR}, #{secondAuditDate,jdbcType=TIMESTAMP}, 
-      #{creater,jdbcType=VARCHAR}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{creater,jdbcType=VARCHAR}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{alrBidMoney,jdbcType=REAL})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.borrow.BorrowingLoan" >
     insert into t_borrowing_loan
@@ -411,6 +412,9 @@
       <if test="updateTime != null" >
         update_time,
       </if>
+      <if test="alrBidMoney != null" >
+        alr_bid_money,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="loanId != null" >
@@ -575,11 +579,14 @@
       <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="alrBidMoney != null" >
+        #{alrBidMoney,jdbcType=REAL},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.BorrowingLoanExample" resultType="java.lang.Integer" >
     select count(*) from t_borrowing_loan temp_borrowing_loan
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -749,6 +756,9 @@
       <if test="record.updateTime != null" >
         temp_borrowing_loan.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.alrBidMoney != null" >
+        temp_borrowing_loan.alr_bid_money = #{record.alrBidMoney,jdbcType=REAL},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -809,7 +819,8 @@
       temp_borrowing_loan.second_audit_date = #{record.secondAuditDate,jdbcType=TIMESTAMP},
       temp_borrowing_loan.creater = #{record.creater,jdbcType=VARCHAR},
       temp_borrowing_loan.updater = #{record.updater,jdbcType=VARCHAR},
-      temp_borrowing_loan.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+      temp_borrowing_loan.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      temp_borrowing_loan.alr_bid_money = #{record.alrBidMoney,jdbcType=REAL}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -976,6 +987,9 @@
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="alrBidMoney != null" >
+        alr_bid_money = #{alrBidMoney,jdbcType=REAL},
+      </if>
     </set>
     where loan_id = #{loanId,jdbcType=VARCHAR}
   </update>
@@ -1033,7 +1047,8 @@
       second_audit_date = #{secondAuditDate,jdbcType=TIMESTAMP},
       creater = #{creater,jdbcType=VARCHAR},
       updater = #{updater,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      alr_bid_money = #{alrBidMoney,jdbcType=REAL}
     where loan_id = #{loanId,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -37,7 +37,7 @@ public class TenderNotesController extends AbstractController{
     private Object intoTenderNotesFormPreview(String tenderNotesId) {
         ModelAndView mav = new ModelAndView("borrow_mgr/tenderNotes_mgr/tenderNotes_form");
         if(StringUtils.isNotBlank(tenderNotesId)){
-            mav.addObject("reviewData", tenderNotesService.getTenderNotes(tenderNotesId));
+            mav.addObject("tenderNotesData", tenderNotesService.getTenderNotes(tenderNotesId));
         }
         return mav;
     }
@@ -47,7 +47,7 @@ public class TenderNotesController extends AbstractController{
     private Object intoTenderNotesDetailPage(String tenderNotesId) {
         ModelAndView mav = new ModelAndView("borrow_mgr/tenderNotes_mgr/tenderNotes_detail");
         if(StringUtils.isNotBlank(tenderNotesId)){
-            mav.addObject("reviewData", tenderNotesService.getTenderNotes(tenderNotesId));
+            mav.addObject("tenderNotesData", tenderNotesService.getTenderNotes(tenderNotesId));
         }
         return mav;
     }
