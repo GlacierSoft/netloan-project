@@ -135,13 +135,28 @@ public class TenderNotesController {
 		tenderNotesService.addTenderNotes(tenderNotes);//添加投标记录
 		BorrowingLoan borrowingLoan = (BorrowingLoan) borrowingLoanService.getBorrowingLoan(tenderNotes.getLoanId());//获取所投标的借款数据
 		if(borrowingLoan.getSubTotal() == null){
-			//borrowingLoan.setAlrTenderPro(borrowingLoan/borrowingLoan.getSubTotal());
+			if(borrowingLoan.getAlrBidMoney() == null){
+				borrowingLoan.setAlrTenderPro(borrowingLoan.getAlrBidMoney()+tenderNotes.getTenderMoney()/borrowingLoan.getLoanTotal());//更新投标比例
+			}else{
+				borrowingLoan.setAlrTenderPro(tenderNotes.getTenderMoney()/borrowingLoan.getLoanTotal());//更新投标比例	
+			}
+			borrowingLoan.setAlrBidMoney(borrowingLoan.getAlrBidMoney()+tenderNotes.getTenderMoney());//更新已投标的金额
 		}else{
-			float alrSubSum = borrowingLoan.getAlrSubSum()+tenderNotes.getSubSum();
+			float alrSubSum = 0f;
+			if(borrowingLoan.getAlrSubSum() == null){
+				alrSubSum = tenderNotes.getSubSum();				
+			}else{
+				alrSubSum = borrowingLoan.getAlrSubSum()+tenderNotes.getSubSum();
+			}
 			borrowingLoan.setAlrSubSum(alrSubSum);//更新借款数据中的已认购份数
-			borrowingLoan.setAlrTenderPro(alrSubSum/borrowingLoan.getSubTotal());
+			borrowingLoan.setAlrTenderPro(alrSubSum/borrowingLoan.getSubTotal());//更新投标比例
 		}
-		borrowingLoan.setTenderSum(borrowingLoan.getTenderSum()+1);//更新借款数据中的投标数量
+		if(borrowingLoan.getTenderSum() == null){
+			borrowingLoan.setTenderSum(1f);
+		}else{
+			borrowingLoan.setTenderSum(borrowingLoan.getTenderSum()+1);//更新借款数据中的投标数量
+		}
+		borrowingLoanService.editBorrowingLoan(borrowingLoan);//更新借款中相对应的数据
 		request.setAttribute("borrowingMember", memberService.getMember(tenderNotes.getMemberId()));//获取该会员 信息数据
 		request.setAttribute("borrowingMemberWork", memberService.getMemberWork(tenderNotes.getMemberId()));//获取该会员 信息数据
 		request.setAttribute("borrowingLoan", borrowingLoanService.getBorrowingLoan(tenderNotes.getLoanId()));//获取该会员 借款的信息数据

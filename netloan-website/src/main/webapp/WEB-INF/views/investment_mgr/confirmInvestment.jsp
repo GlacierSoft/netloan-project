@@ -56,10 +56,18 @@
 			        		<td style="padding-left: 20px;">借款年利率：<span style="color: red;"><fmt:formatNumber value="${borrowingLoan.loanApr }" pattern="#,#00.00"/>%</span></td>
 			        	</tr>
 			        	<tr>
-			        		<td>已经完成：<span style="color: red;"> 0%</span></td>
+			        		<td>已经完成：<span style="color: red;"><fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/>%</span></td>
 			        	</tr>
 			        	<tr>
-			        		<td>还需借款: <span style="color: red;">￥100,000.00</span></td>
+			        		<td>还需借款: <span id="stillNeed" style="color: red;"> </span><span style="color: red;">元</span></td>
+			        	<script type="text/javascript">
+				        	if('${borrowingLoan.subTotal}' == ''){
+				        		$('#stillNeed').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrBidMoney}' pattern='#,#00.00'/>");
+				        	}else{
+				        		$('#stillNeed').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrSubSum*borrowingLoan.lowestSub}' pattern='#,#00.00'/>");
+		
+				        	}
+				        </script>
 			        	</tr>
 			        	<tr>
 			        		<td>借款期限: <span style="color: red;">${borrowingLoan.waitBidDeadlines }个月</span></td>
@@ -96,7 +104,7 @@
 			       	  	<div class="row">
 			       	  		<div class="col-md-12">认购总份数：${borrowingLoan.subTotal }份,还有：<span id="subLeave"></span>份 </div>
 			       	  		<script type="text/javascript">
-			       	  			$("#subLeave").html(${borrowingLoan.subTotal }-${borrowingLoan.alrSubSum });
+			       	  			$("#subLeave").html(${borrowingLoan.subTotal-borrowingLoan.alrSubSum });			       	  				
 			       	  		</script>
 			       	  	</div>
 			       	  	<br>
@@ -129,9 +137,9 @@
 				       	  									<br> 当前年利率: <fmt:formatNumber value="${borrowingLoan.loanApr }" pattern="#,#00.00"/>% </span></div>
 				       	  	</div>
 				       	  	<br>
+				       	  	<form id="loanReviewForm" class="form-horizontal" role="form" action="${ctx}/investment/addInvestment.htm" method="post" onsubmit="return validaForm();">
 				       	  	<div class="row">
 					       	  	<div class="col-md-12">
-					       	  	<form id="loanReviewForm" class="form-horizontal" role="form" action="${ctx}/investment/addInvestment.htm" method="post" onsubmit="return validaForm();">
 								  	<div class="form-group">
 								  		<label id="login_kaptcha_span" class="col-sm-3 control-label ">投标金额:</label>
 										<div class="col-sm-7">
@@ -141,7 +149,6 @@
 										</div>
 										<div class="col-sm-2">元</div>
 									</div>
-								</form>
 					       	  	</div>
 				       	  	</div>
 				       	  	<div class="row">
@@ -153,6 +160,7 @@
 				       	  	<div class="col-md-6"><button  id="login_submit" type="submit" class="btn btn-primary btn-block" >确定投标</button></div>
 				       	  	<div class="col-sm-3"></div>
 				       	  	</div>
+				       	  	</form>
 					   </c:otherwise>
 				</c:choose>
 	       	  	<br>

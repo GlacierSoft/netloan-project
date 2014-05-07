@@ -66,20 +66,31 @@
 	       	  		var monthLoanApr = "${borrowingLoan.loanApr }"/12;
 	       	 		$("#monthLoanApr").html(monthLoanApr);
 	       	  	</script>
-	       	  	<span>借款期限：${borrowingLoan.waitBidDeadlines }</span>
+	       	  	<span>借款期限：${borrowingLoan.waitBidDeadlines }个月</span>
 	       	  	</div>
 	       	  	<hr>
 	       	  	<div class="row">
-	       	  	<div class="col-md-3"><span>还差：￥ 2,000.00</span></div>
+	       	  	<div class="col-md-3">还差：<span id="stillNeed"></span>元</div>
+	       	  	<script type="text/javascript">
+		        	if('${borrowingLoan.subTotal}' == ''){
+		        		$('#stillNeed').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrBidMoney}' pattern='#,#00.00'/>");
+		        	}else{
+		        		$('#stillNeed').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrSubSum*borrowingLoan.lowestSub}' pattern='#,#00.00'/>");
+
+		        	}
+		        </script>
 	       	  	<div class="col-md-2" style="text-align:right;"><span>投标进度:</span></div>
 		       	<div class="col-md-2" style="text-align:left;">
 		       	  	<div class="progress" style="width:100px;">
-		        		<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-						    
-						</div>
+		        		<div id="progressBar" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/>" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/>%"></div>
+		        		<!-- <div id="progressBar" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%"></div>
+		        		<script type="text/javascript">
+				        	$('#progressBar').prop("aria-valuenow", '${borrowingLoan.alrTenderPro*100}');
+				        	$('#progressBar').css({"width":"${borrowingLoan.alrTenderPro*100}%"});
+				        </script> -->
 					</div>
 				</div>
-				<div class="col-md-2" style="text-align:left;"><span>60%</span></div>
+				<div class="col-md-2" style="text-align:left;"><span><fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/>%</span></div>
 	       	  	</div>
 	       	  	<div class="row">
 	       	  	<div class="col-md-4"><span>还款方式：${borrowingLoan.repaymentTypeDisplay } </span></div>

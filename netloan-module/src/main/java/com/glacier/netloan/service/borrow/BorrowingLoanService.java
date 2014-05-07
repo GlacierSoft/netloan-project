@@ -220,13 +220,12 @@ public class BorrowingLoanService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "BorrowingLoanList_edit")
     public Object editBorrowingLoan(BorrowingLoan borrowingLoan) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
         int count = 0;
         // 防止借款主题重复
-        borrowingLoanExample.createCriteria().andLoanIdNotEqualTo(borrowingLoan.getLoanId()).andLoanCodeEqualTo(borrowingLoan.getLoanCode());
+       /* borrowingLoanExample.createCriteria().andLoanIdNotEqualTo(borrowingLoan.getLoanId()).andLoanCodeEqualTo(borrowingLoan.getLoanCode());
         count = borrowingLoanMapper.countByExample(borrowingLoanExample);// 查找相同编号的借款数量
         if (count > 0) {
             returnResult.setMsg("借款编号重复");
@@ -234,7 +233,7 @@ public class BorrowingLoanService {
         }
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        borrowingLoan.setUpdater(pricipalUser.getUserId());
+        borrowingLoan.setUpdater(pricipalUser.getUserId());*/
         borrowingLoan.setUpdateTime(new Date());
         count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);
         if (count == 1) {

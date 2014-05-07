@@ -252,8 +252,20 @@
 			        	<tr>
 			        		<td>发布者：${borrowingLoan.memberDisplay } </td>
 			        		<td>${borrowingLoan.loanPurposeId }</td>
-			        		<td>已完成投标：10000 元</td>
-			        		<td>投资完成：100.00%</td>
+			        		<td>还需：<span id="stillNeed${status.index}"></span>
+				        	<script type="text/javascript">
+				        	if('${borrowingLoan.subTotal}' == ''){
+				        		$('#stillNeed'+${status.index}).html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrBidMoney}' pattern='#,#00.00'/>");
+				        	}else{
+				        		$('#stillNeed'+${status.index}).html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrSubSum*borrowingLoan.lowestSub}' pattern='#,#00.00'/>");
+
+				        	}
+				        	</script>	  
+			        		 元</td>
+			        		<td>投资完成：<span id="alrTenderPro${status.index}"><fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/></span>%</td>
+			        		<!-- <script type="text/javascript">
+				        	$('#alrTenderPro'+${status.index}).html("<fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/>");
+				        	</script> -->	
 			        	</tr>
 			        	<tr>
 			        		<td>信用等级：<img id="creditPhotoDivImg"  src="${borrowingLoan.creditPhoto}" style="width: 34px;height: 24px ;" /></td>
@@ -265,9 +277,12 @@
 			        		</td>
 			        		<td>
 			        		<div class="progress">
-			        		<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-							    <span class="sr-only">60% Complete (warning)</span>
-							  </div>
+			        		<div id="progressBar${status.index}" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="${borrowingLoan.alrTenderPro*100}" aria-valuemin="0" aria-valuemax="100" style="width: ${borrowingLoan.alrTenderPro*100}%">
+							</div>
+							<!-- <script type="text/javascript">
+				        	$('#progressBar'+${status.index}).prop("aria-valuenow", '${borrowingLoan.alrTenderPro*100}');
+				        	$('#progressBar'+${status.index}).css({"width":"${borrowingLoan.alrTenderPro*100}"%});
+				        	</script> -->
 							</div>
 			        		</td>
 			        	</tr>
