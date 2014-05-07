@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.borrow.RepaymentNotesDetail" >
     <id column="temp_repayment_notes_detail_repay_notes_detail_id" property="repayNotesDetailId" jdbcType="VARCHAR" />
     <result column="temp_repayment_notes_detail_repay_notes_id" property="repayNotesId" jdbcType="VARCHAR" />
+    <result column="temp_repayment_notes_detail_member_id" property="memberId" jdbcType="VARCHAR" />
     <result column="temp_repayment_notes_detail_number_period" property="numberPeriod" jdbcType="REAL" />
     <result column="temp_repayment_notes_detail_should_pay_date" property="shouldPayDate" jdbcType="TIMESTAMP" />
     <result column="temp_repayment_notes_detail_actual_pay_date" property="actualPayDate" jdbcType="TIMESTAMP" />
@@ -15,7 +16,7 @@
     <result column="temp_repayment_notes_detail_overdue_interest" property="overdueInterest" jdbcType="REAL" />
     <result column="temp_repayment_notes_detail_overdue_urge_fee" property="overdueUrgeFee" jdbcType="REAL" />
     <result column="temp_repayment_notes_detail_overdue_mana_fee" property="overdueManaFee" jdbcType="REAL" />
-    <result column="temp_repayment_notes_detail_overdue_days" property="overdueDays" jdbcType="TIMESTAMP" />
+    <result column="temp_repayment_notes_detail_overdue_days" property="overdueDays" jdbcType="VARCHAR" />
     <result column="temp_repayment_notes_detail_is_overdue" property="isOverdue" jdbcType="CHAR" />
     <result column="temp_repayment_notes_detail_is_advances" property="isAdvances" jdbcType="CHAR" />
     <result column="temp_repayment_notes_detail_repay_state" property="repayState" jdbcType="CHAR" />
@@ -24,6 +25,8 @@
     <result column="temp_repayment_notes_detail_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_repayment_notes_detail_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_repayment_notes_detail_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_repayment_notes_detail_loan_title" property="loanTitle" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_repayment_notes_detail_memberDisplay" property="memberDisplay" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -86,7 +89,7 @@
   <sql id="Base_Column_List" >
     temp_repayment_notes_detail.repay_notes_detail_id as temp_repayment_notes_detail_repay_notes_detail_id, 
     temp_repayment_notes_detail.repay_notes_id as temp_repayment_notes_detail_repay_notes_id, 
-    temp_repayment_notes_detail.number_period as temp_repayment_notes_detail_number_period, 
+    temp_repayment_notes_detail.member_id as temp_repayment_notes_detail_member_id, temp_repayment_notes_detail.number_period as temp_repayment_notes_detail_number_period, 
     temp_repayment_notes_detail.should_pay_date as temp_repayment_notes_detail_should_pay_date, 
     temp_repayment_notes_detail.actual_pay_date as temp_repayment_notes_detail_actual_pay_date, 
     temp_repayment_notes_detail.current_pay_moeny as temp_repayment_notes_detail_current_pay_moeny, 
@@ -104,6 +107,11 @@
     temp_repayment_notes_detail.remark as temp_repayment_notes_detail_remark, temp_repayment_notes_detail.creater as temp_repayment_notes_detail_creater, 
     temp_repayment_notes_detail.create_time as temp_repayment_notes_detail_create_time, 
     temp_repayment_notes_detail.updater as temp_repayment_notes_detail_updater, temp_repayment_notes_detail.update_time as temp_repayment_notes_detail_update_time
+    <!-- 以下字段属于扩展 -->
+    ,temp_creater.member_name as temp_repayment_notes_detail_memberDisplay
+  </sql>
+  <sql id="Base_extend">
+    LEFT JOIN t_member temp_creater ON temp_creater.member_id = temp_repayment_notes_detail.member_id <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.RepaymentNotesDetailExample" >
     select
@@ -112,6 +120,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_repayment_notes_detail temp_repayment_notes_detail
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -126,6 +135,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_repayment_notes_detail temp_repayment_notes_detail
+    <include refid="Base_extend" />
     where temp_repayment_notes_detail.repay_notes_detail_id = #{repayNotesDetailId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -133,28 +143,30 @@
     where repay_notes_detail_id = #{repayNotesDetailId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.borrow.RepaymentNotesDetailExample" >
-    delete from t_repayment_notes_detail temp_repayment_notes_detail
+    delete temp_repayment_notes_detail from t_repayment_notes_detail temp_repayment_notes_detail
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.glacier.netloan.entity.borrow.RepaymentNotesDetail" >
     insert into t_repayment_notes_detail (repay_notes_detail_id, repay_notes_id, 
-      number_period, should_pay_date, actual_pay_date, 
-      current_pay_moeny, current_pay_principal, current_pay_interest, 
-      actual_pay_money, also_need_money, overdue_interest, 
-      overdue_urge_fee, overdue_mana_fee, overdue_days, 
-      is_overdue, is_advances, repay_state, 
-      remark, creater, create_time, 
-      updater, update_time)
+      member_id, number_period, should_pay_date, 
+      actual_pay_date, current_pay_moeny, current_pay_principal, 
+      current_pay_interest, actual_pay_money, also_need_money, 
+      overdue_interest, overdue_urge_fee, overdue_mana_fee, 
+      overdue_days, is_overdue, is_advances, 
+      repay_state, remark, creater, 
+      create_time, updater, update_time
+      )
     values (#{repayNotesDetailId,jdbcType=VARCHAR}, #{repayNotesId,jdbcType=VARCHAR}, 
-      #{numberPeriod,jdbcType=REAL}, #{shouldPayDate,jdbcType=TIMESTAMP}, #{actualPayDate,jdbcType=TIMESTAMP}, 
-      #{currentPayMoeny,jdbcType=REAL}, #{currentPayPrincipal,jdbcType=REAL}, #{currentPayInterest,jdbcType=REAL}, 
-      #{actualPayMoney,jdbcType=REAL}, #{alsoNeedMoney,jdbcType=REAL}, #{overdueInterest,jdbcType=REAL}, 
-      #{overdueUrgeFee,jdbcType=REAL}, #{overdueManaFee,jdbcType=REAL}, #{overdueDays,jdbcType=TIMESTAMP}, 
-      #{isOverdue,jdbcType=CHAR}, #{isAdvances,jdbcType=CHAR}, #{repayState,jdbcType=CHAR}, 
-      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+      #{memberId,jdbcType=VARCHAR}, #{numberPeriod,jdbcType=REAL}, #{shouldPayDate,jdbcType=TIMESTAMP}, 
+      #{actualPayDate,jdbcType=TIMESTAMP}, #{currentPayMoeny,jdbcType=REAL}, #{currentPayPrincipal,jdbcType=REAL}, 
+      #{currentPayInterest,jdbcType=REAL}, #{actualPayMoney,jdbcType=REAL}, #{alsoNeedMoney,jdbcType=REAL}, 
+      #{overdueInterest,jdbcType=REAL}, #{overdueUrgeFee,jdbcType=REAL}, #{overdueManaFee,jdbcType=REAL}, 
+      #{overdueDays,jdbcType=VARCHAR}, #{isOverdue,jdbcType=CHAR}, #{isAdvances,jdbcType=CHAR}, 
+      #{repayState,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.borrow.RepaymentNotesDetail" >
     insert into t_repayment_notes_detail
@@ -164,6 +176,9 @@
       </if>
       <if test="repayNotesId != null" >
         repay_notes_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
       </if>
       <if test="numberPeriod != null" >
         number_period,
@@ -233,6 +248,9 @@
       <if test="repayNotesId != null" >
         #{repayNotesId,jdbcType=VARCHAR},
       </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
       <if test="numberPeriod != null" >
         #{numberPeriod,jdbcType=REAL},
       </if>
@@ -267,7 +285,7 @@
         #{overdueManaFee,jdbcType=REAL},
       </if>
       <if test="overdueDays != null" >
-        #{overdueDays,jdbcType=TIMESTAMP},
+        #{overdueDays,jdbcType=VARCHAR},
       </if>
       <if test="isOverdue != null" >
         #{isOverdue,jdbcType=CHAR},
@@ -297,6 +315,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.RepaymentNotesDetailExample" resultType="java.lang.Integer" >
     select count(*) from t_repayment_notes_detail temp_repayment_notes_detail
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -309,6 +328,9 @@
       </if>
       <if test="record.repayNotesId != null" >
         temp_repayment_notes_detail.repay_notes_id = #{record.repayNotesId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberId != null" >
+        temp_repayment_notes_detail.member_id = #{record.memberId,jdbcType=VARCHAR},
       </if>
       <if test="record.numberPeriod != null" >
         temp_repayment_notes_detail.number_period = #{record.numberPeriod,jdbcType=REAL},
@@ -344,7 +366,7 @@
         temp_repayment_notes_detail.overdue_mana_fee = #{record.overdueManaFee,jdbcType=REAL},
       </if>
       <if test="record.overdueDays != null" >
-        temp_repayment_notes_detail.overdue_days = #{record.overdueDays,jdbcType=TIMESTAMP},
+        temp_repayment_notes_detail.overdue_days = #{record.overdueDays,jdbcType=VARCHAR},
       </if>
       <if test="record.isOverdue != null" >
         temp_repayment_notes_detail.is_overdue = #{record.isOverdue,jdbcType=CHAR},
@@ -379,6 +401,7 @@
     update t_repayment_notes_detail temp_repayment_notes_detail
     set temp_repayment_notes_detail.repay_notes_detail_id = #{record.repayNotesDetailId,jdbcType=VARCHAR},
       temp_repayment_notes_detail.repay_notes_id = #{record.repayNotesId,jdbcType=VARCHAR},
+      temp_repayment_notes_detail.member_id = #{record.memberId,jdbcType=VARCHAR},
       temp_repayment_notes_detail.number_period = #{record.numberPeriod,jdbcType=REAL},
       temp_repayment_notes_detail.should_pay_date = #{record.shouldPayDate,jdbcType=TIMESTAMP},
       temp_repayment_notes_detail.actual_pay_date = #{record.actualPayDate,jdbcType=TIMESTAMP},
@@ -390,7 +413,7 @@
       temp_repayment_notes_detail.overdue_interest = #{record.overdueInterest,jdbcType=REAL},
       temp_repayment_notes_detail.overdue_urge_fee = #{record.overdueUrgeFee,jdbcType=REAL},
       temp_repayment_notes_detail.overdue_mana_fee = #{record.overdueManaFee,jdbcType=REAL},
-      temp_repayment_notes_detail.overdue_days = #{record.overdueDays,jdbcType=TIMESTAMP},
+      temp_repayment_notes_detail.overdue_days = #{record.overdueDays,jdbcType=VARCHAR},
       temp_repayment_notes_detail.is_overdue = #{record.isOverdue,jdbcType=CHAR},
       temp_repayment_notes_detail.is_advances = #{record.isAdvances,jdbcType=CHAR},
       temp_repayment_notes_detail.repay_state = #{record.repayState,jdbcType=CHAR},
@@ -408,6 +431,9 @@
     <set >
       <if test="repayNotesId != null" >
         repay_notes_id = #{repayNotesId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
       </if>
       <if test="numberPeriod != null" >
         number_period = #{numberPeriod,jdbcType=REAL},
@@ -443,7 +469,7 @@
         overdue_mana_fee = #{overdueManaFee,jdbcType=REAL},
       </if>
       <if test="overdueDays != null" >
-        overdue_days = #{overdueDays,jdbcType=TIMESTAMP},
+        overdue_days = #{overdueDays,jdbcType=VARCHAR},
       </if>
       <if test="isOverdue != null" >
         is_overdue = #{isOverdue,jdbcType=CHAR},
@@ -475,6 +501,7 @@
   <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.borrow.RepaymentNotesDetail" >
     update t_repayment_notes_detail
     set repay_notes_id = #{repayNotesId,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=VARCHAR},
       number_period = #{numberPeriod,jdbcType=REAL},
       should_pay_date = #{shouldPayDate,jdbcType=TIMESTAMP},
       actual_pay_date = #{actualPayDate,jdbcType=TIMESTAMP},
@@ -486,7 +513,7 @@
       overdue_interest = #{overdueInterest,jdbcType=REAL},
       overdue_urge_fee = #{overdueUrgeFee,jdbcType=REAL},
       overdue_mana_fee = #{overdueManaFee,jdbcType=REAL},
-      overdue_days = #{overdueDays,jdbcType=TIMESTAMP},
+      overdue_days = #{overdueDays,jdbcType=VARCHAR},
       is_overdue = #{isOverdue,jdbcType=CHAR},
       is_advances = #{isAdvances,jdbcType=CHAR},
       repay_state = #{repayState,jdbcType=CHAR},

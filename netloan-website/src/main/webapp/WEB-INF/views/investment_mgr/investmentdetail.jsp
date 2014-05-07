@@ -66,13 +66,13 @@
 	       	  		var monthLoanApr = "${borrowingLoan.loanApr }"/12;
 	       	 		$("#monthLoanApr").html(monthLoanApr);
 	       	  	</script>
-	       	  	<span>借款期限：${borrowingLoan.waitBidDeadlines }个月</span>
+	       	  	<span>借款期限：${borrowingLoan.loanDeadlinesId }个月</span>
 	       	  	</div>
 	       	  	<hr>
 	       	  	<div class="row">
 	       	  	<div class="col-md-3">还差：<span id="stillNeed"></span>元</div>
 	       	  	<script type="text/javascript">
-		        	if('${borrowingLoan.subTotal}' == ''){
+		        	if('${borrowingLoan.subTotal}' == '0.0'){
 		        		$('#stillNeed').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrBidMoney}' pattern='#,#00.00'/>");
 		        	}else{
 		        		$('#stillNeed').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrSubSum*borrowingLoan.lowestSub}' pattern='#,#00.00'/>");
@@ -81,8 +81,8 @@
 		        </script>
 	       	  	<div class="col-md-2" style="text-align:right;"><span>投标进度:</span></div>
 		       	<div class="col-md-2" style="text-align:left;">
-		       	  	<div class="progress" style="width:100px;">
-		        		<div id="progressBar" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/>" aria-valuemin="0" aria-valuemax="100" style="width: <fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/>%"></div>
+		       	  	<div class="progress" style="border: 1px solid red; width:100px;">
+		        		<div id="progressBar" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/>" aria-valuemin="0" aria-valuemax="100" style="  width: <fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/>%"></div>
 		        		<!-- <div id="progressBar" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%"></div>
 		        		<script type="text/javascript">
 				        	$('#progressBar').prop("aria-valuenow", '${borrowingLoan.alrTenderPro*100}');
@@ -421,9 +421,17 @@
 				  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
 				  	<div style="padding-left: 20px;">
 				  		<div class="row" style="text-align:center;vertical-align: middle;">
-				  		<div class="col-md-4"><span>目前总投标金额：￥10,000.00</span></div>
-				  		<div class="col-md-3"><span>剩余投标金额：￥0.00</span></div>
-				  		<div class="col-md-5"><span>剩余投标时间：</span></div>
+				  		<div class="col-md-4">目前总投标金额：<span style="color: red;"><fmt:formatNumber value="${borrowingLoan.loanTotal }" pattern="#,#00.00"/>元</span></div>
+				  		<div class="col-md-3">剩余投标金额：<span id="stillNeed2" style="color: red;"></span><span style="color: red;">元</span></div>
+				  		<script type="text/javascript">
+				        	if('${borrowingLoan.subTotal}' == '0.0'){
+				        		$('#stillNeed2').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrBidMoney}' pattern='#,#00.00'/>");
+				        	}else{
+				        		$('#stillNeed2').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrSubSum*borrowingLoan.lowestSub}' pattern='#,#00.00'/>");
+		
+				        	}
+				        </script>
+				  		<div class="col-md-5">剩余投标时间：<span style="color: red;"></span></div>
 				  		</div><br>
 				  		<div class="row" >
 				  		<div class="col-md-12">
@@ -433,16 +441,39 @@
 				  					<td>投资金额</td>
 				  					<td>投资时间</td>
 				  				</tr>
-				  				<tr>
-				  					<td>mx****</td>
-				  					<td><span style="color: red;">￥1,000.00</span></td>
-				  					<td><%-- <fmt:formatDate value="" type="both"/> --%>2014-04-24 13:46:33</td>
-				  				</tr>
-				  				<tr>
-				  					<td>沈鹏****</td>
-				  					<td><span style="color: red;">￥9,000.00</span></td>
-				  					<td><%-- <fmt:formatDate value="" type="both"/> --%>2014-04-24 13:48:49</td>
-				  				</tr>
+				  				<c:if test="${empty tenderNotesDatas.rows}">
+									<tr>
+							            <td colspan="3"><strong>暂无信息</strong></td>
+							          </tr>
+									</c:if>	  		
+								<c:if test="${!empty tenderNotesDatas.rows}">  	
+									<c:forEach items="${tenderNotesDatas.rows}" var="tenderNotes" varStatus="status">
+							        	<tr>
+							        		<td>${tenderNotes.memberDisplay }</td>
+							        		<td><span id="investmentMoney${status.index}"></span>元</td>
+							        		<script type="text/javascript">
+									        	if('${tenderNotes.subSum}' == ''){
+									        		$('#investmentMoney'+${status.index}).html("<fmt:formatNumber value='${tenderNotes.tenderMoney}' pattern='#,#00.00'/>");
+									        	}else{
+									        		$('#investmentMoney'+${status.index}).html("<fmt:formatNumber value='${tenderNotes.subSum*borrowingLoan.lowestSub}' pattern='#,#00.00'/>");
+							
+									        	}
+									        </script>
+							        		<td><fmt:formatDate value="${tenderNotes.createTime}" type="both"/></td>
+							        	</tr>
+							        </c:forEach>
+							    </c:if>	
+						      	<c:if test="${!empty tenderNotesDatas.rows}">
+						        	<tfoot>
+							          <tr>
+							            <th colspan="3">
+							            	<div align="right">
+											    <ul id="pageTenderNotes"></ul>
+											</div>
+										</th>
+							          </tr>
+							        </tfoot>
+							    </c:if>	  
 				  			</table>
 				  		</div>
 				  		</div><br>
@@ -490,6 +521,7 @@
 	}
 	
 	var element = $('#pageLoanReview');
+	var elementTenderNotes = $('#pageTenderNotes');
 	
 	//设置分页的总页数
 	var total=${loanReviewDatas.total}/5;
@@ -499,18 +531,37 @@
 		var total = parseInt(total)+1;
 	}
 	
+	//设置分页的总页数
+	var totalTenderNotes=${tenderNotesDatas.total}/5;
+	if(parseInt(totalTenderNotes)==totalTenderNotes){
+		var totalTenderNotes = parseInt(totalTenderNotes);
+	}else {
+		var totalTenderNotes = parseInt(totalTenderNotes)+1;
+	}
+	
 	var options = {
-	    bootstrapMajorVersion:1,
+	    bootstrapMajorVersion:3,
 	    currentPage: ${loanReviewDatas.p},
 	    numberOfPages: 5,
 	    totalPages:total,
 	    pageUrl: function(type, page, current){
-	    	return "${ctx}/investment/investmentdetail.htm?&p="+page+"&loanId=${borrowingLoan.loanId }&memberId=${borrowingMember.memberId }";
+	    	return "${ctx}/loanReview/loanReviewPage.htm?&p="+page+"&loanId=${borrowingLoan.loanId }&memberId=${borrowingMember.memberId }";
 	    	//return "${ctx}/investment/investmentdetail.htm?"+composeUrlParams()+"&p="+page+"&loanId=${borrowingLoan.loanId }&memberId=${borrowingMember.memberId }";
 	    	}
 	}
 	
+	var optionsTenderNotes = {
+		    bootstrapMajorVersion:3,
+		    currentPage: ${tenderNotesDatas.p},
+		    numberOfPages: 5,
+		    totalPages:totalTenderNotes,
+		    pageUrl: function(type, page, current){
+		    	return "${ctx}/investment/investmentdetail.htm?&p="+page+"&loanId=${borrowingLoan.loanId }&memberId=${borrowingMember.memberId }";
+		    	}
+		}
+	
 	element.bootstrapPaginator(options);
+	elementTenderNotes.bootstrapPaginator(optionsTenderNotes);
 	})
 <!-- 分页显示表格数据 结束 -->
   

@@ -61,7 +61,7 @@
 			        	<tr>
 			        		<td>还需借款: <span id="stillNeed" style="color: red;"> </span><span style="color: red;">元</span></td>
 			        	<script type="text/javascript">
-				        	if('${borrowingLoan.subTotal}' == ''){
+				        	if('${borrowingLoan.subTotal}' == '0.0'){
 				        		$('#stillNeed').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrBidMoney}' pattern='#,#00.00'/>");
 				        	}else{
 				        		$('#stillNeed').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrSubSum*borrowingLoan.lowestSub}' pattern='#,#00.00'/>");
@@ -102,15 +102,12 @@
 			       	  		<div class="col-md-12"><span>最小认购金额：<fmt:formatNumber value="${borrowingLoan.lowestSub }" pattern="#,#00.00"/>元  当前年利率: <fmt:formatNumber value="${borrowingLoan.loanApr }" pattern="#,#00.00"/>% </span></div>
 			       	  	</div>
 			       	  	<div class="row">
-			       	  		<div class="col-md-12">认购总份数：${borrowingLoan.subTotal }份,还有：<span id="subLeave"></span>份 </div>
-			       	  		<script type="text/javascript">
-			       	  			$("#subLeave").html(${borrowingLoan.subTotal-borrowingLoan.alrSubSum });			       	  				
-			       	  		</script>
+			       	  		<div class="col-md-12">认购总份数：${borrowingLoan.subTotal }份,还有：<span id="subLeave">${borrowingLoan.subTotal-borrowingLoan.alrSubSum }</span>份 </div>
 			       	  	</div>
 			       	  	<br>
 			       	  	<div class="row">
 				       	  	<div class="col-md-12">
-				       	  	<form id="loanReviewForm" class="form-horizontal" role="form" action="${ctx}/investment/addInvestment.htm" method="post" onsubmit="return validaForm();">
+				       	  	<form id="investmentSubSumForm" class="form-horizontal" role="form" action="${ctx}/investment/addInvestment.htm" method="post" onsubmit="return validaInvestmentSubSumForm();">
 							  	<div class="form-group">
 									<div class="col-sm-5">
 										<input id="loanId" name="loanId" type="hidden" value="${borrowingLoan.loanId }" />
@@ -137,7 +134,7 @@
 				       	  									<br> 当前年利率: <fmt:formatNumber value="${borrowingLoan.loanApr }" pattern="#,#00.00"/>% </span></div>
 				       	  	</div>
 				       	  	<br>
-				       	  	<form id="loanReviewForm" class="form-horizontal" role="form" action="${ctx}/investment/addInvestment.htm" method="post" onsubmit="return validaForm();">
+				       	  	<form id="investmentTenderMoneyForm" class="form-horizontal" role="form" action="${ctx}/investment/addInvestment.htm" method="post" onsubmit="return validaInvestmentTenderMoneyForm();">
 				       	  	<div class="row">
 					       	  	<div class="col-md-12">
 								  	<div class="form-group">
@@ -181,6 +178,71 @@
   </body>
   <script type="text/javascript">
   
- 
+  	if('${borrowingLoan.subTotal}' == '0.0'){
+		$('#stillNeed').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrBidMoney}' pattern='#,#00.00'/>");
+	}else{
+		$('#stillNeed').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrSubSum*borrowingLoan.lowestSub}' pattern='#,#00.00'/>");
+
+	}
+	//表单验证
+	validaInvestmentSubSumForm = function(){
+		var $subSum = $('#subSum');
+		var stillNeedSum = ${borrowingLoan.subTotal-borrowingLoan.alrSubSum };
+		var r = /^[0-9]*[1-9][0-9]*$/ ;
+		if(!r.test($subSum.val())){
+			$subSum.focus();
+			vipdialog("请输入正整数!");
+			return false;
+		}
+		if($subSum.val() > stillNeedSum){
+			$subSum.focus();
+			vipdialog("投标份数超过本轮剩余投标份数");
+			return false;
+		}
+		return true;
+	};
+	//表单验证
+	validaInvestmentTenderMoneyForm = function(){
+		var $tenderMoney = $('#tenderMoney');
+		var stillNeed = 0;
+		if('${borrowingLoan.subTotal}' == '0.0'){
+			stillNeed = ${borrowingLoan.loanTotal-borrowingLoan.alrBidMoney};
+		}else{
+			stillNeed = ${borrowingLoan.loanTotal-borrowingLoan.alrSubSum*borrowingLoan.lowestSub};
+		}
+		var r = /^[0-9]*[1-9][0-9]*$/ ;
+		if(!r.test($tenderMoney.val())){
+			$tenderMoney.focus();
+			vipdialog("请输入正整数!");
+			return false;
+		}
+		if($tenderMoney.val() > stillNeed){
+			$tenderMoney.focus();
+			vipdialog("投标金额超过本轮剩余投标金额");
+			return false;
+		}
+		return true;
+	};
+	function vipdialog(data){
+		KindEditor.ready(function(K) {
+		var dialog = K.dialog({
+				        width : 300,
+				        title : '信息提示',
+				        body : '<div style="margin:10px;"><strong>'+data+'</strong></div>',
+				        closeBtn : {
+				                name : '关闭',
+				                click : function(e) {
+				                        dialog.remove();
+				                }
+				        },
+				        yesBtn : {
+				                name : '确定',
+				                click : function(e) {
+				                		dialog.remove();
+				                }
+				        },
+					});
+		});
+	}
   </script>
 </html>

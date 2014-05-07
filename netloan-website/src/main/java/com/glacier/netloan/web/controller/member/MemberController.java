@@ -181,6 +181,18 @@ public class MemberController extends AbstractController{
     }
     
     //进行会员平台认证页面
+    /**
+     * @Title: intoMemberAuth 
+     * @Description: TODO(进行会员平台认证页面) 
+     * @param  @param pager
+     * @param  @param p
+     * @param  @param request
+     * @param  @param session
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     * 和MemberApplyAmountController的addApplyAmountReception关联
+     */
     @RequestMapping(value = "/memberAuth.htm")
     public Object intoMemberAuth(JqPager pager,int p,HttpServletRequest request,HttpSession session){
     	ModelAndView mav = new ModelAndView("member_mgr/memberAuth");

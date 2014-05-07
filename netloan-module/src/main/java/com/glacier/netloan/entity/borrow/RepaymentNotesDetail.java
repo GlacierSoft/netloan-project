@@ -2,15 +2,31 @@ package com.glacier.netloan.entity.borrow;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class RepaymentNotesDetail {
     private String repayNotesDetailId;
 
     private String repayNotesId;
+    
+    /**
+     * 自定义字段,借款标题
+     */
+    private String loanTitle;
+    
+    /**
+     * 自定义字段,还款人名称
+     */
+    private String memberDisplay;
+
+    private String memberId;
 
     private Float numberPeriod;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date shouldPayDate;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date actualPayDate;
 
     private Float currentPayMoeny;
@@ -29,7 +45,7 @@ public class RepaymentNotesDetail {
 
     private Float overdueManaFee;
 
-    private Date overdueDays;
+    private String overdueDays;
 
     private String isOverdue;
 
@@ -41,13 +57,31 @@ public class RepaymentNotesDetail {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    public String getRepayNotesDetailId() {
+    public String getLoanTitle() {
+		return loanTitle;
+	}
+
+	public void setLoanTitle(String loanTitle) {
+		this.loanTitle = loanTitle;
+	}
+
+	public String getMemberDisplay() {
+		return memberDisplay;
+	}
+
+	public void setMemberDisplay(String memberDisplay) {
+		this.memberDisplay = memberDisplay;
+	}
+
+	public String getRepayNotesDetailId() {
         return repayNotesDetailId;
     }
 
@@ -61,6 +95,14 @@ public class RepaymentNotesDetail {
 
     public void setRepayNotesId(String repayNotesId) {
         this.repayNotesId = repayNotesId;
+    }
+
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
     }
 
     public Float getNumberPeriod() {
@@ -151,11 +193,11 @@ public class RepaymentNotesDetail {
         this.overdueManaFee = overdueManaFee;
     }
 
-    public Date getOverdueDays() {
+    public String getOverdueDays() {
         return overdueDays;
     }
 
-    public void setOverdueDays(Date overdueDays) {
+    public void setOverdueDays(String overdueDays) {
         this.overdueDays = overdueDays;
     }
 
@@ -237,6 +279,7 @@ public class RepaymentNotesDetail {
         RepaymentNotesDetail other = (RepaymentNotesDetail) that;
         return (this.getRepayNotesDetailId() == null ? other.getRepayNotesDetailId() == null : this.getRepayNotesDetailId().equals(other.getRepayNotesDetailId()))
             && (this.getRepayNotesId() == null ? other.getRepayNotesId() == null : this.getRepayNotesId().equals(other.getRepayNotesId()))
+            && (this.getMemberId() == null ? other.getMemberId() == null : this.getMemberId().equals(other.getMemberId()))
             && (this.getNumberPeriod() == null ? other.getNumberPeriod() == null : this.getNumberPeriod().equals(other.getNumberPeriod()))
             && (this.getShouldPayDate() == null ? other.getShouldPayDate() == null : this.getShouldPayDate().equals(other.getShouldPayDate()))
             && (this.getActualPayDate() == null ? other.getActualPayDate() == null : this.getActualPayDate().equals(other.getActualPayDate()))
@@ -265,6 +308,7 @@ public class RepaymentNotesDetail {
         int result = 1;
         result = prime * result + ((getRepayNotesDetailId() == null) ? 0 : getRepayNotesDetailId().hashCode());
         result = prime * result + ((getRepayNotesId() == null) ? 0 : getRepayNotesId().hashCode());
+        result = prime * result + ((getMemberId() == null) ? 0 : getMemberId().hashCode());
         result = prime * result + ((getNumberPeriod() == null) ? 0 : getNumberPeriod().hashCode());
         result = prime * result + ((getShouldPayDate() == null) ? 0 : getShouldPayDate().hashCode());
         result = prime * result + ((getActualPayDate() == null) ? 0 : getActualPayDate().hashCode());

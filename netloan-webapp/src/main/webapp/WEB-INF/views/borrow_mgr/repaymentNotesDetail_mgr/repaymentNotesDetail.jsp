@@ -4,11 +4,11 @@
 
 <script type="text/javascript">
 
-	$.util.namespace('glacier.borrow_mgr.tenderNotes_mgr.tenderNotes');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+	$.util.namespace('glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
 	//定义toolbar的操作，对操作进行控制
-	glacier.borrow_mgr.tenderNotes_mgr.tenderNotes.param = {
-			toolbarId : 'TenderNotesDataGrid_toolbar',
+	glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail.param = {
+			toolbarId : 'RepaymentNotesDetailDataGrid_toolbar',
 			actions : {
 				edit:{flag:'edit',controlType:'single'},
 				del:{flag:'del',controlType:'multiple'}
@@ -16,7 +16,7 @@
 	};
 	
 	//初始化客服DataGrid
-	glacier.borrow_mgr.tenderNotes_mgr.tenderNotes.TenderNotesDataGrid = $('#TenderNotesDataGrid').datagrid({
+	glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail.RepaymentNotesDetailDataGrid = $('#RepaymentNotesDetailDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
@@ -27,34 +27,29 @@
 		singleSelect:true,//限制单选
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
-		url: ctx + '/do/tenderNotes/list.json',
+		url: ctx + '/do/repaymentNotesDetail/list.json',
 		sortName: 'createTime',//排序字段名称
 		sortOrder: 'DESC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
-		idField:'tenderNotesId',
+		idField:'repayNotesDetailId',
 		columns:[[
 			{
-				field:'tenderNotesId',
+				field:'repayNotesDetailId',
 				title:'ID',
 				checkbox:true
 			},{
-				field:'loanTitle',
-				title:'借款标题',
-				width:200,
-				sortable:true
-			},{
 				field:'memberDisplay',
-				title:'投标人',
+				title:'还款人',
 				width:200,
 				sortable:true
 			},{
-				field:'tenderMoney',
-				title:'投标金额',
+				field:'numberPeriod',
+				title:'第几期',
 				width:200,
 				sortable:true
 			},{
-				field:'subSum',
-				title:'投标份数',
+				field:'shouldPayDate',
+				title:'应还日期',
 				width:200,
 				sortable:true
 			},{
@@ -70,27 +65,27 @@
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
-		pTenderNotesSize : 10,//注意，pTenderNotesSize必须在pTenderNotesList存在
-		pTenderNotesList : [2,10,50,100],//从session中获取
+		pRepaymentNotesDetailSize : 10,//注意，pRepaymentNotesDetailSize必须在pRepaymentNotesDetailList存在
+		pRepaymentNotesDetailList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#TenderNotesDataGrid_toolbar',
+		toolbar:'#RepaymentNotesDetailDataGrid_toolbar',
 		onCheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.borrow_mgr.tenderNotes_mgr.tenderNotes.param,this).check();
+			action_controller(glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail.param,this).check();
 		},
 		onCheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.borrow_mgr.tenderNotes_mgr.tenderNotes.param,this).check();
+			action_controller(glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail.param,this).check();
 		},
 		onUncheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.borrow_mgr.tenderNotes_mgr.tenderNotes.param,this).unCheck();
+			action_controller(glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail.param,this).unCheck();
 		},
 		onUncheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.borrow_mgr.tenderNotes_mgr.tenderNotes.param,this).unCheck();
+			action_controller(glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail.param,this).unCheck();
 		},
 		onSelect:function(rowIndex, rowData){//选择行事件触发
-			action_controller(glacier.borrow_mgr.tenderNotes_mgr.tenderNotes.param,this).select();
+			action_controller(glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail.param,this).select();
 		},
 		onUnselectAll:function(rows){
-			action_controller(glacier.borrow_mgr.tenderNotes_mgr.tenderNotes.param,this).unSelect();
+			action_controller(glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail.param,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
@@ -99,7 +94,7 @@
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
 				title: rowData.loanTitle,
-				href : ctx + '/do/tenderNotes/intoDetail.htm?tenderNotesId='+rowData.tenderNotesId,//从controller请求jsp页面进行渲染
+				href : ctx + '/do/repaymentNotesDetail/intoDetail.htm?repayNotesDetailId='+rowData.repayNotesDetailId,//从controller请求jsp页面进行渲染
 				width : 720,
 				height : 200,
 				resizable: false,
@@ -110,52 +105,52 @@
 	});
 
 	//点击增加按钮触发方法
-	glacier.borrow_mgr.tenderNotes_mgr.tenderNotes.addTenderNotes = function(){
+	glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail.addRepaymentNotesDetail = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加帮助信息',
 			width : 700,
 			height : 500,
-			queryUrl : ctx + '/do/tenderNotes/intoForm.htm',
-			submitUrl : ctx + '/do/tenderNotes/add.json',
+			queryUrl : ctx + '/do/repaymentNotesDetail/intoForm.htm',
+			submitUrl : ctx + '/do/repaymentNotesDetail/add.json',
 			successFun : function (){
-				glacier.borrow_mgr.tenderNotes_mgr.tenderNotes.TenderNotesDataGrid.datagrid('reload');
+				glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail.RepaymentNotesDetailDataGrid.datagrid('reload');
 			}
 		});
 	};
 	
 	//点击编辑按钮触发方法
-	glacier.borrow_mgr.tenderNotes_mgr.tenderNotes.editTenderNotes = function(){
-		var row = glacier.borrow_mgr.tenderNotes_mgr.tenderNotes.TenderNotesDataGrid.datagrid("getSelected");
+	glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail.editRepaymentNotesDetail = function(){
+		var row = glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail.RepaymentNotesDetailDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.loanTitle+'】',
 			width : 700,
 			height : 500,
-			queryUrl : ctx + '/do/tenderNotes/intoForm.htm',
-			submitUrl : ctx + '/do/tenderNotes/edit.json',
+			queryUrl : ctx + '/do/repaymentNotesDetail/intoForm.htm',
+			submitUrl : ctx + '/do/repaymentNotesDetail/edit.json',
 			queryParams : {
-				tenderNotesId : row.tenderNotesId
+				repayNotesDetailId : row.repayNotesDetailId
 			},
 			successFun : function (){
-				glacier.borrow_mgr.tenderNotes_mgr.tenderNotes.TenderNotesDataGrid.datagrid('reload');
+				glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail.RepaymentNotesDetailDataGrid.datagrid('reload');
 			}
 		});
 	};
 	//点击删除按钮触发方法
-	glacier.borrow_mgr.tenderNotes_mgr.tenderNotes.delTenderNotes = function(){
-		var rows = glacier.borrow_mgr.tenderNotes_mgr.tenderNotes.TenderNotesDataGrid.datagrid("getChecked");
-		var tenderNotesIds = [];//删除的id标识
+	glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail.delRepaymentNotesDetail = function(){
+		var rows = glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail.RepaymentNotesDetailDataGrid.datagrid("getChecked");
+		var repayNotesDetailIds = [];//删除的id标识
 		var loanTitles = [];//客服主题
 		for(var i=0;i<rows.length;i++){
-			tenderNotesIds.push(rows[i].tenderNotesId);
+			repayNotesDetailIds.push(rows[i].repayNotesDetailId);
 			loanTitles.push(rows[i].loanTitle);
 		}
-		if(tenderNotesIds.length > 0){
+		if(repayNotesDetailIds.length > 0){
 			$.messager.confirm('请确认', '是否要删除该记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
-						   url: ctx + '/do/tenderNotes/del.json',
-						   data: {tenderNotesIds:tenderNotesIds.join(','),tenderNotesTitle:loanTitles.join(',')},
+						   url: ctx + '/do/repaymentNotesDetail/del.json',
+						   data: {repayNotesDetailIds:repayNotesDetailIds.join(','),repaymentNotesDetailTitle:loanTitles.join(',')},
 						   dataType:'json',
 						   success: function(r){
 							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
@@ -164,7 +159,7 @@
 										timeout:3000,
 										msg:r.msg
 									});
-								   glacier.borrow_mgr.tenderNotes_mgr.tenderNotes.TenderNotesDataGrid.datagrid('reload');
+								   glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail.RepaymentNotesDetailDataGrid.datagrid('reload');
 							   }else{
 									$.messager.show({//后台验证弹出错误提示信息框
 										title:'错误提示',
@@ -185,9 +180,9 @@
 
 <!-- 所有客服列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
-	<div id="TenderNotesGridPanel" data-options="region:'center',border:true" >
-		<table id="TenderNotesDataGrid">
-			<glacierui:toolbar panelEnName="TenderNotesList" toolbarId="TenderNotesDataGrid_toolbar" menuEnName="TenderNotes"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+	<div id="RepaymentNotesDetailGridPanel" data-options="region:'center',border:true" >
+		<table id="RepaymentNotesDetailDataGrid">
+			<glacierui:toolbar panelEnName="RepaymentNotesDetailList" toolbarId="RepaymentNotesDetailDataGrid_toolbar" menuEnName="RepaymentNotesDetail"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 </div>

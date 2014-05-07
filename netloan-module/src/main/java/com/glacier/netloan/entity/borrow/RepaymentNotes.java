@@ -2,10 +2,24 @@ package com.glacier.netloan.entity.borrow;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class RepaymentNotes {
     private String repayNotesId;
 
     private String loanId;
+
+    /**
+     * 自定义字段,借款标题
+     */
+    private String loanTitle;
+    
+    /**
+     * 自定义字段,还款人名称
+     */
+    private String memberDisplay;
+    
+    private String memberId;
 
     private Float repaymentTotal;
 
@@ -27,13 +41,31 @@ public class RepaymentNotes {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    public String getRepayNotesId() {
+    public String getLoanTitle() {
+		return loanTitle;
+	}
+
+	public void setLoanTitle(String loanTitle) {
+		this.loanTitle = loanTitle;
+	}
+
+	public String getMemberDisplay() {
+		return memberDisplay;
+	}
+
+	public void setMemberDisplay(String memberDisplay) {
+		this.memberDisplay = memberDisplay;
+	}
+
+	public String getRepayNotesId() {
         return repayNotesId;
     }
 
@@ -47,6 +79,14 @@ public class RepaymentNotes {
 
     public void setLoanId(String loanId) {
         this.loanId = loanId;
+    }
+
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
     }
 
     public Float getRepaymentTotal() {
@@ -167,6 +207,7 @@ public class RepaymentNotes {
         RepaymentNotes other = (RepaymentNotes) that;
         return (this.getRepayNotesId() == null ? other.getRepayNotesId() == null : this.getRepayNotesId().equals(other.getRepayNotesId()))
             && (this.getLoanId() == null ? other.getLoanId() == null : this.getLoanId().equals(other.getLoanId()))
+            && (this.getMemberId() == null ? other.getMemberId() == null : this.getMemberId().equals(other.getMemberId()))
             && (this.getRepaymentTotal() == null ? other.getRepaymentTotal() == null : this.getRepaymentTotal().equals(other.getRepaymentTotal()))
             && (this.getShouldPayMoney() == null ? other.getShouldPayMoney() == null : this.getShouldPayMoney().equals(other.getShouldPayMoney()))
             && (this.getAlrPayMoney() == null ? other.getAlrPayMoney() == null : this.getAlrPayMoney().equals(other.getAlrPayMoney()))
@@ -188,6 +229,7 @@ public class RepaymentNotes {
         int result = 1;
         result = prime * result + ((getRepayNotesId() == null) ? 0 : getRepayNotesId().hashCode());
         result = prime * result + ((getLoanId() == null) ? 0 : getLoanId().hashCode());
+        result = prime * result + ((getMemberId() == null) ? 0 : getMemberId().hashCode());
         result = prime * result + ((getRepaymentTotal() == null) ? 0 : getRepaymentTotal().hashCode());
         result = prime * result + ((getShouldPayMoney() == null) ? 0 : getShouldPayMoney().hashCode());
         result = prime * result + ((getAlrPayMoney() == null) ? 0 : getAlrPayMoney().hashCode());

@@ -91,7 +91,7 @@ public class TenderNotesController {
 	 * @param  @return设定文件
 	 * @return Object  返回类型
 	 * @throws 
-	 *和LoanReviewController的addLoanReview相关
+	 * 和LoanReviewController的addLoanReview和loanReviewPage相关
 	 */
 	@RequestMapping(value = "/investmentdetail.htm")
 	private Object investmentdetail(JqPager jqPager,int p,String loanId,String memberId,HttpServletRequest request){
@@ -99,7 +99,8 @@ public class TenderNotesController {
 		request.setAttribute("borrowingMemberWork", memberService.getMemberWork(memberId));//获取该会员 信息数据
 		request.setAttribute("borrowingLoan", borrowingLoanService.getBorrowingLoan(loanId));//获取该会员 借款的信息数据
 		request.setAttribute("memberAuthWithBLOBs", memberAuthService.getMemberAuth(memberId));//获取该会员 的认证数据
-		request.setAttribute("loanReviewDatas", loanReviewService.listAsGridWebsite(jqPager, p,loanId));//获取借款留言列表
+		request.setAttribute("loanReviewDatas", loanReviewService.listAsGridWebsite(jqPager, 1,loanId));//获取借款留言列表
+		request.setAttribute("tenderNotesDatas", tenderNotesService.listAsGridWebsite(jqPager, p,loanId));//获取投标记录列表
 		return "investment_mgr/investmentdetail";
 	}
 	/**
@@ -128,25 +129,27 @@ public class TenderNotesController {
 	 * @param  @return设定文件
 	 * @return Object  返回类型
 	 * @throws 
-	 *
+	 * 和TenderNotesController的investmentdetail相关
 	 */
 	@RequestMapping(value = "/addInvestment.htm")
 	private Object addInvestment(TenderNotes tenderNotes,HttpServletRequest request){
 		tenderNotesService.addTenderNotes(tenderNotes);//添加投标记录
 		BorrowingLoan borrowingLoan = (BorrowingLoan) borrowingLoanService.getBorrowingLoan(tenderNotes.getLoanId());//获取所投标的借款数据
-		if(borrowingLoan.getSubTotal() == null){
+		if(borrowingLoan.getSubTotal() == 0.0){
 			if(borrowingLoan.getAlrBidMoney() == null){
-				borrowingLoan.setAlrTenderPro(borrowingLoan.getAlrBidMoney()+tenderNotes.getTenderMoney()/borrowingLoan.getLoanTotal());//更新投标比例
+				float alrTenderPro = tenderNotes.getTenderMoney()/borrowingLoan.getLoanTotal();
+				borrowingLoan.setAlrTenderPro(alrTenderPro);//更新投标比例
 			}else{
-				borrowingLoan.setAlrTenderPro(tenderNotes.getTenderMoney()/borrowingLoan.getLoanTotal());//更新投标比例	
+				float alrTenderPro = (borrowingLoan.getAlrBidMoney()+tenderNotes.getTenderMoney())/borrowingLoan.getLoanTotal();
+				borrowingLoan.setAlrTenderPro(alrTenderPro);//更新投标比例	
 			}
 			borrowingLoan.setAlrBidMoney(borrowingLoan.getAlrBidMoney()+tenderNotes.getTenderMoney());//更新已投标的金额
 		}else{
 			float alrSubSum = 0f;
 			if(borrowingLoan.getAlrSubSum() == null){
-				alrSubSum = tenderNotes.getSubSum();				
+				alrSubSum = tenderNotes.getSubSum();//更新已投份数
 			}else{
-				alrSubSum = borrowingLoan.getAlrSubSum()+tenderNotes.getSubSum();
+				alrSubSum = borrowingLoan.getAlrSubSum()+tenderNotes.getSubSum();//更新已投份数
 			}
 			borrowingLoan.setAlrSubSum(alrSubSum);//更新借款数据中的已认购份数
 			borrowingLoan.setAlrTenderPro(alrSubSum/borrowingLoan.getSubTotal());//更新投标比例
@@ -157,12 +160,17 @@ public class TenderNotesController {
 			borrowingLoan.setTenderSum(borrowingLoan.getTenderSum()+1);//更新借款数据中的投标数量
 		}
 		borrowingLoanService.editBorrowingLoan(borrowingLoan);//更新借款中相对应的数据
+		BorrowingLoan borrowingLoanNew = (BorrowingLoan)borrowingLoanService.getBorrowingLoan(tenderNotes.getLoanId());//重新获取该会员 借款的信息数据
+		if(borrowingLoanNew.getAlrTenderPro() == 1.0){
+			
+		}
 		request.setAttribute("borrowingMember", memberService.getMember(tenderNotes.getMemberId()));//获取该会员 信息数据
 		request.setAttribute("borrowingMemberWork", memberService.getMemberWork(tenderNotes.getMemberId()));//获取该会员 信息数据
-		request.setAttribute("borrowingLoan", borrowingLoanService.getBorrowingLoan(tenderNotes.getLoanId()));//获取该会员 借款的信息数据
+		request.setAttribute("borrowingLoan", borrowingLoanNew);//获取该会员 借款的信息数据
 		request.setAttribute("memberAuthWithBLOBs", memberAuthService.getMemberAuth(tenderNotes.getMemberId()));//获取该会员 的认证数据
 		JqPager jqPager = new JqPager();
 		request.setAttribute("loanReviewDatas", loanReviewService.listAsGridWebsite(jqPager, 1,tenderNotes.getLoanId()));//获取借款留言列表
+		request.setAttribute("tenderNotesDatas", tenderNotesService.listAsGridWebsite(jqPager, 1,tenderNotes.getLoanId()));//获取投标记录列表
 		return "investment_mgr/investmentdetail";
 	}
 }

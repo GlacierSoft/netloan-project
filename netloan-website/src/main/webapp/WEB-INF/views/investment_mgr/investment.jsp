@@ -247,14 +247,14 @@
 			        		</td>
 			        		<td>利率：${borrowingLoan.loanApr }%/ 年</td>
 			        		<td>投标奖：0.00 元</td>
-			        		<td>招标期限：${borrowingLoan.waitBidDeadlines } 个月</td>
+			        		<td>招标期限：${borrowingLoan.waitBidDeadlines } 天</td>
 			        	</tr>
 			        	<tr>
 			        		<td>发布者：${borrowingLoan.memberDisplay } </td>
 			        		<td>${borrowingLoan.loanPurposeId }</td>
 			        		<td>还需：<span id="stillNeed${status.index}"></span>
 				        	<script type="text/javascript">
-				        	if('${borrowingLoan.subTotal}' == ''){
+				        	if('${borrowingLoan.subTotal}' == '0.0'){
 				        		$('#stillNeed'+${status.index}).html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrBidMoney}' pattern='#,#00.00'/>");
 				        	}else{
 				        		$('#stillNeed'+${status.index}).html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrSubSum*borrowingLoan.lowestSub}' pattern='#,#00.00'/>");
@@ -276,7 +276,7 @@
 					    	</script>
 			        		</td>
 			        		<td>
-			        		<div class="progress">
+			        		<div class="progress" style="border: 1px solid #DDDDDD;">
 			        		<div id="progressBar${status.index}" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="${borrowingLoan.alrTenderPro*100}" aria-valuemin="0" aria-valuemax="100" style="width: ${borrowingLoan.alrTenderPro*100}%">
 							</div>
 							<!-- <script type="text/javascript">

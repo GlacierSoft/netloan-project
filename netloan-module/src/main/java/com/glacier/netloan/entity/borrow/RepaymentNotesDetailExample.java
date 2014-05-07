@@ -265,6 +265,76 @@ public class RepaymentNotesDetailExample {
             return (Criteria) this;
         }
 
+        public Criteria andMemberIdIsNull() {
+            addCriterion("temp_repayment_notes_detail.member_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdIsNotNull() {
+            addCriterion("temp_repayment_notes_detail.member_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdEqualTo(String value) {
+            addCriterion("temp_repayment_notes_detail.member_id =", value, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdNotEqualTo(String value) {
+            addCriterion("temp_repayment_notes_detail.member_id <>", value, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdGreaterThan(String value) {
+            addCriterion("temp_repayment_notes_detail.member_id >", value, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_repayment_notes_detail.member_id >=", value, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdLessThan(String value) {
+            addCriterion("temp_repayment_notes_detail.member_id <", value, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdLessThanOrEqualTo(String value) {
+            addCriterion("temp_repayment_notes_detail.member_id <=", value, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdLike(String value) {
+            addCriterion("temp_repayment_notes_detail.member_id like", value, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdNotLike(String value) {
+            addCriterion("temp_repayment_notes_detail.member_id not like", value, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdIn(List<String> values) {
+            addCriterion("temp_repayment_notes_detail.member_id in", values, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdNotIn(List<String> values) {
+            addCriterion("temp_repayment_notes_detail.member_id not in", values, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdBetween(String value1, String value2) {
+            addCriterion("temp_repayment_notes_detail.member_id between", value1, value2, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdNotBetween(String value1, String value2) {
+            addCriterion("temp_repayment_notes_detail.member_id not between", value1, value2, "memberId");
+            return (Criteria) this;
+        }
+
         public Criteria andNumberPeriodIsNull() {
             addCriterion("temp_repayment_notes_detail.number_period is null");
             return (Criteria) this;
@@ -935,52 +1005,62 @@ public class RepaymentNotesDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andOverdueDaysEqualTo(Date value) {
+        public Criteria andOverdueDaysEqualTo(String value) {
             addCriterion("temp_repayment_notes_detail.overdue_days =", value, "overdueDays");
             return (Criteria) this;
         }
 
-        public Criteria andOverdueDaysNotEqualTo(Date value) {
+        public Criteria andOverdueDaysNotEqualTo(String value) {
             addCriterion("temp_repayment_notes_detail.overdue_days <>", value, "overdueDays");
             return (Criteria) this;
         }
 
-        public Criteria andOverdueDaysGreaterThan(Date value) {
+        public Criteria andOverdueDaysGreaterThan(String value) {
             addCriterion("temp_repayment_notes_detail.overdue_days >", value, "overdueDays");
             return (Criteria) this;
         }
 
-        public Criteria andOverdueDaysGreaterThanOrEqualTo(Date value) {
+        public Criteria andOverdueDaysGreaterThanOrEqualTo(String value) {
             addCriterion("temp_repayment_notes_detail.overdue_days >=", value, "overdueDays");
             return (Criteria) this;
         }
 
-        public Criteria andOverdueDaysLessThan(Date value) {
+        public Criteria andOverdueDaysLessThan(String value) {
             addCriterion("temp_repayment_notes_detail.overdue_days <", value, "overdueDays");
             return (Criteria) this;
         }
 
-        public Criteria andOverdueDaysLessThanOrEqualTo(Date value) {
+        public Criteria andOverdueDaysLessThanOrEqualTo(String value) {
             addCriterion("temp_repayment_notes_detail.overdue_days <=", value, "overdueDays");
             return (Criteria) this;
         }
 
-        public Criteria andOverdueDaysIn(List<Date> values) {
+        public Criteria andOverdueDaysLike(String value) {
+            addCriterion("temp_repayment_notes_detail.overdue_days like", value, "overdueDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueDaysNotLike(String value) {
+            addCriterion("temp_repayment_notes_detail.overdue_days not like", value, "overdueDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueDaysIn(List<String> values) {
             addCriterion("temp_repayment_notes_detail.overdue_days in", values, "overdueDays");
             return (Criteria) this;
         }
 
-        public Criteria andOverdueDaysNotIn(List<Date> values) {
+        public Criteria andOverdueDaysNotIn(List<String> values) {
             addCriterion("temp_repayment_notes_detail.overdue_days not in", values, "overdueDays");
             return (Criteria) this;
         }
 
-        public Criteria andOverdueDaysBetween(Date value1, Date value2) {
+        public Criteria andOverdueDaysBetween(String value1, String value2) {
             addCriterion("temp_repayment_notes_detail.overdue_days between", value1, value2, "overdueDays");
             return (Criteria) this;
         }
 
-        public Criteria andOverdueDaysNotBetween(Date value1, Date value2) {
+        public Criteria andOverdueDaysNotBetween(String value1, String value2) {
             addCriterion("temp_repayment_notes_detail.overdue_days not between", value1, value2, "overdueDays");
             return (Criteria) this;
         }

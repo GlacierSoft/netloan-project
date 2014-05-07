@@ -70,6 +70,16 @@ public class MemberApplyAmountController extends AbstractController{
     
     
     // 增加会员申请额度
+    /**
+     * @Title: addApplyAmountReception 
+     * @Description: TODO(增加会员申请额度) 
+     * @param  @param applyAmount
+     * @param  @param bindingResult
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *和MemberController的intoMemberAuth关联
+     */
     @RequestMapping(value = "/add.htm", method = RequestMethod.POST)
     @ResponseBody
     private Object addApplyAmountReception(@Valid MemberApplyAmount applyAmount, BindingResult bindingResult) {

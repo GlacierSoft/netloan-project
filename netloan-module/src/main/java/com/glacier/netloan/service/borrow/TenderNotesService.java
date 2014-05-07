@@ -16,6 +16,7 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.TenderNotesMapper;
+import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.entity.borrow.TenderNotesExample;
 import com.glacier.netloan.entity.member.Member;
@@ -33,6 +34,9 @@ import com.glacier.netloan.util.MethodLog;
 public class TenderNotesService {
 	@Autowired
 	private TenderNotesMapper tenderNotesMapper;
+	
+	@Autowired
+	private BorrowingLoanService borrowingLoanService;
 	
 	/**
 	 * @Title: getTenderNotes 
@@ -179,6 +183,21 @@ public class TenderNotesService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         if (tenderNotesIds.size() > 0) {
+        	BorrowingLoan borrowingLoan = (BorrowingLoan) borrowingLoanService.getBorrowingLoan(tenderNotesMapper.selectByPrimaryKey(tenderNotesIds.get(0)).getLoanId());
+        	for(String tenderNotesId : tenderNotesIds){
+        		TenderNotes tenderNotes = tenderNotesMapper.selectByPrimaryKey(tenderNotesId);
+        		if(borrowingLoan.getSubTotal() == 0.0){
+        			float alrTenderPro = (borrowingLoan.getAlrBidMoney()-tenderNotes.getTenderMoney())/borrowingLoan.getLoanTotal();
+        			borrowingLoan.setAlrTenderPro(alrTenderPro);//更新投标比例	
+        			borrowingLoan.setAlrBidMoney(borrowingLoan.getAlrBidMoney()-tenderNotes.getTenderMoney());//更新已投标的金额
+        		}else{
+        			float alrSubSum = borrowingLoan.getAlrSubSum()-tenderNotes.getSubSum();//更新已投份数
+        			borrowingLoan.setAlrSubSum(alrSubSum);//更新借款数据中的已认购份数
+        			borrowingLoan.setAlrTenderPro(alrSubSum/borrowingLoan.getSubTotal());//更新投标比例
+        		}
+        			borrowingLoan.setTenderSum(borrowingLoan.getTenderSum()-1);//更新借款数据中的投标数量
+        	}
+        	borrowingLoanService.editBorrowingLoan(borrowingLoan);//删除投标记录，会相对应的更新借款数据
         	TenderNotesExample tenderNotesExample = new TenderNotesExample();
         	tenderNotesExample.createCriteria().andTenderNotesIdIn(tenderNotesIds);
             count = tenderNotesMapper.deleteByExample(tenderNotesExample);
