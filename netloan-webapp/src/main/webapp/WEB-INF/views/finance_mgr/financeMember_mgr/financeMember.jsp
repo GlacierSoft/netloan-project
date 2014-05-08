@@ -37,14 +37,14 @@
 				title:'ID',
 				checkbox:true
 			},{
-				field:'bankCardDisplay',
-				title:'银行卡Id',
-				width:150,
+				field:'memberDisplay',
+				title:'会员名称',
+				width:120,
 				sortable:true
 			},{
-				field:'memberDisplay',
-				title:'会员Id',
-				width:150,
+				field:'bankCardDisplay',
+				title:'银行卡名称',
+				width:120,
 				sortable:true
 			},{
 				field:'usableMoney',
@@ -168,9 +168,9 @@
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
 				title: rowData.financeMemberCode,
-				href : ctx + '/do/financeMember/intoDetail.htm?financeFinanceMemberId='+rowData.financeFinanceMemberId,//从controller请求jsp页面进行渲染
-				width : 580,
-				height : 400,
+				href : ctx + '/do/financeMember/intoDetail.htm?financeMemberId='+rowData.financeMemberId,//从controller请求jsp页面进行渲染
+				width : 620,
+				height : 430,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -189,80 +189,6 @@
 				glacier.finance_mgr.financeMember_mgr.financeMember.financeMemberDataGrid.datagrid('reload');
 			}
 		});
-	};
-	//点击编辑按钮触发方法
-	glacier.finance_mgr.financeMember_mgr.financeMember.editFinanceMember = function(){
-		var row = glacier.finance_mgr.financeMember_mgr.financeMember.financeMemberDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.financeMemberName+'】',
-			width : 450,
-			height : 330,
-			queryUrl : ctx + '/do/financeMember/intoForm.htm',
-			submitUrl : ctx + '/do/financeMember/edit.json',
-			queryParams : {
-				financeFinanceMemberId : row.financeFinanceMemberId
-			},
-			successFun : function (){
-				glacier.finance_mgr.financeMember_mgr.financeMember.financeMemberDataGrid.datagrid('reload');
-			}
-		});
-	};
-	//点击审核按钮触发方法
-	glacier.finance_mgr.financeMember_mgr.financeMember.auditFinanceMember = function(){
-		var row = glacier.finance_mgr.financeMember_mgr.financeMember.financeMemberDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '审核【'+row.financeMemberName+'】',
-			width : 580,
-			height : 500,
-			queryUrl : ctx + '/do/financeMember/intoAudit.htm',
-			submitUrl : ctx + '/do/financeMember/audit.json',
-			queryParams : {
-				financeFinanceMemberId : row.financeFinanceMemberId
-			},
-			successFun : function (){
-				glacier.finance_mgr.financeMember_mgr.financeMember.financeMemberDataGrid.datagrid('reload');
-			}
-		});
-	};
-	//点击删除按钮触发方法
-	glacier.finance_mgr.financeMember_mgr.financeMember.delFinanceMember = function(){
-		var rows = glacier.finance_mgr.financeMember_mgr.financeMember.financeMemberDataGrid.datagrid("getChecked");
-		var financeFinanceMemberIds = [];//删除的id标识
-		var financeMemberNames = [];//公告主题
-		for(var i=0;i<rows.length;i++){
-			financeFinanceMemberIds.push(rows[i].financeFinanceMemberId);
-			financeMemberNames.push(rows[i].financeMemberName);
-		}
-		if(financeFinanceMemberIds.length > 0){
-			$.messager.confirm('请确认', '是否要删除该记录', function(r){
-				if (r){
-					$.ajax({
-						   type: "POST",
-						   url: ctx + '/do/financeMember/del.json',
-						   data: {financeFinanceMemberIds:financeFinanceMemberIds.join(','),financeMemberNames:financeMemberNames.join(',')},
-						   dataType:'json',
-						   success: function(r){
-							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
-								   $.messager.show({
-										title:'提示',
-										timeout:3000,
-										msg:r.msg
-									});
-								   glacier.finance_mgr.financeMember_mgr.financeMember.financeMemberDataGrid.datagrid('reload');
-							   }else{
-									$.messager.show({//后台验证弹出错误提示信息框
-										title:'错误提示',
-										width:380,
-										height:120,
-										msg: '<span style="color:red">'+r.msg+'<span>',
-										timeout:4500
-									});
-								}
-						   }
-					});
-				}
-			});
-		}
 	};
 	//会员提现记录资料模糊查询
 	glacier.finance_mgr.financeMember_mgr.financeMember.quickquery = function(value,name){
