@@ -37,12 +37,12 @@
 				title:'ID',
 				checkbox:true
 			},{
-				field:'bankCardId',
+				field:'bankCardDisplay',
 				title:'银行卡Id',
 				width:150,
 				sortable:true
 			},{
-				field:'memberId',
+				field:'memberDisplay',
 				title:'会员Id',
 				width:150,
 				sortable:true
@@ -117,7 +117,7 @@
 				sortable:true,
 				width:100
 			},{
-				field:'creater',
+				field:'createrDisplay',
 				title:'创建人',
 				sortable:true,
 				width:100
@@ -127,7 +127,7 @@
 				sortable:true,
 				width:200
 			},{
-				field:'updater',
+				field:'updaterDisplay',
 				title:'更新人',
 				sortable:true,
 				width:100

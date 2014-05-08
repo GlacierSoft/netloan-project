@@ -23,6 +23,10 @@
     <result column="temp_finance_member_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_finance_member_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finance_member_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_finance_member_member_display" property="memberDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_finance_member_bank_card_display" property="bankCardDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_finance_member_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_finance_member_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -95,6 +99,17 @@
     temp_finance_member.remark as temp_finance_member_remark, temp_finance_member.creater as temp_finance_member_creater, 
     temp_finance_member.create_time as temp_finance_member_create_time, temp_finance_member.updater as temp_finance_member_updater, 
     temp_finance_member.update_time as temp_finance_member_update_time
+    <!-- 以下字段属于扩展 -->
+  	,temp_member.member_real_name as temp_finance_member_member_display
+    ,temp_bank_card.opening_bank as temp_finance_member_bank_card_display
+    ,temp_creater.user_cn_name as temp_finance_member_creater_display
+    ,temp_updater.user_cn_name as temp_finance_member_updater_display
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_member temp_member ON temp_member.member_id = temp_finance_member.member_id <!-- 扩展 -->
+  	LEFT JOIN t_finance_bank_card temp_bank_card ON temp_bank_card.bank_card_id = temp_finance_member.bank_card_id <!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_finance_member.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_finance_member.updater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.finance.FinanceMemberExample" >
     select
@@ -103,6 +118,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_finance_member temp_finance_member
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -117,6 +133,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_finance_member temp_finance_member
+    <include refid="Base_extend" />
     where temp_finance_member.finance_member_id = #{financeMemberId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -124,7 +141,7 @@
     where finance_member_id = #{financeMemberId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.finance.FinanceMemberExample" >
-    delete from t_finance_member temp_finance_member
+    delete temp_finance_member from t_finance_member temp_finance_member
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -282,6 +299,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.finance.FinanceMemberExample" resultType="java.lang.Integer" >
     select count(*) from t_finance_member temp_finance_member
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

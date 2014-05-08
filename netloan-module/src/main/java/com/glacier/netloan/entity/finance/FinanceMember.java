@@ -2,13 +2,25 @@ package com.glacier.netloan.entity.finance;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class FinanceMember {
     private String financeMemberId;
 
     private String bankCardId;
 
+    /**
+     * 自定义字段，显示银行卡真实姓名
+     */
+    private String bankCardDisplay;
+    
     private String memberId;
 
+    /**
+     * 自定义字段，显示充值会员真实姓名
+     */
+    private String memberDisplay;
+    
     private Float usableMoney;
 
     private Float frozenMoney;
@@ -38,11 +50,23 @@ public class FinanceMember {
     private String remark;
 
     private String creater;
+    
+    /**
+     * 自定义字段，显示审核人真实姓名
+     */
+    private String createrDisplay;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    /**
+     * 自定义字段，显示更新人真实姓名
+     */
+    private String updaterDisplay;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getFinanceMemberId() {
@@ -213,7 +237,39 @@ public class FinanceMember {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public String getBankCardDisplay() {
+		return bankCardDisplay;
+	}
+
+	public void setBankCardDisplay(String bankCardDisplay) {
+		this.bankCardDisplay = bankCardDisplay;
+	}
+
+	public String getMemberDisplay() {
+		return memberDisplay;
+	}
+
+	public void setMemberDisplay(String memberDisplay) {
+		this.memberDisplay = memberDisplay;
+	}
+
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
