@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.borrow.ReceivablesNotes" >
     <id column="temp_receivables_notes_rece_notes_id" property="receNotesId" jdbcType="VARCHAR" />
     <result column="temp_receivables_notes_tender_notes_id" property="tenderNotesId" jdbcType="VARCHAR" />
+    <result column="temp_receivables_notes_member_id" property="memberId" jdbcType="VARCHAR" />
     <result column="temp_receivables_notes_receivables_total" property="receivablesTotal" jdbcType="REAL" />
     <result column="temp_receivables_notes_should_rece_money" property="shouldReceMoney" jdbcType="REAL" />
     <result column="temp_receivables_notes_alr_rece_money" property="alrReceMoney" jdbcType="REAL" />
@@ -76,7 +77,7 @@
   </sql>
   <sql id="Base_Column_List" >
     temp_receivables_notes.rece_notes_id as temp_receivables_notes_rece_notes_id, temp_receivables_notes.tender_notes_id as temp_receivables_notes_tender_notes_id, 
-    temp_receivables_notes.receivables_total as temp_receivables_notes_receivables_total, 
+    temp_receivables_notes.member_id as temp_receivables_notes_member_id, temp_receivables_notes.receivables_total as temp_receivables_notes_receivables_total, 
     temp_receivables_notes.should_rece_money as temp_receivables_notes_should_rece_money, 
     temp_receivables_notes.alr_rece_money as temp_receivables_notes_alr_rece_money, temp_receivables_notes.not_rece_money as temp_receivables_notes_not_rece_money, 
     temp_receivables_notes.alr_overdue_interest as temp_receivables_notes_alr_overdue_interest, 
@@ -118,16 +119,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotes" >
-    insert into t_receivables_notes (rece_notes_id, tender_notes_id, receivables_total, 
-      should_rece_money, alr_rece_money, not_rece_money, 
-      alr_overdue_interest, rece_state, remark, 
-      creater, create_time, updater, 
-      update_time)
-    values (#{receNotesId,jdbcType=VARCHAR}, #{tenderNotesId,jdbcType=VARCHAR}, #{receivablesTotal,jdbcType=REAL}, 
-      #{shouldReceMoney,jdbcType=REAL}, #{alrReceMoney,jdbcType=REAL}, #{notReceMoney,jdbcType=REAL}, 
-      #{alrOverdueInterest,jdbcType=REAL}, #{receState,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, 
-      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+    insert into t_receivables_notes (rece_notes_id, tender_notes_id, member_id, 
+      receivables_total, should_rece_money, alr_rece_money, 
+      not_rece_money, alr_overdue_interest, rece_state, 
+      remark, creater, create_time, 
+      updater, update_time)
+    values (#{receNotesId,jdbcType=VARCHAR}, #{tenderNotesId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
+      #{receivablesTotal,jdbcType=REAL}, #{shouldReceMoney,jdbcType=REAL}, #{alrReceMoney,jdbcType=REAL}, 
+      #{notReceMoney,jdbcType=REAL}, #{alrOverdueInterest,jdbcType=REAL}, #{receState,jdbcType=CHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotes" >
     insert into t_receivables_notes
@@ -137,6 +138,9 @@
       </if>
       <if test="tenderNotesId != null" >
         tender_notes_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
       </if>
       <if test="receivablesTotal != null" >
         receivables_total,
@@ -178,6 +182,9 @@
       </if>
       <if test="tenderNotesId != null" >
         #{tenderNotesId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
       </if>
       <if test="receivablesTotal != null" >
         #{receivablesTotal,jdbcType=REAL},
@@ -229,6 +236,9 @@
       <if test="record.tenderNotesId != null" >
         temp_receivables_notes.tender_notes_id = #{record.tenderNotesId,jdbcType=VARCHAR},
       </if>
+      <if test="record.memberId != null" >
+        temp_receivables_notes.member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
       <if test="record.receivablesTotal != null" >
         temp_receivables_notes.receivables_total = #{record.receivablesTotal,jdbcType=REAL},
       </if>
@@ -271,6 +281,7 @@
     update t_receivables_notes temp_receivables_notes
     set temp_receivables_notes.rece_notes_id = #{record.receNotesId,jdbcType=VARCHAR},
       temp_receivables_notes.tender_notes_id = #{record.tenderNotesId,jdbcType=VARCHAR},
+      temp_receivables_notes.member_id = #{record.memberId,jdbcType=VARCHAR},
       temp_receivables_notes.receivables_total = #{record.receivablesTotal,jdbcType=REAL},
       temp_receivables_notes.should_rece_money = #{record.shouldReceMoney,jdbcType=REAL},
       temp_receivables_notes.alr_rece_money = #{record.alrReceMoney,jdbcType=REAL},
@@ -291,6 +302,9 @@
     <set >
       <if test="tenderNotesId != null" >
         tender_notes_id = #{tenderNotesId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
       </if>
       <if test="receivablesTotal != null" >
         receivables_total = #{receivablesTotal,jdbcType=REAL},
@@ -331,6 +345,7 @@
   <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotes" >
     update t_receivables_notes
     set tender_notes_id = #{tenderNotesId,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=VARCHAR},
       receivables_total = #{receivablesTotal,jdbcType=REAL},
       should_rece_money = #{shouldReceMoney,jdbcType=REAL},
       alr_rece_money = #{alrReceMoney,jdbcType=REAL},

@@ -12,10 +12,13 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
+import com.glacier.netloan.entity.borrow.RepaymentNotes;
 import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.borrow.LoanReviewService;
 import com.glacier.netloan.service.borrow.LoanTenderService;
+import com.glacier.netloan.service.borrow.RepaymentNotesDetailService;
+import com.glacier.netloan.service.borrow.RepaymentNotesService;
 import com.glacier.netloan.service.borrow.RepaymentTypeService;
 import com.glacier.netloan.service.borrow.TenderNotesService;
 import com.glacier.netloan.service.member.MemberAuthService;
@@ -51,6 +54,12 @@ public class TenderNotesController {
 	
 	@Autowired
 	private TenderNotesService tenderNotesService;
+	
+	@Autowired
+	private RepaymentNotesService repaymentNotesService;
+	
+	@Autowired
+	private RepaymentNotesDetailService repaymentNotesDetailService;
 	
 	@RequestMapping(value="/index.htm")
 	private Object intoInvestment(JqPager jqPager,int p,BorrowingLoanQueryDTO borrowingLoanQueryDTO,String pagetype,HttpServletRequest request){
@@ -135,38 +144,12 @@ public class TenderNotesController {
 	private Object addInvestment(TenderNotes tenderNotes,HttpServletRequest request){
 		tenderNotesService.addTenderNotes(tenderNotes);//添加投标记录
 		BorrowingLoan borrowingLoan = (BorrowingLoan) borrowingLoanService.getBorrowingLoan(tenderNotes.getLoanId());//获取所投标的借款数据
-		if(borrowingLoan.getSubTotal() == 0.0){
-			if(borrowingLoan.getAlrBidMoney() == null){
-				float alrTenderPro = tenderNotes.getTenderMoney()/borrowingLoan.getLoanTotal();
-				borrowingLoan.setAlrTenderPro(alrTenderPro);//更新投标比例
-			}else{
-				float alrTenderPro = (borrowingLoan.getAlrBidMoney()+tenderNotes.getTenderMoney())/borrowingLoan.getLoanTotal();
-				borrowingLoan.setAlrTenderPro(alrTenderPro);//更新投标比例	
-			}
-			borrowingLoan.setAlrBidMoney(borrowingLoan.getAlrBidMoney()+tenderNotes.getTenderMoney());//更新已投标的金额
-		}else{
-			float alrSubSum = 0f;
-			if(borrowingLoan.getAlrSubSum() == null){
-				alrSubSum = tenderNotes.getSubSum();//更新已投份数
-			}else{
-				alrSubSum = borrowingLoan.getAlrSubSum()+tenderNotes.getSubSum();//更新已投份数
-			}
-			borrowingLoan.setAlrSubSum(alrSubSum);//更新借款数据中的已认购份数
-			borrowingLoan.setAlrTenderPro(alrSubSum/borrowingLoan.getSubTotal());//更新投标比例
-		}
-		if(borrowingLoan.getTenderSum() == null){
-			borrowingLoan.setTenderSum(1f);
-		}else{
-			borrowingLoan.setTenderSum(borrowingLoan.getTenderSum()+1);//更新借款数据中的投标数量
-		}
-		borrowingLoanService.editBorrowingLoan(borrowingLoan);//更新借款中相对应的数据
-		BorrowingLoan borrowingLoanNew = (BorrowingLoan)borrowingLoanService.getBorrowingLoan(tenderNotes.getLoanId());//重新获取该会员 借款的信息数据
-		if(borrowingLoanNew.getAlrTenderPro() == 1.0){
-			
-		}
+		borrowingLoanService.editBorrowingLoan(borrowingLoan,tenderNotes);//更新借款中相对应的数据
+		
+		
 		request.setAttribute("borrowingMember", memberService.getMember(tenderNotes.getMemberId()));//获取该会员 信息数据
 		request.setAttribute("borrowingMemberWork", memberService.getMemberWork(tenderNotes.getMemberId()));//获取该会员 信息数据
-		request.setAttribute("borrowingLoan", borrowingLoanNew);//获取该会员 借款的信息数据
+		request.setAttribute("borrowingLoan", borrowingLoanService.getBorrowingLoan(tenderNotes.getLoanId()));//获取该会员 借款的信息数据
 		request.setAttribute("memberAuthWithBLOBs", memberAuthService.getMemberAuth(tenderNotes.getMemberId()));//获取该会员 的认证数据
 		JqPager jqPager = new JqPager();
 		request.setAttribute("loanReviewDatas", loanReviewService.listAsGridWebsite(jqPager, 1,tenderNotes.getLoanId()));//获取借款留言列表

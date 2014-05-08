@@ -15,10 +15,13 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.RepaymentNotesMapper;
+import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.RepaymentNotes;
 import com.glacier.netloan.entity.borrow.RepaymentNotesExample;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -35,7 +38,7 @@ public class RepaymentNotesService {
 	private RepaymentNotesMapper repaymentNotesMapper;
 	
 	@Autowired
-	private BorrowingLoanService borrowingLoanService;
+	private BorrowingLoanMapper borrowingLoanMapper;
 	
 	/**
 	 * @Title: getRepaymentNotes 
@@ -120,24 +123,46 @@ public class RepaymentNotesService {
      * @throws
      */
     @Transactional(readOnly = false)
+    @MethodLog(opera = "RepaymentNotesList_add")
     public Object addRepaymentNotes(RepaymentNotes repaymentNotes) {
     	
         Subject pricipalSubject = SecurityUtils.getSubject();
-        Member pricipalMember = (Member) pricipalSubject.getPrincipal();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
         
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
+        float shouldPayMoney = 0f;
+        BorrowingLoan borrowingLoanNew = (BorrowingLoan)borrowingLoanMapper.selectByPrimaryKey(repaymentNotes.getLoanId());//重新获取该会员 借款的信息数据
+		
+		if(borrowingLoanNew.getRepaymentTypeDisplay().equals("等额本息")){
+			float everyMonthMoney = (borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/100/12) * (1 + borrowingLoanNew.getLoanApr()/100/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))/(1 + borrowingLoanNew.getLoanApr()/100/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())-1;
+			shouldPayMoney = everyMonthMoney * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId());
+		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("按月付息，到期还本")){
+			float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/100/12);
+			shouldPayMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + borrowingLoanNew.getLoanTotal();
+		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("一次性还款")){
+			float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/100/12);
+			shouldPayMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + borrowingLoanNew.getLoanTotal();
+		}
+		repaymentNotes.setShouldPayMoney(shouldPayMoney);//设置应还本息
+		repaymentNotes.setRepaymentTotal(shouldPayMoney);//设置还款总金额
+		repaymentNotes.setNotPayMoney(shouldPayMoney);//设置未还本息
+		repaymentNotes.setLoanId(borrowingLoanNew.getLoanId());//设置借款id
+		repaymentNotes.setMemberId(borrowingLoanNew.getMemberId());//设置还款人id
         repaymentNotes.setRepayNotesId(RandomGUID.getRandomGUID());
         repaymentNotes.setAlrPayMoney(0f);
         repaymentNotes.setAlrOverdueInterest(0f);
         repaymentNotes.setAlrOverdueMana(0f);
         repaymentNotes.setAlrOverdueUrge(0f);
         repaymentNotes.setRepayState("repaying");//设置还款记录表状态为“还款中”
-        repaymentNotes.setCreater(pricipalMember.getMemberId());
+        repaymentNotes.setCreater(pricipalUser.getUserId());
         repaymentNotes.setCreateTime(new Date());
+        repaymentNotes.setUpdater(pricipalUser.getUserId());
+        repaymentNotes.setUpdateTime(new Date());
         count = repaymentNotesMapper.insert(repaymentNotes);
         if (count == 1) {
             returnResult.setSuccess(true);
+            returnResult.setObj(repaymentNotes);
             returnResult.setMsg(" 还款记录信息已保存");
         } else {
             returnResult.setMsg("发生未知错误，还款记录信息保存失败");

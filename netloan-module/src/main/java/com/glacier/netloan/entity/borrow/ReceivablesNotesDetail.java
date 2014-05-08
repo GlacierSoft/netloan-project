@@ -7,6 +7,8 @@ public class ReceivablesNotesDetail {
 
     private String receNotesId;
 
+    private String memberId;
+
     private Float alrReceMoney;
 
     private String numberPeriod;
@@ -59,6 +61,14 @@ public class ReceivablesNotesDetail {
 
     public void setReceNotesId(String receNotesId) {
         this.receNotesId = receNotesId;
+    }
+
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
     }
 
     public Float getAlrReceMoney() {
@@ -227,6 +237,7 @@ public class ReceivablesNotesDetail {
         ReceivablesNotesDetail other = (ReceivablesNotesDetail) that;
         return (this.getReceNotesDetailId() == null ? other.getReceNotesDetailId() == null : this.getReceNotesDetailId().equals(other.getReceNotesDetailId()))
             && (this.getReceNotesId() == null ? other.getReceNotesId() == null : this.getReceNotesId().equals(other.getReceNotesId()))
+            && (this.getMemberId() == null ? other.getMemberId() == null : this.getMemberId().equals(other.getMemberId()))
             && (this.getAlrReceMoney() == null ? other.getAlrReceMoney() == null : this.getAlrReceMoney().equals(other.getAlrReceMoney()))
             && (this.getNumberPeriod() == null ? other.getNumberPeriod() == null : this.getNumberPeriod().equals(other.getNumberPeriod()))
             && (this.getShouldPayDate() == null ? other.getShouldPayDate() == null : this.getShouldPayDate().equals(other.getShouldPayDate()))
@@ -254,6 +265,7 @@ public class ReceivablesNotesDetail {
         int result = 1;
         result = prime * result + ((getReceNotesDetailId() == null) ? 0 : getReceNotesDetailId().hashCode());
         result = prime * result + ((getReceNotesId() == null) ? 0 : getReceNotesId().hashCode());
+        result = prime * result + ((getMemberId() == null) ? 0 : getMemberId().hashCode());
         result = prime * result + ((getAlrReceMoney() == null) ? 0 : getAlrReceMoney().hashCode());
         result = prime * result + ((getNumberPeriod() == null) ? 0 : getNumberPeriod().hashCode());
         result = prime * result + ((getShouldPayDate() == null) ? 0 : getShouldPayDate().hashCode());

@@ -1,5 +1,6 @@
 package com.glacier.netloan.service.borrow;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -15,10 +16,14 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.RepaymentNotesDetailMapper;
+import com.glacier.netloan.entity.borrow.BorrowingLoan;
+import com.glacier.netloan.entity.borrow.RepaymentNotes;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetail;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetailExample;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -35,7 +40,7 @@ public class RepaymentNotesDetailService {
 	private RepaymentNotesDetailMapper repaymentNotesDetailMapper;
 	
 	@Autowired
-	private BorrowingLoanService borrowingLoanService;
+	private BorrowingLoanMapper borrowingLoanMapper;
 	
 	/**
 	 * @Title: getRepaymentNotesDetail 
@@ -125,25 +130,62 @@ public class RepaymentNotesDetailService {
      * @throws
      */
     @Transactional(readOnly = false)
-    public Object addRepaymentNotesDetail(RepaymentNotesDetail repaymentNotesDetail) {
+    @MethodLog(opera = "RepaymentNotesDetailList_add")
+    public Object addRepaymentNotesDetail(RepaymentNotesDetail repaymentNotesDetail,RepaymentNotes repaymentNotesNew) {
     	
         Subject pricipalSubject = SecurityUtils.getSubject();
-        Member pricipalMember = (Member) pricipalSubject.getPrincipal();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
         
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
-        repaymentNotesDetail.setRepayNotesId(RandomGUID.getRandomGUID());
-        repaymentNotesDetail.setActualPayMoney(0f);
-        repaymentNotesDetail.setOverdueDays("0");
-        repaymentNotesDetail.setOverdueInterest(0f);
-        repaymentNotesDetail.setOverdueManaFee(0f);
-        repaymentNotesDetail.setOverdueUrgeFee(0f);
-        repaymentNotesDetail.setIsAdvances("no");//设置是否网站代还
-        repaymentNotesDetail.setIsOverdue("no");//设置是否逾期
-        repaymentNotesDetail.setRepayState("repaying");//设置还款记录明细表状态为“还款中”
-        repaymentNotesDetail.setCreater(pricipalMember.getMemberId());
-        repaymentNotesDetail.setCreateTime(new Date());
-        count = repaymentNotesDetailMapper.insert(repaymentNotesDetail);
+        BorrowingLoan borrowingLoanNew = (BorrowingLoan) borrowingLoanMapper.selectByPrimaryKey(repaymentNotesNew.getLoanId());
+        
+        for(int i = 0;i < Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId());i++){
+        	repaymentNotesDetail.setNumberPeriod((float) (i+1));//设置当前是第几期
+        	Calendar c = Calendar.getInstance();//日历对象
+ 	        c.setTime(new Date());//获取当前时间
+ 	        c.add(Calendar.MONTH, i+1);//在当前时间上加一个月
+        	repaymentNotesDetail.setShouldPayDate(c.getTime());//设置应还款日期
+        	//满标进行二次审核时，同时生成还款记录和还款记录明细和收款记录和收款记录明细等数据
+    		if(borrowingLoanNew.getRepaymentTypeDisplay().equals("等额本息")){
+    			float everyMonthMoney = (borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/100/12) * (1 + borrowingLoanNew.getLoanApr()/100/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))/(1 + borrowingLoanNew.getLoanApr()/100/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())-1;
+    			repaymentNotesDetail.setCurrentPayMoeny(everyMonthMoney);//设置当期应还本息
+    		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("按月付息，到期还本")){
+    			float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/100/12);
+    			if(Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId()) == i+1){//判断是否是最后一期
+    				float shouldPayMoney = everyMonthInterest + borrowingLoanNew.getLoanTotal();
+    				repaymentNotesDetail.setCurrentPayMoeny(shouldPayMoney);//设置当期应还本息
+        			repaymentNotesDetail.setCurrentPayInterest(everyMonthInterest);//设置当期应还利息
+    			}else{
+    				repaymentNotesDetail.setCurrentPayMoeny(everyMonthInterest);//设置当期应还本息
+        			repaymentNotesDetail.setCurrentPayInterest(everyMonthInterest);//设置当期应还利息
+    			}
+    		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("一次性还款")){
+    			if(Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId()) == i+1){//判断是否是最后一期
+    				float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/100/12);
+        			float shouldPayMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + borrowingLoanNew.getLoanTotal();
+    				repaymentNotesDetail.setCurrentPayMoeny(shouldPayMoney);//设置当期应还本息
+        			repaymentNotesDetail.setCurrentPayInterest(everyMonthInterest);//设置当期应还利息
+    			}
+    		}
+    		repaymentNotesDetail.setRepayNotesDetailId(RandomGUID.getRandomGUID());
+    		repaymentNotesDetail.setMemberId(borrowingLoanNew.getMemberId());
+            repaymentNotesDetail.setActualPayMoney(0f);
+            repaymentNotesDetail.setAlsoNeedMoney(0f);
+            repaymentNotesDetail.setOverdueDays("0");
+            repaymentNotesDetail.setOverdueInterest(0f);
+            repaymentNotesDetail.setOverdueManaFee(0f);
+            repaymentNotesDetail.setOverdueUrgeFee(0f);
+            repaymentNotesDetail.setIsAdvances("no");//设置是否网站代还
+            repaymentNotesDetail.setIsOverdue("no");//设置是否逾期
+            repaymentNotesDetail.setRepayState("notRepay");//设置还款记录明细表状态为“还款中”
+            repaymentNotesDetail.setCreater(pricipalUser.getUserId());
+            repaymentNotesDetail.setCreateTime(new Date());
+            repaymentNotesDetail.setUpdater(pricipalUser.getUserId());
+            repaymentNotesDetail.setUpdateTime(new Date());
+            count = repaymentNotesDetailMapper.insert(repaymentNotesDetail);
+        }
+        
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg(" 还款记录明细信息已保存");

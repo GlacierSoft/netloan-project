@@ -29,8 +29,13 @@ import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.BorrowingLoanExample;
 import com.glacier.netloan.entity.borrow.BorrowingLoanExample.Criteria;
+import com.glacier.netloan.entity.borrow.RepaymentNotes;
+import com.glacier.netloan.entity.borrow.RepaymentNotesDetail;
+import com.glacier.netloan.entity.borrow.TenderNotes;
+import com.glacier.netloan.entity.member.MemberMessageNotice;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
+import com.glacier.netloan.service.member.MemberMessageNoticeService;
 import com.glacier.netloan.util.MethodLog;
 
 /** 
@@ -52,6 +57,15 @@ public class BorrowingLoanService {
 	
 	@Autowired
 	private ParameterCreditService parameterCreditService;
+	
+	@Autowired
+	private RepaymentNotesService repaymentNotesService;
+	
+	@Autowired
+	private RepaymentNotesDetailService repaymentNotesDetailService;
+	
+	@Autowired
+	private MemberMessageNoticeService memberMessageNoticeService;
 	
 	/**
 	 * @Title: getBorrowingLoan 
@@ -224,16 +238,6 @@ public class BorrowingLoanService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
         int count = 0;
-        // 防止借款主题重复
-       /* borrowingLoanExample.createCriteria().andLoanIdNotEqualTo(borrowingLoan.getLoanId()).andLoanCodeEqualTo(borrowingLoan.getLoanCode());
-        count = borrowingLoanMapper.countByExample(borrowingLoanExample);// 查找相同编号的借款数量
-        if (count > 0) {
-            returnResult.setMsg("借款编号重复");
-            return returnResult;
-        }
-        Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
-        borrowingLoan.setUpdater(pricipalUser.getUserId());*/
         borrowingLoan.setUpdateTime(new Date());
         count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);
         if (count == 1) {
@@ -244,7 +248,56 @@ public class BorrowingLoanService {
         }
         return returnResult;
     }
-    
+    /**
+     * @Title: editBorrowingLoan 
+     * @Description: TODO(修改借款) 
+     * @param @param borrowingLoan
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    public Object editBorrowingLoan(BorrowingLoan borrowingLoan,TenderNotes tenderNotes) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
+        int count = 0;
+        if(borrowingLoan.getSubTotal() == 0.0){
+			if(borrowingLoan.getAlrBidMoney() == null){
+				float alrTenderPro = tenderNotes.getTenderMoney()/borrowingLoan.getLoanTotal();
+				borrowingLoan.setAlrTenderPro(alrTenderPro);//更新投标比例
+			}else{
+				float alrTenderPro = (borrowingLoan.getAlrBidMoney()+tenderNotes.getTenderMoney())/borrowingLoan.getLoanTotal();
+				borrowingLoan.setAlrTenderPro(alrTenderPro);//更新投标比例	
+			}
+			borrowingLoan.setAlrBidMoney(borrowingLoan.getAlrBidMoney()+tenderNotes.getTenderMoney());//更新已投标的金额
+		}else{
+			float alrSubSum = 0f;
+			if(borrowingLoan.getAlrSubSum() == null){
+				alrSubSum = tenderNotes.getSubSum();//更新已投份数
+			}else{
+				alrSubSum = borrowingLoan.getAlrSubSum()+tenderNotes.getSubSum();//更新已投份数
+			}
+			borrowingLoan.setAlrSubSum(alrSubSum);//更新借款数据中的已认购份数
+			borrowingLoan.setAlrTenderPro(alrSubSum/borrowingLoan.getSubTotal());//更新投标比例
+		}
+		if(borrowingLoan.getTenderSum() == null){
+			borrowingLoan.setTenderSum(1f);
+		}else{
+			borrowingLoan.setTenderSum(borrowingLoan.getTenderSum()+1);//更新借款数据中的投标数量
+		}
+		if(borrowingLoan.getAlrTenderPro() == 1.0){
+			borrowingLoan.setLoanState("secondAuditor");	
+		}
+        borrowingLoan.setUpdateTime(new Date());
+        count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("[" + borrowingLoan.getLoanCode() + "] 借款信息已修改");
+        } else {
+            returnResult.setMsg("发生未知错误，借款信息修改失败");
+        }
+        return returnResult;
+    }
     /**
      * @Title: firstAuditBorrowingLoan 
      * @Description: TODO(借款进行初审) 
@@ -258,6 +311,13 @@ public class BorrowingLoanService {
     public Object firstAuditBorrowingLoan(BorrowingLoan borrowingLoan) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
+        //借款初次审核站内信通知
+        MemberMessageNotice  memberMessageNotice = new MemberMessageNotice();
+        memberMessageNotice.setTitle("借款标题为："+borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId()).getLoanTitle()+",初次审核通知");
+        memberMessageNotice.setContent(borrowingLoan.getSecondMesNotice());
+        memberMessageNotice.setAddressee(borrowingLoan.getMemberId());
+        memberMessageNoticeService.addMemberMessageNotice(memberMessageNotice);
+        
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         borrowingLoan.setFirstAuditorId(pricipalUser.getUserId());
@@ -305,6 +365,13 @@ public class BorrowingLoanService {
     public Object secondAuditBorrowingLoan(BorrowingLoan borrowingLoan) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
+        //满标审核站内信通知
+        MemberMessageNotice  memberMessageNotice = new MemberMessageNotice();
+        memberMessageNotice.setTitle("借款标题为："+borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId()).getLoanTitle()+",满标审核通知");
+        memberMessageNotice.setContent(borrowingLoan.getSecondMesNotice());
+        memberMessageNotice.setAddressee(borrowingLoan.getMemberId());
+        memberMessageNoticeService.addMemberMessageNotice(memberMessageNotice);
+        
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         borrowingLoan.setSecondAuditorId(pricipalUser.getUserId());
@@ -327,6 +394,17 @@ public class BorrowingLoanService {
         	borrowingLoan.setIsBidPwd(null);
         }
         if ("secondSucess".equals(borrowingLoan.getSecondAuditState())) {//复审通过，借款状态改为还款中
+        	//满标进行二次审核时，同时生成还款记录和还款记录明细和收款记录和收款记录明细等数据
+        	//添加还款记录信息
+            RepaymentNotes repaymentNotes = new RepaymentNotes();
+          	repaymentNotes.setLoanId(borrowingLoan.getLoanId());
+          	JqReturnJson returnResultRepaymentNotes = (JqReturnJson) repaymentNotesService.addRepaymentNotes(repaymentNotes);
+          	RepaymentNotes repaymentNotesNew = (RepaymentNotes) returnResultRepaymentNotes.getObj();
+          	//添加还款记录明细信息
+          	RepaymentNotesDetail repaymentNotesDetail = new RepaymentNotesDetail();
+          	repaymentNotesDetail.setRepayNotesId(repaymentNotesNew.getRepayNotesId());
+          	repaymentNotesDetailService.addRepaymentNotesDetail(repaymentNotesDetail,repaymentNotesNew);
+          	
         	borrowingLoan.setLoanState("repaymenting");
         }
         count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);

@@ -7,6 +7,8 @@ public class ReceivablesNotes {
 
     private String tenderNotesId;
 
+    private String memberId;
+
     private Float receivablesTotal;
 
     private Float shouldReceMoney;
@@ -43,6 +45,14 @@ public class ReceivablesNotes {
 
     public void setTenderNotesId(String tenderNotesId) {
         this.tenderNotesId = tenderNotesId;
+    }
+
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
     }
 
     public Float getReceivablesTotal() {
@@ -147,6 +157,7 @@ public class ReceivablesNotes {
         ReceivablesNotes other = (ReceivablesNotes) that;
         return (this.getReceNotesId() == null ? other.getReceNotesId() == null : this.getReceNotesId().equals(other.getReceNotesId()))
             && (this.getTenderNotesId() == null ? other.getTenderNotesId() == null : this.getTenderNotesId().equals(other.getTenderNotesId()))
+            && (this.getMemberId() == null ? other.getMemberId() == null : this.getMemberId().equals(other.getMemberId()))
             && (this.getReceivablesTotal() == null ? other.getReceivablesTotal() == null : this.getReceivablesTotal().equals(other.getReceivablesTotal()))
             && (this.getShouldReceMoney() == null ? other.getShouldReceMoney() == null : this.getShouldReceMoney().equals(other.getShouldReceMoney()))
             && (this.getAlrReceMoney() == null ? other.getAlrReceMoney() == null : this.getAlrReceMoney().equals(other.getAlrReceMoney()))
@@ -166,6 +177,7 @@ public class ReceivablesNotes {
         int result = 1;
         result = prime * result + ((getReceNotesId() == null) ? 0 : getReceNotesId().hashCode());
         result = prime * result + ((getTenderNotesId() == null) ? 0 : getTenderNotesId().hashCode());
+        result = prime * result + ((getMemberId() == null) ? 0 : getMemberId().hashCode());
         result = prime * result + ((getReceivablesTotal() == null) ? 0 : getReceivablesTotal().hashCode());
         result = prime * result + ((getShouldReceMoney() == null) ? 0 : getShouldReceMoney().hashCode());
         result = prime * result + ((getAlrReceMoney() == null) ? 0 : getAlrReceMoney().hashCode());

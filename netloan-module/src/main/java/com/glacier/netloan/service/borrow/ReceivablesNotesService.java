@@ -1,0 +1,229 @@
+package com.glacier.netloan.service.borrow;
+
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.glacier.basic.util.RandomGUID;
+import com.glacier.jqueryui.util.JqGridReturn;
+import com.glacier.jqueryui.util.JqPager;
+import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
+import com.glacier.netloan.dao.borrow.ReceivablesNotesMapper;
+import com.glacier.netloan.dao.borrow.TenderNotesMapper;
+import com.glacier.netloan.entity.borrow.BorrowingLoan;
+import com.glacier.netloan.entity.borrow.ReceivablesNotes;
+import com.glacier.netloan.entity.borrow.ReceivablesNotesExample;
+import com.glacier.netloan.entity.borrow.TenderNotes;
+import com.glacier.netloan.entity.borrow.TenderNotesExample;
+import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.util.MethodLog;
+
+/**
+ * @ClassName: ReceivablesNotesService 
+ * @Description: TODO(收款记录业务层) 
+ * @author yuzexu
+ * @email 804346249@QQ.com
+ * @date 2014-5-8下午5:33:14
+ */
+@Service
+@Transactional(readOnly = true , propagation = Propagation.REQUIRED)
+public class ReceivablesNotesService {
+	@Autowired
+	private ReceivablesNotesMapper receivablesNotesMapper;
+	
+	@Autowired
+	private BorrowingLoanMapper borrowingLoanMapper;
+	
+	@Autowired
+	private TenderNotesMapper tenderNotesMapper;
+	
+	/**
+	 * @Title: getReceivablesNotes 
+	 * @Description: TODO(根据收款记录Id获取收款记录信息) 
+	 * @param @param receNotesId
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
+    public Object getReceivablesNotes(String receNotesId) {
+    	ReceivablesNotes receivablesNotes = receivablesNotesMapper.selectByPrimaryKey(receNotesId);
+        return receivablesNotes;
+    }
+    /**
+     * @Title: listAsGridWebsite 
+     * @Description: TODO(前台收款记录列表) 
+     * @param  @param jqPager
+     * @param  @param borrowingLoanQueryDTO
+     * @param  @param pagetype
+     * @param  @param p
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
+     */
+    public Object listAsGridWebsite(JqPager jqPager,int p,String memberId) {
+        
+        JqGridReturn returnResult = new JqGridReturn();
+        ReceivablesNotesExample receivablesNotesExample = new ReceivablesNotesExample();
+        receivablesNotesExample.createCriteria().andMemberIdEqualTo(memberId);//查询相对应的还款人的收款记录
+        
+        jqPager.setSort("createTime");// 定义排序字段
+        jqPager.setOrder("DESC");// 升序还是降序
+        if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
+        	receivablesNotesExample.setOrderByClause(jqPager.getOrderBy("temp_receivables_notes_"));
+        }
+        
+        int startTemp = ((p-1)*10);//根据前台返回的页数进行设置
+        receivablesNotesExample.setLimitStart(startTemp);
+        receivablesNotesExample.setLimitEnd(10);
+        List<ReceivablesNotes>  receivablesNotess = receivablesNotesMapper.selectByExample(receivablesNotesExample); // 查询所有借款列表
+
+        int total = receivablesNotesMapper.countByExample(receivablesNotesExample); // 查询总页数
+        returnResult.setRows(receivablesNotess);//设置查询数据
+        returnResult.setTotal(total);//设置总条数
+        returnResult.setP(p);//设置当前页
+        return returnResult;// 返回ExtGrid表
+    }
+    /**
+     * @Title: listAsGrid 
+     * @Description: TODO(获取所有收款记录信息) 
+     * @param @param pager
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    public Object listAsGrid(JqPager pager) {
+        
+        JqGridReturn returnResult = new JqGridReturn();
+        ReceivablesNotesExample receivablesNotesExample = new ReceivablesNotesExample();;
+
+        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
+        	receivablesNotesExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
+        	receivablesNotesExample.setLimitEnd(pager.getRows());
+        }
+        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
+        	receivablesNotesExample.setOrderByClause(pager.getOrderBy("temp_receivables_notes_"));
+        }
+        List<ReceivablesNotes>  receivablesNotess = receivablesNotesMapper.selectByExample(receivablesNotesExample); // 查询所有收款记录列表
+        int total = receivablesNotesMapper.countByExample(receivablesNotesExample); // 查询总页数
+        returnResult.setRows(receivablesNotess);
+        returnResult.setTotal(total);
+        return returnResult;// 返回ExtGrid表
+    }
+
+    /**
+     * @Title: addReceivablesNotes 
+     * @Description: TODO(新增收款记录) 
+     * @param @param receivablesNotes
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "ReceivablesNotesList_add")
+    public Object addReceivablesNotes(ReceivablesNotes receivablesNotes,BorrowingLoan borrowingLoan) {
+    	
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        float shouldPayMoney = 0f;
+        BorrowingLoan borrowingLoanNew = (BorrowingLoan)borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());//重新获取该会员 借款的信息数据
+        TenderNotesExample tenderNotesExample = new TenderNotesExample();;
+        tenderNotesExample.createCriteria().andLoanIdEqualTo(borrowingLoanNew.getLoanId());//查询相对应的投标的记录
+        List<TenderNotes> tenderNotess = tenderNotesMapper.selectByExample(tenderNotesExample);
+        for(TenderNotes tenderNotes : tenderNotess){
+        	receivablesNotes.setTenderNotesId(tenderNotes.getTenderNotesId());//设置投标id
+        	if(borrowingLoanNew.getSubTotal() == 0.0){//借款是以金额进行投资的
+        		if(borrowingLoanNew.getRepaymentTypeDisplay().equals("等额本息")){
+        			float everyMonthMoney = (borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/100/12) * (1 + borrowingLoanNew.getLoanApr()/100/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))/(1 + borrowingLoanNew.getLoanApr()/100/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())-1;
+        			shouldPayMoney = everyMonthMoney * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId());
+        		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("按月付息，到期还本")){
+        			float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/100/12);
+        			shouldPayMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + borrowingLoanNew.getLoanTotal();
+        		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("一次性还款")){
+        			float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/100/12);
+        			shouldPayMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + borrowingLoanNew.getLoanTotal();
+        		}
+        	}else{//借款是认购份数进行投资的
+        		
+        	}
+        	receivablesNotes.setReceState("receiving");//设置收款记录的状态为收款中，”未收“？
+    		receivablesNotes.setReceNotesId(RandomGUID.getRandomGUID());
+            receivablesNotes.setCreater(pricipalUser.getUserId());
+            receivablesNotes.setCreateTime(new Date());
+            receivablesNotes.setUpdater(pricipalUser.getUserId());
+            receivablesNotes.setUpdateTime(new Date());
+            count = receivablesNotesMapper.insert(receivablesNotes);
+        }
+        
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setObj(receivablesNotes);
+            returnResult.setMsg(" 收款记录信息已保存");
+        } else {
+            returnResult.setMsg("发生未知错误，收款记录信息保存失败");
+        }
+        return returnResult;
+    }
+    
+    /**
+     * @Title: editReceivablesNotes 
+     * @Description: TODO(修改收款记录) 
+     * @param @param receivablesNotes
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    public Object editReceivablesNotes(ReceivablesNotes receivablesNotes) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        count = receivablesNotesMapper.updateByPrimaryKeySelective(receivablesNotes);
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("收款记录信息已修改");
+        } else {
+            returnResult.setMsg("发生未知错误，收款记录信息修改失败");
+        }
+        return returnResult;
+    }
+    
+   /**
+     * @Title: delReceivablesNotes 
+     * @Description: TODO(删除收款记录) 
+     * @param @param receNotesIds
+     * @param @param annThemes
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "ReceivablesNotesList_del")
+    public Object delReceivablesNotes(List<String> receNotesIds, List<String> receivablesNotesTitle) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        if (receNotesIds.size() > 0) {
+        	ReceivablesNotesExample receivablesNotesExample = new ReceivablesNotesExample();
+        	receivablesNotesExample.createCriteria().andReceNotesIdIn(receNotesIds);
+            count = receivablesNotesMapper.deleteByExample(receivablesNotesExample);
+            if (count > 0) {
+                returnResult.setSuccess(true);
+                returnResult.setMsg("成功删除了收款记录信息");
+            } else {
+                returnResult.setMsg("发生未知错误，收款记录信息删除失败");
+            }
+        }
+        return returnResult;
+    }
+}
