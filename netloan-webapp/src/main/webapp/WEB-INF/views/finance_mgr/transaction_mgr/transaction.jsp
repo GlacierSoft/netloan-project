@@ -42,7 +42,7 @@
 				width:150,
 				sortable:true
 			},{
-				field:'memberName',
+				field:'memberDisplay',
 				title:'会员名称',
 				width:150,
 				sortable:true
@@ -63,7 +63,7 @@
 				sortable:true
 			},{
 				field:'expendMoney',
-				title:'支出余额',
+				title:'支出金额',
 				width:120,
 				sortable:true
 			},{
@@ -149,8 +149,8 @@
 			$.easyui.showDialog({
 				title: rowData.transactionCode,
 				href : ctx + '/do/transaction/intoDetail.htm?transactionId='+rowData.transactionId,//从controller请求jsp页面进行渲染
-				width : 580,
-				height : 400,
+				width : 560,
+				height : 350,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

@@ -2,12 +2,19 @@ package com.glacier.netloan.entity.finance;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class FinanceTransaction {
     private String transactionId;
 
     private String financeMemberId;
 
-    private String memberName;
+    private String memberId;
+    
+    /**
+     * 自定义字段，显示充值会员真实姓名
+     */
+    private String memberDisplay;
 
     private String transactionTarget;
 
@@ -31,10 +38,22 @@ public class FinanceTransaction {
 
     private String creater;
 
+    /**
+     * 自定义字段，显示审核人真实姓名
+     */
+    private String createrDisplay;
+
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    /**
+     * 自定义字段，显示更新人真实姓名
+     */
+    private String updaterDisplay;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getTransactionId() {
@@ -53,12 +72,12 @@ public class FinanceTransaction {
         this.financeMemberId = financeMemberId;
     }
 
-    public String getMemberName() {
-        return memberName;
+    public String getMemberId() {
+        return memberId;
     }
 
-    public void setMemberName(String memberName) {
-        this.memberName = memberName;
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
     }
 
     public String getTransactionTarget() {
@@ -173,7 +192,31 @@ public class FinanceTransaction {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public String getMemberDisplay() {
+		return memberDisplay;
+	}
+
+	public void setMemberDisplay(String memberDisplay) {
+		this.memberDisplay = memberDisplay;
+	}
+
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
@@ -187,7 +230,7 @@ public class FinanceTransaction {
         FinanceTransaction other = (FinanceTransaction) that;
         return (this.getTransactionId() == null ? other.getTransactionId() == null : this.getTransactionId().equals(other.getTransactionId()))
             && (this.getFinanceMemberId() == null ? other.getFinanceMemberId() == null : this.getFinanceMemberId().equals(other.getFinanceMemberId()))
-            && (this.getMemberName() == null ? other.getMemberName() == null : this.getMemberName().equals(other.getMemberName()))
+            && (this.getMemberId() == null ? other.getMemberId() == null : this.getMemberId().equals(other.getMemberId()))
             && (this.getTransactionTarget() == null ? other.getTransactionTarget() == null : this.getTransactionTarget().equals(other.getTransactionTarget()))
             && (this.getTransactionType() == null ? other.getTransactionType() == null : this.getTransactionType().equals(other.getTransactionType()))
             && (this.getEarningMoney() == null ? other.getEarningMoney() == null : this.getEarningMoney().equals(other.getEarningMoney()))
@@ -210,7 +253,7 @@ public class FinanceTransaction {
         int result = 1;
         result = prime * result + ((getTransactionId() == null) ? 0 : getTransactionId().hashCode());
         result = prime * result + ((getFinanceMemberId() == null) ? 0 : getFinanceMemberId().hashCode());
-        result = prime * result + ((getMemberName() == null) ? 0 : getMemberName().hashCode());
+        result = prime * result + ((getMemberId() == null) ? 0 : getMemberId().hashCode());
         result = prime * result + ((getTransactionTarget() == null) ? 0 : getTransactionTarget().hashCode());
         result = prime * result + ((getTransactionType() == null) ? 0 : getTransactionType().hashCode());
         result = prime * result + ((getEarningMoney() == null) ? 0 : getEarningMoney().hashCode());

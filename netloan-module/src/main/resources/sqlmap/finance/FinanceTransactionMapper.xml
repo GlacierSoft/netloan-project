@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.finance.FinanceTransaction" >
     <id column="temp_finance_transaction_transaction_id" property="transactionId" jdbcType="VARCHAR" />
     <result column="temp_finance_transaction_finance_member_id" property="financeMemberId" jdbcType="VARCHAR" />
-    <result column="temp_finance_transaction_member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="temp_finance_transaction_member_id" property="memberId" jdbcType="VARCHAR" />
     <result column="temp_finance_transaction_transaction_target" property="transactionTarget" jdbcType="VARCHAR" />
     <result column="temp_finance_transaction_transaction_type" property="transactionType" jdbcType="VARCHAR" />
     <result column="temp_finance_transaction_earning_money" property="earningMoney" jdbcType="REAL" />
@@ -19,6 +19,9 @@
     <result column="temp_finance_transaction_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_finance_transaction_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finance_transaction_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_finance_transaction_member_display" property="memberDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_finance_transaction_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_finance_transaction_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -81,7 +84,7 @@
   <sql id="Base_Column_List" >
     temp_finance_transaction.transaction_id as temp_finance_transaction_transaction_id, 
     temp_finance_transaction.finance_member_id as temp_finance_transaction_finance_member_id, 
-    temp_finance_transaction.member_name as temp_finance_transaction_member_name, temp_finance_transaction.transaction_target as temp_finance_transaction_transaction_target, 
+    temp_finance_transaction.member_id as temp_finance_transaction_member_id, temp_finance_transaction.transaction_target as temp_finance_transaction_transaction_target, 
     temp_finance_transaction.transaction_type as temp_finance_transaction_transaction_type, 
     temp_finance_transaction.earning_money as temp_finance_transaction_earning_money, 
     temp_finance_transaction.expend_money as temp_finance_transaction_expend_money, temp_finance_transaction.usable_money as temp_finance_transaction_usable_money, 
@@ -90,6 +93,15 @@
     temp_finance_transaction.remark as temp_finance_transaction_remark, temp_finance_transaction.creater as temp_finance_transaction_creater, 
     temp_finance_transaction.create_time as temp_finance_transaction_create_time, temp_finance_transaction.updater as temp_finance_transaction_updater, 
     temp_finance_transaction.update_time as temp_finance_transaction_update_time
+  	<!-- 以下字段属于扩展 -->
+  	,temp_member.member_real_name as temp_finance_transaction_member_display
+    ,temp_creater.user_cn_name as temp_finance_transaction_creater_display
+    ,temp_updater.user_cn_name as temp_finance_transaction_updater_display
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_member temp_member ON temp_member.member_id = temp_finance_transaction.member_id <!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_finance_transaction.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_finance_transaction.updater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.finance.FinanceTransactionExample" >
     select
@@ -98,6 +110,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_finance_transaction temp_finance_transaction
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -112,6 +125,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_finance_transaction temp_finance_transaction
+    <include refid="Base_extend" />
     where temp_finance_transaction.transaction_id = #{transactionId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -119,19 +133,19 @@
     where transaction_id = #{transactionId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.finance.FinanceTransactionExample" >
-    delete from t_finance_transaction temp_finance_transaction
+    delete temp_finance_transaction from t_finance_transaction temp_finance_transaction
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.glacier.netloan.entity.finance.FinanceTransaction" >
-    insert into t_finance_transaction (transaction_id, finance_member_id, member_name, 
+    insert into t_finance_transaction (transaction_id, finance_member_id, member_id, 
       transaction_target, transaction_type, earning_money, 
       expend_money, usable_money, frozen_money, 
       collecting_money, refund_money, amount, 
       remark, creater, create_time, 
       updater, update_time)
-    values (#{transactionId,jdbcType=VARCHAR}, #{financeMemberId,jdbcType=VARCHAR}, #{memberName,jdbcType=VARCHAR}, 
+    values (#{transactionId,jdbcType=VARCHAR}, #{financeMemberId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
       #{transactionTarget,jdbcType=VARCHAR}, #{transactionType,jdbcType=VARCHAR}, #{earningMoney,jdbcType=REAL}, 
       #{expendMoney,jdbcType=REAL}, #{usableMoney,jdbcType=REAL}, #{frozenMoney,jdbcType=REAL}, 
       #{collectingMoney,jdbcType=REAL}, #{refundMoney,jdbcType=REAL}, #{amount,jdbcType=REAL}, 
@@ -147,8 +161,8 @@
       <if test="financeMemberId != null" >
         finance_member_id,
       </if>
-      <if test="memberName != null" >
-        member_name,
+      <if test="memberId != null" >
+        member_id,
       </if>
       <if test="transactionTarget != null" >
         transaction_target,
@@ -200,8 +214,8 @@
       <if test="financeMemberId != null" >
         #{financeMemberId,jdbcType=VARCHAR},
       </if>
-      <if test="memberName != null" >
-        #{memberName,jdbcType=VARCHAR},
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
       </if>
       <if test="transactionTarget != null" >
         #{transactionTarget,jdbcType=VARCHAR},
@@ -249,6 +263,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.finance.FinanceTransactionExample" resultType="java.lang.Integer" >
     select count(*) from t_finance_transaction temp_finance_transaction
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -262,8 +277,8 @@
       <if test="record.financeMemberId != null" >
         temp_finance_transaction.finance_member_id = #{record.financeMemberId,jdbcType=VARCHAR},
       </if>
-      <if test="record.memberName != null" >
-        temp_finance_transaction.member_name = #{record.memberName,jdbcType=VARCHAR},
+      <if test="record.memberId != null" >
+        temp_finance_transaction.member_id = #{record.memberId,jdbcType=VARCHAR},
       </if>
       <if test="record.transactionTarget != null" >
         temp_finance_transaction.transaction_target = #{record.transactionTarget,jdbcType=VARCHAR},
@@ -316,7 +331,7 @@
     update t_finance_transaction temp_finance_transaction
     set temp_finance_transaction.transaction_id = #{record.transactionId,jdbcType=VARCHAR},
       temp_finance_transaction.finance_member_id = #{record.financeMemberId,jdbcType=VARCHAR},
-      temp_finance_transaction.member_name = #{record.memberName,jdbcType=VARCHAR},
+      temp_finance_transaction.member_id = #{record.memberId,jdbcType=VARCHAR},
       temp_finance_transaction.transaction_target = #{record.transactionTarget,jdbcType=VARCHAR},
       temp_finance_transaction.transaction_type = #{record.transactionType,jdbcType=VARCHAR},
       temp_finance_transaction.earning_money = #{record.earningMoney,jdbcType=REAL},
@@ -341,8 +356,8 @@
       <if test="financeMemberId != null" >
         finance_member_id = #{financeMemberId,jdbcType=VARCHAR},
       </if>
-      <if test="memberName != null" >
-        member_name = #{memberName,jdbcType=VARCHAR},
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
       </if>
       <if test="transactionTarget != null" >
         transaction_target = #{transactionTarget,jdbcType=VARCHAR},
@@ -392,7 +407,7 @@
   <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.finance.FinanceTransaction" >
     update t_finance_transaction
     set finance_member_id = #{financeMemberId,jdbcType=VARCHAR},
-      member_name = #{memberName,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=VARCHAR},
       transaction_target = #{transactionTarget,jdbcType=VARCHAR},
       transaction_type = #{transactionType,jdbcType=VARCHAR},
       earning_money = #{earningMoney,jdbcType=REAL},

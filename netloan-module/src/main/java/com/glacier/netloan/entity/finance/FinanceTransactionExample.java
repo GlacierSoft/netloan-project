@@ -265,73 +265,73 @@ public class FinanceTransactionExample {
             return (Criteria) this;
         }
 
-        public Criteria andMemberNameIsNull() {
-            addCriterion("temp_finance_transaction.member_name is null");
+        public Criteria andMemberIdIsNull() {
+            addCriterion("temp_finance_transaction.member_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andMemberNameIsNotNull() {
-            addCriterion("temp_finance_transaction.member_name is not null");
+        public Criteria andMemberIdIsNotNull() {
+            addCriterion("temp_finance_transaction.member_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMemberNameEqualTo(String value) {
-            addCriterion("temp_finance_transaction.member_name =", value, "memberName");
+        public Criteria andMemberIdEqualTo(String value) {
+            addCriterion("temp_finance_transaction.member_id =", value, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberNameNotEqualTo(String value) {
-            addCriterion("temp_finance_transaction.member_name <>", value, "memberName");
+        public Criteria andMemberIdNotEqualTo(String value) {
+            addCriterion("temp_finance_transaction.member_id <>", value, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberNameGreaterThan(String value) {
-            addCriterion("temp_finance_transaction.member_name >", value, "memberName");
+        public Criteria andMemberIdGreaterThan(String value) {
+            addCriterion("temp_finance_transaction.member_id >", value, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberNameGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_finance_transaction.member_name >=", value, "memberName");
+        public Criteria andMemberIdGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_transaction.member_id >=", value, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberNameLessThan(String value) {
-            addCriterion("temp_finance_transaction.member_name <", value, "memberName");
+        public Criteria andMemberIdLessThan(String value) {
+            addCriterion("temp_finance_transaction.member_id <", value, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberNameLessThanOrEqualTo(String value) {
-            addCriterion("temp_finance_transaction.member_name <=", value, "memberName");
+        public Criteria andMemberIdLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_transaction.member_id <=", value, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberNameLike(String value) {
-            addCriterion("temp_finance_transaction.member_name like", value, "memberName");
+        public Criteria andMemberIdLike(String value) {
+            addCriterion("temp_finance_transaction.member_id like", value, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberNameNotLike(String value) {
-            addCriterion("temp_finance_transaction.member_name not like", value, "memberName");
+        public Criteria andMemberIdNotLike(String value) {
+            addCriterion("temp_finance_transaction.member_id not like", value, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberNameIn(List<String> values) {
-            addCriterion("temp_finance_transaction.member_name in", values, "memberName");
+        public Criteria andMemberIdIn(List<String> values) {
+            addCriterion("temp_finance_transaction.member_id in", values, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberNameNotIn(List<String> values) {
-            addCriterion("temp_finance_transaction.member_name not in", values, "memberName");
+        public Criteria andMemberIdNotIn(List<String> values) {
+            addCriterion("temp_finance_transaction.member_id not in", values, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberNameBetween(String value1, String value2) {
-            addCriterion("temp_finance_transaction.member_name between", value1, value2, "memberName");
+        public Criteria andMemberIdBetween(String value1, String value2) {
+            addCriterion("temp_finance_transaction.member_id between", value1, value2, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberNameNotBetween(String value1, String value2) {
-            addCriterion("temp_finance_transaction.member_name not between", value1, value2, "memberName");
+        public Criteria andMemberIdNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_transaction.member_id not between", value1, value2, "memberId");
             return (Criteria) this;
         }
 
