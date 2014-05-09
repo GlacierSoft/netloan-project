@@ -2,11 +2,18 @@ package com.glacier.netloan.entity.borrow;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class ReceivablesNotes {
     private String receNotesId;
 
     private String tenderNotesId;
 
+    /**
+     * 自定义字段,收款人名称
+     */
+    private String memberDisplay;
+    
     private String memberId;
 
     private Float receivablesTotal;
@@ -23,15 +30,51 @@ public class ReceivablesNotes {
 
     private String remark;
 
+    /**
+     * 自定义字段   创建人名称
+     */
+    private String createrDisplay;
+    
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
+    /**
+     * 自定义字段  更新人名称
+     */
+    private String updaterDisplay;
+    
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    public String getReceNotesId() {
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getMemberDisplay() {
+		return memberDisplay;
+	}
+
+	public void setMemberDisplay(String memberDisplay) {
+		this.memberDisplay = memberDisplay;
+	}
+
+	public String getReceNotesId() {
         return receNotesId;
     }
 

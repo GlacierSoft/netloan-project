@@ -55,17 +55,43 @@ public class RepaymentNotesDetail {
 
     private String remark;
 
+    /**
+     * 自定义字段   创建人名称
+     */
+    private String createrDisplay;
+    
     private String creater;
 
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
+    /**
+     * 自定义字段  更新人名称
+     */
+    private String updaterDisplay;
+    
     private String updater;
 
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    public String getLoanTitle() {
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getLoanTitle() {
 		return loanTitle;
 	}
 

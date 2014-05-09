@@ -16,7 +16,7 @@
     <result column="temp_receivables_notes_detail_interest_mana_fee" property="interestManaFee" jdbcType="REAL" />
     <result column="temp_receivables_notes_detail_is_overdue" property="isOverdue" jdbcType="CHAR" />
     <result column="temp_receivables_notes_detail_overdue_interest" property="overdueInterest" jdbcType="REAL" />
-    <result column="temp_receivables_notes_detail_alr_pay_money" property="alrPayMoney" jdbcType="REAL" />
+    <result column="temp_receivables_notes_detail_overdue_days" property="overdueDays" jdbcType="REAL" />
     <result column="temp_receivables_notes_detail_income" property="income" jdbcType="REAL" />
     <result column="temp_receivables_notes_detail_rece_state" property="receState" jdbcType="CHAR" />
     <result column="temp_receivables_notes_detail_remark" property="remark" jdbcType="VARCHAR" />
@@ -24,6 +24,9 @@
     <result column="temp_receivables_notes_detail_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_receivables_notes_detail_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_receivables_notes_detail_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_receivables_notes_detail_memberDisplay" property="memberDisplay" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_detail_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_detail_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -98,11 +101,20 @@
     temp_receivables_notes_detail.interest_mana_fee as temp_receivables_notes_detail_interest_mana_fee, 
     temp_receivables_notes_detail.is_overdue as temp_receivables_notes_detail_is_overdue, 
     temp_receivables_notes_detail.overdue_interest as temp_receivables_notes_detail_overdue_interest, 
-    temp_receivables_notes_detail.alr_pay_money as temp_receivables_notes_detail_alr_pay_money, 
+    temp_receivables_notes_detail.overdue_days as temp_receivables_notes_detail_overdue_days, 
     temp_receivables_notes_detail.income as temp_receivables_notes_detail_income, temp_receivables_notes_detail.rece_state as temp_receivables_notes_detail_rece_state, 
     temp_receivables_notes_detail.remark as temp_receivables_notes_detail_remark, temp_receivables_notes_detail.creater as temp_receivables_notes_detail_creater, 
     temp_receivables_notes_detail.create_time as temp_receivables_notes_detail_create_time, 
     temp_receivables_notes_detail.updater as temp_receivables_notes_detail_updater, temp_receivables_notes_detail.update_time as temp_receivables_notes_detail_update_time
+    <!-- 以下字段属于扩展 -->
+    ,temp_member.member_name as temp_receivables_notes_detail_memberDisplay
+    ,temp_creater.user_cn_name as temp_receivables_notes_detail_createrDisplay
+    ,temp_updater.user_cn_name as temp_receivables_notes_detail_updaterDisplay
+  </sql>
+  <sql id="Base_extend">
+    LEFT JOIN t_member temp_member ON temp_member.member_id = temp_receivables_notes_detail.member_id <!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_receivables_notes_detail.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_receivables_notes_detail.updater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotesDetailExample" >
     select
@@ -111,6 +123,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_receivables_notes_detail temp_receivables_notes_detail
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -125,6 +138,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_receivables_notes_detail temp_receivables_notes_detail
+    <include refid="Base_extend" />
     where temp_receivables_notes_detail.rece_notes_detail_id = #{receNotesDetailId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -132,7 +146,7 @@
     where rece_notes_detail_id = #{receNotesDetailId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotesDetailExample" >
-    delete from t_receivables_notes_detail temp_receivables_notes_detail
+    delete temp_receivables_notes_detail from t_receivables_notes_detail temp_receivables_notes_detail
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -142,7 +156,7 @@
       alr_rece_money, number_period, should_pay_date, 
       actual_pay_date, current_rece_moeny, current_rece_principal, 
       current_rece_interest, surplus_principal, interest_mana_fee, 
-      is_overdue, overdue_interest, alr_pay_money, 
+      is_overdue, overdue_interest, overdue_days, 
       income, rece_state, remark, 
       creater, create_time, updater, 
       update_time)
@@ -150,7 +164,7 @@
       #{alrReceMoney,jdbcType=REAL}, #{numberPeriod,jdbcType=VARCHAR}, #{shouldPayDate,jdbcType=TIMESTAMP}, 
       #{actualPayDate,jdbcType=TIMESTAMP}, #{currentReceMoeny,jdbcType=REAL}, #{currentRecePrincipal,jdbcType=REAL}, 
       #{currentReceInterest,jdbcType=REAL}, #{surplusPrincipal,jdbcType=REAL}, #{interestManaFee,jdbcType=REAL}, 
-      #{isOverdue,jdbcType=CHAR}, #{overdueInterest,jdbcType=REAL}, #{alrPayMoney,jdbcType=REAL}, 
+      #{isOverdue,jdbcType=CHAR}, #{overdueInterest,jdbcType=REAL}, #{overdueDays,jdbcType=REAL}, 
       #{income,jdbcType=REAL}, #{receState,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, 
       #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
       #{updateTime,jdbcType=TIMESTAMP})
@@ -200,8 +214,8 @@
       <if test="overdueInterest != null" >
         overdue_interest,
       </if>
-      <if test="alrPayMoney != null" >
-        alr_pay_money,
+      <if test="overdueDays != null" >
+        overdue_days,
       </if>
       <if test="income != null" >
         income,
@@ -268,8 +282,8 @@
       <if test="overdueInterest != null" >
         #{overdueInterest,jdbcType=REAL},
       </if>
-      <if test="alrPayMoney != null" >
-        #{alrPayMoney,jdbcType=REAL},
+      <if test="overdueDays != null" >
+        #{overdueDays,jdbcType=REAL},
       </if>
       <if test="income != null" >
         #{income,jdbcType=REAL},
@@ -296,6 +310,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotesDetailExample" resultType="java.lang.Integer" >
     select count(*) from t_receivables_notes_detail temp_receivables_notes_detail
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -345,8 +360,8 @@
       <if test="record.overdueInterest != null" >
         temp_receivables_notes_detail.overdue_interest = #{record.overdueInterest,jdbcType=REAL},
       </if>
-      <if test="record.alrPayMoney != null" >
-        temp_receivables_notes_detail.alr_pay_money = #{record.alrPayMoney,jdbcType=REAL},
+      <if test="record.overdueDays != null" >
+        temp_receivables_notes_detail.overdue_days = #{record.overdueDays,jdbcType=REAL},
       </if>
       <if test="record.income != null" >
         temp_receivables_notes_detail.income = #{record.income,jdbcType=REAL},
@@ -390,7 +405,7 @@
       temp_receivables_notes_detail.interest_mana_fee = #{record.interestManaFee,jdbcType=REAL},
       temp_receivables_notes_detail.is_overdue = #{record.isOverdue,jdbcType=CHAR},
       temp_receivables_notes_detail.overdue_interest = #{record.overdueInterest,jdbcType=REAL},
-      temp_receivables_notes_detail.alr_pay_money = #{record.alrPayMoney,jdbcType=REAL},
+      temp_receivables_notes_detail.overdue_days = #{record.overdueDays,jdbcType=REAL},
       temp_receivables_notes_detail.income = #{record.income,jdbcType=REAL},
       temp_receivables_notes_detail.rece_state = #{record.receState,jdbcType=CHAR},
       temp_receivables_notes_detail.remark = #{record.remark,jdbcType=VARCHAR},
@@ -444,8 +459,8 @@
       <if test="overdueInterest != null" >
         overdue_interest = #{overdueInterest,jdbcType=REAL},
       </if>
-      <if test="alrPayMoney != null" >
-        alr_pay_money = #{alrPayMoney,jdbcType=REAL},
+      <if test="overdueDays != null" >
+        overdue_days = #{overdueDays,jdbcType=REAL},
       </if>
       <if test="income != null" >
         income = #{income,jdbcType=REAL},
@@ -486,7 +501,7 @@
       interest_mana_fee = #{interestManaFee,jdbcType=REAL},
       is_overdue = #{isOverdue,jdbcType=CHAR},
       overdue_interest = #{overdueInterest,jdbcType=REAL},
-      alr_pay_money = #{alrPayMoney,jdbcType=REAL},
+      overdue_days = #{overdueDays,jdbcType=REAL},
       income = #{income,jdbcType=REAL},
       rece_state = #{receState,jdbcType=CHAR},
       remark = #{remark,jdbcType=VARCHAR},

@@ -22,7 +22,6 @@ import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.RepaymentNotes;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetail;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetailExample;
-import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -148,10 +147,12 @@ public class RepaymentNotesDetailService {
         	repaymentNotesDetail.setShouldPayDate(c.getTime());//设置应还款日期
         	//满标进行二次审核时，同时生成还款记录和还款记录明细和收款记录和收款记录明细等数据
     		if(borrowingLoanNew.getRepaymentTypeDisplay().equals("等额本息")){
-    			float everyMonthMoney = (borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/100/12) * (1 + borrowingLoanNew.getLoanApr()/100/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))/(1 + borrowingLoanNew.getLoanApr()/100/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())-1;
+    			float everyMonthMoney = (float) ((borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/12) 
+													* Math.pow(((1 + borrowingLoanNew.getLoanApr()/12)),Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())))
+													/ Math.pow(((1 + borrowingLoanNew.getLoanApr()/12)),Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))-1);
     			repaymentNotesDetail.setCurrentPayMoeny(everyMonthMoney);//设置当期应还本息
     		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("按月付息，到期还本")){
-    			float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/100/12);
+    			float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/12);
     			if(Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId()) == i+1){//判断是否是最后一期
     				float shouldPayMoney = everyMonthInterest + borrowingLoanNew.getLoanTotal();
     				repaymentNotesDetail.setCurrentPayMoeny(shouldPayMoney);//设置当期应还本息
@@ -162,7 +163,7 @@ public class RepaymentNotesDetailService {
     			}
     		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("一次性还款")){
     			if(Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId()) == i+1){//判断是否是最后一期
-    				float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/100/12);
+    				float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/12);
         			float shouldPayMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + borrowingLoanNew.getLoanTotal();
     				repaymentNotesDetail.setCurrentPayMoeny(shouldPayMoney);//设置当期应还本息
         			repaymentNotesDetail.setCurrentPayInterest(everyMonthInterest);//设置当期应还利息

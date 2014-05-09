@@ -135,13 +135,15 @@ public class RepaymentNotesService {
         BorrowingLoan borrowingLoanNew = (BorrowingLoan)borrowingLoanMapper.selectByPrimaryKey(repaymentNotes.getLoanId());//重新获取该会员 借款的信息数据
 		
 		if(borrowingLoanNew.getRepaymentTypeDisplay().equals("等额本息")){
-			float everyMonthMoney = (borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/100/12) * (1 + borrowingLoanNew.getLoanApr()/100/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))/(1 + borrowingLoanNew.getLoanApr()/100/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())-1;
+			float everyMonthMoney = (float) ((borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/12) 
+											* Math.pow(((1 + borrowingLoanNew.getLoanApr()/12)),Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())))
+											/ Math.pow(((1 + borrowingLoanNew.getLoanApr()/12)),Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))-1);
 			shouldPayMoney = everyMonthMoney * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId());
 		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("按月付息，到期还本")){
-			float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/100/12);
+			float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/12);
 			shouldPayMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + borrowingLoanNew.getLoanTotal();
 		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("一次性还款")){
-			float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/100/12);
+			float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/12);
 			shouldPayMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + borrowingLoanNew.getLoanTotal();
 		}
 		repaymentNotes.setShouldPayMoney(shouldPayMoney);//设置应还本息

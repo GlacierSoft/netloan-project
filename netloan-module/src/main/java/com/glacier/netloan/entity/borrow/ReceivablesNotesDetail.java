@@ -2,19 +2,28 @@ package com.glacier.netloan.entity.borrow;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class ReceivablesNotesDetail {
     private String receNotesDetailId;
 
     private String receNotesId;
 
+    /**
+     * 自定义字段,收款人名称
+     */
+    private String memberDisplay;
+    
     private String memberId;
 
     private Float alrReceMoney;
 
     private String numberPeriod;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date shouldPayDate;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date actualPayDate;
 
     private Float currentReceMoeny;
@@ -31,23 +40,59 @@ public class ReceivablesNotesDetail {
 
     private Float overdueInterest;
 
-    private Float alrPayMoney;
+    private Float overdueDays;
 
     private Float income;
 
     private String receState;
 
     private String remark;
+    
+    /**
+     * 自定义字段   创建人名称
+     */
+    private String createrDisplay;
 
     private String creater;
-
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")    
     private Date createTime;
 
+    /**
+     * 自定义字段  更新人名称
+     */
+    private String updaterDisplay;
+    
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    public String getReceNotesDetailId() {
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getMemberDisplay() {
+		return memberDisplay;
+	}
+
+	public void setMemberDisplay(String memberDisplay) {
+		this.memberDisplay = memberDisplay;
+	}
+
+	public String getReceNotesDetailId() {
         return receNotesDetailId;
     }
 
@@ -159,12 +204,12 @@ public class ReceivablesNotesDetail {
         this.overdueInterest = overdueInterest;
     }
 
-    public Float getAlrPayMoney() {
-        return alrPayMoney;
+    public Float getOverdueDays() {
+        return overdueDays;
     }
 
-    public void setAlrPayMoney(Float alrPayMoney) {
-        this.alrPayMoney = alrPayMoney;
+    public void setOverdueDays(Float overdueDays) {
+        this.overdueDays = overdueDays;
     }
 
     public Float getIncome() {
@@ -249,7 +294,7 @@ public class ReceivablesNotesDetail {
             && (this.getInterestManaFee() == null ? other.getInterestManaFee() == null : this.getInterestManaFee().equals(other.getInterestManaFee()))
             && (this.getIsOverdue() == null ? other.getIsOverdue() == null : this.getIsOverdue().equals(other.getIsOverdue()))
             && (this.getOverdueInterest() == null ? other.getOverdueInterest() == null : this.getOverdueInterest().equals(other.getOverdueInterest()))
-            && (this.getAlrPayMoney() == null ? other.getAlrPayMoney() == null : this.getAlrPayMoney().equals(other.getAlrPayMoney()))
+            && (this.getOverdueDays() == null ? other.getOverdueDays() == null : this.getOverdueDays().equals(other.getOverdueDays()))
             && (this.getIncome() == null ? other.getIncome() == null : this.getIncome().equals(other.getIncome()))
             && (this.getReceState() == null ? other.getReceState() == null : this.getReceState().equals(other.getReceState()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
@@ -277,7 +322,7 @@ public class ReceivablesNotesDetail {
         result = prime * result + ((getInterestManaFee() == null) ? 0 : getInterestManaFee().hashCode());
         result = prime * result + ((getIsOverdue() == null) ? 0 : getIsOverdue().hashCode());
         result = prime * result + ((getOverdueInterest() == null) ? 0 : getOverdueInterest().hashCode());
-        result = prime * result + ((getAlrPayMoney() == null) ? 0 : getAlrPayMoney().hashCode());
+        result = prime * result + ((getOverdueDays() == null) ? 0 : getOverdueDays().hashCode());
         result = prime * result + ((getIncome() == null) ? 0 : getIncome().hashCode());
         result = prime * result + ((getReceState() == null) ? 0 : getReceState().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());

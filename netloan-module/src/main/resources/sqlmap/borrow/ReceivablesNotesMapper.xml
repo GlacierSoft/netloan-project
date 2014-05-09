@@ -16,6 +16,9 @@
     <result column="temp_receivables_notes_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_receivables_notes_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_receivables_notes_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_receivables_notes_memberDisplay" property="memberDisplay" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -84,6 +87,15 @@
     temp_receivables_notes.rece_state as temp_receivables_notes_rece_state, temp_receivables_notes.remark as temp_receivables_notes_remark, 
     temp_receivables_notes.creater as temp_receivables_notes_creater, temp_receivables_notes.create_time as temp_receivables_notes_create_time, 
     temp_receivables_notes.updater as temp_receivables_notes_updater, temp_receivables_notes.update_time as temp_receivables_notes_update_time
+    <!-- 以下字段属于扩展 -->
+    ,temp_member.member_name as temp_receivables_notes_memberDisplay
+    ,temp_creater.user_cn_name as temp_receivables_notes_createrDisplay
+    ,temp_updater.user_cn_name as temp_receivables_notes_updaterDisplay
+  </sql>
+  <sql id="Base_extend">
+    LEFT JOIN t_member temp_member ON temp_member.member_id = temp_receivables_notes.member_id <!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_receivables_notes.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_receivables_notes.updater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotesExample" >
     select
@@ -92,6 +104,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_receivables_notes temp_receivables_notes
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -106,6 +119,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_receivables_notes temp_receivables_notes
+    <include refid="Base_extend" />
     where temp_receivables_notes.rece_notes_id = #{receNotesId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -113,7 +127,7 @@
     where rece_notes_id = #{receNotesId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotesExample" >
-    delete from t_receivables_notes temp_receivables_notes
+    delete temp_receivables_notes from t_receivables_notes temp_receivables_notes
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -223,6 +237,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotesExample" resultType="java.lang.Integer" >
     select count(*) from t_receivables_notes temp_receivables_notes
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

@@ -29,6 +29,8 @@ import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.BorrowingLoanExample;
 import com.glacier.netloan.entity.borrow.BorrowingLoanExample.Criteria;
+import com.glacier.netloan.entity.borrow.ReceivablesNotes;
+import com.glacier.netloan.entity.borrow.ReceivablesNotesDetail;
 import com.glacier.netloan.entity.borrow.RepaymentNotes;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetail;
 import com.glacier.netloan.entity.borrow.TenderNotes;
@@ -66,6 +68,12 @@ public class BorrowingLoanService {
 	
 	@Autowired
 	private MemberMessageNoticeService memberMessageNoticeService;
+	
+	@Autowired
+	private ReceivablesNotesDetailService receivablesNotesDetailService;
+	
+	@Autowired
+	private ReceivablesNotesService receivablesNotesService;
 	
 	/**
 	 * @Title: getBorrowingLoan 
@@ -404,6 +412,13 @@ public class BorrowingLoanService {
           	RepaymentNotesDetail repaymentNotesDetail = new RepaymentNotesDetail();
           	repaymentNotesDetail.setRepayNotesId(repaymentNotesNew.getRepayNotesId());
           	repaymentNotesDetailService.addRepaymentNotesDetail(repaymentNotesDetail,repaymentNotesNew);
+          	//添加收款记录信息
+          	ReceivablesNotes receivablesNotes = new ReceivablesNotes();
+          	JqReturnJson returnResultReceivablesNotes = (JqReturnJson)receivablesNotesService.addReceivablesNotes(receivablesNotes, borrowingLoan);
+          	ReceivablesNotes receivablesNotesNew = (ReceivablesNotes) returnResultReceivablesNotes.getObj();
+          	//添加收款记录明细信息
+          	ReceivablesNotesDetail receivablesNotesDetail = new ReceivablesNotesDetail();
+          	receivablesNotesDetailService.addReceivablesNotesDetail(receivablesNotesDetail, borrowingLoan, receivablesNotesNew);
           	
         	borrowingLoan.setLoanState("repaymenting");
         }

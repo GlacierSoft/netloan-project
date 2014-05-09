@@ -1015,63 +1015,63 @@ public class ReceivablesNotesDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andAlrPayMoneyIsNull() {
-            addCriterion("temp_receivables_notes_detail.alr_pay_money is null");
+        public Criteria andOverdueDaysIsNull() {
+            addCriterion("temp_receivables_notes_detail.overdue_days is null");
             return (Criteria) this;
         }
 
-        public Criteria andAlrPayMoneyIsNotNull() {
-            addCriterion("temp_receivables_notes_detail.alr_pay_money is not null");
+        public Criteria andOverdueDaysIsNotNull() {
+            addCriterion("temp_receivables_notes_detail.overdue_days is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAlrPayMoneyEqualTo(Float value) {
-            addCriterion("temp_receivables_notes_detail.alr_pay_money =", value, "alrPayMoney");
+        public Criteria andOverdueDaysEqualTo(Float value) {
+            addCriterion("temp_receivables_notes_detail.overdue_days =", value, "overdueDays");
             return (Criteria) this;
         }
 
-        public Criteria andAlrPayMoneyNotEqualTo(Float value) {
-            addCriterion("temp_receivables_notes_detail.alr_pay_money <>", value, "alrPayMoney");
+        public Criteria andOverdueDaysNotEqualTo(Float value) {
+            addCriterion("temp_receivables_notes_detail.overdue_days <>", value, "overdueDays");
             return (Criteria) this;
         }
 
-        public Criteria andAlrPayMoneyGreaterThan(Float value) {
-            addCriterion("temp_receivables_notes_detail.alr_pay_money >", value, "alrPayMoney");
+        public Criteria andOverdueDaysGreaterThan(Float value) {
+            addCriterion("temp_receivables_notes_detail.overdue_days >", value, "overdueDays");
             return (Criteria) this;
         }
 
-        public Criteria andAlrPayMoneyGreaterThanOrEqualTo(Float value) {
-            addCriterion("temp_receivables_notes_detail.alr_pay_money >=", value, "alrPayMoney");
+        public Criteria andOverdueDaysGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes_detail.overdue_days >=", value, "overdueDays");
             return (Criteria) this;
         }
 
-        public Criteria andAlrPayMoneyLessThan(Float value) {
-            addCriterion("temp_receivables_notes_detail.alr_pay_money <", value, "alrPayMoney");
+        public Criteria andOverdueDaysLessThan(Float value) {
+            addCriterion("temp_receivables_notes_detail.overdue_days <", value, "overdueDays");
             return (Criteria) this;
         }
 
-        public Criteria andAlrPayMoneyLessThanOrEqualTo(Float value) {
-            addCriterion("temp_receivables_notes_detail.alr_pay_money <=", value, "alrPayMoney");
+        public Criteria andOverdueDaysLessThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes_detail.overdue_days <=", value, "overdueDays");
             return (Criteria) this;
         }
 
-        public Criteria andAlrPayMoneyIn(List<Float> values) {
-            addCriterion("temp_receivables_notes_detail.alr_pay_money in", values, "alrPayMoney");
+        public Criteria andOverdueDaysIn(List<Float> values) {
+            addCriterion("temp_receivables_notes_detail.overdue_days in", values, "overdueDays");
             return (Criteria) this;
         }
 
-        public Criteria andAlrPayMoneyNotIn(List<Float> values) {
-            addCriterion("temp_receivables_notes_detail.alr_pay_money not in", values, "alrPayMoney");
+        public Criteria andOverdueDaysNotIn(List<Float> values) {
+            addCriterion("temp_receivables_notes_detail.overdue_days not in", values, "overdueDays");
             return (Criteria) this;
         }
 
-        public Criteria andAlrPayMoneyBetween(Float value1, Float value2) {
-            addCriterion("temp_receivables_notes_detail.alr_pay_money between", value1, value2, "alrPayMoney");
+        public Criteria andOverdueDaysBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes_detail.overdue_days between", value1, value2, "overdueDays");
             return (Criteria) this;
         }
 
-        public Criteria andAlrPayMoneyNotBetween(Float value1, Float value2) {
-            addCriterion("temp_receivables_notes_detail.alr_pay_money not between", value1, value2, "alrPayMoney");
+        public Criteria andOverdueDaysNotBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes_detail.overdue_days not between", value1, value2, "overdueDays");
             return (Criteria) this;
         }
 
