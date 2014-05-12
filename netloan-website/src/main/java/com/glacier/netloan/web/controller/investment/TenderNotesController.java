@@ -12,7 +12,6 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
-import com.glacier.netloan.entity.borrow.RepaymentNotes;
 import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.borrow.LoanReviewService;

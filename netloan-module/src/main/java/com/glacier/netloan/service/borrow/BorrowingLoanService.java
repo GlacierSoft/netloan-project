@@ -34,9 +34,13 @@ import com.glacier.netloan.entity.borrow.ReceivablesNotesDetail;
 import com.glacier.netloan.entity.borrow.RepaymentNotes;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetail;
 import com.glacier.netloan.entity.borrow.TenderNotes;
+import com.glacier.netloan.entity.finance.FinanceMember;
+import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.member.MemberMessageNotice;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
+import com.glacier.netloan.service.finance.FinanceMemberService;
+import com.glacier.netloan.service.finance.FinanceTransactionService;
 import com.glacier.netloan.service.member.MemberMessageNoticeService;
 import com.glacier.netloan.util.MethodLog;
 
@@ -74,6 +78,12 @@ public class BorrowingLoanService {
 	
 	@Autowired
 	private ReceivablesNotesService receivablesNotesService;
+	
+	@Autowired
+	private FinanceTransactionService financeTransactionService;
+	
+	@Autowired
+	private FinanceMemberService financeMemberService;
 	
 	/**
 	 * @Title: getBorrowingLoan 
@@ -370,8 +380,9 @@ public class BorrowingLoanService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "BorrowingLoanList_secondAudit")
-    public Object secondAuditBorrowingLoan(BorrowingLoan borrowingLoan) {
+    public Object secondAuditBorrowingLoan(BorrowingLoan borrowingLoanNew) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        BorrowingLoan borrowingLoan = this.borrowingLoanMapper.selectByPrimaryKey(borrowingLoanNew.getLoanId());
         int count = 0;
         //满标审核站内信通知
         MemberMessageNotice  memberMessageNotice = new MemberMessageNotice();
@@ -402,7 +413,7 @@ public class BorrowingLoanService {
         	borrowingLoan.setIsBidPwd(null);
         }
         if ("secondSucess".equals(borrowingLoan.getSecondAuditState())) {//复审通过，借款状态改为还款中
-        	//满标进行二次审核时，同时生成还款记录和还款记录明细和收款记录和收款记录明细等数据
+        	//满标进行二次审核时，同时生成还款记录和还款记录明细和收款记录和收款记录明细，记录明细，改变会员资金等数据
         	//添加还款记录信息
             RepaymentNotes repaymentNotes = new RepaymentNotes();
           	repaymentNotes.setLoanId(borrowingLoan.getLoanId());
@@ -418,7 +429,28 @@ public class BorrowingLoanService {
           	ReceivablesNotes receivablesNotesNew = (ReceivablesNotes) returnResultReceivablesNotes.getObj();
           	//添加收款记录明细信息
           	ReceivablesNotesDetail receivablesNotesDetail = new ReceivablesNotesDetail();
-          	receivablesNotesDetailService.addReceivablesNotesDetail(receivablesNotesDetail, borrowingLoan, receivablesNotesNew);
+          	JqReturnJson returnResultreceivablesNotesDetail = (JqReturnJson) receivablesNotesDetailService.addReceivablesNotesDetail(receivablesNotesDetail, borrowingLoan, receivablesNotesNew);
+          	//添加记录明细
+          	FinanceTransaction financeTransaction = new FinanceTransaction();
+            //获取会员资金记录信息
+          	FinanceMember financeMember = (FinanceMember) financeMemberService.getMemberByMemberId(borrowingLoan.getMemberId());
+          	financeTransaction.setFinanceMemberId(financeMember.getFinanceMemberId());//设置会员资金信息
+          	financeTransaction.setMemberId(borrowingLoan.getMemberId());//设置会员id
+          	List<String> memberNames = (List<String>) returnResultreceivablesNotesDetail.getObj();
+          	financeTransaction.setTransactionTarget(CollectionsUtil.convertToString(memberNames, ","));//设置交易对象
+          	financeTransaction.setTransactionType("借款");//设置交易类型
+          	financeTransaction.setEarningMoney(borrowingLoan.getLoanTotal());//设置收入金额
+          	financeTransaction.setExpendMoney(0f);//设置支出金额
+          	financeTransaction.setUsableMoney(borrowingLoan.getLoanTotal() - borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());//设置可用金额
+          	financeTransaction.setFrozenMoney(0f);//设置冻结金额
+          	financeTransaction.setCollectingMoney(0f);//设置代收金额
+          	financeTransaction.setRefundMoney(0f);//设置待还金额
+          	financeTransaction.setAmount(borrowingLoan.getLoanTotal());//设置总金额
+          	financeTransactionService.addTransaction(financeTransaction);
+          	//更新借款的会员资金信息
+          	financeMember.setUsableMoney(financeMember.getUsableMoney() + borrowingLoan.getLoanTotal() -  borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());
+          	financeMember.setAmount(financeMember.getAmount() +  borrowingLoan.getLoanTotal() - borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());
+          	financeMemberService.editMember(financeMember);
           	
         	borrowingLoan.setLoanState("repaymenting");
         }

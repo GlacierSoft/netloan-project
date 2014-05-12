@@ -53,6 +53,21 @@
 				width:200,
 				sortable:true
 			},{
+				field:'currentPayMoeny',
+				title:'应收本息',
+				width:200,
+				sortable:true
+			},{
+				field:'currentPayPrincipal',
+				title:'应收本金',
+				width:200,
+				sortable:true
+			},{
+				field:'currentPayInterest',
+				title:'应收利息',
+				width:200,
+				sortable:true
+			},{
 				field:'remark',
 				title:'备注',
 				width:200,

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.CollectionsUtil;
+import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
@@ -47,6 +48,20 @@ public class FinanceMemberService {
     	FinanceMember financeMember = financeMemberMapper.selectByPrimaryKey(financeMemberId);
         return financeMember;
     }
+    /**
+	 * @Title: getMemberByMemberId 
+	 * @Description: TODO(根据会员Id获取会员资金记录信息) 
+	 * @param @param financeMemberId
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
+    public Object getMemberByMemberId(String memberId) {
+    	FinanceMemberExample financeMemberExample = new FinanceMemberExample();
+    	financeMemberExample.createCriteria().andMemberIdEqualTo(memberId);
+    	List<FinanceMember>  financeMembers = financeMemberMapper.selectByExample(financeMemberExample); 
+        return financeMembers.get(0);
+    }
     
     /**
      * @Title: listAsGrid 
@@ -74,32 +89,24 @@ public class FinanceMemberService {
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
     }
-/*
-    *//**
+
+    /**
      * @Title: addMember 
      * @Description: TODO(新增会员资金记录) 
      * @param @param financeMember
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
-     *//*
+     */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "MemberList_add")
     public Object addMember(FinanceMember financeMember) {
     	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        FinanceMemberExample financeMemberExample = new FinanceMemberExample();
         int count = 0;
-        // 防止会员资金记录名称重复
-        financeMemberExample.createCriteria().andMemberNameEqualTo(financeMember.getMemberName());
-        count = financeMemberMapper.countByExample(financeMemberExample);// 查找相同名称的会员资金记录数量
-        if (count > 0) {
-            returnResult.setMsg("会员资金记录名称重复");
-            return returnResult;
-        }
+       
         financeMember.setFinanceMemberId(RandomGUID.getRandomGUID());
         financeMember.setCreater(pricipalUser.getUserId());
         financeMember.setCreateTime(new Date());
@@ -108,34 +115,26 @@ public class FinanceMemberService {
         count = financeMemberMapper.insert(financeMember);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + financeMember.getMemberName() + "] 会员资金记录信息已保存");
+            returnResult.setMsg("会员资金记录信息已保存");
         } else {
             returnResult.setMsg("发生未知错误，会员资金记录信息保存失败");
         }
         return returnResult;
     }
     
-    *//**
+    /**
      * @Title: editMember 
      * @Description: TODO(修改会员资金记录) 
      * @param @param financeMember
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
-     *//*
+     */
     @Transactional(readOnly = false)
     @MethodLog(opera = "MemberList_edit")
     public Object editMember(FinanceMember financeMember) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        FinanceMemberExample financeMemberExample = new FinanceMemberExample();
         int count = 0;
-        // 防止会员资金记录名称重复
-        financeMemberExample.createCriteria().andFinanceMemberIdNotEqualTo(financeMember.getFinanceMemberId()).andMemberNameEqualTo(financeMember.getMemberName());
-        count = financeMemberMapper.countByExample(financeMemberExample);// 查找相同名称的会员资金记录数量
-        if (count > 0) {
-            returnResult.setMsg("会员资金记录名称重复");
-            return returnResult;
-        }
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         financeMember.setUpdater(pricipalUser.getUserId());
@@ -143,12 +142,12 @@ public class FinanceMemberService {
         count = financeMemberMapper.updateByPrimaryKeySelective(financeMember);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + financeMember.getMemberName() + "] 会员资金记录信息已修改");
+            returnResult.setMsg("会员资金记录信息已修改");
         } else {
             returnResult.setMsg("发生未知错误，会员资金记录信息修改失败");
         }
         return returnResult;
-    }*/
+    }
     
     /**
      * @Title: auditMember 

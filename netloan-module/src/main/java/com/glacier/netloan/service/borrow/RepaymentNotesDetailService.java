@@ -150,15 +150,22 @@ public class RepaymentNotesDetailService {
     			float everyMonthMoney = (float) ((borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/12) 
 													* Math.pow(((1 + borrowingLoanNew.getLoanApr()/12)),Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())))
 													/ (Math.pow(((1 + borrowingLoanNew.getLoanApr()/12)),Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))-1));
+    			float everyMonthPrincipal = (float) ((borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/12) 
+    					* Math.pow(((1 + borrowingLoanNew.getLoanApr()/12)),i))
+    					/ (Math.pow(((1 + borrowingLoanNew.getLoanApr()/12)),Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))-1));
     			repaymentNotesDetail.setCurrentPayMoeny(everyMonthMoney);//设置当期应还本息
+    			repaymentNotesDetail.setCurrentPayPrincipal(everyMonthPrincipal);//设置当期应还本金
+    			repaymentNotesDetail.setCurrentPayInterest(everyMonthMoney-everyMonthPrincipal);//设置当期应还利息
     		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("按月付息，到期还本")){
     			float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/12);
     			if(Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId()) == i+1){//判断是否是最后一期
     				float shouldPayMoney = everyMonthInterest + borrowingLoanNew.getLoanTotal();
     				repaymentNotesDetail.setCurrentPayMoeny(shouldPayMoney);//设置当期应还本息
+    				repaymentNotesDetail.setCurrentPayPrincipal(borrowingLoanNew.getLoanTotal());//设置当期应还本金
         			repaymentNotesDetail.setCurrentPayInterest(everyMonthInterest);//设置当期应还利息
     			}else{
     				repaymentNotesDetail.setCurrentPayMoeny(everyMonthInterest);//设置当期应还本息
+    				repaymentNotesDetail.setCurrentPayPrincipal(0f);//设置当期应还本金
         			repaymentNotesDetail.setCurrentPayInterest(everyMonthInterest);//设置当期应还利息
     			}
     		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("一次性还款")){
@@ -166,7 +173,12 @@ public class RepaymentNotesDetailService {
     				float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/12);
         			float shouldPayMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + borrowingLoanNew.getLoanTotal();
     				repaymentNotesDetail.setCurrentPayMoeny(shouldPayMoney);//设置当期应还本息
+    				repaymentNotesDetail.setCurrentPayPrincipal(borrowingLoanNew.getLoanTotal());//设置当期应还本金
         			repaymentNotesDetail.setCurrentPayInterest(everyMonthInterest);//设置当期应还利息
+    			}else{
+    				repaymentNotesDetail.setCurrentPayMoeny(0f);//设置当期应还本息
+    				repaymentNotesDetail.setCurrentPayPrincipal(0f);//设置当期应还本金
+        			repaymentNotesDetail.setCurrentPayInterest(0f);//设置当期应还利息
     			}
     		}
     		repaymentNotesDetail.setRepayNotesDetailId(RandomGUID.getRandomGUID());

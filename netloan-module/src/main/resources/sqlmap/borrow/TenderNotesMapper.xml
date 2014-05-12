@@ -85,7 +85,7 @@
   </sql>
   <sql id="Base_extend">
     LEFT JOIN t_borrowing_loan temp_borrowing_loan ON temp_borrowing_loan.loan_id = temp_tender_notes.loan_id <!-- 扩展 -->
-    LEFT JOIN t_member temp_creater ON temp_creater.member_id = temp_tender_notes.creater <!-- 扩展 -->
+    LEFT JOIN t_member temp_creater ON temp_creater.member_id = temp_tender_notes.member_id <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.TenderNotesExample" >
     select

@@ -65,7 +65,7 @@ public class TenderNotesService {
     public Object listAsGridWebsite(JqPager jqPager,int p,String loanId) {
         
         JqGridReturn returnResult = new JqGridReturn();
-        TenderNotesExample tenderNotesExample = new TenderNotesExample();;
+        TenderNotesExample tenderNotesExample = new TenderNotesExample();
         tenderNotesExample.createCriteria().andLoanIdEqualTo(loanId);//查询相对应的投标的记录
         
         if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息

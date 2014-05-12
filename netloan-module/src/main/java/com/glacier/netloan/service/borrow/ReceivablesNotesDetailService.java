@@ -1,5 +1,6 @@
 package com.glacier.netloan.service.borrow;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,9 @@ import com.glacier.netloan.entity.borrow.ReceivablesNotesDetail;
 import com.glacier.netloan.entity.borrow.ReceivablesNotesDetailExample;
 import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.entity.borrow.TenderNotesExample;
+import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.service.member.MemberService;
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -46,6 +49,10 @@ public class ReceivablesNotesDetailService {
 	
 	@Autowired
 	private TenderNotesMapper tenderNotesMapper;
+	
+	@Autowired
+	private MemberService memberService;
+	
 	/**
 	 * @Title: getReceivablesNotesDetail 
 	 * @Description: TODO(根据收款记录明细Id获取收款记录明细信息) 
@@ -143,12 +150,21 @@ public class ReceivablesNotesDetailService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         float currentReceMoeny = 0f;
-        float everyPrincipal = 0f;
+        List<String> memberIds = new ArrayList<String>();
+        List<String> memberNames = new ArrayList<String>();
         BorrowingLoan borrowingLoanNew = (BorrowingLoan) borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());//查询借款信息
         TenderNotesExample tenderNotesExample = new TenderNotesExample();;
         tenderNotesExample.createCriteria().andLoanIdEqualTo(borrowingLoanNew.getLoanId());//查询相对应的投标的记录
         List<TenderNotes> tenderNotess = tenderNotesMapper.selectByExample(tenderNotesExample);
         for(TenderNotes tenderNotes : tenderNotess){
+        	float everyPrincipal = 0f;//设置当期剩余本金
+        	if(memberIds.contains(tenderNotes.getMemberId())){
+        		
+        	}else{
+        		memberIds.add(tenderNotes.getMemberId());
+        		Member member = (Member) memberService.getMember(tenderNotes.getMemberId());
+        		memberNames.add(member.getMemberRealName());
+        	}
         for(int i = 0;i < Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId());i++){
         	receivablesNotesDetail.setReceNotesId(receivablesNotes.getReceNotesId());
         	receivablesNotesDetail.setNumberPeriod((i+1)+"");//设置当前是第几期
@@ -170,7 +186,8 @@ public class ReceivablesNotesDetailService {
         			receivablesNotesDetail.setCurrentReceMoeny(currentReceMoeny);//设置当期应收本息
         			receivablesNotesDetail.setCurrentRecePrincipal(everyMonthPrincipal);//设置当期应收本金
         			receivablesNotesDetail.setCurrentReceInterest(everyMonthInterest);//设置当期应收利息
-        			receivablesNotesDetail.setSurplusPrincipal(tenderNotes.getTenderMoney()-everyPrincipal);//设置当期剩余本金
+        			float surplusPrincipal = tenderNotes.getTenderMoney()-everyPrincipal;
+        			receivablesNotesDetail.setSurplusPrincipal(surplusPrincipal);//设置当期剩余本金
         			receivablesNotesDetail.setIncome(everyMonthInterest*01);//设置当期收益
         		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("按月付息，到期还本")){
         			float everyMonthInterest = tenderNotes.getTenderMoney() * (borrowingLoanNew.getLoanApr()/12);
@@ -268,6 +285,7 @@ public class ReceivablesNotesDetailService {
         }
         if (count == 1) {
             returnResult.setSuccess(true);
+            returnResult.setObj(memberNames);
             returnResult.setMsg(" 收款记录明细信息已保存");
         } else {
             returnResult.setMsg("发生未知错误，收款记录明细信息保存失败");
