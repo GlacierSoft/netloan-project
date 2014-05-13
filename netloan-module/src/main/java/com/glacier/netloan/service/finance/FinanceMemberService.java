@@ -48,6 +48,20 @@ public class FinanceMemberService {
     	FinanceMember financeMember = financeMemberMapper.selectByPrimaryKey(financeMemberId);
         return financeMember;
     }
+    
+    /**
+     * @Title: getMemberId 
+     * @Description: TODO(自定义方法，根据会员Id查找该会员的财务信息) 
+     * @param @param memberId
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    public Object getMemberId(String memberId) {
+    	FinanceMember financeMember = financeMemberMapper.selectByMemberId(memberId);
+        return financeMember;
+    }
+    
     /**
 	 * @Title: getMemberByMemberId 
 	 * @Description: TODO(根据会员Id获取会员资金记录信息) 

@@ -136,6 +136,14 @@
     <include refid="Base_extend" />
     where temp_finance_member.finance_member_id = #{financeMemberId,jdbcType=VARCHAR}
   </select>
+  <!--自定义方法，根据会员Id查找该会员资金信息记录  -->
+  <select id="selectByMemberId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_finance_member temp_finance_member
+    <include refid="Base_extend" />
+    where temp_finance_member.member_id = #{memberId,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_finance_member
     where finance_member_id = #{financeMemberId,jdbcType=VARCHAR}

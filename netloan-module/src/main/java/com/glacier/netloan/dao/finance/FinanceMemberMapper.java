@@ -19,6 +19,9 @@ public interface FinanceMemberMapper {
     List<FinanceMember> selectByExample(FinanceMemberExample example);
 
     FinanceMember selectByPrimaryKey(String financeMemberId);
+    
+    //自定义方法，根据会员Id查找该会员的财务信息
+    FinanceMember selectByMemberId(String memberId);
 
     int updateByExampleSelective(@Param("record") FinanceMember record, @Param("example") FinanceMemberExample example);
 
