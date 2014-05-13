@@ -20,6 +20,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.ReceivablesNotesDetailMapper;
 import com.glacier.netloan.dao.borrow.TenderNotesMapper;
+import com.glacier.netloan.entity.basicdatas.ParameterBasic;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.ReceivablesNotes;
 import com.glacier.netloan.entity.borrow.ReceivablesNotesDetail;
@@ -28,6 +29,7 @@ import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.entity.borrow.TenderNotesExample;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.service.basicdatas.ParameterBasicService;
 import com.glacier.netloan.service.member.MemberService;
 import com.glacier.netloan.util.MethodLog;
 
@@ -52,6 +54,9 @@ public class ReceivablesNotesDetailService {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private ParameterBasicService parameterBasicService;
 	
 	/**
 	 * @Title: getReceivablesNotesDetail 
@@ -150,6 +155,8 @@ public class ReceivablesNotesDetailService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         float currentReceMoeny = 0f;
+        ParameterBasic parameterBasic = (ParameterBasic) parameterBasicService.getParameterBasicByTitle("利息管理费");
+        receivablesNotesDetail.setInterestManaFee(Float.valueOf(parameterBasic.getBasicValue()));//设置利息管理费
         List<String> memberIds = new ArrayList<String>();
         List<String> memberNames = new ArrayList<String>();
         BorrowingLoan borrowingLoanNew = (BorrowingLoan) borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());//查询借款信息
@@ -188,10 +195,10 @@ public class ReceivablesNotesDetailService {
         			receivablesNotesDetail.setCurrentReceInterest(everyMonthInterest);//设置当期应收利息
         			float surplusPrincipal = tenderNotes.getTenderMoney()-everyPrincipal;
         			receivablesNotesDetail.setSurplusPrincipal(surplusPrincipal);//设置当期剩余本金
-        			receivablesNotesDetail.setIncome(everyMonthInterest*01);//设置当期收益
+        			receivablesNotesDetail.setIncome(everyMonthInterest * receivablesNotesDetail.getInterestManaFee());//设置当期收益
         		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("按月付息，到期还本")){
         			float everyMonthInterest = tenderNotes.getTenderMoney() * (borrowingLoanNew.getLoanApr()/12);
-        			receivablesNotesDetail.setIncome(everyMonthInterest*01);//设置当期收益
+        			receivablesNotesDetail.setIncome(everyMonthInterest * receivablesNotesDetail.getInterestManaFee());//设置当期收益
         			if(Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId()) == i+1){//判断是否是最后一期
         				currentReceMoeny = everyMonthInterest + tenderNotes.getTenderMoney();
         				receivablesNotesDetail.setCurrentReceMoeny(currentReceMoeny);//设置当期应收本息
@@ -212,7 +219,7 @@ public class ReceivablesNotesDetailService {
             			receivablesNotesDetail.setCurrentReceInterest(everyMonthInterest);//设置当期应收利息
             			receivablesNotesDetail.setCurrentRecePrincipal(0f);//设置当期应收本金
             			receivablesNotesDetail.setSurplusPrincipal(0f);//设置当期剩余本金
-            			receivablesNotesDetail.setIncome(everyMonthInterest*01);//设置当期收益
+            			receivablesNotesDetail.setIncome(everyMonthInterest * receivablesNotesDetail.getInterestManaFee());//设置当期收益
         			}else{
         				receivablesNotesDetail.setCurrentReceMoeny(0f);//设置当期应收本息
             			receivablesNotesDetail.setCurrentReceInterest(0f);//设置当期应收利息
@@ -235,10 +242,10 @@ public class ReceivablesNotesDetailService {
         			receivablesNotesDetail.setCurrentRecePrincipal(everyMonthPrincipal);//设置当期应收本金
         			receivablesNotesDetail.setCurrentReceInterest(everyMonthInterest);//设置当期应收利息
         			receivablesNotesDetail.setSurplusPrincipal(tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub()-everyPrincipal);//设置当期剩余本金
-        			receivablesNotesDetail.setIncome(everyMonthInterest*01);//设置当期收益
+        			receivablesNotesDetail.setIncome(everyMonthInterest * receivablesNotesDetail.getInterestManaFee());//设置当期收益
         		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("按月付息，到期还本")){
         			float everyMonthInterest = tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub() * (borrowingLoanNew.getLoanApr()/12);
-        			receivablesNotesDetail.setIncome(everyMonthInterest*01);//设置当期收益
+        			receivablesNotesDetail.setIncome(everyMonthInterest * receivablesNotesDetail.getInterestManaFee());//设置当期收益
         			if(Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId()) == i+1){//判断是否是最后一期
         				currentReceMoeny = everyMonthInterest + tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub();
         				receivablesNotesDetail.setCurrentReceMoeny(currentReceMoeny);//设置当期应收本息
@@ -259,7 +266,7 @@ public class ReceivablesNotesDetailService {
             			receivablesNotesDetail.setCurrentReceInterest(everyMonthInterest);//设置当期应收利息
             			receivablesNotesDetail.setCurrentRecePrincipal(0f);//设置当期应收本金
             			receivablesNotesDetail.setSurplusPrincipal(0f);//设置当期剩余本金
-            			receivablesNotesDetail.setIncome(everyMonthInterest*01);//设置当期收益
+            			receivablesNotesDetail.setIncome(everyMonthInterest * receivablesNotesDetail.getInterestManaFee());//设置当期收益
         			}else{
         				receivablesNotesDetail.setCurrentReceMoeny(0f);//设置当期应收本息
             			receivablesNotesDetail.setCurrentReceInterest(0f);//设置当期应收利息
@@ -277,6 +284,7 @@ public class ReceivablesNotesDetailService {
         	receivablesNotesDetail.setReceState("notReceiving");//设置收款状态为未收
     		receivablesNotesDetail.setReceNotesDetailId(RandomGUID.getRandomGUID());//设置收款记录明细id
     		receivablesNotesDetail.setMemberId(borrowingLoanNew.getMemberId());
+    		receivablesNotesDetail.setCreater(pricipalUser.getUserId());
             receivablesNotesDetail.setCreateTime(new Date());
             receivablesNotesDetail.setUpdater(pricipalUser.getUserId());
             receivablesNotesDetail.setUpdateTime(new Date());

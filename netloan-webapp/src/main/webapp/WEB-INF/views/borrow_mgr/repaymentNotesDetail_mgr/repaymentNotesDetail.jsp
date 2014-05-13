@@ -20,7 +20,7 @@
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
-		fitColumns:true,//自动填充行
+		//fitColumns:true,//自动填充行
 		nowrap: true,//禁止单元格中的文字自动换行
 		autoRowHeight: false,//禁止设置自动行高以适应内容
 		striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
@@ -53,28 +53,102 @@
 				width:200,
 				sortable:true
 			},{
+				field:'actualPayDate',
+				title:'实还日期',
+				width:200,
+				sortable:true
+			},{
 				field:'currentPayMoeny',
-				title:'应收本息',
+				title:'应还本息',
 				width:200,
 				sortable:true
 			},{
 				field:'currentPayPrincipal',
-				title:'应收本金',
+				title:'应还本金',
 				width:200,
 				sortable:true
 			},{
 				field:'currentPayInterest',
-				title:'应收利息',
+				title:'应还利息',
 				width:200,
 				sortable:true
+			},{
+				field:'actualPayMoney',
+				title:'实还本息',
+				width:200,
+				sortable:true
+			},{
+				field:'alsoNeedMoney',
+				title:'需还本息',
+				width:200,
+				sortable:true
+			},{
+				field:'overdueInterest',
+				title:'逾期罚息',
+				width:200,
+				sortable:true
+			},{
+				field:'overdueUrgeFee',
+				title:'逾期催收费',
+				width:200,
+				sortable:true
+			},{
+				field:'overdueManaFee',
+				title:'逾期管理费',
+				width:200,
+				sortable:true
+			},{
+				field:'overdueDays',
+				title:'逾期天数',
+				width:200,
+				sortable:true
+			},{
+				field:'isOverdue',
+				title:'是否逾期',
+				width:200,
+				sortable:true,
+				formatter: function(value,row,index){//借款状态字段的数据格式化
+					return renderGridValue(value,fields.isOverdue);
+				}
+			},{
+				field:'isAdvances',
+				title:'是否网站代还',
+				width:200,
+				sortable:true,
+				formatter: function(value,row,index){//借款状态字段的数据格式化
+					return renderGridValue(value,fields.isAdvances);
+				}
+			},{
+				field:'repayState',
+				title:'还款状态',
+				width:200,
+				sortable:true,
+				formatter: function(value,row,index){//借款状态字段的数据格式化
+					return renderGridValue(value,fields.repayDetailState);
+				}
 			},{
 				field:'remark',
 				title:'备注',
 				width:200,
 				sortable:true
 			},{
+				field:'createrDisplay',
+				title:'创建人',
+				sortable:true,
+				width:100
+			},{
 				field:'createTime',
 				title:'创建时间',
+				sortable:true,
+				width:200
+			},{
+				field:'updaterDisplay',
+				title:'更新人',
+				sortable:true,
+				width:100
+			},{
+				field:'updateTime',
+				title:'更新时间',
 				sortable:true,
 				width:200
 			}
@@ -111,7 +185,7 @@
 				title: rowData.loanTitle,
 				href : ctx + '/do/repaymentNotesDetail/intoDetail.htm?repayNotesDetailId='+rowData.repayNotesDetailId,//从controller请求jsp页面进行渲染
 				width : 720,
-				height : 200,
+				height : 400,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

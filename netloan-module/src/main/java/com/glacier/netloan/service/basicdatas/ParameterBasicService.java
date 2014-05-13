@@ -58,6 +58,13 @@ public class ParameterBasicService {
         return parameterBasicMapper.selectByPrimaryKey(basicId);
     }
     
+    public Object getParameterBasicByTitle(String basicTitle) {
+    	ParameterBasicExample parameterBasicExample = new ParameterBasicExample();
+    	parameterBasicExample.createCriteria().andBasicTitleEqualTo(basicTitle);
+        List<ParameterBasic>  basicTitles = parameterBasicMapper.selectByExample(parameterBasicExample); // 查询所有基础参数列表
+        return basicTitles.get(0);
+    }
+    
     /**
      * @Title: listAsGrid 
      * @Description: TODO(以表格结构展示基础参数列表) 

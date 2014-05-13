@@ -40,20 +40,20 @@ public class RepaymentNotesDetailController extends AbstractController{
     
     // 进入还款记录明细Form表单页面
     @RequestMapping(value = "/intoForm.htm")
-    private Object intoRepaymentNotesDetailFormPreview(String repaymentNotesDetailId) {
-        ModelAndView mav = new ModelAndView("borrow_mgr/repaymentNotesDetail_mgr/repaymentNotesDetail_form");
-        if(StringUtils.isNotBlank(repaymentNotesDetailId)){
-            mav.addObject("repaymentNotesDetailData", repaymentNotesDetailService.getRepaymentNotesDetail(repaymentNotesDetailId));
+    private Object intoRepaymentNotesDetailFormPreview(String repayNotesDetailId) {
+        ModelAndView mav = new ModelAndView("borrow_mgr/repaymentNotesDetail_mgr/repaymentNotesDeatail_form");
+        if(StringUtils.isNotBlank(repayNotesDetailId)){
+            mav.addObject("repaymentNotesDetailData", repaymentNotesDetailService.getRepaymentNotesDetail(repayNotesDetailId));
         }
         return mav;
     }
     
     // 进入还款记录明细Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
-    private Object intoRepaymentNotesDetailDetailPage(String repaymentNotesDetailId) {
-        ModelAndView mav = new ModelAndView("borrow_mgr/repaymentNotesDetail_mgr/repaymentNotesDetail_detail");
-        if(StringUtils.isNotBlank(repaymentNotesDetailId)){
-            mav.addObject("repaymentNotesDetailData", repaymentNotesDetailService.getRepaymentNotesDetail(repaymentNotesDetailId));
+    private Object intoRepaymentNotesDetailDetailPage(String repayNotesDetailId) {
+        ModelAndView mav = new ModelAndView("borrow_mgr/repaymentNotesDetail_mgr/repaymentNotesDeatail_detail");
+        if(StringUtils.isNotBlank(repayNotesDetailId)){
+            mav.addObject("repaymentNotesDetailData", repaymentNotesDetailService.getRepaymentNotesDetail(repayNotesDetailId));
         }
         return mav;
     }
@@ -89,7 +89,7 @@ public class RepaymentNotesDetailController extends AbstractController{
     // 批量删除还款记录明细
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
-    public Object delRepaymentNotesDetail(@RequestParam List<String> repaymentNotesDetailIds,@RequestParam List<String> repaymentNotesDetailTitle) {
-    	return repaymentNotesDetailService.delRepaymentNotesDetail(repaymentNotesDetailIds, repaymentNotesDetailTitle);
+    public Object delRepaymentNotesDetail(@RequestParam List<String> repayNotesDetailIds,@RequestParam List<String> repaymentNotesDetailTitle) {
+    	return repaymentNotesDetailService.delRepaymentNotesDetail(repayNotesDetailIds, repaymentNotesDetailTitle);
     }
 }

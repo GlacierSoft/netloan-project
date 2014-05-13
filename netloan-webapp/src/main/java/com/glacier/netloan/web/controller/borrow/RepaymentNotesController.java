@@ -40,20 +40,20 @@ public class RepaymentNotesController extends AbstractController{
     
     // 进入还款记录Form表单页面
     @RequestMapping(value = "/intoForm.htm")
-    private Object intoRepaymentNotesFormPreview(String repaymentNotesId) {
+    private Object intoRepaymentNotesFormPreview(String repayNotesId) {
         ModelAndView mav = new ModelAndView("borrow_mgr/repaymentNotes_mgr/repaymentNotes_form");
-        if(StringUtils.isNotBlank(repaymentNotesId)){
-            mav.addObject("repaymentNotesData", repaymentNotesService.getRepaymentNotes(repaymentNotesId));
+        if(StringUtils.isNotBlank(repayNotesId)){
+            mav.addObject("repaymentNotesData", repaymentNotesService.getRepaymentNotes(repayNotesId));
         }
         return mav;
     }
     
     // 进入还款记录Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
-    private Object intoRepaymentNotesDetailPage(String repaymentNotesId) {
+    private Object intoRepaymentNotesDetailPage(String repayNotesId) {
         ModelAndView mav = new ModelAndView("borrow_mgr/repaymentNotes_mgr/repaymentNotes_detail");
-        if(StringUtils.isNotBlank(repaymentNotesId)){
-            mav.addObject("repaymentNotesData", repaymentNotesService.getRepaymentNotes(repaymentNotesId));
+        if(StringUtils.isNotBlank(repayNotesId)){
+            mav.addObject("repaymentNotesData", repaymentNotesService.getRepaymentNotes(repayNotesId));
         }
         return mav;
     }
@@ -88,7 +88,7 @@ public class RepaymentNotesController extends AbstractController{
     // 批量删除还款记录
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
-    public Object delRepaymentNotes(@RequestParam List<String> repaymentNotesIds,@RequestParam List<String> repaymentNotesTitle) {
-    	return repaymentNotesService.delRepaymentNotes(repaymentNotesIds, repaymentNotesTitle);
+    public Object delRepaymentNotes(@RequestParam List<String> repayNotesIds,@RequestParam List<String> repaymentNotesTitle) {
+    	return repaymentNotesService.delRepaymentNotes(repayNotesIds, repaymentNotesTitle);
     }
 }

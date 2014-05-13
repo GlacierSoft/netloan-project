@@ -20,7 +20,7 @@
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
-		fitColumns:true,//自动填充行
+		//fitColumns:true,//自动填充行
 		nowrap: true,//禁止单元格中的文字自动换行
 		autoRowHeight: false,//禁止设置自动行高以适应内容
 		striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
@@ -58,13 +58,61 @@
 				width:200,
 				sortable:true
 			},{
-				field:'repayState',
-				title:'还款状态',
+				field:'alrPayMoney',
+				title:'已还本息',
 				width:200,
 				sortable:true
 			},{
+				field:'notPayMoney',
+				title:'未还本息',
+				width:200,
+				sortable:true
+			},{
+				field:'alrOverdueInterest',
+				title:'已还逾期罚息',
+				width:200,
+				sortable:true
+			},{
+				field:'alrOverdueUrge',
+				title:'已还逾期催收费',
+				width:200,
+				sortable:true
+			},{
+				field:'alrOverdueMana',
+				title:'已还逾期管理费',
+				width:200,
+				sortable:true
+			},{
+				field:'repayState',
+				title:'还款状态',
+				width:200,
+				sortable:true,
+				formatter: function(value,row,index){//借款状态字段的数据格式化
+					return renderGridValue(value,fields.repayState);
+				}
+			},{
+				field:'remark',
+				title:'备注',
+				sortable:true,
+				width:120
+			},{
+				field:'createrDisplay',
+				title:'创建人',
+				sortable:true,
+				width:100
+			},{
 				field:'createTime',
 				title:'创建时间',
+				sortable:true,
+				width:200
+			},{
+				field:'updaterDisplay',
+				title:'更新人',
+				sortable:true,
+				width:100
+			},{
+				field:'updateTime',
+				title:'更新时间',
 				sortable:true,
 				width:200
 			}
@@ -101,7 +149,7 @@
 				title: rowData.loanTitle,
 				href : ctx + '/do/repaymentNotes/intoDetail.htm?repayNotesId='+rowData.repayNotesId,//从controller请求jsp页面进行渲染
 				width : 720,
-				height : 200,
+				height : 300,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
