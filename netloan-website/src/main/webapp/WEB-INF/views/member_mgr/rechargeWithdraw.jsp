@@ -14,6 +14,7 @@
 		body {
 		    padding-top: 100px;
 		}
+		.rechargeFontSize {padding: 15px 19px 15px 19px; font-size: 12px; line-height: 24px; color: #878787; }
 	</style>
   </head>
   <body>
@@ -160,10 +161,102 @@
 					      </table>
 				        </div>
 				        <div class="tab-pane fade" id="recharge">
-				          <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+				            <div class="rechargeFontSize">
+				            	温馨提示:凡是在冰川网贷充值未投标的用户，15天以内提现收取本金0.5%，15天以后提现免费 冰川网贷禁止信用卡套现、虚假交易等行为,一经发现将予以处罚,包括但不限于：限制收款、冻结账户、永久停止服务,并有可能影响相关信用记录。
+				            </div>
+				        	<table class="table table-bordered">
+					          	<tbody>
+							          <tr>
+							            <td>真实姓名</td> 
+							            <td>${currentMember.memberRealName}</td>
+							          </tr>
+							          <tr>
+							            <td>账号：</td>
+							            <td>${currentMember.memberName}</td>
+							          </tr>
+							          <tr>
+							            <td>充值金额：</td>
+							            <td><input  type="text" class="inp100x" />元</td>
+							          </tr>
+							          <tr>
+							            <td rowspan="3">充值类型：</td>
+							            <td><input type="radio" value="yes"/>支付宝</td>
+							          </tr>
+							          <tr>
+							            <td><input type="radio" value="yes"/>财务通</td>
+							          </tr>
+							          <tr>
+							            <td><input type="radio" value="yes"/>线下充值</td>
+							          </tr>
+							          <tr>
+							            <td colspan="2" align="center">
+							            	<button type="submit" class="btn btn-default">提交</button>
+							            	<button type="submit" class="btn btn-default">重置</button>
+							            </td>
+							          </tr>
+						      	</tbody>
+						    </table>
+						    <br>
+						    <div class="rechargeFontSize">
+						    	国付宝简介:国付宝信息科技有限公司（以下简称“国付宝”）是商务部中国国际电子商务中心（以下简称“CIECC”）与海航商业控股有限公司（以下简称“海航商业”）合资成立，针对政府及企业的需求和电子商务的发展，精心打造的国有背景的，引入社会诚信体系的独立第三方电子支付平台，也是“金关工程”的重要组成部分。国付宝信息科技有限公司成立于2011年1月25日，由商务部中国国际电子商务中心与海航商业控股有限公司合作成立，主要经营第三方支付业务。公司注册资本14285.72万元，主要经营第三方支付业务，互联网支付及移动电话支付（全国）。
+						    </div>
 				        </div>
 				        <div class="tab-pane fade" id="withdraw">
-				          <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+				        	<div class="rechargeFontSize">
+					        	<p>凡是在晓风网贷充值未投标的用户，15天以内提现收取本金0.5%，15天以后提现免费</p>
+								<p>注：1、请输入您要取出金额,我们将在1至3个工作日(国家节假日除外)之内将钱转入您网站上填写的银行账号。<p> 
+								<p>2、如你急需要把钱转到你的账号或者24小时之内网站未将钱转入到你的银行账号,请联系客服中心。 <p>
+								<p>3、确保您的银行账号的姓名和您的网站上的真实姓名一致。 <p>
+								<p>4、在钱打到您账号时会发一封站内信通知你。 <p>
+								<p>5、每笔提现金额至少为100元以上（备注：如101、632等）<p>
+								<p>6、每笔提现金额最高不能超过50000元。 <p>
+								<p>7、您目前能提取的最高额度是1354539.92元。<p>
+						    </div>
+						    <table class="table table-bordered">
+					          	<tbody>
+							          <tr>
+							            <td>真实姓名</td> 
+							            <td>${currentMember.memberRealName}</td>
+							          </tr>
+							          <tr>
+							            <td>账号：</td>
+							            <td>${currentMember.memberName}</td>
+							          </tr>
+							          <tr>
+							            <td>账户余额</td> 
+							            <td>${financeMemberData.amount}</td>
+							          </tr>
+							          <tr>
+							            <td>可用余额：</td>
+							            <td>${financeMemberData.usableMoney}</td>
+							          </tr>
+							          <tr>
+							            <td>冻结总额：</td>
+							            <td>${financeMemberData.frozenMoney}</td>
+							          </tr>
+							          <tr>
+							            <td>提现金额：</td>
+							            <td><input  type="text" class="inp100x" />元</td>
+							          </tr>
+							          <tr>
+							            <td>交易密码：</td>
+							            <td><input  type="text" class="inp100x" /></td>
+							          </tr>
+							          <tr>
+							            <td>验证码：</td>
+							            <td><input  type="text" class="inp100x" />&nbsp;<button type="submit" class="btn btn-default">发送手机验证码</button>&nbsp;<span style="color:#F00"> * 演示站点不发送短信</span></td>
+							          </tr>
+							          <tr>
+							            <td colspan="2" align="center">
+							            	<button type="submit" class="btn btn-default">提交</button>
+							            	<button type="submit" class="btn btn-default">重置</button>
+							            </td>
+							          </tr>
+						      	</tbody>
+						    </table>
+						    <div class="rechargeFontSize">
+						    	* 温馨提示：禁止信用卡套现
+						    </div>
 				        </div>
 				      </div>
 				    </div><!-- /example -->
