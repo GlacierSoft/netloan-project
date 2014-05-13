@@ -78,7 +78,7 @@
 				sortable:true
 			},{
 				field:'collectingMoney',
-				title:'代收金额',
+				title:'待收金额',
 				width:120,
 				sortable:true
 			},{

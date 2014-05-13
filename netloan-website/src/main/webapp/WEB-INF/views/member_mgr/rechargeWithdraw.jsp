@@ -101,8 +101,52 @@
 				      </ul>
 				      <div id="myTabContent" class="tab-content">
 				        <div class="tab-pane fade in active" id="finance">
-				        ${ financeMemberData.usableMoney}
 				        
+				        
+				          <table class="table table-bordered">
+				          	<tbody>
+						          <tr>
+						            <td>账号总额</td> 
+						            <td>可用余额</td>
+						            <td>冻结金额</td>
+						          </tr>
+						          <tr>
+						            <td>￥${financeMemberData.amount}</td>
+						            <td>￥${financeMemberData.usableMoney}</td>
+						            <td>￥${financeMemberData.frozenMoney}</td>
+						          </tr>
+					      	</tbody>
+					      </table>
+					      <table class="table table-bordered">
+				          	<thead>
+					          <tr>
+					            <th>交易类型</th>
+					            <th>交易对方</th>
+					            <th>收入金额</th>
+					            <th>支出金额</th>
+					            <th>可用余额</th>
+					            <th>冻结余额</th>
+					            <th>待收金额</th>
+					            <th>总金额</th>
+					            <th>交易时间</th>
+					          </tr>
+					        </thead>
+				          	<tbody>
+					          <c:forEach items="${financeTransactionDates.rows}" var="finTransaction">
+						          <tr>
+						            <td>${finTransaction.transactionType}</td>
+						          	<td>${finTransaction.transactionTarget}</td>
+						          	<td>${finTransaction.earningMoney}</td>
+						          	<td>${finTransaction.expendMoney}</td>
+						          	<td>${finTransaction.usableMoney}</td>
+						          	<td>${finTransaction.frozenMoney}</td>
+						          	<td>${finTransaction.collectingMoney}</td>
+						          	<td>${finTransaction.amount}</td>
+						          	<td><fmt:formatDate value="${finTransaction.createTime}" type="both"/></td>
+						          </tr>
+					      		</c:forEach>
+					      	</tbody>
+					      </table>
 				        </div>
 				        <div class="tab-pane fade" id="recharge">
 				          <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>

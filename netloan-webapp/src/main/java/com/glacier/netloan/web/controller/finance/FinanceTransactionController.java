@@ -54,8 +54,8 @@ public class FinanceTransactionController extends AbstractController{
     // 获取表格结构的所有会员资金记录数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listTransactionAsGridByMenuId(JqPager pfinanceTransactionr) {
-        return financeTransactionService.listAsGrid(pfinanceTransactionr);
+    private Object listTransactionAsGridByMenuId(JqPager pfinanceTransactionr, String memberId) {
+        return financeTransactionService.listAsGrid(pfinanceTransactionr, memberId);
     }
     
     // 批量删除会员资金记录

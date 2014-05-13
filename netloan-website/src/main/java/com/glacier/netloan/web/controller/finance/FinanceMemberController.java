@@ -26,6 +26,7 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.service.finance.FinanceMemberService;
+import com.glacier.netloan.service.finance.FinanceTransactionService;
 
 /** 
  * @ClassName: FinanceMemberController 
@@ -41,14 +42,18 @@ public class FinanceMemberController extends AbstractController{
     @Autowired
     private FinanceMemberService financeMemberService;// 注入会员资金记录业务Bean
     
+    @Autowired
+    private FinanceTransactionService financeTransactionService;
+    
     //转到“充值提现”页面
   	@RequestMapping(value = "/rechargeWithdraw.htm")
-  	public Object rechargeWithdraw(){
+  	public Object rechargeWithdraw(JqPager pager){
   		ModelAndView mav = new ModelAndView("member_mgr/rechargeWithdraw");
   		Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
   		Member pricipalMember = (Member) pricipalSubject.getPrincipal();
         if(StringUtils.isNotBlank(pricipalMember.getMemberId())){
             mav.addObject("financeMemberData", financeMemberService.getMemberId(pricipalMember.getMemberId()));
+            mav.addObject("financeTransactionDates",financeTransactionService.listAsGrid(pager, pricipalMember.getMemberId()));
         }
         return mav;
   	}

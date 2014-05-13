@@ -49,6 +49,13 @@ public class FinanceTransactionService {
         return financeTransaction;
     }
     
+//    public Object getFinTraList(String memberId){
+//    	FinanceTransactionExample financeTransactionExample = new FinanceTransactionExample();
+//    	financeTransactionExample.createCriteria().andMemberIdEqualTo(memberId);
+//    	List<FinanceTransaction> FinTraList = financeTransactionMapper.selectByExample(financeTransactionExample);
+//    	return FinTraList;
+//    }
+    
     /**
      * @Title: listAsGrid 
      * @Description: TODO(获取所有会员资金记录信息) 
@@ -57,11 +64,14 @@ public class FinanceTransactionService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pager) {
+    public Object listAsGrid(JqPager pager, String memberId) {
 
         JqGridReturn returnResult = new JqGridReturn();
         FinanceTransactionExample financeTransactionExample = new FinanceTransactionExample();
-
+        if(StringUtils.isNotBlank(memberId) && null != memberId){
+        	financeTransactionExample.createCriteria().andMemberIdEqualTo(memberId);
+        }
+        
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	financeTransactionExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	financeTransactionExample.setLimitEnd(pager.getRows());
