@@ -47,13 +47,13 @@ public class FinanceMemberController extends AbstractController{
     
     //转到“充值提现”页面
   	@RequestMapping(value = "/rechargeWithdraw.htm")
-  	public Object rechargeWithdraw(JqPager pager){
+  	public Object rechargeWithdraw(JqPager pager, int p){
   		ModelAndView mav = new ModelAndView("member_mgr/rechargeWithdraw");
   		Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
   		Member pricipalMember = (Member) pricipalSubject.getPrincipal();
         if(StringUtils.isNotBlank(pricipalMember.getMemberId())){
             mav.addObject("financeMemberData", financeMemberService.getMemberId(pricipalMember.getMemberId()));
-            mav.addObject("financeTransactionDates",financeTransactionService.listAsGrid(pager, pricipalMember.getMemberId()));
+            mav.addObject("financeTransactionDates",financeTransactionService.listAsWebsite(pager, pricipalMember.getMemberId(), p));
         }
         return mav;
   	}

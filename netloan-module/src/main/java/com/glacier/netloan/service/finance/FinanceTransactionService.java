@@ -64,13 +64,10 @@ public class FinanceTransactionService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pager, String memberId) {
+    public Object listAsGrid(JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
         FinanceTransactionExample financeTransactionExample = new FinanceTransactionExample();
-        if(StringUtils.isNotBlank(memberId) && null != memberId){
-        	financeTransactionExample.createCriteria().andMemberIdEqualTo(memberId);
-        }
         
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	financeTransactionExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
@@ -86,6 +83,43 @@ public class FinanceTransactionService {
         return returnResult;// 返回ExtGrid表
     }
 
+    /**
+     * @Title: listAsWebsite 
+     * @Description: TODO(前台获取会员资金明细记录) 
+     * @param @param pager
+     * @param @param memberId
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    public Object listAsWebsite(JqPager pager, String memberId, int p) {
+
+        JqGridReturn returnResult = new JqGridReturn();
+        FinanceTransactionExample financeTransactionExample = new FinanceTransactionExample();
+        if(StringUtils.isNotBlank(memberId) && null != memberId){
+        	financeTransactionExample.createCriteria().andMemberIdEqualTo(memberId);
+        }
+        
+        pager.setSort("createTime");// 定义排序字段
+        pager.setOrder("DESC");// 升序还是降序
+        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
+        	financeTransactionExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
+        	financeTransactionExample.setLimitEnd(pager.getRows());
+        }
+        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
+        	financeTransactionExample.setOrderByClause(pager.getOrderBy("temp_finance_transaction_"));
+        }
+        int startTemp = ((p-1)*5);//根据前台返回的页数进行设置
+        financeTransactionExample.setLimitStart(startTemp);
+        financeTransactionExample.setLimitEnd(5);
+        List<FinanceTransaction>  financeTransactions = financeTransactionMapper.selectByExample(financeTransactionExample); // 查询所有会员资金记录列表
+        int total = financeTransactionMapper.countByExample(financeTransactionExample); // 查询总页数
+        returnResult.setRows(financeTransactions);
+        returnResult.setTotal(total);
+        returnResult.setP(p);
+        return returnResult;// 返回ExtGrid表
+    }
+    
     /**
      * @Title: addTransaction 
      * @Description: TODO(新增会员资金记录) 

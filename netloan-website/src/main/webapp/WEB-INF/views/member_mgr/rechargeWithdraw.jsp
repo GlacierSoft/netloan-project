@@ -146,6 +146,17 @@
 						          </tr>
 					      		</c:forEach>
 					      	</tbody>
+					      	<tfoot>
+					          <tr>
+					            <th colspan="9">
+					            
+					            	<div align="right">
+									    <ul id='pagefinTransaction'></ul>
+									</div>
+
+								</th>
+					          </tr>
+					        </tfoot>
 					      </table>
 				        </div>
 				        <div class="tab-pane fade" id="recharge">
@@ -170,5 +181,61 @@
 	    </div>
 	    <!-- CONTAINER START======================== -->
 	      
+<!-- 分页显示表格数据 -->
+<script type="text/javascript">
+	$(function(){
+		//获得浏览器参数
+		$.extend({
+			getUrlVars: function(){
+				var vars = [], hash;
+				var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+				for(var i = 0; i < hashes.length; i++){
+					hash = hashes[i].split('=');
+					vars.push(hash[0]);
+					vars[hash[0]] = hash[1];
+				}
+				return vars;
+			},
+			getUrlVar: function(name){
+				return $.getUrlVars()[name];
+			}
+		});
+	
+	//封装浏览器参数
+	var composeUrlParams=function(){
+		var param='';
+		$.each($.getUrlVars(), function(i, item) {
+			if(item!='p'){
+				var val=$.getUrlVar(item);
+				if(val) param += "&" + item+"="+val;
+			}
+		});
+		return param;
+	}
+	
+	var element = $('#pagefinTransaction');
+	
+	//设置分页的总页数
+	var total=${financeTransactionDates.total}/5;
+	if(parseInt(total)==total){
+		var total = parseInt(total);
+	}else {
+		var total = parseInt(total)+1;
+	}
+	
+	var options = {
+	    bootstrapMajorVersion:3,
+	    currentPage: ${financeTransactionDates.p},
+	    numberOfPages: 5,
+	    totalPages:total,
+	    pageUrl: function(type, page, current){
+	    	return "${ctx}/financeMember/rechargeWithdraw.htm?"+composeUrlParams()+"&p="+page;
+	    }
+	}
+	
+	element.bootstrapPaginator(options);
+	})
+</script>
+ 
   </body>
 </html>
