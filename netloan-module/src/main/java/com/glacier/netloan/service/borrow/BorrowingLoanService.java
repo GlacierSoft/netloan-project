@@ -430,7 +430,7 @@ public class BorrowingLoanService {
           	//添加收款记录明细信息
           	ReceivablesNotesDetail receivablesNotesDetail = new ReceivablesNotesDetail();
           	JqReturnJson returnResultreceivablesNotesDetail = (JqReturnJson) receivablesNotesDetailService.addReceivablesNotesDetail(receivablesNotesDetail, borrowingLoan, receivablesNotesNew);
-          	//添加记录明细
+          	//添加借款记录明细
           	FinanceTransaction financeTransaction = new FinanceTransaction();
             //获取会员资金记录信息
           	FinanceMember financeMember = (FinanceMember) financeMemberService.getMemberByMemberId(borrowingLoan.getMemberId());
@@ -446,7 +446,14 @@ public class BorrowingLoanService {
           	financeTransaction.setCollectingMoney(0f);//设置代收金额
           	financeTransaction.setRefundMoney(0f);//设置待还金额
           	financeTransaction.setAmount(borrowingLoan.getLoanTotal());//设置总金额
-          	financeTransactionService.addTransaction(financeTransaction);
+          	financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
+          	//添加系统账户收取管理费记录明细
+          	financeTransaction.setTransactionTarget("系统账户");
+          	financeTransaction.setTransactionType("借款管理费");//设置交易类型
+          	financeTransaction.setEarningMoney(borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());//设置收入金额
+          	financeTransaction.setUsableMoney(borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());//设置可用金额
+          	financeTransaction.setAmount(borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());//设置总金额
+          	financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
           	//更新借款的会员资金信息
           	financeMember.setUsableMoney(financeMember.getUsableMoney() + borrowingLoan.getLoanTotal() -  borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());
           	financeMember.setAmount(financeMember.getAmount() +  borrowingLoan.getLoanTotal() - borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());

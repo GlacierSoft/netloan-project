@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.borrow.ReceivablesNotesDetailQueryDTO;
 import com.glacier.netloan.entity.borrow.ReceivablesNotesDetail;
 import com.glacier.netloan.service.borrow.ReceivablesNotesDetailService;
 /**
@@ -61,8 +62,8 @@ public class ReceivablesNotesDetailController extends AbstractController{
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(JqPager pservicer) {
-        return receivablesNotesDetailService.listAsGrid(pservicer);
+    private Object listActionAsGridByMenuId(JqPager pservicer,ReceivablesNotesDetailQueryDTO receivablesNotesDetailQueryDTO) {
+        return receivablesNotesDetailService.listAsGrid(pservicer,receivablesNotesDetailQueryDTO);
     }
     
     // 增加收款记录明细

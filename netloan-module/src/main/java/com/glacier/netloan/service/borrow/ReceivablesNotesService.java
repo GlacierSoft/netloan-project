@@ -18,9 +18,11 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.ReceivablesNotesMapper;
 import com.glacier.netloan.dao.borrow.TenderNotesMapper;
+import com.glacier.netloan.dto.query.borrow.ReceivablesNotesQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.ReceivablesNotes;
 import com.glacier.netloan.entity.borrow.ReceivablesNotesExample;
+import com.glacier.netloan.entity.borrow.ReceivablesNotesExample.Criteria;
 import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.entity.borrow.TenderNotesExample;
 import com.glacier.netloan.entity.system.User;
@@ -100,10 +102,13 @@ public class ReceivablesNotesService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pager) {
+    public Object listAsGrid(JqPager pager,ReceivablesNotesQueryDTO receivablesNotesQueryDTO) {
         
         JqGridReturn returnResult = new JqGridReturn();
-        ReceivablesNotesExample receivablesNotesExample = new ReceivablesNotesExample();;
+        ReceivablesNotesExample receivablesNotesExample = new ReceivablesNotesExample();
+        
+        Criteria queryCriteria = receivablesNotesExample.createCriteria();
+        receivablesNotesQueryDTO.setQueryCondition(queryCriteria);
 
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	receivablesNotesExample.setLimitStart((pager.getPage() - 1) * pager.getRows());

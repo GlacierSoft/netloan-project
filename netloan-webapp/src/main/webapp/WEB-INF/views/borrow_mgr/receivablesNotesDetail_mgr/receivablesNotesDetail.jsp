@@ -251,7 +251,17 @@
 			});
 		}
 	};
-	
+	//借款状态下拉项的值
+	$('#receivablesNotesDetailSearchForm_receState').combobox({  
+		valueField : 'value',
+		height:18,
+		width:80,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		//required:true,
+		data : fields.receDetailState
+	});
 </script>
 
 <!-- 所有客服列表面板和表格 -->
@@ -260,5 +270,29 @@
 		<table id="ReceivablesNotesDetailDataGrid">
 			<glacierui:toolbar panelEnName="ReceivablesNotesDetailList" toolbarId="ReceivablesNotesDetailDataGrid_toolbar" menuEnName="ReceivablesNotesDetail"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
+	</div>
+		<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
+		<form id="receivablesNotesDetailSearchForm">
+			<table>
+				<tr>
+					<td>还款人：</td>
+					<td><input id="receivablesNotesDetailSearchForm_memberDisplay" name="memberDisplay" style="width: 80px;" class="spinner"/></td>
+					<td>第几期：</td>
+					<td><input id="receivablesNotesDetailSearchForm_numberPeriod" name="numberPeriod" style="width: 80px;" class="spinner"/></td>
+					<td>还款状态：</td>
+					<td><input id="receivablesNotesDetailSearchForm_receState" name="receState" style="width: 80px;" class="spinner"/></td>
+					<td>录入时间：</td>
+					<td>
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 150px;" />
+						-
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 150px;" />
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.borrow_mgr.receivablesNotesDetail_mgr.receivablesNotesDetail.ReceivablesNotesDetailDataGrid.datagrid('load',glacier.serializeObject($('#receivablesNotesDetailSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#receivablesNotesDetailSearchForm input').val('');glacier.borrow_mgr.receivablesNotesDetail_mgr.receivablesNotesDetail.ReceivablesNotesDetailDataGrid.datagrid('load',{});">重置条件</a>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </div>

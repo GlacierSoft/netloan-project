@@ -18,10 +18,12 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.RepaymentNotesDetailMapper;
+import com.glacier.netloan.dto.query.borrow.RepaymentNotesDetailQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.RepaymentNotes;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetail;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetailExample;
+import com.glacier.netloan.entity.borrow.RepaymentNotesDetailExample.Criteria;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -101,10 +103,13 @@ public class RepaymentNotesDetailService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pager) {
+    public Object listAsGrid(JqPager pager,RepaymentNotesDetailQueryDTO repaymentNotesDetailQueryDTO) {
         
         JqGridReturn returnResult = new JqGridReturn();
-        RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();;
+        RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();
+        
+        Criteria queryCriteria = repaymentNotesDetailExample.createCriteria();
+        repaymentNotesDetailQueryDTO.setQueryCondition(queryCriteria);
 
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	repaymentNotesDetailExample.setLimitStart((pager.getPage() - 1) * pager.getRows());

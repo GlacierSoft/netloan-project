@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 public class RepaymentNotesDetailExample {
     protected String orderByClause;
 
@@ -104,6 +105,12 @@ public class RepaymentNotesDetailExample {
             return criteria;
         }
 
+        //扩展查询条件
+        public Criteria andMemberDisplayLike(String value) {
+            addCriterion("temp_member.member_name like", value, "memberDisplay");
+            return (Criteria) this;
+        }
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");

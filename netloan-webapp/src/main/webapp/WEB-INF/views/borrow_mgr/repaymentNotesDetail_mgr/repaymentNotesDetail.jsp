@@ -264,7 +264,17 @@
 			});
 		}
 	};
-	
+	//借款状态下拉项的值
+	$('#repaymentNotesDetailSearchForm_repayState').combobox({  
+		valueField : 'value',
+		height:18,
+		width:80,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		//required:true,
+		data : fields.repayDetailState
+	});
 </script>
 
 <!-- 所有客服列表面板和表格 -->
@@ -273,5 +283,29 @@
 		<table id="RepaymentNotesDetailDataGrid">
 			<glacierui:toolbar panelEnName="RepaymentNotesDetailList" toolbarId="RepaymentNotesDetailDataGrid_toolbar" menuEnName="RepaymentNotesDetail"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
+	</div>
+	<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
+		<form id="repaymentNotesDetailSearchForm">
+			<table>
+				<tr>
+					<td>还款人：</td>
+					<td><input id="repaymentNotesDetailSearchForm_memberDisplay" name="memberDisplay" style="width: 80px;" class="spinner"/></td>
+					<td>第几期：</td>
+					<td><input id="repaymentNotesDetailSearchForm_numberPeriod" name="numberPeriod" style="width: 80px;" class="spinner"/></td>
+					<td>还款状态：</td>
+					<td><input id="repaymentNotesDetailSearchForm_repayState" name="repayState" style="width: 80px;" class="spinner"/></td>
+					<td>录入时间：</td>
+					<td>
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 150px;" />
+						-
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 150px;" />
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail.RepaymentNotesDetailDataGrid.datagrid('load',glacier.serializeObject($('#repaymentNotesDetailSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#repaymentNotesDetailSearchForm input').val('');glacier.borrow_mgr.repaymentNotesDetail_mgr.repaymentNotesDetail.RepaymentNotesDetailDataGrid.datagrid('load',{});">重置条件</a>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </div>
