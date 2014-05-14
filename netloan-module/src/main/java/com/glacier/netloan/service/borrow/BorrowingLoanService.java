@@ -441,22 +441,26 @@ public class BorrowingLoanService {
           	financeTransaction.setTransactionType("借款");//设置交易类型
           	financeTransaction.setEarningMoney(borrowingLoan.getLoanTotal());//设置收入金额
           	financeTransaction.setExpendMoney(0f);//设置支出金额
-          	financeTransaction.setUsableMoney(borrowingLoan.getLoanTotal() - borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());//设置可用金额
-          	financeTransaction.setFrozenMoney(0f);//设置冻结金额
-          	financeTransaction.setCollectingMoney(0f);//设置代收金额
-          	financeTransaction.setRefundMoney(0f);//设置待还金额
-          	financeTransaction.setAmount(borrowingLoan.getLoanTotal());//设置总金额
+          	//financeTransaction.setUsableMoney(borrowingLoan.getLoanTotal() - borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());//设置可用金额
+          	financeTransaction.setUsableMoney(borrowingLoan.getLoanTotal() + financeMember.getUsableMoney());//设置可用金额
+          	financeTransaction.setFrozenMoney(financeMember.getFrozenMoney());//设置冻结金额
+          	financeTransaction.setCollectingMoney(financeMember.getCollectingMoney());//设置代收金额
+          	financeTransaction.setRefundMoney(financeMember.getRefundMoney());//设置待还金额
+          	financeTransaction.setAmount(borrowingLoan.getLoanTotal()+financeMember.getAmount());//设置总金额
           	financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
           	//添加系统账户收取管理费记录明细
-          	financeTransaction.setTransactionTarget("系统账户");
+          	/*financeTransaction.setTransactionTarget("系统账户");
           	financeTransaction.setTransactionType("借款管理费");//设置交易类型
           	financeTransaction.setEarningMoney(borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());//设置收入金额
           	financeTransaction.setUsableMoney(borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());//设置可用金额
           	financeTransaction.setAmount(borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());//设置总金额
           	financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
+*/          	
           	//更新借款的会员资金信息
-          	financeMember.setUsableMoney(financeMember.getUsableMoney() + borrowingLoan.getLoanTotal() -  borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());
-          	financeMember.setAmount(financeMember.getAmount() +  borrowingLoan.getLoanTotal() - borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());
+          	//financeMember.setUsableMoney(financeMember.getUsableMoney() + borrowingLoan.getLoanTotal() -  borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());
+          	//financeMember.setAmount(financeMember.getAmount() +  borrowingLoan.getLoanTotal() - borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());
+          	financeMember.setUsableMoney(financeMember.getUsableMoney() + borrowingLoan.getLoanTotal());//设置会员资金可用金额
+          	financeMember.setAmount(financeMember.getAmount() +  borrowingLoan.getLoanTotal());//设置会员资金总金额
           	financeMemberService.editMember(financeMember);
           	
         	borrowingLoan.setLoanState("repaymenting");

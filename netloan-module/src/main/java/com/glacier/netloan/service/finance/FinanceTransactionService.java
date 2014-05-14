@@ -17,9 +17,11 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
+import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.finance.FinanceTransactionExample;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -35,6 +37,9 @@ public class FinanceTransactionService {
 	
 	@Autowired
 	private FinanceTransactionMapper financeTransactionMapper;
+	
+	@Autowired
+	private UserMapper userMapper;
 
 	/**
 	 * @Title: getTransaction 
@@ -134,6 +139,41 @@ public class FinanceTransactionService {
     	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
+        
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        
+        financeTransaction.setTransactionId(RandomGUID.getRandomGUID());
+        financeTransaction.setCreater(pricipalUser.getUserId());
+        financeTransaction.setCreateTime(new Date());
+        financeTransaction.setUpdater(pricipalUser.getUserId());
+        financeTransaction.setUpdateTime(new Date());
+        count = financeTransactionMapper.insert(financeTransaction);
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("会员资金记录信息已保存");
+        } else {
+            returnResult.setMsg("发生未知错误，会员资金记录信息保存失败");
+        }
+        return returnResult;
+    }
+    
+    /**
+     * @Title: addTransactionWebsite 
+     * @Description: TODO(前台添加资金记录明细) 
+     * @param  @param financeTransaction
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
+     */
+    @Transactional(readOnly = false)
+    public Object addTransactionWebsite(FinanceTransaction financeTransaction) {
+    	
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUsernameEqualTo("admin");
+        List<User> users = userMapper.selectByExample(userExample);
+        User pricipalUser = users.get(0);
         
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;

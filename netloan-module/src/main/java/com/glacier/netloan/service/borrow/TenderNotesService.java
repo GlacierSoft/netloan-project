@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -19,7 +20,10 @@ import com.glacier.netloan.dao.borrow.TenderNotesMapper;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.entity.borrow.TenderNotesExample;
+import com.glacier.netloan.entity.finance.FinanceMember;
+import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.service.finance.FinanceMemberService;
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -37,6 +41,10 @@ public class TenderNotesService {
 	
 	@Autowired
 	private BorrowingLoanService borrowingLoanService;
+	
+	@Autowired
+	private FinanceMemberService financeMemberService;
+	
 	
 	/**
 	 * @Title: getTenderNotes 
@@ -137,6 +145,28 @@ public class TenderNotesService {
         tenderNotes.setCreater(pricipalMember.getMemberId());
         tenderNotes.setCreateTime(new Date());
         count = tenderNotesMapper.insert(tenderNotes);
+        
+        //添加会员投标的资金记录明细
+      	FinanceTransaction financeTransaction = new FinanceTransaction();
+		//获取会员资金记录信息
+      	FinanceMember financeMember = (FinanceMember) financeMemberService.getMemberByMemberId(tenderNotes.getMemberId());
+      	financeTransaction.setFinanceMemberId(financeMember.getFinanceMemberId());//设置会员资金信息
+      	financeTransaction.setMemberId(tenderNotes.getMemberId());//设置会员id
+      	//List<String> memberNames = (List<String>) returnResultreceivablesNotesDetail.getObj();
+      	//financeTransaction.setTransactionTarget(CollectionsUtil.convertToString(memberNames, ","));//设置交易对象
+      	financeTransaction.setTransactionType("投标");//设置交易类型
+      	financeTransaction.setEarningMoney(0f);//设置收入金额
+      	financeTransaction.setExpendMoney(0f);//设置支出金额
+      	//financeTransaction.setUsableMoney(borrowingLoan.getLoanTotal() - borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());//设置可用金额
+      	//financeTransaction.setUsableMoney(borrowingLoan.getLoanTotal() + financeMember.getUsableMoney());//设置可用金额
+      	financeTransaction.setFrozenMoney(financeMember.getFrozenMoney());//设置冻结金额
+      	financeTransaction.setCollectingMoney(financeMember.getCollectingMoney());//设置代收金额
+      	financeTransaction.setRefundMoney(financeMember.getRefundMoney());//设置待还金额
+      	//financeTransaction.setAmount(borrowingLoan.getLoanTotal()+financeMember.getAmount());//设置总金额
+      	//financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
+		BorrowingLoan borrowingLoan = (BorrowingLoan) borrowingLoanService.getBorrowingLoan(tenderNotes.getLoanId());//获取所投标的借款数据
+		borrowingLoanService.editBorrowingLoan(borrowingLoan,tenderNotes);//更新借款中相对应的数据
+        
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg(" 投标记录信息已保存");

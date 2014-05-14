@@ -1,6 +1,7 @@
 package com.glacier.netloan.web.controller.investment;
 
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import com.glacier.basic.util.JackJson;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
-import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.borrow.LoanReviewService;
@@ -59,6 +59,7 @@ public class TenderNotesController {
 	
 	@Autowired
 	private RepaymentNotesDetailService repaymentNotesDetailService;
+	
 	
 	@RequestMapping(value="/index.htm")
 	private Object intoInvestment(JqPager jqPager,int p,BorrowingLoanQueryDTO borrowingLoanQueryDTO,String pagetype,HttpServletRequest request){
@@ -142,8 +143,7 @@ public class TenderNotesController {
 	@RequestMapping(value = "/addInvestment.htm")
 	private Object addInvestment(TenderNotes tenderNotes,HttpServletRequest request){
 		tenderNotesService.addTenderNotes(tenderNotes);//添加投标记录
-		BorrowingLoan borrowingLoan = (BorrowingLoan) borrowingLoanService.getBorrowingLoan(tenderNotes.getLoanId());//获取所投标的借款数据
-		borrowingLoanService.editBorrowingLoan(borrowingLoan,tenderNotes);//更新借款中相对应的数据
+		
 		
 		
 		request.setAttribute("borrowingMember", memberService.getMember(tenderNotes.getMemberId()));//获取该会员 信息数据
