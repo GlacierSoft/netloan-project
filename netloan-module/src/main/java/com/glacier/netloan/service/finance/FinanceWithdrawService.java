@@ -74,6 +74,36 @@ public class FinanceWithdrawService {
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
     }
+    
+    public Object listAsWebsite(JqPager pager, String memberId, int p) {
+
+        JqGridReturn returnResult = new JqGridReturn();
+        FinanceWithdrawExample financeWithdrawExample = new FinanceWithdrawExample();
+
+        if(StringUtils.isNotBlank(memberId) && null != memberId){
+        	financeWithdrawExample.createCriteria().andMemberIdEqualTo(memberId);
+        }
+        
+        pager.setSort("createTime");// 定义排序字段
+        pager.setOrder("DESC");// 升序还是降序
+        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
+        	financeWithdrawExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
+        	financeWithdrawExample.setLimitEnd(pager.getRows());
+        }
+        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
+        	financeWithdrawExample.setOrderByClause(pager.getOrderBy("temp_finance_withdraw_"));
+        }
+        int startTemp = ((p-1)*5);//根据前台返回的页数进行设置
+        financeWithdrawExample.setLimitStart(startTemp);
+        financeWithdrawExample.setLimitEnd(5);
+        List<FinanceWithdraw>  financeWithdraws = financeWithdrawMapper.selectByExample(financeWithdrawExample); // 查询所有会员提现记录列表
+        int total = financeWithdrawMapper.countByExample(financeWithdrawExample); // 查询总页数
+        returnResult.setRows(financeWithdraws);
+        returnResult.setTotal(total);
+        returnResult.setP(p);
+        return returnResult;// 返回ExtGrid表
+    }
+    
 /*
     *//**
      * @Title: addWithdraw 

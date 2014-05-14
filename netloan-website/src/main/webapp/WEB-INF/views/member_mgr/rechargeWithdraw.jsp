@@ -203,7 +203,7 @@
 				        </div>
 				        <div class="tab-pane fade" id="withdraw">
 				        	<div class="rechargeFontSize">
-					        	<p>凡是在晓风网贷充值未投标的用户，15天以内提现收取本金0.5%，15天以后提现免费</p>
+					        	<p>凡是在冰川网贷充值未投标的用户，15天以内提现收取本金0.5%，15天以后提现免费</p>
 								<p>注：1、请输入您要取出金额,我们将在1至3个工作日(国家节假日除外)之内将钱转入您网站上填写的银行账号。<p> 
 								<p>2、如你急需要把钱转到你的账号或者24小时之内网站未将钱转入到你的银行账号,请联系客服中心。 <p>
 								<p>3、确保您的银行账号的姓名和您的网站上的真实姓名一致。 <p>
@@ -257,6 +257,49 @@
 						    <div class="rechargeFontSize">
 						    	* 温馨提示：禁止信用卡套现
 						    </div>
+						    <table class="table table-bordered">
+				          	<thead>
+					          <tr>
+					            <th>提现流水号</th>
+					            <th>提现银行</th>
+					            <th>提现支行</th>
+					            <th>提现银行卡姓名</th>
+					            <th>提现银行卡号</th>
+					            <th>提现总金额</th>
+					            <th>手续费</th>
+					            <th>提现利率</th>
+					            <th>到帐金额</th>
+					            <th>提现状态</th>
+					          </tr>
+					        </thead>
+				          	<tbody>
+					          <c:forEach items="${financeWithdrawDates.rows}" var="financeWithdraw">
+						          <tr>
+						            <td>${financeWithdraw.withdrawCode}</td>
+						            <td>${financeWithdraw.openingBank}</td>
+						            <td>${financeWithdraw.subbranch}</td>
+						            <td>${financeWithdraw.cardName}</td>
+						            <td>${financeWithdraw.cardNumber}</td>
+						            <td>${financeWithdraw.withdrawAmount}</td>
+						            <td>${financeWithdraw.handlingCharge}</td>
+						            <td>${financeWithdraw.withdrawRate}</td>
+						            <td>${financeWithdraw.arriveMoney}</td>
+						            <td>${financeWithdraw.auditState}</td>
+						          </tr>
+					      		</c:forEach>
+					      	</tbody>
+					      	<tfoot>
+					          <tr>
+					            <th colspan="10">
+					            
+					            	<div align="right">
+									    <ul id='pageFinanceWithdraw'></ul>
+									</div>
+
+								</th>
+					          </tr>
+					        </tfoot>
+					      </table>
 				        </div>
 				      </div>
 				    </div><!-- /example -->
@@ -319,6 +362,62 @@
 	var options = {
 	    bootstrapMajorVersion:3,
 	    currentPage: ${financeTransactionDates.p},
+	    numberOfPages: 5,
+	    totalPages:total,
+	    pageUrl: function(type, page, current){
+	    	return "${ctx}/financeMember/rechargeWithdraw.htm?"+composeUrlParams()+"&p="+page;
+	    }
+	}
+	
+	element.bootstrapPaginator(options);
+	})
+	
+	
+	
+	
+	$(function(){
+		//获得浏览器参数
+		$.extend({
+			getUrlVars: function(){
+				var vars = [], hash;
+				var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+				for(var i = 0; i < hashes.length; i++){
+					hash = hashes[i].split('=');
+					vars.push(hash[0]);
+					vars[hash[0]] = hash[1];
+				}
+				return vars;
+			},
+			getUrlVar: function(name){
+				return $.getUrlVars()[name];
+			}
+		});
+	
+	//封装浏览器参数
+	var composeUrlParams=function(){
+		var param='';
+		$.each($.getUrlVars(), function(i, item) {
+			if(item!='p'){
+				var val=$.getUrlVar(item);
+				if(val) param += "&" + item+"="+val;
+			}
+		});
+		return param;
+	}
+	
+	var element = $('#pageFinanceWithdraw');
+	
+	//设置分页的总页数
+	var total=${financeWithdrawDates.total}/5;
+	if(parseInt(total)==total){
+		var total = parseInt(total);
+	}else {
+		var total = parseInt(total)+1;
+	}
+	
+	var options = {
+	    bootstrapMajorVersion:3,
+	    currentPage: ${financeWithdrawDates.p},
 	    numberOfPages: 5,
 	    totalPages:total,
 	    pageUrl: function(type, page, current){
