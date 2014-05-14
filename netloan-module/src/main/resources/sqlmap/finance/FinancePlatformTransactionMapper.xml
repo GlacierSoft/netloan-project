@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.finance.FinancePlatformTransactionMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.finance.FinancePlatformTransaction" >
+    <id column="temp_finance_platform_transaction_platform_transaction_id" property="platformTransactionId" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_transaction_finance_platform_id" property="financePlatformId" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_transaction_transaction_target" property="transactionTarget" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_transaction_transaction_type" property="transactionType" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_transaction_earning_money" property="earningMoney" jdbcType="REAL" />
+    <result column="temp_finance_platform_transaction_expend_money" property="expendMoney" jdbcType="REAL" />
+    <result column="temp_finance_platform_transaction_amount" property="amount" jdbcType="REAL" />
+    <result column="temp_finance_platform_transaction_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_transaction_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_transaction_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_finance_platform_transaction_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_transaction_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_finance_platform_transaction.platform_transaction_id as temp_finance_platform_transaction_platform_transaction_id, 
+    temp_finance_platform_transaction.finance_platform_id as temp_finance_platform_transaction_finance_platform_id, 
+    temp_finance_platform_transaction.transaction_target as temp_finance_platform_transaction_transaction_target, 
+    temp_finance_platform_transaction.transaction_type as temp_finance_platform_transaction_transaction_type, 
+    temp_finance_platform_transaction.earning_money as temp_finance_platform_transaction_earning_money, 
+    temp_finance_platform_transaction.expend_money as temp_finance_platform_transaction_expend_money, 
+    temp_finance_platform_transaction.amount as temp_finance_platform_transaction_amount, 
+    temp_finance_platform_transaction.remark as temp_finance_platform_transaction_remark, 
+    temp_finance_platform_transaction.creater as temp_finance_platform_transaction_creater, 
+    temp_finance_platform_transaction.create_time as temp_finance_platform_transaction_create_time, 
+    temp_finance_platform_transaction.updater as temp_finance_platform_transaction_updater, 
+    temp_finance_platform_transaction.update_time as temp_finance_platform_transaction_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.finance.FinancePlatformTransactionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_finance_platform_transaction temp_finance_platform_transaction
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_finance_platform_transaction temp_finance_platform_transaction
+    where temp_finance_platform_transaction.platform_transaction_id = #{platformTransactionId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_finance_platform_transaction
+    where platform_transaction_id = #{platformTransactionId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.finance.FinancePlatformTransactionExample" >
+    delete from t_finance_platform_transaction temp_finance_platform_transaction
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.finance.FinancePlatformTransaction" >
+    insert into t_finance_platform_transaction (platform_transaction_id, finance_platform_id, 
+      transaction_target, transaction_type, earning_money, 
+      expend_money, amount, remark, 
+      creater, create_time, updater, 
+      update_time)
+    values (#{platformTransactionId,jdbcType=VARCHAR}, #{financePlatformId,jdbcType=VARCHAR}, 
+      #{transactionTarget,jdbcType=VARCHAR}, #{transactionType,jdbcType=VARCHAR}, #{earningMoney,jdbcType=REAL}, 
+      #{expendMoney,jdbcType=REAL}, #{amount,jdbcType=REAL}, #{remark,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.finance.FinancePlatformTransaction" >
+    insert into t_finance_platform_transaction
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="platformTransactionId != null" >
+        platform_transaction_id,
+      </if>
+      <if test="financePlatformId != null" >
+        finance_platform_id,
+      </if>
+      <if test="transactionTarget != null" >
+        transaction_target,
+      </if>
+      <if test="transactionType != null" >
+        transaction_type,
+      </if>
+      <if test="earningMoney != null" >
+        earning_money,
+      </if>
+      <if test="expendMoney != null" >
+        expend_money,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="platformTransactionId != null" >
+        #{platformTransactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="financePlatformId != null" >
+        #{financePlatformId,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionTarget != null" >
+        #{transactionTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionType != null" >
+        #{transactionType,jdbcType=VARCHAR},
+      </if>
+      <if test="earningMoney != null" >
+        #{earningMoney,jdbcType=REAL},
+      </if>
+      <if test="expendMoney != null" >
+        #{expendMoney,jdbcType=REAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=REAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.finance.FinancePlatformTransactionExample" resultType="java.lang.Integer" >
+    select count(*) from t_finance_platform_transaction temp_finance_platform_transaction
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_finance_platform_transaction temp_finance_platform_transaction
+    <set >
+      <if test="record.platformTransactionId != null" >
+        temp_finance_platform_transaction.platform_transaction_id = #{record.platformTransactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.financePlatformId != null" >
+        temp_finance_platform_transaction.finance_platform_id = #{record.financePlatformId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transactionTarget != null" >
+        temp_finance_platform_transaction.transaction_target = #{record.transactionTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transactionType != null" >
+        temp_finance_platform_transaction.transaction_type = #{record.transactionType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.earningMoney != null" >
+        temp_finance_platform_transaction.earning_money = #{record.earningMoney,jdbcType=REAL},
+      </if>
+      <if test="record.expendMoney != null" >
+        temp_finance_platform_transaction.expend_money = #{record.expendMoney,jdbcType=REAL},
+      </if>
+      <if test="record.amount != null" >
+        temp_finance_platform_transaction.amount = #{record.amount,jdbcType=REAL},
+      </if>
+      <if test="record.remark != null" >
+        temp_finance_platform_transaction.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_finance_platform_transaction.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_finance_platform_transaction.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_finance_platform_transaction.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_finance_platform_transaction.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_finance_platform_transaction temp_finance_platform_transaction
+    set temp_finance_platform_transaction.platform_transaction_id = #{record.platformTransactionId,jdbcType=VARCHAR},
+      temp_finance_platform_transaction.finance_platform_id = #{record.financePlatformId,jdbcType=VARCHAR},
+      temp_finance_platform_transaction.transaction_target = #{record.transactionTarget,jdbcType=VARCHAR},
+      temp_finance_platform_transaction.transaction_type = #{record.transactionType,jdbcType=VARCHAR},
+      temp_finance_platform_transaction.earning_money = #{record.earningMoney,jdbcType=REAL},
+      temp_finance_platform_transaction.expend_money = #{record.expendMoney,jdbcType=REAL},
+      temp_finance_platform_transaction.amount = #{record.amount,jdbcType=REAL},
+      temp_finance_platform_transaction.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_finance_platform_transaction.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_finance_platform_transaction.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_finance_platform_transaction.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_finance_platform_transaction.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.finance.FinancePlatformTransaction" >
+    update t_finance_platform_transaction
+    <set >
+      <if test="financePlatformId != null" >
+        finance_platform_id = #{financePlatformId,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionTarget != null" >
+        transaction_target = #{transactionTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionType != null" >
+        transaction_type = #{transactionType,jdbcType=VARCHAR},
+      </if>
+      <if test="earningMoney != null" >
+        earning_money = #{earningMoney,jdbcType=REAL},
+      </if>
+      <if test="expendMoney != null" >
+        expend_money = #{expendMoney,jdbcType=REAL},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=REAL},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where platform_transaction_id = #{platformTransactionId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.finance.FinancePlatformTransaction" >
+    update t_finance_platform_transaction
+    set finance_platform_id = #{financePlatformId,jdbcType=VARCHAR},
+      transaction_target = #{transactionTarget,jdbcType=VARCHAR},
+      transaction_type = #{transactionType,jdbcType=VARCHAR},
+      earning_money = #{earningMoney,jdbcType=REAL},
+      expend_money = #{expendMoney,jdbcType=REAL},
+      amount = #{amount,jdbcType=REAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where platform_transaction_id = #{platformTransactionId,jdbcType=VARCHAR}
+  </update>
+</mapper>
