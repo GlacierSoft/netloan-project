@@ -12,8 +12,20 @@
     <result column="temp_tender_notes_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_tender_notes_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_tender_notes_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_tender_notes_loan_title" property="loanTitle" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
-    <result column="temp_tender_notes_memberDisplay" property="memberDisplay" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_loan_title" property="loanTitle" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_memberDisplay" property="memberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_loanMemberDisplay" property="loanMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_repaymentTypeDisplay" property="repaymentTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_loanApr" property="loanApr" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_loanDeadlinesId" property="loanDeadlinesId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_loanDate" property="loanDate" jdbcType="TIMESTAMP"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_loanTenderDisplay" property="loanTenderDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_loanMemberId" property="loanMemberId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_loanState" property="loanState" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_creditIntegral" property="creditIntegral" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_alrTenderPro" property="alrTenderPro" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_subTotal" property="subTotal" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_lowestSub" property="lowestSub" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -81,11 +93,26 @@
     temp_tender_notes.updater as temp_tender_notes_updater, temp_tender_notes.update_time as temp_tender_notes_update_time
      <!-- 以下字段属于扩展 -->
     ,temp_borrowing_loan.loan_title as temp_tender_notes_loan_title
+    ,temp_borrowing_loan.loan_apr as temp_tender_notes_loanApr
+    ,temp_borrowing_loan.loan_deadlines_id as temp_tender_notes_loanDeadlinesId
+    ,temp_borrowing_loan.loan_date as temp_tender_notes_loanDate
+    ,temp_borrowing_loan.member_id as temp_tender_notes_loanMemberId
+    ,temp_borrowing_loan.loan_state as temp_tender_notes_loanState
+    ,temp_borrowing_loan.alr_tender_pro as temp_tender_notes_alrTenderPro
+    ,temp_borrowing_loan.sub_total as temp_tender_notes_subTotal
+    ,temp_borrowing_loan.lowest_sub as temp_tender_notes_lowestSub
     ,temp_creater.member_name as temp_tender_notes_memberDisplay
+    ,temp_member.member_name as temp_tender_notes_loanMemberDisplay
+    ,temp_repayment_type.repayment_type_name as temp_tender_notes_repaymentTypeDisplay
+    ,temp_loan_tender.loanr_tender_name as temp_tender_notes_loanTenderDisplay
+    ,temp_member.credit_integral as temp_tender_notes_creditIntegral
   </sql>
   <sql id="Base_extend">
     LEFT JOIN t_borrowing_loan temp_borrowing_loan ON temp_borrowing_loan.loan_id = temp_tender_notes.loan_id <!-- 扩展 -->
     LEFT JOIN t_member temp_creater ON temp_creater.member_id = temp_tender_notes.member_id <!-- 扩展 -->
+    LEFT JOIN t_member temp_member ON temp_borrowing_loan.member_id = temp_member.member_id <!-- 扩展 -->
+ 	LEFT JOIN t_repayment_type temp_repayment_type ON temp_borrowing_loan.repayment_type_id = temp_repayment_type.repayment_type_id <!-- 扩展 -->
+ 	LEFT JOIN t_loan_tender temp_loan_tender ON temp_borrowing_loan.loan_tender_id = temp_loan_tender.loan_tender_id <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.TenderNotesExample" >
     select

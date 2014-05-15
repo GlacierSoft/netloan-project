@@ -53,7 +53,7 @@
 			        		<td style="padding-left: 20px;">借款金额：<span style="color: red;"><fmt:formatNumber value="${borrowingLoan.loanTotal }" pattern="#,#00.00"/>元</span></td>
 			        	</tr>
 			        	<tr>
-			        		<td style="padding-left: 20px;">借款年利率：<span style="color: red;"><fmt:formatNumber value="${borrowingLoan.loanApr }" pattern="#,#00.00"/>%</span></td>
+			        		<td style="padding-left: 20px;">借款年利率：<span style="color: red;"><fmt:formatNumber value="${borrowingLoan.loanApr * 100}" pattern="#,#00.00"/>%</span></td>
 			        	</tr>
 			        	<tr>
 			        		<td>已经完成：<span style="color: red;"><fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/>%</span></td>
@@ -99,7 +99,7 @@
 	       	  	<c:choose>
 					   <c:when test="${borrowingLoan.loanTenderDisplay == '净值标'}">  
 					   	<div class="row">
-			       	  		<div class="col-md-12"><span>最小认购金额：<fmt:formatNumber value="${borrowingLoan.lowestSub }" pattern="#,#00.00"/>元  当前年利率: <fmt:formatNumber value="${borrowingLoan.loanApr }" pattern="#,#00.00"/>% </span></div>
+			       	  		<div class="col-md-12"><span>最小认购金额：<fmt:formatNumber value="${borrowingLoan.lowestSub }" pattern="#,#00.00"/>元  当前年利率: <fmt:formatNumber value="${borrowingLoan.loanApr * 100}" pattern="#,#00.00"/>% </span></div>
 			       	  	</div>
 			       	  	<div class="row">
 			       	  		<div class="col-md-12">认购总份数：${borrowingLoan.subTotal }份,还有：<span id="subLeave">${borrowingLoan.subTotal-borrowingLoan.alrSubSum }</span>份 </div>
@@ -131,7 +131,7 @@
 				   			<div class="row">
 				       	  		<div class="col-md-12"><span>最低投标金额：<fmt:formatNumber value="${borrowingLoan.lowestBidMoney }" pattern="#,#00.00"/>元 
 				       	  									最高投标金额：<fmt:formatNumber value="${borrowingLoan.largestBidMoney }" pattern="#,#00.00"/>元
-				       	  									<br> 当前年利率: <fmt:formatNumber value="${borrowingLoan.loanApr }" pattern="#,#00.00"/>% </span></div>
+				       	  									<br> 当前年利率: <fmt:formatNumber value="${borrowingLoan.loanApr * 100}" pattern="#,#00.00"/>% </span></div>
 				       	  	</div>
 				       	  	<br>
 				       	  	<form id="investmentTenderMoneyForm" class="form-horizontal" role="form" action="${ctx}/investment/addInvestment.htm" method="post" onsubmit="return validaInvestmentTenderMoneyForm();">

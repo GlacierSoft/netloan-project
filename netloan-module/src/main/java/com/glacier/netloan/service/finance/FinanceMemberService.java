@@ -17,9 +17,11 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceMemberMapper;
+import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.finance.FinanceMemberExample;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -35,6 +37,9 @@ public class FinanceMemberService {
 	
 	@Autowired
 	private FinanceMemberMapper financeMemberMapper;
+	
+	@Autowired
+	private UserMapper userMapper;
 
 	/**
 	 * @Title: getMember 
@@ -151,6 +156,36 @@ public class FinanceMemberService {
         int count = 0;
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
+        financeMember.setUpdater(pricipalUser.getUserId());
+        financeMember.setUpdateTime(new Date());
+        count = financeMemberMapper.updateByPrimaryKeySelective(financeMember);
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("会员资金记录信息已修改");
+        } else {
+            returnResult.setMsg("发生未知错误，会员资金记录信息修改失败");
+        }
+        return returnResult;
+    }
+    /**
+     * @Title: editMember 
+     * @Description: TODO(前台修改会员资金记录) 
+     * @param  @param financeMember
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
+     */
+    @Transactional(readOnly = false)
+    public Object editMemberWebsite(FinanceMember financeMember) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUsernameEqualTo("admin");
+        List<User> users = userMapper.selectByExample(userExample);
+        
+        User pricipalUser = users.get(0);
         financeMember.setUpdater(pricipalUser.getUserId());
         financeMember.setUpdateTime(new Date());
         count = financeMemberMapper.updateByPrimaryKeySelective(financeMember);

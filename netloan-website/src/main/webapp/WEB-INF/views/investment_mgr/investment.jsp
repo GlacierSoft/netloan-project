@@ -245,7 +245,7 @@
 			        		<td>借款金额：
 			        		<span class="text-danger"><fmt:formatNumber value="${borrowingLoan.loanTotal }" pattern="#,#00.00"/>元</span>
 			        		</td>
-			        		<td>利率：${borrowingLoan.loanApr }%/ 年</td>
+			        		<td>利率：<fmt:formatNumber value="${borrowingLoan.loanApr * 100}" pattern="#,#00.00"/>%/ 年</td>
 			        		<td>投标奖：0.00 元</td>
 			        		<td>招标期限：${borrowingLoan.waitBidDeadlines } 天</td>
 			        	</tr>

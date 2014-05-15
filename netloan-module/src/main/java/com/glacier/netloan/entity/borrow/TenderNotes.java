@@ -19,6 +19,72 @@ public class TenderNotes {
      */
     private String memberDisplay;
     
+    /**
+     * 自定义字段,借款人名称
+     */
+    private String loanMemberDisplay;
+    
+    /**
+     * 自定义字段,借款人id
+     */
+    private String loanMemberId;
+    
+    /**
+     * 自定义字段 标的类型名称
+     */
+    private String loanTenderDisplay;
+    
+    /**
+     * 自定义字段 还款方式
+     */
+    private String repaymentTypeDisplay;
+    
+    /**
+     * 自定义字段 借款状态
+     */
+    private String loanState;
+    
+    /**
+     * 自定义字段 年利率
+     */
+    private Float loanApr;
+    
+    /**
+     * 自定义字段 借款完成百分比
+     */
+    private Float alrTenderPro;
+    
+    /**
+     * 自定义字段 期限
+     */
+    private String loanDeadlinesId;
+    
+    /**
+     * 自定义字段 最小认购单位(元)
+     */
+    private Float lowestSub;
+    
+    /**
+     * 自定义字段 认购总份数
+     */
+    private Float subTotal;
+    
+    /**
+     * 自定义字段 发布时间
+     */
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    private Date loanDate;
+    
+    /**
+     * 自定义字段,会员信用积分
+     */
+    private Float creditIntegral;
+    
+    /**
+     * 自定义字段,会员信用图标
+     */
+    private String creditPhoto;
+    
     private String memberId;
 
     private Float subSum;
@@ -37,7 +103,111 @@ public class TenderNotes {
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    public String getLoanTitle() {
+	public Float getLowestSub() {
+		return lowestSub;
+	}
+
+	public void setLowestSub(Float lowestSub) {
+		this.lowestSub = lowestSub;
+	}
+
+	public Float getSubTotal() {
+		return subTotal;
+	}
+
+	public void setSubTotal(Float subTotal) {
+		this.subTotal = subTotal;
+	}
+
+	public Float getAlrTenderPro() {
+		return alrTenderPro;
+	}
+
+	public void setAlrTenderPro(Float alrTenderPro) {
+		this.alrTenderPro = alrTenderPro;
+	}
+
+	public String getLoanState() {
+		return loanState;
+	}
+
+	public void setLoanState(String loanState) {
+		this.loanState = loanState;
+	}
+
+	public String getLoanMemberId() {
+		return loanMemberId;
+	}
+
+	public void setLoanMemberId(String loanMemberId) {
+		this.loanMemberId = loanMemberId;
+	}
+
+	public String getLoanTenderDisplay() {
+		return loanTenderDisplay;
+	}
+
+	public void setLoanTenderDisplay(String loanTenderDisplay) {
+		this.loanTenderDisplay = loanTenderDisplay;
+	}
+
+	public String getLoanMemberDisplay() {
+		return loanMemberDisplay;
+	}
+
+	public void setLoanMemberDisplay(String loanMemberDisplay) {
+		this.loanMemberDisplay = loanMemberDisplay;
+	}
+
+	public String getRepaymentTypeDisplay() {
+		return repaymentTypeDisplay;
+	}
+
+	public void setRepaymentTypeDisplay(String repaymentTypeDisplay) {
+		this.repaymentTypeDisplay = repaymentTypeDisplay;
+	}
+
+	public Float getLoanApr() {
+		return loanApr;
+	}
+
+	public void setLoanApr(Float loanApr) {
+		this.loanApr = loanApr;
+	}
+
+	public String getLoanDeadlinesId() {
+		return loanDeadlinesId;
+	}
+
+	public void setLoanDeadlinesId(String loanDeadlinesId) {
+		this.loanDeadlinesId = loanDeadlinesId;
+	}
+
+	public Date getLoanDate() {
+		return loanDate;
+	}
+
+	public void setLoanDate(Date loanDate) {
+		this.loanDate = loanDate;
+	}
+
+	public Float getCreditIntegral() {
+		return creditIntegral;
+	}
+
+	public void setCreditIntegral(Float creditIntegral) {
+		this.creditIntegral = creditIntegral;
+	}
+
+	public String getCreditPhoto() {
+		return creditPhoto;
+	}
+
+	public void setCreditPhoto(String creditPhoto) {
+		this.creditPhoto = creditPhoto;
+	}
+
+	public String getLoanTitle() {
 		return loanTitle;
 	}
 

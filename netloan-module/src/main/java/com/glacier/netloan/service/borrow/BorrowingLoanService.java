@@ -457,8 +457,6 @@ public class BorrowingLoanService {
           	financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
 */          	
           	//更新借款的会员资金信息
-          	//financeMember.setUsableMoney(financeMember.getUsableMoney() + borrowingLoan.getLoanTotal() -  borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());
-          	//financeMember.setAmount(financeMember.getAmount() +  borrowingLoan.getLoanTotal() - borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());
           	financeMember.setUsableMoney(financeMember.getUsableMoney() + borrowingLoan.getLoanTotal());//设置会员资金可用金额
           	financeMember.setAmount(financeMember.getAmount() +  borrowingLoan.getLoanTotal());//设置会员资金总金额
           	financeMemberService.editMember(financeMember);

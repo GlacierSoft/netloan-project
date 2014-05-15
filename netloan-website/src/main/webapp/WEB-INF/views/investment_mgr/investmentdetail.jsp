@@ -57,11 +57,20 @@
 	       	  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	       	  	<span>借款目的：</span>${borrowingLoan.loanPurposeId }
 	       	  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	       	  	<a href="${ctx}/investment/confirmInvestment.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingMember.memberId }&p=1">
-			        <img src="${ctx}/resources/images/borrow/investment.jpg" alt="investment">
-			    </a>
+	       	  	<c:if test="${borrowingLoan.loanState == 'repaymenting' }">
+				    <img src="${ctx}/resources/images/borrow/huankuanzhong.jpg" alt="investment">
+	       	  	</c:if>
+	       	  	<c:if test="${borrowingLoan.loanState == 'secondAuditor' }">
+				    <img src="${ctx}/resources/images/borrow/fushenzhong.jpg" alt="investment">
+	       	  	</c:if>
+	       	  	<c:if test="${borrowingLoan.loanState == 'tendering' }">
+		       	  	<a id="intoInvestment" href="${ctx}/investment/confirmInvestment.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingMember.memberId }&p=1">
+				        <img src="${ctx}/resources/images/borrow/investment.jpg" alt="investment">
+				    </a>
+	       	  	</c:if>
+	       	  	
 	       	  	<div>
-	       	  	<span>借款年利率：</span><fmt:formatNumber value="${borrowingLoan.loanApr }" pattern="#,#00.00"/>%（月利率：<span id="monthLoanApr"></span>%）
+	       	  	<span>借款年利率：</span><fmt:formatNumber value="${borrowingLoan.loanApr * 100}" pattern="#,#00.00"/>%（月利率：<span id="monthLoanApr"></span>%）
 	       	  	<script type="text/javascript">
 	       	  		var monthLoanApr = "${borrowingLoan.loanApr }"/12;
 	       	 		$("#monthLoanApr").html(monthLoanApr);
@@ -488,7 +497,13 @@
 	    <!-- CONTAINER START======================== -->
   </body>
   <script type="text/javascript">
-  
+  /* 判断用户是否投自己发布的标 */
+  $('#intoInvestment').click(function () {  
+  	if("${borrowingLoan.memberId }" == "${currentMember.memberId}"){
+  		captchadialog("无效操作，不能投自己发布的标!");
+			return false;
+		}
+   }); 
   <!-- 分页显示表格数据 开始 -->
 	$(function(){
 		//获得浏览器参数

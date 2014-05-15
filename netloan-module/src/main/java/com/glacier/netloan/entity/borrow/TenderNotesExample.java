@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 public class TenderNotesExample {
     protected String orderByClause;
 
@@ -103,7 +104,17 @@ public class TenderNotesExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
-
+        /*自定义查询条件*/
+        public Criteria andLoanStateEqualTo(String value) {
+            addCriterion("temp_borrowing_loan.loan_state =", value, "loanState");
+            return (Criteria) this;
+        }
+        /*自定义查询条件*/
+        public Criteria andLoanStateIn(List<String> values) {
+            addCriterion("temp_borrowing_loan.loan_state in", values, "loanState");
+            return (Criteria) this;
+        }
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");

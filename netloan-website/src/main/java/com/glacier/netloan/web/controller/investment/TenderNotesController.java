@@ -2,6 +2,10 @@ package com.glacier.netloan.web.controller.investment;
 
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,7 @@ import com.glacier.basic.util.JackJson;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
+import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.borrow.LoanReviewService;
@@ -30,7 +35,7 @@ import com.glacier.netloan.service.member.MemberService;
  * @date 2014-4-21下午4:47:50
  */
 @Controller
-@RequestMapping(value="investment")
+@RequestMapping(value="/investment")
 public class TenderNotesController {
 	
 	@Autowired
@@ -143,8 +148,8 @@ public class TenderNotesController {
 	@RequestMapping(value = "/addInvestment.htm")
 	private Object addInvestment(TenderNotes tenderNotes,HttpServletRequest request){
 		tenderNotesService.addTenderNotes(tenderNotes);//添加投标记录
-		
-		
+		BorrowingLoan borrowingLoan = (BorrowingLoan) borrowingLoanService.getBorrowingLoan(tenderNotes.getLoanId());//获取所投标的借款数据
+		borrowingLoanService.editBorrowingLoan(borrowingLoan,tenderNotes);//更新借款中相对应的数据
 		
 		request.setAttribute("borrowingMember", memberService.getMember(tenderNotes.getMemberId()));//获取该会员 信息数据
 		request.setAttribute("borrowingMemberWork", memberService.getMemberWork(tenderNotes.getMemberId()));//获取该会员 信息数据
@@ -154,5 +159,21 @@ public class TenderNotesController {
 		request.setAttribute("loanReviewDatas", loanReviewService.listAsGridWebsite(jqPager, 1,tenderNotes.getLoanId()));//获取借款留言列表
 		request.setAttribute("tenderNotesDatas", tenderNotesService.listAsGridWebsite(jqPager, 1,tenderNotes.getLoanId()));//获取投标记录列表
 		return "investment_mgr/investmentdetail";
+	}
+	
+	@RequestMapping(value = "/memberTenderNotes.htm")
+	private Object memberTenderNotes(JqPager jqPager,int p,String loanId,String memberId,String loanStates, HttpServletRequest request){
+		List<String> loanStatesList = new ArrayList<String>();
+		if(loanStates.equals("sucessBorrow")){
+			loanStatesList.add("repaymenting");
+			loanStatesList.add("completed");
+			request.setAttribute("buttonState", "sucessBorrow");
+		}else if(loanStates.equals("tenderingBorrow")){
+			loanStatesList.add("tendering");
+			request.setAttribute("buttonState", "tenderingBorrow");
+		}
+		JqGridReturn returnResultTenderNotes = (JqGridReturn)tenderNotesService.listAsGridWebsite(jqPager, p,loanId,memberId,loanStatesList);//获取我的投标列表
+		request.setAttribute("tenderNotesDatas", returnResultTenderNotes);
+		return "member_mgr/memberTenderNotes";
 	}
 }
