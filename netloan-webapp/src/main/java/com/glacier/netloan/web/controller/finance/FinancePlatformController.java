@@ -40,27 +40,37 @@ public class FinancePlatformController extends AbstractController{
     
     // 进入平台资金记录列表展示页面
     @RequestMapping(value = "/index.htm")
-    private Object intoIndexPfinancePlatform() {
+    private Object intoIndexFinancePlatform() {
         ModelAndView mav = new ModelAndView("finance_mgr/financePlatform_mgr/financePlatform");
+        return mav;
+    }
+    
+    // 进入平台资金记录Form表单页面
+    @RequestMapping(value = "/intoForm.htm")
+    private Object intoPlatformForm(String financePlatformId) {
+        ModelAndView mav = new ModelAndView("finance_mgr/financePlatform_mgr/financePlatform_form");
+        if(StringUtils.isNotBlank(financePlatformId)){
+            mav.addObject("financePlatformData", financePlatformService.getPlatform(financePlatformId));
+        }
         return mav;
     }
     
     // 进入平台资金记录Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
-    private Object intoMemberDetailPage(String financePlatformId) {
+    private Object intoPlatformDetailPage(String financePlatformId) {
         ModelAndView mav = new ModelAndView("finance_mgr/financePlatform_mgr/financePlatform_detail");
         if(StringUtils.isNotBlank(financePlatformId)){
-            mav.addObject("financePlatformData", financePlatformService.getMember(financePlatformId));
+            mav.addObject("financePlatformData", financePlatformService.getPlatform(financePlatformId));
         }
         return mav;
     }
     
     // 进入平台资金audit表单页面
     @RequestMapping(value = "/intoAudit.htm")
-    private Object intoAuditMember(String financePlatformId) {
+    private Object intoAuditPlatform(String financePlatformId) {
         ModelAndView mav = new ModelAndView("finance_mgr/financePlatform_mgr/financePlatform_audit");
         if(StringUtils.isNotBlank(financePlatformId)){
-            mav.addObject("financePlatformData", financePlatformService.getMember(financePlatformId));
+            mav.addObject("financePlatformData", financePlatformService.getPlatform(financePlatformId));
         }
         return mav;
     }
@@ -68,24 +78,44 @@ public class FinancePlatformController extends AbstractController{
     // 审核平台资金记录
     @RequestMapping(value = "/audit.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object auditMember(@Valid FinancePlatform financePlatform, BindingResult bindingResult) {
+    private Object auditPlatform(@Valid FinancePlatform financePlatform, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
-        return financePlatformService.auditMember(financePlatform);
+        return financePlatformService.auditPlatform(financePlatform);
     }
     
     // 获取表格结构的所有平台资金记录数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listMemberAsGridByMenuId(JqPager pager) {
+    private Object listPlatformAsGridByPlatformId(JqPager pager) {
         return financePlatformService.listAsGrid(pager);
+    }
+    
+    // 增加平台资金记录
+    @RequestMapping(value = "/add.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object addFinancePlatform(@Valid FinancePlatform financePlatform, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResult);
+        }
+        return financePlatformService.addPlatform(financePlatform);
+    }
+    
+    // 修改平台资金记录
+    @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object editFinancePlatform(@Valid FinancePlatform financePlatform, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResult);
+        }
+        return financePlatformService.editPlatform(financePlatform);
     }
     
     // 批量删除平台资金记录
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
-    public Object delMember(@RequestParam List<String> financePlatformIds,@RequestParam List<String> memberCodes) {
-    	return financePlatformService.delMember(financePlatformIds, memberCodes);
+    public Object delPlatform(@RequestParam List<String> financePlatformIds,@RequestParam List<String> platformNames) {
+    	return financePlatformService.delPlatform(financePlatformIds, platformNames);
     }
 }

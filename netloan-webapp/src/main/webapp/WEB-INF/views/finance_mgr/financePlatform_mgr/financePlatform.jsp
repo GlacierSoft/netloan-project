@@ -10,6 +10,8 @@
 	glacier.finance_mgr.financePlatform_mgr.financePlatform.param = {
 			toolbarId : 'financePlatformDataGrid_toolbar',
 			actions : {
+				edit:{flag:'edit',controlType:'single'},
+				del:{flag:'del',controlType:'multiple'},
 				audit:{flag:'audit',controlType:'single'}
 			}
 	};
@@ -49,7 +51,7 @@
 			},{
 				field:'platformAccount',
 				title:'账号',
-				width:120,
+				width:200,
 				sortable:true
 			},{
 				field:'platformMoney',
@@ -62,7 +64,7 @@
 				width:120,
 				sortable:true
 			},{
-				field:'auditor',
+				field:'auditorDisplay',
 				title:'审核人',
 				sortable:true,
 				width:100
@@ -77,7 +79,7 @@
 				sortable:true,
 				width:100
 			},{
-				field:'creater',
+				field:'createrDisplay',
 				title:'创建人',
 				sortable:true,
 				width:100
@@ -87,7 +89,7 @@
 				sortable:true,
 				width:200
 			},{
-				field:'updater',
+				field:'updaterDisplay',
 				title:'更新人',
 				sortable:true,
 				width:100
@@ -129,8 +131,8 @@
 			$.easyui.showDialog({
 				title: rowData.financePlatformCode,
 				href : ctx + '/do/financePlatform/intoDetail.htm?financePlatformId='+rowData.financePlatformId,//从controller请求jsp页面进行渲染
-				width : 620,
-				height : 430,
+				width : 560,
+				height : 330,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -140,15 +142,72 @@
 	//点击增加按钮触发方法
 	glacier.finance_mgr.financePlatform_mgr.financePlatform.addFinancePlatform = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加会员提现记录',
-			width : 450,
-			height : 330,
+			title : '增加平台资金记录',
+			width : 400,
+			height : 250,
 			queryUrl : ctx + '/do/financePlatform/intoForm.htm',
 			submitUrl : ctx + '/do/financePlatform/add.json',
 			successFun : function (){
 				glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid('reload');
 			}
 		});
+	};
+	//点击编辑按钮触发方法
+	glacier.finance_mgr.financePlatform_mgr.financePlatform.editFinancePlatform = function(){
+		var row = glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid("getSelected");
+		glacier.basicAddOrEditDialog({
+			title : '编辑【'+row.platformName+'】',
+			width : 400,
+			height : 250,
+			queryUrl : ctx + '/do/financePlatform/intoForm.htm',
+			submitUrl : ctx + '/do/financePlatform/edit.json',
+			queryParams : {
+				financePlatformId : row.financePlatformId
+			},
+			successFun : function (){
+				glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid('reload');
+			}
+		});
+	};
+	//点击删除按钮触发方法
+	glacier.finance_mgr.financePlatform_mgr.financePlatform.delFinancePlatform = function(){
+		var rows = glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid("getChecked");
+		var financePlatformIds = [];//删除的id标识
+		var platformNames = [];//会员年龄别称
+		for(var i=0;i<rows.length;i++){
+			financePlatformIds.push(rows[i].financePlatformId);
+			platformNames.push(rows[i].platformName);
+		}
+		if(financePlatformIds.length > 0){
+			$.messager.confirm('请确认', '是否要删除该记录', function(r){
+				if (r){
+					$.ajax({
+						   type: "POST",
+						   url: ctx + '/do/financePlatform/del.json',
+						   data: {financePlatformIds:financePlatformIds.join(','),platformNames:platformNames.join(',')},
+						   dataType:'json',
+						   success: function(r){
+							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
+								   $.messager.show({
+										title:'提示',
+										timeout:3000,
+										msg:r.msg
+									});
+								   glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid('reload');
+							   }else{
+									$.messager.show({//后台验证弹出错误提示信息框
+										title:'错误提示',
+										width:380,
+										height:120,
+										msg: '<span style="color:red">'+r.msg+'<span>',
+										timeout:4500
+									});
+								}
+						   }
+					});
+				}
+			});
+		}
 	};
 	//会员提现记录资料模糊查询
 	glacier.finance_mgr.financePlatform_mgr.financePlatform.quickquery = function(value,name){

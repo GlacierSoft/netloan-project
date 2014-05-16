@@ -2,6 +2,8 @@ package com.glacier.netloan.entity.finance;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class FinancePlatform {
     private String financePlatformId;
 
@@ -17,16 +19,34 @@ public class FinancePlatform {
 
     private String auditor;
 
+    /**
+     * 自定义字段，审核人的真实姓名
+     */
+    private String auditorDisplay;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditDate;
 
     private String remark;
 
     private String creater;
 
+    /**
+     * 自定义字段，创建人的真实姓名
+     */
+    private String createrDisplay;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
-
+    
+    /**
+     * 自定义字段，更新人真实姓名
+     */
+    private String updaterDisplay;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getFinancePlatformId() {
@@ -133,7 +153,31 @@ public class FinancePlatform {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public String getAuditorDisplay() {
+		return auditorDisplay;
+	}
+
+	public void setAuditorDisplay(String auditorDisplay) {
+		this.auditorDisplay = auditorDisplay;
+	}
+
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

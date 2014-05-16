@@ -15,6 +15,9 @@
     <result column="temp_finance_platform_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_finance_platform_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finance_platform_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_finance_platform_auditor_display" property="auditorDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_finance_platform_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_finance_platform_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -83,6 +86,15 @@
     temp_finance_platform.remark as temp_finance_platform_remark, temp_finance_platform.creater as temp_finance_platform_creater, 
     temp_finance_platform.create_time as temp_finance_platform_create_time, temp_finance_platform.updater as temp_finance_platform_updater, 
     temp_finance_platform.update_time as temp_finance_platform_update_time
+  <!-- 以下字段属于扩展 -->
+    ,temp_auditor.user_cn_name as temp_finance_platform_auditor_display
+    ,temp_creater.user_cn_name as temp_finance_platform_creater_display
+    ,temp_updater.user_cn_name as temp_finance_platform_updater_display
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_user temp_auditor ON temp_auditor.user_id = temp_finance_platform.auditor <!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_finance_platform.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_finance_platform.updater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.finance.FinancePlatformExample" >
     select
@@ -91,6 +103,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_finance_platform temp_finance_platform
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -105,6 +118,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_finance_platform temp_finance_platform
+    <include refid="Base_extend" />
     where temp_finance_platform.finance_platform_id = #{financePlatformId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -112,7 +126,7 @@
     where finance_platform_id = #{financePlatformId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.finance.FinancePlatformExample" >
-    delete from t_finance_platform temp_finance_platform
+    delete temp_finance_platform from t_finance_platform temp_finance_platform
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -216,6 +230,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.finance.FinancePlatformExample" resultType="java.lang.Integer" >
     select count(*) from t_finance_platform temp_finance_platform
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

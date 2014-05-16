@@ -37,14 +37,14 @@ public class FinancePlatformService {
 	private FinancePlatformMapper financePlatformMapper;
 
 	/**
-	 * @Title: getMember 
+	 * @Title: getPlatform 
 	 * @Description: TODO(根据平台资金记录Id获取平台资金记录信息) 
 	 * @param @param financePlatformId
 	 * @param @return    设定文件 
 	 * @return Object    返回类型 
 	 * @throws
 	 */
-    public Object getMember(String financePlatformId) {
+    public Object getPlatform(String financePlatformId) {
     	FinancePlatform financePlatform = financePlatformMapper.selectByPrimaryKey(financePlatformId);
         return financePlatform;
     }
@@ -78,7 +78,7 @@ public class FinancePlatformService {
     }
 
     /**
-     * @Title: addMember 
+     * @Title: addPlatform 
      * @Description: TODO(新增平台资金记录) 
      * @param @param financePlatform
      * @param @return    设定文件 
@@ -86,7 +86,7 @@ public class FinancePlatformService {
      * @throws
      */
     @Transactional(readOnly = false)
-    public Object addMember(FinancePlatform financePlatform) {
+    public Object addPlatform(FinancePlatform financePlatform) {
     	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -110,7 +110,7 @@ public class FinancePlatformService {
     }
     
     /**
-     * @Title: editMember 
+     * @Title: editPlatform 
      * @Description: TODO(修改平台资金记录) 
      * @param @param financePlatform
      * @param @return    设定文件 
@@ -118,8 +118,8 @@ public class FinancePlatformService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "MemberList_edit")
-    public Object editMember(FinancePlatform financePlatform) {
+    @MethodLog(opera = "PlatformList_edit")
+    public Object editPlatform(FinancePlatform financePlatform) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         Subject pricipalSubject = SecurityUtils.getSubject();
@@ -137,7 +137,7 @@ public class FinancePlatformService {
     }
     
     /**
-     * @Title: auditMember 
+     * @Title: auditPlatform 
      * @Description: TODO(审核平台资金记录信息) 
      * @param @param financePlatform
      * @param @return    设定文件 
@@ -145,8 +145,8 @@ public class FinancePlatformService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "MemberList_audit")
-    public Object auditMember(FinancePlatform financePlatform) {
+    @MethodLog(opera = "PlatformList_audit")
+    public Object auditPlatform(FinancePlatform financePlatform) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         Subject pricipalSubject = SecurityUtils.getSubject();
@@ -164,7 +164,7 @@ public class FinancePlatformService {
     }
     
     /**
-     * @Title: delMember 
+     * @Title: delPlatform 
      * @Description: TODO(删除平台资金记录) 
      * @param @param financePlatformId
      * @param @return    设定文件 
@@ -172,8 +172,8 @@ public class FinancePlatformService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "MemberList_del")
-    public Object delMember(List<String> financePlatformIds, List<String> memberCodes) {
+    @MethodLog(opera = "PlatformList_del")
+    public Object delPlatform(List<String> financePlatformIds, List<String> platformNames) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         if (financePlatformIds.size() > 0) {
@@ -182,7 +182,7 @@ public class FinancePlatformService {
             count = financePlatformMapper.deleteByExample(financePlatformExample);
             if (count > 0) {
                 returnResult.setSuccess(true);
-                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(memberCodes, ",") + " ]平台资金记录");
+                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(platformNames, ",") + " ]平台资金记录");
             } else {
                 returnResult.setMsg("发生未知错误，平台资金记录信息删除失败");
             }
