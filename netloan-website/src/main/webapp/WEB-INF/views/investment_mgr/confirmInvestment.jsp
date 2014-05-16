@@ -97,7 +97,7 @@
 	       	  		&nbsp;<a href="#">设置交易密码</a></div>
 	       	  	</div>
 	       	  	<c:choose>
-					   <c:when test="${borrowingLoan.loanTenderDisplay == '净值标'}">  
+					   <c:when test="${borrowingLoan.subTotal == '0.0'}">  
 					   	<div class="row">
 			       	  		<div class="col-md-12"><span>最小认购金额：<fmt:formatNumber value="${borrowingLoan.lowestSub }" pattern="#,#00.00"/>元  当前年利率: <fmt:formatNumber value="${borrowingLoan.loanApr * 100}" pattern="#,#00.00"/>% </span></div>
 			       	  	</div>

@@ -45,6 +45,7 @@
 				/messageNotice/* = user
 				/loanReview/* = user
 				/investment/confirmInvestment.htm = user
+				/receivablesNotes/* = user
 			   <!-- /validateCode.htm = anon
 				/login.htm = authc
 				/resources/** = anon

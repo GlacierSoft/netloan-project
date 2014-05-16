@@ -3,7 +3,6 @@ package com.glacier.netloan.web.controller.investment;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +20,7 @@ import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.borrow.LoanReviewService;
 import com.glacier.netloan.service.borrow.LoanTenderService;
+import com.glacier.netloan.service.borrow.ReceivablesNotesService;
 import com.glacier.netloan.service.borrow.RepaymentNotesDetailService;
 import com.glacier.netloan.service.borrow.RepaymentNotesService;
 import com.glacier.netloan.service.borrow.RepaymentTypeService;
@@ -65,6 +65,8 @@ public class TenderNotesController {
 	@Autowired
 	private RepaymentNotesDetailService repaymentNotesDetailService;
 	
+	@Autowired
+	private ReceivablesNotesService receivablesNotesService;// 注入收款记录业务Bean
 	
 	@RequestMapping(value="/index.htm")
 	private Object intoInvestment(JqPager jqPager,int p,BorrowingLoanQueryDTO borrowingLoanQueryDTO,String pagetype,HttpServletRequest request){
@@ -160,20 +162,36 @@ public class TenderNotesController {
 		request.setAttribute("tenderNotesDatas", tenderNotesService.listAsGridWebsite(jqPager, 1,tenderNotes.getLoanId()));//获取投标记录列表
 		return "investment_mgr/investmentdetail";
 	}
-	
+	/**
+	 * @Title: memberTenderNotes 
+	 * @Description: TODO(前台我的投标中的成功借出和招标中的借款) 
+	 * @param  @param jqPager
+	 * @param  @param p
+	 * @param  @param loanId
+	 * @param  @param memberId
+	 * @param  @param loanStates
+	 * @param  @param request
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 */
 	@RequestMapping(value = "/memberTenderNotes.htm")
-	private Object memberTenderNotes(JqPager jqPager,int p,String loanId,String memberId,String loanStates, HttpServletRequest request){
+	private Object memberTenderNotes(JqPager jqPager,int p,String loanId,String memberId,String loanDetailStates,String loanStates, HttpServletRequest request){
 		List<String> loanStatesList = new ArrayList<String>();
-		if(loanStates.equals("sucessBorrow")){
-			loanStatesList.add("repaymenting");
-			loanStatesList.add("completed");
-			request.setAttribute("buttonState", "sucessBorrow");
-		}else if(loanStates.equals("tenderingBorrow")){
-			loanStatesList.add("tendering");
-			request.setAttribute("buttonState", "tenderingBorrow");
+		if(loanStates != null){
+			if(loanStates.equals("sucessBorrow")){
+				loanStatesList.add("repaymenting");
+				loanStatesList.add("completed");
+				request.setAttribute("buttonState", "sucessBorrow");
+			}else if(loanStates.equals("tenderingBorrow")){
+				loanStatesList.add("tendering");
+				request.setAttribute("buttonState", "tenderingBorrow");
+			}
 		}
 		JqGridReturn returnResultTenderNotes = (JqGridReturn)tenderNotesService.listAsGridWebsite(jqPager, p,loanId,memberId,loanStatesList);//获取我的投标列表
 		request.setAttribute("tenderNotesDatas", returnResultTenderNotes);
+		JqGridReturn returnResultReceivablesNotes = (JqGridReturn)receivablesNotesService.listAsGridWebsite(jqPager, p,memberId,loanStatesList,loanDetailStates);//获取我的投标中的回收中借款列表
+		request.setAttribute("receivablesNotesDatas", returnResultReceivablesNotes);
 		return "member_mgr/memberTenderNotes";
 	}
 }

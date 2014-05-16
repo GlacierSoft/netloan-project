@@ -170,7 +170,7 @@ public class TenderNotesService {
         }
         
         int total = tenderNotesMapper.countByExample(tenderNotesExample); // 查询总页数
-        returnResult.setRows(tenderNotess);//设置查询数据
+        returnResult.setRows(allTenderNotess);//设置查询数据
         returnResult.setTotal(total);//设置总条数
         returnResult.setP(p);//设置当前页
         return returnResult;// 返回ExtGrid表

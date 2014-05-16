@@ -95,7 +95,7 @@ public class ReceivablesNotesDetailService {
         	receivablesNotesDetailExample.createCriteria().andReceNotesIdEqualTo(receNotesId);//查询相对应的还款人的收款记录的还款明细
         }
 
-        jqPager.setSort("createTime");// 定义排序字段
+        jqPager.setSort("numberPeriod");// 定义排序字段
         jqPager.setOrder("DESC");// 升序还是降序
         if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
         	receivablesNotesDetailExample.setOrderByClause(jqPager.getOrderBy("temp_receivables_notes_detail_"));
@@ -169,7 +169,7 @@ public class ReceivablesNotesDetailService {
         List<TenderNotes> tenderNotess = tenderNotesMapper.selectByExample(tenderNotesExample);
         for(TenderNotes tenderNotes : tenderNotess){
         	float everyPrincipal = 0f;//设置当期剩余本金
-        	if(memberIds.contains(tenderNotes.getMemberId())){
+        	if(memberIds.contains(tenderNotes.getMemberId())){//将交易对方，通过for循环查询处理，如果包含相同的就不做任何操作，否则添加到list中
         		
         	}else{
         		memberIds.add(tenderNotes.getMemberId());
@@ -293,7 +293,7 @@ public class ReceivablesNotesDetailService {
         	receivablesNotesDetail.setOverdueInterest(0f);//设置逾期利息为0
         	receivablesNotesDetail.setReceState("notReceiving");//设置收款状态为未收
     		receivablesNotesDetail.setReceNotesDetailId(RandomGUID.getRandomGUID());//设置收款记录明细id
-    		receivablesNotesDetail.setMemberId(borrowingLoanNew.getMemberId());
+    		receivablesNotesDetail.setMemberId(tenderNotes.getMemberId());
     		receivablesNotesDetail.setCreater(pricipalUser.getUserId());
             receivablesNotesDetail.setCreateTime(new Date());
             receivablesNotesDetail.setUpdater(pricipalUser.getUserId());

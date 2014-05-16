@@ -1,5 +1,6 @@
 package com.glacier.netloan.service.borrow;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,16 +17,21 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
+import com.glacier.netloan.dao.borrow.ReceivablesNotesDetailMapper;
 import com.glacier.netloan.dao.borrow.ReceivablesNotesMapper;
 import com.glacier.netloan.dao.borrow.TenderNotesMapper;
 import com.glacier.netloan.dto.query.borrow.ReceivablesNotesQueryDTO;
+import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.ReceivablesNotes;
+import com.glacier.netloan.entity.borrow.ReceivablesNotesDetail;
+import com.glacier.netloan.entity.borrow.ReceivablesNotesDetailExample;
 import com.glacier.netloan.entity.borrow.ReceivablesNotesExample;
 import com.glacier.netloan.entity.borrow.ReceivablesNotesExample.Criteria;
 import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.entity.borrow.TenderNotesExample;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.service.basicdatas.ParameterCreditService;
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -46,6 +52,12 @@ public class ReceivablesNotesService {
 	
 	@Autowired
 	private TenderNotesMapper tenderNotesMapper;
+	
+	@Autowired
+	private ReceivablesNotesDetailMapper receivablesNotesDetailMapper;
+	
+	@Autowired
+	private ParameterCreditService parameterCreditService;
 	
 	/**
 	 * @Title: getReceivablesNotes 
@@ -71,12 +83,32 @@ public class ReceivablesNotesService {
      * @throws 
      *
      */
-    public Object listAsGridWebsite(JqPager jqPager,int p,String memberId) {
+    public Object listAsGridWebsite(JqPager jqPager,int p,String memberId,List<String> loanStates,String loanDetailStates) {
         
         JqGridReturn returnResult = new JqGridReturn();
         ReceivablesNotesExample receivablesNotesExample = new ReceivablesNotesExample();
-        receivablesNotesExample.createCriteria().andMemberIdEqualTo(memberId);//查询相对应的还款人的收款记录
-        
+        Criteria criteria = receivablesNotesExample.createCriteria();
+        if(memberId != null){
+        	criteria.andMemberIdEqualTo(memberId);//查询相对应的投标的记录	
+        }
+        if(loanStates.size() > 0){
+        	criteria.andLoanStateIn(loanStates);//根据借款状态查询相对应的投标的记录
+        }
+        if(loanDetailStates != null){//判断收款记录明细状态是否为空，
+        	ReceivablesNotesDetailExample receivablesNotesDetailExample = new ReceivablesNotesDetailExample();
+        	receivablesNotesDetailExample.createCriteria().andMemberIdEqualTo(memberId).andReceStateEqualTo(loanDetailStates);
+        	List<ReceivablesNotesDetail> receivablesNotesDetails = receivablesNotesDetailMapper.selectByExample(receivablesNotesDetailExample);//查询属于该会员的已收款的收款记录明细列表
+        	List<String> ReceivablesNotesIds = new ArrayList<String>();
+        	for(ReceivablesNotesDetail receivablesNotesDetail : receivablesNotesDetails){
+        		if(ReceivablesNotesIds.contains(receivablesNotesDetail.getReceNotesId())){//将收款记录明细，通过for循环查询处理，如果包含相同的就不做任何操作，否则添加到list中
+             	}else{
+             		ReceivablesNotesIds.add(receivablesNotesDetail.getReceNotesId());
+             	}
+        	}
+        	if(ReceivablesNotesIds.size() > 0){
+        		criteria.andReceNotesIdIn(ReceivablesNotesIds);//将查询收款记录明细状态为“已收款”的收款记录，查询处理
+        	}
+        }
         jqPager.setSort("createTime");// 定义排序字段
         jqPager.setOrder("DESC");// 升序还是降序
         if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
@@ -88,8 +120,22 @@ public class ReceivablesNotesService {
         receivablesNotesExample.setLimitEnd(10);
         List<ReceivablesNotes>  receivablesNotess = receivablesNotesMapper.selectByExample(receivablesNotesExample); // 查询所有借款列表
 
+        //查询基础信用积分的所有数据
+        List<ParameterCredit> parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
+        List<ReceivablesNotes> allReceivablesNotess = new ArrayList<ReceivablesNotes>();//定义一个空的收款列表
+        //通过嵌套for循环，将会员的信用图标加到借款对象中去
+        for(ReceivablesNotes receivablesNotes : receivablesNotess){
+        	for(ParameterCredit parameterCredit : parameterCredits){
+    			if(receivablesNotes.getCreditIntegral() >= parameterCredit.getCreditBeginIntegral() && receivablesNotes.getCreditIntegral() < parameterCredit.getCreditEndIntegral()){
+    				receivablesNotes.setCreditPhoto(parameterCredit.getCreditPhoto());
+        			break;
+        		}	
+        	}
+        	allReceivablesNotess.add(receivablesNotes);
+        }
+        
         int total = receivablesNotesMapper.countByExample(receivablesNotesExample); // 查询总页数
-        returnResult.setRows(receivablesNotess);//设置查询数据
+        returnResult.setRows(allReceivablesNotess);//设置查询数据
         returnResult.setTotal(total);//设置总条数
         returnResult.setP(p);//设置当前页
         return returnResult;// 返回ExtGrid表

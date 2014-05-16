@@ -88,7 +88,7 @@
 	    	<div class="col-md-10">
 	    		<div class="panel panel-default">
 				  <div class="panel-heading">
-				    <h3 class="panel-title">系统消息</h3>
+				    <h3 class="panel-title">我的投标</h3>
 				  </div>
 				  <div class="panel-body">
 				  <div id="tenderNotesList">
@@ -97,23 +97,43 @@
 						   <c:when test="${buttonState == 'sucessBorrow'}">  
 						   	<a id="sucessBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow&memberId=${currentMember.memberId}" class="btn btn-success" role="button">成功借出</a>
 							<a id="tenderingBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=tenderingBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">招标中借款</a>
-							<a id="receingBorrow" href="javascript:void(0);" class="btn btn-primary" role="button">回收中借款</a>
-							<a href="${ctx}/tenderNotes/intoMessageNotice.htm?&p=1&letterstatus=unread" class="btn btn-primary" role="button">已回收借款</a>
-							<a href="${ctx}/tenderNotes/intoMessageNotice.htm?&p=1&letterstatus=read" class="btn btn-primary" role="button">回账查询</a> 
+							<a id="receingBorrow" href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">回收中借款</a>
+							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanDetailStates=alreadReceivables&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">已回收借款</a>
+							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=backAccountBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">回账查询</a> 
 						   </c:when>
 						   <c:when test="${buttonState == 'tenderingBorrow'}">  
 						   	<a id="sucessBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">成功借出</a>
 							<a id="tenderingBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=tenderingBorrow&memberId=${currentMember.memberId}" class="btn btn-success" role="button">招标中借款</a>
-							<a id="receingBorrow" href="javascript:void(0);" class="btn btn-primary" role="button">回收中借款</a>
-							<a href="${ctx}/tenderNotes/intoMessageNotice.htm?&p=1&letterstatus=unread" class="btn btn-primary" role="button">已回收借款</a>
-							<a href="${ctx}/tenderNotes/intoMessageNotice.htm?&p=1&letterstatus=read" class="btn btn-primary" role="button">回账查询</a> 
+							<a id="receingBorrow" href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">回收中借款</a>
+							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanDetailStates=alreadReceivables&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">已回收借款</a>
+							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=backAccountBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">回账查询</a> 
 						   </c:when>
-						   <c:when test="${borrowingLoan.loanTenderDisplay == '净值标'}">  
-						   	<img src="${ctx}/resources/images/borrow/jingzhi.jpg" alt="jingzhi">
+						   <c:when test="${buttonState == 'repaymentingBorrow'}">  
+						   	<a id="sucessBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">成功借出</a>
+							<a id="tenderingBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=tenderingBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">招标中借款</a>
+							<a id="receingBorrow" href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow&memberId=${currentMember.memberId}" class="btn btn-success" role="button">回收中借款</a>
+							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanDetailStates=alreadReceivables&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">已回收借款</a>
+							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=backAccountBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">回账查询</a> 
+						   </c:when>
+						   <c:when test="${buttonState == 'alreadReceivablesBorrow'}">  
+						   	<a id="sucessBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">成功借出</a>
+							<a id="tenderingBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=tenderingBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">招标中借款</a>
+							<a id="receingBorrow" href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">回收中借款</a>
+							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanDetailStates=alreadReceivables&memberId=${currentMember.memberId}" class="btn btn-success" role="button">已回收借款</a>
+							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=backAccountBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">回账查询</a> 
+						   </c:when>
+						   <c:when test="${buttonState == 'backAccountBorrow'}">  
+						   	<a id="sucessBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">成功借出</a>
+							<a id="tenderingBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=tenderingBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">招标中借款</a>
+							<a id="receingBorrow" href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">回收中借款</a>
+							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanDetailStates=alreadReceivables&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">已回收借款</a>
+							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=backAccountBorrow&memberId=${currentMember.memberId}" class="btn btn-success" role="button">回账查询</a> 
 						   </c:when>
 						</c:choose>
 				  </div>
-				  	<table id="tenderNotesTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
+				 <c:choose>
+					   <c:when test="${(buttonState == 'sucessBorrow') or (buttonState == 'tenderingBorrow') }">  
+					   <table id="tenderNotesTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
 				  		<thead>
 				  			<tr>
 				              <td>借款人</td>
@@ -189,9 +209,245 @@
 					          </tr>
 					        </tfoot>
 					       </c:if>	
-				        </table><!-- display:block; -->
+				        </table>
+					   </c:when>
+					   <c:when test="${buttonState == 'repaymentingBorrow' or buttonState == 'alreadReceivablesBorrow'}">  
+					  <table id="receivablesNotesTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
+				  		<thead>
+				  			<tr>
+				              <td>借款人</td>
+				              <td>标题</td>
+				              <td>类型</td>
+				              <td>信用等级</td>
+				              <td>年利率</td>
+				              <td>期限</td>
+				              <td>投标金额(元)</td>
+				              <td>已收金额(元)</td>
+				              <td>操作</td>
+				            </tr>
+				  		</thead>
+				         	<tbody>
+							<c:if test="${empty receivablesNotesDatas.rows}">
+							<tr>
+					            <td colspan="10"><strong>暂无信息</strong></td>
+					          </tr>
+							</c:if>	  		
+							<c:if test="${!empty receivablesNotesDatas.rows}">  		
+				            <c:forEach items="${receivablesNotesDatas.rows}" var="receivablesNotes" varStatus="status">
+						      	<tr>
+						      	  <td>${receivablesNotes.loanMemberDisplay}</td>
+					              <td>
+					              <a href="${ctx}/investment/investmentdetail.htm?loanId=${receivablesNotes.loanId }&memberId=${receivablesNotes.loanMemberId }&p=1">
+					              ${receivablesNotes.loanTitle}
+					              </a>
+					              </td>
+					              <td>${receivablesNotes.loanTenderDisplay}</td>
+					              <td><img id="creditPhotoDivImg"  src="${receivablesNotes.creditPhoto}" style="width: 34px;height: 24px ;" /></td>
+					              <td><fmt:formatNumber value="${receivablesNotes.loanApr * 100}" pattern="#,#00.00"/>%</td>
+					              <td>${receivablesNotes.loanDeadlinesId}个月</td>
+					              <c:choose>
+									   <c:when test="${receivablesNotes.subTotal == '0.0'}">  
+									   	 	<td><fmt:formatNumber value="${receivablesNotes.tenderMoney }" pattern="#,#00.00"/></td>
+									   </c:when>
+									   <c:when test="${receivablesNotes.subTotal != '0.0'}">  
+									   		<td><fmt:formatNumber value="${receivablesNotes.lowestSub * receivablesNotes.subSum }" pattern="#,#00.00"/></td>
+									   </c:when>
+								  </c:choose>
+								  <td>${receivablesNotes.alrReceMoney}</td>
+								  <td>
+								  <div class="bs-example">
+								      <!-- <button id="receivablesNotesDetailButton" class="btn btn-primary btn-xs"  data-backdrop="static" data-toggle="modal" data-target="#receivablesNotesDetailModal"  > -->
+								      <button id="receivablesNotesDetailButton${status.index}" class="btn btn-primary btn-xs"  data-backdrop="static" data-toggle="modal"   >
+								        	<input id="receNotesId${status.index}" type="hidden" value="${receivablesNotes.receNotesId}"/>
+								        	 查看详情
+								      </button>
+								      <script type="text/javascript">
+								      $("#receivablesNotesDetailButton"+${status.index}).click(function(){
+								    	  	var receNotesIdNew = $("#receNotesId"+${status.index}).val();
+								    	  	$.ajax({
+								 			   type: "GET",
+								 			   url: ctx+"/receivablesNotesDetail/receivablesNotesDetailList.json?&p=1&memberId=${currentMember.memberId}&receNotesId="+receNotesIdNew,
+								 			   dataType: "json",
+								 			   success: function(r) {
+								 				  $("#receivablesNotesDetailModal").modal();
+								                 },
+								                 error: function() {
+								                     alert("查看收款记录明细出错！");
+								                 }
+								 			});
+								    	});
+								      </script>
+							      </div><!-- /example --> 
+								  </td>
+					            </tr>
+					      	</c:forEach>
+					      	</c:if>
+				            </tbody>
+				            <c:if test="${!empty receivablesNotesDatas.rows}">  
+				            <tfoot>
+					          <tr>
+					            <th colspan="10">
+					            	<div align="right">
+									    <ul id='pagereceivablesNotes'></ul>
+									</div>
+								</th>
+					          </tr>
+					        </tfoot>
+					       </c:if>	
+				        </table>
+				        <!-- sample modal content -->
+						    <div id="receivablesNotesDetailModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="idCardAccessoryModalLabel" aria-hidden="true">
+						      <div class="modal-dialog" style="width: 1000px;">
+						        <div class="modal-content">
+						           <form id="member_idCardAccessoryForm"  class=" form-horizontal" role="form"  method="post" >
+							          <div class="modal-header">
+							          	<a class="close" data-dismiss="modal">×</a>
+							            <h4 class="modal-title" id="myModalLabel">收款记录明细</h4>
+							          </div>
+							          <div class="modal-body">
+							           <table id="receivablesNotesTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
+								  		<thead>
+								  			<tr>
+								              <td>期数</td>
+								              <td>还款时间</td>
+								              <td>本期应收本金</td>
+								              <td>本期应收利息</td>
+								              <td>剩余本金</td>
+								              <td>利息管理费</td>
+								              <td>是否逾期</td>
+								              <td>逾期罚息</td>
+								              <td>收益</td>
+								              <td>收款状态</td>
+								              <td>还款人</td>
+								            </tr>
+								  		</thead>
+								         	<tbody>
+											<c:if test="${empty receivablesNotesDetailsDatas.rows}">
+											<tr>
+									            <td colspan="11"><strong>暂无信息</strong></td>
+									          </tr>
+											</c:if>	  		
+											<c:if test="${!empty receivablesNotesDetailsDatas.rows}">  		
+								            <c:forEach items="${receivablesNotesDetailsDatas.rows}" var="receivablesNotesDetail" varStatus="status">
+										      	<tr>
+										      	  <td>${receivablesNotesDetail.numberPeriod}</td>
+									              <td><fmt:formatDate value="${receivablesNotesDetail.shouldPayDate}" type="both"/></td>
+									              <td><fmt:formatNumber value="${receivablesNotesDetail.currentRecePrincipal }" pattern="#,#00.00"/></td>
+									              <td><fmt:formatNumber value="${receivablesNotesDetail.currentReceInterest }" pattern="#,#00.00"/></td>
+									              <td><fmt:formatNumber value="${receivablesNotesDetail.surplusPrincipal }" pattern="#,#00.00"/></td>
+									              <td><fmt:formatNumber value="${receivablesNotesDetail.interestManaFee }" pattern="#,#00.00"/></td>
+									              <td>${receivablesNotesDetail.isOverdue}</td>
+									              <td><fmt:formatNumber value="${receivablesNotesDetail.income }" pattern="#,#00.00"/></td>
+									              <td>${receivablesNotesDetail.receState}</td>
+												  <td>${receivablesNotesDetail.memberDisplay}</td>
+												  <td></td>
+									            </tr>
+									      	</c:forEach>
+									      	</c:if>
+								            </tbody>
+								            <c:if test="${!empty receivablesNotesDetailsDatas.rows}">  
+								            <tfoot>
+									          <tr>
+									            <th colspan="11">
+									            	<div align="right">
+													    <ul id='pagereceivablesNotesDetail'></ul>
+													</div>
+												</th>
+									          </tr>
+									        </tfoot>
+									       </c:if>	
+								        </table>
+							          </div>
+							          <div class="modal-footer">
+							            <button type="button" class="btn btn-default" data-dismiss="modal">关  闭</button>
+							          </div>
+									</form>
+						        </div><!-- /.modal-content -->
+						      </div><!-- /.modal-dialog -->
+						    </div><!-- /.modal --> 		
+					   </c:when>
+					   <c:when test="${buttonState == 'backAccountBorrow'}">  
+					   <blockquote>
+						  <h4 style="color: red;">个人贷款：</h4>
+						</blockquote>
+					   <table id="receivablesNotesTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
+						   <tr>
+						   		<td></td>
+						   		<td>未来一个月</td>
+						   		<td>未来三个月</td>
+						   		<td>未来一年</td>
+						   		<td>全部</td>
+						   </tr>
+						   <tr>
+						   		<td>待收本息</td>
+						   		<td>￥9098.33</td>
+						   		<td>￥22314.47</td>
+						   		<td>￥27565.89</td>
+						   		<td>￥32957.40</td>
+						   	</tr>
+					   </table>
+					  <table id="receivablesNotesTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
+				  		<thead>
+				  			<tr>
+				              <td>借款人</td>
+				              <td>标题</td>
+				              <td>类型</td>
+				              <td>年利率</td>
+				              <td>期限</td>
+				              <td>投标金额(元)</td>
+				              <td>已收金额(元)</td>
+				              <td>待收金额(元)</td>
+				              <td>查看协议</td>
+				            </tr>
+				  		</thead>
+				         	<tbody>
+							<c:if test="${empty receivablesNotesDatas.rows}">
+							<tr>
+					            <td colspan="10"><strong>暂无信息</strong></td>
+					          </tr>
+							</c:if>	  		
+							<c:if test="${!empty receivablesNotesDatas.rows}">  		
+				            <c:forEach items="${receivablesNotesDatas.rows}" var="receivablesNotes" varStatus="status">
+						      	<tr>
+						      	  <td>${receivablesNotes.loanMemberDisplay}</td>
+					              <td>
+					              <a href="${ctx}/investment/investmentdetail.htm?loanId=${receivablesNotes.loanId }&memberId=${receivablesNotes.loanMemberId }&p=1">
+					              ${receivablesNotes.loanTitle}
+					              </a>
+					              </td>
+					              <td>${receivablesNotes.loanTenderDisplay}</td>
+					              <td><fmt:formatNumber value="${receivablesNotes.loanApr * 100}" pattern="#,#00.00"/>%</td>
+					              <td>${receivablesNotes.loanDeadlinesId}个月</td>
+					              <c:choose>
+									   <c:when test="${receivablesNotes.subTotal == '0.0'}">  
+									   	 	<td><fmt:formatNumber value="${receivablesNotes.tenderMoney }" pattern="#,#00.00"/></td>
+									   </c:when>
+									   <c:when test="${receivablesNotes.subTotal != '0.0'}">  
+									   		<td><fmt:formatNumber value="${receivablesNotes.lowestSub * receivablesNotes.subSum }" pattern="#,#00.00"/></td>
+									   </c:when>
+								  </c:choose>
+								  <td>${receivablesNotes.alrReceMoney}</td>
+								  <td>${receivablesNotes.notReceMoney}</td>
+								  <td>查看协议</td>
+					            </tr>
+					      	</c:forEach>
+					      	</c:if>
+				            </tbody>
+				            <c:if test="${!empty receivablesNotesDatas.rows}">  
+				            <tfoot>
+					          <tr>
+					            <th colspan="10">
+					            	<div align="right">
+									    <ul id='pagereceivablesNotes'></ul>
+									</div>
+								</th>
+					          </tr>
+					        </tfoot>
+					       </c:if>	
+				        </table>
+					   </c:when>
+				  </c:choose> 
 				       </div>
-				        
 				        
 				  </div>
 				</div>
@@ -204,6 +460,7 @@
 	      
   </body>
   	<script type="text/javascript">
+  	
 	  <!-- 分页显示表格数据 开始 -->
 		$(function(){
 			//获得浏览器参数
@@ -236,24 +493,52 @@
 		}
 		
 		var elementpagetenderNotes = $('#pagetenderNotes');
+		var elementpagereceivablesNotes = $('#pagereceivablesNotes');
+
+		//投标的设置分页的总页数
+			var totaltenderNotes=${tenderNotesDatas.total}/10;
+			if(parseInt(totaltenderNotes)==totaltenderNotes){
+				var totaltenderNotes = parseInt(totaltenderNotes);
+			}else {
+				var totaltenderNotes = parseInt(totaltenderNotes)+1;
+			}
+			//投标的
+			var tenderNotesOptions = {
+			    bootstrapMajorVersion:3,
+			    currentPage: ${tenderNotesDatas.p},
+			    numberOfPages: 10,
+			    totalPages:totaltenderNotes,
+			    pageUrl: function(type, page, current){
+			    	return "${ctx}/investment/memberTenderNotes.htm?"+composeUrlParams()+"&p="+page;
+			    	}
+			}
+			
+			//投标的
+			elementpagetenderNotes.bootstrapPaginator(tenderNotesOptions);
 		
-		//积分的设置分页的总页数
-		var totaltenderNotes=${tenderNotesDatas.total}/10;
-		if(parseInt(totaltenderNotes)==totaltenderNotes){
-			var totaltenderNotes = parseInt(totaltenderNotes);
-		}else {
-			var totaltenderNotes = parseInt(totaltenderNotes)+1;
-		}
-		var tenderNotesOptions = {
-		    bootstrapMajorVersion:3,
-		    currentPage: ${tenderNotesDatas.p},
-		    numberOfPages: 10,
-		    totalPages:totaltenderNotes,
-		    pageUrl: function(type, page, current){
-		    	return "${ctx}/investment/memberTenderNotes.htm?"+composeUrlParams()+"&p="+page;
-		    	}
-		}
-		elementpagetenderNotes.bootstrapPaginator(tenderNotesOptions);
+		
+			//收款的设置分页的总页数
+			var totalreceivablesNotes=${receivablesNotesDatas.total}/10;
+			if(parseInt(totalreceivablesNotes)==totalreceivablesNotes){
+				var totalreceivablesNotes = parseInt(totalreceivablesNotes);
+			}else {
+				var totalreceivablesNotes = parseInt(totalreceivablesNotes)+1;
+			}
+			
+			//收款的
+			var receivablesNotesOptions = {
+				    bootstrapMajorVersion:3,
+				    currentPage: ${receivablesNotesDatas.p},
+				    numberOfPages: 10,
+				    totalPages:totalreceivablesNotes,
+				    pageUrl: function(type, page, current){
+				    	//return "${ctx}/investment/memberTenderNotes.htm?"+composeUrlParams()+"&p="+page;
+				    	return "${ctx}/receivablesNotes/memberReceivablesNotes.htm?"+composeUrlParams()+"&p="+page;
+				    	//${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow&memberId=${currentMember.memberId}
+				    	}
+				}
+			//收款的
+			elementpagereceivablesNotes.bootstrapPaginator(receivablesNotesOptions);
 		
 		})
 	<!-- 分页显示表格数据 结束 -->

@@ -16,9 +16,21 @@
     <result column="temp_receivables_notes_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_receivables_notes_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_receivables_notes_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_receivables_notes_memberDisplay" property="memberDisplay" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_loan_title" property="loanTitle" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_memberDisplay" property="memberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_loanMemberDisplay" property="loanMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_loanApr" property="loanApr" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_loanDeadlinesId" property="loanDeadlinesId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_loanTenderDisplay" property="loanTenderDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_loanMemberId" property="loanMemberId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_loanState" property="loanState" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_creditIntegral" property="creditIntegral" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_subTotal" property="subTotal" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_lowestSub" property="lowestSub" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_subSum" property="subSum" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_tenderMoney" property="tenderMoney" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -91,8 +103,24 @@
     ,temp_member.member_name as temp_receivables_notes_memberDisplay
     ,temp_creater.user_cn_name as temp_receivables_notes_createrDisplay
     ,temp_updater.user_cn_name as temp_receivables_notes_updaterDisplay
+    ,temp_borrowing_loan.loan_title as temp_receivables_notes_loan_title
+    ,temp_borrowing_loan.loan_apr as temp_receivables_notes_loanApr
+    ,temp_borrowing_loan.loan_deadlines_id as temp_receivables_notes_loanDeadlinesId
+    ,temp_borrowing_loan.member_id as temp_receivables_notes_loanMemberId
+    ,temp_borrowing_loan.loan_state as temp_receivables_notes_loanState
+    ,temp_borrowing_loan.sub_total as temp_receivables_notes_subTotal
+    ,temp_borrowing_loan.lowest_sub as temp_receivables_notes_lowestSub
+    ,temp_loan_member.member_name as temp_receivables_notes_loanMemberDisplay
+    ,temp_loan_tender.loanr_tender_name as temp_receivables_notes_loanTenderDisplay
+    ,temp_loan_member.credit_integral as temp_receivables_notes_creditIntegral
+    ,temp_tender_notes.sub_sum as temp_receivables_notes_subSum
+    ,temp_tender_notes.tender_money as temp_receivables_notes_tenderMoney
   </sql>
   <sql id="Base_extend">
+  	LEFT JOIN t_tender_notes temp_tender_notes ON temp_receivables_notes.tender_notes_id = temp_tender_notes.tender_notes_id <!-- 扩展 -->
+  	LEFT JOIN t_borrowing_loan temp_borrowing_loan ON temp_borrowing_loan.loan_id = temp_tender_notes.loan_id <!-- 扩展 -->
+    LEFT JOIN t_member temp_loan_member ON temp_borrowing_loan.member_id = temp_loan_member.member_id <!-- 扩展 -->
+ 	LEFT JOIN t_loan_tender temp_loan_tender ON temp_borrowing_loan.loan_tender_id = temp_loan_tender.loan_tender_id <!-- 扩展 -->
     LEFT JOIN t_member temp_member ON temp_member.member_id = temp_receivables_notes.member_id <!-- 扩展 -->
     LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_receivables_notes.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_receivables_notes.updater <!-- 扩展 -->

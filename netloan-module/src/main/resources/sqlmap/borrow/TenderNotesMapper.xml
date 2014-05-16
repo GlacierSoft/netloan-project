@@ -21,6 +21,7 @@
     <result column="temp_tender_notes_loanDate" property="loanDate" jdbcType="TIMESTAMP"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_loanTenderDisplay" property="loanTenderDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_loanMemberId" property="loanMemberId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_loanId" property="loanId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_loanState" property="loanState" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_creditIntegral" property="creditIntegral" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_alrTenderPro" property="alrTenderPro" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
@@ -97,6 +98,7 @@
     ,temp_borrowing_loan.loan_deadlines_id as temp_tender_notes_loanDeadlinesId
     ,temp_borrowing_loan.loan_date as temp_tender_notes_loanDate
     ,temp_borrowing_loan.member_id as temp_tender_notes_loanMemberId
+    ,temp_borrowing_loan.loan_id as temp_tender_notes_loanId
     ,temp_borrowing_loan.loan_state as temp_tender_notes_loanState
     ,temp_borrowing_loan.alr_tender_pro as temp_tender_notes_alrTenderPro
     ,temp_borrowing_loan.sub_total as temp_tender_notes_subTotal
