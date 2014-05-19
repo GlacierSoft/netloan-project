@@ -264,11 +264,34 @@
 								      <script type="text/javascript">
 								      $("#receivablesNotesDetailButton"+${status.index}).click(function(){
 								    	  	var receNotesIdNew = $("#receNotesId"+${status.index}).val();
+								    	  	
 								    	  	$.ajax({
 								 			   type: "GET",
 								 			   url: ctx+"/receivablesNotesDetail/receivablesNotesDetailList.json?&p=1&memberId=${currentMember.memberId}&receNotesId="+receNotesIdNew,
 								 			   dataType: "json",
 								 			   success: function(r) {
+								 				  var receivablesNotesTbody = $("#receivablesNotesTbody")
+								 				//  var ObjectJson = $.parseJSON(r);
+								 				 // alert(ObjectJson.total+"  aa");
+								 				 // console.log(r.rows[0].numberPeriod);
+								 				 // console.log("aaaaa    "+ObjectJson.numberPeriod);
+								 				  for(var i=0;i<r.total;i++){
+								 					  	var row = r.rows[i];
+														   $("#receivablesNotesTbody").append(
+																   "<tr>"+
+							   										"<td>"+row.numberPeriod+"/"+r.total+"</td>"+
+							   										"<td>"+row.shouldPayDate+"</td>"+
+							   										"<td>"+"<fmt:formatNumber value="123.241" type="currency" pattern="#0.00元"/>"+"</td>"+
+							   										"<td>"+row.currentReceInterest+"</td>"+
+							   										"<td>"+row.surplusPrincipal+"</td>"+
+							   										"<td>"+row.interestManaFee+"</td>"+
+							   										"<td>"+row.isOverdue+"</td>"+
+							   										"<td>"+row.overdueInterest+"</td>"+
+							   										"<td>"+row.income+"</td>"+
+							   										"<td>"+row.receState+"</td>"+
+							   										"<td>"+row.loanMemberDisplay+"</td>"+
+							   									   "</tr>");
+													 }
 								 				  $("#receivablesNotesDetailModal").modal();
 								                 },
 								                 error: function() {
@@ -301,7 +324,7 @@
 						        <div class="modal-content">
 						           <form id="member_idCardAccessoryForm"  class=" form-horizontal" role="form"  method="post" >
 							          <div class="modal-header">
-							          	<a class="close" data-dismiss="modal">×</a>
+							          	<a id="receNotesDetailClose" class="close" data-dismiss="modal">×</a>
 							            <h4 class="modal-title" id="myModalLabel">收款记录明细</h4>
 							          </div>
 							          <div class="modal-body">
@@ -321,8 +344,8 @@
 								              <td>还款人</td>
 								            </tr>
 								  		</thead>
-								         	<tbody>
-											<c:if test="${empty receivablesNotesDetailsDatas.rows}">
+								         	<tbody id="receivablesNotesTbody">
+											<%-- <c:if test="${empty receivablesNotesDetailsDatas.rows}">
 											<tr>
 									            <td colspan="11"><strong>暂无信息</strong></td>
 									          </tr>
@@ -343,9 +366,9 @@
 												  <td></td>
 									            </tr>
 									      	</c:forEach>
-									      	</c:if>
+									      	</c:if> --%>
 								            </tbody>
-								            <c:if test="${!empty receivablesNotesDetailsDatas.rows}">  
+								           <%--  <c:if test="${!empty receivablesNotesDetailsDatas.rows}">  
 								            <tfoot>
 									          <tr>
 									            <th colspan="11">
@@ -355,11 +378,11 @@
 												</th>
 									          </tr>
 									        </tfoot>
-									       </c:if>	
+									       </c:if>	 --%>
 								        </table>
 							          </div>
 							          <div class="modal-footer">
-							            <button type="button" class="btn btn-default" data-dismiss="modal">关  闭</button>
+							            <button id="receivablesNotesDetailButton" type="button" class="btn btn-default" data-dismiss="modal">关  闭</button>
 							          </div>
 									</form>
 						        </div><!-- /.modal-content -->
@@ -460,6 +483,18 @@
 	      
   </body>
   	<script type="text/javascript">
+  	
+  	//记录明细列表的模态框，关闭的时候，remove已经动态添加的数据
+  	$("#receivablesNotesDetailButton").click(function(){
+  		$("#receivablesNotesTbody tr").remove();
+  		$("#receivablesNotesDetailModal").modal('hide');
+  	});
+  //记录明细列表的模态框，关闭的时候，remove已经动态添加的数据
+  	$("#receNotesDetailClose").click(function(){
+  		$("#receivablesNotesTbody tr").remove();
+  		$("#receivablesNotesDetailModal").modal('hide');
+  	});
+  	
   	
 	  <!-- 分页显示表格数据 开始 -->
 		$(function(){

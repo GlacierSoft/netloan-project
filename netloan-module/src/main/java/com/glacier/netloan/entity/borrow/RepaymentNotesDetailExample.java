@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 
+
 public class RepaymentNotesDetailExample {
     protected String orderByClause;
 
@@ -108,6 +109,12 @@ public class RepaymentNotesDetailExample {
         //扩展查询条件
         public Criteria andMemberDisplayLike(String value) {
             addCriterion("temp_member.member_name like", value, "memberDisplay");
+            return (Criteria) this;
+        }
+        
+       //扩展查询条件
+        public Criteria andTenderNotesIdEqualTo(String value) {
+            addCriterion("temp_tender_notes.tender_notes_id =", value, "tenderNotesId");
             return (Criteria) this;
         }
         

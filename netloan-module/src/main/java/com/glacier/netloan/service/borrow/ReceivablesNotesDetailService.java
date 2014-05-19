@@ -19,6 +19,7 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.ReceivablesNotesDetailMapper;
+import com.glacier.netloan.dao.borrow.ReceivablesNotesMapper;
 import com.glacier.netloan.dao.borrow.TenderNotesMapper;
 import com.glacier.netloan.dto.query.borrow.ReceivablesNotesDetailQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterBasic;
@@ -26,6 +27,7 @@ import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.ReceivablesNotes;
 import com.glacier.netloan.entity.borrow.ReceivablesNotesDetail;
 import com.glacier.netloan.entity.borrow.ReceivablesNotesDetailExample;
+import com.glacier.netloan.entity.borrow.ReceivablesNotesExample;
 import com.glacier.netloan.entity.borrow.ReceivablesNotesDetailExample.Criteria;
 import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.entity.borrow.TenderNotesExample;
@@ -60,6 +62,9 @@ public class ReceivablesNotesDetailService {
 	@Autowired
 	private ParameterBasicService parameterBasicService;
 	
+	@Autowired
+	private ReceivablesNotesMapper receivablesNotesMapper;
+	
 	/**
 	 * @Title: getReceivablesNotesDetail 
 	 * @Description: TODO(根据收款记录明细Id获取收款记录明细信息) 
@@ -88,15 +93,16 @@ public class ReceivablesNotesDetailService {
         
         JqGridReturn returnResult = new JqGridReturn();
         ReceivablesNotesDetailExample receivablesNotesDetailExample = new ReceivablesNotesDetailExample();
+        Criteria criteria = receivablesNotesDetailExample.createCriteria();
         if(memberId != null){
-        	receivablesNotesDetailExample.createCriteria().andMemberIdEqualTo(memberId);//查询相对应的还款人的收款记录明细
+        	criteria.andMemberIdEqualTo(memberId);//查询相对应的还款人的收款记录明细
         }
         if(receNotesId != null){
-        	receivablesNotesDetailExample.createCriteria().andReceNotesIdEqualTo(receNotesId);//查询相对应的还款人的收款记录的还款明细
+        	criteria.andReceNotesIdEqualTo(receNotesId);//查询相对应的还款人的收款记录的还款明细
         }
 
         jqPager.setSort("numberPeriod");// 定义排序字段
-        jqPager.setOrder("DESC");// 升序还是降序
+        jqPager.setOrder("ASC");// 升序还是降序
         if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
         	receivablesNotesDetailExample.setOrderByClause(jqPager.getOrderBy("temp_receivables_notes_detail_"));
         }
@@ -176,8 +182,13 @@ public class ReceivablesNotesDetailService {
         		Member member = (Member) memberService.getMember(tenderNotes.getMemberId());
         		memberNames.add(member.getMemberRealName());
         	}
+        	//更投标记录id查询，收款记录的id,然后再插入到收款记录明细中的setReceNotesId字段中
+        	ReceivablesNotesExample receivablesNotesExample = new ReceivablesNotesExample();
+        	receivablesNotesExample.createCriteria().andTenderNotesIdEqualTo(tenderNotes.getTenderNotesId());
+        	List<ReceivablesNotes> ReceivablesNotess =  receivablesNotesMapper.selectByExample(receivablesNotesExample);
+        	ReceivablesNotes receivablesNotesNew = ReceivablesNotess.get(0);
         for(int i = 0;i < Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId());i++){
-        	receivablesNotesDetail.setReceNotesId(receivablesNotes.getReceNotesId());
+        	receivablesNotesDetail.setReceNotesId(receivablesNotesNew.getReceNotesId());
         	receivablesNotesDetail.setNumberPeriod((i+1)+"");//设置当前是第几期
         	Calendar c = Calendar.getInstance();//日历对象
  	        c.setTime(new Date());//获取当前时间

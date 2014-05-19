@@ -24,7 +24,8 @@
     <result column="temp_receivables_notes_detail_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_receivables_notes_detail_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_receivables_notes_detail_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_receivables_notes_detail_memberDisplay" property="memberDisplay" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_detail_memberDisplay" property="memberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_detail_loanMemberDisplay" property="loanMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_detail_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_detail_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
@@ -108,10 +109,15 @@
     temp_receivables_notes_detail.updater as temp_receivables_notes_detail_updater, temp_receivables_notes_detail.update_time as temp_receivables_notes_detail_update_time
     <!-- 以下字段属于扩展 -->
     ,temp_member.member_name as temp_receivables_notes_detail_memberDisplay
+    ,temp_loan_member.member_name as temp_receivables_notes_detail_loanMemberDisplay
     ,temp_creater.user_cn_name as temp_receivables_notes_detail_createrDisplay
     ,temp_updater.user_cn_name as temp_receivables_notes_detail_updaterDisplay
   </sql>
   <sql id="Base_extend">
+ 	LEFT JOIN t_receivables_notes temp_receivables_notes ON temp_receivables_notes.rece_notes_id = temp_receivables_notes_detail.rece_notes_id <!-- 扩展 -->
+ 	LEFT JOIN t_tender_notes temp_tender_notes ON temp_receivables_notes.tender_notes_id = temp_tender_notes.tender_notes_id <!-- 扩展 -->
+ 	LEFT JOIN t_borrowing_loan temp_borrowing_loan ON temp_borrowing_loan.loan_id = temp_tender_notes.loan_id <!-- 扩展 -->
+ 	LEFT JOIN t_member temp_loan_member ON temp_borrowing_loan.member_id = temp_loan_member.member_id <!-- 扩展 -->
     LEFT JOIN t_member temp_member ON temp_member.member_id = temp_receivables_notes_detail.member_id <!-- 扩展 -->
     LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_receivables_notes_detail.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_receivables_notes_detail.updater <!-- 扩展 -->

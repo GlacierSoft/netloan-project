@@ -14,6 +14,11 @@ public class ReceivablesNotesDetail {
      */
     private String memberDisplay;
     
+    /**
+     * 自定义字段,还款人名称
+     */
+    private String loanMemberDisplay;
+    
     private String memberId;
 
     private Float alrReceMoney;
@@ -68,7 +73,15 @@ public class ReceivablesNotesDetail {
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    public String getCreaterDisplay() {
+    public String getLoanMemberDisplay() {
+		return loanMemberDisplay;
+	}
+
+	public void setLoanMemberDisplay(String loanMemberDisplay) {
+		this.loanMemberDisplay = loanMemberDisplay;
+	}
+
+	public String getCreaterDisplay() {
 		return createrDisplay;
 	}
 
