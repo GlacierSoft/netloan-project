@@ -62,7 +62,10 @@
 				field:'auditState',
 				title:'审核状态',
 				width:120,
-				sortable:true
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如'failure'显示审核失败,'pass'显示审核通过,'authstr'显示审核中
+					return renderGridValue(value,fields.auditState);
+				}
 			},{
 				field:'auditorDisplay',
 				title:'审核人',
