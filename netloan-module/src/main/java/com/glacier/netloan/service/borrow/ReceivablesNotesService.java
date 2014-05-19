@@ -86,6 +86,7 @@ public class ReceivablesNotesService {
     public Object listAsGridWebsite(JqPager jqPager,int p,String memberId,List<String> loanStates,String loanDetailStates) {
         
         JqGridReturn returnResult = new JqGridReturn();
+        boolean flag = false;
         ReceivablesNotesExample receivablesNotesExample = new ReceivablesNotesExample();
         Criteria criteria = receivablesNotesExample.createCriteria();
         if(memberId != null){
@@ -105,8 +106,11 @@ public class ReceivablesNotesService {
              		ReceivablesNotesIds.add(receivablesNotesDetail.getReceNotesId());
              	}
         	}
+        	//判断是否有已收款的收款记录明细，如果有，在receivablesNotesExample添加搜索条件，如果没有，将flag设置为true
         	if(ReceivablesNotesIds.size() > 0){
         		criteria.andReceNotesIdIn(ReceivablesNotesIds);//将查询收款记录明细状态为“已收款”的收款记录，查询处理
+        	}else{
+        		flag = true;
         	}
         }
         jqPager.setSort("createTime");// 定义排序字段
@@ -118,20 +122,27 @@ public class ReceivablesNotesService {
         int startTemp = ((p-1)*10);//根据前台返回的页数进行设置
         receivablesNotesExample.setLimitStart(startTemp);
         receivablesNotesExample.setLimitEnd(10);
-        List<ReceivablesNotes>  receivablesNotess = receivablesNotesMapper.selectByExample(receivablesNotesExample); // 查询所有借款列表
-
-        //查询基础信用积分的所有数据
-        List<ParameterCredit> parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
+        
         List<ReceivablesNotes> allReceivablesNotess = new ArrayList<ReceivablesNotes>();//定义一个空的收款列表
-        //通过嵌套for循环，将会员的信用图标加到借款对象中去
-        for(ReceivablesNotes receivablesNotes : receivablesNotess){
-        	for(ParameterCredit parameterCredit : parameterCredits){
-    			if(receivablesNotes.getCreditIntegral() >= parameterCredit.getCreditBeginIntegral() && receivablesNotes.getCreditIntegral() < parameterCredit.getCreditEndIntegral()){
-    				receivablesNotes.setCreditPhoto(parameterCredit.getCreditPhoto());
-        			break;
-        		}	
-        	}
-        	allReceivablesNotess.add(receivablesNotes);
+        //如果flag为true,就什么都不操作，返回一个allReceivablesNotess空的list回去
+        if(flag){
+        	
+        }else{
+        	List<ReceivablesNotes>  receivablesNotess = receivablesNotesMapper.selectByExample(receivablesNotesExample); // 查询所有借款列表
+
+            //查询基础信用积分的所有数据
+            List<ParameterCredit> parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
+            allReceivablesNotess = new ArrayList<ReceivablesNotes>();//定义一个空的收款列表
+            //通过嵌套for循环，将会员的信用图标加到借款对象中去
+            for(ReceivablesNotes receivablesNotes : receivablesNotess){
+            	for(ParameterCredit parameterCredit : parameterCredits){
+        			if(receivablesNotes.getCreditIntegral() >= parameterCredit.getCreditBeginIntegral() && receivablesNotes.getCreditIntegral() < parameterCredit.getCreditEndIntegral()){
+        				receivablesNotes.setCreditPhoto(parameterCredit.getCreditPhoto());
+            			break;
+            		}	
+            	}
+            	allReceivablesNotess.add(receivablesNotes);
+            }
         }
         
         int total = receivablesNotesMapper.countByExample(receivablesNotesExample); // 查询总页数

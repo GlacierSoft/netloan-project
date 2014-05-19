@@ -133,6 +133,46 @@
 				  </div>
 				 <c:choose>
 					   <c:when test="${(buttonState == 'sucessBorrow') or (buttonState == 'tenderingBorrow') }">  
+					   <div class="panel panel-default">
+						  <div class="panel-heading">
+						    <h4 class="panel-title"><strong>条件筛选</strong></h3>
+						  </div>
+						  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
+						     <form id="sucessBorrowForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/investment/memberTenderNotes.htm" >
+						      <div class="form-group">
+						      	<input type="hidden" id="dtp_input1" name="p" value="1" />
+						      	<input type="hidden" id="dtp_input2" name="loanStates" value="sucessBorrow" />
+						      	<input type="hidden" id="dtp_input3" name="memberId" value="${currentMember.memberId}" />
+						        <label for="cardId" class="col-sm-2 control-label" >发布时间</label>
+							    <div class="col-sm-4">
+								    <div class="input-group date form_datetime" data-link-field="dtp_input1">
+					                    <input name="createStartTime" class="form-control" size="16" type="text" value="${tenderNotesQueryDTO.createStartTime}" readonly>
+					                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+					                </div>
+									<input type="hidden" id="dtp_input1" value="" />
+							    </div>
+							    <label for="cardId" class="col-sm-1 control-label" style="text-align:center;vertical-align: middle;">到</label>
+							    <div class="col-sm-4">
+							    	<div class="input-group date form_datetime" data-link-field="dtp_input1">
+					                    <input name="createEndTime" class="form-control" size="16" type="text" value="${tenderNotesQueryDTO.createEndTime}" readonly>
+					                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+					                </div>
+									<input type="hidden" id="dtp_input1" value="" />
+							    </div>
+							    <label for="cardId" class="col-sm-1 control-label" ></label>
+							  </div>
+							   <div class="form-group">
+							    <label for="loanTitle" class="col-sm-1 control-label" >标题</label>
+							    <div class="col-sm-3"><input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${borrowingLoanQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
+							    <div class="col-sm-3 text-center"><button id="sucessBorrowFormButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
+							    <div class="col-sm-3"><button id="sucessBorrowFormButton" type="reset" class="btn btn-primary btn-lg btn-block">重&nbsp;&nbsp;置</button></div>
+							  	<div class="col-sm-2"></div>
+							  	</div>
+						     </form>
+						  </div>
+						</div>
 					   <table id="tenderNotesTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
 				  		<thead>
 				  			<tr>
@@ -271,28 +311,27 @@
 								 			   dataType: "json",
 								 			   success: function(r) {
 								 				  var receivablesNotesTbody = $("#receivablesNotesTbody")
-								 				//  var ObjectJson = $.parseJSON(r);
-								 				 // alert(ObjectJson.total+"  aa");
-								 				 // console.log(r.rows[0].numberPeriod);
-								 				 // console.log("aaaaa    "+ObjectJson.numberPeriod);
 								 				  for(var i=0;i<r.total;i++){
-								 					  	var row = r.rows[i];
-														   $("#receivablesNotesTbody").append(
-																   "<tr>"+
-							   										"<td>"+row.numberPeriod+"/"+r.total+"</td>"+
-							   										"<td>"+row.shouldPayDate+"</td>"+
-							   										"<td>"+"<fmt:formatNumber value="123.241" type="currency" pattern="#0.00元"/>"+"</td>"+
-							   										"<td>"+row.currentReceInterest+"</td>"+
-							   										"<td>"+row.surplusPrincipal+"</td>"+
-							   										"<td>"+row.interestManaFee+"</td>"+
-							   										"<td>"+row.isOverdue+"</td>"+
-							   										"<td>"+row.overdueInterest+"</td>"+
-							   										"<td>"+row.income+"</td>"+
-							   										"<td>"+row.receState+"</td>"+
-							   										"<td>"+row.loanMemberDisplay+"</td>"+
-							   									   "</tr>");
+								 					   var row = r.rows[i];
+													   $("#receivablesNotesTbody").append(
+															   "<tr>"+
+						   										"<td>"+row.numberPeriod+"/"+r.total+"</td>"+
+						   										"<td>"+row.shouldPayDate+"</td>"+
+						   										"<td>"+FormatNumber(row.currentRecePrincipal,2)+"元</td>"+
+						   										"<td>"+FormatNumber(row.currentReceInterest,2)+"元</td>"+
+						   										"<td>"+FormatNumber(row.surplusPrincipal,2)+"元</td>"+
+						   										"<td>"+FormatNumber(row.interestManaFee,2)+"</td>"+
+						   										"<td>"+renderGridValue(row.isOverdue,fields.isOverdue)+"</td>"+
+						   										"<td>"+FormatNumber(row.overdueInterest,2)+"元</td>"+
+						   										"<td>"+FormatNumber(row.income,2)+"元</td>"+
+						   										"<td>"+renderGridValue(row.receState,fields.receDetailState)+"</td>"+
+						   										"<td>"+row.loanMemberDisplay+"</td>"+
+						   									   "</tr>");
+													   
 													 }
-								 				  $("#receivablesNotesDetailModal").modal();
+								 				  $("#receivablesNotesDetailModal").modal({
+								 					 backdrop: 'static'  
+								 				  });
 								                 },
 								                 error: function() {
 								                     alert("查看收款记录明细出错！");
@@ -320,7 +359,7 @@
 				        </table>
 				        <!-- sample modal content -->
 						    <div id="receivablesNotesDetailModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="idCardAccessoryModalLabel" aria-hidden="true">
-						      <div class="modal-dialog" style="width: 1000px;">
+						      <div class="modal-dialog" style="width: 1100px;">
 						        <div class="modal-content">
 						           <form id="member_idCardAccessoryForm"  class=" form-horizontal" role="form"  method="post" >
 							          <div class="modal-header">
@@ -344,41 +383,17 @@
 								              <td>还款人</td>
 								            </tr>
 								  		</thead>
-								         	<tbody id="receivablesNotesTbody">
-											<%-- <c:if test="${empty receivablesNotesDetailsDatas.rows}">
-											<tr>
-									            <td colspan="11"><strong>暂无信息</strong></td>
-									          </tr>
-											</c:if>	  		
-											<c:if test="${!empty receivablesNotesDetailsDatas.rows}">  		
-								            <c:forEach items="${receivablesNotesDetailsDatas.rows}" var="receivablesNotesDetail" varStatus="status">
-										      	<tr>
-										      	  <td>${receivablesNotesDetail.numberPeriod}</td>
-									              <td><fmt:formatDate value="${receivablesNotesDetail.shouldPayDate}" type="both"/></td>
-									              <td><fmt:formatNumber value="${receivablesNotesDetail.currentRecePrincipal }" pattern="#,#00.00"/></td>
-									              <td><fmt:formatNumber value="${receivablesNotesDetail.currentReceInterest }" pattern="#,#00.00"/></td>
-									              <td><fmt:formatNumber value="${receivablesNotesDetail.surplusPrincipal }" pattern="#,#00.00"/></td>
-									              <td><fmt:formatNumber value="${receivablesNotesDetail.interestManaFee }" pattern="#,#00.00"/></td>
-									              <td>${receivablesNotesDetail.isOverdue}</td>
-									              <td><fmt:formatNumber value="${receivablesNotesDetail.income }" pattern="#,#00.00"/></td>
-									              <td>${receivablesNotesDetail.receState}</td>
-												  <td>${receivablesNotesDetail.memberDisplay}</td>
-												  <td></td>
-									            </tr>
-									      	</c:forEach>
-									      	</c:if> --%>
-								            </tbody>
-								           <%--  <c:if test="${!empty receivablesNotesDetailsDatas.rows}">  
-								            <tfoot>
-									          <tr>
-									            <th colspan="11">
-									            	<div align="right">
-													    <ul id='pagereceivablesNotesDetail'></ul>
-													</div>
-												</th>
-									          </tr>
-									        </tfoot>
-									       </c:if>	 --%>
+							         	<tbody id="receivablesNotesTbody">
+							            </tbody>
+							            <tfoot>
+								          <tr>
+								            <th colspan="11">
+								            	<div align="right">
+												    <ul id=''></ul>
+												</div>
+											</th>
+								          </tr>
+								        </tfoot>
 								        </table>
 							          </div>
 							          <div class="modal-footer">
@@ -484,12 +499,21 @@
   </body>
   	<script type="text/javascript">
   	
+  	//bootstrap日期控件
+  	$(".form_datetime").datetimepicker({
+  		language:  'zh-CN',
+        format: "yyyy-mm-dd hh:ii:ss",
+        autoclose: true,
+        todayBtn: true,
+        pickerPosition: "bottom-left"
+    });
+  	
   	//记录明细列表的模态框，关闭的时候，remove已经动态添加的数据
   	$("#receivablesNotesDetailButton").click(function(){
   		$("#receivablesNotesTbody tr").remove();
   		$("#receivablesNotesDetailModal").modal('hide');
   	});
-  //记录明细列表的模态框，关闭的时候，remove已经动态添加的数据
+    //记录明细列表的模态框，关闭的时候，remove已经动态添加的数据
   	$("#receNotesDetailClose").click(function(){
   		$("#receivablesNotesTbody tr").remove();
   		$("#receivablesNotesDetailModal").modal('hide');
@@ -637,5 +661,38 @@
 						});
 			});
 		}
+		//编写FormatNumber方法，通过jquery格式化数据格式
+		function FormatNumber(srcStr,nAfterDot){
+			　　var srcStr,nAfterDot;
+			　　var resultStr,nTen;
+			　　srcStr = ""+srcStr+"";
+			　　strLen = srcStr.length;
+			　　dotPos = srcStr.indexOf(".",0);
+			　　if (dotPos == -1){
+			　　　　resultStr = srcStr+".";
+			　　　　for (i=0;i<nAfterDot;i++){
+			　　　　　　resultStr = resultStr+"0";
+			　　　　}
+			　　　　return resultStr;
+			　　}
+			　　else{
+			　　　　if ((strLen - dotPos - 1) >= nAfterDot){
+			　　　　　　nAfter = dotPos + nAfterDot + 1;
+			　　　　　　nTen =1;
+			　　　　　　for(j=0;j<nAfterDot;j++){
+			　　　　　　　　nTen = nTen*10;
+			　　　　　　}
+			　　　　　　resultStr = Math.round(parseFloat(srcStr)*nTen)/nTen;
+			　　　　　　return resultStr;
+			　　　　}
+			　　　　else{
+			　　　　　　resultStr = srcStr;
+			　　　　　　for (i=0;i<(nAfterDot - strLen + dotPos + 1);i++){
+			　　　　　　　　resultStr = resultStr+"0";
+			　　　　　　}
+			　　　　　　return resultStr;
+			　　　　}
+			　　}
+			}
 	</script>
 </html>

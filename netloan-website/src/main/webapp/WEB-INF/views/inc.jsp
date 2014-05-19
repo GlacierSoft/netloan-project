@@ -21,7 +21,8 @@
 <link rel="stylesheet" href="${ctx}/resources/js/bootstrap-switch/bootstrap-switch.min.css"></link>
 <link rel="stylesheet" href="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/css/sticky-footer-navbar.css"></link>
 
-
+<!-- bootstrap-datetimepicker日期css -->
+<link rel="stylesheet" href="${ctx}/resources/js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"></link>
 
 <!-- 自定义主页样式 -->
 <link rel="stylesheet" href="${ctx}/resources/css/index.css"></link>
@@ -59,6 +60,10 @@
 <!-- bootstrap分页插件 -->
 <script src="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/js/bootstrap-paginator.js"></script>
 <script src="${ctx}/resources/js/bootstrap-3.0.3-dist/dist/js/qunit-1.11.0.js"></script>
+
+<!-- bootstrap-datetimepicker日期插件 -->
+<script type="text/javascript" src="${ctx}/resources/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="${ctx}/resources/js/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 
 <!-- 自定义js -->
 <%-- <script src="${ctx}/resources/js/common/extJquery.js" type="text/javascript"></script>  

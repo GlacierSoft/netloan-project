@@ -15,6 +15,7 @@ import com.glacier.basic.util.JackJson;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
+import com.glacier.netloan.dto.query.borrow.TenderNotesQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
@@ -176,7 +177,7 @@ public class TenderNotesController {
 	 * @throws 
 	 */
 	@RequestMapping(value = "/memberTenderNotes.htm")
-	private Object memberTenderNotes(JqPager jqPager,int p,String loanId,String memberId,String loanDetailStates,String loanStates, HttpServletRequest request){
+	private Object memberTenderNotes(TenderNotesQueryDTO tenderNotesQueryDTO,JqPager jqPager,int p,String loanId,String memberId,String loanDetailStates,String loanStates, HttpServletRequest request){
 		List<String> loanStatesList = new ArrayList<String>();
 		if(loanStates != null){
 			if(loanStates.equals("sucessBorrow")){
@@ -188,7 +189,8 @@ public class TenderNotesController {
 				request.setAttribute("buttonState", "tenderingBorrow");
 			}
 		}
-		JqGridReturn returnResultTenderNotes = (JqGridReturn)tenderNotesService.listAsGridWebsite(jqPager, p,loanId,memberId,loanStatesList);//获取我的投标列表
+		request.setAttribute("tenderNotesQueryDTO", tenderNotesQueryDTO);
+		JqGridReturn returnResultTenderNotes = (JqGridReturn)tenderNotesService.listAsGridWebsite(tenderNotesQueryDTO,jqPager, p,loanId,memberId,loanStatesList);//获取我的投标列表
 		request.setAttribute("tenderNotesDatas", returnResultTenderNotes);
 		JqGridReturn returnResultReceivablesNotes = (JqGridReturn)receivablesNotesService.listAsGridWebsite(jqPager, p,memberId,loanStatesList,loanDetailStates);//获取我的投标中的回收中借款列表
 		request.setAttribute("receivablesNotesDatas", returnResultReceivablesNotes);

@@ -17,6 +17,7 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.TenderNotesMapper;
+import com.glacier.netloan.dto.query.borrow.TenderNotesQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.TenderNotes;
@@ -124,11 +125,12 @@ public class TenderNotesService {
      * @throws 
      *
      */
-    public Object listAsGridWebsite(JqPager jqPager,int p,String loanId,String memberId,List<String> loanStates) {
+    public Object listAsGridWebsite(TenderNotesQueryDTO tenderNotesQueryDTO,JqPager jqPager,int p,String loanId,String memberId,List<String> loanStates) {
         
         JqGridReturn returnResult = new JqGridReturn();
         TenderNotesExample tenderNotesExample = new TenderNotesExample();
         Criteria criteria = tenderNotesExample.createCriteria();
+        tenderNotesQueryDTO.setQueryCondition(criteria);//前台条件查询
         if(loanId != null){
         	criteria.andLoanIdEqualTo(loanId);//查询相对应的投标的记录	
         }
