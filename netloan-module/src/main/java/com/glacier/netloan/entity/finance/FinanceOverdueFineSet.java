@@ -2,93 +2,85 @@ package com.glacier.netloan.entity.finance;
 
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
+public class FinanceOverdueFineSet {
+    private String overdueFineSetId;
 
-public class FinancePlatform {
-    private String financePlatformId;
+    private String overdueFineSetName;
 
-    private String platformCode;
+    private String memberType;
 
-    private String platformName;
+    private String memberPrivilege;
 
-    private String platformAccount;
+    private Float value;
 
-    private Float platformMoney;
+    private String feeWay;
 
     private String auditState;
 
     private String auditor;
 
-    /**
-     * 自定义字段，审核人的真实姓名
-     */
-    private String auditorDisplay;
-    
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditDate;
 
     private String auditRemark;
-    
+
+    private Float money;
+
     private String remark;
 
     private String creater;
 
-    /**
-     * 自定义字段，创建人的真实姓名
-     */
-    private String createrDisplay;
-    
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
-    
-    /**
-     * 自定义字段，更新人真实姓名
-     */
-    private String updaterDisplay;
-    
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+
     private Date updateTime;
 
-    public String getFinancePlatformId() {
-        return financePlatformId;
+    public String getOverdueFineSetId() {
+        return overdueFineSetId;
     }
 
-    public void setFinancePlatformId(String financePlatformId) {
-        this.financePlatformId = financePlatformId;
+    public void setOverdueFineSetId(String overdueFineSetId) {
+        this.overdueFineSetId = overdueFineSetId;
     }
 
-    public String getPlatformCode() {
-        return platformCode;
+    public String getOverdueFineSetName() {
+        return overdueFineSetName;
     }
 
-    public void setPlatformCode(String platformCode) {
-        this.platformCode = platformCode;
+    public void setOverdueFineSetName(String overdueFineSetName) {
+        this.overdueFineSetName = overdueFineSetName;
     }
 
-    public String getPlatformName() {
-        return platformName;
+    public String getMemberType() {
+        return memberType;
     }
 
-    public void setPlatformName(String platformName) {
-        this.platformName = platformName;
+    public void setMemberType(String memberType) {
+        this.memberType = memberType;
     }
 
-    public String getPlatformAccount() {
-        return platformAccount;
+    public String getMemberPrivilege() {
+        return memberPrivilege;
     }
 
-    public void setPlatformAccount(String platformAccount) {
-        this.platformAccount = platformAccount;
+    public void setMemberPrivilege(String memberPrivilege) {
+        this.memberPrivilege = memberPrivilege;
     }
 
-    public Float getPlatformMoney() {
-        return platformMoney;
+    public Float getValue() {
+        return value;
     }
 
-    public void setPlatformMoney(Float platformMoney) {
-        this.platformMoney = platformMoney;
+    public void setValue(Float value) {
+        this.value = value;
+    }
+
+    public String getFeeWay() {
+        return feeWay;
+    }
+
+    public void setFeeWay(String feeWay) {
+        this.feeWay = feeWay;
     }
 
     public String getAuditState() {
@@ -122,7 +114,15 @@ public class FinancePlatform {
     public void setAuditRemark(String auditRemark) {
         this.auditRemark = auditRemark;
     }
-    
+
+    public Float getMoney() {
+        return money;
+    }
+
+    public void setMoney(Float money) {
+        this.money = money;
+    }
+
     public String getRemark() {
         return remark;
     }
@@ -163,31 +163,7 @@ public class FinancePlatform {
         this.updateTime = updateTime;
     }
 
-    public String getAuditorDisplay() {
-		return auditorDisplay;
-	}
-
-	public void setAuditorDisplay(String auditorDisplay) {
-		this.auditorDisplay = auditorDisplay;
-	}
-
-	public String getCreaterDisplay() {
-		return createrDisplay;
-	}
-
-	public void setCreaterDisplay(String createrDisplay) {
-		this.createrDisplay = createrDisplay;
-	}
-
-	public String getUpdaterDisplay() {
-		return updaterDisplay;
-	}
-
-	public void setUpdaterDisplay(String updaterDisplay) {
-		this.updaterDisplay = updaterDisplay;
-	}
-
-	@Override
+    @Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
@@ -198,16 +174,18 @@ public class FinancePlatform {
         if (getClass() != that.getClass()) {
             return false;
         }
-        FinancePlatform other = (FinancePlatform) that;
-        return (this.getFinancePlatformId() == null ? other.getFinancePlatformId() == null : this.getFinancePlatformId().equals(other.getFinancePlatformId()))
-            && (this.getPlatformCode() == null ? other.getPlatformCode() == null : this.getPlatformCode().equals(other.getPlatformCode()))
-            && (this.getPlatformName() == null ? other.getPlatformName() == null : this.getPlatformName().equals(other.getPlatformName()))
-            && (this.getPlatformAccount() == null ? other.getPlatformAccount() == null : this.getPlatformAccount().equals(other.getPlatformAccount()))
-            && (this.getPlatformMoney() == null ? other.getPlatformMoney() == null : this.getPlatformMoney().equals(other.getPlatformMoney()))
+        FinanceOverdueFineSet other = (FinanceOverdueFineSet) that;
+        return (this.getOverdueFineSetId() == null ? other.getOverdueFineSetId() == null : this.getOverdueFineSetId().equals(other.getOverdueFineSetId()))
+            && (this.getOverdueFineSetName() == null ? other.getOverdueFineSetName() == null : this.getOverdueFineSetName().equals(other.getOverdueFineSetName()))
+            && (this.getMemberType() == null ? other.getMemberType() == null : this.getMemberType().equals(other.getMemberType()))
+            && (this.getMemberPrivilege() == null ? other.getMemberPrivilege() == null : this.getMemberPrivilege().equals(other.getMemberPrivilege()))
+            && (this.getValue() == null ? other.getValue() == null : this.getValue().equals(other.getValue()))
+            && (this.getFeeWay() == null ? other.getFeeWay() == null : this.getFeeWay().equals(other.getFeeWay()))
             && (this.getAuditState() == null ? other.getAuditState() == null : this.getAuditState().equals(other.getAuditState()))
             && (this.getAuditor() == null ? other.getAuditor() == null : this.getAuditor().equals(other.getAuditor()))
             && (this.getAuditDate() == null ? other.getAuditDate() == null : this.getAuditDate().equals(other.getAuditDate()))
             && (this.getAuditRemark() == null ? other.getAuditRemark() == null : this.getAuditRemark().equals(other.getAuditRemark()))
+            && (this.getMoney() == null ? other.getMoney() == null : this.getMoney().equals(other.getMoney()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -219,15 +197,17 @@ public class FinancePlatform {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getFinancePlatformId() == null) ? 0 : getFinancePlatformId().hashCode());
-        result = prime * result + ((getPlatformCode() == null) ? 0 : getPlatformCode().hashCode());
-        result = prime * result + ((getPlatformName() == null) ? 0 : getPlatformName().hashCode());
-        result = prime * result + ((getPlatformAccount() == null) ? 0 : getPlatformAccount().hashCode());
-        result = prime * result + ((getPlatformMoney() == null) ? 0 : getPlatformMoney().hashCode());
+        result = prime * result + ((getOverdueFineSetId() == null) ? 0 : getOverdueFineSetId().hashCode());
+        result = prime * result + ((getOverdueFineSetName() == null) ? 0 : getOverdueFineSetName().hashCode());
+        result = prime * result + ((getMemberType() == null) ? 0 : getMemberType().hashCode());
+        result = prime * result + ((getMemberPrivilege() == null) ? 0 : getMemberPrivilege().hashCode());
+        result = prime * result + ((getValue() == null) ? 0 : getValue().hashCode());
+        result = prime * result + ((getFeeWay() == null) ? 0 : getFeeWay().hashCode());
         result = prime * result + ((getAuditState() == null) ? 0 : getAuditState().hashCode());
         result = prime * result + ((getAuditor() == null) ? 0 : getAuditor().hashCode());
         result = prime * result + ((getAuditDate() == null) ? 0 : getAuditDate().hashCode());
         result = prime * result + ((getAuditRemark() == null) ? 0 : getAuditRemark().hashCode());
+        result = prime * result + ((getMoney() == null) ? 0 : getMoney().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());

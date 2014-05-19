@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.finance.FinanceOverdueAdvancesMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.finance.FinanceOverdueAdvances" >
+    <id column="temp_finance_overdue_advances_overdue_advances_id" property="overdueAdvancesId" jdbcType="VARCHAR" />
+    <result column="temp_finance_overdue_advances_member_type" property="memberType" jdbcType="CHAR" />
+    <result column="temp_finance_overdue_advances_feeWay" property="feeway" jdbcType="CHAR" />
+    <result column="temp_finance_overdue_advances_value" property="value" jdbcType="REAL" />
+    <result column="temp_finance_overdue_advances_audit_state" property="auditState" jdbcType="CHAR" />
+    <result column="temp_finance_overdue_advances_auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="temp_finance_overdue_advances_audit_date" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="temp_finance_overdue_advances_audit_remark" property="auditRemark" jdbcType="VARCHAR" />
+    <result column="temp_finance_overdue_advances_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_finance_overdue_advances_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_finance_overdue_advances_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_finance_overdue_advances_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_finance_overdue_advances_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_finance_overdue_advances.overdue_advances_id as temp_finance_overdue_advances_overdue_advances_id, 
+    temp_finance_overdue_advances.member_type as temp_finance_overdue_advances_member_type, 
+    temp_finance_overdue_advances.feeWay as temp_finance_overdue_advances_feeWay, temp_finance_overdue_advances.value as temp_finance_overdue_advances_value, 
+    temp_finance_overdue_advances.audit_state as temp_finance_overdue_advances_audit_state, 
+    temp_finance_overdue_advances.auditor as temp_finance_overdue_advances_auditor, temp_finance_overdue_advances.audit_date as temp_finance_overdue_advances_audit_date, 
+    temp_finance_overdue_advances.audit_remark as temp_finance_overdue_advances_audit_remark, 
+    temp_finance_overdue_advances.remark as temp_finance_overdue_advances_remark, temp_finance_overdue_advances.creater as temp_finance_overdue_advances_creater, 
+    temp_finance_overdue_advances.create_time as temp_finance_overdue_advances_create_time, 
+    temp_finance_overdue_advances.updater as temp_finance_overdue_advances_updater, temp_finance_overdue_advances.update_time as temp_finance_overdue_advances_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueAdvancesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_finance_overdue_advances temp_finance_overdue_advances
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_finance_overdue_advances temp_finance_overdue_advances
+    where temp_finance_overdue_advances.overdue_advances_id = #{overdueAdvancesId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_finance_overdue_advances
+    where overdue_advances_id = #{overdueAdvancesId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueAdvancesExample" >
+    delete from t_finance_overdue_advances temp_finance_overdue_advances
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueAdvances" >
+    insert into t_finance_overdue_advances (overdue_advances_id, member_type, feeWay, 
+      value, audit_state, auditor, 
+      audit_date, audit_remark, remark, 
+      creater, create_time, updater, 
+      update_time)
+    values (#{overdueAdvancesId,jdbcType=VARCHAR}, #{memberType,jdbcType=CHAR}, #{feeway,jdbcType=CHAR}, 
+      #{value,jdbcType=REAL}, #{auditState,jdbcType=CHAR}, #{auditor,jdbcType=VARCHAR}, 
+      #{auditDate,jdbcType=TIMESTAMP}, #{auditRemark,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueAdvances" >
+    insert into t_finance_overdue_advances
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="overdueAdvancesId != null" >
+        overdue_advances_id,
+      </if>
+      <if test="memberType != null" >
+        member_type,
+      </if>
+      <if test="feeway != null" >
+        feeWay,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+      <if test="auditState != null" >
+        audit_state,
+      </if>
+      <if test="auditor != null" >
+        auditor,
+      </if>
+      <if test="auditDate != null" >
+        audit_date,
+      </if>
+      <if test="auditRemark != null" >
+        audit_remark,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="overdueAdvancesId != null" >
+        #{overdueAdvancesId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberType != null" >
+        #{memberType,jdbcType=CHAR},
+      </if>
+      <if test="feeway != null" >
+        #{feeway,jdbcType=CHAR},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=REAL},
+      </if>
+      <if test="auditState != null" >
+        #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditRemark != null" >
+        #{auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueAdvancesExample" resultType="java.lang.Integer" >
+    select count(*) from t_finance_overdue_advances temp_finance_overdue_advances
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_finance_overdue_advances temp_finance_overdue_advances
+    <set >
+      <if test="record.overdueAdvancesId != null" >
+        temp_finance_overdue_advances.overdue_advances_id = #{record.overdueAdvancesId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberType != null" >
+        temp_finance_overdue_advances.member_type = #{record.memberType,jdbcType=CHAR},
+      </if>
+      <if test="record.feeway != null" >
+        temp_finance_overdue_advances.feeWay = #{record.feeway,jdbcType=CHAR},
+      </if>
+      <if test="record.value != null" >
+        temp_finance_overdue_advances.value = #{record.value,jdbcType=REAL},
+      </if>
+      <if test="record.auditState != null" >
+        temp_finance_overdue_advances.audit_state = #{record.auditState,jdbcType=CHAR},
+      </if>
+      <if test="record.auditor != null" >
+        temp_finance_overdue_advances.auditor = #{record.auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditDate != null" >
+        temp_finance_overdue_advances.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditRemark != null" >
+        temp_finance_overdue_advances.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_finance_overdue_advances.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_finance_overdue_advances.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_finance_overdue_advances.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_finance_overdue_advances.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_finance_overdue_advances.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_finance_overdue_advances temp_finance_overdue_advances
+    set temp_finance_overdue_advances.overdue_advances_id = #{record.overdueAdvancesId,jdbcType=VARCHAR},
+      temp_finance_overdue_advances.member_type = #{record.memberType,jdbcType=CHAR},
+      temp_finance_overdue_advances.feeWay = #{record.feeway,jdbcType=CHAR},
+      temp_finance_overdue_advances.value = #{record.value,jdbcType=REAL},
+      temp_finance_overdue_advances.audit_state = #{record.auditState,jdbcType=CHAR},
+      temp_finance_overdue_advances.auditor = #{record.auditor,jdbcType=VARCHAR},
+      temp_finance_overdue_advances.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      temp_finance_overdue_advances.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
+      temp_finance_overdue_advances.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_finance_overdue_advances.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_finance_overdue_advances.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_finance_overdue_advances.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_finance_overdue_advances.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueAdvances" >
+    update t_finance_overdue_advances
+    <set >
+      <if test="memberType != null" >
+        member_type = #{memberType,jdbcType=CHAR},
+      </if>
+      <if test="feeway != null" >
+        feeWay = #{feeway,jdbcType=CHAR},
+      </if>
+      <if test="value != null" >
+        value = #{value,jdbcType=REAL},
+      </if>
+      <if test="auditState != null" >
+        audit_state = #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="auditor != null" >
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditRemark != null" >
+        audit_remark = #{auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where overdue_advances_id = #{overdueAdvancesId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueAdvances" >
+    update t_finance_overdue_advances
+    set member_type = #{memberType,jdbcType=CHAR},
+      feeWay = #{feeway,jdbcType=CHAR},
+      value = #{value,jdbcType=REAL},
+      audit_state = #{auditState,jdbcType=CHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      audit_remark = #{auditRemark,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where overdue_advances_id = #{overdueAdvancesId,jdbcType=VARCHAR}
+  </update>
+</mapper>

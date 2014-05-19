@@ -665,6 +665,76 @@ public class FinancePlatformExample {
             return (Criteria) this;
         }
 
+        public Criteria andAuditRemarkIsNull() {
+            addCriterion("temp_finance_platform.audit_remark is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkIsNotNull() {
+            addCriterion("temp_finance_platform.audit_remark is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkEqualTo(String value) {
+            addCriterion("temp_finance_platform.audit_remark =", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkNotEqualTo(String value) {
+            addCriterion("temp_finance_platform.audit_remark <>", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkGreaterThan(String value) {
+            addCriterion("temp_finance_platform.audit_remark >", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform.audit_remark >=", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkLessThan(String value) {
+            addCriterion("temp_finance_platform.audit_remark <", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform.audit_remark <=", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkLike(String value) {
+            addCriterion("temp_finance_platform.audit_remark like", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkNotLike(String value) {
+            addCriterion("temp_finance_platform.audit_remark not like", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkIn(List<String> values) {
+            addCriterion("temp_finance_platform.audit_remark in", values, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkNotIn(List<String> values) {
+            addCriterion("temp_finance_platform.audit_remark not in", values, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform.audit_remark between", value1, value2, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform.audit_remark not between", value1, value2, "auditRemark");
+            return (Criteria) this;
+        }
+
         public Criteria andRemarkIsNull() {
             addCriterion("temp_finance_platform.remark is null");
             return (Criteria) this;
