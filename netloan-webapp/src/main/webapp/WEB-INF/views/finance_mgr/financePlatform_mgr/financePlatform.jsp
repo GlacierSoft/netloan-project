@@ -132,7 +132,7 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.financePlatformCode,
+				title: rowData.platformCode,
 				href : ctx + '/do/financePlatform/intoDetail.htm?financePlatformId='+rowData.financePlatformId,//从controller请求jsp页面进行渲染
 				width : 560,
 				height : 330,
@@ -164,6 +164,23 @@
 			height : 250,
 			queryUrl : ctx + '/do/financePlatform/intoForm.htm',
 			submitUrl : ctx + '/do/financePlatform/edit.json',
+			queryParams : {
+				financePlatformId : row.financePlatformId
+			},
+			successFun : function (){
+				glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid('reload');
+			}
+		});
+	};
+	//点击审核按钮触发方法
+	glacier.finance_mgr.financePlatform_mgr.financePlatform.auditFinancePlatform = function(){
+		var row = glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid("getSelected");
+		glacier.basicAddOrEditDialog({
+			title : '审核【'+row.platformName+'】',
+			width : 560,
+			height : 400,
+			queryUrl : ctx + '/do/financePlatform/intoAudit.htm',
+			submitUrl : ctx + '/do/financePlatform/audit.json',
 			queryParams : {
 				financePlatformId : row.financePlatformId
 			},
