@@ -151,6 +151,8 @@ public class FinancePlatformService {
         int count = 0;
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
+        financePlatform.setAuditor(pricipalUser.getUserId());
+        financePlatform.setAuditDate(new Date());
         financePlatform.setUpdater(pricipalUser.getUserId());
         financePlatform.setUpdateTime(new Date());
         count = financePlatformMapper.updateByPrimaryKeySelective(financePlatform);

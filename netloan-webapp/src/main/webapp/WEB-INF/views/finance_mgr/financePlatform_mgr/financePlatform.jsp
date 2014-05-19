@@ -77,6 +77,11 @@
 				sortable:true,
 				width:100
 			},{
+				field:'auditRemark',
+				title:'审核说明',
+				sortable:true,
+				width:100
+			},{
 				field:'remark',
 				title:'备注',
 				sortable:true,
@@ -178,7 +183,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '审核【'+row.platformName+'】',
 			width : 560,
-			height : 400,
+			height : 420,
 			queryUrl : ctx + '/do/financePlatform/intoAudit.htm',
 			submitUrl : ctx + '/do/financePlatform/audit.json',
 			queryParams : {

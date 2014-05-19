@@ -2,7 +2,7 @@
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<form method="post" style="padding:15px">
+<div method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
 			<td>账号代码：</td>
@@ -26,6 +26,26 @@
 			</td>
 		</tr>
 		<tr>
+			<td>审核状态：</td>
+			<td>
+				<input name="auditState" id="financePlatform_mgr_financePlatform_audit_auditState" class="spinner" style="width:180px" readonly="readonly"/>
+			</td>
+			<td>审核说明：</td>
+			<td>
+				<input name="auditRemark" value="${financePlatformData.auditRemark}" class="spinner" style="width:180px" readonly="readonly"></input>
+			</td>
+		</tr>
+		<tr>
+			<td>审核人：</td>
+			<td>
+				<input name="auditor" value="${financePlatformData.auditorDisplay}" class="spinner" style="width:180px" readonly="readonly"></input>
+			</td>
+			<td>审核时间：</td>
+			<td><input class="spinner" style="width:180px" value="<fmt:formatDate value="${financePlatformData.auditDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+		</tr>
+
+
+		<tr>
 			<td>创建人：</td>
 			<td><input class="spinner" style="width:180px" value="${financePlatformData.createrDisplay}" readonly="readonly"/></td>
 			<td>创建时间：</td>
@@ -42,7 +62,27 @@
 			<td colspan="3"><textarea class="spinner" style="width:445px" readonly="readonly">${financePlatformData.remark}</textarea></td>
 		</tr>
 	</table>
+</div>
+<form  method="post" style="padding:15px">
+	<table class="formtable">
+		<tr>
+			<td>账号代码：</td>
+			<td>
+				<input type="hidden" name="financePlatformId" value="${financePlatformData.financePlatformId}" />
+				<input type="hidden" name="platformCode" value="${financePlatformData.platformCode}"/>
+				<input id="financePlatform_mgr_financePlatform_audit_auditState" name="auditState" type="radio" value="pass" /><span>审核通过</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input id="financePlatform_mgr_financePlatform_audit_auditState" name="auditState" type="radio" value="failure"  checked="checked"/><span>审核失败</span></td>
+			</td>
+		</tr>
+		<tr>
+			<td>审核说明：</td>
+			<td colspan="3">
+				<textarea name="auditRemark" class="spinner" style="height:50px;width:445px">${financePlatformData.auditRemark}</textarea>
+			</td>
+		</tr>
+	</table>
 </form>
 <script type="text/javascript">
-	$('#financePlatform_mgr_financePlatform_detail_auditState').val(renderGridValue('${financePlatformData.auditState}',fields.auditState));
+	$('#financePlatform_mgr_financePlatform_audit_auditState').val(renderGridValue('${financePlatformData.auditState}',fields.auditState));
 </script>

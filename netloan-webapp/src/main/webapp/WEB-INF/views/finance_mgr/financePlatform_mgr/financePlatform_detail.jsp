@@ -17,21 +17,24 @@
 		</tr>
 		<tr>
 			<td>账号：</td>
-			<td colspan="3">
-				<input name="platformAccount" value="${financePlatformData.platformAccount}" class="spinner" style="width:445px" readonly="readonly"/>
+			<td>
+				<input name="platformAccount" value="${financePlatformData.platformAccount}" class="spinner" style="width:180px" readonly="readonly"/>
 			</td>
-		</tr>
-		<tr>
 			<td>余额：</td>
 			<td>
 				<input name="platformMoney" value="${financePlatformData.platformMoney}" class="spinner" style="width:180px" readonly="readonly"></input>
 			</td>
+		</tr>
+		<tr>
 			<td>审核状态：</td>
 			<td>
 				<input name="auditState" id="financePlatform_mgr_financePlatform_detail_auditState" class="spinner" style="width:180px" readonly="readonly"/>
 			</td>
+			<td>审核说明：</td>
+			<td>
+				<input name="auditRemark" value="${financePlatformData.auditRemark}" class="spinner" style="width:180px" readonly="readonly"></input>
+			</td>
 		</tr>
-
 		<tr>
 			<td>审核人：</td>
 			<td>
@@ -40,8 +43,6 @@
 			<td>审核时间：</td>
 			<td><input class="spinner" style="width:180px" value="<fmt:formatDate value="${financePlatformData.auditDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
-
-
 		<tr>
 			<td>创建人：</td>
 			<td><input class="spinner" style="width:180px" value="${financePlatformData.createrDisplay}" readonly="readonly"/></td>
