@@ -265,6 +265,76 @@ public class FinanceRechargeSetExample {
             return (Criteria) this;
         }
 
+        public Criteria andRechargeTypeIsNull() {
+            addCriterion("temp_finance_recharge_set.recharge_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeTypeIsNotNull() {
+            addCriterion("temp_finance_recharge_set.recharge_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeTypeEqualTo(String value) {
+            addCriterion("temp_finance_recharge_set.recharge_type =", value, "rechargeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeTypeNotEqualTo(String value) {
+            addCriterion("temp_finance_recharge_set.recharge_type <>", value, "rechargeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeTypeGreaterThan(String value) {
+            addCriterion("temp_finance_recharge_set.recharge_type >", value, "rechargeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_recharge_set.recharge_type >=", value, "rechargeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeTypeLessThan(String value) {
+            addCriterion("temp_finance_recharge_set.recharge_type <", value, "rechargeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeTypeLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_recharge_set.recharge_type <=", value, "rechargeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeTypeLike(String value) {
+            addCriterion("temp_finance_recharge_set.recharge_type like", value, "rechargeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeTypeNotLike(String value) {
+            addCriterion("temp_finance_recharge_set.recharge_type not like", value, "rechargeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeTypeIn(List<String> values) {
+            addCriterion("temp_finance_recharge_set.recharge_type in", values, "rechargeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeTypeNotIn(List<String> values) {
+            addCriterion("temp_finance_recharge_set.recharge_type not in", values, "rechargeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeTypeBetween(String value1, String value2) {
+            addCriterion("temp_finance_recharge_set.recharge_type between", value1, value2, "rechargeType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeTypeNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_recharge_set.recharge_type not between", value1, value2, "rechargeType");
+            return (Criteria) this;
+        }
+
         public Criteria andRechargeRateIsNull() {
             addCriterion("temp_finance_recharge_set.recharge_rate is null");
             return (Criteria) this;
@@ -722,6 +792,76 @@ public class FinanceRechargeSetExample {
 
         public Criteria andAuditDateNotBetween(Date value1, Date value2) {
             addCriterion("temp_finance_recharge_set.audit_date not between", value1, value2, "auditDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkIsNull() {
+            addCriterion("temp_finance_recharge_set.audit_remark is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkIsNotNull() {
+            addCriterion("temp_finance_recharge_set.audit_remark is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkEqualTo(String value) {
+            addCriterion("temp_finance_recharge_set.audit_remark =", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkNotEqualTo(String value) {
+            addCriterion("temp_finance_recharge_set.audit_remark <>", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkGreaterThan(String value) {
+            addCriterion("temp_finance_recharge_set.audit_remark >", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_recharge_set.audit_remark >=", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkLessThan(String value) {
+            addCriterion("temp_finance_recharge_set.audit_remark <", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_recharge_set.audit_remark <=", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkLike(String value) {
+            addCriterion("temp_finance_recharge_set.audit_remark like", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkNotLike(String value) {
+            addCriterion("temp_finance_recharge_set.audit_remark not like", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkIn(List<String> values) {
+            addCriterion("temp_finance_recharge_set.audit_remark in", values, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkNotIn(List<String> values) {
+            addCriterion("temp_finance_recharge_set.audit_remark not in", values, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkBetween(String value1, String value2) {
+            addCriterion("temp_finance_recharge_set.audit_remark between", value1, value2, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_recharge_set.audit_remark not between", value1, value2, "auditRemark");
             return (Criteria) this;
         }
 

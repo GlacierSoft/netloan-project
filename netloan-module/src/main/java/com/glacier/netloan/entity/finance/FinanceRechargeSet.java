@@ -9,6 +9,8 @@ public class FinanceRechargeSet {
 
     private String rechargeSetName;
 
+    private String rechargeType;
+    
     private Float rechargeRate;
 
     private String memberType;
@@ -29,6 +31,8 @@ public class FinanceRechargeSet {
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditDate;
 
+    private String auditRemark;
+    
     private String remark;
 
     private String creater;
@@ -67,7 +71,15 @@ public class FinanceRechargeSet {
         this.rechargeSetName = rechargeSetName;
     }
 
-    public Float getRechargeRate() {
+    public String getRechargeType() {
+		return rechargeType;
+	}
+
+	public void setRechargeType(String rechargeType) {
+		this.rechargeType = rechargeType;
+	}
+
+	public Float getRechargeRate() {
         return rechargeRate;
     }
 
@@ -123,7 +135,15 @@ public class FinanceRechargeSet {
         this.auditDate = auditDate;
     }
 
-    public String getRemark() {
+    public String getAuditRemark() {
+		return auditRemark;
+	}
+
+	public void setAuditRemark(String auditRemark) {
+		this.auditRemark = auditRemark;
+	}
+
+	public String getRemark() {
         return remark;
     }
 
@@ -201,6 +221,7 @@ public class FinanceRechargeSet {
         FinanceRechargeSet other = (FinanceRechargeSet) that;
         return (this.getFinanceRechargeSetId() == null ? other.getFinanceRechargeSetId() == null : this.getFinanceRechargeSetId().equals(other.getFinanceRechargeSetId()))
             && (this.getRechargeSetName() == null ? other.getRechargeSetName() == null : this.getRechargeSetName().equals(other.getRechargeSetName()))
+            && (this.getRechargeType() == null ? other.getRechargeType() == null : this.getRechargeType().equals(other.getRechargeType()))
             && (this.getRechargeRate() == null ? other.getRechargeRate() == null : this.getRechargeRate().equals(other.getRechargeRate()))
             && (this.getMemberType() == null ? other.getMemberType() == null : this.getMemberType().equals(other.getMemberType()))
             && (this.getValue() == null ? other.getValue() == null : this.getValue().equals(other.getValue()))
@@ -208,6 +229,7 @@ public class FinanceRechargeSet {
             && (this.getAuditState() == null ? other.getAuditState() == null : this.getAuditState().equals(other.getAuditState()))
             && (this.getAuditor() == null ? other.getAuditor() == null : this.getAuditor().equals(other.getAuditor()))
             && (this.getAuditDate() == null ? other.getAuditDate() == null : this.getAuditDate().equals(other.getAuditDate()))
+            && (this.getAuditRemark() == null ? other.getAuditRemark() == null : this.getAuditRemark().equals(other.getAuditRemark()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -221,6 +243,7 @@ public class FinanceRechargeSet {
         int result = 1;
         result = prime * result + ((getFinanceRechargeSetId() == null) ? 0 : getFinanceRechargeSetId().hashCode());
         result = prime * result + ((getRechargeSetName() == null) ? 0 : getRechargeSetName().hashCode());
+        result = prime * result + ((getRechargeType() == null) ? 0 : getRechargeType().hashCode());
         result = prime * result + ((getRechargeRate() == null) ? 0 : getRechargeRate().hashCode());
         result = prime * result + ((getMemberType() == null) ? 0 : getMemberType().hashCode());
         result = prime * result + ((getValue() == null) ? 0 : getValue().hashCode());
@@ -228,6 +251,7 @@ public class FinanceRechargeSet {
         result = prime * result + ((getAuditState() == null) ? 0 : getAuditState().hashCode());
         result = prime * result + ((getAuditor() == null) ? 0 : getAuditor().hashCode());
         result = prime * result + ((getAuditDate() == null) ? 0 : getAuditDate().hashCode());
+        result = prime * result + ((getAuditRemark() == null) ? 0 : getAuditRemark().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());

@@ -5,6 +5,7 @@
     <id column="temp_finance_recharge_finance_recharge_id" property="financeRechargeId" jdbcType="VARCHAR" />
     <result column="temp_finance_recharge_member_id" property="memberId" jdbcType="VARCHAR" />
     <result column="temp_finance_recharge_finance_recharge_set_id" property="financeRechargeSetId" jdbcType="VARCHAR" />
+    <result column="temp_finance_recharge_recharge_receipt" property="rechargeReceipt" jdbcType="VARCHAR" />
     <result column="temp_finance_recharge_recharge_code" property="rechargeCode" jdbcType="VARCHAR" />
     <result column="temp_finance_recharge_recharge_amount" property="rechargeAmount" jdbcType="REAL" />
     <result column="temp_finance_recharge_handling_charge" property="handlingCharge" jdbcType="REAL" />
@@ -19,7 +20,7 @@
     <result column="temp_finance_recharge_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_finance_recharge_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finance_recharge_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_finance_recharge_member_display" property="memberDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+	<result column="temp_finance_recharge_member_display" property="memberDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
     <result column="temp_finance_recharge_recharge_set_name" property="rechargeSetName" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
     <result column="temp_finance_recharge_auditor_display" property="auditorDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
     <result column="temp_finance_recharge_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
@@ -86,6 +87,7 @@
   <sql id="Base_Column_List" >
     temp_finance_recharge.finance_recharge_id as temp_finance_recharge_finance_recharge_id, 
     temp_finance_recharge.member_id as temp_finance_recharge_member_id, temp_finance_recharge.finance_recharge_set_id as temp_finance_recharge_finance_recharge_set_id, 
+    temp_finance_recharge.recharge_receipt as temp_finance_recharge_recharge_receipt, 
     temp_finance_recharge.recharge_code as temp_finance_recharge_recharge_code, temp_finance_recharge.recharge_amount as temp_finance_recharge_recharge_amount, 
     temp_finance_recharge.handling_charge as temp_finance_recharge_handling_charge, temp_finance_recharge.recharge_rate as temp_finance_recharge_recharge_rate, 
     temp_finance_recharge.arrive_money as temp_finance_recharge_arrive_money, temp_finance_recharge.audit_state as temp_finance_recharge_audit_state, 
@@ -93,18 +95,18 @@
     temp_finance_recharge.audit_remark as temp_finance_recharge_audit_remark, temp_finance_recharge.remark as temp_finance_recharge_remark, 
     temp_finance_recharge.creater as temp_finance_recharge_creater, temp_finance_recharge.create_time as temp_finance_recharge_create_time, 
     temp_finance_recharge.updater as temp_finance_recharge_updater, temp_finance_recharge.update_time as temp_finance_recharge_update_time
-  	<!-- 以下字段属于扩展 -->
+	<!-- 以下字段属于扩展 -->
   	,temp_member.member_real_name as temp_finance_recharge_member_display
     ,temp_recharge_set.recharge_set_name as temp_finance_recharge_recharge_set_name
     ,temp_auditor.user_cn_name as temp_finance_recharge_auditor_display
-    ,temp_creater.user_cn_name as temp_finance_recharge_creater_display
+    ,temp_member.member_real_name as temp_finance_recharge_creater_display
     ,temp_updater.user_cn_name as temp_finance_recharge_updater_display
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_member temp_member ON temp_member.member_id = temp_finance_recharge.member_id <!-- 扩展 -->
     LEFT JOIN t_finance_recharge_set temp_recharge_set ON temp_recharge_set.finance_recharge_set_id = temp_finance_recharge.finance_recharge_set_id <!-- 扩展 -->
   	LEFT JOIN t_user temp_auditor ON temp_auditor.user_id = temp_finance_recharge.auditor <!-- 扩展 -->
-    LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_finance_recharge.creater <!-- 扩展 -->
+    LEFT JOIN t_member temp_creater ON temp_creater.member_id = temp_finance_recharge.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_finance_recharge.updater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.finance.FinanceRechargeExample" >
@@ -114,7 +116,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_finance_recharge temp_finance_recharge
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -129,7 +131,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_finance_recharge temp_finance_recharge
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     where temp_finance_recharge.finance_recharge_id = #{financeRechargeId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -144,17 +146,19 @@
   </delete>
   <insert id="insert" parameterType="com.glacier.netloan.entity.finance.FinanceRecharge" >
     insert into t_finance_recharge (finance_recharge_id, member_id, finance_recharge_set_id, 
-      recharge_code, recharge_amount, handling_charge, 
-      recharge_rate, arrive_money, audit_state, 
-      auditor, audit_date, audit_remark, 
-      remark, creater, create_time, 
-      updater, update_time)
+      recharge_receipt, recharge_code, recharge_amount, 
+      handling_charge, recharge_rate, arrive_money, 
+      audit_state, auditor, audit_date, 
+      audit_remark, remark, creater, 
+      create_time, updater, update_time
+      )
     values (#{financeRechargeId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{financeRechargeSetId,jdbcType=VARCHAR}, 
-      #{rechargeCode,jdbcType=VARCHAR}, #{rechargeAmount,jdbcType=REAL}, #{handlingCharge,jdbcType=REAL}, 
-      #{rechargeRate,jdbcType=REAL}, #{arriveMoney,jdbcType=REAL}, #{auditState,jdbcType=CHAR}, 
-      #{auditor,jdbcType=VARCHAR}, #{auditDate,jdbcType=TIMESTAMP}, #{auditRemark,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+      #{rechargeReceipt,jdbcType=VARCHAR}, #{rechargeCode,jdbcType=VARCHAR}, #{rechargeAmount,jdbcType=REAL}, 
+      #{handlingCharge,jdbcType=REAL}, #{rechargeRate,jdbcType=REAL}, #{arriveMoney,jdbcType=REAL}, 
+      #{auditState,jdbcType=CHAR}, #{auditor,jdbcType=VARCHAR}, #{auditDate,jdbcType=TIMESTAMP}, 
+      #{auditRemark,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.finance.FinanceRecharge" >
     insert into t_finance_recharge
@@ -167,6 +171,9 @@
       </if>
       <if test="financeRechargeSetId != null" >
         finance_recharge_set_id,
+      </if>
+      <if test="rechargeReceipt != null" >
+        recharge_receipt,
       </if>
       <if test="rechargeCode != null" >
         recharge_code,
@@ -221,6 +228,9 @@
       <if test="financeRechargeSetId != null" >
         #{financeRechargeSetId,jdbcType=VARCHAR},
       </if>
+      <if test="rechargeReceipt != null" >
+        #{rechargeReceipt,jdbcType=VARCHAR},
+      </if>
       <if test="rechargeCode != null" >
         #{rechargeCode,jdbcType=VARCHAR},
       </if>
@@ -267,7 +277,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.finance.FinanceRechargeExample" resultType="java.lang.Integer" >
     select count(*) from t_finance_recharge temp_finance_recharge
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -283,6 +293,9 @@
       </if>
       <if test="record.financeRechargeSetId != null" >
         temp_finance_recharge.finance_recharge_set_id = #{record.financeRechargeSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rechargeReceipt != null" >
+        temp_finance_recharge.recharge_receipt = #{record.rechargeReceipt,jdbcType=VARCHAR},
       </if>
       <if test="record.rechargeCode != null" >
         temp_finance_recharge.recharge_code = #{record.rechargeCode,jdbcType=VARCHAR},
@@ -336,6 +349,7 @@
     set temp_finance_recharge.finance_recharge_id = #{record.financeRechargeId,jdbcType=VARCHAR},
       temp_finance_recharge.member_id = #{record.memberId,jdbcType=VARCHAR},
       temp_finance_recharge.finance_recharge_set_id = #{record.financeRechargeSetId,jdbcType=VARCHAR},
+      temp_finance_recharge.recharge_receipt = #{record.rechargeReceipt,jdbcType=VARCHAR},
       temp_finance_recharge.recharge_code = #{record.rechargeCode,jdbcType=VARCHAR},
       temp_finance_recharge.recharge_amount = #{record.rechargeAmount,jdbcType=REAL},
       temp_finance_recharge.handling_charge = #{record.handlingCharge,jdbcType=REAL},
@@ -362,6 +376,9 @@
       </if>
       <if test="financeRechargeSetId != null" >
         finance_recharge_set_id = #{financeRechargeSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeReceipt != null" >
+        recharge_receipt = #{rechargeReceipt,jdbcType=VARCHAR},
       </if>
       <if test="rechargeCode != null" >
         recharge_code = #{rechargeCode,jdbcType=VARCHAR},
@@ -412,6 +429,7 @@
     update t_finance_recharge
     set member_id = #{memberId,jdbcType=VARCHAR},
       finance_recharge_set_id = #{financeRechargeSetId,jdbcType=VARCHAR},
+      recharge_receipt = #{rechargeReceipt,jdbcType=VARCHAR},
       recharge_code = #{rechargeCode,jdbcType=VARCHAR},
       recharge_amount = #{rechargeAmount,jdbcType=REAL},
       handling_charge = #{handlingCharge,jdbcType=REAL},

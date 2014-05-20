@@ -12,6 +12,12 @@
 			</td>
 		</tr>
 		<tr>
+			<td>有效会员等级：</td>
+			<td>
+				<input id="rechargeSet_mgr_rechargeSet_form_rechargeType" name="rechargeType" value="${rechargeSetData.rechargeType}" class="easyui-combobox" style="height:18px;width:300px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.rechargeType"/>
+			</td>
+		</tr>
+		<tr>
 			<td>充值类型费率：</td>
 			<td>
 				<input type="text" id="rechargeSet_mgr_rechargeSet_form_rechargeRate" name="rechargeRate" class="easyui-numberbox spinner" style="width:298px" value="${rechargeSetData.rechargeRate}" data-options="min:0,precision:2"></input>

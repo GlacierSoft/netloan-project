@@ -21,7 +21,7 @@
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
-		fitColumns:true,//自动填充行
+		//fitColumns:true,//自动填充行
 		nowrap: true,//禁止单元格中的文字自动换行
 		autoRowHeight: false,//禁止设置自动行高以适应内容
 		striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
@@ -41,8 +41,16 @@
 			},{
 				field:'rechargeSetName',
 				title:'会员充值设置名称',
-				width:280,
+				width:200,
 				sortable:true
+			},{
+				field:'rechargeType',
+				title:'充值类型',
+				width:120,
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如offline显示线下充值，onLine显示线上充值
+					return renderGridValue(value,fields.rechargeType);
+				}
 			},{
 				field:'rechargeRate',
 				title:'费率',
@@ -158,7 +166,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '增加会员充值设置',
 			width : 450,
-			height : 330,
+			height : 360,
 			queryUrl : ctx + '/do/rechargeSet/intoForm.htm',
 			submitUrl : ctx + '/do/rechargeSet/add.json',
 			successFun : function (){
@@ -172,7 +180,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.rechargeSetName+'】',
 			width : 450,
-			height : 330,
+			height : 360,
 			queryUrl : ctx + '/do/rechargeSet/intoForm.htm',
 			submitUrl : ctx + '/do/rechargeSet/edit.json',
 			queryParams : {

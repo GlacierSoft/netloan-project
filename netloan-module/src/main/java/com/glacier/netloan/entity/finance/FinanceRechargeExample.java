@@ -335,6 +335,76 @@ public class FinanceRechargeExample {
             return (Criteria) this;
         }
 
+        public Criteria andRechargeReceiptIsNull() {
+            addCriterion("temp_finance_recharge.recharge_receipt is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeReceiptIsNotNull() {
+            addCriterion("temp_finance_recharge.recharge_receipt is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeReceiptEqualTo(String value) {
+            addCriterion("temp_finance_recharge.recharge_receipt =", value, "rechargeReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeReceiptNotEqualTo(String value) {
+            addCriterion("temp_finance_recharge.recharge_receipt <>", value, "rechargeReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeReceiptGreaterThan(String value) {
+            addCriterion("temp_finance_recharge.recharge_receipt >", value, "rechargeReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeReceiptGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_recharge.recharge_receipt >=", value, "rechargeReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeReceiptLessThan(String value) {
+            addCriterion("temp_finance_recharge.recharge_receipt <", value, "rechargeReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeReceiptLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_recharge.recharge_receipt <=", value, "rechargeReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeReceiptLike(String value) {
+            addCriterion("temp_finance_recharge.recharge_receipt like", value, "rechargeReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeReceiptNotLike(String value) {
+            addCriterion("temp_finance_recharge.recharge_receipt not like", value, "rechargeReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeReceiptIn(List<String> values) {
+            addCriterion("temp_finance_recharge.recharge_receipt in", values, "rechargeReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeReceiptNotIn(List<String> values) {
+            addCriterion("temp_finance_recharge.recharge_receipt not in", values, "rechargeReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeReceiptBetween(String value1, String value2) {
+            addCriterion("temp_finance_recharge.recharge_receipt between", value1, value2, "rechargeReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andRechargeReceiptNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_recharge.recharge_receipt not between", value1, value2, "rechargeReceipt");
+            return (Criteria) this;
+        }
+
         public Criteria andRechargeCodeIsNull() {
             addCriterion("temp_finance_recharge.recharge_code is null");
             return (Criteria) this;

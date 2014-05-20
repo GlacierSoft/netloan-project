@@ -21,6 +21,8 @@ public class FinanceRecharge {
      */
     private String rechargeSetName;
 
+    private String rechargeReceipt;
+    
     private String rechargeCode;
 
     private Float rechargeAmount;
@@ -91,7 +93,15 @@ public class FinanceRecharge {
         this.financeRechargeSetId = financeRechargeSetId;
     }
 
-    public String getRechargeCode() {
+    public String getRechargeReceipt() {
+		return rechargeReceipt;
+	}
+
+	public void setRechargeReceipt(String rechargeReceipt) {
+		this.rechargeReceipt = rechargeReceipt;
+	}
+
+	public String getRechargeCode() {
         return rechargeCode;
     }
 
@@ -258,6 +268,7 @@ public class FinanceRecharge {
         return (this.getFinanceRechargeId() == null ? other.getFinanceRechargeId() == null : this.getFinanceRechargeId().equals(other.getFinanceRechargeId()))
             && (this.getMemberId() == null ? other.getMemberId() == null : this.getMemberId().equals(other.getMemberId()))
             && (this.getFinanceRechargeSetId() == null ? other.getFinanceRechargeSetId() == null : this.getFinanceRechargeSetId().equals(other.getFinanceRechargeSetId()))
+            && (this.getRechargeReceipt() == null ? other.getRechargeReceipt() == null : this.getRechargeReceipt().equals(other.getRechargeReceipt()))
             && (this.getRechargeCode() == null ? other.getRechargeCode() == null : this.getRechargeCode().equals(other.getRechargeCode()))
             && (this.getRechargeAmount() == null ? other.getRechargeAmount() == null : this.getRechargeAmount().equals(other.getRechargeAmount()))
             && (this.getHandlingCharge() == null ? other.getHandlingCharge() == null : this.getHandlingCharge().equals(other.getHandlingCharge()))
@@ -281,6 +292,7 @@ public class FinanceRecharge {
         result = prime * result + ((getFinanceRechargeId() == null) ? 0 : getFinanceRechargeId().hashCode());
         result = prime * result + ((getMemberId() == null) ? 0 : getMemberId().hashCode());
         result = prime * result + ((getFinanceRechargeSetId() == null) ? 0 : getFinanceRechargeSetId().hashCode());
+        result = prime * result + ((getRechargeReceipt() == null) ? 0 : getRechargeReceipt().hashCode());
         result = prime * result + ((getRechargeCode() == null) ? 0 : getRechargeCode().hashCode());
         result = prime * result + ((getRechargeAmount() == null) ? 0 : getRechargeAmount().hashCode());
         result = prime * result + ((getHandlingCharge() == null) ? 0 : getHandlingCharge().hashCode());
