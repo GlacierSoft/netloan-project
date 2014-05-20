@@ -7,9 +7,12 @@ package com.glacier.netloan.web.controller.finance;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.entity.finance.FinanceRecharge;
 import com.glacier.netloan.service.finance.FinanceRechargeService;
 
 /** 
@@ -58,6 +62,15 @@ public class FinanceRechargeController extends AbstractController{
         return financeRechargeService.listAsGrid(pfinanceRecharger);
     }
     
+    // 会员进行充值
+    @RequestMapping(value = "/add.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object addRecharge(@Valid FinanceRecharge financeRecharge, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResult);
+        }
+        return financeRechargeService.addRecharge(financeRecharge);
+    }
     // 批量删除会员充值记录
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody

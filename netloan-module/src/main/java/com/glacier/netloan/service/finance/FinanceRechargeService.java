@@ -1,20 +1,28 @@
 package com.glacier.netloan.service.finance;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.CollectionsUtil;
+import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceRechargeMapper;
+import com.glacier.netloan.dao.finance.FinanceRechargeSetMapper;
 import com.glacier.netloan.entity.finance.FinanceRecharge;
 import com.glacier.netloan.entity.finance.FinanceRechargeExample;
+import com.glacier.netloan.entity.finance.FinanceRechargeSet;
+import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -30,6 +38,9 @@ public class FinanceRechargeService {
 	
 	@Autowired
 	private FinanceRechargeMapper financeRechargeMapper;
+	
+	@Autowired
+	private FinanceRechargeSetMapper financeRechargeSetMapper;
 
 	/**
 	 * @Title: getRecharge 
@@ -70,81 +81,54 @@ public class FinanceRechargeService {
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
     }
-/*
-    *//**
+
+    /**
      * @Title: addRecharge 
      * @Description: TODO(新增会员充值记录) 
      * @param @param financeRecharge
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
-     *//*
+     */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "RechargeList_add")
     public Object addRecharge(FinanceRecharge financeRecharge) {
     	
-        Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        FinanceRechargeExample financeRechargeExample = new FinanceRechargeExample();
-        int count = 0;
-        // 防止会员充值记录名称重复
-        financeRechargeExample.createCriteria().andRechargeNameEqualTo(financeRecharge.getRechargeName());
-        count = financeRechargeMapper.countByExample(financeRechargeExample);// 查找相同名称的会员充值记录数量
-        if (count > 0) {
-            returnResult.setMsg("会员充值记录名称重复");
-            return returnResult;
-        }
+        Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
+  		Member pricipalMember = (Member) pricipalSubject.getPrincipal();
+  		
         financeRecharge.setFinanceRechargeId(RandomGUID.getRandomGUID());
-        financeRecharge.setCreater(pricipalUser.getUserId());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
+        financeRecharge.setRechargeCode("充值"+ "_" + dateFormat.format(new Date()));
+        financeRecharge.setAuditState("authstr");
+        
+        // 获取该充值设置的取费方式进行计算该充值的费率和手续费
+        FinanceRechargeSet rechargeSet = new FinanceRechargeSet();
+        rechargeSet = financeRechargeSetMapper.selectByPrimaryKey(financeRecharge.getFinanceRechargeSetId());
+        String feeWay = rechargeSet.getFeeWay();
+        if (null != feeWay && StringUtils.isNotBlank(feeWay)) {
+        	 if ("directcost".equals(feeWay)) {//直接收费
+        		 financeRecharge.setRechargeRate(rechargeSet.getValue());//费率或者取值即为充值设置的取值
+        		 financeRecharge.setHandlingCharge(rechargeSet.getValue());//手续费即为充值设置的取值
+             }else {//比例收费
+            	 financeRecharge.setRechargeRate(rechargeSet.getRechargeRate());//费率或者取值即为充值设置的费率
+            	 financeRecharge.setHandlingCharge(financeRecharge.getRechargeAmount()*rechargeSet.getRechargeRate());//手续费=总额*费率
+             }
+        }
+        financeRecharge.setArriveMoney(financeRecharge.getRechargeAmount()-financeRecharge.getHandlingCharge());//到帐金额=总金额-手续费
+        financeRecharge.setCreater(pricipalMember.getMemberId());
         financeRecharge.setCreateTime(new Date());
-        financeRecharge.setUpdater(pricipalUser.getUserId());
+        financeRecharge.setUpdater(pricipalMember.getMemberId());
         financeRecharge.setUpdateTime(new Date());
-        count = financeRechargeMapper.insert(financeRecharge);
+        int count = financeRechargeMapper.insert(financeRecharge);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + financeRecharge.getRechargeName() + "] 会员充值记录信息已保存");
+            returnResult.setMsg("[" + financeRecharge.getRechargeCode() + "] 会员充值记录信息已保存");
         } else {
             returnResult.setMsg("发生未知错误，会员充值记录信息保存失败");
         }
         return returnResult;
     }
-    
-    *//**
-     * @Title: editRecharge 
-     * @Description: TODO(修改会员充值记录) 
-     * @param @param financeRecharge
-     * @param @return    设定文件 
-     * @return Object    返回类型 
-     * @throws
-     *//*
-    @Transactional(readOnly = false)
-    @MethodLog(opera = "RechargeList_edit")
-    public Object editRecharge(FinanceRecharge financeRecharge) {
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        FinanceRechargeExample financeRechargeExample = new FinanceRechargeExample();
-        int count = 0;
-        // 防止会员充值记录名称重复
-        financeRechargeExample.createCriteria().andFinanceRechargeIdNotEqualTo(financeRecharge.getFinanceRechargeId()).andRechargeNameEqualTo(financeRecharge.getRechargeName());
-        count = financeRechargeMapper.countByExample(financeRechargeExample);// 查找相同名称的会员充值记录数量
-        if (count > 0) {
-            returnResult.setMsg("会员充值记录名称重复");
-            return returnResult;
-        }
-        Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
-        financeRecharge.setUpdater(pricipalUser.getUserId());
-        financeRecharge.setUpdateTime(new Date());
-        count = financeRechargeMapper.updateByPrimaryKeySelective(financeRecharge);
-        if (count == 1) {
-            returnResult.setSuccess(true);
-            returnResult.setMsg("[" + financeRecharge.getRechargeName() + "] 会员充值记录信息已修改");
-        } else {
-            returnResult.setMsg("发生未知错误，会员充值记录信息修改失败");
-        }
-        return returnResult;
-    }*/
     
     /**
      * @Title: delRecharge 

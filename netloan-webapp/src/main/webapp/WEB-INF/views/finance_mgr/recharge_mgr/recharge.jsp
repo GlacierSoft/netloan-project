@@ -65,7 +65,7 @@
 				sortable:true
 			},{
 				field:'rechargeRate',
-				title:'费率',
+				title:'费率/取值',
 				width:120,
 				sortable:true
 			},{

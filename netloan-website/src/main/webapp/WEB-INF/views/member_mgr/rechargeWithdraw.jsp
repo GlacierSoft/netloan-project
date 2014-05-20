@@ -103,7 +103,6 @@
 				      <div id="myTabContent" class="tab-content">
 				        <div class="tab-pane fade in active" id="finance">
 				        
-				        
 				          <table class="table table-bordered">
 				          	<tbody>
 						          <tr>
@@ -133,7 +132,7 @@
 					          </tr>
 					        </thead>
 				          	<tbody>
-					          <c:forEach items="${financeTransactionDates.rows}" var="finTransaction">
+					          <c:forEach items="${financeTransactionDatas.rows}" var="finTransaction">
 						          <tr>
 						            <td>${finTransaction.transactionType}</td>
 						          	<td>${finTransaction.transactionTarget}</td>
@@ -164,38 +163,47 @@
 				            <div class="rechargeFontSize">
 				            	温馨提示:凡是在冰川网贷充值未投标的用户，15天以内提现收取本金0.5%，15天以后提现免费 冰川网贷禁止信用卡套现、虚假交易等行为,一经发现将予以处罚,包括但不限于：限制收款、冻结账户、永久停止服务,并有可能影响相关信用记录。
 				            </div>
-				        	<table class="table table-bordered">
-					          	<tbody>
-							          <tr>
-							            <td>真实姓名</td> 
-							            <td>${currentMember.memberRealName}</td>
-							          </tr>
-							          <tr>
-							            <td>账号：</td>
-							            <td>${currentMember.memberName}</td>
-							          </tr>
-							          <tr>
-							            <td>充值金额：</td>
-							            <td><input  type="text" class="inp100x" />元</td>
-							          </tr>
-							          <tr>
-							            <td rowspan="3">充值类型：</td>
-							            <td><input type="radio" value="yes"/>支付宝</td>
-							          </tr>
-							          <tr>
-							            <td><input type="radio" value="yes"/>财务通</td>
-							          </tr>
-							          <tr>
-							            <td><input type="radio" value="yes"/>线下充值</td>
-							          </tr>
-							          <tr>
-							            <td colspan="2" align="center">
-							            	<button type="submit" class="btn btn-default">提交</button>
-							            	<button type="submit" class="btn btn-default">重置</button>
-							            </td>
-							          </tr>
-						      	</tbody>
-						    </table>
+				            <form id="financeRecharge" name="financeRecharge" class="form-horizontal" role="form" method="post" >
+					        	<table class="table table-bordered">
+						          	<tbody>
+								          <tr>
+								            <td>真实姓名</td> 
+								            <td>
+								            	${currentMember.memberRealName}
+								            	<input type="hidden" id="memberId" name="memberId" value="${currentMember.memberId}" >
+								            </td>
+								          </tr>
+								          <tr>
+								            <td>账号：</td>
+								            <td>${currentMember.memberName}</td>
+								          </tr>
+								          <tr>
+								            <td>充值金额：</td>
+								            <td><input id="rechargeAmount" name="rechargeAmount" type="text" class="inp100x" />元</td>
+								          </tr>
+								          <tr>
+								            <td>充值类型：</td>
+								            <td>
+								            	<table>
+									            	<c:forEach items="${financeRechargeSetDatas.rows}" var="financeRechargeSet">
+									            		
+									            		<tr>
+									            			<td><input name="financeRechargeSetId" type="radio" value="${financeRechargeSet.financeRechargeSetId}"/></td>
+									            			<td>${financeRechargeSet.rechargeSetName}</td>
+									            		</tr>
+									            	</c:forEach>
+									            </table>
+								            </td>
+								          </tr>
+								          <tr>
+								            <td colspan="2" align="center">
+								            	<button type="submit" class="btn btn-default">提交</button>
+								            	<button type="submit" class="btn btn-default">重置</button>
+								            </td>
+								          </tr>
+							      	</tbody>
+							    </table>
+						    </form>
 						    <br>
 						    <div class="rechargeFontSize">
 						    	国付宝简介:国付宝信息科技有限公司（以下简称“国付宝”）是商务部中国国际电子商务中心（以下简称“CIECC”）与海航商业控股有限公司（以下简称“海航商业”）合资成立，针对政府及企业的需求和电子商务的发展，精心打造的国有背景的，引入社会诚信体系的独立第三方电子支付平台，也是“金关工程”的重要组成部分。国付宝信息科技有限公司成立于2011年1月25日，由商务部中国国际电子商务中心与海航商业控股有限公司合作成立，主要经营第三方支付业务。公司注册资本14285.72万元，主要经营第三方支付业务，互联网支付及移动电话支付（全国）。
@@ -212,102 +220,58 @@
 								<p>6、每笔提现金额最高不能超过50000元。 <p>
 								<p>7、您目前能提取的最高额度是1354539.92元。<p>
 						    </div>
-						    <table class="table table-bordered">
-					          	<tbody>
-							          <tr>
-							            <td>真实姓名</td> 
-							            <td>${currentMember.memberRealName}</td>
-							          </tr>
-							          <tr>
-							            <td>账号：</td>
-							            <td>${currentMember.memberName}</td>
-							          </tr>
-							          <tr>
-							            <td>账户余额</td> 
-							            <td>${financeMemberData.amount}</td>
-							          </tr>
-							          <tr>
-							            <td>可用余额：</td>
-							            <td>${financeMemberData.usableMoney}</td>
-							          </tr>
-							          <tr>
-							            <td>冻结总额：</td>
-							            <td>${financeMemberData.frozenMoney}</td>
-							          </tr>
-							          <tr>
-							            <td>提现金额：</td>
-							            <td><input  type="text" class="inp100x" />元</td>
-							          </tr>
-							          <tr>
-							            <td>交易密码：</td>
-							            <td><input  type="text" class="inp100x" /></td>
-							          </tr>
-							          <tr>
-							            <td>验证码：</td>
-							            <td><input  type="text" class="inp100x" />&nbsp;<button type="submit" class="btn btn-default">发送手机验证码</button>&nbsp;<span style="color:#F00"> * 演示站点不发送短信</span></td>
-							          </tr>
-							          <tr>
-							            <td colspan="2" align="center">
-							            	<button type="submit" class="btn btn-default">提交</button>
-							            	<button type="submit" class="btn btn-default">重置</button>
-							            </td>
-							          </tr>
-						      	</tbody>
-						    </table>
+						    <form>
+							    <table class="table table-bordered">
+						          	<tbody>
+								          <tr>
+								            <td>真实姓名</td> 
+								            <td>${currentMember.memberRealName}</td>
+								          </tr>
+								          <tr>
+								            <td>账号：</td>
+								            <td>${currentMember.memberName}</td>
+								          </tr>
+								          <tr>
+								            <td>账户余额</td> 
+								            <td>${financeMemberData.amount}</td>
+								          </tr>
+								          <tr>
+								            <td>可用余额：</td>
+								            <td>${financeMemberData.usableMoney}</td>
+								          </tr>
+								          <tr>
+								            <td>冻结总额：</td>
+								            <td>${financeMemberData.frozenMoney}</td>
+								          </tr>
+								          <tr>
+								            <td>提现金额：</td>
+								            <td><input  type="text" class="inp100x" />元</td>
+								          </tr>
+								          <tr>
+								            <td>交易密码：</td>
+								            <td><input  type="text" class="inp100x" /></td>
+								          </tr>
+								          <tr>
+								            <td>验证码：</td>
+								            <td><input  type="text" class="inp100x" />&nbsp;<button type="submit" class="btn btn-default">发送手机验证码</button>&nbsp;<span style="color:#F00"> * 演示站点不发送短信</span></td>
+								          </tr>
+								          <tr>
+								            <td colspan="2" align="center">
+								            	<button type="submit" class="btn btn-default">提交</button>
+								            	<button type="submit" class="btn btn-default">重置</button>
+								            </td>
+								          </tr>
+							      	</tbody>
+							    </table>
+							</form>
 						    <div class="rechargeFontSize">
 						    	* 温馨提示：禁止信用卡套现
 						    </div>
-						    <table class="table table-bordered">
-				          	<thead>
-					          <tr>
-					            <th>提现流水号</th>
-					            <th>提现银行</th>
-					            <th>提现支行</th>
-					            <th>提现银行卡姓名</th>
-					            <th>提现银行卡号</th>
-					            <th>提现总金额</th>
-					            <th>手续费</th>
-					            <th>提现利率</th>
-					            <th>到帐金额</th>
-					            <th>提现状态</th>
-					          </tr>
-					        </thead>
-				          	<tbody>
-					          <c:forEach items="${financeWithdrawDates.rows}" var="financeWithdraw">
-						          <tr>
-						            <td>${financeWithdraw.withdrawCode}</td>
-						            <td>${financeWithdraw.openingBank}</td>
-						            <td>${financeWithdraw.subbranch}</td>
-						            <td>${financeWithdraw.cardName}</td>
-						            <td>${financeWithdraw.cardNumber}</td>
-						            <td>${financeWithdraw.withdrawAmount}</td>
-						            <td>${financeWithdraw.handlingCharge}</td>
-						            <td>${financeWithdraw.withdrawRate}</td>
-						            <td>${financeWithdraw.arriveMoney}</td>
-						            <td>${financeWithdraw.auditState}</td>
-						          </tr>
-					      		</c:forEach>
-					      	</tbody>
-					      	<tfoot>
-					          <tr>
-					            <th colspan="10">
-					            
-					            	<div align="right">
-									    <ul id='pageFinanceWithdraw'></ul>
-									</div>
-
-								</th>
-					          </tr>
-					        </tfoot>
-					      </table>
 				        </div>
 				      </div>
 				    </div><!-- /example -->
 				        
-				        
-				        
-				        
-				        
+				           
 				  </div>
 				</div>
 	    	</div>
@@ -336,97 +300,91 @@
 				return $.getUrlVars()[name];
 			}
 		});
-	
-	//封装浏览器参数
-	var composeUrlParams=function(){
-		var param='';
-		$.each($.getUrlVars(), function(i, item) {
-			if(item!='p'){
-				var val=$.getUrlVar(item);
-				if(val) param += "&" + item+"="+val;
-			}
-		});
-		return param;
-	}
-	
-	var element = $('#pagefinTransaction');
-	
-	//设置分页的总页数
-	var total=${financeTransactionDates.total}/5;
-	if(parseInt(total)==total){
-		var total = parseInt(total);
-	}else {
-		var total = parseInt(total)+1;
-	}
-	
-	var options = {
-	    bootstrapMajorVersion:3,
-	    currentPage: ${financeTransactionDates.p},
-	    numberOfPages: 5,
-	    totalPages:total,
-	    pageUrl: function(type, page, current){
-	    	return "${ctx}/financeMember/rechargeWithdraw.htm?"+composeUrlParams()+"&p="+page;
-	    }
-	}
-	
-	element.bootstrapPaginator(options);
-	})
-	
-	
-	
-	
-	$(function(){
-		//获得浏览器参数
-		$.extend({
-			getUrlVars: function(){
-				var vars = [], hash;
-				var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-				for(var i = 0; i < hashes.length; i++){
-					hash = hashes[i].split('=');
-					vars.push(hash[0]);
-					vars[hash[0]] = hash[1];
+		
+		//封装浏览器参数
+		var composeUrlParams=function(){
+			var param='';
+			$.each($.getUrlVars(), function(i, item) {
+				if(item!='p'){
+					var val=$.getUrlVar(item);
+					if(val) param += "&" + item+"="+val;
 				}
-				return vars;
-			},
-			getUrlVar: function(name){
-				return $.getUrlVars()[name];
-			}
-		});
+			});
+			return param;
+		}
+		
+		var element = $('#pagefinTransaction');
+		
+		//设置分页的总页数
+		var total=${financeTransactionDatas.total}/5;
+		if(parseInt(total)==total){
+			var total = parseInt(total);
+		}else {
+			var total = parseInt(total)+1;
+		}
+		
+		var options = {
+		    bootstrapMajorVersion:3,
+		    currentPage: ${financeTransactionDatas.p},
+		    numberOfPages: 5,
+		    totalPages:total,
+		    pageUrl: function(type, page, current){
+		    	return "${ctx}/financeMember/rechargeWithdraw.htm?"+composeUrlParams()+"&p="+page;
+		    }
+		}
 	
-	//封装浏览器参数
-	var composeUrlParams=function(){
-		var param='';
-		$.each($.getUrlVars(), function(i, item) {
-			if(item!='p'){
-				var val=$.getUrlVar(item);
-				if(val) param += "&" + item+"="+val;
-			}
-		});
-		return param;
-	}
-	
-	var element = $('#pageFinanceWithdraw');
-	
-	//设置分页的总页数
-	var total=${financeWithdrawDates.total}/5;
-	if(parseInt(total)==total){
-		var total = parseInt(total);
-	}else {
-		var total = parseInt(total)+1;
-	}
-	
-	var options = {
-	    bootstrapMajorVersion:3,
-	    currentPage: ${financeWithdrawDates.p},
-	    numberOfPages: 5,
-	    totalPages:total,
-	    pageUrl: function(type, page, current){
-	    	return "${ctx}/financeMember/rechargeWithdraw.htm?"+composeUrlParams()+"&p="+page;
-	    }
-	}
-	
-	element.bootstrapPaginator(options);
+		element.bootstrapPaginator(options);
 	})
+	
+	
+    $("#financeRecharge").validate({
+   		rules:{
+   			rechargeAmount:"required"
+   		},
+   		messages:{
+   			rechargeAmount:"必须填写充值金额"
+   		},
+   		submitHandler:function(){
+   			$.ajax({
+   				   type: "POST",
+   				   url: ctx+"/recharge/add.json",
+   				   dataType: "json",
+   				   data: $("#financeRecharge").serialize(),
+    			   success: function(r) {
+    				   successAddRecharge(r);
+                    },
+                    error: function() {
+                        alert("提交出错！");
+                    }
+   				});
+   		} 
+   	});
+    function successAddRecharge(data){
+		KindEditor.ready(function(K) {
+		var dialog = K.dialog({
+				        width : 500,
+				        title : '保存成功',
+				        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
+				        closeBtn : {
+				                name : '关闭',
+				                click : function(e) {
+				                        dialog.remove();
+				                }
+				        },
+				        yesBtn : {
+				                name : '确定',
+				                click : function(e) {
+				                	dialog.remove();
+				                	if(data.success){
+				                		window.location.href="${ctx}/financeMember/rechargeWithdraw.htm?p=1";
+				                	}else{
+				                		dialog.remove();
+				                	}
+				                }
+				        }
+					});
+		});
+	};
 </script>
  
   </body>

@@ -183,7 +183,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '审核【'+row.platformName+'】',
 			width : 560,
-			height : 420,
+			height : 430,
 			queryUrl : ctx + '/do/financePlatform/intoAudit.htm',
 			submitUrl : ctx + '/do/financePlatform/audit.json',
 			queryParams : {

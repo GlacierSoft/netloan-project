@@ -26,6 +26,7 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.service.finance.FinanceMemberService;
+import com.glacier.netloan.service.finance.FinanceRechargeSetService;
 import com.glacier.netloan.service.finance.FinanceTransactionService;
 import com.glacier.netloan.service.finance.FinanceWithdrawService;
 
@@ -44,10 +45,13 @@ public class FinanceMemberController extends AbstractController{
     private FinanceMemberService financeMemberService;// 注入会员资金记录业务Bean
     
     @Autowired
-    private FinanceTransactionService financeTransactionService;
+    private FinanceTransactionService financeTransactionService;// 注入会员资金记录明细业务Bean
     
     @Autowired
-    private FinanceWithdrawService financeWithdrawService;
+    private FinanceWithdrawService financeWithdrawService;// 注入会员提现业务Bean
+    
+    @Autowired
+    private FinanceRechargeSetService financeRechargeSetService;// 注入会员充值设置业务Bean
     
     //转到“充值提现”页面
   	@RequestMapping(value = "/rechargeWithdraw.htm")
@@ -57,8 +61,9 @@ public class FinanceMemberController extends AbstractController{
   		Member pricipalMember = (Member) pricipalSubject.getPrincipal();
         if(StringUtils.isNotBlank(pricipalMember.getMemberId())){
             mav.addObject("financeMemberData", financeMemberService.getMemberId(pricipalMember.getMemberId()));
-            mav.addObject("financeTransactionDates",financeTransactionService.listAsWebsite(pager, pricipalMember.getMemberId(), p));
-            mav.addObject("financeWithdrawDates",financeWithdrawService.listAsWebsite(pager, pricipalMember.getMemberId(), p));
+            mav.addObject("financeTransactionDatas",financeTransactionService.listAsWebsite(pager, pricipalMember.getMemberId(), p));
+            mav.addObject("financeWithdrawDatas",financeWithdrawService.listAsWebsite(pager, pricipalMember.getMemberId(), p));
+            mav.addObject("financeRechargeSetDatas",financeRechargeSetService.listAsGrid(pager));
         }
         return mav;
   	}

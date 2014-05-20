@@ -122,7 +122,7 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.transactionCode,
+				title: rowData.financePlatformId,
 				href : ctx + '/do/transaction/intoDetail.htm?transactionId='+rowData.transactionId,//从controller请求jsp页面进行渲染
 				width : 560,
 				height : 350,
