@@ -153,8 +153,8 @@
 			$.easyui.showDialog({
 				title: rowData.rechargeSetName,
 				href : ctx + '/do/rechargeSet/intoDetail.htm?financeRechargeSetId='+rowData.financeRechargeSetId,//从controller请求jsp页面进行渲染
-				width : 580,
-				height : 330,
+				width : 560,
+				height : 360,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -196,7 +196,7 @@
 		var row = glacier.finance_mgr.rechargeSet_mgr.rechargeSet.rechargeSetDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '审核【'+row.rechargeSetName+'】',
-			width : 450,
+			width : 560,
 			height : 460,
 			queryUrl : ctx + '/do/rechargeSet/intoAudit.htm',
 			submitUrl : ctx + '/do/rechargeSet/audit.json',

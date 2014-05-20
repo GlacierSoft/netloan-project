@@ -5,34 +5,44 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>充值类型名称：</td>
+			<td>充值名称：</td>
 			<td class="forminputtable">
 				<input type="hidden"  name="financeRechargeSetId" value="${rechargeSetData.financeRechargeSetId}" />
 				<input name="rechargeSetName" class="spinner" style="width:180px" value="${rechargeSetData.rechargeSetName}" readonly="readonly"/>
 			</td>
+			<td>充值类型：</td>
+			<td>
+				<input id="rechargeSet_mgr_rechargeSet_detail_rechargeType" name="rechargeType" value="${rechargeSetData.rechargeType}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
+			</td>
+		</tr>
+		<tr>
 			<td>充值费率：</td>
 			<td>
 				<input name="rechargeRate" class="spinner" style="width:180px" value="${rechargeSetData.rechargeRate}" readonly="readonly"></input>
 			</td>
-		</tr>
-		<tr>
-			<td>有效会员等级：</td>
+			<td>有效会员：</td>
 			<td>
 				<input id="rechargeSet_mgr_rechargeSet_detail_memberType" name="memberType" value="${rechargeSetData.memberType}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
 			</td>
+		</tr>
+		<tr>
 			<td>充值取值：</td>
 			<td>
 				<input name="value" class="spinner" style="width:180px" value="${rechargeSetData.value}" readonly="readonly"></input>
 			</td>
-		</tr>
-		<tr>
 			<td>取费方式：</td>
 			<td>
 				<input id="rechargeSet_mgr_rechargeSet_detail_feeWay" name="feeWay" value="${rechargeSetData.feeWay}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
 			</td>
+		</tr>
+		<tr>
 			<td>审核状态：</td>
 			<td>
 				<input id="rechargeSet_mgr_rechargeSet_detail_auditState" name="auditState" value="${rechargeSetData.auditState}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
+			</td>
+			<td>审核说明：</td>
+			<td>
+				<input id="rechargeSet_mgr_rechargeSet_detail_auditRemark" name="auditRemark" value="${rechargeSetData.auditRemark}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
@@ -60,6 +70,7 @@
 	</table>
 </form>
 <script type="text/javascript">
+	$('#rechargeSet_mgr_rechargeSet_detail_rechargeType').val(renderGridValue('${rechargeSetData.rechargeType}',fields.rechargeType));
 	$('#rechargeSet_mgr_rechargeSet_detail_memberType').val(renderGridValue('${rechargeSetData.memberType}',fields.memberType));
 	$('#rechargeSet_mgr_rechargeSet_detail_feeWay').val(renderGridValue('${rechargeSetData.feeWay}',fields.feeWay));
 	$('#rechargeSet_mgr_rechargeSet_detail_auditState').val(renderGridValue('${rechargeSetData.auditState}',fields.auditState));
