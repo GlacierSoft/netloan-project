@@ -22,6 +22,7 @@
     <result column="temp_receivables_notes_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_loanMemberDisplay" property="loanMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_loanApr" property="loanApr" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_loanDate" property="loanDate" jdbcType="TIMESTAMP"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_loanDeadlinesId" property="loanDeadlinesId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_loanTenderDisplay" property="loanTenderDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_loanMemberId" property="loanMemberId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
@@ -105,6 +106,7 @@
     ,temp_updater.user_cn_name as temp_receivables_notes_updaterDisplay
     ,temp_borrowing_loan.loan_title as temp_receivables_notes_loan_title
     ,temp_borrowing_loan.loan_apr as temp_receivables_notes_loanApr
+    ,temp_borrowing_loan.loan_date as temp_tender_notes_loanDate
     ,temp_borrowing_loan.loan_deadlines_id as temp_receivables_notes_loanDeadlinesId
     ,temp_borrowing_loan.member_id as temp_receivables_notes_loanMemberId
     ,temp_borrowing_loan.loan_state as temp_receivables_notes_loanState

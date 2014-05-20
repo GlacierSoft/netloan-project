@@ -29,9 +29,9 @@ public class ReceivablesNotesDetailController extends AbstractController{
 	// 进入收款记录明细列表展示页面
 	@ResponseBody
     @RequestMapping(value = "/receivablesNotesDetailList.json")
-    private Object receivablesNotesDetailList(JqPager jqPager,int p,String memberId,String receNotesId, HttpServletRequest request) {
+    private Object receivablesNotesDetailList(JqPager jqPager,int p,String memberId,String receNotesId,String receDetailState, HttpServletRequest request) {
         
-		JqGridReturn receivablesNotesDetails = (JqGridReturn)receivablesNotesDetailService.listAsGridWebsite(jqPager, p, receNotesId, memberId);
+		JqGridReturn receivablesNotesDetails = (JqGridReturn)receivablesNotesDetailService.listAsGridWebsite(jqPager, p, receNotesId, memberId,receDetailState);
 		request.setAttribute("receivablesNotesDetailsDatas", receivablesNotesDetails);
 		return receivablesNotesDetails;
     }

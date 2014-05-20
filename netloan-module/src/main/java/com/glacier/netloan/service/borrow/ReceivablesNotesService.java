@@ -1,8 +1,11 @@
 package com.glacier.netloan.service.borrow;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONObject;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -83,12 +87,14 @@ public class ReceivablesNotesService {
      * @throws 
      *
      */
-    public Object listAsGridWebsite(JqPager jqPager,int p,String memberId,List<String> loanStates,String loanDetailStates) {
+    public Object listAsGridWebsite(ReceivablesNotesQueryDTO receivablesNotesQueryDTO,JqPager jqPager,int p,String memberId,List<String> loanStates,String loanDetailStates,String backAccountBorrow) {
         
         JqGridReturn returnResult = new JqGridReturn();
+        JSONObject obj = new JSONObject();//定义json对象
         boolean flag = false;
         ReceivablesNotesExample receivablesNotesExample = new ReceivablesNotesExample();
         Criteria criteria = receivablesNotesExample.createCriteria();
+        receivablesNotesQueryDTO.setQueryCondition(criteria);//前台条件查询
         if(memberId != null){
         	criteria.andMemberIdEqualTo(memberId);//查询相对应的投标的记录	
         }
@@ -117,6 +123,54 @@ public class ReceivablesNotesService {
         jqPager.setOrder("DESC");// 升序还是降序
         if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
         	receivablesNotesExample.setOrderByClause(jqPager.getOrderBy("temp_receivables_notes_"));
+        }
+        //如果backAccountBorrow不等于null,说明的通过回账查询按钮的，计算出待收金额
+        if(backAccountBorrow != null){
+        	 // 查询所有借款列表,还没进行分页的
+            List<ReceivablesNotes>  receivablesNotessTotal = receivablesNotesMapper.selectByExample(receivablesNotesExample);
+            Calendar c = Calendar.getInstance();//日历对象
+    	    c.setTime(new Date());//获取当前时间
+    	    float nextMonth = 0f;
+    	    float nextThreeMonth = 0f;
+    	    float nextYear = 0f;
+    	    float nextAll = 0f;
+    	    for(int i = 0;i <4;i++){//通过for循环，分别算出，未来一个月，三个月，一年和全部的待收本息
+    	    	if(i==0){
+    	    		c.add(Calendar.MONTH, 1);//在当前时间上加一个月	
+    	    	}else if(i==1){
+    	    		c.add(Calendar.MONTH, 3);//在当前时间上加三个月	
+    	    	}else if(i==2){
+    	    		c.add(Calendar.MONTH, 12);//在当前时间上加一年	
+    	    	}
+    	    	for(ReceivablesNotes receivablesNotes : receivablesNotessTotal){
+    	        	ReceivablesNotesDetailExample receivablesNotesDetailExample = new ReceivablesNotesDetailExample();
+    	        	if(i==3){//如果i==3,就查询全部待收本息，则不用在receivablesNotesDetailExample加上小于日期的条件查询
+    	        		receivablesNotesDetailExample.createCriteria().andMemberIdEqualTo(memberId).andReceStateEqualTo("notReceiving")
+    													.andReceNotesIdEqualTo(receivablesNotes.getReceNotesId());
+    	        	}else{
+    	        		receivablesNotesDetailExample.createCriteria().andMemberIdEqualTo(memberId).andReceStateEqualTo("notReceiving")
+    	        										.andShouldPayDateLessThanOrEqualTo(c.getTime()).andReceNotesIdEqualTo(receivablesNotes.getReceNotesId());
+    	        	}
+    	        	//查询所有符合条件的收款记录明细，然后通过for循环,计算出本息
+    	        	List<ReceivablesNotesDetail> receivablesNotesDetails = receivablesNotesDetailMapper.selectByExample(receivablesNotesDetailExample);//查询属于该会员的已收款的收款记录明细列表
+    	        	for(ReceivablesNotesDetail receivablesNotesDetail : receivablesNotesDetails){
+    	        		if(i==0){
+    	        			nextMonth +=receivablesNotesDetail.getCurrentReceMoeny();//计算未来一个月待收本息	
+    	    	    	}else if(i==1){
+    	    	    		nextThreeMonth +=receivablesNotesDetail.getCurrentReceMoeny();//计算未来三个月待收本息	
+    	    	    	}else if(i==2){
+    	    	    		nextYear +=receivablesNotesDetail.getCurrentReceMoeny();//计算未来一年待收本息	
+    	    	    	}else if(i==3){
+    	    	    		nextAll +=receivablesNotesDetail.getCurrentReceMoeny();//计算未来全部待收本息	
+    	    	    	}
+    	        	}
+    	        }
+    	    }
+    	    //将计算出来的数据放到json对象中
+    		obj.put("nextMonth", nextMonth);
+    		obj.put("nextThreeMonth", nextThreeMonth);
+    		obj.put("nextYear", nextYear);
+    		obj.put("nextAll", nextAll);
         }
         
         int startTemp = ((p-1)*10);//根据前台返回的页数进行设置
@@ -149,7 +203,10 @@ public class ReceivablesNotesService {
         returnResult.setRows(allReceivablesNotess);//设置查询数据
         returnResult.setTotal(total);//设置总条数
         returnResult.setP(p);//设置当前页
-        return returnResult;// 返回ExtGrid表
+        Map<String,Object> returnMap = new HashMap<String,Object>();
+        returnMap.put("returnResult",returnResult);
+        returnMap.put("obj",obj);
+        return returnMap;// 返回ExtGrid表
     }
     /**
      * @Title: listAsGrid 

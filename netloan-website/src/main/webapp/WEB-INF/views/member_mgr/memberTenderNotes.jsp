@@ -138,36 +138,45 @@
 						    <h4 class="panel-title"><strong>条件筛选</strong></h3>
 						  </div>
 						  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
-						     <form id="sucessBorrowForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/investment/memberTenderNotes.htm" >
+						     <form id="sucessBorrowForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/investment/memberTenderNotes.htm?&p=1" >
 						      <div class="form-group">
-						      	<input type="hidden" id="dtp_input1" name="p" value="1" />
-						      	<input type="hidden" id="dtp_input2" name="loanStates" value="sucessBorrow" />
-						      	<input type="hidden" id="dtp_input3" name="memberId" value="${currentMember.memberId}" />
+						      	
 						        <label for="cardId" class="col-sm-2 control-label" >发布时间</label>
 							    <div class="col-sm-4">
 								    <div class="input-group date form_datetime" data-link-field="dtp_input1">
-					                    <input name="createStartTime" class="form-control" size="16" type="text" value="${tenderNotesQueryDTO.createStartTime}" readonly>
+								    	
+					                    <input id="createStartTime" name="createStartTime" class="form-control" size="16" type="text" value="<fmt:formatDate value="${tenderNotesQueryDTO.createStartTime}" type="both"/>" readonly>
 					                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 										<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 					                </div>
-									<input type="hidden" id="dtp_input1" value="" />
+									<c:choose>
+									   <c:when test="${buttonState == 'sucessBorrow'}">  
+									   	  <input type="hidden" id="dtp_input2" name="loanStates" value="sucessBorrow" />
+									   </c:when>
+									   <c:when test="${buttonState == 'tenderingBorrow'}">  
+									   	 <input type="hidden" id="dtp_input2" name="loanStates" value="tenderingBorrow" />
+									   </c:when>
+									</c:choose>
+						      		<input type="hidden" id="dtp_input3" name="memberId" value="${currentMember.memberId}" />
 							    </div>
 							    <label for="cardId" class="col-sm-1 control-label" style="text-align:center;vertical-align: middle;">到</label>
 							    <div class="col-sm-4">
 							    	<div class="input-group date form_datetime" data-link-field="dtp_input1">
-					                    <input name="createEndTime" class="form-control" size="16" type="text" value="${tenderNotesQueryDTO.createEndTime}" readonly>
+					                    <input id="createEndTime" name="createEndTime" class="form-control" size="16" type="text" value="<fmt:formatDate value="${tenderNotesQueryDTO.createEndTime}" type="both"/>" readonly>
 					                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 										<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 					                </div>
-									<input type="hidden" id="dtp_input1" value="" />
 							    </div>
 							    <label for="cardId" class="col-sm-1 control-label" ></label>
 							  </div>
 							   <div class="form-group">
 							    <label for="loanTitle" class="col-sm-1 control-label" >标题</label>
-							    <div class="col-sm-3"><input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${borrowingLoanQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
+							    <div class="col-sm-3"><input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${tenderNotesQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
 							    <div class="col-sm-3 text-center"><button id="sucessBorrowFormButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
-							    <div class="col-sm-3"><button id="sucessBorrowFormButton" type="reset" class="btn btn-primary btn-lg btn-block">重&nbsp;&nbsp;置</button></div>
+							    <div class="col-sm-3">
+							    <!-- <button id="sucessBorrowFormButtonReset" type="reset" class="btn btn-primary btn-lg btn-block">重&nbsp;&nbsp;置</button> -->
+							    <a id="sucessBorrowFormButtonReset" href="javascript:void(0);" class="btn btn-primary btn-lg btn-block" data-options="" onclick="">重置条件</a>
+							    </div>
 							  	<div class="col-sm-2"></div>
 							  	</div>
 						     </form>
@@ -252,6 +261,34 @@
 				        </table>
 					   </c:when>
 					   <c:when test="${buttonState == 'repaymentingBorrow' or buttonState == 'alreadReceivablesBorrow'}">  
+					  <div class="panel panel-default">
+						  <div class="panel-heading">
+						    <h4 class="panel-title"><strong>条件筛选</strong></h3>
+						  </div>
+						  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
+						     <form id="receivablesNotesForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1" >
+							   <div class="form-group">
+							    <label for="loanTitle" class="col-sm-1 control-label" >标题</label>
+							    <div class="col-sm-3">
+							    <c:choose>
+								   <c:when test="${buttonState == 'repaymentingBorrow'}">  
+								   	  <input type="hidden" id="dtp_input2" name="loanStates" value="repaymentingBorrow" />
+								   </c:when>
+								   <c:when test="${buttonState == 'alreadReceivablesBorrow'}">  
+								   	  <input type="hidden" id="dtp_input2" name="loanDetailStates" value="alreadReceivables" />
+								   </c:when>
+								</c:choose>
+						      	<input type="hidden" id="dtp_input3" name="memberId" value="${currentMember.memberId}" />
+							    <input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${receivablesNotesQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
+							    <div class="col-sm-3 text-center"><button id="sucessBorrowFormButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
+							    <div class="col-sm-3">
+							    <a id="sucessBorrowFormButtonReset" href="javascript:void(0);" class="btn btn-primary btn-lg btn-block" data-options="" onclick="">重置条件</a>
+							    </div>
+							  	<div class="col-sm-2"></div>
+							  	</div>
+						     </form>
+						  </div>
+						</div>
 					  <table id="receivablesNotesTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
 				  		<thead>
 				  			<tr>
@@ -297,17 +334,29 @@
 								  <td>
 								  <div class="bs-example">
 								      <!-- <button id="receivablesNotesDetailButton" class="btn btn-primary btn-xs"  data-backdrop="static" data-toggle="modal" data-target="#receivablesNotesDetailModal"  > -->
-								      <button id="receivablesNotesDetailButton${status.index}" class="btn btn-primary btn-xs"  data-backdrop="static" data-toggle="modal"   >
-								        	<input id="receNotesId${status.index}" type="hidden" value="${receivablesNotes.receNotesId}"/>
-								        	 查看详情
-								      </button>
+								      <c:choose>
+										   <c:when test="${buttonState == 'repaymentingBorrow'}">  
+										   	 <button id="receivablesNotesDetailButton${status.index}" class="btn btn-primary btn-xs"  data-backdrop="static" data-toggle="modal"   >
+										        	<input id="receNotesId${status.index}" type="hidden" value="${receivablesNotes.receNotesId}"/>
+										        	<input id="receDetailState${status.index}" type="hidden" value=""/>
+										        	 查看详情
+										      </button>
+										   </c:when>
+										   <c:when test="${buttonState == 'alreadReceivablesBorrow'}">  
+										   	  <button id="receivablesNotesDetailButton${status.index}" class="btn btn-primary btn-xs"  data-backdrop="static" data-toggle="modal"   >
+										        	<input id="receNotesId${status.index}" type="hidden" value="${receivablesNotes.receNotesId}"/>
+										        	<input id="receDetailState${status.index}" type="hidden" value="alreadReceivables"/>
+										        	 查看详情
+										      </button>
+										   </c:when>
+										</c:choose>
 								      <script type="text/javascript">
 								      $("#receivablesNotesDetailButton"+${status.index}).click(function(){
 								    	  	var receNotesIdNew = $("#receNotesId"+${status.index}).val();
-								    	  	
+								    	  	var receDetailState = $("#receDetailState"+${status.index}).val();
 								    	  	$.ajax({
 								 			   type: "GET",
-								 			   url: ctx+"/receivablesNotesDetail/receivablesNotesDetailList.json?&p=1&memberId=${currentMember.memberId}&receNotesId="+receNotesIdNew,
+								 			   url: ctx+"/receivablesNotesDetail/receivablesNotesDetailList.json?&p=1&memberId=${currentMember.memberId}&receNotesId="+receNotesIdNew+"&receDetailState="+receDetailState,
 								 			   dataType: "json",
 								 			   success: function(r) {
 								 				  var receivablesNotesTbody = $("#receivablesNotesTbody")
@@ -416,14 +465,53 @@
 						   		<td>未来一年</td>
 						   		<td>全部</td>
 						   </tr>
-						   <tr>
+						   <tr> 
 						   		<td>待收本息</td>
-						   		<td>￥9098.33</td>
-						   		<td>￥22314.47</td>
-						   		<td>￥27565.89</td>
-						   		<td>￥32957.40</td>
+						   		<td><fmt:formatNumber value="${requestScope.notReceMoney.nextMonth}" pattern="#,#00.00元"/></td>
+						   		<td><fmt:formatNumber value="${requestScope.notReceMoney.nextThreeMonth}" pattern="#,#00.00元"/></td>
+						   		<td><fmt:formatNumber value="${requestScope.notReceMoney.nextYear}" pattern="#,#00.00元"/></td>
+						   		<td><fmt:formatNumber value="${requestScope.notReceMoney.nextAll}" pattern="#,#00.00元"/></td>
 						   	</tr>
 					   </table>
+					   <div class="panel panel-default">
+						  <div class="panel-heading">
+						    <h4 class="panel-title"><strong>条件筛选</strong></h3>
+						  </div>
+						  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
+						     <form id="backAccountBorrowForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1" >
+						      <div class="form-group">
+						        <label for="cardId" class="col-sm-2 control-label" >发布时间</label>
+							    <div class="col-sm-4">
+								    <div class="input-group date form_datetime" data-link-field="dtp_input1">
+					                    <input id="loanDateCreateStartTime" name="loanDateCreateStartTime" class="form-control" size="16" type="text" value="<fmt:formatDate value="${receivablesNotesQueryDTO.loanDateCreateStartTime}" type="both"/>" readonly>
+					                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+					                </div>
+					                <input type="hidden" id="dtp_input2" name="loanStates" value="backAccountBorrow" />
+						      		<input type="hidden" id="dtp_input3" name="memberId" value="${currentMember.memberId}" />
+							    </div>
+							    <label for="cardId" class="col-sm-1 control-label" style="text-align:center;vertical-align: middle;">到</label>
+							    <div class="col-sm-4">
+							    	<div class="input-group date form_datetime" data-link-field="dtp_input1">
+					                    <input id="loanDateCreateEndTime" name="loanDateCreateEndTime" class="form-control" size="16" type="text" value="<fmt:formatDate value="${receivablesNotesQueryDTO.loanDateCreateEndTime}" type="both"/>" readonly>
+					                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+					                </div>
+							    </div>
+							    <label for="cardId" class="col-sm-1 control-label" ></label>
+							  </div>
+							   <div class="form-group">
+							    <label for="loanTitle" class="col-sm-1 control-label" >标题</label>
+							    <div class="col-sm-3"><input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${receivablesNotesQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
+							    <div class="col-sm-3 text-center"><button id="backAccountBorrowButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
+							    <div class="col-sm-3">
+							    <a id="backAccountBorrowFormReset" href="javascript:void(0);" class="btn btn-primary btn-lg btn-block" data-options="" onclick="">重置条件</a>
+							    </div>
+							  	<div class="col-sm-2"></div>
+							  	</div>
+						     </form>
+						  </div>
+						</div>
 					  <table id="receivablesNotesTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
 				  		<thead>
 				  			<tr>
@@ -499,12 +587,27 @@
   </body>
   	<script type="text/javascript">
   	
+  	//点击重置按钮，清空表单
+  	$("#sucessBorrowFormButtonReset").click(function(){
+  		$("#loanTitle").val('');
+  		$("#createStartTime").val('');
+  		$("#createEndTime").val('');
+  	});
+  //点击重置按钮，清空表单
+  	$("#backAccountBorrowFormReset").click(function(){
+  		$("#loanTitle").val('');
+  		$("#loanDateCreateStartTime").val('');
+  		$("#loanDateCreateEndTime").val('');
+  	});
+  	
   	//bootstrap日期控件
   	$(".form_datetime").datetimepicker({
   		language:  'zh-CN',
-        format: "yyyy-mm-dd hh:ii:ss",
+        format: "yyyy-mm-dd",
         autoclose: true,
         todayBtn: true,
+        todayHighlight: true,
+        minView: 2,
         pickerPosition: "bottom-left"
     });
   	

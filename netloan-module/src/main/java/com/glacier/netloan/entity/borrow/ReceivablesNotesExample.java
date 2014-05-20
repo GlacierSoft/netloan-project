@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.glacier.netloan.entity.borrow.TenderNotesExample.Criteria;
+
+
 
 public class ReceivablesNotesExample {
     protected String orderByClause;
@@ -119,6 +122,28 @@ public class ReceivablesNotesExample {
         /*自定义查询条件*/
         public Criteria andLoanStateIn(List<String> values) {
             addCriterion("temp_borrowing_loan.loan_state in", values, "loanState");
+            return (Criteria) this;
+        }
+        
+        /*自定义查询条件*/
+        public Criteria andLoanTitleLike(String value) {
+            addCriterion("temp_borrowing_loan.loan_title like", value, "loanTitle");
+            return (Criteria) this;
+        }
+        
+        /*自定义查询条件*/
+        public Criteria andLoanDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("temp_borrowing_loan.loan_date >=", value, "loanDate");
+            return (Criteria) this;
+        }
+        /*自定义查询条件*/
+        public Criteria andLoanDateLessThanOrEqualTo(Date value) {
+            addCriterion("temp_borrowing_loan.loan_date <=", value, "loanDate");
+            return (Criteria) this;
+        }
+        /*自定义查询条件*/
+        public Criteria andLoanDateBetween(Date value1, Date value2) {
+            addCriterion("temp_borrowing_loan.loan_date between", value1, value2, "loanDate");
             return (Criteria) this;
         }
         

@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
-
-
-
-public class TenderNotesExample {
+public class AttentionBorrowingExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -19,7 +15,7 @@ public class TenderNotesExample {
 
     protected int limitEnd = -1;
 
-    public TenderNotesExample() {
+    public AttentionBorrowingExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -107,36 +103,7 @@ public class TenderNotesExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
-        /*自定义查询条件*/
-        public Criteria andLoanStateEqualTo(String value) {
-            addCriterion("temp_borrowing_loan.loan_state =", value, "loanState");
-            return (Criteria) this;
-        }
-        /*自定义查询条件*/
-        public Criteria andLoanStateIn(List<String> values) {
-            addCriterion("temp_borrowing_loan.loan_state in", values, "loanState");
-            return (Criteria) this;
-        }
-        /*自定义查询条件*/
-        public Criteria andLoanTitleLike(String value) {
-            addCriterion("temp_borrowing_loan.loan_title like", value, "loanTitle");
-            return (Criteria) this;
-        }
-        /*自定义查询条件*/
-        public Criteria andLoanDateGreaterThanOrEqualTo(Date value) {
-            addCriterion("temp_borrowing_loan.loan_date >=", value, "loanDate");
-            return (Criteria) this;
-        }
-        /*自定义查询条件*/
-        public Criteria andLoanDateLessThanOrEqualTo(Date value) {
-            addCriterion("temp_borrowing_loan.loan_date <=", value, "loanDate");
-            return (Criteria) this;
-        }
-        /*自定义查询条件*/
-        public Criteria andLoanDateBetween(Date value1, Date value2) {
-            addCriterion("temp_borrowing_loan.loan_date between", value1, value2, "loanDate");
-            return (Criteria) this;
-        }
+
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -158,663 +125,543 @@ public class TenderNotesExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andTenderNotesIdIsNull() {
-            addCriterion("temp_tender_notes.tender_notes_id is null");
+        public Criteria andAttentionBorrowingIdIsNull() {
+            addCriterion("temp_attention_borrowing.attention_borrowing_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andTenderNotesIdIsNotNull() {
-            addCriterion("temp_tender_notes.tender_notes_id is not null");
+        public Criteria andAttentionBorrowingIdIsNotNull() {
+            addCriterion("temp_attention_borrowing.attention_borrowing_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTenderNotesIdEqualTo(String value) {
-            addCriterion("temp_tender_notes.tender_notes_id =", value, "tenderNotesId");
+        public Criteria andAttentionBorrowingIdEqualTo(String value) {
+            addCriterion("temp_attention_borrowing.attention_borrowing_id =", value, "attentionBorrowingId");
             return (Criteria) this;
         }
 
-        public Criteria andTenderNotesIdNotEqualTo(String value) {
-            addCriterion("temp_tender_notes.tender_notes_id <>", value, "tenderNotesId");
+        public Criteria andAttentionBorrowingIdNotEqualTo(String value) {
+            addCriterion("temp_attention_borrowing.attention_borrowing_id <>", value, "attentionBorrowingId");
             return (Criteria) this;
         }
 
-        public Criteria andTenderNotesIdGreaterThan(String value) {
-            addCriterion("temp_tender_notes.tender_notes_id >", value, "tenderNotesId");
+        public Criteria andAttentionBorrowingIdGreaterThan(String value) {
+            addCriterion("temp_attention_borrowing.attention_borrowing_id >", value, "attentionBorrowingId");
             return (Criteria) this;
         }
 
-        public Criteria andTenderNotesIdGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_tender_notes.tender_notes_id >=", value, "tenderNotesId");
+        public Criteria andAttentionBorrowingIdGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_attention_borrowing.attention_borrowing_id >=", value, "attentionBorrowingId");
             return (Criteria) this;
         }
 
-        public Criteria andTenderNotesIdLessThan(String value) {
-            addCriterion("temp_tender_notes.tender_notes_id <", value, "tenderNotesId");
+        public Criteria andAttentionBorrowingIdLessThan(String value) {
+            addCriterion("temp_attention_borrowing.attention_borrowing_id <", value, "attentionBorrowingId");
             return (Criteria) this;
         }
 
-        public Criteria andTenderNotesIdLessThanOrEqualTo(String value) {
-            addCriterion("temp_tender_notes.tender_notes_id <=", value, "tenderNotesId");
+        public Criteria andAttentionBorrowingIdLessThanOrEqualTo(String value) {
+            addCriterion("temp_attention_borrowing.attention_borrowing_id <=", value, "attentionBorrowingId");
             return (Criteria) this;
         }
 
-        public Criteria andTenderNotesIdLike(String value) {
-            addCriterion("temp_tender_notes.tender_notes_id like", value, "tenderNotesId");
+        public Criteria andAttentionBorrowingIdLike(String value) {
+            addCriterion("temp_attention_borrowing.attention_borrowing_id like", value, "attentionBorrowingId");
             return (Criteria) this;
         }
 
-        public Criteria andTenderNotesIdNotLike(String value) {
-            addCriterion("temp_tender_notes.tender_notes_id not like", value, "tenderNotesId");
+        public Criteria andAttentionBorrowingIdNotLike(String value) {
+            addCriterion("temp_attention_borrowing.attention_borrowing_id not like", value, "attentionBorrowingId");
             return (Criteria) this;
         }
 
-        public Criteria andTenderNotesIdIn(List<String> values) {
-            addCriterion("temp_tender_notes.tender_notes_id in", values, "tenderNotesId");
+        public Criteria andAttentionBorrowingIdIn(List<String> values) {
+            addCriterion("temp_attention_borrowing.attention_borrowing_id in", values, "attentionBorrowingId");
             return (Criteria) this;
         }
 
-        public Criteria andTenderNotesIdNotIn(List<String> values) {
-            addCriterion("temp_tender_notes.tender_notes_id not in", values, "tenderNotesId");
+        public Criteria andAttentionBorrowingIdNotIn(List<String> values) {
+            addCriterion("temp_attention_borrowing.attention_borrowing_id not in", values, "attentionBorrowingId");
             return (Criteria) this;
         }
 
-        public Criteria andTenderNotesIdBetween(String value1, String value2) {
-            addCriterion("temp_tender_notes.tender_notes_id between", value1, value2, "tenderNotesId");
+        public Criteria andAttentionBorrowingIdBetween(String value1, String value2) {
+            addCriterion("temp_attention_borrowing.attention_borrowing_id between", value1, value2, "attentionBorrowingId");
             return (Criteria) this;
         }
 
-        public Criteria andTenderNotesIdNotBetween(String value1, String value2) {
-            addCriterion("temp_tender_notes.tender_notes_id not between", value1, value2, "tenderNotesId");
+        public Criteria andAttentionBorrowingIdNotBetween(String value1, String value2) {
+            addCriterion("temp_attention_borrowing.attention_borrowing_id not between", value1, value2, "attentionBorrowingId");
             return (Criteria) this;
         }
 
         public Criteria andLoanIdIsNull() {
-            addCriterion("temp_tender_notes.loan_id is null");
+            addCriterion("temp_attention_borrowing.loan_id is null");
             return (Criteria) this;
         }
 
         public Criteria andLoanIdIsNotNull() {
-            addCriterion("temp_tender_notes.loan_id is not null");
+            addCriterion("temp_attention_borrowing.loan_id is not null");
             return (Criteria) this;
         }
 
         public Criteria andLoanIdEqualTo(String value) {
-            addCriterion("temp_tender_notes.loan_id =", value, "loanId");
+            addCriterion("temp_attention_borrowing.loan_id =", value, "loanId");
             return (Criteria) this;
         }
 
         public Criteria andLoanIdNotEqualTo(String value) {
-            addCriterion("temp_tender_notes.loan_id <>", value, "loanId");
+            addCriterion("temp_attention_borrowing.loan_id <>", value, "loanId");
             return (Criteria) this;
         }
 
         public Criteria andLoanIdGreaterThan(String value) {
-            addCriterion("temp_tender_notes.loan_id >", value, "loanId");
+            addCriterion("temp_attention_borrowing.loan_id >", value, "loanId");
             return (Criteria) this;
         }
 
         public Criteria andLoanIdGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_tender_notes.loan_id >=", value, "loanId");
+            addCriterion("temp_attention_borrowing.loan_id >=", value, "loanId");
             return (Criteria) this;
         }
 
         public Criteria andLoanIdLessThan(String value) {
-            addCriterion("temp_tender_notes.loan_id <", value, "loanId");
+            addCriterion("temp_attention_borrowing.loan_id <", value, "loanId");
             return (Criteria) this;
         }
 
         public Criteria andLoanIdLessThanOrEqualTo(String value) {
-            addCriterion("temp_tender_notes.loan_id <=", value, "loanId");
+            addCriterion("temp_attention_borrowing.loan_id <=", value, "loanId");
             return (Criteria) this;
         }
 
         public Criteria andLoanIdLike(String value) {
-            addCriterion("temp_tender_notes.loan_id like", value, "loanId");
+            addCriterion("temp_attention_borrowing.loan_id like", value, "loanId");
             return (Criteria) this;
         }
 
         public Criteria andLoanIdNotLike(String value) {
-            addCriterion("temp_tender_notes.loan_id not like", value, "loanId");
+            addCriterion("temp_attention_borrowing.loan_id not like", value, "loanId");
             return (Criteria) this;
         }
 
         public Criteria andLoanIdIn(List<String> values) {
-            addCriterion("temp_tender_notes.loan_id in", values, "loanId");
+            addCriterion("temp_attention_borrowing.loan_id in", values, "loanId");
             return (Criteria) this;
         }
 
         public Criteria andLoanIdNotIn(List<String> values) {
-            addCriterion("temp_tender_notes.loan_id not in", values, "loanId");
+            addCriterion("temp_attention_borrowing.loan_id not in", values, "loanId");
             return (Criteria) this;
         }
 
         public Criteria andLoanIdBetween(String value1, String value2) {
-            addCriterion("temp_tender_notes.loan_id between", value1, value2, "loanId");
+            addCriterion("temp_attention_borrowing.loan_id between", value1, value2, "loanId");
             return (Criteria) this;
         }
 
         public Criteria andLoanIdNotBetween(String value1, String value2) {
-            addCriterion("temp_tender_notes.loan_id not between", value1, value2, "loanId");
+            addCriterion("temp_attention_borrowing.loan_id not between", value1, value2, "loanId");
             return (Criteria) this;
         }
 
         public Criteria andMemberIdIsNull() {
-            addCriterion("temp_tender_notes.member_id is null");
+            addCriterion("temp_attention_borrowing.member_id is null");
             return (Criteria) this;
         }
 
         public Criteria andMemberIdIsNotNull() {
-            addCriterion("temp_tender_notes.member_id is not null");
+            addCriterion("temp_attention_borrowing.member_id is not null");
             return (Criteria) this;
         }
 
         public Criteria andMemberIdEqualTo(String value) {
-            addCriterion("temp_tender_notes.member_id =", value, "memberId");
+            addCriterion("temp_attention_borrowing.member_id =", value, "memberId");
             return (Criteria) this;
         }
 
         public Criteria andMemberIdNotEqualTo(String value) {
-            addCriterion("temp_tender_notes.member_id <>", value, "memberId");
+            addCriterion("temp_attention_borrowing.member_id <>", value, "memberId");
             return (Criteria) this;
         }
 
         public Criteria andMemberIdGreaterThan(String value) {
-            addCriterion("temp_tender_notes.member_id >", value, "memberId");
+            addCriterion("temp_attention_borrowing.member_id >", value, "memberId");
             return (Criteria) this;
         }
 
         public Criteria andMemberIdGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_tender_notes.member_id >=", value, "memberId");
+            addCriterion("temp_attention_borrowing.member_id >=", value, "memberId");
             return (Criteria) this;
         }
 
         public Criteria andMemberIdLessThan(String value) {
-            addCriterion("temp_tender_notes.member_id <", value, "memberId");
+            addCriterion("temp_attention_borrowing.member_id <", value, "memberId");
             return (Criteria) this;
         }
 
         public Criteria andMemberIdLessThanOrEqualTo(String value) {
-            addCriterion("temp_tender_notes.member_id <=", value, "memberId");
+            addCriterion("temp_attention_borrowing.member_id <=", value, "memberId");
             return (Criteria) this;
         }
 
         public Criteria andMemberIdLike(String value) {
-            addCriterion("temp_tender_notes.member_id like", value, "memberId");
+            addCriterion("temp_attention_borrowing.member_id like", value, "memberId");
             return (Criteria) this;
         }
 
         public Criteria andMemberIdNotLike(String value) {
-            addCriterion("temp_tender_notes.member_id not like", value, "memberId");
+            addCriterion("temp_attention_borrowing.member_id not like", value, "memberId");
             return (Criteria) this;
         }
 
         public Criteria andMemberIdIn(List<String> values) {
-            addCriterion("temp_tender_notes.member_id in", values, "memberId");
+            addCriterion("temp_attention_borrowing.member_id in", values, "memberId");
             return (Criteria) this;
         }
 
         public Criteria andMemberIdNotIn(List<String> values) {
-            addCriterion("temp_tender_notes.member_id not in", values, "memberId");
+            addCriterion("temp_attention_borrowing.member_id not in", values, "memberId");
             return (Criteria) this;
         }
 
         public Criteria andMemberIdBetween(String value1, String value2) {
-            addCriterion("temp_tender_notes.member_id between", value1, value2, "memberId");
+            addCriterion("temp_attention_borrowing.member_id between", value1, value2, "memberId");
             return (Criteria) this;
         }
 
         public Criteria andMemberIdNotBetween(String value1, String value2) {
-            addCriterion("temp_tender_notes.member_id not between", value1, value2, "memberId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubSumIsNull() {
-            addCriterion("temp_tender_notes.sub_sum is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubSumIsNotNull() {
-            addCriterion("temp_tender_notes.sub_sum is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubSumEqualTo(Float value) {
-            addCriterion("temp_tender_notes.sub_sum =", value, "subSum");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubSumNotEqualTo(Float value) {
-            addCriterion("temp_tender_notes.sub_sum <>", value, "subSum");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubSumGreaterThan(Float value) {
-            addCriterion("temp_tender_notes.sub_sum >", value, "subSum");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubSumGreaterThanOrEqualTo(Float value) {
-            addCriterion("temp_tender_notes.sub_sum >=", value, "subSum");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubSumLessThan(Float value) {
-            addCriterion("temp_tender_notes.sub_sum <", value, "subSum");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubSumLessThanOrEqualTo(Float value) {
-            addCriterion("temp_tender_notes.sub_sum <=", value, "subSum");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubSumIn(List<Float> values) {
-            addCriterion("temp_tender_notes.sub_sum in", values, "subSum");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubSumNotIn(List<Float> values) {
-            addCriterion("temp_tender_notes.sub_sum not in", values, "subSum");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubSumBetween(Float value1, Float value2) {
-            addCriterion("temp_tender_notes.sub_sum between", value1, value2, "subSum");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubSumNotBetween(Float value1, Float value2) {
-            addCriterion("temp_tender_notes.sub_sum not between", value1, value2, "subSum");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenderMoneyIsNull() {
-            addCriterion("temp_tender_notes.tender_money is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenderMoneyIsNotNull() {
-            addCriterion("temp_tender_notes.tender_money is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenderMoneyEqualTo(Float value) {
-            addCriterion("temp_tender_notes.tender_money =", value, "tenderMoney");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenderMoneyNotEqualTo(Float value) {
-            addCriterion("temp_tender_notes.tender_money <>", value, "tenderMoney");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenderMoneyGreaterThan(Float value) {
-            addCriterion("temp_tender_notes.tender_money >", value, "tenderMoney");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenderMoneyGreaterThanOrEqualTo(Float value) {
-            addCriterion("temp_tender_notes.tender_money >=", value, "tenderMoney");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenderMoneyLessThan(Float value) {
-            addCriterion("temp_tender_notes.tender_money <", value, "tenderMoney");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenderMoneyLessThanOrEqualTo(Float value) {
-            addCriterion("temp_tender_notes.tender_money <=", value, "tenderMoney");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenderMoneyIn(List<Float> values) {
-            addCriterion("temp_tender_notes.tender_money in", values, "tenderMoney");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenderMoneyNotIn(List<Float> values) {
-            addCriterion("temp_tender_notes.tender_money not in", values, "tenderMoney");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenderMoneyBetween(Float value1, Float value2) {
-            addCriterion("temp_tender_notes.tender_money between", value1, value2, "tenderMoney");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenderMoneyNotBetween(Float value1, Float value2) {
-            addCriterion("temp_tender_notes.tender_money not between", value1, value2, "tenderMoney");
+            addCriterion("temp_attention_borrowing.member_id not between", value1, value2, "memberId");
             return (Criteria) this;
         }
 
         public Criteria andRemarkIsNull() {
-            addCriterion("temp_tender_notes.remark is null");
+            addCriterion("temp_attention_borrowing.remark is null");
             return (Criteria) this;
         }
 
         public Criteria andRemarkIsNotNull() {
-            addCriterion("temp_tender_notes.remark is not null");
+            addCriterion("temp_attention_borrowing.remark is not null");
             return (Criteria) this;
         }
 
         public Criteria andRemarkEqualTo(String value) {
-            addCriterion("temp_tender_notes.remark =", value, "remark");
+            addCriterion("temp_attention_borrowing.remark =", value, "remark");
             return (Criteria) this;
         }
 
         public Criteria andRemarkNotEqualTo(String value) {
-            addCriterion("temp_tender_notes.remark <>", value, "remark");
+            addCriterion("temp_attention_borrowing.remark <>", value, "remark");
             return (Criteria) this;
         }
 
         public Criteria andRemarkGreaterThan(String value) {
-            addCriterion("temp_tender_notes.remark >", value, "remark");
+            addCriterion("temp_attention_borrowing.remark >", value, "remark");
             return (Criteria) this;
         }
 
         public Criteria andRemarkGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_tender_notes.remark >=", value, "remark");
+            addCriterion("temp_attention_borrowing.remark >=", value, "remark");
             return (Criteria) this;
         }
 
         public Criteria andRemarkLessThan(String value) {
-            addCriterion("temp_tender_notes.remark <", value, "remark");
+            addCriterion("temp_attention_borrowing.remark <", value, "remark");
             return (Criteria) this;
         }
 
         public Criteria andRemarkLessThanOrEqualTo(String value) {
-            addCriterion("temp_tender_notes.remark <=", value, "remark");
+            addCriterion("temp_attention_borrowing.remark <=", value, "remark");
             return (Criteria) this;
         }
 
         public Criteria andRemarkLike(String value) {
-            addCriterion("temp_tender_notes.remark like", value, "remark");
+            addCriterion("temp_attention_borrowing.remark like", value, "remark");
             return (Criteria) this;
         }
 
         public Criteria andRemarkNotLike(String value) {
-            addCriterion("temp_tender_notes.remark not like", value, "remark");
+            addCriterion("temp_attention_borrowing.remark not like", value, "remark");
             return (Criteria) this;
         }
 
         public Criteria andRemarkIn(List<String> values) {
-            addCriterion("temp_tender_notes.remark in", values, "remark");
+            addCriterion("temp_attention_borrowing.remark in", values, "remark");
             return (Criteria) this;
         }
 
         public Criteria andRemarkNotIn(List<String> values) {
-            addCriterion("temp_tender_notes.remark not in", values, "remark");
+            addCriterion("temp_attention_borrowing.remark not in", values, "remark");
             return (Criteria) this;
         }
 
         public Criteria andRemarkBetween(String value1, String value2) {
-            addCriterion("temp_tender_notes.remark between", value1, value2, "remark");
+            addCriterion("temp_attention_borrowing.remark between", value1, value2, "remark");
             return (Criteria) this;
         }
 
         public Criteria andRemarkNotBetween(String value1, String value2) {
-            addCriterion("temp_tender_notes.remark not between", value1, value2, "remark");
+            addCriterion("temp_attention_borrowing.remark not between", value1, value2, "remark");
             return (Criteria) this;
         }
 
         public Criteria andCreaterIsNull() {
-            addCriterion("temp_tender_notes.creater is null");
+            addCriterion("temp_attention_borrowing.creater is null");
             return (Criteria) this;
         }
 
         public Criteria andCreaterIsNotNull() {
-            addCriterion("temp_tender_notes.creater is not null");
+            addCriterion("temp_attention_borrowing.creater is not null");
             return (Criteria) this;
         }
 
         public Criteria andCreaterEqualTo(String value) {
-            addCriterion("temp_tender_notes.creater =", value, "creater");
+            addCriterion("temp_attention_borrowing.creater =", value, "creater");
             return (Criteria) this;
         }
 
         public Criteria andCreaterNotEqualTo(String value) {
-            addCriterion("temp_tender_notes.creater <>", value, "creater");
+            addCriterion("temp_attention_borrowing.creater <>", value, "creater");
             return (Criteria) this;
         }
 
         public Criteria andCreaterGreaterThan(String value) {
-            addCriterion("temp_tender_notes.creater >", value, "creater");
+            addCriterion("temp_attention_borrowing.creater >", value, "creater");
             return (Criteria) this;
         }
 
         public Criteria andCreaterGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_tender_notes.creater >=", value, "creater");
+            addCriterion("temp_attention_borrowing.creater >=", value, "creater");
             return (Criteria) this;
         }
 
         public Criteria andCreaterLessThan(String value) {
-            addCriterion("temp_tender_notes.creater <", value, "creater");
+            addCriterion("temp_attention_borrowing.creater <", value, "creater");
             return (Criteria) this;
         }
 
         public Criteria andCreaterLessThanOrEqualTo(String value) {
-            addCriterion("temp_tender_notes.creater <=", value, "creater");
+            addCriterion("temp_attention_borrowing.creater <=", value, "creater");
             return (Criteria) this;
         }
 
         public Criteria andCreaterLike(String value) {
-            addCriterion("temp_tender_notes.creater like", value, "creater");
+            addCriterion("temp_attention_borrowing.creater like", value, "creater");
             return (Criteria) this;
         }
 
         public Criteria andCreaterNotLike(String value) {
-            addCriterion("temp_tender_notes.creater not like", value, "creater");
+            addCriterion("temp_attention_borrowing.creater not like", value, "creater");
             return (Criteria) this;
         }
 
         public Criteria andCreaterIn(List<String> values) {
-            addCriterion("temp_tender_notes.creater in", values, "creater");
+            addCriterion("temp_attention_borrowing.creater in", values, "creater");
             return (Criteria) this;
         }
 
         public Criteria andCreaterNotIn(List<String> values) {
-            addCriterion("temp_tender_notes.creater not in", values, "creater");
+            addCriterion("temp_attention_borrowing.creater not in", values, "creater");
             return (Criteria) this;
         }
 
         public Criteria andCreaterBetween(String value1, String value2) {
-            addCriterion("temp_tender_notes.creater between", value1, value2, "creater");
+            addCriterion("temp_attention_borrowing.creater between", value1, value2, "creater");
             return (Criteria) this;
         }
 
         public Criteria andCreaterNotBetween(String value1, String value2) {
-            addCriterion("temp_tender_notes.creater not between", value1, value2, "creater");
+            addCriterion("temp_attention_borrowing.creater not between", value1, value2, "creater");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeIsNull() {
-            addCriterion("temp_tender_notes.create_time is null");
+            addCriterion("temp_attention_borrowing.create_time is null");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeIsNotNull() {
-            addCriterion("temp_tender_notes.create_time is not null");
+            addCriterion("temp_attention_borrowing.create_time is not null");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeEqualTo(Date value) {
-            addCriterion("temp_tender_notes.create_time =", value, "createTime");
+            addCriterion("temp_attention_borrowing.create_time =", value, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeNotEqualTo(Date value) {
-            addCriterion("temp_tender_notes.create_time <>", value, "createTime");
+            addCriterion("temp_attention_borrowing.create_time <>", value, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeGreaterThan(Date value) {
-            addCriterion("temp_tender_notes.create_time >", value, "createTime");
+            addCriterion("temp_attention_borrowing.create_time >", value, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("temp_tender_notes.create_time >=", value, "createTime");
+            addCriterion("temp_attention_borrowing.create_time >=", value, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeLessThan(Date value) {
-            addCriterion("temp_tender_notes.create_time <", value, "createTime");
+            addCriterion("temp_attention_borrowing.create_time <", value, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
-            addCriterion("temp_tender_notes.create_time <=", value, "createTime");
+            addCriterion("temp_attention_borrowing.create_time <=", value, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeIn(List<Date> values) {
-            addCriterion("temp_tender_notes.create_time in", values, "createTime");
+            addCriterion("temp_attention_borrowing.create_time in", values, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeNotIn(List<Date> values) {
-            addCriterion("temp_tender_notes.create_time not in", values, "createTime");
+            addCriterion("temp_attention_borrowing.create_time not in", values, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeBetween(Date value1, Date value2) {
-            addCriterion("temp_tender_notes.create_time between", value1, value2, "createTime");
+            addCriterion("temp_attention_borrowing.create_time between", value1, value2, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
-            addCriterion("temp_tender_notes.create_time not between", value1, value2, "createTime");
+            addCriterion("temp_attention_borrowing.create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andUpdaterIsNull() {
-            addCriterion("temp_tender_notes.updater is null");
+            addCriterion("temp_attention_borrowing.updater is null");
             return (Criteria) this;
         }
 
         public Criteria andUpdaterIsNotNull() {
-            addCriterion("temp_tender_notes.updater is not null");
+            addCriterion("temp_attention_borrowing.updater is not null");
             return (Criteria) this;
         }
 
         public Criteria andUpdaterEqualTo(String value) {
-            addCriterion("temp_tender_notes.updater =", value, "updater");
+            addCriterion("temp_attention_borrowing.updater =", value, "updater");
             return (Criteria) this;
         }
 
         public Criteria andUpdaterNotEqualTo(String value) {
-            addCriterion("temp_tender_notes.updater <>", value, "updater");
+            addCriterion("temp_attention_borrowing.updater <>", value, "updater");
             return (Criteria) this;
         }
 
         public Criteria andUpdaterGreaterThan(String value) {
-            addCriterion("temp_tender_notes.updater >", value, "updater");
+            addCriterion("temp_attention_borrowing.updater >", value, "updater");
             return (Criteria) this;
         }
 
         public Criteria andUpdaterGreaterThanOrEqualTo(String value) {
-            addCriterion("temp_tender_notes.updater >=", value, "updater");
+            addCriterion("temp_attention_borrowing.updater >=", value, "updater");
             return (Criteria) this;
         }
 
         public Criteria andUpdaterLessThan(String value) {
-            addCriterion("temp_tender_notes.updater <", value, "updater");
+            addCriterion("temp_attention_borrowing.updater <", value, "updater");
             return (Criteria) this;
         }
 
         public Criteria andUpdaterLessThanOrEqualTo(String value) {
-            addCriterion("temp_tender_notes.updater <=", value, "updater");
+            addCriterion("temp_attention_borrowing.updater <=", value, "updater");
             return (Criteria) this;
         }
 
         public Criteria andUpdaterLike(String value) {
-            addCriterion("temp_tender_notes.updater like", value, "updater");
+            addCriterion("temp_attention_borrowing.updater like", value, "updater");
             return (Criteria) this;
         }
 
         public Criteria andUpdaterNotLike(String value) {
-            addCriterion("temp_tender_notes.updater not like", value, "updater");
+            addCriterion("temp_attention_borrowing.updater not like", value, "updater");
             return (Criteria) this;
         }
 
         public Criteria andUpdaterIn(List<String> values) {
-            addCriterion("temp_tender_notes.updater in", values, "updater");
+            addCriterion("temp_attention_borrowing.updater in", values, "updater");
             return (Criteria) this;
         }
 
         public Criteria andUpdaterNotIn(List<String> values) {
-            addCriterion("temp_tender_notes.updater not in", values, "updater");
+            addCriterion("temp_attention_borrowing.updater not in", values, "updater");
             return (Criteria) this;
         }
 
         public Criteria andUpdaterBetween(String value1, String value2) {
-            addCriterion("temp_tender_notes.updater between", value1, value2, "updater");
+            addCriterion("temp_attention_borrowing.updater between", value1, value2, "updater");
             return (Criteria) this;
         }
 
         public Criteria andUpdaterNotBetween(String value1, String value2) {
-            addCriterion("temp_tender_notes.updater not between", value1, value2, "updater");
+            addCriterion("temp_attention_borrowing.updater not between", value1, value2, "updater");
             return (Criteria) this;
         }
 
         public Criteria andUpdateTimeIsNull() {
-            addCriterion("temp_tender_notes.update_time is null");
+            addCriterion("temp_attention_borrowing.update_time is null");
             return (Criteria) this;
         }
 
         public Criteria andUpdateTimeIsNotNull() {
-            addCriterion("temp_tender_notes.update_time is not null");
+            addCriterion("temp_attention_borrowing.update_time is not null");
             return (Criteria) this;
         }
 
         public Criteria andUpdateTimeEqualTo(Date value) {
-            addCriterion("temp_tender_notes.update_time =", value, "updateTime");
+            addCriterion("temp_attention_borrowing.update_time =", value, "updateTime");
             return (Criteria) this;
         }
 
         public Criteria andUpdateTimeNotEqualTo(Date value) {
-            addCriterion("temp_tender_notes.update_time <>", value, "updateTime");
+            addCriterion("temp_attention_borrowing.update_time <>", value, "updateTime");
             return (Criteria) this;
         }
 
         public Criteria andUpdateTimeGreaterThan(Date value) {
-            addCriterion("temp_tender_notes.update_time >", value, "updateTime");
+            addCriterion("temp_attention_borrowing.update_time >", value, "updateTime");
             return (Criteria) this;
         }
 
         public Criteria andUpdateTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("temp_tender_notes.update_time >=", value, "updateTime");
+            addCriterion("temp_attention_borrowing.update_time >=", value, "updateTime");
             return (Criteria) this;
         }
 
         public Criteria andUpdateTimeLessThan(Date value) {
-            addCriterion("temp_tender_notes.update_time <", value, "updateTime");
+            addCriterion("temp_attention_borrowing.update_time <", value, "updateTime");
             return (Criteria) this;
         }
 
         public Criteria andUpdateTimeLessThanOrEqualTo(Date value) {
-            addCriterion("temp_tender_notes.update_time <=", value, "updateTime");
+            addCriterion("temp_attention_borrowing.update_time <=", value, "updateTime");
             return (Criteria) this;
         }
 
         public Criteria andUpdateTimeIn(List<Date> values) {
-            addCriterion("temp_tender_notes.update_time in", values, "updateTime");
+            addCriterion("temp_attention_borrowing.update_time in", values, "updateTime");
             return (Criteria) this;
         }
 
         public Criteria andUpdateTimeNotIn(List<Date> values) {
-            addCriterion("temp_tender_notes.update_time not in", values, "updateTime");
+            addCriterion("temp_attention_borrowing.update_time not in", values, "updateTime");
             return (Criteria) this;
         }
 
         public Criteria andUpdateTimeBetween(Date value1, Date value2) {
-            addCriterion("temp_tender_notes.update_time between", value1, value2, "updateTime");
+            addCriterion("temp_attention_borrowing.update_time between", value1, value2, "updateTime");
             return (Criteria) this;
         }
 
         public Criteria andUpdateTimeNotBetween(Date value1, Date value2) {
-            addCriterion("temp_tender_notes.update_time not between", value1, value2, "updateTime");
+            addCriterion("temp_attention_borrowing.update_time not between", value1, value2, "updateTime");
             return (Criteria) this;
         }
     }

@@ -27,11 +27,31 @@ public class ReceivablesNotesQueryDTO extends ReceivablesNotes{
 
     private Date createEndTime;
     
+    private Date loanDateCreateStartTime;
+    
+    private Date loanDateCreateEndTime;
+    
 	public Date getCreateStartTime() {
         return createStartTime;
     }
 
-    public void setCreateStartTime(Date createStartTime) {
+    public Date getLoanDateCreateStartTime() {
+		return loanDateCreateStartTime;
+	}
+
+	public void setLoanDateCreateStartTime(Date loanDateCreateStartTime) {
+		this.loanDateCreateStartTime = loanDateCreateStartTime;
+	}
+
+	public Date getLoanDateCreateEndTime() {
+		return loanDateCreateEndTime;
+	}
+
+	public void setLoanDateCreateEndTime(Date loanDateCreateEndTime) {
+		this.loanDateCreateEndTime = loanDateCreateEndTime;
+	}
+
+	public void setCreateStartTime(Date createStartTime) {
         this.createStartTime = createStartTime;
     }
 
@@ -45,6 +65,10 @@ public class ReceivablesNotesQueryDTO extends ReceivablesNotes{
     
     public void setQueryCondition(Criteria queryCriteria){
 
+    	if(null != this.getLoanTitle() && StringUtils.isNotBlank(this.getLoanTitle())){//根据借款标题名称
+	        queryCriteria.andLoanTitleLike("%" + this.getLoanTitle() + "%");
+	    }
+    	
     	if(null != this.getMemberDisplay() && StringUtils.isNotBlank(this.getMemberDisplay())){//根据借款会员名称
 	        queryCriteria.andMemberDisplayLike("%" + this.getMemberDisplay() + "%");
 	    }
@@ -59,6 +83,16 @@ public class ReceivablesNotesQueryDTO extends ReceivablesNotes{
 	    	}
 	    	if(null != createEndTime){
 	    		queryCriteria.andCreateTimeLessThanOrEqualTo(createEndTime);
+	    	}
+	    }
+	    if(null != loanDateCreateStartTime && null != loanDateCreateEndTime){//前台创建时间段查询
+	           queryCriteria.andLoanDateBetween(loanDateCreateStartTime, loanDateCreateEndTime); 
+	    }else{
+	    	if(null != loanDateCreateStartTime){
+	    		queryCriteria.andLoanDateGreaterThanOrEqualTo(loanDateCreateStartTime);
+	    	}
+	    	if(null != loanDateCreateEndTime){
+	    		queryCriteria.andLoanDateLessThanOrEqualTo(loanDateCreateEndTime);
 	    	}
 	    }
     }

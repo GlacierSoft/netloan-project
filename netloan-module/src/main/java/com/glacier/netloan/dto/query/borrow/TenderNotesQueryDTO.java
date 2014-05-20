@@ -10,6 +10,7 @@ import java.util.Date;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.entity.borrow.TenderNotesExample.Criteria;
 
@@ -23,8 +24,10 @@ import com.glacier.netloan.entity.borrow.TenderNotesExample.Criteria;
  */
 public class TenderNotesQueryDTO extends TenderNotes{
 	
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
 	private Date createStartTime;
 
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createEndTime;
     
 	public Date getCreateStartTime() {
@@ -45,17 +48,17 @@ public class TenderNotesQueryDTO extends TenderNotes{
     
     public void setQueryCondition(Criteria queryCriteria){
 
-    	if(null != this.getLoanTitle() && StringUtils.isNotBlank(this.getLoanTitle())){//根据借款会员名称
-	        queryCriteria.andLoanTitleLike("%" + this.getMemberDisplay() + "%");
+    	if(null != this.getLoanTitle() && StringUtils.isNotBlank(this.getLoanTitle())){//根据借款标题名称
+	        queryCriteria.andLoanTitleLike("%" + this.getLoanTitle() + "%");
 	    }
 	    if(null != createStartTime && null != createEndTime){//创建时间段查询
-	           queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 
+	           queryCriteria.andLoanDateBetween(createStartTime, createEndTime); 
 	    }else{
 	    	if(null != createStartTime){
-	    		queryCriteria.andCreateTimeGreaterThanOrEqualTo(createStartTime);
+	    		queryCriteria.andLoanDateGreaterThanOrEqualTo(createStartTime);
 	    	}
 	    	if(null != createEndTime){
-	    		queryCriteria.andCreateTimeLessThanOrEqualTo(createEndTime);
+	    		queryCriteria.andLoanDateLessThanOrEqualTo(createEndTime);
 	    	}
 	    }
     }

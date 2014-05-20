@@ -89,18 +89,20 @@ public class ReceivablesNotesDetailService {
      * @throws 
      *
      */
-    public Object listAsGridWebsite(JqPager jqPager,int p,String receNotesId,String memberId) {
+    public Object listAsGridWebsite(JqPager jqPager,int p,String receNotesId,String memberId,String receDetailState) {
         
         JqGridReturn returnResult = new JqGridReturn();
         ReceivablesNotesDetailExample receivablesNotesDetailExample = new ReceivablesNotesDetailExample();
         Criteria criteria = receivablesNotesDetailExample.createCriteria();
         if(memberId != null){
-        	criteria.andMemberIdEqualTo(memberId);//查询相对应的还款人的收款记录明细
+        	criteria.andMemberIdEqualTo(memberId);//查询相对应的还款人的收款记录明细,根据投标人的id
         }
         if(receNotesId != null){
-        	criteria.andReceNotesIdEqualTo(receNotesId);//查询相对应的还款人的收款记录的还款明细
+        	criteria.andReceNotesIdEqualTo(receNotesId);//查询相对应的还款人的收款记录的还款明细，根据收款记录id
         }
-
+        if(receDetailState != null && !receDetailState.trim().equals("")){
+        	criteria.andReceStateEqualTo(receDetailState);//查询相对应的还款人的收款记录的还款明细,根据和收款记录明细状态
+        }
         jqPager.setSort("numberPeriod");// 定义排序字段
         jqPager.setOrder("ASC");// 升序还是降序
         if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息

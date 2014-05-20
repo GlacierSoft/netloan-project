@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.borrow.AttentionBorrowingMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.borrow.AttentionBorrowing" >
+    <id column="temp_attention_borrowing_attention_borrowing_id" property="attentionBorrowingId" jdbcType="VARCHAR" />
+    <result column="temp_attention_borrowing_loan_id" property="loanId" jdbcType="VARCHAR" />
+    <result column="temp_attention_borrowing_member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="temp_attention_borrowing_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_attention_borrowing_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_attention_borrowing_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_attention_borrowing_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_attention_borrowing_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	<result column="temp_attention_borrowing_loan_title" property="loanTitle" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_memberDisplay" property="memberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_loanMemberDisplay" property="loanMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_repaymentTypeDisplay" property="repaymentTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_loanApr" property="loanApr" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_loanTotal" property="loanTotal" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_loanDeadlinesId" property="loanDeadlinesId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_loanDate" property="loanDate" jdbcType="TIMESTAMP"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_loanTenderDisplay" property="loanTenderDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_loanMemberId" property="loanMemberId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_creditIntegral" property="creditIntegral" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_alrTenderPro" property="alrTenderPro" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_attention_borrowing.attention_borrowing_id as temp_attention_borrowing_attention_borrowing_id, 
+    temp_attention_borrowing.loan_id as temp_attention_borrowing_loan_id, temp_attention_borrowing.member_id as temp_attention_borrowing_member_id, 
+    temp_attention_borrowing.remark as temp_attention_borrowing_remark, temp_attention_borrowing.creater as temp_attention_borrowing_creater, 
+    temp_attention_borrowing.create_time as temp_attention_borrowing_create_time, temp_attention_borrowing.updater as temp_attention_borrowing_updater, 
+    temp_attention_borrowing.update_time as temp_attention_borrowing_update_time
+	<!-- 以下字段属于扩展 -->
+    ,temp_borrowing_loan.loan_title as temp_attention_borrowing_loan_title
+    ,temp_borrowing_loan.loan_apr as temp_attention_borrowing_loanApr
+    ,temp_borrowing_loan.loan_total as temp_attention_borrowing_loanTotal
+    ,temp_borrowing_loan.loan_deadlines_id as temp_attention_borrowing_loanDeadlinesId
+    ,temp_borrowing_loan.loan_date as temp_attention_borrowing_loanDate
+    ,temp_borrowing_loan.member_id as temp_attention_borrowing_loanMemberId
+    ,temp_borrowing_loan.alr_tender_pro as temp_attention_borrowing_alrTenderPro
+    ,temp_creater.member_name as temp_attention_borrowing_memberDisplay
+    ,temp_member.member_name as temp_attention_borrowing_loanMemberDisplay
+    ,temp_repayment_type.repayment_type_name as temp_attention_borrowing_repaymentTypeDisplay
+    ,temp_loan_tender.loanr_tender_name as temp_attention_borrowing_loanTenderDisplay
+    ,temp_member.credit_integral as temp_attention_borrowing_creditIntegral
+    ,temp_creater.member_real_name as temp_attention_borrowing_createrDisplay
+    ,temp_updater.member_real_name as temp_attention_borrowing_createrDisplay
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_borrowing_loan temp_borrowing_loan ON temp_borrowing_loan.loan_id = temp_attention_borrowing.loan_id <!-- 扩展 -->
+  	LEFT JOIN t_repayment_type temp_repayment_type ON temp_borrowing_loan.repayment_type_id = temp_repayment_type.repayment_type_id <!-- 扩展 -->
+  	LEFT JOIN t_loan_tender temp_loan_tender ON temp_borrowing_loan.loan_tender_id = temp_loan_tender.loan_tender_id <!-- 扩展 -->
+    LEFT JOIN t_member temp_loan_member ON temp_borrowing_loan.member_id = temp_loan_member.member_id <!-- 扩展 -->
+    LEFT JOIN t_member temp_member ON temp_member.member_id = temp_attention_borrowing.member_id <!-- 扩展 -->
+    LEFT JOIN t_member temp_creater ON temp_creater.member_id = temp_attention_borrowing.creater <!-- 扩展 -->
+    LEFT JOIN t_member temp_updater ON temp_updater.member_id = temp_attention_borrowing.updater <!-- 扩展 -->
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.AttentionBorrowingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_attention_borrowing temp_attention_borrowing
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_attention_borrowing temp_attention_borrowing
+    <include refid="Base_extend" />
+    where temp_attention_borrowing.attention_borrowing_id = #{attentionBorrowingId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_attention_borrowing
+    where attention_borrowing_id = #{attentionBorrowingId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.borrow.AttentionBorrowingExample" >
+    delete temp_attention_borrowing from t_attention_borrowing temp_attention_borrowing
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.borrow.AttentionBorrowing" >
+    insert into t_attention_borrowing (attention_borrowing_id, loan_id, member_id, 
+      remark, creater, create_time, 
+      updater, update_time)
+    values (#{attentionBorrowingId,jdbcType=VARCHAR}, #{loanId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.borrow.AttentionBorrowing" >
+    insert into t_attention_borrowing
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attentionBorrowingId != null" >
+        attention_borrowing_id,
+      </if>
+      <if test="loanId != null" >
+        loan_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attentionBorrowingId != null" >
+        #{attentionBorrowingId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanId != null" >
+        #{loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.AttentionBorrowingExample" resultType="java.lang.Integer" >
+    select count(*) from t_attention_borrowing temp_attention_borrowing
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_attention_borrowing temp_attention_borrowing
+    <set >
+      <if test="record.attentionBorrowingId != null" >
+        temp_attention_borrowing.attention_borrowing_id = #{record.attentionBorrowingId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanId != null" >
+        temp_attention_borrowing.loan_id = #{record.loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberId != null" >
+        temp_attention_borrowing.member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_attention_borrowing.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_attention_borrowing.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_attention_borrowing.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_attention_borrowing.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_attention_borrowing.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_attention_borrowing temp_attention_borrowing
+    set temp_attention_borrowing.attention_borrowing_id = #{record.attentionBorrowingId,jdbcType=VARCHAR},
+      temp_attention_borrowing.loan_id = #{record.loanId,jdbcType=VARCHAR},
+      temp_attention_borrowing.member_id = #{record.memberId,jdbcType=VARCHAR},
+      temp_attention_borrowing.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_attention_borrowing.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_attention_borrowing.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_attention_borrowing.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_attention_borrowing.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.borrow.AttentionBorrowing" >
+    update t_attention_borrowing
+    <set >
+      <if test="loanId != null" >
+        loan_id = #{loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where attention_borrowing_id = #{attentionBorrowingId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.borrow.AttentionBorrowing" >
+    update t_attention_borrowing
+    set loan_id = #{loanId,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where attention_borrowing_id = #{attentionBorrowingId,jdbcType=VARCHAR}
+  </update>
+</mapper>

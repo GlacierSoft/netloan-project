@@ -20,6 +20,12 @@ public class ReceivablesNotes {
     private String loanTitle;
     
     /**
+     * 自定义字段 发布时间
+     */
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    private Date loanDate;
+    
+    /**
      * 自定义字段,借款人名称
      */
     private String loanMemberDisplay;
