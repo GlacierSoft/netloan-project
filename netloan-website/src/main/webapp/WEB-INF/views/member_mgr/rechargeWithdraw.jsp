@@ -188,10 +188,13 @@
 									            	<c:forEach items="${financeRechargeSetDatas.rows}" var="financeRechargeSet">
 									            		
 									            		<tr>
-									            			<td><input name="financeRechargeSetId" type="radio" value="${financeRechargeSet.financeRechargeSetId}"/></td>
+									            			<td><input name="financeRechargeSetId" type="radio" value="${financeRechargeSet.financeRechargeSetId}" onclick="displayIsRechargeReceipt()"/></td>
 									            			<td>${financeRechargeSet.rechargeSetName}</td>
 									            		</tr>
 									            	</c:forEach>
+									            	<tr>
+									            		<td colspan="2"><input type="text" id="rechargeReceipt" name="rechargeReceipt" maxlength="50" class="inp200x gray" disabled="disabled"/></td>
+									            	</tr>
 									            </table>
 								            </td>
 								          </tr>
@@ -283,6 +286,23 @@
 	      
 <!-- 分页显示表格数据 -->
 <script type="text/javascript">
+
+	//是否设置密码
+	function displayIsRechargeReceipt(){
+		var financeRechargeSetId = document.financeRecharge.financeRechargeSetId;
+		var rechargeReceipt = document.financeRecharge.rechargeReceipt;
+		for(var i=0;i<financeRechargeSetId.length;i++){
+			if(financeRechargeSetId[i].checked){
+				if(financeRechargeSetId[i].value == "offline"){
+					rechargeReceipt.disabled = "";
+				}
+				else{
+					rechargeReceipt.disabled = "disabled";
+				}
+			}
+	    }
+	};
+
 	$(function(){
 		//获得浏览器参数
 		$.extend({

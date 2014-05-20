@@ -49,6 +49,12 @@
     line-height: 20px;
     width: 100px;
 }
+.inp200x {
+    border: 1px solid #CCCCCC;
+    height: 20px;
+    line-height: 20px;
+    width: 200px;
+}
 .txt420{
     border: 1px solid #CCCCCC;
     height: 100px;

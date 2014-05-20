@@ -19,10 +19,13 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceRechargeMapper;
 import com.glacier.netloan.dao.finance.FinanceRechargeSetMapper;
+import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.entity.finance.FinanceRecharge;
 import com.glacier.netloan.entity.finance.FinanceRechargeExample;
 import com.glacier.netloan.entity.finance.FinanceRechargeSet;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -42,6 +45,9 @@ public class FinanceRechargeService {
 	@Autowired
 	private FinanceRechargeSetMapper financeRechargeSetMapper;
 
+	@Autowired
+	private UserMapper userMapper;
+	
 	/**
 	 * @Title: getRecharge 
 	 * @Description: TODO(根据会员充值记录Id获取会员充值记录信息) 
@@ -97,6 +103,10 @@ public class FinanceRechargeService {
         Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
   		Member pricipalMember = (Member) pricipalSubject.getPrincipal();
   		
+  		UserExample userExample = new UserExample();
+  		userExample.createCriteria().andUsernameEqualTo("admin");
+  		List<User> users = userMapper.selectByExample(userExample);
+  		
         financeRecharge.setFinanceRechargeId(RandomGUID.getRandomGUID());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
         financeRecharge.setRechargeCode("充值"+ "_" + dateFormat.format(new Date()));
@@ -116,12 +126,24 @@ public class FinanceRechargeService {
              }
         }
         financeRecharge.setArriveMoney(financeRecharge.getRechargeAmount()-financeRecharge.getHandlingCharge());//到帐金额=总金额-手续费
-        financeRecharge.setCreater(pricipalMember.getMemberId());
+        
+        //进行充值设置类型判断，如果是线上充值，系统自动进行审核，如果是线下充值，则需要人工手动进行审核
+    	if (null != rechargeSet.getRechargeType() && StringUtils.isNotBlank(rechargeSet.getRechargeType())) {
+    		if ("onLine".equals(rechargeSet.getRechargeType())) {
+    			financeRecharge.setAuditState("pass");
+    			financeRecharge.setAuditRemark("系统自动审核通过");
+    			financeRecharge.setAuditor(users.get(0).getUserId());
+    			financeRecharge.setAuditDate(new Date());
+    			financeRecharge.setUpdater(users.get(0).getUserId());
+    	        financeRecharge.setUpdateTime(new Date());
+    		}
+    	}
+    	financeRecharge.setCreater(pricipalMember.getMemberId());
         financeRecharge.setCreateTime(new Date());
-        financeRecharge.setUpdater(pricipalMember.getMemberId());
-        financeRecharge.setUpdateTime(new Date());
         int count = financeRechargeMapper.insert(financeRecharge);
         if (count == 1) {
+        	
+        	//判断如果该充值记录通过审核，系统则会自动生成一条会员资金记录明细信息、平台资金记录明细信息，同时还会自动更新该会员的资金记录信息和平台的资金记录信息
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + financeRecharge.getRechargeCode() + "] 会员充值记录信息已保存");
         } else {
