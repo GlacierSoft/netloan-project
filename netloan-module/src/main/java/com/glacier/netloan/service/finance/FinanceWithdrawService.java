@@ -1,5 +1,6 @@
 package com.glacier.netloan.service.finance;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -12,13 +13,17 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.CollectionsUtil;
+import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceWithdrawMapper;
+import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.entity.finance.FinanceWithdraw;
 import com.glacier.netloan.entity.finance.FinanceWithdrawExample;
+import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -35,6 +40,9 @@ public class FinanceWithdrawService {
 	@Autowired
 	private FinanceWithdrawMapper financeWithdrawMapper;
 
+	@Autowired
+	private UserMapper userMapper;
+	
 	/**
 	 * @Title: getWithdraw 
 	 * @Description: TODO(根据会员提现记录Id获取会员提现记录信息) 
@@ -103,48 +111,47 @@ public class FinanceWithdrawService {
         returnResult.setP(p);
         return returnResult;// 返回ExtGrid表
     }
-    
-/*
-    *//**
+
+    /**
      * @Title: addWithdraw 
      * @Description: TODO(新增会员提现记录) 
      * @param @param financeWithdraw
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
-     *//*
+     */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "WithdrawList_add")
     public Object addWithdraw(FinanceWithdraw financeWithdraw) {
     	
-        Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        FinanceWithdrawExample financeWithdrawExample = new FinanceWithdrawExample();
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
+  		Member pricipalMember = (Member) pricipalSubject.getPrincipal();
+  		
+  		UserExample userExample = new UserExample();
+  		userExample.createCriteria().andUsernameEqualTo("admin");
+  		List<User> users = userMapper.selectByExample(userExample);
+  		
         int count = 0;
-        // 防止会员提现记录名称重复
-        financeWithdrawExample.createCriteria().andWithdrawNameEqualTo(financeWithdraw.getWithdrawName());
-        count = financeWithdrawMapper.countByExample(financeWithdrawExample);// 查找相同名称的会员提现记录数量
-        if (count > 0) {
-            returnResult.setMsg("会员提现记录名称重复");
-            return returnResult;
-        }
         financeWithdraw.setFinanceWithdrawId(RandomGUID.getRandomGUID());
-        financeWithdraw.setCreater(pricipalUser.getUserId());
+        // 赋值于提现记录的提现流水号
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
+        financeWithdraw.setWithdrawCode("提现"+ "_" + dateFormat.format(new Date()));
+        financeWithdraw.setAuditState("authstr");
+        financeWithdraw.setCreater(pricipalMember.getMemberId());
         financeWithdraw.setCreateTime(new Date());
-        financeWithdraw.setUpdater(pricipalUser.getUserId());
+        financeWithdraw.setUpdater(users.get(0).getUserId());
         financeWithdraw.setUpdateTime(new Date());
         count = financeWithdrawMapper.insert(financeWithdraw);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + financeWithdraw.getWithdrawName() + "] 会员提现记录信息已保存");
+            returnResult.setMsg("[" + financeWithdraw.getWithdrawCode() + "] 会员提现记录信息已保存");
         } else {
             returnResult.setMsg("发生未知错误，会员提现记录信息保存失败");
         }
         return returnResult;
     }
     
+/*    
     *//**
      * @Title: editWithdraw 
      * @Description: TODO(修改会员提现记录) 

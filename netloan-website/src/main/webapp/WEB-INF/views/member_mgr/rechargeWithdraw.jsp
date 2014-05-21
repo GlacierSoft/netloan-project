@@ -227,7 +227,7 @@
 								<p>6、每笔提现金额最高不能超过50000元。 <p>
 								<p>7、您目前能提取的最高额度是1354539.92元。<p>
 						    </div>
-						    <form>
+						    <form id="financeWithdraw" name="financeWithdraw" class="form-horizontal" role="form" method="post" >
 							    <table class="table table-bordered">
 						          	<tbody>
 								          <tr>
@@ -252,11 +252,12 @@
 								          </tr>
 								          <tr>
 								            <td>提现金额：</td>
-								            <td><input  type="text" class="inp100x" />元</td>
+								            <td><input id="withdrawAmount" name="withdrawAmount" type="text" class="inp100x" />元
+								            <input type="hidden" id="memberId" name="memberId" value="${currentMember.memberId}" ></td>
 								          </tr>
 								          <tr>
 								            <td>交易密码：</td>
-								            <td><input  type="text" class="inp100x" /></td>
+								            <td><input id="" name="" type="text" class="inp100x" /></td>
 								          </tr>
 								          <tr>
 								            <td>验证码：</td>
@@ -265,7 +266,7 @@
 								          <tr>
 								            <td colspan="2" align="center">
 								            	<button type="submit" class="btn btn-default">提交</button>
-								            	<button type="submit" class="btn btn-default">重置</button>
+								            	<button type="reset" class="btn btn-default">重置</button>
 								            </td>
 								          </tr>
 							      	</tbody>
@@ -360,6 +361,28 @@
    				   url: ctx+"/recharge/add.json",
    				   dataType: "json",
    				   data: $("#financeRecharge").serialize(),
+    			   success: function(r) {
+    				   successAddRecharge(r);
+                    },
+                    error: function() {
+                        alert("提交出错！");
+                    }
+   				});
+   		} 
+   	});
+	$("#financeWithdraw").validate({
+   		rules:{
+   			withdrawAmount:"required"
+   		},
+   		messages:{
+   			withdrawAmount:"必须填写充值金额"
+   		},
+   		submitHandler:function(){
+   			$.ajax({
+   				   type: "POST",
+   				   url: ctx+"/withdraw/add.json",
+   				   dataType: "json",
+   				   data: $("#financeWithdraw").serialize(),
     			   success: function(r) {
     				   successAddRecharge(r);
                     },

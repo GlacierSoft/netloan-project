@@ -108,6 +108,7 @@ public class FinanceRechargeService {
   		List<User> users = userMapper.selectByExample(userExample);
   		
         financeRecharge.setFinanceRechargeId(RandomGUID.getRandomGUID());
+        // 赋值于充值记录的充值流水号
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
         financeRecharge.setRechargeCode("充值"+ "_" + dateFormat.format(new Date()));
         financeRecharge.setAuditState("authstr");

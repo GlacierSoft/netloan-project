@@ -82,6 +82,16 @@ public class FinanceWithdrawController extends AbstractController{
         return financeWithdrawService.listAsGrid(pfinanceWithdrawr);
     }
     
+    // 增加会员提现记录
+    @RequestMapping(value = "/add.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object addWithdraw(@Valid FinanceWithdraw financeWithdraw, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResult);
+        }
+        return financeWithdrawService.addWithdraw(financeWithdraw);
+    }
+    
     // 批量删除会员提现记录
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
