@@ -62,7 +62,7 @@ public class FinanceRechargeController extends AbstractController{
         return financeRechargeService.listAsGrid(pfinanceRecharger);
     }
     
-    // 会员进行充值
+    // 增加会员充值记录
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
     private Object addRecharge(@Valid FinanceRecharge financeRecharge, BindingResult bindingResult) {
@@ -71,6 +71,7 @@ public class FinanceRechargeController extends AbstractController{
         }
         return financeRechargeService.addRecharge(financeRecharge);
     }
+    
     // 批量删除会员充值记录
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody

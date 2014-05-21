@@ -167,41 +167,45 @@
 					        	<table class="table table-bordered">
 						          	<tbody>
 								          <tr>
-								            <td>真实姓名</td> 
+								            <td align="right" class="col-md-4">真实姓名:</td> 
 								            <td>
 								            	${currentMember.memberRealName}
 								            	<input type="hidden" id="memberId" name="memberId" value="${currentMember.memberId}" >
 								            </td>
 								          </tr>
 								          <tr>
-								            <td>账号：</td>
+								            <td align="right">账号：</td>
 								            <td>${currentMember.memberName}</td>
 								          </tr>
 								          <tr>
-								            <td>充值金额：</td>
+								            <td align="right">充值金额：</td>
 								            <td><input id="rechargeAmount" name="rechargeAmount" type="text" class="inp100x" />元</td>
 								          </tr>
 								          <tr>
-								            <td>充值类型：</td>
+								            <td align="right">充值类型：</td>
 								            <td>
 								            	<table>
 									            	<c:forEach items="${financeRechargeSetDatas.rows}" var="financeRechargeSet">
-									            		
 									            		<tr>
-									            			<td><input name="financeRechargeSetId" type="radio" value="${financeRechargeSet.financeRechargeSetId}" onclick="displayIsRechargeReceipt()"/></td>
+									            			<td><input name="financeRechargeSetId" type="radio" value="${financeRechargeSet.financeRechargeSetId}"/></td>
 									            			<td>${financeRechargeSet.rechargeSetName}</td>
 									            		</tr>
 									            	</c:forEach>
-									            	<tr>
-									            		<td colspan="2"><input type="text" id="rechargeReceipt" name="rechargeReceipt" maxlength="50" class="inp200x gray" disabled="disabled"/></td>
-									            	</tr>
 									            </table>
 								            </td>
 								          </tr>
 								          <tr>
-								            <td colspan="2" align="center">
+							            	<td align="right">充值回执：</td>
+							            	<td>
+							            		<input type="text" id="rechargeReceipt" name="rechargeReceipt" maxlength="50" class="inp200x"/>
+							            	</td>
+							              </tr>
+								          <tr>
+								            <td align="right">
 								            	<button type="submit" class="btn btn-default">提交</button>
-								            	<button type="submit" class="btn btn-default">重置</button>
+								            </td>
+								            <td>
+								            	<button type="reset" class="btn btn-default">重置</button>
 								            </td>
 								          </tr>
 							      	</tbody>
@@ -287,22 +291,6 @@
 <!-- 分页显示表格数据 -->
 <script type="text/javascript">
 
-	//是否设置密码
-	function displayIsRechargeReceipt(){
-		var financeRechargeSetId = document.financeRecharge.financeRechargeSetId;
-		var rechargeReceipt = document.financeRecharge.rechargeReceipt;
-		for(var i=0;i<financeRechargeSetId.length;i++){
-			if(financeRechargeSetId[i].checked){
-				if(financeRechargeSetId[i].value == "offline"){
-					rechargeReceipt.disabled = "";
-				}
-				else{
-					rechargeReceipt.disabled = "disabled";
-				}
-			}
-	    }
-	};
-
 	$(function(){
 		//获得浏览器参数
 		$.extend({
@@ -359,10 +347,12 @@
 	
     $("#financeRecharge").validate({
    		rules:{
-   			rechargeAmount:"required"
+   			rechargeAmount:"required",
+   			financeRechargeSetId:"required"
    		},
    		messages:{
-   			rechargeAmount:"必须填写充值金额"
+   			rechargeAmount:"必须填写充值金额",
+   			financeRechargeSetId:"必须选择一种充值类型"
    		},
    		submitHandler:function(){
    			$.ajax({

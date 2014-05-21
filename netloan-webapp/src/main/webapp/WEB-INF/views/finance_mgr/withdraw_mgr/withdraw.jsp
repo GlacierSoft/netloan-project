@@ -204,7 +204,7 @@
 	glacier.finance_mgr.withdraw_mgr.withdraw.auditWithdraw = function(){
 		var row = glacier.finance_mgr.withdraw_mgr.withdraw.withdrawDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '审核【'+row.withdrawName+'】',
+			title : '审核【'+row.withdrawCode+'】',
 			width : 580,
 			height : 500,
 			queryUrl : ctx + '/do/withdraw/intoAudit.htm',

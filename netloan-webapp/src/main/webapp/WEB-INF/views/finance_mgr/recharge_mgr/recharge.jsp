@@ -29,7 +29,7 @@
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
 		url: ctx + '/do/recharge/list.json',
-		sortName: 'rechargeAmount',//排序字段名称
+		sortName: 'rechargeCode',//排序字段名称
 		sortOrder: 'ASC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
 		idField:'financeRechargeId',
@@ -46,12 +46,17 @@
 			},{
 				field:'memberDisplay',
 				title:'会员名称',
-				width:150,
+				width:100,
 				sortable:true
 			},{
 				field:'rechargeSetName',
 				title:'充值类型',
 				width:120,
+				sortable:true
+			},{
+				field:'rechargeReceipt',
+				title:'充值回执',
+				width:150,
 				sortable:true
 			},{
 				field:'rechargeAmount',
@@ -150,7 +155,7 @@
 				title: rowData.rechargeCode,
 				href : ctx + '/do/recharge/intoDetail.htm?financeRechargeId='+rowData.financeRechargeId,//从controller请求jsp页面进行渲染
 				width : 570,
-				height : 350,
+				height : 380,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -191,9 +196,9 @@
 	glacier.finance_mgr.recharge_mgr.recharge.auditRecharge = function(){
 		var row = glacier.finance_mgr.recharge_mgr.recharge.rechargeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '审核【'+row.rechargeName+'】',
-			width : 450,
-			height : 460,
+			title : '审核【'+row.rechargeCode+'】',
+			width : 570,
+			height : 480,
 			queryUrl : ctx + '/do/recharge/intoAudit.htm',
 			submitUrl : ctx + '/do/recharge/audit.json',
 			queryParams : {

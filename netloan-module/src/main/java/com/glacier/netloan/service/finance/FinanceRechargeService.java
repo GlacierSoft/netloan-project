@@ -153,6 +153,34 @@ public class FinanceRechargeService {
     }
     
     /**
+     * @Title: auditRecharge 
+     * @Description: TODO(审核会员充值记录) 
+     * @param @param financeRecharge
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "RechargeList_audit")
+    public Object auditRecharge(FinanceRecharge financeRecharge) {
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
+  		User pricipalUser = (User) pricipalSubject.getPrincipal();
+  		financeRecharge.setAuditDate(new Date());
+  		financeRecharge.setAuditor(pricipalUser.getUserId());
+  		financeRecharge.setUpdateTime(new Date());
+  		financeRecharge.setUpdater(pricipalUser.getUserId());
+  		int count = financeRechargeMapper.updateByPrimaryKeySelective(financeRecharge);
+  		if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("[" + financeRecharge.getRechargeCode() + "] 会员充值记录信息已审核");
+        } else {
+            returnResult.setMsg("发生未知错误，会员充值记录信息审核失败");
+        }
+    	return returnResult;
+    }
+    
+    /**
      * @Title: delRecharge 
      * @Description: TODO(删除会员充值记录) 
      * @param @param financeRechargeId
