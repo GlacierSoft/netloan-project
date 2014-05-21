@@ -48,6 +48,7 @@
 				/investment/addInvestment.htm = user
 				/investment/memberTenderNotes.htm = user
 				/receivablesNotes/* = user
+				/attentionBorrowing/* = user
 			   <!-- /validateCode.htm = anon
 				/login.htm = authc
 				/resources/** = anon

@@ -1,5 +1,6 @@
 package com.glacier.netloan.service.borrow;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,11 +19,13 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.AttentionBorrowingMapper;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dto.query.borrow.AttentionBorrowingQueryDTO;
+import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.borrow.AttentionBorrowing;
 import com.glacier.netloan.entity.borrow.AttentionBorrowingExample;
+import com.glacier.netloan.entity.borrow.ReceivablesNotes;
 import com.glacier.netloan.entity.borrow.AttentionBorrowingExample.Criteria;
-import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.service.basicdatas.ParameterCreditService;
 
 /**
  * @ClassName: AttentionBorrowingService 
@@ -39,6 +42,9 @@ public class AttentionBorrowingService {
 	
 	@Autowired
 	private BorrowingLoanMapper borrowingLoanMapper;
+	
+	@Autowired
+	private ParameterCreditService parameterCreditService;
 	
 	/**
 	 * @Title: getAttentionBorrowing 
@@ -64,11 +70,17 @@ public class AttentionBorrowingService {
      * @throws 
      *
      */
-    public Object listAsGridWebsite(JqPager jqPager,int p,String memberId) {
+    public Object listAsGridWebsite(AttentionBorrowingQueryDTO attentionBorrowingQueryDTO,JqPager jqPager,int p,String memberId) {
         
         JqGridReturn returnResult = new JqGridReturn();
         AttentionBorrowingExample attentionBorrowingExample = new AttentionBorrowingExample();
-        attentionBorrowingExample.createCriteria().andMemberIdEqualTo(memberId);//查询相对应的还款人的关注借款
+        Criteria queryCriteria = attentionBorrowingExample.createCriteria();
+        
+        attentionBorrowingQueryDTO.setQueryCondition(queryCriteria);//根据dto,进行查询
+        
+        if(memberId != null){
+        	queryCriteria.andMemberIdEqualTo(memberId);//查询相对应的还款人的关注借款
+        }
         
         jqPager.setSort("createTime");// 定义排序字段
         jqPager.setOrder("DESC");// 升序还是降序
@@ -81,8 +93,22 @@ public class AttentionBorrowingService {
         attentionBorrowingExample.setLimitEnd(10);
         List<AttentionBorrowing>  attentionBorrowings = attentionBorrowingMapper.selectByExample(attentionBorrowingExample); // 查询所有借款列表
 
+        //查询基础信用积分的所有数据
+        List<ParameterCredit> parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
+        List<AttentionBorrowing> allAttentionBorrowings = new ArrayList<AttentionBorrowing>();//定义一个空的收款列表
+        //通过嵌套for循环，将会员的信用图标加到关注借款对象中去
+        for(AttentionBorrowing attentionBorrowing : attentionBorrowings){
+        	for(ParameterCredit parameterCredit : parameterCredits){
+    			if(attentionBorrowing.getCreditIntegral() >= parameterCredit.getCreditBeginIntegral() && attentionBorrowing.getCreditIntegral() < parameterCredit.getCreditEndIntegral()){
+    				attentionBorrowing.setCreditPhoto(parameterCredit.getCreditPhoto());
+        			break;
+        		}	
+        	}
+        	allAttentionBorrowings.add(attentionBorrowing);
+        }
+        
         int total = attentionBorrowingMapper.countByExample(attentionBorrowingExample); // 查询总页数
-        returnResult.setRows(attentionBorrowings);//设置查询数据
+        returnResult.setRows(allAttentionBorrowings);//设置查询数据
         returnResult.setTotal(total);//设置总条数
         returnResult.setP(p);//设置当前页
         return returnResult;// 返回ExtGrid表
@@ -128,14 +154,21 @@ public class AttentionBorrowingService {
     @Transactional(readOnly = false)
     public Object addAttentionBorrowing(AttentionBorrowing attentionBorrowing) {
     	
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+    	
         Subject pricipalSubject = SecurityUtils.getSubject();
         Member pricipalMember = (Member) pricipalSubject.getPrincipal();
         
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        int count = 0;
-        float shouldPayMoney = 0f;
-        BorrowingLoan borrowingLoanNew = (BorrowingLoan)borrowingLoanMapper.selectByPrimaryKey(attentionBorrowing.getLoanId());//重新获取该会员 借款的信息数据
-		
+        AttentionBorrowingExample attentionBorrowingExample = new AttentionBorrowingExample();
+        attentionBorrowingExample.createCriteria().andLoanIdEqualTo(attentionBorrowing.getLoanId())
+        										.andMemberIdEqualTo(attentionBorrowing.getMemberId());
+        count = attentionBorrowingMapper.countByExample(attentionBorrowingExample);// 查询是否已经关注此借款
+        if (count > 0) {
+            returnResult.setMsg("您已经关注此借款！");
+            return returnResult;
+        }
+        
         attentionBorrowing.setAttentionBorrowingId(RandomGUID.getRandomGUID());
         attentionBorrowing.setCreater(pricipalMember.getMemberId());
         attentionBorrowing.setCreateTime(new Date());
@@ -145,7 +178,7 @@ public class AttentionBorrowingService {
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setObj(attentionBorrowing);
-            returnResult.setMsg(" 关注借款信息已保存");
+            returnResult.setMsg("关注借款信息成功");
         } else {
             returnResult.setMsg("发生未知错误，关注借款信息保存失败");
         }

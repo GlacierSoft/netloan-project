@@ -52,7 +52,11 @@
 			        </table>
 			  </div>
 			  <div class="col-md-9" >
-	       	  	<h3 style="color: #696969;"><strong>项目名称：${borrowingLoan.loanTitle}</strong></h3>
+	       	  	<div>
+	       	  	<h3 style="color: #696969;" ><strong>项目名称：${borrowingLoan.loanTitle}</strong>
+	       	  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small id="attentionBorrowingClick"><a href="javascript:void(0);">关注此借款</a></small>
+	       	  	</h3>
+	       	  	</div>
 	       	  	<span>借款金额：</span><span style="color: red;font-size: 20px;"><fmt:formatNumber value="${borrowingLoan.loanTotal }" pattern="#,#00.00"/>元</span>
 	       	  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	       	  	<span>借款目的：</span>${borrowingLoan.loanPurposeId }
@@ -70,11 +74,11 @@
 	       	  	</c:if>
 	       	  	
 	       	  	<div>
-	       	  	<span>借款年利率：</span><fmt:formatNumber value="${borrowingLoan.loanApr * 100}" pattern="#,#00.00"/>%（月利率：<span id="monthLoanApr"></span>%）
-	       	  	<script type="text/javascript">
+	       	  	<span>借款年利率：</span><fmt:formatNumber value="${borrowingLoan.loanApr}" pattern="#0.00%"/>（月利率：<fmt:formatNumber value="${borrowingLoan.loanApr/12}" pattern="#0.00%"/>）
+	       	  	<!-- <script type="text/javascript">
 	       	  		var monthLoanApr = "${borrowingLoan.loanApr }"/12;
 	       	 		$("#monthLoanApr").html(monthLoanApr);
-	       	  	</script>
+	       	  	</script> -->
 	       	  	<span>借款期限：${borrowingLoan.loanDeadlinesId }个月</span>
 	       	  	</div>
 	       	  	<hr>
@@ -497,6 +501,26 @@
 	    <!-- CONTAINER START======================== -->
   </body>
   <script type="text/javascript">
+  
+  /* 进行关注此借款操作 */
+  $('#attentionBorrowingClick').click(function () {  
+	  if("${borrowingLoan.memberId }" == "${currentMember.memberId}"){
+	  		captchadialog("无效操作，不能关注自己发布的借款!");
+				return false;
+		}
+	  $.ajax({
+		   type: "POST",
+		   url: ctx+"/attentionBorrowing/addAttentionBorrowing.json?&memberId=${currentMember.memberId}&loanId=${borrowingLoan.loanId }",
+		   dataType: "json",
+		   success: function(r) {
+			   captchadialog(r.msg);
+            },
+            error: function() {
+                //alert("查看收款记录明细出错！");
+                captchadialog(r.msg);
+            }
+		});
+   }); 
   /* 判断用户是否投自己发布的标 */
   $('#intoInvestment').click(function () {  
   	if("${borrowingLoan.memberId }" == "${currentMember.memberId}"){

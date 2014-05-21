@@ -75,7 +75,7 @@
 					      <div class="panel-body">
 					      	<div class="btn-group-vertical">
 					      	  <a href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow&memberId=${currentMember.memberId}" class="btn btn-info" role="button">我的投标</a>
-					      	  <a href="#" class="btn btn-default" role="button">我关注的借款</a>
+					      	  <a href="${ctx}/attentionBorrowing/memberAttentionBorrowing.htm?&p=1&memberId=${currentMember.memberId}" class="btn btn-default" role="button">我关注的借款</a>
 					      	  <a href="#" class="btn btn-default" role="button">投资统计</a>
 					      	  <a href="#" class="btn btn-default" role="button">自动投标</a> 
 					      </div>
