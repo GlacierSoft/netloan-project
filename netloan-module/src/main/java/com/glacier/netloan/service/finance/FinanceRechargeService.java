@@ -19,10 +19,12 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceRechargeMapper;
 import com.glacier.netloan.dao.finance.FinanceRechargeSetMapper;
+import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.entity.finance.FinanceRecharge;
 import com.glacier.netloan.entity.finance.FinanceRechargeExample;
 import com.glacier.netloan.entity.finance.FinanceRechargeSet;
+import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
@@ -47,6 +49,9 @@ public class FinanceRechargeService {
 
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private FinanceTransactionMapper financeTransactionMapper;
 	
 	/**
 	 * @Title: getRecharge 
@@ -143,8 +148,24 @@ public class FinanceRechargeService {
         financeRecharge.setCreateTime(new Date());
         int count = financeRechargeMapper.insert(financeRecharge);
         if (count == 1) {
-        	
         	//判断如果该充值记录通过审核，系统则会自动生成一条会员资金记录明细信息、平台资金记录明细信息，同时还会自动更新该会员的资金记录信息和平台的资金记录信息
+        	if (null != financeRecharge.getAuditState() && StringUtils.isNotBlank(financeRecharge.getAuditState())) {
+        		if ("pass" == financeRecharge.getAuditState()) {
+        			FinanceTransaction financeTransaction = new FinanceTransaction();
+        			financeTransaction.setTransactionId(RandomGUID.getRandomGUID());
+        			financeTransaction.setFinanceMemberId("2541ad18f86870b6c621fs1d94ecsf1");
+        			financeTransaction.setMemberId(pricipalMember.getMemberId());
+        			financeTransaction.setTransactionTarget("系统账号");
+        			financeTransaction.setTransactionType("充值");
+        			financeTransaction.setEarningMoney(financeRecharge.getArriveMoney());
+        			count = financeTransactionMapper.insert(financeTransaction);
+        			if (count == 1) {
+        				returnResult.setSuccess(true);
+        			} else {
+        	            returnResult.setMsg("发生未知错误，会员充值记录信息保存失败");
+        			}
+        		}
+        	}
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + financeRecharge.getRechargeCode() + "] 会员充值记录信息已保存");
         } else {
