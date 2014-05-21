@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 public class AttentionBorrowingExample {
     protected String orderByClause;
 
@@ -102,6 +103,50 @@ public class AttentionBorrowingExample {
 
         public List<Criterion> getCriteria() {
             return criteria;
+        }
+        
+        //扩展查询条件
+        public Criteria andMemberDisplayLike(String value) {
+            addCriterion("temp_loan_member.member_name like", value, "memberDisplay");
+            return (Criteria) this;
+        }
+        //扩展查询条件
+        public Criteria andLoanMemberDisplayLike(String value) {
+            addCriterion("temp_member.member_name like", value, "loanMemberDisplay");
+            return (Criteria) this;
+        }
+        
+        /*自定义查询条件*/
+        public Criteria andLoanStateEqualTo(String value) {
+            addCriterion("temp_borrowing_loan.loan_state =", value, "loanState");
+            return (Criteria) this;
+        }
+        /*自定义查询条件*/
+        public Criteria andLoanStateIn(List<String> values) {
+            addCriterion("temp_borrowing_loan.loan_state in", values, "loanState");
+            return (Criteria) this;
+        }
+        
+        /*自定义查询条件*/
+        public Criteria andLoanTitleLike(String value) {
+            addCriterion("temp_borrowing_loan.loan_title like", value, "loanTitle");
+            return (Criteria) this;
+        }
+        
+        /*自定义查询条件*/
+        public Criteria andLoanDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("temp_borrowing_loan.loan_date >=", value, "loanDate");
+            return (Criteria) this;
+        }
+        /*自定义查询条件*/
+        public Criteria andLoanDateLessThanOrEqualTo(Date value) {
+            addCriterion("temp_borrowing_loan.loan_date <=", value, "loanDate");
+            return (Criteria) this;
+        }
+        /*自定义查询条件*/
+        public Criteria andLoanDateBetween(Date value1, Date value2) {
+            addCriterion("temp_borrowing_loan.loan_date between", value1, value2, "loanDate");
+            return (Criteria) this;
         }
 
         protected void addCriterion(String condition) {

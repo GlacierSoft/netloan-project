@@ -15,15 +15,14 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
-import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.AttentionBorrowingMapper;
-import com.glacier.netloan.entity.borrow.BorrowingLoan;
-import com.glacier.netloan.entity.borrow.AttentionBorrowingExample.Criteria;
+import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
+import com.glacier.netloan.dto.query.borrow.AttentionBorrowingQueryDTO;
 import com.glacier.netloan.entity.borrow.AttentionBorrowing;
 import com.glacier.netloan.entity.borrow.AttentionBorrowingExample;
+import com.glacier.netloan.entity.borrow.AttentionBorrowingExample.Criteria;
+import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.member.Member;
-import com.glacier.netloan.entity.system.User;
-import com.glacier.netloan.util.MethodLog;
 
 /**
  * @ClassName: AttentionBorrowingService 
@@ -96,20 +95,20 @@ public class AttentionBorrowingService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pager) {
+    public Object listAsGrid(JqPager pager,AttentionBorrowingQueryDTO attentionBorrowingQueryDTO) {
         
         JqGridReturn returnResult = new JqGridReturn();
         AttentionBorrowingExample attentionBorrowingExample = new AttentionBorrowingExample();
         
         Criteria queryCriteria = attentionBorrowingExample.createCriteria();
-        //attentionBorrowingQueryDTO.setQueryCondition(queryCriteria);
+        attentionBorrowingQueryDTO.setQueryCondition(queryCriteria);
 
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	attentionBorrowingExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	attentionBorrowingExample.setLimitEnd(pager.getRows());
         }
         if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
-        	attentionBorrowingExample.setOrderByClause(pager.getOrderBy("temp_repayment_notes_"));
+        	attentionBorrowingExample.setOrderByClause(pager.getOrderBy("temp_attention_borrowing_"));
         }
         List<AttentionBorrowing>  attentionBorrowings = attentionBorrowingMapper.selectByExample(attentionBorrowingExample); // 查询所有关注借款列表
         int total = attentionBorrowingMapper.countByExample(attentionBorrowingExample); // 查询总页数
@@ -137,7 +136,7 @@ public class AttentionBorrowingService {
         float shouldPayMoney = 0f;
         BorrowingLoan borrowingLoanNew = (BorrowingLoan)borrowingLoanMapper.selectByPrimaryKey(attentionBorrowing.getLoanId());//重新获取该会员 借款的信息数据
 		
-		
+        attentionBorrowing.setAttentionBorrowingId(RandomGUID.getRandomGUID());
         attentionBorrowing.setCreater(pricipalMember.getMemberId());
         attentionBorrowing.setCreateTime(new Date());
         attentionBorrowing.setUpdater(pricipalMember.getMemberId());

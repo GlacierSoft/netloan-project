@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.borrow.AttentionBorrowingQueryDTO;
 import com.glacier.netloan.entity.borrow.AttentionBorrowing;
 import com.glacier.netloan.service.borrow.AttentionBorrowingService;
 /**
@@ -61,8 +62,8 @@ public class AttentionBorrowingController extends AbstractController{
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(JqPager pservicer) {
-        return attentionBorrowingService.listAsGrid(pservicer);
+    private Object listActionAsGridByMenuId(JqPager pservicer,AttentionBorrowingQueryDTO attentionBorrowingQueryDTO) {
+        return attentionBorrowingService.listAsGrid(pservicer,attentionBorrowingQueryDTO);
     }
     
     // 增加关注借款
@@ -88,7 +89,7 @@ public class AttentionBorrowingController extends AbstractController{
     // 批量删除关注借款
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
-    public Object delAttentionBorrowing(@RequestParam List<String> attentionBorrowingIds,@RequestParam List<String> loanTitle) {
-    	return attentionBorrowingService.delAttentionBorrowing(attentionBorrowingIds, loanTitle);
+    public Object delAttentionBorrowing(@RequestParam List<String> attentionBorrowingIds,@RequestParam List<String> attentionBorrowingTitle) {
+    	return attentionBorrowingService.delAttentionBorrowing(attentionBorrowingIds, attentionBorrowingTitle);
     }
 }

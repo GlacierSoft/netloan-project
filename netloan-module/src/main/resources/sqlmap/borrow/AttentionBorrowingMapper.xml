@@ -97,13 +97,13 @@
     ,temp_borrowing_loan.loan_date as temp_attention_borrowing_loanDate
     ,temp_borrowing_loan.member_id as temp_attention_borrowing_loanMemberId
     ,temp_borrowing_loan.alr_tender_pro as temp_attention_borrowing_alrTenderPro
-    ,temp_creater.member_name as temp_attention_borrowing_memberDisplay
-    ,temp_member.member_name as temp_attention_borrowing_loanMemberDisplay
+    ,temp_member.member_name as temp_attention_borrowing_memberDisplay
+    ,temp_loan_member.member_name as temp_attention_borrowing_loanMemberDisplay
     ,temp_repayment_type.repayment_type_name as temp_attention_borrowing_repaymentTypeDisplay
     ,temp_loan_tender.loanr_tender_name as temp_attention_borrowing_loanTenderDisplay
     ,temp_member.credit_integral as temp_attention_borrowing_creditIntegral
     ,temp_creater.member_real_name as temp_attention_borrowing_createrDisplay
-    ,temp_updater.member_real_name as temp_attention_borrowing_createrDisplay
+    ,temp_updater.member_real_name as temp_attention_borrowing_updaterDisplay
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_borrowing_loan temp_borrowing_loan ON temp_borrowing_loan.loan_id = temp_attention_borrowing.loan_id <!-- 扩展 -->
