@@ -217,12 +217,12 @@ public class AttentionBorrowingService {
      * @throws
      */
     @Transactional(readOnly = false)
-    public Object delAttentionBorrowing(List<String> attentionBorrowingIds, List<String> loanTitle) {
+    public Object delAttentionBorrowing(String attentionBorrowingId, String loanTitle) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
-        if (attentionBorrowingIds.size() > 0) {
+        if (attentionBorrowingId != null) {
         	AttentionBorrowingExample attentionBorrowingExample = new AttentionBorrowingExample();
-        	attentionBorrowingExample.createCriteria().andAttentionBorrowingIdIn(attentionBorrowingIds);
+        	attentionBorrowingExample.createCriteria().andAttentionBorrowingIdEqualTo(attentionBorrowingId);
             count = attentionBorrowingMapper.deleteByExample(attentionBorrowingExample);
             if (count > 0) {
                 returnResult.setSuccess(true);

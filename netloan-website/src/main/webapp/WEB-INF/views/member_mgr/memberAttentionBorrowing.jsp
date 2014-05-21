@@ -167,7 +167,7 @@
 					              <td><fmt:formatDate value="${attentionBorrowing.loanDate}" type="both"/></td>
 					              <td><fmt:formatNumber value='${attentionBorrowing.alrTenderPro}' pattern='#0.00%'/>/剩余时间</td>
 								  <td><img id="creditPhotoDivImg"  src="${attentionBorrowing.creditPhoto}" style="width: 34px;height: 24px ;" /></td>
-								  <td><a href="#">删除</a></td>
+								  <td><a href="${ctx}/attentionBorrowing/delAttentionBorrowing.json?&memberId=${currentMember.memberId}&attentionBorrowingId=${attentionBorrowing.attentionBorrowingId}">删除</a></td>
 					            </tr>
 					      	</c:forEach>
 					      	</c:if>	<!-- <span id="alrTenderPro${status.index}"><fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/></span>% -->

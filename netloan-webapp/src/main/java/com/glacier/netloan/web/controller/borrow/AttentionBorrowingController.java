@@ -90,6 +90,7 @@ public class AttentionBorrowingController extends AbstractController{
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
     public Object delAttentionBorrowing(@RequestParam List<String> attentionBorrowingIds,@RequestParam List<String> attentionBorrowingTitle) {
-    	return attentionBorrowingService.delAttentionBorrowing(attentionBorrowingIds, attentionBorrowingTitle);
+    	//return attentionBorrowingService.delAttentionBorrowing(attentionBorrowingIds, attentionBorrowingTitle);
+    	return null;
     }
 }
