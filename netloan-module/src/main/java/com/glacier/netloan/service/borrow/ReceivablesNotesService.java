@@ -126,8 +126,6 @@ public class ReceivablesNotesService {
         }
         //如果backAccountBorrow不等于null,说明的通过回账查询按钮的，计算出待收金额
         if(backAccountBorrow != null){
-        	 // 查询所有借款列表,还没进行分页的
-            List<ReceivablesNotes>  receivablesNotessTotal = receivablesNotesMapper.selectByExample(receivablesNotesExample);
             Calendar c = Calendar.getInstance();//日历对象
     	    c.setTime(new Date());//获取当前时间
     	    float nextMonth = 0f;
@@ -142,29 +140,27 @@ public class ReceivablesNotesService {
     	    	}else if(i==2){
     	    		c.add(Calendar.MONTH, 12);//在当前时间上加一年	
     	    	}
-    	    	for(ReceivablesNotes receivablesNotes : receivablesNotessTotal){
-    	        	ReceivablesNotesDetailExample receivablesNotesDetailExample = new ReceivablesNotesDetailExample();
-    	        	if(i==3){//如果i==3,就查询全部待收本息，则不用在receivablesNotesDetailExample加上小于日期的条件查询
-    	        		receivablesNotesDetailExample.createCriteria().andMemberIdEqualTo(memberId).andReceStateEqualTo("notReceiving")
-    													.andReceNotesIdEqualTo(receivablesNotes.getReceNotesId());
-    	        	}else{
-    	        		receivablesNotesDetailExample.createCriteria().andMemberIdEqualTo(memberId).andReceStateEqualTo("notReceiving")
-    	        										.andShouldPayDateLessThanOrEqualTo(c.getTime()).andReceNotesIdEqualTo(receivablesNotes.getReceNotesId());
-    	        	}
-    	        	//查询所有符合条件的收款记录明细，然后通过for循环,计算出本息
-    	        	List<ReceivablesNotesDetail> receivablesNotesDetails = receivablesNotesDetailMapper.selectByExample(receivablesNotesDetailExample);//查询属于该会员的已收款的收款记录明细列表
-    	        	for(ReceivablesNotesDetail receivablesNotesDetail : receivablesNotesDetails){
-    	        		if(i==0){
-    	        			nextMonth +=receivablesNotesDetail.getCurrentReceMoeny();//计算未来一个月待收本息	
-    	    	    	}else if(i==1){
-    	    	    		nextThreeMonth +=receivablesNotesDetail.getCurrentReceMoeny();//计算未来三个月待收本息	
-    	    	    	}else if(i==2){
-    	    	    		nextYear +=receivablesNotesDetail.getCurrentReceMoeny();//计算未来一年待收本息	
-    	    	    	}else if(i==3){
-    	    	    		nextAll +=receivablesNotesDetail.getCurrentReceMoeny();//计算未来全部待收本息	
-    	    	    	}
-    	        	}
-    	        }
+   
+    	    	ReceivablesNotesDetailExample receivablesNotesDetailExample = new ReceivablesNotesDetailExample();
+	        	if(i==3){//如果i==3,就查询全部待收本息，则不用在receivablesNotesDetailExample加上小于日期的条件查询
+	        		receivablesNotesDetailExample.createCriteria().andMemberIdEqualTo(memberId).andReceStateEqualTo("notReceiving");
+	        	}else{
+	        		receivablesNotesDetailExample.createCriteria().andMemberIdEqualTo(memberId).andReceStateEqualTo("notReceiving")
+	        										.andShouldPayDateLessThanOrEqualTo(c.getTime());
+	        	}
+	        	//查询所有符合条件的收款记录明细，然后通过for循环,计算出本息
+	        	List<ReceivablesNotesDetail> receivablesNotesDetails = receivablesNotesDetailMapper.selectByExample(receivablesNotesDetailExample);//查询属于该会员的已收款的收款记录明细列表
+    	    	for(ReceivablesNotesDetail receivablesNotesDetail : receivablesNotesDetails){
+	        		if(i==0){
+	        			nextMonth +=receivablesNotesDetail.getCurrentReceMoeny();//计算未来一个月待收本息	
+	    	    	}else if(i==1){
+	    	    		nextThreeMonth +=receivablesNotesDetail.getCurrentReceMoeny();//计算未来三个月待收本息	
+	    	    	}else if(i==2){
+	    	    		nextYear +=receivablesNotesDetail.getCurrentReceMoeny();//计算未来一年待收本息	
+	    	    	}else if(i==3){
+	    	    		nextAll +=receivablesNotesDetail.getCurrentReceMoeny();//计算未来全部待收本息	
+	    	    	}
+	        	}
     	    }
     	    //将计算出来的数据放到json对象中
     		obj.put("nextMonth", nextMonth);

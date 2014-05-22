@@ -105,9 +105,9 @@
 				              		<td>已赚逾期罚息</td>
 								</tr>
 								<tr>
-									<td>￥100.00</td>
-				              		<td>￥0.00</td>
-				              		<td>￥0.00</td>
+									<td><fmt:formatNumber value="${requestScope.MemberBankingStatistics.alrReceInterest}" pattern="#,#00.00元"/></td>
+				              		<td><fmt:formatNumber value="${requestScope.MemberBankingStatistics.alrReceInterest}" pattern="#,#00.00元"/></td>
+				              		<td><fmt:formatNumber value="${requestScope.MemberBankingStatistics.alrOverdueInterest}" pattern="#,#00.00元"/></td>
 								</tr>
 				            </tbody>
 				        </table>
@@ -127,12 +127,15 @@
 				              		<td>待回收笔数</td>
 								</tr>
 								<tr>
-									<td>￥33700.00</td>
-				              		<td>39</td>
-				              		<td>￥1725.48</td>
-				              		<td>0</td>
-				              		<td>￥32957.40</td>
-				              		<td>39</td>
+									<td><fmt:formatNumber value="${requestScope.MemberBankingStatistics.totalBorrowMoney}" pattern="#,#00.00元"/></td>
+				              		<%-- <td><fmt:formatNumber value="${requestScope.MemberBankingStatistics.totalBorrowNum}" pattern="#,#00.00"/></td> --%>
+				              		<td>${requestScope.MemberBankingStatistics.totalBorrowNum}</td>
+				              		<td><fmt:formatNumber value="${requestScope.MemberBankingStatistics.alrReceMoney}" pattern="#,#00.00元"/></td>
+				              		<%-- <td><fmt:formatNumber value="${requestScope.MemberBankingStatistics.alrReceNum}" pattern="#,#00.00"/></td> --%>
+				              		<td>${requestScope.MemberBankingStatistics.alrReceNum}</td>
+				              		<td><fmt:formatNumber value="${requestScope.MemberBankingStatistics.nextAll}" pattern="#,#00.00元"/></td>
+				              		<%-- <td><fmt:formatNumber value="${requestScope.MemberBankingStatistics.nextReceNum}" pattern="#,#00.00"/></td> --%>
+				              		<td>${requestScope.MemberBankingStatistics.nextReceNum}</td>
 								</tr>
 				            </tbody>
 				        </table>  

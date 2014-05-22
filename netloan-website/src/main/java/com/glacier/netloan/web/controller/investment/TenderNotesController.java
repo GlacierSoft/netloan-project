@@ -11,15 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.glacier.basic.util.JackJson;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
+import com.glacier.netloan.dto.query.borrow.InvestmentCalculationsQueryDTO;
 import com.glacier.netloan.dto.query.borrow.ReceivablesNotesQueryDTO;
 import com.glacier.netloan.dto.query.borrow.TenderNotesQueryDTO;
+import com.glacier.netloan.entity.basicdatas.ParameterBasic;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.TenderNotes;
+import com.glacier.netloan.service.basicdatas.ParameterBasicService;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.borrow.LoanReviewService;
 import com.glacier.netloan.service.borrow.LoanTenderService;
@@ -67,6 +73,9 @@ public class TenderNotesController {
 	
 	@Autowired
 	private RepaymentNotesDetailService repaymentNotesDetailService;
+	
+	@Autowired
+	private ParameterBasicService parameterBasicService;
 	
 	@Autowired
 	private ReceivablesNotesService receivablesNotesService;// 注入收款记录业务Bean
@@ -200,4 +209,56 @@ public class TenderNotesController {
 		request.setAttribute("receivablesNotesDatas", returnResultReceivablesNotes);
 		return "member_mgr/memberTenderNotes";
 	}
+	/**
+	 * @Title: InvestmentCalculationsForm 
+	 * @Description: TODO(投资计算器) 
+	 * @param  @param investmentCalculationsQueryDTO
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 *
+	 */
+    @RequestMapping(value = "/InvestmentCalculationsForm.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object InvestmentCalculationsForm(InvestmentCalculationsQueryDTO investmentCalculationsQueryDTO) {
+    	JSONObject obj = new JSONObject();//定义json对象
+    	float tenderReward = 0f;//投标奖励
+    	float AnnualizedRevenue = 0f;//年化收益率
+    	float totalInterest = 0f;//总计利息
+    	float currentPayMoney = 0f;//每月还款
+    	float totalReceMoney = 0f;//总共收益
+    	float actualReceMoney = 0f;//总计收益
+    	ParameterBasic parameterBasic = (ParameterBasic) parameterBasicService.getParameterBasicByTitle("利息管理费");
+    	if(investmentCalculationsQueryDTO.getRepaymentTypeName().equals("一次性还款")){
+    		float everyMonthMoney = investmentCalculationsQueryDTO.getInvestmentMoney() * investmentCalculationsQueryDTO.getRate() /100 / 12;
+    		totalReceMoney = everyMonthMoney * investmentCalculationsQueryDTO.getLoanDaadline();//总共收益
+    		totalInterest = totalReceMoney - investmentCalculationsQueryDTO.getInvestmentMoney(); //总计利息
+    		actualReceMoney = totalReceMoney - Float.valueOf(parameterBasic.getBasicValue()) * totalInterest;//总计收益
+    	}else if(investmentCalculationsQueryDTO.getRepaymentTypeName().equals("等额本息")){
+    		currentPayMoney = (float) ((investmentCalculationsQueryDTO.getInvestmentMoney() * (investmentCalculationsQueryDTO.getLoanDaadline()/12) 
+    				* Math.pow((1+(investmentCalculationsQueryDTO.getRate()/100/12)),investmentCalculationsQueryDTO.getLoanDaadline())
+    				/(Math.pow((1+(investmentCalculationsQueryDTO.getRate()/100/12)),investmentCalculationsQueryDTO.getLoanDaadline())-1)));//每月还款
+    		totalReceMoney = currentPayMoney * investmentCalculationsQueryDTO.getLoanDaadline();//总共收益
+    		totalInterest = totalReceMoney - investmentCalculationsQueryDTO.getInvestmentMoney(); //总计利息
+    		actualReceMoney = totalReceMoney - Float.valueOf(parameterBasic.getBasicValue()) * totalInterest;//总计收益
+    	}else if(investmentCalculationsQueryDTO.getRepaymentTypeName().equals("按月付息，到期还本")){
+    		currentPayMoney = investmentCalculationsQueryDTO.getInvestmentMoney() * investmentCalculationsQueryDTO.getRate() / 12 / 100;//每月还款
+    		totalReceMoney = currentPayMoney * investmentCalculationsQueryDTO.getLoanDaadline();//总共收益
+    		totalInterest = totalReceMoney - investmentCalculationsQueryDTO.getInvestmentMoney(); //总计利息
+    		actualReceMoney = totalReceMoney - Float.valueOf(parameterBasic.getBasicValue()) * totalInterest;//总计收益
+    	}
+    	if(investmentCalculationsQueryDTO.getAddCash() != 0.0){
+			tenderReward += investmentCalculationsQueryDTO.getAddCash();
+		}
+		if(investmentCalculationsQueryDTO.getBidProReward() != 0.0){
+			tenderReward += investmentCalculationsQueryDTO.getBidProReward() / 100 * investmentCalculationsQueryDTO.getInvestmentMoney();
+		}
+    	obj.put("tenderReward", tenderReward);
+    	obj.put("AnnualizedRevenue", AnnualizedRevenue);
+    	obj.put("totalInterest", totalInterest);
+    	obj.put("currentPayMoney", currentPayMoney);
+    	obj.put("totalReceMoney", totalReceMoney);
+    	obj.put("actualReceMoney", actualReceMoney);
+        return obj;
+    }
 }

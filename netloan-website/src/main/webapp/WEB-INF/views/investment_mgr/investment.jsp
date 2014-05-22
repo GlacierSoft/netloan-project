@@ -333,24 +333,24 @@
 						      <h4 class="panel-title"><strong>收益计算器</strong></h4>
 						    </div>
 					      <div class="panel-body">
-						      <form id="loanReviewForm" class="form-horizontal" role="form" action="${pageContext.request.contextPath}/login.htm" method="post" onsubmit="return validaForm();">
+						      <form id="InvestmentCalculationsForm" class="form-horizontal" role="form"  method="post" >
 							  	  <div class="form-group">
 								    <label for="investmentMoney" class="col-sm-5 control-label">投资金额:</label>
 								    <div class="col-sm-7">
-								      <input type=text class="form-control" id="investmentMoney" name="investmentMoney" placeholder="投资金额" value="${member.memberName}" required autofocus />
+								      <input type=text class="form-control" id="investmentMoney" name="investmentMoney" placeholder="投资金额" value="" required autofocus />
 								    </div>
 								  </div>
 								  <div class="form-group">
 								    <label for="rate" class="col-sm-5 control-label">年利率:</label>
 								    <div class="col-sm-5">
-								      <input type="text" class="form-control" id="rate" name="rate" placeholder="年利率" value="${member.memberPassword}" required />
+								      <input type="text" class="form-control" id="rate" name="rate" placeholder="年利率" value="" required />
 								    </div>
 								    <div class="col-sm-2" ><span style="float: left;text-align: left;">%</span></div>
 								  </div>
 								  <div class="form-group">
 								    <label for="username" class="col-sm-5 control-label">投资期限:</label>
 								    <div class="col-sm-5">
-								      <input type=text class="form-control" id="username" name="username" placeholder="投资期限" value="${member.memberName}" required autofocus />
+								      <input type=text class="form-control" id="loanDaadline" name="loanDaadline" placeholder="投资期限" value="" required autofocus />
 								    </div>
 								    <div class="col-sm-2" ><span style="float: left;text-align: left;">月</span></div>
 								  </div>
@@ -359,7 +359,6 @@
 								    <div class="col-sm-7">
 								      <%-- <input type=text class="form-control" id="username" name="username" placeholder="还款方式" value="${member.memberName}" required autofocus /> --%>
 								      <select  class="form-control" name="repaymentTypeName" id="repaymentTypeName">
-										    <option value="">--请选择--</option>
 										    <c:forEach items="${returnRepaymentType.rows}" var="repaymentType" varStatus="status">
 												<option value="${repaymentType.repaymentTypeName}">${repaymentType.repaymentTypeName}</option>
 											</c:forEach>
@@ -369,14 +368,14 @@
 								  <div class="form-group">
 								    <label for="username" class="col-sm-5 control-label">投标奖励:</label>
 								    <div class="col-sm-5">
-								      <input type=text class="form-control" id="username" name="username" placeholder="0" value="${member.memberName}" />
+								      <input type=text class="form-control" id="bidProReward" name="bidProReward" placeholder="0" value="0" />
 								    </div>
 								    <div class="col-sm-2" ><span style="float: left;text-align: left;">%</span></div>
 								  </div>
 								  <div class="form-group">
 								    <label for="username" class="col-sm-5 control-label">加现金:</label>
 								    <div class="col-sm-5">
-								      <input type=text class="form-control" id="username" name="username" placeholder="0" value="${member.memberName}"  />
+								      <input type=text class="form-control" id="addCash" name="addCash" placeholder="0" value="0"  />
 								    </div>
 								    <div class="col-sm-2"><span style="float: left;text-align: left;">元</span></div>
 								  </div>
@@ -386,6 +385,34 @@
 								    </div>
 								  </div>
 							</form>
+							<div>
+								<table id="InvestmentCalculationsTable" class="table" style="display: none;">
+									<tr>
+										<td>投标奖励:</td>
+										<td id="tenderReward"></td>
+									</tr>
+									<tr>
+										<td>年化收益:</td>
+										<td id="AnnualizedRevenue"></td>
+									</tr>
+									<tr>
+										<td>总计利息:</td>
+										<td id="totalInterest"></td>
+									</tr>
+									<tr>
+										<td>每月还款:</td>
+										<td id="currentPayMoney"></td>
+									</tr>
+									<tr>
+										<td>总共收益:</td>
+										<td id="totalReceMoney"></td>
+									</tr>
+									<tr>
+										<td>总计收益:</td>
+										<td id="actualReceMoney"></td>
+									</tr>
+								</table>
+							</div>
 					      </div>
 						  </div>
 					</div>
@@ -399,6 +426,65 @@
 	    <!-- CONTAINER START======================== -->
   </body>
   <script type="text/javascript">
+  	
+  
+  //投资计算器
+	  $("#InvestmentCalculationsForm").validate({
+			rules:{
+				investmentMoney:{
+					required:true,
+					number:true
+				},
+				rate:{
+					required:true,
+					number:true
+				},
+				loanDaadline:{
+					required:true,
+					digits:true
+				},
+				bidProReward:"digits",
+				addCash:"digits"
+			},
+			messages:{
+				investmentMoney:{
+					required:"投资金额不能为空",
+					number:"请输入正确的投资金额进行计算"
+				},
+				rate:{
+					required:"年利率不能为空",
+					number:"请输入正确的年利率"
+				},
+				loanDaadline:{
+					required:"借款期限不能为空",	
+					digits:"请输入正确的借款期限"
+				},
+				bidProReward:"请输入正确的投资奖励",
+				addCash:" 请输入正确的加现金"
+			},
+			submitHandler:function(){
+				$.ajax({
+					   type: "POST",
+					   url: ctx+"/investment/InvestmentCalculationsForm.json",
+					   dataType: "json",
+					   data: $("#InvestmentCalculationsForm").serialize(),
+	  			   	   success: function(r) {
+							$("#InvestmentCalculationsTable").show();
+							$("#tenderReward").html(r.currentPayMoney);
+							$("#AnnualizedRevenue").html(r.AnnualizedRevenue);
+							$("#totalInterest").html(r.totalInterest);
+							$("#currentPayMoney").html(r.currentPayMoney);
+							$("#totalReceMoney").html(r.totalReceMoney);
+							$("#actualReceMoney").html(r.actualReceMoney);
+	                  },
+	                  error: function() {
+	                      alert("提交出错！");
+	                  }
+					});
+			} 
+		});
+  
+  
   		/* 排序工具提示 */
   		$('#pageloanTotal').tooltip('hide');
   		$('#pagecredit').tooltip('hide');

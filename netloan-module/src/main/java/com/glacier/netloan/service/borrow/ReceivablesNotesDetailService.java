@@ -299,7 +299,6 @@ public class ReceivablesNotesDetailService {
         			}
         		}
         	}
-        	receivablesNotesDetail.setInterestManaFee(0.1f);//设置利息管理费
         	receivablesNotesDetail.setAlrReceMoney(0f);//设置已收金额
         	receivablesNotesDetail.setOverdueDays(0f);//设置逾期天数
         	receivablesNotesDetail.setIsOverdue("no");//设置是否逾期

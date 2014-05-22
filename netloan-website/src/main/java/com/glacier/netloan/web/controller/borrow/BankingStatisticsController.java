@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alibaba.fastjson.JSONObject;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.netloan.service.borrow.BankingStatisticsService;
 
@@ -24,13 +25,12 @@ public class BankingStatisticsController extends AbstractController{
 	@Autowired
 	private BankingStatisticsService bankingStatisticsService;// 注入关注借款业务Bean
 
-	// 进入关注借款列表展示页面
+	// 进入个人理财统计展示页面
     @RequestMapping(value = "/memberBankingStatistics.htm")
     private Object memberBankingStatistics(String memberId,HttpServletRequest request) {
-        //查询我关注借款的列表
-    	//JqGridReturn returnResultAttentionBorrowing = (JqGridReturn)attentionBorrowingService.listAsGridWebsite(attentionBorrowingQueryDTO,jqPager, p, memberId);
-    	//request.setAttribute("returnResultAttentionBorrowing", returnResultAttentionBorrowing);
-    	//request.setAttribute("attentionBorrowingQueryDTO", attentionBorrowingQueryDTO);
+        //查询个人理财统计
+    	JSONObject obj = (JSONObject)bankingStatisticsService.getBankingStatistics(memberId);
+    	request.setAttribute("MemberBankingStatistics", obj);
         return "member_mgr/memberBankingStatistics";
     }
     
