@@ -230,12 +230,12 @@ public class TenderNotesController {
     	float actualReceMoney = 0f;//总计收益
     	ParameterBasic parameterBasic = (ParameterBasic) parameterBasicService.getParameterBasicByTitle("利息管理费");
     	if(investmentCalculationsQueryDTO.getRepaymentTypeName().equals("一次性还款")){
-    		float everyMonthMoney = investmentCalculationsQueryDTO.getInvestmentMoney() * investmentCalculationsQueryDTO.getRate() /100 / 12;
-    		totalReceMoney = everyMonthMoney * investmentCalculationsQueryDTO.getLoanDaadline();//总共收益
+    		float everyMonthMoney = investmentCalculationsQueryDTO.getInvestmentMoney() * (investmentCalculationsQueryDTO.getRate() /100 / 12);
+    		totalReceMoney = everyMonthMoney * investmentCalculationsQueryDTO.getLoanDaadline() + investmentCalculationsQueryDTO.getInvestmentMoney();//总共收益
     		totalInterest = totalReceMoney - investmentCalculationsQueryDTO.getInvestmentMoney(); //总计利息
     		actualReceMoney = totalReceMoney - Float.valueOf(parameterBasic.getBasicValue()) * totalInterest;//总计收益
     	}else if(investmentCalculationsQueryDTO.getRepaymentTypeName().equals("等额本息")){
-    		currentPayMoney = (float) ((investmentCalculationsQueryDTO.getInvestmentMoney() * (investmentCalculationsQueryDTO.getLoanDaadline()/12) 
+    		currentPayMoney = (float) ((investmentCalculationsQueryDTO.getInvestmentMoney() * (investmentCalculationsQueryDTO.getRate() / 100 / 12) 
     				* Math.pow((1+(investmentCalculationsQueryDTO.getRate()/100/12)),investmentCalculationsQueryDTO.getLoanDaadline())
     				/(Math.pow((1+(investmentCalculationsQueryDTO.getRate()/100/12)),investmentCalculationsQueryDTO.getLoanDaadline())-1)));//每月还款
     		totalReceMoney = currentPayMoney * investmentCalculationsQueryDTO.getLoanDaadline();//总共收益
@@ -243,12 +243,12 @@ public class TenderNotesController {
     		actualReceMoney = totalReceMoney - Float.valueOf(parameterBasic.getBasicValue()) * totalInterest;//总计收益
     	}else if(investmentCalculationsQueryDTO.getRepaymentTypeName().equals("按月付息，到期还本")){
     		currentPayMoney = investmentCalculationsQueryDTO.getInvestmentMoney() * investmentCalculationsQueryDTO.getRate() / 12 / 100;//每月还款
-    		totalReceMoney = currentPayMoney * investmentCalculationsQueryDTO.getLoanDaadline();//总共收益
+    		totalReceMoney = currentPayMoney * investmentCalculationsQueryDTO.getLoanDaadline() + investmentCalculationsQueryDTO.getInvestmentMoney();//总共收益
     		totalInterest = totalReceMoney - investmentCalculationsQueryDTO.getInvestmentMoney(); //总计利息
     		actualReceMoney = totalReceMoney - Float.valueOf(parameterBasic.getBasicValue()) * totalInterest;//总计收益
     	}
     	if(investmentCalculationsQueryDTO.getAddCash() != 0.0){
-			tenderReward += investmentCalculationsQueryDTO.getAddCash();
+    		tenderReward += investmentCalculationsQueryDTO.getAddCash();
 		}
 		if(investmentCalculationsQueryDTO.getBidProReward() != 0.0){
 			tenderReward += investmentCalculationsQueryDTO.getBidProReward() / 100 * investmentCalculationsQueryDTO.getInvestmentMoney();

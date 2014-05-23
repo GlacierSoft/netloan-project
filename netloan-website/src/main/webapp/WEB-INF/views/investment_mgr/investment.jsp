@@ -443,8 +443,8 @@
 					required:true,
 					digits:true
 				},
-				bidProReward:"digits",
-				addCash:"digits"
+				bidProReward:"number",
+				addCash:"number"
 			},
 			messages:{
 				investmentMoney:{
@@ -470,12 +470,12 @@
 					   data: $("#InvestmentCalculationsForm").serialize(),
 	  			   	   success: function(r) {
 							$("#InvestmentCalculationsTable").show();
-							$("#tenderReward").html(r.currentPayMoney);
-							$("#AnnualizedRevenue").html(r.AnnualizedRevenue);
-							$("#totalInterest").html(r.totalInterest);
-							$("#currentPayMoney").html(r.currentPayMoney);
-							$("#totalReceMoney").html(r.totalReceMoney);
-							$("#actualReceMoney").html(r.actualReceMoney);
+							$("#tenderReward").html(FormatNumber(r.tenderReward,2)+"元");
+							$("#AnnualizedRevenue").html(FormatNumber(r.AnnualizedRevenue,2)+"元");
+							$("#totalInterest").html(FormatNumber(r.totalInterest,2)+"元");
+							$("#currentPayMoney").html(FormatNumber(r.currentPayMoney,2)+"元");
+							$("#totalReceMoney").html(FormatNumber(r.totalReceMoney,2)+"元");
+							$("#actualReceMoney").html(FormatNumber(r.actualReceMoney,2)+"元(扣除10%管理费)");
 	                  },
 	                  error: function() {
 	                      alert("提交出错！");
@@ -562,5 +562,39 @@
 		elementpageborrowingLoan.bootstrapPaginator(messageNoticeOptions);
 		})
 	<!-- 分页显示表格数据 结束 -->
+		
+		//编写FormatNumber方法，通过jquery格式化数据格式
+		function FormatNumber(srcStr,nAfterDot){
+			　　var srcStr,nAfterDot;
+			　　var resultStr,nTen;
+			　　srcStr = ""+srcStr+"";
+			　　strLen = srcStr.length;
+			　　dotPos = srcStr.indexOf(".",0);
+			　　if (dotPos == -1){
+			　　　　resultStr = srcStr+".";
+			　　　　for (i=0;i<nAfterDot;i++){
+			　　　　　　resultStr = resultStr+"0";
+			　　　　}
+			　　　　return resultStr;
+			　　}
+			　　else{
+			　　　　if ((strLen - dotPos - 1) >= nAfterDot){
+			　　　　　　nAfter = dotPos + nAfterDot + 1;
+			　　　　　　nTen =1;
+			　　　　　　for(j=0;j<nAfterDot;j++){
+			　　　　　　　　nTen = nTen*10;
+			　　　　　　}
+			　　　　　　resultStr = Math.round(parseFloat(srcStr)*nTen)/nTen;
+			　　　　　　return resultStr;
+			　　　　}
+			　　　　else{
+			　　　　　　resultStr = srcStr;
+			　　　　　　for (i=0;i<(nAfterDot - strLen + dotPos + 1);i++){
+			　　　　　　　　resultStr = resultStr+"0";
+			　　　　　　}
+			　　　　　　return resultStr;
+			　　　　}
+			　　}
+			}
   </script>
 </html>

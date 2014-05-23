@@ -234,18 +234,20 @@ public class TenderNotesService {
       	BorrowingLoan borrowingLoan = (BorrowingLoan) borrowingLoanService.getBorrowingLoan(tenderNotes.getLoanId());
       	Member member = (Member) memberService.getMember(borrowingLoan.getMemberId());
       	financeTransaction.setTransactionTarget(member.getMemberName());//设置交易对象
-      	financeTransaction.setTransactionType("投标");//设置交易类型
+      	financeTransaction.setTransactionType("冻结投标金额");//设置交易类型
     	financeTransaction.setEarningMoney(0f);//设置收入金额
       	if(tenderNotes.getTenderMoney() != null){//判断投标是按金额还是按认购份数
       		financeTransaction.setExpendMoney(tenderNotes.getTenderMoney());//设置支出金额
       		financeTransaction.setUsableMoney(financeMember.getUsableMoney() - tenderNotes.getTenderMoney());//设置可用金额
       		financeTransaction.setFrozenMoney(financeMember.getFrozenMoney() + tenderNotes.getTenderMoney());//设置冻结金额
       		financeTransaction.setAmount(financeMember.getAmount() - tenderNotes.getTenderMoney());//设置总金额
+      		financeTransaction.setRemark("投标借款["+borrowingLoan.getLoanTitle()+"],冻结投标金额[tenderNotes.getTenderMoney()]元");
       	}else{
       		financeTransaction.setExpendMoney(tenderNotes.getSubSum() * borrowingLoan.getLowestSub());//设置支出金额
       		financeTransaction.setUsableMoney(financeMember.getUsableMoney() - tenderNotes.getSubSum() * borrowingLoan.getLowestSub());//设置可用金额
       		financeTransaction.setFrozenMoney(financeMember.getFrozenMoney() + tenderNotes.getSubSum() * borrowingLoan.getLowestSub());//设置冻结金额
       		financeTransaction.setAmount(financeMember.getAmount() - tenderNotes.getSubSum() * borrowingLoan.getLowestSub());//设置总金额
+      		financeTransaction.setRemark("投标借款["+borrowingLoan.getLoanTitle()+"],冻结投标金额[tenderNotes.getSubSum() * borrowingLoan.getLowestSub()]元");
       	}
       	financeTransaction.setCollectingMoney(financeMember.getCollectingMoney());//设置代收金额
       	financeTransaction.setRefundMoney(financeMember.getRefundMoney());//设置待还金额
