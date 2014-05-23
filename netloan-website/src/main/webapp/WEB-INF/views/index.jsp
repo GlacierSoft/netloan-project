@@ -15,7 +15,10 @@
   <body>
   <jsp:include page="nav.jsp"/>
 
-    <!-- Carousel ============================= -->
+    <!-- Marketing messaging and featurettes ====================== -->
+    <div class="container marketing">
+
+	<!-- Carousel ============================= -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators">
@@ -49,10 +52,7 @@
       <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
       <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
     </div><!-- /.carousel -->
-
-    <!-- Marketing messaging and featurettes ====================== -->
-    <div class="container marketing">
-
+    
       <!-- Three columns of text below the carousel -->
       <div class="row">
       	<div class="col-lg-4">
