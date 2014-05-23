@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.finance.FinTransactionQueryDTO;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.service.finance.FinanceMemberService;
@@ -55,13 +56,13 @@ public class FinanceMemberController extends AbstractController{
     
     //转到“充值提现”页面
   	@RequestMapping(value = "/rechargeWithdraw.htm")
-  	public Object rechargeWithdraw(JqPager pager, int p){
+  	public Object rechargeWithdraw(JqPager pager,FinTransactionQueryDTO finTransactionQueryDTO, int p){
   		ModelAndView mav = new ModelAndView("member_mgr/rechargeWithdraw");
   		Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
   		Member pricipalMember = (Member) pricipalSubject.getPrincipal();
         if(StringUtils.isNotBlank(pricipalMember.getMemberId())){
             mav.addObject("financeMemberData", financeMemberService.getMemberId(pricipalMember.getMemberId()));
-            mav.addObject("financeTransactionDatas",financeTransactionService.listAsWebsite(pager, pricipalMember.getMemberId(), p));
+            mav.addObject("financeTransactionDatas",financeTransactionService.listAsWebsite(pager, finTransactionQueryDTO, pricipalMember.getMemberId(), p));
             mav.addObject("financeWithdrawDatas",financeWithdrawService.listAsWebsite(pager, pricipalMember.getMemberId(), p));
             mav.addObject("financeRechargeSetDatas",financeRechargeSetService.listAsGrid(pager));
         }

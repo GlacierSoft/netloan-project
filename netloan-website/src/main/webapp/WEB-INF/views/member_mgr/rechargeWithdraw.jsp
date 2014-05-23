@@ -117,6 +117,21 @@
 						          </tr>
 					      	</tbody>
 					      </table>
+					      <div class="panel panel-default">
+							  <div class="panel-body" style="padding-bottom: 0px; padding-top: 10px; padding-left: 25px;"><!-- style="text-align:center;vertical-align: middle;" -->
+							     <form id="financeTransactionSearch"  class="form-horizontal" role="form"  method="post" action="${ctx}/financeMember/rechargeWithdraw.htm?p=1" >
+								   <div class="form-group">
+								    <div>
+								      	<input type="hidden" id="dtp_input3" name="memberId" value="${currentMember.memberId}" />
+								      	查询时间 起始时间：<input id="createStartTime" name="createStartTime" type="text" class="inp140" value="<fmt:formatDate value="${finTransactionQueryDTO.createStartTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'createEndTime\')||\'%y-%M-%d\'}'})"/>
+								      	结束时间：<input id="createEndTime" name="createEndTime" type="text" class="inp140" value="<fmt:formatDate value="${finTransactionQueryDTO.createEndTime}" type="date"/>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'createStartTime\')}',maxDate:'%y-%M-%d'})"/>
+									 	交易类型：<input type="text" class="inp100x" id="transactionType" name="transactionType" value="${finTransactionQueryDTO.transactionType}"/>
+								    	<button id="financeTransactionSubmit" type="submit" class="cxbtn">查&nbsp;&nbsp;询</button>
+								    </div>
+								   </div>
+							     </form>
+							  </div>
+						  </div>
 					      <table class="table table-bordered">
 				          	<thead>
 					          <tr>
@@ -418,6 +433,7 @@
 					});
 		});
 	};
+
 </script>
  
   </body>

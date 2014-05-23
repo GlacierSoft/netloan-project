@@ -61,3 +61,24 @@
     width: 280px;
 }
 /*借款录入页面样式*/
+
+/*会员中心的充值提现按钮样式*/
+.cxbtn {
+    background-image: url("../images/030213_3.jpg");
+    background-repeat: repeat-x;
+    border: 1px solid #CCCCCC;
+    color: #333333;
+    display: inline-block;
+    height: 20px;
+    line-height: 18px;
+    text-align: center;
+    width: 58px;
+}
+
+/*时间输入框样式*/
+.inp140 {
+    border: 1px solid #CCCCCC;
+    height: 20px;
+    line-height: 20px;
+    width: 100px;
+}
