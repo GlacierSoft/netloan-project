@@ -390,7 +390,7 @@
    			withdrawAmount:"required"
    		},
    		messages:{
-   			withdrawAmount:"必须填写充值金额"
+   			withdrawAmount:"必须填写提现金额"
    		},
    		submitHandler:function(){
    			$.ajax({

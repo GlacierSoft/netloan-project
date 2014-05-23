@@ -17,10 +17,12 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.finance.FinanceMemberMapper;
 import com.glacier.netloan.dao.finance.FinanceRechargeMapper;
 import com.glacier.netloan.dao.finance.FinanceRechargeSetMapper;
 import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
 import com.glacier.netloan.dao.system.UserMapper;
+import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.finance.FinanceRecharge;
 import com.glacier.netloan.entity.finance.FinanceRechargeExample;
 import com.glacier.netloan.entity.finance.FinanceRechargeSet;
@@ -52,6 +54,9 @@ public class FinanceRechargeService {
 	
 	@Autowired
 	private FinanceTransactionMapper financeTransactionMapper;
+	
+	@Autowired
+	private FinanceMemberMapper financeMemberMapper;
 	
 	/**
 	 * @Title: getRecharge 
@@ -153,11 +158,27 @@ public class FinanceRechargeService {
         		if ("pass" == financeRecharge.getAuditState()) {
         			FinanceTransaction financeTransaction = new FinanceTransaction();
         			financeTransaction.setTransactionId(RandomGUID.getRandomGUID());
-        			financeTransaction.setFinanceMemberId("2541ad18f86870b6c621fs1d94ecsf1");
+        			
+        			//根据充值会员Id找到该会员的会员财务信息记录
+        			FinanceMember financeMember = new FinanceMember();
+        			financeMember = financeMemberMapper.selectByMemberId(pricipalMember.getMemberId());
+        			
+        			
+        			financeTransaction.setFinanceMemberId(financeMember.getFinanceMemberId());
         			financeTransaction.setMemberId(pricipalMember.getMemberId());
         			financeTransaction.setTransactionTarget("系统账号");
         			financeTransaction.setTransactionType("充值");
         			financeTransaction.setEarningMoney(financeRecharge.getArriveMoney());
+        			financeTransaction.setUsableMoney(financeMember.getUsableMoney()+financeRecharge.getArriveMoney());//记录的可用金额=原来可用金额+充值的收入金额
+        			financeTransaction.setFrozenMoney(financeMember.getFrozenMoney());//冻结金额不变
+        			financeTransaction.setCollectingMoney(financeMember.getCollectingMoney());//代收金额不变
+        			financeTransaction.setRefundMoney(financeMember.getRefundMoney());//待还金额不变
+        			financeTransaction.setAmount(financeMember.getAmount()+financeRecharge.getArriveMoney());//总金额=原来总金额+收入金额
+        			financeTransaction.setRemark("充值自动生成资金明细信息。");
+        			financeTransaction.setCreateTime(new Date());
+        			financeTransaction.setCreater(users.get(0).getUserId());
+        			financeTransaction.setUpdateTime(new Date());
+        			financeTransaction.setUpdater(users.get(0).getUserId());
         			count = financeTransactionMapper.insert(financeTransaction);
         			if (count == 1) {
         				returnResult.setSuccess(true);
