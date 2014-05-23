@@ -137,9 +137,11 @@ public class FinanceRechargeService {
              }
         }
         financeRecharge.setArriveMoney(financeRecharge.getRechargeAmount()-financeRecharge.getHandlingCharge());//到帐金额=总金额-手续费
-        financeRecharge.setAuditRemark("充值成功");
+        financeRecharge.setRemark("充值成功");
     	financeRecharge.setCreater(pricipalMember.getMemberId());
         financeRecharge.setCreateTime(new Date());
+        financeRecharge.setUpdater(users.get(0).getUserId());
+        financeRecharge.setUpdateTime(new Date());
         //进行充值设置类型判断，如果是线上充值，系统自动进行审核，如果是线下充值，则需要人工手动进行审核
         if (null != rechargeSet.getRechargeType() && StringUtils.isNotBlank(rechargeSet.getRechargeType())) {
             if ("onLine".equals(rechargeSet.getRechargeType())) {
@@ -147,8 +149,6 @@ public class FinanceRechargeService {
                 financeRecharge.setAuditRemark("充值成功,系统自动审核通过");
                 financeRecharge.setAuditor(users.get(0).getUserId());
                 financeRecharge.setAuditDate(new Date());
-                financeRecharge.setUpdater(users.get(0).getUserId());
-                financeRecharge.setUpdateTime(new Date());
             }
         }
         int count = financeRechargeMapper.insert(financeRecharge);
