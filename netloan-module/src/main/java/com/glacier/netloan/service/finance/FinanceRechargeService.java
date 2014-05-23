@@ -137,32 +137,31 @@ public class FinanceRechargeService {
              }
         }
         financeRecharge.setArriveMoney(financeRecharge.getRechargeAmount()-financeRecharge.getHandlingCharge());//到帐金额=总金额-手续费
-        
-        //进行充值设置类型判断，如果是线上充值，系统自动进行审核，如果是线下充值，则需要人工手动进行审核
-    	if (null != rechargeSet.getRechargeType() && StringUtils.isNotBlank(rechargeSet.getRechargeType())) {
-    		if ("onLine".equals(rechargeSet.getRechargeType())) {
-    			financeRecharge.setAuditState("pass");
-    			financeRecharge.setAuditRemark("系统自动审核通过");
-    			financeRecharge.setAuditor(users.get(0).getUserId());
-    			financeRecharge.setAuditDate(new Date());
-    			financeRecharge.setUpdater(users.get(0).getUserId());
-    	        financeRecharge.setUpdateTime(new Date());
-    		}
-    	}
+        financeRecharge.setAuditRemark("充值成功");
     	financeRecharge.setCreater(pricipalMember.getMemberId());
         financeRecharge.setCreateTime(new Date());
+        //进行充值设置类型判断，如果是线上充值，系统自动进行审核，如果是线下充值，则需要人工手动进行审核
+        if (null != rechargeSet.getRechargeType() && StringUtils.isNotBlank(rechargeSet.getRechargeType())) {
+            if ("onLine".equals(rechargeSet.getRechargeType())) {
+                financeRecharge.setAuditState("pass");
+                financeRecharge.setAuditRemark("充值成功,系统自动审核通过");
+                financeRecharge.setAuditor(users.get(0).getUserId());
+                financeRecharge.setAuditDate(new Date());
+                financeRecharge.setUpdater(users.get(0).getUserId());
+                financeRecharge.setUpdateTime(new Date());
+            }
+        }
         int count = financeRechargeMapper.insert(financeRecharge);
         if (count == 1) {
         	//判断如果该充值记录通过审核，系统则会自动生成一条会员资金记录明细信息、平台资金记录明细信息，同时还会自动更新该会员的资金记录信息和平台的资金记录信息
         	if (null != financeRecharge.getAuditState() && StringUtils.isNotBlank(financeRecharge.getAuditState())) {
-        		if ("pass" == financeRecharge.getAuditState()) {
+        		if ("pass".equals(financeRecharge.getAuditState())) {
         			FinanceTransaction financeTransaction = new FinanceTransaction();
         			financeTransaction.setTransactionId(RandomGUID.getRandomGUID());
         			
         			//根据充值会员Id找到该会员的会员财务信息记录
         			FinanceMember financeMember = new FinanceMember();
         			financeMember = financeMemberMapper.selectByMemberId(pricipalMember.getMemberId());
-        			
         			
         			financeTransaction.setFinanceMemberId(financeMember.getFinanceMemberId());
         			financeTransaction.setMemberId(pricipalMember.getMemberId());
@@ -215,6 +214,39 @@ public class FinanceRechargeService {
   		financeRecharge.setUpdater(pricipalUser.getUserId());
   		int count = financeRechargeMapper.updateByPrimaryKeySelective(financeRecharge);
   		if (count == 1) {
+  		    //判断如果该充值记录通过审核，系统则会自动生成一条会员资金记录明细信息、平台资金记录明细信息，同时还会自动更新该会员的资金记录信息和平台的资金记录信息
+            if (null != financeRecharge.getAuditState() && StringUtils.isNotBlank(financeRecharge.getAuditState())) {
+                if ("pass".equals(financeRecharge.getAuditState())) {
+                    FinanceTransaction financeTransaction = new FinanceTransaction();
+                    financeTransaction.setTransactionId(RandomGUID.getRandomGUID());
+                    
+                    //根据充值会员Id找到该会员的会员财务信息记录
+                    FinanceMember financeMember = new FinanceMember();
+                    financeMember = financeMemberMapper.selectByMemberId(financeRecharge.getMemberId());
+                    
+                    financeTransaction.setFinanceMemberId(financeMember.getFinanceMemberId());
+                    financeTransaction.setMemberId(financeRecharge.getMemberId());
+                    financeTransaction.setTransactionTarget("系统账号");
+                    financeTransaction.setTransactionType("充值");
+                    financeTransaction.setEarningMoney(financeRecharge.getArriveMoney());
+                    financeTransaction.setUsableMoney(financeMember.getUsableMoney()+financeRecharge.getArriveMoney());//记录的可用金额=原来可用金额+充值的收入金额
+                    financeTransaction.setFrozenMoney(financeMember.getFrozenMoney());//冻结金额不变
+                    financeTransaction.setCollectingMoney(financeMember.getCollectingMoney());//代收金额不变
+                    financeTransaction.setRefundMoney(financeMember.getRefundMoney());//待还金额不变
+                    financeTransaction.setAmount(financeMember.getAmount()+financeRecharge.getArriveMoney());//总金额=原来总金额+收入金额
+                    financeTransaction.setRemark("管理员进行审核自动生成资金明细信息。");
+                    financeTransaction.setCreateTime(new Date());
+                    financeTransaction.setCreater(pricipalUser.getUserId());
+                    financeTransaction.setUpdateTime(new Date());
+                    financeTransaction.setUpdater(pricipalUser.getUserId());
+                    count = financeTransactionMapper.insert(financeTransaction);
+                    if (count == 1) {
+                        returnResult.setSuccess(true);
+                    } else {
+                        returnResult.setMsg("发生未知错误，会员充值记录信息保存失败");
+                    }
+                }
+            }
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + financeRecharge.getRechargeCode() + "] 会员充值记录信息已审核");
         } else {

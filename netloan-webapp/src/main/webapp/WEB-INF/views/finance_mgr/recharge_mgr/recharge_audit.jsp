@@ -87,7 +87,9 @@
 		<tr>
 			<td>审核充值记录：</td>
 			<td><input type="hidden" id="rechargeSet_mgr_rechargeSet_audit_financeRechargeId" name="financeRechargeId" value="${rechargeData.financeRechargeId}" />
+				<input type="hidden" id="rechargeSet_mgr_rechargeSet_audit_memberId" name="memberId" value="${rechargeData.memberId}"/>
 				<input type="hidden" id="rechargeSet_mgr_rechargeSet_audit_rechargeCode" name="rechargeCode" value="${rechargeData.rechargeCode}"/>
+				<input type="hidden" id="rechargeSet_mgr_rechargeSet_audit_arriveMoney" name="arriveMoney" value="${rechargeData.arriveMoney}">
 				<input id="rechargeSet_mgr_rechargeSet_audit_auditState" name="auditState" type="radio" value="pass" /><span>审核通过</span>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<input id="rechargeSet_mgr_rechargeSet_audit_auditState" name="auditState" type="radio" value="failure"  checked="checked"/><span>审核失败</span></td>
