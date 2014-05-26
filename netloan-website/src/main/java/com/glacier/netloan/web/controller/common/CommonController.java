@@ -33,7 +33,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.website.WebsiteAnnouncementService;
 import com.glacier.netloan.service.website.WebsiteNewsService;
 
@@ -53,6 +55,8 @@ public class CommonController {
 	@Autowired
 	private WebsiteNewsService newsService;//注入新闻业务类
 	
+	@Autowired
+	private BorrowingLoanService borrowingLoanService;
     /**
      * 
      * @Title: index
@@ -64,8 +68,10 @@ public class CommonController {
      *             <p>
      */
     @RequestMapping(value = "/")
-    private Object index(JqPager pager) {
+    private Object index(JqPager pager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String pagetype) {
         ModelAndView mav = new ModelAndView("index");
+        int p = 1;
+        mav.addObject("borrowingDatas",  borrowingLoanService.listAsGridWebsite(pager, borrowingLoanQueryDTO, pagetype, p));//主页加载借款信息
         mav.addObject("announcementDatas", announcementService.listAsGrid(pager));//主页加载公告信息
         mav.addObject("newsDatas", newsService.listAsGrid(pager));//主页加载新闻信息
         // 进入首页初始化导航信息
@@ -83,8 +89,10 @@ public class CommonController {
      *             <p>
      */
     @RequestMapping(value = "/index.htm")
-    private Object mappingIndexPage(JqPager pager) {
+    private Object mappingIndexPage(JqPager pager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String pagetype) {
         ModelAndView mav = new ModelAndView("index");
+        int p = 1;
+        mav.addObject("borrowingDatas",  borrowingLoanService.listAsGridWebsite(pager, borrowingLoanQueryDTO, pagetype, p));//主页加载借款信息
         mav.addObject("announcementDatas", announcementService.listAsGrid(pager));//主页加载公告信息
         mav.addObject("newsDatas", newsService.listAsGrid(pager));//主页加载新闻信息
         // 进入首页初始化导航信息
@@ -152,11 +160,13 @@ public class CommonController {
      *
      */
     @RequestMapping(value = "/logout.htm")
-    public Object logout(JqPager pager){
+    public Object logout(JqPager pager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String pagetype){
     	ModelAndView mav = new ModelAndView("index");
     	if (null != SecurityUtils.getSubject() && null != SecurityUtils.getSubject().getSession()) {
             SecurityUtils.getSubject().logout();// ，默认把登录用户注销
         }
+    	int p = 1;
+        mav.addObject("borrowingDatas",  borrowingLoanService.listAsGridWebsite(pager, borrowingLoanQueryDTO, pagetype, p));//主页加载借款信息
     	mav.addObject("announcementDatas", announcementService.listAsGrid(pager));//主页加载公告信息
         mav.addObject("newsDatas", newsService.listAsGrid(pager));//主页加载新闻信息
         // 进入首页初始化导航信息
