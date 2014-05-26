@@ -15,9 +15,6 @@
   <body>
   <jsp:include page="nav.jsp"/>
 
-    <!-- Marketing messaging and featurettes ====================== -->
-    <div class="container marketing">
-
 	<!-- Carousel ============================= -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
@@ -28,7 +25,7 @@
       </ol>
       <div class="carousel-inner">
         <div class="item active">
-          <img src="${pageContext.request.contextPath}/resources/images/index/3.jpg" alt="First slide">
+          <img src="${pageContext.request.contextPath}/resources/images/index/1.jpg" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
             </div>
@@ -42,7 +39,7 @@
           </div>
         </div>
         <div class="item">
-          <img src="${pageContext.request.contextPath}/resources/images/index/1.jpg" alt="Third slide">
+          <img src="${pageContext.request.contextPath}/resources/images/index/3.jpg" alt="Third slide">
           <div class="container">
             <div class="carousel-caption">
             </div>
@@ -53,6 +50,9 @@
       <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
     </div><!-- /.carousel -->
     
+    <!-- Marketing messaging and featurettes ====================== -->
+    <div class="container marketing">
+
       <!-- Three columns of text below the carousel -->
       <div class="row">
       	<div class="col-lg-4">
