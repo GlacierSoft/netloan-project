@@ -56,14 +56,14 @@
 		</tr>
 		<tr>
 			<td>创建人：</td>
-			<td><input id="borrowingLoan_mgr_borrowingLoan_detail_createrDisplay" name="createrDisplay" class="spinner" style="width:198px" value="${repaymentNotesDetailData.createrDisplay}" readonly="readonly"/></td>
+			<td><input id="borrowingLoan_mgr_borrowingLoan_detail_createrDisplay" name="createrDisplay" class="spinner" style="width:168px" value="${repaymentNotesDetailData.createrDisplay}" readonly="readonly"/></td>
 			<td>创建时间：</td>
-			<td><input id="borrowingLoan_mgr_borrowingLoan_detail_createTime" name="createTime" class="spinner" style="width:198px" value="<fmt:formatDate value="${repaymentNotesDetailData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+			<td><input id="borrowingLoan_mgr_borrowingLoan_detail_createTime" name="createTime" class="spinner" style="width:168px" value="<fmt:formatDate value="${repaymentNotesDetailData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		<tr>
 			<td>最后更新人：</td>
-			<td><input id="borrowingLoan_mgr_borrowingLoan_detail_updaterDisplay" name="updaterDisplay" class="spinner" style="width:198px" value="${repaymentNotesDetailData.updaterDisplay}" readonly="readonly"/></td>
+			<td><input id="borrowingLoan_mgr_borrowingLoan_detail_updaterDisplay" name="updaterDisplay" class="spinner" style="width:168px" value="${repaymentNotesDetailData.updaterDisplay}" readonly="readonly"/></td>
 			<td>最后更新时间：</td>
-			<td><input id="borrowingLoan_mgr_borrowingLoan_detail_updateTime" name="updateTime" class="spinner" style="width:198px" value="<fmt:formatDate value="${repaymentNotesDetailData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+			<td><input id="borrowingLoan_mgr_borrowingLoan_detail_updateTime" name="updateTime" class="spinner" style="width:168px" value="<fmt:formatDate value="${repaymentNotesDetailData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>

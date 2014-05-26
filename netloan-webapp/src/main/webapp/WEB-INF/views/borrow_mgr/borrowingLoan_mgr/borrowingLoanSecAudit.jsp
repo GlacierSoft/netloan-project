@@ -418,17 +418,17 @@
 			<table>
 				<tr>
 					<td>借款编号：</td>
-					<td><input id="borrowingLoanSearchForm_loanCode" name="loanCode" style="width: 80px;" class="spinner"/></td>
+					<td><input id="borrowingLoanSearchForm_loanCode" name="loanCode" style="width: 60px;" class="spinner"/></td>
 					<td>借款人：</td>
-					<td><input id="borrowingLoanSearchForm_memberDisplay" name="memberDisplay" style="width: 80px;" class="spinner"/></td>
+					<td><input id="borrowingLoanSearchForm_memberDisplay" name="memberDisplay" style="width: 60px;" class="spinner"/></td>
 					<td>借款标题：</td>
-					<td><input id="borrowingLoanSearchForm_loanTitle" name="loanTitle" style="width: 80px;" class="spinner"/>
-						<input type="hidden" id="borrowingLoanSearchForm_loanState" name="loanState" value="secondAuditor" style="width: 80px;" class="spinner"/></td>
+					<td><input id="borrowingLoanSearchForm_loanTitle" name="loanTitle" style="width: 60px;" class="spinner"/>
+						<input type="hidden" id="borrowingLoanSearchForm_loanState" name="loanState" value="secondAuditor" style="width: 60px;" class="spinner"/></td>
 					<td>录入时间：</td>
 					<td>
-						<input name="createStartTime" class="easyui-datetimebox" style="width: 150px;" />
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 120px;" />
 						-
-						<input name="createEndTime" class="easyui-datetimebox" style="width: 150px;" />
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 120px;" />
 					</td>
 					<td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanSecAudit.borrowingLoanSecAuditDataGrid.datagrid('load',glacier.serializeObject($('#borrowingLoanSearchForm')));">查询</a>

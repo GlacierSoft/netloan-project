@@ -74,15 +74,15 @@
 		</tr>
 		<tr>
 			<td>收入构成描述：</td>
-			<td colspan="3"><textarea class="spinner" style="width:416px" readonly="readonly">${memberFinanceData.aveIncomeDes}</textarea></td>
+			<td colspan="3"><textarea class="spinner" style="width:455px" readonly="readonly">${memberFinanceData.aveIncomeDes}</textarea></td>
 		</tr>
 		<tr>
 			<td>支出构成描述：</td>
-			<td colspan="3"><textarea class="spinner" style="width:416px" readonly="readonly">${memberFinanceData.ageExpensesDes}</textarea></td>
+			<td colspan="3"><textarea class="spinner" style="width:455px" readonly="readonly">${memberFinanceData.ageExpensesDes}</textarea></td>
 		</tr>
 		<tr>
 			<td>其他资产描述：</td>
-			<td colspan="3"><textarea class="spinner" style="width:416px" readonly="readonly">${memberFinanceData.otherAssetsDescribed}</textarea></td>
+			<td colspan="3"><textarea class="spinner" style="width:455px" readonly="readonly">${memberFinanceData.otherAssetsDescribed}</textarea></td>
 		</tr>
 	</table>
 </form>

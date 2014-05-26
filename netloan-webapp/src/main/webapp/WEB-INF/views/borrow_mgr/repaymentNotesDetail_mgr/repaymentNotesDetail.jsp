@@ -184,7 +184,7 @@
 			$.easyui.showDialog({
 				title: rowData.loanTitle,
 				href : ctx + '/do/repaymentNotesDetail/intoDetail.htm?repayNotesDetailId='+rowData.repayNotesDetailId,//从controller请求jsp页面进行渲染
-				width : 720,
+				width : 570,
 				height : 400,
 				resizable: false,
 				enableApplyButton : false,

@@ -142,7 +142,7 @@
 			title : '审核【'+row.memberRealName+'】审核额度信息',
 			width : 540,
 			height : 360,
-			queryUrl : ctx + '/do/applyAmount/intoAudit.htm',
+            queryUrl : ctx + '/do/applyAmount/intoAudit.htm',
 			submitUrl : ctx + '/do/applyAmount/audit.json',
 			queryParams : {
 				applyAmountId : row.applyAmountId

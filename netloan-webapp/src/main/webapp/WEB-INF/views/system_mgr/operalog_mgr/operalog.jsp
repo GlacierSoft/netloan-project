@@ -180,15 +180,15 @@
 			<table>
 				<tr>
 					<td>操作菜单：</td>
-					<td><input name="operaMenu" style="width: 80px;" class="spinner"/></td>
+					<td><input name="operaMenu" style="width: 60px;" class="spinner"/></td>
 					<td>操作面板：</td>
-					<td><input name="operaPenal" style="width: 80px;" class="spinner"/></td>
+					<td><input name="operaPenal" style="width: 60px;" class="spinner"/></td>
 					<td>操作方法：</td>
-					<td><input name="operaMethod" style="width: 80px;" class="spinner"/></td>
+					<td><input name="operaMethod" style="width: 60px;" class="spinner"/></td>
 					<td>调用方法：</td>
-					<td><input name="operaMd" style="width: 80px;" class="spinner"/></td>
+					<td><input name="operaMd" style="width: 60px;" class="spinner"/></td>
 					<td>操作人：</td>
-					<td><input name="operator" style="width: 80px;" class="spinner"/></td>
+					<td><input name="operator" style="width: 60px;" class="spinner"/></td>
 					<td>录入时间：</td>
 					<td>
 						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;" />

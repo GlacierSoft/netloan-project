@@ -453,12 +453,12 @@
 			<table>
 				<tr>
 					<td>角色名：</td>
-					<td><input name="roleCnName" style="width: 80px;" class="spinner"/></td>
+					<td><input name="roleCnName" style="width: 60px;" class="spinner"/></td>
 					<td>角色英文名：</td>
-					<td><input name="roleEnName" style="width: 80px;" class="spinner"/></td>
+					<td><input name="roleEnName" style="width: 60px;" class="spinner"/></td>
 					<td>角色类型：</td>
 					<td>
-						<input name="builtin" style="width:80px;height:18px;" class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'value',textField : 'label',data :fields.builtin" />
+						<input name="builtin" style="width:60px;height:18px;" class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'value',textField : 'label',data :fields.builtin" />
 					</td>
 					<td>录入时间：</td>
 					<td>

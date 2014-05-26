@@ -86,7 +86,7 @@
 			</table>
 		</fieldset>
     </div>
-    <div title="认购信息" style="padding:15px">
+    <div title="认购信息" style="padding:30px">
     	<fieldset id="borrowingLoan_mgr_borrowingLoan_detail_Tender" style="padding:10px;" class="spinner">
 			<legend>认购信息</legend>  
 			<table  class="detailtable">
@@ -145,7 +145,7 @@
 			</table>
 		</fieldset>
     </div>
-    <div title="审核信息" style="padding:15px">
+    <div title="审核信息" style="padding:30px">
     	<fieldset id="borrowingLoan_mgr_borrowingLoan_detail_Audit" style="padding:10px;" class="spinner">
 			<legend>审核信息</legend>  
 			<table  class="detailtable">

@@ -140,7 +140,7 @@
 			$.easyui.showDialog({
 				title: rowData.loanTitle,
 				href : ctx + '/do/attentionBorrowing/intoDetail.htm?attentionBorrowingId='+rowData.attentionBorrowingId,//从controller请求jsp页面进行渲染
-				width : 610,
+				width : 560,
 				height : 300,
 				resizable: false,
 				enableApplyButton : false,

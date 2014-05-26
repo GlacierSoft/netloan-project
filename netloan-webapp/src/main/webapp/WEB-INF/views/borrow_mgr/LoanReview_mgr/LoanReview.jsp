@@ -90,7 +90,7 @@
 			$.easyui.showDialog({
 				title: rowData.loanTitle,
 				href : ctx + '/do/LoanReview/intoDetail.htm?loanReviewId='+rowData.loanReviewId,//从controller请求jsp页面进行渲染
-				width : 720,
+				width :540,
 				height : 200,
 				resizable: false,
 				enableApplyButton : false,
@@ -103,7 +103,7 @@
 	glacier.borrow_mgr.LoanReview_mgr.LoanReview.addLoanReview = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加帮助信息',
-			width : 700,
+			width : 650,
 			height : 500,
 			queryUrl : ctx + '/do/LoanReview/intoForm.htm',
 			submitUrl : ctx + '/do/LoanReview/add.json',
