@@ -23,6 +23,7 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
+import com.glacier.netloan.dao.borrow.TenderNotesMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
@@ -34,6 +35,7 @@ import com.glacier.netloan.entity.borrow.ReceivablesNotesDetail;
 import com.glacier.netloan.entity.borrow.RepaymentNotes;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetail;
 import com.glacier.netloan.entity.borrow.TenderNotes;
+import com.glacier.netloan.entity.borrow.TenderNotesExample;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.member.MemberMessageNotice;
@@ -84,6 +86,9 @@ public class BorrowingLoanService {
 	
 	@Autowired
 	private FinanceMemberService financeMemberService;
+	
+	@Autowired
+	private TenderNotesMapper tenderNotesMapper;
 	
 	/**
 	 * @Title: getBorrowingLoan 
@@ -386,33 +391,33 @@ public class BorrowingLoanService {
         int count = 0;
         //满标审核站内信通知
         MemberMessageNotice  memberMessageNotice = new MemberMessageNotice();
-        memberMessageNotice.setTitle("借款标题为："+borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId()).getLoanTitle()+",满标审核通知");
-        memberMessageNotice.setContent(borrowingLoan.getSecondMesNotice());
-        memberMessageNotice.setAddressee(borrowingLoan.getMemberId());
+        memberMessageNotice.setTitle("借款标题为："+borrowingLoan.getLoanTitle()+",满标审核通知");
+        memberMessageNotice.setContent(borrowingLoanNew.getSecondMesNotice());
+        memberMessageNotice.setAddressee(borrowingLoanNew.getMemberId());
         memberMessageNoticeService.addMemberMessageNotice(memberMessageNotice);
         
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        borrowingLoan.setSecondAuditorId(pricipalUser.getUserId());
-        borrowingLoan.setSecondAuditDate(new Date());
-        borrowingLoan.setUpdater(pricipalUser.getUserId());
-        borrowingLoan.setUpdateTime(new Date());
-        if ("".equals(borrowingLoan.getFailedReason()) && StringUtils.isBlank(borrowingLoan.getFailedReason())) {
-        	borrowingLoan.setFailedReason(null);
+        borrowingLoanNew.setSecondAuditorId(pricipalUser.getUserId());
+        borrowingLoanNew.setSecondAuditDate(new Date());
+        borrowingLoanNew.setUpdater(pricipalUser.getUserId());
+        borrowingLoanNew.setUpdateTime(new Date());
+        if ("".equals(borrowingLoanNew.getFailedReason()) && StringUtils.isBlank(borrowingLoanNew.getFailedReason())) {
+        	borrowingLoanNew.setFailedReason(null);
         }
-        if ("".equals(borrowingLoan.getIsDayMarked()) && StringUtils.isBlank(borrowingLoan.getIsDayMarked())) {
-        	borrowingLoan.setIsDayMarked(null);
+        if ("".equals(borrowingLoanNew.getIsDayMarked()) && StringUtils.isBlank(borrowingLoanNew.getIsDayMarked())) {
+        	borrowingLoanNew.setIsDayMarked(null);
         }
-        if ("".equals(borrowingLoan.getIsBidReward()) && StringUtils.isBlank(borrowingLoan.getIsBidReward())) {
-        	borrowingLoan.setIsBidReward(null);
+        if ("".equals(borrowingLoanNew.getIsBidReward()) && StringUtils.isBlank(borrowingLoanNew.getIsBidReward())) {
+        	borrowingLoanNew.setIsBidReward(null);
         }
-        if ("".equals(borrowingLoan.getIsBidMarked()) && StringUtils.isBlank(borrowingLoan.getIsBidMarked())) {
-        	borrowingLoan.setIsBidMarked(null);
+        if ("".equals(borrowingLoanNew.getIsBidMarked()) && StringUtils.isBlank(borrowingLoanNew.getIsBidMarked())) {
+        	borrowingLoanNew.setIsBidMarked(null);
         }
-        if ("".equals(borrowingLoan.getIsBidPwd()) && StringUtils.isBlank(borrowingLoan.getIsBidPwd())) {
-        	borrowingLoan.setIsBidPwd(null);
+        if ("".equals(borrowingLoanNew.getIsBidPwd()) && StringUtils.isBlank(borrowingLoanNew.getIsBidPwd())) {
+        	borrowingLoanNew.setIsBidPwd(null);
         }
-        if ("secondSucess".equals(borrowingLoan.getSecondAuditState())) {//复审通过，借款状态改为还款中
+        if ("secondSucess".equals(borrowingLoanNew.getSecondAuditState())) {//复审通过，借款状态改为还款中
         	//满标进行二次审核时，同时生成还款记录和还款记录明细和收款记录和收款记录明细，记录明细，改变会员资金等数据
         	//添加还款记录信息
             RepaymentNotes repaymentNotes = new RepaymentNotes();
@@ -507,13 +512,69 @@ public class BorrowingLoanService {
                   	financeMemberService.editMember(financeMemberNew);
           		}
           	}
-          	
-        	borrowingLoan.setLoanState("repaymenting");
+          	borrowingLoanNew.setFailedReason("复审不通过");//流标原因
+          	borrowingLoanNew.setLoanState("repaymenting");
         }
-        count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);
+        if("secondFailure".equals(borrowingLoanNew.getSecondAuditState())) {//复审不通过，借款状态改为流标
+        	TenderNotesExample tenderNotesExample = new TenderNotesExample();;
+            tenderNotesExample.createCriteria().andLoanIdEqualTo(borrowingLoanNew.getLoanId());//查询相对应的投标的记录
+            List<TenderNotes> tenderNotess = tenderNotesMapper.selectByExample(tenderNotesExample);
+            for(TenderNotes tenderNotes : tenderNotess){
+            	if(borrowingLoan.getSubTotal() == 0.0){//借款是以金额进行投资的
+            		//添加会员资金记录明细
+                  	FinanceTransaction financeTransaction = new FinanceTransaction();
+                	//添加会员"解冻投标金额"的资金记录明细
+                  	FinanceMember financeMemberThaw = (FinanceMember) financeMemberService.getMemberByMemberId(tenderNotes.getMemberId());//获取会员资金记录信息
+                  	financeTransaction.setFinanceMemberId(financeMemberThaw.getFinanceMemberId());//设置会员资金信息
+                  	financeTransaction.setMemberId(tenderNotes.getMemberId());//设置会员id
+                  	financeTransaction.setTransactionTarget(tenderNotes.getLoanMemberDisplay());//设置交易对象
+                  	financeTransaction.setTransactionType("解冻投标金额");//设置交易类型
+                  	financeTransaction.setRemark("借款["+borrowingLoan.getLoanTitle()+"]审核不通过,解冻投标金额["+tenderNotes.getTenderMoney()+"]元");//设置备注
+                  	financeTransaction.setEarningMoney(tenderNotes.getTenderMoney());//设置收入金额
+                  	financeTransaction.setExpendMoney(0f);//设置支出金额
+                  	financeTransaction.setUsableMoney(financeMemberThaw.getUsableMoney());//设置可用金额
+                  	financeTransaction.setFrozenMoney(financeMemberThaw.getFrozenMoney()-tenderNotes.getTenderMoney());//设置冻结金额
+                  	financeTransaction.setCollectingMoney(financeMemberThaw.getCollectingMoney());//设置代收金额
+                  	financeTransaction.setRefundMoney(financeMemberThaw.getRefundMoney());//设置待还金额
+                  	financeTransaction.setAmount(financeMemberThaw.getAmount());//设置总金额
+                  	financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
+                  	//更新借款的会员资金信息
+                  	financeMemberThaw.setUsableMoney(financeMemberThaw.getUsableMoney() + tenderNotes.getTenderMoney());//设置会员资金可用金额
+                  	financeMemberThaw.setAmount(financeMemberThaw.getAmount() + tenderNotes.getTenderMoney());//设置会员资金总金额
+                  	financeMemberThaw.setFrozenMoney(financeMemberThaw.getFrozenMoney()-tenderNotes.getTenderMoney());//设置冻结金额
+                  	financeMemberService.editMember(financeMemberThaw);
+            	}else{//借款是认购份数进行投资的
+            		//添加会员资金记录明细
+                  	FinanceTransaction financeTransaction = new FinanceTransaction();
+                	//添加会员"解冻投标金额"的资金记录明细
+                  	FinanceMember financeMemberThaw = (FinanceMember) financeMemberService.getMemberByMemberId(tenderNotes.getMemberId());//获取会员资金记录信息
+                  	financeTransaction.setFinanceMemberId(financeMemberThaw.getFinanceMemberId());//设置会员资金信息
+                  	financeTransaction.setMemberId(tenderNotes.getMemberId());//设置会员id
+                  	financeTransaction.setTransactionTarget(tenderNotes.getLoanMemberDisplay());//设置交易对象
+                  	financeTransaction.setTransactionType("解冻投标金额");//设置交易类型
+                  	financeTransaction.setRemark("借款["+borrowingLoan.getLoanTitle()+"]审核不通过,解冻投标金额["+borrowingLoan.getLowestSub()*tenderNotes.getSubSum()+"]元");//设置备注
+                  	financeTransaction.setEarningMoney(borrowingLoan.getLowestSub()*tenderNotes.getSubSum());//设置收入金额
+                  	financeTransaction.setExpendMoney(0f);//设置支出金额
+                  	financeTransaction.setUsableMoney(financeMemberThaw.getUsableMoney());//设置可用金额
+                  	financeTransaction.setFrozenMoney(financeMemberThaw.getFrozenMoney()-tenderNotes.getTenderMoney());//设置冻结金额
+                  	financeTransaction.setCollectingMoney(financeMemberThaw.getCollectingMoney());//设置代收金额
+                  	financeTransaction.setRefundMoney(financeMemberThaw.getRefundMoney());//设置待还金额
+                  	financeTransaction.setAmount(financeMemberThaw.getAmount());//设置总金额
+                  	financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
+                  	//更新借款的会员资金信息
+                  	financeMemberThaw.setUsableMoney(financeMemberThaw.getUsableMoney() + borrowingLoan.getLowestSub()*tenderNotes.getSubSum());//设置会员资金可用金额
+                  	financeMemberThaw.setAmount(financeMemberThaw.getAmount() + borrowingLoan.getLowestSub()*tenderNotes.getSubSum());//设置会员资金总金额
+                  	financeMemberThaw.setFrozenMoney(financeMemberThaw.getFrozenMoney()-borrowingLoan.getLowestSub()*tenderNotes.getSubSum());//设置冻结金额
+                  	financeMemberService.editMember(financeMemberThaw);
+            	}
+            	
+            }
+            borrowingLoanNew.setLoanState("bids");
+        }
+        count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoanNew);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + borrowingLoan.getLoanCode() + "] 复审借款信息成功");
+            returnResult.setMsg("[" + borrowingLoan.getLoanTitle() + "] 复审借款信息成功");
         } else {
             returnResult.setMsg("发生未知错误，复审借款信息失败");
         }

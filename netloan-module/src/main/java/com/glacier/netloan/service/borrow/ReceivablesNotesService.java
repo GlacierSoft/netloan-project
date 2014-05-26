@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
-import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -304,15 +303,15 @@ public class ReceivablesNotesService {
                       	financeTransaction.setRemark("借款["+borrowingLoanNew.getLoanTitle()+"]审核通过,收到投标奖励["+earningMoney+"]元");//设置备注
                       	financeTransaction.setEarningMoney(earningMoney);//设置收入金额
                       	financeTransaction.setExpendMoney(0f);//设置支出金额
-                      	financeTransaction.setUsableMoney(financeMemberNew.getUsableMoney() + earningMoney);//设置可用金额
+                      	financeTransaction.setUsableMoney(financeMemberNew.getUsableMoney()+earningMoney);//设置可用金额
                       	financeTransaction.setFrozenMoney(financeMemberNew.getFrozenMoney());//设置冻结金额
                       	financeTransaction.setCollectingMoney(financeMemberNew.getCollectingMoney());//设置代收金额
                       	financeTransaction.setRefundMoney(financeMemberNew.getRefundMoney());//设置待还金额
                       	financeTransaction.setAmount(financeMemberNew.getAmount() + earningMoney);//设置总金额
                       	financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
                       	//更新借款的会员资金信息
-                      	financeMemberNew.setUsableMoney(financeMemberNew.getUsableMoney() + earningMoney);//设置会员资金可用金额
-                      	financeMemberNew.setAmount(financeMemberNew.getAmount() + earningMoney);//设置会员资金总金额
+                      	financeMemberNew.setUsableMoney(financeMemberNew.getUsableMoney()+earningMoney);//设置会员资金可用金额
+                      	financeMemberNew.setAmount(financeMemberNew.getAmount()+earningMoney);//设置会员资金总金额
                       	financeMemberService.editMember(financeMemberNew);
               		}else if(borrowingLoan.getBidProReward() != 0.0){//判断是按投标金额比例奖励
               			//计算收到投标奖励金额
@@ -338,6 +337,24 @@ public class ReceivablesNotesService {
                       	financeMemberService.editMember(financeMemberNew);
               		}
               	}
+              	//添加会员"解冻投标金额"的资金记录明细
+              	FinanceMember financeMemberThaw = (FinanceMember) financeMemberService.getMemberByMemberId(tenderNotes.getMemberId());//获取会员资金记录信息
+              	financeTransaction.setFinanceMemberId(financeMemberThaw.getFinanceMemberId());//设置会员资金信息
+              	financeTransaction.setMemberId(tenderNotes.getMemberId());//设置会员id
+              	financeTransaction.setTransactionTarget(tenderNotes.getLoanMemberDisplay());//设置交易对象
+              	financeTransaction.setTransactionType("扣除冻结投标金额");//设置交易类型
+              	financeTransaction.setRemark("借款["+borrowingLoanNew.getLoanTitle()+"]审核通过,扣除冻结投标金额["+tenderNotes.getTenderMoney()+"]元");//设置备注
+              	financeTransaction.setEarningMoney(0f);//设置收入金额
+              	financeTransaction.setExpendMoney(0f);//设置支出金额
+              	financeTransaction.setUsableMoney(financeMemberThaw.getUsableMoney());//设置可用金额
+              	financeTransaction.setFrozenMoney(financeMemberThaw.getFrozenMoney()-tenderNotes.getTenderMoney());//设置冻结金额
+              	financeTransaction.setCollectingMoney(financeMemberThaw.getCollectingMoney());//设置代收金额
+              	financeTransaction.setRefundMoney(financeMemberThaw.getRefundMoney());//设置待还金额
+              	financeTransaction.setAmount(financeMemberThaw.getAmount());//设置总金额
+              	financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
+              	//更新借款的会员资金信息
+              	financeMemberThaw.setFrozenMoney(financeMemberThaw.getFrozenMoney()-tenderNotes.getTenderMoney());//设置冻结金额
+              	financeMemberService.editMember(financeMemberThaw);
         	}else{//借款是认购份数进行投资的
         		if(borrowingLoanNew.getRepaymentTypeDisplay().equals("等额本息")){
         			//float everyMonthMoney = (tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub() * (borrowingLoanNew.getLoanApr()/12) * (1 + borrowingLoanNew.getLoanApr()/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))/(1 + borrowingLoanNew.getLoanApr()/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())-1;
@@ -403,6 +420,24 @@ public class ReceivablesNotesService {
                       	financeMemberService.editMember(financeMemberNew);
               		}
               	}
+              //添加会员"解冻投标金额"的资金记录明细
+              	FinanceMember financeMemberThaw = (FinanceMember) financeMemberService.getMemberByMemberId(tenderNotes.getMemberId());//获取会员资金记录信息
+              	financeTransaction.setFinanceMemberId(financeMemberThaw.getFinanceMemberId());//设置会员资金信息
+              	financeTransaction.setMemberId(tenderNotes.getMemberId());//设置会员id
+              	financeTransaction.setTransactionTarget(tenderNotes.getLoanMemberDisplay());//设置交易对象
+              	financeTransaction.setTransactionType("扣除冻结投标金额");//设置交易类型
+              	financeTransaction.setRemark("借款["+borrowingLoanNew.getLoanTitle()+"]审核通过,扣除冻结投标金额["+borrowingLoanNew.getLowestSub()*tenderNotes.getSubSum()+"]元");//设置备注
+              	financeTransaction.setEarningMoney(0f);//设置收入金额
+              	financeTransaction.setExpendMoney(0f);//设置支出金额
+              	financeTransaction.setUsableMoney(financeMemberThaw.getUsableMoney());//设置可用金额
+              	financeTransaction.setFrozenMoney(financeMemberThaw.getFrozenMoney()-tenderNotes.getTenderMoney());//设置冻结金额
+              	financeTransaction.setCollectingMoney(financeMemberThaw.getCollectingMoney());//设置代收金额
+              	financeTransaction.setRefundMoney(financeMemberThaw.getRefundMoney());//设置待还金额
+              	financeTransaction.setAmount(financeMemberThaw.getAmount());//设置总金额
+              	financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
+              	//更新借款的会员资金信息
+              	financeMemberThaw.setFrozenMoney(financeMemberThaw.getFrozenMoney()-borrowingLoanNew.getLowestSub()*tenderNotes.getSubSum());//设置冻结金额
+              	financeMemberService.editMember(financeMemberThaw);
         	}
         	receivablesNotes.setAlrOverdueInterest(0f);
         	receivablesNotes.setAlrReceMoney(0f);//设置已收本息
@@ -414,7 +449,6 @@ public class ReceivablesNotesService {
             receivablesNotes.setUpdateTime(new Date());
             count = receivablesNotesMapper.insert(receivablesNotes);
         }
-        
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setObj(receivablesNotes);
