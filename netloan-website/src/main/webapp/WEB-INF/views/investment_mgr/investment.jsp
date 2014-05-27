@@ -225,13 +225,13 @@
 						   	<img src="${ctx}/resources/images/borrow/liu.png" alt="liuzhuan">
 						   </c:when>
 						   <c:when test="${borrowingLoan.loanTenderDisplay == '信用标'}">  
-						   	<img src="${ctx}/resources/images/borrow/xin.jpg" alt="xinyong">
+						   	<img src="${ctx}/resources/images/borrow/xin.png" alt="xinyong">
 						   </c:when>
 						   <c:when test="${borrowingLoan.loanTenderDisplay == '净值标'}">  
-						   	<img src="${ctx}/resources/images/borrow/jingzhi.jpg" alt="jingzhi">
+						   	<img src="${ctx}/resources/images/borrow/jing.png" alt="jingzhi">
 						   </c:when>
 						   <c:when test="${borrowingLoan.loanTenderDisplay == '抵押标'}">  
-						   	<img src="${ctx}/resources/images/borrow/diya.jpg" alt="diya">
+						   	<img src="${ctx}/resources/images/borrow/diya.png" alt="diya">
 						   </c:when>
 						</c:choose>
 			        	</td>
