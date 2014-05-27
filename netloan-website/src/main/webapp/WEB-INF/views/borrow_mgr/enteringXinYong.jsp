@@ -100,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					      	<input type="radio" id="isBidReward" name="isBidReward" value="yes" onclick="displayIsBidReward()"/>
 					     	按投标金额比例奖励
 					     	<input type="text" id="bidProReward" name="bidProReward" class="inp100x gray" disabled="disabled" value="0"/>
-					      元
+					      %
 					    </td>
 					  </tr>
 					  <tr>
@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					     	<input type="radio" id="isBidReward" name="isBidReward" value="yes" onclick="displayIsBidReward()"/>
 					      	按固定金额分摊奖励
 					      	<input type="text" id=fixedAppReward name="fixedAppReward" class="inp100x gray" disabled="disabled" value="0"/>
-					      	%
+					      	元
 					    </td>
 					  </tr>
 					  <tr>
