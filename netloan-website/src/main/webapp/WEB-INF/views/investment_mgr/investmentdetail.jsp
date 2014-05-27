@@ -503,8 +503,8 @@
 	    <!-- CONTAINER START======================== -->
   </body>
   <script type="text/javascript">
-  alert("borrowingLoan:  "+"<fmt:formatDate value='${borrowingMember.createTime}' pattern='yyyy/MM/dd HH:mm:ss'/>")
-  alert("aa  "+new Date("2014/02/21 15:42:33"));
+ // alert("borrowingLoan:  "+"<fmt:formatDate value='${borrowingMember.createTime}' pattern='yyyy/MM/dd HH:mm:ss'/>")
+  //alert("aa  "+new Date("2014/02/21 15:42:33"));
   //js的倒计时
   function lxfEndtime(){
             //var endtime = new Date($("#lxftime").attr("endtime")).getTime();//取结束日期(毫秒值)

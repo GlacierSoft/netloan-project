@@ -212,7 +212,7 @@
 			        	<tr>
 			        	<td rowspan="4" style="text-align:center;vertical-align: middle;">
 			        	<a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }&p=1">
-			        	<img src="${borrowingLoan.loanPicture}" style="width: 100px;height: 100px ;"/>
+			        	<img src="${ctx}/resources/${borrowingLoan.loanPicture}" style="width: 100px;height: 100px ;"/>
 			        	</a>
 			        	</td>
 			        	<td colspan="4">
