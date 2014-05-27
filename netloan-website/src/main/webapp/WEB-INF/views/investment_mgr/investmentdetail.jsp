@@ -54,7 +54,10 @@
 			  <div class="col-md-9" >
 	       	  	<div>
 	       	  	<h3 style="color: #696969;" ><strong>项目名称：${borrowingLoan.loanTitle}</strong>
-	       	  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small id="attentionBorrowingClick"><a href="javascript:void(0);">关注此借款</a></small>
+	       	  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	       	  	<c:if test="${!empty currentMember.memberId}">
+	       	  	<small id="attentionBorrowingClick"><a href="javascript:void(0);">关注此借款</a></small>
+	       	  	</c:if>
 	       	  	</h3>
 	       	  	</div>
 	       	  	<span>借款金额：</span><span style="color: red;font-size: 20px;"><fmt:formatNumber value="${borrowingLoan.loanTotal }" pattern="#,#00.00"/>元</span>

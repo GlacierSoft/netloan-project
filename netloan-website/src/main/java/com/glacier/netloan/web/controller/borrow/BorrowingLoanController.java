@@ -87,7 +87,7 @@ public class BorrowingLoanController extends AbstractController{
     // 增加借款
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addBorrowingLoan(@Valid BorrowingLoan borrowingLoan, BindingResult bindingResult, String memberId, String captcha,HttpServletRequest request, HttpSession session) {
+    private Object addBorrowingLoan(@Valid BorrowingLoan borrowingLoan, BindingResult bindingResult, String captcha,HttpServletRequest request, HttpSession session) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
@@ -96,7 +96,7 @@ public class BorrowingLoanController extends AbstractController{
         if (StringUtils.isBlank(captcha) || !isCaptcha.equalsIgnoreCase(captcha)) {
         	captchaBoolean = false;
         }
-        return borrowingLoanService.addBorrowingLoan(borrowingLoan, memberId, captchaBoolean);
+        return borrowingLoanService.addBorrowingLoan(borrowingLoan, captchaBoolean);
     }
     
     // 修改借款

@@ -33,9 +33,19 @@ public class BorrowingLoanQueryDTO extends BorrowingLoan{
     
     private float loanTotalEnd;
     
+    private int reward;
+    
     private String[] borrowTypes;
     
-    public String[] getBorrowTypes() {
+    public int getReward() {
+		return reward;
+	}
+
+	public void setReward(int reward) {
+		this.reward = reward;
+	}
+
+	public String[] getBorrowTypes() {
 		return borrowTypes;
 	}
 
@@ -101,6 +111,15 @@ public class BorrowingLoanQueryDTO extends BorrowingLoan{
 	   	}
 	   	if(null != this.getRepaymentTypeId() && !"".equals(this.getRepaymentTypeId().trim())){//根据还款方式查询
 	   		queryCriteria.andRepaymentTypeIdEqualTo(this.getRepaymentTypeId());
+	   	}
+	   	if(reward != 0 ){
+	   		if(reward == 1){
+	   			queryCriteria.andIsBidRewardEqualTo("no");
+	   		}else if(reward == 2){
+	   			queryCriteria.andBidProRewardGreaterThan(0f);	
+	   		}else if(reward == 3){
+	   			queryCriteria.andFixedAppRewardGreaterThan(0f);
+	   		}
 	   	}
 	   	if(0 != loanTotalStart && 0 != loanTotalEnd && 1000001.0 != loanTotalStart && 1000001.0 != loanTotalEnd){//借款金额查询
 	           queryCriteria.andLoanTotalBetween(loanTotalStart, loanTotalEnd); 

@@ -37,20 +37,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<form id="enteringLiuZhuan" name="enteringLiuZhuan" class="form-horizontal" role="form" method="post" >
 		          <table  style="width: 950px;">
 		          	<tbody>
-		          	  <tr>
-			            <td class="col-md-6" align="right">
-			            	<span style="color:#F00">*</span>借款编号：
-			            </td>
-			            <td class="col-md-6">
-			            	<input id="memberId" name="memberId" type="hidden" value="${currentMember.memberId}" >
-			            	<input id="loanCode" name="loanCode" type="text" class="inp280" maxlength="12"/>
-			            </td>
-			          </tr>
 			          <tr>
 			            <td class="col-md-6" align="right">
 			            	<span style="color:#F00">*</span>借款标题：
 			            </td>
 			            <td class="col-md-6">
+			            	<input id="memberId" name="memberId" type="hidden" value="${currentMember.memberId}" >
 			            	<input id="loanTitle" name="loanTitle" type="text" class="inp280" maxlength="12"/>
 			            </td>
 			          </tr>
@@ -84,20 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>借款期限：</td>
 					    <td class="col-md-6">
-						    <select name="loanDeadlinesId" id="loanDeadlinesId" class="sel_140">
-							    <option value="">--请选择--</option>
-							    <option value="1个月">1个月</option>
-							    <option value="2个月">2个月</option>
-							    <option value="3个月">3个月</option>
-							    <option value="4个月">4个月</option>
-							    <option value="5个月">5个月</option>
-							    <option value="6个月">6个月</option>
-							    <option value="7个月">7个月</option>
-							    <option value="8个月">8个月</option>
-							    <option value="9个月">9个月</option>
-							    <option value="10个月">10个月</option>
-							    <option value="11个月">11个月</option>
-							    <option value="12个月">12个月</option>
+					    	<select name="loanDeadlinesId" id="loanDeadlinesId" class="sel_140" onFocus="funLoanDeadlinesId()">
 							</select>
 					    </td>
 					  </tr>
@@ -120,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <td class="col-md-6">
 					      	<input type="radio" id="isBidReward" name="isBidReward" value="yes" onclick="displayIsBidReward()"/>
 					     	按投标金额比例奖励
-					     	<input type="text" id="bidProReward" name="bidProReward" class="inp100x gray" disabled="disabled"/>
+					     	<input type="text" id="bidProReward" name="bidProReward" class="inp100x gray" disabled="disabled" value="0"/>
 					      元
 					    </td>
 					  </tr>
@@ -129,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <td class="col-md-6">
 					     	<input type="radio" id="isBidReward" name="isBidReward" value="yes" onclick="displayIsBidReward()"/>
 					      	按固定金额分摊奖励
-					      	<input type="text" id=fixedAppReward name="fixedAppReward" class="inp100x gray" disabled="disabled"/>
+					      	<input type="text" id=fixedAppReward name="fixedAppReward" class="inp100x gray" disabled="disabled" value="0"/>
 					      	%
 					    </td>
 					  </tr>
@@ -227,48 +206,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <td class="col-md-6">
 							<select name="waitBidDeadlines" id="waitBidDeadlines" class="sel_140" onFocus="funWaitBidDeadlines()">
 							</select>
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否公开帐户资金：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isAccountFunds" name="isAccountFunds" checked="checked" value="yes" />是
-					    	<input type="radio" id="isAccountFunds" name="isAccountFunds" value="no" />否
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否公开借款资金：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isLoanFunds" name="isLoanFunds" checked="checked" value="yes" />是
-					    	<input type="radio" id="isLoanFunds" name="isLoanFunds" value="no" />否
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否公开信用额度：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isCreditAmount" name="isCreditAmount" checked="checked" value="yes" />是
-					    	<input type="radio" id="isCreditAmount" name="isCreditAmount" value="no" />否
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否公开投标资金：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isBidFunds" name="isBidFunds" checked="checked" value="yes" />是
-					    	<input type="radio" id="isBidFunds" name="isBidFunds" value="no" />否
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否允许自动投标：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isAutomaticBid" name="isAutomaticBid" checked="checked" value="yes" />是
-					    	<input type="radio" id="isAutomaticBid" name="isAutomaticBid" value="no" />否
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否设为推荐：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isRecommend" name="isRecommend" checked="checked" value="yes" />是
-					    	<input type="radio" id="isRecommend" name="isRecommend" value="no" />否
 					    </td>
 					  </tr>
 					  <tr>
@@ -432,6 +369,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function funLargestBidMoney(){
 		  for (var i=0;i < largestBidMoneys.length; i++) {
 		    document.enteringLiuZhuan.largestBidMoney.options[i] = new Option(largestBidMoneys[i]+"元",largestBidMoneys[i]);
+		  }
+		};
+		//动态加载后台的借款期限值
+		var loanDeadlinesId="${loanTenderDate.loanDeadlinesMon}"; //这是一字符串 
+		var loanDeadlinesIds=loanDeadlinesId.split(","); //字符分割 
+		function funLoanDeadlinesId(){
+		  for (var i=0;i < loanDeadlinesIds.length; i++) {
+		    document.enteringLiuZhuan.loanDeadlinesId.options[i] = new Option(loanDeadlinesIds[i]+"个月",loanDeadlinesIds[i]);
 		  }
 		};
 		//动态加载后台的筹标期限值
