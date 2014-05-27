@@ -247,6 +247,7 @@ public class BorrowingLoanService {
         }
         
         borrowingLoan.setLoanState("firstAudit");
+        borrowingLoan.setIsBidMarked("yes");
         borrowingLoan.setIsAccountFunds("yes");
         borrowingLoan.setIsLoanFunds("yes");
         borrowingLoan.setIsCreditAmount("yes");

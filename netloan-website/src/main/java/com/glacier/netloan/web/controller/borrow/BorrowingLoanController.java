@@ -119,19 +119,31 @@ public class BorrowingLoanController extends AbstractController{
 	//转到“流转标申请页面”页面
 	@RequestMapping(value = "/enteringLiuZhuan.htm")
 	public Object enteringLiuZhuan(){
-		return "borrow_mgr/enteringLiuZhuan";
+	    ModelAndView mav = new ModelAndView("borrow_mgr/enteringLiuZhuan");
+        mav.addObject("loanTenderDate",loanTenderService.getLoanTender("2587bd0ecc859e35f2874f2aff0d4852"));
+        //根据标种类型Id查找相关联的还款方式
+        mav.addObject("loanTenderRepayDate",loanTenderService.getLoanTenderRepay("2587bd0ecc859e35f2874f2aff0d4852"));
+        return mav;
 	}
 	
 	//转到“抵押标申请页面”页面
 	@RequestMapping(value = "/enteringDiYa.htm")
 	public Object enteringDiYa(){
-		return "borrow_mgr/enteringDiYa";
+        ModelAndView mav = new ModelAndView("borrow_mgr/enteringDiYa");
+        mav.addObject("loanTenderDate",loanTenderService.getLoanTender("aa09e227a4a40cb6cb15703b98522672"));
+        //根据标种类型Id查找相关联的还款方式
+        mav.addObject("loanTenderRepayDate",loanTenderService.getLoanTenderRepay("aa09e227a4a40cb6cb15703b98522672"));
+        return mav;
 	}
 	
 	//转到“信用标申请页面”页面
 	@RequestMapping(value = "/enteringXinYong.htm")
 	public Object enteringXinYong(){
-		return "borrow_mgr/enteringXinYong";
+	    ModelAndView mav = new ModelAndView("borrow_mgr/enteringXinYong");
+        mav.addObject("loanTenderDate",loanTenderService.getLoanTender("1c362eac7ec315aa47ab84360d4e390d"));
+        //根据标种类型Id查找相关联的还款方式
+        mav.addObject("loanTenderRepayDate",loanTenderService.getLoanTenderRepay("1c362eac7ec315aa47ab84360d4e390d"));
+        return mav;
 	}
 	
 	//转到“净值标申请页面”页面

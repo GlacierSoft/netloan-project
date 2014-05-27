@@ -2,6 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- 引入jstl解析标签 -->
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %><!-- 引入自定义权限标签 -->
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
+
+<%@ page import="org.apache.shiro.web.filter.authc.FormAuthenticationFilter"%>
+<%@ page import="org.apache.shiro.authc.LockedAccountException"%>
+<%@ page import="com.glacier.basic.exception.IncorrectCaptchaException"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+%>
+
 <!DOCTYPE html>
 <html lang="zh-cn">
   <head>
@@ -12,29 +21,6 @@
 	<style type="text/css">
 		body {
 		    padding-top: 70px;
-		}
-		.inp280 {
-		    border: 1px solid #CCCCCC;
-		    height: 20px;
-		    line-height: 20px;
-		    width: 280px;
-		}
-		.sel_140 {
-		    border: 1px solid #ADBCC7;
-		    font-size: 12px;
-		    height: 20px;
-		    width: 140px;
-		}
-		.inp100x {
-		    border: 1px solid #CCCCCC;
-		    height: 20px;
-		    line-height: 20px;
-		    width: 100px;
-		}
-		.txt420{
-		    border: 1px solid #CCCCCC;
-		    height: 100px;
-		    width: 280px;
 		}
 	</style>
   </head>
@@ -48,41 +34,28 @@
     		<h3>发布抵押标</h3>
     		<p style="color:#F00">* 为必填项，所有资料均会严格保密。</p>
     		<div>
-    			<form id="enteringLiuZhuan" name="enteringLiuZhuan" class="form-horizontal" role="form" method="post" >
+    			<form id="enteringDiYa" name="enteringDiYa" class="form-horizontal" role="form" method="post" >
 		          <table  style="width: 950px;">
 		          	<tbody>
-		          	  <tr>
-			            <td class="col-md-6" align="right">
-			            	<span style="color:#F00">*</span>借款编号：
-			            </td>
-			            <td class="col-md-6">
-			            	<input id="memberId" name="memberId" type="hidden" value="${currentMember.memberId}" >
-			            	<input id="loanCode" name="loanCode" type="text" class="inp280" maxlength="12"/>
-			            </td>
-			          </tr>
 			          <tr>
 			            <td class="col-md-6" align="right">
 			            	<span style="color:#F00">*</span>借款标题：
 			            </td>
 			            <td class="col-md-6">
+			            	<input id="memberId" name="memberId" type="hidden" value="${currentMember.memberId}" >
 			            	<input id="loanTitle" name="loanTitle" type="text" class="inp280" maxlength="12"/>
 			            </td>
 			          </tr>
 					  <tr>
-					    <td class="col-md-6" align="right">
-					    	<span style="color:#F00">*</span>借款图片：
-					    </td>
+					  	<td class="col-md-6" align="right">借款图片:</td>
 					    <td class="col-md-6">
-						    <input type="hidden" id="loanPicture" name="loanPicture" value="images/default-img.jpg"/>
-					        <input type="radio" name="radio" id="r_1" checked="checked" value="1" />上传借款图片
-					        <input type="radio" name="radio" id="r_2" value="2" />使用用户头像 
-					        <input type="radio" name="radio" id="r_3" value="3" />使用系统头像
-					        <input type="hidden" id="radioval" name="paramMap.radioval" value=""/>
-					  	</td>
+							<input class="ke-input-text" type="hidden" name="loanPicture" id="url" value="${currentMember.memberPhoto}" readonly="readonly" />
+							<img id="loanPictureImg"  src="${currentMember.memberPhoto}" style="width: 120px;height: 120px ;" />
+					    </td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right">借款标的：</td>
-					    <td class="col-md-6"> <input type="hidden" id="loanTenderId" name="loanTenderId" value="2587bd0ecc859e35f2874f2aff0d4852"/>流转标</td>
+					    <td class="col-md-6"> <input type="hidden" id="loanTenderId" name="loanTenderId" value="aa09e227a4a40cb6cb15703b98522672"/>抵押标</td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>借款目的：</td>
@@ -103,20 +76,7 @@
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>借款期限：</td>
 					    <td class="col-md-6">
-						    <select name="loanDeadlinesId" id="loanDeadlinesId" class="sel_140">
-							    <option value="">--请选择--</option>
-							    <option value="1个月">1个月</option>
-							    <option value="2个月">2个月</option>
-							    <option value="3个月">3个月</option>
-							    <option value="4个月">4个月</option>
-							    <option value="5个月">5个月</option>
-							    <option value="6个月">6个月</option>
-							    <option value="7个月">7个月</option>
-							    <option value="8个月">8个月</option>
-							    <option value="9个月">9个月</option>
-							    <option value="10个月">10个月</option>
-							    <option value="11个月">11个月</option>
-							    <option value="12个月">12个月</option>
+					    	<select name="loanDeadlinesId" id="loanDeadlinesId" class="sel_140" onFocus="funLoanDeadlinesId()">
 							</select>
 					    </td>
 					  </tr>
@@ -139,7 +99,7 @@
 					    <td class="col-md-6">
 					      	<input type="radio" id="isBidReward" name="isBidReward" value="yes" onclick="displayIsBidReward()"/>
 					     	按投标金额比例奖励
-					     	<input type="text" id="bidProReward" name="bidProReward" class="inp100x gray" disabled="disabled"/>
+					     	<input type="text" id="bidProReward" name="bidProReward" class="inp100x gray" disabled="disabled" value="0"/>
 					      元
 					    </td>
 					  </tr>
@@ -148,25 +108,10 @@
 					    <td class="col-md-6">
 					     	<input type="radio" id="isBidReward" name="isBidReward" value="yes" onclick="displayIsBidReward()"/>
 					      	按固定金额分摊奖励
-					      	<input type="text" id=fixedAppReward name="fixedAppReward" class="inp100x gray" disabled="disabled"/>
+					      	<input type="text" id=fixedAppReward name="fixedAppReward" class="inp100x gray" disabled="disabled" value="0"/>
 					      	%
 					    </td>
 					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否有投标待收限制：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isBidMarked" name="isBidMarked" checked="checked" value="yes" />是
-					    	<input type="radio" id="isBidMarked" name="isBidMarked" value="no" />否
-					    </td>
-					  </tr>
-					  <tr>
-			            <td class="col-md-6" align="right">
-			            	<span style="color:#F00">*</span>待收金额设置：
-			            </td>
-			            <td class="col-md-6">
-			            	<input id="readyRecMoney" name="readyRecMoney" type="text" class="inp280" maxlength="12"/>
-			            </td>
-			          </tr>
 					  <tr>
 					  	<td class="col-md-6" align="right">是否设置投标密码：</td>
 					    <td class="col-md-6">
@@ -183,22 +128,13 @@
 					    </td>
 					  </tr>
 					  <tr>
-			            <td class="col-md-6" align="right">
-			            	<span style="color:#F00">*</span>借款管理费：
-			            </td>
-			            <td class="col-md-6">
-			            	<input id="loanManagementFees" name="loanManagementFees" type="text" class="inp280" maxlength="12"/>
-			            </td>
-			          </tr>
-					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>还款方式：</td>
 					    <td class="col-md-6">
-					    <select name="repaymentTypeId" id="repaymentTypeId" class="sel_140">
-						    <option value="">--请选择--</option>
-						    <option value="1">等额本息</option>
-						    <option value="2">按月付息，到期还本</option>
-						    <option value="4">一次性还款</option>
-						</select>
+							<select name="repaymentTypeId" id="repaymentTypeId" class="sel_140"> 
+					    		<c:forEach items="${loanTenderRepayDate}" var="loanTenderRepay">
+					            	<option value="${loanTenderRepay.key}">${loanTenderRepay.value}</option>
+					       		</c:forEach>
+							</select> 
 					    </td>
 					  </tr>
 					  <tr>
@@ -212,103 +148,37 @@
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最低投标金额：</td>
 					    <td class="col-md-6">
-					    <select name="lowestBidMoney" id="lowestBidMoney" class="sel_140">
-						    <option value="100">100</option>
-						    <option value="200">200</option>
-						    <option value="500">500</option>
-						    <option value="800">800</option>
-						    <option value="1000">1000</option>
-						</select>
+						    <select name="lowestBidMoney" id="lowestBidMoney" class="sel_140" onFocus="funLowestBidMoney()">
+							</select>
 					    </td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最多投标金额：</td>
 					    <td class="col-md-6">
-					    <select name="largestBidMoney" id="largestBidMoney" class="sel_140">
-						    <option value="">没有限制</option>
-						    <option value="1000">1000</option>
-						    <option value="5000">5000</option>
-						    <option value="10000">10000</option>
-						    <option value="20000">20000</option>
-						    <option value="50000">50000</option>
-						</select>
+							<select name="largestBidMoney" id="largestBidMoney" class="sel_140" onFocus="funLargestBidMoney()">
+							</select>
 						</td>
 					  </tr>
-					  <tr>
-					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最小认购单位(元)：</td>
-					    <td class="col-md-6">
-					    <select name="lowestSub" id="lowestSub" class="sel_140">
-						    <option value="100">100</option>
-						    <option value="200">200</option>
-						    <option value="500">500</option>
-						    <option value="1000">1000</option>
-						</select>
-					    </td>
-					  </tr>
-					  <tr>
-					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>认购总份数：</td>
-					    <td class="col-md-6"><input type="text" name="subTotal"  class="inp280" /></td>
-					  </tr>
-					  <tr>
-					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>投标数量：</td>
-					    <td class="col-md-6"><input type="text" name="tenderSum"  class="inp280" /></td>
-					  </tr>
+<!-- 					  <tr> -->
+<!-- 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最小认购单位：</td> -->
+<!-- 					    <td class="col-md-6"> -->
+<!-- 					    <select name="lowestSub" id="lowestSub" class="sel_140"> -->
+<!-- 						    <option value="100">100元</option> -->
+<!-- 						    <option value="200">200元</option> -->
+<!-- 						    <option value="500">500元</option> -->
+<!-- 						    <option value="1000">1000元</option> -->
+<!-- 						</select> -->
+<!-- 					    </td> -->
+<!-- 					  </tr> -->
+<!-- 					  <tr> -->
+<!-- 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>投标数量：</td> -->
+<!-- 					    <td class="col-md-6"><input type="text" name="tenderSum"  class="inp280" /></td> -->
+<!-- 					  </tr> -->
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>筹标期限：</td>
 					    <td class="col-md-6">
-					    <select name="waitBidDeadlines" id="waitBidDeadlines" class="sel_140">
-						    <option value="">--请选择--</option>
-						    <option value="0">0天</option>
-						    <option value="1">1天</option>
-						    <option value="2">2天</option>
-						    <option value="3">3天</option>
-						    <option value="4">4天</option>
-						    <option value="5">5天</option>
-						    <option value="6">6天</option>
-						    <option value="7">7天</option>
-						</select>
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否公开帐户资金：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isAccountFunds" name="isAccountFunds" checked="checked" value="yes" />是
-					    	<input type="radio" id="isAccountFunds" name="isAccountFunds" value="no" />否
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否公开借款资金：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isLoanFunds" name="isLoanFunds" checked="checked" value="yes" />是
-					    	<input type="radio" id="isLoanFunds" name="isLoanFunds" value="no" />否
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否公开信用额度：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isCreditAmount" name="isCreditAmount" checked="checked" value="yes" />是
-					    	<input type="radio" id="isCreditAmount" name="isCreditAmount" value="no" />否
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否公开投标资金：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isBidFunds" name="isBidFunds" checked="checked" value="yes" />是
-					    	<input type="radio" id="isBidFunds" name="isBidFunds" value="no" />否
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否允许自动投标：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isAutomaticBid" name="isAutomaticBid" checked="checked" value="yes" />是
-					    	<input type="radio" id="isAutomaticBid" name="isAutomaticBid" value="no" />否
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否设为推荐：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isRecommend" name="isRecommend" checked="checked" value="yes" />是
-					    	<input type="radio" id="isRecommend" name="isRecommend" value="no" />否
+							<select name="waitBidDeadlines" id="waitBidDeadlines" class="sel_140" onFocus="funWaitBidDeadlines()">
+							</select>
 					    </td>
 					  </tr>
 					  <tr>
@@ -318,6 +188,17 @@
 					  <tr>
 					    <td class="col-md-6" align="right">借款详情：</td>
 					    <td class="col-md-6"><textarea name="loanDetail" class="txt420"></textarea></td>
+					  </tr>
+					  <tr>
+					  	<td class="col-md-6" align="right">验证码：</td>
+					  	<td class="col-md-6">
+							<div class="col-md-6" align="left" style="padding: 0px; width: 120px;">
+								<input type="text" id="captcha" name="captcha" maxlength="4" class="form-control" placeholder="验证码"/>
+							</div>
+							<div class="col-md-6">
+								<img style="width:120px;height:32px;" class="img-responsive" id="login_kaptcha" src="${ctx}/resources/images/kaptcha.jpg" />
+							</div>
+					  	</td>
 					  </tr>
 					  <tr>
 					  	<td class="col-md-6" align="right"></td>
@@ -330,15 +211,12 @@
 		  		</form>    
 	    	</div>
     	</div>
-    	
-    	
-    	
     </div>
     <hr class="featurette-divider2">
     <jsp:include page="../foot.jsp"/>
     </div>
     <script type="text/javascript">
-	    $("#enteringLiuZhuan").validate({
+	    $("#enteringDiYa").validate({
     		rules:{
     			loanCode:"required",
     			loanTitle:"required",
@@ -354,7 +232,8 @@
     			lowestSub:"required",
     			subTotal:"required",
     			tenderSum:"required",
-    			waitBidDeadlines:"required"
+    			waitBidDeadlines:"required",
+    			captcha:"required"
     		},
     		messages:{
     			loanCode:"借款编号不能为空",
@@ -371,14 +250,15 @@
     			lowestSub:"最小认购单位(元)不能为空",
     			subTotal:"认购总份数不能为空",
     			tenderSum:"投标数量不能为空",
-    			waitBidDeadlines:"筹标期限不能为空"
+    			waitBidDeadlines:"筹标期限不能为空",
+    			captcha:"验证码不能为空"
     		},
     		submitHandler:function(){
     			$.ajax({
     				   type: "POST",
     				   url: ctx+"/borrowingLoan/add.json",
     				   dataType: "json",
-    				   data: $("#enteringLiuZhuan").serialize(),
+    				   data: $("#enteringDiYa").serialize(),
 	    			   success: function(r) {
 	    				   successAddLiuZhuan(r);
 	                    },
@@ -405,7 +285,7 @@
 					                click : function(e) {
 					                	dialog.remove();
 					                	if(data.success){
-					                		window.location.href="${ctx}/borrow.htm";
+					                		window.location.href="${ctx}/investment/index.htm?&p=1";
 					                	}else{
 					                		dialog.remove();
 					                	}
@@ -414,10 +294,11 @@
 						});
 			});
 		};
+		//是否设置奖励
 		function displayIsBidReward(){
-			var isBidReward = document.enteringLiuZhuan.isBidReward;
-			var bidProReward = document.enteringLiuZhuan.bidProReward;
-			var fixedAppReward = document.enteringLiuZhuan.fixedAppReward;
+			var isBidReward = document.enteringDiYa.isBidReward;
+			var bidProReward = document.enteringDiYa.bidProReward;
+			var fixedAppReward = document.enteringDiYa.fixedAppReward;
 			if(isBidReward[0].checked){
 				bidProReward.disabled = "disabled";
 				fixedAppReward.disabled = "disabled";
@@ -432,9 +313,10 @@
 			}
 
 		};
+		//是否设置密码
 		function displayIsBidPwd(){
-			var isBidPwd = document.enteringLiuZhuan.isBidPwd;
-			var bidPwd = document.enteringLiuZhuan.bidPwd;
+			var isBidPwd = document.enteringDiYa.isBidPwd;
+			var bidPwd = document.enteringDiYa.bidPwd;
 			for(var i=0;i<isBidPwd.length;i++){
 				if(isBidPwd[i].checked){
 					if(isBidPwd[i].value == "yes"){
@@ -446,6 +328,46 @@
 				}
 		    }
 		};
-    </script>
+		//动态加载后台的最低投标金额值
+		var lowestBidMoney="${loanTenderDate.lowestBidMoney}"; //这是一字符串 
+		var lowestBidMoneys=lowestBidMoney.split(","); //字符分割 
+		function funLowestBidMoney(){
+		  for (var i=0;i < lowestBidMoneys.length; i++) {
+		    document.enteringDiYa.lowestBidMoney.options[i] = new Option(lowestBidMoneys[i]+"元",lowestBidMoneys[i]);
+		  }
+		};
+		//动态加载后台的最高投标金额值
+		var largestBidMoney="${loanTenderDate.largestBidMoney}"; //这是一字符串 
+		var largestBidMoneys=largestBidMoney.split(","); //字符分割 
+		function funLargestBidMoney(){
+		  for (var i=0;i < largestBidMoneys.length; i++) {
+		    document.enteringDiYa.largestBidMoney.options[i] = new Option(largestBidMoneys[i]+"元",largestBidMoneys[i]);
+		  }
+		};
+		//动态加载后台的借款期限值
+		var loanDeadlinesId="${loanTenderDate.loanDeadlinesMon}"; //这是一字符串 
+		var loanDeadlinesIds=loanDeadlinesId.split(","); //字符分割 
+		function funLoanDeadlinesId(){
+		  for (var i=0;i < loanDeadlinesIds.length; i++) {
+		    document.enteringDiYa.loanDeadlinesId.options[i] = new Option(loanDeadlinesIds[i]+"个月",loanDeadlinesIds[i]);
+		  }
+		};
+		//动态加载后台的筹标期限值
+		var waitBidDeadlines="${loanTenderDate.waitBidDeadlines}"; //这是一字符串 
+		var waitBidDeadliness=waitBidDeadlines.split(","); //字符分割 
+		function funWaitBidDeadlines(){
+		  for (var i=0;i < waitBidDeadliness.length; i++) {
+		    document.enteringDiYa.waitBidDeadlines.options[i] = new Option(waitBidDeadliness[i]+"天",waitBidDeadliness[i]);
+		  }
+		};
+		//验证码验证
+		$(function() {
+			$('#login_kaptcha').click(function() {  
+				$('#captcha').val('');
+	        	$(this).hide().attr('src','${pageContext.request.contextPath}/resources/images/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();     
+		    });
+		});
+	</script> 
+
   </body>
 </html>
