@@ -160,7 +160,7 @@ public class BorrowingLoanController extends AbstractController{
 	public Object memberBorrow(JqPager jqPager, int p, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String pagetype){
 	    
 		String website = "member_mgr/memberBorrow";
-		if ("repaymenting".equals(borrowingLoanQueryDTO.getLoanState())){
+		if ("repaymenting".equals(borrowingLoanQueryDTO.getLoanState()) || "completed".equals(borrowingLoanQueryDTO.getLoanState())){
 			website = "member_mgr/memberRepayment";
 		}
 		ModelAndView mav = new ModelAndView(website);
@@ -168,10 +168,22 @@ public class BorrowingLoanController extends AbstractController{
 		    mav.addObject("buttonState","firstAudit");
 		} else if ("tendering".equals(borrowingLoanQueryDTO.getLoanState())) {
 		    mav.addObject("buttonState","tendering");
-		}
+		} else if ("repaymenting".equals(borrowingLoanQueryDTO.getLoanState())) {
+            mav.addObject("buttonState","repaymenting");
+        } else if ("completed".equals(borrowingLoanQueryDTO.getLoanState())) {
+            mav.addObject("buttonState","completed");
+        }
 		mav.addObject("borrowingDatas",borrowingLoanService.listAsGridWebsite(jqPager, borrowingLoanQueryDTO, pagetype, p));
 		return mav;
 	}
+	
+	//转到"会员中心"-"我要借款"-"正在还款的借款"-"还款明细"的页面
+    @RequestMapping(value = "/memberRepaymentDetail.htm")
+    public Object memberRepaymentDetail(String loanId){
+        ModelAndView mav = new ModelAndView("member_mgr/memberRepaymentDetail");
+        mav.addObject("borrowingLoan",borrowingLoanService.getBorrowingLoan(loanId));
+        return mav;
+    }
 	
 	//转到会员中心的我要借款的“借款统计”页面
 	@RequestMapping(value = "/memberStatistics.htm")
