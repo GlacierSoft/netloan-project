@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
-import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
@@ -158,31 +157,20 @@ public class BorrowingLoanController extends AbstractController{
 	
 	//转到会员中心的我要借款的“借款列表”和“还款管理”页面
 	@RequestMapping(value = "/memberBorrow.htm")
-	public Object memberBorrow(JqPager jqPager,int p,BorrowingLoanQueryDTO borrowingLoanQueryDTO,String pagetype,HttpServletRequest request){
-		//获取信息通知列表
-		JqGridReturn returnResult = (JqGridReturn) borrowingLoanService.listAsGridWebsite(jqPager, borrowingLoanQueryDTO, pagetype, p);
-		request.setAttribute("borrowingDatas", returnResult);
-		request.setAttribute("borrowingLoanQueryDTO", borrowingLoanQueryDTO);
-		if(null != pagetype){
-			if(pagetype.trim().equals("riseloanTotal")){
-				request.setAttribute("loanTotal", "downloanTotal");
-	        }else if(pagetype.trim().equals("downloanTotal")){
-	        	request.setAttribute("loanTotal", "riseloanTotal");
-	        }else if(pagetype.trim().equals("risecredit")){
-	        	request.setAttribute("credit", "downcredit");
-	        }else if(pagetype.trim().equals("downcredit")){
-	        	request.setAttribute("credit", "risecredit");
-	        }else if(pagetype.trim().equals("riseloanApr")){
-	        	request.setAttribute("loanApr", "downlloanApr");
-	        }else if(pagetype.trim().equals("downloanApr")){
-	        	request.setAttribute("loanApr", "riseloanApr");
-	        }
-		}
+	public Object memberBorrow(JqPager jqPager, int p, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String pagetype){
+	    
 		String website = "member_mgr/memberBorrow";
 		if ("repaymenting".equals(borrowingLoanQueryDTO.getLoanState())){
 			website = "member_mgr/memberRepayment";
 		}
-		return website;
+		ModelAndView mav = new ModelAndView(website);
+		if ("firstAudit".equals(borrowingLoanQueryDTO.getLoanState())) {
+		    mav.addObject("buttonState","firstAudit");
+		} else if ("tendering".equals(borrowingLoanQueryDTO.getLoanState())) {
+		    mav.addObject("buttonState","tendering");
+		}
+		mav.addObject("borrowingDatas",borrowingLoanService.listAsGridWebsite(jqPager, borrowingLoanQueryDTO, pagetype, p));
+		return mav;
 	}
 	
 	//转到会员中心的我要借款的“借款统计”页面

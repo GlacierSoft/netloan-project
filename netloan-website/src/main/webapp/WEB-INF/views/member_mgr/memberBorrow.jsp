@@ -57,7 +57,7 @@
 					    <div id="collapseTwo" class="panel-collapse collapse in">
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
-							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1" class="btn btn-info" role="button">借款列表</a>
+							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1" class="btn btn-info" role="button">已发布的借款</a>
 							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting" class="btn btn-default" role="button">还款管理</a>
 							  <a href="${ctx}/borrowingLoan/memberStatistics.htm?&memberId=${currentMember.memberId}" class="btn btn-default" role="button">贷款统计</a>
 							</div>
@@ -88,21 +88,113 @@
 	    	<div class="col-md-10">
 	    		<div class="panel panel-default">
 				  <div class="panel-heading">
-				    <h3 class="panel-title">会员中心 / 借款管理 / 借款列表</h3>
+				    <h3 class="panel-title">会员中心 / 借款管理 / 已发布的借款</h3>
 				  </div>
 				  <div class="panel-body">
+				  			
+					  <div style="padding-top:10px;padding-bottom: 20px;">
+					  		<c:choose>
+							   <c:when test="${buttonState == 'firstAudit'}">  
+							   	<a id="firstAudit" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit" class="btn btn-success" role="button">初审中的借款</a>
+							   	<a id="tendering" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=tendering" class="btn btn-primary" role="button">招标中的借款</a>
+							   	<div class="panel panel-default">
+								  <div class="panel-heading">
+								    <h4 class="panel-title"><strong>条件筛选</strong></h3>
+								  </div>
+								  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
+								     <form id="firstAuditBorrowForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit" >
+								      <div class="form-group">
+								      	
+								        <label for="cardId" class="col-sm-2 control-label" >发布时间</label>
+									    <div class="col-sm-4">
+										    <div class="input-group date form_datetime" data-link-field="dtp_input1">
+							                    <input id="createStartTime" name="createStartTime" class="form-control" size="16" type="text" value="<fmt:formatDate value="${borrowingLoanQueryDTO.createStartTime}" type="both"/>" readonly>
+							                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+												<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+							                </div>
+								      		<input type="hidden" id="dtp_input3" name="memberId" value="${currentMember.memberId}" />
+									    </div>
+									    <label for="cardId" class="col-sm-1 control-label" style="text-align:center;vertical-align: middle;">到</label>
+									    <div class="col-sm-4">
+									    	<div class="input-group date form_datetime" data-link-field="dtp_input1">
+							                    <input id="createEndTime" name="createEndTime" class="form-control" size="16" type="text" value="<fmt:formatDate value="${borrowingLoanQueryDTO.createEndTime}" type="both"/>" readonly>
+							                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+												<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+							                </div>
+									    </div>
+									    <label for="cardId" class="col-sm-1 control-label" ></label>
+									  </div>
+									   <div class="form-group">
+									    <label for="loanTitle" class="col-sm-1 control-label" >标题</label>
+									    <div class="col-sm-3"><input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${borrowingLoanQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
+									    <div class="col-sm-3 text-center"><button id="firstAuditBorrowFormButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
+									    <div class="col-sm-3">
+									    <a id="firstAuditBorrowFormButtonReset" href="javascript:void(0);" class="btn btn-primary btn-lg btn-block" data-options="" onclick="">重置条件</a>
+									    </div>
+									  	<div class="col-sm-2"></div>
+									  	</div>
+								     </form>
+								  </div>
+							  	</div>
+							   </c:when>
+							   <c:when test="${buttonState == 'tendering'}">  
+							    <a id="firstAudit" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit" class="btn btn-primary" role="button">初审中的借款</a>
+							   	<a id="tendering" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=tendering" class="btn btn-success" role="button">招标中的借款</a>
+							   	<div class="panel panel-default">
+								  <div class="panel-heading">
+								    <h4 class="panel-title"><strong>条件筛选</strong></h3>
+								  </div>
+								  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
+								     <form id="tenderingBorrowForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=tendering" >
+								      <div class="form-group">
+								      	
+								        <label for="cardId" class="col-sm-2 control-label" >发布时间</label>
+									    <div class="col-sm-4">
+										    <div class="input-group date form_datetime" data-link-field="dtp_input1">
+							                    <input id="createStartTime" name="createStartTime" class="form-control" size="16" type="text" value="<fmt:formatDate value="${borrowingLoanQueryDTO.createStartTime}" type="both"/>" readonly>
+							                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+												<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+							                </div>
+								      		<input type="hidden" id="dtp_input3" name="memberId" value="${currentMember.memberId}" />
+									    </div>
+									    <label for="cardId" class="col-sm-1 control-label" style="text-align:center;vertical-align: middle;">到</label>
+									    <div class="col-sm-4">
+									    	<div class="input-group date form_datetime" data-link-field="dtp_input1">
+							                    <input id="createEndTime" name="createEndTime" class="form-control" size="16" type="text" value="<fmt:formatDate value="${borrowingLoanQueryDTO.createEndTime}" type="both"/>" readonly>
+							                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+												<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+							                </div>
+									    </div>
+									    <label for="cardId" class="col-sm-1 control-label" ></label>
+									  </div>
+									   <div class="form-group">
+									    <label for="loanTitle" class="col-sm-1 control-label" >标题</label>
+									    <div class="col-sm-3"><input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${borrowingLoanQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
+									    <div class="col-sm-3 text-center"><button id="tenderingBorrowFormButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
+									    <div class="col-sm-3">
+									    <a id="tenderingBorrowFormButtonReset" href="javascript:void(0);" class="btn btn-primary btn-lg btn-block" data-options="" onclick="">重置条件</a>
+									    </div>
+									  	<div class="col-sm-2"></div>
+									  	</div>
+								     </form>
+								  </div>
+							  	</div>
+							   </c:when>
+							</c:choose>
+					  </div>
+				  
 			          <div>
 				          <table class="table table-hover">
 				          	<thead>
 					          <tr>
 					            <th>借款标题</th>
 					            <th>借款类型</th>
-					            <th>借款状态</th>
-					            <th>借款金额</th>
 					            <th>还款方式</th>
+					            <th>借款金额</th>
 					            <th>年利率</th>
 					            <th>招标期限</th>
 					            <th>发布时间</th>
+					            <th>借款状态</th>
 					          </tr>
 					        </thead>
 				          	<tbody>
@@ -110,26 +202,39 @@
 						          <tr>
 						            <td>${borrowingLoan.loanTitle}</td>
 						            <td>${borrowingLoan.loanTenderDisplay}</td>
-						            <td>
-						            	<span id="borrowingLoan_loanState2${status.index}"></span>
-						        		<script type="text/javascript">
-								       		$('#borrowingLoan_loanState2'+${status.index}).html(renderGridValue('${borrowingLoan.loanState }',fields.loanState));
-								    	</script>
-					    			</td>
-						            <td>${borrowingLoan.loanTotal}</td>
 						            <td>${borrowingLoan.repaymentTypeDisplay}</td>
+						            <td>${borrowingLoan.loanTotal}</td>
 						            <td>${borrowingLoan.loanApr}</td>
 						            <td>${borrowingLoan.waitBidDeadlines}</td>
 						            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="both"/></td>
+						            <td>
+						            	<span id="borrowingLoan_loanState${status.index}"></span>
+						        		<script type="text/javascript">
+								       		$('#borrowingLoan_loanState'+${status.index}).html(renderGridValue('${borrowingLoan.loanState}',fields.loanState));
+								    	</script>
+					    			</td>
 						          </tr>
 					      		</c:forEach>
 					      	</tbody>
 					      	<tfoot>
 					          <tr>
 					            <th colspan="8">
-					            	<div align="right">
-									    <ul id='pageBorrows'></ul>
-									</div>
+									
+									<div style="padding-top:10px;padding-bottom: 20px;">
+								  		<c:choose>
+										   <c:when test="${buttonState == 'firstAudit'}">  
+											<div align="right">
+										    	<ul id='pageFirstAuditBorrows'></ul>
+											</div>
+										   </c:when>
+										   <c:when test="${buttonState == 'tendering'}"> 
+										  	<div align="right">
+											    <ul id='pageTenderingBorrows'></ul>
+											</div> 
+										   </c:when>
+										</c:choose>
+								  	</div>
+									
 								</th>
 					          </tr>
 					        </tfoot>
@@ -146,6 +251,19 @@
 
 <!-- 分页显示表格数据 -->
 <script type="text/javascript">
+
+	//bootstrap日期控件
+	$(".form_datetime").datetimepicker({
+		language:  'zh-CN',
+	    format: "yyyy-mm-dd",
+	    autoclose: true,
+	    todayBtn: true,
+	    todayHighlight: true,
+	    minView: 2,
+	    pickerPosition: "bottom-left"
+	});
+
+	//分页功能
 	$(function(){
 		//获得浏览器参数
 		$.extend({
@@ -163,40 +281,57 @@
 				return $.getUrlVars()[name];
 			}
 		});
-	
-	//封装浏览器参数
-	var composeUrlParams=function(){
-		var param='';
-		$.each($.getUrlVars(), function(i, item) {
-			if(item!='p'){
-				var val=$.getUrlVar(item);
-				if(val) param += "&" + item+"="+val;
-			}
-		});
-		return param;
-	}
-	
-	var element = $('#pageBorrows');
-	
-	//设置分页的总页数
-	var total=${borrowingDatas.total}/10;
-	if(parseInt(total)==total){
-		var total = parseInt(total);
-	}else {
-		var total = parseInt(total)+1;
-	}
-	
-	var options = {
-	    bootstrapMajorVersion:3,
-	    currentPage: ${borrowingDatas.p},
-	    numberOfPages: 5,
-	    totalPages:total,
-	    pageUrl: function(type, page, current){
-	    	return "${ctx}/borrowingLoan/memberBorrow.htm?"+composeUrlParams()+"&p="+page;
-	    	}
-	}
-	
-	element.bootstrapPaginator(options);
+		//封装浏览器参数
+		var composeUrlParams=function(){
+			var param='';
+			$.each($.getUrlVars(), function(i, item) {
+				if(item!='p'){
+					var val=$.getUrlVar(item);
+					if(val) param += "&" + item+"="+val;
+				}
+			});
+			return param;
+		}
+		
+		//初审中的借款的分页设置
+		var element = $('#pageFirstAuditBorrows');
+		//设置分页的总页数
+		var total=${borrowingDatas.total}/10;
+		if(parseInt(total)==total){
+			var total = parseInt(total);
+		}else {
+			var total = parseInt(total)+1;
+		}
+		var options = {
+		    bootstrapMajorVersion:3,
+		    currentPage: ${borrowingDatas.p},
+		    numberOfPages: 5,
+		    totalPages:total,
+		    pageUrl: function(type, page, current){  
+		    	return "${ctx}/borrowingLoan/memberBorrow.htm?"+composeUrlParams()+"&p="+page;
+		    	}
+		}
+		element.bootstrapPaginator(options);
+		
+		//招标中的借款的分页设置
+		var elementTendering = $('#pageTenderingBorrows');
+		//设置分页的总页数
+		var totalTendering=${borrowingDatas.total}/10;
+		if(parseInt(totalTendering)==totalTendering){
+			var totalTendering = parseInt(totalTendering);
+		}else {
+			var totalTendering = parseInt(totalTendering)+1;
+		}
+		var optionsTendering = {
+		    bootstrapMajorVersion:3,
+		    currentPage: ${borrowingDatas.p},
+		    numberOfPages: 5,
+		    totalPages:totalTendering,
+		    pageUrl: function(type, page, current){  
+		    	return "${ctx}/borrowingLoan/memberBorrow.htm?"+composeUrlParams()+"&p="+page;
+		    	}
+		}
+		elementTendering.bootstrapPaginator(optionsTendering);
 	})
 </script>
 
