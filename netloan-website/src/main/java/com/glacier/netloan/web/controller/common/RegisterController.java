@@ -20,11 +20,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.glacier.basic.util.IpUtil;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
+import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.entity.member.MemberWork;
+import com.glacier.netloan.service.finance.FinanceMemberService;
 import com.glacier.netloan.service.member.MemberAuthService;
 import com.glacier.netloan.service.member.MemberService;
+import com.glacier.netloan.service.member.MemberStatisticsService;
 
 @Controller
 public class RegisterController extends AbstractController{
@@ -34,6 +38,12 @@ public class RegisterController extends AbstractController{
 	
 	@Autowired
 	private MemberAuthService memberAuthService;
+	
+	@Autowired
+	private FinanceMemberService financeMemberService;
+	
+	@Autowired
+	private MemberStatisticsService memberStatisticsService;
 	
 	/**
 	 * @Title: intoregister 
@@ -167,7 +177,46 @@ public class RegisterController extends AbstractController{
         String ip = IpUtil.getIpAddr((HttpServletRequest) request);
         String host = ip + IpUtil.getIpInfo(ip);
         member.setLastLoginIpAddress(host);
-        JqReturnJson returnResult = (JqReturnJson) memberService.addMemberReception(member);
+        //注册时，生成会员信息，会员资金记录，会员统计记录
+        JqReturnJson returnResult = (JqReturnJson) memberService.addMemberReception(member);//注册会员，调用添加会员方法
+        //生成会员资金记录
+        FinanceMember financeMember = new FinanceMember();
+        Member memberNew = (Member) returnResult.getObj();
+        financeMember.setMemberId(memberNew.getMemberId());//设置会员id
+        financeMember.setUsableMoney(0f);//设置可用金额为0
+        financeMember.setFrozenMoney(0f);//设置冻结金额为0
+        financeMember.setCollectingMoney(0f);//设置待收金额为0
+        financeMember.setRefundMoney(0f);//设置待还金额为0
+        financeMember.setAmount(0f);//设置总金额为0
+        financeMember.setRechargeMoney(0f);//设置充值总金额为0
+        financeMember.setRechargeMonthTimes(0f);//设置本月充值次数
+        financeMember.setRechargeTimes(0f);//设置充值总次数
+        financeMember.setWithdrawMoney(0f);//设置提现总金额
+        financeMember.setWithdrawMonthTimes(0f);//设置本月提现总次数
+        financeMember.setWithdrawTimes(0f);//设置提现总次数
+        financeMember.setBorrowerCredit(3000f);//设置借款信用额度
+        financeMember.setAvailableCredit(3000f);//设置可用信用额度
+        financeMemberService.addMember(financeMember);//调用添加会员资金方法，添加会员资金
+        //生会员统计记录
+        MemberStatistics memberStatistics = new MemberStatistics();
+        memberStatistics.setMemberId(memberNew.getMemberId());//设置会员id
+        memberStatistics.setTotalBorrowings(0f);//设置借款总额
+        memberStatistics.setCumulativeLossProfit(0f);//设置累计亏盈
+        memberStatistics.setAlreadyTotal(0f);//设置已还总额
+        memberStatistics.setBorrowSuccess(0);//借款成功次数
+        memberStatistics.setNormalRepayment(0);//正常还款次数
+        memberStatistics.setAdvanceRepayment(0);//提前还款次数
+        memberStatistics.setLateRepayment(0);//逾期还款次数
+        memberStatistics.setLate(0);//迟还次数
+        memberStatistics.setWebsiteSubstitute(0);//网站待还次数
+        memberStatistics.setInvestmentTotal(0f);//投资总额
+        memberStatistics.setTenderAwards(0f);//投标奖励
+        memberStatistics.setAlreadyIncomeTotal(0f);//已收总额
+        memberStatistics.setWaitIncomeTotal(0f);//待收总额
+        memberStatistics.setPromotionAwards(0f);//推广奖励
+        memberStatistics.setUplineDeltaAwards(0f);//线下冲值奖励
+        memberStatistics.setContinueAwards(0f);//续投奖励
+        memberStatisticsService.addStatistics(memberStatistics);//调用添加会员统计记录方法，添加会员统计记录
         request.setAttribute("returnResult", returnResult);
         if(!returnResult.isSuccess()){
         	return "index";
