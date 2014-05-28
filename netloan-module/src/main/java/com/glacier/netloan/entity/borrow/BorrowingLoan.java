@@ -12,6 +12,12 @@ public class BorrowingLoan {
     private String memberId;
     
     /**
+     * 自定义字段 筹标期限，date类型
+     */
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    private Date waitBidDeadlinesDate;
+    
+    /**
      * 自定义字段
      */
     private String memberDisplay;
@@ -166,7 +172,15 @@ public class BorrowingLoan {
     private Float alrBidMoney;
     
 
-    public Float getAlrBidMoney() {
+    public Date getWaitBidDeadlinesDate() {
+		return waitBidDeadlinesDate;
+	}
+
+	public void setWaitBidDeadlinesDate(Date waitBidDeadlinesDate) {
+		this.waitBidDeadlinesDate = waitBidDeadlinesDate;
+	}
+
+	public Float getAlrBidMoney() {
 		return alrBidMoney;
 	}
 

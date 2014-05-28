@@ -9,8 +9,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -21,10 +19,11 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.member.MemberStatisticsMapper;
+import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.entity.member.MemberStatisticsExample;
 import com.glacier.netloan.entity.system.User;
-import com.glacier.netloan.util.MethodLog;
+import com.glacier.netloan.entity.system.UserExample;
 
 /** 
  * @ClassName: MemberStatisticsService 
@@ -39,6 +38,9 @@ public class MemberStatisticsService {
 
 	@Autowired
     private MemberStatisticsMapper statisticsMapper;
+	
+	@Autowired
+	private UserMapper userMapper;
 
 	/**
 	 * @Title: getStatistics
@@ -100,11 +102,13 @@ public class MemberStatisticsService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "StatisticsList_add")
     public Object addStatistics(MemberStatistics statistics) {
-    	
-        Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
+    	//通过admin来获取超级管理员信息
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUsernameEqualTo("admin");
+        List<User> users = userMapper.selectByExample(userExample);
+        
+        User pricipalUser = users.get(0);
         
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;

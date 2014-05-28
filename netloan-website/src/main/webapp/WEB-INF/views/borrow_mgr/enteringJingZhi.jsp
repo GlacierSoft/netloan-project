@@ -34,23 +34,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<h3>发布净值标</h3>
     		<p style="color:#F00">* 为必填项，所有资料均会严格保密。</p>
     		<div>
-    			<form id="enteringLiuZhuan" name="enteringLiuZhuan" class="form-horizontal" role="form" method="post" >
+    			<form id="enteringJingZhi" name="enteringJingZhi" class="form-horizontal" role="form" method="post" >
 		          <table  style="width: 950px;">
 		          	<tbody>
-		          	  <tr>
-			            <td class="col-md-6" align="right">
-			            	<span style="color:#F00">*</span>借款编号：
-			            </td>
-			            <td class="col-md-6">
-			            	<input id="memberId" name="memberId" type="hidden" value="${currentMember.memberId}" >
-			            	<input id="loanCode" name="loanCode" type="text" class="inp280" maxlength="12"/>
-			            </td>
-			          </tr>
 			          <tr>
 			            <td class="col-md-6" align="right">
 			            	<span style="color:#F00">*</span>借款标题：
 			            </td>
 			            <td class="col-md-6">
+			            	<input id="memberId" name="memberId" type="hidden" value="${currentMember.memberId}" >
 			            	<input id="loanTitle" name="loanTitle" type="text" class="inp280" maxlength="12"/>
 			            </td>
 			          </tr>
@@ -84,20 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>借款期限：</td>
 					    <td class="col-md-6">
-						    <select name="loanDeadlinesId" id="loanDeadlinesId" class="sel_140">
-							    <option value="">--请选择--</option>
-							    <option value="1个月">1个月</option>
-							    <option value="2个月">2个月</option>
-							    <option value="3个月">3个月</option>
-							    <option value="4个月">4个月</option>
-							    <option value="5个月">5个月</option>
-							    <option value="6个月">6个月</option>
-							    <option value="7个月">7个月</option>
-							    <option value="8个月">8个月</option>
-							    <option value="9个月">9个月</option>
-							    <option value="10个月">10个月</option>
-							    <option value="11个月">11个月</option>
-							    <option value="12个月">12个月</option>
+					    	<select name="loanDeadlinesId" id="loanDeadlinesId" class="sel_140" onFocus="funLoanDeadlinesId()">
 							</select>
 					    </td>
 					  </tr>
@@ -120,8 +99,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <td class="col-md-6">
 					      	<input type="radio" id="isBidReward" name="isBidReward" value="yes" onclick="displayIsBidReward()"/>
 					     	按投标金额比例奖励
-					     	<input type="text" id="bidProReward" name="bidProReward" class="inp100x gray" disabled="disabled"/>
-					      元
+					     	<input type="text" id="bidProReward" name="bidProReward" class="inp100x gray" disabled="disabled" value="0"/>
+					      %
 					    </td>
 					  </tr>
 					  <tr>
@@ -129,25 +108,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <td class="col-md-6">
 					     	<input type="radio" id="isBidReward" name="isBidReward" value="yes" onclick="displayIsBidReward()"/>
 					      	按固定金额分摊奖励
-					      	<input type="text" id=fixedAppReward name="fixedAppReward" class="inp100x gray" disabled="disabled"/>
-					      	%
+					      	<input type="text" id=fixedAppReward name="fixedAppReward" class="inp100x gray" disabled="disabled" value="0"/>
+					      	元
 					    </td>
 					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否有投标待收限制：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isBidMarked" name="isBidMarked" checked="checked" value="yes" />是
-					    	<input type="radio" id="isBidMarked" name="isBidMarked" value="no" />否
-					    </td>
-					  </tr>
-					  <tr>
-			            <td class="col-md-6" align="right">
-			            	<span style="color:#F00">*</span>待收金额设置：
-			            </td>
-			            <td class="col-md-6">
-			            	<input id="readyRecMoney" name="readyRecMoney" type="text" class="inp280" maxlength="12"/>
-			            </td>
-			          </tr>
 					  <tr>
 					  	<td class="col-md-6" align="right">是否设置投标密码：</td>
 					    <td class="col-md-6">
@@ -163,14 +127,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					      	<input type="text" id="bidPwd" name="bidPwd" maxlength="20" class="inp100x gray" disabled="disabled"/>
 					    </td>
 					  </tr>
-					  <tr>
-			            <td class="col-md-6" align="right">
-			            	<span style="color:#F00">*</span>借款管理费：
-			            </td>
-			            <td class="col-md-6">
-			            	<input id="loanManagementFees" name="loanManagementFees" type="text" class="inp280" maxlength="12"/>
-			            </td>
-			          </tr>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>还款方式：</td>
 					    <td class="col-md-6">
@@ -203,72 +159,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</select>
 						</td>
 					  </tr>
-					  <tr>
-					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最小认购单位：</td>
-					    <td class="col-md-6">
-					    <select name="lowestSub" id="lowestSub" class="sel_140">
-						    <option value="100">100元</option>
-						    <option value="200">200元</option>
-						    <option value="500">500元</option>
-						    <option value="1000">1000元</option>
-						</select>
-					    </td>
-					  </tr>
-					  <tr>
-					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>认购总份数：</td>
-					    <td class="col-md-6"><input type="text" name="subTotal"  class="inp280" /></td>
-					  </tr>
-					  <tr>
-					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>投标数量：</td>
-					    <td class="col-md-6"><input type="text" name="tenderSum"  class="inp280" /></td>
-					  </tr>
+<!-- 					  <tr> -->
+<!-- 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最小认购单位：</td> -->
+<!-- 					    <td class="col-md-6"> -->
+<!-- 					    <select name="lowestSub" id="lowestSub" class="sel_140"> -->
+<!-- 						    <option value="100">100元</option> -->
+<!-- 						    <option value="200">200元</option> -->
+<!-- 						    <option value="500">500元</option> -->
+<!-- 						    <option value="1000">1000元</option> -->
+<!-- 						</select> -->
+<!-- 					    </td> -->
+<!-- 					  </tr> -->
+<!-- 					  <tr> -->
+<!-- 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>投标数量：</td> -->
+<!-- 					    <td class="col-md-6"><input type="text" name="tenderSum"  class="inp280" /></td> -->
+<!-- 					  </tr> -->
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>筹标期限：</td>
 					    <td class="col-md-6">
 							<select name="waitBidDeadlines" id="waitBidDeadlines" class="sel_140" onFocus="funWaitBidDeadlines()">
 							</select>
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否公开帐户资金：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isAccountFunds" name="isAccountFunds" checked="checked" value="yes" />是
-					    	<input type="radio" id="isAccountFunds" name="isAccountFunds" value="no" />否
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否公开借款资金：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isLoanFunds" name="isLoanFunds" checked="checked" value="yes" />是
-					    	<input type="radio" id="isLoanFunds" name="isLoanFunds" value="no" />否
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否公开信用额度：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isCreditAmount" name="isCreditAmount" checked="checked" value="yes" />是
-					    	<input type="radio" id="isCreditAmount" name="isCreditAmount" value="no" />否
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否公开投标资金：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isBidFunds" name="isBidFunds" checked="checked" value="yes" />是
-					    	<input type="radio" id="isBidFunds" name="isBidFunds" value="no" />否
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否允许自动投标：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isAutomaticBid" name="isAutomaticBid" checked="checked" value="yes" />是
-					    	<input type="radio" id="isAutomaticBid" name="isAutomaticBid" value="no" />否
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否设为推荐：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isRecommend" name="isRecommend" checked="checked" value="yes" />是
-					    	<input type="radio" id="isRecommend" name="isRecommend" value="no" />否
 					    </td>
 					  </tr>
 					  <tr>
@@ -306,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <jsp:include page="../foot.jsp"/>
     </div>
     <script type="text/javascript">
-	    $("#enteringLiuZhuan").validate({
+	    $("#enteringJingZhi").validate({
     		rules:{
     			loanCode:"required",
     			loanTitle:"required",
@@ -348,7 +258,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				   type: "POST",
     				   url: ctx+"/borrowingLoan/add.json",
     				   dataType: "json",
-    				   data: $("#enteringLiuZhuan").serialize(),
+    				   data: $("#enteringJingZhi").serialize(),
 	    			   success: function(r) {
 	    				   successAddLiuZhuan(r);
 	                    },
@@ -386,9 +296,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		};
 		//是否设置奖励
 		function displayIsBidReward(){
-			var isBidReward = document.enteringLiuZhuan.isBidReward;
-			var bidProReward = document.enteringLiuZhuan.bidProReward;
-			var fixedAppReward = document.enteringLiuZhuan.fixedAppReward;
+			var isBidReward = document.enteringJingZhi.isBidReward;
+			var bidProReward = document.enteringJingZhi.bidProReward;
+			var fixedAppReward = document.enteringJingZhi.fixedAppReward;
 			if(isBidReward[0].checked){
 				bidProReward.disabled = "disabled";
 				fixedAppReward.disabled = "disabled";
@@ -405,8 +315,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		};
 		//是否设置密码
 		function displayIsBidPwd(){
-			var isBidPwd = document.enteringLiuZhuan.isBidPwd;
-			var bidPwd = document.enteringLiuZhuan.bidPwd;
+			var isBidPwd = document.enteringJingZhi.isBidPwd;
+			var bidPwd = document.enteringJingZhi.bidPwd;
 			for(var i=0;i<isBidPwd.length;i++){
 				if(isBidPwd[i].checked){
 					if(isBidPwd[i].value == "yes"){
@@ -423,7 +333,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var lowestBidMoneys=lowestBidMoney.split(","); //字符分割 
 		function funLowestBidMoney(){
 		  for (var i=0;i < lowestBidMoneys.length; i++) {
-		    document.enteringLiuZhuan.lowestBidMoney.options[i] = new Option(lowestBidMoneys[i]+"元",lowestBidMoneys[i]);
+		    document.enteringJingZhi.lowestBidMoney.options[i] = new Option(lowestBidMoneys[i]+"元",lowestBidMoneys[i]);
 		  }
 		};
 		//动态加载后台的最高投标金额值
@@ -431,7 +341,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var largestBidMoneys=largestBidMoney.split(","); //字符分割 
 		function funLargestBidMoney(){
 		  for (var i=0;i < largestBidMoneys.length; i++) {
-		    document.enteringLiuZhuan.largestBidMoney.options[i] = new Option(largestBidMoneys[i]+"元",largestBidMoneys[i]);
+		    document.enteringJingZhi.largestBidMoney.options[i] = new Option(largestBidMoneys[i]+"元",largestBidMoneys[i]);
+		  }
+		};
+		//动态加载后台的借款期限值
+		var loanDeadlinesId="${loanTenderDate.loanDeadlinesMon}"; //这是一字符串 
+		var loanDeadlinesIds=loanDeadlinesId.split(","); //字符分割 
+		function funLoanDeadlinesId(){
+		  for (var i=0;i < loanDeadlinesIds.length; i++) {
+		    document.enteringJingZhi.loanDeadlinesId.options[i] = new Option(loanDeadlinesIds[i]+"个月",loanDeadlinesIds[i]);
 		  }
 		};
 		//动态加载后台的筹标期限值
@@ -439,7 +357,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var waitBidDeadliness=waitBidDeadlines.split(","); //字符分割 
 		function funWaitBidDeadlines(){
 		  for (var i=0;i < waitBidDeadliness.length; i++) {
-		    document.enteringLiuZhuan.waitBidDeadlines.options[i] = new Option(waitBidDeadliness[i]+"天",waitBidDeadliness[i]);
+		    document.enteringJingZhi.waitBidDeadlines.options[i] = new Option(waitBidDeadliness[i]+"天",waitBidDeadliness[i]);
 		  }
 		};
 		//验证码验证

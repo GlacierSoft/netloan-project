@@ -5,7 +5,9 @@
  */
 package com.glacier.netloan.service.borrow;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +40,7 @@ import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.member.MemberMessageNotice;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
 import com.glacier.netloan.service.finance.FinanceMemberService;
 import com.glacier.netloan.service.finance.FinanceTransactionService;
@@ -95,6 +98,10 @@ public class BorrowingLoanService {
 	 */
     public Object getBorrowingLoan(String loanId) {
     	BorrowingLoan borrowingLoan = borrowingLoanMapper.selectByPrimaryKey(loanId);
+    	Calendar c = Calendar.getInstance();
+    	c.setTime(borrowingLoan.getFirstAuditDate());//获取初审通过时间
+	    c.add(Calendar.DAY_OF_MONTH, Integer.valueOf(borrowingLoan.getWaitBidDeadlines()));//在初审通过时间，加上筹标期限
+	    borrowingLoan.setWaitBidDeadlinesDate(c.getTime());
         return borrowingLoan;
     }
     /**
@@ -210,7 +217,7 @@ public class BorrowingLoanService {
      * @throws
      */
     @Transactional(readOnly = false)
-    public Object addBorrowingLoan(BorrowingLoan borrowingLoan, String memberId, boolean captchaBoolean) {
+    public Object addBorrowingLoan(BorrowingLoan borrowingLoan, boolean captchaBoolean) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
         // 防止验证码错误
@@ -219,20 +226,49 @@ public class BorrowingLoanService {
             return returnResult;
         }
         int count = 0;
-        // 防止借款主题重复
-        borrowingLoanExample.createCriteria().andLoanCodeEqualTo(borrowingLoan.getLoanCode());
-        count = borrowingLoanMapper.countByExample(borrowingLoanExample);// 查找相同编号的借款数量
+        // 防止同一个会员发布相同借款标题的借款信息
+        borrowingLoanExample.createCriteria().andLoanTitleEqualTo(borrowingLoan.getLoanTitle()).andMemberIdEqualTo(borrowingLoan.getMemberId());
+        count = borrowingLoanMapper.countByExample(borrowingLoanExample);// 查找同一个会员相同标题的借款数量
         if (count > 0) {
-            returnResult.setMsg("借款编号重复");
+            returnResult.setMsg("您发布的借款标题重复，请重新输入");
             return returnResult;
         }
-        borrowingLoan.setLoanId(RandomGUID.getRandomGUID());
-        borrowingLoan.setMemberId(memberId);
+        
+        borrowingLoan.setLoanId(RandomGUID.getRandomGUID());//初始化一些借款信息
+        // 赋值于借款记录的借款编号
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
+        borrowingLoan.setLoanCode("借款"+ "_" + dateFormat.format(new Date()));
+        
+        if (!"".equals(borrowingLoan.getBidProReward()) && null != borrowingLoan.getBidProReward()) {// 投标金额比例奖励转换为百分比格式
+            borrowingLoan.setBidProReward(borrowingLoan.getBidProReward()/100);
+        } else {
+            borrowingLoan.setBidProReward((float) 0);
+        }
+        if ("".equals(borrowingLoan.getFixedAppReward()) || null == borrowingLoan.getFixedAppReward()) {// 投标金额固定奖励
+            borrowingLoan.setFixedAppReward((float) 0);
+        }
+        if (!"".equals(borrowingLoan.getLoanApr()) && null != borrowingLoan.getLoanApr()) {
+            borrowingLoan.setLoanApr(borrowingLoan.getLoanApr()/100);
+        }
+        
         borrowingLoan.setLoanState("firstAudit");
-        borrowingLoan.setCreater(memberId);
+        borrowingLoan.setIsBidMarked("yes");
+        borrowingLoan.setIsAccountFunds("yes");
+        borrowingLoan.setIsLoanFunds("yes");
+        borrowingLoan.setIsCreditAmount("yes");
+        borrowingLoan.setIsBidFunds("yes");
+        borrowingLoan.setIsAutomaticBid("yes");
+        borrowingLoan.setIsRecommend("yes");
+
+        UserExample userExample = new UserExample();//查找出超级管理员信息
+        userExample.createCriteria().andUsernameEqualTo("admin");
+        List<User> users = userMapper.selectByExample(userExample);
+        
+        borrowingLoan.setCreater(borrowingLoan.getMemberId());
         borrowingLoan.setCreateTime(new Date());
-//        borrowingLoan.setUpdater(memberId);
-//        borrowingLoan.setUpdateTime(new Date());
+        borrowingLoan.setLoanDate(new Date());
+        borrowingLoan.setUpdater(users.get(0).getUserId());
+        borrowingLoan.setUpdateTime(new Date());
         count = borrowingLoanMapper.insert(borrowingLoan);
         if (count == 1) {
             returnResult.setSuccess(true);

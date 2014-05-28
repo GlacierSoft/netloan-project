@@ -15,9 +15,6 @@
   <body>
   <jsp:include page="nav.jsp"/>
 
-    <!-- Marketing messaging and featurettes ====================== -->
-    <div class="container marketing">
-
 	<!-- Carousel ============================= -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
@@ -28,7 +25,7 @@
       </ol>
       <div class="carousel-inner">
         <div class="item active">
-          <img src="${pageContext.request.contextPath}/resources/images/index/3.jpg" alt="First slide">
+          <img src="${pageContext.request.contextPath}/resources/images/index/1.jpg" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
             </div>
@@ -42,7 +39,7 @@
           </div>
         </div>
         <div class="item">
-          <img src="${pageContext.request.contextPath}/resources/images/index/1.jpg" alt="Third slide">
+          <img src="${pageContext.request.contextPath}/resources/images/index/3.jpg" alt="Third slide">
           <div class="container">
             <div class="carousel-caption">
             </div>
@@ -53,6 +50,9 @@
       <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
     </div><!-- /.carousel -->
     
+    <!-- Marketing messaging and featurettes ====================== -->
+    <div class="container marketing">
+
       <!-- Three columns of text below the carousel -->
       <div class="row">
       	<div class="col-lg-4">
@@ -83,128 +83,45 @@
 	          <tr>
 	            <th>借款标题</th>
 	            <th>信用等级</th>
+	            <th>借款类型</th>
 	            <th>年利率</th>
-	            <th>金额</th>
-	            <th>期限</th>
+	            <th>借款金额</th>
+	            <th>招标期限</th>
+	            <th>借款状态</th>
 	            <th>进度</th>
 	          </tr>
 	        </thead>
 	        <tbody>
-	          <tr>
-	            <td>装修资金周转</td>
-	            <td>HR</td>
-	            <td>18.00%</td>
-	            <td>10000元</td>
-	            <td>6个月</td>
-	            <td>@100%</td>
-	          </tr>
-	          <tr>
-	            <td>Jacob</td>
-	            <td>Jacob</td>
-	            <td>Thornton</td>
-	            <td>@fat</td>
-	            <td>@mdo</td>
-	            <td>@mdo</td>
-	          </tr>
-	          <tr>
-	            <td>Jacob</td>
-	            <td>Jacob</td>
-	            <td>Thornton</td>
-	            <td>@fat</td>
-	            <td>@mdo</td>
-	            <td>@mdo</td>
-	          </tr>
-	          <tr>
-	            <td>Jacob</td>
-	            <td>Jacob</td>
-	            <td>Thornton</td>
-	            <td>@fat</td>
-	            <td>@mdo</td>
-	            <td>@mdo</td>
-	          </tr>
-	          <tr>
-	            <td>Jacob</td>
-	            <td>Jacob</td>
-	            <td>Thornton</td>
-	            <td>@fat</td>
-	            <td>@mdo</td>
-	            <td>@mdo</td>
-	          </tr>
+          		<c:forEach items="${borrowingDatas.rows}" var="borrowingLoan" varStatus="status">
+		          <tr>
+		            <td><a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }&p=1">
+			        	${borrowingLoan.loanTitle }
+			        	</a>
+			        </td>
+		            <td><img id="creditPhotoDivImg" src="${borrowingLoan.creditPhoto}" style="width: 34px;height: 24px ;" /></td>
+		            <td>${borrowingLoan.loanTenderDisplay}</td>
+	    			<td>${borrowingLoan.loanApr}</td>
+		            <td>${borrowingLoan.loanTotal}</td>
+		            <td>${borrowingLoan.waitBidDeadlines}个月</td>
+					<td>
+		            	<span id="borrowingLoan_loanState2${status.index}"></span>
+		        		<script type="text/javascript">
+				       		$('#borrowingLoan_loanState2'+${status.index}).html(renderGridValue('${borrowingLoan.loanState }',fields.loanState));
+				    	</script>
+	    			</td>
+	    			<td align="center">
+	    				<div style="position:absolute; padding-left: 10px;">
+	    					<span id="alrTenderPro${status.index}"><fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/></span>%</div>
+		            	<div class="progress" style="border: 1px solid #DDDDDD;">
+			        		<div id="progressBar${status.index}" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="${borrowingLoan.alrTenderPro*100}" aria-valuemin="0" aria-valuemax="100" style="width: ${borrowingLoan.alrTenderPro*100}%"></div>
+						</div>
+					</td>
+		          </tr>
+	      		</c:forEach>
 	      	</tbody>
 	      	<tfoot>
 	          <tr>
-	            <th colspan="7"><h4 align="center"><a  href="#" >查看更多投资消息 >></a></h4></th>
-	          </tr>
-	        </tfoot>
-	      </table>
-        </div>
-      </div>
-
-	  <h3>借款列表</h3>
-      <div class="row featurette">
-        <div class="col-md-12">
-          <table class="table table-bordered">
-	        <thead>
-	          <tr>
-	            <th>借款标题</th>
-	            <th>信用等级</th>
-	            <th>年利率</th>
-	            <th>奖励</th>
-	            <th>金额</th>
-	            <th>期限</th>
-	            <th>进度</th>
-	          </tr>
-	        </thead>
-	        <tbody>
-	          <tr>
-	            <td>某选煤厂流转借款标</td>
-	            <td>一级</td>
-	            <td>13%</td>
-	            <td>1%</td>
-	            <td>20000元</td>
-	            <td>一年</td>
-	            <td>15%</td>
-	          </tr>
-	          <tr>
-	            <td>Jacob</td>
-	            <td>Jacob</td>
-	            <td>Thornton</td>
-	            <td>@fat</td>
-	            <td>@mdo</td>
-	            <td>@mdo</td>
-	            <td>@mdo</td>
-	          </tr>
-	          <tr>
-	            <td>Jacob</td>
-	            <td>Jacob</td>
-	            <td>Thornton</td>
-	            <td>@fat</td>
-	            <td>@mdo</td>
-	            <td>@mdo</td>
-	            <td>@mdo</td>
-	          </tr>
-	          <tr>
-	            <td>Jacob</td>
-	            <td>Jacob</td>
-	            <td>Thornton</td>
-	            <td>@fat</td>
-	            <td>@mdo</td>
-	            <td>@mdo</td>
-	            <td>@mdo</td>
-	          </tr>
-	          <tr>
-	            <td>Jacob</td>
-	            <td>Jacob</td>
-	            <td>Thornton</td>
-	            <td>@fat</td>
-	            <td>@mdo</td>
-	            <td>@mdo</td>
-	            <td>@mdo</td>
-	          </tr>
-	      	</tbody>
-	      	<tfoot>
-	          <tr>
-	            <th colspan="7"><h4 align="center"><a  href="#" >查看更多借款消息 >></a></h4></th>
+	            <th colspan="8"><h4 align="center"><a  href="${ctx}/investment/index.htm?&p=1" >查看更多投资理财项目 >></a></h4></th>
 	          </tr>
 	        </tfoot>
 	      </table>

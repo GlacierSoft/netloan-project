@@ -54,7 +54,10 @@
 			  <div class="col-md-9" >
 	       	  	<div>
 	       	  	<h3 style="color: #696969;" ><strong>项目名称：${borrowingLoan.loanTitle}</strong>
-	       	  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small id="attentionBorrowingClick"><a href="javascript:void(0);">关注此借款</a></small>
+	       	  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	       	  	<c:if test="${!empty currentMember.memberId}">
+	       	  	<small id="attentionBorrowingClick"><a href="javascript:void(0);">关注此借款</a></small>
+	       	  	</c:if>
 	       	  	</h3>
 	       	  	</div>
 	       	  	<span>借款金额：</span><span style="color: red;font-size: 20px;"><fmt:formatNumber value="${borrowingLoan.loanTotal }" pattern="#,#00.00"/>元</span>
@@ -124,7 +127,9 @@
 		       	<div class="col-md-4"><span></span></div>
 	       	  	</div><br>
 	       	  	<div class="row">
-	       	  	<div class="col-md-8"><span>剩余时间：0天1小时59分9秒</span></div>
+	       	  	<div class="col-md-8">剩余时间：<span id="lxftime" endtime="">0天1小时59分9秒</span>
+	       	  	<input id="shijian" type="hidden" value="1401445405000"/>
+	       	  	</div>
 	       	  	<div class="col-md-4"><span></span></div>
 	       	  	</div><br>
 	       	  	<div class="row">
@@ -501,6 +506,35 @@
 	    <!-- CONTAINER START======================== -->
   </body>
   <script type="text/javascript">
+ // alert("borrowingLoan:  "+"<fmt:formatDate value='${borrowingMember.createTime}' pattern='yyyy/MM/dd HH:mm:ss'/>")
+  //alert("aa  "+new Date("<fmt:formatDate value='${borrowingLoan.waitBidDeadlinesDate}' pattern='yyyy/MM/dd HH:mm:ss'/>").getTime());
+  //js的倒计时
+  function lxfEndtime(){
+            //var endtime = new Date($("#lxftime").attr("endtime")).getTime();//取结束日期(毫秒值)
+           
+            var endtime = new Date("<fmt:formatDate value='${borrowingLoan.waitBidDeadlinesDate}' pattern='yyyy/MM/dd HH:mm:ss'/>").getTime();//取结束日期(毫秒值)
+            //var endtime = new Date("2014/05/30 17:49:56").getTime();//取结束日期(毫秒值)
+            //var endtime = new Date(2014,04,30,17,49,56).getTime();//取结束日期(毫秒值)
+            var nowtime = new Date().getTime();        //今天的日期(毫秒值)
+            var youtime = endtime-nowtime;//还有多久(毫秒值)
+            var seconds = youtime/1000;
+            var minutes = Math.floor(seconds/60);
+            var hours = Math.floor(minutes/60);
+            var days = Math.floor(hours/24);
+            var CDay= days ;
+            var CHour= hours % 24;
+            var CMinute= minutes % 60;
+            var CSecond= Math.floor(seconds%60);//"%"是取余运算，可以理解为60进一后取余数，然后只要余数。
+            if(endtime<=nowtime){
+            	$("#lxftime").html("已过期")//如果结束日期小于当前日期就提示过期啦
+            }else{
+            	$("#lxftime").html("<span>"+days+"</span><em>天</em><span>"+CHour+"</span><em>时</em><span>"+CMinute+"</span><em>分</em><span>"+CSecond+"</span><em>秒</em>");          //输出有天数的数据
+            }
+	setTimeout("lxfEndtime()",1000);
+	};
+	$(function(){
+	  lxfEndtime();
+	});
   
   /* 进行关注此借款操作 */
   $('#attentionBorrowingClick').click(function () {  

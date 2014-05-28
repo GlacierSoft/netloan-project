@@ -91,7 +91,6 @@ public class BankingStatisticsService {
     	ReceivablesNotesExample receivablesNotesExample2 = new ReceivablesNotesExample();
     	receivablesNotesExample2.createCriteria().andMemberIdEqualTo(memberId).andReceStateEqualTo("Receivables");
     	List<ReceivablesNotes> receivablesNotess2 = receivablesNotesMapper.selectByExample(receivablesNotesExample2);
-    	System.out.println("  aa   :  "+receivablesNotess2.size());
     	//计算总借出金额
     	TenderNotesExample tenderNotesExample = new TenderNotesExample();
     	tenderNotesExample.createCriteria().andMemberIdEqualTo(memberId);

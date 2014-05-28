@@ -93,10 +93,11 @@
 			    </div>
 			    <label for="cardId" class="col-sm-1 control-label" >奖励</label>
 			    <div class="col-sm-2">
-			       <select class="form-control col-sm-3" name="educational" id="educational" >
-					  <option value="">--请选择--</option>
-					    <option value="按投标金额比例奖励">按投标金额比例奖励</option>
-					    <option value="按固定金额分摊奖">按固定金额分摊奖励</option>
+			       <select class="form-control col-sm-3" name="reward" id="reward" >
+					  <option value="0">--请选择--</option>
+					    <option value="1">没有奖励</option>
+					    <option value="2">按投标金额比例奖励</option>
+					    <option value="3">按固定金额分摊奖励</option>
 					</select>
 			    </div>
 			  </div>
@@ -212,7 +213,7 @@
 			        	<tr>
 			        	<td rowspan="4" style="text-align:center;vertical-align: middle;">
 			        	<a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }&p=1">
-			        	<img src="${borrowingLoan.loanPicture}" style="width: 100px;height: 100px ;"/>
+			        	<img id="loanPicture"  src="${borrowingLoan.loanPicture}" style="width: 120px;height: 120px ;" />
 			        	</a>
 			        	</td>
 			        	<td colspan="4">
@@ -224,13 +225,13 @@
 						   	<img src="${ctx}/resources/images/borrow/liu.png" alt="liuzhuan">
 						   </c:when>
 						   <c:when test="${borrowingLoan.loanTenderDisplay == '信用标'}">  
-						   	<img src="${ctx}/resources/images/borrow/xin.jpg" alt="xinyong">
+						   	<img src="${ctx}/resources/images/borrow/xin.png" alt="xinyong">
 						   </c:when>
 						   <c:when test="${borrowingLoan.loanTenderDisplay == '净值标'}">  
-						   	<img src="${ctx}/resources/images/borrow/jingzhi.jpg" alt="jingzhi">
+						   	<img src="${ctx}/resources/images/borrow/jing.png" alt="jingzhi">
 						   </c:when>
 						   <c:when test="${borrowingLoan.loanTenderDisplay == '抵押标'}">  
-						   	<img src="${ctx}/resources/images/borrow/diya.jpg" alt="diya">
+						   	<img src="${ctx}/resources/images/borrow/diya.png" alt="diya">
 						   </c:when>
 						</c:choose>
 			        	</td>
@@ -475,7 +476,7 @@
 							$("#totalInterest").html(FormatNumber(r.totalInterest,2)+"元");
 							$("#currentPayMoney").html(FormatNumber(r.currentPayMoney,2)+"元");
 							$("#totalReceMoney").html(FormatNumber(r.totalReceMoney,2)+"元");
-							$("#actualReceMoney").html(FormatNumber(r.actualReceMoney,2)+"元(扣除10%管理费)");
+							$("#actualReceMoney").html(FormatNumber(r.actualReceMoney,2)+"元<br/>(扣除10%管理费)");
 	                  },
 	                  error: function() {
 	                      alert("提交出错！");
@@ -500,6 +501,9 @@
 	  	}
 	  	if("${borrowingLoanQueryDTO.loanTotalEnd }" != 0.0){
 			$("#loanTotalEnd").val("${borrowingLoanQueryDTO.loanTotalEnd }");	
+		}
+	  	if("${borrowingLoanQueryDTO.reward }" != 0){
+			$("#reward").val("${borrowingLoanQueryDTO.reward }");	
 		}
 	  <!-- 分页显示表格数据 开始 -->
 		$(function(){

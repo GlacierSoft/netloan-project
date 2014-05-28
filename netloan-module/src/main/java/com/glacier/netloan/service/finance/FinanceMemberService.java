@@ -22,6 +22,7 @@ import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.finance.FinanceMemberExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
+import com.glacier.netloan.service.system.UserService;
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -40,7 +41,7 @@ public class FinanceMemberService {
 	
 	@Autowired
 	private UserMapper userMapper;
-
+	
 	/**
 	 * @Title: getMember 
 	 * @Description: TODO(根据会员资金记录Id获取会员资金记录信息) 
@@ -119,9 +120,12 @@ public class FinanceMemberService {
      */
     @Transactional(readOnly = false)
     public Object addMember(FinanceMember financeMember) {
-    	
-        Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
+    	//通过admin来获取超级管理员信息
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUsernameEqualTo("admin");
+        List<User> users = userMapper.selectByExample(userExample);
+        
+        User pricipalUser = users.get(0);
         
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
@@ -150,7 +154,6 @@ public class FinanceMemberService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "MemberList_edit")
     public Object editMember(FinanceMember financeMember) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
