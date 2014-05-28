@@ -56,6 +56,44 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.glacier" />
 	</bean>
+	
+	<!-- 定时任务 -->
+	<!-- 创建流标的定时器 -->
+	<bean id="initFlowBidJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<!-- 定时执行的类 -->
+			<ref bean="flowBidService" />
+		</property>
+		<property name="targetMethod">
+			<!-- 定时执行的类方法 -->
+			<value>createFlowBid</value>
+		</property>
+	</bean>
+	<!--一个定时的初始化调度器 -->
+	<bean id="initFlowBidCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">    
+	
+		<!-- 这里不可以直接在属性jobDetail中引用taskJob，因为他要求的是一个jobDetail类型的对象，所以我们得通过MethodInvokingJobDetailFactoryBean来转一下 -->
+		<property name="jobDetail">
+			<ref bean="initFlowBidJobDetail" />
+		</property>
+		<!--在每天凌晨1点任务 -->
+		<property name="cronExpression">
+			<value>0 0 1 * * ?</value>
+		</property>
+	</bean>
+	<!-- 触发器工厂，将所有的定时任务都注入工厂 -->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
+		lazy-init="false" >
+		<!-- 添加触发器 -->
+		<property name="triggers">
+			<list>
+				<!-- 将上面定义的测试定时任务注入（可以定义多个定时任务，同时注入） -->
+				<ref bean="initFlowBidCronTrigger" />
+			</list>
+		</property>
+	</bean>
+	<!-- 定时任务 结束 -->
 
 	<!-- produce环境 -->
 	<beans profile="produce">

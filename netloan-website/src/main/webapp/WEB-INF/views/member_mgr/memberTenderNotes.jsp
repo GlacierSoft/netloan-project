@@ -138,31 +138,34 @@
 						    <h4 class="panel-title"><strong>条件筛选</strong></h3>
 						  </div>
 						  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
-						     <form id="sucessBorrowForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/investment/memberTenderNotes.htm?&p=1" >
+						     <c:choose>
+							   <c:when test="${buttonState == 'sucessBorrow'}">  
+							   <form id="sucessBorrowForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow&memberId=${currentMember.memberId}" >
+							   	  <!-- <input type="hidden" id="dtp_input2" name="loanStates" value="sucessBorrow" /> -->
+							   </c:when>
+							   <c:when test="${buttonState == 'tenderingBorrow'}">  
+							   <form id="sucessBorrowForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=tenderingBorrow&memberId=${currentMember.memberId}" >
+							   	 <!-- <input type="hidden" id="dtp_input2" name="loanStates" value="tenderingBorrow" /> -->
+							   </c:when>
+							</c:choose>
+				      		<%-- <input type="hidden" id="dtp_input3" name="memberId" value="${currentMember.memberId}" />
+						     <form id="sucessBorrowForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/investment/memberTenderNotes.htm?&p=1" > --%>
 						      <div class="form-group">
 						      	
 						        <label for="cardId" class="col-sm-2 control-label" >发布时间</label>
 							    <div class="col-sm-4">
 								    <div class="input-group date form_datetime" data-link-field="dtp_input1">
 								    	
-					                    <input id="createStartTime" name="createStartTime" class="form-control" size="16" type="text" value="<fmt:formatDate value="${tenderNotesQueryDTO.createStartTime}" type="both"/>" readonly>
+					                    <input id="createStartTime" name="createStartTime" class="form-control" size="16" type="text" value="<fmt:formatDate value="${tenderNotesQueryDTO.createStartTime}" pattern='yyyy-MM-dd'/>" readonly>
 					                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 										<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 					                </div>
-									<c:choose>
-									   <c:when test="${buttonState == 'sucessBorrow'}">  
-									   	  <input type="hidden" id="dtp_input2" name="loanStates" value="sucessBorrow" />
-									   </c:when>
-									   <c:when test="${buttonState == 'tenderingBorrow'}">  
-									   	 <input type="hidden" id="dtp_input2" name="loanStates" value="tenderingBorrow" />
-									   </c:when>
-									</c:choose>
-						      		<input type="hidden" id="dtp_input3" name="memberId" value="${currentMember.memberId}" />
+									
 							    </div>
 							    <label for="cardId" class="col-sm-1 control-label" style="text-align:center;vertical-align: middle;">到</label>
 							    <div class="col-sm-4">
 							    	<div class="input-group date form_datetime" data-link-field="dtp_input1">
-					                    <input id="createEndTime" name="createEndTime" class="form-control" size="16" type="text" value="<fmt:formatDate value="${tenderNotesQueryDTO.createEndTime}" type="both"/>" readonly>
+					                    <input id="createEndTime" name="createEndTime" class="form-control" size="16" type="text" value="<fmt:formatDate value="${tenderNotesQueryDTO.createEndTime}" pattern='yyyy-MM-dd'/>" readonly>
 					                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 										<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 					                </div>
@@ -232,7 +235,7 @@
 								  </c:choose>
 					              <td><fmt:formatNumber value="${tenderNotes.loanApr * 100}" pattern="#,#00.00"/>%</td>
 					              <td>${tenderNotes.loanDeadlinesId}个月</td>
-					              <td><fmt:formatDate value="${tenderNotes.loanDate}" type="both"/></td>
+					              <td><fmt:formatDate value="${tenderNotes.loanDate}" pattern='yyyy-MM-dd'/></td>
 					              <c:choose>
 									   <c:when test="${buttonState == 'sucessBorrow'}">  
 									   	 <td><img id="creditPhotoDivImg"  src="${tenderNotes.creditPhoto}" style="width: 34px;height: 24px ;" /></td>
@@ -266,11 +269,18 @@
 						    <h4 class="panel-title"><strong>条件筛选</strong></h3>
 						  </div>
 						  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
-						     <form id="receivablesNotesForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1" >
+						     <c:choose>
+								   <c:when test="${buttonState == 'repaymentingBorrow'}">  
+								   <form id="receivablesNotesForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow&memberId=${currentMember.memberId}" >
+								   </c:when>
+								   <c:when test="${buttonState == 'alreadReceivablesBorrow'}"> 
+								   <form id="receivablesNotesForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanDetailStates=alreadReceivables&memberId=${currentMember.memberId}" > 
+								   </c:when>
+								</c:choose>
 							   <div class="form-group">
 							    <label for="loanTitle" class="col-sm-1 control-label" >标题</label>
 							    <div class="col-sm-3">
-							    <c:choose>
+							   <%--  <c:choose>
 								   <c:when test="${buttonState == 'repaymentingBorrow'}">  
 								   	  <input type="hidden" id="dtp_input2" name="loanStates" value="repaymentingBorrow" />
 								   </c:when>
@@ -278,7 +288,7 @@
 								   	  <input type="hidden" id="dtp_input2" name="loanDetailStates" value="alreadReceivables" />
 								   </c:when>
 								</c:choose>
-						      	<input type="hidden" id="dtp_input3" name="memberId" value="${currentMember.memberId}" />
+						      	<input type="hidden" id="dtp_input3" name="memberId" value="${currentMember.memberId}" /> --%>
 							    <input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${receivablesNotesQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
 							    <div class="col-sm-3 text-center"><button id="sucessBorrowFormButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
 							    <div class="col-sm-3">
@@ -478,22 +488,22 @@
 						    <h4 class="panel-title"><strong>条件筛选</strong></h3>
 						  </div>
 						  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
-						     <form id="backAccountBorrowForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1" >
+						     <form id="backAccountBorrowForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=backAccountBorrow&memberId=${currentMember.memberId}" >
 						      <div class="form-group">
 						        <label for="cardId" class="col-sm-2 control-label" >发布时间</label>
 							    <div class="col-sm-4">
 								    <div class="input-group date form_datetime" data-link-field="dtp_input1">
-					                    <input id="loanDateCreateStartTime" name="loanDateCreateStartTime" class="form-control" size="16" type="text" value="<fmt:formatDate value="${receivablesNotesQueryDTO.loanDateCreateStartTime}" type="both"/>" readonly>
+					                    <input id="loanDateCreateStartTime" name="loanDateCreateStartTime" class="form-control" size="16" type="text" value="<fmt:formatDate value="${receivablesNotesQueryDTO.loanDateCreateStartTime}" pattern='yyyy-MM-dd'/>" readonly>
 					                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 										<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 					                </div>
-					                <input type="hidden" id="dtp_input2" name="loanStates" value="backAccountBorrow" />
-						      		<input type="hidden" id="dtp_input3" name="memberId" value="${currentMember.memberId}" />
+					                <%-- <input type="hidden" id="dtp_input2" name="loanStates" value="backAccountBorrow" />
+						      		<input type="hidden" id="dtp_input3" name="memberId" value="${currentMember.memberId}" /> --%>
 							    </div>
 							    <label for="cardId" class="col-sm-1 control-label" style="text-align:center;vertical-align: middle;">到</label>
 							    <div class="col-sm-4">
 							    	<div class="input-group date form_datetime" data-link-field="dtp_input1">
-					                    <input id="loanDateCreateEndTime" name="loanDateCreateEndTime" class="form-control" size="16" type="text" value="<fmt:formatDate value="${receivablesNotesQueryDTO.loanDateCreateEndTime}" type="both"/>" readonly>
+					                    <input id="loanDateCreateEndTime" name="loanDateCreateEndTime" class="form-control" size="16" type="text" value="<fmt:formatDate value="${receivablesNotesQueryDTO.loanDateCreateEndTime}" pattern='yyyy-MM-dd'/>" readonly>
 					                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 										<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 					                </div>
@@ -671,7 +681,10 @@
 			    numberOfPages: 10,
 			    totalPages:totaltenderNotes,
 			    pageUrl: function(type, page, current){
-			    	return "${ctx}/investment/memberTenderNotes.htm?"+composeUrlParams()+"&p="+page;
+			    	return "${ctx}/investment/memberTenderNotes.htm?"+composeUrlParams()+"&p="+page
+			    													+"&createStartTime="+$('#createStartTime').val()
+			    													+"&createEndTime="+$('#createEndTime').val()
+			    													+"&loanTitle="+$("#loanTitle").val();
 			    	}
 			}
 			
@@ -694,9 +707,10 @@
 				    numberOfPages: 10,
 				    totalPages:totalreceivablesNotes,
 				    pageUrl: function(type, page, current){
-				    	//return "${ctx}/investment/memberTenderNotes.htm?"+composeUrlParams()+"&p="+page;
-				    	return "${ctx}/receivablesNotes/memberReceivablesNotes.htm?"+composeUrlParams()+"&p="+page;
-				    	//${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow&memberId=${currentMember.memberId}
+				    	return "${ctx}/receivablesNotes/memberReceivablesNotes.htm?"+composeUrlParams()+"&p="+page+"&createStartTime="
+				    																				+$('#createStartTime').val()
+																									+"&createEndTime="+$('#createEndTime').val()
+																									+"&loanTitle="+$("#loanTitle").val();
 				    	}
 				}
 			//收款的

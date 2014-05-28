@@ -20,6 +20,9 @@
 	<properties>
 		<!-- 编译源时候默认的编码 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- quartz begin -->
+		<quartz.version>2.2.1</quartz.version>
+		<!-- quartz end -->
 		<!-- jackson begin -->
 		<jackson.core.asl.version>1.9.8</jackson.core.asl.version>
 		<jackson.mapper.asl.version>1.9.8</jackson.mapper.asl.version>
@@ -76,6 +79,13 @@
 	<!-- 管理jar的依赖，在此处相当于生命各种jar的版本和作用域，那么在子POM中就可以不用重复定义该jar的版本和作用,默认的scope为compile,默认的type为jar -->
 	<dependencyManagement>
 		<dependencies>
+			<!-- quartz begin -->
+			<dependency>
+				<groupId>org.quartz-scheduler</groupId>
+				<artifactId>quartz</artifactId>
+				<version>${quartz.version}</version>
+			</dependency>
+			<!-- quartz end -->
 			<!-- jackson begin -->
 			<dependency>  
 				<groupId>org.codehaus.jackson</groupId>  
@@ -87,7 +97,7 @@
 				<artifactId>jackson-mapper-asl</artifactId>
 				<version>${jackson.mapper.asl.version}</version>  
 			</dependency> 
-			<!-- jackson begin --> 
+			<!-- jackson end --> 
 			<!-- avax.mail begin -->
 			<dependency>
 				<groupId>javax.mail</groupId>

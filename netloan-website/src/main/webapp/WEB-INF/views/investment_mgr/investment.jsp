@@ -131,13 +131,13 @@
 							   	${borrowingLoanTender.loanrTenderName} <img src="${ctx}/resources/images/borrow/liu.png" alt="liuzhuan">
 							   </c:when>
 							   <c:when test="${borrowingLoanTender.loanrTenderName == '信用标'}">  
-							    ${borrowingLoanTender.loanrTenderName} <img src="${ctx}/resources/images/borrow/xin.jpg" alt="xinyong">
+							    ${borrowingLoanTender.loanrTenderName} <img src="${ctx}/resources/images/borrow/xin.png" alt="xinyong">
 							   </c:when>
 							   <c:when test="${borrowingLoanTender.loanrTenderName == '净值标'}">  
-							   	${borrowingLoanTender.loanrTenderName} <img src="${ctx}/resources/images/borrow/jingzhi.jpg" alt="jingzhi">
+							   	${borrowingLoanTender.loanrTenderName} <img src="${ctx}/resources/images/borrow/jing.png" alt="jingzhi">
 							   </c:when>
 							   <c:when test="${borrowingLoanTender.loanrTenderName == '抵押标'}">  
-							   	${borrowingLoanTender.loanrTenderName} <img src="${ctx}/resources/images/borrow/diya.jpg" alt="diya">
+							   	${borrowingLoanTender.loanrTenderName} <img src="${ctx}/resources/images/borrow/diya.png" alt="diya">
 							   </c:when>
 						</c:choose>
 					</label>
@@ -312,11 +312,11 @@
 					    </div>
 				      <div class="panel-body">
 					  	  <div class="row" >
-					  		<div class="col-md-5"><span>净值借款:<img src="${ctx}/resources/images/borrow/jingzhi.jpg" alt="jingzhi"></span></div>
-					  		<div class="col-md-7"><span>信用借款:<img src="${ctx}/resources/images/borrow/xin.jpg" alt="xinyong"></span></div>
+					  		<div class="col-md-5"><span>净值借款:<img src="${ctx}/resources/images/borrow/jing.png" alt="jingzhi"></span></div>
+					  		<div class="col-md-7"><span>信用借款:<img src="${ctx}/resources/images/borrow/xin.png" alt="xinyong"></span></div>
 					  	  </div><br>
 					  	  <div class="row" >
-					  		<div class="col-md-5"><span>担保借款:<img src="${ctx}/resources/images/borrow/danbao.png" alt="danbao"></span></div>
+					  		<div class="col-md-5"><span>抵押借款:<img src="${ctx}/resources/images/borrow/diya.png" alt="diya"></span></div>
 					  		<div class="col-md-7"><span>流转标:	<img src="${ctx}/resources/images/borrow/liu.png" alt="liuzhuan"></span></div>
 					  	  </div><br>
 					  	 <%--  <div class="row" >
