@@ -164,10 +164,10 @@
 				  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
 				    <div style="padding-top:10px;padding-bottom: 20px;">
 					<a href="${ctx}/investment/index.htm?&p=1" class="btn btn-primary" role="button">全部借款</a></li>
-				    <a href="${ctx}/investment/index.htm?&p=1&loanState=secondAuditor" class="btn btn-primary" role="button">复审中的借款</a>
+				    <%-- <a href="${ctx}/investment/index.htm?&p=1&loanState=secondAuditor" class="btn btn-primary" role="button">复审中的借款</a> --%>
 				    <a href="${ctx}/investment/index.htm?&p=1&loanState=repaymenting" class="btn btn-primary" role="button">还款中的借款</a>
 				    <a href="${ctx}/investment/index.htm?&p=1&loanState=completed" class="btn btn-primary" role="button">已完成的借款</a>
-				    <a href="${ctx}/investment/index.htm?&p=1&loanState=completed" class="btn btn-primary" role="button">逾期的黑名单</a>
+				    <%-- <a href="${ctx}/investment/index.htm?&p=1&loanState=completed" class="btn btn-primary" role="button">逾期的黑名单</a> --%>
 				    <div style="float: right;">
 					    <span>排序：</span>
 					    <c:choose>

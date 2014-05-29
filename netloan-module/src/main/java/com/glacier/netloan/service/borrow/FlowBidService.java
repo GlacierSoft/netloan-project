@@ -22,6 +22,13 @@ import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.service.finance.FinanceMemberService;
 import com.glacier.netloan.service.finance.FinanceTransactionService;
 
+/**
+ * @ClassName: FlowBidService 
+ * @Description: TODO(定时器判断借款的筹标期限是否逾期，执行的代码) 
+ * @author yuzexu
+ * @email 804346249@QQ.com
+ * @date 2014-5-29下午4:45:26
+ */
 @Service("flowBidService")
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 public class FlowBidService {
@@ -51,14 +58,15 @@ public class FlowBidService {
 	public void createFlowBid(){
 		BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
 		borrowingLoanExample.createCriteria().andLoanStateEqualTo("tendering");
-		
+		//获取当前时间
+		Date n = new Date();
+	    long nowTime = n.getTime();
+	    Calendar c = Calendar.getInstance();
 		List<BorrowingLoan>  borrowingLoans = borrowingLoanMapper.selectByExample(borrowingLoanExample); // 查询所有借款列表
 		for(BorrowingLoan borrowingLoan : borrowingLoans){
-			Calendar c = Calendar.getInstance();
 	    	c.setTime(borrowingLoan.getFirstAuditDate());//获取初审通过时间
 		    c.add(Calendar.DAY_OF_MONTH, Integer.valueOf(borrowingLoan.getWaitBidDeadlines()));//在初审通过时间，加上筹标期限
-		    Date n = new Date();
-		    long nowTime = n.getTime();
+		    //获取筹标期限的时间
 		    long cTime = c.getTimeInMillis();
 		    if(nowTime > cTime){//如果现在时间大于筹标期限，则将冻结的投标金额进行解冻
 	        	TenderNotesExample tenderNotesExample = new TenderNotesExample();;
