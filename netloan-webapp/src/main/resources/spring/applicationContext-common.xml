@@ -77,9 +77,11 @@
 		<property name="jobDetail">
 			<ref bean="initFlowBidJobDetail" />
 		</property>
-		<!--在每天凌晨1点任务 -->
+		<!-- 这里定义的是服务启动后多少秒之后启动定时器，单位是毫秒，下面设置的是十秒 -->  
+        <!-- <property name="startDelay" value="5000" />   -->
+		<!--在每天凌晨0点任务 -->
 		<property name="cronExpression">
-			<value>0 0 1 * * ?</value>
+			<value>0 0 0 * * ?</value>
 		</property>
 	</bean>
 	<!-- 触发器工厂，将所有的定时任务都注入工厂 -->

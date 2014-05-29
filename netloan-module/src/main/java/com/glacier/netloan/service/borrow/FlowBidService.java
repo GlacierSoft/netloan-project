@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -44,9 +46,9 @@ public class FlowBidService {
 	 * @throws 
 	 *
 	 */
+	@PostConstruct
 	@Transactional(readOnly = false)
 	public void createFlowBid(){
-		
 		BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
 		borrowingLoanExample.createCriteria().andLoanStateEqualTo("tendering");
 		

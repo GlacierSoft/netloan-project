@@ -103,12 +103,13 @@ public class BorrowingLoanService {
 	 */
     public Object getBorrowingLoan(String loanId) {
     	BorrowingLoan borrowingLoan = borrowingLoanMapper.selectByPrimaryKey(loanId);
-    	System.out.println("---loanId---"+loanId);
-    	System.out.println("---borrowingLoan---"+borrowingLoan);
     	Calendar c = Calendar.getInstance();
     	if(borrowingLoan.getFirstAuditDate() != null){
     		c.setTime(borrowingLoan.getFirstAuditDate());//获取初审通过时间
     	    c.add(Calendar.DAY_OF_MONTH, Integer.valueOf(borrowingLoan.getWaitBidDeadlines()));//在初审通过时间，加上筹标期限
+    	    c.set(Calendar.HOUR_OF_DAY, 23);//将当天小时设置到23时
+			c.set(Calendar.MINUTE, 59);//将当天分钟设置到59分
+			c.set(Calendar.SECOND, 59);//将当天秒数设置到59秒
     	    borrowingLoan.setWaitBidDeadlinesDate(c.getTime());
     	}
         return borrowingLoan;
