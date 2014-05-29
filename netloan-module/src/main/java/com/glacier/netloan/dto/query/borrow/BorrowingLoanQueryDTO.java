@@ -101,6 +101,9 @@ public class BorrowingLoanQueryDTO extends BorrowingLoan{
 	    }
 	   	if(null != this.getLoanState()){//根据借款状态查询
 	        queryCriteria.andLoanStateEqualTo(this.getLoanState().toString());
+	   	}else{//如果loanstate为空，则查询招标中，还款中，已完成，这三种借款状态的借款
+	   		List<String> loanStates = Arrays.asList("tendering","repaymenting","completed");
+	   		queryCriteria.andLoanStateIn(loanStates);
 	   	}
 	   	if(null != this.getWaitBidDeadlines() && !"".equals(this.getWaitBidDeadlines().trim())){//根据筹标期限查询
 	   		queryCriteria.andWaitBidDeadlinesEqualTo(this.getWaitBidDeadlines().trim());

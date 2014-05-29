@@ -58,7 +58,7 @@
 	</bean>
 	
 	<!-- 定时任务 -->
-	<!-- 创建流标的定时器 -->
+	<!-- 创建判断是否流标的定时器 -->
 	<bean id="initFlowBidJobDetail"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject">
@@ -70,12 +70,35 @@
 			<value>createFlowBid</value>
 		</property>
 	</bean>
-	<!--一个定时的初始化调度器 -->
+	<!-- 创建处理逾期借款的定时器 -->
+	<bean id="initBorrowingOverdueJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<!-- 定时执行的类 -->
+			<ref bean="borrowingOverdueService" />
+		</property>
+		<property name="targetMethod">
+			<!-- 定时执行的类方法 -->
+			<value>handleBorrowingOverdue</value>
+		</property>
+	</bean>
+	<!--是否流标的定时初始化调度器 -->
 	<bean id="initFlowBidCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">    
-	
 		<!-- 这里不可以直接在属性jobDetail中引用taskJob，因为他要求的是一个jobDetail类型的对象，所以我们得通过MethodInvokingJobDetailFactoryBean来转一下 -->
 		<property name="jobDetail">
 			<ref bean="initFlowBidJobDetail" />
+		</property>
+		<!--在每天凌晨0点任务 -->
+		<property name="cronExpression">
+			<value>0 0 0 * * ?</value>
+		</property>
+	</bean>
+	<!--处理逾期借款的定时初始化调度器 -->
+	<bean id="initBorrowingOverdueCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">    
+	
+		<!-- 这里不可以直接在属性jobDetail中引用taskJob，因为他要求的是一个jobDetail类型的对象，所以我们得通过MethodInvokingJobDetailFactoryBean来转一下 -->
+		<property name="jobDetail">
+			<ref bean="initBorrowingOverdueJobDetail" />
 		</property>
 		<!-- 这里定义的是服务启动后多少秒之后启动定时器，单位是毫秒，下面设置的是十秒 -->  
         <!-- <property name="startDelay" value="5000" />   -->
@@ -92,6 +115,7 @@
 			<list>
 				<!-- 将上面定义的测试定时任务注入（可以定义多个定时任务，同时注入） -->
 				<ref bean="initFlowBidCronTrigger" />
+				<ref bean="initBorrowingOverdueCronTrigger" />
 			</list>
 		</property>
 	</bean>
