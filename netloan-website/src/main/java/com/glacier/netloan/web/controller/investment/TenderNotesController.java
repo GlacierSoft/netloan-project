@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,7 @@ import com.glacier.netloan.dto.query.borrow.TenderNotesQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterBasic;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.TenderNotes;
+import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.service.basicdatas.ParameterBasicService;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.borrow.LoanReviewService;
@@ -34,6 +37,7 @@ import com.glacier.netloan.service.borrow.RepaymentNotesDetailService;
 import com.glacier.netloan.service.borrow.RepaymentNotesService;
 import com.glacier.netloan.service.borrow.RepaymentTypeService;
 import com.glacier.netloan.service.borrow.TenderNotesService;
+import com.glacier.netloan.service.finance.FinanceMemberService;
 import com.glacier.netloan.service.member.MemberAuthService;
 import com.glacier.netloan.service.member.MemberService;
 /**
@@ -76,6 +80,9 @@ public class TenderNotesController {
 	
 	@Autowired
 	private ParameterBasicService parameterBasicService;
+	
+	@Autowired
+	private FinanceMemberService financeMemberService;
 	
 	@Autowired
 	private ReceivablesNotesService receivablesNotesService;// 注入收款记录业务Bean
@@ -144,7 +151,10 @@ public class TenderNotesController {
 	 */
 	@RequestMapping(value = "/confirmInvestment.htm")
 	private Object confirmInvestment(String loanId,String memberId,HttpServletRequest request){
+		Subject pricipalSubject = SecurityUtils.getSubject();
+        Member pricipalMember = (Member) pricipalSubject.getPrincipal();
 		request.setAttribute("borrowingMember", memberService.getMember(memberId));//获取该会员 信息数据
+		request.setAttribute("financeMember", financeMemberService.getMemberByMemberId(pricipalMember.getMemberId()));//获取该会员 信息数据
 		request.setAttribute("borrowingMemberWork", memberService.getMemberWork(memberId));//获取该会员 信息数据
 		request.setAttribute("borrowingLoan", borrowingLoanService.getBorrowingLoan(loanId));//获取该会员 借款的信息数据
 		return "investment_mgr/confirmInvestment";

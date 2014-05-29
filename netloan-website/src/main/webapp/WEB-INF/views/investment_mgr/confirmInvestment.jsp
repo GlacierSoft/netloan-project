@@ -85,11 +85,11 @@
 			  <div class="col-md-5" style="border: 1px solid #DDDDDD;">
 			  <div style="margin-left: 20px;margin-top: 40px;">
 	       	  	<div class="row">
-	       	  		<div class="col-md-12">您的帐户总额：<span style="color: red;">1379570.16 </span>元
+	       	  		<div class="col-md-12">您的帐户总额：<span style="color: red;"><fmt:formatNumber value="${financeMember.amount }" pattern="#,#00.00"/></span>元
 	       	  		&nbsp; <img src="${ctx}/resources/images/borrow/woyaochongzhi.png" alt="investment"></div>
 	       	  	</div>
 	       	  	<div class="row">
-	       	  		<div class="col-md-12">您的可用余额：<span style="color: red;">1364370.16 </span>元</div>
+	       	  		<div class="col-md-12">您的可用余额：<span style="color: red;"><fmt:formatNumber value="${financeMember.usableMoney }" pattern="#,#00.00"/></span>元</div>
 	       	  	</div>
 	       	  	<br>
 	       	  	<div class="row">
@@ -200,6 +200,11 @@
 			vipdialog("投标份数超过本轮剩余投标份数");
 			return false;
 		}
+		if(${borrowingLoan.lowestSub * stillNeedSum} > ${financeMember.usableMoney }){
+			$tenderMoney.focus();
+			vipdialog("你的可用余额不足，请先充值");
+			return false;
+		}
 		return true;
 	};
 	//表单验证
@@ -226,6 +231,11 @@
 		if($tenderMoney.val() > stillNeed){
 			$tenderMoney.focus();
 			vipdialog("投标金额超过本轮剩余投标金额");
+			return false;
+		}
+		if($tenderMoney.val() > ${financeMember.usableMoney }){
+			$tenderMoney.focus();
+			vipdialog("你的可用余额不足，请先充值");
 			return false;
 		}
 		return true;
