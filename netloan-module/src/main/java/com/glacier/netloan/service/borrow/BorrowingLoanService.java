@@ -92,6 +92,7 @@ public class BorrowingLoanService {
 	
 	@Autowired
 	private TenderNotesMapper tenderNotesMapper;
+	
 	/**
 	 * @Title: getBorrowingLoan 
 	 * @Description: TODO(根据借款Id获取借款信息) 
@@ -102,6 +103,8 @@ public class BorrowingLoanService {
 	 */
     public Object getBorrowingLoan(String loanId) {
     	BorrowingLoan borrowingLoan = borrowingLoanMapper.selectByPrimaryKey(loanId);
+    	System.out.println("---loanId---"+loanId);
+    	System.out.println("---borrowingLoan---"+borrowingLoan);
     	Calendar c = Calendar.getInstance();
     	if(borrowingLoan.getFirstAuditDate() != null){
     		c.setTime(borrowingLoan.getFirstAuditDate());//获取初审通过时间

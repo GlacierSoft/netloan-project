@@ -164,7 +164,7 @@
 							            <td>${borrowingLoan.loanTotal}</td>
 							            <td>${borrowingLoan.loanTotal}</td>
 							            <td>${borrowingLoan.loanTotal}</td>
-							            <td><a href="${ctx}/borrowingLoan/memberRepaymentDetail.htm?&loanId=+${borrowingLoan.loanId}">还款明细</a></td>
+							            <td><a href="${ctx}/borrowingLoan/memberRepaymentDetail.htm?&loanId=${borrowingLoan.loanId}">还款明细</a></td>
 							          </tr>
 						      		</c:forEach>
 						      	</tbody>

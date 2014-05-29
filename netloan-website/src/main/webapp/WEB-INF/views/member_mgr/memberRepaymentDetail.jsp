@@ -91,12 +91,7 @@
 				    <h3 class="panel-title">会员中心 / 借款管理 / 还款明细管理</h3>
 				  </div>
 				  <div class="panel-body">
-				  			
-			  		${borrowingLoan.loanId}
-			  		${borrowingLoan.loanCode}
-			  		${borrowingLoan.loanTitle}
-			  		${borrowingLoan.loanPicture}
-			  		
+
 			  		
 			  		
 				  
