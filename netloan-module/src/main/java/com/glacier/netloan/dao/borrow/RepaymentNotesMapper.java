@@ -19,6 +19,11 @@ public interface RepaymentNotesMapper {
     List<RepaymentNotes> selectByExample(RepaymentNotesExample example);
 
     RepaymentNotes selectByPrimaryKey(String repayNotesId);
+    
+    /*
+     *自定义方法，根据借款Id查找还款记录信息 
+     */
+    RepaymentNotes selectByPrimaryLoanId(String loanId);
 
     int updateByExampleSelective(@Param("record") RepaymentNotes record, @Param("example") RepaymentNotesExample example);
 

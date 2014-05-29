@@ -27,6 +27,7 @@ import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.borrow.LoanTenderService;
+import com.glacier.netloan.service.borrow.RepaymentNotesDetailService;
 import com.glacier.netloan.service.member.MemberStatisticsService;
 
 /** 
@@ -48,6 +49,9 @@ public class BorrowingLoanController extends AbstractController{
     
     @Autowired
     private MemberStatisticsService memberStatisticsService;
+    
+    @Autowired
+    private RepaymentNotesDetailService repaymentNotesDetailService;
     
     // 进入借款列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -179,9 +183,10 @@ public class BorrowingLoanController extends AbstractController{
 	
 	//转到"会员中心"-"我要借款"-"正在还款的借款"-"还款明细"的页面
     @RequestMapping(value = "/memberRepaymentDetail.htm")
-    public Object memberRepaymentDetail(String loanId){
+    public Object memberRepaymentDetail(JqPager jqPager, int p, String loanId, String memberId){
         ModelAndView mav = new ModelAndView("member_mgr/memberRepaymentDetail");
         mav.addObject("borrowingLoan",borrowingLoanService.getBorrowingLoan(loanId));
+        mav.addObject("repaymentNotesDetailsDatas",repaymentNotesDetailService.listByRepDetailLoadIdOrMemberId(jqPager, p, loanId, memberId));
         return mav;
     }
 	

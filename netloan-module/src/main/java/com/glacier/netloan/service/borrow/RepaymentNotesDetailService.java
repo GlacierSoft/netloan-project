@@ -18,6 +18,7 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.RepaymentNotesDetailMapper;
+import com.glacier.netloan.dao.borrow.RepaymentNotesMapper;
 import com.glacier.netloan.dto.query.borrow.RepaymentNotesDetailQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.RepaymentNotes;
@@ -43,6 +44,9 @@ public class RepaymentNotesDetailService {
 	@Autowired
 	private BorrowingLoanMapper borrowingLoanMapper;
 	
+	@Autowired
+	private RepaymentNotesMapper repaymentNotesMapper;
+	
 	/**
 	 * @Title: getRepaymentNotesDetail 
 	 * @Description: TODO(根据还款记录明细Id获取还款记录明细信息) 
@@ -55,6 +59,48 @@ public class RepaymentNotesDetailService {
     	RepaymentNotesDetail repaymentNotesDetail = repaymentNotesDetailMapper.selectByPrimaryKey(repayNotesDetailId);
         return repaymentNotesDetail;
     }
+    
+    /**
+     * @Title: listByRepDetailLoadIdOrMemberId 
+     * @Description: TODO(根据借款Id和会员Id来查找相对应的还款明细信息列表，用于前台的会员中心--正在还款的借款--还款明细列表) 
+     * @param  @param jqPager
+     * @param  @param p
+     * @param  @param loanId
+     * @param  @param memberId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object listByRepDetailLoadIdOrMemberId(JqPager jqPager, int p, String loanId, String memberId) {
+        
+        JqGridReturn returnResult = new JqGridReturn();
+        RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();
+        if(null != memberId && StringUtils.isNotBlank(memberId)){
+            repaymentNotesDetailExample.createCriteria().andMemberIdEqualTo(memberId);//查询相对应的还款人的还款记录明细
+        }
+        if(null != loanId && StringUtils.isNotBlank(loanId)){
+            RepaymentNotes repaymentNotes = repaymentNotesMapper.selectByPrimaryLoanId(loanId);//根据借款Id查找出对应的还款信息记录
+            if(null != repaymentNotes.getRepayNotesId() && StringUtils.isNotBlank(repaymentNotes.getRepayNotesId())){
+                repaymentNotesDetailExample.createCriteria().andRepayNotesIdEqualTo(repaymentNotes.getRepayNotesId());//根据还款信息记录Id查找出对应的还款记录明细
+            }
+        }
+        jqPager.setSort("createTime");// 定义排序字段
+        jqPager.setOrder("DESC");// 升序还是降序
+        if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
+            repaymentNotesDetailExample.setOrderByClause(jqPager.getOrderBy("temp_repayment_notes_detail_"));
+        }
+        int startTemp = ((p-1)*10);//根据前台返回的页数进行设置
+        repaymentNotesDetailExample.setLimitStart(startTemp);
+        repaymentNotesDetailExample.setLimitEnd(10);
+        List<RepaymentNotesDetail>  repaymentNotesDetails = repaymentNotesDetailMapper.selectByExample(repaymentNotesDetailExample); // 查询所有借款列表
+
+        int total = repaymentNotesDetailMapper.countByExample(repaymentNotesDetailExample); // 查询总页数
+        returnResult.setRows(repaymentNotesDetails);//设置查询数据
+        returnResult.setTotal(total);//设置总条数
+        returnResult.setP(p);//设置当前页
+        return returnResult;// 返回ExtGrid表
+    }
+    
     /**
      * @Title: listAsGridWebsite 
      * @Description: TODO(前台还款记录明细列表) 
@@ -71,10 +117,10 @@ public class RepaymentNotesDetailService {
         
         JqGridReturn returnResult = new JqGridReturn();
         RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();
-        if(memberId != null){
+        if(null != memberId && StringUtils.isNotBlank(memberId)){
         	repaymentNotesDetailExample.createCriteria().andMemberIdEqualTo(memberId);//查询相对应的还款人的还款记录明细
         }
-        if(repayNotesId != null){
+        if(null != repayNotesId && StringUtils.isNotBlank(repayNotesId)){
         	repaymentNotesDetailExample.createCriteria().andRepayNotesIdEqualTo(repayNotesId);//查询相对应的还款人的还款记录的还款明细
         }
 

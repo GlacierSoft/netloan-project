@@ -127,6 +127,16 @@
     <include refid="Base_extend" />
     where temp_repayment_notes.repay_notes_id = #{repayNotesId,jdbcType=VARCHAR}
   </select>
+  
+  <!--自定义方法，根据借款Id查找还款记录信息 -->
+  <select id="selectByPrimaryLoanId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_repayment_notes temp_repayment_notes
+    <include refid="Base_extend" />
+    where temp_repayment_notes.loan_id = #{loanId,jdbcType=VARCHAR}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_repayment_notes
     where repay_notes_id = #{repayNotesId,jdbcType=VARCHAR}

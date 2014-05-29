@@ -92,8 +92,77 @@
 				  </div>
 				  <div class="panel-body">
 
+			  		  <table class="table table-bordered">
+			          	<thead>
+				          <tr>
+				            <th colspan="4">还款明细</th>
+				          </tr>
+				        </thead>
+			          	<tbody>
+				          <tr>
+				            <td>标题：</td>
+				            <td>${borrowingLoan.loanTitle}</td>
+				            <td>借款金额：</td>
+				            <td>${borrowingLoan.loanTotal}</td>
+				          </tr>
+				          <tr>
+				            <td>借款利率：</td>
+				            <td>${borrowingLoan.loanApr}</td>
+				            <td>借款期限：</td>
+				            <td>${borrowingLoan.loanDeadlinesId}</td>
+				          </tr>
+				          <tr>
+				            <td>还款方式：</td>
+				            <td>${borrowingLoan.repaymentTypeDisplay}</td>
+				            <td>借款时间：</td>
+				            <td>${borrowingLoan.loanDate}</td>
+				          </tr>
+				      	</tbody>
+				      </table>
 			  		
-			  		
+	  				  <table class="table table-bordered">
+			          	<thead>
+				          <tr>
+				            <th>计划还款日期</th>
+				            <th>计划还款本息</th>
+				            <th>实还日期</th>
+				            <th>逾期天数</th>
+				            <th>实还本息</th>
+				            <th>逾期罚息</th>
+				            <th>总还款金额</th>
+				            <th>状态</th>
+				            <th>操作</th>
+				          </tr>
+				        </thead>
+			          	<tbody>
+			          		<c:forEach items="${repaymentNotesDetailsDatas.rows}" var="repaymentNotesDetails" varStatus="status">
+					          <tr>
+					            <td><fmt:formatDate value="${repaymentNotesDetails.shouldPayDate}" type="date"/></td>
+					            <td>${repaymentNotesDetails.alsoNeedMoney}</td>
+					            <td><fmt:formatDate value="${repaymentNotesDetails.actualPayDate}" type="date"/></td>
+					            <td>${repaymentNotesDetails.overdueDays}</td>
+					            <td>${repaymentNotesDetails.actualPayMoney}</td>
+					            <td>${repaymentNotesDetails.overdueInterest}</td>
+					            <td>${repaymentNotesDetails.actualPayMoney}</td>
+					            <td><span id="repaymentNotesDetails_repayState${status.index}"></span>
+						        		<script type="text/javascript">
+								       		$('#repaymentNotesDetails_repayState'+${status.index}).html(renderGridValue('${repaymentNotesDetails.repayState}',fields.repayState));
+								    	</script>
+								</td>
+					            <td><a href="${ctx}/borrowingLoan/memberRepaymentDetail.htm?&loanId=${borrowingLoan.loanId}&memberId=${currentMember.memberId}&p=1">还款</a></td>
+					          </tr>
+				      		</c:forEach>
+				      	</tbody>
+				      	<tfoot>
+				          <tr>
+				            <th colspan="10">
+				            	<div align="right">
+<!-- 								    <ul id='pageBorrows'></ul> -->
+								</div>
+							</th>
+				          </tr>
+				        </tfoot>
+				      </table>
 				  
 				  </div>
 				</div>
