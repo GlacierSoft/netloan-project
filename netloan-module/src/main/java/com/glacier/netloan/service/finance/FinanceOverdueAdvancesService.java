@@ -28,6 +28,7 @@ import com.glacier.netloan.util.MethodLog;
 @Transactional(readOnly = true ,propagation = Propagation.REQUIRED)
 public class FinanceOverdueAdvancesService {
 	 
+	
 	  @Autowired
 	  private FinanceOverdueAdvancesMapper financeOverdueAdvancesMapper;
 	private FinanceOverdueAdvancesMapper financeRechargeSetMapper;
