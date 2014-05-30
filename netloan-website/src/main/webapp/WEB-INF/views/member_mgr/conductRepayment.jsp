@@ -146,7 +146,7 @@
 				          </tr>
 				          <tr>
 				            <td>交易密码：</td>
-				            <td><input type="text" id="rechargeReceipt" name="rechargeReceipt" maxlength="50" class="inp200x"/></td>
+				            <td><input type="text" id="password" name="password" maxlength="50" class="inp200x"/></td>
 				            <td>验证码：</td>
 				            <td  class="col-md-6">
 								<div align="left" style="padding: 0px; width: 120px;">
