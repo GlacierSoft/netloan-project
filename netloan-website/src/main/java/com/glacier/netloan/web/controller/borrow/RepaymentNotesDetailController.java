@@ -9,6 +9,7 @@ import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.borrow.RepaymentNotesDetailService;
+import com.glacier.netloan.service.finance.FinanceMemberService;
 /**
  * @ClassName: RepaymentNotesDetailDetailController 
  * @Description: TODO(还款记录明细控制层) 
@@ -24,13 +25,17 @@ public class RepaymentNotesDetailController extends AbstractController{
 	
 	@Autowired
 	private BorrowingLoanService borrowingLoanService;
+	
+	@Autowired
+	private FinanceMemberService financeMemberService;
 
 	//转到“还款”页面
     @RequestMapping(value = "/conductRepayment.htm")
-    public Object conductRepayment(JqPager jqPager, String loanId, String memberId){
+    public Object conductRepayment(JqPager jqPager, String loanId, String memberId, String repayNotesDetailId){
         ModelAndView mav = new ModelAndView("member_mgr/conductRepayment");
         mav.addObject("borrowingLoan",borrowingLoanService.getBorrowingLoan(loanId));
+        mav.addObject("financeMemberDate",financeMemberService.getFinanceMemberByMemberId(memberId));
+        mav.addObject("repaymentNotesDetailsData",repaymentNotesDetailService.getRepaymentNotesDetail(repayNotesDetailId));
         return mav;
     }
-    
 }
