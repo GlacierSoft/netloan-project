@@ -15,6 +15,7 @@ import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.RepaymentNotesDetailMapper;
 import com.glacier.netloan.dao.borrow.RepaymentNotesMapper;
 import com.glacier.netloan.dao.borrow.TenderNotesMapper;
+import com.glacier.netloan.entity.basicdatas.ParameterBasic;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.BorrowingLoanExample;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetail;
@@ -23,6 +24,7 @@ import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.entity.borrow.TenderNotesExample;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.finance.FinanceTransaction;
+import com.glacier.netloan.service.basicdatas.ParameterBasicService;
 import com.glacier.netloan.service.finance.FinanceMemberService;
 import com.glacier.netloan.service.finance.FinanceTransactionService;
 
@@ -48,6 +50,9 @@ public class BorrowingOverdueService {
 	@Autowired
 	private RepaymentNotesDetailMapper repaymentNotesDetailMapper;
 	
+	@Autowired
+	private ParameterBasicService parameterBasicService;
+	
 	/**
 	 * @Title: createFlowBid 
 	 * @Description: TODO(这个是定时器的一个方法，判断借款的筹标期限是否过期，如果过期设置借款为流标，并解冻投标金额) 
@@ -56,7 +61,7 @@ public class BorrowingOverdueService {
 	 * @throws 
 	 *
 	 */
-	@PostConstruct
+	//@PostConstruct
 	@Transactional(readOnly = false)
 	public void handleBorrowingOverdue(){
 		RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();
@@ -65,6 +70,7 @@ public class BorrowingOverdueService {
 		Date n = new Date();
 	    long nowTime = n.getTime();
 	    Calendar c = Calendar.getInstance();
+	    ParameterBasic parameterBasic = (ParameterBasic) parameterBasicService.getParameterBasicByTitle("利息管理费");
 		for(RepaymentNotesDetail repaymentNotesDetail : repaymentNotesDetails){
 			RepaymentNotesDetail repaymentNotesDetailNew = new RepaymentNotesDetail();
 	    	c.setTime(repaymentNotesDetail.getShouldPayDate());//获取当期应还时间,除以1000是为了转换成秒
