@@ -53,9 +53,10 @@ public class FlowBidService {
 	 * @throws 
 	 *
 	 */
-	@PostConstruct
+	//@PostConstruct
 	@Transactional(readOnly = false)
 	public void createFlowBid(){
+		
 		BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
 		borrowingLoanExample.createCriteria().andLoanStateEqualTo("tendering");
 		//获取当前时间
