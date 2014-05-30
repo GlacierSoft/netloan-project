@@ -134,8 +134,8 @@
 	glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.addOverdueFineSet = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加逾期垫付管理',
-			width : 440,
-			height : 360,
+			width : 430,
+			height : 300,
 			queryUrl : ctx + '/do/overdueFineSet/intoForm.htm',
 			submitUrl : ctx + '/do/overdueFineSet/add.json',
 			successFun : function (){
@@ -170,8 +170,8 @@
 		var row = glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.overdueFineSetDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑逾期管理信息',
-			width : 450,
-			height : 250,
+			width : 430,
+			height : 300,
 			queryUrl : ctx + '/do/overdueFineSet/intoForm.htm',
 			submitUrl : ctx + '/do/overdueFineSet/edit.json',
 			queryParams : {

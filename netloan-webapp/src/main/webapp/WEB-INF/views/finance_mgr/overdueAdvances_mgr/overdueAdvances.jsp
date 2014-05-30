@@ -153,9 +153,9 @@
 	glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.auditOverdueAdvances = function(){
 		var row = glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.overdueAdvancesDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '审核【'+row.overdueAdvancesName+'】',
+			title : '审核逾期垫付信息',
 			width : 560,
-			height : 460,
+			height : 410,
 			queryUrl : ctx + '/do/overdueAdvances/intoAudit.htm',
 			submitUrl : ctx + '/do/overdueAdvances/audit.json',
 			queryParams : {
@@ -166,25 +166,6 @@
 			}
 		});
 	};
-	
-	//点击审核按钮触发方法
-	glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.auditRechargeSet = function(){
-		var row = glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.overdueAdvancesDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '审核逾期管理信息',
-			width : 560,
-			height : 460,
-			queryUrl : ctx + '/do/overdueAdvances/intoAudit.htm',
-			submitUrl : ctx + '/do/overdueAdvances/audit.json',
-			queryParams : {
-				overdueAdvancesId : row.overdueAdvancesId
-			},
-			successFun : function (){
-				glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.overdueAdvancesDataGrid.datagrid('reload');
-			}
-		});
-	};
-	
 	
 	//点击删除按钮触发方法
 	glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.delOverdueAdvances = function(){

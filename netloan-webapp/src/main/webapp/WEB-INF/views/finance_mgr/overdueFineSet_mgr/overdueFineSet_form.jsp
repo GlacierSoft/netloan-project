@@ -20,11 +20,13 @@
 		
 		<tr>
 			<td>罚款金额：</td>
-			<td><input id="overdueFineSet_mgr_overdueFineSet_form_value" name="value" value="${overdueFineSetData.value}" class="easyui-validatebox spinner"  style="width:298px" required="true" maxlength="50" /></td>
+			<td><input id="overdueFineSet_mgr_overdueFineSet_form_money" name="money" value="${overdueFineSetData.value}" class="easyui-validatebox spinner"  style="width:298px" required="true" maxlength="50" /></td>
 		</tr>
 		<tr>
 			<td>取费方式：</td>
-			<td><input id="rechargeSet_mgr_rechargeSet_form_feeWay" name="feeWay" value="${rechargeSetData.feeWay}" class="easyui-combobox" style="height:18px;width:300px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.feeWay"/></td>
+			<td>
+			     <input id="overdueFineSet_mgr_overdueFineSet_form_feeWay" name="feeWay" value="${overdueFineSetData.feeWay}" class="easyui-combobox" style="height:18px;width:300px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.feeWay"/>
+			</td>
 		</tr>
 		<tr>
 			<td>罚款备注：</td>

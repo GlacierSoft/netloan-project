@@ -118,12 +118,14 @@
     where overdue_fine_set_id = #{overdueFineSetId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueFineSetExample" >
-    delete from t_finance_overdue_fine_set temp_finance_overdue_fine_set
+    delete temp_finance_overdue_fine_set from t_finance_overdue_fine_set temp_finance_overdue_fine_set
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueFineSet" >
+  
+  
+<insert id="insert" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueFineSet" >
     insert into t_finance_overdue_fine_set (overdue_fine_set_id, overdue_fine_set_name, 
       member_type, member_privilege, value, 
       fee_way, audit_state, auditor, 
