@@ -1,17 +1,29 @@
 package com.glacier.netloan.service.finance;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+import org.quartz.utils.FindbugsSuppressWarnings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceOverdueFineSetMapper;
+import com.glacier.netloan.entity.finance.FinanceOverdueAdvances;
+import com.glacier.netloan.entity.finance.FinanceOverdueAdvancesExample;
 import com.glacier.netloan.entity.finance.FinanceOverdueFineSet;
 import com.glacier.netloan.entity.finance.FinanceOverdueFineSetExample;
+import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.util.MethodLog;
 
 @Service
 @Transactional(readOnly = true ,propagation = Propagation.REQUIRED)
@@ -20,13 +32,112 @@ public class FinanceOverdueFineSetService {
 	  @Autowired
 	  private FinanceOverdueFineSetMapper financeOverdueFineSetMapper;
 	
-	 //获取逾期对象
-	  public Object getFinanceOverdueFineSetId(String overdueFineSetId) {
+	  //获取逾期对象
+	    public Object getFinanceOverdueFineSetId(String overdueFineSetId) {
 		  FinanceOverdueFineSet financeOverdueAdvances =financeOverdueFineSetMapper.selectByPrimaryKey(overdueFineSetId);
 	        return financeOverdueAdvances;
 	    }
+	  
 	    
-	   //获取逾期数据
+	   //添加逾期罚款数据
+	    @Transactional(readOnly = false)
+	    @MethodLog(opera = "OverdueFineSet_add")
+	    public Object addOverdueFineSet(FinanceOverdueFineSet financeOverdueFineSet) {
+	    	
+	    	Subject pricipalSubject = SecurityUtils.getSubject();
+	        User pricipalUser = (User) pricipalSubject.getPrincipal();
+	        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+	        int count = 0;
+	        
+	        financeOverdueFineSet.setOverdueFineSetId(RandomGUID.getRandomGUID());
+	        financeOverdueFineSet.setAuditState("authstr");
+	        financeOverdueFineSet.setAuditor(pricipalUser.getUsername());
+	        financeOverdueFineSet.setAuditDate(new Date());
+	        financeOverdueFineSet.setCreater(pricipalUser.getUsername());
+	        financeOverdueFineSet.setCreateTime(new Date());
+	        financeOverdueFineSet.setUpdater(pricipalUser.getUserCnName());
+	        financeOverdueFineSet.setUpdateTime(new Date());
+	        
+	        count= financeOverdueFineSetMapper.insert(financeOverdueFineSet);
+	        
+	        if (count == 1) {
+	            returnResult.setSuccess(true);
+	            returnResult.setMsg("财务逾期垫付罚款设置已保存");
+	        } else {
+	            returnResult.setMsg("发生未知错误，逾期垫付罚款设置保存失败!");
+	        }
+	        return returnResult;
+	    }
+	  
+	  
+	    
+	    //编辑逾期罚款信息
+	    @Transactional(readOnly = false)
+	    @MethodLog(opera = "OverdueFineSet_edit")
+	    public Object editOverdueFineSet(FinanceOverdueFineSet financeOverdueFineSet) {
+	        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+	        int count = 0;
+	        Subject pricipalSubject = SecurityUtils.getSubject();
+	        User pricipalUser = (User) pricipalSubject.getPrincipal();
+	        
+	        financeOverdueFineSet.setUpdater(pricipalUser.getUsername());
+	        financeOverdueFineSet.setUpdateTime(new Date());
+	        count = financeOverdueFineSetMapper.updateByPrimaryKeySelective(financeOverdueFineSet);
+	        
+	        if (count == 1) {
+	            returnResult.setSuccess(true);
+	            returnResult.setMsg("逾期垫付罚款信息已修改");
+	        } else {
+	            returnResult.setMsg("发生未知错误，逾期垫付罚款修改失败");
+	        }
+	        return returnResult;
+	    }
+	  
+	    //批量删除逾期罚款信息
+	    @Transactional(readOnly = false)
+	    @MethodLog(opera = "OverdueFineSet_del")
+	    public Object delOverdueFineSet(List<String> overdueFineSetIds) {
+	        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+	        int count = 0;
+	        if (overdueFineSetIds.size() > 0) {
+	        	FinanceOverdueFineSetExample financeOverdueFineSetExample = new FinanceOverdueFineSetExample();
+	        	financeOverdueFineSetExample.createCriteria().andOverdueFineSetNameIn(overdueFineSetIds);
+	            count = financeOverdueFineSetMapper.deleteByExample(financeOverdueFineSetExample);
+	            if (count > 0) {
+	                returnResult.setSuccess(true);
+	                returnResult.setMsg("你成功删除了逾期垫付罚款信息!!");
+	            } else {
+	                returnResult.setMsg("发生未知错误，逾期垫罚款信息删除失败");
+	            }
+	        }
+	        return returnResult;
+	    }
+	    
+	    
+	    //逾期管理数据审核
+	    @Transactional(readOnly = false)
+	    @MethodLog(opera ="OverdueFineSet_audit")
+	    public Object auditOverdueFineSet(FinanceOverdueFineSet financeOverdueFineSet) {
+	        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+	        int count = 0;
+	        Subject pricipalSubject = SecurityUtils.getSubject();
+	        User pricipalUser = (User) pricipalSubject.getPrincipal();
+	        financeOverdueFineSet.setAuditor(pricipalUser.getUsername());
+	        financeOverdueFineSet.setAuditDate(new Date());
+	        financeOverdueFineSet.setUpdater(pricipalUser.getUsername());
+	        financeOverdueFineSet.setUpdateTime(new Date());
+	        count = financeOverdueFineSetMapper.updateByPrimaryKeySelective(financeOverdueFineSet);
+	        if (count == 1) {
+	            returnResult.setSuccess(true);
+	            returnResult.setMsg("逾期垫付罚款信息审核操作成功");
+	        } else {
+	            returnResult.setMsg("发生未知错误，逾期垫付罚款信息审核操作失败");
+	        }
+	        return returnResult;
+	    }
+	    
+	    
+	    //获取逾期数据
 	    public Object listAsGrid(JqPager pager) {
 	        JqGridReturn returnResult = new JqGridReturn();
 	        FinanceOverdueFineSetExample financeOverdueFineSetExample = new FinanceOverdueFineSetExample();;
@@ -45,8 +156,5 @@ public class FinanceOverdueFineSetService {
 	        returnResult.setTotal(total);
 	        return returnResult;// 返回ExtGrid表
 	    }
-	  
-	  
-	  
 	  
 }

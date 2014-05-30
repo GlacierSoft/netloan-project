@@ -2,6 +2,8 @@ package com.glacier.netloan.entity.finance;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class FinanceOverdueFineSet {
     private String overdueFineSetId;
 
@@ -18,7 +20,8 @@ public class FinanceOverdueFineSet {
     private String auditState;
 
     private String auditor;
-
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditDate;
 
     private String auditRemark;
@@ -29,10 +32,12 @@ public class FinanceOverdueFineSet {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getOverdueFineSetId() {
@@ -103,6 +108,7 @@ public class FinanceOverdueFineSet {
         return auditDate;
     }
 
+     
     public void setAuditDate(Date auditDate) {
         this.auditDate = auditDate;
     }

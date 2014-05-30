@@ -19,9 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.entity.finance.FinanceOverdueAdvances;
-import com.glacier.netloan.entity.finance.FinanceRechargeSet;
 import com.glacier.netloan.service.finance.FinanceOverdueAdvancesService;
-import com.glacier.netloan.service.finance.FinancesAdvancesRecord;
+
 
 @Controller
 @RequestMapping(value="/overdueAdvances")
@@ -40,7 +39,7 @@ public class FinanceOverdueAdvancesController extends AbstractController {
 	
 	// 进入会员充值设置Form表单页面
     @RequestMapping(value = "/intoForm.htm")
-    private Object intoOverdueAdvancesFormPfinanceOverdueAdvances(String overdueAdvancesId) {
+    private Object intoOverdueAdvancesForm(String overdueAdvancesId) {
         ModelAndView mav = new ModelAndView("finance_mgr/overdueAdvances_mgr/overdueAdvances_form");
         if(StringUtils.isNotBlank(overdueAdvancesId)){
             mav.addObject("overdueAdvancesData", overdueAdvancesServices.getFinanceOverdueAdvances(overdueAdvancesId));
@@ -105,8 +104,6 @@ public class FinanceOverdueAdvancesController extends AbstractController {
         }
         return overdueAdvancesServices.auditOverdueAdvances(financeOverdueAdvances);
     }
-    
-    
     
     
     //逾期垫付详情页

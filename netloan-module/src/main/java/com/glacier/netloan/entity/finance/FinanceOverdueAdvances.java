@@ -17,6 +17,7 @@ public class FinanceOverdueAdvances {
 
     private String auditor;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditDate;
 
     private String auditRemark;

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.quartz.utils.FindbugsSuppressWarnings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -28,7 +29,6 @@ import com.glacier.netloan.util.MethodLog;
 @Transactional(readOnly = true ,propagation = Propagation.REQUIRED)
 public class FinanceOverdueAdvancesService {
 	 
-	
 	  @Autowired
 	  private FinanceOverdueAdvancesMapper financeOverdueAdvancesMapper;
 	private FinanceOverdueAdvancesMapper financeRechargeSetMapper;
@@ -69,7 +69,6 @@ public class FinanceOverdueAdvancesService {
 	        User pricipalUser = (User) pricipalSubject.getPrincipal();
 	        
 	        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-	        FinanceOverdueAdvancesExample financeOverdueAdvancesExample= new FinanceOverdueAdvancesExample();
 	        int count = 0;
 	      
 	        financeOverdueAdvances.setOverdueAdvancesId(RandomGUID.getRandomGUID());
@@ -98,8 +97,8 @@ public class FinanceOverdueAdvancesService {
 	    @MethodLog(opera = "OverdueAdvances_edit")
 	    public Object editOverdueAdvances(FinanceOverdueAdvances financeOverdueAdvances) {
 	        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-	         FinanceOverdueAdvancesExample financeOverdueAdvancesExample = new FinanceOverdueAdvancesExample();
-	         int count = 0;
+	      
+	        int count = 0;
 	       
 	        Subject pricipalSubject = SecurityUtils.getSubject();
 	        User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -117,7 +116,7 @@ public class FinanceOverdueAdvancesService {
 	        return returnResult;
 	    }
 	    
-	    //auditOverdueAdvances
+	    //逾期管理数据审核
 	    @Transactional(readOnly = false)
 	    @MethodLog(opera ="OverdueAdvances_audit")
 	    public Object auditOverdueAdvances(FinanceOverdueAdvances financeOverdueAdvances) {
@@ -127,6 +126,8 @@ public class FinanceOverdueAdvancesService {
 	        User pricipalUser = (User) pricipalSubject.getPrincipal();
 	        financeOverdueAdvances.setAuditor(pricipalUser.getUsername());
 	        financeOverdueAdvances.setAuditDate(new Date());
+	        financeOverdueAdvances.setUpdater(pricipalUser.getUsername());
+	        financeOverdueAdvances.setUpdateTime(new Date());
 	        count = financeOverdueAdvancesMapper.updateByPrimaryKeySelective(financeOverdueAdvances);
 	        if (count == 1) {
 	            returnResult.setSuccess(true);
