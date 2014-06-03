@@ -106,10 +106,10 @@
 		toolbar:'#overdueAdvancesDataGrid_toolbar',
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: '【'+rowData.overdueAdvancesId+'】逾期管理详细信息',
+				title: '逾期管理详细信息',
 				href : ctx + '/do/overdueAdvances/intoDetail.htm?overdueAdvancesId='+rowData.overdueAdvancesId,//从controller请求jsp页面进行渲染
 				width : 600,
-				height : 280,
+				height : 310,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

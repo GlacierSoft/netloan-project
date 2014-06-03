@@ -62,7 +62,10 @@
 				field:'feeWay',
 				title:'取费方式',
 				width:100,
-				sortable:true
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如proportion显示比例收费，directcost显示取值收费
+					return renderGridValue(value,fields.feeWay);
+				}
 			},{
 				field:'auditState',
 				title:'审核状态',
@@ -119,10 +122,10 @@
 		toolbar:'#overdueFineSetDataGrid_toolbar',
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: '【'+rowData.overdueFineSetId+'】逾期管理详细信息',
+				title:'逾期管理详细信息',
 				href : ctx + '/do/overdueFineSet/intoDetail.htm?overdueFineSetId='+rowData.overdueFineSetId,//从controller请求jsp页面进行渲染
-				width : 670,
-				height : 340,
+				width : 550,
+				height : 380,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -135,7 +138,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '增加逾期垫付管理',
 			width : 430,
-			height : 300,
+			height : 360,
 			queryUrl : ctx + '/do/overdueFineSet/intoForm.htm',
 			submitUrl : ctx + '/do/overdueFineSet/add.json',
 			successFun : function (){
@@ -150,8 +153,8 @@
 		var row = glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.overdueFineSetDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '审核逾期管理信息',
-			width : 570,
-			height : 400,
+			width : 580,
+			height : 435,
 			queryUrl : ctx + '/do/overdueFineSet/intoAudit.htm',
 			submitUrl : ctx + '/do/overdueFineSet/audit.json',
 			queryParams : {
@@ -171,7 +174,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '编辑逾期管理信息',
 			width : 430,
-			height : 300,
+			height : 360,
 			queryUrl : ctx + '/do/overdueFineSet/intoForm.htm',
 			submitUrl : ctx + '/do/overdueFineSet/edit.json',
 			queryParams : {

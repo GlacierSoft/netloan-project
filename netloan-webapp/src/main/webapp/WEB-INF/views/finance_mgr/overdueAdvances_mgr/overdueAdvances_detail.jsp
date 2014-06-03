@@ -5,20 +5,23 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>逾期垫付管理ID：</td>
+			<td>垫付管理ID：</td>
 			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
 				<input type="hidden" name="roleId" value="${overdueAdvancesData.overdueAdvancesId}" />
 				<input class="spinner" style="width:168px"  value="${overdueAdvancesData.overdueAdvancesId}" readonly="readonly"/>
 			</td>
-			<td>会员等级：</td>
-			<td><input class="spinner" style="width:168px" value="${overdueAdvancesData.memberType}" readonly="readonly"/></td>
-			
+			<td>有效会员：</td>
+			<td>
+				<input id="overdueAdvances_mgr_overdueAdvances_detail_memberType" name="memberType" value="${overdueAdvancesData.memberType}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
+			</td>
 		</tr>
 		<tr>
-			<td>逾期垫付终付百分比：</td>
-			<td><input class="spinner" style="width:168px" value="${overdueAdvancesData.feeway}" readonly="readonly"/></td>
+			<td>终付百分比：</td>
+			<td><input class="spinner" style="width:168px" value="${overdueAdvancesData.value}" readonly="readonly"/></td>
 			<td>审核状态：</td>
-			<td><input class="spinner" style="width:168px" value="${overdueAdvancesData.auditState}" readonly="readonly"/></td>
+			<td>
+				<input id="overdueAdvances_mgr_overdueAdvancesdetail_auditState" name="auditState" value="${overdueAdvancesData.auditState}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
+			</td>
 		</tr>
 		<tr>
 			<td>审核人：</td>
@@ -27,23 +30,26 @@
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate  value="${overdueAdvancesData.auditDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
-			<td>备注：</td>
-			<td><input value="${overdueAdvancesData.auditRemark}" class="spinner" style="width:168px" readonly="readonly"/></td>
 			<td>创建人：</td>
 			<td><input class="spinner" style="width:168px" value="${overdueAdvancesData.creater}" readonly="readonly"/></td>
-		</tr>
-		<tr>
-			<td>登入时间：</td>
+		    <td>录入时间：</td>
 			<td><input class="spinner" style="width:168px"   value="<fmt:formatDate  value="${overdueAdvancesData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
-			<td>最后修改人：</td>
-			<td><input class="spinner" style="width:168px"   value="${overdueAdvancesData.updater}" readonly="readonly"/></td>
 		</tr>
 		<tr>
-			<td>最后修改时间：</td>
-			<td><input class="spinner" style="width:168px"  value="<fmt:formatDate  value="${overdueAdvancesData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"  readonly="readonly"/></td>
+			<td>更新人：</td>
+			<td><input class="spinner" style="width:168px"   value="${overdueAdvancesData.updater}" readonly="readonly"/></td>
+		     <td>更新时间：</td>
+			 <td><input class="spinner" style="width:168px"  value="<fmt:formatDate  value="${overdueAdvancesData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"  readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>备注说明：</td>
+			<td colspan="3"><textarea class="spinner" style="width:420px" readonly="readonly">${overdueAdvancesData.remark}</textarea></td>
 		</tr>
 	</table>
 </form>
 <script type="text/javascript">
-	$('#bankCard_mgr_bankCard_audit_status').val(renderGridValue('${bankCardData.status}',fields.bankCardAuths));
+	$('#overdueAdvances_mgr_overdueAdvances_detail_memberType').val(renderGridValue('${overdueAdvancesData.memberType}',fields.memberType));
+    $('#overdueAdvances_mgr_overdueAdvancesdetail_auditState').val(renderGridValue('${overdueAdvancesData.auditState}',fields.auditState));
+</script>
+	
 </script>

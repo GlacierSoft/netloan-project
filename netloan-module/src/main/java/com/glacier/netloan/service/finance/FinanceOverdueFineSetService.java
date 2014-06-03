@@ -34,8 +34,8 @@ public class FinanceOverdueFineSetService {
 	
 	  //获取逾期对象
 	    public Object getFinanceOverdueFineSetId(String overdueFineSetId) {
-		  FinanceOverdueFineSet financeOverdueAdvances =financeOverdueFineSetMapper.selectByPrimaryKey(overdueFineSetId);
-	        return financeOverdueAdvances;
+		    FinanceOverdueFineSet financeOverdueFineSet =financeOverdueFineSetMapper.selectByPrimaryKey(overdueFineSetId);
+	        return financeOverdueFineSet;
 	    }
 	  
 	    

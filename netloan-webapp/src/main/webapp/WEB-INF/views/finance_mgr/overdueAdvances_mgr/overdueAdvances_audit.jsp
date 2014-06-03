@@ -57,7 +57,7 @@
 	<table class="formtable">
 		<tr>
 			<td>审核充值设置：</td>
-			<td><input type="hidden" id="overdueAdvances_mgr_overdueAdvances_form_financeRechargeSetId" name="financeRechargeSetId" value="${overdueAdvancesData.overdueAdvancesId}" />
+			<td><input type="hidden" id="overdueAdvances_mgr_overdueAdvances_form_overdueAdvancesId" name="overdueAdvancesId" value="${overdueAdvancesData.overdueAdvancesId}" />
 				<input id="overdueAdvances_mgr_overdueAdvances_form_auditState" name="auditState" type="radio" value="pass" /><span>审核通过</span>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<input id="overdueAdvances_mgr_overdueAdvances_form_auditState" name="auditState" type="radio" value="failure"  checked="checked"/><span>审核失败</span></td>

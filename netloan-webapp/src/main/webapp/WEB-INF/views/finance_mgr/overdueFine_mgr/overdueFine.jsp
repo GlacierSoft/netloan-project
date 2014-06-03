@@ -127,7 +127,7 @@
 				title: '【'+rowData.overdueFineId+'】逾期管理详细信息',
 				href : ctx + '/do/overdueFine/intoDetail.htm?overdueFineId='+rowData.overdueFineId,//从controller请求jsp页面进行渲染
 				width : 600,
-				height : 280,
+				height : 400,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

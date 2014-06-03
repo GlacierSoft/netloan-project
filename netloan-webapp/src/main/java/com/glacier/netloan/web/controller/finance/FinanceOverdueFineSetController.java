@@ -104,5 +104,16 @@ public class FinanceOverdueFineSetController extends AbstractController {
         }
         return mav;
     }
+    
+    
+   // 进入会员充值设置audit表单页面
+    @RequestMapping(value = "/intoAudit.htm")
+    private Object intoAuditOverdueFineSet(String overdueFineSetId) {
+        ModelAndView mav = new ModelAndView("finance_mgr/overdueFineSet_mgr/overdueFineSet_audit");
+        if(StringUtils.isNotBlank(overdueFineSetId)){
+            mav.addObject("overdueFineSetData", overOverdueFineSetServices.getFinanceOverdueFineSetId(overdueFineSetId));
+        }
+        return mav;
+    }
 	
   }
