@@ -61,7 +61,7 @@ public class FinanceMemberController extends AbstractController{
   		Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
   		Member pricipalMember = (Member) pricipalSubject.getPrincipal();
         if(StringUtils.isNotBlank(pricipalMember.getMemberId())){
-            mav.addObject("financeMemberData", financeMemberService.getMemberId(pricipalMember.getMemberId()));
+            mav.addObject("financeMemberData", financeMemberService.getFinanceMemberByMemberId(pricipalMember.getMemberId()));
             mav.addObject("financeTransactionDatas",financeTransactionService.listAsWebsite(pager, finTransactionQueryDTO, pricipalMember.getMemberId(), p));
             mav.addObject("financeWithdrawDatas",financeWithdrawService.listAsWebsite(pager, pricipalMember.getMemberId(), p));
             mav.addObject("financeRechargeSetDatas",financeRechargeSetService.listAsGrid(pager));
@@ -81,7 +81,7 @@ public class FinanceMemberController extends AbstractController{
     private Object intoMemberDetailPage(String financeMemberId) {
         ModelAndView mav = new ModelAndView("finance_mgr/financeMember_mgr/financeMember_detail");
         if(StringUtils.isNotBlank(financeMemberId)){
-            mav.addObject("financeMemberData", financeMemberService.getMember(financeMemberId));
+            mav.addObject("financeMemberData", financeMemberService.getFinanceMember(financeMemberId));
         }
         return mav;
     }
@@ -91,7 +91,7 @@ public class FinanceMemberController extends AbstractController{
     private Object intoAuditMember(String financeMemberId) {
         ModelAndView mav = new ModelAndView("finance_mgr/financeMember_mgr/financeMember_audit");
         if(StringUtils.isNotBlank(financeMemberId)){
-            mav.addObject("financeMemberData", financeMemberService.getMember(financeMemberId));
+            mav.addObject("financeMemberData", financeMemberService.getFinanceMember(financeMemberId));
         }
         return mav;
     }

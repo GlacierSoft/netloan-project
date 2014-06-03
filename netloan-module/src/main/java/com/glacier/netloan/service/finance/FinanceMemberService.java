@@ -22,7 +22,6 @@ import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.finance.FinanceMemberExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
-import com.glacier.netloan.service.system.UserService;
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -50,7 +49,7 @@ public class FinanceMemberService {
 	 * @return Object    返回类型 
 	 * @throws
 	 */
-    public Object getMember(String financeMemberId) {
+    public Object getFinanceMember(String financeMemberId) {
     	FinanceMember financeMember = financeMemberMapper.selectByPrimaryKey(financeMemberId);
         return financeMember;
     }
@@ -63,7 +62,7 @@ public class FinanceMemberService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object getMemberId(String memberId) {
+    public Object getFinanceMemberByMemberId(String memberId) {
     	FinanceMember financeMember = financeMemberMapper.selectByMemberId(memberId);
         return financeMember;
     }

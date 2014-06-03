@@ -50,7 +50,7 @@ public class FinanceMemberController extends AbstractController{
     private Object intoMemberDetailPage(String financeMemberId) {
         ModelAndView mav = new ModelAndView("finance_mgr/financeMember_mgr/financeMember_detail");
         if(StringUtils.isNotBlank(financeMemberId)){
-            mav.addObject("financeMemberData", financeMemberService.getMember(financeMemberId));
+            mav.addObject("financeMemberData", financeMemberService.getFinanceMember(financeMemberId));
         }
         return mav;
     }
@@ -60,7 +60,7 @@ public class FinanceMemberController extends AbstractController{
     private Object intoAuditMember(String financeMemberId) {
         ModelAndView mav = new ModelAndView("finance_mgr/financeMember_mgr/financeMember_audit");
         if(StringUtils.isNotBlank(financeMemberId)){
-            mav.addObject("financeMemberData", financeMemberService.getMember(financeMemberId));
+            mav.addObject("financeMemberData", financeMemberService.getFinanceMember(financeMemberId));
         }
         return mav;
     }

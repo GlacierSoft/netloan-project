@@ -91,11 +91,11 @@
 				    <h3 class="panel-title">会员中心 / 借款管理 / 还款明细管理</h3>
 				  </div>
 				  <div class="panel-body">
-
+					<form id="conductRepayment" name="conductRepayment" class="form-horizontal" role="form" method="post" >
 			  		  <table class="table table-bordered">
 			          	<thead>
 				          <tr>
-				            <th colspan="4">还款明细</th>
+				            <th colspan="4">借款信息</th>
 				          </tr>
 				        </thead>
 			          	<tbody>
@@ -119,8 +119,53 @@
 				          </tr>
 				      	</tbody>
 				      </table>
-			  		
-				  
+				      <table class="table table-bordered">
+			          	<thead>
+				          <tr>
+				            <th colspan="4">进行还款</th>
+				          </tr>
+				        </thead>
+			          	<tbody>
+				          <tr>
+				            <td>账户余额：</td>
+				            <td>${financeMemberDate.amount}</td>
+				            <td>可用余额：</td>
+				            <td>${financeMemberDate.usableMoney}</td>
+				          </tr>
+				          <tr>
+				            <td>还款日期： </td>
+				            <td><fmt:formatDate value="${repaymentNotesDetailsData.shouldPayDate}" type="date"/></td>
+				            <td>待还本息：</td>
+				            <td>${repaymentNotesDetailsData.currentPayMoeny}</td>
+				          </tr>
+				          <tr>
+				            <td>逾期本息：</td>
+				            <td>${repaymentNotesDetailsData.overdueInterest}</td>
+				            <td>需还总额：</td>
+				            <td>${repaymentNotesDetailsData.alsoNeedMoney}</td>
+				          </tr>
+				          <tr>
+				            <td>交易密码：</td>
+				            <td><input type="text" id="password" name="password" maxlength="50" class="inp200x"/></td>
+				            <td>验证码：</td>
+				            <td  class="col-md-6">
+								<div align="left" style="padding: 0px; width: 120px;">
+									<input type="text" id="captcha" name="captcha" maxlength="4" class="form-control" placeholder="验证码"/>
+								</div>
+								<div style="width: 150px;">
+									<img style="width:120px;height:32px;" class="img-responsive" id="login_kaptcha" src="${ctx}/resources/images/kaptcha.jpg" />
+								</div>
+					  		</td>
+				          </tr>
+				          <tr>
+				            <td colspan="4" align="center">
+				            	<button type="submit" class="btn btn-default">确认还款</button>
+				            	<button type="reset" class="btn btn-default">重置信息</button>
+				            </td>
+				          </tr>
+				      	</tbody>
+				      </table>
+				    </form>
 				  </div>
 				</div>
 	    	</div>
@@ -129,64 +174,80 @@
 	    <jsp:include page="../foot.jsp"/>
 	    </div>
 	    <!-- CONTAINER START======================== -->
-
-<!-- 分页显示表格数据 -->
+	    
 <script type="text/javascript">
-
-
-	$(function(){
-		//获得浏览器参数
-		$.extend({
-			getUrlVars: function(){
-				var vars = [], hash;
-				var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-				for(var i = 0; i < hashes.length; i++){
-					hash = hashes[i].split('=');
-					vars.push(hash[0]);
-					vars[hash[0]] = hash[1];
-				}
-				return vars;
-			},
-			getUrlVar: function(name){
-				return $.getUrlVars()[name];
-			}
+    $("#conductRepayment").validate({
+   		rules:{
+   			rechargeAmount:"required",
+   			financeRechargeSetId:"required"
+   		},
+   		messages:{
+   			rechargeAmount:"必须填写充值金额",
+   			financeRechargeSetId:"必须选择一种充值类型"
+   		},
+   		submitHandler:function(){
+   			$.ajax({
+   				   type: "POST",
+   				   url: ctx+"/recharge/add.json",
+   				   dataType: "json",
+   				   data: $("#financeRecharge").serialize(),
+    			   success: function(r) {
+    				   successAddRecharge(r);
+                    },
+                    error: function() {
+                        alert("提交出错！");
+                    }
+   				});
+   		} 
+   	});
+	$("#financeWithdraw").validate({
+   		rules:{
+   			withdrawAmount:"required"
+   		},
+   		messages:{
+   			withdrawAmount:"必须填写提现金额"
+   		},
+   		submitHandler:function(){
+   			$.ajax({
+   				   type: "POST",
+   				   url: ctx+"/withdraw/add.json",
+   				   dataType: "json",
+   				   data: $("#financeWithdraw").serialize(),
+    			   success: function(r) {
+    				   successAddRecharge(r);
+                    },
+                    error: function() {
+                        alert("提交出错！");
+                    }
+   				});
+   		} 
+   	});
+    function successAddRecharge(data){
+		KindEditor.ready(function(K) {
+		var dialog = K.dialog({
+				        width : 500,
+				        title : '保存成功',
+				        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
+				        closeBtn : {
+				                name : '关闭',
+				                click : function(e) {
+				                        dialog.remove();
+				                }
+				        },
+				        yesBtn : {
+				                name : '确定',
+				                click : function(e) {
+				                	dialog.remove();
+				                	if(data.success){
+				                		window.location.href="${ctx}/financeMember/rechargeWithdraw.htm?p=1";
+				                	}else{
+				                		dialog.remove();
+				                	}
+				                }
+				        }
+					});
 		});
-	
-	//封装浏览器参数
-	var composeUrlParams=function(){
-		var param='';
-		$.each($.getUrlVars(), function(i, item) {
-			if(item!='p'){
-				var val=$.getUrlVar(item);
-				if(val) param += "&" + item+"="+val;
-			}
-		});
-		return param;
-	}
-	
-	var element = $('#pageRepaymentNotesDetails');
-	
-	//设置分页的总页数
-	var total=${repaymentNotesDetailsDatas.total}/10;
-	if(parseInt(total)==total){
-		var total = parseInt(total);
-	}else {
-		var total = parseInt(total)+1;
-	}
-	
-	var options = {
-	    bootstrapMajorVersion:3,
-	    currentPage: ${repaymentNotesDetailsDatas.p},
-	    numberOfPages: 5,
-	    totalPages:total,
-	    pageUrl: function(type, page, current){
-	    	return "${ctx}/borrowingLoan/memberRepaymentDetail.htm?"+composeUrlParams()+"&p="+page;
-	    	}
-	}
-	
-	element.bootstrapPaginator(options);
-	})
+	};
 </script>
-
   </body>
 </html>
