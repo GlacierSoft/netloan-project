@@ -26,8 +26,8 @@ import com.glacier.netloan.service.finance.FinanceOverdueAdvancesService;
 @RequestMapping(value="/overdueAdvances")
 public class FinanceOverdueAdvancesController extends AbstractController {
 	
-	 @Autowired
-	 private  FinanceOverdueAdvancesService  overdueAdvancesServices;
+	  @Autowired
+	  private  FinanceOverdueAdvancesService  overdueAdvancesServices;
 	
     //逾期垫付管理信息页
 	@RequestMapping(value="/index.htm")

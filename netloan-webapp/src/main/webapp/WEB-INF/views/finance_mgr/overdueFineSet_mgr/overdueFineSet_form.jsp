@@ -5,7 +5,7 @@
 <form  method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
-			<td>罚款名称：</td>
+			 <td>罚款名称：</td>
 			<td>
 				<input type="hidden" id="overdueFineSet_mgr_overdueFineSet_form_overdueFineSetId" name="overdueFineSetId" value="${overdueFineSetData.overdueFineSetId}" />
 				<input  name="overdueFineSetName" value="${overdueFineSetData.overdueFineSetName}" class="easyui-validatebox spinner"  style="width:298px" required="true" maxlength="50" />

@@ -14,7 +14,7 @@
 		<tr>
 			<td>逾期终付百分比：</td>
 			<td>
-				<input id="overdueAdvances_mgr_overdueAdvances_form_value" name="value" value="${overdueAdvancesData.value}" class="easyui-validatebox spinner"  style="width:298px" required="true" maxlength="50" />
+				 <input id="overdueAdvances_mgr_overdueAdvances_form_value" name="value" value="${overdueAdvancesData.value}" class="easyui-validatebox spinner"  style="width:298px" required="true" maxlength="50" />
 			</td>
 		</tr>
 		<tr>

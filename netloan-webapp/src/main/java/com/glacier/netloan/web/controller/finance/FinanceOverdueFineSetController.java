@@ -28,9 +28,9 @@ import com.glacier.netloan.service.finance.FinanceOverdueFineSetService;
 
 public class FinanceOverdueFineSetController extends AbstractController {
   
-	 @Autowired
-	 private  FinanceOverdueFineSetService  overOverdueFineSetServices;
-	   
+	  @Autowired
+	  private  FinanceOverdueFineSetService  overOverdueFineSetServices;
+	    
 	    //进入逾期罚款表单页面
 	    @RequestMapping(value = "/intoForm.htm")
 	    private Object intoOverdueFindSetForm(String overdueFineSetId) {

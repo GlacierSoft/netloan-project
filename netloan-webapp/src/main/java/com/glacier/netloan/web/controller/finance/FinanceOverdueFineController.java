@@ -20,8 +20,8 @@ import com.glacier.netloan.service.finance.FinanceOverdueFineService;
 public class FinanceOverdueFineController {
   
 	 
-	 @Autowired
-	 private  FinanceOverdueFineService  overOverdueFineServices;
+	  @Autowired
+	  private  FinanceOverdueFineService  overOverdueFineServices;
 	
     //逾期垫付管理信息页
 	@RequestMapping(value="/index.htm")

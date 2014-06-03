@@ -6,8 +6,8 @@
 	  <tr>
 			<td>有效会员：</td>
 			<td>
-			    <input type="hidden"  name="overdueAdvancesId" value="${overdueAdvancesData.overdueAdvancesId}" />
-				<input id="overdueAdvances_mgr_overdueAdvances_detail_memberType" name="memberType" value="${overdueAdvancesData.memberType}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
+			   <input type="hidden"  name="overdueAdvancesId" value="${overdueAdvancesData.overdueAdvancesId}" />
+			   <input id="overdueAdvances_mgr_overdueAdvances_detail_memberType" name="memberType" value="${overdueAdvancesData.memberType}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
 			</td>
 			<td>终付百分比：</td>
 			<td>
