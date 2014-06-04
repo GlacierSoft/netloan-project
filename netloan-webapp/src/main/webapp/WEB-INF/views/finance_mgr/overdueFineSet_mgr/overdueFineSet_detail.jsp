@@ -20,11 +20,11 @@
 				<input id="overdueFineSet_mgr_overdueFineSet_detail_memberType" name="memberType" value="${overdueFineSetData.memberType}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
 			</td>
 			<td>设定天数：</td>
-			<td><input class="spinner" style="width:168px" value="${overdueFineSetData.memberPrivilege}" readonly="readonly"/></td>
+			<td><input  id="overdueFineSet_mgr_overdueFineSet_dettail_memberPrivilege" name="memberPrivilege" class="spinner" style="width:168px" value="${overdueFineSetData.memberPrivilege}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>天数设定：</td>
-			<td><input class="spinner" style="width:168px"  value="${overdueFineSetData.value}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px"  value="${overdueFineSetData.vipDays}" readonly="readonly"/></td>
 			<td>取费方式：</td>
 			<td>
 				<input id="overdueFineSet_mgr_overdueFineSet_detail_feeWay" name="feeWay" value="${overdueFineSetData.feeWay}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
@@ -67,6 +67,9 @@
 	$('#overdueFineSet_mgr_overdueFineSet_detail_memberType').val(renderGridValue('${overdueFineSetData.memberType}',fields.memberType));
 	$('#overdueFineSet_mgr_overdueFineSet_detail_feeWay').val(renderGridValue('${overdueFineSetData.feeWay}',fields.feeWay));
 	$('#overdueFineSet_mgr_overdueFineSet_auditState').val(renderGridValue('${overdueFineSetData.auditState}',fields.auditState));
+    $('#overdueFineSet_mgr_overdueFineSet_dettail_memberPrivilege').val(renderGridValue('${overdueFineSetData.memberPrivilege}',fields.status));
+    
+    
 </script>
 
 

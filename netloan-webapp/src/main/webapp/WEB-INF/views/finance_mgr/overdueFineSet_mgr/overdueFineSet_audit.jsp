@@ -16,9 +16,9 @@
 		</tr>
 		<tr>
 			<td>减少Vip天数：</td>
-			<td><input class="spinner"  name="memberPrivilege" style="width:180px" value="${overdueFineSetData.memberPrivilege}" readonly="readonly"/></td>
+			<td><input class="spinner"  id="overdueFineSet_mgr_overdueFineSet_detail_memberPrivilege" name="memberPrivilege" style="width:180px" value="${overdueFineSetData.memberPrivilege}" readonly="readonly"/></td>
 			<td>Vip天数设定：</td>
-			<td><input class="spinner" name="value" style="width:180px" value="${overdueFineSetData.value}"  readonly="readonly"/></td>
+			<td><input class="spinner" name="vipDays" style="width:180px" value="${overdueFineSetData.vipDays}"  readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>取费方式：</td>
@@ -54,10 +54,11 @@
 		</tr>
 	</table>
 </div>
-<script type="text/javascript">
+<script type="text/javascript"> 
 	$('#overdueFineSet_mgr_overdueFineSet_detail_memberType').val(renderGridValue('${overdueFineSetData.memberType}',fields.memberType));
 	$('#overdueFineSet_mgr_overdueFineSet_detail_auditState').val(renderGridValue('${overdueFineSetData.auditState}',fields.auditState));
 	$('#overdueFineSet_mgr_overdueFineSet_detail_feeWay').val(renderGridValue('${overdueFineSetData.feeWay}',fields.feeWay));
+	$('#overdueFineSet_mgr_overdueFineSet_detail_memberPrivilege').val(renderGridValue('${overdueFineSetData.memberPrivilege}',fields.status));
 </script>
 
 <form  method="post" style="padding:15px">

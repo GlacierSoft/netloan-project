@@ -57,6 +57,14 @@
 				field:'memberPrivilege',
 				title:'是否减少VIP会员设定天数',
 				width:190,
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如general显示普通会员，vip显示VIP会员，all显示全部会员
+					return renderGridValue(value,fields.status);
+				}
+			},{
+				field:'vipDays',
+				title:'Vip天数设定',
+				width:190,
 				sortable:true
 			},{
 				field:'feeWay',
@@ -152,9 +160,9 @@
 	glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.auditOverdueFineSet = function(){
 		var row = glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.overdueFineSetDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '审核逾期管理信息',
+			title : '审核逾期罚款信息',
 			width : 580,
-			height : 435,
+			height : 450,
 			queryUrl : ctx + '/do/overdueFineSet/intoAudit.htm',
 			submitUrl : ctx + '/do/overdueFineSet/audit.json',
 			queryParams : {

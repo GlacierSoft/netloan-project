@@ -124,7 +124,7 @@
 				title: rowData.userCnName,
 				href : ctx + '/do/user/intoDetail.htm?userId='+rowData.userId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 350,
+				height : 315,
 				enableApplyButton : false,
 				enableSaveButton : false
 			});
@@ -135,7 +135,7 @@
 	glacier.system_mgr.user_mgr.user.addUser = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加管理员信息',
-			width : 450,
+			width : 400,
 			height : 300,
 			queryUrl : ctx + '/do/user/intoForm.htm',
 			submitUrl : ctx + '/do/user/add.json',
@@ -149,7 +149,7 @@
 		var row = glacier.system_mgr.user_mgr.user.userDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.username+'】',
-			width : 450,
+			width : 400,
 			height : 300,
 			queryUrl : ctx + '/do/user/intoForm.htm',
 			submitUrl : ctx + '/do/user/edit.json',
@@ -229,7 +229,7 @@
 		glacier.system_mgr.user_mgr.user.userRoleWin = $('#userRoleWin').dialog({ 
 			title:'分配角色',
 		    width:650,  
-		    height:430,
+		    height:200,
 		    resizable:true,
 		    modal:true,
 		    minimizable:false,

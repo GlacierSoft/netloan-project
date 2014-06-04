@@ -96,7 +96,7 @@
 				title: rowData.creditName,
 				href : ctx + '/do/credit/intoDetail.htm?creditId='+rowData.creditId,//从controller请求jsp页面进行渲染
 				width : 600,
-				height : 290,
+				height : 320,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -107,8 +107,8 @@
 	glacier.basicdatas_mgr.credit_mgr.credit.addCredit = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加会员信用级别',
-			width : 440,
-			height : 350,
+			width : 420,
+			height : 380,
 			queryUrl : ctx + '/do/credit/intoForm.htm',
 			submitUrl : ctx + '/do/credit/add.json',
 			successFun : function (){
@@ -122,8 +122,8 @@
 		var row = glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.creditName+'】',
-			width : 440,
-			height : 300,
+			width : 420,
+			height : 380,
 			queryUrl : ctx + '/do/credit/intoForm.htm',
 			submitUrl : ctx + '/do/credit/edit.json',
 			queryParams : {

@@ -262,7 +262,7 @@
 				title: rowData.loanrTenderName,
 				href : ctx + '/do/loanTender/intoDetail.htm?loanTenderId='+rowData.loanTenderId,//从controller请求jsp页面进行渲染
 				width : 780,
-				height : 520,
+				height :600,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -274,7 +274,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '增加标种类型',
 			width : 780,
-			height : 500,
+			height : 600,
 			queryUrl : ctx + '/do/loanTender/intoForm.htm',
 			submitUrl : ctx + '/do/loanTender/add.json',
 			successFun : function (){
@@ -288,7 +288,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.loanrTenderName+'】',
 			width : 780,
-			height : 500,
+			height : 600,
 			queryUrl : ctx + '/do/loanTender/intoForm.htm',
 			submitUrl : ctx + '/do/loanTender/edit.json',
 			queryParams : {
@@ -377,7 +377,7 @@
 		glacier.borrow_mgr.loanTender_mgr.loanTender.tenderRepaymentWin = $('#tenderRepaymentWin').dialog({ 
 			title:'分配还款方式',
 		    width:650,  
-		    height:430,
+		    height:200,
 		    resizable:true,
 		    modal:true,
 		    minimizable:false,

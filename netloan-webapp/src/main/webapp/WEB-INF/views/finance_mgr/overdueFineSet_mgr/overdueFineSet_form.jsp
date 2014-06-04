@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 
 <form  method="post" style="padding:15px">
 	<table class="formtable">
@@ -17,18 +18,22 @@
 			    <input id="overdueFineSet_mgr_overdueFineSet_memberType" name="memberType" class="easyui-combobox" value="${overdueFineSetData.memberType}" style="height:18px;width:300px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.memberType"/>
 			</td>
 		</tr>
+		
 		<tr>
 			<td>缩减天数：</td>
 			<td>
-			    <input id="overdueFineSet_mgr_overdueFineSet_form_memberPrivilege" name="memberPrivilege" class="easyui-combobox" value="${overdueFineSetData.memberPrivilege}" style="height:18px;width:300px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.yesOrNo" />
+			    <input id="overdueFineSet_mgr_overdueFineSet_form_memberPrivilege" name="memberPrivilege" class="easyui-combobox" value="${overdueFineSetData.memberPrivilege}" style="height:18px;width:300px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/>
 			</td>
+		    
 		</tr>
-		<tr>
+
+	   <tr id="overdueFineSet_mgr_overdueFineSet_form_tr">
 			<td>天数设定：</td>
 			<td>
-			    <input id="overdueFineSet_mgr_overdueFineSet_form_value" name="value" value="${overdueFineSetData.value}" class="easyui-validatebox spinner"  style="width:298px" required="true" maxlength="50" />
+			    <input name="vipDays" value="${overdueFineSetData.vipDays}" class="easyui-validatebox spinner"  style="width:298px" required="true" maxlength="50" />
 			</td>
 		</tr>
+
 		<tr>
 			<td>罚款金额：</td>
 			<td><input id="overdueFineSet_mgr_overdueFineSet_form_money" name="money" value="${overdueFineSetData.money}" class="easyui-validatebox spinner"  style="width:298px" required="true" maxlength="50" /></td>
@@ -41,9 +46,23 @@
 		</tr>
 		<tr>
 			<td>罚款备注：</td>
-			<td><textarea name="remark" style="width:298px;" maxlength="255" class="spinner formta">${rechargeSetData.remark}</textarea></td>
+			<td><textarea name="remark" style="width:298px;" maxlength="255">${rechargeSetData.remark}</textarea></td>
 		</tr>
 	</table>
 </form>
+<script>
+ 
+$('#overdueFineSet_mgr_overdueFineSet_form_memberPrivilege').combobox({
+    onSelect: function(param){
+	  if(param.value=="enable")  
+		  $("#overdueFineSet_mgr_overdueFineSet_form_tr").css({"display":"block"});
+	  else 
+		  $("#overdueFineSet_mgr_overdueFineSet_form_tr").css({"display":"none"});
+    }
+ });
+
+
+
+</script>
 
 

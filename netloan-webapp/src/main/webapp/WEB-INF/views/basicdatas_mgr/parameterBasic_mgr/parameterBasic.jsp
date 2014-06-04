@@ -105,7 +105,7 @@
 			$.easyui.showDialog({
 				title: rowData.basicTitle,
 				href : ctx + '/do/parameterBasic/intoDetail.htm?basicId='+rowData.basicId,//从controller请求jsp页面进行渲染
-				width : 600,
+				width : 570,
 				height : 260,
 				resizable: false,
 				enableApplyButton : false,
@@ -117,8 +117,8 @@
 	glacier.basicdatas_mgr.parameterBasic_mgr.parameterBasic.addParameterBasic = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加会员信用级别',
-			width : 440,
-			height : 300,
+			width : 430,
+			height : 270,
 			queryUrl : ctx + '/do/parameterBasic/intoForm.htm',
 			submitUrl : ctx + '/do/parameterBasic/add.json',
 			successFun : function (){
@@ -132,8 +132,8 @@
 		var row = glacier.basicdatas_mgr.parameterBasic_mgr.parameterBasic.parameterBasicDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.basicTitle+'】',
-			width : 440,
-			height : 300,
+			width : 430,
+			height : 270,
 			queryUrl : ctx + '/do/parameterBasic/intoForm.htm',
 			submitUrl : ctx + '/do/parameterBasic/edit.json',
 			queryParams : {

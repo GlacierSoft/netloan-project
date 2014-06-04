@@ -67,7 +67,7 @@
 	glacier.website_mgr.nav_mgr.nav.addNav = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加导航信息',
-			width : 400,
+			width : 380,
 			height : 328,
 			queryUrl : ctx + '/do/nav/intoForm.htm',
 			submitUrl : ctx + '/do/nav/add.json',
@@ -82,7 +82,7 @@
 		var row = glacier.website_mgr.nav_mgr.nav.navTreeGrid.treegrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.webNavName+'】',
-			width : 400,
+			width : 380,
 			height : 328,
 			queryUrl : ctx + '/do/nav/intoForm.htm',
 			submitUrl : ctx + '/do/nav/edit.json',

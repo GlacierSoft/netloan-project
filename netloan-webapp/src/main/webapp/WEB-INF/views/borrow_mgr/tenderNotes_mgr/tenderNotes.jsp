@@ -100,7 +100,7 @@
 			$.easyui.showDialog({
 				title: rowData.loanTitle,
 				href : ctx + '/do/tenderNotes/intoDetail.htm?tenderNotesId='+rowData.tenderNotesId,//从controller请求jsp页面进行渲染
-				width : 720,
+				width : 550,
 				height : 200,
 				resizable: false,
 				enableApplyButton : false,

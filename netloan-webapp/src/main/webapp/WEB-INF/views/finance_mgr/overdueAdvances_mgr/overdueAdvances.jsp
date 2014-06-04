@@ -108,7 +108,7 @@
 			$.easyui.showDialog({
 				title: '逾期管理详细信息',
 				href : ctx + '/do/overdueAdvances/intoDetail.htm?overdueAdvancesId='+rowData.overdueAdvancesId,//从controller请求jsp页面进行渲染
-				width : 600,
+				width : 550,
 				height : 310,
 				resizable: false,
 				enableApplyButton : false,
