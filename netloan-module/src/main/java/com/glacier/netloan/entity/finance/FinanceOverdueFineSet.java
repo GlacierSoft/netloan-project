@@ -13,6 +13,8 @@ public class FinanceOverdueFineSet {
 
     private String memberPrivilege;
 
+    private Float vipDays;
+
     private Float value;
 
     private String feeWay;
@@ -20,8 +22,7 @@ public class FinanceOverdueFineSet {
     private String auditState;
 
     private String auditor;
-    
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+
     private Date auditDate;
 
     private String auditRemark;
@@ -32,12 +33,12 @@ public class FinanceOverdueFineSet {
 
     private String creater;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getOverdueFineSetId() {
@@ -70,6 +71,14 @@ public class FinanceOverdueFineSet {
 
     public void setMemberPrivilege(String memberPrivilege) {
         this.memberPrivilege = memberPrivilege;
+    }
+
+    public Float getVipDays() {
+        return vipDays;
+    }
+
+    public void setVipDays(Float vipDays) {
+        this.vipDays = vipDays;
     }
 
     public Float getValue() {
@@ -108,7 +117,6 @@ public class FinanceOverdueFineSet {
         return auditDate;
     }
 
-     
     public void setAuditDate(Date auditDate) {
         this.auditDate = auditDate;
     }
@@ -185,6 +193,7 @@ public class FinanceOverdueFineSet {
             && (this.getOverdueFineSetName() == null ? other.getOverdueFineSetName() == null : this.getOverdueFineSetName().equals(other.getOverdueFineSetName()))
             && (this.getMemberType() == null ? other.getMemberType() == null : this.getMemberType().equals(other.getMemberType()))
             && (this.getMemberPrivilege() == null ? other.getMemberPrivilege() == null : this.getMemberPrivilege().equals(other.getMemberPrivilege()))
+            && (this.getVipDays() == null ? other.getVipDays() == null : this.getVipDays().equals(other.getVipDays()))
             && (this.getValue() == null ? other.getValue() == null : this.getValue().equals(other.getValue()))
             && (this.getFeeWay() == null ? other.getFeeWay() == null : this.getFeeWay().equals(other.getFeeWay()))
             && (this.getAuditState() == null ? other.getAuditState() == null : this.getAuditState().equals(other.getAuditState()))
@@ -207,6 +216,7 @@ public class FinanceOverdueFineSet {
         result = prime * result + ((getOverdueFineSetName() == null) ? 0 : getOverdueFineSetName().hashCode());
         result = prime * result + ((getMemberType() == null) ? 0 : getMemberType().hashCode());
         result = prime * result + ((getMemberPrivilege() == null) ? 0 : getMemberPrivilege().hashCode());
+        result = prime * result + ((getVipDays() == null) ? 0 : getVipDays().hashCode());
         result = prime * result + ((getValue() == null) ? 0 : getValue().hashCode());
         result = prime * result + ((getFeeWay() == null) ? 0 : getFeeWay().hashCode());
         result = prime * result + ((getAuditState() == null) ? 0 : getAuditState().hashCode());

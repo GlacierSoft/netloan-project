@@ -405,6 +405,66 @@ public class FinanceOverdueFineSetExample {
             return (Criteria) this;
         }
 
+        public Criteria andVipDaysIsNull() {
+            addCriterion("temp_finance_overdue_fine_set.vip_days is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipDaysIsNotNull() {
+            addCriterion("temp_finance_overdue_fine_set.vip_days is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipDaysEqualTo(Float value) {
+            addCriterion("temp_finance_overdue_fine_set.vip_days =", value, "vipDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipDaysNotEqualTo(Float value) {
+            addCriterion("temp_finance_overdue_fine_set.vip_days <>", value, "vipDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipDaysGreaterThan(Float value) {
+            addCriterion("temp_finance_overdue_fine_set.vip_days >", value, "vipDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipDaysGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_finance_overdue_fine_set.vip_days >=", value, "vipDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipDaysLessThan(Float value) {
+            addCriterion("temp_finance_overdue_fine_set.vip_days <", value, "vipDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipDaysLessThanOrEqualTo(Float value) {
+            addCriterion("temp_finance_overdue_fine_set.vip_days <=", value, "vipDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipDaysIn(List<Float> values) {
+            addCriterion("temp_finance_overdue_fine_set.vip_days in", values, "vipDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipDaysNotIn(List<Float> values) {
+            addCriterion("temp_finance_overdue_fine_set.vip_days not in", values, "vipDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipDaysBetween(Float value1, Float value2) {
+            addCriterion("temp_finance_overdue_fine_set.vip_days between", value1, value2, "vipDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipDaysNotBetween(Float value1, Float value2) {
+            addCriterion("temp_finance_overdue_fine_set.vip_days not between", value1, value2, "vipDays");
+            return (Criteria) this;
+        }
+
         public Criteria andValueIsNull() {
             addCriterion("temp_finance_overdue_fine_set.value is null");
             return (Criteria) this;

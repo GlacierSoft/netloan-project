@@ -63,12 +63,13 @@ public class FinanceOverdueFineSetController extends AbstractController {
 	        return overOverdueFineSetServices.editOverdueFineSet(financeOverdueFineSet);
 	    }
 	  
-	   //逾期罚款信息删除
+	   //逾期罚款信息批量删除
 	    @RequestMapping(value = "/del.json", method = RequestMethod.POST)
 	    @ResponseBody
 	    public Object delOverdueFineSet(@RequestParam List<String> overdueFineSetIds) {
 	    	return overOverdueFineSetServices.delOverdueFineSet(overdueFineSetIds);
-	   }
+	    }
+	    
 	    
 	    //逾期罚款信息审核
 	    @RequestMapping(value = "/audit.json", method = RequestMethod.POST)

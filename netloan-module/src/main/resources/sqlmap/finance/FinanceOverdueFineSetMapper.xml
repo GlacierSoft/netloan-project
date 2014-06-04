@@ -6,6 +6,7 @@
     <result column="temp_finance_overdue_fine_set_overdue_fine_set_name" property="overdueFineSetName" jdbcType="VARCHAR" />
     <result column="temp_finance_overdue_fine_set_member_type" property="memberType" jdbcType="CHAR" />
     <result column="temp_finance_overdue_fine_set_member_privilege" property="memberPrivilege" jdbcType="CHAR" />
+    <result column="temp_finance_overdue_fine_set_vip_days" property="vipDays" jdbcType="REAL" />
     <result column="temp_finance_overdue_fine_set_value" property="value" jdbcType="REAL" />
     <result column="temp_finance_overdue_fine_set_fee_way" property="feeWay" jdbcType="CHAR" />
     <result column="temp_finance_overdue_fine_set_audit_state" property="auditState" jdbcType="CHAR" />
@@ -82,6 +83,7 @@
     temp_finance_overdue_fine_set.overdue_fine_set_name as temp_finance_overdue_fine_set_overdue_fine_set_name, 
     temp_finance_overdue_fine_set.member_type as temp_finance_overdue_fine_set_member_type, 
     temp_finance_overdue_fine_set.member_privilege as temp_finance_overdue_fine_set_member_privilege, 
+    temp_finance_overdue_fine_set.vip_days as temp_finance_overdue_fine_set_vip_days, 
     temp_finance_overdue_fine_set.value as temp_finance_overdue_fine_set_value, temp_finance_overdue_fine_set.fee_way as temp_finance_overdue_fine_set_fee_way, 
     temp_finance_overdue_fine_set.audit_state as temp_finance_overdue_fine_set_audit_state, 
     temp_finance_overdue_fine_set.auditor as temp_finance_overdue_fine_set_auditor, temp_finance_overdue_fine_set.audit_date as temp_finance_overdue_fine_set_audit_date, 
@@ -123,18 +125,16 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  
-  
-<insert id="insert" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueFineSet" >
+  <insert id="insert" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueFineSet" >
     insert into t_finance_overdue_fine_set (overdue_fine_set_id, overdue_fine_set_name, 
-      member_type, member_privilege, value, 
-      fee_way, audit_state, auditor, 
+      member_type, member_privilege, vip_days, 
+      value, fee_way, audit_state, auditor, 
       audit_date, audit_remark, money, 
       remark, creater, create_time, 
       updater, update_time)
     values (#{overdueFineSetId,jdbcType=VARCHAR}, #{overdueFineSetName,jdbcType=VARCHAR}, 
-      #{memberType,jdbcType=CHAR}, #{memberPrivilege,jdbcType=CHAR}, #{value,jdbcType=REAL}, 
-      #{feeWay,jdbcType=CHAR}, #{auditState,jdbcType=CHAR}, #{auditor,jdbcType=VARCHAR}, 
+      #{memberType,jdbcType=CHAR}, #{memberPrivilege,jdbcType=CHAR}, #{vipDays,jdbcType=REAL}, 
+      #{value,jdbcType=REAL}, #{feeWay,jdbcType=CHAR}, #{auditState,jdbcType=CHAR}, #{auditor,jdbcType=VARCHAR}, 
       #{auditDate,jdbcType=TIMESTAMP}, #{auditRemark,jdbcType=VARCHAR}, #{money,jdbcType=REAL}, 
       #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
@@ -153,6 +153,9 @@
       </if>
       <if test="memberPrivilege != null" >
         member_privilege,
+      </if>
+      <if test="vipDays != null" >
+        vip_days,
       </if>
       <if test="value != null" >
         value,
@@ -203,6 +206,9 @@
       </if>
       <if test="memberPrivilege != null" >
         #{memberPrivilege,jdbcType=CHAR},
+      </if>
+      <if test="vipDays != null" >
+        #{vipDays,jdbcType=REAL},
       </if>
       <if test="value != null" >
         #{value,jdbcType=REAL},
@@ -263,6 +269,9 @@
       <if test="record.memberPrivilege != null" >
         temp_finance_overdue_fine_set.member_privilege = #{record.memberPrivilege,jdbcType=CHAR},
       </if>
+      <if test="record.vipDays != null" >
+        temp_finance_overdue_fine_set.vip_days = #{record.vipDays,jdbcType=REAL},
+      </if>
       <if test="record.value != null" >
         temp_finance_overdue_fine_set.value = #{record.value,jdbcType=REAL},
       </if>
@@ -310,6 +319,7 @@
       temp_finance_overdue_fine_set.overdue_fine_set_name = #{record.overdueFineSetName,jdbcType=VARCHAR},
       temp_finance_overdue_fine_set.member_type = #{record.memberType,jdbcType=CHAR},
       temp_finance_overdue_fine_set.member_privilege = #{record.memberPrivilege,jdbcType=CHAR},
+      temp_finance_overdue_fine_set.vip_days = #{record.vipDays,jdbcType=REAL},
       temp_finance_overdue_fine_set.value = #{record.value,jdbcType=REAL},
       temp_finance_overdue_fine_set.fee_way = #{record.feeWay,jdbcType=CHAR},
       temp_finance_overdue_fine_set.audit_state = #{record.auditState,jdbcType=CHAR},
@@ -337,6 +347,9 @@
       </if>
       <if test="memberPrivilege != null" >
         member_privilege = #{memberPrivilege,jdbcType=CHAR},
+      </if>
+      <if test="vipDays != null" >
+        vip_days = #{vipDays,jdbcType=REAL},
       </if>
       <if test="value != null" >
         value = #{value,jdbcType=REAL},
@@ -382,6 +395,7 @@
     set overdue_fine_set_name = #{overdueFineSetName,jdbcType=VARCHAR},
       member_type = #{memberType,jdbcType=CHAR},
       member_privilege = #{memberPrivilege,jdbcType=CHAR},
+      vip_days = #{vipDays,jdbcType=REAL},
       value = #{value,jdbcType=REAL},
       fee_way = #{feeWay,jdbcType=CHAR},
       audit_state = #{auditState,jdbcType=CHAR},

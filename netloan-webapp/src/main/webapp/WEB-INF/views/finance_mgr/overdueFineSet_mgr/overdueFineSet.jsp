@@ -146,7 +146,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '增加逾期垫付管理',
 			width : 430,
-			height : 360,
+			height : 320,
 			queryUrl : ctx + '/do/overdueFineSet/intoForm.htm',
 			submitUrl : ctx + '/do/overdueFineSet/add.json',
 			successFun : function (){
@@ -182,7 +182,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '编辑逾期管理信息',
 			width : 430,
-			height : 360,
+			height : 320,
 			queryUrl : ctx + '/do/overdueFineSet/intoForm.htm',
 			submitUrl : ctx + '/do/overdueFineSet/edit.json',
 			queryParams : {

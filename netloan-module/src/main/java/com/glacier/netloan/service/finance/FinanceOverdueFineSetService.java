@@ -80,8 +80,9 @@ public class FinanceOverdueFineSetService {
 	        Subject pricipalSubject = SecurityUtils.getSubject();
 	        User pricipalUser = (User) pricipalSubject.getPrincipal();
 	        
-	        financeOverdueFineSet.setUpdater(pricipalUser.getUsername());
-	        financeOverdueFineSet.setUpdateTime(new Date());
+	        if("disable".equals(financeOverdueFineSet.getMemberPrivilege()))
+	        	financeOverdueFineSet.setVipDays(new Float(0));
+	        
 	        count = financeOverdueFineSetMapper.updateByPrimaryKeySelective(financeOverdueFineSet);
 	        
 	        if (count == 1) {
@@ -101,20 +102,20 @@ public class FinanceOverdueFineSetService {
 	        int count = 0;
 	        if (overdueFineSetIds.size() > 0) {
 	        	FinanceOverdueFineSetExample financeOverdueFineSetExample = new FinanceOverdueFineSetExample();
-	        	financeOverdueFineSetExample.createCriteria().andOverdueFineSetNameIn(overdueFineSetIds);
+	        	financeOverdueFineSetExample.createCriteria().andOverdueFineSetIdIn(overdueFineSetIds);
 	            count = financeOverdueFineSetMapper.deleteByExample(financeOverdueFineSetExample);
 	            if (count > 0) {
 	                returnResult.setSuccess(true);
-	                returnResult.setMsg("你成功删除了逾期垫付罚款信息!!");
+	                returnResult.setMsg("["+overdueFineSetIds.size()+"]条逾期罚款信息删除成功!!");
 	            } else {
-	                returnResult.setMsg("发生未知错误，逾期垫罚款信息删除失败");
+	                returnResult.setMsg("发生未知错误,["+overdueFineSetIds.size()+"]条逾期垫罚款信息删除失败!!");
 	            }
 	        }
 	        return returnResult;
 	    }
 	    
-	    
-	    //逾期管理数据审核
+	   
+	   //逾期管理数据审核
 	    @Transactional(readOnly = false)
 	    @MethodLog(opera ="OverdueFineSet_audit")
 	    public Object auditOverdueFineSet(FinanceOverdueFineSet financeOverdueFineSet) {

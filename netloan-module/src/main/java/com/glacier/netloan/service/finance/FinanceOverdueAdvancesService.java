@@ -141,7 +141,7 @@ public class FinanceOverdueAdvancesService {
 	    
 	    
 	    
-	  //删除逾期垫付信息delOverdueAdvances
+	  //删除逾期垫付信息
 	    @Transactional(readOnly = false)
 	    @MethodLog(opera = "OverdueAdvances_del")
 	    public Object delOverdueAdvances(List<String> overdueAdvancesIds) {
