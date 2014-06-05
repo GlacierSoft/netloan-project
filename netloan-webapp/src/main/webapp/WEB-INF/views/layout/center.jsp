@@ -1,7 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!-- 引入自定义权限标签 -->
 <%@ taglib prefix="glacierui" uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
-
 <script type="text/javascript">
 
 	$.util.namespace('glacier.website_mgr.announcement_mgr.announcement');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
@@ -79,8 +78,6 @@
 		}
 	});
 	
-	
-	
 	$.util.namespace('glacier.website_mgr.news_mgr.news');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
 	//初始化新闻DataGrid
@@ -156,17 +153,117 @@
 		}
 	});
 </script>
-
-
-<div id="announcementDataGridPanel" class="easyui-panel" title="公告展示"    
-        style="width:700px;height:340px;background:#fafafa;"  
-        data-options="iconCls:'icon-remind',closable:true,   
-                collapsible:true,maximizable:true">  
-	<table id="announcementDataGrid"></table>
+<div style="margin:0px 10px 15px 0px;">
+	<div id="newsDataGridPanel" class="easyui-panel" title="审核管理"    
+	        style="width:700px;height:300px;background:#fafafa;"> 
+	<!-- 借款管理 -->
+	<div style="float:left;margin:20px 10px 15px 20px;">
+		<div id="newsDataGridPanel" class="easyui-panel" title="借款管理"    
+		        style="width:200px;height:150px;background:#fafafa;">  
+			<table>
+				<tr>
+					<td>借款等待资料审核： </td>
+					<td>( <span style="color:red;">0</span> ) 条</td>
+				</tr>
+				<tr>
+					<td>借款初审审核：</td>
+					<td>( <span style="color:red;">${borrowingLoanNumFirstAudit}</span> ) 条</td>
+				</tr>
+				<tr>
+					<td>借款满标审核：</td>
+					<td>( <span style="color:red;">${borrowingLoanNumSecondAuditor}</span> ) 条</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<!-- 资金管理 -->
+	<div style="float:left;margin:20px 10px 15px 0px;">
+		<div id="newsDataGridPanel" class="easyui-panel" title="资金管理"    
+		        style="width:220px;height:150px;background:#fafafa;">  
+			<table>
+				<tr>
+					<td>等待审核的充值(审核中)：</td>
+					<td>( <span style="color:red;">${financeRechargeNumAuthstr}</span> ) 条</td>
+				</tr>
+				<tr>
+					<td>等待审核的提现(审核中)： </td>
+					<td>( <span style="color:red;">${financeWithdrawNumAuthstr}</span> ) 条</td>
+				</tr>
+				<tr>
+					<td>银行卡变更申请(审核中)：</td>
+					<td>( <span style="color:red;">${bankCardNumAuthstr}</span> ) 条</td>
+				</tr>
+				<tr>
+					<td>会员额度申请(审核中)：</td>
+					<td>( <span style="color:red;">${applyAmountNumAuthstr}</span> ) 条</td>
+				</tr>
+				<tr>
+					<td>会员房产申请(审核中)：</td>
+					<td>( <span style="color:red;">0</span> ) 条</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<!-- 认证管理 -->
+	<div style="margin:20px 10px 15px 0px;">
+		<div id="newsDataGridPanel" class="easyui-panel" title="认证管理"    
+		        style="width:220px;height:220px;background:#fafafa;">  
+			<table>
+				<tr>
+					<td>会员基本资料认证(审核中)： </td>
+					<td>( <span style="color:red;">${infoAuthNum}</span> ) 条</td>
+				</tr>
+				<tr>
+					<td>会员VIP认证(审核中)：</td>
+					<td>( <span style="color:red;">${vipAuthNum}</span> ) 条</td>
+				</tr>
+				<tr>
+					<td>会员邮箱认证(审核中)：</td>
+					<td>( <span style="color:red;">${emailAuthNum}</span> ) 条</td>
+				</tr>
+				<tr>
+					<td>会员手机认证(审核中)：</td>
+					<td>( <span style="color:red;">${mobileAuthNum}</span> ) 条</td>
+				</tr>
+				<tr>
+					<td>会员信用认证(审核中)： </td>
+					<td>( <span style="color:red;">${creditAuthNum}</span> ) 条</td>
+				</tr>
+				<tr>
+					<td>会员企业认证(审核中)：</td>
+					<td>( <span style="color:red;">${companyAuthNum}</span> ) 条</td>
+				</tr>
+				<tr>
+					<td>会员真实姓名认证(审核中)：</td>
+					<td>( <span style="color:red;">${realNameAuthNum}</span> ) 条</td>
+				</tr>
+				<tr>
+					<td>会员身份证认证(审核中)：</td>
+					<td>( <span style="color:red;">${idCardAuthNum}</span> ) 条</td>
+				</tr>
+				<tr>
+					<td>会员工作认证(审核中)：</td>
+					<td>( <span style="color:red;">${workAuthNum}</span> ) 条</td>
+				</tr>
+			</table>
+		</div>
+	</div>
 </div>
-<div id="newsDataGridPanel" class="easyui-panel" title="新闻展示"    
-        style="width:700px;height:340px;background:#fafafa;"  
-        data-options="iconCls:'icon-remind',closable:true,   
-                collapsible:true,maximizable:true">  
-	<table id="newsDataGrid"></table>
+<!-- 公告展示 -->
+<div style="float:left;margin:10px 10px 15px 0px;">
+	<div id="announcementDataGridPanel" class="easyui-panel" title="公告展示"    
+	        style="width:700px;height:340px;background:#fafafa;"  
+	        data-options="iconCls:'icon-remind',closable:true,   
+	                collapsible:true,maximizable:true">  
+		<table id="announcementDataGrid"></table>
+	</div>
+</div>
+<!-- 新闻展示 -->
+<div style="margin:10px 10px 15px 0px;">
+	<div id="newsDataGridPanel" class="easyui-panel" title="新闻展示"    
+	        style="width:700px;height:340px;background:#fafafa;"  
+	        data-options="iconCls:'icon-remind',closable:true,   
+	                collapsible:true,maximizable:true">  
+		<table id="newsDataGrid"></table>
+	</div>
 </div>

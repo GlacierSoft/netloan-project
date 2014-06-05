@@ -242,4 +242,19 @@ public class FinanceWithdrawService {
         }
         return returnResult;
     }
+    
+    /**
+     * @Title: getFinanceWithdrawNumByAuditState 
+     * @Description: TODO(根据会员提现记录状态查找出该提现记录的条数) 
+     * @param  @param AuditState
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getFinanceWithdrawNumByAuditState(String AuditState) {
+        FinanceWithdrawExample financeWithdrawExample = new FinanceWithdrawExample();
+        financeWithdrawExample.createCriteria().andAuditStateEqualTo(AuditState);
+        int financeWithdrawNum = financeWithdrawMapper.countByExample(financeWithdrawExample);
+        return financeWithdrawNum;
+    }
 }

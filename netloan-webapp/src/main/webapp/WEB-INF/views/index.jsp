@@ -60,8 +60,9 @@
 				
 				//主页
 				$("#home").click(function (){
-					$("#layout_center_panel").panel("setTitle",'主页');
+// 					$("#layout_center_panel").panel("setTitle",'主页');
 					//$('#layout_center_panel').panel('refresh',url);
+					window.location.href = ctx + '/do/index.htm';
 				});
 				
 				editCurrentUserPwd = function(){

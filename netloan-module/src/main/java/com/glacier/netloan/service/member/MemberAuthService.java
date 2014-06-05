@@ -94,6 +94,7 @@ public class MemberAuthService {
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
     }
+   	
    	/**
    	 * @Title: addMessageNotice 
    	 * @Description: TODO(对审核认证后添加相对应的信息通知) 
@@ -390,6 +391,7 @@ public class MemberAuthService {
         }
 		return returnResult;
 	}
+   	
    	/**
    	 * @Title: memberCreditSet 
    	 * @Description: TODO(是一些公用的代码提取出来作为方法，以供调用) 
@@ -407,6 +409,7 @@ public class MemberAuthService {
 			memberCreditIntegral.setChangeType(parameterCreditType.getChangeType());
 			memberCreditIntegral.setChangeValue(parameterCreditType.getChangeValue());
    	}
+   	
    	/**
    	 * @Title: memberCreditTotleSet 
    	 * @Description: TODO(是一些公用的代码提取出来作为方法，以供调用) 
@@ -427,6 +430,7 @@ public class MemberAuthService {
       	//审核不通过删除，相对应的信用积分记录
       	memberCreditIntegralMapper.deleteByPrimaryKey(memberCreditIntegral2.getCreditIntegralId());
    	}
+   	
    	/**
    	 * @Title: editMemberAuthReception 
    	 * @Description: TODO(前台修改会员认证) 
@@ -459,5 +463,157 @@ public class MemberAuthService {
         
 		return returnResult;
 	}
-   
+   	
+    /**
+     * @Title: getInfoAuthNumByInfoAuth
+     * @Description: TODO(根据会员的基本资料认证状态来查询记录条数)
+     * @param @param infoAuth
+     * @param @return
+     * @throws 备注
+     *             <p>
+     *             已检查测试:Green
+     *             <p>
+     */
+    public Object getInfoAuthNumByInfoAuth(String infoAuth) {
+        MemberAuthExample memberAuthExample = new MemberAuthExample();
+        memberAuthExample.createCriteria().andInfoAuthEqualTo(infoAuth);
+        int infoAuthNum = memberAuthMapper.countByExample(memberAuthExample);
+        return infoAuthNum;
+    }
+
+    /**
+     * @Title: getVipAuthNumByVipAuth
+     * @Description: TODO(根据会员的Vip认证状态来查询记录条数)
+     * @param @param vipAuth
+     * @param @return
+     * @throws 备注
+     *             <p>
+     *             已检查测试:Green
+     *             <p>
+     */
+    public Object getVipAuthNumByVipAuth(String vipAuth) {
+        MemberAuthExample memberAuthExample = new MemberAuthExample();
+        memberAuthExample.createCriteria().andVipAuthEqualTo(vipAuth);
+        int vipAuthNum = memberAuthMapper.countByExample(memberAuthExample);
+        return vipAuthNum;
+    }
+
+    /**
+     * @Title: getEmailAuthNumByEmailAuth
+     * @Description: TODO(根据会员的邮箱认证状态来查询记录条数)
+     * @param @param emailAuth
+     * @param @return
+     * @throws 备注
+     *             <p>
+     *             已检查测试:Green
+     *             <p>
+     */
+    public Object getEmailAuthNumByEmailAuth(String emailAuth) {
+        MemberAuthExample memberAuthExample = new MemberAuthExample();
+        memberAuthExample.createCriteria().andEmailAuthEqualTo(emailAuth);
+        int emailAuthNum = memberAuthMapper.countByExample(memberAuthExample);
+        return emailAuthNum;
+    }
+
+    /**
+     * @Title: getMobileAuthNumByMobileAuth
+     * @Description: TODO(根据会员的电话认证状态来查询记录条数)
+     * @param @param mobileAuth
+     * @param @return
+     * @throws 备注
+     *             <p>
+     *             已检查测试:Green
+     *             <p>
+     */
+    public Object getMobileAuthNumByMobileAuth(String mobileAuth) {
+        MemberAuthExample memberAuthExample = new MemberAuthExample();
+        memberAuthExample.createCriteria().andMobileAuthEqualTo(mobileAuth);
+        int mobileAuthNum = memberAuthMapper.countByExample(memberAuthExample);
+        return mobileAuthNum;
+    }
+
+    /**
+     * @Title: getCreditAuthNumByCreditAuth
+     * @Description: TODO(根据会员的信用认证状态来查询记录条数)
+     * @param @param creditAuth
+     * @param @return
+     * @throws 备注
+     *             <p>
+     *             已检查测试:Green
+     *             <p>
+     */
+    public Object getCreditAuthNumByCreditAuth(String creditAuth) {
+        MemberAuthExample memberAuthExample = new MemberAuthExample();
+        memberAuthExample.createCriteria().andCreditAuthEqualTo(creditAuth);
+        int creditAuthNum = memberAuthMapper.countByExample(memberAuthExample);
+        return creditAuthNum;
+    }
+
+    /**
+     * @Title: getCompanyAuthNumByCompanyAuth
+     * @Description: TODO(根据会员的基本资料认证状态来查询记录条数)
+     * @param @param companyAuth
+     * @param @return
+     * @throws 备注
+     *             <p>
+     *             已检查测试:Green
+     *             <p>
+     */
+    public Object getCompanyAuthNumByCompanyAuth(String companyAuth) {
+        MemberAuthExample memberAuthExample = new MemberAuthExample();
+        memberAuthExample.createCriteria().andCompanyAuthEqualTo(companyAuth);
+        int companyAuthNum = memberAuthMapper.countByExample(memberAuthExample);
+        return companyAuthNum;
+    }
+
+    /**
+     * @Title: getRealNameAuthNumByRealNameAuth
+     * @Description: TODO(根据会员的真实姓名认证状态来查询记录条数)
+     * @param @param realNameAuth
+     * @param @return
+     * @throws 备注
+     *             <p>
+     *             已检查测试:Green
+     *             <p>
+     */
+    public Object getRealNameAuthNumByRealNameAuth(String realNameAuth) {
+        MemberAuthExample memberAuthExample = new MemberAuthExample();
+        memberAuthExample.createCriteria().andRealNameAuthEqualTo(realNameAuth);
+        int realNameAuthNum = memberAuthMapper.countByExample(memberAuthExample);
+        return realNameAuthNum;
+    }
+
+    /**
+     * @Title: getIdCardAuthNumByIdCardAuth
+     * @Description: TODO(根据会员的身份证认证状态来查询记录条数)
+     * @param @param idCardAuth
+     * @param @return
+     * @throws 备注
+     *             <p>
+     *             已检查测试:Green
+     *             <p>
+     */
+    public Object getIdCardAuthNumByIdCardAuth(String idCardAuth) {
+        MemberAuthExample memberAuthExample = new MemberAuthExample();
+        memberAuthExample.createCriteria().andIdCardAuthEqualTo(idCardAuth);
+        int idCardAuthNum = memberAuthMapper.countByExample(memberAuthExample);
+        return idCardAuthNum;
+    }
+
+    /**
+     * @Title: getWorkAuthNumByWorkAuth
+     * @Description: TODO(根据会员的工作认证状态来查询记录条数)
+     * @param @param workAuth
+     * @param @return
+     * @throws 备注
+     *             <p>
+     *             已检查测试:Green
+     *             <p>
+     */
+    public Object getWorkAuthNumByWorkAuth(String workAuth) {
+        MemberAuthExample memberAuthExample = new MemberAuthExample();
+        memberAuthExample.createCriteria().andWorkAuthEqualTo(workAuth);
+        int workAuthNum = memberAuthMapper.countByExample(memberAuthExample);
+        return workAuthNum;
+    }
 }

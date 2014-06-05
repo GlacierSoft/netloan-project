@@ -348,4 +348,19 @@ public class FinanceBankCardService {
         int count = memberMessageNoticeMapper.insert(memberMessageNotice);
         return count;
    	}
+   	
+   	/**
+   	 * @Title: getBankCardNumByBankCardAuths 
+   	 * @Description: TODO(根据会员银行卡状态查找相对应的银行卡记录条数) 
+   	 * @param  @param bankCardAuths
+   	 * @param  @return
+   	 * @throws 
+   	 * 备注<p>已检查测试:Green<p>
+   	 */
+   	public Object getBankCardNumByBankCardAuths(String bankCardAuths) {
+   	    FinanceBankCardExample financeBankCardExample = new FinanceBankCardExample();
+   	    financeBankCardExample.createCriteria().andStatusEqualTo(bankCardAuths);
+   	    int bankCardNum = financeBankCardMapper.countByExample(financeBankCardExample);
+   	    return bankCardNum;
+    }
 }
