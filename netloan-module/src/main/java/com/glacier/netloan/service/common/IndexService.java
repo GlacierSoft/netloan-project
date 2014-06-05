@@ -17,7 +17,7 @@
  * @Review (审核人) ：zhenfei.zhang
  * 
  */
-package com.glacier.netloan.service.commonHome;
+package com.glacier.netloan.service.common;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,7 @@ import com.glacier.netloan.dao.website.WebsiteAdvertisementMapper;
  */
 @Service
 @Transactional(readOnly = true , propagation = Propagation.REQUIRED)
-public class CommonHomePage {
+public class IndexService {
 
     @Autowired
     private WebsiteAdvertisementMapper advertisementMapper;
