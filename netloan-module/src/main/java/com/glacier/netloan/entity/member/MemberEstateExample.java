@@ -103,13 +103,13 @@ public class MemberEstateExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
-
+        
         //扩展查询条件
         public Criteria andMemberRealNameLike(String value) {
             addCriterion("temp_member.member_real_name like", value, "memberRealName");
             return (Criteria) this;
         }
-        
+
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -918,6 +918,346 @@ public class MemberEstateExample {
 
         public Criteria andMortgageBankNotBetween(String value1, String value2) {
             addCriterion("temp_member_estate.mortgage_bank not between", value1, value2, "mortgageBank");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditStateIsNull() {
+            addCriterion("temp_member_estate.audit_state is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditStateIsNotNull() {
+            addCriterion("temp_member_estate.audit_state is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditStateEqualTo(String value) {
+            addCriterion("temp_member_estate.audit_state =", value, "auditState");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditStateNotEqualTo(String value) {
+            addCriterion("temp_member_estate.audit_state <>", value, "auditState");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditStateGreaterThan(String value) {
+            addCriterion("temp_member_estate.audit_state >", value, "auditState");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditStateGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_member_estate.audit_state >=", value, "auditState");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditStateLessThan(String value) {
+            addCriterion("temp_member_estate.audit_state <", value, "auditState");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditStateLessThanOrEqualTo(String value) {
+            addCriterion("temp_member_estate.audit_state <=", value, "auditState");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditStateLike(String value) {
+            addCriterion("temp_member_estate.audit_state like", value, "auditState");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditStateNotLike(String value) {
+            addCriterion("temp_member_estate.audit_state not like", value, "auditState");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditStateIn(List<String> values) {
+            addCriterion("temp_member_estate.audit_state in", values, "auditState");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditStateNotIn(List<String> values) {
+            addCriterion("temp_member_estate.audit_state not in", values, "auditState");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditStateBetween(String value1, String value2) {
+            addCriterion("temp_member_estate.audit_state between", value1, value2, "auditState");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditStateNotBetween(String value1, String value2) {
+            addCriterion("temp_member_estate.audit_state not between", value1, value2, "auditState");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditorIsNull() {
+            addCriterion("temp_member_estate.auditor is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditorIsNotNull() {
+            addCriterion("temp_member_estate.auditor is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditorEqualTo(String value) {
+            addCriterion("temp_member_estate.auditor =", value, "auditor");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditorNotEqualTo(String value) {
+            addCriterion("temp_member_estate.auditor <>", value, "auditor");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditorGreaterThan(String value) {
+            addCriterion("temp_member_estate.auditor >", value, "auditor");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditorGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_member_estate.auditor >=", value, "auditor");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditorLessThan(String value) {
+            addCriterion("temp_member_estate.auditor <", value, "auditor");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditorLessThanOrEqualTo(String value) {
+            addCriterion("temp_member_estate.auditor <=", value, "auditor");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditorLike(String value) {
+            addCriterion("temp_member_estate.auditor like", value, "auditor");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditorNotLike(String value) {
+            addCriterion("temp_member_estate.auditor not like", value, "auditor");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditorIn(List<String> values) {
+            addCriterion("temp_member_estate.auditor in", values, "auditor");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditorNotIn(List<String> values) {
+            addCriterion("temp_member_estate.auditor not in", values, "auditor");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditorBetween(String value1, String value2) {
+            addCriterion("temp_member_estate.auditor between", value1, value2, "auditor");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditorNotBetween(String value1, String value2) {
+            addCriterion("temp_member_estate.auditor not between", value1, value2, "auditor");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditDateIsNull() {
+            addCriterion("temp_member_estate.audit_date is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditDateIsNotNull() {
+            addCriterion("temp_member_estate.audit_date is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditDateEqualTo(Date value) {
+            addCriterion("temp_member_estate.audit_date =", value, "auditDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditDateNotEqualTo(Date value) {
+            addCriterion("temp_member_estate.audit_date <>", value, "auditDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditDateGreaterThan(Date value) {
+            addCriterion("temp_member_estate.audit_date >", value, "auditDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("temp_member_estate.audit_date >=", value, "auditDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditDateLessThan(Date value) {
+            addCriterion("temp_member_estate.audit_date <", value, "auditDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditDateLessThanOrEqualTo(Date value) {
+            addCriterion("temp_member_estate.audit_date <=", value, "auditDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditDateIn(List<Date> values) {
+            addCriterion("temp_member_estate.audit_date in", values, "auditDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditDateNotIn(List<Date> values) {
+            addCriterion("temp_member_estate.audit_date not in", values, "auditDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditDateBetween(Date value1, Date value2) {
+            addCriterion("temp_member_estate.audit_date between", value1, value2, "auditDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditDateNotBetween(Date value1, Date value2) {
+            addCriterion("temp_member_estate.audit_date not between", value1, value2, "auditDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkIsNull() {
+            addCriterion("temp_member_estate.audit_remark is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkIsNotNull() {
+            addCriterion("temp_member_estate.audit_remark is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkEqualTo(String value) {
+            addCriterion("temp_member_estate.audit_remark =", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkNotEqualTo(String value) {
+            addCriterion("temp_member_estate.audit_remark <>", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkGreaterThan(String value) {
+            addCriterion("temp_member_estate.audit_remark >", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_member_estate.audit_remark >=", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkLessThan(String value) {
+            addCriterion("temp_member_estate.audit_remark <", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkLessThanOrEqualTo(String value) {
+            addCriterion("temp_member_estate.audit_remark <=", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkLike(String value) {
+            addCriterion("temp_member_estate.audit_remark like", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkNotLike(String value) {
+            addCriterion("temp_member_estate.audit_remark not like", value, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkIn(List<String> values) {
+            addCriterion("temp_member_estate.audit_remark in", values, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkNotIn(List<String> values) {
+            addCriterion("temp_member_estate.audit_remark not in", values, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkBetween(String value1, String value2) {
+            addCriterion("temp_member_estate.audit_remark between", value1, value2, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuditRemarkNotBetween(String value1, String value2) {
+            addCriterion("temp_member_estate.audit_remark not between", value1, value2, "auditRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIsNull() {
+            addCriterion("temp_member_estate.remark is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIsNotNull() {
+            addCriterion("temp_member_estate.remark is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkEqualTo(String value) {
+            addCriterion("temp_member_estate.remark =", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotEqualTo(String value) {
+            addCriterion("temp_member_estate.remark <>", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkGreaterThan(String value) {
+            addCriterion("temp_member_estate.remark >", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_member_estate.remark >=", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLessThan(String value) {
+            addCriterion("temp_member_estate.remark <", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLessThanOrEqualTo(String value) {
+            addCriterion("temp_member_estate.remark <=", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLike(String value) {
+            addCriterion("temp_member_estate.remark like", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotLike(String value) {
+            addCriterion("temp_member_estate.remark not like", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIn(List<String> values) {
+            addCriterion("temp_member_estate.remark in", values, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotIn(List<String> values) {
+            addCriterion("temp_member_estate.remark not in", values, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkBetween(String value1, String value2) {
+            addCriterion("temp_member_estate.remark between", value1, value2, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotBetween(String value1, String value2) {
+            addCriterion("temp_member_estate.remark not between", value1, value2, "remark");
             return (Criteria) this;
         }
 

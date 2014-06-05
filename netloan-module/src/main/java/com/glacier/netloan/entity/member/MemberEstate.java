@@ -35,6 +35,21 @@ public class MemberEstate {
     private Float outstandBalances;
 
     private String mortgageBank;
+    
+    private String auditState;
+
+    private String auditor;
+    
+    /**
+     * 自定义字段,显示审核人的真实名字
+     */
+    private String auditorDisplay;
+
+    private Date auditDate;
+
+    private String auditRemark;
+
+    private String remark;
 
     private String creater;
 
@@ -152,6 +167,54 @@ public class MemberEstate {
         this.mortgageBank = mortgageBank;
     }
 
+    public String getAuditState() {
+        return auditState;
+    }
+
+    public void setAuditState(String auditState) {
+        this.auditState = auditState;
+    }
+
+    public String getAuditor() {
+        return auditor;
+    }
+
+    public void setAuditor(String auditor) {
+        this.auditor = auditor;
+    }
+
+    public String getAuditorDisplay() {
+        return auditorDisplay;
+    }
+
+    public void setAuditorDisplay(String auditorDisplay) {
+        this.auditorDisplay = auditorDisplay;
+    }
+
+    public Date getAuditDate() {
+        return auditDate;
+    }
+
+    public void setAuditDate(Date auditDate) {
+        this.auditDate = auditDate;
+    }
+
+    public String getAuditRemark() {
+        return auditRemark;
+    }
+
+    public void setAuditRemark(String auditRemark) {
+        this.auditRemark = auditRemark;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     public String getCreater() {
         return creater;
     }
@@ -232,6 +295,11 @@ public class MemberEstate {
             && (this.getMonthContributions() == null ? other.getMonthContributions() == null : this.getMonthContributions().equals(other.getMonthContributions()))
             && (this.getOutstandBalances() == null ? other.getOutstandBalances() == null : this.getOutstandBalances().equals(other.getOutstandBalances()))
             && (this.getMortgageBank() == null ? other.getMortgageBank() == null : this.getMortgageBank().equals(other.getMortgageBank()))
+            && (this.getAuditState() == null ? other.getAuditState() == null : this.getAuditState().equals(other.getAuditState()))
+            && (this.getAuditor() == null ? other.getAuditor() == null : this.getAuditor().equals(other.getAuditor()))
+            && (this.getAuditDate() == null ? other.getAuditDate() == null : this.getAuditDate().equals(other.getAuditDate()))
+            && (this.getAuditRemark() == null ? other.getAuditRemark() == null : this.getAuditRemark().equals(other.getAuditRemark()))
+            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdater() == null ? other.getUpdater() == null : this.getUpdater().equals(other.getUpdater()))
@@ -254,6 +322,11 @@ public class MemberEstate {
         result = prime * result + ((getMonthContributions() == null) ? 0 : getMonthContributions().hashCode());
         result = prime * result + ((getOutstandBalances() == null) ? 0 : getOutstandBalances().hashCode());
         result = prime * result + ((getMortgageBank() == null) ? 0 : getMortgageBank().hashCode());
+        result = prime * result + ((getAuditState() == null) ? 0 : getAuditState().hashCode());
+        result = prime * result + ((getAuditor() == null) ? 0 : getAuditor().hashCode());
+        result = prime * result + ((getAuditDate() == null) ? 0 : getAuditDate().hashCode());
+        result = prime * result + ((getAuditRemark() == null) ? 0 : getAuditRemark().hashCode());
+        result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdater() == null) ? 0 : getUpdater().hashCode());

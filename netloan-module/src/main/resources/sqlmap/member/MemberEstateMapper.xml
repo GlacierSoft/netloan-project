@@ -14,11 +14,17 @@
     <result column="temp_member_estate_month_contributions" property="monthContributions" jdbcType="REAL" />
     <result column="temp_member_estate_outstand_balances" property="outstandBalances" jdbcType="REAL" />
     <result column="temp_member_estate_mortgage_bank" property="mortgageBank" jdbcType="VARCHAR" />
+    <result column="temp_member_estate_audit_state" property="auditState" jdbcType="CHAR" />
+    <result column="temp_member_estate_auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="temp_member_estate_audit_date" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="temp_member_estate_audit_remark" property="auditRemark" jdbcType="VARCHAR" />
+    <result column="temp_member_estate_remark" property="remark" jdbcType="VARCHAR" />
     <result column="temp_member_estate_creater" property="creater" jdbcType="VARCHAR" />
     <result column="temp_member_estate_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_estate_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_member_estate_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_member_estate_memberRealName" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+	<result column="temp_member_estate_memberRealName" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+	<result column="temp_member_estate_auditorDisplay" property="auditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_member_estate_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_member_estate_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
@@ -87,15 +93,20 @@
     temp_member_estate.first_owner as temp_member_estate_first_owner, temp_member_estate.second_owner as temp_member_estate_second_owner, 
     temp_member_estate.loan_period as temp_member_estate_loan_period, temp_member_estate.month_contributions as temp_member_estate_month_contributions, 
     temp_member_estate.outstand_balances as temp_member_estate_outstand_balances, temp_member_estate.mortgage_bank as temp_member_estate_mortgage_bank, 
-    temp_member_estate.creater as temp_member_estate_creater, temp_member_estate.create_time as temp_member_estate_create_time, 
-    temp_member_estate.updater as temp_member_estate_updater, temp_member_estate.update_time as temp_member_estate_update_time
-  	<!-- 以下字段属于扩展 -->
+    temp_member_estate.audit_state as temp_member_estate_audit_state, temp_member_estate.auditor as temp_member_estate_auditor, 
+    temp_member_estate.audit_date as temp_member_estate_audit_date, temp_member_estate.audit_remark as temp_member_estate_audit_remark, 
+    temp_member_estate.remark as temp_member_estate_remark, temp_member_estate.creater as temp_member_estate_creater, 
+    temp_member_estate.create_time as temp_member_estate_create_time, temp_member_estate.updater as temp_member_estate_updater, 
+    temp_member_estate.update_time as temp_member_estate_update_time
+	<!-- 以下字段属于扩展 -->
     ,temp_member.member_real_name as temp_member_estate_memberRealName
-    ,temp_creater.user_cn_name as temp_member_estate_createrDisplay
+    ,temp_auditor.user_cn_name as temp_member_estate_auditorDisplay
+	,temp_creater.user_cn_name as temp_member_estate_createrDisplay
     ,temp_updater.user_cn_name as temp_member_estate_updaterDisplay
   </sql>
   <sql id="Base_extend">
   	INNER JOIN t_member temp_member ON temp_member_estate.member_id =  temp_member.member_id<!-- 扩展 -->
+	INNER JOIN t_user temp_auditor ON temp_member_estate.auditor =  temp_auditor.user_id<!-- 扩展 -->
     INNER JOIN t_user temp_creater ON temp_member_estate.creater =  temp_creater.user_id<!-- 扩展 -->
     INNER JOIN t_user temp_updater ON temp_member_estate.updater =  temp_updater.user_id<!-- 扩展 -->
   </sql>
@@ -106,7 +117,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_member_estate temp_member_estate
-    <include refid="Base_extend"/>
+	<include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -121,7 +132,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_member_estate temp_member_estate
-    <include refid="Base_extend"/>
+	<include refid="Base_extend"/>
     where temp_member_estate.estate_id = #{estateId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -129,7 +140,7 @@
     where estate_id = #{estateId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.member.MemberEstateExample" >
-    delete from t_member_estate temp_member_estate
+    delete temp_member_estate from t_member_estate temp_member_estate
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -139,14 +150,18 @@
       area, year_built, age_expenses, 
       first_owner, second_owner, loan_period, 
       month_contributions, outstand_balances, mortgage_bank, 
-      creater, create_time, updater, 
-      update_time)
+      audit_state, auditor, audit_date, 
+      audit_remark, remark, creater, 
+      create_time, updater, update_time
+      )
     values (#{estateId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{area,jdbcType=REAL}, #{yearBuilt,jdbcType=TIMESTAMP}, #{ageExpenses,jdbcType=CHAR}, 
       #{firstOwner,jdbcType=VARCHAR}, #{secondOwner,jdbcType=VARCHAR}, #{loanPeriod,jdbcType=TIMESTAMP}, 
       #{monthContributions,jdbcType=REAL}, #{outstandBalances,jdbcType=REAL}, #{mortgageBank,jdbcType=VARCHAR}, 
-      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{auditState,jdbcType=CHAR}, #{auditor,jdbcType=VARCHAR}, #{auditDate,jdbcType=TIMESTAMP}, 
+      #{auditRemark,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.member.MemberEstate" >
     insert into t_member_estate
@@ -186,6 +201,21 @@
       </if>
       <if test="mortgageBank != null" >
         mortgage_bank,
+      </if>
+      <if test="auditState != null" >
+        audit_state,
+      </if>
+      <if test="auditor != null" >
+        auditor,
+      </if>
+      <if test="auditDate != null" >
+        audit_date,
+      </if>
+      <if test="auditRemark != null" >
+        audit_remark,
+      </if>
+      <if test="remark != null" >
+        remark,
       </if>
       <if test="creater != null" >
         creater,
@@ -237,6 +267,21 @@
       <if test="mortgageBank != null" >
         #{mortgageBank,jdbcType=VARCHAR},
       </if>
+      <if test="auditState != null" >
+        #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditRemark != null" >
+        #{auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="creater != null" >
         #{creater,jdbcType=VARCHAR},
       </if>
@@ -253,7 +298,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.member.MemberEstateExample" resultType="java.lang.Integer" >
     select count(*) from t_member_estate temp_member_estate
-    <include refid="Base_extend"/>
+	<include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -297,6 +342,21 @@
       <if test="record.mortgageBank != null" >
         temp_member_estate.mortgage_bank = #{record.mortgageBank,jdbcType=VARCHAR},
       </if>
+      <if test="record.auditState != null" >
+        temp_member_estate.audit_state = #{record.auditState,jdbcType=CHAR},
+      </if>
+      <if test="record.auditor != null" >
+        temp_member_estate.auditor = #{record.auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditDate != null" >
+        temp_member_estate.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditRemark != null" >
+        temp_member_estate.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_member_estate.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
       <if test="record.creater != null" >
         temp_member_estate.creater = #{record.creater,jdbcType=VARCHAR},
       </if>
@@ -328,6 +388,11 @@
       temp_member_estate.month_contributions = #{record.monthContributions,jdbcType=REAL},
       temp_member_estate.outstand_balances = #{record.outstandBalances,jdbcType=REAL},
       temp_member_estate.mortgage_bank = #{record.mortgageBank,jdbcType=VARCHAR},
+      temp_member_estate.audit_state = #{record.auditState,jdbcType=CHAR},
+      temp_member_estate.auditor = #{record.auditor,jdbcType=VARCHAR},
+      temp_member_estate.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      temp_member_estate.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
+      temp_member_estate.remark = #{record.remark,jdbcType=VARCHAR},
       temp_member_estate.creater = #{record.creater,jdbcType=VARCHAR},
       temp_member_estate.create_time = #{record.createTime,jdbcType=TIMESTAMP},
       temp_member_estate.updater = #{record.updater,jdbcType=VARCHAR},
@@ -372,6 +437,21 @@
       <if test="mortgageBank != null" >
         mortgage_bank = #{mortgageBank,jdbcType=VARCHAR},
       </if>
+      <if test="auditState != null" >
+        audit_state = #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="auditor != null" >
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditRemark != null" >
+        audit_remark = #{auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="creater != null" >
         creater = #{creater,jdbcType=VARCHAR},
       </if>
@@ -400,6 +480,11 @@
       month_contributions = #{monthContributions,jdbcType=REAL},
       outstand_balances = #{outstandBalances,jdbcType=REAL},
       mortgage_bank = #{mortgageBank,jdbcType=VARCHAR},
+      audit_state = #{auditState,jdbcType=CHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      audit_remark = #{auditRemark,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
       creater = #{creater,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       updater = #{updater,jdbcType=VARCHAR},
