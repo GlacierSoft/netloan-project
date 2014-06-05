@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <form method="post" style="padding:15px">
 	 <table class="detailtable">
@@ -8,7 +9,7 @@
 			<td>罚款ID：</td>
 			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
 				<input type="hidden" name="roleId" value="${overdueFineSetData.overdueFineSetId}" />
-				<input class="spinner" style="width:168px"  value="${overdueFineSetData.overdueFineSetId}" readonly="readonly"/>
+				<input class="spinner" style="width:168px"  value="${fn:substring(overdueFineSetData.overdueFineSetId,0,8)}..." readonly="readonly" title="${overdueFineSetData.overdueFineSetId}"/>
 			</td>
 			<td>罚款名称：</td>
 			<td><input class="spinner" style="width:168px" value="${overdueFineSetData.overdueFineSetName}" readonly="readonly"/></td>

@@ -19,6 +19,15 @@ public class MemberQueryDTO extends Member{
 	private Date createStartTime;
 
     private Date createEndTime;
+    
+    private Date lastStartLoginTime;
+    
+    private Date lastEndLoginTime;
+    
+    private int loginStartCount;
+    
+    private int loginEndCount;
+    
 
     public Date getCreateStartTime() {
         return createStartTime;
@@ -36,7 +45,39 @@ public class MemberQueryDTO extends Member{
         this.createEndTime = createEndTime;
     }
     
-    public void setQueryCondition(Criteria queryCriteria, String q){
+    public Date getLastStartLoginTime() {
+		return lastStartLoginTime;
+	}
+
+	public void setLastStartLoginTime(Date lastStartLoginTime) {
+		this.lastStartLoginTime = lastStartLoginTime;
+	}
+
+	public Date getLastEndLoginTime() {
+		return lastEndLoginTime;
+	}
+
+	public void setLastEndLoginTime(Date lastEndLoginTime) {
+		this.lastEndLoginTime = lastEndLoginTime;
+	}
+
+	public int getLoginStartCount() {
+		return loginStartCount;
+	}
+
+	public void setLoginStartCount(int loginStartCount) {
+		this.loginStartCount = loginStartCount;
+	}
+
+	public int getLoginEndCount() {
+		return loginEndCount;
+	}
+
+	public void setLoginEndCount(int loginEndCount) {
+		this.loginEndCount = loginEndCount;
+	}
+
+	public void setQueryCondition(Criteria queryCriteria, String q){
     if(null != q && StringUtils.isNotBlank(q)){//会员名称Like查询
             queryCriteria.andMemberNameLike("%" + q + "%");
         }
@@ -63,7 +104,20 @@ public class MemberQueryDTO extends Member{
           }
            
        }
-   }
+     
+     if(null!=lastStartLoginTime&&null!=lastEndLoginTime){//创建时间段查询
+    	 queryCriteria.andLastLoginTimeBetween(lastStartLoginTime, lastEndLoginTime); 
+      }else{
+    	 if(null != lastStartLoginTime){
+              queryCriteria.andLastLoginTimeGreaterThanOrEqualTo(lastStartLoginTime);
+          }
+          if(null != lastEndLoginTime){
+              queryCriteria.andLastLoginTimeLessThanOrEqualTo(lastEndLoginTime);
+          }
+     }
+     
+     
+ }
    
    @Override
    public String toString() {
