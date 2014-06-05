@@ -15,7 +15,6 @@ import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.member.MemberAuthQueryDTO;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
-import com.glacier.netloan.entity.member.MemberCreditIntegral;
 import com.glacier.netloan.service.member.MemberAuthService;
 import com.glacier.netloan.service.member.MemberService;
 
