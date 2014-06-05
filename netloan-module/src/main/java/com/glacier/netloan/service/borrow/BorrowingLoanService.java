@@ -652,4 +652,19 @@ public class BorrowingLoanService {
         }
         return returnResult;
     }
+    
+    /**
+     * @Title: getBorrowingLoanFirstAuditNum 
+     * @Description: TODO(根据借款状态查找该借款的信息记录条数) 
+     * @param  @param loanState
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getBorrowingLoanNumByLoanState(String loanState) {
+        BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
+        borrowingLoanExample.createCriteria().andLoanStateEqualTo(loanState);
+        int borrowloanNum = borrowingLoanMapper.countByExample(borrowingLoanExample); // 查询总页数
+        return borrowloanNum;
+    }
 }

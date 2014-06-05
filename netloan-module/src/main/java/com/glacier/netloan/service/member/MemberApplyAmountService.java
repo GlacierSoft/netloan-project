@@ -14,8 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,10 +30,8 @@ import com.glacier.netloan.dto.query.member.MemberApplyAmountQueryDTO;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberApplyAmount;
 import com.glacier.netloan.entity.member.MemberApplyAmountExample;
-import com.glacier.netloan.entity.member.MemberApplyAmount;
-import com.glacier.netloan.entity.member.MemberIntegralExample;
-import com.glacier.netloan.entity.member.MemberMessageNotice;
 import com.glacier.netloan.entity.member.MemberApplyAmountExample.Criteria;
+import com.glacier.netloan.entity.member.MemberMessageNotice;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.util.MethodLog;
@@ -302,5 +298,20 @@ public class MemberApplyAmountService {
             returnResult.setMsg("发生未知错误，会员审核额度失败");
         }
         return returnResult;
+    }
+    
+    /**
+     * @Title: getApplyAmountNumByAuditState 
+     * @Description: TODO(根据会员申请额度状态查找该状态下的记录条数) 
+     * @param  @param auditState
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getApplyAmountNumByAuditState(String auditState) {
+        MemberApplyAmountExample memberApplyAmountExample = new MemberApplyAmountExample();
+        memberApplyAmountExample.createCriteria().andAuditStateEqualTo(auditState);
+        int applyAmountNum = applyAmountMapper.countByExample(memberApplyAmountExample);
+        return applyAmountNum;
     }
 }

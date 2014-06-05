@@ -281,4 +281,19 @@ public class FinanceRechargeService {
         }
         return returnResult;
     }
+    
+    /**
+     * @Title: getFinanceRechargeNumByAuditState 
+     * @Description: TODO(根据会员充值记录的状态查询该状态的记录条数) 
+     * @param  @param auditState
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getFinanceRechargeNumByAuditState(String auditState) {
+        FinanceRechargeExample financeRechargeExample = new FinanceRechargeExample();
+        financeRechargeExample.createCriteria().andAuditStateEqualTo(auditState);
+        int financeRechargeNum = financeRechargeMapper.countByExample(financeRechargeExample);
+        return financeRechargeNum;
+    }
 }

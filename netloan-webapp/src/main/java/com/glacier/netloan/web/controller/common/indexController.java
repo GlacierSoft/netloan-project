@@ -19,9 +19,17 @@
  */
 package com.glacier.netloan.web.controller.common;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.glacier.netloan.service.borrow.BorrowingLoanService;
+import com.glacier.netloan.service.finance.FinanceBankCardService;
+import com.glacier.netloan.service.finance.FinanceRechargeService;
+import com.glacier.netloan.service.finance.FinanceWithdrawService;
+import com.glacier.netloan.service.member.MemberApplyAmountService;
 
 /**
  * @ClassName: CommonController
@@ -34,8 +42,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value="/index")
 public class indexController {
     
+    @Autowired
+    private BorrowingLoanService borrowingLoanService;
+    
+    @Autowired
+    private FinanceRechargeService financeRechargeService;
+    
+    @Autowired
+    private FinanceWithdrawService financeWithdrawService;
+    
+    @Autowired
+    private FinanceBankCardService financeBankCardService;
+    
+    @Autowired
+    private MemberApplyAmountService memberApplyAmountService;
+    
     @RequestMapping(value = "/center", method = RequestMethod.GET)
-    public String welcome() {
-        return "layout/center";
+    public Object intoIndex() {
+        
+        ModelAndView mav = new ModelAndView("layout/center");
+        mav.addObject("borrowingLoanNumFirstAudit", borrowingLoanService.getBorrowingLoanNumByLoanState("FirstAudit"));//查询初审中的借款记录条数
+        mav.addObject("borrowingLoanNumSecondAuditor", borrowingLoanService.getBorrowingLoanNumByLoanState("SecondAuditors"));//查询复审中的借款记录条数
+        
+        
+        mav.addObject("financeRechargeNumAuthstr", financeRechargeService.getFinanceRechargeNumByAuditState("Authstr"));//查询审核中的会员充值记录条数
+        mav.addObject("financeWithdrawNumAuthstr", financeWithdrawService.getFinanceWithdrawNumByAuditState("Authstr"));//查询审核中的会员提现记录条数
+        mav.addObject("bankCardNumAuthstr", financeBankCardService.getBankCardNumByBankCardAuths("authstr"));//查询审核中的会员银行卡记录条数
+        mav.addObject("applyAmountNumAuthstr", memberApplyAmountService.getApplyAmountNumByAuditState("Authstr"));//查询审核中的会员额度申请记录条数
+        return mav;
     }
 }
