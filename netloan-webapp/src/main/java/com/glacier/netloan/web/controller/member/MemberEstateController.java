@@ -53,6 +53,16 @@ public class MemberEstateController extends AbstractController{
         return mav;
     }
     
+    // 进入会员房产信息audit信息页面
+    @RequestMapping(value = "/intoAudit.htm")
+    private Object intoAudit(String estateId) {
+        ModelAndView mav = new ModelAndView("member_mgr/estate_mgr/estate_audit");
+        if(StringUtils.isNotBlank(estateId)){
+            mav.addObject("estateData", estateService.getEstate(estateId));
+        }
+        return mav;
+    }
+    
     // 进入会员房产信息Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoEstateDetailPage(String estateId) {
@@ -78,5 +88,15 @@ public class MemberEstateController extends AbstractController{
             return returnErrorBindingResult(bindingResult);
         }
         return estateService.addEstate(estate);
+    }
+    
+    // 审核会员房产信息
+    @RequestMapping(value = "/audit.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object auditEstate(@Valid MemberEstate estate, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {// 后台校验的错误信息
+            return returnErrorBindingResult(bindingResult);
+        }
+        return estateService.auditEstate(estate);
     }
 }

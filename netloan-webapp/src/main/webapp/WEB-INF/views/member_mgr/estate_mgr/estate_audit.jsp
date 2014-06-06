@@ -1,8 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-<form method="post" style="padding:15px">
+<div method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
 			<td>会员名称：</td>
@@ -11,7 +10,7 @@
 				<input class="spinner" style="width:168px"  value="${estateData.memberRealName}" readonly="readonly"/>
 			</td>
 			<td>供款状况：</td>
-			<td><input id="estate_mgr_estate_detail_ageExpenses" class="spinner" style="width:168px" readonly="readonly"/></td>
+			<td><input id="estate_mgr_estate_audit_ageExpenses" class="spinner" style="width:168px" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>建筑面积：</td>
@@ -43,7 +42,7 @@
 		</tr>
 		<tr>
 			<td>审核状态：</td>
-			<td><input id="estate_mgr_estate_detail_auditState" class="spinner" style="width:168px" readonly="readonly"/></td>
+			<td><input id="estate_mgr_estate_audit_auditState" class="spinner" style="width:168px" readonly="readonly"/></td>
 			<td>审核人：</td>
 			<td><input class="spinner" style="width:168px" value="${estateData.auditorDisplay}" readonly="readonly"/></td>
 		</tr>
@@ -66,8 +65,27 @@
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${estateData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 	</table>
-</form>
-<script type="text/javascript">
-	$('#estate_mgr_estate_detail_ageExpenses').val(renderGridValue('${estateData.ageExpenses}',fields.ageExpenses));
-	$('#estate_mgr_estate_detail_auditState').val(renderGridValue('${estateData.auditState}',fields.auditState));
+</div>
+<script type="text/javascript"> 
+	$('#estate_mgr_estate_audit_ageExpenses').val(renderGridValue('${estateData.ageExpenses}',fields.ageExpenses));
+	$('#estate_mgr_estate_audit_auditState').val(renderGridValue('${estateData.auditState}',fields.auditState));
 </script>
+
+<form  method="post" style="padding:15px">
+	<table class="formtable">
+		<tr>
+			<td>审核结果：</td>
+			<td><input type="hidden" id="estate_mgr_estate_audit_estateId" name="estateId" value="${estateData.estateId}" />
+				<input type="hidden" id="estate_mgr_estate_audit_memberRealName" name="memberRealName" value="${estateData.memberRealName}" />
+				<input id="estate_mgr_estate_audit_auditState" name="auditState" type="radio" value="pass" /><span>审核通过</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input id="estate_mgr_estate_audit_auditState" name="auditState" type="radio" value="failure"  checked="checked"/><span>审核失败</span></td>
+		</tr>
+		<tr>
+			<td>审核说明：</td>
+			<td colspan="3">
+				<textarea name="auditRemark" class="spinner" style="height:50px;width:410px">${estateData.auditRemark}</textarea>
+			</td>
+		</tr>
+	</table>
+</form>

@@ -45,6 +45,7 @@ public class MemberEstate {
      */
     private String auditorDisplay;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
     private Date auditDate;
 
     private String auditRemark;

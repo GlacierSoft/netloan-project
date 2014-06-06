@@ -116,4 +116,31 @@ public class MemberEstateService {
         }
         return returnResult;
     }
+    
+    /**
+     * @Title: auditEstate 
+     * @Description: TODO(审核会员房产信息) 
+     * @param  @param estate
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "EstateList_audit")
+    public Object auditEstate(MemberEstate estate) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        estate.setAuditor(pricipalUser.getUserId());
+        estate.setAuditDate(new Date());
+        count = estateMapper.updateByPrimaryKeySelective(estate);
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("[" + estate.getMemberRealName() + "] 会员房产信息记录审核操作成功");
+        } else {
+            returnResult.setMsg("发生未知错误，会员房产信息记录审核操作失败");
+        }
+        return returnResult;
+    }
 }

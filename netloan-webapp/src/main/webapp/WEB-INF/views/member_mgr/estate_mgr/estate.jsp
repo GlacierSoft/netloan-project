@@ -10,8 +10,7 @@
 	glacier.member_mgr.estate_mgr.estate.param = {
 			toolbarId : 'estateDataGrid_toolbar',
 			actions : {
-				edit:{flag:'edit',controlType:'single'},
-				del:{flag:'del',controlType:'multiple'}
+				audit:{flag:'audit',controlType:'single'}
 			}
 	};
 	
@@ -99,22 +98,25 @@
 				field:'auditState',
 				title:'审核状态',
 				sortable:true,
-				width:100
+				width:100,
+				formatter: function(value,row,index){//数据格式化
+					return renderGridValue(value,fields.auditState);
+				}
 			},{
 				field:'auditorDisplay',
 				title:'审核人',
 				sortable:true,
-				width:200
+				width:100
 			},{
 				field:'auditDate',
 				title:'审核时间',
 				sortable:true,
-				width:100
+				width:150
 			},{
 				field:'auditRemark',
 				title:'审核说明',
 				sortable:true,
-				width:200
+				width:150
 			},{
 				field:'createrDisplay',
 				title:'创建人',
@@ -124,7 +126,7 @@
 				field:'createTime',
 				title:'创建时间',
 				sortable:true,
-				width:200
+				width:150
 			},{
 				field:'updaterDisplay',
 				title:'更新人',
@@ -134,7 +136,7 @@
 				field:'updateTime',
 				title:'更新时间',
 				sortable:true,
-				width:200
+				width:150
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
@@ -169,13 +171,14 @@
 				title: '【'+rowData.memberRealName+'】房产详细信息',
 				href : ctx + '/do/estate/intoDetail.htm?estateId='+rowData.estateId,//从controller请求jsp页面进行渲染
 				width : 530,
-				height : 320,
+				height : 380,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
 			});
 		}
 	});
+	/* 模糊查找 */
 	$('#memberEstateSearchForm_ageExpenses').combobox({  
 		valueField : 'value',
 		height:18,
@@ -186,6 +189,23 @@
 		//required:true,
 		data : fields.ageExpenses
 	});
+	//点击审核按钮触发方法
+	glacier.member_mgr.estate_mgr.estate.auditHiring = function(){
+		var row = glacier.member_mgr.estate_mgr.estate.estateDataGrid.datagrid("getSelected");
+		glacier.basicAddOrEditDialog({
+			title : '审核【'+row.memberRealName+'】房产信息',
+			width : 530,
+			height : 500,
+			queryUrl : ctx + '/do/estate/intoAudit.htm',
+			submitUrl : ctx + '/do/estate/audit.json',
+			queryParams : {
+				estateId : row.estateId
+			},
+			successFun : function (){
+				glacier.member_mgr.estate_mgr.estate.estateDataGrid.datagrid('reload');
+			}
+		});
+	};
 </script>
 
 <!-- 所有会员房产信息列表面板和表格 -->
