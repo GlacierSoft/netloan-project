@@ -31,6 +31,7 @@ import com.glacier.netloan.service.finance.FinanceRechargeService;
 import com.glacier.netloan.service.finance.FinanceWithdrawService;
 import com.glacier.netloan.service.member.MemberApplyAmountService;
 import com.glacier.netloan.service.member.MemberAuthService;
+import com.glacier.netloan.service.member.MemberEstateService;
 
 /**
  * @ClassName: CommonController
@@ -61,6 +62,9 @@ public class indexController {
     @Autowired
     private MemberApplyAmountService memberApplyAmountService;
     
+    @Autowired
+    private MemberEstateService memberEstateService;
+    
     @RequestMapping(value = "/center", method = RequestMethod.GET)
     public Object intoIndex() {
         
@@ -74,7 +78,7 @@ public class indexController {
         mav.addObject("financeWithdrawNumAuthstr", financeWithdrawService.getFinanceWithdrawNumByAuditState("Authstr"));//查询审核中的会员提现记录条数
         mav.addObject("bankCardNumAuthstr", financeBankCardService.getBankCardNumByBankCardAuths("authstr"));//查询审核中的会员银行卡记录条数
         mav.addObject("applyAmountNumAuthstr", memberApplyAmountService.getApplyAmountNumByAuditState("Authstr"));//查询审核中的会员额度申请记录条数
-//        mav.addObject("memberEstateNumAuthstr", memberEstateService.getEstateNumByAuditState("Authstr"));//查询审核中的会员额度申请记录条数
+        mav.addObject("memberEstateNumAuthstr", memberEstateService.getEstateNumByAuditState("Authstr"));//查询审核中的会员房产信息记录条数
         
         //认证管理
         mav.addObject("infoAuthNum", memberAuthService.getInfoAuthNumByInfoAuth("authstr"));//查询会员审核中的基本资料认证记录条数

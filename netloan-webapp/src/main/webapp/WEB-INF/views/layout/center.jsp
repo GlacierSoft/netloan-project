@@ -199,7 +199,7 @@
 				</tr>
 				<tr>
 					<td>会员房产申请(审核中)：</td>
-					<td>( <span style="color:red;">0</span> ) 条</td>
+					<td>( <span style="color:red;">${memberEstateNumAuthstr}</span> ) 条</td>
 				</tr>
 			</table>
 		</div>

@@ -143,4 +143,19 @@ public class MemberEstateService {
         }
         return returnResult;
     }
+    
+    /**
+     * @Title: getEstateNumByAuditState 
+     * @Description: TODO(根据会员房产的审核状态来查找该状态的房产信息条数) 
+     * @param  @param auditState
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getEstateNumByAuditState(String auditState) {
+        MemberEstateExample memberEstateExample = new MemberEstateExample();
+        memberEstateExample.createCriteria().andAuditStateEqualTo(auditState);
+        int memberEstateNum = estateMapper.countByExample(memberEstateExample);
+        return memberEstateNum;
+    }
 }
