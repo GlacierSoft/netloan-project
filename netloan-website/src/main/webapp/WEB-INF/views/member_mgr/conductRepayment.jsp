@@ -146,7 +146,12 @@
 				          </tr>
 				          <tr>
 				            <td>交易密码：</td>
-				            <td><input type="text" id="password" name="password" maxlength="50" class="inp200x"/></td>
+				            <td>
+				            	<input type="hidden" id="repayNotesDetailId" name="repayNotesDetailId" value="${repaymentNotesDetailsData.repayNotesDetailId}"/>
+				            	<input type="hidden" id="loanTitle" name="loanTitle" value="${repaymentNotesDetailsData.loanTitle}"/>
+				            	<input type="hidden" id="memberId" name="memberId" value="${currentMember.memberId}" >
+				            	<input type="text" id="tradersPassword" name="tradersPassword" maxlength="50" class="inp200x"/>
+				            </td>
 				            <td>验证码：</td>
 				            <td  class="col-md-6">
 								<div align="left" style="padding: 0px; width: 120px;">
@@ -177,42 +182,12 @@
 	    
 <script type="text/javascript">
     $("#conductRepayment").validate({
-   		rules:{
-   			rechargeAmount:"required",
-   			financeRechargeSetId:"required"
-   		},
-   		messages:{
-   			rechargeAmount:"必须填写充值金额",
-   			financeRechargeSetId:"必须选择一种充值类型"
-   		},
    		submitHandler:function(){
    			$.ajax({
    				   type: "POST",
-   				   url: ctx+"/recharge/add.json",
+   				   url: ctx+"/repaymentNotesDetail/repayment.json",
    				   dataType: "json",
-   				   data: $("#financeRecharge").serialize(),
-    			   success: function(r) {
-    				   successAddRecharge(r);
-                    },
-                    error: function() {
-                        alert("提交出错！");
-                    }
-   				});
-   		} 
-   	});
-	$("#financeWithdraw").validate({
-   		rules:{
-   			withdrawAmount:"required"
-   		},
-   		messages:{
-   			withdrawAmount:"必须填写提现金额"
-   		},
-   		submitHandler:function(){
-   			$.ajax({
-   				   type: "POST",
-   				   url: ctx+"/withdraw/add.json",
-   				   dataType: "json",
-   				   data: $("#financeWithdraw").serialize(),
+   				   data: $("#conductRepayment").serialize(),
     			   success: function(r) {
     				   successAddRecharge(r);
                     },
@@ -239,7 +214,7 @@
 				                click : function(e) {
 				                	dialog.remove();
 				                	if(data.success){
-				                		window.location.href="${ctx}/financeMember/rechargeWithdraw.htm?p=1";
+				                		window.location.href="${ctx}/borrowingLoan/memberRepaymentDetail.htm?&loanId=${borrowingLoan.loanId}&memberId=${currentMember.memberId}&p=1";
 				                	}else{
 				                		dialog.remove();
 				                	}

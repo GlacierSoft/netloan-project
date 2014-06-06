@@ -25,6 +25,7 @@ import com.glacier.netloan.entity.borrow.RepaymentNotes;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetail;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetailExample;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetailExample.Criteria;
+import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -272,6 +273,35 @@ public class RepaymentNotesDetailService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         count = repaymentNotesDetailMapper.updateByPrimaryKeySelective(repaymentNotesDetail);
+        if (count == 1) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("还款记录明细信息已修改");
+        } else {
+            returnResult.setMsg("发生未知错误，还款记录明细信息修改失败");
+        }
+        return returnResult;
+    }
+    
+    /**
+     * @Title: repaymentRepaymentNotesDetail 
+     * @Description: TODO(前台页面-会员进行还款) 
+     * @param  @param repaymentNotesDetail
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    @Transactional(readOnly = false)
+    public Object repaymentRepaymentNotesDetail(RepaymentNotesDetail repaymentNotesDetail, Member member) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        repaymentNotesDetail.setRepayState("alreadRepay");
+        count = repaymentNotesDetailMapper.updateByPrimaryKeySelective(repaymentNotesDetail);
+        System.out.println("========"+member.getTradersPassword());
+        if (null != member.getTradersPassword() && StringUtils.isNotBlank(member.getTradersPassword())) {
+            if ("12345678" == member.getTradersPassword()) {
+                System.out.println("///*********交易密码正确");
+            }
+        }
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("还款记录明细信息已修改");
