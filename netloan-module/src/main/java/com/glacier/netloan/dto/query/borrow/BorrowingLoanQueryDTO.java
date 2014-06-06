@@ -29,6 +29,10 @@ public class BorrowingLoanQueryDTO extends BorrowingLoan{
 
     private Date createEndTime;
     
+    private Date loanStartDate;
+    
+    private Date loanEndDate;
+    
     private float loanTotalStart;
     
     private float loanTotalEnd;
@@ -85,7 +89,23 @@ public class BorrowingLoanQueryDTO extends BorrowingLoan{
         this.createEndTime = createEndTime;
     }
     
-    public void setQueryCondition(Criteria queryCriteria){
+    public Date getLoanStartDate() {
+		return loanStartDate;
+	}
+
+	public void setLoanStartDate(Date loanStartDate) {
+		this.loanStartDate = loanStartDate;
+	}
+
+	public Date getLoanEndDate() {
+		return loanEndDate;
+	}
+
+	public void setLoanEndDate(Date loanEndDate) {
+		this.loanEndDate = loanEndDate;
+	}
+
+	public void setQueryCondition(Criteria queryCriteria){
 
     	if(null != this.getLoanCode() && StringUtils.isNotBlank(this.getLoanCode())){//根据借款编号查询
 	        queryCriteria.andLoanCodeLike("%" + this.getLoanCode() + "%");
@@ -147,6 +167,16 @@ public class BorrowingLoanQueryDTO extends BorrowingLoan{
 	    		queryCriteria.andCreateTimeLessThanOrEqualTo(createEndTime);
 	    	}
 	    }
+	    
+	    if(null!=loanStartDate&&null!=loanEndDate){
+	    	queryCriteria.andLoanDateBetween(loanStartDate, loanEndDate);
+	    }else{
+	    	if(null!=loanStartDate)
+	    		  queryCriteria.andLoanDateGreaterThanOrEqualTo(loanStartDate);
+	    	if(null!=loanEndDate)
+	    		 queryCriteria.andLoanDateLessThanOrEqualTo(loanEndDate);
+	    }
+	    
     }
    
    @Override

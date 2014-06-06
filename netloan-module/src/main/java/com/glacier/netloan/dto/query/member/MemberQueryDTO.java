@@ -24,9 +24,9 @@ public class MemberQueryDTO extends Member{
     
     private Date lastEndLoginTime;
     
-    private int loginStartCount;
+    private String loginStartCount;
     
-    private int loginEndCount;
+    private String loginEndCount;
     
 
     public Date getCreateStartTime() {
@@ -61,19 +61,19 @@ public class MemberQueryDTO extends Member{
 		this.lastEndLoginTime = lastEndLoginTime;
 	}
 
-	public int getLoginStartCount() {
+   public String getLoginStartCount() {
 		return loginStartCount;
 	}
 
-	public void setLoginStartCount(int loginStartCount) {
+	public void setLoginStartCount(String loginStartCount) {
 		this.loginStartCount = loginStartCount;
 	}
 
-	public int getLoginEndCount() {
+	public String getLoginEndCount() {
 		return loginEndCount;
 	}
 
-	public void setLoginEndCount(int loginEndCount) {
+	public void setLoginEndCount(String loginEndCount) {
 		this.loginEndCount = loginEndCount;
 	}
 
@@ -115,6 +115,18 @@ public class MemberQueryDTO extends Member{
               queryCriteria.andLastLoginTimeLessThanOrEqualTo(lastEndLoginTime);
           }
      }
+     
+     if(null!=loginStartCount&&null!=loginEndCount){
+    	 queryCriteria.andLoginCountBetween(Integer.parseInt(loginStartCount), Integer.parseInt(loginEndCount)); 
+     }else{
+    	 if(null!=loginStartCount)
+    		   queryCriteria.andLoginCountGreaterThanOrEqualTo(Integer.parseInt(loginStartCount));
+    	 if(null!=loginEndCount)
+    		   queryCriteria.andLoginCountLessThanOrEqualTo(Integer.parseInt(loginEndCount));
+     }
+     
+     
+     
      
      
  }

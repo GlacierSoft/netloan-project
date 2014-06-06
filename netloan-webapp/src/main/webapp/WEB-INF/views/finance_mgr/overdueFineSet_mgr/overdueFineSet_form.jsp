@@ -51,7 +51,7 @@
 			 <tr id="overdueFineSet_mgr_overdueFineSet_form_tr" style="display:none;" >
 				<td>天数设定：</td>
 				<td>
-				    <input id="overdueFineSet_mgr_overdueFineSet_form_vipDays" name="vipDays" value="${overdueFineSetData.vipDays}" class="easyui-numberbox"  style="width:298px;" min="0" max="100"  required="true" maxlength="50" />
+				    <input id="overdueFineSet_mgr_overdueFineSet_form_vipDays" name="vipDays" value="0" class="easyui-numberbox"  style="width:298px;" min="0" max="100"  required="true" maxlength="50" />
 				</td>
 			</tr>
 		</c:if>

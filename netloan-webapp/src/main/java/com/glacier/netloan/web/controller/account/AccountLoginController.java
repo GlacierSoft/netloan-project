@@ -57,8 +57,18 @@ public class AccountLoginController extends AbstractController {
 	        return accountLoginService.listAsGrid(jqPager, memberQueryDTO, q);
 	    }
 	    
+	    
+	    //导出Excel
+	    @RequestMapping(value = "/exp.json", method = RequestMethod.POST)
+	    @ResponseBody
+	    private Object expAccountLogin(@RequestParam List<String> overdueFineSetIds){
+	    	//建立Excel对象      
+	        return null;
+	    }
+	    
 }	    
 	    
+
 	    
 	    
 	    

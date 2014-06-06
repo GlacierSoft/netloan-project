@@ -96,7 +96,14 @@
 				if (r){
 					var rows = $('#accountLoginDataGrid').datagrid('getRows');
 					alert("rows:"+rows);
-// 					var oXL = new ActiveXObject("Excel.Application"); //创建AX对象excel
+ 					var oXL =new Microsoft.Office.Interop.Excel.Application(); //创建AX对象excel
+ 					alert("oXl="+oXl);
+ 					var oWB = oXL.Workbooks.Add(); //获取workbook对象
+ 					var oSheet = oWB.ActiveSheet; //激活当前sheet
+ 					for (var i = 0; i < rows.length; i++) {
+ 						oSheet.Cells(i + 1, 1).value = rows[i].O_NAME;
+ 					}
+ 					oXL.Visible = true; //设置excel可见属性
 				 }
 			});
 		}
@@ -127,9 +134,9 @@
 					</td>
 					<td>登入次数：</td>
 					<td>
-					     <input  name="loginStartCount" style="width: 80px;" class="spinner" />
+					     <input  name="loginStartCount" style="width: 80px;" class="easyui-numberbox spinner" />
 					      -
-					      <input  name="loginEndCount" style="width: 80px;" class="spinner"/>
+					      <input  name="loginEndCount" style="width: 80px;" class="easyui-numberbox spinner" />
 					<td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.account_mgr.accountLogin_mgr.accountLogin.accountLoginDataGrid.datagrid('load',glacier.serializeObject($('#memberSearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#memberSearchForm input').val('');glacier.account_mgr.accountLogin_mgr.accountLogin.accountLoginDataGrid.datagrid('load',{});">重置</a>
