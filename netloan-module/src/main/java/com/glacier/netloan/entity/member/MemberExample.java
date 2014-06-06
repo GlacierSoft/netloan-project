@@ -334,6 +334,76 @@ public class MemberExample {
             addCriterion("temp_member.member_password not between", value1, value2, "memberPassword");
             return (Criteria) this;
         }
+        
+        public Criteria andTradersPasswordIsNull() {
+            addCriterion("temp_member.traders_password is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersPasswordIsNotNull() {
+            addCriterion("temp_member.traders_password is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersPasswordEqualTo(String value) {
+            addCriterion("temp_member.traders_password =", value, "tradersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersPasswordNotEqualTo(String value) {
+            addCriterion("temp_member.traders_password <>", value, "tradersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersPasswordGreaterThan(String value) {
+            addCriterion("temp_member.traders_password >", value, "tradersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersPasswordGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_member.traders_password >=", value, "tradersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersPasswordLessThan(String value) {
+            addCriterion("temp_member.traders_password <", value, "tradersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersPasswordLessThanOrEqualTo(String value) {
+            addCriterion("temp_member.traders_password <=", value, "tradersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersPasswordLike(String value) {
+            addCriterion("temp_member.traders_password like", value, "tradersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersPasswordNotLike(String value) {
+            addCriterion("temp_member.traders_password not like", value, "tradersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersPasswordIn(List<String> values) {
+            addCriterion("temp_member.traders_password in", values, "tradersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersPasswordNotIn(List<String> values) {
+            addCriterion("temp_member.traders_password not in", values, "tradersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersPasswordBetween(String value1, String value2) {
+            addCriterion("temp_member.traders_password between", value1, value2, "tradersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersPasswordNotBetween(String value1, String value2) {
+            addCriterion("temp_member.traders_password not between", value1, value2, "tradersPassword");
+            return (Criteria) this;
+        }
 
         public Criteria andMemberRealNameIsNull() {
             addCriterion("temp_member.member_real_name is null");

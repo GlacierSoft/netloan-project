@@ -14,6 +14,8 @@ public class Member {
 	//@Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9_]{4,15}", message = "{Member.memberPassword.illegal}")
     @Length(min = 6, max = 12, message = "{Member.memberPassword.illegal}")
     private String memberPassword;
+    
+    private String tradersPassword;
 
     private String memberRealName;
 
@@ -136,6 +138,14 @@ public class Member {
         this.memberPassword = memberPassword;
     }
 
+    public String getTradersPassword() {
+        return tradersPassword;
+    }
+
+    public void setTradersPassword(String tradersPassword) {
+        this.tradersPassword = tradersPassword;
+    }
+    
     public String getMemberRealName() {
         return memberRealName;
     }
@@ -479,6 +489,7 @@ public class Member {
         return (this.getMemberId() == null ? other.getMemberId() == null : this.getMemberId().equals(other.getMemberId()))
             && (this.getMemberName() == null ? other.getMemberName() == null : this.getMemberName().equals(other.getMemberName()))
             && (this.getMemberPassword() == null ? other.getMemberPassword() == null : this.getMemberPassword().equals(other.getMemberPassword()))
+            && (this.getTradersPassword() == null ? other.getTradersPassword() == null : this.getTradersPassword().equals(other.getTradersPassword()))
             && (this.getMemberRealName() == null ? other.getMemberRealName() == null : this.getMemberRealName().equals(other.getMemberRealName()))
             && (this.getMemberPhoto() == null ? other.getMemberPhoto() == null : this.getMemberPhoto().equals(other.getMemberPhoto()))
             && (this.getMemberAge() == null ? other.getMemberAge() == null : this.getMemberAge().equals(other.getMemberAge()))
@@ -526,6 +537,7 @@ public class Member {
         result = prime * result + ((getMemberId() == null) ? 0 : getMemberId().hashCode());
         result = prime * result + ((getMemberName() == null) ? 0 : getMemberName().hashCode());
         result = prime * result + ((getMemberPassword() == null) ? 0 : getMemberPassword().hashCode());
+        result = prime * result + ((getTradersPassword() == null) ? 0 : getTradersPassword().hashCode());
         result = prime * result + ((getMemberRealName() == null) ? 0 : getMemberRealName().hashCode());
         result = prime * result + ((getMemberPhoto() == null) ? 0 : getMemberPhoto().hashCode());
         result = prime * result + ((getMemberAge() == null) ? 0 : getMemberAge().hashCode());
