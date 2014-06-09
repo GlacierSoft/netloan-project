@@ -19,6 +19,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.RepaymentNotesDetailMapper;
 import com.glacier.netloan.dao.borrow.RepaymentNotesMapper;
+import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dto.query.borrow.RepaymentNotesDetailQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.RepaymentNotes;
@@ -48,6 +49,8 @@ public class RepaymentNotesDetailService {
 	@Autowired
 	private RepaymentNotesMapper repaymentNotesMapper;
 	
+	@Autowired
+	private MemberMapper memberMapper;
 	/**
 	 * @Title: getRepaymentNotesDetail 
 	 * @Description: TODO(根据还款记录明细Id获取还款记录明细信息) 
@@ -291,17 +294,25 @@ public class RepaymentNotesDetailService {
      * 备注<p>已检查测试:Green<p>
      */
     @Transactional(readOnly = false)
-    public Object repaymentRepaymentNotesDetail(RepaymentNotesDetail repaymentNotesDetail, Member member) {
+    public Object repaymentRepaymentNotesDetail(RepaymentNotesDetail repaymentNotesDetail, Member member, boolean captchaBoolean) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        // 验证会员真正的交易密码是否等于输入的交易密码
+        Member memberTemp = new Member();
+        memberTemp = memberMapper.selectByPrimaryKey(member.getMemberId());// 根据前台返回的会员Id，查询出该会员的信息
+        if (null != member.getTradersPassword() && StringUtils.isNotBlank(member.getTradersPassword())) {
+            if (!member.getTradersPassword().equals(memberTemp.getTradersPassword())) {// 判断前台的交易密码是否正确
+                returnResult.setMsg("交易密码错误，请重新输入");
+                return returnResult;
+            }
+        }
+        // 防止验证码错误
+        if (!captchaBoolean) {
+            returnResult.setMsg("验证码错误，请重新输入");
+            return returnResult;
+        }
         int count = 0;
         repaymentNotesDetail.setRepayState("alreadRepay");
         count = repaymentNotesDetailMapper.updateByPrimaryKeySelective(repaymentNotesDetail);
-        System.out.println("========"+member.getTradersPassword());
-        if (null != member.getTradersPassword() && StringUtils.isNotBlank(member.getTradersPassword())) {
-            if ("12345678" == member.getTradersPassword()) {
-                System.out.println("///*********交易密码正确");
-            }
-        }
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("还款记录明细信息已修改");

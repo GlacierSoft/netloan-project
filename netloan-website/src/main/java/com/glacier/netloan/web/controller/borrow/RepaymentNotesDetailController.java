@@ -1,7 +1,10 @@
 package com.glacier.netloan.web.controller.borrow;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +51,13 @@ public class RepaymentNotesDetailController extends AbstractController{
     // 前台页面会员进行还款操作
     @RequestMapping(value = "/repayment.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object repaymentRepaymentNotesDetail(@Valid RepaymentNotesDetail repaymentNotesDetail, Member member) {
-        return repaymentNotesDetailService.repaymentRepaymentNotesDetail(repaymentNotesDetail, member);
+    private Object repaymentRepaymentNotesDetail(@Valid RepaymentNotesDetail repaymentNotesDetail, Member member, String captcha, HttpServletRequest request, HttpSession session) {
+        // 核对验证码
+        String isCaptcha = (String) request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+        boolean captchaBoolean = true;
+        if (StringUtils.isBlank(captcha) || !isCaptcha.equalsIgnoreCase(captcha)) {
+            captchaBoolean = false;
+        }
+        return repaymentNotesDetailService.repaymentRepaymentNotesDetail(repaymentNotesDetail, member, captchaBoolean);
     }
 }

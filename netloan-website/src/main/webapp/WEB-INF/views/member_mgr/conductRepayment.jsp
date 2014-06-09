@@ -3,6 +3,15 @@
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %><!-- 引入自定义权限标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
+
+<%@ page import="org.apache.shiro.web.filter.authc.FormAuthenticationFilter"%>
+<%@ page import="org.apache.shiro.authc.LockedAccountException"%>
+<%@ page import="com.glacier.basic.exception.IncorrectCaptchaException"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+%>
+
 <!DOCTYPE html>
 <html lang="zh-cn">
   <head>
@@ -145,22 +154,22 @@
 				            <td>${repaymentNotesDetailsData.alsoNeedMoney}</td>
 				          </tr>
 				          <tr>
-				            <td>交易密码：</td>
-				            <td>
+				            <td class="col-md-2">交易密码：</td>
+				            <td class="col-md-3">
 				            	<input type="hidden" id="repayNotesDetailId" name="repayNotesDetailId" value="${repaymentNotesDetailsData.repayNotesDetailId}"/>
 				            	<input type="hidden" id="loanTitle" name="loanTitle" value="${repaymentNotesDetailsData.loanTitle}"/>
 				            	<input type="hidden" id="memberId" name="memberId" value="${currentMember.memberId}" >
-				            	<input type="text" id="tradersPassword" name="tradersPassword" maxlength="50" class="inp200x"/>
+				            	<input type="password" id="tradersPassword" name="tradersPassword" maxlength="50" class="inp200x"/>
 				            </td>
-				            <td>验证码：</td>
-				            <td  class="col-md-6">
-								<div align="left" style="padding: 0px; width: 120px;">
+				            <td class="col-md-2">验证码：</td>
+						  	<td class="col-md-5">
+								<div class="col-md-6" align="left" style="padding: 0px; width: 120px;">
 									<input type="text" id="captcha" name="captcha" maxlength="4" class="form-control" placeholder="验证码"/>
 								</div>
-								<div style="width: 150px;">
+								<div class="col-md-6">
 									<img style="width:120px;height:32px;" class="img-responsive" id="login_kaptcha" src="${ctx}/resources/images/kaptcha.jpg" />
 								</div>
-					  		</td>
+						  	</td>
 				          </tr>
 				          <tr>
 				            <td colspan="4" align="center">
@@ -182,6 +191,14 @@
 	    
 <script type="text/javascript">
     $("#conductRepayment").validate({
+    	rules:{
+    		tradersPassword:"required",
+			captcha:"required"
+		},
+		messages:{
+			tradersPassword:"交易密码不能为空",
+			captcha:"验证码不能为空"
+		},
    		submitHandler:function(){
    			$.ajax({
    				   type: "POST",
@@ -223,6 +240,13 @@
 					});
 		});
 	};
+	//验证码验证
+	$(function() {
+		$('#login_kaptcha').click(function() {  
+			$('#captcha').val('');
+        	$(this).hide().attr('src','${pageContext.request.contextPath}/resources/images/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();     
+	    });
+	});
 </script>
   </body>
 </html>
