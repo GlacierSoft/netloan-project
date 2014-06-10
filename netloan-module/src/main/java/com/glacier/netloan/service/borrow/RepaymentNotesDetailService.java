@@ -19,15 +19,21 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.RepaymentNotesDetailMapper;
 import com.glacier.netloan.dao.borrow.RepaymentNotesMapper;
+import com.glacier.netloan.dao.finance.FinanceMemberMapper;
+import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
 import com.glacier.netloan.dao.member.MemberMapper;
+import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.borrow.RepaymentNotesDetailQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.RepaymentNotes;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetail;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetailExample;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetailExample.Criteria;
+import com.glacier.netloan.entity.finance.FinanceMember;
+import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -51,6 +57,16 @@ public class RepaymentNotesDetailService {
 	
 	@Autowired
 	private MemberMapper memberMapper;
+	
+	@Autowired
+	private FinanceMemberMapper financeMemberMapper;
+	
+	@Autowired
+	private FinanceTransactionMapper financeTransactionMapper;
+	
+	@Autowired
+	private UserMapper userMapper;
+	
 	/**
 	 * @Title: getRepaymentNotesDetail 
 	 * @Description: TODO(根据还款记录明细Id获取还款记录明细信息) 
@@ -294,7 +310,7 @@ public class RepaymentNotesDetailService {
      * 备注<p>已检查测试:Green<p>
      */
     @Transactional(readOnly = false)
-    public Object repaymentRepaymentNotesDetail(RepaymentNotesDetail repaymentNotesDetail, Member member, boolean captchaBoolean) {
+    public Object repaymentRepaymentNotesDetail(String repayNotesDetailId, Member member, boolean captchaBoolean) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         // 验证会员真正的交易密码是否等于输入的交易密码
         Member memberTemp = new Member();
@@ -311,13 +327,50 @@ public class RepaymentNotesDetailService {
             return returnResult;
         }
         int count = 0;
+        RepaymentNotesDetail repaymentNotesDetail = repaymentNotesDetailMapper.selectByPrimaryKey(repayNotesDetailId);// 根据还款明细Id查找出对应的还款明细信息记录
         repaymentNotesDetail.setRepayState("alreadRepay");
         count = repaymentNotesDetailMapper.updateByPrimaryKeySelective(repaymentNotesDetail);
         if (count == 1) {
-            returnResult.setSuccess(true);
-            returnResult.setMsg("还款记录明细信息已修改");
+            // 还款明细信息修改成功后，系统自动更新该会员的财务信息
+            FinanceMember financeMember = financeMemberMapper.selectByMemberId(member.getMemberId());// 根据会员Id查找出该会员的财务会员信息记录
+            financeMember.setAmount(financeMember.getAmount() - repaymentNotesDetail.getAlsoNeedMoney());// 现在的会员帐号总余额=之前的会员帐号余额-需还总额
+            financeMember.setUsableMoney(financeMember.getUsableMoney() - repaymentNotesDetail.getAlsoNeedMoney());// 现在的会员帐号可用余额=之前的会员帐号可用余额-需还总额
+            financeMember.setRefundMoney(financeMember.getRefundMoney() - repaymentNotesDetail.getAlsoNeedMoney());// 现在的会员帐号待还金额=之前的会员帐号待还金额-需还总额
+            count = financeMemberMapper.updateByPrimaryKeySelective(financeMember);
+            if (count == 1) {
+                // 系统成功自动更新该会员的财务信息后，再自动生成一条会员资金记录明细信息
+                // 查找出超级管理员的用户信息
+                UserExample userExample = new UserExample();
+                userExample.createCriteria().andUsernameEqualTo("admin");
+                List<User> users = userMapper.selectByExample(userExample);
+                User pricipalUser = users.get(0);
+                // 向会员资金记录明细进行赋值
+                FinanceTransaction financeTransaction = new FinanceTransaction();
+                financeTransaction.setTransactionId(RandomGUID.getRandomGUID());
+                financeTransaction.setFinanceMemberId(financeMember.getFinanceMemberId());
+                financeTransaction.setMemberId(member.getMemberId());
+                financeTransaction.setTransactionTarget("系统管理员");
+                financeTransaction.setTransactionType("还款扣除金额");
+                financeTransaction.setEarningMoney((float) 0);
+                financeTransaction.setExpendMoney(repaymentNotesDetail.getAlsoNeedMoney());
+                financeTransaction.setUsableMoney(financeMember.getUsableMoney());
+                financeTransaction.setFrozenMoney(financeMember.getFrozenMoney());
+                financeTransaction.setCollectingMoney(financeMember.getCollectingMoney());
+                financeTransaction.setRefundMoney(financeMember.getRefundMoney());
+                financeTransaction.setAmount(financeMember.getAmount());
+                financeTransaction.setRemark("会员还款成功后，系统自动生成的会员资金记录明细信息");
+                financeTransaction.setCreater(pricipalUser.getUserId());
+                financeTransaction.setCreateTime(new Date());
+                financeTransaction.setUpdater(pricipalUser.getUserId());
+                financeTransaction.setUpdateTime(new Date());
+                count = financeTransactionMapper.insert(financeTransaction);
+                if (count == 1) {
+                    returnResult.setSuccess(true);
+                    returnResult.setMsg("还款操作成功"); 
+                }
+            }
         } else {
-            returnResult.setMsg("发生未知错误，还款记录明细信息修改失败");
+            returnResult.setMsg("发生未知错误，还款操作失败");
         }
         return returnResult;
     }

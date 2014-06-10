@@ -137,7 +137,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			          	<tbody>
 				          <tr>
 				            <td>账户余额：</td>
-				            <td>${financeMemberDate.amount}</td>
+				            <td>
+				            	<input type="hidden" id="financeMemberId" name="financeMemberId" value="${financeMemberDate.financeMemberId}"/>
+				            	${financeMemberDate.amount}
+				            </td>
 				            <td>可用余额：</td>
 				            <td>${financeMemberDate.usableMoney}</td>
 				          </tr>
