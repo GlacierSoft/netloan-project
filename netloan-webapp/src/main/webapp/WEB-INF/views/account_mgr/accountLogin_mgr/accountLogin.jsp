@@ -86,27 +86,7 @@
 	
 	//点击导出按钮触发方法
 	glacier.account_mgr.accountLogin_mgr.accountLogin.expAccountLogin = function(){
-		var rows = glacier.account_mgr.accountLogin_mgr.accountLogin.accountLoginDataGrid.datagrid("getChecked");
-		var memberIds = [];//导出的id标识
-		for(var i=0;i<rows.length;i++){
-			memberIds.push(rows[i].omemberId);
-		 }
-		if(memberIds.length > 0){
-			$.messager.confirm('请确认', '是否要导出该记录', function(r){
-				if (r){
-					var rows = $('#accountLoginDataGrid').datagrid('getRows');
-					alert("rows:"+rows);
- 					var oXL =new Microsoft.Office.Interop.Excel.Application(); //创建AX对象excel
- 					alert("oXl="+oXl);
- 					var oWB = oXL.Workbooks.Add(); //获取workbook对象
- 					var oSheet = oWB.ActiveSheet; //激活当前sheet
- 					for (var i = 0; i < rows.length; i++) {
- 						oSheet.Cells(i + 1, 1).value = rows[i].O_NAME;
- 					}
- 					oXL.Visible = true; //设置excel可见属性
-				 }
-			});
-		}
+        location.href=ctx+'/do/accountLogin/exp.json';
 	};
 	
 </script>

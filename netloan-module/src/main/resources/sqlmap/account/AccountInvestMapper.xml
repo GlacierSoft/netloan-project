@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.account.AccountInvestMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.account.AccountInvest" >
+    <id column="temp_account_invest_invest_id" property="investId" jdbcType="VARCHAR" />
+    <result column="temp_account_invest_sum_uncollected" property="sumUncollected" jdbcType="REAL" />
+    <result column="temp_account_invest_sum_reward" property="sumReward" jdbcType="REAL" />
+    <result column="temp_account_invest_sum_fine" property="sumFine" jdbcType="REAL" />
+    <result column="temp_account_invest_sum_borrow" property="sumBorrow" jdbcType="REAL" />
+    <result column="temp_account_invest_sum_advfee" property="sumAdvfee" jdbcType="REAL" />
+    <result column="temp_account_invest_sum_interest" property="sumInterest" jdbcType="REAL" />
+    <result column="temp_account_invest_sum_interestfee" property="sumInterestfee" jdbcType="REAL" />
+    <result column="temp_account_invest_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_account_invest_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_account_invest_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_account_invest_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_account_invest.invest_id as temp_account_invest_invest_id, temp_account_invest.sum_uncollected as temp_account_invest_sum_uncollected, 
+    temp_account_invest.sum_reward as temp_account_invest_sum_reward, temp_account_invest.sum_fine as temp_account_invest_sum_fine, 
+    temp_account_invest.sum_borrow as temp_account_invest_sum_borrow, temp_account_invest.sum_advfee as temp_account_invest_sum_advfee, 
+    temp_account_invest.sum_interest as temp_account_invest_sum_interest, temp_account_invest.sum_interestfee as temp_account_invest_sum_interestfee, 
+    temp_account_invest.creater as temp_account_invest_creater, temp_account_invest.create_time as temp_account_invest_create_time, 
+    temp_account_invest.updater as temp_account_invest_updater, temp_account_invest.update_time as temp_account_invest_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.account.AccountInvestExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_account_invest temp_account_invest
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_account_invest temp_account_invest
+    where temp_account_invest.invest_id = #{investId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_account_invest
+    where invest_id = #{investId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.account.AccountInvestExample" >
+    delete from t_account_invest temp_account_invest
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.account.AccountInvest" >
+    insert into t_account_invest (invest_id, sum_uncollected, sum_reward, 
+      sum_fine, sum_borrow, sum_advfee, 
+      sum_interest, sum_interestfee, creater, 
+      create_time, updater, update_time
+      )
+    values (#{investId,jdbcType=VARCHAR}, #{sumUncollected,jdbcType=REAL}, #{sumReward,jdbcType=REAL}, 
+      #{sumFine,jdbcType=REAL}, #{sumBorrow,jdbcType=REAL}, #{sumAdvfee,jdbcType=REAL}, 
+      #{sumInterest,jdbcType=REAL}, #{sumInterestfee,jdbcType=REAL}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.account.AccountInvest" >
+    insert into t_account_invest
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="investId != null" >
+        invest_id,
+      </if>
+      <if test="sumUncollected != null" >
+        sum_uncollected,
+      </if>
+      <if test="sumReward != null" >
+        sum_reward,
+      </if>
+      <if test="sumFine != null" >
+        sum_fine,
+      </if>
+      <if test="sumBorrow != null" >
+        sum_borrow,
+      </if>
+      <if test="sumAdvfee != null" >
+        sum_advfee,
+      </if>
+      <if test="sumInterest != null" >
+        sum_interest,
+      </if>
+      <if test="sumInterestfee != null" >
+        sum_interestfee,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="investId != null" >
+        #{investId,jdbcType=VARCHAR},
+      </if>
+      <if test="sumUncollected != null" >
+        #{sumUncollected,jdbcType=REAL},
+      </if>
+      <if test="sumReward != null" >
+        #{sumReward,jdbcType=REAL},
+      </if>
+      <if test="sumFine != null" >
+        #{sumFine,jdbcType=REAL},
+      </if>
+      <if test="sumBorrow != null" >
+        #{sumBorrow,jdbcType=REAL},
+      </if>
+      <if test="sumAdvfee != null" >
+        #{sumAdvfee,jdbcType=REAL},
+      </if>
+      <if test="sumInterest != null" >
+        #{sumInterest,jdbcType=REAL},
+      </if>
+      <if test="sumInterestfee != null" >
+        #{sumInterestfee,jdbcType=REAL},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.account.AccountInvestExample" resultType="java.lang.Integer" >
+    select count(*) from t_account_invest temp_account_invest
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_account_invest temp_account_invest
+    <set >
+      <if test="record.investId != null" >
+        temp_account_invest.invest_id = #{record.investId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sumUncollected != null" >
+        temp_account_invest.sum_uncollected = #{record.sumUncollected,jdbcType=REAL},
+      </if>
+      <if test="record.sumReward != null" >
+        temp_account_invest.sum_reward = #{record.sumReward,jdbcType=REAL},
+      </if>
+      <if test="record.sumFine != null" >
+        temp_account_invest.sum_fine = #{record.sumFine,jdbcType=REAL},
+      </if>
+      <if test="record.sumBorrow != null" >
+        temp_account_invest.sum_borrow = #{record.sumBorrow,jdbcType=REAL},
+      </if>
+      <if test="record.sumAdvfee != null" >
+        temp_account_invest.sum_advfee = #{record.sumAdvfee,jdbcType=REAL},
+      </if>
+      <if test="record.sumInterest != null" >
+        temp_account_invest.sum_interest = #{record.sumInterest,jdbcType=REAL},
+      </if>
+      <if test="record.sumInterestfee != null" >
+        temp_account_invest.sum_interestfee = #{record.sumInterestfee,jdbcType=REAL},
+      </if>
+      <if test="record.creater != null" >
+        temp_account_invest.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_account_invest.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_account_invest.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_account_invest.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_account_invest temp_account_invest
+    set temp_account_invest.invest_id = #{record.investId,jdbcType=VARCHAR},
+      temp_account_invest.sum_uncollected = #{record.sumUncollected,jdbcType=REAL},
+      temp_account_invest.sum_reward = #{record.sumReward,jdbcType=REAL},
+      temp_account_invest.sum_fine = #{record.sumFine,jdbcType=REAL},
+      temp_account_invest.sum_borrow = #{record.sumBorrow,jdbcType=REAL},
+      temp_account_invest.sum_advfee = #{record.sumAdvfee,jdbcType=REAL},
+      temp_account_invest.sum_interest = #{record.sumInterest,jdbcType=REAL},
+      temp_account_invest.sum_interestfee = #{record.sumInterestfee,jdbcType=REAL},
+      temp_account_invest.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_account_invest.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_account_invest.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_account_invest.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.account.AccountInvest" >
+    update t_account_invest
+    <set >
+      <if test="sumUncollected != null" >
+        sum_uncollected = #{sumUncollected,jdbcType=REAL},
+      </if>
+      <if test="sumReward != null" >
+        sum_reward = #{sumReward,jdbcType=REAL},
+      </if>
+      <if test="sumFine != null" >
+        sum_fine = #{sumFine,jdbcType=REAL},
+      </if>
+      <if test="sumBorrow != null" >
+        sum_borrow = #{sumBorrow,jdbcType=REAL},
+      </if>
+      <if test="sumAdvfee != null" >
+        sum_advfee = #{sumAdvfee,jdbcType=REAL},
+      </if>
+      <if test="sumInterest != null" >
+        sum_interest = #{sumInterest,jdbcType=REAL},
+      </if>
+      <if test="sumInterestfee != null" >
+        sum_interestfee = #{sumInterestfee,jdbcType=REAL},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where invest_id = #{investId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.account.AccountInvest" >
+    update t_account_invest
+    set sum_uncollected = #{sumUncollected,jdbcType=REAL},
+      sum_reward = #{sumReward,jdbcType=REAL},
+      sum_fine = #{sumFine,jdbcType=REAL},
+      sum_borrow = #{sumBorrow,jdbcType=REAL},
+      sum_advfee = #{sumAdvfee,jdbcType=REAL},
+      sum_interest = #{sumInterest,jdbcType=REAL},
+      sum_interestfee = #{sumInterestfee,jdbcType=REAL},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where invest_id = #{investId,jdbcType=VARCHAR}
+  </update>
+</mapper>

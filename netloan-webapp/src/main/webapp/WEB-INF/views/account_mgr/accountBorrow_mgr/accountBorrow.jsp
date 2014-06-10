@@ -59,11 +59,16 @@
 				sortable:true,
 				width:120
 			 },{
-					field:'loanDate',
-					title:'借款时间',
-					sortable:true,
-					width:120
-				 },{
+				field:'loanTenderDisplay',
+				title:'借款标的',
+				sortable:true,
+				width:120
+		     },{
+				field:'loanDate',
+				title:'借款时间',
+				sortable:true,
+				width:120
+		     },{
 				field:'loanPurposeId',
 				title:'借款目的',
 				sortable:true,
@@ -90,28 +95,6 @@
 		paccountBorrowList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
 		toolbar:'#accountBorrowDataGrid_toolbar',
-		onCheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.account_mgr.accountBorrow_mgr.accountBorrow.param,this).check();
-		},
-		onCheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.account_mgr.accountBorrow_mgr.accountBorrow.param,this).check();
-		},
-		onUncheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.account_mgr.accountBorrow_mgr.accountBorrow.param,this).unCheck();
-		},
-		onUncheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.account_mgr.accountBorrow_mgr.accountBorrow.param,this).unCheck();
-		},
-		onSelect:function(rowIndex, rowData){//选择行事件触发
-			action_controller(glacier.account_mgr.accountBorrow_mgr.accountBorrow.param,this).select();
-		},
-		onUnselectAll:function(rows){
-			action_controller(glacier.account_mgr.accountBorrow_mgr.accountBorrow.param,this).unSelect();
-		},
-		onLoadSuccess:function(index, record){//加载数据成功触发事件
-			$(this).datagrid('clearSelections');
-			$(this).datagrid('clearChecked');
-		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
 				title: rowData.loanCode,
@@ -124,43 +107,56 @@
 			});
 		}
 	});
-	
-	//借款状态下拉项的值
-	 $('#accountBorrowSearchForm_loanTenderDisplay').combobox({  
-		valueField : 'value',
-		height:18,
-		width:80,
-		textField : 'label',
-		panelHeight : 'auto',
-		editable : false,
-		//required:true,
-		data : fields.loanTenderDisplay
-	});
-	
-	
+ 
 	//点击导出按钮触发方法
 	glacier.account_mgr.accountBorrow_mgr.accountBorrow.expAccountBorrow = function(){
-		var rows = glacier.account_mgr.accountBorrow_mgr.accountBorrow.accountBorrowDataGrid.datagrid("getChecked");
-		var loanIds = [];//导出的id标识
-		for(var i=0;i<rows.length;i++){
-			loanIds.push(rows[i].loanId);
-		 }
-		if(loanIds.length > 0){
-			$.messager.confirm('请确认', '是否要导出该记录', function(r){
-				if (r){
-					var rows = $('#accountBorrowDataGrid').datagrid('getRows');
-					var oXL =new Microsoft.Office.Interop.Excel.Application(); //创建AX对象excel
- 					var oWB = oXL.Workbooks.Add(); //获取workbook对象
- 					var oSheet = oWB.ActiveSheet; //激活当前sheet
- 					for (var i = 0; i < rows.length; i++) {
- 						oSheet.Cells(i + 1, 1).value = rows[i].O_NAME;
- 					}
- 					oXL.Visible = true; //设置excel可见属性
-				 }
-			});
-		}
+		location.href=ctx+"/do/accountBorrow/exp.json";
 	};
 	
+	
+	//用于combogrid的标的信息绑定
+	$('#accountBorrowSearchForm_loanTenderDisplay').combogrid({
+		panelWidth:450,
+		fit:true,//控件自动resize占满窗口大小
+		//iconCls:'icon-save',//图标样式
+		border:false,//是否存在边框
+		fitColumns:true,//自动填充行
+		nowrap: true,//禁止单元格中的文字自动换行
+		autoRowHeight: false,//禁止设置自动行高以适应内容
+		striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
+		singleSelect:true,//限制单选
+		checkOnSelect:false,//选择复选框的时候选择该行
+		selectOnCheck:false,//选择的时候复选框打勾
+	    idField:'loanTenderId',    
+	    textField:'loanrTenderName',    
+	    url: ctx + '/do/loanTender/list.json',
+	    sortName: 'loanrTenderName',//排序字段名称
+		sortOrder: 'ASC',//升序还是降序
+		remoteSort: true,//开启远程排序，默认为false
+	    columns : [ [ 
+   		{
+   			field:'loanTenderId',
+   			title:'ID',
+   			checkbox:true
+   		},{
+   			field : 'loanrTenderName',
+   			title : '标的类型',
+   			width : 80,
+   			sortable:true
+   		},{
+			field:'description',
+			title:'描述',
+			width:120,
+			sortable:true
+		 }]],
+   		pagination : true,//True 就会在 datagrid 的底部显示分页栏
+   		pageSize : 10,//注意，pageSize必须在pageList存在
+   		pageList : [2,10,50,100],//从session中获取
+   		rownumbers : true,//True 就会显示行号的列
+		loadMsg : '数据加载中....',
+		mode : 'remote',
+		delay : 200
+	});
 	
 </script>
 
@@ -180,7 +176,7 @@
 					<td>借款标题：</td>
 					<td><input id="accountBorrowSearchForm_loanTitle" name="loanTitle" style="width: 60px;" class="spinner"/></td>
 					<td>借款类型：</td>
-					<td><input id="accountBorrowSearchForm_loanTenderDisplay" name="loanTenderDisplay" style="width: 60px;" class="spinner"/></td>
+					<td><input id="accountBorrowSearchForm_loanTenderDisplay" name="borrowTypes" style="width: 60px;" class="spinner"/></td>
 					<td>借款时间：</td>
 					<td>
 						<input name="loanStartDate" class="easyui-datetimebox" style="width: 120px;" />

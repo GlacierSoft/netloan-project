@@ -31,22 +31,22 @@ import com.glacier.netloan.service.member.MemberService;
 
 
 @Controller
-@RequestMapping("/accountLogin")
-public class AccountLoginController extends AbstractController {
+@RequestMapping("/accountInvest")
+public class AccountInvestController extends AbstractController {
       
 	@Autowired
 	private AccountLoginService accountLoginService;
 	  
 	 //会员登入统计信息页
 	 @RequestMapping(value="/index.htm")
-	 public Object intoAccountLogin(HttpServletRequest request,HttpServletResponse response){
-		ModelAndView mode=new ModelAndView("account_mgr/accountLogin_mgr/accountLogin");
+	 public Object intoAccountInvest(HttpServletRequest request,HttpServletResponse response){
+		ModelAndView mode=new ModelAndView("account_mgr/accountInvest_mgr/accountInvest");
 	    return mode ;	
 	}
 	 
 	   //会员登入统计详情页
 	    @RequestMapping(value = "/intoDetail.htm")
-	    private Object intoAccountLoginDetailPage(String memberId) {
+	    private Object intoAccountInvestDetailPage(String memberId) {
 	        ModelAndView mav = new ModelAndView("account_mgr/accountLogin_mgr/accountLogin_detail");
 	        if(StringUtils.isNotBlank(memberId)){
 	            mav.addObject("memberData", accountLoginService.getMember(memberId));
@@ -78,8 +78,4 @@ public class AccountLoginController extends AbstractController {
 	     }
 	    
 }	    
-	    
-
-	    
-	    
-	    
+	   

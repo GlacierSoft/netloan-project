@@ -49,6 +49,13 @@
 			<artifactId>netloan-module</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
+		<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi</artifactId>
+				<version>3.10-FINAL</version>
+       </dependency>
+		
 
 	</dependencies>
 

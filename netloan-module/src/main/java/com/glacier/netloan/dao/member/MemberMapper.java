@@ -4,6 +4,7 @@ import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface MemberMapper {
     int countByExample(MemberExample example);
@@ -27,4 +28,7 @@ public interface MemberMapper {
     int updateByPrimaryKeySelective(Member record);
 
     int updateByPrimaryKey(Member record);
+    
+    //@Select("SELECT * FROM t_b_sale _sale WHERE _sale.projectId = #{projectId}")
+    //List<String> selectSalerByProId(String memberId);
 }

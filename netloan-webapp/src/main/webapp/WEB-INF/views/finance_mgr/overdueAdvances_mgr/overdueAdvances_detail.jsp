@@ -53,4 +53,4 @@
     $('#overdueAdvances_mgr_overdueAdvancesdetail_auditState').val(renderGridValue('${overdueAdvancesData.auditState}',fields.auditState));
 </script>
 	
-</script>
+
