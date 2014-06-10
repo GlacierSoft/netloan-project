@@ -1,12 +1,19 @@
 package com.glacier.netloan.web.controller.borrow;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.borrow.RepaymentNotesDetailService;
 import com.glacier.netloan.service.finance.FinanceMemberService;
@@ -37,5 +44,18 @@ public class RepaymentNotesDetailController extends AbstractController{
         mav.addObject("financeMemberDate",financeMemberService.getFinanceMemberByMemberId(memberId));
         mav.addObject("repaymentNotesDetailsData",repaymentNotesDetailService.getRepaymentNotesDetail(repayNotesDetailId));
         return mav;
+    }
+    
+    // 前台页面会员进行还款操作
+    @RequestMapping(value = "/repayment.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object repaymentRepaymentNotesDetail(String repayNotesDetailId, Member member, String captcha, HttpServletRequest request, HttpSession session) {
+        // 核对验证码
+        String isCaptcha = (String) request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+        boolean captchaBoolean = true;
+        if (StringUtils.isBlank(captcha) || !isCaptcha.equalsIgnoreCase(captcha)) {
+            captchaBoolean = false;
+        }
+        return repaymentNotesDetailService.repaymentRepaymentNotesDetail(repayNotesDetailId, member, captchaBoolean);
     }
 }

@@ -29,6 +29,7 @@ import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
 import com.glacier.netloan.entity.member.MemberCreditIntegral;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
 import com.glacier.netloan.service.basicdatas.ParameterQuestionService;
+import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.finance.FinanceBankCardService;
 import com.glacier.netloan.service.member.MemberApplyAmountService;
 import com.glacier.netloan.service.member.MemberAuthService;
@@ -43,6 +44,9 @@ import com.glacier.netloan.service.member.MemberService;
 @RequestMapping(value = "member")
 public class MemberController extends AbstractController{
 
+    @Autowired
+    private BorrowingLoanService borrowingLoanService;
+    
 	@Autowired
 	private MemberService memberService;
 	
@@ -75,7 +79,7 @@ public class MemberController extends AbstractController{
 	
 	// 进入会员个人主页展示页面
     @RequestMapping(value = "/index.htm")
-    private Object intoIndexPmember(HttpServletRequest request,HttpSession session) {
+    private Object intoIndexMember(String memeberId, HttpServletRequest request,HttpSession session) {
         ModelAndView mav = new ModelAndView("member_mgr/member");
         Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
         Member pricipalMember = (Member) pricipalSubject.getPrincipal();
@@ -93,6 +97,10 @@ public class MemberController extends AbstractController{
     	request.setAttribute("totalIntegral", memberIntegralService.totalIntegral());//获取会员积分总分
     	//重新获取会员信息通知条数
     	loginTotalMessageNotic(member.getMemberId(),session);
+    	
+    	//借款条数
+        mav.addObject("borrowingLoanNumFirstAudit", borrowingLoanService.getBorrowingLoanNumByLoanStateAndMemberId("FirstAudit", memeberId));//查询初审中的借款记录条数
+        mav.addObject("borrowingLoanNumSecondAuditor", borrowingLoanService.getBorrowingLoanNumByLoanStateAndMemberId("SecondAuditors", memeberId));//查询复审中的借款记录条数
         return mav;
     }
     /**

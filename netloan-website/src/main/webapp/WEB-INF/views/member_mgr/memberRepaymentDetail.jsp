@@ -146,7 +146,7 @@
 					            <td>${repaymentNotesDetails.actualPayMoney}</td>
 					            <td><span id="repaymentNotesDetails_repayState${status.index}"></span>
 						        		<script type="text/javascript">
-								       		$('#repaymentNotesDetails_repayState'+${status.index}).html(renderGridValue('${repaymentNotesDetails.repayState}',fields.repayState));
+								       		$('#repaymentNotesDetails_repayState'+${status.index}).html(renderGridValue('${repaymentNotesDetails.repayState}',fields.repayDetailState));
 								    	</script>
 								</td>
 					            <td><a href="${ctx}/repaymentNotesDetail/conductRepayment.htm?&loanId=${borrowingLoan.loanId}&memberId=${currentMember.memberId}&repayNotesDetailId=${repaymentNotesDetails.repayNotesDetailId}">还款</a></td>
