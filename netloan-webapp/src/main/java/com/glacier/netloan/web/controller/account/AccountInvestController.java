@@ -23,7 +23,10 @@ import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.member.MemberQueryDTO;
+import com.glacier.netloan.entity.account.AccountInvest;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.entity.member.MemberStatistics;
+import com.glacier.netloan.service.account.AccountInvestService;
 import com.glacier.netloan.service.account.AccountLoginService;
 import com.glacier.netloan.service.member.MemberService;
 
@@ -35,40 +38,39 @@ import com.glacier.netloan.service.member.MemberService;
 public class AccountInvestController extends AbstractController {
       
 	@Autowired
-	private AccountLoginService accountLoginService;
-	  
-	 //会员登入统计信息页
+	private AccountInvestService accountInvestService;
+	
+	 //投资统计信息页
 	 @RequestMapping(value="/index.htm")
 	 public Object intoAccountInvest(HttpServletRequest request,HttpServletResponse response){
 		ModelAndView mode=new ModelAndView("account_mgr/accountInvest_mgr/accountInvest");
 	    return mode ;	
 	}
 	 
-	   //会员登入统计详情页
+	   //投资统计详情页
 	    @RequestMapping(value = "/intoDetail.htm")
-	    private Object intoAccountInvestDetailPage(String memberId) {
-	        ModelAndView mav = new ModelAndView("account_mgr/accountLogin_mgr/accountLogin_detail");
-	        if(StringUtils.isNotBlank(memberId)){
-	            mav.addObject("memberData", accountLoginService.getMember(memberId));
-	            mav.addObject("memberWorkData", accountLoginService.getMemberWork(memberId));
-	        }
+	    private Object intoAccountInvestDetailPage(String investId) {
+	        ModelAndView mav = new ModelAndView("account_mgr/accountInvest_mgr/accountInvest_detail");
+	        if(StringUtils.isNotBlank(investId)){
+	            mav.addObject("accountInvestData", accountInvestService.getAccountInvest(investId));
+	         }
 	        return mav;
 	    }
 	    
 	    //获取表格结构的所有菜单数据
 	    @RequestMapping(value = "/list.json", method = RequestMethod.POST)
 	    @ResponseBody
-	    private Object listActionAsGridByMenuId(JqPager jqPager, MemberQueryDTO memberQueryDTO, String q) {
-	        return accountLoginService.listAsGrid(jqPager, memberQueryDTO, q);
+	    private Object listActionAsGridByMenuId(JqPager jqPager) {
+	    	return accountInvestService.listAsGrid(jqPager);
 	    }
 	    
 	    
 	    //登录统计信息导出
 	    @RequestMapping(value = "/exp.json")
 	    private void expAccountLogin(JqPager jqPager, MemberQueryDTO memberQueryDTO, String q,HttpServletRequest request,HttpServletResponse response) throws IOException{
-	    	JqGridReturn returnResult=(JqGridReturn) accountLoginService.listAsGrid(jqPager, memberQueryDTO, q);
-	    	List<Member> list=(List<Member>)returnResult.getRows();
-	    	  HSSFWorkbook wb = accountLoginService.export(list);   
+	    	  JqGridReturn returnResult=(JqGridReturn) accountInvestService.listAsGrid(jqPager);
+	    	  List<AccountInvest> list=(List<AccountInvest>)returnResult.getRows();
+	    	  HSSFWorkbook wb = accountInvestService.export(list);   
 	          response.setContentType("application/vnd.ms-excel");    
 	          response.setHeader("Content-disposition", "attachment;filename=MemberInfo.xls");    
 	          OutputStream ouputStream = response.getOutputStream();    
@@ -76,6 +78,10 @@ public class AccountInvestController extends AbstractController {
 	          ouputStream.flush();    
 	          ouputStream.close();    
 	     }
+	    
+	    
+	    
+	    
 	    
 }	    
 	   

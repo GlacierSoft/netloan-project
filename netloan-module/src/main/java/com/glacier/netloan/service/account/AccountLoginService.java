@@ -49,7 +49,7 @@ public class AccountLoginService {
 	  //用户登录统计信息
 	  public Object listAsGrid(JqPager jqPager, MemberQueryDTO memberQueryDTO, String q) {
 	        
-	        JqGridReturn returnResult = new JqGridReturn();
+		  JqGridReturn returnResult = new JqGridReturn();
 	        MemberExample memberExample = new MemberExample();;
 	        
 	        Criteria queryCriteria = memberExample.createCriteria();
@@ -69,8 +69,14 @@ public class AccountLoginService {
 	        return returnResult;// 返回ExtGrid表
 	    }
 	  
+	  public Object getMemberWork(String memberId) {
+	    	MemberWork memberWork = memberWorkMapper.selectByPrimaryKey(memberId);
+	        return memberWork;
+	    } 
+	  
+	  
 	   //获取用户登录对象
-	   public Object getMember(String memberId) {
+	    public Object getMember(String memberId) {
 	    	Member member = memberMapper.selectByPrimaryKey(memberId);
 	    	
 	    	//查询基础信用积分的所有数据
@@ -86,20 +92,11 @@ public class AccountLoginService {
 	        return member;
 	    }
 	   
-	    public Object getMemberWork(String memberId) {
-	    	MemberWork memberWork = memberWorkMapper.selectByPrimaryKey(memberId);
-	        return memberWork;
-	    }
-	   
-	   
 	    String[] excelHeader = {"会员名称","真实姓名","身份证号","居住地址","联系方式","电子邮件","用户等级","信用积分","最后登陆IP","登入次数"};	      
 	    int[] excelHeaderWidth = {80, 80, 200,150, 150,200,80,80,150,80};  
 	    
-	    //时间转化
-	    SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
-	    
-	    //导出Excel
-	    public HSSFWorkbook export(List<Member> list) {    
+	     //登录统计信息导出
+	     public HSSFWorkbook export(List<Member> list) {    
 	        HSSFWorkbook wb = new HSSFWorkbook();    
 	        HSSFSheet sheet = wb.createSheet("用户登录报表统计");    
 	        HSSFRow row = sheet.createRow((int) 0);    

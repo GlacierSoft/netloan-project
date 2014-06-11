@@ -4,11 +4,11 @@
 
 <script type="text/javascript">
 
-	$.util.namespace('glacier.account_mgr.accountTender_mgr.accountTender');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+	$.util.namespace('glacier.account_mgr.accountInvest_mgr.accountInvest');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
 	//定义toolbar的操作，对操作进行控制
-	glacier.account_mgr.accountTender_mgr.accountTender.param = {
-			toolbarId : 'accountTenderDataGrid_toolbar',
+	glacier.account_mgr.accountInvest_mgr.accountInvest.param = {
+			toolbarId : 'accountInvestDataGrid_toolbar',
 			actions : {
 				edit:{flag:'edit',controlType:'single'},
 				del:{flag:'del',controlType:'multiple'},
@@ -17,7 +17,7 @@
 	};
 	
 	//初始化客服DataGrid
-	glacier.account_mgr.accountTender_mgr.accountTender.accountTenderDataGrid = $('#accountTenderDataGrid').datagrid({
+	glacier.account_mgr.accountInvest_mgr.accountInvest.accountInvestDataGrid = $('#accountInvestDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
@@ -28,98 +28,85 @@
 		singleSelect:true,//限制单选
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
-		url: ctx + '/do/accountTender/list.json',
+		url: ctx + '/do/accountInvest/list.json',
 		sortName: 'createTime',//排序字段名称
 		sortOrder: 'ASC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
-		idField:'tenderNotesId',
+		idField:'investId',
 		columns:[[
 			{
-				field:'tenderNotesId',
+				field:'investId',
 				title:'ID',
 				checkbox:true
 			},{
-				field:'memberDisplay',
-				title:'投标用户',
-				width:120,
+				field:'sumUncollected',
+				title:'投资成功待收金额',
+				width:350,
 				sortable:true
 			},{
-				field:'creditIntegral',
-				title:'用户积分',
-				width:120,
+				field:'sumReward',
+				title:'投资奖励金额',
+				width:300,
 				sort:true
 			},{
-				field:'tenderMoney',
-				title:'投标金额',
-				width:120,
+				field:'sumFine',
+				title:'借款人逾期罚金金额',
+				width:400,
 				sortable:true
 			},{
-				field:'subTotal',
-				title:'认购份数',
-				width:120,
-				sortable:true
-				
-			},{
-				field:'loanTitle',
-				title:'借款标题',
-				width:200,
-				sortable:true
-			},{
-				field:'loanTenderDisplay',
-				title:'借款类型',
-				width:150,
+				field:'sumBorrow',
+				title:'借款成功金额',
+				width:300,
 				sortable:true
 				
 			},{
-				field:'loanMemberDisplay',
-				title:'借款用户',
-				width:180,
+				field:'sumAdvfee',
+				title:'借款管理费总额',
+				width:300,
 				sortable:true
 			},{
-				field:'loanState',
-				title:'借款状态',
-				sortable:true,
-				width:150,
-				formatter: function(value,row,index){//借款状态字段的数据格式化
-					return renderGridValue(value,fields.loanState);
-				}
+				field:'sumInterest',
+				title:'借款利息总额',
+				width:300,
+				sortable:true
+				
+			},{
+				field:'sumInterestfee',
+				title:'借款逾期罚金总额',
+				width:400,
+				sortable:true
 			},{
 				field:'creater',
 				title:'创建人',
-				width:200,
-				sortable:true
+				sortable:true,
+				width:150
 			},{
 				field:'createTime',
-				title:'入录时间',
-				width:320,
+				title:'创建时间',
+				width:200,
 				sortable:true
 			},{
 				field:'updater',
 				title:'更新人',
 				width:150,
-			    sortable:true
+				sortable:true
 			},{
 				field:'updateTime',
 				title:'更新时间',
-				width:300,
-			    sortable:true
-			},{
-				field:'remark',
-				title:'备注',
-				width:120,
+				width:200,
 			    sortable:true
 			}]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
 		pmemberSize : 10,//注意，pmemberSize必须在pmemberList存在
 		pmemberList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#accountTenderDataGrid_toolbar',
+		toolbar:'#accountInvestDataGrid_toolbar',
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
 				title:"投标详情",
-				href : ctx + '/do/accountTender/intoDetail.htm?tenderNotesId='+rowData.tenderNotesId,//从controller请求jsp页面进行渲染
+				href : ctx + '/do/accountInvest/intoDetail.htm?investId='+rowData.investId,//从controller请求jsp页面进行渲染
 				width : 600,
-				height : 450,
+				height : 300,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -128,41 +115,58 @@
 	});
 	
 	//点击导出按钮触发方法
-	glacier.account_mgr.accountTender_mgr.accountTender.expAccountTender= function(){
-		location.href=ctx+"/do/accountTender/exp.json";
+	glacier.account_mgr.accountInvest_mgr.accountInvest.expAccountInvest= function(){
+		location.href=ctx+"/do/accountInvest/exp.json";
 	};
+	
+	
+	//查询验证
+	$("#invest_today").change(function(){
+		alert("==invest_today==");
+	});
+	
+	$("#invest_month").change(function(){
+		alert("==invest_month==");
+	});
+	
+	$("#invest_year").change(function(){
+		alert("==invest_year==");
+	});
+	
+	$("#invest_other").change(function(){
+	   $("#investStartTime").attr("disabled",false); 
+	   $("#investEndTime").attr("disabled",false);
+	});
 	
 </script>
 
 <!-- 所有客服列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
-	<div id="accountTenderGridPanel" data-options="region:'center',border:true" >
-		<table id="accountTenderDataGrid">
-			<glacierui:toolbar panelEnName="AccountTenderList" toolbarId="accountTenderDataGrid_toolbar" menuEnName="accountTender"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+	<div id="accountInvestGridPanel" data-options="region:'center',border:true" >
+		<table id="accountInvestDataGrid">
+			<glacierui:toolbar panelEnName="AccountInvestList" toolbarId="accountInvestDataGrid_toolbar" menuEnName="accountInvest"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 	<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
-		<form id="tenderSearchForm">
+		<form id="accountInvestSearchForm">
 			<table>
 				<tr>
-					<td>会员名称：</td>
-					<td><input name="memberName" style="width: 80px;" class="spinner"/></td>
-					<td>会员真实姓名：</td>
-					<td><input name="memberRealName" style="width: 80px;" class="spinner"/></td>
-					<td>最后登入时间段：</td>
+					<td><input type="radio" id="invest_today" name="invest_search" Class="spinner"/></td>
+					<td>当日</td>
+					<td><input type="radio" id="invest_month" name="invest_search"  class="spinner"/></td>
+					<td>当月</td>
+					<td><input type="radio" id="invest_year" name="invest_search"  class="spinner"/></td>
+					<td>当年</td>
+					<td><input type="radio" id="invest_other" name="invest_search"  class="spinner"/></td>
+					<td>其它时间段：</td>
 					<td>
-						<input name="lastStartLoginTime" class="easyui-datetimebox" style="width: 100px;" />
+						<input id="investStartTime" name="lastStartLoginTime" class="easyui-datetimebox" style="width: 100px;"  disabled="true" />
 						-
-						<input name="lastEndLoginTime" class="easyui-datetimebox" style="width: 100px;" />
+						<input id="investEndTime" name="lastEndLoginTime" class="easyui-datetimebox" style="width: 100px;"  disabled="true"/>
 					</td>
-					<td>登入次数：</td>
 					<td>
-					     <input  name="loginStartCount" style="width: 80px;" class="spinner" />
-					      -
-					      <input  name="loginEndCount" style="width: 80px;" class="spinner"/>
-					<td>
-						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.account_mgr.accountTender_mgr.accountTender.accountTenderDataGrid.datagrid('load',glacier.serializeObject($('#tenderSearchForm')));">查询</a>
-						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#tenderSearchForm input').val('');glacier.account_mgr.accountTender_mgr.accountTender.accountTenderDataGrid.datagrid('load',{});">重置</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.account_mgr.accountLogin_mgr.accountLogin.accountLoginDataGrid.datagrid('load',glacier.serializeObject($('#memberSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#memberSearchForm input').val('');glacier.account_mgr.accountLogin_mgr.accountLogin.accountLoginDataGrid.datagrid('load',{});">重置</a>
 					</td>
 				</tr>
 			</table>

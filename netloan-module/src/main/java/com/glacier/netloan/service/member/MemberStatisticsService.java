@@ -20,6 +20,8 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.member.MemberStatisticsMapper;
 import com.glacier.netloan.dao.system.UserMapper;
+import com.glacier.netloan.entity.basicdatas.ParameterCredit;
+import com.glacier.netloan.entity.basicdatas.ParameterCreditExample;
 import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.entity.member.MemberStatisticsExample;
 import com.glacier.netloan.entity.system.User;
@@ -42,6 +44,17 @@ public class MemberStatisticsService {
 	@Autowired
 	private UserMapper userMapper;
 
+	
+	  public Object listMemberStatistics(){
+		    MemberStatisticsExample memberStatisticsExample = new MemberStatisticsExample();
+	    	JqPager pager = new JqPager();
+	    	pager.setSort("createTime");
+	    	pager.setOrder("DESC");
+	    	memberStatisticsExample.setOrderByClause(pager.getOrderBy("temp_member_statistics_"));
+	    	List<MemberStatistics>  memberStatisticss = statisticsMapper.selectByExample(memberStatisticsExample); // 查询所有会员积分列表
+	    	return memberStatisticss;
+	     }
+	    
 	/**
 	 * @Title: getStatistics
 	 * @Description: TODO(根据会员财务统计Id获取会员财务统计信息) 
@@ -126,4 +139,5 @@ public class MemberStatisticsService {
         }
         return returnResult;
     }
+    
 }

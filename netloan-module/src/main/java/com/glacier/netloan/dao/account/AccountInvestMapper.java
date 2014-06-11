@@ -27,4 +27,7 @@ public interface AccountInvestMapper {
     int updateByPrimaryKeySelective(AccountInvest record);
 
     int updateByPrimaryKey(AccountInvest record);
+    
+    
+    
 }
