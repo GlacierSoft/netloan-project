@@ -680,7 +680,22 @@ public class BorrowingLoanService {
     public Object getBorrowingLoanNumByLoanStateAndMemberId(String loanState, String MemberId) {
         BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
         borrowingLoanExample.createCriteria().andLoanStateEqualTo(loanState).andMemberIdEqualTo(MemberId);
-        int borrowloanNum = borrowingLoanMapper.countByExample(borrowingLoanExample); // 查询总页数
+        int borrowloanNum = borrowingLoanMapper.countByExample(borrowingLoanExample); // 查询总条数
         return borrowloanNum;
+    }
+    
+    /**
+     * @Title: getBorrowingLoanNumByMemberId 
+     * @Description: TODO(查询该会员的借款记录条数) 
+     * @param  @param MemberId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getBorrowingLoanNumByMemberId(String MemberId) {
+        BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
+        borrowingLoanExample.createCriteria().andMemberIdEqualTo(MemberId);
+        int borrowingLoanNum = borrowingLoanMapper.countByExample(borrowingLoanExample); // 查询总条数
+        return borrowingLoanNum;
     }
 }

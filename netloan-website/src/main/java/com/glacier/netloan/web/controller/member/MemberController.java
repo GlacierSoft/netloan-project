@@ -30,6 +30,7 @@ import com.glacier.netloan.entity.member.MemberCreditIntegral;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
 import com.glacier.netloan.service.basicdatas.ParameterQuestionService;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
+import com.glacier.netloan.service.borrow.TenderNotesService;
 import com.glacier.netloan.service.finance.FinanceBankCardService;
 import com.glacier.netloan.service.member.MemberApplyAmountService;
 import com.glacier.netloan.service.member.MemberAuthService;
@@ -46,6 +47,9 @@ public class MemberController extends AbstractController{
 
     @Autowired
     private BorrowingLoanService borrowingLoanService;
+    
+    @Autowired
+    private TenderNotesService tenderNotesService;
     
 	@Autowired
 	private MemberService memberService;
@@ -97,6 +101,10 @@ public class MemberController extends AbstractController{
     	request.setAttribute("totalIntegral", memberIntegralService.totalIntegral());//获取会员积分总分
     	//重新获取会员信息通知条数
     	loginTotalMessageNotic(member.getMemberId(),session);
+    	
+    	//查询该会员的借款条数和投资条数
+    	mav.addObject("borrowingLoanNum", borrowingLoanService.getBorrowingLoanNumByMemberId(pricipalMember.getMemberId()));//查询该会员的借款记录条数
+    	mav.addObject("tenderNotesNum", tenderNotesService.getTenderNotesNumByMemberId(pricipalMember.getMemberId()));//查询该会员的投资记录条数
     	
     	//查询该会员不同状态下的借款条数
         mav.addObject("borrowingLoanNumFirstAudit", borrowingLoanService.getBorrowingLoanNumByLoanStateAndMemberId("firstAudit", pricipalMember.getMemberId()));//查询初审中的借款记录条数

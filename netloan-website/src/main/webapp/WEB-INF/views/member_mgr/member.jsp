@@ -122,7 +122,7 @@
 			            </tr>
 			             <tr>
 			              <td>个人统计:</td>
-			              <td>61.145.244.204</td>
+			              <td>${borrowingLoanNum}条借款记录，${tenderNotesNum}条投标记录</td>
 			              <td></td>
 			              <td></td>
 			            </tr>
