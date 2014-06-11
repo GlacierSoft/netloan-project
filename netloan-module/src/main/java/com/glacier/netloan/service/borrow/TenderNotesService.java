@@ -338,4 +338,19 @@ public class TenderNotesService {
         }
         return returnResult;
     }
+    
+    /**
+     * @Title: getTenderNotesNumByMemberId 
+     * @Description: TODO(查询该会员的投资记录条数) 
+     * @param  @param MemberId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getTenderNotesNumByMemberId(String MemberId) {
+        TenderNotesExample tenderNotesExample = new TenderNotesExample();
+        tenderNotesExample.createCriteria().andMemberIdEqualTo(MemberId);
+        int tenderNotesNum = tenderNotesMapper.countByExample(tenderNotesExample);
+        return tenderNotesNum;
+    }
 }
