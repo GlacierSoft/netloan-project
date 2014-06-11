@@ -616,4 +616,95 @@ public class MemberAuthService {
         int workAuthNum = memberAuthMapper.countByExample(memberAuthExample);
         return workAuthNum;
     }
+    
+    /**
+     * @Title: getAuthNumByStateAndMemberId 
+     * @Description: TODO(查询该会员不同状态下的认证条数) 
+     * @param  @param State
+     * @param  @param MemberId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getAuthNumByStateAndMemberId(String State, String MemberId) {
+        int authNum = 0;
+        if (null != State && StringUtils.isNotBlank(State)) {
+            if (State.equals("noapply")) {
+                int authNumNoapply = getAuthNumByState("noapply",MemberId);
+                return authNumNoapply;
+            }
+            if (State.equals("authstr")) {
+                int authNumAuthstr = getAuthNumByState("authstr",MemberId);
+                return authNumAuthstr;
+            }
+            if (State.equals("pass")) {
+                int authNumPass = getAuthNumByState("pass",MemberId);
+                return authNumPass;
+            }
+            if (State.equals("failure")) {
+                int authNumFailure = getAuthNumByState("failure",MemberId);
+                return authNumFailure;
+            }
+        }   
+        return authNum;
+    }
+    
+    /**
+     * @Title: getAuthNumByState 
+     * @Description: TODO(查询该会员下的认证记录不同状态的认证条数) 
+     * @param  @param State
+     * @param  @param MemberId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public int getAuthNumByState (String State, String MemberId) {
+        int authNum = 0;
+        if (null != State && StringUtils.isNotBlank(State)) {    
+            MemberAuthExample memberAuthExampleInfo = new MemberAuthExample();
+            memberAuthExampleInfo.createCriteria().andMemberIdEqualTo(MemberId).andInfoAuthEqualTo(State);
+            authNum += memberAuthMapper.countByExample(memberAuthExampleInfo);
+        }
+        if (null != State && StringUtils.isNotBlank(State)) {
+            MemberAuthExample memberAuthExampleVip = new MemberAuthExample();
+            memberAuthExampleVip.createCriteria().andMemberIdEqualTo(MemberId).andVipAuthEqualTo(State);
+            authNum += memberAuthMapper.countByExample(memberAuthExampleVip);
+        }
+        if (null != State && StringUtils.isNotBlank(State)) {
+            MemberAuthExample memberAuthExampleEmail = new MemberAuthExample();
+            memberAuthExampleEmail.createCriteria().andMemberIdEqualTo(MemberId).andEmailAuthEqualTo(State);
+            authNum += memberAuthMapper.countByExample(memberAuthExampleEmail);
+        }
+        if (null != State && StringUtils.isNotBlank(State)) {
+            MemberAuthExample memberAuthExampleMobile = new MemberAuthExample();
+            memberAuthExampleMobile.createCriteria().andMemberIdEqualTo(MemberId).andMobileAuthEqualTo(State);
+            authNum += memberAuthMapper.countByExample(memberAuthExampleMobile);
+        }
+        if (null != State && StringUtils.isNotBlank(State)) {
+            MemberAuthExample memberAuthExampleCredit = new MemberAuthExample();
+            memberAuthExampleCredit.createCriteria().andMemberIdEqualTo(MemberId).andCreditAuthEqualTo(State);
+            authNum += memberAuthMapper.countByExample(memberAuthExampleCredit);
+        }
+        if (null != State && StringUtils.isNotBlank(State)) {
+            MemberAuthExample memberAuthExampleCompany = new MemberAuthExample();
+            memberAuthExampleCompany.createCriteria().andMemberIdEqualTo(MemberId).andCompanyAuthEqualTo(State);
+            authNum += memberAuthMapper.countByExample(memberAuthExampleCompany);
+        }
+        if (null != State && StringUtils.isNotBlank(State)) {
+            MemberAuthExample memberAuthExampleRealName = new MemberAuthExample();
+            memberAuthExampleRealName.createCriteria().andMemberIdEqualTo(MemberId).andRealNameAuthEqualTo(State);
+            authNum += memberAuthMapper.countByExample(memberAuthExampleRealName);
+        }
+        if (null != State && StringUtils.isNotBlank(State)) {
+            MemberAuthExample memberAuthExampleIdCard = new MemberAuthExample();
+            memberAuthExampleIdCard.createCriteria().andMemberIdEqualTo(MemberId).andIdCardAuthEqualTo(State);
+            authNum += memberAuthMapper.countByExample(memberAuthExampleIdCard);
+        }
+        if (null != State && StringUtils.isNotBlank(State)) {
+            MemberAuthExample memberAuthExampleWorkAuth = new MemberAuthExample();
+            memberAuthExampleWorkAuth.createCriteria().andMemberIdEqualTo(MemberId).andWorkAuthEqualTo(State);
+            authNum += memberAuthMapper.countByExample(memberAuthExampleWorkAuth);
+        }
+        return authNum;
+    }
 }

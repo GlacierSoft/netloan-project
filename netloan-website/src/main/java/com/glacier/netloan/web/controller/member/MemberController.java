@@ -79,7 +79,7 @@ public class MemberController extends AbstractController{
 	
 	// 进入会员个人主页展示页面
     @RequestMapping(value = "/index.htm")
-    private Object intoIndexMember(String memeberId, HttpServletRequest request,HttpSession session) {
+    private Object intoIndexMember(HttpServletRequest request,HttpSession session) {
         ModelAndView mav = new ModelAndView("member_mgr/member");
         Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
         Member pricipalMember = (Member) pricipalSubject.getPrincipal();
@@ -98,9 +98,18 @@ public class MemberController extends AbstractController{
     	//重新获取会员信息通知条数
     	loginTotalMessageNotic(member.getMemberId(),session);
     	
-    	//借款条数
-        mav.addObject("borrowingLoanNumFirstAudit", borrowingLoanService.getBorrowingLoanNumByLoanStateAndMemberId("FirstAudit", memeberId));//查询初审中的借款记录条数
-        mav.addObject("borrowingLoanNumSecondAuditor", borrowingLoanService.getBorrowingLoanNumByLoanStateAndMemberId("SecondAuditors", memeberId));//查询复审中的借款记录条数
+    	//查询该会员不同状态下的借款条数
+        mav.addObject("borrowingLoanNumFirstAudit", borrowingLoanService.getBorrowingLoanNumByLoanStateAndMemberId("firstAudit", pricipalMember.getMemberId()));//查询初审中的借款记录条数
+        mav.addObject("borrowingLoanNumSecondAuditor", borrowingLoanService.getBorrowingLoanNumByLoanStateAndMemberId("secondAuditors", pricipalMember.getMemberId()));//查询复审中的借款记录条数
+        mav.addObject("borrowingLoanNumTendering", borrowingLoanService.getBorrowingLoanNumByLoanStateAndMemberId("tendering", pricipalMember.getMemberId()));//查询初审中的借款记录条数
+        mav.addObject("borrowingLoanNumRepaymenting", borrowingLoanService.getBorrowingLoanNumByLoanStateAndMemberId("repaymenting", pricipalMember.getMemberId()));//查询复审中的借款记录条数
+        mav.addObject("borrowingLoanNumCompleted", borrowingLoanService.getBorrowingLoanNumByLoanStateAndMemberId("completed", pricipalMember.getMemberId()));//查询初审中的借款记录条数
+        
+        //查询该会员不同状态下的认证条数
+        mav.addObject("authNumNoapply", memberAuthService.getAuthNumByStateAndMemberId("noapply", pricipalMember.getMemberId()));//查询会员未申请的认证数
+        mav.addObject("authNumAuthstr", memberAuthService.getAuthNumByStateAndMemberId("authstr", pricipalMember.getMemberId()));//查询会员审核中的认证数
+        mav.addObject("authNumPass", memberAuthService.getAuthNumByStateAndMemberId("pass", pricipalMember.getMemberId()));//查询会员审核成功的认证数
+        mav.addObject("authNumFailure", memberAuthService.getAuthNumByStateAndMemberId("failure", pricipalMember.getMemberId()));//查询会员申请失败的认证数
         return mav;
     }
     /**
