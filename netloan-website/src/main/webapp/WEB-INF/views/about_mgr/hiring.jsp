@@ -98,7 +98,7 @@
 			            </ul>
 			          </div>
 			          <div>
-			            <p>请发送您的简历至<a href="mailto:hr@renrendai.com" target="_blank">hr@renrendai.com</a>，标题请注明所申请职位。</p>
+			            <p>请发送您的简历至<a href="mailto:hr@glacier.com" target="_blank">hr@glacier.com</a>，标题请注明所申请职位。</p>
 			          </div>
 			          
 				  </div>

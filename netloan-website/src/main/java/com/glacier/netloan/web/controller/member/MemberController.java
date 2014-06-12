@@ -32,6 +32,7 @@ import com.glacier.netloan.service.basicdatas.ParameterQuestionService;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.borrow.TenderNotesService;
 import com.glacier.netloan.service.finance.FinanceBankCardService;
+import com.glacier.netloan.service.finance.FinanceMemberService;
 import com.glacier.netloan.service.member.MemberApplyAmountService;
 import com.glacier.netloan.service.member.MemberAuthService;
 import com.glacier.netloan.service.member.MemberCreditIntegralService;
@@ -39,6 +40,7 @@ import com.glacier.netloan.service.member.MemberIntegralService;
 import com.glacier.netloan.service.member.MemberMessageNoticeService;
 import com.glacier.netloan.service.member.MemberSecretSecurityService;
 import com.glacier.netloan.service.member.MemberService;
+import com.glacier.netloan.service.member.MemberStatisticsService;
 
 
 @Controller
@@ -81,6 +83,12 @@ public class MemberController extends AbstractController{
 	@Autowired
 	private MemberSecretSecurityService memberSecretSecurityService;
 	
+	@Autowired
+	private FinanceMemberService financeMemberService;
+	
+	@Autowired
+	private MemberStatisticsService memberStatisticsService;
+	
 	// 进入会员个人主页展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexMember(HttpServletRequest request,HttpSession session) {
@@ -118,6 +126,10 @@ public class MemberController extends AbstractController{
         mav.addObject("authNumAuthstr", memberAuthService.getAuthNumByStateAndMemberId("authstr", pricipalMember.getMemberId()));//查询会员审核中的认证数
         mav.addObject("authNumPass", memberAuthService.getAuthNumByStateAndMemberId("pass", pricipalMember.getMemberId()));//查询会员审核成功的认证数
         mav.addObject("authNumFailure", memberAuthService.getAuthNumByStateAndMemberId("failure", pricipalMember.getMemberId()));//查询会员申请失败的认证数
+        
+        //查询该会员的会员资金记录和会员统计记录
+        mav.addObject("financeMemberData", financeMemberService.getFinanceMemberByMemberId(pricipalMember.getMemberId()));//查询该会员的会员资金记录信息
+        mav.addObject("memberStatisticsData", memberStatisticsService.getStatisticsByMember(pricipalMember.getMemberId()));//查询该会员的会员统计记录信息
         return mav;
     }
     /**

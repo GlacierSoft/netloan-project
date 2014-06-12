@@ -94,17 +94,17 @@
 				          
 				          <div style="width:886px; height:60px; text-align:center; font-size:22px; color:#6d6e71; clear:both">简单3步，开始投资理财</div>
 				         <div style="width:886px; margin:0 auto; clear:both;font-size:16px;">
-				           <div style="width:165px; height:200px; text-align:center; float:left; margin-left:30px;"><a href="/user/register.html"><img src="${pageContext.request.contextPath}/resources/images/newbie/investment003.png"><br><br>第一步 注册账号 </div>
-				           <div style="width:165px; height:200px; text-align:center; float:left; margin-left:160px;"><a href="/member/account/newrecharge.html"><img src="${pageContext.request.contextPath}/resources/images/newbie/investment004.png"><br><br>第二步 账号充值 </div>
-				           <div style="width:165px; height:200px; text-align:center; float:left;  margin-left:150px;"><a href="/invest/index.html?pageNum=20"><img src="${pageContext.request.contextPath}/resources/images/newbie/investment005.png"><br><br>第三步 选择理财产品 </div>
+				           <div style="width:165px; height:200px; text-align:center; float:left; margin-left:30px;"><a href="${ctx}/intoregister.htm"><img src="${pageContext.request.contextPath}/resources/images/newbie/investment003.png"><br><br>第一步 注册账号 </div>
+				           <div style="width:165px; height:200px; text-align:center; float:left; margin-left:160px;"><a href="${ctx}/financeMember/rechargeWithdraw.htm?p=1"><img src="${pageContext.request.contextPath}/resources/images/newbie/investment004.png"><br><br>第二步 账号充值 </div>
+				           <div style="width:165px; height:200px; text-align:center; float:left;  margin-left:150px;"><a href="${ctx}/investment/index.htm?&p=1"><img src="${pageContext.request.contextPath}/resources/images/newbie/investment005.png"><br><br>第三步 选择理财产品 </div>
 				         </div>
-				         <div style="width:886px; height:100px; line-height:100px; text-align:center; clear:both; padding-top:20px;"><a href="/invest/index.html?pageNum=20"><img src="${pageContext.request.contextPath}/resources/images/newbie/investment006.png" /></a></div>
+				         <div style="width:886px; height:100px; line-height:100px; text-align:center; clear:both; padding-top:20px;"><a href="${ctx}/investment/index.htm?&p=1"><img src="${pageContext.request.contextPath}/resources/images/newbie/investment006.png" /></a></div>
 				         <div style="width:886px; height:111px; text-align:right; clear:both"><img src="${pageContext.request.contextPath}/resources/images/newbie/investment_title004.png" /></div>
 				         
 				         <div style="width:886px; height:194px; text-align:left; clear:both">
-				           <div style="width:225px; text-align:center; float:left;"><a href="/invest/index.html?sType=10&sLimit=all&sAccount=all&search=union"><img src="${pageContext.request.contextPath}/resources/images/newbie/borrowing005.png"></a></div>
+				           <div style="width:225px; text-align:center; float:left;"><a href="${ctx}/borrowLiuZhuan.htm"><img src="${pageContext.request.contextPath}/resources/images/newbie/borrowing005.png"></a></div>
 				           <div style="width:660px; text-align:left; float:left; color:#58595b; line-height:30px;">
-				            <div style="width:660px;clear:both; font-size:24px;"><a href="/invest/index.html?sType=10&sLimit=all&sAccount=all&search=union">流转标</a></div>
+				            <div style="width:660px;clear:both; font-size:24px;"><a href="${ctx}/borrowLiuZhuan.htm">流转标</a></div>
 				            <span style="clear:both; font-size:14px; color:#6d6e71;">
 				债权人将手中的债权拆分成小额等份的债权转让给众多投资者,并且承诺到期进行还款的一种理财标种，称为流转标。投资者对于流转标的购买份额最小为100元/份，流转期限由借款人确定,流转的周期不同，回报收益不同；通常流转期限越长，回报收益则越高。
 				            </span>
@@ -113,18 +113,18 @@
 				         
 				         <div style="width:886px; height:194px; text-align:left; clear:both; padding-left:60px;">            
 				            <div style="width:600px; text-align:left; float:left; color:#58595b; line-height:30px;">
-				            <div style="width:600px;clear:both; font-size:24px;"><a href="/invest/index.html?sType=3&sLimit=all&sAccount=all&search=union">抵押标</a></div>
+				            <div style="width:600px;clear:both; font-size:24px;"><a href="${ctx}/borrowDiYa.htm">抵押标</a></div>
 				            <span style="clear:both; font-size:14px; color:#6d6e71;">
 				抵质押借款标显示"抵"字标记，是冰川贷经过线下严格核查借款人资产负债、抵押担保（房产、土地抵押等）、优质资产和股权等有价证券质押担保手续，然后通过平台发布借款需求，冰川贷对借贷方提供连带担保责任的业务品种，确保风险控制在最低水平。
 				            </span>
 				            </div>
-				            <div style="width:225px; text-align:center; float:left;"><a href="/invest/index.html?sType=3&sLimit=all&sAccount=all&search=union"><img src="${pageContext.request.contextPath}/resources/images/newbie/borrowing006.png"></a></div>
+				            <div style="width:225px; text-align:center; float:left;"><a href="${ctx}/borrowDiYa.htm"><img src="${pageContext.request.contextPath}/resources/images/newbie/borrowing006.png"></a></div>
 				         </div>
 				         
 				         <div style="width:886px; height:194px; text-align:left; clear:both">
-				           <div style="width:225px; text-align:center; float:left;"><a href="/invest/index.html?sType=2&sLimit=all&sAccount=all&search=union"><img src="${pageContext.request.contextPath}/resources/images/newbie/borrowing007.png"></a></div>
+				           <div style="width:225px; text-align:center; float:left;"><a href="${ctx}/borrowXinYong.htm"><img src="${pageContext.request.contextPath}/resources/images/newbie/borrowing007.png"></a></div>
 				            <div style="width:660px; text-align:left; float:left; color:#58595b; line-height:30px;">
-				            <div style="width:660px;clear:both; font-size:24px;"><a href="/invest/index.html?sType=2&sLimit=all&sAccount=all&search=union">信用标</a></div>
+				            <div style="width:660px;clear:both; font-size:24px;"><a href="${ctx}/borrowXinYong.htm">信用标</a></div>
 				            <span style="clear:both; font-size:14px; color:#6d6e71;">
 				信用借款标显示"信"字标记，是一种免抵押、免担保、纯信用，最高授信为10万元的小额个人信用借款标,主要面向公务员、医生或教师等机关企事业单位的在编人员。如借款人到期还款出现困难，逾期第30~33天由网站风险金补偿，债权转让为冰川贷网站所有。
 				            </span>
@@ -133,12 +133,12 @@
 				         
 				         <div style="width:886px; height:194px; text-align:left; clear:both; padding-left:60px;">            
 				            <div style="width:600px; text-align:left; float:left; color:#58595b; line-height:30px;">
-				            <div style="width:600px;clear:both; font-size:24px;"><a href="/invest/index.html?sType=4&sLimit=all&sAccount=all&search=union">净值标</a></div>
+				            <div style="width:600px;clear:both; font-size:24px;"><a href="${ctx}/borrowJingZhi.htm">净值标</a></div>
 				            <span style="clear:both; font-size:14px; color:#6d6e71;">
 				净值借款标显示"净"字标记，允许发布的最大金额为净资产，净资产小于200000元不能发标。发布净值借款标用于临时周转，可以循环借款，但用户提现将受到限制。他是一种相对安全系数很高的借款标，因此利率方面可能比较低，用户可以借助此标放大自己的资金杠杆。
 				            </span>
 				            </div>
-				            <div style="width:225px; text-align:center; float:left;"><a href="/invest/index.html?sType=4&sLimit=all&sAccount=all&search=union"><img src="${pageContext.request.contextPath}/resources/images/newbie/borrowing008.png"></a></div>
+				            <div style="width:225px; text-align:center; float:left;"><a href="${ctx}/borrowJingZhi.htm"><img src="${pageContext.request.contextPath}/resources/images/newbie/borrowing008.png"></a></div>
 				         </div>
 				       </div>
 			          

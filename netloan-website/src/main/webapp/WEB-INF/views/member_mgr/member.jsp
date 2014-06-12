@@ -178,55 +178,55 @@
 			        		<td colspan="3"><span><strong>账户总汇：</strong></span></td>
 			        	</tr>
 			        	<tr >
-			        		<td><span>账户总额：￥0.00</span></td>
-			        		<td><span>可用余额：￥0.00</span></td>
-			        		<td><span>冻结金额：￥0.00</span></td>
+			        		<td><span>账户总额：￥${financeMemberData.amount}</span></td>
+			        		<td><span>可用余额：￥${financeMemberData.usableMoney}</span></td>
+			        		<td><span>冻结金额：￥${financeMemberData.frozenMoney}</span></td>
 			        	</tr>
 			        	<tr>
-			        		<td><span>总收益：￥0.00</span></td>
-			        		<td><span>利息收益：￥0.00</span></td>
-			        		<td><span>其他收益：￥0.00</span></td>
+			        		<td><span>投标奖励：￥${memberStatisticsData.tenderAwards}</span></td>
+			        		<td><span>线下冲值奖励：￥${memberStatisticsData.uplineDeltaAwards}</span></td>
+			        		<td><span>续投奖励：￥${memberStatisticsData.continueAwards}</span></td>
 			        	</tr>
 			        	<tr>
 			        		<td colspan="3"><span><strong>投资总汇：</strong></span></td>
 			        	</tr>
 			        	<tr >
-			        		<td><span>已收总额：￥0.00</span></td>
-			        		<td><span>已收本金：￥0.00</span></td>
-			        		<td><span>已收利息：￥0.00</span></td>
+			        		<td><span>已收总额：￥${memberStatisticsData.alreadyIncomeTotal}</span></td>
+<%-- 			        		<td><span>已收本金：￥${memberStatisticsData.}</span></td> --%>
+<%-- 			        		<td><span>已收利息：￥${memberStatisticsData.}</span></td> --%>
 			        	</tr>
 			        	<tr>
-			        		<td><span>待收总额：￥0.00</span></td>
-			        		<td><span>待收本金：￥0.00</span></td>
-			        		<td><span>待收利息：￥0.00</span></td>
+			        		<td><span>待收总额：￥${memberStatisticsData.waitIncomeTotal}</span></td>
+<%-- 			        		<td><span>待收本金：￥${memberStatisticsData.}</span></td> --%>
+<%-- 			        		<td><span>待收利息：￥${memberStatisticsData.}</span></td> --%>
 			        	</tr>
 			        	<tr>
 			        		<td colspan="3"><span><strong>借款总汇：</strong></span></td>
 			        	</tr>
 			        	<tr >
-			        		<td><span>已还总额：￥0.00</span></td>
-			        		<td><span>已还本金：￥0.00</span></td>
-			        		<td><span>已还利息：￥0.00</span></td>
+			        		<td><span>已还总额：￥${memberStatisticsData.alreadyTotal}</span></td>
+<%-- 			        		<td><span>已还本金：￥${memberStatisticsData.}</span></td> --%>
+<%-- 			        		<td><span>已还利息：￥${memberStatisticsData.}</span></td> --%>
 			        	</tr>
 			        	<tr>
-			        		<td><span>待还总额：￥0.00</span></td>
-			        		<td><span>待还本金：￥0.00</span></td>
-			        		<td><span>待还利息：￥0.00</span></td>
+			        		<td><span>待还总额：￥${memberStatisticsData.waitAlsoTotal}</span></td>
+<%-- 			        		<td><span>待还本金：￥${memberStatisticsData.}</span></td> --%>
+<%-- 			        		<td><span>待还利息：￥${memberStatisticsData.}</span></td> --%>
 			        	</tr>
 			        	<tr>
 			        		<td colspan="3"><span><strong>额度总汇：</strong></span></td>
 			        	</tr>
 			        	<tr >
-			        		<td><span>借款总额度：￥500.00</span></td>
-			        		<td><span>可用额度：￥500.00</span></td>
+			        		<td><span>借款总额度：￥${memberStatisticsData.totalBorrowings}</span></td>
+			        		<td><span>可用信用额度：￥${financeMemberData.availableCredit}</span></td>
 			        		<td><span></span></td>
 			        	</tr>
 			        	<tr>
-			        		<td colspan="3"><span><strong>最近还款：</strong></span></td>
+			        		<td colspan="3"><span><strong>最近待收还款：</strong></span></td>
 			        	</tr>
 			        	<tr >
-			        		<td><span>最近还款日：</span></td>
-			        		<td><span>最近还款金额：</span></td>
+			        		<td><span>最近待收还款日：</span></td>
+			        		<td><span>最近待收还款金额：</span></td>
 			        		<td><span></span></td>
 			        	</tr>
 			        </table>

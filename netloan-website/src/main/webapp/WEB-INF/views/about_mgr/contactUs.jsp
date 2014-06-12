@@ -60,10 +60,10 @@
 				            <p>冰川贷当前的服务已覆盖了全国30余个省的2000多个地区，在北京的西直门和五道口均设有办公场所，在上海设有专业的信审服务中心。</p>
 				          </div>
 				          <div>
-				            <h3>北京总部</h3>
+				            <h3>广东总部</h3>
 				            <ul>
-				              <li>地址：北京市海淀区西直门外高梁桥斜街59号中坤大厦7层</li>
-				              <li>邮编：100044</li>
+				              <li>地址：广东省珠海市香洲区唐家湾镇</li>
+				              <li>邮编：515900</li>
 				            </ul>
 				          </div>
 				          <div>
@@ -78,7 +78,7 @@
 				            <ul>
 				              <li>如果您在使用冰川贷(glacier.com)的过程中有任何疑问请您与冰川贷客服人员联系。</li>
 				              <li>客服电话：400-027-8080</li>
-				              <li>在线帮助：<a href="/help/terms.action" target="_blank">www.glacier.com/help/terms.action</a></li>
+				              <li>在线帮助：<a href="http://www.glaciersoft.cn/index.html" target="_blank">http://www.glaciersoft.cn/index.html</a></li>
 				            </ul>
 				          </div>
 				          <div>
