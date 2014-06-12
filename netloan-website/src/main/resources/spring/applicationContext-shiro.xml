@@ -41,6 +41,7 @@
 				/resources/** = anon
 				/logout = logout
 				/member/* = user
+				/financeMember/* = user
 				/borrowingLoan/* = user
 				/messageNotice/* = user
 				/loanReview/* = user
