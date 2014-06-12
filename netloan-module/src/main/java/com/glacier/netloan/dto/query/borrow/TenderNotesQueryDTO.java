@@ -46,7 +46,7 @@ public class TenderNotesQueryDTO extends TenderNotes{
         this.createEndTime = createEndTime;
     }
     
-    public void setQueryCondition(Criteria queryCriteria){
+    public void setQueryCondition(Criteria queryCriteria){ 
 
     	if(null != this.getLoanTitle() && StringUtils.isNotBlank(this.getLoanTitle())){//根据借款标题名称
 	        queryCriteria.andLoanTitleLike("%" + this.getLoanTitle() + "%");

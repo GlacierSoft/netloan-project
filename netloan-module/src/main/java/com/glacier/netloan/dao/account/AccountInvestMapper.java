@@ -4,6 +4,7 @@ import com.glacier.netloan.entity.account.AccountInvest;
 import com.glacier.netloan.entity.account.AccountInvestExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface AccountInvestMapper {
     int countByExample(AccountInvestExample example);
@@ -27,7 +28,5 @@ public interface AccountInvestMapper {
     int updateByPrimaryKeySelective(AccountInvest record);
 
     int updateByPrimaryKey(AccountInvest record);
-    
-    
     
 }

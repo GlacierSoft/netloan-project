@@ -48,8 +48,8 @@ public class AccountTenderService {
 	        }
 
 	        if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息
-	        	tenderNotesExample.setLimitStart((jqPager.getPage() - 1) * jqPager.getRows());
-	        	tenderNotesExample.setLimitEnd(jqPager.getRows());
+	        	 tenderNotesExample.setLimitStart((jqPager.getPage() - 1) * jqPager.getRows());
+	        	 tenderNotesExample.setLimitEnd(jqPager.getRows());
 	        }
 	        if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
 	        	tenderNotesExample.setOrderByClause(jqPager.getOrderBy("temp_tender_notes_"));

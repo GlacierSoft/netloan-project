@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Propagation;
 
+import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 
@@ -44,6 +45,8 @@ public class AccountInvestService {
 	 private MemberStatisticsService statisticsService; 
 	
 	 //会员投资信息统计
+	 
+	 @Transactional(readOnly=false)
 	 public Object listAsGrid(JqPager jqPager_Final){
 		    
 		     //获取当前用户
@@ -73,33 +76,35 @@ public class AccountInvestService {
 	        //时间转化
 	        SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
 	     
-	         for(int i=0;i<accountInvestBefore.size();i++){
-	        	//今日投资统计数据更新
-	        	if((sf.format(accountInvestBefore.get(i).getCreateTime())).compareTo(sf.format(new Date()))==0){
-	        	    for (int j = 0; j < list.size(); j++) {
+	         if(accountInvestBefore.size()>0){
+	            //便利投资投资统计信息
+	        	 for(int i=0;i<accountInvestBefore.size();i++){
+	        	 if((sf.format(accountInvestBefore.get(i).getCreateTime())).compareTo(sf.format(new Date()))==0){
+	        	      for (int j = 0; j < list.size(); j++) {
 	        	    	sum_uncollected+=list.get(j).getWaitAlsoTotal();
 	        	    	sum_reward+=list.get(j).getTenderAwards();
 	        	    	sum_borrow+=list.get(j).getBorrowSuccess();
-	        	     }
+	        	      }
 	        	   
 	        	    //投资统计数据更新
 	        		AccountInvest accountInvest_detail=accountInvestBefore.get(i);
 	        		accountInvest_detail.setSumUncollected(sum_uncollected);
 	        		accountInvest_detail.setSumReward(sum_reward);
 	        		accountInvest_detail.setSumBorrow(sum_borrow);
-	        		
 	        		//投资统计对象更新
 	        		accountInvestMapper.updateByPrimaryKeySelective(accountInvest_detail);
+	        	    break;
+	        	 
 	        	 }else{
-	        		 
-	        		  //构建投资对象
+	        		 //构建投资对象
 	        		  AccountInvest accountInvest_add=new AccountInvest();
 	        		  for (int j = 0; j < list.size(); j++) {
-		        	    	sum_uncollected+=list.get(j).getWaitAlsoTotal();
-		        	    	sum_reward+=list.get(j).getTenderAwards();
-		        	    	sum_borrow+=list.get(j).getBorrowSuccess();
-		        	     }
+		        	      sum_uncollected+=list.get(j).getWaitAlsoTotal();
+		        	      sum_reward+=list.get(j).getTenderAwards();
+		        	      sum_borrow+=list.get(j).getBorrowSuccess();
+		        	  }
 	        		 
+	        		  accountInvest_add.setInvestId(RandomGUID.getRandomGUID());
 	        		  accountInvest_add.setSumUncollected(sum_uncollected);
 	        		  accountInvest_add.setSumReward(sum_reward);
 	        		  accountInvest_add.setSumBorrow(sum_borrow);
@@ -112,10 +117,38 @@ public class AccountInvestService {
 	        		  accountInvest_add.setUpdater(pricipalUser.getUsername());
 	        		  accountInvest_add.setUpdateTime(new Date()); 
 	        		  
-	        		  //插入投资统计数据
+	        		  //投资统计数据添加
 	        		  accountInvestMapper.insert(accountInvest_add);
-	        		}
+	        	     break;	
+	        	 }
 	           }
+	         }else{
+	        	 //构建投资对象
+       		    AccountInvest accountInvest_add=new AccountInvest();
+       		    for (int j = 0; j < list.size(); j++) {
+	        	    	sum_uncollected+=list.get(j).getWaitAlsoTotal();
+	        	    	sum_reward+=list.get(j).getTenderAwards();
+	        	    	sum_borrow+=list.get(j).getBorrowSuccess();
+	        	     }
+       		 
+       		     accountInvest_add.setInvestId(RandomGUID.getRandomGUID());
+       		     accountInvest_add.setSumUncollected(sum_uncollected);
+       		     accountInvest_add.setSumReward(sum_reward);
+	       		 accountInvest_add.setSumBorrow(sum_borrow);
+	       		 accountInvest_add.setSumFine(new Float(0));
+	       		 accountInvest_add.setSumAdvfee(new Float(0));
+	       		 accountInvest_add.setSumInterest(new Float(0));
+	       		 accountInvest_add.setSumInterestfee(new Float(0));
+	       		 accountInvest_add.setCreater(pricipalUser.getUsername());
+	       		 accountInvest_add.setCreateTime(new Date());
+	       		 accountInvest_add.setUpdater(pricipalUser.getUsername());
+	       		 accountInvest_add.setUpdateTime(new Date()); 
+	       		  
+	       		  //插入投资统计数据
+	       		  accountInvestMapper.insert(accountInvest_add);
+	       		  
+	       		  
+	         }
 	        
 		    //更新数据查询
 	        JqGridReturn returnResult = new JqGridReturn();

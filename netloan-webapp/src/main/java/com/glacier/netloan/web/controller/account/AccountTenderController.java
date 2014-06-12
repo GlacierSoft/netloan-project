@@ -34,7 +34,7 @@ public class AccountTenderController extends AbstractController {
     @Autowired
     private AccountTenderService accountTenderService;
 
-     //投标统计信息页
+      //投标统计信息页
 	 @RequestMapping(value="/index.htm")
 	 public Object intoAccountTender(HttpServletRequest request,HttpServletResponse response){
 		ModelAndView mode=new ModelAndView("account_mgr/accountTender_mgr/accountTender");
@@ -62,7 +62,7 @@ public class AccountTenderController extends AbstractController {
 	    //登录统计信息导出
 	    @RequestMapping(value = "/exp.json")
 	    private void expAccountTender(JqPager jqPager,TenderNotesQueryDTO tenderNotesQueryDTO, String q,HttpServletRequest request,HttpServletResponse response) throws IOException{
-	    	JqGridReturn returnResult=(JqGridReturn) accountTenderService.listAsGrid(jqPager, tenderNotesQueryDTO, q);
+	    	  JqGridReturn returnResult=(JqGridReturn) accountTenderService.listAsGrid(jqPager, tenderNotesQueryDTO, q);
 	    	  List<TenderNotes> list=(List<TenderNotes>)returnResult.getRows();
 	    	  HSSFWorkbook wb = accountTenderService.export(list);   
 	          response.setContentType("application/vnd.ms-excel");    
