@@ -19,19 +19,14 @@ import org.springframework.transaction.annotation.Propagation;
 
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
-import com.glacier.jqueryui.util.JqReturnJson;
+
 import com.glacier.netloan.dao.account.AccountInvestMapper;
-import com.glacier.netloan.dto.query.member.MemberQueryDTO;
+
 import com.glacier.netloan.entity.account.AccountInvest;
 import com.glacier.netloan.entity.account.AccountInvestExample;
-import com.glacier.netloan.entity.account.AccountInvestExample.Criteria;
-import com.glacier.netloan.entity.basicdatas.ParameterCredit;
-import com.glacier.netloan.entity.basicdatas.ParameterCreditExample;
-import com.glacier.netloan.entity.finance.FinanceOverdueAdvances;
-import com.glacier.netloan.entity.member.Member;
+
 import com.glacier.netloan.entity.member.MemberStatistics;
-import com.glacier.netloan.entity.member.MemberStatisticsExample;
-import com.glacier.netloan.entity.member.MemberWork;
+
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.service.member.MemberStatisticsService;
 
@@ -49,13 +44,25 @@ public class AccountInvestService {
 	 private MemberStatisticsService statisticsService; 
 	
 	 //会员投资信息统计
-	 public Object listAsGrid(JqPager jqPager){
+	 public Object listAsGrid(JqPager jqPager_Final){
 		    
+		     //获取当前用户
+		    Subject pricipalSubject = SecurityUtils.getSubject();
+		    User pricipalUser = (User) pricipalSubject.getPrincipal();   
+		   
+		    //会员统计信息获取
 		    List<MemberStatistics> list=(List<MemberStatistics>) statisticsService.listMemberStatistics();   
 		 
-		    List<AccountInvest> accountInvestBefore=(List<AccountInvest>) new AccountInvestService().listAccountInvest_two();
-		 
-            float sum_uncollected=0;//投资成功待收金额
+		    //投资统计信息获取
+            AccountInvestExample accountInvestExample_one = new AccountInvestExample();
+	    	JqPager pager_one = new JqPager();
+	    	pager_one.setSort("createTime");
+	    	pager_one.setOrder("DESC");
+	    	accountInvestExample_one.setOrderByClause(pager_one.getOrderBy("temp_account_invest_"));
+	    	List<AccountInvest>  accountInvestBefore = accountInvestMapper.selectByExample(accountInvestExample_one); // 查询所有操作列表
+	       
+		    //投资变量数据定义
+		    float sum_uncollected=0;//投资成功待收金额
 	        float sum_reward=0;//投资奖励金额
 	        float sum_fine=0; //借款人逾期罚款金额
 	        float sum_borrow=0;//借款成功总额
@@ -84,22 +91,42 @@ public class AccountInvestService {
 	        		//投资统计对象更新
 	        		accountInvestMapper.updateByPrimaryKeySelective(accountInvest_detail);
 	        	 }else{
-	        		
-	        		 //插入投资统计数据
-	        	  }
-	         }
+	        		 
+	        		  //构建投资对象
+	        		  AccountInvest accountInvest_add=new AccountInvest();
+	        		  for (int j = 0; j < list.size(); j++) {
+		        	    	sum_uncollected+=list.get(j).getWaitAlsoTotal();
+		        	    	sum_reward+=list.get(j).getTenderAwards();
+		        	    	sum_borrow+=list.get(j).getBorrowSuccess();
+		        	     }
+	        		 
+	        		  accountInvest_add.setSumUncollected(sum_uncollected);
+	        		  accountInvest_add.setSumReward(sum_reward);
+	        		  accountInvest_add.setSumBorrow(sum_borrow);
+	        		  accountInvest_add.setSumFine(new Float(0));
+	        		  accountInvest_add.setSumAdvfee(new Float(0));
+	        		  accountInvest_add.setSumInterest(new Float(0));
+	        		  accountInvest_add.setSumInterestfee(new Float(0));
+	        		  accountInvest_add.setCreater(pricipalUser.getUsername());
+	        		  accountInvest_add.setCreateTime(new Date());
+	        		  accountInvest_add.setUpdater(pricipalUser.getUsername());
+	        		  accountInvest_add.setUpdateTime(new Date()); 
+	        		  
+	        		  //插入投资统计数据
+	        		  accountInvestMapper.insert(accountInvest_add);
+	        		}
+	           }
 	        
-		    
-	        //更新数据查询
+		    //更新数据查询
 	        JqGridReturn returnResult = new JqGridReturn();
 	        AccountInvestExample accountInvestExample = new AccountInvestExample();;
 	        
-            if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息
-	        	accountInvestExample.setLimitStart((jqPager.getPage() - 1) * jqPager.getRows());
-	        	accountInvestExample.setLimitEnd(jqPager.getRows());
+            if (null != jqPager_Final.getPage() && null != jqPager_Final.getRows()) {// 设置排序信息
+	        	accountInvestExample.setLimitStart((jqPager_Final.getPage() - 1) * jqPager_Final.getRows());
+	        	accountInvestExample.setLimitEnd(jqPager_Final.getRows());
 	        }
-	        if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
-	        	accountInvestExample.setOrderByClause(jqPager.getOrderBy("temp_account_invest_"));
+	        if (StringUtils.isNotBlank(jqPager_Final.getSort()) && StringUtils.isNotBlank(jqPager_Final.getOrder())) {// 设置排序信息
+	        	accountInvestExample.setOrderByClause(jqPager_Final.getOrderBy("temp_account_invest_"));
 	        }
 	        
 	        List<AccountInvest>  accountInvest = accountInvestMapper.selectByExample(accountInvestExample); // 查询所有投资信息
@@ -111,8 +138,7 @@ public class AccountInvestService {
 	        return returnResult;// 返回ExtGrid表
 	   }
 	 
-       
-	   //投资信息详情
+    //投资信息详情
 	   public Object getAccountInvest(String investId) {
 	    	AccountInvest accountInvest= accountInvestMapper.selectByPrimaryKey(investId);
 	        return accountInvest;
@@ -161,15 +187,5 @@ public class AccountInvestService {
 	        }    
 	        return wb;    
 	    }   
-	  
-	  public Object listAccountInvest_two(){
-	    	AccountInvestExample accountInvestExample_two= new AccountInvestExample();
-	    	JqPager pager_two = new JqPager();
-	    	pager_two.setSort("createTime");
-	    	pager_two.setOrder("DESC");
-	    	accountInvestExample_two.setOrderByClause(pager_two.getOrderBy("temp_account_invest_"));
-	    	List<AccountInvest>  parameterCredits = accountInvestMapper.selectByExample(accountInvestExample_two); // 查询所有操作列表
-	        return parameterCredits;
-	    }
-
+ 
 } 
