@@ -271,7 +271,7 @@
 								          </tr>
 								          <tr>
 								            <td>交易密码：</td>
-								            <td><input id="" name="" type="text" class="inp100x" /></td>
+								            <td><input type="password" id="tradersPassword" name="tradersPassword" maxlength="50" class="inp100x"/></td>
 								          </tr>
 								          <tr>
 								            <td>验证码：</td>
@@ -386,10 +386,12 @@
    	});
 	$("#financeWithdraw").validate({
    		rules:{
-   			withdrawAmount:"required"
+   			withdrawAmount:"required",
+   			tradersPassword:"required"
    		},
    		messages:{
-   			withdrawAmount:"必须填写提现金额"
+   			withdrawAmount:"必须填写提现金额",
+   			tradersPassword:"必须填写交易密码"
    		},
    		submitHandler:function(){
    			$.ajax({

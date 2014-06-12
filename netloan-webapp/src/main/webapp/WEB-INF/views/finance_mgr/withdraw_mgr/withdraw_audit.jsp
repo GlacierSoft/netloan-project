@@ -93,7 +93,9 @@
 		<tr>
 			<td>审核提现记录：</td>
 			<td><input type="hidden" id="withdraw_mgr_withdraw_form_financeWithdrawId" name="financeWithdrawId" value="${withdrawData.financeWithdrawId}" />
+			<input type="hidden" id="withdraw_mgr_withdraw_form_memberId" name="memberId" value="${withdrawData.memberId}"/>
 				<input type="hidden" id="withdraw_mgr_withdraw_form_withdrawCode" name="withdrawCode" value="${withdrawData.withdrawCode}"/>
+				<input type="hidden" id="withdraw_mgr_withdraw_form_withdrawAmount" name="withdrawAmount" value="${withdrawData.withdrawAmount}"/>
 				<input id="withdraw_mgr_withdraw_form_auditState" name="auditState" type="radio" value="pass" /><span>审核通过</span>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<input id="withdraw_mgr_withdraw_form_auditState" name="auditState" type="radio" value="failure"  checked="checked"/><span>审核失败</span></td>

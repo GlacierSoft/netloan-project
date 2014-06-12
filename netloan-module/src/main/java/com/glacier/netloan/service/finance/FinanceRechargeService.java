@@ -180,10 +180,19 @@ public class FinanceRechargeService {
         			financeTransaction.setUpdater(users.get(0).getUserId());
         			count = financeTransactionMapper.insert(financeTransaction);
         			if (count == 1) {
-        				returnResult.setSuccess(true);
-        			} else {
-        	            returnResult.setMsg("发生未知错误，会员充值记录信息保存失败");
-        			}
+                         //根据生成会员资金明显信息，自动更新会员资金信息
+                         financeMember.setAmount(financeMember.getAmount()+financeRecharge.getArriveMoney());//总金额
+                         financeMember.setUsableMoney(financeMember.getUsableMoney()+financeRecharge.getArriveMoney());//可用金额
+                         financeMember.setRechargeMonthTimes(financeMember.getRechargeMonthTimes()+1);//本月充值次数
+                         financeMember.setRechargeTimes(financeMember.getRechargeTimes()+1);//充值总次数
+                         financeMember.setRechargeMoney(financeMember.getRechargeMoney()+financeRecharge.getArriveMoney());//充值总金额
+                         count = financeMemberMapper.updateByPrimaryKeySelective(financeMember);
+                         if (count == 1) {
+                             returnResult.setSuccess(true);
+                         }
+                     } else {
+                         returnResult.setMsg("发生未知错误，会员充值记录信息保存失败");
+                     }
         		}
         	}
             returnResult.setSuccess(true);
@@ -241,7 +250,16 @@ public class FinanceRechargeService {
                     financeTransaction.setUpdater(pricipalUser.getUserId());
                     count = financeTransactionMapper.insert(financeTransaction);
                     if (count == 1) {
-                        returnResult.setSuccess(true);
+                        //根据生成会员资金明显信息，自动更新会员资金信息
+                        financeMember.setAmount(financeMember.getAmount()+financeRecharge.getArriveMoney());//总金额
+                        financeMember.setUsableMoney(financeMember.getUsableMoney()+financeRecharge.getArriveMoney());//可用金额
+                        financeMember.setRechargeMonthTimes(financeMember.getRechargeMonthTimes()+1);//本月充值次数
+                        financeMember.setRechargeTimes(financeMember.getRechargeTimes()+1);//充值总次数
+                        financeMember.setRechargeMoney(financeMember.getRechargeMoney()+financeRecharge.getArriveMoney());//充值总金额
+                        count = financeMemberMapper.updateByPrimaryKeySelective(financeMember);
+                        if (count == 1) {
+                            returnResult.setSuccess(true);
+                        }
                     } else {
                         returnResult.setMsg("发生未知错误，会员充值记录信息保存失败");
                     }

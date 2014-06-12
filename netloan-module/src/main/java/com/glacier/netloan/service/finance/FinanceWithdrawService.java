@@ -17,8 +17,12 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.finance.FinanceMemberMapper;
+import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
 import com.glacier.netloan.dao.finance.FinanceWithdrawMapper;
 import com.glacier.netloan.dao.system.UserMapper;
+import com.glacier.netloan.entity.finance.FinanceMember;
+import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.finance.FinanceWithdraw;
 import com.glacier.netloan.entity.finance.FinanceWithdrawExample;
 import com.glacier.netloan.entity.member.Member;
@@ -42,6 +46,12 @@ public class FinanceWithdrawService {
 
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private FinanceMemberMapper financeMemberMapper;
+	
+	@Autowired
+	private FinanceTransactionMapper financeTransactionMapper;
 	
 	/**
 	 * @Title: getWithdraw 
@@ -144,7 +154,7 @@ public class FinanceWithdrawService {
         count = financeWithdrawMapper.insert(financeWithdraw);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + financeWithdraw.getWithdrawCode() + "] 会员提现记录信息已保存");
+            returnResult.setMsg("[" + financeWithdraw.getWithdrawCode() + "] 会员提现信息提交成功，等待审核中");
         } else {
             returnResult.setMsg("发生未知错误，会员提现记录信息保存失败");
         }
@@ -208,6 +218,48 @@ public class FinanceWithdrawService {
         financeWithdraw.setUpdateTime(new Date());
         count = financeWithdrawMapper.updateByPrimaryKeySelective(financeWithdraw);
         if (count == 1) {
+            //判断如果该提现记录通过审核，系统则会自动生成一条会员资金记录明细信息、平台资金记录明细信息，同时还会自动更新该会员的资金记录信息和平台的资金记录信息
+            if (null != financeWithdraw.getAuditState() && StringUtils.isNotBlank(financeWithdraw.getAuditState())) {
+                if ("pass".equals(financeWithdraw.getAuditState())) {
+                    FinanceTransaction financeTransaction = new FinanceTransaction();
+                    financeTransaction.setTransactionId(RandomGUID.getRandomGUID());
+                    
+                    //根据提现会员Id找到该会员的会员财务信息记录
+                    FinanceMember financeMember = new FinanceMember();
+                    financeMember = financeMemberMapper.selectByMemberId(financeWithdraw.getMemberId());
+                    
+                    financeTransaction.setFinanceMemberId(financeMember.getFinanceMemberId());
+                    financeTransaction.setMemberId(financeWithdraw.getMemberId());
+                    financeTransaction.setTransactionTarget("系统账号");
+                    financeTransaction.setTransactionType("提现");
+                    financeTransaction.setExpendMoney(financeWithdraw.getWithdrawAmount());//支出金额等于提现总额
+                    financeTransaction.setUsableMoney(financeMember.getUsableMoney()-financeWithdraw.getWithdrawAmount());//记录的可用金额=原来可用金额-提现的总金额
+                    financeTransaction.setFrozenMoney(financeMember.getFrozenMoney());//冻结金额不变
+                    financeTransaction.setCollectingMoney(financeMember.getCollectingMoney());//代收金额不变
+                    financeTransaction.setRefundMoney(financeMember.getRefundMoney());//待还金额不变
+                    financeTransaction.setAmount(financeMember.getAmount()-financeWithdraw.getWithdrawAmount());//总金额=原来总金额-提现总金额
+                    financeTransaction.setRemark("提现通过审核自动生成资金明细信息。");
+                    financeTransaction.setCreateTime(new Date());
+                    financeTransaction.setCreater(pricipalUser.getUserId());
+                    financeTransaction.setUpdateTime(new Date());
+                    financeTransaction.setUpdater(pricipalUser.getUserId());
+                    count = financeTransactionMapper.insert(financeTransaction);
+                    if (count == 1) {
+                        //根据生成会员资金明显信息，自动更新会员资金信息
+                        financeMember.setAmount(financeMember.getAmount()-financeWithdraw.getWithdrawAmount());//总金额
+                        financeMember.setUsableMoney(financeMember.getUsableMoney()-financeWithdraw.getWithdrawAmount());//可用金额
+                        financeMember.setWithdrawMonthTimes(financeMember.getWithdrawMonthTimes()+1);//本月提现次数
+                        financeMember.setWithdrawTimes(financeMember.getWithdrawTimes()+1);//提现总次数
+                        financeMember.setWithdrawMoney(financeMember.getWithdrawMoney()+financeWithdraw.getWithdrawAmount());//提现总金额
+                        count = financeMemberMapper.updateByPrimaryKeySelective(financeMember);
+                        if (count == 1) {
+                            returnResult.setSuccess(true);
+                        }
+                    } else {
+                        returnResult.setMsg("发生未知错误，会员提现记录信息保存失败");
+                    }
+                }
+            }
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + financeWithdraw.getWithdrawCode() + "] 会员提现记录信息已审核");
         } else {
