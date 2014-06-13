@@ -131,7 +131,7 @@ public class BorrowingLoanService {
         BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
         
         Criteria queryCriteria = borrowingLoanExample.createCriteria();
-        borrowingLoanQueryDTO.setQueryCondition(queryCriteria);
+        borrowingLoanQueryDTO.setQueryConditionWebsite(queryCriteria);
         
         //根据前台传来的pagetype参数类型，相对应的进行排序
         if(null == pagetype || "".equals(pagetype.trim())){

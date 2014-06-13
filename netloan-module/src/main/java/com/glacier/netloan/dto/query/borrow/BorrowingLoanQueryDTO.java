@@ -104,8 +104,93 @@ public class BorrowingLoanQueryDTO extends BorrowingLoan{
 	public void setLoanEndDate(Date loanEndDate) {
 		this.loanEndDate = loanEndDate;
 	}
+	
+	/**
+	 * @Title: setQueryCondition 
+	 * @Description: TODO(后台进行查询方法) 
+	 * @param  @param queryCriteria
+	 * @throws 
+	 * 备注<p>已检查测试:Green<p>
+	 */
+    public void setQueryCondition(Criteria queryCriteria){
 
-	public void setQueryCondition(Criteria queryCriteria){
+        if(null != this.getLoanCode() && StringUtils.isNotBlank(this.getLoanCode())){//根据借款编号查询
+            queryCriteria.andLoanCodeLike("%" + this.getLoanCode() + "%");
+        }
+        if(null != this.getLoanTitle() && StringUtils.isNotBlank(this.getLoanTitle())){//根据借款标题查询
+            queryCriteria.andLoanTitleLike("%" + this.getLoanTitle() + "%");
+        }
+        if(null != this.getMemberDisplay() && StringUtils.isNotBlank(this.getMemberDisplay())){//根据借款会员名称
+            queryCriteria.andMemberDisplayLike("%" + this.getMemberDisplay() + "%");
+        }
+        if(null != this.getLoanPurposeId() && StringUtils.isNotBlank(this.getLoanPurposeId())){//根据借款目的
+            queryCriteria.andLoanPurposeIdLike("%" + this.getLoanPurposeId() + "%");
+        }
+        if(null != this.getLoanState()){//根据借款状态查询
+            queryCriteria.andLoanStateEqualTo(this.getLoanState().toString());
+        }
+        if(null != this.getWaitBidDeadlines() && !"".equals(this.getWaitBidDeadlines().trim())){//根据筹标期限查询
+            queryCriteria.andWaitBidDeadlinesEqualTo(this.getWaitBidDeadlines().trim());
+        }
+        if(null != this.getBorrowTypes()){//根据借款类型查询
+            List<String> listBorrowTypes = Arrays.asList(borrowTypes);
+            queryCriteria.andLoanTenderIdIn(listBorrowTypes);
+        }
+        if(null != this.getRepaymentTypeId() && !"".equals(this.getRepaymentTypeId().trim())){//根据还款方式查询
+            queryCriteria.andRepaymentTypeIdEqualTo(this.getRepaymentTypeId());
+        }
+        if(reward != 0 ){
+            if(reward == 1){
+                queryCriteria.andIsBidRewardEqualTo("no");
+            }else if(reward == 2){
+                queryCriteria.andBidProRewardGreaterThan(0f);   
+            }else if(reward == 3){
+                queryCriteria.andFixedAppRewardGreaterThan(0f);
+            }
+        }
+        if(0 != loanTotalStart && 0 != loanTotalEnd && 1000001.0 != loanTotalStart && 1000001.0 != loanTotalEnd){//借款金额查询
+               queryCriteria.andLoanTotalBetween(loanTotalStart, loanTotalEnd); 
+        }else{
+            if(0 != loanTotalStart && 1000001.0 != loanTotalStart){
+                queryCriteria.andLoanTotalGreaterThanOrEqualTo(loanTotalStart);
+            }
+            if(0 != loanTotalEnd && 1000001.0 != loanTotalEnd){
+                queryCriteria.andLoanTotalLessThanOrEqualTo(loanTotalEnd);
+            }
+            if(loanTotalStart == 1000001.0 || loanTotalEnd == 1000001.0){
+                queryCriteria.andLoanTotalGreaterThanOrEqualTo((float) 1000001.0);
+            }
+        }
+        if(null != createStartTime && null != createEndTime){//创建时间段查询
+               queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 
+        }else{
+            if(null != createStartTime){
+                queryCriteria.andCreateTimeGreaterThanOrEqualTo(createStartTime);
+            }
+            if(null != createEndTime){
+                queryCriteria.andCreateTimeLessThanOrEqualTo(createEndTime);
+            }
+        }
+        
+        if(null!=loanStartDate&&null!=loanEndDate){
+            queryCriteria.andLoanDateBetween(loanStartDate, loanEndDate);
+        }else{
+            if(null!=loanStartDate)
+                  queryCriteria.andLoanDateGreaterThanOrEqualTo(loanStartDate);
+            if(null!=loanEndDate)
+                 queryCriteria.andLoanDateLessThanOrEqualTo(loanEndDate);
+        }
+        
+    }
+    
+    /**
+     * @Title: setQueryCondition 
+     * @Description: TODO(前台进行查询方法) 
+     * @param  @param queryCriteria
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+	public void setQueryConditionWebsite(Criteria queryCriteria){
 
     	if(null != this.getLoanCode() && StringUtils.isNotBlank(this.getLoanCode())){//根据借款编号查询
 	        queryCriteria.andLoanCodeLike("%" + this.getLoanCode() + "%");
@@ -121,8 +206,8 @@ public class BorrowingLoanQueryDTO extends BorrowingLoan{
 	    }
 	   	if(null != this.getLoanState()){//根据借款状态查询
 	        queryCriteria.andLoanStateEqualTo(this.getLoanState().toString());
-	   	}else{//如果loanstate为空，则查询招标中，还款中，已完成，这三种借款状态的借款
-	   		List<String> loanStates = Arrays.asList("tendering","repaymenting","completed");
+	   	}else{//前台首页显示全部借款时，显示的借款状态为：tendering招标中,secondAuditor满标中,repaymenting还款中,completed已还完
+	   		List<String> loanStates = Arrays.asList("tendering","secondAuditor","repaymenting","completed");
 	   		queryCriteria.andLoanStateIn(loanStates);
 	   	}
 	   	if(null != this.getWaitBidDeadlines() && !"".equals(this.getWaitBidDeadlines().trim())){//根据筹标期限查询
