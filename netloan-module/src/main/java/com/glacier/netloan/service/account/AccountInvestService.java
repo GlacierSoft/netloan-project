@@ -22,9 +22,11 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 
 import com.glacier.netloan.dao.account.AccountInvestMapper;
+import com.glacier.netloan.dto.query.account.AccountInvestQueryDTO;
 
 import com.glacier.netloan.entity.account.AccountInvest;
 import com.glacier.netloan.entity.account.AccountInvestExample;
+import com.glacier.netloan.entity.account.AccountInvestExample.Criteria;
 
 import com.glacier.netloan.entity.member.MemberStatistics;
 
@@ -47,7 +49,7 @@ public class AccountInvestService {
 	 //会员投资信息统计
 	 
 	 @Transactional(readOnly=false)
-	 public Object listAsGrid(JqPager jqPager_Final){
+	 public Object listAsGrid(JqPager jqPager_Final,AccountInvestQueryDTO accountInvestQueryDTO){
 		    
 		     //获取当前用户
 		    Subject pricipalSubject = SecurityUtils.getSubject();
@@ -146,15 +148,17 @@ public class AccountInvestService {
 	       		  
 	       		  //插入投资统计数据
 	       		  accountInvestMapper.insert(accountInvest_add);
-	       		  
-	       		  
-	         }
+	       	  }
 	        
 		    //更新数据查询
 	        JqGridReturn returnResult = new JqGridReturn();
 	        AccountInvestExample accountInvestExample = new AccountInvestExample();;
 	        
-            if (null != jqPager_Final.getPage() && null != jqPager_Final.getRows()) {// 设置排序信息
+	        //追加查询条件
+	        Criteria queryCriteria = accountInvestExample.createCriteria();
+	        accountInvestQueryDTO.setQueryCondition(queryCriteria);
+	        
+	        if (null != jqPager_Final.getPage() && null != jqPager_Final.getRows()) {// 设置排序信息
 	        	accountInvestExample.setLimitStart((jqPager_Final.getPage() - 1) * jqPager_Final.getRows());
 	        	accountInvestExample.setLimitEnd(jqPager_Final.getRows());
 	        }

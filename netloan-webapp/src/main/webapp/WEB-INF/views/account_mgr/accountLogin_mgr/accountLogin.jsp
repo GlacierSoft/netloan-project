@@ -7,7 +7,6 @@
 	$.util.namespace('glacier.account_mgr.accountLogin_mgr.accountLogin');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
 	//定义toolbar的操作，对操作进行控制
-	glacier.account_mgr.accountLogin_mgr.accountLogin.param = {
 			toolbarId : 'accountLoginDataGrid_toolbar',
 			actions : {
 				edit:{flag:'edit',controlType:'single'},

@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.account.AccountInvestQueryDTO;
 import com.glacier.netloan.dto.query.member.MemberQueryDTO;
 import com.glacier.netloan.entity.account.AccountInvest;
 import com.glacier.netloan.entity.member.Member;
@@ -60,15 +61,15 @@ public class AccountInvestController extends AbstractController {
 	    //获取表格结构的所有菜单数据
 	    @RequestMapping(value = "/list.json", method = RequestMethod.POST)
 	    @ResponseBody
-	    private Object listActionAsGridByMenuId(JqPager jqPager) {
-	    	return accountInvestService.listAsGrid(jqPager);
+	    private Object listActionAsGridByMenuId(JqPager jqPager,AccountInvestQueryDTO accountInvestQueryDTO ) {
+	    	return accountInvestService.listAsGrid(jqPager,accountInvestQueryDTO);
 	    }
 	    
 	    
-	    //登录统计信息导出
+	    //投资统计信息导出
 	    @RequestMapping(value = "/exp.json")
-	    private void expAccountLogin(JqPager jqPager, MemberQueryDTO memberQueryDTO, String q,HttpServletRequest request,HttpServletResponse response) throws IOException{
-	    	  JqGridReturn returnResult=(JqGridReturn) accountInvestService.listAsGrid(jqPager);
+	    private void expAccountInvest(JqPager jqPager, AccountInvestQueryDTO accountInvestQueryDTO, String q,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	    	  JqGridReturn returnResult=(JqGridReturn) accountInvestService.listAsGrid(jqPager,accountInvestQueryDTO);
 	    	  List<AccountInvest> list=(List<AccountInvest>)returnResult.getRows();
 	    	  HSSFWorkbook wb = accountInvestService.export(list);   
 	          response.setContentType("application/vnd.ms-excel");    
@@ -78,10 +79,5 @@ public class AccountInvestController extends AbstractController {
 	          ouputStream.flush();    
 	          ouputStream.close();    
 	     }
-	    
-	    
-	    
-	    
-	    
 }	    
 	   
