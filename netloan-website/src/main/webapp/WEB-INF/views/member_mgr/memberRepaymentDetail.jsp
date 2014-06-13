@@ -137,7 +137,7 @@
 			          		<c:forEach items="${repaymentNotesDetailsDatas.rows}" var="repaymentNotesDetails" varStatus="status">
 					          <tr>
 					            <td><fmt:formatDate value="${repaymentNotesDetails.shouldPayDate}" type="date"/></td>
-					            <td>${repaymentNotesDetails.alsoNeedMoney}</td>
+					            <td>${repaymentNotesDetails.currentPayMoeny}</td>
 					            <td><fmt:formatDate value="${repaymentNotesDetails.actualPayDate}" type="date"/></td>
 					            <td>${repaymentNotesDetails.overdueDays}</td>
 					            <td>${repaymentNotesDetails.actualPayMoney}</td>

@@ -329,6 +329,8 @@ public class RepaymentNotesDetailService {
         int count = 0;
         RepaymentNotesDetail repaymentNotesDetail = repaymentNotesDetailMapper.selectByPrimaryKey(repayNotesDetailId);// 根据还款明细Id查找出对应的还款明细信息记录
         repaymentNotesDetail.setRepayState("alreadRepay");
+        repaymentNotesDetail.setActualPayDate(new Date());//赋值实还时间current_pay_moeny
+        repaymentNotesDetail.setActualPayMoney(repaymentNotesDetail.getCurrentPayMoeny());//实还本息等于本期应还本息
         count = repaymentNotesDetailMapper.updateByPrimaryKeySelective(repaymentNotesDetail);
         if (count == 1) {
             // 还款明细信息修改成功后，系统自动更新该会员的财务信息
