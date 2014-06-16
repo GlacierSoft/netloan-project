@@ -135,6 +135,32 @@
 		}
 	});
 	
+	//点击增加按钮触发方法
+	glacier.member_mgr.applyAmount_mgr.applyAmount.addApplyAmount = function(){
+		glacier.basicAddOrEditDialog({
+			title : '增加申请额度',
+			width : 540,
+			height : 360,
+			queryUrl : ctx + '/do/applyAmount/intoAudit.htm',
+			submitUrl : ctx + '/do/applyAmount/add.json',
+			successFun : function (){
+				glacier.member_mgr.applyAmount_mgr.applyAmount.applyAmountDataGrid.datagrid('reload');
+			}
+		});
+	};
+	//点击修改按钮触发方法glacier.member_mgr.applyAmount_mgr.applyAmount.editApplyAmount();
+/* 	glacier.member_mgr.applyAmount_mgr.applyAmount.editApplyAmount = function(){
+		glacier.basicAddOrEditDialog({
+			title : '修改申请额度',
+			width : 540,
+			height : 360,
+			queryUrl : ctx + '/do/applyAmount/intoAudit.htm',
+			submitUrl : ctx + '/do/applyAmount/list.json',
+			successFun : function (){
+				glacier.member_mgr.applyAmount_mgr.applyAmount.applyAmountDataGrid.datagrid('reload');
+			}
+		});
+	}; */
 	//点击审核按钮触发方法
 	glacier.member_mgr.applyAmount_mgr.applyAmount.auditApplyAmount = function(){
 		var row = glacier.member_mgr.applyAmount_mgr.applyAmount.applyAmountDataGrid.datagrid("getSelected");
