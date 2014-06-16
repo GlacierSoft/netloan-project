@@ -98,8 +98,8 @@
 			$.easyui.showDialog({
 				title: rowData.title,
 				href : ctx + '/do/messageNotice/intoDetail.htm?messageNoticeId='+rowData.messageNoticeId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 270,
+				width : 520,
+				height : 230,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
