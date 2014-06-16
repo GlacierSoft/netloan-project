@@ -77,11 +77,6 @@
 				width:120,
 				hidden:true
 			},{
-				field:'remark',
-				title:'备注',
-				width:120,
-				sortable:true
-			},{
 				field:'lastLoginTime',
 				title:'最后登录时间',
 				sortable:true,
@@ -94,6 +89,11 @@
 				field:'createTime',
 				title:'创建时间',
 				width:120
+			},{
+				field:'remark',
+				title:'备注',
+				width:120,
+				sortable:true
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
@@ -128,7 +128,7 @@
 				title: rowData.userCnName,
 				href : ctx + '/do/user/intoDetail.htm?userId='+rowData.userId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 280,
+				height : 300,
 				enableApplyButton : false,
 				enableSaveButton : false
 			});

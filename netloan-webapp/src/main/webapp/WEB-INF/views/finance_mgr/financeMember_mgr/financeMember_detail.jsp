@@ -95,7 +95,7 @@
 		</tr>
 		<tr>
 			<td>备注：</td>
-			<td colspan="3"><textarea class="spinner" style="width:445px" readonly="readonly">${financeMemberData.remark}</textarea></td>
+			<td colspan="3"><textarea class="spinner" style="width:465px" readonly="readonly">${financeMemberData.remark}</textarea></td>
 		</tr>
 	</table>
 </form>

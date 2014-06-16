@@ -91,11 +91,6 @@
 				sortable:true,
 				width:140
 			},{
-				field:'remark',
-				title:'备注',
-				sortable:true,
-				width:140
-			},{
 				field:'creater',
 				title:'创建人',
 				sortable:true,
@@ -113,6 +108,11 @@
 			},{
 				field:'updateTime',
 				title:'最后修改时间',
+				sortable:true,
+				width:140
+			},{
+				field:'remark',
+				title:'备注',
 				sortable:true,
 				width:140
 			}

@@ -52,8 +52,6 @@
 		columns : [ [{
 			field : 'areaNum' , title : '排序' , width : 50
 		},{
-			field : 'remark' , title : '备注' , width : 120
-		},{
 			field : 'createrDisplay' , title : '创建人' , width : 100
 		},{
 			field : 'createTime' , title : '创建时间' , width : 200
@@ -61,6 +59,8 @@
 			field:'updaterDisplay', title:'更新人',	width:100
 		},{
 			field:'updateTime',	title:'更新时间',	width:200
+		},{
+			field : 'remark' , title : '备注' , width : 120
 		}]]
 	});
 	//点击增加按钮触发方法
@@ -130,7 +130,7 @@
 		$('<div/>').dialog({
 			href : ctx + '/do/area/intoDetail.htm?areaId='+row.areaId,//从controller请求jsp页面进行渲染
 			width : 520,
-			height : 190,
+			height : 200,
 			modal : true,
 			resizable: false,
 			title : row.areaName,

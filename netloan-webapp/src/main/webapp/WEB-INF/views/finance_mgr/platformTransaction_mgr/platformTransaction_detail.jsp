@@ -5,12 +5,12 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>会员名称：</td>
+			<td>平台资金名称：</td>
 			<td class="forminputtable">
-				<input type="hidden"  name="transactionId" value="${transactionData.transactionId}" />
-				<input name="memberDisplay" class="spinner" style="width:180px" value="${transactionData.memberDisplay}" readonly="readonly"/>
+			    <input type="hidden"  name="transactionId" value="${transactionData.platformTransactionId}" />
+				<input name="memberDisplay" class="spinner" style="width:180px" value="${transactionData.financePlatformDisplay}" readonly="readonly"/>
 			</td>
-			<td>交易对方：</td>
+			<td>交易对象：</td>
 			<td>
 				<input name="transactionTarget" class="spinner" style="width:180px" value="${transactionData.transactionTarget}" readonly="readonly"></input>
 			</td>
@@ -30,26 +30,6 @@
 			<td>
 				<input name="expendMoney" class="spinner" style="width:180px" value="${transactionData.expendMoney}" readonly="readonly"></input>
 			</td>
-			<td>可用金额：</td>
-			<td>
-				<input name="usableMoney" class="spinner" style="width:180px" value="${transactionData.usableMoney}" readonly="readonly"/>
-			</td>
-		</tr>
-		<tr>
-			<td>冻结金额：</td>
-			<td>
-				<input name="frozenMoney" class="spinner" style="width:180px" value="${transactionData.frozenMoney}" readonly="readonly"></input>
-			</td>
-			<td>代收金额：</td>
-			<td>
-				<input name="collectingMoney" class="spinner" style="width:180px" value="${transactionData.collectingMoney}" readonly="readonly"/>
-			</td>
-		</tr>
-		<tr>
-			<td>待还金额：</td>
-			<td>
-				<input name="refundMoney" class="spinner" style="width:180px" value="${transactionData.refundMoney}" readonly="readonly"></input>
-			</td>
 			<td>总金额：</td>
 			<td>
 				<input name="amount" class="spinner" style="width:180px" value="${transactionData.amount}" readonly="readonly"/>
@@ -57,13 +37,13 @@
 		</tr>
 		<tr>
 			<td>创建人：</td>
-			<td><input class="spinner" style="width:180px" value="${transactionData.createrDisplay}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:180px" value="${transactionData.creater}" readonly="readonly"/></td>
 			<td>创建时间：</td>
 			<td><input class="spinner" style="width:180px" value="<fmt:formatDate value="${transactionData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>更新人：</td>
-			<td><input class="spinner" style="width:180px" value="${transactionData.updaterDisplay}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:180px" value="${transactionData.updater}" readonly="readonly"/></td>
 			<td>更新时间：</td>
 			<td><input class="spinner" style="width:180px" value="<fmt:formatDate value="${transactionData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>

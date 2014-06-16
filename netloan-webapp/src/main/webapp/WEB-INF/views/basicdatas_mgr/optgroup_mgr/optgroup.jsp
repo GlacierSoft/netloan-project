@@ -213,7 +213,7 @@
 		$('<div/>').dialog({
 			href : ctx + '/do/optgroup/intoDetail.htm?optgroupId='+row.optgroupId,//从controller请求jsp页面进行渲染
 			width : 520,
-			height : 220,
+			height : 230,
 			modal : true,
 			resizable: false,
 			title : row.optgroupName,

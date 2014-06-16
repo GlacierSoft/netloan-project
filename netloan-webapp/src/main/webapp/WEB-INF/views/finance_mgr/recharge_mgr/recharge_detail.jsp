@@ -75,7 +75,7 @@
 		</tr>
 		<tr>
 			<td>充值备注：</td>
-			<td colspan="3"><textarea class="spinner" style="width:455px" readonly="readonly">${rechargeData.remark}</textarea></td>
+			<td colspan="3"><textarea class="spinner" style="width:440px" readonly="readonly">${rechargeData.remark}</textarea></td>
 		</tr>
 	</table>
 </form>

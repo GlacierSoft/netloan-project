@@ -18,7 +18,7 @@
 		<tr>
 			<td>有效会员：</td>
 			<td>
-				<input id="overdueFineSet_mgr_overdueFineSet_detail_memberType" name="memberType" value="${overdueFineSetData.memberType}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
+				<input id="overdueFineSet_mgr_overdueFineSet_detail_memberType" name="memberType" value="${overdueFineSetData.memberType}" class="spinner" style="height:18px;width:168px" readonly="readonly"/>
 			</td>
 			<td>设定天数：</td>
 			<td><input  id="overdueFineSet_mgr_overdueFineSet_dettail_memberPrivilege" name="memberPrivilege" class="spinner" style="width:168px" value="${overdueFineSetData.memberPrivilege}" readonly="readonly"/></td>
@@ -28,13 +28,13 @@
 			<td><input class="spinner" style="width:168px"  value="${overdueFineSetData.vipDays}" readonly="readonly"/></td>
 			<td>取费方式：</td>
 			<td>
-				<input id="overdueFineSet_mgr_overdueFineSet_detail_feeWay" name="feeWay" value="${overdueFineSetData.feeWay}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
+				<input id="overdueFineSet_mgr_overdueFineSet_detail_feeWay" name="feeWay" value="${overdueFineSetData.feeWay}" class="spinner" style="height:18px;width:168px" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
 			<td>审核状态：</td>
 			<td>
-				<input id="overdueFineSet_mgr_overdueFineSet_auditState" name="auditState" value="${overdueFineSetData.auditState}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
+				<input id="overdueFineSet_mgr_overdueFineSet_auditState" name="auditState" value="${overdueFineSetData.auditState}" class="spinner" style="height:18px;width:168px" readonly="readonly"/>
 			</td>
 			
 			<td>审核人：</td>

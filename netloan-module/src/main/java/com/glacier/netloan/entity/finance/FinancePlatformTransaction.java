@@ -6,6 +6,11 @@ public class FinancePlatformTransaction {
     private String platformTransactionId;
 
     private String financePlatformId;
+    
+    /**
+     * 自定义字段，平台资金账号
+     */
+    private String financePlatformDisplay;
 
     private String transactionTarget;
 
@@ -43,7 +48,15 @@ public class FinancePlatformTransaction {
         this.financePlatformId = financePlatformId;
     }
 
-    public String getTransactionTarget() {
+    public String getFinancePlatformDisplay() {
+		return financePlatformDisplay;
+	}
+
+	public void setFinancePlatformDisplay(String financePlatformDisplay) {
+		this.financePlatformDisplay = financePlatformDisplay;
+	}
+
+	public String getTransactionTarget() {
         return transactionTarget;
     }
 

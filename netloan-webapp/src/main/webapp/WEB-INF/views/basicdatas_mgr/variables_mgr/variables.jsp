@@ -66,11 +66,6 @@
 					return renderGridValue(value,fields.formType);
 				}
 			},{
-				field:'remark',
-				title:'备注',
-				width:120,
-				sortable:true
-			},{
 				field:'createrDisplay',
 				title:'创建人',
 				sortable:true,
@@ -90,6 +85,11 @@
 				title:'更新时间',
 				sortable:true,
 				width:200
+			},{
+				field:'remark',
+				title:'备注',
+				width:120,
+				sortable:true
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏

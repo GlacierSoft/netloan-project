@@ -48,11 +48,6 @@
 				width:120,
 				sortable:true
 			},{
-				field:'remark',
-				title:'备注',
-				width:120,
-				sortable:true
-			},{
 				field:'createrDisplay',
 				title:'创建人',
 				sortable:true,
@@ -72,6 +67,11 @@
 				title:'更新时间',
 				sortable:true,
 				width:200
+			},{
+				field:'remark',
+				title:'备注',
+				width:120,
+				sortable:true
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
@@ -106,7 +106,7 @@
 				title: rowData.questionDes,
 				href : ctx + '/do/question/intoDetail.htm?questionId='+rowData.questionId,//从controller请求jsp页面进行渲染
 				width : 540,
-				height : 230,
+				height : 240,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

@@ -154,8 +154,8 @@
 			$.easyui.showDialog({
 				title: rowData.rechargeCode,
 				href : ctx + '/do/recharge/intoDetail.htm?financeRechargeId='+rowData.financeRechargeId,//从controller请求jsp页面进行渲染
-				width : 570,
-				height : 380,
+				width : 565,
+				height : 370,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

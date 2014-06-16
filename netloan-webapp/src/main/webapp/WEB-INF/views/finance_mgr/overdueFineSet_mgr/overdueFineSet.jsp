@@ -97,11 +97,6 @@
 				sortable:true,
 				width:140
 			},{
-				field:'remark',
-				title:'备注',
-				sortable:true,
-				width:140
-			},{
 				field:'creater',
 				title:'创建人',
 				sortable:true,
@@ -121,6 +116,11 @@
 				title:'最后修改时间',
 				sortable:true,
 				width:170
+			},{
+				field:'remark',
+				title:'备注',
+				sortable:true,
+				width:140
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
@@ -132,8 +132,8 @@
 			$.easyui.showDialog({
 				title:'逾期管理详细信息',
 				href : ctx + '/do/overdueFineSet/intoDetail.htm?overdueFineSetId='+rowData.overdueFineSetId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 380,
+				width : 530,
+				height : 350,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

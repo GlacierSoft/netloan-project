@@ -14,7 +14,7 @@
 		<tr>
 			<td>信用类型积分：</td>
 			<td><input class="spinner" style="width:150px"  value="${creditTypeData.changeValue}" readonly="readonly"/></td>
-			<td>积分状态：</td>
+			<td>改变类型：</td>
 			<td colspan="3"><input id="changeType" class="spinner" style="width:150px"  value="${creditTypeData.changeType}" readonly="readonly"/></td>
 		</tr>
 		<tr>
