@@ -61,6 +61,14 @@
 					return renderGridValue(value,fields.letterstatus);
 				}
 			},{
+				field:'lettertype',
+				title:'信件类型',
+				width:120,
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如系统消息or非系统消息
+					return renderGridValue(value,fields.lettertype);
+				}
+			},{
 				field:'sendtime',
 				title:'发送时间',
 				width:120,

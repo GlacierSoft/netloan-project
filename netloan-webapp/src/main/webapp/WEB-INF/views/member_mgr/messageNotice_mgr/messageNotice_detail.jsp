@@ -15,8 +15,9 @@
 		<td>状态：</td>
 			<td><input id="messageNotice_mgr_messageNotice_form_letterstatus" class="spinner" style="width:168px"  readonly="readonly"/></td>
 		<td>&nbsp;&nbsp;信件类型：</td>
-			<td><input  class="spinner" style="width:168px"  value="${messageNoticeData.lettertype}" readonly="readonly"/></td>
-		
+		 <td>
+		      <input id="messageNotice_mgr_messageNotice_form_lettertype" class="spinner" style="width:168px"  readonly="readonly"/>
+	 	</td> 
 		</tr>
 		<tr>
 			<td>标题：</td>
@@ -35,21 +36,10 @@
 					${messageNoticeData.content}
 				</div>
 			</td>
-		</tr>
-	<%-- 	<tr>
-			<td>创建者：</td>
-			<td><input class="spinner" style="width:168px" value="${messageNoticeData.createrDisplay}" readonly="readonly"/></td>
-			<td>创建时间：</td>
-			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${messageNoticeData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
-		</tr>
-		<tr>
-			<td>更新者：</td>
-			<td><input class="spinner" style="width:168px" value="${messageNoticeData.updaterDisplay}" readonly="readonly"/></td>
-			<td>更新时间：</td>
-			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${messageNoticeData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
-		</tr> --%>
+		</tr> 
 	</table>
 </form>
 <script type="text/javascript">
 	$('#messageNotice_mgr_messageNotice_form_letterstatus').val(renderGridValue('${messageNoticeData.letterstatus}',fields.letterstatus));
+	$('#messageNotice_mgr_messageNotice_form_lettertype').val(renderGridValue('${messageNoticeData.lettertype}',fields.lettertype));
 </script>
