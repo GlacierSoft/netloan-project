@@ -5,7 +5,7 @@ import java.util.Date;
 public class FinancePlatformTransaction {
     private String platformTransactionId;
 
-    private String financePlatformId;
+    private String financePlatformId; 
     
     /**
      * 自定义字段，平台资金账号
