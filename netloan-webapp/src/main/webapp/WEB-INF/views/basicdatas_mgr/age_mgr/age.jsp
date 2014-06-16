@@ -91,7 +91,7 @@
 		toolbar:'#ageDataGrid_toolbar',
 		onCheck:function(rowIndex,rowData){//选择行事件触发
 			action_controller(glacier.basicdatas_mgr.age_mgr.age.param,this).check();
-		}, 
+		},
 		onCheckAll:function(rows){//取消勾选行状态触发事件
 			action_controller(glacier.basicdatas_mgr.age_mgr.age.param,this).check();
 		},
