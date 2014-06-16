@@ -5,7 +5,7 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>平台资金名称：</td>
+			<td>平台资金名称：</td> 
 			<td class="forminputtable">
 			    <input type="hidden"  name="transactionId" value="${transactionData.platformTransactionId}" />
 				<input name="memberDisplay" class="spinner" style="width:180px" value="${transactionData.financePlatformDisplay}" readonly="readonly"/>

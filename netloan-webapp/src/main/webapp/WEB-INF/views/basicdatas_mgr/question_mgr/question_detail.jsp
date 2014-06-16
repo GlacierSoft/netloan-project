@@ -5,7 +5,7 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>密保问题描述：</td>
+			<td>密保问题描述：</td> 
 			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
 				<input type="hidden" name="questionId" value="${questionData.questionId}" />
 				<input class="spinner" style="width:150px"  value="${questionData.questionDes}" readonly="readonly"/>

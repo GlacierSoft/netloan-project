@@ -6,7 +6,7 @@
 
 	$.util.namespace('glacier.basicdatas_mgr.credit_mgr.credit');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
-	//定义toolbar的操作，对操作进行控制
+	//定义toolbar的操作，对操作进行控制 
 	glacier.basicdatas_mgr.credit_mgr.credit.param = {
 			toolbarId : 'creditDataGrid_toolbar',
 			actions : {

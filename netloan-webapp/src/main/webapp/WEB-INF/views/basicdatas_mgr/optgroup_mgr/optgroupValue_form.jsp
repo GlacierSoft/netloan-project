@@ -5,7 +5,7 @@
 <form id="optgroup_mgr_optgroupValue_form" method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
-			<td>下拉值代码：</td>
+			<td>下拉值代码：</td> 
 			<td>
 				<input id="optgroup_mgr_optgroupValue_form_optgroupValueId" type="hidden" name="optgroupValueId" value="${optgroupValueData.optgroupValueId}" />
 				<input id="optgroup_mgr_optgroupValue_form_optgroupValueCode" name="optgroupValueCode" class="easyui-validatebox spinner" style="width:268px" required="true" value="${optgroupValueData.optgroupValueCode}" validType="customReg['^[a-zA-Z]{2,20}$','<fmt:message key="ParameterOptgroupValue.optgroupValueCode.illegal"/>']"/>

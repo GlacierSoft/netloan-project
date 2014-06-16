@@ -5,7 +5,7 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>信用类型名称：</td>
+			<td>信用类型名称：</td> 
 			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
 				<input type="hidden" name="creditTypeId" value="${creditTypeData.creditTypeId}" />
 				<input class="spinner" style="width:150px"  value="${creditTypeData.creditType}" readonly="readonly"/>

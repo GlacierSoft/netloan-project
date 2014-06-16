@@ -5,7 +5,7 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>账号代码：</td>
+			<td>账号代码：</td> 
 			<td class="forminputtable">
 				<input type="hidden"  name="financePlatformId" value="${financePlatformData.financePlatformId}" />
 				<input name="platformCode" class="spinner" style="width:180px" value="${financePlatformData.platformCode}" readonly="readonly"></input>

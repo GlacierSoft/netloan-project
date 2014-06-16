@@ -5,7 +5,7 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>充值名称：</td>
+			<td>充值名称：</td> 
 			<td class="forminputtable">
 				<input type="hidden"  name="financeRechargeSetId" value="${rechargeSetData.financeRechargeSetId}" />
 				<input name="rechargeSetName" class="spinner" style="width:180px" value="${rechargeSetData.rechargeSetName}" readonly="readonly"/>

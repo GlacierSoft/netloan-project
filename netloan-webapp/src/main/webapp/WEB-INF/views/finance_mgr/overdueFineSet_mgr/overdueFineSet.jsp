@@ -7,7 +7,7 @@
    
    $.util.namespace('glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
    
-   //定义toolbar的操作，对操作进行控制
+   //定义toolbar的操作，对操作进行控制 
 	glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.param = {
 			toolbarId : 'overdueFineSetDataGrid_toolbar',
 			actions : {

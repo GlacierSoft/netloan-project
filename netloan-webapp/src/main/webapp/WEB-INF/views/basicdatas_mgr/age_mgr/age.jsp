@@ -13,7 +13,7 @@
 				edit:{flag:'edit',controlType:'single'},
 				del:{flag:'del',controlType:'multiple'}
 			}
-	};
+	}; 
 	
 	//初始化会员年龄别称DataGrid
 	glacier.basicdatas_mgr.age_mgr.age.ageDataGrid = $('#ageDataGrid').datagrid({

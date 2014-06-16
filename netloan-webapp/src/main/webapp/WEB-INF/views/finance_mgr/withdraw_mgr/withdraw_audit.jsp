@@ -4,7 +4,7 @@
 <div method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>流水号：</td>
+			<td>流水号：</td> 
 			<td class="forminputtable">
 				<input type="hidden"  name="financeWithdrawId" value="${withdrawData.financeWithdrawId}" />
 				<input name="withdrawCode" class="spinner" style="width:180px" value="${withdrawData.withdrawCode}" readonly="readonly"/>
