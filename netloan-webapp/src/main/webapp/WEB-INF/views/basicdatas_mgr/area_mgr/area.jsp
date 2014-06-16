@@ -130,7 +130,7 @@
 		$('<div/>').dialog({
 			href : ctx + '/do/area/intoDetail.htm?areaId='+row.areaId,//从controller请求jsp页面进行渲染
 			width : 520,
-			height : 220,
+			height : 190,
 			modal : true,
 			resizable: false,
 			title : row.areaName,

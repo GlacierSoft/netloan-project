@@ -54,12 +54,22 @@
 				sortable:true
 			},{
 				field:'createrDisplay',
-				title:'录入人',
+				title:'创建人',
+				sortable:true,
+				width:100
+			},{
+				field:'createTime',
+				title:'创建时间',
 				sortable:true,
 				width:200
 			},{
-				field:'createTime',
-				title:'录入时间',
+				field:'updaterDisplay',
+				title:'更新人',
+				sortable:true,
+				width:100
+			},{
+				field:'updateTime',
+				title:'更新时间',
 				sortable:true,
 				width:200
 			}
@@ -95,8 +105,8 @@
 			$.easyui.showDialog({
 				title: rowData.questionDes,
 				href : ctx + '/do/question/intoDetail.htm?questionId='+rowData.questionId,//从controller请求jsp页面进行渲染
-				width : 600,
-				height : 250,
+				width : 540,
+				height : 230,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

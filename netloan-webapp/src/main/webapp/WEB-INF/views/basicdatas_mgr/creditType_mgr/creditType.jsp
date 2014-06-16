@@ -61,8 +61,23 @@
 				width:120,
 				sortable:true
 			},{
+				field:'createrDisplay',
+				title:'创建人',
+				sortable:true,
+				width:100
+			},{
 				field:'createTime',
-				title:'录入时间',
+				title:'创建时间',
+				sortable:true,
+				width:200
+			},{
+				field:'updaterDisplay',
+				title:'更新人',
+				sortable:true,
+				width:100
+			},{
+				field:'updateTime',
+				title:'更新时间',
 				sortable:true,
 				width:200
 			}
@@ -98,7 +113,7 @@
 			$.easyui.showDialog({
 				title: rowData.creditType,
 				href : ctx + '/do/creditType/intoDetail.htm?creditTypeId='+rowData.creditTypeId,//从controller请求jsp页面进行渲染
-				width : 600,
+				width : 520,
 				height : 260,
 				resizable: false,
 				enableApplyButton : false,

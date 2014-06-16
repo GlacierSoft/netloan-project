@@ -116,7 +116,7 @@
 				title: rowData.ageName,
 				href : ctx + '/do/age/intoDetail.htm?ageId='+rowData.ageId,//从controller请求jsp页面进行渲染
 				width : 530,
-				height : 270,
+				height : 260,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -127,7 +127,7 @@
 	glacier.basicdatas_mgr.age_mgr.age.addAge = function(){
 		glacier.basicAddOrEditDialog({
 			title : '增加会员年龄别称',
-			width : 400,
+			width : 380,
 			height : 300,
 			queryUrl : ctx + '/do/age/intoForm.htm',
 			submitUrl : ctx + '/do/age/add.json',
@@ -141,7 +141,7 @@
 		var row = glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.ageName+'】',
-			width : 400,
+			width : 380,
 			height : 300,
 			queryUrl : ctx + '/do/age/intoForm.htm',
 			submitUrl : ctx + '/do/age/edit.json',

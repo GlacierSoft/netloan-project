@@ -17,7 +17,7 @@
 			<td>开始积分：</td>
 			<td><input class="spinner" style="width:168px"  value="${integralData.integralBegin}" readonly="readonly"/></td>
 			<td>结束积分：</td>
-			<td colspan="3"><input class="spinner" style="width:150px"  value="${integralData.integralEnd}" readonly="readonly"/></td>
+			<td colspan="3"><input class="spinner" style="width:168px"  value="${integralData.integralEnd}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>创建者：</td>

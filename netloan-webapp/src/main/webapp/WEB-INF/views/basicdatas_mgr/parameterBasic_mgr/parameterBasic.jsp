@@ -105,8 +105,8 @@
 			$.easyui.showDialog({
 				title: rowData.basicTitle,
 				href : ctx + '/do/parameterBasic/intoDetail.htm?basicId='+rowData.basicId,//从controller请求jsp页面进行渲染
-				width : 570,
-				height : 260,
+				width : 530,
+				height : 230,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
