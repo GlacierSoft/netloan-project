@@ -90,8 +90,8 @@
 			$.easyui.showDialog({
 				title: rowData.questionDes,
 				href : ctx + '/do/secretSecurity/intoDetail.htm?secretSecurityId='+rowData.secretSecurityId,//从controller请求jsp页面进行渲染
-				width : 580,
-				height : 160,
+				width : 325,
+				height : 220,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

@@ -8,15 +8,18 @@
 			<td>密保问题描述：</td>
 			<td ><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整 class="forminputtable" -->
 				<input class="spinner" style="width:168px"  value="${secretSecurityData.questionDes}" readonly="readonly"/>
-			&nbsp;&nbsp;
+		 
 			</td>
-				<td>密保问题答案：</td>
+		 </tr><tr> 
+		 		<td>密保问题答案：</td>
 			<td><input id="secretSecurity_mgr_secretSecurity_form_addresseeDisplay"  value="${secretSecurityData.answer}" class="spinner" style="width:168px"  readonly="readonly"/></td>
-		 </tr> 
-		<tr>
+		
+		</tr><tr>
 			<td>会员名称：</td>
-			<td><input id="secretSecurity_mgr_secretSecurity_form_addresseeDisplay"  value="${secretSecurityData.memberRealName}" class="spinner" style="width:168px"  readonly="readonly"/>&nbsp;&nbsp;</td>
-			<td>创建时间：</td>
+			<td><input id="secretSecurity_mgr_secretSecurity_form_addresseeDisplay"  value="${secretSecurityData.memberRealName}" class="spinner" style="width:168px"  readonly="readonly"/></td>
+			
+		</tr><tr>
+		<td>创建时间：</td>
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${secretSecurityData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 	</table>
