@@ -90,6 +90,10 @@
 				field:'createrDisplay',
 				title:'创建者',
 				width:120
+			},{
+				field:'createTime',
+				title:'创建时间',
+				width:120
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
@@ -124,7 +128,7 @@
 				title: rowData.userCnName,
 				href : ctx + '/do/user/intoDetail.htm?userId='+rowData.userId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 315,
+				height : 280,
 				enableApplyButton : false,
 				enableSaveButton : false
 			});

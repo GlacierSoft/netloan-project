@@ -25,13 +25,13 @@
 		</tr>
 		<tr>
 			<td>更新人：</td>
-			<td><input class="spinner" style="width:168px" value="${creditTypeData.updaterDisplay}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:150px" value="${creditTypeData.updaterDisplay}" readonly="readonly"/></td>
 			<td>更新时间：</td>
-			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${creditTypeData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:150px" value="<fmt:formatDate value="${creditTypeData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>
-			<td colspan="3"><textarea class="spinner" style="width:416px" readonly="readonly">${creditTypeData.remark}</textarea></td>
+			<td colspan="3"><textarea class="spinner" style="width:385px" readonly="readonly">${creditTypeData.remark}</textarea></td>
 		</tr>
 	</table>
 </form>

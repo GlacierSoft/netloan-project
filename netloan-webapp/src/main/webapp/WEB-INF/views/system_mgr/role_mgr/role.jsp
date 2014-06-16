@@ -59,9 +59,14 @@
 				}
 			},{
 				field:'createTime',
-				title:'录入时间',
+				title:'创建时间',
 				sortable:true,
-				width:200
+				width:120
+			},{
+				field:'createrDisplay',
+				title:'创建者',
+				sortable:true,
+				width:120
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
@@ -96,7 +101,7 @@
 				title: rowData.roleCnName,
 				href : ctx + '/do/role/intoDetail.htm?roleId='+rowData.roleId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 250,
+				height : 205,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

@@ -119,7 +119,7 @@
 				title: rowData.optgroupValueName,
 				href : ctx + '/do/optgroupValue/intoDetail.htm?optgroupValueId='+rowData.optgroupValueId,//从controller请求jsp页面进行渲染
 				width : 530,
-				height : 270,
+				height : 260,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -213,7 +213,7 @@
 		$('<div/>').dialog({
 			href : ctx + '/do/optgroup/intoDetail.htm?optgroupId='+row.optgroupId,//从controller请求jsp页面进行渲染
 			width : 520,
-			height : 240,
+			height : 220,
 			modal : true,
 			resizable: false,
 			title : row.optgroupName,

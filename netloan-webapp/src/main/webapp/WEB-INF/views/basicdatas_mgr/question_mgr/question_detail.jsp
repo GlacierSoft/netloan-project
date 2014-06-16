@@ -11,23 +11,23 @@
 				<input class="spinner" style="width:150px"  value="${questionData.questionDes}" readonly="readonly"/>
 			</td>
 			<td>排序：</td>
-			<td><input class="spinner" style="width:168px" value="${questionData.questionNum}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:170px" value="${questionData.questionNum}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>创建者：</td>
 			<td><input class="spinner" style="width:150px" value="${questionData.createrDisplay}" readonly="readonly"/></td>
 			<td>创建时间：</td>
-			<td><input class="spinner" style="width:150px" value="<fmt:formatDate value="${questionData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:170px" value="<fmt:formatDate value="${questionData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>更新人：</td>
-			<td><input class="spinner" style="width:168px" value="${questionData.updaterDisplay}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:150px" value="${questionData.updaterDisplay}" readonly="readonly"/></td>
 			<td>更新时间：</td>
-			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${questionData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:170px" value="<fmt:formatDate value="${questionData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>
-			<td colspan="3"><textarea class="spinner" style="width:416px" readonly="readonly">${questionData.remark}</textarea></td>
+			<td colspan="3"><textarea class="spinner" style="width:400px" readonly="readonly">${questionData.remark}</textarea></td>
 		</tr>
 	</table>
 </form>

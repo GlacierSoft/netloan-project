@@ -34,7 +34,7 @@
 		<tr>
 			<td>操作人：</td>
 			<td><input value="${operaLogData.operator}" class="spinner" style="width:168px"  readonly="readonly"/></td>
-			<td>录入时间：</td>
+			<td>创建时间：</td>
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${operaLogData.operaTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 	</table>

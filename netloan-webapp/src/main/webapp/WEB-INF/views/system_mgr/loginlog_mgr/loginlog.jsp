@@ -101,7 +101,7 @@
 				title: rowData.loginUser,
 				href : ctx + '/do/loginlog/intoDetail.htm?loginlogId='+rowData.loginlogId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 200,
+				height : 190,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

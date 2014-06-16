@@ -79,7 +79,7 @@
 				sortable:true
 			},{
 				field:'operaTime',
-				title:'录入时间',
+				title:'创建时间',
 				sortable:true,
 				width:120
 			}
@@ -115,8 +115,8 @@
 			$.easyui.showDialog({
 				title: rowData.operaMenu,
 				href : ctx + '/do/operalog/intoDetail.htm?operalogId='+rowData.operalogId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 250,
+				width : 530,
+				height : 240,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -189,7 +189,7 @@
 					<td><input name="operaMd" style="width: 60px;" class="spinner"/></td>
 					<td>操作人：</td>
 					<td><input name="operator" style="width: 60px;" class="spinner"/></td>
-					<td>录入时间：</td>
+					<td>创建时间：</td>
 					<td>
 						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;" />
 						-
