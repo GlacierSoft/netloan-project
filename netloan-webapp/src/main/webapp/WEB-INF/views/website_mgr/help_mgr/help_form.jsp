@@ -91,6 +91,7 @@
 		K.create('#help_mgr_help_form_webHelpContent', {
 			themeType : 'qq',
 			allowFileManager : true,
+			minWidth : "600px",
 			afterBlur : function() {
 				this.sync();
 				K.ctrl(document, 13, function() {

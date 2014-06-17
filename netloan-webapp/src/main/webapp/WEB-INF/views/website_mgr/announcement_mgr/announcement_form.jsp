@@ -86,7 +86,7 @@
 		K.create('#announcement_mgr_announcement_form_webAnnContent', {
 			themeType : 'qq',
 			allowFileManager : true,
-			
+			minWidth : "600px",
 			uploadJson : '../resources/js/kindeditor/jsp/upload_json.jsp',
             fileManagerJson : '../resources/js/kindeditor/jsp/file_manager_json.jsp',
             allowFileManager : true,
