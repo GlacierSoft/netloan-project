@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 public class RepaymentNotesExample {
     protected String orderByClause;
 
@@ -104,13 +103,13 @@ public class RepaymentNotesExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
-        
-        //扩展查询条件
+
+		//扩展查询条件
         public Criteria andMemberDisplayLike(String value) {
             addCriterion("temp_member.member_name like", value, "memberDisplay");
             return (Criteria) this;
         }
-        
+		
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -579,6 +578,366 @@ public class RepaymentNotesExample {
 
         public Criteria andNotPayMoneyNotBetween(Float value1, Float value2) {
             addCriterion("temp_repayment_notes.not_pay_money not between", value1, value2, "notPayMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayPrincipalIsNull() {
+            addCriterion("temp_repayment_notes.should_pay_principal is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayPrincipalIsNotNull() {
+            addCriterion("temp_repayment_notes.should_pay_principal is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayPrincipalEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.should_pay_principal =", value, "shouldPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayPrincipalNotEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.should_pay_principal <>", value, "shouldPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayPrincipalGreaterThan(Float value) {
+            addCriterion("temp_repayment_notes.should_pay_principal >", value, "shouldPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayPrincipalGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.should_pay_principal >=", value, "shouldPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayPrincipalLessThan(Float value) {
+            addCriterion("temp_repayment_notes.should_pay_principal <", value, "shouldPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayPrincipalLessThanOrEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.should_pay_principal <=", value, "shouldPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayPrincipalIn(List<Float> values) {
+            addCriterion("temp_repayment_notes.should_pay_principal in", values, "shouldPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayPrincipalNotIn(List<Float> values) {
+            addCriterion("temp_repayment_notes.should_pay_principal not in", values, "shouldPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayPrincipalBetween(Float value1, Float value2) {
+            addCriterion("temp_repayment_notes.should_pay_principal between", value1, value2, "shouldPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayPrincipalNotBetween(Float value1, Float value2) {
+            addCriterion("temp_repayment_notes.should_pay_principal not between", value1, value2, "shouldPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayPrincipalIsNull() {
+            addCriterion("temp_repayment_notes.alr_pay_principal is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayPrincipalIsNotNull() {
+            addCriterion("temp_repayment_notes.alr_pay_principal is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayPrincipalEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.alr_pay_principal =", value, "alrPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayPrincipalNotEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.alr_pay_principal <>", value, "alrPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayPrincipalGreaterThan(Float value) {
+            addCriterion("temp_repayment_notes.alr_pay_principal >", value, "alrPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayPrincipalGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.alr_pay_principal >=", value, "alrPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayPrincipalLessThan(Float value) {
+            addCriterion("temp_repayment_notes.alr_pay_principal <", value, "alrPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayPrincipalLessThanOrEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.alr_pay_principal <=", value, "alrPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayPrincipalIn(List<Float> values) {
+            addCriterion("temp_repayment_notes.alr_pay_principal in", values, "alrPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayPrincipalNotIn(List<Float> values) {
+            addCriterion("temp_repayment_notes.alr_pay_principal not in", values, "alrPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayPrincipalBetween(Float value1, Float value2) {
+            addCriterion("temp_repayment_notes.alr_pay_principal between", value1, value2, "alrPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayPrincipalNotBetween(Float value1, Float value2) {
+            addCriterion("temp_repayment_notes.alr_pay_principal not between", value1, value2, "alrPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayPrincipalIsNull() {
+            addCriterion("temp_repayment_notes.not_pay_principal is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayPrincipalIsNotNull() {
+            addCriterion("temp_repayment_notes.not_pay_principal is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayPrincipalEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.not_pay_principal =", value, "notPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayPrincipalNotEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.not_pay_principal <>", value, "notPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayPrincipalGreaterThan(Float value) {
+            addCriterion("temp_repayment_notes.not_pay_principal >", value, "notPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayPrincipalGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.not_pay_principal >=", value, "notPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayPrincipalLessThan(Float value) {
+            addCriterion("temp_repayment_notes.not_pay_principal <", value, "notPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayPrincipalLessThanOrEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.not_pay_principal <=", value, "notPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayPrincipalIn(List<Float> values) {
+            addCriterion("temp_repayment_notes.not_pay_principal in", values, "notPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayPrincipalNotIn(List<Float> values) {
+            addCriterion("temp_repayment_notes.not_pay_principal not in", values, "notPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayPrincipalBetween(Float value1, Float value2) {
+            addCriterion("temp_repayment_notes.not_pay_principal between", value1, value2, "notPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayPrincipalNotBetween(Float value1, Float value2) {
+            addCriterion("temp_repayment_notes.not_pay_principal not between", value1, value2, "notPayPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayInterestIsNull() {
+            addCriterion("temp_repayment_notes.should_pay_interest is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayInterestIsNotNull() {
+            addCriterion("temp_repayment_notes.should_pay_interest is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayInterestEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.should_pay_interest =", value, "shouldPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayInterestNotEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.should_pay_interest <>", value, "shouldPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayInterestGreaterThan(Float value) {
+            addCriterion("temp_repayment_notes.should_pay_interest >", value, "shouldPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayInterestGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.should_pay_interest >=", value, "shouldPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayInterestLessThan(Float value) {
+            addCriterion("temp_repayment_notes.should_pay_interest <", value, "shouldPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayInterestLessThanOrEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.should_pay_interest <=", value, "shouldPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayInterestIn(List<Float> values) {
+            addCriterion("temp_repayment_notes.should_pay_interest in", values, "shouldPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayInterestNotIn(List<Float> values) {
+            addCriterion("temp_repayment_notes.should_pay_interest not in", values, "shouldPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayInterestBetween(Float value1, Float value2) {
+            addCriterion("temp_repayment_notes.should_pay_interest between", value1, value2, "shouldPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldPayInterestNotBetween(Float value1, Float value2) {
+            addCriterion("temp_repayment_notes.should_pay_interest not between", value1, value2, "shouldPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayInterestIsNull() {
+            addCriterion("temp_repayment_notes.alr_pay_interest is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayInterestIsNotNull() {
+            addCriterion("temp_repayment_notes.alr_pay_interest is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayInterestEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.alr_pay_interest =", value, "alrPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayInterestNotEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.alr_pay_interest <>", value, "alrPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayInterestGreaterThan(Float value) {
+            addCriterion("temp_repayment_notes.alr_pay_interest >", value, "alrPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayInterestGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.alr_pay_interest >=", value, "alrPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayInterestLessThan(Float value) {
+            addCriterion("temp_repayment_notes.alr_pay_interest <", value, "alrPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayInterestLessThanOrEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.alr_pay_interest <=", value, "alrPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayInterestIn(List<Float> values) {
+            addCriterion("temp_repayment_notes.alr_pay_interest in", values, "alrPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayInterestNotIn(List<Float> values) {
+            addCriterion("temp_repayment_notes.alr_pay_interest not in", values, "alrPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayInterestBetween(Float value1, Float value2) {
+            addCriterion("temp_repayment_notes.alr_pay_interest between", value1, value2, "alrPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrPayInterestNotBetween(Float value1, Float value2) {
+            addCriterion("temp_repayment_notes.alr_pay_interest not between", value1, value2, "alrPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayInterestIsNull() {
+            addCriterion("temp_repayment_notes.not_pay_interest is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayInterestIsNotNull() {
+            addCriterion("temp_repayment_notes.not_pay_interest is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayInterestEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.not_pay_interest =", value, "notPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayInterestNotEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.not_pay_interest <>", value, "notPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayInterestGreaterThan(Float value) {
+            addCriterion("temp_repayment_notes.not_pay_interest >", value, "notPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayInterestGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.not_pay_interest >=", value, "notPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayInterestLessThan(Float value) {
+            addCriterion("temp_repayment_notes.not_pay_interest <", value, "notPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayInterestLessThanOrEqualTo(Float value) {
+            addCriterion("temp_repayment_notes.not_pay_interest <=", value, "notPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayInterestIn(List<Float> values) {
+            addCriterion("temp_repayment_notes.not_pay_interest in", values, "notPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayInterestNotIn(List<Float> values) {
+            addCriterion("temp_repayment_notes.not_pay_interest not in", values, "notPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayInterestBetween(Float value1, Float value2) {
+            addCriterion("temp_repayment_notes.not_pay_interest between", value1, value2, "notPayInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotPayInterestNotBetween(Float value1, Float value2) {
+            addCriterion("temp_repayment_notes.not_pay_interest not between", value1, value2, "notPayInterest");
             return (Criteria) this;
         }
 

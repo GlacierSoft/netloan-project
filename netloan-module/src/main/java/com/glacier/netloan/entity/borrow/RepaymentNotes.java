@@ -28,6 +28,18 @@ public class RepaymentNotes {
     private Float alrPayMoney;
 
     private Float notPayMoney;
+    
+    private Float shouldPayPrincipal;
+
+    private Float alrPayPrincipal;
+
+    private Float notPayPrincipal;
+
+    private Float shouldPayInterest;
+
+    private Float alrPayInterest;
+
+    private Float notPayInterest;
 
     private Float alrOverdueInterest;
 
@@ -147,6 +159,54 @@ public class RepaymentNotes {
         this.notPayMoney = notPayMoney;
     }
 
+    public Float getShouldPayPrincipal() {
+        return shouldPayPrincipal;
+    }
+
+    public void setShouldPayPrincipal(Float shouldPayPrincipal) {
+        this.shouldPayPrincipal = shouldPayPrincipal;
+    }
+
+    public Float getAlrPayPrincipal() {
+        return alrPayPrincipal;
+    }
+
+    public void setAlrPayPrincipal(Float alrPayPrincipal) {
+        this.alrPayPrincipal = alrPayPrincipal;
+    }
+
+    public Float getNotPayPrincipal() {
+        return notPayPrincipal;
+    }
+
+    public void setNotPayPrincipal(Float notPayPrincipal) {
+        this.notPayPrincipal = notPayPrincipal;
+    }
+
+    public Float getShouldPayInterest() {
+        return shouldPayInterest;
+    }
+
+    public void setShouldPayInterest(Float shouldPayInterest) {
+        this.shouldPayInterest = shouldPayInterest;
+    }
+
+    public Float getAlrPayInterest() {
+        return alrPayInterest;
+    }
+
+    public void setAlrPayInterest(Float alrPayInterest) {
+        this.alrPayInterest = alrPayInterest;
+    }
+
+    public Float getNotPayInterest() {
+        return notPayInterest;
+    }
+
+    public void setNotPayInterest(Float notPayInterest) {
+        this.notPayInterest = notPayInterest;
+    }
+
     public Float getAlrOverdueInterest() {
         return alrOverdueInterest;
     }
@@ -238,6 +298,12 @@ public class RepaymentNotes {
             && (this.getShouldPayMoney() == null ? other.getShouldPayMoney() == null : this.getShouldPayMoney().equals(other.getShouldPayMoney()))
             && (this.getAlrPayMoney() == null ? other.getAlrPayMoney() == null : this.getAlrPayMoney().equals(other.getAlrPayMoney()))
             && (this.getNotPayMoney() == null ? other.getNotPayMoney() == null : this.getNotPayMoney().equals(other.getNotPayMoney()))
+            && (this.getShouldPayPrincipal() == null ? other.getShouldPayPrincipal() == null : this.getShouldPayPrincipal().equals(other.getShouldPayPrincipal()))
+            && (this.getAlrPayPrincipal() == null ? other.getAlrPayPrincipal() == null : this.getAlrPayPrincipal().equals(other.getAlrPayPrincipal()))
+            && (this.getNotPayPrincipal() == null ? other.getNotPayPrincipal() == null : this.getNotPayPrincipal().equals(other.getNotPayPrincipal()))
+            && (this.getShouldPayInterest() == null ? other.getShouldPayInterest() == null : this.getShouldPayInterest().equals(other.getShouldPayInterest()))
+            && (this.getAlrPayInterest() == null ? other.getAlrPayInterest() == null : this.getAlrPayInterest().equals(other.getAlrPayInterest()))
+            && (this.getNotPayInterest() == null ? other.getNotPayInterest() == null : this.getNotPayInterest().equals(other.getNotPayInterest()))
             && (this.getAlrOverdueInterest() == null ? other.getAlrOverdueInterest() == null : this.getAlrOverdueInterest().equals(other.getAlrOverdueInterest()))
             && (this.getAlrOverdueUrge() == null ? other.getAlrOverdueUrge() == null : this.getAlrOverdueUrge().equals(other.getAlrOverdueUrge()))
             && (this.getAlrOverdueMana() == null ? other.getAlrOverdueMana() == null : this.getAlrOverdueMana().equals(other.getAlrOverdueMana()))
@@ -260,6 +326,12 @@ public class RepaymentNotes {
         result = prime * result + ((getShouldPayMoney() == null) ? 0 : getShouldPayMoney().hashCode());
         result = prime * result + ((getAlrPayMoney() == null) ? 0 : getAlrPayMoney().hashCode());
         result = prime * result + ((getNotPayMoney() == null) ? 0 : getNotPayMoney().hashCode());
+        result = prime * result + ((getShouldPayPrincipal() == null) ? 0 : getShouldPayPrincipal().hashCode());
+        result = prime * result + ((getAlrPayPrincipal() == null) ? 0 : getAlrPayPrincipal().hashCode());
+        result = prime * result + ((getNotPayPrincipal() == null) ? 0 : getNotPayPrincipal().hashCode());
+        result = prime * result + ((getShouldPayInterest() == null) ? 0 : getShouldPayInterest().hashCode());
+        result = prime * result + ((getAlrPayInterest() == null) ? 0 : getAlrPayInterest().hashCode());
+        result = prime * result + ((getNotPayInterest() == null) ? 0 : getNotPayInterest().hashCode());
         result = prime * result + ((getAlrOverdueInterest() == null) ? 0 : getAlrOverdueInterest().hashCode());
         result = prime * result + ((getAlrOverdueUrge() == null) ? 0 : getAlrOverdueUrge().hashCode());
         result = prime * result + ((getAlrOverdueMana() == null) ? 0 : getAlrOverdueMana().hashCode());

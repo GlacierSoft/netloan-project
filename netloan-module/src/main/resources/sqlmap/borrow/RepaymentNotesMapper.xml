@@ -9,6 +9,12 @@
     <result column="temp_repayment_notes_should_pay_money" property="shouldPayMoney" jdbcType="REAL" />
     <result column="temp_repayment_notes_alr_pay_money" property="alrPayMoney" jdbcType="REAL" />
     <result column="temp_repayment_notes_not_pay_money" property="notPayMoney" jdbcType="REAL" />
+    <result column="temp_repayment_notes_should_pay_principal" property="shouldPayPrincipal" jdbcType="REAL" />
+    <result column="temp_repayment_notes_alr_pay_principal" property="alrPayPrincipal" jdbcType="REAL" />
+    <result column="temp_repayment_notes_not_pay_principal" property="notPayPrincipal" jdbcType="REAL" />
+    <result column="temp_repayment_notes_should_pay_interest" property="shouldPayInterest" jdbcType="REAL" />
+    <result column="temp_repayment_notes_alr_pay_interest" property="alrPayInterest" jdbcType="REAL" />
+    <result column="temp_repayment_notes_not_pay_interest" property="notPayInterest" jdbcType="REAL" />
     <result column="temp_repayment_notes_alr_overdue_interest" property="alrOverdueInterest" jdbcType="REAL" />
     <result column="temp_repayment_notes_alr_overdue_urge" property="alrOverdueUrge" jdbcType="REAL" />
     <result column="temp_repayment_notes_alr_overdue_mana" property="alrOverdueMana" jdbcType="REAL" />
@@ -18,7 +24,7 @@
     <result column="temp_repayment_notes_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_repayment_notes_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_repayment_notes_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_repayment_notes_loan_title" property="loanTitle" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+	<result column="temp_repayment_notes_loan_title" property="loanTitle" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_repayment_notes_memberDisplay" property="memberDisplay" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_repayment_notes_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_repayment_notes_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
@@ -85,12 +91,17 @@
     temp_repayment_notes.repay_notes_id as temp_repayment_notes_repay_notes_id, temp_repayment_notes.loan_id as temp_repayment_notes_loan_id, 
     temp_repayment_notes.member_id as temp_repayment_notes_member_id, temp_repayment_notes.repayment_total as temp_repayment_notes_repayment_total, 
     temp_repayment_notes.should_pay_money as temp_repayment_notes_should_pay_money, temp_repayment_notes.alr_pay_money as temp_repayment_notes_alr_pay_money, 
-    temp_repayment_notes.not_pay_money as temp_repayment_notes_not_pay_money, temp_repayment_notes.alr_overdue_interest as temp_repayment_notes_alr_overdue_interest, 
+    temp_repayment_notes.not_pay_money as temp_repayment_notes_not_pay_money, temp_repayment_notes.should_pay_principal as temp_repayment_notes_should_pay_principal, 
+    temp_repayment_notes.alr_pay_principal as temp_repayment_notes_alr_pay_principal, 
+    temp_repayment_notes.not_pay_principal as temp_repayment_notes_not_pay_principal, 
+    temp_repayment_notes.should_pay_interest as temp_repayment_notes_should_pay_interest, 
+    temp_repayment_notes.alr_pay_interest as temp_repayment_notes_alr_pay_interest, temp_repayment_notes.not_pay_interest as temp_repayment_notes_not_pay_interest, 
+    temp_repayment_notes.alr_overdue_interest as temp_repayment_notes_alr_overdue_interest, 
     temp_repayment_notes.alr_overdue_urge as temp_repayment_notes_alr_overdue_urge, temp_repayment_notes.alr_overdue_mana as temp_repayment_notes_alr_overdue_mana, 
     temp_repayment_notes.repay_state as temp_repayment_notes_repay_state, temp_repayment_notes.remark as temp_repayment_notes_remark, 
     temp_repayment_notes.creater as temp_repayment_notes_creater, temp_repayment_notes.create_time as temp_repayment_notes_create_time, 
     temp_repayment_notes.updater as temp_repayment_notes_updater, temp_repayment_notes.update_time as temp_repayment_notes_update_time
-    <!-- 以下字段属于扩展 -->
+	<!-- 以下字段属于扩展 -->
     ,temp_borrowing_loan.loan_title as temp_repayment_notes_loan_title
     ,temp_member.member_name as temp_repayment_notes_memberDisplay
     ,temp_creater.user_cn_name as temp_repayment_notes_createrDisplay
@@ -109,7 +120,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_repayment_notes temp_repayment_notes
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -124,19 +135,9 @@
     select 
     <include refid="Base_Column_List" />
     from t_repayment_notes temp_repayment_notes
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     where temp_repayment_notes.repay_notes_id = #{repayNotesId,jdbcType=VARCHAR}
   </select>
-  
-  <!--自定义方法，根据借款Id查找还款记录信息 -->
-  <select id="selectByPrimaryLoanId" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_repayment_notes temp_repayment_notes
-    <include refid="Base_extend" />
-    where temp_repayment_notes.loan_id = #{loanId,jdbcType=VARCHAR}
-  </select>
-  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_repayment_notes
     where repay_notes_id = #{repayNotesId,jdbcType=VARCHAR}
@@ -150,13 +151,17 @@
   <insert id="insert" parameterType="com.glacier.netloan.entity.borrow.RepaymentNotes" >
     insert into t_repayment_notes (repay_notes_id, loan_id, member_id, 
       repayment_total, should_pay_money, alr_pay_money, 
-      not_pay_money, alr_overdue_interest, alr_overdue_urge, 
+      not_pay_money, should_pay_principal, alr_pay_principal, 
+      not_pay_principal, should_pay_interest, alr_pay_interest, 
+      not_pay_interest, alr_overdue_interest, alr_overdue_urge, 
       alr_overdue_mana, repay_state, remark, 
       creater, create_time, updater, 
       update_time)
     values (#{repayNotesId,jdbcType=VARCHAR}, #{loanId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
       #{repaymentTotal,jdbcType=REAL}, #{shouldPayMoney,jdbcType=REAL}, #{alrPayMoney,jdbcType=REAL}, 
-      #{notPayMoney,jdbcType=REAL}, #{alrOverdueInterest,jdbcType=REAL}, #{alrOverdueUrge,jdbcType=REAL}, 
+      #{notPayMoney,jdbcType=REAL}, #{shouldPayPrincipal,jdbcType=REAL}, #{alrPayPrincipal,jdbcType=REAL}, 
+      #{notPayPrincipal,jdbcType=REAL}, #{shouldPayInterest,jdbcType=REAL}, #{alrPayInterest,jdbcType=REAL}, 
+      #{notPayInterest,jdbcType=REAL}, #{alrOverdueInterest,jdbcType=REAL}, #{alrOverdueUrge,jdbcType=REAL}, 
       #{alrOverdueMana,jdbcType=REAL}, #{repayState,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, 
       #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
       #{updateTime,jdbcType=TIMESTAMP})
@@ -184,6 +189,24 @@
       </if>
       <if test="notPayMoney != null" >
         not_pay_money,
+      </if>
+      <if test="shouldPayPrincipal != null" >
+        should_pay_principal,
+      </if>
+      <if test="alrPayPrincipal != null" >
+        alr_pay_principal,
+      </if>
+      <if test="notPayPrincipal != null" >
+        not_pay_principal,
+      </if>
+      <if test="shouldPayInterest != null" >
+        should_pay_interest,
+      </if>
+      <if test="alrPayInterest != null" >
+        alr_pay_interest,
+      </if>
+      <if test="notPayInterest != null" >
+        not_pay_interest,
       </if>
       <if test="alrOverdueInterest != null" >
         alr_overdue_interest,
@@ -235,6 +258,24 @@
       <if test="notPayMoney != null" >
         #{notPayMoney,jdbcType=REAL},
       </if>
+      <if test="shouldPayPrincipal != null" >
+        #{shouldPayPrincipal,jdbcType=REAL},
+      </if>
+      <if test="alrPayPrincipal != null" >
+        #{alrPayPrincipal,jdbcType=REAL},
+      </if>
+      <if test="notPayPrincipal != null" >
+        #{notPayPrincipal,jdbcType=REAL},
+      </if>
+      <if test="shouldPayInterest != null" >
+        #{shouldPayInterest,jdbcType=REAL},
+      </if>
+      <if test="alrPayInterest != null" >
+        #{alrPayInterest,jdbcType=REAL},
+      </if>
+      <if test="notPayInterest != null" >
+        #{notPayInterest,jdbcType=REAL},
+      </if>
       <if test="alrOverdueInterest != null" >
         #{alrOverdueInterest,jdbcType=REAL},
       </if>
@@ -266,7 +307,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.RepaymentNotesExample" resultType="java.lang.Integer" >
     select count(*) from t_repayment_notes temp_repayment_notes
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -294,6 +335,24 @@
       </if>
       <if test="record.notPayMoney != null" >
         temp_repayment_notes.not_pay_money = #{record.notPayMoney,jdbcType=REAL},
+      </if>
+      <if test="record.shouldPayPrincipal != null" >
+        temp_repayment_notes.should_pay_principal = #{record.shouldPayPrincipal,jdbcType=REAL},
+      </if>
+      <if test="record.alrPayPrincipal != null" >
+        temp_repayment_notes.alr_pay_principal = #{record.alrPayPrincipal,jdbcType=REAL},
+      </if>
+      <if test="record.notPayPrincipal != null" >
+        temp_repayment_notes.not_pay_principal = #{record.notPayPrincipal,jdbcType=REAL},
+      </if>
+      <if test="record.shouldPayInterest != null" >
+        temp_repayment_notes.should_pay_interest = #{record.shouldPayInterest,jdbcType=REAL},
+      </if>
+      <if test="record.alrPayInterest != null" >
+        temp_repayment_notes.alr_pay_interest = #{record.alrPayInterest,jdbcType=REAL},
+      </if>
+      <if test="record.notPayInterest != null" >
+        temp_repayment_notes.not_pay_interest = #{record.notPayInterest,jdbcType=REAL},
       </if>
       <if test="record.alrOverdueInterest != null" >
         temp_repayment_notes.alr_overdue_interest = #{record.alrOverdueInterest,jdbcType=REAL},
@@ -336,6 +395,12 @@
       temp_repayment_notes.should_pay_money = #{record.shouldPayMoney,jdbcType=REAL},
       temp_repayment_notes.alr_pay_money = #{record.alrPayMoney,jdbcType=REAL},
       temp_repayment_notes.not_pay_money = #{record.notPayMoney,jdbcType=REAL},
+      temp_repayment_notes.should_pay_principal = #{record.shouldPayPrincipal,jdbcType=REAL},
+      temp_repayment_notes.alr_pay_principal = #{record.alrPayPrincipal,jdbcType=REAL},
+      temp_repayment_notes.not_pay_principal = #{record.notPayPrincipal,jdbcType=REAL},
+      temp_repayment_notes.should_pay_interest = #{record.shouldPayInterest,jdbcType=REAL},
+      temp_repayment_notes.alr_pay_interest = #{record.alrPayInterest,jdbcType=REAL},
+      temp_repayment_notes.not_pay_interest = #{record.notPayInterest,jdbcType=REAL},
       temp_repayment_notes.alr_overdue_interest = #{record.alrOverdueInterest,jdbcType=REAL},
       temp_repayment_notes.alr_overdue_urge = #{record.alrOverdueUrge,jdbcType=REAL},
       temp_repayment_notes.alr_overdue_mana = #{record.alrOverdueMana,jdbcType=REAL},
@@ -369,6 +434,24 @@
       </if>
       <if test="notPayMoney != null" >
         not_pay_money = #{notPayMoney,jdbcType=REAL},
+      </if>
+      <if test="shouldPayPrincipal != null" >
+        should_pay_principal = #{shouldPayPrincipal,jdbcType=REAL},
+      </if>
+      <if test="alrPayPrincipal != null" >
+        alr_pay_principal = #{alrPayPrincipal,jdbcType=REAL},
+      </if>
+      <if test="notPayPrincipal != null" >
+        not_pay_principal = #{notPayPrincipal,jdbcType=REAL},
+      </if>
+      <if test="shouldPayInterest != null" >
+        should_pay_interest = #{shouldPayInterest,jdbcType=REAL},
+      </if>
+      <if test="alrPayInterest != null" >
+        alr_pay_interest = #{alrPayInterest,jdbcType=REAL},
+      </if>
+      <if test="notPayInterest != null" >
+        not_pay_interest = #{notPayInterest,jdbcType=REAL},
       </if>
       <if test="alrOverdueInterest != null" >
         alr_overdue_interest = #{alrOverdueInterest,jdbcType=REAL},
@@ -408,6 +491,12 @@
       should_pay_money = #{shouldPayMoney,jdbcType=REAL},
       alr_pay_money = #{alrPayMoney,jdbcType=REAL},
       not_pay_money = #{notPayMoney,jdbcType=REAL},
+      should_pay_principal = #{shouldPayPrincipal,jdbcType=REAL},
+      alr_pay_principal = #{alrPayPrincipal,jdbcType=REAL},
+      not_pay_principal = #{notPayPrincipal,jdbcType=REAL},
+      should_pay_interest = #{shouldPayInterest,jdbcType=REAL},
+      alr_pay_interest = #{alrPayInterest,jdbcType=REAL},
+      not_pay_interest = #{notPayInterest,jdbcType=REAL},
       alr_overdue_interest = #{alrOverdueInterest,jdbcType=REAL},
       alr_overdue_urge = #{alrOverdueUrge,jdbcType=REAL},
       alr_overdue_mana = #{alrOverdueMana,jdbcType=REAL},
