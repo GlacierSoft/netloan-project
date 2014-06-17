@@ -1,5 +1,6 @@
 package com.glacier.netloan.dto.query.account;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
@@ -12,54 +13,96 @@ import com.glacier.netloan.entity.account.AccountInvestExample.Criteria;
 
 public class AccountInvestQueryDTO  extends AccountInvest {
    
-	   //当日时间
-	   @JSONField(format="yyyy-MM-dd HH:mm:ss")
-	   private Date invest_search;
+	 //当日
+	private String investToday; 
 	   
-	   //自定义时间 
-	   @JSONField(format="yyyy-MM-dd HH:mm:ss")
-	   private Date invest_Start;
+	//用户选择时间
+	private String invest_search;
+	  
+	private Date invest_Now=new Date();
+	
+	//自定义时间 
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
+	private Date invest_Start;
 	   
-	   @JSONField(format="yyyy-MM-dd HH:mm:ss")
-	   private Date invest_End;
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
+	private Date invest_End;
 	   
-	   public Date getInvest_search() {
+	public String getInvest_search() {
 		return invest_search;
-	   }
+	}
 
-	   public void setInvest_search(Date invest_search) {
+	public void setInvest_search(String invest_search) {
 		this.invest_search = invest_search;
-	  }
-	   
-	   public Date getInvest_Start() {
-		return invest_Start;
-	  }
+	}
 
-	  public void setInvest_Start(Date invest_Start) {
-	 	this.invest_Start = invest_Start;
+	public String getInvestToday() {
+		return investToday;
 	 }
 
-	public Date getInvest_End() {
-		return invest_End;
+	public void setInvestToday(String investToday) {
+		this.investToday = investToday;
 	}
+
+    public Date getInvest_Start() {
+		return invest_Start;
+	  }
+	
+	  public void setInvest_Start(Date invest_Start) {
+	 	this.invest_Start = invest_Start;
+	  }
+	
+	  public Date getInvest_End() {
+		return invest_End;
+	  }
 
 	public void setInvest_End(Date invest_End) {
 		this.invest_End = invest_End;
 	}
 
 	public void setQueryCondition(Criteria queryCriteria){
-		  if(invest_search!=null){
-			  System.out.println("------------------我是查询类，我是没问题的，看下面---------->");
-			  System.out.println("当日时间---------->:"+invest_search);
-			  queryCriteria.andCreateTimeEqualTo(invest_search);
-		      System.out.println("------------------------------Ok----->结束");
-		  }
-		   if(invest_Start!=null&&invest_Start!=null){
-			  queryCriteria.andCreateTimeBetween(invest_Start, invest_Start);
-		  }
+		 if(null!=invest_search){
+		   if(invest_search.equals("investToday")){
+			   System.out.println("----------------->当前时间:"+invest_Now+"  ");
+			   queryCriteria.andCreateTimeGreaterThanOrEqualTo(invest_Now);
+		       System.out.println("----------------->判断结束");
+		   }if(invest_search.equals("investMonth")){
+			   
+			   Calendar calendar = Calendar.getInstance();  
+			   calendar.set(Calendar.DATE,calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
+			   System.out.println("------------------->当月第一时间:"+calendar.getTime());
+			   queryCriteria.andCreateTimeBetween(calendar.getTime(), new Date());
+		       System.out.println("------------------->月份判断完毕:");
+		   
+		   }if(invest_search.equals("investYear")){
+			    
+			    Calendar currCal=Calendar.getInstance();    
+		        int currentYear = currCal.get(Calendar.YEAR); 
+			   
+			   //当年时间第一天
+			    Calendar calendar = Calendar.getInstance();  
+		        calendar.clear();  
+		        calendar.set(Calendar.YEAR, currentYear);  
+		        Date currYearFirst = calendar.getTime();
+		        
+		        //当年时间最后一天
+		        Calendar calendar_two = Calendar.getInstance();  
+		        calendar_two.clear();  
+		        calendar_two.set(Calendar.YEAR, currentYear);  
+		        calendar_two.roll(Calendar.DAY_OF_YEAR, -1);  
+		        Date currYearLast = calendar.getTime();  
+		        
+		        //时间测试
+		        System.out.println("---------------->当年第一天日期:"+currYearFirst);
+		        System.out.println("---------------->当年最后一天日期:"+currYearLast);
+		        
+		        //时间比较
+		        queryCriteria.andCreateTimeBetween(currYearFirst, currYearLast);
+		        
+		     }
+		 }
 	}
 	
-	 
 	 @Override
 	  public String toString() {
 	       return ReflectionToStringBuilder.toString(this);

@@ -159,7 +159,7 @@
 	<!-- 借款管理 -->
 	<div style="float:left;margin:20px 10px 15px 20px;">
 		<div id="newsDataGridPanel" class="easyui-panel" title="借款管理"    
-		        style="width:200px;height:150px;background:#fafafa;">  
+		        style="width:190px;height:150px;background:#fafafa;">  
 			<table>
 				<tr>
 					<td>借款等待资料审核： </td>

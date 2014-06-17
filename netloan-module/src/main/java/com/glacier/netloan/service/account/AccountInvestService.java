@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -36,7 +38,7 @@ import com.glacier.netloan.service.member.MemberStatisticsService;
 
 
 
-@Service
+@Service("accountInvestService")
 @Transactional(readOnly=true,propagation=Propagation.REQUIRED)
 public class AccountInvestService {
     
@@ -46,8 +48,16 @@ public class AccountInvestService {
 	 @Autowired
 	 private MemberStatisticsService statisticsService; 
 	
-	 //会员投资信息统计
 	 
+	 
+	 //后台定时任务
+	 @PostConstruct
+	 @Transactional(readOnly=false)
+	 public void handleAccountInvest(){
+	     
+	 }
+	 
+	 //会员投资信息统计
 	 @Transactional(readOnly=false)
 	 public Object listAsGrid(JqPager jqPager_Final,AccountInvestQueryDTO accountInvestQueryDTO){
 		    
