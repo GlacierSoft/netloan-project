@@ -67,6 +67,36 @@
 				title:'未还本息',
 				width:200,
 				sortable:true
+			},{        /**新增**/
+				field:'shouldPayPrincipal',
+				title:'应还本金',
+				sortable:true,
+				width:200
+			},{       
+				field:'alrPayPrincipal',
+				title:'已还本金',
+				sortable:true,
+				width:200
+			},{       
+				field:'notPayPrincipal',
+				title:'未还本金',
+				sortable:true,
+				width:200
+			},{       
+				field:'shouldPayInterest',
+				title:'应还利息',
+				sortable:true,
+				width:200
+			},{       
+				field:'alrPayInterest',
+				title:'已还利息',
+				sortable:true,
+				width:200
+			},{       
+				field:'notPayInterest',
+				title:'未还利息',
+				sortable:true,
+				width:200
 			},{
 				field:'alrOverdueInterest',
 				title:'已还逾期罚息',
@@ -148,8 +178,8 @@
 			$.easyui.showDialog({
 				title: '【'+rowData.loanTitle+'】还款详细信息',
 				href : ctx + '/do/repaymentNotes/intoDetail.htm?repayNotesId='+rowData.repayNotesId,//从controller请求jsp页面进行渲染
-				width :630,
-				height : 300,
+				width :625,
+				height : 390,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
