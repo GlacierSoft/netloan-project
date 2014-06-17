@@ -78,6 +78,16 @@
 				title:'创建时间',
 				sortable:true,
 				width:200
+			},{
+				field:'updaterDisplay',
+				title:'更新人',
+				sortable:true,
+				width:100
+			},{
+				field:'updateTime',
+				title:'更新时间',
+				sortable:true,
+				width:200
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
@@ -112,7 +122,7 @@
 				title: '【'+rowData.memberRealName+'】信用积分详细信息',
 				href : ctx + '/do/creditIntegral/intoDetail.htm?creditIntegralId='+rowData.creditIntegralId,//从controller请求jsp页面进行渲染
 				width : 530,
-				height : 250,
+				height : 270,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

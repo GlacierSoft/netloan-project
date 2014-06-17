@@ -38,7 +38,7 @@
 			</td>
 		</tr>
 	</table>
-	<table id="auditTableInfo"  ><!-- style="display:none;" -->
+	<table id="auditTableInfo"><!-- style="display:none;" -->
 		<tr>
 			<td>审核金额：</td>
 			<td>
