@@ -2,10 +2,10 @@
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<form  method="post" style="padding:15px">
+<form  method="post" style="padding:10px">
 	<table class="formtable">
 		<tr>
-			<td>标种类型名称：</td>
+			<td style="width: 250px">标种类型名称：</td>
 			<td>
 				<input type="hidden" id="loanTender_mgr_loanTender_form_loanTenderId" name="loanTenderId" value="${loanTenderData.loanTenderId}" />
 				<input id="loanTender_mgr_loanTender_form_loanrTenderName" name="loanrTenderName" style="width:198px" value="${loanTenderData.loanrTenderName}" class="easyui-validatebox spinner"  required="true"  validType="length[1,25]" invalidMessage="招聘管理主题必须在1到25个字符之间"/>
@@ -101,7 +101,7 @@
 		</tr>
 		<tr>
 			<td>描述：</td>
-			<td><textarea id="loanTender_mgr_loanTender_form_description" name="description" style="width:198px;" maxlength="255" class="spinner formta">${loanTenderData.description}</textarea></td>
+			<td colspan="3"><textarea id="loanTender_mgr_loanTender_form_description" name="description" style="width:580px;" maxlength="255" class="spinner formta">${loanTenderData.description}</textarea></td>
 		</tr>
 	</table>
 </form>

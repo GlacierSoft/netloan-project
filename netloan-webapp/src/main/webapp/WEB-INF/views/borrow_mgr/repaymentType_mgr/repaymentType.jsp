@@ -111,7 +111,7 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.repaymentTypeName,
+				title: '【'+rowData.repaymentTypeName+'】详细信息',
 				href : ctx + '/do/repaymentType/intoDetail.htm?repaymentTypeId='+rowData.repaymentTypeId,//从controller请求jsp页面进行渲染
 				width : 530,
 				height : 370,

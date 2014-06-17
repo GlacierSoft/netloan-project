@@ -182,7 +182,7 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.loanTitle,
+				title: '【'+rowData.memberDisplay+'】还款明细信息',
 				href : ctx + '/do/repaymentNotesDetail/intoDetail.htm?repayNotesDetailId='+rowData.repayNotesDetailId,//从controller请求jsp页面进行渲染
 				width : 570,
 				height : 400,

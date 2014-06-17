@@ -67,7 +67,7 @@
 		</tr>
 		<tr>
 			<td>备注：</td>
-			<td><input class="spinner" style="width:168px" value="${repaymentNotesDetailData.remark}" readonly="readonly"/></td>
+			<td colspan="3"><input class="spinner" style="width:438px" value="${repaymentNotesDetailData.remark}" readonly="readonly"/></td>
 		</tr>
 	</table>
 </form>
