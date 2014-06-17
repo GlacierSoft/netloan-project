@@ -79,7 +79,7 @@
 				width:100
 			},{
 				field:'createTime',
-				title:'录入时间',
+				title:'创建时间',
 				sortable:true,
 				width:110
 			},{
@@ -104,12 +104,34 @@
 		padvancesRecordList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
 		toolbar:'#overdueAdvancesDataGrid_toolbar',
+		onCheck:function(rowIndex,rowData){//选择行事件触发
+			action_controller(glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.param,this).check();
+		},
+		onCheckAll:function(rows){//取消勾选行状态触发事件
+			action_controller(glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.param,this).check();
+		},
+		onUncheck:function(rowIndex,rowData){//选择行事件触发
+			action_controller(glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.param,this).unCheck();
+		},
+		onUncheckAll:function(rows){//取消勾选行状态触发事件
+			action_controller(glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.param,this).unCheck();
+		},
+		onSelect:function(rowIndex, rowData){//选择行事件触发
+			action_controller(glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.param,this).select();
+		},
+		onUnselectAll:function(rows){
+			action_controller(glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.param,this).unSelect();
+		},
+		onLoadSuccess:function(index, record){//加载数据成功触发事件
+			$(this).datagrid('clearSelections');
+			$(this).datagrid('clearChecked');
+		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: '逾期管理详细信息',
+				title: "【"+rowData.memberType+"】的逾期垫付管理详细信息",
 				href : ctx + '/do/overdueAdvances/intoDetail.htm?overdueAdvancesId='+rowData.overdueAdvancesId,//从controller请求jsp页面进行渲染
 				width : 525,
-				height : 290,
+				height : 325,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -120,7 +142,7 @@
 	//点击增加按钮触发方法
 	glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.addOverdueAdvances = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加逾期垫付管理',
+			title : '【逾期垫付管理】- 增加',
 			width : 470,
 			height : 250,
 			queryUrl : ctx + '/do/overdueAdvances/intoForm.htm',
@@ -135,7 +157,7 @@
 	glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.editOverdueAdvances = function(){
 		var row = glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.overdueAdvancesDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑逾期管理信息',
+			title : '【逾期垫付管理】- 编辑('+row.memberType+')',
 			width : 450,
 			height : 250,
 			queryUrl : ctx + '/do/overdueAdvances/intoForm.htm',
@@ -153,7 +175,7 @@
 	glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.auditOverdueAdvances = function(){
 		var row = glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.overdueAdvancesDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '审核逾期垫付信息',
+			title : '【逾期垫付管理】- 审核信息',
 			width : 560,
 			height : 410,
 			queryUrl : ctx + '/do/overdueAdvances/intoAudit.htm',

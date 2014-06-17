@@ -128,12 +128,34 @@
 		padvancesRecordList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
 		toolbar:'#overdueFineSetDataGrid_toolbar',
+		onCheck:function(rowIndex,rowData){//选择行事件触发
+			action_controller(glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.param,this).check();
+		},
+		onCheckAll:function(rows){//取消勾选行状态触发事件
+			action_controller(glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.param,this).check();
+		},
+		onUncheck:function(rowIndex,rowData){//选择行事件触发
+			action_controller(glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.param,this).unCheck();
+		},
+		onUncheckAll:function(rows){//取消勾选行状态触发事件
+			action_controller(glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.param,this).unCheck();
+		},
+		onSelect:function(rowIndex, rowData){//选择行事件触发
+			action_controller(glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.param,this).select();
+		},
+		onUnselectAll:function(rows){
+			action_controller(glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.param,this).unSelect();
+		},
+		onLoadSuccess:function(index, record){//加载数据成功触发事件
+			$(this).datagrid('clearSelections');
+			$(this).datagrid('clearChecked');
+		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title:'逾期管理详细信息',
+				title: "【"+rowData.overdueFineSetName+"】的逾期垫付设置详细信息",
 				href : ctx + '/do/overdueFineSet/intoDetail.htm?overdueFineSetId='+rowData.overdueFineSetId,//从controller请求jsp页面进行渲染
 				width : 530,
-				height : 350,
+				height : 375,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -144,7 +166,7 @@
 	//点击增加按钮触发方法
 	glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.addOverdueFineSet = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加逾期垫付管理',
+			title : '【逾期垫付设置】- 增加',
 			width : 430,
 			height : 320,
 			queryUrl : ctx + '/do/overdueFineSet/intoForm.htm',
@@ -160,7 +182,7 @@
 	glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.auditOverdueFineSet = function(){
 		var row = glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.overdueFineSetDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '审核逾期罚款信息',
+			title : '【逾期垫付设置】- 审核('+row.overdueFineSetName+')',
 			width : 580,
 			height : 450,
 			queryUrl : ctx + '/do/overdueFineSet/intoAudit.htm',
@@ -180,7 +202,7 @@
 	glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.editOverdueFineSet = function(){
 		var row = glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.overdueFineSetDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑逾期管理信息',
+			title : '【逾期垫付设置】- 编辑('+row.overdueFineSetName+')',
 			width : 430,
 			height : 320,
 			queryUrl : ctx + '/do/overdueFineSet/intoForm.htm',

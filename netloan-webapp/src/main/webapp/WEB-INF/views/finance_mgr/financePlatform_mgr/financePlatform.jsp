@@ -137,10 +137,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.platformCode,
+				title: '【'+rowData.platformName+'】的平台资金详细信息',
 				href : ctx + '/do/financePlatform/intoDetail.htm?financePlatformId='+rowData.financePlatformId,//从controller请求jsp页面进行渲染
 				width : 560,
-				height : 330,
+				height : 345,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -150,7 +150,7 @@
 	//点击增加按钮触发方法
 	glacier.finance_mgr.financePlatform_mgr.financePlatform.addFinancePlatform = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加平台资金记录',
+			title : '【平台资金】- 增加',
 			width : 400,
 			height : 250,
 			queryUrl : ctx + '/do/financePlatform/intoForm.htm',
@@ -164,7 +164,7 @@
 	glacier.finance_mgr.financePlatform_mgr.financePlatform.editFinancePlatform = function(){
 		var row = glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.platformName+'】',
+			title : '【平台资金】- 编辑('+row.platformName+')',
 			width : 400,
 			height : 250,
 			queryUrl : ctx + '/do/financePlatform/intoForm.htm',
@@ -181,7 +181,7 @@
 	glacier.finance_mgr.financePlatform_mgr.financePlatform.auditFinancePlatform = function(){
 		var row = glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '审核【'+row.platformName+'】',
+			title : '【平台资金】- 审核('+row.platformName+')',
 			width : 560,
 			height : 430,
 			queryUrl : ctx + '/do/financePlatform/intoAudit.htm',

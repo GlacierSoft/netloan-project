@@ -124,7 +124,7 @@
 		toolbar:'#overdueFineDataGrid_toolbar',
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: '【'+rowData.overdueFineId+'】逾期管理详细信息',
+				title: '【'+rowData.overdueFineSetName+'】逾期罚款记录详细信息',
 				href : ctx + '/do/overdueFine/intoDetail.htm?overdueFineId='+rowData.overdueFineId,//从controller请求jsp页面进行渲染
 				width : 600,
 				height : 400,

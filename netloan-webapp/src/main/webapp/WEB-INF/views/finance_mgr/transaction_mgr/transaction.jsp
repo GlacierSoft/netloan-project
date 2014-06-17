@@ -147,10 +147,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.transactionCode,
+				title: "【"+rowData.memberDisplay+"】的会员资金记录详细信息",
 				href : ctx + '/do/transaction/intoDetail.htm?transactionId='+rowData.transactionId,//从controller请求jsp页面进行渲染
 				width : 560,
-				height : 350,
+				height : 375,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -160,7 +160,7 @@
 	//点击增加按钮触发方法
 	glacier.finance_mgr.transaction_mgr.transaction.addTransaction = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加会员资金记录',
+			title : '【会员资金记录】- 增加',
 			width : 450,
 			height : 330,
 			queryUrl : ctx + '/do/transaction/intoForm.htm',
@@ -174,7 +174,7 @@
 	glacier.finance_mgr.transaction_mgr.transaction.editTransaction = function(){
 		var row = glacier.finance_mgr.transaction_mgr.transaction.transactionDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.transactionName+'】',
+			title : '【会员资金记录】- 编辑('+row.transactionName+')',
 			width : 450,
 			height : 330,
 			queryUrl : ctx + '/do/transaction/intoForm.htm',
@@ -191,7 +191,7 @@
 	glacier.finance_mgr.transaction_mgr.transaction.auditTransaction = function(){
 		var row = glacier.finance_mgr.transaction_mgr.transaction.transactionDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '审核【'+row.transactionName+'】',
+			title : '【会员资金记录】- 审核('+row.transactionName+')',
 			width : 580,
 			height : 500,
 			queryUrl : ctx + '/do/transaction/intoAudit.htm',

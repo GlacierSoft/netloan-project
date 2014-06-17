@@ -110,7 +110,7 @@
 				title: '【'+rowData.memberRealName+'】会员银行卡详细信息',
 				href : ctx + '/do/bankCard/intoDetail.htm?bankCardId='+rowData.bankCardId,//从controller请求jsp页面进行渲染
 				width : 530,
-				height : 275,
+				height : 295,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -153,7 +153,7 @@
 	glacier.finance_mgr.bankCard_mgr.bankCard.auditBankCard = function(){
 		var row = glacier.finance_mgr.bankCard_mgr.bankCard.bankCardDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '审核【'+row.memberRealName+'】审核额度信息',
+			title : '【会员银行卡】- 审核('+row.memberRealName+')',
 			width : 540,
 			height : 360,
 			queryUrl : ctx + '/do/bankCard/intoAudit.htm',

@@ -152,10 +152,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.rechargeCode,
+				title: "【"+rowData.rechargeCode+"】的充值记录详细信息",
 				href : ctx + '/do/recharge/intoDetail.htm?financeRechargeId='+rowData.financeRechargeId,//从controller请求jsp页面进行渲染
 				width : 565,
-				height : 370,
+				height : 400,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -165,7 +165,7 @@
 	//点击增加按钮触发方法
 	glacier.finance_mgr.recharge_mgr.recharge.addRecharge = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加会员充值记录',
+			title : '【充值记录】- 增加',
 			width : 450,
 			height : 330,
 			queryUrl : ctx + '/do/recharge/intoForm.htm',
@@ -179,7 +179,7 @@
 	glacier.finance_mgr.recharge_mgr.recharge.editRecharge = function(){
 		var row = glacier.finance_mgr.recharge_mgr.recharge.rechargeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.rechargeName+'】',
+			title : '【充值记录】- 编辑('+row.rechargeName+')',
 			width : 450,
 			height : 330,
 			queryUrl : ctx + '/do/recharge/intoForm.htm',
@@ -198,7 +198,7 @@
 		var auditState = row.auditState;
 		if ("authstr" == auditState) {
 			glacier.basicAddOrEditDialog({
-				title : '审核【'+row.rechargeCode+'】',
+				title : '【充值记录】- 审核【'+row.rechargeCode+'】',
 				width : 570,
 				height : 500,
 				queryUrl : ctx + '/do/recharge/intoAudit.htm',

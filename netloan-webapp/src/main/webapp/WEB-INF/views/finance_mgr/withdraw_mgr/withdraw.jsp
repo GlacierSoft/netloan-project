@@ -160,10 +160,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.withdrawCode,
+				title: "【"+rowData.withdrawCode+"】的提现记录详细信息",
 				href : ctx + '/do/withdraw/intoDetail.htm?financeWithdrawId='+rowData.financeWithdrawId,//从controller请求jsp页面进行渲染
 				width : 580,
-				height : 400,
+				height : 425,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -173,7 +173,7 @@
 	//点击增加按钮触发方法
 	glacier.finance_mgr.withdraw_mgr.withdraw.addWithdraw = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加会员提现记录',
+			title : '【提现记录】- 增加',
 			width : 450,
 			height : 330,
 			queryUrl : ctx + '/do/withdraw/intoForm.htm',
@@ -187,7 +187,7 @@
 	glacier.finance_mgr.withdraw_mgr.withdraw.editWithdraw = function(){
 		var row = glacier.finance_mgr.withdraw_mgr.withdraw.withdrawDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.withdrawName+'】',
+			title : '【提现记录】- 编辑('+row.withdrawName+')',
 			width : 450,
 			height : 330,
 			queryUrl : ctx + '/do/withdraw/intoForm.htm',
@@ -204,7 +204,7 @@
 	glacier.finance_mgr.withdraw_mgr.withdraw.auditWithdraw = function(){
 		var row = glacier.finance_mgr.withdraw_mgr.withdraw.withdrawDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '审核【'+row.withdrawCode+'】',
+			title : '【提现记录】- 审核('+row.withdrawCode+')',
 			width : 580,
 			height : 500,
 			queryUrl : ctx + '/do/withdraw/intoAudit.htm',

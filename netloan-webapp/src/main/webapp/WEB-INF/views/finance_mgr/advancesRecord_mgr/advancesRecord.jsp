@@ -125,7 +125,7 @@
 		toolbar:'#advancesRecordDataGrid_toolbar',
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: '【'+rowData.advancesRecordId+'】逾期垫付详细信息',
+				title: '【'+rowData.advancesRecordId+'】逾期垫付记录详细信息',
 				href : ctx + '/do/advancesRecord/intoDetail.htm?advancesRecordId='+rowData.advancesRecordId,//从controller请求jsp页面进行渲染
 				width : 600,
 				height : 330,

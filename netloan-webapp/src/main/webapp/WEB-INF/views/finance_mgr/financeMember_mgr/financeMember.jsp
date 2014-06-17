@@ -167,10 +167,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.financeMemberCode,
+				title: '【'+rowData.memberDisplay+'】会员资金详细信息',
 				href : ctx + '/do/financeMember/intoDetail.htm?financeMemberId='+rowData.financeMemberId,//从controller请求jsp页面进行渲染
 				width : 620,
-				height : 430,
+				height : 455,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

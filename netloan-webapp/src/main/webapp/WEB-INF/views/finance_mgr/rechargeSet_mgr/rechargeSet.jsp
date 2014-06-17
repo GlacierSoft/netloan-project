@@ -151,10 +151,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.rechargeSetName,
+				title: "【"+rowData.rechargeSetName+"】的充值设置详细信息",
 				href : ctx + '/do/rechargeSet/intoDetail.htm?financeRechargeSetId='+rowData.financeRechargeSetId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 340,
+				height : 370,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -164,7 +164,7 @@
 	//点击增加按钮触发方法
 	glacier.finance_mgr.rechargeSet_mgr.rechargeSet.addRechargeSet = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加会员充值设置',
+			title : '【充值设置】- 增加',
 			width : 450,
 			height : 360,
 			queryUrl : ctx + '/do/rechargeSet/intoForm.htm',
@@ -178,7 +178,7 @@
 	glacier.finance_mgr.rechargeSet_mgr.rechargeSet.editRechargeSet = function(){
 		var row = glacier.finance_mgr.rechargeSet_mgr.rechargeSet.rechargeSetDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.rechargeSetName+'】',
+			title : '【充值设置】- 编辑('+row.rechargeSetName+')',
 			width : 450,
 			height : 360,
 			queryUrl : ctx + '/do/rechargeSet/intoForm.htm',
@@ -195,7 +195,7 @@
 	glacier.finance_mgr.rechargeSet_mgr.rechargeSet.auditRechargeSet = function(){
 		var row = glacier.finance_mgr.rechargeSet_mgr.rechargeSet.rechargeSetDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '审核【'+row.rechargeSetName+'】',
+			title : '【充值设置】- 审核('+row.rechargeSetName+')',
 			width : 560,
 			height : 460,
 			queryUrl : ctx + '/do/rechargeSet/intoAudit.htm',

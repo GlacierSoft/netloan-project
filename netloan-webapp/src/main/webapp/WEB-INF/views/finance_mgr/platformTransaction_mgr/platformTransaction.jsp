@@ -122,10 +122,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.platformTransactionId,
+				title: "【"+rowData.financePlatformDisplay+"】的平台资金记录详细信息",
 				href : ctx + '/do/platformTransaction/intoDetail.htm?platformTransactionId='+rowData.platformTransactionId,//从controller请求jsp页面进行渲染
 				width : 580,
-				height : 300,
+				height : 320,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
