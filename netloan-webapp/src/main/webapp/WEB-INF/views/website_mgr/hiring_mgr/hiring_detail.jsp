@@ -45,6 +45,7 @@
 		Detail.create('#hiring_mgr_hiring_form_webHiringContent', {
 			themeType : 'qq',
 			items : [],
+			minWidth : "600px",
 			readonlyMode : true
 		});
 	});

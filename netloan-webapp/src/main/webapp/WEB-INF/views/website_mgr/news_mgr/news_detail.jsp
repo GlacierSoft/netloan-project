@@ -35,13 +35,66 @@
 		</tr>
 
 	</table>
+	
+	<%-- <div style="">
+		<div id="newName" style="float: left;">
+			<span style="float: left;">新闻主题：</span>
+			<div style="float: left;">
+				<input type="hidden" name="webNewsId" value="${newsData.webNewsId}" />
+				<input class="spinner" style="width:585px"  value="${newsData.webNewsTheme}" readonly="readonly"/>
+			</div>
+		</div>
+		
+		<div id="newStauts" style="margin-top: 10px;float: left;">
+			<span style="float: left;">新闻状态：</span>
+			<div style="float: left;">
+				<input id="news_mgr_news_detail_webNewsStatus" class="spinner" style="width:250px"  readonly="readonly"/>
+			</div>
+			<span style="float: left;margin-left: 23px;">新闻排序：</span>
+			<div style="float: left;">
+				<input class="spinner" style="width:250px"  value="${newsData.webNewsNum}" readonly="readonly"/>
+			</div>
+		</div>
+		
+		<div id="newCreate" style="margin-top: 10px;float: left;">
+			<span style="float: left;">创建人：</span>
+			<div style="float: left;margin-left: 12px;">
+				<input class="spinner" style="width:250px" value="${newsData.createrDisplay}" readonly="readonly"/>
+			</div>
+			<span style="float: left;margin-left: 23px;">创建时间：</span>
+			<div style="float: left;">
+				<input class="spinner" style="width:250px" value="<fmt:formatDate value="${newsData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/>
+			</div>
+		</div>
+		
+		<div id="newUpdate" style="margin-top: 10px;float: left;">
+			<span style="float: left;">更新人：</span>
+			<div style="float: left;margin-left: 12px;">
+				<input class="spinner" style="width:250px" value="${newsData.updaterDisplay}" readonly="readonly"/>
+			</div>
+			<span style="float: left;margin-left: 23px;">更新时间：</span>
+			<div style="float: left;">
+				<input class="spinner" style="width:250px" value="<fmt:formatDate value="${newsData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/>
+			</div>
+		</div>
+		
+		<div id="newNeiRong" style="margin-top: 10px;float: left;">
+			<span style="float: left;">新闻内容：</span>
+			<div style="float: left;">
+				<textarea id="news_mgr_news_detail_webNewsContent" name="webNewsContent" class="spinner" style="width:585px;height:280px;" readonly="readonly">${newsData.webNewsContent}</textarea>
+			</div>
+			<textarea id="news_mgr_news_detail_webNewsContent" name="webNewsContent"  style="width:585px;height:280px;" readonly="readonly">${newsData.webNewsContent}</textarea>
+		</div>
+	</div> --%>
+	
 </form>
 <script>
 	KindEditor.ready(function(Detail) {
 		Detail.create('#news_mgr_news_detail_webNewsContent', {
 			themeType : 'qq',
 			items : [],
-			readonlyMode : true
+			minWidth : "600px",//设置最小宽度为600px
+			readonlyMode : false
 		});
 	});
 </script>

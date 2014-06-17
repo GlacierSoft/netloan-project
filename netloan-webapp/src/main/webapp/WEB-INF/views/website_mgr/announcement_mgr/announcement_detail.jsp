@@ -43,6 +43,7 @@
 		Detail.create('#announcement_mgr_announcement_detail_webAnnContent', {
 			themeType : 'qq',
 			items : [],
+			minWidth : "600px",
 			readonlyMode : true
 		});
 	});

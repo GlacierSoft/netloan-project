@@ -49,6 +49,7 @@
 		Detail.create('#help_mgr_help_form_webHelpContent', {
 			themeType : 'qq',
 			items : [],
+			minWidth : "600px",
 			readonlyMode : true
 		});
 	});
