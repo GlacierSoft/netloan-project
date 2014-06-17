@@ -52,7 +52,38 @@
 				title:'收款总金额',
 				width:200,
 				sortable:true
-			},{
+			},
+			//新增字段
+			{   field:'shouldRecePrincipal',
+				title:'应收本金',
+				width:200,
+				sortable:true
+			},
+			{   field:'alrRecePrincipal',
+				title:'已收本金',
+				width:200,
+				sortable:true
+			},{   
+				field:'notRecePrincipal',
+				title:'未收本金',
+				width:200,
+				sortable:true
+			},{   
+				field:'shouldReceInterest',
+				title:'应收利息',
+				width:200,
+				sortable:true
+			},{   
+				field:'alrReceInterest',
+				title:'已收利息',
+				width:200,
+				sortable:true
+			},{   
+				field:'notReceInterest',
+				title:'未收利息',
+				width:200,
+				sortable:true
+			}, {
 				field:'shouldReceMoney',
 				title:'应收本息',
 				width:200,
@@ -67,7 +98,8 @@
 				title:'未收本息',
 				width:200,
 				sortable:true
-			},{
+			},
+			{
 				field:'alrOverdueInterest',
 				title:'已收逾期罚息',
 				width:200,
@@ -136,10 +168,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.loanTitle,
+				title: '【'+rowData.loanTitle+'】收款详细信息',
 				href : ctx + '/do/receivablesNotes/intoDetail.htm?receNotesId='+rowData.receNotesId,//从controller请求jsp页面进行渲染
-				width : 580,
-				height : 300,
+				width : 620,
+				height : 380,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

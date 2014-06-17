@@ -15,6 +15,27 @@
 		<tr>
 			<td>还款总金额：</td>
 			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.repaymentTotal}" readonly="readonly"/></td>
+			<td>应还本金：</td>
+			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.shouldPayPrincipal}" readonly="readonly"/></td>
+			 </tr>
+		<tr>
+			 <td>已还本金：</td>
+			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.alrPayPrincipal}" readonly="readonly"/></td>
+			<td>未还本金：</td>
+			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.notPayPrincipal}" readonly="readonly"/></td>
+			
+		</tr>
+		<tr>
+			<td>应还利息：</td>
+			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.shouldPayInterest}" readonly="readonly"/></td>
+			<td>已还利息：</td>
+			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.alrPayInterest}" readonly="readonly"/></td>
+		
+		</tr>
+		<tr>
+				<td>未还利息：</td>
+			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.notPayInterest}" readonly="readonly"/></td>
+	
 			<td>应还本息：</td>
 			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.shouldPayMoney}" readonly="readonly"/></td>
 		</tr>

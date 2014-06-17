@@ -8,7 +8,20 @@
     <result column="temp_member_statistics_cumulative_loss_profit" property="cumulativeLossProfit" jdbcType="REAL" />
     <result column="temp_member_statistics_already_total" property="alreadyTotal" jdbcType="REAL" />
     <result column="temp_member_statistics_wait_also_total" property="waitAlsoTotal" jdbcType="REAL" />
-    <result column="temp_member_statistics_borrow_success" property="borrowSuccess" jdbcType="INTEGER" />
+    <result column="temp_member_statistics_already_income_total" property="alreadyIncomeTotal" jdbcType="REAL" />
+    <result column="temp_member_statistics_wait_income_total" property="waitIncomeTotal" jdbcType="REAL" />
+    <result column="temp_member_statistics_already_principal" property="alreadyPrincipal" jdbcType="REAL" />
+    <result column="temp_member_statistics_wait_also_principal" property="waitAlsoPrincipal" jdbcType="REAL" />
+    <result column="temp_member_statistics_already_interest" property="alreadyInterest" jdbcType="REAL" />
+    <result column="temp_member_statistics_wait_also_interest" property="waitAlsoInterest" jdbcType="REAL" />
+    <result column="temp_member_statistics_already_income_principal" property="alreadyIncomePrincipal" jdbcType="REAL" />
+    <result column="temp_member_statistics_wait_income_principal" property="waitIncomePrincipal" jdbcType="REAL" />
+    <result column="temp_member_statistics_already_income_interest" property="alreadyIncomeInterest" jdbcType="REAL" />
+    <result column="temp_member_statistics_wait_income_interest" property="waitIncomeInterest" jdbcType="REAL" />
+    <result column="temp_member_statistics_overdue_fine_amount" property="overdueFineAmount" jdbcType="REAL" />
+    <result column="temp_member_statistics_overdue_interest_amount" property="overdueInterestAmount" jdbcType="REAL" />
+    <result column="temp_member_statistics_loan_management_amount" property="loanManagementAmount" jdbcType="REAL" />
+    <result column="temp_member_statistics_loan_interest_amount" property="loanInterestAmount" jdbcType="REAL" />
     <result column="temp_member_statistics_normal_repayment" property="normalRepayment" jdbcType="INTEGER" />
     <result column="temp_member_statistics_advance_repayment" property="advanceRepayment" jdbcType="INTEGER" />
     <result column="temp_member_statistics_late_repayment" property="lateRepayment" jdbcType="INTEGER" />
@@ -16,16 +29,15 @@
     <result column="temp_member_statistics_website_substitute" property="websiteSubstitute" jdbcType="INTEGER" />
     <result column="temp_member_statistics_investment_total" property="investmentTotal" jdbcType="REAL" />
     <result column="temp_member_statistics_tender_awards" property="tenderAwards" jdbcType="REAL" />
-    <result column="temp_member_statistics_already_income_total" property="alreadyIncomeTotal" jdbcType="REAL" />
-    <result column="temp_member_statistics_wait_income_total" property="waitIncomeTotal" jdbcType="REAL" />
     <result column="temp_member_statistics_promotion_awards" property="promotionAwards" jdbcType="REAL" />
+    <result column="temp_member_statistics_borrow_success" property="borrowSuccess" jdbcType="INTEGER" />
     <result column="temp_member_statistics_upline_delta_awards" property="uplineDeltaAwards" jdbcType="REAL" />
     <result column="temp_member_statistics_continue_awards" property="continueAwards" jdbcType="REAL" />
     <result column="temp_member_statistics_creater" property="creater" jdbcType="VARCHAR" />
     <result column="temp_member_statistics_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_statistics_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_member_statistics_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_member_statistics_memberRealName" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+	<result column="temp_member_statistics_memberRealName" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -90,19 +102,31 @@
     temp_member_statistics.total_borrowings as temp_member_statistics_total_borrowings, 
     temp_member_statistics.cumulative_loss_profit as temp_member_statistics_cumulative_loss_profit, 
     temp_member_statistics.already_total as temp_member_statistics_already_total, temp_member_statistics.wait_also_total as temp_member_statistics_wait_also_total, 
-    temp_member_statistics.borrow_success as temp_member_statistics_borrow_success, temp_member_statistics.normal_repayment as temp_member_statistics_normal_repayment, 
+    temp_member_statistics.already_income_total as temp_member_statistics_already_income_total, 
+    temp_member_statistics.wait_income_total as temp_member_statistics_wait_income_total, 
+    temp_member_statistics.already_principal as temp_member_statistics_already_principal, 
+    temp_member_statistics.wait_also_principal as temp_member_statistics_wait_also_principal, 
+    temp_member_statistics.already_interest as temp_member_statistics_already_interest, 
+    temp_member_statistics.wait_also_interest as temp_member_statistics_wait_also_interest, 
+    temp_member_statistics.already_income_principal as temp_member_statistics_already_income_principal, 
+    temp_member_statistics.wait_income_principal as temp_member_statistics_wait_income_principal, 
+    temp_member_statistics.already_income_interest as temp_member_statistics_already_income_interest, 
+    temp_member_statistics.wait_income_interest as temp_member_statistics_wait_income_interest, 
+    temp_member_statistics.overdue_fine_amount as temp_member_statistics_overdue_fine_amount, 
+    temp_member_statistics.overdue_interest_amount as temp_member_statistics_overdue_interest_amount, 
+    temp_member_statistics.loan_management_amount as temp_member_statistics_loan_management_amount, 
+    temp_member_statistics.loan_interest_amount as temp_member_statistics_loan_interest_amount, 
+    temp_member_statistics.normal_repayment as temp_member_statistics_normal_repayment, 
     temp_member_statistics.advance_repayment as temp_member_statistics_advance_repayment, 
     temp_member_statistics.late_repayment as temp_member_statistics_late_repayment, temp_member_statistics.late as temp_member_statistics_late, 
     temp_member_statistics.website_substitute as temp_member_statistics_website_substitute, 
     temp_member_statistics.investment_total as temp_member_statistics_investment_total, 
-    temp_member_statistics.tender_awards as temp_member_statistics_tender_awards, temp_member_statistics.already_income_total as temp_member_statistics_already_income_total, 
-    temp_member_statistics.wait_income_total as temp_member_statistics_wait_income_total, 
-    temp_member_statistics.promotion_awards as temp_member_statistics_promotion_awards, 
-    temp_member_statistics.upline_delta_awards as temp_member_statistics_upline_delta_awards, 
+    temp_member_statistics.tender_awards as temp_member_statistics_tender_awards, temp_member_statistics.promotion_awards as temp_member_statistics_promotion_awards, 
+    temp_member_statistics.borrow_success as temp_member_statistics_borrow_success, temp_member_statistics.upline_delta_awards as temp_member_statistics_upline_delta_awards, 
     temp_member_statistics.continue_awards as temp_member_statistics_continue_awards, 
     temp_member_statistics.creater as temp_member_statistics_creater, temp_member_statistics.create_time as temp_member_statistics_create_time, 
     temp_member_statistics.updater as temp_member_statistics_updater, temp_member_statistics.update_time as temp_member_statistics_update_time
-  	<!-- 以下字段属于扩展 -->
+	<!-- 以下字段属于扩展 -->
     ,temp_member.member_real_name as temp_member_statistics_memberRealName
   </sql>
   <sql id="Base_extend">
@@ -115,7 +139,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_member_statistics temp_member_statistics
-    <include refid="Base_extend"/>
+	<include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -130,24 +154,15 @@
     select 
     <include refid="Base_Column_List" />
     from t_member_statistics temp_member_statistics
-    <include refid="Base_extend"/>
+	<include refid="Base_extend"/>
     where temp_member_statistics.statistics_id = #{statisticsId,jdbcType=VARCHAR}
   </select>
-  <!-- 新增方法，根据所属会员Id查找该会员的统计信息 -->
-  <select id="selectByMemberId" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_member_statistics temp_member_statistics
-    <include refid="Base_extend"/>
-    where temp_member_statistics.member_id = #{memberId,jdbcType=VARCHAR}
-  </select>
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_member_statistics
     where statistics_id = #{statisticsId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.member.MemberStatisticsExample" >
-    delete from t_member_statistics temp_member_statistics
+    delete temp_member_statistics from t_member_statistics temp_member_statistics
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -155,20 +170,30 @@
   <insert id="insert" parameterType="com.glacier.netloan.entity.member.MemberStatistics" >
     insert into t_member_statistics (statistics_id, member_id, total_borrowings, 
       cumulative_loss_profit, already_total, wait_also_total, 
-      borrow_success, normal_repayment, advance_repayment, 
+      already_income_total, wait_income_total, already_principal, 
+      wait_also_principal, already_interest, wait_also_interest, 
+      already_income_principal, wait_income_principal, 
+      already_income_interest, wait_income_interest, overdue_fine_amount, 
+      overdue_interest_amount, loan_management_amount, 
+      loan_interest_amount, normal_repayment, advance_repayment, 
       late_repayment, late, website_substitute, 
-      investment_total, tender_awards, already_income_total, 
-      wait_income_total, promotion_awards, upline_delta_awards, 
-      continue_awards, creater, create_time, 
-      updater, update_time)
+      investment_total, tender_awards, promotion_awards, 
+      borrow_success, upline_delta_awards, continue_awards, 
+      creater, create_time, updater, 
+      update_time)
     values (#{statisticsId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{totalBorrowings,jdbcType=REAL}, 
       #{cumulativeLossProfit,jdbcType=REAL}, #{alreadyTotal,jdbcType=REAL}, #{waitAlsoTotal,jdbcType=REAL}, 
-      #{borrowSuccess,jdbcType=INTEGER}, #{normalRepayment,jdbcType=INTEGER}, #{advanceRepayment,jdbcType=INTEGER}, 
+      #{alreadyIncomeTotal,jdbcType=REAL}, #{waitIncomeTotal,jdbcType=REAL}, #{alreadyPrincipal,jdbcType=REAL}, 
+      #{waitAlsoPrincipal,jdbcType=REAL}, #{alreadyInterest,jdbcType=REAL}, #{waitAlsoInterest,jdbcType=REAL}, 
+      #{alreadyIncomePrincipal,jdbcType=REAL}, #{waitIncomePrincipal,jdbcType=REAL}, 
+      #{alreadyIncomeInterest,jdbcType=REAL}, #{waitIncomeInterest,jdbcType=REAL}, #{overdueFineAmount,jdbcType=REAL}, 
+      #{overdueInterestAmount,jdbcType=REAL}, #{loanManagementAmount,jdbcType=REAL}, 
+      #{loanInterestAmount,jdbcType=REAL}, #{normalRepayment,jdbcType=INTEGER}, #{advanceRepayment,jdbcType=INTEGER}, 
       #{lateRepayment,jdbcType=INTEGER}, #{late,jdbcType=INTEGER}, #{websiteSubstitute,jdbcType=INTEGER}, 
-      #{investmentTotal,jdbcType=REAL}, #{tenderAwards,jdbcType=REAL}, #{alreadyIncomeTotal,jdbcType=REAL}, 
-      #{waitIncomeTotal,jdbcType=REAL}, #{promotionAwards,jdbcType=REAL}, #{uplineDeltaAwards,jdbcType=REAL}, 
-      #{continueAwards,jdbcType=REAL}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+      #{investmentTotal,jdbcType=REAL}, #{tenderAwards,jdbcType=REAL}, #{promotionAwards,jdbcType=REAL}, 
+      #{borrowSuccess,jdbcType=INTEGER}, #{uplineDeltaAwards,jdbcType=REAL}, #{continueAwards,jdbcType=REAL}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.member.MemberStatistics" >
     insert into t_member_statistics
@@ -191,8 +216,47 @@
       <if test="waitAlsoTotal != null" >
         wait_also_total,
       </if>
-      <if test="borrowSuccess != null" >
-        borrow_success,
+      <if test="alreadyIncomeTotal != null" >
+        already_income_total,
+      </if>
+      <if test="waitIncomeTotal != null" >
+        wait_income_total,
+      </if>
+      <if test="alreadyPrincipal != null" >
+        already_principal,
+      </if>
+      <if test="waitAlsoPrincipal != null" >
+        wait_also_principal,
+      </if>
+      <if test="alreadyInterest != null" >
+        already_interest,
+      </if>
+      <if test="waitAlsoInterest != null" >
+        wait_also_interest,
+      </if>
+      <if test="alreadyIncomePrincipal != null" >
+        already_income_principal,
+      </if>
+      <if test="waitIncomePrincipal != null" >
+        wait_income_principal,
+      </if>
+      <if test="alreadyIncomeInterest != null" >
+        already_income_interest,
+      </if>
+      <if test="waitIncomeInterest != null" >
+        wait_income_interest,
+      </if>
+      <if test="overdueFineAmount != null" >
+        overdue_fine_amount,
+      </if>
+      <if test="overdueInterestAmount != null" >
+        overdue_interest_amount,
+      </if>
+      <if test="loanManagementAmount != null" >
+        loan_management_amount,
+      </if>
+      <if test="loanInterestAmount != null" >
+        loan_interest_amount,
       </if>
       <if test="normalRepayment != null" >
         normal_repayment,
@@ -215,14 +279,11 @@
       <if test="tenderAwards != null" >
         tender_awards,
       </if>
-      <if test="alreadyIncomeTotal != null" >
-        already_income_total,
-      </if>
-      <if test="waitIncomeTotal != null" >
-        wait_income_total,
-      </if>
       <if test="promotionAwards != null" >
         promotion_awards,
+      </if>
+      <if test="borrowSuccess != null" >
+        borrow_success,
       </if>
       <if test="uplineDeltaAwards != null" >
         upline_delta_awards,
@@ -262,8 +323,47 @@
       <if test="waitAlsoTotal != null" >
         #{waitAlsoTotal,jdbcType=REAL},
       </if>
-      <if test="borrowSuccess != null" >
-        #{borrowSuccess,jdbcType=INTEGER},
+      <if test="alreadyIncomeTotal != null" >
+        #{alreadyIncomeTotal,jdbcType=REAL},
+      </if>
+      <if test="waitIncomeTotal != null" >
+        #{waitIncomeTotal,jdbcType=REAL},
+      </if>
+      <if test="alreadyPrincipal != null" >
+        #{alreadyPrincipal,jdbcType=REAL},
+      </if>
+      <if test="waitAlsoPrincipal != null" >
+        #{waitAlsoPrincipal,jdbcType=REAL},
+      </if>
+      <if test="alreadyInterest != null" >
+        #{alreadyInterest,jdbcType=REAL},
+      </if>
+      <if test="waitAlsoInterest != null" >
+        #{waitAlsoInterest,jdbcType=REAL},
+      </if>
+      <if test="alreadyIncomePrincipal != null" >
+        #{alreadyIncomePrincipal,jdbcType=REAL},
+      </if>
+      <if test="waitIncomePrincipal != null" >
+        #{waitIncomePrincipal,jdbcType=REAL},
+      </if>
+      <if test="alreadyIncomeInterest != null" >
+        #{alreadyIncomeInterest,jdbcType=REAL},
+      </if>
+      <if test="waitIncomeInterest != null" >
+        #{waitIncomeInterest,jdbcType=REAL},
+      </if>
+      <if test="overdueFineAmount != null" >
+        #{overdueFineAmount,jdbcType=REAL},
+      </if>
+      <if test="overdueInterestAmount != null" >
+        #{overdueInterestAmount,jdbcType=REAL},
+      </if>
+      <if test="loanManagementAmount != null" >
+        #{loanManagementAmount,jdbcType=REAL},
+      </if>
+      <if test="loanInterestAmount != null" >
+        #{loanInterestAmount,jdbcType=REAL},
       </if>
       <if test="normalRepayment != null" >
         #{normalRepayment,jdbcType=INTEGER},
@@ -286,14 +386,11 @@
       <if test="tenderAwards != null" >
         #{tenderAwards,jdbcType=REAL},
       </if>
-      <if test="alreadyIncomeTotal != null" >
-        #{alreadyIncomeTotal,jdbcType=REAL},
-      </if>
-      <if test="waitIncomeTotal != null" >
-        #{waitIncomeTotal,jdbcType=REAL},
-      </if>
       <if test="promotionAwards != null" >
         #{promotionAwards,jdbcType=REAL},
+      </if>
+      <if test="borrowSuccess != null" >
+        #{borrowSuccess,jdbcType=INTEGER},
       </if>
       <if test="uplineDeltaAwards != null" >
         #{uplineDeltaAwards,jdbcType=REAL},
@@ -317,7 +414,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.member.MemberStatisticsExample" resultType="java.lang.Integer" >
     select count(*) from t_member_statistics temp_member_statistics
-    <include refid="Base_extend"/>
+	<include refid="Base_extend"/>
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -343,8 +440,47 @@
       <if test="record.waitAlsoTotal != null" >
         temp_member_statistics.wait_also_total = #{record.waitAlsoTotal,jdbcType=REAL},
       </if>
-      <if test="record.borrowSuccess != null" >
-        temp_member_statistics.borrow_success = #{record.borrowSuccess,jdbcType=INTEGER},
+      <if test="record.alreadyIncomeTotal != null" >
+        temp_member_statistics.already_income_total = #{record.alreadyIncomeTotal,jdbcType=REAL},
+      </if>
+      <if test="record.waitIncomeTotal != null" >
+        temp_member_statistics.wait_income_total = #{record.waitIncomeTotal,jdbcType=REAL},
+      </if>
+      <if test="record.alreadyPrincipal != null" >
+        temp_member_statistics.already_principal = #{record.alreadyPrincipal,jdbcType=REAL},
+      </if>
+      <if test="record.waitAlsoPrincipal != null" >
+        temp_member_statistics.wait_also_principal = #{record.waitAlsoPrincipal,jdbcType=REAL},
+      </if>
+      <if test="record.alreadyInterest != null" >
+        temp_member_statistics.already_interest = #{record.alreadyInterest,jdbcType=REAL},
+      </if>
+      <if test="record.waitAlsoInterest != null" >
+        temp_member_statistics.wait_also_interest = #{record.waitAlsoInterest,jdbcType=REAL},
+      </if>
+      <if test="record.alreadyIncomePrincipal != null" >
+        temp_member_statistics.already_income_principal = #{record.alreadyIncomePrincipal,jdbcType=REAL},
+      </if>
+      <if test="record.waitIncomePrincipal != null" >
+        temp_member_statistics.wait_income_principal = #{record.waitIncomePrincipal,jdbcType=REAL},
+      </if>
+      <if test="record.alreadyIncomeInterest != null" >
+        temp_member_statistics.already_income_interest = #{record.alreadyIncomeInterest,jdbcType=REAL},
+      </if>
+      <if test="record.waitIncomeInterest != null" >
+        temp_member_statistics.wait_income_interest = #{record.waitIncomeInterest,jdbcType=REAL},
+      </if>
+      <if test="record.overdueFineAmount != null" >
+        temp_member_statistics.overdue_fine_amount = #{record.overdueFineAmount,jdbcType=REAL},
+      </if>
+      <if test="record.overdueInterestAmount != null" >
+        temp_member_statistics.overdue_interest_amount = #{record.overdueInterestAmount,jdbcType=REAL},
+      </if>
+      <if test="record.loanManagementAmount != null" >
+        temp_member_statistics.loan_management_amount = #{record.loanManagementAmount,jdbcType=REAL},
+      </if>
+      <if test="record.loanInterestAmount != null" >
+        temp_member_statistics.loan_interest_amount = #{record.loanInterestAmount,jdbcType=REAL},
       </if>
       <if test="record.normalRepayment != null" >
         temp_member_statistics.normal_repayment = #{record.normalRepayment,jdbcType=INTEGER},
@@ -367,14 +503,11 @@
       <if test="record.tenderAwards != null" >
         temp_member_statistics.tender_awards = #{record.tenderAwards,jdbcType=REAL},
       </if>
-      <if test="record.alreadyIncomeTotal != null" >
-        temp_member_statistics.already_income_total = #{record.alreadyIncomeTotal,jdbcType=REAL},
-      </if>
-      <if test="record.waitIncomeTotal != null" >
-        temp_member_statistics.wait_income_total = #{record.waitIncomeTotal,jdbcType=REAL},
-      </if>
       <if test="record.promotionAwards != null" >
         temp_member_statistics.promotion_awards = #{record.promotionAwards,jdbcType=REAL},
+      </if>
+      <if test="record.borrowSuccess != null" >
+        temp_member_statistics.borrow_success = #{record.borrowSuccess,jdbcType=INTEGER},
       </if>
       <if test="record.uplineDeltaAwards != null" >
         temp_member_statistics.upline_delta_awards = #{record.uplineDeltaAwards,jdbcType=REAL},
@@ -407,7 +540,20 @@
       temp_member_statistics.cumulative_loss_profit = #{record.cumulativeLossProfit,jdbcType=REAL},
       temp_member_statistics.already_total = #{record.alreadyTotal,jdbcType=REAL},
       temp_member_statistics.wait_also_total = #{record.waitAlsoTotal,jdbcType=REAL},
-      temp_member_statistics.borrow_success = #{record.borrowSuccess,jdbcType=INTEGER},
+      temp_member_statistics.already_income_total = #{record.alreadyIncomeTotal,jdbcType=REAL},
+      temp_member_statistics.wait_income_total = #{record.waitIncomeTotal,jdbcType=REAL},
+      temp_member_statistics.already_principal = #{record.alreadyPrincipal,jdbcType=REAL},
+      temp_member_statistics.wait_also_principal = #{record.waitAlsoPrincipal,jdbcType=REAL},
+      temp_member_statistics.already_interest = #{record.alreadyInterest,jdbcType=REAL},
+      temp_member_statistics.wait_also_interest = #{record.waitAlsoInterest,jdbcType=REAL},
+      temp_member_statistics.already_income_principal = #{record.alreadyIncomePrincipal,jdbcType=REAL},
+      temp_member_statistics.wait_income_principal = #{record.waitIncomePrincipal,jdbcType=REAL},
+      temp_member_statistics.already_income_interest = #{record.alreadyIncomeInterest,jdbcType=REAL},
+      temp_member_statistics.wait_income_interest = #{record.waitIncomeInterest,jdbcType=REAL},
+      temp_member_statistics.overdue_fine_amount = #{record.overdueFineAmount,jdbcType=REAL},
+      temp_member_statistics.overdue_interest_amount = #{record.overdueInterestAmount,jdbcType=REAL},
+      temp_member_statistics.loan_management_amount = #{record.loanManagementAmount,jdbcType=REAL},
+      temp_member_statistics.loan_interest_amount = #{record.loanInterestAmount,jdbcType=REAL},
       temp_member_statistics.normal_repayment = #{record.normalRepayment,jdbcType=INTEGER},
       temp_member_statistics.advance_repayment = #{record.advanceRepayment,jdbcType=INTEGER},
       temp_member_statistics.late_repayment = #{record.lateRepayment,jdbcType=INTEGER},
@@ -415,9 +561,8 @@
       temp_member_statistics.website_substitute = #{record.websiteSubstitute,jdbcType=INTEGER},
       temp_member_statistics.investment_total = #{record.investmentTotal,jdbcType=REAL},
       temp_member_statistics.tender_awards = #{record.tenderAwards,jdbcType=REAL},
-      temp_member_statistics.already_income_total = #{record.alreadyIncomeTotal,jdbcType=REAL},
-      temp_member_statistics.wait_income_total = #{record.waitIncomeTotal,jdbcType=REAL},
       temp_member_statistics.promotion_awards = #{record.promotionAwards,jdbcType=REAL},
+      temp_member_statistics.borrow_success = #{record.borrowSuccess,jdbcType=INTEGER},
       temp_member_statistics.upline_delta_awards = #{record.uplineDeltaAwards,jdbcType=REAL},
       temp_member_statistics.continue_awards = #{record.continueAwards,jdbcType=REAL},
       temp_member_statistics.creater = #{record.creater,jdbcType=VARCHAR},
@@ -446,8 +591,47 @@
       <if test="waitAlsoTotal != null" >
         wait_also_total = #{waitAlsoTotal,jdbcType=REAL},
       </if>
-      <if test="borrowSuccess != null" >
-        borrow_success = #{borrowSuccess,jdbcType=INTEGER},
+      <if test="alreadyIncomeTotal != null" >
+        already_income_total = #{alreadyIncomeTotal,jdbcType=REAL},
+      </if>
+      <if test="waitIncomeTotal != null" >
+        wait_income_total = #{waitIncomeTotal,jdbcType=REAL},
+      </if>
+      <if test="alreadyPrincipal != null" >
+        already_principal = #{alreadyPrincipal,jdbcType=REAL},
+      </if>
+      <if test="waitAlsoPrincipal != null" >
+        wait_also_principal = #{waitAlsoPrincipal,jdbcType=REAL},
+      </if>
+      <if test="alreadyInterest != null" >
+        already_interest = #{alreadyInterest,jdbcType=REAL},
+      </if>
+      <if test="waitAlsoInterest != null" >
+        wait_also_interest = #{waitAlsoInterest,jdbcType=REAL},
+      </if>
+      <if test="alreadyIncomePrincipal != null" >
+        already_income_principal = #{alreadyIncomePrincipal,jdbcType=REAL},
+      </if>
+      <if test="waitIncomePrincipal != null" >
+        wait_income_principal = #{waitIncomePrincipal,jdbcType=REAL},
+      </if>
+      <if test="alreadyIncomeInterest != null" >
+        already_income_interest = #{alreadyIncomeInterest,jdbcType=REAL},
+      </if>
+      <if test="waitIncomeInterest != null" >
+        wait_income_interest = #{waitIncomeInterest,jdbcType=REAL},
+      </if>
+      <if test="overdueFineAmount != null" >
+        overdue_fine_amount = #{overdueFineAmount,jdbcType=REAL},
+      </if>
+      <if test="overdueInterestAmount != null" >
+        overdue_interest_amount = #{overdueInterestAmount,jdbcType=REAL},
+      </if>
+      <if test="loanManagementAmount != null" >
+        loan_management_amount = #{loanManagementAmount,jdbcType=REAL},
+      </if>
+      <if test="loanInterestAmount != null" >
+        loan_interest_amount = #{loanInterestAmount,jdbcType=REAL},
       </if>
       <if test="normalRepayment != null" >
         normal_repayment = #{normalRepayment,jdbcType=INTEGER},
@@ -470,14 +654,11 @@
       <if test="tenderAwards != null" >
         tender_awards = #{tenderAwards,jdbcType=REAL},
       </if>
-      <if test="alreadyIncomeTotal != null" >
-        already_income_total = #{alreadyIncomeTotal,jdbcType=REAL},
-      </if>
-      <if test="waitIncomeTotal != null" >
-        wait_income_total = #{waitIncomeTotal,jdbcType=REAL},
-      </if>
       <if test="promotionAwards != null" >
         promotion_awards = #{promotionAwards,jdbcType=REAL},
+      </if>
+      <if test="borrowSuccess != null" >
+        borrow_success = #{borrowSuccess,jdbcType=INTEGER},
       </if>
       <if test="uplineDeltaAwards != null" >
         upline_delta_awards = #{uplineDeltaAwards,jdbcType=REAL},
@@ -507,7 +688,20 @@
       cumulative_loss_profit = #{cumulativeLossProfit,jdbcType=REAL},
       already_total = #{alreadyTotal,jdbcType=REAL},
       wait_also_total = #{waitAlsoTotal,jdbcType=REAL},
-      borrow_success = #{borrowSuccess,jdbcType=INTEGER},
+      already_income_total = #{alreadyIncomeTotal,jdbcType=REAL},
+      wait_income_total = #{waitIncomeTotal,jdbcType=REAL},
+      already_principal = #{alreadyPrincipal,jdbcType=REAL},
+      wait_also_principal = #{waitAlsoPrincipal,jdbcType=REAL},
+      already_interest = #{alreadyInterest,jdbcType=REAL},
+      wait_also_interest = #{waitAlsoInterest,jdbcType=REAL},
+      already_income_principal = #{alreadyIncomePrincipal,jdbcType=REAL},
+      wait_income_principal = #{waitIncomePrincipal,jdbcType=REAL},
+      already_income_interest = #{alreadyIncomeInterest,jdbcType=REAL},
+      wait_income_interest = #{waitIncomeInterest,jdbcType=REAL},
+      overdue_fine_amount = #{overdueFineAmount,jdbcType=REAL},
+      overdue_interest_amount = #{overdueInterestAmount,jdbcType=REAL},
+      loan_management_amount = #{loanManagementAmount,jdbcType=REAL},
+      loan_interest_amount = #{loanInterestAmount,jdbcType=REAL},
       normal_repayment = #{normalRepayment,jdbcType=INTEGER},
       advance_repayment = #{advanceRepayment,jdbcType=INTEGER},
       late_repayment = #{lateRepayment,jdbcType=INTEGER},
@@ -515,9 +709,8 @@
       website_substitute = #{websiteSubstitute,jdbcType=INTEGER},
       investment_total = #{investmentTotal,jdbcType=REAL},
       tender_awards = #{tenderAwards,jdbcType=REAL},
-      already_income_total = #{alreadyIncomeTotal,jdbcType=REAL},
-      wait_income_total = #{waitIncomeTotal,jdbcType=REAL},
       promotion_awards = #{promotionAwards,jdbcType=REAL},
+      borrow_success = #{borrowSuccess,jdbcType=INTEGER},
       upline_delta_awards = #{uplineDeltaAwards,jdbcType=REAL},
       continue_awards = #{continueAwards,jdbcType=REAL},
       creater = #{creater,jdbcType=VARCHAR},

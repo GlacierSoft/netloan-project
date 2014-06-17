@@ -505,63 +505,843 @@ public class MemberStatisticsExample {
             return (Criteria) this;
         }
 
-        public Criteria andBorrowSuccessIsNull() {
-            addCriterion("temp_member_statistics.borrow_success is null");
+        public Criteria andAlreadyIncomeTotalIsNull() {
+            addCriterion("temp_member_statistics.already_income_total is null");
             return (Criteria) this;
         }
 
-        public Criteria andBorrowSuccessIsNotNull() {
-            addCriterion("temp_member_statistics.borrow_success is not null");
+        public Criteria andAlreadyIncomeTotalIsNotNull() {
+            addCriterion("temp_member_statistics.already_income_total is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBorrowSuccessEqualTo(Integer value) {
-            addCriterion("temp_member_statistics.borrow_success =", value, "borrowSuccess");
+        public Criteria andAlreadyIncomeTotalEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_income_total =", value, "alreadyIncomeTotal");
             return (Criteria) this;
         }
 
-        public Criteria andBorrowSuccessNotEqualTo(Integer value) {
-            addCriterion("temp_member_statistics.borrow_success <>", value, "borrowSuccess");
+        public Criteria andAlreadyIncomeTotalNotEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_income_total <>", value, "alreadyIncomeTotal");
             return (Criteria) this;
         }
 
-        public Criteria andBorrowSuccessGreaterThan(Integer value) {
-            addCriterion("temp_member_statistics.borrow_success >", value, "borrowSuccess");
+        public Criteria andAlreadyIncomeTotalGreaterThan(Float value) {
+            addCriterion("temp_member_statistics.already_income_total >", value, "alreadyIncomeTotal");
             return (Criteria) this;
         }
 
-        public Criteria andBorrowSuccessGreaterThanOrEqualTo(Integer value) {
-            addCriterion("temp_member_statistics.borrow_success >=", value, "borrowSuccess");
+        public Criteria andAlreadyIncomeTotalGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_income_total >=", value, "alreadyIncomeTotal");
             return (Criteria) this;
         }
 
-        public Criteria andBorrowSuccessLessThan(Integer value) {
-            addCriterion("temp_member_statistics.borrow_success <", value, "borrowSuccess");
+        public Criteria andAlreadyIncomeTotalLessThan(Float value) {
+            addCriterion("temp_member_statistics.already_income_total <", value, "alreadyIncomeTotal");
             return (Criteria) this;
         }
 
-        public Criteria andBorrowSuccessLessThanOrEqualTo(Integer value) {
-            addCriterion("temp_member_statistics.borrow_success <=", value, "borrowSuccess");
+        public Criteria andAlreadyIncomeTotalLessThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_income_total <=", value, "alreadyIncomeTotal");
             return (Criteria) this;
         }
 
-        public Criteria andBorrowSuccessIn(List<Integer> values) {
-            addCriterion("temp_member_statistics.borrow_success in", values, "borrowSuccess");
+        public Criteria andAlreadyIncomeTotalIn(List<Float> values) {
+            addCriterion("temp_member_statistics.already_income_total in", values, "alreadyIncomeTotal");
             return (Criteria) this;
         }
 
-        public Criteria andBorrowSuccessNotIn(List<Integer> values) {
-            addCriterion("temp_member_statistics.borrow_success not in", values, "borrowSuccess");
+        public Criteria andAlreadyIncomeTotalNotIn(List<Float> values) {
+            addCriterion("temp_member_statistics.already_income_total not in", values, "alreadyIncomeTotal");
             return (Criteria) this;
         }
 
-        public Criteria andBorrowSuccessBetween(Integer value1, Integer value2) {
-            addCriterion("temp_member_statistics.borrow_success between", value1, value2, "borrowSuccess");
+        public Criteria andAlreadyIncomeTotalBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.already_income_total between", value1, value2, "alreadyIncomeTotal");
             return (Criteria) this;
         }
 
-        public Criteria andBorrowSuccessNotBetween(Integer value1, Integer value2) {
-            addCriterion("temp_member_statistics.borrow_success not between", value1, value2, "borrowSuccess");
+        public Criteria andAlreadyIncomeTotalNotBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.already_income_total not between", value1, value2, "alreadyIncomeTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeTotalIsNull() {
+            addCriterion("temp_member_statistics.wait_income_total is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeTotalIsNotNull() {
+            addCriterion("temp_member_statistics.wait_income_total is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeTotalEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_income_total =", value, "waitIncomeTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeTotalNotEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_income_total <>", value, "waitIncomeTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeTotalGreaterThan(Float value) {
+            addCriterion("temp_member_statistics.wait_income_total >", value, "waitIncomeTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeTotalGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_income_total >=", value, "waitIncomeTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeTotalLessThan(Float value) {
+            addCriterion("temp_member_statistics.wait_income_total <", value, "waitIncomeTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeTotalLessThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_income_total <=", value, "waitIncomeTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeTotalIn(List<Float> values) {
+            addCriterion("temp_member_statistics.wait_income_total in", values, "waitIncomeTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeTotalNotIn(List<Float> values) {
+            addCriterion("temp_member_statistics.wait_income_total not in", values, "waitIncomeTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeTotalBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.wait_income_total between", value1, value2, "waitIncomeTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeTotalNotBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.wait_income_total not between", value1, value2, "waitIncomeTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyPrincipalIsNull() {
+            addCriterion("temp_member_statistics.already_principal is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyPrincipalIsNotNull() {
+            addCriterion("temp_member_statistics.already_principal is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyPrincipalEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_principal =", value, "alreadyPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyPrincipalNotEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_principal <>", value, "alreadyPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyPrincipalGreaterThan(Float value) {
+            addCriterion("temp_member_statistics.already_principal >", value, "alreadyPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyPrincipalGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_principal >=", value, "alreadyPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyPrincipalLessThan(Float value) {
+            addCriterion("temp_member_statistics.already_principal <", value, "alreadyPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyPrincipalLessThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_principal <=", value, "alreadyPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyPrincipalIn(List<Float> values) {
+            addCriterion("temp_member_statistics.already_principal in", values, "alreadyPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyPrincipalNotIn(List<Float> values) {
+            addCriterion("temp_member_statistics.already_principal not in", values, "alreadyPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyPrincipalBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.already_principal between", value1, value2, "alreadyPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyPrincipalNotBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.already_principal not between", value1, value2, "alreadyPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoPrincipalIsNull() {
+            addCriterion("temp_member_statistics.wait_also_principal is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoPrincipalIsNotNull() {
+            addCriterion("temp_member_statistics.wait_also_principal is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoPrincipalEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_also_principal =", value, "waitAlsoPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoPrincipalNotEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_also_principal <>", value, "waitAlsoPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoPrincipalGreaterThan(Float value) {
+            addCriterion("temp_member_statistics.wait_also_principal >", value, "waitAlsoPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoPrincipalGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_also_principal >=", value, "waitAlsoPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoPrincipalLessThan(Float value) {
+            addCriterion("temp_member_statistics.wait_also_principal <", value, "waitAlsoPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoPrincipalLessThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_also_principal <=", value, "waitAlsoPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoPrincipalIn(List<Float> values) {
+            addCriterion("temp_member_statistics.wait_also_principal in", values, "waitAlsoPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoPrincipalNotIn(List<Float> values) {
+            addCriterion("temp_member_statistics.wait_also_principal not in", values, "waitAlsoPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoPrincipalBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.wait_also_principal between", value1, value2, "waitAlsoPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoPrincipalNotBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.wait_also_principal not between", value1, value2, "waitAlsoPrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyInterestIsNull() {
+            addCriterion("temp_member_statistics.already_interest is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyInterestIsNotNull() {
+            addCriterion("temp_member_statistics.already_interest is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyInterestEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_interest =", value, "alreadyInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyInterestNotEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_interest <>", value, "alreadyInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyInterestGreaterThan(Float value) {
+            addCriterion("temp_member_statistics.already_interest >", value, "alreadyInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyInterestGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_interest >=", value, "alreadyInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyInterestLessThan(Float value) {
+            addCriterion("temp_member_statistics.already_interest <", value, "alreadyInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyInterestLessThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_interest <=", value, "alreadyInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyInterestIn(List<Float> values) {
+            addCriterion("temp_member_statistics.already_interest in", values, "alreadyInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyInterestNotIn(List<Float> values) {
+            addCriterion("temp_member_statistics.already_interest not in", values, "alreadyInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyInterestBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.already_interest between", value1, value2, "alreadyInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyInterestNotBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.already_interest not between", value1, value2, "alreadyInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoInterestIsNull() {
+            addCriterion("temp_member_statistics.wait_also_interest is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoInterestIsNotNull() {
+            addCriterion("temp_member_statistics.wait_also_interest is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoInterestEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_also_interest =", value, "waitAlsoInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoInterestNotEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_also_interest <>", value, "waitAlsoInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoInterestGreaterThan(Float value) {
+            addCriterion("temp_member_statistics.wait_also_interest >", value, "waitAlsoInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoInterestGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_also_interest >=", value, "waitAlsoInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoInterestLessThan(Float value) {
+            addCriterion("temp_member_statistics.wait_also_interest <", value, "waitAlsoInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoInterestLessThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_also_interest <=", value, "waitAlsoInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoInterestIn(List<Float> values) {
+            addCriterion("temp_member_statistics.wait_also_interest in", values, "waitAlsoInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoInterestNotIn(List<Float> values) {
+            addCriterion("temp_member_statistics.wait_also_interest not in", values, "waitAlsoInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoInterestBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.wait_also_interest between", value1, value2, "waitAlsoInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitAlsoInterestNotBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.wait_also_interest not between", value1, value2, "waitAlsoInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomePrincipalIsNull() {
+            addCriterion("temp_member_statistics.already_income_principal is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomePrincipalIsNotNull() {
+            addCriterion("temp_member_statistics.already_income_principal is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomePrincipalEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_income_principal =", value, "alreadyIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomePrincipalNotEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_income_principal <>", value, "alreadyIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomePrincipalGreaterThan(Float value) {
+            addCriterion("temp_member_statistics.already_income_principal >", value, "alreadyIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomePrincipalGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_income_principal >=", value, "alreadyIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomePrincipalLessThan(Float value) {
+            addCriterion("temp_member_statistics.already_income_principal <", value, "alreadyIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomePrincipalLessThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_income_principal <=", value, "alreadyIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomePrincipalIn(List<Float> values) {
+            addCriterion("temp_member_statistics.already_income_principal in", values, "alreadyIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomePrincipalNotIn(List<Float> values) {
+            addCriterion("temp_member_statistics.already_income_principal not in", values, "alreadyIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomePrincipalBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.already_income_principal between", value1, value2, "alreadyIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomePrincipalNotBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.already_income_principal not between", value1, value2, "alreadyIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomePrincipalIsNull() {
+            addCriterion("temp_member_statistics.wait_income_principal is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomePrincipalIsNotNull() {
+            addCriterion("temp_member_statistics.wait_income_principal is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomePrincipalEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_income_principal =", value, "waitIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomePrincipalNotEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_income_principal <>", value, "waitIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomePrincipalGreaterThan(Float value) {
+            addCriterion("temp_member_statistics.wait_income_principal >", value, "waitIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomePrincipalGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_income_principal >=", value, "waitIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomePrincipalLessThan(Float value) {
+            addCriterion("temp_member_statistics.wait_income_principal <", value, "waitIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomePrincipalLessThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_income_principal <=", value, "waitIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomePrincipalIn(List<Float> values) {
+            addCriterion("temp_member_statistics.wait_income_principal in", values, "waitIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomePrincipalNotIn(List<Float> values) {
+            addCriterion("temp_member_statistics.wait_income_principal not in", values, "waitIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomePrincipalBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.wait_income_principal between", value1, value2, "waitIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomePrincipalNotBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.wait_income_principal not between", value1, value2, "waitIncomePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomeInterestIsNull() {
+            addCriterion("temp_member_statistics.already_income_interest is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomeInterestIsNotNull() {
+            addCriterion("temp_member_statistics.already_income_interest is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomeInterestEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_income_interest =", value, "alreadyIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomeInterestNotEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_income_interest <>", value, "alreadyIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomeInterestGreaterThan(Float value) {
+            addCriterion("temp_member_statistics.already_income_interest >", value, "alreadyIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomeInterestGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_income_interest >=", value, "alreadyIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomeInterestLessThan(Float value) {
+            addCriterion("temp_member_statistics.already_income_interest <", value, "alreadyIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomeInterestLessThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.already_income_interest <=", value, "alreadyIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomeInterestIn(List<Float> values) {
+            addCriterion("temp_member_statistics.already_income_interest in", values, "alreadyIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomeInterestNotIn(List<Float> values) {
+            addCriterion("temp_member_statistics.already_income_interest not in", values, "alreadyIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomeInterestBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.already_income_interest between", value1, value2, "alreadyIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlreadyIncomeInterestNotBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.already_income_interest not between", value1, value2, "alreadyIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeInterestIsNull() {
+            addCriterion("temp_member_statistics.wait_income_interest is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeInterestIsNotNull() {
+            addCriterion("temp_member_statistics.wait_income_interest is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeInterestEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_income_interest =", value, "waitIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeInterestNotEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_income_interest <>", value, "waitIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeInterestGreaterThan(Float value) {
+            addCriterion("temp_member_statistics.wait_income_interest >", value, "waitIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeInterestGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_income_interest >=", value, "waitIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeInterestLessThan(Float value) {
+            addCriterion("temp_member_statistics.wait_income_interest <", value, "waitIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeInterestLessThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.wait_income_interest <=", value, "waitIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeInterestIn(List<Float> values) {
+            addCriterion("temp_member_statistics.wait_income_interest in", values, "waitIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeInterestNotIn(List<Float> values) {
+            addCriterion("temp_member_statistics.wait_income_interest not in", values, "waitIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeInterestBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.wait_income_interest between", value1, value2, "waitIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitIncomeInterestNotBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.wait_income_interest not between", value1, value2, "waitIncomeInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueFineAmountIsNull() {
+            addCriterion("temp_member_statistics.overdue_fine_amount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueFineAmountIsNotNull() {
+            addCriterion("temp_member_statistics.overdue_fine_amount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueFineAmountEqualTo(Float value) {
+            addCriterion("temp_member_statistics.overdue_fine_amount =", value, "overdueFineAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueFineAmountNotEqualTo(Float value) {
+            addCriterion("temp_member_statistics.overdue_fine_amount <>", value, "overdueFineAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueFineAmountGreaterThan(Float value) {
+            addCriterion("temp_member_statistics.overdue_fine_amount >", value, "overdueFineAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueFineAmountGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.overdue_fine_amount >=", value, "overdueFineAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueFineAmountLessThan(Float value) {
+            addCriterion("temp_member_statistics.overdue_fine_amount <", value, "overdueFineAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueFineAmountLessThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.overdue_fine_amount <=", value, "overdueFineAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueFineAmountIn(List<Float> values) {
+            addCriterion("temp_member_statistics.overdue_fine_amount in", values, "overdueFineAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueFineAmountNotIn(List<Float> values) {
+            addCriterion("temp_member_statistics.overdue_fine_amount not in", values, "overdueFineAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueFineAmountBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.overdue_fine_amount between", value1, value2, "overdueFineAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueFineAmountNotBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.overdue_fine_amount not between", value1, value2, "overdueFineAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueInterestAmountIsNull() {
+            addCriterion("temp_member_statistics.overdue_interest_amount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueInterestAmountIsNotNull() {
+            addCriterion("temp_member_statistics.overdue_interest_amount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueInterestAmountEqualTo(Float value) {
+            addCriterion("temp_member_statistics.overdue_interest_amount =", value, "overdueInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueInterestAmountNotEqualTo(Float value) {
+            addCriterion("temp_member_statistics.overdue_interest_amount <>", value, "overdueInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueInterestAmountGreaterThan(Float value) {
+            addCriterion("temp_member_statistics.overdue_interest_amount >", value, "overdueInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueInterestAmountGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.overdue_interest_amount >=", value, "overdueInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueInterestAmountLessThan(Float value) {
+            addCriterion("temp_member_statistics.overdue_interest_amount <", value, "overdueInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueInterestAmountLessThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.overdue_interest_amount <=", value, "overdueInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueInterestAmountIn(List<Float> values) {
+            addCriterion("temp_member_statistics.overdue_interest_amount in", values, "overdueInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueInterestAmountNotIn(List<Float> values) {
+            addCriterion("temp_member_statistics.overdue_interest_amount not in", values, "overdueInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueInterestAmountBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.overdue_interest_amount between", value1, value2, "overdueInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueInterestAmountNotBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.overdue_interest_amount not between", value1, value2, "overdueInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanManagementAmountIsNull() {
+            addCriterion("temp_member_statistics.loan_management_amount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanManagementAmountIsNotNull() {
+            addCriterion("temp_member_statistics.loan_management_amount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanManagementAmountEqualTo(Float value) {
+            addCriterion("temp_member_statistics.loan_management_amount =", value, "loanManagementAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanManagementAmountNotEqualTo(Float value) {
+            addCriterion("temp_member_statistics.loan_management_amount <>", value, "loanManagementAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanManagementAmountGreaterThan(Float value) {
+            addCriterion("temp_member_statistics.loan_management_amount >", value, "loanManagementAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanManagementAmountGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.loan_management_amount >=", value, "loanManagementAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanManagementAmountLessThan(Float value) {
+            addCriterion("temp_member_statistics.loan_management_amount <", value, "loanManagementAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanManagementAmountLessThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.loan_management_amount <=", value, "loanManagementAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanManagementAmountIn(List<Float> values) {
+            addCriterion("temp_member_statistics.loan_management_amount in", values, "loanManagementAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanManagementAmountNotIn(List<Float> values) {
+            addCriterion("temp_member_statistics.loan_management_amount not in", values, "loanManagementAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanManagementAmountBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.loan_management_amount between", value1, value2, "loanManagementAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanManagementAmountNotBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.loan_management_amount not between", value1, value2, "loanManagementAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanInterestAmountIsNull() {
+            addCriterion("temp_member_statistics.loan_interest_amount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanInterestAmountIsNotNull() {
+            addCriterion("temp_member_statistics.loan_interest_amount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanInterestAmountEqualTo(Float value) {
+            addCriterion("temp_member_statistics.loan_interest_amount =", value, "loanInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanInterestAmountNotEqualTo(Float value) {
+            addCriterion("temp_member_statistics.loan_interest_amount <>", value, "loanInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanInterestAmountGreaterThan(Float value) {
+            addCriterion("temp_member_statistics.loan_interest_amount >", value, "loanInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanInterestAmountGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.loan_interest_amount >=", value, "loanInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanInterestAmountLessThan(Float value) {
+            addCriterion("temp_member_statistics.loan_interest_amount <", value, "loanInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanInterestAmountLessThanOrEqualTo(Float value) {
+            addCriterion("temp_member_statistics.loan_interest_amount <=", value, "loanInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanInterestAmountIn(List<Float> values) {
+            addCriterion("temp_member_statistics.loan_interest_amount in", values, "loanInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanInterestAmountNotIn(List<Float> values) {
+            addCriterion("temp_member_statistics.loan_interest_amount not in", values, "loanInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanInterestAmountBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.loan_interest_amount between", value1, value2, "loanInterestAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanInterestAmountNotBetween(Float value1, Float value2) {
+            addCriterion("temp_member_statistics.loan_interest_amount not between", value1, value2, "loanInterestAmount");
             return (Criteria) this;
         }
 
@@ -985,126 +1765,6 @@ public class MemberStatisticsExample {
             return (Criteria) this;
         }
 
-        public Criteria andAlreadyIncomeTotalIsNull() {
-            addCriterion("temp_member_statistics.already_income_total is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAlreadyIncomeTotalIsNotNull() {
-            addCriterion("temp_member_statistics.already_income_total is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAlreadyIncomeTotalEqualTo(Float value) {
-            addCriterion("temp_member_statistics.already_income_total =", value, "alreadyIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andAlreadyIncomeTotalNotEqualTo(Float value) {
-            addCriterion("temp_member_statistics.already_income_total <>", value, "alreadyIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andAlreadyIncomeTotalGreaterThan(Float value) {
-            addCriterion("temp_member_statistics.already_income_total >", value, "alreadyIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andAlreadyIncomeTotalGreaterThanOrEqualTo(Float value) {
-            addCriterion("temp_member_statistics.already_income_total >=", value, "alreadyIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andAlreadyIncomeTotalLessThan(Float value) {
-            addCriterion("temp_member_statistics.already_income_total <", value, "alreadyIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andAlreadyIncomeTotalLessThanOrEqualTo(Float value) {
-            addCriterion("temp_member_statistics.already_income_total <=", value, "alreadyIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andAlreadyIncomeTotalIn(List<Float> values) {
-            addCriterion("temp_member_statistics.already_income_total in", values, "alreadyIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andAlreadyIncomeTotalNotIn(List<Float> values) {
-            addCriterion("temp_member_statistics.already_income_total not in", values, "alreadyIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andAlreadyIncomeTotalBetween(Float value1, Float value2) {
-            addCriterion("temp_member_statistics.already_income_total between", value1, value2, "alreadyIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andAlreadyIncomeTotalNotBetween(Float value1, Float value2) {
-            addCriterion("temp_member_statistics.already_income_total not between", value1, value2, "alreadyIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaitIncomeTotalIsNull() {
-            addCriterion("temp_member_statistics.wait_income_total is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaitIncomeTotalIsNotNull() {
-            addCriterion("temp_member_statistics.wait_income_total is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaitIncomeTotalEqualTo(Float value) {
-            addCriterion("temp_member_statistics.wait_income_total =", value, "waitIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaitIncomeTotalNotEqualTo(Float value) {
-            addCriterion("temp_member_statistics.wait_income_total <>", value, "waitIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaitIncomeTotalGreaterThan(Float value) {
-            addCriterion("temp_member_statistics.wait_income_total >", value, "waitIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaitIncomeTotalGreaterThanOrEqualTo(Float value) {
-            addCriterion("temp_member_statistics.wait_income_total >=", value, "waitIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaitIncomeTotalLessThan(Float value) {
-            addCriterion("temp_member_statistics.wait_income_total <", value, "waitIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaitIncomeTotalLessThanOrEqualTo(Float value) {
-            addCriterion("temp_member_statistics.wait_income_total <=", value, "waitIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaitIncomeTotalIn(List<Float> values) {
-            addCriterion("temp_member_statistics.wait_income_total in", values, "waitIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaitIncomeTotalNotIn(List<Float> values) {
-            addCriterion("temp_member_statistics.wait_income_total not in", values, "waitIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaitIncomeTotalBetween(Float value1, Float value2) {
-            addCriterion("temp_member_statistics.wait_income_total between", value1, value2, "waitIncomeTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaitIncomeTotalNotBetween(Float value1, Float value2) {
-            addCriterion("temp_member_statistics.wait_income_total not between", value1, value2, "waitIncomeTotal");
-            return (Criteria) this;
-        }
-
         public Criteria andPromotionAwardsIsNull() {
             addCriterion("temp_member_statistics.promotion_awards is null");
             return (Criteria) this;
@@ -1162,6 +1822,66 @@ public class MemberStatisticsExample {
 
         public Criteria andPromotionAwardsNotBetween(Float value1, Float value2) {
             addCriterion("temp_member_statistics.promotion_awards not between", value1, value2, "promotionAwards");
+            return (Criteria) this;
+        }
+
+        public Criteria andBorrowSuccessIsNull() {
+            addCriterion("temp_member_statistics.borrow_success is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBorrowSuccessIsNotNull() {
+            addCriterion("temp_member_statistics.borrow_success is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBorrowSuccessEqualTo(Integer value) {
+            addCriterion("temp_member_statistics.borrow_success =", value, "borrowSuccess");
+            return (Criteria) this;
+        }
+
+        public Criteria andBorrowSuccessNotEqualTo(Integer value) {
+            addCriterion("temp_member_statistics.borrow_success <>", value, "borrowSuccess");
+            return (Criteria) this;
+        }
+
+        public Criteria andBorrowSuccessGreaterThan(Integer value) {
+            addCriterion("temp_member_statistics.borrow_success >", value, "borrowSuccess");
+            return (Criteria) this;
+        }
+
+        public Criteria andBorrowSuccessGreaterThanOrEqualTo(Integer value) {
+            addCriterion("temp_member_statistics.borrow_success >=", value, "borrowSuccess");
+            return (Criteria) this;
+        }
+
+        public Criteria andBorrowSuccessLessThan(Integer value) {
+            addCriterion("temp_member_statistics.borrow_success <", value, "borrowSuccess");
+            return (Criteria) this;
+        }
+
+        public Criteria andBorrowSuccessLessThanOrEqualTo(Integer value) {
+            addCriterion("temp_member_statistics.borrow_success <=", value, "borrowSuccess");
+            return (Criteria) this;
+        }
+
+        public Criteria andBorrowSuccessIn(List<Integer> values) {
+            addCriterion("temp_member_statistics.borrow_success in", values, "borrowSuccess");
+            return (Criteria) this;
+        }
+
+        public Criteria andBorrowSuccessNotIn(List<Integer> values) {
+            addCriterion("temp_member_statistics.borrow_success not in", values, "borrowSuccess");
+            return (Criteria) this;
+        }
+
+        public Criteria andBorrowSuccessBetween(Integer value1, Integer value2) {
+            addCriterion("temp_member_statistics.borrow_success between", value1, value2, "borrowSuccess");
+            return (Criteria) this;
+        }
+
+        public Criteria andBorrowSuccessNotBetween(Integer value1, Integer value2) {
+            addCriterion("temp_member_statistics.borrow_success not between", value1, value2, "borrowSuccess");
             return (Criteria) this;
         }
 
