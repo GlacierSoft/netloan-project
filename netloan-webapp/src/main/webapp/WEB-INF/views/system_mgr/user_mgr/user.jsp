@@ -125,10 +125,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.userCnName,
+				title: "【"+rowData.userCnName+"】管理员详细信息",
 				href : ctx + '/do/user/intoDetail.htm?userId='+rowData.userId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 300,
+				width : 570,
+				height : 310,
 				enableApplyButton : false,
 				enableSaveButton : false
 			});

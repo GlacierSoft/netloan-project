@@ -7,7 +7,7 @@
 				<input class="spinner" value="${menuData.parentMenuCnName}" style="width:170px;height:18px;" readonly="readonly"/>
 			</td>
 			<td>图标样式：</td>
-			<td><input id="menu_detail_iconCls" class="spinner" value="${menuData.iconCls}" readonly="readonly"></select></td>
+			<td><input id="menu_detail_iconCls" style="width:170px" class="spinner" value="${menuData.iconCls}" readonly="readonly"></select></td>
 		</tr>
 		<tr>
 			<td>菜单名称：</td>
@@ -21,7 +21,7 @@
 			<td>URL：</td>
 			<td><input name="url" class="spinner" style="width:170px" value="${menuData.url}" readonly="readonly"/></td>
 			<td>菜单排序：</td>
-			<td><input name="orderNum" class="spinner" value="${menuData.orderNum}" readonly="readonly"/></td>
+			<td><input name="orderNum" class="spinner" value="${menuData.orderNum}" style="width:170px" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>

@@ -51,10 +51,10 @@
 		},
 		onDblClickRow: function(row){
 			$.easyui.showDialog({
-				title: row.menuCnName,
+				title: "【"+row.menuCnName+"】详细信息",
 				href : ctx + '/do/res/menu/intoDetail.htm?menuId='+row.menuId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 250,
+				height : 260,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -224,12 +224,12 @@
 	
 	// 增加菜单
 	glacier.system_mgr.res_mgr.res.addMenu = function(){
-		glacier.system_mgr.res_mgr.res.newMenuDialog('增加菜单',false,'/do/res/menu/add.json');
+		glacier.system_mgr.res_mgr.res.newMenuDialog('【菜单管理】- 增加菜单',false,'/do/res/menu/add.json');
 	};
 	
 	//编辑菜单
 	glacier.system_mgr.res_mgr.res.editMenu = function(){
-		glacier.system_mgr.res_mgr.res.newMenuDialog('修改菜单',true,'/do/res/menu/edit.json');
+		glacier.system_mgr.res_mgr.res.newMenuDialog('【菜单管理】- 修改菜单',true,'/do/res/menu/edit.json');
 	};
 	
 	//删除菜单
@@ -267,12 +267,12 @@
 	
 	//增加面板
 	glacier.system_mgr.res_mgr.res.addPanel = function(){
-		glacier.system_mgr.res_mgr.res.newPanelDialog('增加面板',false,'/do/res/panel/add.json');
+		glacier.system_mgr.res_mgr.res.newPanelDialog('【面板管理】- 增加面板',false,'/do/res/panel/add.json');
 	};
 	
 	//修改面板
 	glacier.system_mgr.res_mgr.res.editPanel = function(){
-		glacier.system_mgr.res_mgr.res.newPanelDialog('修改面板',true,'/do/res/panel/edit.json');
+		glacier.system_mgr.res_mgr.res.newPanelDialog('【面板管理】- 修改面板',true,'/do/res/panel/edit.json');
 	};
 	
 	//删除面板
@@ -310,12 +310,12 @@
 	
 	//增加操作
 	glacier.system_mgr.res_mgr.res.addAction = function(){
-		glacier.system_mgr.res_mgr.res.newActionDialog('增加操作',false,'/do/res/action/add.json');
+		glacier.system_mgr.res_mgr.res.newActionDialog('【操作管理】- 增加操作',false,'/do/res/action/add.json');
 	};
 	
 	//修改操作
 	glacier.system_mgr.res_mgr.res.editAction = function(){
-		glacier.system_mgr.res_mgr.res.newActionDialog('修改操作',true,'/do/res/action/edit.json');
+		glacier.system_mgr.res_mgr.res.newActionDialog('【操作管理】- 修改操作',true,'/do/res/action/edit.json');
 	};
 	
 	//删除操作

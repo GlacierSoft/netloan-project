@@ -98,10 +98,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.roleCnName,
+				title: "【"+rowData.roleCnName+"】角色详细信息",
 				href : ctx + '/do/role/intoDetail.htm?roleId='+rowData.roleId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 205,
+				height : 230,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -206,7 +206,7 @@
 				},{
 					field : 'menuName',
 					title : '菜单',
-					width : 150
+					width : 280
 				}] ],
 				columns : [ [ 
 							{
@@ -355,7 +355,7 @@
 				},{
 					field : 'menuName',
 					title : '菜单',
-					width:120
+					width:180
 				}] ],
 				columns : [ [ 
 							{

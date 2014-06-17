@@ -98,10 +98,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.loginUser,
+				title: "【"+rowData.loginUser+"】登陆日志详细信息",
 				href : ctx + '/do/loginlog/intoDetail.htm?loginlogId='+rowData.loginlogId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 190,
+				height : 220,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

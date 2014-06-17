@@ -113,10 +113,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.operaMenu,
+				title: "【"+rowData.operaMenu+"】操作日志详细信息",
 				href : ctx + '/do/operalog/intoDetail.htm?operalogId='+rowData.operalogId,//从controller请求jsp页面进行渲染
-				width : 530,
-				height : 240,
+				width : 540,
+				height : 270,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
