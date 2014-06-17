@@ -165,7 +165,7 @@
 	glacier.member_mgr.applyAmount_mgr.applyAmount.auditApplyAmount = function(){
 		var row = glacier.member_mgr.applyAmount_mgr.applyAmount.applyAmountDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '审核【'+row.memberRealName+'】审核额度信息',
+			title : '审核【'+row.memberRealName+'】申请额度信息',
 			width : 540,
 			height : 360,
             queryUrl : ctx + '/do/applyAmount/intoAudit.htm',

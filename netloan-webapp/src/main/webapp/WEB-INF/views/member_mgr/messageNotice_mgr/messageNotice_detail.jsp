@@ -29,12 +29,12 @@
 		<tr>
 			<td>内容：</td>
 			<td colspan="3">
-				<%-- <textarea id="messageNotice_mgr_messageNotice_form_content" name="content" style="width:268px;" class="spinner formta" readonly="readonly">
+				  <textarea id="messageNotice_mgr_messageNotice_form_content" name="content" style="width:410px;height: 23px;text-align: left;" class="spinner formta" readonly="readonly">
 					${messageNoticeData.content}
-				</textarea> --%>
-				<div style="width:400px;">
+				</textarea>  
+			<%-- 	<div style="width:400px;" >
 					${messageNoticeData.content}
-				</div>
+				</div> --%>
 			</td>
 		</tr> 
 	</table>

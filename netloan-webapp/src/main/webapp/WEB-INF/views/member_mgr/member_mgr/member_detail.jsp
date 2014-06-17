@@ -53,7 +53,7 @@
 					</tr>
 					<tr>
 						<td>个人描述：</td>
-						<td colspan="3"> <textarea id="member_mgr_member_form_personalDes" name="personalDes" style="width:420px;" readonly="readonly" >${memberData.personalDes}</textarea></td>
+						<td colspan="3"> <textarea id="member_mgr_member_form_personalDes" name="personalDes" class="spinner" style="width:435px;" readonly="readonly" >${memberData.personalDes}</textarea></td>
 					</tr>
 				</table>
 		</fieldset>

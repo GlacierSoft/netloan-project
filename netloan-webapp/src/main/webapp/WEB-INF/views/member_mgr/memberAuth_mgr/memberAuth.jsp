@@ -151,7 +151,7 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.memberName,
+				title: '【'+rowData.memberName+'】认证详细信息',
 				href : ctx + '/do/memberAuth/intoDetail.htm?memberId='+rowData.memberId,//从controller请求jsp页面进行渲染
 				width : 800,
 				height : 620,
