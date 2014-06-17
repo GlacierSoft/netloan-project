@@ -107,7 +107,69 @@
 				title:'待收总额',
 				sortable:true,
 				width:70
-			},{
+			}, 
+			  {     /**xinzen**/
+				field:'alreadyPrincipal',
+				title:'已还本金',
+				sortable:true,
+				width:70
+		 	},{    
+				field:'waitAlsoPrincipal',
+				title:'待还本金',
+				sortable:true,
+				width:70
+		 	},{    
+				field:'alreadyInterest',
+				title:'已还利息',
+				sortable:true,
+				width:70
+		 	},{    
+				field:'waitAlsoInterest',
+				title:'待还利息',
+				sortable:true,
+				width:70
+		 	},{    
+				field:'alreadyIncomePrincipal',
+				title:'已收本金',
+				sortable:true,
+				width:70
+		 	},{    
+				field:'waitIncomePrincipal',
+				title:'待收本金',
+				sortable:true,
+				width:70
+		 	},{    
+				field:'alreadyIncomeInterest',
+				title:'已收利息',
+				sortable:true,
+				width:70
+		 	},{    
+				field:'waitIncomeInterest',
+				title:'待收利息',
+				sortable:true,
+				width:70
+		 	},  {    
+				field:'overdueFineAmount',
+				title:'逾期罚款金额',
+				sortable:true,
+				width:70
+		 	}, {    
+				field:'overdueInterestAmount',
+				title:'逾期利息总额',
+				sortable:true,
+				width:70
+		 	}, {    
+				field:'loanManagementAmount',
+				title:'借款管理费',
+				sortable:true,
+				width:70
+		 	},
+		 	 {    
+				field:'loanInterestAmount',
+				title:' 借款利息总额',
+				sortable:true,
+				width:70  //end
+		 	}, {
 				field:'promotionAwards',
 				title:'推广奖励',
 				sortable:true,
@@ -160,8 +222,8 @@
 			$.easyui.showDialog({
 				title: '【'+rowData.memberRealName+'】会员统计详细信息',
 				href : ctx + '/do/memberStatistics/intoDetail.htm?statisticsId='+rowData.statisticsId,//从controller请求jsp页面进行渲染
-				width : 580,
-				height : 350,
+				width : 600,
+				height : 513,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
