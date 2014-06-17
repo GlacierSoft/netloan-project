@@ -26,6 +26,9 @@ public class MemberStatistics {
 
     private Float waitIncomeTotal;
 
+    /**
+     * 
+     */
     private Float alreadyPrincipal;
 
     private Float waitAlsoPrincipal;
@@ -49,6 +52,9 @@ public class MemberStatistics {
     private Float loanManagementAmount;
 
     private Float loanInterestAmount;
+    /**
+     * end
+     */
 
     private Integer normalRepayment;
 
