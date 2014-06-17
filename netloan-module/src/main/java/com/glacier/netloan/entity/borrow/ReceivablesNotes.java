@@ -99,6 +99,18 @@ public class ReceivablesNotes {
     private Float alrReceMoney;
 
     private Float notReceMoney;
+    
+    private Float shouldRecePrincipal;
+
+    private Float alrRecePrincipal;
+
+    private Float notRecePrincipal;
+
+    private Float shouldReceInterest;
+
+    private Float alrReceInterest;
+
+    private Float notReceInterest;
 
     private Float alrOverdueInterest;
 
@@ -318,6 +330,54 @@ public class ReceivablesNotes {
         this.notReceMoney = notReceMoney;
     }
 
+    public Float getShouldRecePrincipal() {
+        return shouldRecePrincipal;
+    }
+
+    public void setShouldRecePrincipal(Float shouldRecePrincipal) {
+        this.shouldRecePrincipal = shouldRecePrincipal;
+    }
+
+    public Float getAlrRecePrincipal() {
+        return alrRecePrincipal;
+    }
+
+    public void setAlrRecePrincipal(Float alrRecePrincipal) {
+        this.alrRecePrincipal = alrRecePrincipal;
+    }
+
+    public Float getNotRecePrincipal() {
+        return notRecePrincipal;
+    }
+
+    public void setNotRecePrincipal(Float notRecePrincipal) {
+        this.notRecePrincipal = notRecePrincipal;
+    }
+
+    public Float getShouldReceInterest() {
+        return shouldReceInterest;
+    }
+
+    public void setShouldReceInterest(Float shouldReceInterest) {
+        this.shouldReceInterest = shouldReceInterest;
+    }
+
+    public Float getAlrReceInterest() {
+        return alrReceInterest;
+    }
+
+    public void setAlrReceInterest(Float alrReceInterest) {
+        this.alrReceInterest = alrReceInterest;
+    }
+
+    public Float getNotReceInterest() {
+        return notReceInterest;
+    }
+
+    public void setNotReceInterest(Float notReceInterest) {
+        this.notReceInterest = notReceInterest;
+    }
+
     public Float getAlrOverdueInterest() {
         return alrOverdueInterest;
     }
@@ -393,6 +453,12 @@ public class ReceivablesNotes {
             && (this.getShouldReceMoney() == null ? other.getShouldReceMoney() == null : this.getShouldReceMoney().equals(other.getShouldReceMoney()))
             && (this.getAlrReceMoney() == null ? other.getAlrReceMoney() == null : this.getAlrReceMoney().equals(other.getAlrReceMoney()))
             && (this.getNotReceMoney() == null ? other.getNotReceMoney() == null : this.getNotReceMoney().equals(other.getNotReceMoney()))
+            && (this.getShouldRecePrincipal() == null ? other.getShouldRecePrincipal() == null : this.getShouldRecePrincipal().equals(other.getShouldRecePrincipal()))
+            && (this.getAlrRecePrincipal() == null ? other.getAlrRecePrincipal() == null : this.getAlrRecePrincipal().equals(other.getAlrRecePrincipal()))
+            && (this.getNotRecePrincipal() == null ? other.getNotRecePrincipal() == null : this.getNotRecePrincipal().equals(other.getNotRecePrincipal()))
+            && (this.getShouldReceInterest() == null ? other.getShouldReceInterest() == null : this.getShouldReceInterest().equals(other.getShouldReceInterest()))
+            && (this.getAlrReceInterest() == null ? other.getAlrReceInterest() == null : this.getAlrReceInterest().equals(other.getAlrReceInterest()))
+            && (this.getNotReceInterest() == null ? other.getNotReceInterest() == null : this.getNotReceInterest().equals(other.getNotReceInterest()))
             && (this.getAlrOverdueInterest() == null ? other.getAlrOverdueInterest() == null : this.getAlrOverdueInterest().equals(other.getAlrOverdueInterest()))
             && (this.getReceState() == null ? other.getReceState() == null : this.getReceState().equals(other.getReceState()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
@@ -413,6 +479,12 @@ public class ReceivablesNotes {
         result = prime * result + ((getShouldReceMoney() == null) ? 0 : getShouldReceMoney().hashCode());
         result = prime * result + ((getAlrReceMoney() == null) ? 0 : getAlrReceMoney().hashCode());
         result = prime * result + ((getNotReceMoney() == null) ? 0 : getNotReceMoney().hashCode());
+        result = prime * result + ((getShouldRecePrincipal() == null) ? 0 : getShouldRecePrincipal().hashCode());
+        result = prime * result + ((getAlrRecePrincipal() == null) ? 0 : getAlrRecePrincipal().hashCode());
+        result = prime * result + ((getNotRecePrincipal() == null) ? 0 : getNotRecePrincipal().hashCode());
+        result = prime * result + ((getShouldReceInterest() == null) ? 0 : getShouldReceInterest().hashCode());
+        result = prime * result + ((getAlrReceInterest() == null) ? 0 : getAlrReceInterest().hashCode());
+        result = prime * result + ((getNotReceInterest() == null) ? 0 : getNotReceInterest().hashCode());
         result = prime * result + ((getAlrOverdueInterest() == null) ? 0 : getAlrOverdueInterest().hashCode());
         result = prime * result + ((getReceState() == null) ? 0 : getReceState().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());

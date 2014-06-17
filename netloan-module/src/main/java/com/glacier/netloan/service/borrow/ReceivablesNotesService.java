@@ -156,7 +156,7 @@ public class ReceivablesNotesService {
 	        		receivablesNotesDetailExample.createCriteria().andMemberIdEqualTo(memberId).andReceStateEqualTo("notReceiving");
 	        	}else{
 	        		receivablesNotesDetailExample.createCriteria().andMemberIdEqualTo(memberId).andReceStateEqualTo("notReceiving")
-	        										.andShouldPayDateLessThanOrEqualTo(c.getTime());
+	        										.andShouldReceDateLessThanOrEqualTo(c.getTime());
 	        	}
 	        	//查询所有符合条件的收款记录明细，然后通过for循环,计算出本息
 	        	List<ReceivablesNotesDetail> receivablesNotesDetails = receivablesNotesDetailMapper.selectByExample(receivablesNotesDetailExample);//查询属于该会员的已收款的收款记录明细列表

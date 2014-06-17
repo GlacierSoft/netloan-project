@@ -26,10 +26,10 @@ public class ReceivablesNotesDetail {
     private String numberPeriod;
 
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
-    private Date shouldPayDate;
+    private Date shouldReceDate;
 
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
-    private Date actualPayDate;
+    private Date actualReceDate;
 
     private Float currentReceMoeny;
 
@@ -48,6 +48,8 @@ public class ReceivablesNotesDetail {
     private Float overdueDays;
 
     private Float income;
+    
+    private Float amount;
 
     private String receState;
 
@@ -145,20 +147,20 @@ public class ReceivablesNotesDetail {
         this.numberPeriod = numberPeriod;
     }
 
-    public Date getShouldPayDate() {
-        return shouldPayDate;
+    public Date getShouldReceDate() {
+        return shouldReceDate;
     }
 
-    public void setShouldPayDate(Date shouldPayDate) {
-        this.shouldPayDate = shouldPayDate;
+    public void setShouldReceDate(Date shouldReceDate) {
+        this.shouldReceDate = shouldReceDate;
     }
 
-    public Date getActualPayDate() {
-        return actualPayDate;
+    public Date getActualReceDate() {
+        return actualReceDate;
     }
 
-    public void setActualPayDate(Date actualPayDate) {
-        this.actualPayDate = actualPayDate;
+    public void setActualReceDate(Date actualReceDate) {
+        this.actualReceDate = actualReceDate;
     }
 
     public Float getCurrentReceMoeny() {
@@ -233,6 +235,14 @@ public class ReceivablesNotesDetail {
         this.income = income;
     }
 
+    public Float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Float amount) {
+        this.amount = amount;
+    }
+
     public String getReceState() {
         return receState;
     }
@@ -298,8 +308,8 @@ public class ReceivablesNotesDetail {
             && (this.getMemberId() == null ? other.getMemberId() == null : this.getMemberId().equals(other.getMemberId()))
             && (this.getAlrReceMoney() == null ? other.getAlrReceMoney() == null : this.getAlrReceMoney().equals(other.getAlrReceMoney()))
             && (this.getNumberPeriod() == null ? other.getNumberPeriod() == null : this.getNumberPeriod().equals(other.getNumberPeriod()))
-            && (this.getShouldPayDate() == null ? other.getShouldPayDate() == null : this.getShouldPayDate().equals(other.getShouldPayDate()))
-            && (this.getActualPayDate() == null ? other.getActualPayDate() == null : this.getActualPayDate().equals(other.getActualPayDate()))
+            && (this.getShouldReceDate() == null ? other.getShouldReceDate() == null : this.getShouldReceDate().equals(other.getShouldReceDate()))
+            && (this.getActualReceDate() == null ? other.getActualReceDate() == null : this.getActualReceDate().equals(other.getActualReceDate()))
             && (this.getCurrentReceMoeny() == null ? other.getCurrentReceMoeny() == null : this.getCurrentReceMoeny().equals(other.getCurrentReceMoeny()))
             && (this.getCurrentRecePrincipal() == null ? other.getCurrentRecePrincipal() == null : this.getCurrentRecePrincipal().equals(other.getCurrentRecePrincipal()))
             && (this.getCurrentReceInterest() == null ? other.getCurrentReceInterest() == null : this.getCurrentReceInterest().equals(other.getCurrentReceInterest()))
@@ -309,6 +319,7 @@ public class ReceivablesNotesDetail {
             && (this.getOverdueInterest() == null ? other.getOverdueInterest() == null : this.getOverdueInterest().equals(other.getOverdueInterest()))
             && (this.getOverdueDays() == null ? other.getOverdueDays() == null : this.getOverdueDays().equals(other.getOverdueDays()))
             && (this.getIncome() == null ? other.getIncome() == null : this.getIncome().equals(other.getIncome()))
+            && (this.getAmount() == null ? other.getAmount() == null : this.getAmount().equals(other.getAmount()))
             && (this.getReceState() == null ? other.getReceState() == null : this.getReceState().equals(other.getReceState()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
@@ -326,8 +337,8 @@ public class ReceivablesNotesDetail {
         result = prime * result + ((getMemberId() == null) ? 0 : getMemberId().hashCode());
         result = prime * result + ((getAlrReceMoney() == null) ? 0 : getAlrReceMoney().hashCode());
         result = prime * result + ((getNumberPeriod() == null) ? 0 : getNumberPeriod().hashCode());
-        result = prime * result + ((getShouldPayDate() == null) ? 0 : getShouldPayDate().hashCode());
-        result = prime * result + ((getActualPayDate() == null) ? 0 : getActualPayDate().hashCode());
+        result = prime * result + ((getShouldReceDate() == null) ? 0 : getShouldReceDate().hashCode());
+        result = prime * result + ((getActualReceDate() == null) ? 0 : getActualReceDate().hashCode());
         result = prime * result + ((getCurrentReceMoeny() == null) ? 0 : getCurrentReceMoeny().hashCode());
         result = prime * result + ((getCurrentRecePrincipal() == null) ? 0 : getCurrentRecePrincipal().hashCode());
         result = prime * result + ((getCurrentReceInterest() == null) ? 0 : getCurrentReceInterest().hashCode());
@@ -337,6 +348,7 @@ public class ReceivablesNotesDetail {
         result = prime * result + ((getOverdueInterest() == null) ? 0 : getOverdueInterest().hashCode());
         result = prime * result + ((getOverdueDays() == null) ? 0 : getOverdueDays().hashCode());
         result = prime * result + ((getIncome() == null) ? 0 : getIncome().hashCode());
+        result = prime * result + ((getAmount() == null) ? 0 : getAmount().hashCode());
         result = prime * result + ((getReceState() == null) ? 0 : getReceState().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());

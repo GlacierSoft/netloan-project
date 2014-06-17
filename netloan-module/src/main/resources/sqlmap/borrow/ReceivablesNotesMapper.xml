@@ -9,6 +9,12 @@
     <result column="temp_receivables_notes_should_rece_money" property="shouldReceMoney" jdbcType="REAL" />
     <result column="temp_receivables_notes_alr_rece_money" property="alrReceMoney" jdbcType="REAL" />
     <result column="temp_receivables_notes_not_rece_money" property="notReceMoney" jdbcType="REAL" />
+    <result column="temp_receivables_notes_should_rece_principal" property="shouldRecePrincipal" jdbcType="REAL" />
+    <result column="temp_receivables_notes_alr_rece_principal" property="alrRecePrincipal" jdbcType="REAL" />
+    <result column="temp_receivables_notes_not_rece_principal" property="notRecePrincipal" jdbcType="REAL" />
+    <result column="temp_receivables_notes_should_rece_interest" property="shouldReceInterest" jdbcType="REAL" />
+    <result column="temp_receivables_notes_alr_rece_interest" property="alrReceInterest" jdbcType="REAL" />
+    <result column="temp_receivables_notes_not_rece_interest" property="notReceInterest" jdbcType="REAL" />
     <result column="temp_receivables_notes_alr_overdue_interest" property="alrOverdueInterest" jdbcType="REAL" />
     <result column="temp_receivables_notes_rece_state" property="receState" jdbcType="CHAR" />
     <result column="temp_receivables_notes_remark" property="remark" jdbcType="VARCHAR" />
@@ -16,7 +22,7 @@
     <result column="temp_receivables_notes_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_receivables_notes_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_receivables_notes_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_receivables_notes_loan_title" property="loanTitle" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+	<result column="temp_receivables_notes_loan_title" property="loanTitle" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_memberDisplay" property="memberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
@@ -96,11 +102,17 @@
     temp_receivables_notes.member_id as temp_receivables_notes_member_id, temp_receivables_notes.receivables_total as temp_receivables_notes_receivables_total, 
     temp_receivables_notes.should_rece_money as temp_receivables_notes_should_rece_money, 
     temp_receivables_notes.alr_rece_money as temp_receivables_notes_alr_rece_money, temp_receivables_notes.not_rece_money as temp_receivables_notes_not_rece_money, 
+    temp_receivables_notes.should_rece_principal as temp_receivables_notes_should_rece_principal, 
+    temp_receivables_notes.alr_rece_principal as temp_receivables_notes_alr_rece_principal, 
+    temp_receivables_notes.not_rece_principal as temp_receivables_notes_not_rece_principal, 
+    temp_receivables_notes.should_rece_interest as temp_receivables_notes_should_rece_interest, 
+    temp_receivables_notes.alr_rece_interest as temp_receivables_notes_alr_rece_interest, 
+    temp_receivables_notes.not_rece_interest as temp_receivables_notes_not_rece_interest, 
     temp_receivables_notes.alr_overdue_interest as temp_receivables_notes_alr_overdue_interest, 
     temp_receivables_notes.rece_state as temp_receivables_notes_rece_state, temp_receivables_notes.remark as temp_receivables_notes_remark, 
     temp_receivables_notes.creater as temp_receivables_notes_creater, temp_receivables_notes.create_time as temp_receivables_notes_create_time, 
     temp_receivables_notes.updater as temp_receivables_notes_updater, temp_receivables_notes.update_time as temp_receivables_notes_update_time
-    <!-- 以下字段属于扩展 -->
+	<!-- 以下字段属于扩展 -->
     ,temp_member.member_name as temp_receivables_notes_memberDisplay
     ,temp_creater.user_cn_name as temp_receivables_notes_createrDisplay
     ,temp_updater.user_cn_name as temp_receivables_notes_updaterDisplay
@@ -134,7 +146,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_receivables_notes temp_receivables_notes
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -149,7 +161,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_receivables_notes temp_receivables_notes
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     where temp_receivables_notes.rece_notes_id = #{receNotesId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -165,12 +177,16 @@
   <insert id="insert" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotes" >
     insert into t_receivables_notes (rece_notes_id, tender_notes_id, member_id, 
       receivables_total, should_rece_money, alr_rece_money, 
-      not_rece_money, alr_overdue_interest, rece_state, 
+      not_rece_money, should_rece_principal, alr_rece_principal, 
+      not_rece_principal, should_rece_interest, alr_rece_interest, 
+      not_rece_interest, alr_overdue_interest, rece_state, 
       remark, creater, create_time, 
       updater, update_time)
     values (#{receNotesId,jdbcType=VARCHAR}, #{tenderNotesId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
       #{receivablesTotal,jdbcType=REAL}, #{shouldReceMoney,jdbcType=REAL}, #{alrReceMoney,jdbcType=REAL}, 
-      #{notReceMoney,jdbcType=REAL}, #{alrOverdueInterest,jdbcType=REAL}, #{receState,jdbcType=CHAR}, 
+      #{notReceMoney,jdbcType=REAL}, #{shouldRecePrincipal,jdbcType=REAL}, #{alrRecePrincipal,jdbcType=REAL}, 
+      #{notRecePrincipal,jdbcType=REAL}, #{shouldReceInterest,jdbcType=REAL}, #{alrReceInterest,jdbcType=REAL}, 
+      #{notReceInterest,jdbcType=REAL}, #{alrOverdueInterest,jdbcType=REAL}, #{receState,jdbcType=CHAR}, 
       #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -197,6 +213,24 @@
       </if>
       <if test="notReceMoney != null" >
         not_rece_money,
+      </if>
+      <if test="shouldRecePrincipal != null" >
+        should_rece_principal,
+      </if>
+      <if test="alrRecePrincipal != null" >
+        alr_rece_principal,
+      </if>
+      <if test="notRecePrincipal != null" >
+        not_rece_principal,
+      </if>
+      <if test="shouldReceInterest != null" >
+        should_rece_interest,
+      </if>
+      <if test="alrReceInterest != null" >
+        alr_rece_interest,
+      </if>
+      <if test="notReceInterest != null" >
+        not_rece_interest,
       </if>
       <if test="alrOverdueInterest != null" >
         alr_overdue_interest,
@@ -242,6 +276,24 @@
       <if test="notReceMoney != null" >
         #{notReceMoney,jdbcType=REAL},
       </if>
+      <if test="shouldRecePrincipal != null" >
+        #{shouldRecePrincipal,jdbcType=REAL},
+      </if>
+      <if test="alrRecePrincipal != null" >
+        #{alrRecePrincipal,jdbcType=REAL},
+      </if>
+      <if test="notRecePrincipal != null" >
+        #{notRecePrincipal,jdbcType=REAL},
+      </if>
+      <if test="shouldReceInterest != null" >
+        #{shouldReceInterest,jdbcType=REAL},
+      </if>
+      <if test="alrReceInterest != null" >
+        #{alrReceInterest,jdbcType=REAL},
+      </if>
+      <if test="notReceInterest != null" >
+        #{notReceInterest,jdbcType=REAL},
+      </if>
       <if test="alrOverdueInterest != null" >
         #{alrOverdueInterest,jdbcType=REAL},
       </if>
@@ -267,7 +319,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotesExample" resultType="java.lang.Integer" >
     select count(*) from t_receivables_notes temp_receivables_notes
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -295,6 +347,24 @@
       </if>
       <if test="record.notReceMoney != null" >
         temp_receivables_notes.not_rece_money = #{record.notReceMoney,jdbcType=REAL},
+      </if>
+      <if test="record.shouldRecePrincipal != null" >
+        temp_receivables_notes.should_rece_principal = #{record.shouldRecePrincipal,jdbcType=REAL},
+      </if>
+      <if test="record.alrRecePrincipal != null" >
+        temp_receivables_notes.alr_rece_principal = #{record.alrRecePrincipal,jdbcType=REAL},
+      </if>
+      <if test="record.notRecePrincipal != null" >
+        temp_receivables_notes.not_rece_principal = #{record.notRecePrincipal,jdbcType=REAL},
+      </if>
+      <if test="record.shouldReceInterest != null" >
+        temp_receivables_notes.should_rece_interest = #{record.shouldReceInterest,jdbcType=REAL},
+      </if>
+      <if test="record.alrReceInterest != null" >
+        temp_receivables_notes.alr_rece_interest = #{record.alrReceInterest,jdbcType=REAL},
+      </if>
+      <if test="record.notReceInterest != null" >
+        temp_receivables_notes.not_rece_interest = #{record.notReceInterest,jdbcType=REAL},
       </if>
       <if test="record.alrOverdueInterest != null" >
         temp_receivables_notes.alr_overdue_interest = #{record.alrOverdueInterest,jdbcType=REAL},
@@ -331,6 +401,12 @@
       temp_receivables_notes.should_rece_money = #{record.shouldReceMoney,jdbcType=REAL},
       temp_receivables_notes.alr_rece_money = #{record.alrReceMoney,jdbcType=REAL},
       temp_receivables_notes.not_rece_money = #{record.notReceMoney,jdbcType=REAL},
+      temp_receivables_notes.should_rece_principal = #{record.shouldRecePrincipal,jdbcType=REAL},
+      temp_receivables_notes.alr_rece_principal = #{record.alrRecePrincipal,jdbcType=REAL},
+      temp_receivables_notes.not_rece_principal = #{record.notRecePrincipal,jdbcType=REAL},
+      temp_receivables_notes.should_rece_interest = #{record.shouldReceInterest,jdbcType=REAL},
+      temp_receivables_notes.alr_rece_interest = #{record.alrReceInterest,jdbcType=REAL},
+      temp_receivables_notes.not_rece_interest = #{record.notReceInterest,jdbcType=REAL},
       temp_receivables_notes.alr_overdue_interest = #{record.alrOverdueInterest,jdbcType=REAL},
       temp_receivables_notes.rece_state = #{record.receState,jdbcType=CHAR},
       temp_receivables_notes.remark = #{record.remark,jdbcType=VARCHAR},
@@ -362,6 +438,24 @@
       </if>
       <if test="notReceMoney != null" >
         not_rece_money = #{notReceMoney,jdbcType=REAL},
+      </if>
+      <if test="shouldRecePrincipal != null" >
+        should_rece_principal = #{shouldRecePrincipal,jdbcType=REAL},
+      </if>
+      <if test="alrRecePrincipal != null" >
+        alr_rece_principal = #{alrRecePrincipal,jdbcType=REAL},
+      </if>
+      <if test="notRecePrincipal != null" >
+        not_rece_principal = #{notRecePrincipal,jdbcType=REAL},
+      </if>
+      <if test="shouldReceInterest != null" >
+        should_rece_interest = #{shouldReceInterest,jdbcType=REAL},
+      </if>
+      <if test="alrReceInterest != null" >
+        alr_rece_interest = #{alrReceInterest,jdbcType=REAL},
+      </if>
+      <if test="notReceInterest != null" >
+        not_rece_interest = #{notReceInterest,jdbcType=REAL},
       </if>
       <if test="alrOverdueInterest != null" >
         alr_overdue_interest = #{alrOverdueInterest,jdbcType=REAL},
@@ -395,6 +489,12 @@
       should_rece_money = #{shouldReceMoney,jdbcType=REAL},
       alr_rece_money = #{alrReceMoney,jdbcType=REAL},
       not_rece_money = #{notReceMoney,jdbcType=REAL},
+      should_rece_principal = #{shouldRecePrincipal,jdbcType=REAL},
+      alr_rece_principal = #{alrRecePrincipal,jdbcType=REAL},
+      not_rece_principal = #{notRecePrincipal,jdbcType=REAL},
+      should_rece_interest = #{shouldReceInterest,jdbcType=REAL},
+      alr_rece_interest = #{alrReceInterest,jdbcType=REAL},
+      not_rece_interest = #{notReceInterest,jdbcType=REAL},
       alr_overdue_interest = #{alrOverdueInterest,jdbcType=REAL},
       rece_state = #{receState,jdbcType=CHAR},
       remark = #{remark,jdbcType=VARCHAR},

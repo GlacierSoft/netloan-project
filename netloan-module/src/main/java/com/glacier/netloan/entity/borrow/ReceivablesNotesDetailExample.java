@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 public class ReceivablesNotesDetailExample {
     protected String orderByClause;
 
@@ -105,12 +104,12 @@ public class ReceivablesNotesDetailExample {
             return criteria;
         }
 
-        //扩展查询条件
+		//扩展查询条件
         public Criteria andMemberDisplayLike(String value) {
             addCriterion("temp_member.member_name like", value, "memberDisplay");
             return (Criteria) this;
         }
-        
+		
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -472,123 +471,123 @@ public class ReceivablesNotesDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andShouldPayDateIsNull() {
-            addCriterion("temp_receivables_notes_detail.should_pay_date is null");
+        public Criteria andShouldReceDateIsNull() {
+            addCriterion("temp_receivables_notes_detail.should_rece_date is null");
             return (Criteria) this;
         }
 
-        public Criteria andShouldPayDateIsNotNull() {
-            addCriterion("temp_receivables_notes_detail.should_pay_date is not null");
+        public Criteria andShouldReceDateIsNotNull() {
+            addCriterion("temp_receivables_notes_detail.should_rece_date is not null");
             return (Criteria) this;
         }
 
-        public Criteria andShouldPayDateEqualTo(Date value) {
-            addCriterion("temp_receivables_notes_detail.should_pay_date =", value, "shouldPayDate");
+        public Criteria andShouldReceDateEqualTo(Date value) {
+            addCriterion("temp_receivables_notes_detail.should_rece_date =", value, "shouldReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andShouldPayDateNotEqualTo(Date value) {
-            addCriterion("temp_receivables_notes_detail.should_pay_date <>", value, "shouldPayDate");
+        public Criteria andShouldReceDateNotEqualTo(Date value) {
+            addCriterion("temp_receivables_notes_detail.should_rece_date <>", value, "shouldReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andShouldPayDateGreaterThan(Date value) {
-            addCriterion("temp_receivables_notes_detail.should_pay_date >", value, "shouldPayDate");
+        public Criteria andShouldReceDateGreaterThan(Date value) {
+            addCriterion("temp_receivables_notes_detail.should_rece_date >", value, "shouldReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andShouldPayDateGreaterThanOrEqualTo(Date value) {
-            addCriterion("temp_receivables_notes_detail.should_pay_date >=", value, "shouldPayDate");
+        public Criteria andShouldReceDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("temp_receivables_notes_detail.should_rece_date >=", value, "shouldReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andShouldPayDateLessThan(Date value) {
-            addCriterion("temp_receivables_notes_detail.should_pay_date <", value, "shouldPayDate");
+        public Criteria andShouldReceDateLessThan(Date value) {
+            addCriterion("temp_receivables_notes_detail.should_rece_date <", value, "shouldReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andShouldPayDateLessThanOrEqualTo(Date value) {
-            addCriterion("temp_receivables_notes_detail.should_pay_date <=", value, "shouldPayDate");
+        public Criteria andShouldReceDateLessThanOrEqualTo(Date value) {
+            addCriterion("temp_receivables_notes_detail.should_rece_date <=", value, "shouldReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andShouldPayDateIn(List<Date> values) {
-            addCriterion("temp_receivables_notes_detail.should_pay_date in", values, "shouldPayDate");
+        public Criteria andShouldReceDateIn(List<Date> values) {
+            addCriterion("temp_receivables_notes_detail.should_rece_date in", values, "shouldReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andShouldPayDateNotIn(List<Date> values) {
-            addCriterion("temp_receivables_notes_detail.should_pay_date not in", values, "shouldPayDate");
+        public Criteria andShouldReceDateNotIn(List<Date> values) {
+            addCriterion("temp_receivables_notes_detail.should_rece_date not in", values, "shouldReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andShouldPayDateBetween(Date value1, Date value2) {
-            addCriterion("temp_receivables_notes_detail.should_pay_date between", value1, value2, "shouldPayDate");
+        public Criteria andShouldReceDateBetween(Date value1, Date value2) {
+            addCriterion("temp_receivables_notes_detail.should_rece_date between", value1, value2, "shouldReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andShouldPayDateNotBetween(Date value1, Date value2) {
-            addCriterion("temp_receivables_notes_detail.should_pay_date not between", value1, value2, "shouldPayDate");
+        public Criteria andShouldReceDateNotBetween(Date value1, Date value2) {
+            addCriterion("temp_receivables_notes_detail.should_rece_date not between", value1, value2, "shouldReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andActualPayDateIsNull() {
-            addCriterion("temp_receivables_notes_detail.actual_pay_date is null");
+        public Criteria andActualReceDateIsNull() {
+            addCriterion("temp_receivables_notes_detail.actual_rece_date is null");
             return (Criteria) this;
         }
 
-        public Criteria andActualPayDateIsNotNull() {
-            addCriterion("temp_receivables_notes_detail.actual_pay_date is not null");
+        public Criteria andActualReceDateIsNotNull() {
+            addCriterion("temp_receivables_notes_detail.actual_rece_date is not null");
             return (Criteria) this;
         }
 
-        public Criteria andActualPayDateEqualTo(Date value) {
-            addCriterion("temp_receivables_notes_detail.actual_pay_date =", value, "actualPayDate");
+        public Criteria andActualReceDateEqualTo(Date value) {
+            addCriterion("temp_receivables_notes_detail.actual_rece_date =", value, "actualReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andActualPayDateNotEqualTo(Date value) {
-            addCriterion("temp_receivables_notes_detail.actual_pay_date <>", value, "actualPayDate");
+        public Criteria andActualReceDateNotEqualTo(Date value) {
+            addCriterion("temp_receivables_notes_detail.actual_rece_date <>", value, "actualReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andActualPayDateGreaterThan(Date value) {
-            addCriterion("temp_receivables_notes_detail.actual_pay_date >", value, "actualPayDate");
+        public Criteria andActualReceDateGreaterThan(Date value) {
+            addCriterion("temp_receivables_notes_detail.actual_rece_date >", value, "actualReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andActualPayDateGreaterThanOrEqualTo(Date value) {
-            addCriterion("temp_receivables_notes_detail.actual_pay_date >=", value, "actualPayDate");
+        public Criteria andActualReceDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("temp_receivables_notes_detail.actual_rece_date >=", value, "actualReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andActualPayDateLessThan(Date value) {
-            addCriterion("temp_receivables_notes_detail.actual_pay_date <", value, "actualPayDate");
+        public Criteria andActualReceDateLessThan(Date value) {
+            addCriterion("temp_receivables_notes_detail.actual_rece_date <", value, "actualReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andActualPayDateLessThanOrEqualTo(Date value) {
-            addCriterion("temp_receivables_notes_detail.actual_pay_date <=", value, "actualPayDate");
+        public Criteria andActualReceDateLessThanOrEqualTo(Date value) {
+            addCriterion("temp_receivables_notes_detail.actual_rece_date <=", value, "actualReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andActualPayDateIn(List<Date> values) {
-            addCriterion("temp_receivables_notes_detail.actual_pay_date in", values, "actualPayDate");
+        public Criteria andActualReceDateIn(List<Date> values) {
+            addCriterion("temp_receivables_notes_detail.actual_rece_date in", values, "actualReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andActualPayDateNotIn(List<Date> values) {
-            addCriterion("temp_receivables_notes_detail.actual_pay_date not in", values, "actualPayDate");
+        public Criteria andActualReceDateNotIn(List<Date> values) {
+            addCriterion("temp_receivables_notes_detail.actual_rece_date not in", values, "actualReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andActualPayDateBetween(Date value1, Date value2) {
-            addCriterion("temp_receivables_notes_detail.actual_pay_date between", value1, value2, "actualPayDate");
+        public Criteria andActualReceDateBetween(Date value1, Date value2) {
+            addCriterion("temp_receivables_notes_detail.actual_rece_date between", value1, value2, "actualReceDate");
             return (Criteria) this;
         }
 
-        public Criteria andActualPayDateNotBetween(Date value1, Date value2) {
-            addCriterion("temp_receivables_notes_detail.actual_pay_date not between", value1, value2, "actualPayDate");
+        public Criteria andActualReceDateNotBetween(Date value1, Date value2) {
+            addCriterion("temp_receivables_notes_detail.actual_rece_date not between", value1, value2, "actualReceDate");
             return (Criteria) this;
         }
 
@@ -1139,6 +1138,66 @@ public class ReceivablesNotesDetailExample {
 
         public Criteria andIncomeNotBetween(Float value1, Float value2) {
             addCriterion("temp_receivables_notes_detail.income not between", value1, value2, "income");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountIsNull() {
+            addCriterion("temp_receivables_notes_detail.amount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountIsNotNull() {
+            addCriterion("temp_receivables_notes_detail.amount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountEqualTo(Float value) {
+            addCriterion("temp_receivables_notes_detail.amount =", value, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountNotEqualTo(Float value) {
+            addCriterion("temp_receivables_notes_detail.amount <>", value, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountGreaterThan(Float value) {
+            addCriterion("temp_receivables_notes_detail.amount >", value, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes_detail.amount >=", value, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountLessThan(Float value) {
+            addCriterion("temp_receivables_notes_detail.amount <", value, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountLessThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes_detail.amount <=", value, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountIn(List<Float> values) {
+            addCriterion("temp_receivables_notes_detail.amount in", values, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountNotIn(List<Float> values) {
+            addCriterion("temp_receivables_notes_detail.amount not in", values, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes_detail.amount between", value1, value2, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountNotBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes_detail.amount not between", value1, value2, "amount");
             return (Criteria) this;
         }
 

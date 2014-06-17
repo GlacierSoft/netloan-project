@@ -137,7 +137,7 @@ public class BorrowingOverdueService {
 		    }
 		}
 		for(ReceivablesNotesDetail receivablesNotesDetail : receivablesNotesDetails){//更新修改收款记录和收款记录明细
-	    	c.setTime(receivablesNotesDetail.getShouldPayDate());//获取当期应收时间
+	    	c.setTime(receivablesNotesDetail.getShouldReceDate());//获取当期应收时间
 		    long overDayReal = 0;//真正的逾期天数
 	    	long cTime = c.getTimeInMillis();//获取当期应收时间的毫秒数
 		    long overTime = (nowTime - cTime)/1000;//获取逾期时间,除以1000是为了转换成秒

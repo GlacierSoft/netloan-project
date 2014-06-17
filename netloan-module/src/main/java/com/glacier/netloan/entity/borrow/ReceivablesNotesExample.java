@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
-
-
 public class ReceivablesNotesExample {
     protected String orderByClause;
 
@@ -107,7 +104,7 @@ public class ReceivablesNotesExample {
             return criteria;
         }
 
-        //扩展查询条件
+		//扩展查询条件
         public Criteria andMemberDisplayLike(String value) {
             addCriterion("temp_member.member_name like", value, "memberDisplay");
             return (Criteria) this;
@@ -145,7 +142,7 @@ public class ReceivablesNotesExample {
             addCriterion("temp_borrowing_loan.loan_date between", value1, value2, "loanDate");
             return (Criteria) this;
         }
-        
+		
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -614,6 +611,366 @@ public class ReceivablesNotesExample {
 
         public Criteria andNotReceMoneyNotBetween(Float value1, Float value2) {
             addCriterion("temp_receivables_notes.not_rece_money not between", value1, value2, "notReceMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldRecePrincipalIsNull() {
+            addCriterion("temp_receivables_notes.should_rece_principal is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldRecePrincipalIsNotNull() {
+            addCriterion("temp_receivables_notes.should_rece_principal is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldRecePrincipalEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.should_rece_principal =", value, "shouldRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldRecePrincipalNotEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.should_rece_principal <>", value, "shouldRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldRecePrincipalGreaterThan(Float value) {
+            addCriterion("temp_receivables_notes.should_rece_principal >", value, "shouldRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldRecePrincipalGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.should_rece_principal >=", value, "shouldRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldRecePrincipalLessThan(Float value) {
+            addCriterion("temp_receivables_notes.should_rece_principal <", value, "shouldRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldRecePrincipalLessThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.should_rece_principal <=", value, "shouldRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldRecePrincipalIn(List<Float> values) {
+            addCriterion("temp_receivables_notes.should_rece_principal in", values, "shouldRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldRecePrincipalNotIn(List<Float> values) {
+            addCriterion("temp_receivables_notes.should_rece_principal not in", values, "shouldRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldRecePrincipalBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes.should_rece_principal between", value1, value2, "shouldRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldRecePrincipalNotBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes.should_rece_principal not between", value1, value2, "shouldRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrRecePrincipalIsNull() {
+            addCriterion("temp_receivables_notes.alr_rece_principal is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrRecePrincipalIsNotNull() {
+            addCriterion("temp_receivables_notes.alr_rece_principal is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrRecePrincipalEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.alr_rece_principal =", value, "alrRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrRecePrincipalNotEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.alr_rece_principal <>", value, "alrRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrRecePrincipalGreaterThan(Float value) {
+            addCriterion("temp_receivables_notes.alr_rece_principal >", value, "alrRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrRecePrincipalGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.alr_rece_principal >=", value, "alrRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrRecePrincipalLessThan(Float value) {
+            addCriterion("temp_receivables_notes.alr_rece_principal <", value, "alrRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrRecePrincipalLessThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.alr_rece_principal <=", value, "alrRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrRecePrincipalIn(List<Float> values) {
+            addCriterion("temp_receivables_notes.alr_rece_principal in", values, "alrRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrRecePrincipalNotIn(List<Float> values) {
+            addCriterion("temp_receivables_notes.alr_rece_principal not in", values, "alrRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrRecePrincipalBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes.alr_rece_principal between", value1, value2, "alrRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrRecePrincipalNotBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes.alr_rece_principal not between", value1, value2, "alrRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotRecePrincipalIsNull() {
+            addCriterion("temp_receivables_notes.not_rece_principal is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotRecePrincipalIsNotNull() {
+            addCriterion("temp_receivables_notes.not_rece_principal is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotRecePrincipalEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.not_rece_principal =", value, "notRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotRecePrincipalNotEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.not_rece_principal <>", value, "notRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotRecePrincipalGreaterThan(Float value) {
+            addCriterion("temp_receivables_notes.not_rece_principal >", value, "notRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotRecePrincipalGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.not_rece_principal >=", value, "notRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotRecePrincipalLessThan(Float value) {
+            addCriterion("temp_receivables_notes.not_rece_principal <", value, "notRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotRecePrincipalLessThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.not_rece_principal <=", value, "notRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotRecePrincipalIn(List<Float> values) {
+            addCriterion("temp_receivables_notes.not_rece_principal in", values, "notRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotRecePrincipalNotIn(List<Float> values) {
+            addCriterion("temp_receivables_notes.not_rece_principal not in", values, "notRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotRecePrincipalBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes.not_rece_principal between", value1, value2, "notRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotRecePrincipalNotBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes.not_rece_principal not between", value1, value2, "notRecePrincipal");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldReceInterestIsNull() {
+            addCriterion("temp_receivables_notes.should_rece_interest is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldReceInterestIsNotNull() {
+            addCriterion("temp_receivables_notes.should_rece_interest is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldReceInterestEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.should_rece_interest =", value, "shouldReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldReceInterestNotEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.should_rece_interest <>", value, "shouldReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldReceInterestGreaterThan(Float value) {
+            addCriterion("temp_receivables_notes.should_rece_interest >", value, "shouldReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldReceInterestGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.should_rece_interest >=", value, "shouldReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldReceInterestLessThan(Float value) {
+            addCriterion("temp_receivables_notes.should_rece_interest <", value, "shouldReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldReceInterestLessThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.should_rece_interest <=", value, "shouldReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldReceInterestIn(List<Float> values) {
+            addCriterion("temp_receivables_notes.should_rece_interest in", values, "shouldReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldReceInterestNotIn(List<Float> values) {
+            addCriterion("temp_receivables_notes.should_rece_interest not in", values, "shouldReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldReceInterestBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes.should_rece_interest between", value1, value2, "shouldReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andShouldReceInterestNotBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes.should_rece_interest not between", value1, value2, "shouldReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrReceInterestIsNull() {
+            addCriterion("temp_receivables_notes.alr_rece_interest is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrReceInterestIsNotNull() {
+            addCriterion("temp_receivables_notes.alr_rece_interest is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrReceInterestEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.alr_rece_interest =", value, "alrReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrReceInterestNotEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.alr_rece_interest <>", value, "alrReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrReceInterestGreaterThan(Float value) {
+            addCriterion("temp_receivables_notes.alr_rece_interest >", value, "alrReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrReceInterestGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.alr_rece_interest >=", value, "alrReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrReceInterestLessThan(Float value) {
+            addCriterion("temp_receivables_notes.alr_rece_interest <", value, "alrReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrReceInterestLessThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.alr_rece_interest <=", value, "alrReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrReceInterestIn(List<Float> values) {
+            addCriterion("temp_receivables_notes.alr_rece_interest in", values, "alrReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrReceInterestNotIn(List<Float> values) {
+            addCriterion("temp_receivables_notes.alr_rece_interest not in", values, "alrReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrReceInterestBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes.alr_rece_interest between", value1, value2, "alrReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlrReceInterestNotBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes.alr_rece_interest not between", value1, value2, "alrReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotReceInterestIsNull() {
+            addCriterion("temp_receivables_notes.not_rece_interest is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotReceInterestIsNotNull() {
+            addCriterion("temp_receivables_notes.not_rece_interest is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotReceInterestEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.not_rece_interest =", value, "notReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotReceInterestNotEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.not_rece_interest <>", value, "notReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotReceInterestGreaterThan(Float value) {
+            addCriterion("temp_receivables_notes.not_rece_interest >", value, "notReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotReceInterestGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.not_rece_interest >=", value, "notReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotReceInterestLessThan(Float value) {
+            addCriterion("temp_receivables_notes.not_rece_interest <", value, "notReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotReceInterestLessThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.not_rece_interest <=", value, "notReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotReceInterestIn(List<Float> values) {
+            addCriterion("temp_receivables_notes.not_rece_interest in", values, "notReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotReceInterestNotIn(List<Float> values) {
+            addCriterion("temp_receivables_notes.not_rece_interest not in", values, "notReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotReceInterestBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes.not_rece_interest between", value1, value2, "notReceInterest");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotReceInterestNotBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes.not_rece_interest not between", value1, value2, "notReceInterest");
             return (Criteria) this;
         }
 

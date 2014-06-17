@@ -195,7 +195,7 @@ public class ReceivablesNotesDetailService {
         	Calendar c = Calendar.getInstance();//日历对象
  	        c.setTime(new Date());//获取当前时间
  	        c.add(Calendar.MONTH, i+1);//在当前时间上加一个月
-        	receivablesNotesDetail.setShouldPayDate(c.getTime());//设置应收款日期
+        	receivablesNotesDetail.setShouldReceDate(c.getTime());//设置应收款日期
         	if(borrowingLoanNew.getSubTotal() == 0.0){//借款是以金额进行投资的
         		if(borrowingLoanNew.getRepaymentTypeDisplay().equals("等额本息")){
         			//float everyMonthMoney = (tenderNotes.getTenderMoney() * (borrowingLoanNew.getLoanApr()/12) * (1 + borrowingLoanNew.getLoanApr()/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))/(1 + borrowingLoanNew.getLoanApr()/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())-1;
