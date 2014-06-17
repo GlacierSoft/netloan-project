@@ -31,7 +31,7 @@
 			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesDetailData.actualPayMoney}" readonly="readonly"/></td>
 		</tr>
 		<tr>
-			<td>需还本息：</td>
+			<td>总还款金额：</td>
 			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesDetailData.alsoNeedMoney}" readonly="readonly"/></td>
 			<td>逾期罚息：</td>
 			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesDetailData.overdueInterest}" readonly="readonly"/></td>

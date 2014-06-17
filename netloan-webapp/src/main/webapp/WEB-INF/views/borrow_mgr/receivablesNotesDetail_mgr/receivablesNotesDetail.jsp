@@ -48,12 +48,12 @@
 				width:200,
 				sortable:true
 			},{
-				field:'shouldPayDate',
+				field:'shouldReceDate',
 				title:'应还日期',
 				width:200,
 				sortable:true
 			},{
-				field:'actualPayDate',
+				field:'actualReceDate',
 				title:'实还日期',
 				width:200,
 				sortable:true
@@ -103,6 +103,11 @@
 			},{
 				field:'income',
 				title:'收益',
+				width:200,
+				sortable:true
+			},{
+				field:'amount',
+				title:'总收款金额',
 				width:200,
 				sortable:true
 			},{

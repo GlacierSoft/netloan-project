@@ -13,9 +13,9 @@
 		</tr>
 		<tr>
 			<td>应还日期：</td>
-			<td><input  class="spinner" style="width:168px"  value="<fmt:formatDate value="${receivablesNotesDetailData.shouldPayDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatDate value="${receivablesNotesDetailData.shouldReceDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 			<td>实还日期：</td>
-			<td><input  class="spinner" style="width:168px"  value="<fmt:formatDate value="${receivablesNotesDetailData.actualPayDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatDate value="${receivablesNotesDetailData.actualReceDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>应收本息：</td>
@@ -46,6 +46,10 @@
 			<td><input id="detailtable_receState" class="spinner" style="width:168px"  readonly="readonly"/></td>
 			<td>收益：</td>
 			<td><input class="spinner" style="width:168px" value="${receivablesNotesDetailData.income}" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>总收款金额：</td>
+			<td><input class="spinner" style="width:168px" value="${receivablesNotesDetailData.amount}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>创建人：</td>

@@ -79,7 +79,7 @@
 				sortable:true
 			},{
 				field:'alsoNeedMoney',
-				title:'需还本息',
+				title:'总还款金额',
 				width:200,
 				sortable:true
 			},{
