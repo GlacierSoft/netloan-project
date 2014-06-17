@@ -99,7 +99,7 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.memberName,
+				title: "【"+rowData.memberName+"】财务信息",
 				href : ctx + '/do/memberFinance/intoDetail.htm?memberId='+rowData.memberId,//从controller请求jsp页面进行渲染
 				width : 620,
 				height : 547,

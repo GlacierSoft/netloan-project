@@ -134,7 +134,7 @@ $(this).datagrid('clearChecked');
 },
 onDblClickRow:function(rowIndex, rowData){
 $.easyui.showDialog({
-title: rowData.memberName,
+title: '【'+rowData.memberName+'】会员详细信息',
 href : ctx + '/do/member/intoDetail.htm?memberId='+rowData.memberId,//从controller请求jsp页面进行渲染
 width : 645,
 height : 450,
@@ -163,7 +163,7 @@ glacier.member_mgr.member_mgr.member.memberDataGrid.datagrid('reload');
 glacier.member_mgr.member_mgr.member.editMember = function(){
 var row = glacier.member_mgr.member_mgr.member.memberDataGrid.datagrid("getSelected");
 glacier.basicAddOrEditDialog({
-title : '编辑【'+row.memberName+'】',
+title : '编辑【'+row.memberName+'】会员信息',
 width : 835,
 height : 395,
 queryUrl : ctx + '/do/member/intoForm.htm',

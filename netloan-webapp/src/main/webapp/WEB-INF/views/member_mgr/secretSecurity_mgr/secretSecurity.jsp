@@ -88,7 +88,7 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.questionDes,
+				title: '密保问题详细信息',
 				href : ctx + '/do/secretSecurity/intoDetail.htm?secretSecurityId='+rowData.secretSecurityId,//从controller请求jsp页面进行渲染
 				width : 325,
 				height : 220,

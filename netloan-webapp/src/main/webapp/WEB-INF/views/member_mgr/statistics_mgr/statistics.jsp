@@ -158,7 +158,7 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: '【'+rowData.memberRealName+'】申请额度详细信息',
+				title: '【'+rowData.memberRealName+'】会员统计详细信息',
 				href : ctx + '/do/memberStatistics/intoDetail.htm?statisticsId='+rowData.statisticsId,//从controller请求jsp页面进行渲染
 				width : 580,
 				height : 350,

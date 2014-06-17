@@ -119,7 +119,7 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: '【'+rowData.memberRealName+'】信用积分详细信息',
+				title: '【'+rowData.memberRealName+'】信用记录详细信息',
 				href : ctx + '/do/creditIntegral/intoDetail.htm?creditIntegralId='+rowData.creditIntegralId,//从controller请求jsp页面进行渲染
 				width : 530,
 				height : 270,
