@@ -121,10 +121,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.webLinkName,
+				title: "【"+rowData.webLinkName+"】的友情链接详细信息",
 				href : ctx + '/do/link/intoDetail.htm?webLinkId='+rowData.webLinkId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 320,
+				height : 345,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -134,7 +134,7 @@
 	//点击增加按钮触发方法
 	glacier.website_mgr.link_mgr.link.addLink = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加友情链接',
+			title : '【友情链接】- 增加',
 			width : 410,
 			height : 330,
 			queryUrl : ctx + '/do/link/intoForm.htm',
@@ -148,7 +148,7 @@
 	glacier.website_mgr.link_mgr.link.editLink = function(){
 		var row = glacier.website_mgr.link_mgr.link.linkDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.webLinkName+'】',
+			title : '【友情链接】- 编辑('+row.webLinkName+')',
 			width : 410,
 			height : 330,
 			queryUrl : ctx + '/do/link/intoForm.htm',

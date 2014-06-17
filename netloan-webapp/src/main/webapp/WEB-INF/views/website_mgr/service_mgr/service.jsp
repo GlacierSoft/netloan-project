@@ -77,12 +77,12 @@
 				sortable:true
 			},{
 				field:'createrDisplay',
-				title:'录入人',
+				title:'创建人',
 				sortable:true,
 				width:100
 			},{
 				field:'createTime',
-				title:'录入时间',
+				title:'创建时间',
 				sortable:true,
 				width:200
 			},{
@@ -126,10 +126,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.webServiceName,
+				title: "【"+rowData.webServiceName+"】的客服服务详细信息",
 				href : ctx + '/do/service/intoDetail.htm?webServiceId='+rowData.webServiceId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 290,
+				height : 315,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -140,7 +140,7 @@
 	//点击增加按钮触发方法
 	glacier.website_mgr.service_mgr.service.addService = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加客服',
+			title : '【客服服务】- 增加',
 			width : 420,
 			height : 340,
 			queryUrl : ctx + '/do/service/intoForm.htm',
@@ -155,7 +155,7 @@
 	glacier.website_mgr.service_mgr.service.editService = function(){
 		var row = glacier.website_mgr.service_mgr.service.serviceDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.webServiceName+'】',
+			title : '【客服服务】- 编辑('+row.webServiceName+')',
 			width : 420,
 			height : 340,
 			queryUrl : ctx + '/do/service/intoForm.htm',

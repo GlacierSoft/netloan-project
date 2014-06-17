@@ -66,7 +66,7 @@
 	//点击增加按钮触发方法
 	glacier.website_mgr.nav_mgr.nav.addNav = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加导航信息',
+			title : '【导航信息】- 增加',
 			width : 380,
 			height : 328,
 			queryUrl : ctx + '/do/nav/intoForm.htm',
@@ -81,7 +81,7 @@
 	glacier.website_mgr.nav_mgr.nav.editNav = function(){
 		var row = glacier.website_mgr.nav_mgr.nav.navTreeGrid.treegrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.webNavName+'】',
+			title : '【导航信息】- 编辑('+row.webNavName+')',
 			width : 380,
 			height : 328,
 			queryUrl : ctx + '/do/nav/intoForm.htm',
@@ -131,10 +131,10 @@
 		$('<div/>').dialog({
 			href : ctx + '/do/nav/intoDetail.htm?webNavId='+row.webNavId,//从controller请求jsp页面进行渲染
 			width : 550,
-			height : 250,
+			height : 285,
 			modal : true,
 			resizable: false,
-			title : row.webNavName,
+			title : "【"+row.webNavName+"】的导航详细信息",
 			onClose : function() {//提高浏览器性能，点击关闭窗口时候注销
 				$(this).dialog('destroy');
 			},

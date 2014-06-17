@@ -106,7 +106,7 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.webNewsTheme,
+				title: "【"+rowData.webNewsTheme+"】的新闻详细信息",
 				href : ctx + '/do/news/intoDetail.htm?webNewsId='+rowData.webNewsId,//从controller请求jsp页面进行渲染
 				width : 720,
 				height : 520,
@@ -119,7 +119,7 @@
 	//点击增加按钮触发方法
 	glacier.website_mgr.news_mgr.news.addNews = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加新闻',
+			title : '【新闻管理】- 增加',
 			width : 720,
 			height : 500,
 			queryUrl : ctx + '/do/news/intoForm.htm',
@@ -133,7 +133,7 @@
 	glacier.website_mgr.news_mgr.news.editNews = function(){
 		var row = glacier.website_mgr.news_mgr.news.newsDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.webNewsTheme+'】',
+			title : '【新闻管理】- 编辑('+row.webNewsTheme+')',
 			width : 720,
 			height : 500,
 			queryUrl : ctx + '/do/news/intoForm.htm',

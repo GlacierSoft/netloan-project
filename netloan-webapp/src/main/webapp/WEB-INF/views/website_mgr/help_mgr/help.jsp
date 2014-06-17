@@ -119,10 +119,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.webHelpTheme,
+				title: "【"+rowData.webHelpTheme+"】的帮助中心详细信息",
 				href : ctx + '/do/help/intoDetail.htm?webHelpId='+rowData.webHelpId,//从controller请求jsp页面进行渲染
 				width : 720,
-				height : 540,
+				height : 550,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -133,7 +133,7 @@
 	//点击增加按钮触发方法
 	glacier.website_mgr.help_mgr.help.addHelp = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加帮助信息',
+			title : '【帮助中心】- 增加',
 			width : 700,
 			height : 500,
 			queryUrl : ctx + '/do/help/intoForm.htm',
@@ -148,7 +148,7 @@
 	glacier.website_mgr.help_mgr.help.editHelp = function(){
 		var row = glacier.website_mgr.help_mgr.help.helpDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.webHelpTheme+'】',
+			title : '【帮助中心】- 编辑('+row.webHelpTheme+')',
 			width : 700,
 			height : 500,
 			queryUrl : ctx + '/do/help/intoForm.htm',

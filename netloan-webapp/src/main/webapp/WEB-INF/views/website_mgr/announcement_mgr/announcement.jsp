@@ -106,10 +106,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.webAnnTheme,
+				title: "【"+rowData.webAnnTheme+"】的公告详细信息",
 				href : ctx + '/do/announcement/intoDetail.htm?webAnnId='+rowData.webAnnId,//从controller请求jsp页面进行渲染
-				width : 720,
-				height : 520,
+				width : 740,
+				height : 535,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -119,7 +119,7 @@
 	//点击增加按钮触发方法
 	glacier.website_mgr.announcement_mgr.announcement.addAnnouncement = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加公告',
+			title : '【公共管理】- 增加',
 			width : 720,
 			height : 500,
 			queryUrl : ctx + '/do/announcement/intoForm.htm',
@@ -133,7 +133,7 @@
 	glacier.website_mgr.announcement_mgr.announcement.editAnnouncement = function(){
 		var row = glacier.website_mgr.announcement_mgr.announcement.announcementDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.webAnnTheme+'】',
+			title : '【公共管理】- 编辑('+row.webAnnTheme+')',
 			width : 720,
 			height : 500,
 			queryUrl : ctx + '/do/announcement/intoForm.htm',

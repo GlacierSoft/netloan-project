@@ -106,7 +106,7 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.webAdvTheme,
+				title: "【"+rowData.webAdvTheme+"】的广告详细信息",
 				href : ctx + '/do/advertisement/intoDetail.htm?webAdvId='+rowData.webAdvId,//从controller请求jsp页面进行渲染
 				width : 720,
 				height : 520,
@@ -119,7 +119,7 @@
 	//点击增加按钮触发方法
 	glacier.website_mgr.advertisement_mgr.advertisement.addAdvertisement = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加广告',
+			title : '【广告管理】- 增加',
 			width : 720,
 			height : 500,
 			queryUrl : ctx + '/do/advertisement/intoForm.htm',
@@ -133,7 +133,7 @@
 	glacier.website_mgr.advertisement_mgr.advertisement.editAdvertisement = function(){
 		var row = glacier.website_mgr.advertisement_mgr.advertisement.advertisementDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.webAdvTheme+'】',
+			title : '【广告管理】- 编辑('+row.webAdvTheme+')',
 			width : 720,
 			height : 500,
 			queryUrl : ctx + '/do/advertisement/intoForm.htm',
