@@ -6,7 +6,7 @@
 <form method="post" style="padding:15px">
 	 <table class="detailtable">
 		<tr>
-			<td>罚款ID：</td>
+			<td>罚款ID：</td> 
 			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
 				<input type="hidden" name="roleId" value="${overdueFineSetData.overdueFineSetId}" />
 				<input class="spinner" style="width:168px"  value="${fn:substring(overdueFineSetData.overdueFineSetId,0,8)}..." readonly="readonly" title="${overdueFineSetData.overdueFineSetId}"/>
@@ -18,7 +18,7 @@
 		<tr>
 			<td>有效会员：</td>
 			<td>
-				<input id="overdueFineSet_mgr_overdueFineSet_detail_memberType" name="memberType" value="${overdueFineSetData.memberType}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
+				<input id="overdueFineSet_mgr_overdueFineSet_detail_memberType" name="memberType" value="${overdueFineSetData.memberType}" class="spinner" style="height:18px;width:168px" readonly="readonly"/>
 			</td>
 			<td>设定天数：</td>
 			<td><input  id="overdueFineSet_mgr_overdueFineSet_dettail_memberPrivilege" name="memberPrivilege" class="spinner" style="width:168px" value="${overdueFineSetData.memberPrivilege}" readonly="readonly"/></td>
@@ -28,13 +28,13 @@
 			<td><input class="spinner" style="width:168px"  value="${overdueFineSetData.vipDays}" readonly="readonly"/></td>
 			<td>取费方式：</td>
 			<td>
-				<input id="overdueFineSet_mgr_overdueFineSet_detail_feeWay" name="feeWay" value="${overdueFineSetData.feeWay}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
+				<input id="overdueFineSet_mgr_overdueFineSet_detail_feeWay" name="feeWay" value="${overdueFineSetData.feeWay}" class="spinner" style="height:18px;width:168px" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
 			<td>审核状态：</td>
 			<td>
-				<input id="overdueFineSet_mgr_overdueFineSet_auditState" name="auditState" value="${overdueFineSetData.auditState}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
+				<input id="overdueFineSet_mgr_overdueFineSet_auditState" name="auditState" value="${overdueFineSetData.auditState}" class="spinner" style="height:18px;width:168px" readonly="readonly"/>
 			</td>
 			
 			<td>审核人：</td>

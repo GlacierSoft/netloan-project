@@ -6,7 +6,7 @@
 
 	$.util.namespace('glacier.basicdatas_mgr.variables_mgr.variables');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
-	//定义toolbar的操作，对操作进行控制
+	//定义toolbar的操作，对操作进行控制 
 	glacier.basicdatas_mgr.variables_mgr.variables.param = {
 			toolbarId : 'variablesDataGrid_toolbar',
 			actions : {
@@ -66,11 +66,6 @@
 					return renderGridValue(value,fields.formType);
 				}
 			},{
-				field:'remark',
-				title:'备注',
-				width:120,
-				sortable:true
-			},{
 				field:'createrDisplay',
 				title:'创建人',
 				sortable:true,
@@ -90,6 +85,11 @@
 				title:'更新时间',
 				sortable:true,
 				width:200
+			},{
+				field:'remark',
+				title:'备注',
+				width:120,
+				sortable:true
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏

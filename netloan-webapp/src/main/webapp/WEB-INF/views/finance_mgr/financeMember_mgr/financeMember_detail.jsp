@@ -5,7 +5,7 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>会员名称：</td>
+			<td>会员名称：</td> 
 			<td class="forminputtable">
 				<input type="hidden"  name="financeMemberId" value="${financeMemberData.financeMemberId}" />
 				<input name="memberDisplay" class="spinner" style="width:180px" value="${financeMemberData.memberDisplay}" readonly="readonly"></input>
@@ -95,7 +95,7 @@
 		</tr>
 		<tr>
 			<td>备注：</td>
-			<td colspan="3"><textarea class="spinner" style="width:445px" readonly="readonly">${financeMemberData.remark}</textarea></td>
+			<td colspan="3"><textarea class="spinner" style="width:465px" readonly="readonly">${financeMemberData.remark}</textarea></td>
 		</tr>
 	</table>
 </form>

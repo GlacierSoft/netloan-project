@@ -6,7 +6,7 @@
 
 	$.util.namespace('glacier.finance_mgr.rechargeSet_mgr.rechargeSet');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
-	//定义toolbar的操作，对操作进行控制
+	//定义toolbar的操作，对操作进行控制 
 	glacier.finance_mgr.rechargeSet_mgr.rechargeSet.param = {
 			toolbarId : 'rechargeSetDataGrid_toolbar',
 			actions : {
@@ -78,11 +78,6 @@
 					return renderGridValue(value,fields.feeWay);
 				}
 			},{
-				field:'remark',
-				title:'备注',
-				width:120,
-				sortable:true
-			},{
 				field:'auditState',
 				title:'审核状态',
 				width:120,
@@ -120,7 +115,12 @@
 				title:'更新时间',
 				sortable:true,
 				width:200
-			} 
+			},{
+				field:'remark',
+				title:'备注',
+				width:120,
+				sortable:true
+			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
 		prechargeSetSize : 10,//注意，prechargeSetSize必须在prechargeSetList存在
@@ -153,8 +153,8 @@
 			$.easyui.showDialog({
 				title: rowData.rechargeSetName,
 				href : ctx + '/do/rechargeSet/intoDetail.htm?financeRechargeSetId='+rowData.financeRechargeSetId,//从controller请求jsp页面进行渲染
-				width : 560,
-				height : 360,
+				width : 550,
+				height : 340,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

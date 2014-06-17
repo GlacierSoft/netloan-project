@@ -7,7 +7,7 @@
    
    $.util.namespace('glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
    
-   //定义toolbar的操作，对操作进行控制
+   //定义toolbar的操作，对操作进行控制 
 	glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.param = {
 			toolbarId : 'overdueAdvancesDataGrid_toolbar',
 			actions : {
@@ -73,11 +73,6 @@
 				width:100,
 				sortable:true
 		    },{
-				field:'remark',
-				title:'备注',
-				width:140,
-				sortable:true,
-			},{
 				field:'creater',
 				title:'创建人',
 				sortable:true,
@@ -97,6 +92,11 @@
 				title:'最后修改时间',
 				sortable:true,
 				width:140
+			},{
+				field:'remark',
+				title:'备注',
+				width:140,
+				sortable:true,
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
@@ -108,8 +108,8 @@
 			$.easyui.showDialog({
 				title: '逾期管理详细信息',
 				href : ctx + '/do/overdueAdvances/intoDetail.htm?overdueAdvancesId='+rowData.overdueAdvancesId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 310,
+				width : 525,
+				height : 290,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

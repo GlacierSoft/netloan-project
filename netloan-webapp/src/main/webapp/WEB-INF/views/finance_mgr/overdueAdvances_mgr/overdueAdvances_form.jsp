@@ -6,7 +6,7 @@
 <form  method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
-			<td>有效会员等级：</td>
+			<td>有效会员等级：</td> 
 			<td>
 				<input type="hidden" id="overdueAdvances_mgr_overdueAdvances_form_overdueAdvancesId" name="overdueAdvancesId" value="${overdueAdvancesData.overdueAdvancesId}" />
 				<input id="overdueAdvances_mgr_overdueAdvances_memberType" name="memberType" class="easyui-combobox" value="${overdueAdvancesData.memberType}" style="height:18px;width:300px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.memberType"/>

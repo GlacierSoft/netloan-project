@@ -20,10 +20,7 @@
 			<td>改变值：</td>
 			<td><input class="spinner" style="width:168px" value="${creditIntegralData.changeValue}" readonly="readonly"/></td>
 		</tr>
-		<tr>
-			<td>备注：</td>
-			<td colspan="3"><textarea class="spinner" style="width:416px" readonly="readonly">${creditIntegralData.remark}</textarea></td>
-		</tr>
+		
 		<tr>
 			<td>创建人：</td>
 			<td><input class="spinner" style="width:168px" value="${creditIntegralData.createrDisplay}" readonly="readonly"/></td>
@@ -36,7 +33,10 @@
 			<td>更新时间：</td>
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${creditIntegralData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
-		
+		<tr>
+			<td>备注：</td>
+			<td colspan="3"><textarea class="spinner" style="width:416px" readonly="readonly">${creditIntegralData.remark}</textarea></td>
+		</tr>
 	</table>
 </form>
 <script type="text/javascript">

@@ -61,6 +61,14 @@
 					return renderGridValue(value,fields.letterstatus);
 				}
 			},{
+				field:'lettertype',
+				title:'信件类型',
+				width:120,
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如系统消息or非系统消息
+					return renderGridValue(value,fields.lettertype);
+				}
+			},{
 				field:'sendtime',
 				title:'发送时间',
 				width:120,
@@ -98,8 +106,8 @@
 			$.easyui.showDialog({
 				title: rowData.title,
 				href : ctx + '/do/messageNotice/intoDetail.htm?messageNoticeId='+rowData.messageNoticeId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 270,
+				width : 520,
+				height : 230,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

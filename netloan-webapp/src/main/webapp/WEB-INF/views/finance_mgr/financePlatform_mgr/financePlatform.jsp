@@ -6,7 +6,7 @@
 
 	$.util.namespace('glacier.finance_mgr.financePlatform_mgr.financePlatform');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
-	//定义toolbar的操作，对操作进行控制
+	//定义toolbar的操作，对操作进行控制 
 	glacier.finance_mgr.financePlatform_mgr.financePlatform.param = {
 			toolbarId : 'financePlatformDataGrid_toolbar',
 			actions : {
@@ -82,11 +82,6 @@
 				sortable:true,
 				width:100
 			},{
-				field:'remark',
-				title:'备注',
-				sortable:true,
-				width:100
-			},{
 				field:'createrDisplay',
 				title:'创建人',
 				sortable:true,
@@ -106,6 +101,11 @@
 				title:'更新时间',
 				sortable:true,
 				width:200
+			},{
+				field:'remark',
+				title:'备注',
+				sortable:true,
+				width:100
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏

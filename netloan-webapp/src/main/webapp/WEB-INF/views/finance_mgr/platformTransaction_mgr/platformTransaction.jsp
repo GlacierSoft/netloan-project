@@ -6,7 +6,7 @@
 
 	$.util.namespace('glacier.finance_mgr.transaction_mgr.transaction');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
-	//定义toolbar的操作，对操作进行控制
+	//定义toolbar的操作，对操作进行控制 
 	glacier.finance_mgr.transaction_mgr.transaction.param = {
 			toolbarId : 'transactionDataGrid_toolbar',
 			actions : {
@@ -27,7 +27,7 @@
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
 		url: ctx + '/do/platformTransaction/list.json',
-		sortName: 'financePlatformId',//排序字段名称
+		sortName: 'createTime',//排序字段名称
 		sortOrder: 'ASC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
 		idField:'platformTransactionId',
@@ -37,8 +37,8 @@
 				title:'ID',
 				checkbox:true
 			},{
-				field:'financePlatformId',
-				title:'平台资金账号信息Id',
+				field:'financePlatformDisplay',
+				title:'平台资金名称',
 				width:150,
 				sortable:true
 			},{
@@ -67,11 +67,6 @@
 				width:120,
 				sortable:true
 			},{
-				field:'remark',
-				title:'备注',
-				width:120,
-				sortable:true
-			},{
 				field:'createrDisplay',
 				title:'创建人',
 				sortable:true,
@@ -91,6 +86,11 @@
 				title:'更新时间',
 				sortable:true,
 				width:200
+			},{
+				field:'remark',
+				title:'备注',
+				width:120,
+				sortable:true
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
@@ -122,10 +122,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.financePlatformId,
-				href : ctx + '/do/transaction/intoDetail.htm?transactionId='+rowData.transactionId,//从controller请求jsp页面进行渲染
-				width : 560,
-				height : 350,
+				title: rowData.platformTransactionId,
+				href : ctx + '/do/platformTransaction/intoDetail.htm?platformTransactionId='+rowData.platformTransactionId,//从controller请求jsp页面进行渲染
+				width : 580,
+				height : 300,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

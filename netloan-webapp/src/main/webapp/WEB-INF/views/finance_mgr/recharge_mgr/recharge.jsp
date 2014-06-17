@@ -6,7 +6,7 @@
 
 	$.util.namespace('glacier.finance_mgr.recharge_mgr.recharge');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
-	//定义toolbar的操作，对操作进行控制
+	//定义toolbar的操作，对操作进行控制 
 	glacier.finance_mgr.recharge_mgr.recharge.param = {
 			toolbarId : 'rechargeDataGrid_toolbar',
 			actions : {
@@ -154,8 +154,8 @@
 			$.easyui.showDialog({
 				title: rowData.rechargeCode,
 				href : ctx + '/do/recharge/intoDetail.htm?financeRechargeId='+rowData.financeRechargeId,//从controller请求jsp页面进行渲染
-				width : 570,
-				height : 380,
+				width : 565,
+				height : 370,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

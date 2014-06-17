@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.entity.finance.FinancePlatform;
+import com.glacier.netloan.entity.finance.FinancePlatformTransaction;
 import com.glacier.netloan.service.finance.FinancePlatformTransactionService;
 
 /** 
@@ -37,16 +39,16 @@ public class FinancePlatformTransactionController extends AbstractController{
     // 进入平台资金记录列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPfinancePlatformTransaction() {
-        ModelAndView mav = new ModelAndView("finance_mgr/platformTransaction_mgr/platformTransaction");
+        ModelAndView mav = new ModelAndView("finance_mgr/platformTransaction_mgr/platformTransaction"); 
         return mav;
     }
     
     // 进入平台资金记录Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
-    private Object intoTransactionDetailPage(String transactionId) {
+    private Object intoTransactionDetailPage(String platformTransactionId) {
         ModelAndView mav = new ModelAndView("finance_mgr/platformTransaction_mgr/platformTransaction_detail");
-        if(StringUtils.isNotBlank(transactionId)){
-            mav.addObject("transactionData", financePlatformTransactionService.getTransaction(transactionId));
+        if(StringUtils.isNotBlank(platformTransactionId)){
+            mav.addObject("transactionData", financePlatformTransactionService.getTransaction(platformTransactionId));
         }
         return mav;
     }

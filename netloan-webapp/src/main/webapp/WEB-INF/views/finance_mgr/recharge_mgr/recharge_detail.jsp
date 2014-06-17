@@ -5,7 +5,7 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>流水号：</td>
+			<td>流水号：</td> 
 			<td class="forminputtable">
 				<input type="hidden"  name="financeRechargeId" value="${rechargeData.financeRechargeId}" />
 				<input name="rechargeCode" class="spinner" style="width:180px" value="${rechargeData.rechargeCode}" readonly="readonly"/>
@@ -75,7 +75,7 @@
 		</tr>
 		<tr>
 			<td>充值备注：</td>
-			<td colspan="3"><textarea class="spinner" style="width:455px" readonly="readonly">${rechargeData.remark}</textarea></td>
+			<td colspan="3"><textarea class="spinner" style="width:440px" readonly="readonly">${rechargeData.remark}</textarea></td>
 		</tr>
 	</table>
 </form>

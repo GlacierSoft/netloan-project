@@ -6,7 +6,7 @@
 	<table class="detailtable">
 		<tr>
 			<td>会员名称：</td>
-			<td class="forminputtable">
+			<td class="forminputtable"> 
 				<input type="hidden"  name="transactionId" value="${transactionData.transactionId}" />
 				<input name="memberDisplay" class="spinner" style="width:180px" value="${transactionData.memberDisplay}" readonly="readonly"/>
 			</td>

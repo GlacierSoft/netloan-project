@@ -101,7 +101,7 @@
 		</tr>
 		<tr>
 			<td>描述：</td>
-			<td><textarea id="loanTender_mgr_loanTender_detail_description" name="description" style="width:198px;" maxlength="255" class="spinner formta">${loanTenderData.description}</textarea></td>
+			<td colspan="3"><textarea id="loanTender_mgr_loanTender_detail_description" name="description" style="width:560px;" maxlength="255" class="spinner formta">${loanTenderData.description}</textarea></td>
 		</tr>
 	</table>
 </form>

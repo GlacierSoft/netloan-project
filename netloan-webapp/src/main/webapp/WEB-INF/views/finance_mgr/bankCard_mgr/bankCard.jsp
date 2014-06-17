@@ -6,7 +6,7 @@
 
 	$.util.namespace('glacier.finance_mgr.bankCard_mgr.bankCard');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
-	//定义toolbar的操作，对操作进行控制
+	//定义toolbar的操作，对操作进行控制 
 	glacier.finance_mgr.bankCard_mgr.bankCard.param = {
 			toolbarId : 'bankCardDataGrid_toolbar',
 			actions : {
@@ -109,8 +109,8 @@
 			$.easyui.showDialog({
 				title: '【'+rowData.memberRealName+'】会员银行卡详细信息',
 				href : ctx + '/do/bankCard/intoDetail.htm?bankCardId='+rowData.bankCardId,//从controller请求jsp页面进行渲染
-				width : 540,
-				height : 300,
+				width : 530,
+				height : 275,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

@@ -7,7 +7,7 @@
    
    $.util.namespace('glacier.finance_mgr.overdueFine_mgr.overdueFine');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
    
-   //定义toolbar的操作，对操作进行控制
+   //定义toolbar的操作，对操作进行控制 
 	glacier.finance_mgr.overdueFine_mgr.overdueFine.param = {
 			toolbarId : 'overdueFineDataGrid_toolbar',
 			actions : {
@@ -91,11 +91,6 @@
 				sortable:true,
 				width:140
 			},{
-				field:'remark',
-				title:'备注',
-				sortable:true,
-				width:140
-			},{
 				field:'creater',
 				title:'创建人',
 				sortable:true,
@@ -113,6 +108,11 @@
 			},{
 				field:'updateTime',
 				title:'最后修改时间',
+				sortable:true,
+				width:140
+			},{
+				field:'remark',
+				title:'备注',
 				sortable:true,
 				width:140
 			}
