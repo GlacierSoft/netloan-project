@@ -98,7 +98,7 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.loanTitle,
+				title: '【'+rowData.loanTitle+'】投标详细信息',
 				href : ctx + '/do/tenderNotes/intoDetail.htm?tenderNotesId='+rowData.tenderNotesId,//从controller请求jsp页面进行渲染
 				width : 550,
 				height : 200,

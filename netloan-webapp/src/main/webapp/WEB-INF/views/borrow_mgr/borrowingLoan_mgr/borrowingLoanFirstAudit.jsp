@@ -371,7 +371,7 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.loanCode,
+				title: '【'+rowData.loanTitle+"】借款详细信息",
 				href : ctx + '/do/borrowingLoan/intoDetail.htm?loanId='+rowData.loanId,//从controller请求jsp页面进行渲染
 				width : 750,
 				height : 540,
@@ -385,7 +385,7 @@
 	glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanFirstAudit.auditBorrowingLoanFirstAudit = function(){
 		var row = glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanFirstAudit.borrowingLoanFirstAuditDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '审核【'+row.loanCode+'】',
+			title : '审核【'+row.loanTitle+'】',
 			width : 750,
 			height : 540,
 			queryUrl : ctx + '/do/borrowingLoan/intoFirstAudit.htm',

@@ -88,7 +88,7 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.loanTitle,
+				title: '【'+rowData.loanTitle+'】借款留言信息',
 				href : ctx + '/do/LoanReview/intoDetail.htm?loanReviewId='+rowData.loanReviewId,//从controller请求jsp页面进行渲染
 				width :540,
 				height : 200,

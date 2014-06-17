@@ -370,9 +370,9 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.loanCode,
+				title: '【'+rowData.loanTitle+'】逾期借款详细信息',
 				href : ctx + '/do/borrowingLoan/intoDetail.htm?loanId='+rowData.loanId,//从controller请求jsp页面进行渲染
-				width : 750,
+				width : 756,
 				height : 540,
 				resizable: false,
 				enableApplyButton : false,

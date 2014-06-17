@@ -259,7 +259,7 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.loanrTenderName,
+				title: '【'+rowData.loanrTenderName+'】详细描述',
 				href : ctx + '/do/loanTender/intoDetail.htm?loanTenderId='+rowData.loanTenderId,//从controller请求jsp页面进行渲染
 				width : 780,
 				height :600,
