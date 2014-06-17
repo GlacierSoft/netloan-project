@@ -116,10 +116,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.optgroupValueName,
+				title: "【"+rowData.optgroupValueName+"】的下拉值详细信息",
 				href : ctx + '/do/optgroupValue/intoDetail.htm?optgroupValueId='+rowData.optgroupValueId,//从controller请求jsp页面进行渲染
 				width : 530,
-				height : 260,
+				height : 280,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -149,7 +149,7 @@
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.optgroup_mgr.optgroup.addOptgroup = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加下拉项',
+			title : '【下拉项管理】- 增加',
 			width : 410,
 			height : 300,
 			queryUrl : ctx + '/do/optgroup/intoForm.htm',
@@ -163,7 +163,7 @@
 	glacier.basicdatas_mgr.optgroup_mgr.optgroup.editOptgroup = function(){
 		var row = glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupTreeGrid.treegrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.optgroupName+'】',
+			title : '【下拉项管理】- 编辑('+row.optgroupName+')',
 			width : 410,
 			height : 300,
 			queryUrl : ctx + '/do/optgroup/intoForm.htm',
@@ -213,10 +213,10 @@
 		$('<div/>').dialog({
 			href : ctx + '/do/optgroup/intoDetail.htm?optgroupId='+row.optgroupId,//从controller请求jsp页面进行渲染
 			width : 520,
-			height : 230,
+			height : 250,
 			modal : true,
 			resizable: false,
-			title : row.optgroupName,
+			title : "【"+row.optgroupName+"】的下拉项详细信息",
 			onClose : function() {//提高浏览器性能，点击关闭窗口时候注销
 				$(this).dialog('destroy');
 			},
@@ -228,7 +228,7 @@
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.optgroup_mgr.optgroup.addOptgroupValue = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加下拉值',
+			title : '【下拉值管理】- 增加',
 			width : 420,
 			height : 330,
 			queryUrl : ctx + '/do/optgroupValue/intoForm.htm',
@@ -242,7 +242,7 @@
 	glacier.basicdatas_mgr.optgroup_mgr.optgroup.editOptgroupValue = function(){
 		var row = glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValuePropertyGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.optgroupValueName+'】',
+			title : '【下拉值管理】- 编辑('+row.optgroupValueName+')',
 			width : 420,
 			height : 330,
 			queryUrl : ctx + '/do/optgroupValue/intoForm.htm',

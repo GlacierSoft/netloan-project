@@ -108,10 +108,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.integralName,
+				title: "【"+rowData.integralName+"】的会员积分级别详细信息",
 				href : ctx + '/do/integral/intoDetail.htm?integralId='+rowData.integralId,//从controller请求jsp页面进行渲染
 				width : 550,
-				height : 260,
+				height : 290,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -121,7 +121,7 @@
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.integral_mgr.integral.addIntegral = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加会员积分级别',
+			title : '【会员积分级别】 - 增加',
 			width : 420,
 			height : 320,
 			queryUrl : ctx + '/do/integral/intoForm.htm',
@@ -136,7 +136,7 @@
 	glacier.basicdatas_mgr.integral_mgr.integral.editIntegral = function(){
 		var row = glacier.basicdatas_mgr.integral_mgr.integral.integralDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.integralName+'】',
+			title : '【会员积分级别】 - 编辑('+row.integralName+')',
 			width : 420,
 			height : 300,
 			queryUrl : ctx + '/do/integral/intoForm.htm',

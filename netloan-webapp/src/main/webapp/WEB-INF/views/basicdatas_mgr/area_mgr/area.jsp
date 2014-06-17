@@ -66,7 +66,7 @@
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.area_mgr.area.addArea = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加地区',
+			title : '【地区管理】- 增加',
 			width : 400,
 			height : 280,
 			queryUrl : ctx + '/do/area/intoForm.htm',
@@ -80,7 +80,7 @@
 	glacier.basicdatas_mgr.area_mgr.area.editArea = function(){
 		var row = glacier.basicdatas_mgr.area_mgr.area.areaTreeGrid.treegrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.areaName+'】',
+			title : '【地区管理】- 编辑('+row.areaName+')',
 			width : 400,
 			height : 280,
 			queryUrl : ctx + '/do/area/intoForm.htm',
@@ -130,10 +130,10 @@
 		$('<div/>').dialog({
 			href : ctx + '/do/area/intoDetail.htm?areaId='+row.areaId,//从controller请求jsp页面进行渲染
 			width : 520,
-			height : 200,
+			height : 230,
 			modal : true,
 			resizable: false,
-			title : row.areaName,
+			title : "【"+row.areaName+"】的地区详细信息",
 			onClose : function() {//提高浏览器性能，点击关闭窗口时候注销
 				$(this).dialog('destroy');
 			},

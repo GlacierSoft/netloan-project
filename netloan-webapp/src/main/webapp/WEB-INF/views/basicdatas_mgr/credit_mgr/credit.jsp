@@ -108,10 +108,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.creditName,
+				title: "【"+rowData.creditName+"】的会员信用等级详细信息",
 				href : ctx + '/do/credit/intoDetail.htm?creditId='+rowData.creditId,//从controller请求jsp页面进行渲染
 				width : 570,
-				height : 290,
+				height : 315,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -121,7 +121,7 @@
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.credit_mgr.credit.addCredit = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加会员信用级别',
+			title : '【会员信用】- 增加',
 			width : 420,
 			height : 380,
 			queryUrl : ctx + '/do/credit/intoForm.htm',
@@ -136,7 +136,7 @@
 	glacier.basicdatas_mgr.credit_mgr.credit.editCredit = function(){
 		var row = glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.creditName+'】',
+			title : '【会员信用】- 编辑('+row.creditName+')',
 			width : 420,
 			height : 380,
 			queryUrl : ctx + '/do/credit/intoForm.htm',

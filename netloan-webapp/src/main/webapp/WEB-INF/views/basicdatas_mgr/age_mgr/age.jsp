@@ -113,10 +113,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.ageName,
+				title: "【"+rowData.ageName+"】的年龄别称详细信息",
 				href : ctx + '/do/age/intoDetail.htm?ageId='+rowData.ageId,//从controller请求jsp页面进行渲染
 				width : 530,
-				height : 260,
+				height : 290,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -126,7 +126,7 @@
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.age_mgr.age.addAge = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加会员年龄别称',
+			title : '【年龄别称】- 增加',
 			width : 380,
 			height : 300,
 			queryUrl : ctx + '/do/age/intoForm.htm',
@@ -140,7 +140,7 @@
 	glacier.basicdatas_mgr.age_mgr.age.editAge = function(){
 		var row = glacier.basicdatas_mgr.age_mgr.age.ageDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.ageName+'】',
+			title : '【年龄别称】- 编辑('+row.ageName+')',
 			width : 380,
 			height : 300,
 			queryUrl : ctx + '/do/age/intoForm.htm',

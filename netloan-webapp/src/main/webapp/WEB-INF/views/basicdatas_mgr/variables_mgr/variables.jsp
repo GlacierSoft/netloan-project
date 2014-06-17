@@ -121,10 +121,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.variableName,
+				title: "【"+rowData.variableName+"】的系统变量详细信息",
 				href : ctx + '/do/variables/intoDetail.htm?variablesId='+rowData.variablesId,//从controller请求jsp页面进行渲染
 				width : 530,
-				height : 290,
+				height : 310,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -134,7 +134,7 @@
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.variables_mgr.variables.addVariables = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加系统变量',
+			title : '【系统变量】- 增加',
 			width : 400,
 			height : 330,
 			queryUrl : ctx + '/do/variables/intoForm.htm',
@@ -148,7 +148,7 @@
 	glacier.basicdatas_mgr.variables_mgr.variables.editVariables = function(){
 		var row = glacier.basicdatas_mgr.variables_mgr.variables.variablesDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.variableName+'】',
+			title : '【系统变量】- 编辑('+row.variableName+')',
 			width : 400,
 			height : 330,
 			queryUrl : ctx + '/do/variables/intoForm.htm',

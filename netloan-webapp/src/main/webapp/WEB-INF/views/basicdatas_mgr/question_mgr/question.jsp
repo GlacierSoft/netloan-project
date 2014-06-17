@@ -103,10 +103,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.questionDes,
+				title: "【"+rowData.questionDes+"】的密保问题详细信息",
 				href : ctx + '/do/question/intoDetail.htm?questionId='+rowData.questionId,//从controller请求jsp页面进行渲染
 				width : 540,
-				height : 240,
+				height : 265,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -116,7 +116,7 @@
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.question_mgr.question.addQuestion = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加会员密保问题',
+			title : '【密保问题】- 增加',
 			width : 440,
 			height : 260,
 			queryUrl : ctx + '/do/question/intoForm.htm',
@@ -131,7 +131,7 @@
 	glacier.basicdatas_mgr.question_mgr.question.editQuestion = function(){
 		var row = glacier.basicdatas_mgr.question_mgr.question.questionDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.questionDes+'】',
+			title : '【密保问题】- 编辑('+row.questionDes+')',
 			width : 440,
 			height : 260,
 			queryUrl : ctx + '/do/question/intoForm.htm',

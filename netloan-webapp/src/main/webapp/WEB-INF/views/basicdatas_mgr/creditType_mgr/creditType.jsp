@@ -111,10 +111,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.creditType,
+				title: "【"+rowData.creditType+"】的信用类别详细信息",
 				href : ctx + '/do/creditType/intoDetail.htm?creditTypeId='+rowData.creditTypeId,//从controller请求jsp页面进行渲染
 				width : 520,
-				height : 260,
+				height : 290,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -124,7 +124,7 @@
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.creditType_mgr.creditType.addCreditType = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加会员信用级别',
+			title : '【信用类别】 - 增加',
 			width : 440,
 			height : 300,
 			queryUrl : ctx + '/do/creditType/intoForm.htm',
@@ -139,7 +139,7 @@
 	glacier.basicdatas_mgr.creditType_mgr.creditType.editCreditType = function(){
 		var row = glacier.basicdatas_mgr.creditType_mgr.creditType.creditTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '编辑【'+row.creditType+'】',
+			title : '【信用类别】 - 编辑('+row.creditType+')',
 			width : 440,
 			height : 300,
 			queryUrl : ctx + '/do/creditType/intoForm.htm',
