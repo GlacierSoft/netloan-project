@@ -84,7 +84,7 @@
 					return renderGridValue(value,fields.loanState);
 				}
 			},{
-				field:'creater',
+				field:'createrDisplay',
 				title:'创建人',
 				width:200,
 				sortable:true
@@ -94,7 +94,7 @@
 				width:320,
 				sortable:true
 			},{
-				field:'updater',
+				field:'updaterDisplay',
 				title:'更新人',
 				width:150,
 			    sortable:true

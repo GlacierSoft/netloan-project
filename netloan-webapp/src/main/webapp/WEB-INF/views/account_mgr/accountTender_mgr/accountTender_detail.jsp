@@ -62,13 +62,13 @@
 		</tr>
 		<tr>
 			<td>创建人：</td>
-			<td><input class="spinner" style="width:168px"   value="${fn:substring(accountTenderData.creater,0,8)}......."  title="创建人:${accountTenderData.creater}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px"   value="${accountTenderDate.createrDisplay}"  title="创建人:${accountTenderData.createrDisplay}" readonly="readonly"/></td>
 		     <td>创建时间：</td>
 			 <td><input class="spinner" style="width:168px"  value="<fmt:formatDate  value="${accountTenderData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>更新人：</td>
-			<td><input class="spinner" style="width:168px"   value="${accountTenderData.updater}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px"   value="${accountTenderData.updaterDisplay}" readonly="readonly"/></td>
 		     <td>更新人时间：</td>
 			 <td><input class="spinner" style="width:168px"  value="<fmt:formatDate  value="${accountTenderData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>

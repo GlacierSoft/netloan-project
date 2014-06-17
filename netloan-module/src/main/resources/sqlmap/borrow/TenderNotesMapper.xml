@@ -27,6 +27,9 @@
     <result column="temp_tender_notes_alrTenderPro" property="alrTenderPro" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_subTotal" property="subTotal" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_lowestSub" property="lowestSub" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -108,6 +111,9 @@
     ,temp_repayment_type.repayment_type_name as temp_tender_notes_repaymentTypeDisplay
     ,temp_loan_tender.loanr_tender_name as temp_tender_notes_loanTenderDisplay
     ,temp_member.credit_integral as temp_tender_notes_creditIntegral
+    <!-- 以下字段属于扩展 -->
+    ,temp_createrTest.member_name as temp_tender_notes_createrDisplay
+    ,temp_updaterTest.user_cn_name as temp_tender_notes_updaterDisplay
   </sql>
   <sql id="Base_extend">
     LEFT JOIN t_borrowing_loan temp_borrowing_loan ON temp_borrowing_loan.loan_id = temp_tender_notes.loan_id <!-- 扩展 -->
@@ -115,6 +121,8 @@
     LEFT JOIN t_member temp_member ON temp_borrowing_loan.member_id = temp_member.member_id <!-- 扩展 -->
  	LEFT JOIN t_repayment_type temp_repayment_type ON temp_borrowing_loan.repayment_type_id = temp_repayment_type.repayment_type_id <!-- 扩展 -->
  	LEFT JOIN t_loan_tender temp_loan_tender ON temp_borrowing_loan.loan_tender_id = temp_loan_tender.loan_tender_id <!-- 扩展 -->
+    LEFT JOIN t_member temp_createrTest ON temp_createrTest.member_id = temp_tender_notes.creater <!-- 扩展 -->
+    LEFT JOIN t_user temp_updaterTest ON temp_updaterTest.user_id = temp_tender_notes.updater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.TenderNotesExample" >
     select

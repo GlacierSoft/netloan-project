@@ -119,12 +119,13 @@
 		location.href=ctx+"/do/accountInvest/exp.json";
 	};
 	
-     //单选按钮赋值
-     $("#invest_today").val(new Date());//当日
-     $("#invest_month").val(new Date());//当月
-     $("#invest_year").val(new Date());//当年
-     
-</script>
+	
+	//时间测试
+	$("#invest_today").change(function(){
+		  alert($("#invest_today").val());
+	});
+	
+ </script>
 
 <!-- 所有客服列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
@@ -137,13 +138,13 @@
 		<form id="accountInvestSearchForm" >
 			<table>
 				<tr>
-					<td><input type="radio" id="invest_today" name="invest_search" Class="spinner"/></td>
+					<td><input type="radio" id="invest_today" name="invest_search" Class="spinner" value="investToday"/></td>
 					<td>当日</td>
-					<td><input type="radio" id="invest_month" name="invest_search" class="spinner"/></td>
+					<td><input type="radio" id="invest_month" name="invest_search" class="spinner" value="investMonth"/></td>
 					<td>当月</td>
-					<td><input type="radio" id="invest_year" name="invest_search"  class="spinner"/></td>
+					<td><input type="radio" id="invest_year" name="invest_search"  class="spinner" value="investYear"/></td>
 					<td>当年</td>
-					<td><input type="radio" id="invest_other" name="invest_search"  class="spinner"/></td>
+					<td><input type="radio" id="invest_other" name="invest_search"  class="spinner" value="investOther"/></td>
 					<td>其它时间段：</td>
 					<td>
 						<input id="investStartTime" name="invest_Start" class="easyui-datetimebox" style="width: 100px;"  disabled="true" />
@@ -152,7 +153,7 @@
 					</td>
 					<td>
 					    <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.account_mgr.accountInvest_mgr.accountInvest.accountInvestDataGrid.datagrid('load',glacier.serializeObject($('#accountInvestSearchForm')));">查询</a>
-						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#accountInvestSearchForm input').val('');glacier.account_mgr.accountInvest_mgr.accountInvest.accountInvestDataGrid.datagrid('load',{});">重置</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('input:radio[name=invest_search]').attr('checked',false);glacier.account_mgr.accountInvest_mgr.accountInvest.accountInvestDataGrid.datagrid('load',{});">重置</a>
 					</td>
 				</tr>
 			</table>
