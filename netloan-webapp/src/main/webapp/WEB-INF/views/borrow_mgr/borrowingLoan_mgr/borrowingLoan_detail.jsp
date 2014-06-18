@@ -194,7 +194,6 @@
 
 <script type="text/javascript">
 	$('#borrowingLoan_mgr_borrowingLoan_detail').tabs({
-		border:false,
 		border:true,
 		onSelect:function(){
 			$("div").remove(".validatebox-tip");//解决关闭窗体偶尔出现验证条bug
