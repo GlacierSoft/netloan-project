@@ -6,13 +6,12 @@
 <form method="post" style="padding:15px">
 	 <table class="detailtable">
 		<tr>
-			<td>罚款ID：</td> 
-			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
+			<td colspan="4">
+				罚款名称：
 				<input type="hidden" name="roleId" value="${overdueFineSetData.overdueFineSetId}" />
-				<input class="spinner" style="width:168px"  value="${fn:substring(overdueFineSetData.overdueFineSetId,0,8)}..." readonly="readonly" title="${overdueFineSetData.overdueFineSetId}"/>
+				<input type="hidden" class="spinner" style="width:168px"  value="${fn:substring(overdueFineSetData.overdueFineSetId,0,8)}..." readonly="readonly" title="${overdueFineSetData.overdueFineSetId}"/>
+				<input class="spinner" style="width:405px" value="${overdueFineSetData.overdueFineSetName}" readonly="readonly"/>
 			</td>
-			<td>罚款名称：</td>
-			<td><input class="spinner" style="width:168px" value="${overdueFineSetData.overdueFineSetName}" readonly="readonly"/></td>
 			
 		</tr>
 		<tr>

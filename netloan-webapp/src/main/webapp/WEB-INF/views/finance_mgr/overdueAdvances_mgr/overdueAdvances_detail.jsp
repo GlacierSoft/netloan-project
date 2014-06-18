@@ -6,14 +6,11 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>管理ID：</td> 
-			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
+			<td align="left" colspan="4">
+				会员等级：
 				<input type="hidden" name="roleId" value="${overdueAdvancesData.overdueAdvancesId}" />
-				<input class="spinner" style="width:168px" value="${fn:substring(overdueAdvancesData.overdueAdvancesId,0,8) }....."  readonly="readonly" title="${overdueAdvancesData.overdueAdvancesId}"/>
-			</td>
-			<td>有效会员：</td>
-			<td>
-				<input id="overdueAdvances_mgr_overdueAdvances_detail_memberType" name="memberType" value="${overdueAdvancesData.memberType}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
+				<input type="hidden" class="spinner" style="width:168px" value="${fn:substring(overdueAdvancesData.overdueAdvancesId,0,8) }....."  readonly="readonly" title="${overdueAdvancesData.overdueAdvancesId}"/>
+				<input id="overdueAdvances_mgr_overdueAdvances_detail_memberType" name="memberType" value="${overdueAdvancesData.memberType}" class="spinner" style="height:18px;width:405px" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
