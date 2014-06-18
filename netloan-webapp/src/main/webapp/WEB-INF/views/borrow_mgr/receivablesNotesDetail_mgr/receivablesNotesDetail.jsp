@@ -174,10 +174,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.loanTitle,
+				title: '【'+rowData.memberDisplay+"】收款纪录明细信息",
 				href : ctx + '/do/receivablesNotesDetail/intoDetail.htm?receNotesDetailId='+rowData.receNotesDetailId,//从controller请求jsp页面进行渲染
 				width : 560,
-				height : 400,
+				height : 390,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

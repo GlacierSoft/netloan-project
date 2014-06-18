@@ -227,6 +227,7 @@
  			title : '${memberAuthData.memberName}'+"基本信息认证",
  			width : 600,
 			height : 310,
+			border : true,
  			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.infoName}',
  			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.infoName}',
  			successFun : function (){
@@ -316,7 +317,7 @@
     $('#idCardAuthbtn').bind('click', function(){    
    	 glacier.basicAddOrEditDialog({
 			title : '${memberAuthData.memberName}'+"身份证认证",
-			width : 760,
+			width : 790,
 			height : 560,
 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.idCardName}',
 			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.idCardName}',
