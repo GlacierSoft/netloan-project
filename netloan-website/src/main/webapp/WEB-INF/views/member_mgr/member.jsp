@@ -192,26 +192,26 @@
 			        	</tr>
 			        	<tr >
 			        		<td><span>已收总额：￥${memberStatisticsData.alreadyIncomeTotal}</span></td>
-<%-- 			        		<td><span>已收本金：￥${memberStatisticsData.}</span></td> --%>
-<%-- 			        		<td><span>已收利息：￥${memberStatisticsData.}</span></td> --%>
+			        		<td><span>已收本金：￥${memberStatisticsData.alreadyIncomePrincipal}</span></td>
+			        		<td><span>已收利息：￥${memberStatisticsData.alreadyIncomeInterest}</span></td>
 			        	</tr>
 			        	<tr>
 			        		<td><span>待收总额：￥${memberStatisticsData.waitIncomeTotal}</span></td>
-<%-- 			        		<td><span>待收本金：￥${memberStatisticsData.}</span></td> --%>
-<%-- 			        		<td><span>待收利息：￥${memberStatisticsData.}</span></td> --%>
+			        		<td><span>待收本金：￥${memberStatisticsData.waitIncomePrincipal}</span></td>
+			        		<td><span>待收利息：￥${memberStatisticsData.waitIncomeInterest}</span></td>
 			        	</tr>
 			        	<tr>
 			        		<td colspan="3"><span><strong>借款总汇：</strong></span></td>
 			        	</tr>
 			        	<tr >
 			        		<td><span>已还总额：￥${memberStatisticsData.alreadyTotal}</span></td>
-<%-- 			        		<td><span>已还本金：￥${memberStatisticsData.}</span></td> --%>
-<%-- 			        		<td><span>已还利息：￥${memberStatisticsData.}</span></td> --%>
+			        		<td><span>已还本金：￥${memberStatisticsData.alreadyPrincipal}</span></td>
+			        		<td><span>已还利息：￥${memberStatisticsData.alreadyInterest}</span></td>
 			        	</tr>
 			        	<tr>
 			        		<td><span>待还总额：￥${memberStatisticsData.waitAlsoTotal}</span></td>
-<%-- 			        		<td><span>待还本金：￥${memberStatisticsData.}</span></td> --%>
-<%-- 			        		<td><span>待还利息：￥${memberStatisticsData.}</span></td> --%>
+			        		<td><span>待还本金：￥${memberStatisticsData.waitAlsoPrincipal}</span></td>
+			        		<td><span>待还利息：￥${memberStatisticsData.waitAlsoInterest}</span></td>
 			        	</tr>
 			        	<tr>
 			        		<td colspan="3"><span><strong>额度总汇：</strong></span></td>
@@ -220,14 +220,6 @@
 			        		<td><span>借款总额度：￥${memberStatisticsData.totalBorrowings}</span></td>
 			        		<td><span>可用信用额度：￥${financeMemberData.availableCredit}</span></td>
 			        		<td><span></span></td>
-			        	</tr>
-			        	<tr>
-			        		<td colspan="3"><span><strong>最近待收还款：</strong></span></td>
-			        	</tr>
-			        	<tr >
-			        		<td><span>最近待收还款日：</span></td>
-			        		<td><span>最近待收还款金额：</span></td>
-			        		<td><span></span></td> 
 			        	</tr>
 			        </table>
 				  </div>

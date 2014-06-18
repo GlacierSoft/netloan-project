@@ -29,8 +29,8 @@
 		selectOnCheck:false,//选择的时候复选框打勾
 		url: ctx + '/do/borrowingLoan/list.json',
 		queryParams: {loanState: 'repaymenting'},
-		sortName: 'loanCode',//排序字段名称
-		sortOrder: 'ASC',//升序还是降序
+		sortName: 'createTime',//排序字段名称
+		sortOrder: 'desc',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
 		idField:'loanId',
 		columns:[[

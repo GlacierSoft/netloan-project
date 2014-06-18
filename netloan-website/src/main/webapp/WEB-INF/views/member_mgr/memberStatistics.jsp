@@ -94,31 +94,29 @@
 				          <table class="table table-bordered">
 				          	<thead>
 					          <tr>
-					            <th colspan="9" style="text-align: center;" >还款统计</th>
+					            <th colspan="8" style="text-align: center;" >还款统计</th>
 					          </tr>
 					        </thead>
 				          	<tbody>
 						          <tr>
 						            <td>总借款额</td> 
 						            <td>发布借款数</td>
-						            <td>已还本息</td>
-						            <td>成功借款数</td>
-						            <td>借款总笔数统计</td>
-						            <td>待还本息</td>
-						            <td>正常还清笔数</td>
-						            <td>提前还清笔数</td>
-						            <td>未还清笔数</td>
+						            <td>已还总额</td>
+						            <td>待还总额</td>
+						            <td>正常还款次数</td>
+						            <td>提前还款次数</td>
+						            <td>借款管理费</td>
+						            <td>借款利息总额</td>
 						          </tr>
 						          <tr>
 						            <td>￥${memberStatisticsDate.totalBorrowings}</td>
 						            <td>${memberStatisticsDate.borrowSuccess}</td>
 						            <td>￥${memberStatisticsDate.alreadyTotal}</td>
-						            <td>${memberStatisticsDate.borrowSuccess}</td>
-						            <td>${memberStatisticsDate.totalBorrowings}</td>
 						            <td>￥${memberStatisticsDate.waitAlsoTotal}</td>
-						            <td>${memberStatisticsDate.totalBorrowings}</td>
-						            <td>${memberStatisticsDate.totalBorrowings}</td>
-						            <td>${memberStatisticsDate.totalBorrowings}</td>
+						            <td>${memberStatisticsDate.normalRepayment}</td>
+						            <td>${memberStatisticsDate.advanceRepayment}</td>
+						            <td>￥${memberStatisticsDate.loanManagementAmount}</td>
+						            <td>￥${memberStatisticsDate.loanInterestAmount}</td>
 						          </tr>
 					      	</tbody>
 					      </table>
@@ -130,16 +128,16 @@
 					        </thead>
 				          	<tbody>
 						          <tr>
-						            <td>逾期本息</td> 
-						            <td>逾期次数</td>
-						            <td>逾期罚款</td>
-						            <td>严重逾期次数</td>
+						          	<td>逾期还款次数</td>
+						            <td>网站代还次数</td>
+						            <td>逾期罚款金额</td>
+						            <td>逾期利息总额</td>
 						          </tr>
 						          <tr>
-						            <td>￥${memberStatisticsDate.alreadyTotal}</td>
-						            <td>￥${memberStatisticsDate.totalBorrowings}</td>
-						            <td>￥${memberStatisticsDate.totalBorrowings}</td>
-						            <td>￥${memberStatisticsDate.totalBorrowings}</td>
+						          	<td>${memberStatisticsDate.lateRepayment}</td>
+						            <td>${memberStatisticsDate.websiteSubstitute}</td>
+						            <td>￥${memberStatisticsDate.overdueFineAmount}</td>
+						            <td>￥${memberStatisticsDate.overdueInterestAmount}</td>
 						          </tr>
 					      	</tbody>
 					      </table>

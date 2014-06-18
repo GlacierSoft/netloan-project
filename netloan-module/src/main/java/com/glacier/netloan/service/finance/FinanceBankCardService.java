@@ -1,7 +1,9 @@
 package com.glacier.netloan.service.finance;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -96,6 +98,25 @@ public class FinanceBankCardService {
     public Object getFinanceBankCard(String bankCardId) {
     	FinanceBankCard financeBankCard = financeBankCardMapper.selectByPrimaryKey(bankCardId);
         return financeBankCard;
+    }
+    
+    /**
+     * @Title: getBankCardByMemberId 
+     * @Description: TODO(根据会员Id查找出所属的银行卡信息) 
+     * @param  @param MemberId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getBankCardByMemberId(String memberId) {
+        FinanceBankCardExample financeBankCardExample = new FinanceBankCardExample();
+        financeBankCardExample.createCriteria().andMemberIdEqualTo(memberId);
+        List<FinanceBankCard> financeBankCards = financeBankCardMapper.selectByExample(financeBankCardExample);
+        Map<String,String> map = new HashMap<String,String>();
+        for (FinanceBankCard financeBankCard : financeBankCards) {
+            map.put(financeBankCard.getBankCardId(),financeBankCard.getCardName());
+        }
+        return map;
     }
     
     /**
