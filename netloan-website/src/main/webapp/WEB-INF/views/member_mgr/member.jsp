@@ -221,14 +221,6 @@
 			        		<td><span>可用信用额度：￥${financeMemberData.availableCredit}</span></td>
 			        		<td><span></span></td>
 			        	</tr>
-			        	<tr>
-			        		<td colspan="3"><span><strong>最近待收还款：</strong></span></td>
-			        	</tr>
-			        	<tr >
-			        		<td><span>最近待收还款日：</span></td>
-			        		<td><span>最近待收还款金额：</span></td>
-			        		<td><span></span></td> 
-			        	</tr>
 			        </table>
 				  </div>
 				</div>
