@@ -17,10 +17,13 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.finance.FinanceBankCardMapper;
 import com.glacier.netloan.dao.finance.FinanceMemberMapper;
 import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
 import com.glacier.netloan.dao.finance.FinanceWithdrawMapper;
+import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.system.UserMapper;
+import com.glacier.netloan.entity.finance.FinanceBankCard;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.finance.FinanceWithdraw;
@@ -52,6 +55,12 @@ public class FinanceWithdrawService {
 	
 	@Autowired
 	private FinanceTransactionMapper financeTransactionMapper;
+	
+	@Autowired
+	private MemberMapper memberMapper;
+	
+	@Autowired
+	private FinanceBankCardMapper financeBankCardMapper;
 	
 	/**
 	 * @Title: getWithdraw 
@@ -131,15 +140,32 @@ public class FinanceWithdrawService {
      * @throws
      */
     @Transactional(readOnly = false)
-    public Object addWithdraw(FinanceWithdraw financeWithdraw) {
+    public Object addWithdraw(FinanceWithdraw financeWithdraw, Member member, String bankCardId) {
     	
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	
+    	// 验证会员真正的交易密码是否等于输入的交易密码
+        Member memberTemp = new Member();
+        memberTemp = memberMapper.selectByPrimaryKey(member.getMemberId());// 根据前台返回的会员Id，查询出该会员的信息
+        if (null != member.getTradersPassword() && StringUtils.isNotBlank(member.getTradersPassword())) {
+            if (!member.getTradersPassword().equals(memberTemp.getTradersPassword())) {// 判断前台的交易密码是否正确
+                returnResult.setMsg("交易密码错误，请重新输入");
+                return returnResult;
+            }
+        }
+        
     	Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
   		Member pricipalMember = (Member) pricipalSubject.getPrincipal();
   		
+  		
+  		//获取超级管理员用户
   		UserExample userExample = new UserExample();
   		userExample.createCriteria().andUsernameEqualTo("admin");
   		List<User> users = userMapper.selectByExample(userExample);
+  		
+  		//根据会员银行卡Id查找该银行卡信息
+  		FinanceBankCard financeBankCard = new FinanceBankCard();
+  		financeBankCard = financeBankCardMapper.selectByPrimaryKey(bankCardId);
   		
         int count = 0;
         financeWithdraw.setFinanceWithdrawId(RandomGUID.getRandomGUID());
@@ -147,6 +173,10 @@ public class FinanceWithdrawService {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
         financeWithdraw.setWithdrawCode("提现"+ "_" + dateFormat.format(new Date()));
         financeWithdraw.setAuditState("authstr");
+        financeWithdraw.setOpeningBank(financeBankCard.getOpeningBank());//提现银行
+        financeWithdraw.setSubbranch(financeBankCard.getSubbranch());//提现支行
+        financeWithdraw.setCardName(financeBankCard.getCardName());//提现银行卡姓名
+        financeWithdraw.setCardNumber(financeBankCard.getCardNumber());//提现银行卡号
         financeWithdraw.setCreater(pricipalMember.getMemberId());
         financeWithdraw.setCreateTime(new Date());
         financeWithdraw.setUpdater(users.get(0).getUserId());

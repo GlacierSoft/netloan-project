@@ -270,6 +270,16 @@
 								            <input type="hidden" id="memberId" name="memberId" value="${currentMember.memberId}" ></td>
 								          </tr>
 								          <tr>
+								            <td>银行卡：</td>
+								            <td>
+									            <select name="bankCardId" id="bankCardId" class="inp100x"> 
+										    		<c:forEach items="${financeBankCardDatas}" var="financeBankCard">
+										            	<option value="${financeBankCard.key}">${financeBankCard.value}</option>
+										       		</c:forEach>
+												</select> 
+								            </td>
+								          </tr>
+								          <tr>
 								            <td>交易密码：</td>
 								            <td><input type="password" id="tradersPassword" name="tradersPassword" maxlength="50" class="inp100x"/></td>
 								          </tr>
