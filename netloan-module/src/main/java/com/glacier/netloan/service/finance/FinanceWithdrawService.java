@@ -143,7 +143,6 @@ public class FinanceWithdrawService {
     public Object addWithdraw(FinanceWithdraw financeWithdraw, Member member, String bankCardId) {
     	
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-    	
     	// 验证会员真正的交易密码是否等于输入的交易密码
         Member memberTemp = new Member();
         memberTemp = memberMapper.selectByPrimaryKey(member.getMemberId());// 根据前台返回的会员Id，查询出该会员的信息
@@ -153,20 +152,19 @@ public class FinanceWithdrawService {
                 return returnResult;
             }
         }
-        
     	Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
   		Member pricipalMember = (Member) pricipalSubject.getPrincipal();
-  		
-  		
   		//获取超级管理员用户
   		UserExample userExample = new UserExample();
   		userExample.createCriteria().andUsernameEqualTo("admin");
   		List<User> users = userMapper.selectByExample(userExample);
-  		
   		//根据会员银行卡Id查找该银行卡信息
+  		if (null == bankCardId && StringUtils.isBlank(bankCardId)) {
+  		    returnResult.setMsg("提现银行卡为空，请先进行绑定银行卡操作");
+  		    return returnResult;
+  		}
   		FinanceBankCard financeBankCard = new FinanceBankCard();
   		financeBankCard = financeBankCardMapper.selectByPrimaryKey(bankCardId);
-  		
         int count = 0;
         financeWithdraw.setFinanceWithdrawId(RandomGUID.getRandomGUID());
         // 赋值于提现记录的提现流水号

@@ -277,6 +277,7 @@
 										            	<option value="${financeBankCard.key}">${financeBankCard.value}</option>
 										       		</c:forEach>
 												</select> 
+												<a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">银行卡设置</a>
 								            </td>
 								          </tr>
 								          <tr>
