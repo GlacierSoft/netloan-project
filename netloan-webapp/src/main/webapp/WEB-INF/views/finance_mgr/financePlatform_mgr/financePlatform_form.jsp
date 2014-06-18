@@ -14,7 +14,7 @@
 		<tr>
 			<td>账号名称：</td>
 			<td>
-				<input name="platformName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${financePlatformData.platformName}"/>
+				<input  name="platformName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${financePlatformData.platformName}"/>
 			</td>
 		</tr>
 		<tr>

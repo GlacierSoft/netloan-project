@@ -13,7 +13,7 @@
 		</tr>
 		<tr>
 			<td>参数值：</td>
-			<td><input name="parameterValues" class="easyui-validatebox spinner" style="width:268px" required="true" value="${variablesData.parameterValues}"/></td>
+			<td><input name="parameterValues" class="easyui-numberspinner spinner" style="width:268px" required="true" value="${variablesData.parameterValues}" data-options="min:0,max:9999,precision:2,missingMessage:'请输入参数值'"/></td>
 		</tr>
 		<tr>
 			<td>参数说明：</td>
