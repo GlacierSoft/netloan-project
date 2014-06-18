@@ -227,14 +227,33 @@
 	};
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.optgroup_mgr.optgroup.addOptgroupValue = function(){
-		glacier.basicAddOrEditDialog({
+		$.easyui.showDialog({
 			title : '【下拉值管理】- 增加',
+			href : ctx + '/do/optgroupValue/intoForm.htm',//从controller请求jsp页面进行渲染
 			width : 420,
 			height : 330,
-			queryUrl : ctx + '/do/optgroupValue/intoForm.htm',
-			submitUrl : ctx + '/do/optgroupValue/add.json',
-			successFun : function (){
-				glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValuePropertyGrid.datagrid('reload');
+			resizable: false,
+			enableSaveButton : false,
+			enableApplyButton : false,
+			buttons : [{
+				text : '保存',
+				iconCls : 'icon-save',
+				handler : function(dia) {
+					$('#optgroup_mgr_optgroupValue_form').form('submit', {
+						url: ctx + '/do/optgroupValue/add.json',
+						success: function(r){
+							$.messager.show(r.msg);
+							glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupValuePropertyGrid.datagrid('reload');
+						    dia.dialog("close");  
+						}
+					});
+				}
+			}],
+			onLoad : function() {
+				var optgroupRow = glacier.basicdatas_mgr.optgroup_mgr.optgroup.optgroupTreeGrid.treegrid("getSelected");
+				if(optgroupRow){//初始化所在菜单以及对应面板
+					$("#optgroup_mgr_optgroupValue_form_optgroupId").combotree('setValue', optgroupRow.optgroupId);
+				}
 			}
 		});
 	};
