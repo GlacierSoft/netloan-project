@@ -108,7 +108,7 @@
 			$.easyui.showDialog({
 				title: "【"+rowData.webNewsTheme+"】的新闻详细信息",
 				href : ctx + '/do/news/intoDetail.htm?webNewsId='+rowData.webNewsId,//从controller请求jsp页面进行渲染
-				width : 720,
+				width : 730,
 				height : 520,
 				resizable: false,
 				enableApplyButton : false,

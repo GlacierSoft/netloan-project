@@ -121,7 +121,7 @@
 			$.easyui.showDialog({
 				title: "【"+rowData.webHelpTheme+"】的帮助中心详细信息",
 				href : ctx + '/do/help/intoDetail.htm?webHelpId='+rowData.webHelpId,//从controller请求jsp页面进行渲染
-				width : 720,
+				width : 730,
 				height : 550,
 				resizable: false,
 				enableApplyButton : false,

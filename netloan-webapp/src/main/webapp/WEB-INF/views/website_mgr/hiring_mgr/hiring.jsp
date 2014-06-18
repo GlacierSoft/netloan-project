@@ -113,7 +113,7 @@
 			$.easyui.showDialog({
 				title: "【"+rowData.webHiringTheme+"】的招聘详细信息",
 				href : ctx + '/do/hiring/intoDetail.htm?webHiringId='+rowData.webHiringId,//从controller请求jsp页面进行渲染
-				width : 720,
+				width : 730,
 				height : 540,
 				resizable: false,
 				enableApplyButton : false,
