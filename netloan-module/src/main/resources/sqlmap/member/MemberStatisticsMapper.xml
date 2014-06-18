@@ -157,6 +157,14 @@
 	<include refid="Base_extend"/>
     where temp_member_statistics.statistics_id = #{statisticsId,jdbcType=VARCHAR}
   </select>
+  <!--自定义方法，更加会员ID查找会员统计信息-->
+  <select id="selectByMemberId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_member_statistics temp_member_statistics
+	<include refid="Base_extend"/>
+    where temp_member_statistics.member_id = #{memberId,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_member_statistics
     where statistics_id = #{statisticsId,jdbcType=VARCHAR}

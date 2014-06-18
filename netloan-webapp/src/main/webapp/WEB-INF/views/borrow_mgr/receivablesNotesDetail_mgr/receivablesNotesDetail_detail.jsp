@@ -50,6 +50,9 @@
 		<tr>
 			<td>总收款金额：</td>
 			<td><input class="spinner" style="width:168px" value="${receivablesNotesDetailData.amount}" readonly="readonly"/></td>
+			<td>备注：</td>
+			<td><input class="spinner" style="width:168px" value="${receivablesNotesDetailData.remark}" readonly="readonly"/></td>
+		
 		</tr>
 		<tr>
 			<td>创建人：</td>
@@ -61,11 +64,7 @@
 			<td><input id="borrowingLoan_mgr_borrowingLoan_detail_updaterDisplay" name="updaterDisplay" class="spinner" style="width:168px" value="${receivablesNotesDetailData.updaterDisplay}" readonly="readonly"/></td>
 			<td>最后更新时间：</td>
 			<td><input id="borrowingLoan_mgr_borrowingLoan_detail_updateTime" name="updateTime" class="spinner" style="width:168px" value="<fmt:formatDate value="${receivablesNotesDetailData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
-		</tr>
-		<tr>
-			<td>备注：</td>
-			<td><input class="spinner" style="width:168px" value="${receivablesNotesDetailData.remark}" readonly="readonly"/></td>
-		</tr>
+		</tr> 
 	</table>
 </form>
 <script type="text/javascript">

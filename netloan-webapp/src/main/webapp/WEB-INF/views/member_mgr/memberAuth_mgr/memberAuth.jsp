@@ -154,7 +154,8 @@
 				title: '【'+rowData.memberName+'】认证详细信息',
 				href : ctx + '/do/memberAuth/intoDetail.htm?memberId='+rowData.memberId,//从controller请求jsp页面进行渲染
 				width : 800,
-				height : 620,
+				height : 486,
+				border : true,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -184,6 +185,7 @@
 			href : ctx + '/do/memberAuth/intoForm.htm?memberId='+row.memberId,//从controller请求jsp页面进行渲染
 			width : 500,
 			height : 380,
+			border : true,
 			resizable: false,
 			enableApplyButton : false,
 			enableSaveButton : false
