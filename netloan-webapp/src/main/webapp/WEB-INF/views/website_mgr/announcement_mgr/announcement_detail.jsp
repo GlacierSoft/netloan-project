@@ -11,25 +11,25 @@
 				<input class="spinner" style="width:250px"  value="${announcementData.webAnnTheme}" readonly="readonly"/>
 			</td>
 			<td>点击次数：</td>
-			<td><input class="spinner" style="width:250px"  value="${announcementData.clicks}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:270px"  value="${announcementData.clicks}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>公告状态：</td>
 			<td><input id="announcement_mgr_announcement_detail_webAnnStatus" class="spinner" style="width:250px"  readonly="readonly"/></td>
 			<td>公告排序：</td>
-			<td><input class="spinner" style="width:250px"  value="${announcementData.webAnnNum}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:270px"  value="${announcementData.webAnnNum}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>创建人：</td>
 			<td><input class="spinner" style="width:250px" value="${announcementData.createrDisplay}" readonly="readonly"/></td>
 			<td>创建时间：</td>
-			<td><input class="spinner" style="width:250px" value="<fmt:formatDate value="${announcementData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:270px" value="<fmt:formatDate value="${announcementData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>更新人：</td>
 			<td><input class="spinner" style="width:250px" value="${announcementData.updaterDisplay}" readonly="readonly"/></td>
 			<td>更新时间：</td>
-			<td><input class="spinner" style="width:250px" value="<fmt:formatDate value="${announcementData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:270px" value="<fmt:formatDate value="${announcementData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>公告内容：</td>

@@ -107,7 +107,7 @@
 				title: '【'+rowData.senderDisplay+'】'+rowData.title,
 				href : ctx + '/do/messageNotice/intoDetail.htm?messageNoticeId='+rowData.messageNoticeId,//从controller请求jsp页面进行渲染
 				width : 520,
-				height : 230,
+				height : 240,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

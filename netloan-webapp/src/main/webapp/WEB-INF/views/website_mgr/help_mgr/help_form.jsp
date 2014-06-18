@@ -8,20 +8,20 @@
 			<td>主题：</td>
 			<td colspan="3">
 				<input type="hidden" id="help_mgr_help_form_webHelpId" name="webHelpId" value="${helpData.webHelpId}" />
-				<input id="help_mgr_help_form_webHelpTheme" name="webHelpTheme" style="width:590px" value="${helpData.webHelpTheme}" class="easyui-validatebox spinner"  required="true"  validType="length[1,50]" invalidMessage="帮助中心主题必须在1到50个字符之间"/>
+				<input id="help_mgr_help_form_webHelpTheme" name="webHelpTheme" style="width:600px" value="${helpData.webHelpTheme}" class="easyui-validatebox spinner"  required="true"  validType="length[1,50]" invalidMessage="帮助中心主题必须在1到50个字符之间"/>
 			</td>
 		</tr>
 		<tr>
 			<td>类型：</td>
 			<td><input id="help_mgr_help_form_webHelpType" name="webHelpType" value="${helpData.webHelpType}"/></td>
 			<td>状态：</td>
-			<td><input id="help_mgr_help_form_webHelpStatus" name="webHelpStatus" value="${helpData.webHelpStatus}"/></td>
+			<td><input id="help_mgr_help_form_webHelpStatus" name="webHelpStatus" value="${helpData.webHelpStatus}" style="width:285px"/></td>
 		</tr>
 		<tr>
 			<td>序号：</td>
 			<td><input id="help_mgr_help_form_webClaNum" name="webClaNum" class="easyui-numberspinner spinner" value="${helpData.webClaNum}" data-options="min:0,max:99,required:true,missingMessage:'请填写序号'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 			<td>附件：</td>
-			<td><input id="help_mgr_help_form_accessory" name="accessory" class="easyui-validatebox spinner" style="width:268px" value="${helpData.accessory}"/></td>
+			<td><input id="help_mgr_help_form_accessory" name="accessory" class="easyui-validatebox spinner" style="width:285px" value="${helpData.accessory}"/></td>
 		</tr>
 		<tr>
 			<td>内容：</td>
@@ -110,7 +110,7 @@
 	$('#help_mgr_help_form_webHelpStatus').combobox({  
 		valueField : 'value',
 		height:18,
-		width:270,
+		width:287,
 		textField : 'label',
 		panelHeight : 'auto',
 		editable : false,

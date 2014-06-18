@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <form id="member_mgr_memberAuth_form" method="post" style="padding:15px">
-<div title="基础资料认证" style="padding:15px">
+<div title="基础资料认证" style="padding:15px;">
     	<fieldset id="member_mgr_memberAuth_form_memberAuthGenfieldset" style="padding:10px;" class="spinner">
 			<legend>基础资料认证</legend>  
 			<table  class="detailtable">
@@ -39,7 +39,7 @@
      <div title="VIP认证" style="padding:15px">
     	<fieldset id="member_mgr_memberAuth_form_memberAuthGenfieldset" style="padding:10px;" class="spinner">
 			<legend>VIP认证</legend>  
-			<table  class="detailtable">
+			<table  class="detailtable" style="width: 712px">
 					<tr>
 						<td>认证名称：</td>
 						<td><input id="member_mgr_memberAuth_form_vipName" name="vipName" class="spinner" style="width:168px" value="${memberAuthData.vipName}"  readonly="readonly"/></td>
@@ -60,7 +60,7 @@
 					</tr>
 					<tr>
 						<td>附件：</td>
-						<td colspan="3"><textarea id="member_mgr_memberAuth_form_vipAccessory" name="vipAccessory" class="spinner" style="width:600px;height:280px;" readonly="readonly">${memberAuthData.vipAccessory}</textarea></td>
+						<td colspan="3"><textarea id="member_mgr_memberAuth_form_vipAccessory" name="vipAccessory" class="spinner" style="width:600px;height:140px;" readonly="readonly">${memberAuthData.vipAccessory}</textarea></td>
 					</tr>
 				</table>
 		</fieldset>
@@ -68,7 +68,7 @@
     <div title="邮件认证" style="padding:15px">
     	<fieldset id="member_mgr_memberAuth_form_memberAuthGenfieldset" style="padding:10px;" class="spinner">
 			<legend>邮件认证</legend>  
-			<table  class="detailtable">
+			<table  class="detailtable" style="width: 712px">
 					<tr>
 						<td>认证名称：</td>
 						<td><input id="member_mgr_memberAuth_form_emailName" name="emailName" class="spinner" style="width:168px" value="${memberAuthData.emailName}"  readonly="readonly"/></td>
@@ -97,7 +97,7 @@
    <div title="手机认证" style="padding:15px">
     	<fieldset id="member_mgr_memberAuth_form_memberAuthGenfieldset" style="padding:10px;" class="spinner">
 			<legend>手机认证</legend>  
-			<table  class="detailtable">
+			<table  class="detailtable" style="width: 712px">
 					<tr>
 						<td>认证名称：</td>
 						<td><input id="member_mgr_memberAuth_form_mobileName" name="mobileName" class="spinner" style="width:168px" value="${memberAuthData.mobileName}"  readonly="readonly"/></td>
@@ -126,7 +126,7 @@
     <div title="信用认证" style="padding:15px">
     	<fieldset id="member_mgr_memberAuth_form_memberAuthGenfieldset" style="padding:10px;" class="spinner">
 			<legend>信用认证</legend>  
-			<table  class="detailtable">
+			<table  class="detailtable" style="width: 712px">
 					<tr>
 						<td>认证名称：</td>
 						<td><input id="member_mgr_memberAuth_form_creditName" name="creditName" class="spinner" style="width:168px" value="${memberAuthData.creditName}"  readonly="readonly"/></td>
@@ -147,7 +147,7 @@
 					</tr>
 					<tr>
 						<td>附件：</td>
-						<td colspan="3"><textarea id="member_mgr_memberAuth_form_creditAccessory" name="creditAccessory" class="spinner" style="width:600px;height:280px;" readonly="readonly">${memberAuthData.creditAccessory}</textarea></td>
+						<td colspan="3"><textarea id="member_mgr_memberAuth_form_creditAccessory" name="creditAccessory" class="spinner" style="width:600px;height:140px;" readonly="readonly">${memberAuthData.creditAccessory}</textarea></td>
 					</tr>
 				</table>
 		</fieldset>
@@ -155,7 +155,7 @@
     <div title="企业认证" style="padding:15px">
     	<fieldset id="member_mgr_memberAuth_form_memberAuthGenfieldset" style="padding:10px;" class="spinner">
 			<legend>企业认证</legend>  
-			<table  class="detailtable">
+			<table  class="detailtable" style="width: 712px">
 					<tr>
 						<td>认证名称：</td>
 						<td><input id="member_mgr_memberAuth_form_companyName" name="companyName" class="spinner" style="width:168px" value="${memberAuthData.companyName}"  readonly="readonly"/></td>
@@ -176,7 +176,7 @@
 					</tr>
 					<tr>
 						<td>附件：</td>
-						<td colspan="3"><textarea id="member_mgr_memberAuth_form_companyAccessory" name="companyAccessory" class="spinner" style="width:600px;height:280px;" readonly="readonly">${memberAuthData.companyAccessory}</textarea></td>
+						<td colspan="3"><textarea id="member_mgr_memberAuth_form_companyAccessory" name="companyAccessory" class="spinner" style="width:600px;height:140px;" readonly="readonly">${memberAuthData.companyAccessory}</textarea></td>
 					</tr>
 				</table>
 		</fieldset>
@@ -184,7 +184,7 @@
     <div title="实名认证" style="padding:15px">
     	<fieldset id="member_mgr_memberAuth_form_memberAuthGenfieldset" style="padding:10px;" class="spinner">
 			<legend>实名认证</legend>  
-			<table  class="detailtable">
+			<table  class="detailtable" style="width: 712px">
 					<tr>
 						<td>认证名称：</td>
 						<td><input id="member_mgr_memberAuth_form_realName" name="realName" class="spinner" style="width:168px" value="${memberAuthData.realName}"  readonly="readonly"/></td>
@@ -205,7 +205,7 @@
 					</tr>
 					<tr>
 						<td>附件：</td>
-						<td colspan="3"><textarea id="member_mgr_memberAuth_form_realNameAccessory" name="realNameAccessory" class="spinner" style="width:600px;height:280px;" readonly="readonly">${memberAuthData.realNameAccessory}</textarea></td>
+						<td colspan="3"><textarea id="member_mgr_memberAuth_form_realNameAccessory" name="realNameAccessory" class="spinner" style="width:600px;height:140px;" readonly="readonly">${memberAuthData.realNameAccessory}</textarea></td>
 					</tr>
 				</table>
 		</fieldset>
@@ -213,7 +213,7 @@
     <div title="身份证认证" style="padding:15px">
     	<fieldset id="member_mgr_memberAuth_form_memberAuthGenfieldset" style="padding:10px;" class="spinner">
 			<legend>身份证认证</legend>  
-			<table  class="detailtable">
+			<table  class="detailtable" style="width:712px">
 					<tr>
 						<td>认证名称：</td>
 						<td><input id="member_mgr_memberAuth_form_idCardName" name="idCardName" class="spinner" style="width:168px" value="${memberAuthData.idCardName}"  readonly="readonly"/></td>
@@ -234,7 +234,7 @@
 					</tr>
 					<tr>
 						<td>附件：</td>
-						<td colspan="3"><textarea id="member_mgr_memberAuth_form_idCardAccessory" name="idCardAccessory" class="spinner" style="width:600px;height:280px;" readonly="readonly">${memberAuthData.idCardAccessory}</textarea></td>
+						<td colspan="3"><textarea id="member_mgr_memberAuth_form_idCardAccessory" name="idCardAccessory" class="spinner" style="width:600px;height:140px;" readonly="readonly">${memberAuthData.idCardAccessory}</textarea></td>
 					</tr>
 				</table>
 		</fieldset>
@@ -282,6 +282,7 @@
 				href : ctx + '/do/member/intoDetail.htm?memberId='+'${memberAuthData.memberId}',//从controller请求jsp页面进行渲染
 				width : 645,
 				height : 450,
+				border : true,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -302,6 +303,7 @@
 	//tab
 	$('#member_mgr_memberAuth_form').tabs({
 		border:false,
+		border:true,
 		onSelect:function(){
 			$("div").remove(".validatebox-tip");//解决关闭窗体偶尔出现验证条bug
 		}
