@@ -17,12 +17,23 @@ public class FinanceOverdueAdvances {
 
     private String auditor;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    /*
+     * 自定义字段，显示审核人真实姓名
+     * */
+    private String auditorDisplay;
+    
+    private String createrDisplay;
+    
+    private String updaterDisplay;
+    
+   
+
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditDate;
 
     private String auditRemark;
-
-    private String remark;
+    
+	private String remark;
 
     private String creater;
 
@@ -138,6 +149,31 @@ public class FinanceOverdueAdvances {
         this.updateTime = updateTime;
     }
 
+    public String getAuditorDisplay() {
+		return auditorDisplay;
+	}
+
+	public void setAuditorDisplay(String auditorDisplay) {
+		this.auditorDisplay = auditorDisplay;
+	}
+	
+	 public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+    
+    
     @Override
     public boolean equals(Object that) {
         if (this == that) {

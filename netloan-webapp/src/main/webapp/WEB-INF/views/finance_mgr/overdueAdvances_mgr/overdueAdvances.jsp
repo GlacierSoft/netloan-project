@@ -63,7 +63,7 @@
 				formatter: function(value,row,index){//数据格式化，例如auditorSucess显示审核成功，auditorFailure显示审核失败
 					return renderGridValue(value,fields.auditState);}
 			},{
-				field:'auditor',
+				field:'auditorDisplay',
 				title:'审核人',
 				width:140,
 				sortable:true
@@ -73,7 +73,7 @@
 				width:100,
 				sortable:true
 		    },{
-				field:'creater',
+				field:'createrDisplay',
 				title:'创建人',
 				sortable:true,
 				width:100
@@ -83,7 +83,7 @@
 				sortable:true,
 				width:110
 			},{
-				field:'updater',
+				field:'updaterDisplay',
 				title:'最后修改人',
 				sortable:true,
 				width:90

@@ -15,6 +15,9 @@
     <result column="temp_finance_overdue_advances_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_finance_overdue_advances_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finance_overdue_advances_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_finance_overdue_advances_auditor_display" property="auditorDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_finance_overdue_advances_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_finance_overdue_advances_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -84,6 +87,15 @@
     temp_finance_overdue_advances.remark as temp_finance_overdue_advances_remark, temp_finance_overdue_advances.creater as temp_finance_overdue_advances_creater, 
     temp_finance_overdue_advances.create_time as temp_finance_overdue_advances_create_time, 
     temp_finance_overdue_advances.updater as temp_finance_overdue_advances_updater, temp_finance_overdue_advances.update_time as temp_finance_overdue_advances_update_time
+    <!-- 以下字段属于扩展 -->
+    ,temp_auditor.user_cn_name as temp_finance_overdue_advances_auditor_display
+    ,temp_creater.user_cn_name as temp_finance_overdue_advances_creater_display
+    ,temp_updater.user_cn_name as temp_finance_overdue_advances_updater_display
+  </sql>
+  <sql id="Base_extend">
+  	 LEFT JOIN t_user temp_auditor ON temp_auditor.user_id = temp_finance_overdue_advances.auditor <!-- 扩展 -->
+  	 LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_finance_overdue_advances.creater <!-- 扩展 -->
+     LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_finance_overdue_advances.updater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueAdvancesExample" >
     select
@@ -92,6 +104,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_finance_overdue_advances temp_finance_overdue_advances
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -106,6 +119,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_finance_overdue_advances temp_finance_overdue_advances
+    <include refid="Base_extend" />
     where temp_finance_overdue_advances.overdue_advances_id = #{overdueAdvancesId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -217,6 +231,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueAdvancesExample" resultType="java.lang.Integer" >
     select count(*) from t_finance_overdue_advances temp_finance_overdue_advances
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
