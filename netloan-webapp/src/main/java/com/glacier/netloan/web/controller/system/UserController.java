@@ -64,7 +64,7 @@ public class UserController extends AbstractController{
 	//增加用户信息
 	@RequestMapping(value = "/add.json", method = RequestMethod.POST)
 	@ResponseBody
-	private Object addUser(@Valid User user,BindingResult bindingResult){
+	private Object addUser(@Valid User user,BindingResult bindingResult) throws Exception{
 		if(bindingResult.hasErrors()){// 后台校验的错误信息
 			return returnErrorBindingResult(bindingResult);
 		}

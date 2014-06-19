@@ -1,5 +1,8 @@
 package com.glacier.netloan.service.system;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -94,6 +97,7 @@ public class RoleService {
      * @Description: TODO(增加角色)
      * @param @param role
      * @param @return
+     * @throws Exception 
      * @throws 备注
      *             <p>
      *             已检查测试:Green
@@ -101,7 +105,7 @@ public class RoleService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "RoleList_add")
-    public Object addRole(Role role) {
+    public Object addRole(Role role) throws Exception {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
 
@@ -126,7 +130,22 @@ public class RoleService {
         role.setRoleId(RandomGUID.getRandomGUID());// 初始化新建角色信息
         role.setBuiltin(CommonBuiltin.custom);// 在业务新建的角色为自定义
         role.setCreater(pricipalUser.getUserId());
-        role.setCreateTime(new Date());
+      //构建时间字符串
+        Calendar cal = Calendar.getInstance();  
+        int year = cal.get(Calendar.YEAR);//获取年份  
+        int month=cal.get(Calendar.MONTH)+1;//获取月份   
+        int day=cal.get(Calendar.DATE);//获取日   
+        //int hour=cal.get(Calendar.HOUR);//小时  
+        int hour=new Date().getHours();
+        System.out.println(hour);
+        int minute=cal.get(Calendar.MINUTE);//分              
+        int second=cal.get(Calendar.SECOND);//秒 
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String strDate=year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+        Date dates=sdf.parse(strDate);
+        role.setCreateTime(dates);
+        
+        
         count = roleMapper.insert(role);
         if (count == 1) {
             returnResult.setSuccess(true);

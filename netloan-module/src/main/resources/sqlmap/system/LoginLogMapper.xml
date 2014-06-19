@@ -5,7 +5,7 @@
     <id column="temp_loginlog_loginlog_id" property="loginlogId" jdbcType="VARCHAR" />
     <result column="temp_loginlog_user_id" property="userId" jdbcType="VARCHAR" />
     <result column="temp_loginlog_login_user" property="loginUser" jdbcType="VARCHAR" />
-    <result column="temp_loginlog_login_time" property="loginTime" jdbcType="DATE" />
+    <result column="temp_loginlog_login_time" property="loginTime" jdbcType="TIMESTAMP" />
     <result column="temp_loginlog_login_ip" property="loginIp" jdbcType="VARCHAR" />
     <result column="temp_loginlog_browser_version" property="browserVersion" jdbcType="VARCHAR" />
     <result column="temp_loginlog_screen_size" property="screenSize" jdbcType="VARCHAR" />
@@ -112,7 +112,7 @@
       login_time, login_ip, browser_version, 
       screen_size)
     values (#{loginlogId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{loginUser,jdbcType=VARCHAR}, 
-      #{loginTime,jdbcType=DATE}, #{loginIp,jdbcType=VARCHAR}, #{browserVersion,jdbcType=VARCHAR}, 
+      #{loginTime,jdbcType=TIMESTAMP}, #{loginIp,jdbcType=VARCHAR}, #{browserVersion,jdbcType=VARCHAR}, 
       #{screenSize,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.system.LoginLog" >
@@ -151,7 +151,7 @@
         #{loginUser,jdbcType=VARCHAR},
       </if>
       <if test="loginTime != null" >
-        #{loginTime,jdbcType=DATE},
+        #{loginTime,jdbcType=TIMESTAMP},
       </if>
       <if test="loginIp != null" >
         #{loginIp,jdbcType=VARCHAR},

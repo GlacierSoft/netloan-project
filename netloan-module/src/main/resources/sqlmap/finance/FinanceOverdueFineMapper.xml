@@ -19,6 +19,9 @@
     <result column="temp_finance_overdue_fine_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_finance_overdue_fine_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finance_overdue_fine_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    
+    
+  
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >

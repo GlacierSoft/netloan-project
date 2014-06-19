@@ -82,7 +82,7 @@ public class RoleController extends AbstractController{
     // 增加角色
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addRole(@Valid Role role, BindingResult bindingResult) {
+    private Object addRole(@Valid Role role, BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }

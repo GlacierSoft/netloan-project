@@ -3,6 +3,8 @@ package com.glacier.netloan.entity.system;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
@@ -60,6 +62,8 @@ public class User implements Serializable {
 
     private String createrDisplay;
 
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
 
     public String getUserId() {
