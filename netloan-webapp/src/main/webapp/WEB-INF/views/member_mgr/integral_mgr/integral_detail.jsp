@@ -16,7 +16,7 @@
 
 		<tr>
 			<td>改变类型：</td>
-			<td><input id="integral_mgr_integral_detail_type" class="spinner" style="width:168px" readonly="readonly"/></td>
+			<td><input id="integral_mgr_integral_detail_changeType" class="spinner" style="width:168px" readonly="readonly"/></td>
 			<td>改变值：</td>
 			<td><input class="spinner" style="width:168px" value="${integralData.changeValue}" readonly="readonly"/></td>
 		</tr>
@@ -33,6 +33,6 @@
 	</table>
 </form>
 <script type="text/javascript">
-	$('#integral_mgr_integral_detail_integralType').val(renderGridValue('${integralData.type}',fields.type));
-	$('#integral_mgr_integral_detail_type').val(renderGridValue('${integralData.changeType}',fields.changeType));
+	$('#integral_mgr_integral_detail_integralType').val(renderGridValue('${integralData.type}',fields.integralType));
+	$('#integral_mgr_integral_detail_changeType').val(renderGridValue('${integralData.changeType}',fields.changeType));
 </script>

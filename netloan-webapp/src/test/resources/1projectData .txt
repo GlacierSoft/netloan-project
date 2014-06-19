@@ -1,0 +1,63 @@
+冰川：
+页面地址：http://192.168.1.111:8080/netloan-website/
+管理地址: http://192.168.1.111:8888/netloan/do/index.htm
+前台用户名：zhangsan 密码：zhangsan
+后台用户名：admin    密码：admin
+
+
+晓风： SP2P5.0安全版：
+页面地址：http://siwoo.com.cn
+管理地址: http://siwoo.com.cn/admin/login.do
+前台用户名：zwd2  密码：123456
+后台用户名：admin 密码：123456
+
+
+绿麻雀：
+演示网址：http://11.lvmaque.cn 
+演示后台：http://11.lvmaque.cn/lvmaque/admin 
+后台账号：ceshi
+后台密码：ceshi
+后台口令：ceshi
+
+
+账号，fengzi,密码123456，交易密码111111
+
+
+
+
+
+一、前台页面进行注册会员成功时，生成以下数据；
+  1.会员信息表		t_member
+  2.会员工作信息表	t_member_work
+  3.会员认证表		t_member_auth
+  4.会员资金信息	t_finance_member
+  5.会员借款投资统计	t_member_statistics
+
+
+二、前台进行借款时，
+  1.借款表		t_borrowing_loan
+  2.
+
+三、借款信息在后台进行初审成功后，
+
+  更新数据
+  1.借款表		t_borrowing_loan
+  2.会员资金信息	t_finance_member
+  3.会员资金记录明细	t_finance_transaction
+  4.会员借款投资统计	t_member_statistics
+  5.会员积分记录表	t_member_integral
+  6.会员信用记录	t_member_credit_integral
+
+  创建数据
+  1.还款记录表		t_repayment_notes
+  2.还款记录明细表	t_repayment_notes_detail
+
+四、会员进行投资时，
+
+五、借款信息在后台进行复审成功后，
+
+六、会员进行还款时，
+
+七、会员进行收款时，
+
+八、

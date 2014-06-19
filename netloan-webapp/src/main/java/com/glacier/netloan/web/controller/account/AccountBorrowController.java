@@ -2,6 +2,8 @@ package com.glacier.netloan.web.controller.account;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,8 +64,10 @@ public class AccountBorrowController{
     	JqGridReturn returnResult=(JqGridReturn) accountBorrowService.listAsGrid(jqPager, borrowingLoanQueryDTO, loanState);
     	List<BorrowingLoan> list=(List<BorrowingLoan>)returnResult.getRows();
     	  HSSFWorkbook wb = accountBorrowService.export(list);   
-          response.setContentType("application/vnd.ms-excel");    
-          response.setHeader("Content-disposition", "attachment;filename=BorrowingInfo.xls");    
+          response.setContentType("application/vnd.ms-excel"); 
+          SimpleDateFormat sf=new SimpleDateFormat("yyyyMMddHHmmss");//日期格式设置
+          String fileName="AccountBorrow_"+sf.format(new Date());//文件名称
+          response.setHeader("Content-disposition", "attachment;filename="+fileName+".xls");    
           OutputStream ouputStream = response.getOutputStream();    
           wb.write(ouputStream);    
           ouputStream.flush();    

@@ -2,6 +2,8 @@ package com.glacier.netloan.web.controller.account;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,9 +66,11 @@ public class AccountTenderController extends AbstractController {
 	    private void expAccountTender(JqPager jqPager,TenderNotesQueryDTO tenderNotesQueryDTO, String q,HttpServletRequest request,HttpServletResponse response) throws IOException{
 	    	  JqGridReturn returnResult=(JqGridReturn) accountTenderService.listAsGrid(jqPager, tenderNotesQueryDTO, q);
 	    	  List<TenderNotes> list=(List<TenderNotes>)returnResult.getRows();
-	    	  HSSFWorkbook wb = accountTenderService.export(list);   
-	          response.setContentType("application/vnd.ms-excel");    
-	          response.setHeader("Content-disposition", "attachment;filename=AccountTenderInfo.xls");    
+	    	  HSSFWorkbook wb = accountTenderService.export(list);  
+	    	  response.setContentType("application/vnd.ms-excel");    
+	          SimpleDateFormat sf=new SimpleDateFormat("yyyyMMddHHmmss");
+	          String filename="AccountTenderInfo_"+sf.format(new Date());
+	    	  response.setHeader("Content-disposition", "attachment;filename="+filename+".xls");    
 	          OutputStream ouputStream = response.getOutputStream();    
 	          wb.write(ouputStream);    
 	          ouputStream.flush();    

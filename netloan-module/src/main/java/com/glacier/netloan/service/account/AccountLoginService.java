@@ -51,7 +51,7 @@ public class AccountLoginService {
 	        
 		  JqGridReturn returnResult = new JqGridReturn();
 	        MemberExample memberExample = new MemberExample();;
-	        
+	       
 	        Criteria queryCriteria = memberExample.createCriteria();
 	        memberQueryDTO.setQueryCondition(queryCriteria, q);
 
@@ -93,7 +93,7 @@ public class AccountLoginService {
 	    }
 	   
 	    String[] excelHeader = {"会员名称","真实姓名","身份证号","居住地址","联系方式","电子邮件","用户等级","信用积分","最后登陆IP","登入次数"};	      
-	    int[] excelHeaderWidth = {80, 80, 200,150, 150,200,80,80,150,80};  
+	    int[] excelHeaderWidth = {60, 60, 60,60, 60,60,60,60,60,60};  
 	    
 	     //登录统计信息导出
 	     public HSSFWorkbook export(List<Member> list) {    

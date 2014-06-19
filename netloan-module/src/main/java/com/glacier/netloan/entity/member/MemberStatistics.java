@@ -8,19 +8,19 @@ public class MemberStatistics {
     private String statisticsId;
 
     private String memberId;
-	
+ 
 	/**
      * 自定义字段，显示会员真实名字
      */
     private String memberRealName;
 
-    private Float totalBorrowings;
+    private Float totalBorrowings;//借款总额
 
-    private Float cumulativeLossProfit;
+    private Float cumulativeLossProfit;//累计亏盈
 
-    private Float alreadyTotal;
+    private Float alreadyTotal;//已还总额
 
-    private Float waitAlsoTotal;
+    private Float waitAlsoTotal;//
 
     private Float alreadyIncomeTotal;
 
@@ -119,8 +119,8 @@ public class MemberStatistics {
     public void setTotalBorrowings(Float totalBorrowings) {
         this.totalBorrowings = totalBorrowings;
     }
-
-    public Float getCumulativeLossProfit() {
+ 
+	public Float getCumulativeLossProfit() {
         return cumulativeLossProfit;
     }
 

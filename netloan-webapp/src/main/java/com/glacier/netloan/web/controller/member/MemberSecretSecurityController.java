@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.member.MemberSecretQueryDTO;
 import com.glacier.netloan.service.member.MemberSecretSecurityService;
 
 /**
@@ -54,8 +55,8 @@ public class MemberSecretSecurityController extends AbstractController{
     // 获取表格结构的所有会员密保数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listSecretSecurityAsGridByMenuId(JqPager secretSecurity) {
-        return secretSecurityService.listAsGrid(secretSecurity);
+    private Object listSecretSecurityAsGridByMenuId(JqPager secretSecurity,MemberSecretQueryDTO  memberSecretQueryDTO) {
+        return secretSecurityService.listAsGrid(secretSecurity,memberSecretQueryDTO);
     }
  // 批量删除消息通知
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)

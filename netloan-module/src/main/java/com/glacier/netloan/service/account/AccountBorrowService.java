@@ -76,8 +76,8 @@ public class AccountBorrowService {
     }
 	
 	
-	    String[] excelHeader = {"借款用户名","借款标题","借款金额","借款标的","借款时间","借款目的","借款期限","借款管理费","复审成功时间"};	      
-	    int[] excelHeaderWidth = {80, 80, 100, 100, 100,100,100,100,100};  
+	    String[] excelHeader = {"借款用户名","借款标题","借款金额","借款标的","借款时间","借款目的","借款期限"};	      
+	    int[] excelHeaderWidth = {80, 80, 100, 100, 100,100,100};  
 	    
 	    //借款信息导出
 	    public HSSFWorkbook export(List<BorrowingLoan> list) {    
@@ -110,8 +110,6 @@ public class AccountBorrowService {
 	            row.createCell(4).setCellValue(sf.format(borrow.getLoanDate()));//借款时间
 	            row.createCell(5).setCellValue(borrow.getLoanPurposeId());//借款目的
 	            row.createCell(6).setCellValue(borrow.getLoanDeadlinesId());//借款期限
-	            row.createCell(7).setCellValue(borrow.getLoanManagementFees());//借款管理费
-	            row.createCell(8).setCellValue(sf.format(borrow.getSecondAuditDate()));//复审成功时间
 	        }    
 	        return wb;    
 	    }     

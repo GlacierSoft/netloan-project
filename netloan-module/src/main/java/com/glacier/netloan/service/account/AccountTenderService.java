@@ -69,7 +69,7 @@ public class AccountTenderService {
 		
 		//投资信息导出
 		 String[] excelHeader = {"投标用户","用户积分","认购份数","借款名称","借款用户","年利率","还款期限","借款完成百分比","备注"};	      
-		    int[] excelHeaderWidth = {100,100, 100, 100, 100,100,100,100,100,100,100};  
+		    int[] excelHeaderWidth = {50,50, 50, 50, 50,50,50,50,50,50,50};  
 		    
 		    //导出Excel
 		    public HSSFWorkbook export(List<TenderNotes> list) {    

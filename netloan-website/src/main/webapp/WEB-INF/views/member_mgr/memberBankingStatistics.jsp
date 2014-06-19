@@ -94,47 +94,48 @@
 					  <table id="attentionBorrowingTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
 				  		<thead>
 				  			<tr>
-				              <td colspan="3">回报统计</td>
+				              <td colspan="4">回报统计</td>
 				            </tr>
 				  		</thead>
 				         	<tbody>
 								<tr>
-									<td>已赚利息</td>
-				              		<td>奖励收入总额</td>
-				              		<td>已赚逾期罚息</td>
+									<td>累计亏盈</td>
+				              		<td>投标奖励</td>
+				              		<td>成功投标次数</td>
+				              		<td>线下冲值奖励</td>
 								</tr>
 								<tr>
-									<td><fmt:formatNumber value="${requestScope.MemberBankingStatistics.alrReceInterest}" pattern="#,#00.00元"/></td>
-				              		<td><fmt:formatNumber value="${requestScope.MemberBankingStatistics.alrReceInterest}" pattern="#,#00.00元"/></td>
-				              		<td><fmt:formatNumber value="${requestScope.MemberBankingStatistics.alrOverdueInterest}" pattern="#,#00.00元"/></td>
+									<td>￥${memberStatisticsDate.cumulativeLossProfit}</td>
+				              		<td>￥${memberStatisticsDate.tenderAwards}</td>
+				              		<td></td>
+				              		<td>￥${memberStatisticsDate.uplineDeltaAwards}</td>
 								</tr>
 				            </tbody>
 				        </table>
 						 <table id="attentionBorrowingTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
 				  		<thead>
 				  			<tr>
-				              <td colspan="6">个人理财统计</td>
+				              <td colspan="7">个人理财统计</td>
 				            </tr>
 				  		</thead>
 				         	<tbody>
 								<tr>
-									<td>总借出金额</td>
-				              		<td>总借出笔数</td>
-				              		<td>已回收本息</td>
-				              		<td>已回收笔数</td>
-				              		<td>待回收本息</td>
-				              		<td>待回收笔数</td>
+									<td>投资总额</td>
+									<td>已收总额</td>
+									<td>待收总额</td>
+									<td>已收本金</td>
+									<td>待收本金</td>
+									<td>已收利息</td>
+									<td>待收利息</td>
 								</tr>
 								<tr>
-									<td><fmt:formatNumber value="${requestScope.MemberBankingStatistics.totalBorrowMoney}" pattern="#,#00.00元"/></td>
-				              		<%-- <td><fmt:formatNumber value="${requestScope.MemberBankingStatistics.totalBorrowNum}" pattern="#,#00.00"/></td> --%>
-				              		<td>${requestScope.MemberBankingStatistics.totalBorrowNum}</td>
-				              		<td><fmt:formatNumber value="${requestScope.MemberBankingStatistics.alrReceMoney}" pattern="#,#00.00元"/></td>
-				              		<%-- <td><fmt:formatNumber value="${requestScope.MemberBankingStatistics.alrReceNum}" pattern="#,#00.00"/></td> --%>
-				              		<td>${requestScope.MemberBankingStatistics.alrReceNum}</td>
-				              		<td><fmt:formatNumber value="${requestScope.MemberBankingStatistics.nextAll}" pattern="#,#00.00元"/></td>
-				              		<%-- <td><fmt:formatNumber value="${requestScope.MemberBankingStatistics.nextReceNum}" pattern="#,#00.00"/></td> --%>
-				              		<td>${requestScope.MemberBankingStatistics.nextReceNum}</td>
+									<td>￥${memberStatisticsDate.investmentTotal}</td>
+									<td>￥${memberStatisticsDate.alreadyIncomeTotal}</td>
+									<td>￥${memberStatisticsDate.waitIncomeTotal}</td>
+									<td>￥${memberStatisticsDate.alreadyIncomePrincipal}</td>
+									<td>￥${memberStatisticsDate.waitIncomePrincipal}</td>
+									<td>￥${memberStatisticsDate.alreadyIncomeInterest}</td>
+									<td>￥${memberStatisticsDate.waitIncomeInterest}</td>
 								</tr>
 				            </tbody>
 				        </table>  

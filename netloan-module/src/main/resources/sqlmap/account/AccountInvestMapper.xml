@@ -14,6 +14,7 @@
     <result column="temp_account_invest_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_account_invest_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_account_invest_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+   
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >

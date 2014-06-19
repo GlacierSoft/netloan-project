@@ -119,13 +119,81 @@
 		location.href=ctx+"/do/accountInvest/exp.json";
 	};
 	
+	function doCheckQuery(){
+		   
+		//alert("用户自定义开始时间:"+$("#investStartTime").datetimebox('getValue')+"   用户自定义结束时间:"+$("#investEndTime").datetimebox('getValue'));
+		var investStart=$("#investStartTime").datetimebox('getValue');
+		var investEnd=$("#investEndTime").datetimebox('getValue');
+		var investText=$('input:radio:checked').val();
+	    var investTitle="【未知】投资统计信息";
+	    
+	    
+	    if("investToday"==investText)
+			  investTitle="【当日】投资统计信息查询";
+		if("investMonth"==investText)
+			  investTitle="【当月】投资统计信息查询";
+		if("investYear"==investText)
+			  investTitle="【当年】投资统计信息查询";
+		if("investOther"==investText){
+		    if(investStart&&investEnd){
+		    	 investTitle="【"+investStart+"-"+investEnd+"】之间投资统计信息";
+		    	 //alert("没问题那(开始至结束) !!!");
+		    }if(investStart&&!investEnd){
+		    	investTitle="【"+investStart+"】之后投资统计信息";
+		    	//alert("没问题那(之后投资)");
+		    }if(investEnd&&!investStart){
+		    	investTitle="【"+investEnd+"】之前投资统计信息";
+		    	//alert("没问题那(之前投资)");
+		    }
+		 }
+		
+		$("#investDailog").dialog({
+			  title:investTitle,
+			  width: 650,    
+			  height: 230,
+			  href : ctx + '/do/accountInvest/intoCheckQuery.htm?investStr='+$('input:radio:checked').val()+"&StartTime="+$("#investStartTime").datetimebox('getValue')+"&EndTime="+$("#investEndTime").datetimebox('getValue'),//从controller请求jsp页面进行渲染
+			  modal: true,
+		      closed: false   
+		});
+		
+	}
 	
-	//时间测试
-	$("#invest_today").change(function(){
-		  alert($("#invest_today").val());
+	//Radio验证
+	$(document).ready(function(){    
+		$("#invest_other").click(function(){
+		    $("#investStartTime").datebox({ disabled: false});
+		    $("#investEndTime").datebox({disabled:false});
+		});
+	   $("#invest_today").click(function(){
+		   $("#investStartTime").datebox({ disabled: true});
+		   $("#investEndTime").datebox({disabled:true});
+		   $("#investStartTime").datebox('clear');
+		   $("#investEndTime").datebox('clear');
+		   
+		});
+	   $("#invest_month").click(function(){
+		    $("#investStartTime").datebox({ disabled: true});
+			$("#investEndTime").datebox({disabled:true});
+			$("#investStartTime").datebox('clear');
+			$("#investEndTime").datebox('clear');
+		});
+	    $("#invest_year").click(function(){
+			$("#investStartTime").datebox({ disabled: true});
+			$("#investEndTime").datebox({disabled:true});
+			$("#investStartTime").datebox('clear');
+			$("#investEndTime").datebox('clear');
+	   });
+	
 	});
 	
- </script>
+    //保存至EXCEL
+	function doSaveInvest(){
+		location.href=ctx+'/do/accountInvest/expCheck.json';	
+	};
+	
+	
+	
+</script>
 
 <!-- 所有客服列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
@@ -144,21 +212,35 @@
 					<td>当月</td>
 					<td><input type="radio" id="invest_year" name="invest_search"  class="spinner" value="investYear"/></td>
 					<td>当年</td>
-					<td><input type="radio" id="invest_other" name="invest_search"  class="spinner" value="investOther"/></td>
+					<td><input type="radio" id="invest_other" name="invest_search"  class="spinner" value="investOther"  /></td>
 					<td>其它时间段：</td>
 					<td>
-						<input id="investStartTime" name="invest_Start" class="easyui-datetimebox" style="width: 100px;"  disabled="true" />
+						<input id="investStartTime" name="invest_Start"  class="easyui-datetimebox" style="width: 100px;" disabled="true"  />
 						-
-						<input id="investEndTime" name="invest_End" class="easyui-datetimebox" style="width: 100px;"  disabled="true"/>
+						<input id="investEndTime" name="invest_End" class="easyui-datetimebox" style="width: 100px;" disabled="true"/>
 					</td>
 					<td>
-					    <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.account_mgr.accountInvest_mgr.accountInvest.accountInvestDataGrid.datagrid('load',glacier.serializeObject($('#accountInvestSearchForm')));">查询</a>
-						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('input:radio[name=invest_search]').attr('checked',false);glacier.account_mgr.accountInvest_mgr.accountInvest.accountInvestDataGrid.datagrid('load',{});">重置</a>
+					    <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="doCheckQuery();">查询</a>
+			            <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('input:radio[name=invest_search]').attr('checked',false);$('#investStartTime').datebox('clear'); $('#investEndTime').datebox('clear');$('#investStartTime').datebox({ disabled: true});$('#investEndTime').datebox({disabled:true});glacier.account_mgr.accountInvest_mgr.accountInvest.accountInvestDataGrid.datagrid('load',{});">重置</a>
 					</td>
 				</tr>
 			</table>
 		</form>
 	</div>
 </div>
+<!--自定义对话款  -->
+<div id="investDailog" class="easyui-dialog"  buttons="#dlg-buttons" closed="true"></div>
+
+<div id="dlg-buttons">   
+    <table cellpadding="0" cellspacing="0" style="width:100%">   
+        <tr>   
+            <td style="text-align:right">   
+                <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="doSaveInvest();">导出</a>   
+                <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#investDailog').dialog('close');">关闭</a>   
+            </td>   
+        </tr>   
+    </table>   
+</div> 
+   
 
 
