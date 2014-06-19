@@ -19,11 +19,27 @@ public class FinanceOverdueFineSet {
 
     private String feeWay;
 
-    private String auditState;
+    /*
+     * 自定义字段，显示审核人真实姓名
+     * */
+    private String auditorDisplay;
+    
+    private String createrDisplay;
+    
+    private String updaterDisplay;
+    
+    
+
+	private String auditState;
 
     private String auditor;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    private Date auditTime;
 
-    private Date auditDate;
+    
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+	private Date auditDate;
 
     private String auditRemark;
 
@@ -176,7 +192,39 @@ public class FinanceOverdueFineSet {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+    
+    public String getAuditorDisplay() {
+		return auditorDisplay;
+	}
 
+	public void setAuditorDisplay(String auditorDisplay) {
+		this.auditorDisplay = auditorDisplay;
+	}
+
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public Date getAuditTime() {
+		return auditTime;
+	}
+
+	public void setAuditTime(Date auditTime) {
+		this.auditTime = auditTime;
+	}
+	
     @Override
     public boolean equals(Object that) {
         if (this == that) {
