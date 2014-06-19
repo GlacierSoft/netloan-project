@@ -7,19 +7,19 @@ import com.alibaba.fastjson.annotation.JSONField;
 public class AccountInvest {
     private String investId;
 
-    private Float sumUncollected;
+    private Float sumUncollected=(float) 0.00; //投资成功待收金额
 
-    private Float sumReward;
+    private Float sumReward=(float) 0.00; //投资奖励金额
 
-    private Float sumFine;
+    private Float sumFine=(float) 0.00;// 借款人逾期罚款金额
 
-    private Float sumBorrow;
+    private Float sumBorrow=(float) 0.00;//借款成功金额
 
-    private Float sumAdvfee;
+    private Float sumAdvfee=(float) 0.00;//借款 管理费总额
 
-    private Float sumInterest;
+    private Float sumInterest=(float) 0.00;//借款利息总额
 
-    private Float sumInterestfee;
+    private Float sumInterestfee=(float) 0.00;//借款逾期罚息金额
 
     private String creater;
 
@@ -30,8 +30,34 @@ public class AccountInvest {
 
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+    
+     /**
+      * 
+      *自定义字段  
+      *创建人,更新人
+      */
+    
+    private String createrDisplay;
+    
+    private  String  updaterDisplay;
+    
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
 
-    public String getInvestId() {
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	public String getInvestId() {
         return investId;
     }
 

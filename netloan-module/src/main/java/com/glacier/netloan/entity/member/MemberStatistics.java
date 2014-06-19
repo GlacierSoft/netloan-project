@@ -14,13 +14,13 @@ public class MemberStatistics {
      */
     private String memberRealName;
 
-    private Float totalBorrowings;
+    private Float totalBorrowings;//借款总额
 
-    private Float cumulativeLossProfit;
+    private Float cumulativeLossProfit;//累计亏盈
 
-    private Float alreadyTotal;
+    private Float alreadyTotal;//已还总额
 
-    private Float waitAlsoTotal;
+    private Float waitAlsoTotal;//
 
     private Float alreadyIncomeTotal;
 
