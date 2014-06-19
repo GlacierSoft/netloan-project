@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.finance.FinPlatformTransactionsQueryDTO;
 import com.glacier.netloan.entity.finance.FinancePlatform;
 import com.glacier.netloan.entity.finance.FinancePlatformTransaction;
 import com.glacier.netloan.service.finance.FinancePlatformTransactionService;
@@ -56,8 +57,8 @@ public class FinancePlatformTransactionController extends AbstractController{
     // 获取表格结构的所有平台资金记录数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listTransactionAsGridByMenuId(JqPager pfinancePlatformTransactionr) {
-        return financePlatformTransactionService.listAsGrid(pfinancePlatformTransactionr);
+    private Object listTransactionAsGridByMenuId(FinPlatformTransactionsQueryDTO platformTransactionsQueryDTO,JqPager pfinancePlatformTransactionr) {
+        return financePlatformTransactionService.listAsGrid(platformTransactionsQueryDTO,pfinancePlatformTransactionr);
     }
     
     // 批量删除平台资金记录

@@ -23,11 +23,13 @@ import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
 import com.glacier.netloan.dao.finance.FinanceWithdrawMapper;
 import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.system.UserMapper;
+import com.glacier.netloan.dto.query.finance.FinWithdrawQueryDTO;
 import com.glacier.netloan.entity.finance.FinanceBankCard;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.finance.FinanceWithdraw;
 import com.glacier.netloan.entity.finance.FinanceWithdrawExample;
+import com.glacier.netloan.entity.finance.FinanceWithdrawExample.Criteria;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
@@ -83,11 +85,14 @@ public class FinanceWithdrawService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pager) {
+    public Object listAsGrid(FinWithdrawQueryDTO withdrawQueryDTO,JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
         FinanceWithdrawExample financeWithdrawExample = new FinanceWithdrawExample();
 
+        Criteria queryCriteria = financeWithdrawExample.createCriteria();
+        withdrawQueryDTO.setQueryConditions(queryCriteria);
+        
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	financeWithdrawExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	financeWithdrawExample.setLimitEnd(pager.getRows());

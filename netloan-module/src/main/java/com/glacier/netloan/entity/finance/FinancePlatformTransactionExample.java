@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.glacier.netloan.entity.finance.FinanceTransactionExample.Criteria;
+
 public class FinancePlatformTransactionExample {
     protected String orderByClause;
 
@@ -104,6 +106,13 @@ public class FinancePlatformTransactionExample {
             return criteria;
         }
 
+        //扩展查询条件
+  		public Criteria andMemberRealNamelike(String value) {
+  		    addCriterion("temp_finance_platform.platform_name like", value, "financePlatformDisplay");
+  		    return (Criteria) this;
+  		}
+        
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");

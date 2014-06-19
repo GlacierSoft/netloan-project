@@ -6,13 +6,7 @@
 
 	$.util.namespace('glacier.finance_mgr.transaction_mgr.transaction');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
-	//定义toolbar的操作，对操作进行控制 
-	glacier.finance_mgr.transaction_mgr.transaction.param = {
-			toolbarId : 'transactionDataGrid_toolbar',
-			actions : {
-				audit:{flag:'audit',controlType:'single'}
-			}
-	};
+	
 	
 	//初始化平台资金记录DataGrid
 	glacier.finance_mgr.transaction_mgr.transaction.transactionDataGrid = $('#transactionDataGrid').datagrid({
@@ -97,7 +91,6 @@
 		ptransactionSize : 10,//注意，ptransactionSize必须在ptransactionList存在
 		ptransactionList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#transactionDataGrid_toolbar',
 		onCheck:function(rowIndex,rowData){//选择行事件触发
 			action_controller(glacier.finance_mgr.transaction_mgr.transaction.param,this).check();
 		},
@@ -231,7 +224,28 @@
 <div class="easyui-layout" data-options="fit:true">
 	<div id="transactionGridPanel" data-options="region:'center',border:true" >
 		<table id="transactionDataGrid">
-			<glacierui:toolbar panelEnName="TransactionList" toolbarId="transactionDataGrid_toolbar" menuEnName="transaction"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
+	</div>
+	<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
+		<form id="platformTransactionDataGrid">
+			<table>
+				<tr>
+					<td>平台资金名称：</td>
+					<td><input name="financePlatformDisplay" style="width: 60px;" class="spinner"/></td>
+					<td>交易类型：</td>
+					<td><input name="transactionType" style="width: 60px;" class="spinner"/></td>
+					<td>创建时间：</td>
+					<td>
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;" />
+						-
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;" />
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.finance_mgr.transaction_mgr.transaction.transactionDataGrid.datagrid('load',glacier.serializeObject($('#platformTransactionDataGrid')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#platformTransactionDataGrid input').val('');glacier.finance_mgr.transaction_mgr.transaction.transactionDataGrid.datagrid('load',{});">重置条件</a>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </div>

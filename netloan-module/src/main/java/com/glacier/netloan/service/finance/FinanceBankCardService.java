@@ -20,11 +20,14 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceBankCardMapper;
 import com.glacier.netloan.dao.member.MemberMessageNoticeMapper;
+import com.glacier.netloan.dto.query.finance.FinBankCardQueryDTO;
 import com.glacier.netloan.entity.finance.FinanceBankCard;
 import com.glacier.netloan.entity.finance.FinanceBankCardExample;
 import com.glacier.netloan.entity.member.MemberMessageNotice;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.finance.FinanceBankCardExample.Criteria;
 import com.glacier.netloan.util.MethodLog;
+
 
 /**
  * @ClassName: FinanceBankCardService 
@@ -127,10 +130,13 @@ public class FinanceBankCardService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pager) {
+    public Object listAsGrid(FinBankCardQueryDTO bankQuery,JqPager pager) {
         
         JqGridReturn returnResult = new JqGridReturn();
-        FinanceBankCardExample financeBankCardExample = new FinanceBankCardExample();;
+        FinanceBankCardExample financeBankCardExample = new FinanceBankCardExample();
+        
+        Criteria queryCriteria = financeBankCardExample.createCriteria();
+        bankQuery.setQueryConditions(queryCriteria);
 
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	financeBankCardExample.setLimitStart((pager.getPage() - 1) * pager.getRows());

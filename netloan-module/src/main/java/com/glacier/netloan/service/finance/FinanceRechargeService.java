@@ -22,11 +22,13 @@ import com.glacier.netloan.dao.finance.FinanceRechargeMapper;
 import com.glacier.netloan.dao.finance.FinanceRechargeSetMapper;
 import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
 import com.glacier.netloan.dao.system.UserMapper;
+import com.glacier.netloan.dto.query.finance.FinRechargeQueryDTO;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.finance.FinanceRecharge;
 import com.glacier.netloan.entity.finance.FinanceRechargeExample;
 import com.glacier.netloan.entity.finance.FinanceRechargeSet;
 import com.glacier.netloan.entity.finance.FinanceTransaction;
+import com.glacier.netloan.entity.finance.FinanceRechargeExample.Criteria;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
@@ -79,11 +81,14 @@ public class FinanceRechargeService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pager) {
+    public Object listAsGrid(FinRechargeQueryDTO rechargeQueryDTO,JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
         FinanceRechargeExample financeRechargeExample = new FinanceRechargeExample();
 
+        Criteria queryCriteria = financeRechargeExample.createCriteria();
+        rechargeQueryDTO.setQueryConditions(queryCriteria);
+        
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	financeRechargeExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	financeRechargeExample.setLimitEnd(pager.getRows());

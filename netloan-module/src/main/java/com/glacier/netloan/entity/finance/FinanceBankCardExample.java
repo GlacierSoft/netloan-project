@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.glacier.netloan.entity.member.MemberEstateExample.Criteria;
+
 public class FinanceBankCardExample {
     protected String orderByClause;
 
@@ -104,6 +106,12 @@ public class FinanceBankCardExample {
             return criteria;
         }
 
+        //扩展查询条件
+        public Criteria andMemberRealNamelike(String value) {
+            addCriterion("temp_member.member_real_name like", value, "memberRealName");
+            return (Criteria) this;
+        }
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");

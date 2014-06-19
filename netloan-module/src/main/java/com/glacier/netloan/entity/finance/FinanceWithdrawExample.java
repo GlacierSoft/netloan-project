@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.glacier.netloan.entity.finance.FinanceRechargeExample.Criteria;
+
 public class FinanceWithdrawExample {
     protected String orderByClause;
 
@@ -103,7 +105,13 @@ public class FinanceWithdrawExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
-
+        
+        //扩展查询条件
+		public Criteria andMemberRealNamelike(String value) {
+		    addCriterion("temp_member.member_real_name like", value, "memberDisplay");
+		    return (Criteria) this;
+		}
+		
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
