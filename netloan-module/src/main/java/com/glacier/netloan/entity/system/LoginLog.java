@@ -2,6 +2,9 @@ package com.glacier.netloan.entity.system;
 
 import java.util.Date;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class LoginLog {
@@ -11,7 +14,8 @@ public class LoginLog {
 
     private String loginUser;
     
-    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date loginTime;
 
     private String loginIp;

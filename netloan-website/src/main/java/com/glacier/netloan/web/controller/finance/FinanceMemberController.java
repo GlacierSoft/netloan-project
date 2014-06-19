@@ -26,6 +26,7 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.finance.FinTransactionQueryDTO;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.service.finance.FinanceBankCardService;
 import com.glacier.netloan.service.finance.FinanceMemberService;
 import com.glacier.netloan.service.finance.FinanceRechargeSetService;
 import com.glacier.netloan.service.finance.FinanceTransactionService;
@@ -54,6 +55,9 @@ public class FinanceMemberController extends AbstractController{
     @Autowired
     private FinanceRechargeSetService financeRechargeSetService;// 注入会员充值设置业务Bean
     
+    @Autowired
+    private FinanceBankCardService bankCardService;
+    
     //转到“充值提现”页面
   	@RequestMapping(value = "/rechargeWithdraw.htm")
   	public Object rechargeWithdraw(JqPager pager,FinTransactionQueryDTO finTransactionQueryDTO, int p){
@@ -65,6 +69,7 @@ public class FinanceMemberController extends AbstractController{
             mav.addObject("financeTransactionDatas",financeTransactionService.listAsWebsite(pager, finTransactionQueryDTO, pricipalMember.getMemberId(), p));
             mav.addObject("financeWithdrawDatas",financeWithdrawService.listAsWebsite(pager, pricipalMember.getMemberId(), p));
             mav.addObject("financeRechargeSetDatas",financeRechargeSetService.listAsGrid(pager));
+            mav.addObject("financeBankCardDatas",bankCardService.getBankCardByMemberId(pricipalMember.getMemberId()));
         }
         return mav;
   	}

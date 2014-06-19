@@ -148,4 +148,29 @@
 			<glacierui:toolbar panelEnName="SecretSecurityList" toolbarId="secretSecurityDataGrid_toolbar" menuEnName="secretSecurity"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
+	
+	
+	<div data-options="region:'north',split:true"
+		style="height: 40px; padding-left: 10px;">
+		<form id="secretSearchForm">
+			<table>
+				<tr>
+					<td>会员名称：</td>
+					<td><input name="memberRealName" style="width: 80px;"
+						class="spinner" /></td>
+				  <td>创建时间：</td>
+					<td><input name="createStartTime" class="easyui-datetimebox"
+						style="width: 100px;" /> - <input name="createEndTime"
+						class="easyui-datetimebox" style="width: 100px;" /></td>
+					<td><a href="javascript:void(0);" class="easyui-linkbutton"
+						data-options="iconCls:'icon-standard-zoom-in',plain:true"
+						onclick="glacier.member_mgr.secretSecurity_mgr.secretSecurity.secretSecurityDataGrid.datagrid('load',glacier.serializeObject($('#secretSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton"
+						data-options="iconCls:'icon-standard-zoom-out',plain:true"
+						onclick="$('#secretSearchForm input').val('');glacier.member_mgr.secretSecurity_mgr.secretSecurity.secretSecurityDataGrid.datagrid('load',{});">重置条件</a>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
 </div>

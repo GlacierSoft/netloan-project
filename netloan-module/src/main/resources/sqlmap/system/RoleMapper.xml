@@ -8,7 +8,7 @@
     <result column="temp_role_builtin" property="builtin" jdbcType="VARCHAR" />
     <result column="temp_role_remark" property="remark" jdbcType="VARCHAR" />
     <result column="temp_role_creater" property="creater" jdbcType="VARCHAR" />
-    <result column="temp_role_create_time" property="createTime" jdbcType="DATE" />
+    <result column="temp_role_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_role_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -117,7 +117,7 @@
       create_time)
     values (#{roleId,jdbcType=VARCHAR}, #{roleEnName,jdbcType=VARCHAR}, #{roleCnName,jdbcType=VARCHAR}, 
       #{builtin,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=DATE})
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.system.Role" >
     insert into t_role
@@ -164,7 +164,7 @@
         #{creater,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=DATE},
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>

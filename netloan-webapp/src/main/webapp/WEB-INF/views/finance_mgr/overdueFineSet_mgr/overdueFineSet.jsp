@@ -32,7 +32,7 @@
 		selectOnCheck:false,//选择的时候复选框打勾
 		url: ctx + '/do/overdueFineSet/list.json',
 		sortName: 'createTime',//排序字段名称
-		sortOrder: 'ASC',//升序还是降序
+		sortOrder: 'desc',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
 		idField:'overdueFineSetId',
 		columns:[[
@@ -82,7 +82,7 @@
 				formatter: function(value,row,index){//数据格式化，例如auditorSucess显示审核成功，auditorFailure显示审核失败
 					return renderGridValue(value,fields.auditState);}
 			},{
-				field:'auditor',
+				field:'auditorDisplay',
 				title:'审核人',
 				sortable:true,
 				width:100
@@ -90,14 +90,14 @@
 				field:'auditDate',
 				title:'审核时间',
 				sortable:true,
-				width:170
-			},{
+				width:170,
+             },{
 				field:'money',
 				title:'罚款金额',
 				sortable:true,
 				width:140
 			},{
-				field:'creater',
+				field:'createrDisplay',
 				title:'创建人',
 				sortable:true,
 				width:140
@@ -107,7 +107,7 @@
 				sortable:true,
 				width:170
 			},{
-				field:'updater',
+				field:'updaterDisplay',
 				title:'最后修该人',
 				sortable:true,
 				width:140
@@ -162,6 +162,7 @@
 			});
 		  }
 		});
+	
   
 	//点击增加按钮触发方法
 	glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.addOverdueFineSet = function(){

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.member.MemBerStatisticsQueryDTO;
 import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.service.member.MemberStatisticsService;
 
@@ -65,8 +66,8 @@ public class MemberStatisticsController extends AbstractController{
     // 获取表格结构的所有会员财务统计数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listStatisticsAsGridByMenuId(JqPager pstatisticsr) {
-        return statisticsService.listAsGrid(pstatisticsr);
+    private Object listStatisticsAsGridByMenuId(JqPager pstatisticsr,MemBerStatisticsQueryDTO memBerStatisticsQueryDTO) {
+    	return statisticsService.listAsGrid(pstatisticsr,memBerStatisticsQueryDTO);
     }
     
     // 增加会员财务统计

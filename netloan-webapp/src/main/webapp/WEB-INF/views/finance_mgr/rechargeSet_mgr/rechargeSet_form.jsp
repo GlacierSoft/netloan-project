@@ -8,7 +8,7 @@
 			<td>充值类型名称：</td>
 			<td>
 				<input type="hidden" id="rechargeSet_mgr_rechargeSet_form_financeRechargeSetId" name="financeRechargeSetId" value="${rechargeSetData.financeRechargeSetId}" />
-				<input id="rechargeSet_mgr_rechargeSet_form_rechargeSetName" name="rechargeSetName" class="easyui-validatebox spinner" style="width:298px" required="true" maxlength="50" value="${rechargeSetData.rechargeSetName}"/>
+				<input data-options="missingMessage:'充值类型名称必须由1-20个中文字符组成'" id="rechargeSet_mgr_rechargeSet_form_rechargeSetName" name="rechargeSetName" class="easyui-validatebox spinner" style="width:298px" required="true" maxlength="50" value="${rechargeSetData.rechargeSetName}"/>
 			</td>
 		</tr>
 		<tr>

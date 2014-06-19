@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.entity.finance.FinanceWithdraw;
+import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.service.finance.FinanceWithdrawService;
 
 /** 
@@ -85,11 +86,11 @@ public class FinanceWithdrawController extends AbstractController{
     // 增加会员提现记录
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addWithdraw(@Valid FinanceWithdraw financeWithdraw, BindingResult bindingResult) {
+    private Object addWithdraw(@Valid FinanceWithdraw financeWithdraw, Member member, String bankCardId, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
-        return financeWithdrawService.addWithdraw(financeWithdraw);
+        return financeWithdrawService.addWithdraw(financeWithdraw, member, bankCardId);
     }
     
     // 批量删除会员提现记录

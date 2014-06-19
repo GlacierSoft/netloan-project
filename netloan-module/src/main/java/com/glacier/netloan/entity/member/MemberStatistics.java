@@ -8,7 +8,7 @@ public class MemberStatistics {
     private String statisticsId;
 
     private String memberId;
-	
+ 
 	/**
      * 自定义字段，显示会员真实名字
      */
@@ -119,8 +119,8 @@ public class MemberStatistics {
     public void setTotalBorrowings(Float totalBorrowings) {
         this.totalBorrowings = totalBorrowings;
     }
-
-    public Float getCumulativeLossProfit() {
+ 
+	public Float getCumulativeLossProfit() {
         return cumulativeLossProfit;
     }
 

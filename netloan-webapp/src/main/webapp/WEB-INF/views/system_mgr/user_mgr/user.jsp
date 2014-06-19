@@ -31,8 +31,8 @@
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
 		url: ctx + '/do/user/list.json',
-		sortName: 'username',//排序字段名称
-		sortOrder: 'ASC',//升序还是降序
+		sortName: 'createTime',//排序字段名称
+		sortOrder: 'desc',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
 		idField:'userId',
 		columns:[[

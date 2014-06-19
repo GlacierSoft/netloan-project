@@ -30,7 +30,7 @@ glacier.member_mgr.member_mgr.member.memberDataGrid = $('#memberDataGrid').datag
 						selectOnCheck : false,//选择的时候复选框打勾
 						url : ctx + '/do/member/list.json',
 						sortName : 'createTime',//排序字段名称
-						sortOrder : 'ASC',//升序还是降序
+						sortOrder : 'DESC',//升序还是降序
 						remoteSort : true,//开启远程排序，默认为false
 						idField : 'memberId',
 						columns : [ [ {
@@ -194,6 +194,7 @@ glacier.basicAddOrEditDialog({
 			$.messager.confirm('请确认','是否要删除该记录',function(r){
                                          if (r){
                                         	 $.ajax({ 
+                                        		type: "POST",
                                         	    url : ctx+ '/do/member/del.json',
 												data : {
 													memberIds : memberIds.join(','),
