@@ -107,6 +107,13 @@ public class TenderNotesExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
+        
+        /*自定义查询条件*/
+        public Criteria andMemberDisplayLike(String value) {
+            addCriterion("temp_member.member_name like ", value, "memberDisplay");
+            return (Criteria) this;
+        }
+        
         /*自定义查询条件*/
         public Criteria andLoanStateEqualTo(String value) {
             addCriterion("temp_borrowing_loan.loan_state =", value, "loanState");
@@ -132,6 +139,9 @@ public class TenderNotesExample {
             addCriterion("temp_borrowing_loan.loan_date <=", value, "loanDate");
             return (Criteria) this;
         }
+        
+       
+        
         /*自定义查询条件*/
         public Criteria andLoanDateBetween(Date value1, Date value2) {
             addCriterion("temp_borrowing_loan.loan_date between", value1, value2, "loanDate");

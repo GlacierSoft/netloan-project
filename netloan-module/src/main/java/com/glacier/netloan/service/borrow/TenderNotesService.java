@@ -185,11 +185,21 @@ public class TenderNotesService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pager) {
+    public Object listAsGrid(JqPager pager,TenderNotesQueryDTO tenderNotesQueryDTO) {
         
         JqGridReturn returnResult = new JqGridReturn();
         TenderNotesExample tenderNotesExample = new TenderNotesExample();;
 
+        
+        Criteria queryCriteria = tenderNotesExample.createCriteria();
+        tenderNotesQueryDTO.setQueryCondition(queryCriteria);
+
+        
+        
+        
+        
+        
+        
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	tenderNotesExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	tenderNotesExample.setLimitEnd(pager.getRows());

@@ -18,12 +18,13 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.LoanReviewMapper;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
+import com.glacier.netloan.dto.query.borrow.LoanReviewNotesQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.BorrowingLoanExample;
 import com.glacier.netloan.entity.borrow.LoanReview;
-import com.glacier.netloan.entity.borrow.LoanReviewExample;
-import com.glacier.netloan.entity.borrow.BorrowingLoanExample.Criteria;
+import com.glacier.netloan.entity.borrow.LoanReviewExample; 
+import com.glacier.netloan.entity.borrow.LoanReviewExample.Criteria;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
@@ -101,11 +102,17 @@ public class LoanReviewService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pager) {
+    public Object listAsGrid(JqPager pager,LoanReviewNotesQueryDTO loanReviewNotesQueryDTO) {
         
         JqGridReturn returnResult = new JqGridReturn();
-        LoanReviewExample loanReviewExample = new LoanReviewExample();;
+        LoanReviewExample loanReviewExample = new LoanReviewExample();
+      
+        Criteria queryCriteria = loanReviewExample.createCriteria();
+        loanReviewNotesQueryDTO.setQueryCondition(queryCriteria);
 
+        
+        
+        
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	loanReviewExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	loanReviewExample.setLimitEnd(pager.getRows());
