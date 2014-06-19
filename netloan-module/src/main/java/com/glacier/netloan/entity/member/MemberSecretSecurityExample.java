@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.glacier.netloan.entity.member.MemberStatisticsExample.Criteria;
+
 public class MemberSecretSecurityExample {
     protected String orderByClause;
 
@@ -125,6 +127,14 @@ public class MemberSecretSecurityExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        
+        
+        //扩展查询条件
+        public Criteria andMemberRealNameLike(String value) {
+            addCriterion("temp_member.member_real_name like", value, "memberRealName");
+            return (Criteria) this;
+        }
+        
         public Criteria andSecretSecurityIdIsNull() {
             addCriterion("temp_member_secret_security.secret_security_id is null");
             return (Criteria) this;

@@ -6,15 +6,6 @@
 
 	$.util.namespace('glacier.member_mgr.statistics_mgr.statistics');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
-	//定义toolbar的操作，对操作进行控制
-	glacier.member_mgr.statistics_mgr.statistics.param = {
-			toolbarId : 'statisticsDataGrid_toolbar',
-			actions : {
-				edit:{flag:'edit',controlType:'single'},
-				del:{flag:'del',controlType:'multiple'}
-			}
-	};
-	
 	//初始化会员财务统计DataGrid
 	glacier.member_mgr.statistics_mgr.statistics.statisticsDataGrid = $('#statisticsDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
@@ -195,7 +186,6 @@
 		pstatisticsSize : 10,//注意，pstatisticsSize必须在pstatisticsList存在
 		pstatisticsList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#statisticsDataGrid_toolbar',
 		onCheck:function(rowIndex,rowData){//选择行事件触发
 			action_controller(glacier.member_mgr.statistics_mgr.statistics.param,this).check();
 		},
@@ -229,15 +219,43 @@
 				enableSaveButton : false
 			});
 		}
+		
+/* 		//客服资料模糊查询
+	 	glacier.member_mgr.member_mgr.member.quickquery = function(value, name) {
+			var obj = $.parseJSON('{"' + name + '":"' + value + '"}');//将值和对象封装成obj作为参数传递给后台
+			glacier.member_mgr.member_mgr.member.memberDataGrid.datagrid('load',obj);
+		};  */
 	});
-	
+
 </script>
 
 <!-- 所有会员财务统计列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="statisticsGridPanel" data-options="region:'center',border:true" >
 		<table id="statisticsDataGrid">
-			<glacierui:toolbar panelEnName="StatisticsList" toolbarId="statisticsDataGrid_toolbar" menuEnName="statistics"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
+	</div>
+	<div data-options="region:'north',split:true"
+		style="height: 40px; padding-left: 10px;">
+		<form id="statisticsSearchForm">
+			<table>
+				<tr>
+					<td>会员名称：</td>
+					<td><input name="memberRealName" style="width: 80px;"
+						class="spinner" /></td>
+				  <td>统计时间：</td>
+					<td><input name="createStartTime" class="easyui-datetimebox"
+						style="width: 100px;" /> - <input name="createEndTime"
+						class="easyui-datetimebox" style="width: 100px;" /></td>
+					<td><a href="javascript:void(0);" class="easyui-linkbutton"
+						data-options="iconCls:'icon-standard-zoom-in',plain:true"
+						onclick="glacier.member_mgr.statistics_mgr.statistics.statisticsDataGrid.datagrid('load',glacier.serializeObject($('#statisticsSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton"
+						data-options="iconCls:'icon-standard-zoom-out',plain:true"
+						onclick="$('#statisticsSearchForm input').val('');glacier.member_mgr.statistics_mgr.statistics.statisticsDataGrid.datagrid('load',{});">重置条件</a>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </div>

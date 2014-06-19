@@ -21,6 +21,7 @@ import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dto.query.member.MemberSecretQueryDTO;
 import com.glacier.netloan.entity.member.MemberSecretSecurity;
 import com.glacier.netloan.service.basicdatas.ParameterQuestionService;
 import com.glacier.netloan.service.member.MemberSecretSecurityService;
@@ -62,8 +63,8 @@ public class MemberSecretSecurityController extends AbstractController{
     // 获取表格结构的所有会员密保数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listSecretSecurityAsGridByMenuId(JqPager secretSecurity) {
-        return secretSecurityService.listAsGrid(secretSecurity);
+    private Object listSecretSecurityAsGridByMenuId(JqPager secretSecurity,MemberSecretQueryDTO  memberSecretQueryDTO) {
+        return secretSecurityService.listAsGrid(secretSecurity,memberSecretQueryDTO);
     }
     /**
      * @Title: addSecretSecurityWebsite 

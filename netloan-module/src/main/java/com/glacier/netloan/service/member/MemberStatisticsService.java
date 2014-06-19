@@ -20,10 +20,12 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.member.MemberStatisticsMapper;
 import com.glacier.netloan.dao.system.UserMapper;
+import com.glacier.netloan.dto.query.member.MemBerStatisticsQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditExample;
-import com.glacier.netloan.entity.member.MemberStatistics;
+import com.glacier.netloan.entity.member.MemberStatistics; 
 import com.glacier.netloan.entity.member.MemberStatisticsExample;
+import com.glacier.netloan.entity.member.MemberStatisticsExample.Criteria;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 
@@ -87,11 +89,15 @@ public class MemberStatisticsService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager jqPager) {
+    public Object listAsGrid(JqPager jqPager,MemBerStatisticsQueryDTO memBerStatisticsQueryDTO) {
         
         JqGridReturn returnResult = new JqGridReturn();
         MemberStatisticsExample memberStatisticsExample = new MemberStatisticsExample();
+        
+        Criteria queryCriteria = memberStatisticsExample.createCriteria();
+        memBerStatisticsQueryDTO.setQueryCondition(queryCriteria);
 
+        
         if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息
         	memberStatisticsExample.setLimitStart((jqPager.getPage() - 1) * jqPager.getRows());
         	memberStatisticsExample.setLimitEnd(jqPager.getRows());

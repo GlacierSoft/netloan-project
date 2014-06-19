@@ -22,8 +22,10 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.member.MemberSecretSecurityMapper;
 import com.glacier.netloan.dao.member.MemberMessageNoticeMapper;
 import com.glacier.netloan.dao.system.UserMapper;
+import com.glacier.netloan.dto.query.member.MemberSecretQueryDTO;
 import com.glacier.netloan.entity.member.MemberSecretSecurity;
 import com.glacier.netloan.entity.member.MemberSecretSecurityExample;
+import com.glacier.netloan.entity.member.MemberSecretSecurityExample.Criteria;
 import com.glacier.netloan.util.MethodLog;
 
 /** 
@@ -67,10 +69,14 @@ public class MemberSecretSecurityService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager secretSecurity) {
+    public Object listAsGrid(JqPager secretSecurity,MemberSecretQueryDTO memberSecretQueryDTO) {
         
         JqGridReturn returnResult = new JqGridReturn();
         MemberSecretSecurityExample memberSecretSecurityExample = new MemberSecretSecurityExample();
+  
+        
+        Criteria queryCriteria = memberSecretSecurityExample.createCriteria();
+        memberSecretQueryDTO.setQueryCondition(queryCriteria);
 
         if (null != secretSecurity.getPage() && null != secretSecurity.getRows()) {// 设置排序信息
         	memberSecretSecurityExample.setLimitStart((secretSecurity.getPage() - 1) * secretSecurity.getRows());
