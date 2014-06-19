@@ -16,7 +16,7 @@
     <result column="temp_user_last_login_ip_address" property="lastLoginIpAddress" jdbcType="VARCHAR" />
     <result column="temp_user_login_count" property="loginCount" jdbcType="INTEGER" />
     <result column="temp_user_creater" property="creater" jdbcType="VARCHAR" />
-    <result column="temp_user_create_time" property="createTime" jdbcType="DATE" />
+    <result column="temp_user_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_user_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -137,7 +137,7 @@
       #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
       #{builtin,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{userImage,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{lastLoginIpAddress,jdbcType=VARCHAR}, 
-      #{loginCount,jdbcType=INTEGER}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}
+      #{loginCount,jdbcType=INTEGER}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.system.User" >
@@ -233,7 +233,7 @@
         #{creater,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=DATE},
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>

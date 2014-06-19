@@ -194,6 +194,7 @@ glacier.basicAddOrEditDialog({
 			$.messager.confirm('请确认','是否要删除该记录',function(r){
                                          if (r){
                                         	 $.ajax({ 
+                                        		type: "POST",
                                         	    url : ctx+ '/do/member/del.json',
 												data : {
 													memberIds : memberIds.join(','),

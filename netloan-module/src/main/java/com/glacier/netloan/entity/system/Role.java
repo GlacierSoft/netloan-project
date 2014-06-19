@@ -2,6 +2,8 @@ package com.glacier.netloan.entity.system;
 
 import java.util.Date;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Pattern;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -37,6 +39,7 @@ public class Role {
     private String createrDisplay;
 
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
 
     private boolean checked;

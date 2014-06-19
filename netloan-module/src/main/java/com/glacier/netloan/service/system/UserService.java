@@ -19,6 +19,9 @@
  */
 package com.glacier.netloan.service.system;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -140,6 +143,7 @@ public class UserService {
      * @Description: TODO(增加管理员)
      * @param @param user
      * @param @return
+     * @throws Exception 
      * @throws 备注
      *             <p>
      *             已检查测试:Green
@@ -147,7 +151,7 @@ public class UserService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "UserList_add")
-    public Object addUser(User user) {
+    public Object addUser(User user) throws Exception {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
@@ -165,7 +169,23 @@ public class UserService {
         user.setPassword(user.getUsername());
         this.entryptPassword(user);// 设置加密后的密码以及盐值
         user.setBuiltin(CommonBuiltin.custom);// 新增管理员类型为自定义
-        user.setCreateTime(new Date());
+        //构建时间字符串
+        Calendar cal = Calendar.getInstance();  
+        int year = cal.get(Calendar.YEAR);//获取年份  
+        int month=cal.get(Calendar.MONTH)+1;//获取月份   
+        int day=cal.get(Calendar.DATE);//获取日   
+        //int hour=cal.get(Calendar.HOUR);//小时  
+        int hour=new Date().getHours();
+        System.out.println(hour);
+        int minute=cal.get(Calendar.MINUTE);//分              
+        int second=cal.get(Calendar.SECOND);//秒 
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String strDate=year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+        Date dates=sdf.parse(strDate);
+        user.setCreateTime(dates);
+        
+        //------------------------------------------------
+        
         user.setCreater(pricipalUser.getUserId());
         user.setLoginCount(0);
         count = userMapper.insert(user);
