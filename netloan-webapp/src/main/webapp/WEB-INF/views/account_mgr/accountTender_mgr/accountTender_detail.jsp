@@ -6,15 +6,12 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>投标ID：</td>
-			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
-				<input type="hidden" name="tenderNotesId" value="${accountTenderData.tenderNotesId}" />
-				<input class="spinner" style="width:168px" value="${fn:substring(accountTenderData.tenderNotesId,0,8) }....."  readonly="readonly" title="投标人ID:${accountTenderData.tenderNotesId}"/>
-			</td>
 			<td>投标用户：</td>
 			<td>
 				<input name="memberDisplay" value="${accountTenderData.memberDisplay}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
 			</td>
+		    <td>投标总额：</td>
+			<td><input class="spinner" style="width:168px"  value="${accountTenderData.tenderMoney}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>借款标题：</td>
@@ -49,16 +46,16 @@
 			 <td><input class="spinner" style="width:168px"  value="${accountTenderData.subTotal}" readonly="readonly"/></td>
 		</tr>
 		<tr>
+			<td>会员积分：</td>
+			<td><input class="spinner" style="width:168px"  value="${accountTenderData.creditIntegral}" readonly="readonly"/></td>
 			<td>发布时间：</td>
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate  value="${accountTenderData.loanDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"   readonly="readonly"/></td>
-		     <td>会员积分：</td>
-			 <td><input class="spinner" style="width:168px"  value="${accountTenderData.creditIntegral}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			 <td>借款百分比：</td>
 			 <td><input class="spinner" style="width:168px"   value="${accountTenderData.alrTenderPro}" readonly="readonly"/></td>
-		     <td>投标总额：</td>
-			 <td><input class="spinner" style="width:168px"  value="${accountTenderData.tenderMoney}" readonly="readonly"/></td>
+		     <td>备注：</td>
+			 <td ><input class="spinner" style="width:168px"   value="${accountTenderData.remark}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>创建人：</td>
@@ -72,11 +69,7 @@
 		     <td>更新人时间：</td>
 			 <td><input class="spinner" style="width:168px"  value="<fmt:formatDate  value="${accountTenderData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
-		<tr>
-			<td>备注：</td>
-			<td colspan="3"><textarea class="spinner" style="width:420px" readonly="readonly">${accountTenderData.remark}</textarea></td>
-		</tr>
-	</table>
+	 </table>
 </form>
 <script type="text/javascript">
     $('#account_mgr_tender_form_loanState').val(renderGridValue('${accountTenderData.loanState}',fields.loanState));

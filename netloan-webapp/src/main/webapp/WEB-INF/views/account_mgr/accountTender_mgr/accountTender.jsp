@@ -119,7 +119,7 @@
 				title:"投标详情",
 				href : ctx + '/do/accountTender/intoDetail.htm?tenderNotesId='+rowData.tenderNotesId,//从controller请求jsp页面进行渲染
 				width : 600,
-				height : 450,
+				height : 400,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -145,22 +145,21 @@
 		<form id="tenderSearchForm">
 			<table>
 				<tr>
-					<td>会员名称：</td>
-					<td><input name="memberName" style="width: 80px;" class="spinner"/></td>
-					<td>会员真实姓名：</td>
-					<td><input name="memberRealName" style="width: 80px;" class="spinner"/></td>
-					<td>最后登入时间段：</td>
+					<td>投标用户：</td>
+					<td><input name="memberDisplay_test" style="width: 80px;" class="spinner"/></td>
+					<td>投标金额：</td>
 					<td>
-						<input name="lastStartLoginTime" class="easyui-datetimebox" style="width: 100px;" />
-						-
-						<input name="lastEndLoginTime" class="easyui-datetimebox" style="width: 100px;" />
-					</td>
-					<td>登入次数：</td>
-					<td>
-					     <input  name="loginStartCount" style="width: 80px;" class="spinner" />
+					      <input name="StartTenderMoney" style="width: 80px;" class="easyui-numberbox spinner" />
 					      -
-					      <input  name="loginEndCount" style="width: 80px;" class="spinner"/>
+					      <input name="EndTenderMoney" style="width: 80px;" class="easyui-numberbox spinner"/>      
+					</td>
+					<td>录入时间：</td>
 					<td>
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;" />
+						-
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;" />
+					</td>
+				   <td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.account_mgr.accountTender_mgr.accountTender.accountTenderDataGrid.datagrid('load',glacier.serializeObject($('#tenderSearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#tenderSearchForm input').val('');glacier.account_mgr.accountTender_mgr.accountTender.accountTenderDataGrid.datagrid('load',{});">重置</a>
 					</td>

@@ -31,13 +31,13 @@
 			<td>借款罚息总额：</td>
 			<td><input class="spinner" style="width:168px" value="${accountInvestData.sumInterestfee}"  readonly="readonly"/></td>
 		    <td>创建人：</td>
-			<td><input class="spinner" style="width:168px"   value="${accountInvestData.creater}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px"   value="${accountInvestData.createrDisplay}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 		    <td>录入时间：</td>
 			 <td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${accountInvestData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"  readonly="readonly"/></td>
 		     <td>更新人：</td>
-			 <td><input class="spinner" style="width:168px"   value="${accountInvestData.updater}" readonly="readonly"/></td>
+			 <td><input class="spinner" style="width:168px"   value="${accountInvestData.updaterDisplay}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			 <td>更新时间：</td>
