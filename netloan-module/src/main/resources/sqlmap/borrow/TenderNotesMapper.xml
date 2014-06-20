@@ -106,8 +106,8 @@
     ,temp_borrowing_loan.alr_tender_pro as temp_tender_notes_alrTenderPro
     ,temp_borrowing_loan.sub_total as temp_tender_notes_subTotal
     ,temp_borrowing_loan.lowest_sub as temp_tender_notes_lowestSub
-    ,temp_creater.member_name as temp_tender_notes_memberDisplay
-    ,temp_member.member_name as temp_tender_notes_loanMemberDisplay
+    ,temp_creater.member_real_name as temp_tender_notes_memberDisplay
+    ,temp_member.member_real_name as temp_tender_notes_loanMemberDisplay
     ,temp_repayment_type.repayment_type_name as temp_tender_notes_repaymentTypeDisplay
     ,temp_loan_tender.loanr_tender_name as temp_tender_notes_loanTenderDisplay
     ,temp_member.credit_integral as temp_tender_notes_creditIntegral

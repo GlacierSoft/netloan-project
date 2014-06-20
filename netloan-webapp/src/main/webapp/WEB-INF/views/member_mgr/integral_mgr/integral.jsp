@@ -96,12 +96,12 @@
 	$('#memberIntegralSearchForm_type').combobox({  
 		valueField : 'value',
 		height:18,
-		width:80,
+		width:130,
 		textField : 'label',
 		panelHeight : 'auto',
 		editable : false,
 		//required:true,
-		data : fields.type
+		data : fields.integralType
 	});
 	$('#memberIntegralSearchForm_changeType').combobox({  
 		valueField : 'value',
@@ -129,7 +129,7 @@
 					<td>会员名称：</td>
 					<td><input name="memberRealName" style="width: 80px;" class="spinner"/></td>
 					<td>积分类型：</td>
-					<td><input id="memberIntegralSearchForm_type" name="type" style="width: 80px;" class="spinner"/></td>
+					<td><input id="memberIntegralSearchForm_type" name="type" style="width: 150px;" class="spinner"/></td>
 					<td>改变类型：</td>
 					<td><input id="memberIntegralSearchForm_changeType" name="changeType" style="width: 80px;" class="spinner"/></td>
 					<td>录入时间：</td>
