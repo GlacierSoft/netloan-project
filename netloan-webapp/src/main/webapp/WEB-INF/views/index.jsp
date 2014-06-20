@@ -27,6 +27,9 @@
 					url : ctx +'/do/auth/getPrincipalUserMenu.json',
 					smooth: true,       //该属性用以启用当前 easyui-tree 控件对平滑数据格式的支持
 					lines : true,
+					onLoadSuccess : function(node) {
+						$('#layout_west_tree').tree('collapseAll');
+					},
 					onClick : function(node) {
 						var url = node.attributes.url;
 						if (url && url!='') {//获取树节点中自定义属性的url属性
