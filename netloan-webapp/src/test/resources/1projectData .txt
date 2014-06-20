@@ -46,7 +46,7 @@
   3.会员资金记录明细	t_finance_transaction
   4.会员借款投资统计	t_member_statistics
   5.会员积分记录表	t_member_integral
-  6.会员信用记录	t_member_credit_integral
+  6.会员信用记录表	t_member_credit_integral
 
   创建数据
   1.还款记录表		t_repayment_notes
@@ -60,4 +60,8 @@
 
 七、会员进行收款时，
 
-八、
+八、借款超过借款期限，流标时，
+
+九、还款超过还款时间，逾期时，
+
+十、会员进行认证时，
