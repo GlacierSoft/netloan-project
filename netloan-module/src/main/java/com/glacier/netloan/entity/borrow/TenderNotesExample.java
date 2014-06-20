@@ -110,7 +110,7 @@ public class TenderNotesExample {
         
         /*自定义查询条件*/
         public Criteria andMemberDisplayLike(String value) {
-            addCriterion("temp_member.member_name like ", value, "memberDisplay");
+            addCriterion("temp_member.member_real_name like", value, "memberDisplay");
             return (Criteria) this;
         }
         

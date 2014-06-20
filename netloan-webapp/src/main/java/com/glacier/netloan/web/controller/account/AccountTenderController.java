@@ -3,11 +3,13 @@ package com.glacier.netloan.web.controller.account;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -56,17 +58,38 @@ public class AccountTenderController extends AbstractController {
 	    // 获取表格结构的所有菜单数据
 	    @RequestMapping(value = "/list.json", method = RequestMethod.POST)
 	    @ResponseBody
-	    private Object listActionAsGridByMenuId(JqPager jqPager, TenderNotesQueryDTO tenderNotesQueryDTO, String q) {
-	        return accountTenderService.listAsGrid(jqPager, tenderNotesQueryDTO, q);
+	    private Object listActionAsGridByMenuId(JqPager jqPager, TenderNotesQueryDTO tenderNotesQueryDTO, String q,HttpSession session) {
+	        JqGridReturn returnResult=(JqGridReturn) accountTenderService.listAsGrid(jqPager, tenderNotesQueryDTO, q);
+	    	if(returnResult!=null){
+	    	    List<TenderNotes> list=(List<TenderNotes>) returnResult.getRows();
+	    	    session.setAttribute("List", list);
+	    	}
+	        return returnResult;
 	    }
 	    
 	    
 	    //登录统计信息导出
 	    @RequestMapping(value = "/exp.json")
-	    private void expAccountTender(JqPager jqPager,TenderNotesQueryDTO tenderNotesQueryDTO, String q,HttpServletRequest request,HttpServletResponse response) throws IOException{
-	    	  JqGridReturn returnResult=(JqGridReturn) accountTenderService.listAsGrid(jqPager, tenderNotesQueryDTO, q);
-	    	  List<TenderNotes> list=(List<TenderNotes>)returnResult.getRows();
-	    	  HSSFWorkbook wb = accountTenderService.export(list);  
+	    private void expAccountTender(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
+	    	  List<TenderNotes> list=(List<TenderNotes>)session.getAttribute("List");
+	    	  HSSFWorkbook wb=null;
+	    	  if(list.size()>0&&list!=null){
+	    		  wb = accountTenderService.export(list);	  
+	    	  }else{
+	    		  List<TenderNotes> list_null=new ArrayList<TenderNotes>();
+	    		  TenderNotes tendNotes=new TenderNotes();
+	    		   tendNotes.setMemberDisplay("Null");
+	    		   tendNotes.setCreditIntegral(new Float(0.00));
+	    		   tendNotes.setSubTotal(new Float(0.00));
+	    		   tendNotes.setLoanTitle("Null");
+	    		   tendNotes.setLoanMemberDisplay("Null");
+	    		   tendNotes.setLoanApr(new Float(0.00));
+	    		   tendNotes.setLoanDeadlinesId("Null");
+	    		   tendNotes.setAlrTenderPro(new Float(0.00));
+	    		   tendNotes.setRemark("Null");
+	    		   list_null.add(tendNotes);
+	    		   wb=accountTenderService.export(list);
+	    	  }
 	    	  response.setContentType("application/vnd.ms-excel");    
 	          SimpleDateFormat sf=new SimpleDateFormat("yyyyMMddHHmmss");
 	          String filename="AccountTenderInfo_"+sf.format(new Date());

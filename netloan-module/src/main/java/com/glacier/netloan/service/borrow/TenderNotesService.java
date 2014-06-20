@@ -194,12 +194,7 @@ public class TenderNotesService {
         Criteria queryCriteria = tenderNotesExample.createCriteria();
         tenderNotesQueryDTO.setQueryCondition(queryCriteria);
 
-        
-        
-        
-        
-        
-        
+          
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	tenderNotesExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	tenderNotesExample.setLimitEnd(pager.getRows());

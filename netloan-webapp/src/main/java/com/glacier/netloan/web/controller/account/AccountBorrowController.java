@@ -3,11 +3,13 @@ package com.glacier.netloan.web.controller.account;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -44,8 +46,13 @@ public class AccountBorrowController{
     // 获取表格结构的所有借款数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listAccountBorrowAsGridByMenuId(JqPager jqPager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String loanState) {
-        return accountBorrowService.listAsGrid(jqPager, borrowingLoanQueryDTO, loanState);
+    private Object listAccountBorrowAsGridByMenuId(JqPager jqPager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String loanState,HttpSession session) {
+        JqGridReturn returnResult=(JqGridReturn) accountBorrowService.listAsGrid(jqPager, borrowingLoanQueryDTO, loanState);
+    	 if(returnResult!=null){
+    	  List<BorrowingLoan> list=(List<BorrowingLoan>)returnResult.getRows();	
+    	  session.setAttribute("List", list);
+    	 }
+        return  returnResult;
     }
     
     // 进入借款Detail信息页面
@@ -60,11 +67,25 @@ public class AccountBorrowController{
     
     //借款信息导出
     @RequestMapping(value="/exp.json")
-    private void expAccountBorrow(JqPager jqPager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String loanState,HttpServletRequest request,HttpServletResponse response) throws IOException{
-    	JqGridReturn returnResult=(JqGridReturn) accountBorrowService.listAsGrid(jqPager, borrowingLoanQueryDTO, loanState);
-    	List<BorrowingLoan> list=(List<BorrowingLoan>)returnResult.getRows();
-    	  HSSFWorkbook wb = accountBorrowService.export(list);   
-          response.setContentType("application/vnd.ms-excel"); 
+    private void expAccountBorrow(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
+    	  List<BorrowingLoan> list=(List<BorrowingLoan>)session.getAttribute("List");
+    	  HSSFWorkbook wb =null;
+    	  if(list.size()>0&&list!=null){
+    		  wb = accountBorrowService.export(list);   
+    	  }else{
+    		  List<BorrowingLoan> list_null=new ArrayList<BorrowingLoan>();
+    		  BorrowingLoan borrowingLoan=new BorrowingLoan();
+    		  borrowingLoan.setMemberDisplay("Null");
+    		  borrowingLoan.setLoanTitle("Null");
+    		  borrowingLoan.setLoanTotal(new Float(0.00));
+    		  borrowingLoan.setLoanTenderDisplay("Null");
+    		  borrowingLoan.setLoanDate(new Date());
+    		  borrowingLoan.setLoanPurposeId("Null");
+    		  borrowingLoan.setLoanDeadlinesId("Null");
+    		  list_null.add(borrowingLoan);
+    		  wb=accountBorrowService.export(list_null);
+    	  }
+    	  response.setContentType("application/vnd.ms-excel"); 
           SimpleDateFormat sf=new SimpleDateFormat("yyyyMMddHHmmss");//日期格式设置
           String fileName="AccountBorrow_"+sf.format(new Date());//文件名称
           response.setHeader("Content-disposition", "attachment;filename="+fileName+".xls");    
