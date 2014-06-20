@@ -24,10 +24,10 @@ import com.glacier.netloan.entity.borrow.TenderNotesExample.Criteria;
  */
 public class TenderNotesQueryDTO extends TenderNotes{
 	
-	 @JSONField(format="yyyy-MM-dd HH:mm:ss")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
 	private Date createStartTime;
 
-	 @JSONField(format="yyyy-MM-dd HH:mm:ss")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createEndTime;
     
 	public Date getCreateStartTime() {
@@ -57,13 +57,13 @@ public class TenderNotesQueryDTO extends TenderNotes{
 	        }  
     	 
 	    if(null != createStartTime && null != createEndTime){//创建时间段查询
-	           queryCriteria.andLoanDateBetween(createStartTime, createEndTime); 
+	           queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 
 	    }else{
 	    	if(null != createStartTime){
-	    		queryCriteria.andLoanDateGreaterThanOrEqualTo(createStartTime);
+	    		queryCriteria.andCreateTimeGreaterThanOrEqualTo(createStartTime);
 	    	}
 	    	if(null != createEndTime){
-	    		queryCriteria.andLoanDateLessThanOrEqualTo(createEndTime);
+	    		queryCriteria.andCreateTimeLessThanOrEqualTo(createEndTime);
 	    	}
 	    }
 	     

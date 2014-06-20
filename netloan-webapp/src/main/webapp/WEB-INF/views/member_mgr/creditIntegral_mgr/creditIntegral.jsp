@@ -48,7 +48,7 @@
 				width:120,
 				sortable:true,
 				formatter: function(value,row,index){//数据格式化，例如('borrow'借款,'invest'投资)
-					return renderGridValue(value,fields.integralType);
+					return renderGridValue(value,fields.creditIntegralType);
 				}
 			},{
 				field:'changeType',
@@ -133,12 +133,12 @@
 	$('#memberCreditIntegralSearchForm_integralType').combobox({  
 		valueField : 'value',
 		height:18,
-		width:80,
+		width:130,
 		textField : 'label',
 		panelHeight : 'auto',
 		editable : false,
 		//required:true,
-		data : fields.integralType
+		data : fields.creditIntegralType
 	});
 	$('#memberCreditIntegralSearchForm_changeType').combobox({  
 		valueField : 'value',
