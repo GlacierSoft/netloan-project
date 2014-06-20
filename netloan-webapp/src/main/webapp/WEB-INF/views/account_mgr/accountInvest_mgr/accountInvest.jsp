@@ -73,27 +73,27 @@
 			},{
 				field:'sumInterestfee',
 				title:'借款逾期罚金总额',
-				width:400,
+				width:350,
 				sortable:true
 			},{
 				field:'createrDisplay',
 				title:'创建人',
 				sortable:true,
-				width:150
+				width:300
 			},{
 				field:'createTime',
 				title:'创建时间',
-				width:200,
+				width:290,
 				sortable:true
 			},{
 				field:'updaterDisplay',
 				title:'更新人',
-				width:150,
+				width:300,
 				sortable:true
 			},{
 				field:'updateTime',
 				title:'更新时间',
-				width:200,
+				width:290,
 			    sortable:true
 			}]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏

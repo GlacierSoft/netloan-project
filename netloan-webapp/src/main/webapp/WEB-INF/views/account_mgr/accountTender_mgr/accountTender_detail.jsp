@@ -8,7 +8,7 @@
 		<tr>
 			<td>投标用户：</td>
 			<td>
-				<input name="memberDisplay" value="${accountTenderData.memberDisplay}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
+				<input name="memberDisplay" value="${accountTenderData.memberDisplay}" class="spinner" style="height:18px;width:168px" readonly="readonly"/>
 			</td>
 		    <td>投标总额：</td>
 			<td><input class="spinner" style="width:168px"  value="${accountTenderData.tenderMoney}" readonly="readonly"/></td>
@@ -18,7 +18,7 @@
 			<td><input class="spinner" style="width:168px" value="${accountTenderData.loanTitle}" readonly="readonly"/></td>
 			<td>借款用户：</td>
 			<td>
-				<input name="loanMemberDisplay" value="${accountTenderData.loanMemberDisplay}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
+				<input name="loanMemberDisplay" value="${accountTenderData.loanMemberDisplay}" class="spinner" style="height:18px;width:168px" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
