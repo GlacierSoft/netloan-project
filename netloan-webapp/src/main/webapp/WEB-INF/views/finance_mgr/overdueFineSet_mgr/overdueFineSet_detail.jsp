@@ -59,7 +59,7 @@
 		</tr>
 		<tr>
 			<td>备注说明：</td>
-			<td colspan="3"><textarea class="spinner" style="width:420px" readonly="readonly">${overdueFineSetData.remark}</textarea></td>
+			<td colspan="3"><textarea class="spinner" style="width:406px" readonly="readonly">${overdueFineSetData.remark}</textarea></td>
 		</tr>
 	</table>
 </form>
