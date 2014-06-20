@@ -25,7 +25,7 @@ public class OperaLog {
 
     private String operator;
 
-    @JSONField(format="yyyy-MM-dd HH:mm:ss") 
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date operaTime;
 
     public String getOperalogId() {

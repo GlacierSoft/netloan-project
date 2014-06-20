@@ -88,6 +88,7 @@
 			},{
 				field:'createTime',
 				title:'创建时间',
+				sortable:true,
 				width:120
 			},{
 				field:'remark',

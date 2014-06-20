@@ -12,7 +12,7 @@
     <result column="temp_operalog_opera_md" property="operaMd" jdbcType="VARCHAR" />
     <result column="temp_operalog_opera_key" property="operaKey" jdbcType="VARCHAR" />
     <result column="temp_operalog_operator" property="operator" jdbcType="VARCHAR" />
-    <result column="temp_operalog_opera_time" property="operaTime" jdbcType="DATE" />
+    <result column="temp_operalog_opera_time" property="operaTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -108,7 +108,7 @@
     where operalog_id = #{operalogId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.system.OperaLogExample" >
-    delete temp_operalog from t_operalog temp_operalog
+    delete from t_operalog temp_operalog
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -121,7 +121,7 @@
     values (#{operalogId,jdbcType=VARCHAR}, #{operaMenu,jdbcType=VARCHAR}, #{operaPenal,jdbcType=VARCHAR}, 
       #{operaMethod,jdbcType=VARCHAR}, #{operaResult,jdbcType=VARCHAR}, #{operaDesc,jdbcType=VARCHAR}, 
       #{operaClass,jdbcType=VARCHAR}, #{operaMd,jdbcType=VARCHAR}, #{operaKey,jdbcType=VARCHAR}, 
-      #{operator,jdbcType=VARCHAR}, #{operaTime,jdbcType=DATE})
+      #{operator,jdbcType=VARCHAR}, #{operaTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.system.OperaLog" >
     insert into t_operalog
@@ -192,7 +192,7 @@
         #{operator,jdbcType=VARCHAR},
       </if>
       <if test="operaTime != null" >
-        #{operaTime,jdbcType=DATE},
+        #{operaTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -236,7 +236,7 @@
         temp_operalog.operator = #{record.operator,jdbcType=VARCHAR},
       </if>
       <if test="record.operaTime != null" >
-        temp_operalog.opera_time = #{record.operaTime,jdbcType=DATE},
+        temp_operalog.opera_time = #{record.operaTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -255,7 +255,7 @@
       temp_operalog.opera_md = #{record.operaMd,jdbcType=VARCHAR},
       temp_operalog.opera_key = #{record.operaKey,jdbcType=VARCHAR},
       temp_operalog.operator = #{record.operator,jdbcType=VARCHAR},
-      temp_operalog.opera_time = #{record.operaTime,jdbcType=DATE}
+      temp_operalog.opera_time = #{record.operaTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -291,7 +291,7 @@
         operator = #{operator,jdbcType=VARCHAR},
       </if>
       <if test="operaTime != null" >
-        opera_time = #{operaTime,jdbcType=DATE},
+        opera_time = #{operaTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where operalog_id = #{operalogId,jdbcType=VARCHAR}
@@ -307,7 +307,7 @@
       opera_md = #{operaMd,jdbcType=VARCHAR},
       opera_key = #{operaKey,jdbcType=VARCHAR},
       operator = #{operator,jdbcType=VARCHAR},
-      opera_time = #{operaTime,jdbcType=DATE}
+      opera_time = #{operaTime,jdbcType=TIMESTAMP}
     where operalog_id = #{operalogId,jdbcType=VARCHAR}
   </update>
 </mapper>
