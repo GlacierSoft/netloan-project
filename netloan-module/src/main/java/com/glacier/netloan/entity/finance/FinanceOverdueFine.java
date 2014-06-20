@@ -8,6 +8,16 @@ public class FinanceOverdueFine {
     private String overdueFineSetId;
 
     private String overdueFineSetName;
+    
+    /**
+     * 自定义字段,显示会员名称,还款名称,罚款名称
+     */
+    
+    private String memberRealName;
+    
+    private String repayNotesDetailIdDisplay;
+    
+    private String overdueFineSetDisplay;
 
     private String memberId;
 
@@ -172,8 +182,36 @@ public class FinanceOverdueFine {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+    
+    public String getMemberRealName() {
+		return memberRealName;
+	}
 
-    @Override
+	public void setMemberRealName(String memberRealName) {
+		this.memberRealName = memberRealName;
+	}
+
+	
+	
+	public String getRepayNotesDetailIdDisplay() {
+		return repayNotesDetailIdDisplay;
+	}
+
+	public void setRepayNotesDetailIdDisplay(String repayNotesDetailIdDisplay) {
+		this.repayNotesDetailIdDisplay = repayNotesDetailIdDisplay;
+	}
+
+	
+	
+	public String getOverdueFineSetDisplay() {
+		return overdueFineSetDisplay;
+	}
+
+	public void setOverdueFineSetDisplay(String overdueFineSetDisplay) {
+		this.overdueFineSetDisplay = overdueFineSetDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

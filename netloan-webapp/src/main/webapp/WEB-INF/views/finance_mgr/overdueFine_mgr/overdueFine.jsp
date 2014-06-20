@@ -31,23 +31,24 @@
 				title:'记录表ID',
 				checkbox:true
 			},{
-				field:'overdueFineSetId',
-				title:'罚款表ID',
+				field:'overdueFineSetDisplay',
+				title:'罚款名称',
 				width:140,
 				sortable:true
 			},{
 				field:'overdueFineSetName',
 				title:'罚款名称',
 				width:140,
-				sortable:true
+				sortable:true,
+				hidden:true
 			},{
-				field:'memberId',
-				title:'会员ID',
+				field:'memberRealName',
+				title:'会员名称',
 				width:180,
 				sortable:true
 			},{
-				field:'repayNotesDetailId',
-				title:'还款明细ID',
+				field:'repayNotesDetailIdDisplay',
+				title:'还款明细名称',
 				width:140,
 				sortable:true
 			},{
@@ -150,11 +151,9 @@
 			<table>
 				<tr>
 					<td>会员名称：</td>
-					<td><input name="memberDisplay" style="width: 60px;" class="spinner"/></td>
+					<td><input name="memberRealName" style="width: 60px;" class="spinner"/></td>
 					<td>罚款名称：</td>
-					<td><input name="memberDisplay" style="width: 60px;" class="spinner"/></td>
-					<td>充值类型：</td>
-					<td><input name="rechargeSetName" style="width: 60px;" class="spinner"/></td>
+					<td><input name="overdueFineSetDisplay" style="width: 60px;" class="spinner"/></td>
 					<td>审核状态：</td>
 					<td>
 						<input id="overdueFineSearchForm_status" name="auditState" style="width: 80px;" class="spinner"/>
@@ -166,8 +165,8 @@
 						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;" />
 					</td>
 					<td>
-						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.finance_mgr.advancesRecord_mgr.advancesRecord.advancesRecordDataGrid.datagrid('load',glacier.serializeObject($('#overdueFineSearchForm')));">查询</a>
-						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#overdueFineSearchForm input').val('');glacier.finance_mgr.advancesRecord_mgr.advancesRecord.advancesRecordDataGrid.datagrid('load',{});">重置条件</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.finance_mgr.overdueFine_mgr.overdueFine.overdueFineDataGrid.datagrid('load',glacier.serializeObject($('#overdueFineSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#overdueFineSearchForm input').val('');glacier.finance_mgr.overdueFine_mgr.overdueFine.overdueFineDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>
