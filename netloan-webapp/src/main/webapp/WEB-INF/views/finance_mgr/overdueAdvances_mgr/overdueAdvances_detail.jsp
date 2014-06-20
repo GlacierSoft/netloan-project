@@ -7,6 +7,12 @@
 	<table class="detailtable">
 		<tr>
 			<td align="left" colspan="4">
+				逾期名称：
+				<input id="overdueAdvances_mgr_overdueAdvances_detail_overdueAdvancesName" name="overdueAdvancesName" value="${overdueAdvancesData.overdueAdvancesName}" class="spinner" style="height:18px;width:405px" readonly="readonly"/>
+			</td>
+		</tr>
+		<tr>
+			<td align="left" colspan="4">
 				会员等级：
 				<input type="hidden" name="roleId" value="${overdueAdvancesData.overdueAdvancesId}" />
 				<input type="hidden" class="spinner" style="width:168px" value="${fn:substring(overdueAdvancesData.overdueAdvancesId,0,8) }....."  readonly="readonly" title="${overdueAdvancesData.overdueAdvancesId}"/>
@@ -23,19 +29,19 @@
 		</tr>
 		<tr>
 			<td>审核人：</td>
-			<td><input class="spinner" style="width:168px"  value="${overdueAdvancesData.auditor}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px"  value="${overdueAdvancesData.auditorDisplay}" readonly="readonly"/></td>
 			<td>审核时间：</td>
 			<td><input class="spinner" style="width:180px" value="<fmt:formatDate  value="${overdueAdvancesData.auditDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>创建人：</td>
-			<td><input class="spinner" style="width:168px" value="${overdueAdvancesData.creater}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="${overdueAdvancesData.createrDisplay}" readonly="readonly"/></td>
 		    <td>创建时间：</td>
 			<td><input class="spinner" style="width:180px"   value="<fmt:formatDate  value="${overdueAdvancesData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>更新人：</td>
-			<td><input class="spinner" style="width:168px"   value="${overdueAdvancesData.updater}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px"   value="${overdueAdvancesData.updaterDisplay}" readonly="readonly"/></td>
 		     <td>更新时间：</td>
 			 <td><input class="spinner" style="width:180px"  value="<fmt:formatDate  value="${overdueAdvancesData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"  readonly="readonly"/></td>
 		</tr>

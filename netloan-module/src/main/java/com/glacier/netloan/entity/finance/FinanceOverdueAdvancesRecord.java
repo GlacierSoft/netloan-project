@@ -8,14 +8,16 @@ public class FinanceOverdueAdvancesRecord {
     private String overdueAdvancesId;
     
     /**
-     * 自定义字段,显示平台交易名称，会员名称，还款记录明细第几期
+     * 自定义字段,显示平台交易名称，会员名称，还款记录明细第几期,逾期垫付设置名称
      */
     private String financePlatformDisplay;
     
     private String memberRealName;
     
     private String repayNotesDetailIdDisplay;
-
+    
+    private String overdueAdvancesIdDisplay;
+    
     private String platformTransactionId;
 
     private String memberId;
@@ -204,6 +206,15 @@ public class FinanceOverdueAdvancesRecord {
 
 	public void setRepayNotesDetailIdDisplay(String repayNotesDetailIdDisplay) {
 		this.repayNotesDetailIdDisplay = repayNotesDetailIdDisplay;
+	}
+	
+	
+	public String getOverdueAdvancesIdDisplay() {
+		return overdueAdvancesIdDisplay;
+	}
+
+	public void setOverdueAdvancesIdDisplay(String overdueAdvancesIdDisplay) {
+		this.overdueAdvancesIdDisplay = overdueAdvancesIdDisplay;
 	}
 
 	@Override

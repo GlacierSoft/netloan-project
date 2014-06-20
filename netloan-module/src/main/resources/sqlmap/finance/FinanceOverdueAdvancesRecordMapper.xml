@@ -22,6 +22,7 @@
     <result column="temp_finance_overdue_advances_record_memberRealName" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_finance_overdue_advances_record_financePlatform_Display" property="financePlatformDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_finance_overdue_advances_record_repayNotesDetailId_Display" property="repayNotesDetailIdDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_finance_overdue_advances_record_overdueAdvancesId_Display" property="overdueAdvancesIdDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -103,12 +104,14 @@
     ,temp_member.member_real_name as temp_finance_overdue_advances_record_memberRealName
     ,temp_finance_platform.platform_name as temp_finance_overdue_advances_record_financePlatform_Display
     ,temp_repayment_notes_detail.number_period as temp_finance_overdue_advances_record_repayNotesDetailId_Display
+    ,temp_finance_overdue_advances.overdue_advances_name as temp_finance_overdue_advances_record_overdueAdvancesId_Display
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_member temp_member ON temp_member.member_id = temp_finance_overdue_advances_record.member_id <!-- 扩展 -->
   	LEFT JOIN t_finance_platform_transaction temp_finance_platform_transaction ON temp_finance_platform_transaction.platform_transaction_id = temp_finance_overdue_advances_record.platform_transaction_id <!-- 扩展 -->
     LEFT JOIN t_finance_platform temp_finance_platform ON temp_finance_platform.finance_platform_id = temp_finance_platform_transaction.finance_platform_id <!-- 扩展 -->
     LEFT JOIN t_repayment_notes_detail temp_repayment_notes_detail ON temp_repayment_notes_detail.repay_notes_detail_id = temp_finance_overdue_advances_record.repay_notes_detail_id <!-- 扩展 -->
+    LEFT JOIN t_finance_overdue_advances temp_finance_overdue_advances ON temp_finance_overdue_advances.overdue_advances_id =temp_finance_overdue_advances_record.overdue_advances_id <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueAdvancesRecordExample" >
     select

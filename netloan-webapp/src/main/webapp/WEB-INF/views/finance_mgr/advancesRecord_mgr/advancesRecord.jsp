@@ -34,8 +34,8 @@
 				title:'ID',
 				checkbox:true
 			},{
-				field:'overdueAdvancesId',
-				title:'逾期垫付管理ID',
+				field:'overdueAdvancesIdDisplay',
+				title:'逾期垫付管理名称',
 				width:140,
 				sortable:true
 			},{
@@ -152,8 +152,6 @@
 				<tr>
 					<td>会员名称：</td>
 					<td><input name="memberDisplay" style="width: 60px;" class="spinner"/></td>
-					<td>充值类型：</td>
-					<td><input name="rechargeSetName" style="width: 60px;" class="spinner"/></td>
 					<td>审核状态：</td>
 					<td>
 						<input id="advancesRecordSearchForm_status" name="auditState" style="width: 80px;" class="spinner"/>

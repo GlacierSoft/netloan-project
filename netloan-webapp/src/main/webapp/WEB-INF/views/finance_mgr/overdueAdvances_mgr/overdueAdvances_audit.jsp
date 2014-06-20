@@ -4,6 +4,12 @@
 <div method="post" style="padding:15px">
 	<table class="detailtable">
 	  <tr>
+			<td align="left" colspan="4">
+				逾期名称：
+				<input id="overdueAdvances_mgr_overdueAdvances_detail_overdueAdvancesName" name="overdueAdvancesName" value="${overdueAdvancesData.overdueAdvancesName}" class="spinner" style="height:18px;width:405px" readonly="readonly"/>
+			</td>
+	  </tr>
+	  <tr>
 			<td>有效会员：</td>
 			<td>
 			   <input type="hidden"  name="overdueAdvancesId" value="${overdueAdvancesData.overdueAdvancesId}" />
@@ -26,19 +32,19 @@
 		</tr>
 		<tr>
 			<td>审核人：</td>
-			<td><input class="spinner"  name="auditor" style="width:180px" value="${overdueAdvancesData.auditor}" readonly="readonly"/></td>
+			<td><input class="spinner"  name="auditor" style="width:180px" value="${overdueAdvancesData.auditorDisplay}" readonly="readonly"/></td>
 			<td>审核时间：</td>
 			<td><input class="spinner" name="auditDate" style="width:180px" value="<fmt:formatDate value="${overdueAdvancesData.auditDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>创建人：</td>
-			<td><input class="spinner" name="creater" style="width:180px" value="${overdueAdvancesData.creater}" readonly="readonly"/></td>
+			<td><input class="spinner" name="creater" style="width:180px" value="${overdueAdvancesData.createrDisplay}" readonly="readonly"/></td>
 			<td>创建时间：</td>
 			<td><input class="spinner" name="createTime" style="width:180px" value="<fmt:formatDate value="${overdueAdvancesData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>更新人：</td>
-			<td><input class="spinner" namme="updater" style="width:180px" value="${overdueAdvancesData.updater}" readonly="readonly"/></td>
+			<td><input class="spinner" namme="updater" style="width:180px" value="${overdueAdvancesData.updaterDisplay}" readonly="readonly"/></td>
 			<td>更新时间：</td>
 			<td><input class="spinner" name="updateTime" style="width:180px" value="<fmt:formatDate value="${overdueAdvancesData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>

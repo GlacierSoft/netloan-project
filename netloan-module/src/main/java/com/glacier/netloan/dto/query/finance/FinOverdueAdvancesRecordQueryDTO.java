@@ -51,13 +51,11 @@ public class FinOverdueAdvancesRecordQueryDTO extends FinanceOverdueAdvancesReco
     
     public void setQueryConditions(Criteria queryCriteria){
 
-    	/*if(null != this.getMemberRealName() && StringUtils.isNotBlank(this.getMemberRealName())){//根据记录明细类型查找
+    	if(null != this.getMemberRealName() && StringUtils.isNotBlank(this.getMemberRealName())){//根据记录明细类型查找
 	        queryCriteria.andMemberRealNamelike("%" + this.getMemberRealName() + "%");
 	    }
     	
-    	if(null != this.getOverdueFineSetDisplay() && StringUtils.isNotBlank(this.getOverdueFineSetDisplay())){//根据记录明细类型查找
-	        queryCriteria.andOverdueFineSetDisplaylike(this.getOverdueFineSetDisplay());
-	    }*/
+    	
     	
     	//状态查询
     	if(null != this.getAuditState() && StringUtils.isNotBlank(this.getAuditState())){

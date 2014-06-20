@@ -72,6 +72,7 @@ public class FinanceOverdueAdvancesService {
 	        int count = 0;
 	      
 	        financeOverdueAdvances.setOverdueAdvancesId(RandomGUID.getRandomGUID());
+	        financeOverdueAdvances.setOverdueAdvancesName(financeOverdueAdvances.getOverdueAdvancesName());
 	        financeOverdueAdvances.setAuditor(pricipalUser.getUsername());
 	        financeOverdueAdvances.setAuditState("authstr");
 	        financeOverdueAdvances.setAuditDate(new Date());
