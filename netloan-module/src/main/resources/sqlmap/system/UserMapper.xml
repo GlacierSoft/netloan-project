@@ -89,7 +89,7 @@
     ,temp_createrDisplay.user_cn_name as temp_user_createrDisplay
   </sql>
   <sql id="Base_extend">
-  	INNER JOIN t_user temp_createrDisplay ON temp_createrDisplay.user_id = temp_user.user_id <!-- 扩展 -->
+  	INNER JOIN t_user temp_createrDisplay ON temp_createrDisplay.user_id = temp_user.creater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.system.UserExample" >
     select
