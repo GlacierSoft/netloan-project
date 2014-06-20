@@ -104,6 +104,13 @@ public class FinancePlatformExample {
             return criteria;
         }
 
+        //自定义查询方法
+        public Criteria andPlatformNamelike(String value) {
+            addCriterion("temp_finance_platform.platform_name like", value, "platformName");
+            return (Criteria) this;
+        }
+        
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");

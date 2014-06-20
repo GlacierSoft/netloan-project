@@ -17,14 +17,16 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinancePlatformMapper;
+import com.glacier.netloan.dto.query.finance.FinFinancePlatformQueryDTO;
 import com.glacier.netloan.entity.finance.FinancePlatform;
 import com.glacier.netloan.entity.finance.FinancePlatformExample;
+import com.glacier.netloan.entity.finance.FinancePlatformExample.Criteria;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
 /**
  * @ClassName: FinancePlatformService 
- * @Description: TODO(平台资金记录service层) 
+ * @Description: TODO(平台资金service层) 
  * @author xichao.dong
  * @email 406592176@QQ.com
  * @date 2014-1-21 下午2:22:22  
@@ -52,17 +54,20 @@ public class FinancePlatformService {
     
     /**
      * @Title: listAsGrid 
-     * @Description: TODO(获取所有平台资金记录信息) 
+     * @Description: TODO(获取所有平台资金信息) 
      * @param @param pfinancePlatformr
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pager) {
+    public Object listAsGrid(FinFinancePlatformQueryDTO financePlatformQueryDTO,JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
         FinancePlatformExample financePlatformExample = new FinancePlatformExample();
 
+        Criteria queryCriteria = financePlatformExample.createCriteria();
+        financePlatformQueryDTO.setQueryConditions(queryCriteria);
+        
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	financePlatformExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	financePlatformExample.setLimitEnd(pager.getRows());

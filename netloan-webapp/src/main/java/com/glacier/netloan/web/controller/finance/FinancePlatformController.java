@@ -21,12 +21,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.finance.FinFinancePlatformQueryDTO;
 import com.glacier.netloan.entity.finance.FinancePlatform;
 import com.glacier.netloan.service.finance.FinancePlatformService;
 
 /** 
  * @ClassName: FinancePlatformController 
- * @Description: TODO(平台资金记录的控制器) 
+ * @Description: TODO(平台资金的控制器) 
  * @author xichao.dong
  * @email 406592176@QQ.com
  * @date 2014-1-21 下午2:39:20  
@@ -88,8 +89,8 @@ public class FinancePlatformController extends AbstractController{
     // 获取表格结构的所有平台资金记录数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listPlatformAsGridByPlatformId(JqPager pager) {
-        return financePlatformService.listAsGrid(pager);
+    private Object listPlatformAsGridByPlatformId(FinFinancePlatformQueryDTO financePlatformQueryDTO,JqPager pager) {
+        return financePlatformService.listAsGrid(financePlatformQueryDTO,pager);
     }
     
     // 增加平台资金记录

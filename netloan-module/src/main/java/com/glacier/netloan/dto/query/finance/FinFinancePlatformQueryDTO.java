@@ -9,21 +9,22 @@ import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.poi.ss.formula.functions.FinanceFunction;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.glacier.netloan.entity.finance.FinanceBankCard;
-import com.glacier.netloan.entity.finance.FinanceBankCardExample.Criteria;
+import com.glacier.netloan.entity.finance.FinancePlatformExample.Criteria;
+import com.glacier.netloan.entity.finance.FinancePlatform;
 
 
 
 /**
- * @ClassName: z
+ * @ClassName: FinFinancePlatformQueryDTO
  * @Description: TODO(这里用一句话描述这个类的作用) 
  * @author zhenfei.zhang
  * @email 289556866@qq.com
  * @date 2014-5-22 下午3:16:58
  */
-public class FinBankCardQueryDTO extends FinanceBankCard{
+public class FinFinancePlatformQueryDTO extends FinancePlatform{
 	
     @JSONField(format="yyyy-MM-dd")
 	private Date createStartTime;
@@ -50,12 +51,12 @@ public class FinBankCardQueryDTO extends FinanceBankCard{
     
     public void setQueryConditions(Criteria queryCriteria){
 
-    	if(null != this.getMemberRealName() && StringUtils.isNotBlank(this.getMemberRealName())){//根据记录明细类型查找
-	        queryCriteria.andMemberRealNamelike("%" + this.getMemberRealName() + "%");
+    	if(null != this.getPlatformName() && StringUtils.isNotBlank(this.getPlatformName())){//根据记录明细类型查找
+	        queryCriteria.andPlatformNamelike("%" + this.getPlatformName() + "%");
 	    }
     	
-    	if(null != this.getStatus() && StringUtils.isNotBlank(this.getStatus())){//审核状态
-	        queryCriteria.andStatusEqualTo(this.getStatus());
+    	if(null != this.getAuditState() && StringUtils.isNotBlank(this.getAuditState())){//审核状态
+	        queryCriteria.andAuditStateEqualTo(this.getAuditState());
 	    }
     	
 	    if(null != createStartTime && null != createEndTime){//创建时间段查询
