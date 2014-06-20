@@ -110,9 +110,7 @@ public class MemberStatisticsExample {
         public Criteria andMemberRealNameLike(String value) {
             addCriterion("temp_member.member_real_name like", value, "memberRealName");
             return (Criteria) this;
-        }
- 
-
+        } 
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");

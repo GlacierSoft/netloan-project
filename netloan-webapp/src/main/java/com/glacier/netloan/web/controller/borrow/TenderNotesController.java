@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.borrow.TenderNotesQueryDTO;
 import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.service.borrow.TenderNotesService;
 
@@ -55,8 +56,8 @@ public class TenderNotesController extends AbstractController{
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(JqPager pservicer) {
-        return tenderNotesService.listAsGrid(pservicer);
+    private Object listActionAsGridByMenuId(JqPager pservicer,TenderNotesQueryDTO  tenderNotesQueryDTO) {
+        return tenderNotesService.listAsGrid(pservicer,tenderNotesQueryDTO);
     }
     
     // 增加投标记录
