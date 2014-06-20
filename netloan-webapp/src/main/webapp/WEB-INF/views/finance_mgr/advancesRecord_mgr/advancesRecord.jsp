@@ -39,18 +39,18 @@
 				width:140,
 				sortable:true
 			},{
-				field:'platformTransactionId',
-				title:'平台交易明细ID',
+				field:'financePlatformDisplay',
+				title:'平台交易名称',
 				width:140,
 				sortable:true
 			},{
-				field:'memberId',
-				title:'会员ID',
+				field:'memberRealName',
+				title:'会员名称',
 				width:90,
 				sortable:true
 			},{
-				field:'repayNotesDetailId',
-				title:'还款记录明细ID',
+				field:'repayNotesDetailIdDisplay',
+				title:'还款记录期',
 				width:140,
 				sortable:true
 			},{

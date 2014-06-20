@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.glacier.netloan.entity.finance.FinanceBankCardExample.Criteria;
+
 public class FinanceOverdueFineExample {
     protected String orderByClause;
 
@@ -83,6 +85,7 @@ public class FinanceOverdueFineExample {
     public int getLimitEnd() {
         return limitEnd;
     }
+    
 
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -104,6 +107,18 @@ public class FinanceOverdueFineExample {
             return criteria;
         }
 
+        //扩展查询条件
+        public Criteria andMemberRealNamelike(String value) {
+            addCriterion("temp_member.member_real_name like", value, "memberRealName");
+            return (Criteria) this;
+        }
+        
+        //扩展查询条件
+        public Criteria andOverdueFineSetDisplaylike(String value) {
+            addCriterion("temp_finance_overdue_fine_set.overdue_fine_set_name like", value, "overdueFineSetDisplay");
+            return (Criteria) this;
+        }
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.finance.FinOverdueFineQueryDTO;
 import com.glacier.netloan.service.finance.FinanceOverdueFineService;
 
 
@@ -33,8 +34,8 @@ public class FinanceOverdueFineController {
 	//获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(JqPager pservicer) {
-    	return overOverdueFineServices.listAsGrid(pservicer);
+    private Object listActionAsGridByMenuId(FinOverdueFineQueryDTO overdueFineQueryDTO,JqPager pservicer) {
+    	return overOverdueFineServices.listAsGrid(overdueFineQueryDTO,pservicer);
     }
     
     //逾期垫付详情页

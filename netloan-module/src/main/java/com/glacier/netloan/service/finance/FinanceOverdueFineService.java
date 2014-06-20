@@ -10,8 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dao.finance.FinanceOverdueFineMapper;
+import com.glacier.netloan.dto.query.finance.FinOverdueFineQueryDTO;
 import com.glacier.netloan.entity.finance.FinanceOverdueFine;
 import com.glacier.netloan.entity.finance.FinanceOverdueFineExample;
+import com.glacier.netloan.entity.finance.FinanceOverdueFineExample.Criteria;
 
 @Service
 @Transactional(readOnly = true ,propagation = Propagation.REQUIRED)
@@ -27,9 +29,12 @@ public class FinanceOverdueFineService {
 	    }
 	    
 	   //获取逾期数据
-	    public Object listAsGrid(JqPager pager) {
+	    public Object listAsGrid(FinOverdueFineQueryDTO overdueFineQueryDTO,JqPager pager) {
 	        JqGridReturn returnResult = new JqGridReturn();
 	        FinanceOverdueFineExample financeOverdueFineExample = new FinanceOverdueFineExample();;
+	        
+	        Criteria queryCriteria = financeOverdueFineExample.createCriteria();
+	        overdueFineQueryDTO.setQueryConditions(queryCriteria);
 
 	        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
 	        	financeOverdueFineExample.setLimitStart((pager.getPage() - 1) * pager.getRows());

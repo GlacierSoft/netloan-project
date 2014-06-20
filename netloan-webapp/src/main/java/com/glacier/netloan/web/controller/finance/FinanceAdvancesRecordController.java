@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.finance.FinOverdueAdvancesRecordQueryDTO;
 import com.glacier.netloan.service.finance.FinancesAdvancesRecord;
 
 /**
- * @ClassName: FinanceBankCardController 
- * @Description: TODO(会员银行卡controller) 
+ * @ClassName: FinanceAdvancesRecordController 
+ * @Description: TODO(逾期垫付管理controller) 
  * @author JunJieZheng
  * @email 804346249@QQ.com
  * @date 2014-4-4下午3:47:32
@@ -42,8 +43,8 @@ public class FinanceAdvancesRecordController {
 	//获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(JqPager pservicer) {
-    	return advancesRecordServices.listAsGrid(pservicer);
+    private Object listActionAsGridByMenuId(FinOverdueAdvancesRecordQueryDTO overdueAdvancesRecordQueryDTO,JqPager pservicer) {
+    	return advancesRecordServices.listAsGrid(overdueAdvancesRecordQueryDTO,pservicer);
     }
     
     //逾期垫付详情页

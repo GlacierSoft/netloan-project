@@ -6,6 +6,15 @@ public class FinanceOverdueAdvancesRecord {
     private String advancesRecordId;
 
     private String overdueAdvancesId;
+    
+    /**
+     * 自定义字段,显示平台交易名称，会员名称，还款记录明细第几期
+     */
+    private String financePlatformDisplay;
+    
+    private String memberRealName;
+    
+    private String repayNotesDetailIdDisplay;
 
     private String platformTransactionId;
 
@@ -172,8 +181,32 @@ public class FinanceOverdueAdvancesRecord {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+    
+    public String getFinancePlatformDisplay() {
+		return financePlatformDisplay;
+	}
 
-    @Override
+	public void setFinancePlatformDisplay(String financePlatformDisplay) {
+		this.financePlatformDisplay = financePlatformDisplay;
+	}
+
+	public String getMemberRealName() {
+		return memberRealName;
+	}
+
+	public void setMemberRealName(String memberRealName) {
+		this.memberRealName = memberRealName;
+	}
+
+	public String getRepayNotesDetailIdDisplay() {
+		return repayNotesDetailIdDisplay;
+	}
+
+	public void setRepayNotesDetailIdDisplay(String repayNotesDetailIdDisplay) {
+		this.repayNotesDetailIdDisplay = repayNotesDetailIdDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

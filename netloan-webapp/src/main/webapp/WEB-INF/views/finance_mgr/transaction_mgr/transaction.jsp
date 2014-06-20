@@ -32,7 +32,8 @@
 				field:'financeMemberId',
 				title:'会员资金信息Id',
 				width:150,
-				sortable:true
+				sortable:true,
+				hidden:true
 			},{
 				field:'memberDisplay',
 				title:'会员名称',

@@ -11,8 +11,10 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dao.finance.FinanceOverdueAdvancesRecordMapper;
 import com.glacier.netloan.dao.member.MemberMessageNoticeMapper;
+import com.glacier.netloan.dto.query.finance.FinOverdueAdvancesRecordQueryDTO;
 import com.glacier.netloan.entity.finance.FinanceOverdueAdvancesRecord;
 import com.glacier.netloan.entity.finance.FinanceOverdueAdvancesRecordExample;
+import com.glacier.netloan.entity.finance.FinanceOverdueAdvancesRecordExample.Criteria;
 
 /**
  * @ClassName: FinanceBankCardService 
@@ -39,10 +41,14 @@ public class FinancesAdvancesRecord {
 	    }
 	    
 	   //获取逾期数据
-	    public Object listAsGrid(JqPager pager) {
+	    public Object listAsGrid(FinOverdueAdvancesRecordQueryDTO overdueAdvancesRecordQueryDTO,JqPager pager) {
 	        JqGridReturn returnResult = new JqGridReturn();
 	        FinanceOverdueAdvancesRecordExample financeAdvancesRecordExample = new FinanceOverdueAdvancesRecordExample();;
+	        
+	        Criteria queryCriteria = financeAdvancesRecordExample.createCriteria();
+	        overdueAdvancesRecordQueryDTO.setQueryConditions(queryCriteria);
 
+	        
 	        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
 	        	financeAdvancesRecordExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
 	        	financeAdvancesRecordExample.setLimitEnd(pager.getRows());

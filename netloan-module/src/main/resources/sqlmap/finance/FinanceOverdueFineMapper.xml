@@ -19,9 +19,10 @@
     <result column="temp_finance_overdue_fine_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_finance_overdue_fine_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finance_overdue_fine_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_finance_overdue_fine_memberRealName" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_finance_overdue_fine_repayNotesDetailId_Display" property="repayNotesDetailIdDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_finance_overdue_fine_overdueFineSet_Display" property="overdueFineSetDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     
-    
-  
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -94,6 +95,15 @@
     temp_finance_overdue_fine.remark as temp_finance_overdue_fine_remark, temp_finance_overdue_fine.creater as temp_finance_overdue_fine_creater, 
     temp_finance_overdue_fine.create_time as temp_finance_overdue_fine_create_time, temp_finance_overdue_fine.updater as temp_finance_overdue_fine_updater, 
     temp_finance_overdue_fine.update_time as temp_finance_overdue_fine_update_time
+    <!-- 以下字段属于扩展 -->
+    ,temp_member.member_real_name as temp_finance_overdue_advances_record_memberRealName
+    ,temp_repayment_notes_detail.number_period as temp_finance_overdue_advances_record_repayNotesDetailId_Display
+    ,temp_finance_overdue_fine_set.overdue_fine_set_name as temp_finance_overdue_fine_overdueFineSet_Display
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_member temp_member ON temp_member.member_id = temp_finance_overdue_fine.member_id <!-- 扩展 -->
+    LEFT JOIN t_repayment_notes_detail temp_repayment_notes_detail ON temp_repayment_notes_detail.repay_notes_detail_id = temp_finance_overdue_fine.repay_notes_detail_id<!-- 扩展 -->
+    LEFT JOIN t_finance_overdue_fine_set temp_finance_overdue_fine_set ON temp_finance_overdue_fine_set.overdue_fine_set_id = temp_finance_overdue_fine.overdue_fine_set_id<!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueFineExample" >
     select
@@ -102,6 +112,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_finance_overdue_fine temp_finance_overdue_fine
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -116,6 +127,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_finance_overdue_fine temp_finance_overdue_fine
+    <include refid="Base_extend" />
     where temp_finance_overdue_fine.overdue_fine_id = #{overdueFineId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -255,6 +267,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueFineExample" resultType="java.lang.Integer" >
     select count(*) from t_finance_overdue_fine temp_finance_overdue_fine
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
