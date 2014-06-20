@@ -66,9 +66,9 @@
 		</tr>
 		<tr>
 			<td>借款利息总额：</td>
-			<td><input class="spinner" style="width:168px" value="O.00"  /></td>
+			<td><input class="spinner" style="width:168px" value="0.00"  /></td>
 		    <td>借款罚息总额：</td>
-			<td><input class="spinner" style="width:168px" value="O.00" /></td>
+			<td><input class="spinner" style="width:168px" value="0.00" /></td>
 		</tr>
 	</c:if>
 	</table>

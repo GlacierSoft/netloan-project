@@ -122,7 +122,7 @@ public class AccountLoginService {
 	            row.createCell(3).setCellValue(member.getLiveAddress());
 	            row.createCell(4).setCellValue(member.getMobileNumber());
 	            row.createCell(5).setCellValue(member.getEmail());
-	            row.createCell(6).setCellValue(member.getType()=="general"?"普通会员":member.getType()=="vip"?"vip会员":"全部会员");
+	            row.createCell(6).setCellValue(member.getType()=="general"?"普通会员":member.getType()=="vip"?"vip会员":member.getType()=="all"?"全部会员":"Null");
 	            row.createCell(7).setCellValue(member.getCreditIntegral());
 	            row.createCell(8).setCellValue(member.getLastLoginIpAddress());
 	            row.createCell(9).setCellValue(member.getLoginCount());
