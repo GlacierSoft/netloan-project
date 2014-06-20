@@ -133,7 +133,7 @@
 	$('#memberCreditIntegralSearchForm_integralType').combobox({  
 		valueField : 'value',
 		height:18,
-		width:80,
+		width:130,
 		textField : 'label',
 		panelHeight : 'auto',
 		editable : false,
