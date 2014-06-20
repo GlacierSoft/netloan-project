@@ -40,6 +40,6 @@
 	</table>
 </form>
 <script type="text/javascript">
-	$('#creditIntegral_mgr_creditIntegral_detail_integralType').val(renderGridValue('${creditIntegralData.integralType}',fields.integralType));
+	$('#creditIntegral_mgr_creditIntegral_detail_integralType').val(renderGridValue('${creditIntegralData.integralType}',fields.creditIntegralType));
 	$('#creditIntegral_mgr_creditIntegral_detail_changeType').val(renderGridValue('${creditIntegralData.changeType}',fields.changeType));
 </script>
