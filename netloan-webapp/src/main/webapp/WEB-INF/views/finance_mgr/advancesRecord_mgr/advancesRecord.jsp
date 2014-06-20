@@ -60,7 +60,7 @@
 				sortable:true
 			},{
 				field:'advancesPercent',
-				title:'逾期终付百分比',
+				title:'逾期垫付百分比',
 				width:140,
 				sortable:true,
 			},{

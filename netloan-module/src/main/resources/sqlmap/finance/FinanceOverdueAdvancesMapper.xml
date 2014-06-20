@@ -3,6 +3,7 @@
 <mapper namespace="com.glacier.netloan.dao.finance.FinanceOverdueAdvancesMapper" >
   <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.finance.FinanceOverdueAdvances" >
     <id column="temp_finance_overdue_advances_overdue_advances_id" property="overdueAdvancesId" jdbcType="VARCHAR" />
+    <result column="temp_finance_overdue_advances_overdue_advances_name" property="overdueAdvancesName" jdbcType="VARCHAR" />
     <result column="temp_finance_overdue_advances_member_type" property="memberType" jdbcType="CHAR" />
     <result column="temp_finance_overdue_advances_feeWay" property="feeway" jdbcType="CHAR" />
     <result column="temp_finance_overdue_advances_value" property="value" jdbcType="REAL" />
@@ -15,7 +16,7 @@
     <result column="temp_finance_overdue_advances_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_finance_overdue_advances_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finance_overdue_advances_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_finance_overdue_advances_auditor_display" property="auditorDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+	<result column="temp_finance_overdue_advances_auditor_display" property="auditorDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
     <result column="temp_finance_overdue_advances_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
     <result column="temp_finance_overdue_advances_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
   </resultMap>
@@ -79,6 +80,7 @@
   </sql>
   <sql id="Base_Column_List" >
     temp_finance_overdue_advances.overdue_advances_id as temp_finance_overdue_advances_overdue_advances_id, 
+    temp_finance_overdue_advances.overdue_advances_name as temp_finance_overdue_advances_overdue_advances_name, 
     temp_finance_overdue_advances.member_type as temp_finance_overdue_advances_member_type, 
     temp_finance_overdue_advances.feeWay as temp_finance_overdue_advances_feeWay, temp_finance_overdue_advances.value as temp_finance_overdue_advances_value, 
     temp_finance_overdue_advances.audit_state as temp_finance_overdue_advances_audit_state, 
@@ -87,7 +89,7 @@
     temp_finance_overdue_advances.remark as temp_finance_overdue_advances_remark, temp_finance_overdue_advances.creater as temp_finance_overdue_advances_creater, 
     temp_finance_overdue_advances.create_time as temp_finance_overdue_advances_create_time, 
     temp_finance_overdue_advances.updater as temp_finance_overdue_advances_updater, temp_finance_overdue_advances.update_time as temp_finance_overdue_advances_update_time
-    <!-- 以下字段属于扩展 -->
+	<!-- 以下字段属于扩展 -->
     ,temp_auditor.user_cn_name as temp_finance_overdue_advances_auditor_display
     ,temp_creater.user_cn_name as temp_finance_overdue_advances_creater_display
     ,temp_updater.user_cn_name as temp_finance_overdue_advances_updater_display
@@ -104,7 +106,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_finance_overdue_advances temp_finance_overdue_advances
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -119,7 +121,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_finance_overdue_advances temp_finance_overdue_advances
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     where temp_finance_overdue_advances.overdue_advances_id = #{overdueAdvancesId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -133,22 +135,25 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueAdvances" >
-    insert into t_finance_overdue_advances (overdue_advances_id, member_type, feeWay, 
-      value, audit_state, auditor, 
-      audit_date, audit_remark, remark, 
-      creater, create_time, updater, 
-      update_time)
-    values (#{overdueAdvancesId,jdbcType=VARCHAR}, #{memberType,jdbcType=CHAR}, #{feeway,jdbcType=CHAR}, 
-      #{value,jdbcType=REAL}, #{auditState,jdbcType=CHAR}, #{auditor,jdbcType=VARCHAR}, 
-      #{auditDate,jdbcType=TIMESTAMP}, #{auditRemark,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
-      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+    insert into t_finance_overdue_advances (overdue_advances_id, overdue_advances_name, 
+      member_type, feeWay, value, audit_state, 
+      auditor, audit_date, audit_remark, 
+      remark, creater, create_time, 
+      updater, update_time)
+    values (#{overdueAdvancesId,jdbcType=VARCHAR}, #{overdueAdvancesName,jdbcType=VARCHAR}, 
+      #{memberType,jdbcType=CHAR}, #{feeway,jdbcType=CHAR}, #{value,jdbcType=REAL}, #{auditState,jdbcType=CHAR}, 
+      #{auditor,jdbcType=VARCHAR}, #{auditDate,jdbcType=TIMESTAMP}, #{auditRemark,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueAdvances" >
     insert into t_finance_overdue_advances
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="overdueAdvancesId != null" >
         overdue_advances_id,
+      </if>
+      <if test="overdueAdvancesName != null" >
+        overdue_advances_name,
       </if>
       <if test="memberType != null" >
         member_type,
@@ -191,6 +196,9 @@
       <if test="overdueAdvancesId != null" >
         #{overdueAdvancesId,jdbcType=VARCHAR},
       </if>
+      <if test="overdueAdvancesName != null" >
+        #{overdueAdvancesName,jdbcType=VARCHAR},
+      </if>
       <if test="memberType != null" >
         #{memberType,jdbcType=CHAR},
       </if>
@@ -231,7 +239,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueAdvancesExample" resultType="java.lang.Integer" >
     select count(*) from t_finance_overdue_advances temp_finance_overdue_advances
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -241,6 +249,9 @@
     <set >
       <if test="record.overdueAdvancesId != null" >
         temp_finance_overdue_advances.overdue_advances_id = #{record.overdueAdvancesId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.overdueAdvancesName != null" >
+        temp_finance_overdue_advances.overdue_advances_name = #{record.overdueAdvancesName,jdbcType=VARCHAR},
       </if>
       <if test="record.memberType != null" >
         temp_finance_overdue_advances.member_type = #{record.memberType,jdbcType=CHAR},
@@ -286,6 +297,7 @@
   <update id="updateByExample" parameterType="map" >
     update t_finance_overdue_advances temp_finance_overdue_advances
     set temp_finance_overdue_advances.overdue_advances_id = #{record.overdueAdvancesId,jdbcType=VARCHAR},
+      temp_finance_overdue_advances.overdue_advances_name = #{record.overdueAdvancesName,jdbcType=VARCHAR},
       temp_finance_overdue_advances.member_type = #{record.memberType,jdbcType=CHAR},
       temp_finance_overdue_advances.feeWay = #{record.feeway,jdbcType=CHAR},
       temp_finance_overdue_advances.value = #{record.value,jdbcType=REAL},
@@ -305,6 +317,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueAdvances" >
     update t_finance_overdue_advances
     <set >
+      <if test="overdueAdvancesName != null" >
+        overdue_advances_name = #{overdueAdvancesName,jdbcType=VARCHAR},
+      </if>
       <if test="memberType != null" >
         member_type = #{memberType,jdbcType=CHAR},
       </if>
@@ -346,7 +361,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.finance.FinanceOverdueAdvances" >
     update t_finance_overdue_advances
-    set member_type = #{memberType,jdbcType=CHAR},
+    set overdue_advances_name = #{overdueAdvancesName,jdbcType=VARCHAR},
+      member_type = #{memberType,jdbcType=CHAR},
       feeWay = #{feeway,jdbcType=CHAR},
       value = #{value,jdbcType=REAL},
       audit_state = #{auditState,jdbcType=CHAR},

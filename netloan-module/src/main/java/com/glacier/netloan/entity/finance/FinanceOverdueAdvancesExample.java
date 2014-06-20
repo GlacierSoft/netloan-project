@@ -195,6 +195,76 @@ public class FinanceOverdueAdvancesExample {
             return (Criteria) this;
         }
 
+        public Criteria andOverdueAdvancesNameIsNull() {
+            addCriterion("temp_finance_overdue_advances.overdue_advances_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueAdvancesNameIsNotNull() {
+            addCriterion("temp_finance_overdue_advances.overdue_advances_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueAdvancesNameEqualTo(String value) {
+            addCriterion("temp_finance_overdue_advances.overdue_advances_name =", value, "overdueAdvancesName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueAdvancesNameNotEqualTo(String value) {
+            addCriterion("temp_finance_overdue_advances.overdue_advances_name <>", value, "overdueAdvancesName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueAdvancesNameGreaterThan(String value) {
+            addCriterion("temp_finance_overdue_advances.overdue_advances_name >", value, "overdueAdvancesName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueAdvancesNameGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_overdue_advances.overdue_advances_name >=", value, "overdueAdvancesName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueAdvancesNameLessThan(String value) {
+            addCriterion("temp_finance_overdue_advances.overdue_advances_name <", value, "overdueAdvancesName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueAdvancesNameLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_overdue_advances.overdue_advances_name <=", value, "overdueAdvancesName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueAdvancesNameLike(String value) {
+            addCriterion("temp_finance_overdue_advances.overdue_advances_name like", value, "overdueAdvancesName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueAdvancesNameNotLike(String value) {
+            addCriterion("temp_finance_overdue_advances.overdue_advances_name not like", value, "overdueAdvancesName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueAdvancesNameIn(List<String> values) {
+            addCriterion("temp_finance_overdue_advances.overdue_advances_name in", values, "overdueAdvancesName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueAdvancesNameNotIn(List<String> values) {
+            addCriterion("temp_finance_overdue_advances.overdue_advances_name not in", values, "overdueAdvancesName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueAdvancesNameBetween(String value1, String value2) {
+            addCriterion("temp_finance_overdue_advances.overdue_advances_name between", value1, value2, "overdueAdvancesName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverdueAdvancesNameNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_overdue_advances.overdue_advances_name not between", value1, value2, "overdueAdvancesName");
+            return (Criteria) this;
+        }
+
         public Criteria andMemberTypeIsNull() {
             addCriterion("temp_finance_overdue_advances.member_type is null");
             return (Criteria) this;

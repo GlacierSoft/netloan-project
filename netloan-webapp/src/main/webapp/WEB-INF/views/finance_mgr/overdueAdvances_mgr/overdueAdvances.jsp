@@ -41,6 +41,11 @@
 				title:'ID',
 				checkbox:true
 			},{
+				field:'overdueAdvancesName',
+				title:'逾期垫付设置名称',
+				width:140,
+				sortable:true
+			},{
 				field:'memberType',
 				title:'会员等级',
 				width:140,

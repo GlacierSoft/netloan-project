@@ -6,7 +6,9 @@ import com.alibaba.fastjson.annotation.JSONField;
 
 public class FinanceOverdueAdvances {
     private String overdueAdvancesId;
-
+    
+    private String overdueAdvancesName;
+    
     private String memberType;
 
     private String feeway;
@@ -53,6 +55,14 @@ public class FinanceOverdueAdvances {
         this.overdueAdvancesId = overdueAdvancesId;
     }
 
+    public String getOverdueAdvancesName() {
+        return overdueAdvancesName;
+    }
+
+    public void setOverdueAdvancesName(String overdueAdvancesName) {
+        this.overdueAdvancesName = overdueAdvancesName;
+    }
+    
     public String getMemberType() {
         return memberType;
     }
@@ -174,7 +184,7 @@ public class FinanceOverdueAdvances {
 	}
     
     
-    @Override
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
@@ -187,6 +197,7 @@ public class FinanceOverdueAdvances {
         }
         FinanceOverdueAdvances other = (FinanceOverdueAdvances) that;
         return (this.getOverdueAdvancesId() == null ? other.getOverdueAdvancesId() == null : this.getOverdueAdvancesId().equals(other.getOverdueAdvancesId()))
+            && (this.getOverdueAdvancesName() == null ? other.getOverdueAdvancesName() == null : this.getOverdueAdvancesName().equals(other.getOverdueAdvancesName()))
             && (this.getMemberType() == null ? other.getMemberType() == null : this.getMemberType().equals(other.getMemberType()))
             && (this.getFeeway() == null ? other.getFeeway() == null : this.getFeeway().equals(other.getFeeway()))
             && (this.getValue() == null ? other.getValue() == null : this.getValue().equals(other.getValue()))
@@ -206,6 +217,7 @@ public class FinanceOverdueAdvances {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getOverdueAdvancesId() == null) ? 0 : getOverdueAdvancesId().hashCode());
+        result = prime * result + ((getOverdueAdvancesName() == null) ? 0 : getOverdueAdvancesName().hashCode());
         result = prime * result + ((getMemberType() == null) ? 0 : getMemberType().hashCode());
         result = prime * result + ((getFeeway() == null) ? 0 : getFeeway().hashCode());
         result = prime * result + ((getValue() == null) ? 0 : getValue().hashCode());
