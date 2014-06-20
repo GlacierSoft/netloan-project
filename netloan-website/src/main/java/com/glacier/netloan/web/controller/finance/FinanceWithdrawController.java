@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.finance.FinWithdrawQueryDTO;
 import com.glacier.netloan.entity.finance.FinanceWithdraw;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.service.finance.FinanceWithdrawService;
@@ -79,8 +80,8 @@ public class FinanceWithdrawController extends AbstractController{
     // 获取表格结构的所有会员提现记录数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listWithdrawAsGridByMenuId(JqPager pfinanceWithdrawr) {
-        return financeWithdrawService.listAsGrid(pfinanceWithdrawr);
+    private Object listWithdrawAsGridByMenuId(FinWithdrawQueryDTO withdrawQueryDTO,JqPager pfinanceWithdrawr) {
+        return financeWithdrawService.listAsGrid(withdrawQueryDTO,pfinanceWithdrawr);
     }
     
     // 增加会员提现记录
