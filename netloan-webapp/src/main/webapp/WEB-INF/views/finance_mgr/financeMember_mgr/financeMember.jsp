@@ -6,13 +6,6 @@
 
 	$.util.namespace('glacier.finance_mgr.financeMember_mgr.financeMember');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
-	//定义toolbar的操作，对操作进行控制 
-	glacier.finance_mgr.financeMember_mgr.financeMember.param = {
-			toolbarId : 'financeMemberDataGrid_toolbar',
-			actions : {
-				audit:{flag:'audit',controlType:'single'}
-			}
-	};
 	
 	//初始化会员提现记录DataGrid
 	glacier.finance_mgr.financeMember_mgr.financeMember.financeMemberDataGrid = $('#financeMemberDataGrid').datagrid({
@@ -142,7 +135,6 @@
 		pfinanceMemberSize : 10,//注意，pfinanceMemberSize必须在pfinanceMemberList存在
 		pfinanceMemberList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#financeMemberDataGrid_toolbar',
 		onCheck:function(rowIndex,rowData){//选择行事件触发
 			action_controller(glacier.finance_mgr.financeMember_mgr.financeMember.param,this).check();
 		},
@@ -202,7 +194,6 @@
 <div class="easyui-layout" data-options="fit:true">
 	<div id="financeMemberGridPanel" data-options="region:'center',border:true" >
 		<table id="financeMemberDataGrid">
-			<glacierui:toolbar panelEnName="FinanceMemberList" toolbarId="financeMemberDataGrid_toolbar" menuEnName="financeMember"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 </div>

@@ -108,6 +108,7 @@ public class AuthorityService {
             menuTree.setIconCls(menu.getIconCls());
             treeAttributes.put("url", menu.getUrl());
             menuTree.setAttributes(treeAttributes);
+            menuTree.setState("closed");
             principalMenuTrees.add(menuTree);
         }
         return principalMenuTrees;
