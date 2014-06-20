@@ -273,8 +273,7 @@
 <div class="easyui-layout" data-options="fit:true">
 	<div id="ReceivablesNotesDetailGridPanel" data-options="region:'center',border:true" >
 		<table id="ReceivablesNotesDetailDataGrid">
-			<glacierui:toolbar panelEnName="ReceivablesNotesDetailList" toolbarId="ReceivablesNotesDetailDataGrid_toolbar" menuEnName="ReceivablesNotesDetail"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
-		</table>
+	 </table>
 	</div>
 		<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
 		<form id="receivablesNotesDetailSearchForm">

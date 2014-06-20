@@ -119,7 +119,7 @@
 <div class="easyui-layout" data-options="fit:true">
 	<div id="integralGridPanel" data-options="region:'center',border:true" >
 		<table id="integralDataGrid">
-			<glacierui:toolbar panelEnName="MemberIntegralList" toolbarId="memberIntegralDataGrid_toolbar" menuEnName="memberIntegral"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+			<!--<glacierui:toolbar panelEnName="MemberIntegralList" toolbarId="memberIntegralDataGrid_toolbar" menuEnName="memberIntegral"/> 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 	<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
