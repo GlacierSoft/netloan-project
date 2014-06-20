@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.finance.FinTransactionsQueryDTO;
 import com.glacier.netloan.service.finance.FinanceTransactionService;
 
 /** 
@@ -54,8 +55,8 @@ public class FinanceTransactionController extends AbstractController{
     // 获取表格结构的所有会员资金记录数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listTransactionAsGridByMenuId(JqPager pfinanceTransactionr) {
-        return financeTransactionService.listAsGrid(pfinanceTransactionr);
+    private Object listTransactionAsGridByMenuId(FinTransactionsQueryDTO transactionsQueryDTO,JqPager pfinanceTransactionr) {
+        return financeTransactionService.listAsGrid(transactionsQueryDTO,pfinanceTransactionr);
     }
     
     // 批量删除会员资金记录

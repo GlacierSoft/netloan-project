@@ -19,6 +19,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.finance.FinTransactionQueryDTO;
+import com.glacier.netloan.dto.query.finance.FinTransactionsQueryDTO;
 import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.finance.FinanceTransactionExample;
 import com.glacier.netloan.entity.finance.FinanceTransactionExample.Criteria;
@@ -71,10 +72,13 @@ public class FinanceTransactionService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pager) {
+    public Object listAsGrid(FinTransactionsQueryDTO transactionsQueryDTO,JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
         FinanceTransactionExample financeTransactionExample = new FinanceTransactionExample();
+        
+        Criteria queryCriteria = financeTransactionExample.createCriteria();
+        transactionsQueryDTO.setQueryConditions(queryCriteria);
         
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	financeTransactionExample.setLimitStart((pager.getPage() - 1) * pager.getRows());

@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.finance.FinRechargeQueryDTO;
 import com.glacier.netloan.entity.finance.FinanceRecharge;
 import com.glacier.netloan.service.finance.FinanceRechargeService;
 
@@ -68,8 +69,8 @@ public class FinanceRechargeController extends AbstractController{
     // 获取表格结构的所有会员充值记录数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listRechargeAsGridByMenuId(JqPager pfinanceRecharger) {
-        return financeRechargeService.listAsGrid(pfinanceRecharger);
+    private Object listRechargeAsGridByMenuId(FinRechargeQueryDTO rechargeQueryDTO,JqPager pfinanceRecharger) {
+        return financeRechargeService.listAsGrid(rechargeQueryDTO,pfinanceRecharger);
     }
     
     // 审核会员充值记录

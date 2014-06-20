@@ -211,7 +211,17 @@
 		var obj = $.parseJSON('{"'+name+'":"'+value+'"}');//将值和对象封装成obj作为参数传递给后台
 		glacier.finance_mgr.bankCard_mgr.bankCard.bankCardDataGrid.datagrid('load',obj);
 	};
-	
+	//状态下拉项
+	$('#bankCardSearchForm_status').combobox({
+		valueField : 'value',
+		//height:18,
+		width : 80,
+		textField : 'label',
+		panelHeight : 'auto',
+		editable : false,
+		//required:true,
+		data : fields.bankCardAuths
+	});
 </script>
 
 <!-- 所有客服列表面板和表格 -->
@@ -220,5 +230,29 @@
 		<table id="bankCardDataGrid">
 			<glacierui:toolbar panelEnName="BankCardList" toolbarId="bankCardDataGrid_toolbar" menuEnName="bankCard"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
+	</div>
+	<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
+		<form id="bankCardSearchForm">
+			<table>
+				<tr>
+					<td>会员名称：</td>
+					<td><input name="memberRealName" style="width: 60px;" class="spinner"/></td>
+					<td>审核状态：</td>
+					<td>
+						<input id="bankCardSearchForm_status" name="status" style="width: 80px;" class="spinner"/>
+					</td>
+					<td>创建时间：</td>
+					<td>
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;" />
+						-
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;" />
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.finance_mgr.bankCard_mgr.bankCard.bankCardDataGrid.datagrid('load',glacier.serializeObject($('#bankCardSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-out',plain:true" onclick="$('#bankCardSearchForm input').val('');glacier.finance_mgr.bankCard_mgr.bankCard.bankCardDataGrid.datagrid('load',{});">重置条件</a>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </div>

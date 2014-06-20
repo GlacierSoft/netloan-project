@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.borrow.LoanReviewNotesQueryDTO;
 import com.glacier.netloan.entity.borrow.LoanReview;
 import com.glacier.netloan.service.borrow.LoanReviewService;
 
@@ -55,8 +56,8 @@ public class LoanReviewController extends AbstractController{
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(JqPager pservicer) {
-        return loanReviewService.listAsGrid(pservicer);
+    private Object listActionAsGridByMenuId(JqPager pservicer,LoanReviewNotesQueryDTO loanReviewNotesQueryDTO) {
+        return loanReviewService.listAsGrid(pservicer,loanReviewNotesQueryDTO);
     }
     
     // 增加借款留言
