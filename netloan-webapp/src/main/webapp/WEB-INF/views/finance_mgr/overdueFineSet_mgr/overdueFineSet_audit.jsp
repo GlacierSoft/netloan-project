@@ -32,19 +32,19 @@
 		</tr>
 		<tr>
 			<td>审核人：</td>
-			<td><input class="spinner"  name="auditor" style="width:180px" value="${overdueFineSetData.auditor}" readonly="readonly"/></td>
+			<td><input class="spinner"  name="auditor" style="width:180px" value="${overdueFineSetData.auditorDisplay}" readonly="readonly"/></td>
 			<td>审核时间：</td>
 			<td><input class="spinner" name="auditDate" style="width:180px" value="<fmt:formatDate value="${overdueFineSetData.auditDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>创建人：</td>
-			<td><input class="spinner" name="creater" style="width:180px" value="${overdueFineSetData.creater}" readonly="readonly"/></td>
+			<td><input class="spinner" name="creater" style="width:180px" value="${overdueFineSetData.createrDisplay}" readonly="readonly"/></td>
 			<td>创建时间：</td>
 			<td><input class="spinner" name="createTime" style="width:180px" value="<fmt:formatDate value="${overdueFineSetData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>更新人：</td>
-			<td><input class="spinner" namme="updater" style="width:180px" value="${overdueFineSetData.updater}" readonly="readonly"/></td>
+			<td><input class="spinner" namme="updater" style="width:180px" value="${overdueFineSetData.updaterDisplay}" readonly="readonly"/></td>
 			<td>更新时间：</td>
 			<td><input class="spinner" name="updateTime" style="width:180px" value="<fmt:formatDate value="${overdueFineSetData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
