@@ -58,7 +58,7 @@ public class TenderNotesController extends AbstractController{
     @ResponseBody
     private Object listActionAsGridByMenuId(JqPager pservicer,TenderNotesQueryDTO  tenderNotesQueryDTO) {
         return tenderNotesService.listAsGrid(pservicer,tenderNotesQueryDTO);
-    }
+      }
     
     // 增加投标记录
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
