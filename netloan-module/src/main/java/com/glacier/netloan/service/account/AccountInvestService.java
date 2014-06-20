@@ -328,7 +328,7 @@ public class AccountInvestService {
 	 
 	 
 	  //后台定时任务
-	 //@PostConstruct  //监听器设置
+	 @PostConstruct  //监听设置
 	 @Transactional(readOnly=false)
 	 public void handleAccountInvest(){
 		  	
@@ -339,51 +339,66 @@ public class AccountInvestService {
 		   
 		//会员统计信息获取
 		List<MemberStatistics> list=(List<MemberStatistics>) statisticsService.listMemberStatistics();   
+		
+		//时间设置
+		Calendar calendar=Calendar.getInstance();
+	    calendar.set(Calendar.HOUR_OF_DAY, 0);//设置日历时
+	    calendar.set(Calendar.MINUTE,0);//设置日历分
+	    calendar.set(Calendar.SECOND,0);//设置日历秒
+		
+		
+		AccountInvestExample accountInvestExamole=new AccountInvestExample();
+		accountInvestExamole.createCriteria().andCreateTimeGreaterThan(calendar.getTime());
+		List<AccountInvest> accountInvestDataList=(List<AccountInvest>)accountInvestMapper.selectByExample(accountInvestExamole);
+		
+		if(accountInvestDataList.size()>0&&accountInvestDataList!=null){
+			System.out.println("当天已有数据");
+		}else{
+			//投资变量数据定义
+			float sum_uncollected=0;//投资成功待收金额
+			float sum_reward=0;//投资奖励金额
+			float sum_fine=0; //借款人逾期罚款金额
+			float sum_borrow=0;//借款成功总额
+			float sum_advfee=0;//借款管理费总额
+			float sum_interest=0;//借款利息总额
+			float sum_interestfee=0;//借款逾期罚息总额
+			
+			System.out.println("我没问题呐(" + counter++ + ")");
+			System.out.println("我获取的超级管理员ID是:"+ userList.get(0).getUserId());
+			
+		    //构建投资对象
+		    AccountInvest accountInvest_add=new AccountInvest();
+		    
+		    //变量累加
+		    for (int j = 0; j < list.size(); j++) {
+		    	
+		        sum_uncollected+=list.get(j).getWaitIncomeTotal();
+		        sum_reward+=list.get(j).getTenderAwards();
+		        sum_fine+=list.get(j).getOverdueFineAmount();
+		        sum_borrow+=list.get(j).getTotalBorrowings();
+		        sum_advfee+=list.get(j).getLoanManagementAmount();
+		        sum_interest=list.get(j).getLoanInterestAmount();
+		        sum_interestfee+=list.get(j).getOverdueInterestAmount();
+		        
+		    }
 		 
-		//投资变量数据定义
-		float sum_uncollected=0;//投资成功待收金额
-		float sum_reward=0;//投资奖励金额
-		float sum_fine=0; //借款人逾期罚款金额
-		float sum_borrow=0;//借款成功总额
-		float sum_advfee=0;//借款管理费总额
-		float sum_interest=0;//借款利息总额
-		float sum_interestfee=0;//借款逾期罚息总额
-		
-		System.out.println("我没问题呐(" + counter++ + ")");
-		System.out.println("我获取的超级管理员ID是:"+ userList.get(0).getUserId());
-		
-	    //构建投资对象
-	    AccountInvest accountInvest_add=new AccountInvest();
-	    
-	    //变量累加
-	    for (int j = 0; j < list.size(); j++) {
-	    	
-	        sum_uncollected+=list.get(j).getWaitIncomeTotal();
-	        sum_reward+=list.get(j).getTenderAwards();
-	        sum_fine+=list.get(j).getOverdueFineAmount();
-	        sum_borrow+=list.get(j).getTotalBorrowings();
-	        sum_advfee+=list.get(j).getLoanManagementAmount();
-	        sum_interest=list.get(j).getLoanInterestAmount();
-	        sum_interestfee+=list.get(j).getOverdueInterestAmount();
-	        
-	    }
-	 
-	    accountInvest_add.setInvestId(RandomGUID.getRandomGUID());
-	    accountInvest_add.setSumUncollected(sum_uncollected);
-	    accountInvest_add.setSumReward(sum_reward);
-	    accountInvest_add.setSumFine(sum_fine);
-	    accountInvest_add.setSumBorrow(sum_borrow);
-	    accountInvest_add.setSumAdvfee(sum_advfee);
-	    accountInvest_add.setSumInterest(sum_interest);
-	    accountInvest_add.setSumInterestfee(sum_interestfee);
-	    accountInvest_add.setCreater(userList.get(0).getUserId());
-	    accountInvest_add.setCreateTime(new Date());
-	    accountInvest_add.setUpdater(userList.get(0).getUserId());
-	    accountInvest_add.setUpdateTime(new Date()); 
-	  
-	    //投资统计数据添加
-	    accountInvestMapper.insert(accountInvest_add);
-	 }
+		    accountInvest_add.setInvestId(RandomGUID.getRandomGUID());
+		    accountInvest_add.setSumUncollected(sum_uncollected);
+		    accountInvest_add.setSumReward(sum_reward);
+		    accountInvest_add.setSumFine(sum_fine);
+		    accountInvest_add.setSumBorrow(sum_borrow);
+		    accountInvest_add.setSumAdvfee(sum_advfee);
+		    accountInvest_add.setSumInterest(sum_interest);
+		    accountInvest_add.setSumInterestfee(sum_interestfee);
+		    accountInvest_add.setCreater(userList.get(0).getUserId());
+		    accountInvest_add.setCreateTime(new Date());
+		    accountInvest_add.setUpdater(userList.get(0).getUserId());
+		    accountInvest_add.setUpdateTime(new Date()); 
+		  
+		    //投资统计数据添加
+		    accountInvestMapper.insert(accountInvest_add);		
+		}
+	}
 	 
 	 
 	 
