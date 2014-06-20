@@ -157,6 +157,7 @@
 <script type="text/javascript">
 	$('#member_mgr_member_form').tabs({
 		border:false,
+		border:true,
 		onSelect:function(){
 			$("div").remove(".validatebox-tip");//解决关闭窗体偶尔出现验证条bug
 		}
