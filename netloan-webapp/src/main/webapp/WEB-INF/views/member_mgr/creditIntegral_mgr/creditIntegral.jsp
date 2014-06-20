@@ -154,11 +154,11 @@
 
 <!-- 所有会员信用积分列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
-	<div id="creditIntegralGridPanel" data-options="region:'center',border:true" >
+ 	<div id="creditIntegralGridPanel" data-options="region:'center',border:true" >
 		<table id="creditIntegralDataGrid">
-			<glacierui:toolbar panelEnName="CreditIntegralList" toolbarId="creditIntegralDataGrid_toolbar" menuEnName="creditIntegral"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+		<!--  <glacierui:toolbar panelEnName="CreditIntegralList" toolbarId="creditIntegralDataGrid_toolbar" menuEnName="creditIntegral"/>自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
-	</div>
+	</div>  
 	<div data-options="region:'north',split:true" style="height:40px;padding-left:10px;">
 		<form id="memberCreditIntegralSearchForm">
 			<table>
