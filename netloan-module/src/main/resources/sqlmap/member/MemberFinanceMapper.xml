@@ -26,9 +26,9 @@
     <result column="temp_member_finance_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_finance_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_member_finance_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_member_finance_memberName" property="memberName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_member_finance_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->    
-    <result column="temp_member_finance_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_finance_member_name" property="memberName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_finance_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->    
+    <result column="temp_member_finance_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -103,9 +103,9 @@
     temp_member_finance.creater as temp_member_finance_creater, temp_member_finance.create_time as temp_member_finance_create_time, 
     temp_member_finance.updater as temp_member_finance_updater, temp_member_finance.update_time as temp_member_finance_update_time
                  <!-- 以下字段属于扩展 -->
-    ,temp_member.member_name as temp_member_finance_memberName 
-    ,temp_creater.user_cn_name as temp_member_finance_createrDisplay
-    ,temp_updater.user_cn_name as temp_member_finance_updaterDisplay
+    ,temp_member.member_name as temp_member_finance_member_name 
+    ,temp_creater.user_cn_name as temp_member_finance_creater_display
+    ,temp_updater.user_cn_name as temp_member_finance_updater_display
   </sql>
   <sql id="Base_extend"><!-- 扩展 -->
   	LEFT JOIN t_member temp_member ON temp_member.member_id = temp_member_finance.member_id <!-- 扩展 -->

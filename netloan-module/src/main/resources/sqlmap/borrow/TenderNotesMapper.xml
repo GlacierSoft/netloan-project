@@ -27,8 +27,8 @@
     <result column="temp_tender_notes_alrTenderPro" property="alrTenderPro" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_subTotal" property="subTotal" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_lowestSub" property="lowestSub" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
-    <result column="temp_tender_notes_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_tender_notes_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -112,8 +112,8 @@
     ,temp_loan_tender.loanr_tender_name as temp_tender_notes_loanTenderDisplay
     ,temp_member.credit_integral as temp_tender_notes_creditIntegral
     <!-- 以下字段属于扩展 -->
-    ,temp_createrTest.member_name as temp_tender_notes_createrDisplay
-    ,temp_updaterTest.user_cn_name as temp_tender_notes_updaterDisplay
+    ,temp_createrTest.member_name as temp_tender_notes_creater_display
+    ,temp_updaterTest.user_cn_name as temp_tender_notes_updater_display
   </sql>
   <sql id="Base_extend">
     LEFT JOIN t_borrowing_loan temp_borrowing_loan ON temp_borrowing_loan.loan_id = temp_tender_notes.loan_id <!-- 扩展 -->

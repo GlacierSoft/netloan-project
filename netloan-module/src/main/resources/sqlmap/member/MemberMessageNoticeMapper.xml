@@ -15,10 +15,10 @@
     <result column="temp_member_message_notice_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_message_notice_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_member_message_notice_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_member_message_notice_senderDisplay" property="senderDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_member_message_notice_addresseeDisplay" property="addresseeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_member_message_notice_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_member_message_notice_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_message_notice_sender_display" property="senderDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_message_notice_addressee_display" property="addresseeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_message_notice_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_message_notice_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -87,10 +87,10 @@
     temp_member_message_notice.creater as temp_member_message_notice_creater, temp_member_message_notice.create_time as temp_member_message_notice_create_time, 
     temp_member_message_notice.updater as temp_member_message_notice_updater, temp_member_message_notice.update_time as temp_member_message_notice_update_time
     <!-- 以下字段属于扩展 -->
-    ,temp_addressee.member_name as temp_member_message_notice_addresseeDisplay
-    ,temp_sender.user_cn_name as temp_member_message_notice_senderDisplay
-    ,temp_creater.user_cn_name as temp_member_message_notice_createrDisplay
-    ,temp_updater.user_cn_name as temp_member_message_notice_updaterDisplay
+    ,temp_addressee.member_name as temp_member_message_notice_addressee_display
+    ,temp_sender.user_cn_name as temp_member_message_notice_sender_display
+    ,temp_creater.user_cn_name as temp_member_message_notice_creater_display
+    ,temp_updater.user_cn_name as temp_member_message_notice_updater_display
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_member temp_addressee ON temp_addressee.member_id = temp_member_message_notice.addressee <!-- 扩展 -->

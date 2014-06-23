@@ -9,8 +9,8 @@
     <result column="temp_loan_review_creater" property="creater" jdbcType="VARCHAR" />
     <result column="temp_loan_review_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_loan_review_loan_title" property="loanTitle" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
-    <result column="temp_loan_review_memberDisplay" property="memberDisplay" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
-    <result column="temp_loan_review_memberPhoto" property="memberPhoto" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_loan_review_member_display" property="memberDisplay" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_loan_review_member_photo" property="memberPhoto" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -76,8 +76,8 @@
     temp_loan_review.creater as temp_loan_review_creater, temp_loan_review.create_time as temp_loan_review_create_time
     <!-- 以下字段属于扩展 -->
     ,temp_borrowing_loan.loan_title as temp_loan_review_loan_title
-    ,temp_creater.member_name as temp_loan_review_memberDisplay
-    ,temp_creater.member_photo as temp_loan_review_memberPhoto
+    ,temp_creater.member_name as temp_loan_review_member_display
+    ,temp_creater.member_photo as temp_loan_review_member_photo
   </sql>
   <sql id="Base_extend">
     LEFT JOIN t_borrowing_loan temp_borrowing_loan ON temp_borrowing_loan.loan_id = temp_loan_review.loan_id <!-- 扩展 -->

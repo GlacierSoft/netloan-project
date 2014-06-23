@@ -11,19 +11,19 @@
     <result column="temp_attention_borrowing_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_attention_borrowing_update_time" property="updateTime" jdbcType="TIMESTAMP" />
 	<result column="temp_attention_borrowing_loan_title" property="loanTitle" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_attention_borrowing_memberDisplay" property="memberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_attention_borrowing_loanMemberDisplay" property="loanMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_attention_borrowing_repaymentTypeDisplay" property="repaymentTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_attention_borrowing_loanApr" property="loanApr" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
-    <result column="temp_attention_borrowing_loanTotal" property="loanTotal" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
-    <result column="temp_attention_borrowing_loanDeadlinesId" property="loanDeadlinesId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_attention_borrowing_loanDate" property="loanDate" jdbcType="TIMESTAMP"/> <!-- 自定义扩展字段 -->
-    <result column="temp_attention_borrowing_loanTenderDisplay" property="loanTenderDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_attention_borrowing_loanMemberId" property="loanMemberId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_attention_borrowing_creditIntegral" property="creditIntegral" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
-    <result column="temp_attention_borrowing_alrTenderPro" property="alrTenderPro" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
-    <result column="temp_attention_borrowing_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_attention_borrowing_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_member_display" property="memberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_loan_member_display" property="loanMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_repayment_type_display" property="repaymentTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_loan_apr" property="loanApr" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_loan_total" property="loanTotal" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_loan_deadlinesId" property="loanDeadlinesId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_loan_date" property="loanDate" jdbcType="TIMESTAMP"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_loan_tender_display" property="loanTenderDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_loan_memberId" property="loanMemberId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_credit_integral" property="creditIntegral" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_alrtender_pro" property="alrTenderPro" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_attention_borrowing_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -91,19 +91,19 @@
     temp_attention_borrowing.update_time as temp_attention_borrowing_update_time
 	<!-- 以下字段属于扩展 -->
     ,temp_borrowing_loan.loan_title as temp_attention_borrowing_loan_title
-    ,temp_borrowing_loan.loan_apr as temp_attention_borrowing_loanApr
-    ,temp_borrowing_loan.loan_total as temp_attention_borrowing_loanTotal
-    ,temp_borrowing_loan.loan_deadlines_id as temp_attention_borrowing_loanDeadlinesId
-    ,temp_borrowing_loan.loan_date as temp_attention_borrowing_loanDate
-    ,temp_borrowing_loan.member_id as temp_attention_borrowing_loanMemberId
-    ,temp_borrowing_loan.alr_tender_pro as temp_attention_borrowing_alrTenderPro
-    ,temp_member.member_name as temp_attention_borrowing_memberDisplay
-    ,temp_loan_member.member_name as temp_attention_borrowing_loanMemberDisplay
-    ,temp_repayment_type.repayment_type_name as temp_attention_borrowing_repaymentTypeDisplay
-    ,temp_loan_tender.loanr_tender_name as temp_attention_borrowing_loanTenderDisplay
-    ,temp_loan_member.credit_integral as temp_attention_borrowing_creditIntegral
-    ,temp_creater.member_real_name as temp_attention_borrowing_createrDisplay
-    ,temp_updater.member_real_name as temp_attention_borrowing_updaterDisplay
+    ,temp_borrowing_loan.loan_apr as temp_attention_borrowing_loan_apr
+    ,temp_borrowing_loan.loan_total as temp_attention_borrowing_loan_total
+    ,temp_borrowing_loan.loan_deadlines_id as temp_attention_borrowing_loan_deadlinesId
+    ,temp_borrowing_loan.loan_date as temp_attention_borrowing_loan_date
+    ,temp_borrowing_loan.member_id as temp_attention_borrowing_loan_memberId
+    ,temp_borrowing_loan.alr_tender_pro as temp_attention_borrowing_alrtender_pro
+    ,temp_member.member_name as temp_attention_borrowing_member_display
+    ,temp_loan_member.member_name as temp_attention_borrowing_loan_member_display
+    ,temp_repayment_type.repayment_type_name as temp_attention_borrowing_repayment_type_display
+    ,temp_loan_tender.loanr_tender_name as temp_attention_borrowing_loan_tender_display
+    ,temp_loan_member.credit_integral as temp_attention_borrowing_credit_integral
+    ,temp_creater.member_real_name as temp_attention_borrowing_creater_display
+    ,temp_updater.member_real_name as temp_attention_borrowing_updater_display
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_borrowing_loan temp_borrowing_loan ON temp_borrowing_loan.loan_id = temp_attention_borrowing.loan_id <!-- 扩展 -->

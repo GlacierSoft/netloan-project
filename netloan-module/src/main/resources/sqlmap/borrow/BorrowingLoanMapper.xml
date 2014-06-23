@@ -57,13 +57,13 @@
     <result column="temp_borrowing_loan_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_borrowing_loan_update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="temp_borrowing_loan_alr_bid_money" property="alrBidMoney" jdbcType="REAL" />
-	<result column="temp_borrowing_loan_memberDisplay" property="memberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_borrowing_loan_loanTenderDisplay" property="loanTenderDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_borrowing_loan_repaymentTypeDisplay" property="repaymentTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_borrowing_loan_firstAuditorDisplay" property="firstAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_borrowing_loan_secondAuditorDisplay" property="secondAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_borrowing_loan_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_borrowing_loan_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+	<result column="temp_borrowing_loan_member_display" property="memberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_borrowing_loan_loanTender_display" property="loanTenderDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_borrowing_loan_repaymentType_display" property="repaymentTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_borrowing_loan_firstAuditor_display" property="firstAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_borrowing_loan_secondAuditor_display" property="secondAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_borrowing_loan_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_borrowing_loan_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_borrowing_loan_credit_Integral" property="creditIntegral" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -154,14 +154,14 @@
     temp_borrowing_loan.creater as temp_borrowing_loan_creater, temp_borrowing_loan.updater as temp_borrowing_loan_updater, 
     temp_borrowing_loan.update_time as temp_borrowing_loan_update_time, temp_borrowing_loan.alr_bid_money as temp_borrowing_loan_alr_bid_money
 	 <!-- 以下字段属于扩展 -->
-    ,temp_member.member_real_name as temp_borrowing_loan_memberDisplay
+    ,temp_member.member_real_name as temp_borrowing_loan_member_display
     ,temp_member.credit_integral as temp_borrowing_loan_credit_Integral
-    ,temp_loanTender.loanr_tender_name as temp_borrowing_loan_loanTenderDisplay
-    ,temp_repaymentType.repayment_type_name as temp_borrowing_loan_repaymentTypeDisplay
-    ,temp_firstAuditor.user_cn_name as temp_borrowing_loan_firstAuditorDisplay
-    ,temp_secondAuditor.user_cn_name as temp_borrowing_loan_secondAuditorDisplay
-    ,temp_creater.member_real_name as temp_borrowing_loan_createrDisplay
-    ,temp_updater.user_cn_name as temp_borrowing_loan_updaterDisplay
+    ,temp_loanTender.loanr_tender_name as temp_borrowing_loan_loanTender_display
+    ,temp_repaymentType.repayment_type_name as temp_borrowing_loan_repaymentType_display
+    ,temp_firstAuditor.user_cn_name as temp_borrowing_loan_firstAuditor_display
+    ,temp_secondAuditor.user_cn_name as temp_borrowing_loan_secondAuditor_display
+    ,temp_creater.member_real_name as temp_borrowing_loan_creater_display
+    ,temp_updater.user_cn_name as temp_borrowing_loan_updater_display
   </sql>
   <sql id="Base_extend">
     LEFT JOIN t_member temp_member ON temp_member.member_id = temp_borrowing_loan.member_id <!-- 扩展 -->

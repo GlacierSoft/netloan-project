@@ -19,10 +19,10 @@
     <result column="temp_member_apply_amount_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_apply_amount_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_member_apply_amount_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_member_apply_amount_memberRealName" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_member_apply_amount_auditorDisplay" property="auditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_member_apply_amount_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_member_apply_amount_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_apply_amount_member_realName" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_apply_amount_auditor_display" property="auditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_apply_amount_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_apply_amount_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -94,16 +94,16 @@
     temp_member_apply_amount.creater as temp_member_apply_amount_creater, temp_member_apply_amount.create_time as temp_member_apply_amount_create_time, 
     temp_member_apply_amount.updater as temp_member_apply_amount_updater, temp_member_apply_amount.update_time as temp_member_apply_amount_update_time
   	<!-- 以下字段属于扩展 -->
-    ,temp_member.member_real_name as temp_member_apply_amount_memberRealName
-    ,temp_auditor.user_cn_name as temp_member_apply_amount_auditorDisplay
-    ,temp_creater.user_cn_name as temp_member_apply_amount_createrDisplay
-    ,temp_updater.user_cn_name as temp_member_apply_amount_updaterDisplay
+    ,temp_member.member_real_name as temp_member_apply_amount_member_realName
+    ,temp_auditor.user_cn_name as temp_member_apply_amount_auditor_display
+    ,temp_creater.user_cn_name as temp_member_apply_amount_creater_display
+    ,temp_updater.user_cn_name as temp_member_apply_amount_updater_display
   </sql>
   <sql id="Base_extend">
-  	INNER JOIN t_member temp_member ON temp_member_apply_amount.member_id =  temp_member.member_id<!-- 扩展 -->
+  	LEFT JOIN t_member temp_member ON temp_member_apply_amount.member_id =  temp_member.member_id<!-- 扩展 -->
   	LEFT JOIN t_user temp_auditor ON temp_member_apply_amount.auditor_id =  temp_auditor.user_id<!-- 扩展 -->
-    INNER JOIN t_user temp_creater ON temp_member_apply_amount.creater =  temp_creater.user_id<!-- 扩展 -->
-    INNER JOIN t_user temp_updater ON temp_member_apply_amount.updater =  temp_updater.user_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_member_apply_amount.creater =  temp_creater.user_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_member_apply_amount.updater =  temp_updater.user_id<!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.member.MemberApplyAmountExample" >
     select

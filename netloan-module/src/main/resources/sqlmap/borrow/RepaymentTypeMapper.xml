@@ -83,8 +83,8 @@
     ,temp_updater.user_cn_name as temp_repayment_type_updater_display
   </sql>
    <sql id="Base_extend">
-    INNER JOIN t_user temp_creater ON temp_repayment_type.creater =  temp_creater.user_id<!-- 扩展 -->
-    INNER JOIN t_user temp_updater ON temp_repayment_type.updater =  temp_updater.user_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_repayment_type.creater =  temp_creater.user_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_repayment_type.updater =  temp_updater.user_id<!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.RepaymentTypeExample" >
     select

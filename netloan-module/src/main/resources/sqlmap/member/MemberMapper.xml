@@ -44,8 +44,8 @@
     <result column="temp_member_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_member_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-	<result column="temp_member_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_member_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+	<result column="temp_member_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -128,8 +128,8 @@
     temp_member.create_time as temp_member_create_time, temp_member.updater as temp_member_updater, 
     temp_member.update_time as temp_member_update_time
 	<!-- 以下字段属于扩展 -->
-    ,temp_creater.user_cn_name as temp_member_createrDisplay
-    ,temp_updater.user_cn_name as temp_member_updaterDisplay
+    ,temp_creater.user_cn_name as temp_member_creater_display
+    ,temp_updater.user_cn_name as temp_member_updater_display
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_member.creater <!-- 扩展 -->

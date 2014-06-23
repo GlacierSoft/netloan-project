@@ -130,7 +130,7 @@
     ,temp_member.member_real_name as temp_member_statistics_member_real_name
   </sql>
   <sql id="Base_extend">
-  	INNER JOIN t_member temp_member ON temp_member_statistics.member_id =  temp_member.member_id<!-- 扩展 -->
+  	LEFT JOIN t_member temp_member ON temp_member_statistics.member_id =  temp_member.member_id<!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.member.MemberStatisticsExample" >
     select
