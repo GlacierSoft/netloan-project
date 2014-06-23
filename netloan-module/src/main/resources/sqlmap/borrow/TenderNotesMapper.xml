@@ -15,6 +15,18 @@
     <result column="temp_tender_notes_loan_title" property="loanTitle" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_member_display" property="memberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_loan_member_display" property="loanMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_repayment_type_display" property="repaymentTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_loan_apr" property="loanApr" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_loan_deadlines_id" property="loanDeadlinesId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_loan_date" property="loanDate" jdbcType="TIMESTAMP"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_loan_tender_display" property="loanTenderDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_loan_member_id" property="loanMemberId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_loan_id" property="loanId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_loan_state" property="loanState" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_credit_integral" property="creditIntegral" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_alr_tender_pro" property="alrTenderPro" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_sub_total" property="subTotal" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_tender_notes_lowest_sub" property="lowestSub" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_repaymentTypeDisplay" property="repaymentTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_loanApr" property="loanApr" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_loanDeadlinesId" property="loanDeadlinesId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
@@ -97,6 +109,18 @@
     temp_tender_notes.updater as temp_tender_notes_updater, temp_tender_notes.update_time as temp_tender_notes_update_time
      <!-- 以下字段属于扩展 -->
     ,temp_borrowing_loan.loan_title as temp_tender_notes_loan_title
+    ,temp_borrowing_loan.loan_apr as temp_tender_notes_loan_apr
+    ,temp_borrowing_loan.loan_deadlines_id as temp_tender_notes_loan_deadlines_id
+    ,temp_borrowing_loan.loan_date as temp_tender_notes_loan_date
+    ,temp_borrowing_loan.member_id as temp_tender_notes_loan_member_id
+    ,temp_borrowing_loan.loan_id as temp_tender_notes_loan_id
+    ,temp_borrowing_loan.loan_state as temp_tender_notes_loan_state
+    ,temp_borrowing_loan.alr_tender_pro as temp_tender_notes_alr_tender_pro
+    ,temp_borrowing_loan.sub_total as temp_tender_notes_sub_total
+    ,temp_borrowing_loan.lowest_sub as temp_tender_notes_lowest_sub
+    ,temp_creater.member_real_name as temp_tender_notes_member_display
+    ,temp_member.member_real_name as temp_tender_notes_loan_member_display
+    ,temp_repayment_type.repayment_type_name as temp_tender_notes_repayment_type_display
     ,temp_borrowing_loan.loan_apr as temp_tender_notes_loanApr
     ,temp_borrowing_loan.loan_deadlines_id as temp_tender_notes_loanDeadlinesId
     ,temp_borrowing_loan.loan_date as temp_tender_notes_loanDate

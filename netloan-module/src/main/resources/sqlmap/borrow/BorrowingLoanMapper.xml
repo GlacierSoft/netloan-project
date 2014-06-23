@@ -59,6 +59,9 @@
     <result column="temp_borrowing_loan_alr_bid_money" property="alrBidMoney" jdbcType="REAL" />
 	<result column="temp_borrowing_loan_member_display" property="memberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_borrowing_loan_loan_tender_display" property="loanTenderDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_borrowing_loan_repayment_type_display" property="repaymentTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_borrowing_loan_first_auditor_display" property="firstAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_borrowing_loan_second_auditor_display" property="secondAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_borrowing_loan_repaymentType_display" property="repaymentTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_borrowing_loan_firstAuditor_display" property="firstAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_borrowing_loan_secondAuditor_display" property="secondAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
@@ -157,9 +160,15 @@
     ,temp_member.member_real_name as temp_borrowing_loan_member_display
     ,temp_member.credit_integral as temp_borrowing_loan_credit_Integral
     ,temp_loanTender.loanr_tender_name as temp_borrowing_loan_loan_tender_display
+
+    ,temp_repaymentType.repayment_type_name as temp_borrowing_loan_repayment_type_display
+    ,temp_firstAuditor.user_cn_name as temp_borrowing_loan_first_auditor_display
+    ,temp_secondAuditor.user_cn_name as temp_borrowing_loan_second_auditor_display
+
     ,temp_repaymentType.repayment_type_name as temp_borrowing_loan_repaymentType_display
     ,temp_firstAuditor.user_cn_name as temp_borrowing_loan_firstAuditor_display
     ,temp_secondAuditor.user_cn_name as temp_borrowing_loan_secondAuditor_display
+
     ,temp_creater.member_real_name as temp_borrowing_loan_creater_display
     ,temp_updater.user_cn_name as temp_borrowing_loan_updater_display
   </sql>
