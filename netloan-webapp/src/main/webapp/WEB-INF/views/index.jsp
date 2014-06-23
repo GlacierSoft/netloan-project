@@ -140,8 +140,8 @@
 					<ul id="layout_west_tree"></ul>
 				</div>
 			</div>
-			<div data-options="region:'center'">
-				<div id="layout_center_panel" class="easyui-panel" title="主页" data-options="fit:true,border:false,region:'center',href:'index/center.htm'" style="padding:5px;overflow: hidden;"></div>
+			<div data-options="region:'center'"  >
+				<div id="layout_center_panel" style="overflow:scroll;height: 1000px "  class="easyui-panel" title="主页" data-options="fit:true,border:false,region:'center',href:'index/center.htm'" style="padding:5px;overflow: hidden;"></div>
 			</div>
 		</div>
 	</body>
