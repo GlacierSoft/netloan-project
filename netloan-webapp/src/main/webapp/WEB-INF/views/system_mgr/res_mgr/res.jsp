@@ -97,7 +97,7 @@
 		url: ctx + '/do/res/panel/list.json',
 		queryParams: {menuId: ''},//初始化的时候默认传递menuId为空的参数
 		sortName: 'orderNum',//排序字段名称
-		sortOrder: 'ASC',//升序还是降序
+		sortOrder: 'DESC',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
 		idField:'panelId',
 		toolbar : '#panelDataGridToolbar',
