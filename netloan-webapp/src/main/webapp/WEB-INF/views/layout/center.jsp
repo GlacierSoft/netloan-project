@@ -1,6 +1,14 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!-- 引入自定义权限标签 -->
 <%@ taglib prefix="glacierui" uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
+<%    
+String path = request.getContextPath();    
+// 获得本项目的地址(例如: http://localhost:8080/MyApp/)赋值给basePath变量    
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";    
+// 将 "项目路径basePath" 放入pageContext中，待以后用EL表达式读出。    
+pageContext.setAttribute("basePath",basePath);    
+%> 
+
 <script type="text/javascript">
 
 	$.util.namespace('glacier.website_mgr.announcement_mgr.announcement');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
@@ -152,6 +160,13 @@
 			});
 		}
 	});
+	
+   //panel切换
+   function  doClick(str,url){
+	    $("#layout_center_panel").panel("setTitle",str);
+		$('#layout_center_panel').panel('refresh',ctx +url);
+	}
+	
 </script>
 <div style="margin:0px 10px 15px 0px;">
 	<div id="newsDataGridPanel" class="easyui-panel" title="审核管理"    
@@ -163,15 +178,15 @@
 			<table>
 				<tr>
 					<td>借款等待资料审核： </td>
-					<td>( <span style="color:red;">0</span> ) 条</td>
+					<td>( <span style="color:red;cursor: pointer;" onclick="doClick('借款等待资料的审核','/do/borrowingLoan/borrowingLoanFirstAudit.htm');">0</span> ) 条</td>
 				</tr>
 				<tr>
 					<td>借款初审审核：</td>
-					<td>( <span style="color:red;">${borrowingLoanNumFirstAudit}</span> ) 条</td>
+	                <td>( <span style="color:red;cursor: pointer;" onclick="doClick('借款初审审核','/do/borrowingLoan/borrowingLoanFirstAudit.htm');">${borrowingLoanNumFirstAudit}</span>)条</td>
 				</tr>
 				<tr>
 					<td>借款满标审核：</td>
-					<td>( <span style="color:red;">${borrowingLoanNumSecondAuditor}</span> ) 条</td>
+					<td>( <span style="color:red; cursor: pointer;" onclick="doClick('借款满标审核','/do/borrowingLoan/borrowingLoanSecAudit.htm');">${borrowingLoanNumSecondAuditor}</span> ) 条</td>
 				</tr>
 			</table>
 		</div>
@@ -183,23 +198,23 @@
 			<table>
 				<tr>
 					<td>等待审核的充值(审核中)：</td>
-					<td>( <span style="color:red;">${financeRechargeNumAuthstr}</span> ) 条</td>
+					<td>( <span style="color:red; cursor: pointer; " onclick="doClick('等待审核的充值(审核中)','/do/withdraw/index.htm');">${financeRechargeNumAuthstr}</span> ) 条</td>
 				</tr>
 				<tr>
 					<td>等待审核的提现(审核中)： </td>
-					<td>( <span style="color:red;">${financeWithdrawNumAuthstr}</span> ) 条</td>
+					<td>( <span style="color:red;cursor: pointer;" onclick="doClick('等待审核的提现(审核中)','/do/withdraw/index.htm')" >${financeWithdrawNumAuthstr}</span> ) 条</td>
 				</tr>
 				<tr>
 					<td>银行卡变更申请(审核中)：</td>
-					<td>( <span style="color:red;">${bankCardNumAuthstr}</span> ) 条</td>
+					<td>( <span style="color:red;cursor: pointer;"onclick="doClick('银行卡变更申请(审核中)','/do/bankCard/index.htm');">${bankCardNumAuthstr}</span> ) 条</td>
 				</tr>
 				<tr>
 					<td>会员额度申请(审核中)：</td>
-					<td>( <span style="color:red;">${applyAmountNumAuthstr}</span> ) 条</td>
+					<td>( <span style="color:red;cursor: pointer;" onclick="doClick('会员额度申请(审核中)','do/applyAmount/index.htm');">${applyAmountNumAuthstr}</span> ) 条</td>
 				</tr>
 				<tr>
 					<td>会员房产申请(审核中)：</td>
-					<td>( <span style="color:red;">${memberEstateNumAuthstr}</span> ) 条</td>
+					<td>( <span style="color:red;cursor: pointer;" onclick="doClick('会员房产申请(审核中)','/do/estate/index.htm');">${memberEstateNumAuthstr}</span> ) 条</td>
 				</tr>
 			</table>
 		</div>
@@ -211,39 +226,39 @@
 			<table>
 				<tr>
 					<td>会员基本资料认证(审核中)： </td>
-					<td>( <span style="color:red;">${infoAuthNum}</span> ) 条</td>
+					<td>( <span style="color:red;cursor: pointer;" onclick="doClick('会员基本资料认证(审核中)','/do/memberAuth/index.htm');">${infoAuthNum}</span> ) 条</td>
 				</tr>
 				<tr>
 					<td>会员VIP认证(审核中)：</td>
-					<td>( <span style="color:red;">${vipAuthNum}</span> ) 条</td>
+					<td>(<span style="color:red;cursor: pointer;" onclick="doClick('会员VIP认证(审核中)','/do/memberAuth/index.htm');">${vipAuthNum}</span> ) 条</td>
 				</tr>
 				<tr>
 					<td>会员邮箱认证(审核中)：</td>
-					<td>( <span style="color:red;">${emailAuthNum}</span> ) 条</td>
+					<td>( <span style="color:red;cursor: pointer;" onclick="doClick('会员邮箱认证(审核中)','/do/memberAuth/index.htm');">${emailAuthNum}</span> ) 条</td>
 				</tr>
 				<tr>
 					<td>会员手机认证(审核中)：</td>
-					<td>( <span style="color:red;">${mobileAuthNum}</span> ) 条</td>
+					<td>( <span style="color:red;cursor: pointer;" onClick="doClick('会员手机认证(审核中)','/do/memberAuth/index.htm');">${mobileAuthNum}</span> ) 条</td>
 				</tr>
 				<tr>
 					<td>会员信用认证(审核中)： </td>
-					<td>( <span style="color:red;">${creditAuthNum}</span> ) 条</td>
+					<td>( <span style="color:red;cursor:pointer;" onclick="doClick('会员信用认证(审核中)','/do/memberAuth/index.htm');">${creditAuthNum}</span> ) 条</td>
 				</tr>
 				<tr>
 					<td>会员企业认证(审核中)：</td>
-					<td>( <span style="color:red;">${companyAuthNum}</span> ) 条</td>
+					<td>( <span style="color:red;cursor:pointer;" onclick="doClick('会员企业认证(审核中)','/do/memberAuth/index.htm');">${companyAuthNum}</span> ) 条</td>
 				</tr>
 				<tr>
 					<td>会员真实姓名认证(审核中)：</td>
-					<td>( <span style="color:red;">${realNameAuthNum}</span> ) 条</td>
+					<td>( <span style="color:red; cursor: pointer;" onclick="doClick('会员真实姓名认证(审核中)','/do/memberAuth/index.htm');">${realNameAuthNum}</span> ) 条</td>
 				</tr>
 				<tr>
 					<td>会员身份证认证(审核中)：</td>
-					<td>( <span style="color:red;">${idCardAuthNum}</span> ) 条</td>
-				</tr>
+					<td>( <span style="color:red;cursor: pointer;" onclick="doClick('会员身份证认证(审核中)','/do/memberAuth/index.htm');">${idCardAuthNum}</span> ) 条</td>
+				</tr> 
 				<tr>
 					<td>会员工作认证(审核中)：</td>
-					<td>( <span style="color:red;">${workAuthNum}</span> ) 条</td>
+					<td>( <span style="color:red;cursor: pointer;" onclick="doClick('会员工作认证(审核中)','/do/memberAuth/index.htm');">${workAuthNum}</span> ) 条</td>
 				</tr>
 			</table>
 		</div>
