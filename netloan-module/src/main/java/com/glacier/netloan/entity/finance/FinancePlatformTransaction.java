@@ -11,6 +11,8 @@ public class FinancePlatformTransaction {
      * 自定义字段，平台资金账号
      */
     private String financePlatformDisplay;
+    
+    private String createrDisplay;
 
     private String transactionTarget;
 
@@ -136,7 +138,15 @@ public class FinancePlatformTransaction {
         this.updateTime = updateTime;
     }
 
-    @Override
+	public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

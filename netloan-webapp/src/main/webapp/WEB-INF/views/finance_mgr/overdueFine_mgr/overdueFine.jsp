@@ -36,12 +36,6 @@
 				width:140,
 				sortable:true
 			},{
-				field:'overdueFineSetName',
-				title:'罚款名称',
-				width:140,
-				sortable:true,
-				hidden:true
-			},{
 				field:'memberRealName',
 				title:'会员名称',
 				width:180,

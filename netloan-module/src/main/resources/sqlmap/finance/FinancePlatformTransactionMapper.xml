@@ -15,6 +15,7 @@
     <result column="temp_finance_platform_transaction_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finance_platform_transaction_update_time" property="updateTime" jdbcType="TIMESTAMP" />
  	<result column="temp_finance_platform_transaction_finance_platform_display" property="financePlatformDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+ 	<result column="temp_finance_platform_transaction_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -89,9 +90,11 @@
     temp_finance_platform_transaction.update_time as temp_finance_platform_transaction_update_time
     <!-- 以下字段属于扩展 -->
     ,temp_finance_platform.platform_name as temp_finance_platform_transaction_finance_platform_display
+    ,temp_creater.user_cn_name as temp_finance_platform_transaction_creater_display
   </sql>
   <sql id="Base_extend">
     LEFT JOIN t_finance_platform temp_finance_platform ON temp_finance_platform.finance_platform_id = temp_finance_platform_transaction.finance_platform_id <!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_finance_platform_transaction.creater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.finance.FinancePlatformTransactionExample" >
     select

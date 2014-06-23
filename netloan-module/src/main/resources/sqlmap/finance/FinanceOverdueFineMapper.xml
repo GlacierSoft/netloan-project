@@ -20,8 +20,8 @@
     <result column="temp_finance_overdue_fine_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finance_overdue_fine_update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="temp_finance_overdue_fine_member_real_name" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_finance_overdue_fine_repayNotesDetailId_display" property="repayNotesDetailIdDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_finance_overdue_fine_overdueFineSet_display" property="overdueFineSetDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_finance_overdue_fine_repay_notes_detail_id_display" property="repayNotesDetailIdDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_finance_overdue_fine_overdue_fine_set_display" property="overdueFineSetDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -97,8 +97,8 @@
     temp_finance_overdue_fine.update_time as temp_finance_overdue_fine_update_time
     <!-- 以下字段属于扩展 -->
     ,temp_member.member_real_name as temp_finance_overdue_fine_member_real_name
-    ,temp_repayment_notes_detail.number_period as temp_finance_overdue_advances_record_repayNotesDetailId_display
-    ,temp_finance_overdue_fine_set.overdue_fine_set_name as temp_finance_overdue_fine_overdueFineSet_display
+    ,temp_repayment_notes_detail.number_period as  temp_finance_overdue_fine_repay_notes_detail_id_display 
+    ,temp_finance_overdue_fine_set.overdue_fine_set_name as temp_finance_overdue_fine_overdue_fine_set_display
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_member temp_member ON temp_member.member_id = temp_finance_overdue_fine.member_id <!-- 扩展 -->
