@@ -19,7 +19,7 @@
     <result column="temp_finance_overdue_fine_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_finance_overdue_fine_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finance_overdue_fine_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_finance_overdue_fine_member_realName" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_finance_overdue_fine_member_real_name" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_finance_overdue_fine_repayNotesDetailId_display" property="repayNotesDetailIdDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_finance_overdue_fine_overdueFineSet_display" property="overdueFineSetDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     
@@ -96,7 +96,7 @@
     temp_finance_overdue_fine.create_time as temp_finance_overdue_fine_create_time, temp_finance_overdue_fine.updater as temp_finance_overdue_fine_updater, 
     temp_finance_overdue_fine.update_time as temp_finance_overdue_fine_update_time
     <!-- 以下字段属于扩展 -->
-    ,temp_member.member_real_name as temp_finance_overdue_fine_member_realName
+    ,temp_member.member_real_name as temp_finance_overdue_fine_member_real_name
     ,temp_repayment_notes_detail.number_period as temp_finance_overdue_advances_record_repayNotesDetailId_display
     ,temp_finance_overdue_fine_set.overdue_fine_set_name as temp_finance_overdue_fine_overdueFineSet_display
   </sql>

@@ -23,7 +23,7 @@
     <result column="temp_member_estate_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_estate_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_member_estate_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-	<result column="temp_member_estate_member_realName" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+	<result column="temp_member_estate_member_real_name" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
 	<result column="temp_member_estate_auditor_display" property="auditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_member_estate_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_member_estate_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->

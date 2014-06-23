@@ -58,7 +58,7 @@
     <result column="temp_member_auth_work_time" property="workTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_auth_work_num" property="workNum" jdbcType="INTEGER" />
     <result column="temp_member_auth_memberName" property="memberName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_member_auth_member_realName" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_auth_member_real_name" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_member_auth_infoAuditor_display" property="infoAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_member_auth_vipAuditor_display" property="vipAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->  
     <result column="temp_member_auth_emailAuditor_display" property="emailAuditorDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
@@ -168,7 +168,7 @@
     temp_member_auth.work_remark as temp_member_auth_work_remark, temp_member_auth.work_time as temp_member_auth_work_time, 
     temp_member_auth.work_num as temp_member_auth_work_num
                 <!-- 以下字段属于扩展 -->
-    ,temp_member.member_name as temp_member_auth_memberName
+    ,temp_member.member_name as temp_member_auth_member_real_name
     ,temp_member.member_real_name as temp_member_auth_member_realName
     ,temp_infoAuditor.user_cn_name as temp_member_auth_infoAuditor_display
     ,temp_vipAuditor.user_cn_name as temp_member_auth_vipAuditor_display
