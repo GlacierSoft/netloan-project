@@ -58,7 +58,12 @@
 
 
 五、借款信息在后台进行复审成功后，
-  1.
+  1.借款表		t_borrowing_loan
+  2.会员资金信息	t_finance_member
+  3.会员资金记录明细	t_finance_transaction
+  4.会员借款投资统计	t_member_statistics
+  5.会员积分记录表	t_member_integral
+  6.会员信用记录表	t_member_credit_integral
 
 六、会员进行还款时，
 
@@ -69,6 +74,8 @@
 九、还款超过还款时间，逾期时，
 
 十、会员进行认证时，
+
+十一、 
 
 
 
