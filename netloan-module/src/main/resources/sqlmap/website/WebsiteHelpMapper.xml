@@ -13,8 +13,8 @@
     <result column="temp_website_help_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_website_help_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_website_help_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_website_help_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_website_help_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_website_help_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_website_help_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.glacier.netloan.entity.website.WebsiteHelp" extends="BaseResultMap" >
     <result column="temp_website_help_web_help_content" property="webHelpContent" jdbcType="LONGVARCHAR" />
@@ -85,8 +85,8 @@
     temp_website_help.create_time as temp_website_help_create_time, temp_website_help.updater as temp_website_help_updater, 
     temp_website_help.update_time as temp_website_help_update_time
      <!-- 以下字段属于扩展 -->
-    ,temp_creater.user_cn_name as temp_website_help_createrDisplay
-    ,temp_updater.user_cn_name as temp_website_help_updaterDisplay
+    ,temp_creater.user_cn_name as temp_website_help_creater_display
+    ,temp_updater.user_cn_name as temp_website_help_updater_display
   </sql>
   <sql id="Blob_Column_List" >
     temp_website_help.web_help_content as temp_website_help_web_help_content

@@ -69,7 +69,9 @@ public class ParameterOptgroupService {
      * @throws
      */
     public Object listAsTree() {
-        List<ParameterOptgroup> optgroupList = optgroupMapper.selectByExample(new ParameterOptgroupExample());
+    	ParameterOptgroupExample OptgroupExample=new ParameterOptgroupExample();
+    	OptgroupExample.setOrderByClause("temp_parameter_optgroup.optgroup_num asc");
+        List<ParameterOptgroup> optgroupList = optgroupMapper.selectByExample(OptgroupExample);
         return optgroupList;
     }
 

@@ -92,8 +92,8 @@
     temp_website_announcement.web_ann_content as temp_website_announcement_web_ann_content
   </sql>
   <sql id="Base_extend">
-    INNER JOIN t_user temp_creater ON temp_website_announcement.creater =  temp_creater.user_id<!-- 扩展 -->
-    INNER JOIN t_user temp_updater ON temp_website_announcement.updater =  temp_updater.user_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_website_announcement.creater =  temp_creater.user_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_website_announcement.updater =  temp_updater.user_id<!-- 扩展 -->
   </sql>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.glacier.netloan.entity.website.WebsiteAnnouncementExample" >
     select

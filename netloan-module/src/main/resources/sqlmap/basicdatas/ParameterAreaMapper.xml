@@ -89,8 +89,8 @@
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_parameter_area temp_parameter_parea ON temp_parameter_parea.area_id = temp_parameter_area.area_pid <!-- 扩展 -->
-    INNER JOIN t_user temp_creater ON temp_parameter_area.creater =  temp_creater.user_id<!-- 扩展 -->
-    INNER JOIN t_user temp_updater ON temp_parameter_area.updater =  temp_updater.user_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_parameter_area.creater =  temp_creater.user_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_parameter_area.updater =  temp_updater.user_id<!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.basicdatas.ParameterAreaExample" >
     select

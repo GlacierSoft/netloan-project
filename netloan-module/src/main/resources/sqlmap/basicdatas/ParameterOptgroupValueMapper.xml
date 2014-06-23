@@ -14,8 +14,8 @@
     <result column="temp_parameter_optgroup_value_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_parameter_optgroup_value_update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="temp_parameter_optgroup_value_optgroupCode" property="optgroupCode" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_parameter_optgroup_value_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_parameter_optgroup_value_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_parameter_optgroup_value_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_parameter_optgroup_value_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -86,13 +86,13 @@
     temp_parameter_optgroup_value.updater as temp_parameter_optgroup_value_updater, temp_parameter_optgroup_value.update_time as temp_parameter_optgroup_value_update_time
     <!-- 以下字段属于扩展 -->
     ,temp_parameter_optgroup.optgroup_code as temp_parameter_optgroup_value_optgroupCode
-    ,temp_creater.user_cn_name as temp_parameter_optgroup_value_createrDisplay
-    ,temp_updater.user_cn_name as temp_parameter_optgroup_value_updaterDisplay
+    ,temp_creater.user_cn_name as temp_parameter_optgroup_value_creater_display
+    ,temp_updater.user_cn_name as temp_parameter_optgroup_value_updater_display
   </sql>
   <sql id="Base_extend">
-  	INNER JOIN t_parameter_optgroup temp_parameter_optgroup ON temp_parameter_optgroup_value.optgroup_id =  temp_parameter_optgroup.optgroup_id<!-- 扩展 -->
-    INNER JOIN t_user temp_creater ON temp_parameter_optgroup_value.creater =  temp_creater.user_id<!-- 扩展 -->
-    INNER JOIN t_user temp_updater ON temp_parameter_optgroup_value.updater =  temp_updater.user_id<!-- 扩展 -->
+  	LEFT JOIN t_parameter_optgroup temp_parameter_optgroup ON temp_parameter_optgroup_value.optgroup_id =  temp_parameter_optgroup.optgroup_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_parameter_optgroup_value.creater =  temp_creater.user_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_parameter_optgroup_value.updater =  temp_updater.user_id<!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.basicdatas.ParameterOptgroupValueExample" >
     select

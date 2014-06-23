@@ -13,8 +13,8 @@
     <result column="temp_parameter_integral_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_parameter_integral_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_parameter_integral_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_parameter_integral_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_parameter_integral_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_parameter_integral_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_parameter_integral_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -82,8 +82,8 @@
     temp_parameter_integral.creater as temp_parameter_integral_creater, temp_parameter_integral.create_time as temp_parameter_integral_create_time, 
     temp_parameter_integral.updater as temp_parameter_integral_updater, temp_parameter_integral.update_time as temp_parameter_integral_update_time
  	<!-- 以下字段属于扩展 -->
-    ,temp_creater.user_cn_name as temp_parameter_integral_createrDisplay
-    ,temp_updater.user_cn_name as temp_parameter_integral_updaterDisplay
+    ,temp_creater.user_cn_name as temp_parameter_integral_creater_display
+    ,temp_updater.user_cn_name as temp_parameter_integral_updater_display
   </sql>
    <sql id="Base_extend">
     LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_parameter_integral.creater <!-- 扩展 -->

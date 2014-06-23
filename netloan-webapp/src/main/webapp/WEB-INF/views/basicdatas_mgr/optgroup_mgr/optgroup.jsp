@@ -22,6 +22,8 @@
 		fitColumns:true,//自动填充行
 		autoRowHeight: false,//禁止设置自动行高以适应内容
 		url : ctx + '/do/optgroup/list.json',//请求的URL
+		sortName: 'optgroupNum',//排序字段名称
+		sortOrder: 'desc',//升序还是降序
 		idField : 'optgroupId',
 		treeField : 'optgroupName',//定义树节点字段
 		parentField : 'optgroupPid',//treegrid父节点
@@ -57,7 +59,7 @@
 			field : 'optgroupCode' , title : '下拉项代码' , width : 150
 		}]],
 		columns : [ [{
-			field : 'optgroupNum' , title : '排序' , width : 150
+			field : 'optgroupNum' , title : '排序' , width : 150 ,sortable:true
 		},{
 			field : 'remark' , title : '备注' , width : 150
 		}]]

@@ -90,8 +90,8 @@
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_parameter_optgroup temp_parameter_poptgroup ON temp_parameter_poptgroup.optgroup_id = temp_parameter_optgroup.optgroup_pid <!-- 扩展 -->
-    INNER JOIN t_user temp_creater ON temp_parameter_optgroup.creater =  temp_creater.user_id<!-- 扩展 -->
-    INNER JOIN t_user temp_updater ON temp_parameter_optgroup.updater =  temp_updater.user_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_parameter_optgroup.creater =  temp_creater.user_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_parameter_optgroup.updater =  temp_updater.user_id<!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.basicdatas.ParameterOptgroupExample" >
     select

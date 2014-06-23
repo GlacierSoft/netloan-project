@@ -15,8 +15,8 @@
     <result column="temp_account_invest_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_account_invest_update_time" property="updateTime" jdbcType="TIMESTAMP" />
     
-    <result column="temp_account_invest_createrDisplay" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_account_invest_updaterDisplay" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_account_invest_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_account_invest_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     
    
   </resultMap>
@@ -86,8 +86,8 @@
     temp_account_invest.creater as temp_account_invest_creater, temp_account_invest.create_time as temp_account_invest_create_time, 
     temp_account_invest.updater as temp_account_invest_updater, temp_account_invest.update_time as temp_account_invest_update_time
     <!-- 以下字段属于扩展 -->
-    ,temp_creater.user_cn_name as temp_account_invest_createrDisplay
-    ,temp_updater.user_cn_name as temp_account_invest_updaterDisplay
+    ,temp_creater.user_cn_name as temp_account_invest_creater_display
+    ,temp_updater.user_cn_name as temp_account_invest_updater_display
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_account_invest.creater <!-- 扩展 -->

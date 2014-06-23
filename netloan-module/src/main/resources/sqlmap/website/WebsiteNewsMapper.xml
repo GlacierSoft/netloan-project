@@ -87,8 +87,8 @@
     ,temp_updater.user_cn_name as temp_website_news_updater_display
   </sql>
   <sql id="Base_extend">
-    INNER JOIN t_user temp_creater ON temp_website_news.creater =  temp_creater.user_id<!-- 扩展 -->
-    INNER JOIN t_user temp_updater ON temp_website_news.updater =  temp_updater.user_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_website_news.creater =  temp_creater.user_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_website_news.updater =  temp_updater.user_id<!-- 扩展 -->
   </sql>
   <sql id="Blob_Column_List" >
     temp_website_news.web_news_content as temp_website_news_web_news_content

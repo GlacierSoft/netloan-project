@@ -86,8 +86,8 @@
     ,temp_updater.user_cn_name as temp_parameter_age_updater_display
   </sql>
   <sql id="Base_extend">
-    INNER JOIN t_user temp_creater ON temp_parameter_age.creater =  temp_creater.user_id<!-- 扩展 -->
-    INNER JOIN t_user temp_updater ON temp_parameter_age.updater =  temp_updater.user_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_parameter_age.creater =  temp_creater.user_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_parameter_age.updater =  temp_updater.user_id<!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.basicdatas.ParameterAgeExample" >
     select

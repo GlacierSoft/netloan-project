@@ -19,10 +19,10 @@
     <result column="temp_finance_overdue_advances_record_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_finance_overdue_advances_record_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finance_overdue_advances_record_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_finance_overdue_advances_record_memberRealName" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_finance_overdue_advances_record_financePlatform_Display" property="financePlatformDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_finance_overdue_advances_record_repayNotesDetailId_Display" property="repayNotesDetailIdDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_finance_overdue_advances_record_overdueAdvancesId_Display" property="overdueAdvancesIdDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_finance_overdue_advances_record_member_realName" property="memberRealName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_finance_overdue_advances_record_financePlatform_display" property="financePlatformDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_finance_overdue_advances_record_repayNotesDetailId_display" property="repayNotesDetailIdDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_finance_overdue_advances_record_overdueAdvancesId_display" property="overdueAdvancesIdDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -101,10 +101,10 @@
     temp_finance_overdue_advances_record.updater as temp_finance_overdue_advances_record_updater, 
     temp_finance_overdue_advances_record.update_time as temp_finance_overdue_advances_record_update_time
     <!-- 以下字段属于扩展 -->
-    ,temp_member.member_real_name as temp_finance_overdue_advances_record_memberRealName
-    ,temp_finance_platform.platform_name as temp_finance_overdue_advances_record_financePlatform_Display
-    ,temp_repayment_notes_detail.number_period as temp_finance_overdue_advances_record_repayNotesDetailId_Display
-    ,temp_finance_overdue_advances.overdue_advances_name as temp_finance_overdue_advances_record_overdueAdvancesId_Display
+    ,temp_member.member_real_name as temp_finance_overdue_advances_record_member_realName
+    ,temp_finance_platform.platform_name as temp_finance_overdue_advances_record_financePlatform_display
+    ,temp_repayment_notes_detail.number_period as temp_finance_overdue_advances_record_repayNotesDetailId_display
+    ,temp_finance_overdue_advances.overdue_advances_name as temp_finance_overdue_advances_record_overdueAdvancesId_display
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_member temp_member ON temp_member.member_id = temp_finance_overdue_advances_record.member_id <!-- 扩展 -->
