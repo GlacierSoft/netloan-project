@@ -92,6 +92,8 @@
 			themeType : 'qq',
 			allowFileManager : true,
 			minWidth : "600px",
+			uploadJson : '../resources/js/kindeditor/jsp/upload_json.jsp',
+            fileManagerJson : '../resources/js/kindeditor/jsp/file_manager_json.jsp',
 			afterBlur : function() {
 				this.sync();
 				K.ctrl(document, 13, function() {
@@ -102,7 +104,7 @@
 				});
 			},
 			items : [
-				'bold','italic','underline','fontname','fontsize','forecolor','hilitecolor','plug-align','plug-order','plug-indent','link','code','emoticons','flash','table','lineheight','fullscreen'
+				'bold','italic','underline','fontname','fontsize','forecolor','hilitecolor','plug-align','plug-order','plug-indent','link','code','emoticons','flash','table','lineheight','fullscreen','image'
 			]
 		});
 	});
