@@ -108,7 +108,7 @@
     where operalog_id = #{operalogId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.system.OperaLogExample" >
-    delete from t_operalog temp_operalog
+    delete temp_operalog from t_operalog temp_operalog
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
