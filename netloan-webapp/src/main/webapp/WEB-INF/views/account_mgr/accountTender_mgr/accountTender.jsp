@@ -47,7 +47,7 @@
 				field:'creditIntegral',
 				title:'用户积分',
 				width:120,
-				sort:true
+				sortable:true
 			},{
 				field:'tenderMoney',
 				title:'投标金额',

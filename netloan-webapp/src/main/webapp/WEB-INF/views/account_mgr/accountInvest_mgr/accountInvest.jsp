@@ -47,7 +47,7 @@
 				field:'sumReward',
 				title:'投资奖励金额',
 				width:300,
-				sort:true
+				sortable:true
 			},{
 				field:'sumFine',
 				title:'借款人逾期罚金金额',
@@ -125,7 +125,7 @@
 		var investStart=$("#investStartTime").datetimebox('getValue');
 		var investEnd=$("#investEndTime").datetimebox('getValue');
 		var investText=$('input:radio:checked').val();
-	    var investTitle="【未知】投资统计信息";
+	    var investTitle="【未知】投资统计信息查询";
 	    
 	    
 	    if("investToday"==investText)
@@ -136,13 +136,13 @@
 			  investTitle="【当年】投资统计信息查询";
 		if("investOther"==investText){
 		    if(investStart&&investEnd){
-		    	 investTitle="【"+investStart+"-"+investEnd+"】之间投资统计信息";
+		    	 investTitle="【"+investStart+"-"+investEnd+"】之间投资统计信息查询";
 		    	 //alert("没问题那(开始至结束) !!!");
 		    }if(investStart&&!investEnd){
-		    	investTitle="【"+investStart+"】之后投资统计信息";
+		    	investTitle="【"+investStart+"】之后投资统计信息查询";
 		    	//alert("没问题那(之后投资)");
 		    }if(investEnd&&!investStart){
-		    	investTitle="【"+investEnd+"】之前投资统计信息";
+		    	investTitle="【"+investEnd+"】之前投资统计信息查询";
 		    	//alert("没问题那(之前投资)");
 		    }
 		 }

@@ -62,7 +62,7 @@ public class AccountInvestService {
 		 
 		//会员统计信息获取
 		List<MemberStatistics> MemeberDataList=(List<MemberStatistics>) statisticsService.listMemberStatistics();   
-		System.out.println("会员统计信息数据:"+MemeberDataList.size());
+		//System.out.println("会员统计信息数据:"+MemeberDataList.size());
 		
 		//投资变量数据定义
 		float sum_uncollected=0;//投资成功待收金额
@@ -97,7 +97,7 @@ public class AccountInvestService {
 		  AccountInvestExample accountInvestExample = new AccountInvestExample();     
 		  accountInvestExample.createCriteria().andCreateTimeGreaterThanOrEqualTo(calendar.getTime());
 		  List<AccountInvest> list=accountInvestMapper.selectByExample(accountInvestExample);
-		  System.out.println("在规定时间段内的查询数据:"+list.size()+"-------------------->");
+		//System.out.println("在规定时间段内的查询数据:"+list.size()+"-------------------->");
 		  
 		     if(list!=null&&list.size()>0){
 			  
@@ -131,13 +131,13 @@ public class AccountInvestService {
 	    	cal.set(Calendar.HOUR_OF_DAY, 0);//设置小时
 	    	cal.set(Calendar.MINUTE,0);//设置分钟
 	    	cal.set(Calendar.SECOND,0);//设置秒
-	    	System.out.println("当月的时间为:"+cal.getTime());
+	    	//System.out.println("当月的时间为:"+cal.getTime());
 	    	 
 	        //当月第一条数据
 	    	AccountInvestExample accountInvcestExample=new AccountInvestExample();
 	        accountInvcestExample.createCriteria().andCreateTimeGreaterThanOrEqualTo(cal.getTime());
 	    	List<AccountInvest>  list_Month=accountInvestMapper.selectByExample(accountInvcestExample);
-	        System.out.println("当月第一条数据为:"+list_Month.get(0).getInvestId());
+	        //System.out.println("当月第一条数据为:"+list_Month.get(0).getInvestId());
 	      
 	       if(list_Month.size()>0&&list_Month!=null){
 		       float sum_uncollected_Finally=sum_uncollected-list_Month.get(0).getSumUncollected();
@@ -173,13 +173,13 @@ public class AccountInvestService {
 	    	cal.set(Calendar.SECOND,0);//设置秒
 	    	cal.set(Calendar.MINUTE,0);//设置分
 	    	
-	    	System.out.println("当月的时间为:"+cal.getTime());
+	    	//System.out.println("当月的时间为:"+cal.getTime());
 	    	
 	    	//当年第一条数据
 	    	AccountInvestExample accountInvcestExample=new AccountInvestExample();
 	        accountInvcestExample.createCriteria().andCreateTimeGreaterThanOrEqualTo(cal.getTime());
 	    	List<AccountInvest>  list_Month=accountInvestMapper.selectByExample(accountInvcestExample);
-	        System.out.println("当年第一条数据为:"+list_Month.get(0).getInvestId());
+	       //System.out.println("当年第一条数据为:"+list_Month.get(0).getInvestId());
 	      
 	      if(list_Month.size()>0&&list_Month!=null){
            float sum_uncollected_Finally=sum_uncollected-list_Month.get(0).getSumUncollected();
@@ -206,8 +206,8 @@ public class AccountInvestService {
 		  }
 		}else if("investOther".equals(str)){
     		
-    		System.out.println("开始时间:"+StartTime);
-    		System.out.println("结束时间:"+EndTime);
+    		//System.out.println("开始时间:"+StartTime);
+    		//System.out.println("结束时间:"+EndTime);
     		
     		Calendar calendar_Start=null;//定义开始日历
     		Calendar calendar_End=null;//定义结束日历
@@ -363,8 +363,8 @@ public class AccountInvestService {
 			float sum_interest=0;//借款利息总额
 			float sum_interestfee=0;//借款逾期罚息总额
 			
-			System.out.println("我没问题呐(" + counter++ + ")");
-			System.out.println("我获取的超级管理员ID是:"+ userList.get(0).getUserId());
+			//System.out.println("我没问题呐(" + counter++ + ")");
+			//System.out.println("我获取的超级管理员ID是:"+ userList.get(0).getUserId());
 			
 		    //构建投资对象
 		    AccountInvest accountInvest_add=new AccountInvest();

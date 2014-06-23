@@ -51,7 +51,7 @@ public class AccountInvestController extends AbstractController {
 	@RequestMapping(value="/intoCheckQuery.htm")
 	public Object intoCheckQuery(String investStr,Date StartTime,Date EndTime,HttpSession session){
 		ModelAndView mav=new ModelAndView("account_mgr/accountInvest_mgr/accountInvestQuery");
-		System.out.println("这是 Controler开始时间为:"+StartTime+"  结束时间为:"+EndTime);
+   //System.out.println("这是 Controler开始时间为:"+StartTime+"  结束时间为:"+EndTime);
 		session.setAttribute("investStr", investStr);
 		session.setAttribute("StartTime", StartTime);
 		session.setAttribute("EndTime", EndTime);
@@ -118,7 +118,7 @@ public class AccountInvestController extends AbstractController {
 	        }else{
 	        	list.add(accountInvestDataList);	
 	        }
-	        System.out.println("我是没问题的那 !!我的数据长度是:"+list.size());
+	        //System.out.println("我是没问题的那 !!我的数据长度是:"+list.size());
 	        HSSFWorkbook wb = accountInvestService.export(list);   
 	        response.setContentType("application/vnd.ms-excel"); 
 	        SimpleDateFormat sf=new SimpleDateFormat("yyyyMMddHHmmss");//yyyy-MM-dd HH:mm:ss
