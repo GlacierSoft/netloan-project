@@ -185,7 +185,7 @@ pageContext.setAttribute("basePath",basePath);
 	                <td>( <span style="color:red;cursor: pointer;" onclick="doClick('借款初审审核','/do/borrowingLoan/borrowingLoanFirstAudit.htm');">${borrowingLoanNumFirstAudit}</span>)条</td>
 				</tr>
 				<tr>
-					<td>借款满标审核：</td>
+					<td>满标借款审核：</td>
 					<td>( <span style="color:red; cursor: pointer;" onclick="doClick('借款满标审核','/do/borrowingLoan/borrowingLoanSecAudit.htm');">${borrowingLoanNumSecondAuditor}</span> ) 条</td>
 				</tr>
 			</table>
@@ -210,7 +210,7 @@ pageContext.setAttribute("basePath",basePath);
 				</tr>
 				<tr>
 					<td>会员额度申请(审核中)：</td>
-					<td>( <span style="color:red;cursor: pointer;" onclick="doClick('会员额度申请(审核中)','do/applyAmount/index.htm');">${applyAmountNumAuthstr}</span> ) 条</td>
+					<td>( <span style="color:red;cursor: pointer;" onclick="doClick('会员额度申请(审核中)','/do/applyAmount/index.htm');">${applyAmountNumAuthstr}</span> ) 条</td>
 				</tr>
 				<tr>
 					<td>会员房产申请(审核中)：</td>
