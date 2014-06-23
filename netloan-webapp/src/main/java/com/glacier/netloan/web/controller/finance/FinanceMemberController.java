@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.netloan.dto.query.finance.FinFinanceMemberQueryDTO;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.service.finance.FinanceMemberService;
 
@@ -78,8 +79,8 @@ public class FinanceMemberController extends AbstractController{
     // 获取表格结构的所有会员资金记录数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listMemberAsGridByMenuId(JqPager pager) {
-        return financeMemberService.listAsGrid(pager);
+    private Object listMemberAsGridByMenuId(FinFinanceMemberQueryDTO financeMemberQueryDTO,JqPager pager) {
+        return financeMemberService.listAsGrid(financeMemberQueryDTO,pager);
     }
     
     // 批量删除会员资金记录

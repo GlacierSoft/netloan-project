@@ -18,8 +18,10 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceMemberMapper;
 import com.glacier.netloan.dao.system.UserMapper;
+import com.glacier.netloan.dto.query.finance.FinFinanceMemberQueryDTO;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.finance.FinanceMemberExample;
+import com.glacier.netloan.entity.finance.FinanceMemberExample.Criteria;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.util.MethodLog;
@@ -90,11 +92,14 @@ public class FinanceMemberService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pager) {
+    public Object listAsGrid(FinFinanceMemberQueryDTO financeMemberQueryDTO,JqPager pager) {
 
         JqGridReturn returnResult = new JqGridReturn();
         FinanceMemberExample financeMemberExample = new FinanceMemberExample();
 
+        Criteria queryCriteria = financeMemberExample.createCriteria();
+        financeMemberQueryDTO.setQueryConditions(queryCriteria);
+        
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	financeMemberExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	financeMemberExample.setLimitEnd(pager.getRows());
