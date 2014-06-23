@@ -82,7 +82,7 @@
     temp_member_integral.create_time as temp_member_integral_create_time, temp_member_integral.updater as temp_member_integral_updater, 
     temp_member_integral.update_time as temp_member_integral_update_time
     <!-- 以下字段属于扩展 -->
-    ,temp_member.member_real_name as temp_member_integral_member_realName
+    ,temp_member.member_real_name as temp_member_integral_member_real_name
     ,temp_creater.user_cn_name as temp_member_integral_creater_display
     ,temp_updater.user_cn_name as temp_member_integral_updater_display
   </sql>
