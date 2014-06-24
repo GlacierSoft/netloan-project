@@ -8,7 +8,7 @@
 			<td>信用类型名称：</td> 
 			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
 				<input type="hidden" name="creditTypeId" value="${creditTypeData.creditTypeId}" />
-				<input class="spinner" style="width:150px"  value="${creditTypeData.creditType}" readonly="readonly"/>
+				<input class="spinner" style="width:150px" id="creditType_detail_creditType"  readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
@@ -36,6 +36,6 @@
 	</table>
 </form>
 <script type="text/javascript">
-
+	$('#creditType_detail_creditType').val(renderGridValue('${creditTypeData.creditType}',fields.creditIntegralType));
 	$('#changeType').val(renderGridValue('${creditTypeData.changeType}',fields.changeType));
 </script>
