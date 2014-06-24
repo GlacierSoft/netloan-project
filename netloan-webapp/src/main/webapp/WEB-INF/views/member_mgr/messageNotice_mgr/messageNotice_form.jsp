@@ -8,7 +8,7 @@
 		<tr>
 			<td>发件人：</td>
 			<td colspan="3">
-				<input type="hidden" id="messageNotice_mgr_messageNotice_form_messageNoticeId" name="messageNoticeId" value="${messageNoticeData.messageNoticeId}" />
+				<input type="hidden" id="messageNotice_mgr_messageNotice_form_messageNoticeId" name="messageNoticeId" value="${messageNoticeData.messageNoticeId}"  />
 				<!-- <input id="messageNotice_mgr_messageNotice_form_sender" name="sender" style="width:590px" value="" readonly="readonly"/> -->
 				<shiro:principal property="userCnName"/>
 			</td>
@@ -28,13 +28,13 @@
 		<tr>
 			<td>标题：</td>
 			<td>
-			<input id="messageNotice_mgr_messageNotice_form_title" name="title"  style="width:268px;" value="${messageNoticeData.title}" class="easyui-validatebox spinner"  required="true"  validType="length[1,12]" invalidMessage="标题必须在1到12个字符之间"/>
+			<input id="messageNotice_mgr_messageNotice_form_title" name="title"  style="width:268px;height: 18px" value="${messageNoticeData.title}" class="easyui-validatebox spinner"  required="true"  validType="length[1,12]" invalidMessage="标题必须在1到12个字符之间"/>
 			</td>
 		</tr>
 		<tr>
 			<td>内容：</td>
 			<td>
-				<textarea id="messageNotice_mgr_messageNotice_form_content" name="content" style="width:268px;" class="spinner formta">
+				<textarea id="messageNotice_mgr_messageNotice_form_content" name="content" style="width:268px;overflow:visible;" class="spinner formta">
 					${messageNoticeData.content}
 				</textarea>
 			</td>
@@ -54,7 +54,7 @@
 	//初始化新闻状态下拉框
 	$('#messageNotice_mgr_messageNotice_form_letterstatus').combobox({  
 		valueField : 'value',
-		height:18,
+		height:21,
 		width:268,
 		textField : 'label',
 		panelHeight : 'auto',
@@ -64,7 +64,7 @@
 	});
 	//用于combogrid的客户信息绑定
 	$('#messageNotice_mgr_messageNotice_form_addressee').combogrid({
-		panelWidth:450,
+		panelWidth:450, 
 		fit:true,//控件自动resize占满窗口大小
 		//iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
