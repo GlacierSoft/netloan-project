@@ -9,7 +9,7 @@
 			<td>逾期垫付设置名称：</td> 
 			<td>
 				<input type="hidden" id="overdueAdvances_mgr_overdueAdvances_form_overdueAdvancesId" name="overdueAdvancesId" value="${overdueAdvancesData.overdueAdvancesId}" />
-				<input id="overdueAdvances_mgr_overdueAdvances_form_value" name="overdueAdvancesName" class="spinner formta" value="${overdueAdvancesData.overdueAdvancesName}" style="height:18px;width:300px"/>
+				<input id="overdueAdvances_mgr_overdueAdvances_form_value" name="overdueAdvancesName" class="spinner formta" value="${overdueAdvancesData.overdueAdvancesName}" style="height:16px;width:300px"/>
 			</td>
 		</tr>
 		<tr>

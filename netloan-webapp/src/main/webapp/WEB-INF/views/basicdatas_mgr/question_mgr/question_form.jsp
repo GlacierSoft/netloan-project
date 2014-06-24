@@ -8,7 +8,7 @@
 			<td>密保问题描述：</td>
 			<td>
 				<input type="hidden" name="questionId" value="${questionData.questionId}" />
-				<input name="questionDes" class="easyui-validatebox spinner" style="width:268px" required="true" value="${questionData.questionDes}" validType="customReg['^[\u0391-\uFFE5]{2,10}$']" data-options="missingMessage:'密保描述必须由1-20个中文字符组成'" />
+				<input name="questionDes" class="easyui-validatebox spinner" style="width:268px;height: 16px;" required="true" value="${questionData.questionDes}" validType="customReg['^[\u0391-\uFFE5]{2,10}$']" data-options="missingMessage:'密保描述必须由1-20个中文字符组成'" />
 			</td>
 		</tr>
 		<tr>

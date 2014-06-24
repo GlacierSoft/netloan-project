@@ -112,7 +112,7 @@
 	//点击增加按钮触发方法
 	glacier.system_mgr.role_mgr.role.addRole = function(){
 		glacier.basicAddOrEditDialog({
-			title : '增加角色',
+			title : '【角色管理】- 增加',
 			width : 385,
 			height : 250,
 			queryUrl : ctx + '/do/role/intoForm.htm',
@@ -253,7 +253,7 @@
 			});
 			//显示菜单和操作窗口
 			glacier.system_mgr.role_mgr.role.menuAndActionWin = $('#menuAndActionWin').dialog({ 
-				title:'角色授权',
+				title: '角色授权',
 			    width:650,  
 			    height:430,
 			    resizable:true,
@@ -386,8 +386,10 @@
 				}
 			});
 			//显示菜单和操作窗口
+			var showName = glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid("getSelected").roleCnName;
+			
 			glacier.system_mgr.role_mgr.role.menuAndActionWin = $('#menuAndActionWin').dialog({ 
-				title:'角色授权',
+				title: '为【'+showName+'】角色授权',
 			    width:960,  
 			    height:480,
 			    resizable:true,

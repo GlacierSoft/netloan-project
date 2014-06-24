@@ -103,12 +103,12 @@
 				width:140
 			},{
 				field:'createTime',
-				title:'登入时间',
+				title:'创建时间',
 				sortable:true,
 				width:170
 			},{
 				field:'updaterDisplay',
-				title:'最后修该人',
+				title:'最后修改人',
 				sortable:true,
 				width:140
 			},{

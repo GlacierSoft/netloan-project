@@ -231,8 +231,9 @@
 			]]
 		});
 		//显示分配角色窗口
+		var userName = glacier.system_mgr.user_mgr.user.userDataGrid.datagrid("getSelected").username;
 		glacier.system_mgr.user_mgr.user.userRoleWin = $('#userRoleWin').dialog({ 
-			title:'分配角色',
+			title:'为【'+userName+'】用户分配角色',
 		    width:650,  
 		    height:200,
 		    resizable:true,

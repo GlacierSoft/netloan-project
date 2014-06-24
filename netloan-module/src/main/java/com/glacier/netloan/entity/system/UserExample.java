@@ -263,7 +263,7 @@ public class UserExample {
         }
 
         public Criteria andUsernameLike(String value) {
-            addCriterion("temp_user.username like", value, "username");
+            addCriterion("temp_user.username like ", value, "username");
             return (Criteria) this;
         }
 

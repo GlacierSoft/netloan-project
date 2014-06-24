@@ -8,7 +8,7 @@
 			<td>年龄别称：</td>
 			<td>
 				<input type="hidden" name="ageId" value="${ageData.ageId}" />
-				<input name="ageName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${ageData.ageName}" validType="customReg['^[\u0391-\uFFE5]{2,10}$','<fmt:message key="ParameterAge.ageName.illegal"/>']"/>
+				<input name="ageName" class="easyui-validatebox spinner" style="width:268px;height: 16px;" required="true" value="${ageData.ageName}" validType="customReg['^[\u0391-\uFFE5]{2,10}$','<fmt:message key="ParameterAge.ageName.illegal"/>']"/>
 			</td>
 		</tr>
 		<tr>

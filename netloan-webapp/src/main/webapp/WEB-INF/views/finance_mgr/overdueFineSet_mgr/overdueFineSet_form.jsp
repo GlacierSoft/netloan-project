@@ -67,7 +67,7 @@
 		
 		<tr>
 		    <td>罚款备注：</td>
-			<td><textarea name="remark" style="width:298px;" maxlength="255">${rechargeSetData.remark}</textarea></td>
+			<td><textarea name="remark" style="width:298px;" maxlength="255">${overdueFineSetData.remark}</textarea></td>
 		</tr>
 		 
 	</table>

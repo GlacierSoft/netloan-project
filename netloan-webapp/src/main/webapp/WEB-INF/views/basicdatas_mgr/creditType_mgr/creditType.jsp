@@ -143,7 +143,7 @@
 	glacier.basicdatas_mgr.creditType_mgr.creditType.editCreditType = function(){
 		var row = glacier.basicdatas_mgr.creditType_mgr.creditType.creditTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '【信用类别】 - 编辑('+row.creditType+')',
+			title : '【信用类别】 - 编辑('+renderGridValue(row.creditType,fields.creditIntegralType)+')',
 			width : 440,
 			height : 300,
 			queryUrl : ctx + '/do/creditType/intoForm.htm',

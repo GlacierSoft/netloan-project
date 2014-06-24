@@ -8,12 +8,12 @@
 			<td>基础参数名称：</td>
 			<td>
 				<input type="hidden" name="basicId" value="${parameterBasicData.basicId}" />
-				<input name="basicTitle" class="easyui-validatebox spinner" style="width:268px" required="true" value="${parameterBasicData.basicTitle}" data-options="validType:'code',missingMessage:'请输入基础参数名称'"/>
+				<input name="basicTitle" class="easyui-validatebox spinner" style="width:268px;height: 16px;" required="true" value="${parameterBasicData.basicTitle}" data-options="validType:'code',missingMessage:'请输入基础参数名称'"/>
 			</td>
 		</tr>
 		<tr>
 			<td>基础参数值：</td>
-			<td><input class="easyui-numberspinner spinner" name="basicValue"  value="${parameterBasicData.basicValue}" style="width:268px" required="true" value="${parameterBasicData.basicTitle}" data-options="min:0,max:9999,precision:2,missingMessage:'请输入基础参数值'"></td>
+			<td><input class="easyui-numberspinner spinner" name="basicValue"  value="${parameterBasicData.basicValue}" style="width:268px;height: 18px;" required="true" value="${parameterBasicData.basicTitle}" data-options="min:0,max:9999,precision:2,missingMessage:'请输入基础参数值'"></td>
 		</tr>
 		<tr>
 			<td>备注：</td>

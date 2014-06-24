@@ -241,7 +241,7 @@
 	};
 	
 	//状态下拉项
-	$('#bankCardSearchForm_status').combobox({
+	$('#financePlatformSearchForm_status').combobox({
 		valueField : 'value',
 		//height:18,
 		width : 80,
@@ -269,7 +269,7 @@
 					<td><input name="platformName" style="width: 60px;" class="spinner"/></td>
 					<td>审核状态：</td>
 					<td>
-						<input id="bankCardSearchForm_status" name="status" style="width: 80px;" class="spinner"/>
+						<input id="financePlatformSearchForm_status" name="auditState" style="width: 80px;" class="spinner"/>
 					</td>
 					<td>创建时间：</td>
 					<td>

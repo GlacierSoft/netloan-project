@@ -51,12 +51,12 @@ public class FinanceOverdueFineSetService {
 	        
 	        financeOverdueFineSet.setOverdueFineSetId(RandomGUID.getRandomGUID());
 	        financeOverdueFineSet.setAuditState("authstr");
-	        financeOverdueFineSet.setAuditor(pricipalUser.getUsername());
-	        financeOverdueFineSet.setAuditDate(new Date());
-	        financeOverdueFineSet.setCreater(pricipalUser.getUsername());
+	        /*financeOverdueFineSet.setAuditor(pricipalUser.getUsername());
+	        financeOverdueFineSet.setAuditDate(new Date());*/
+	        financeOverdueFineSet.setCreater(pricipalUser.getUserId());
 	        financeOverdueFineSet.setCreateTime(new Date());
-	        financeOverdueFineSet.setUpdater(pricipalUser.getUserCnName());
-	        financeOverdueFineSet.setUpdateTime(new Date());
+	        /*financeOverdueFineSet.setUpdater(pricipalUser.getUserCnName());
+	        financeOverdueFineSet.setUpdateTime(new Date());*/
 	        
 	        count= financeOverdueFineSetMapper.insert(financeOverdueFineSet);
 	        
@@ -79,6 +79,9 @@ public class FinanceOverdueFineSetService {
 	        int count = 0;
 	        Subject pricipalSubject = SecurityUtils.getSubject();
 	        User pricipalUser = (User) pricipalSubject.getPrincipal();
+	        
+	        financeOverdueFineSet.setUpdater(pricipalUser.getUserId());
+	        financeOverdueFineSet.setUpdateTime(new Date());
 	        
 	        if("disable".equals(financeOverdueFineSet.getMemberPrivilege()))
 	        	financeOverdueFineSet.setVipDays(new Float(0));
@@ -123,9 +126,9 @@ public class FinanceOverdueFineSetService {
 	        int count = 0;
 	        Subject pricipalSubject = SecurityUtils.getSubject();
 	        User pricipalUser = (User) pricipalSubject.getPrincipal();
-	        financeOverdueFineSet.setAuditor(pricipalUser.getUsername());
+	        financeOverdueFineSet.setAuditor(pricipalUser.getUserId());
 	        financeOverdueFineSet.setAuditDate(new Date());
-	        financeOverdueFineSet.setUpdater(pricipalUser.getUsername());
+	        financeOverdueFineSet.setUpdater(pricipalUser.getUserId());
 	        financeOverdueFineSet.setUpdateTime(new Date());
 	        count = financeOverdueFineSetMapper.updateByPrimaryKeySelective(financeOverdueFineSet);
 	        if (count == 1) {
