@@ -41,7 +41,10 @@
 				field:'creditType',
 				title:'信用积分类型',
 				width:120,
-				sortable:true
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如
+					return renderGridValue(value,fields.creditIntegralType);
+				}
 			},{
 				field:'changeType',
 				title:'改变类型',
