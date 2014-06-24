@@ -73,13 +73,13 @@ public class FinanceOverdueAdvancesService {
 	      
 	        financeOverdueAdvances.setOverdueAdvancesId(RandomGUID.getRandomGUID());
 	        financeOverdueAdvances.setOverdueAdvancesName(financeOverdueAdvances.getOverdueAdvancesName());
-	        //financeOverdueAdvances.setAuditor(pricipalUser.getUsername());
-	        //financeOverdueAdvances.setAuditState("authstr");
-	        //financeOverdueAdvances.setAuditDate(new Date());
+	        financeOverdueAdvances.setAuditor(pricipalUser.getUserId());
+	        financeOverdueAdvances.setAuditState("authstr");
+	        financeOverdueAdvances.setAuditDate(new Date());
 	        financeOverdueAdvances.setCreater(pricipalUser.getUserId());
 	        financeOverdueAdvances.setCreateTime(new Date());
-	        /*financeOverdueAdvances.setUpdater(pricipalUser.getUsername());
-	        financeOverdueAdvances.setUpdateTime(new Date());*/
+	        financeOverdueAdvances.setUpdater(pricipalUser.getUserId());
+	        financeOverdueAdvances.setUpdateTime(new Date());
 	        
 	        count = financeOverdueAdvancesMapper.insert(financeOverdueAdvances);
 	        
@@ -126,8 +126,8 @@ public class FinanceOverdueAdvancesService {
 	        User pricipalUser = (User) pricipalSubject.getPrincipal();
 	        financeOverdueAdvances.setAuditor(pricipalUser.getUserId());
 	        financeOverdueAdvances.setAuditDate(new Date());
-	        /*financeOverdueAdvances.setUpdater(pricipalUser.getUsername());
-	        financeOverdueAdvances.setUpdateTime(new Date());*/
+	        financeOverdueAdvances.setUpdater(pricipalUser.getUserId());
+	        financeOverdueAdvances.setUpdateTime(new Date());
 	        count = financeOverdueAdvancesMapper.updateByPrimaryKeySelective(financeOverdueAdvances);
 	        if (count == 1) {
 	            returnResult.setSuccess(true);
