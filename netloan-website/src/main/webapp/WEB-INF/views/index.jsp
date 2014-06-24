@@ -18,7 +18,7 @@
     <!-- Marketing messaging and featurettes ====================== -->
     <div class="container marketing">
     
-	    <!-- Carousel ============================= -->
+	    <!-- Carousel ============================== -->
 	    <div id="myCarousel" class="carousel slide" data-ride="carousel">
 	      <!-- Indicators -->
 	      <ol class="carousel-indicators">
