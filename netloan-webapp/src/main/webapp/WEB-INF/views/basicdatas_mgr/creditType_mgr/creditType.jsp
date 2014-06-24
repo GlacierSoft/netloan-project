@@ -114,7 +114,7 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: "【"+rowData.creditType+"】的信用类别详细信息",
+				title: "【"+renderGridValue(rowData.creditType,fields.creditIntegralType)+"】的信用类别详细信息",
 				href : ctx + '/do/creditType/intoDetail.htm?creditTypeId='+rowData.creditTypeId,//从controller请求jsp页面进行渲染
 				width : 520,
 				height : 290,
@@ -122,6 +122,7 @@
 				enableApplyButton : false,
 				enableSaveButton : false
 			});
+			
 		}
 	});
 	//点击增加按钮触发方法
