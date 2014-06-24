@@ -99,7 +99,7 @@
 			$.easyui.showDialog({
 				title: rowData.loanCode,
 				href : ctx + '/do/accountBorrow/intoDetail.htm?loanId='+rowData.loanId,//从controller请求jsp页面进行渲染
-				width : 750,
+				width : 755,
 				height : 540,
 				resizable: false,
 				enableApplyButton : false,
