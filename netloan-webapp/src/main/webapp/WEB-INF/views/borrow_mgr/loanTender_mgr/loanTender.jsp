@@ -46,12 +46,12 @@
 			},{
 				field:'description',
 				title:'描述',
-				width:120,
+				width:200,
 				sortable:true
 			},{
 				field:'state',
 				title:'状态',
-				width:120,
+				width:60,
 				sortable:true,
 				formatter: function(value,row,index){//数据格式化，例如open显示启用，close显示禁用
 					return renderGridValue(value,fields.state);
@@ -365,7 +365,10 @@
 				},{
 					field:'state',
 					title:'状态',
-					width:120
+					width:50,
+					formatter: function(value,row,index){//数据格式化，例如open显示启用，close显示禁用,不过后台设置了只显示启动的还款方式
+						return renderGridValue(value,fields.state);
+					}
 				},{
 					field:'remark',
 					title:'备注',

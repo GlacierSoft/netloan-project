@@ -235,6 +235,7 @@ public class LoanTenderService {
      */
     public Object getTenderAndRepayment(String loanTenderId) {
     	RepaymentTypeExample repaymentTypeExample =new RepaymentTypeExample();
+    	repaymentTypeExample.createCriteria().andStateEqualTo("open");
     	List<RepaymentType> repaymentTypes = repaymentTypeMapper.selectByExample(repaymentTypeExample);
     	TenderRepaymentExample tenderRepaymentExample = new TenderRepaymentExample();
     	tenderRepaymentExample.createCriteria().andLoanTenderIdEqualTo(loanTenderId);
