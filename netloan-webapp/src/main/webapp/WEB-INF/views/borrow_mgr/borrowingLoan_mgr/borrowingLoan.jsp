@@ -372,7 +372,7 @@
 			$.easyui.showDialog({
 				title:'【'+rowData.loanTitle+'】借款详细信息',
 				href : ctx + '/do/borrowingLoan/intoDetail.htm?loanId='+rowData.loanId,//从controller请求jsp页面进行渲染
-				width : 750,
+				width : 755,
 				height : 540,
 				resizable: false,
 				enableApplyButton : false,

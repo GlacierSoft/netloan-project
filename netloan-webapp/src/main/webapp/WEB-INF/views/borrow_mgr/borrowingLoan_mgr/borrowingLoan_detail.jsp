@@ -153,13 +153,13 @@
 					<td>借款状态：</td>
 					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_loanState" name="loanState" class="spinner" style="width:198px" value="${borrowingLoanData.loanState}" readonly="readonly"/></td>
 					<td>初审审核状态：</td>
-					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_firstAuditState" name="firstAuditState" class="spinner" style="width:198px" value="${borrowingLoanData.firstAuditState}" readonly="readonly"/></td>
+					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_firstAuditState" name="firstAuditState" class="spinner" style="width:225px" value="${borrowingLoanData.firstAuditState}" readonly="readonly"/></td>
 				</tr>
 				<tr>
 					<td>初审审核人：</td>
 					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_firstAuditorDisplay" name="firstAuditorDisplay" class="spinner" style="width:198px" value="${borrowingLoanData.firstAuditorDisplay}" readonly="readonly"/></td>
 					<td>初审审核时间：</td>
-					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_firstAuditDate" name="firstAuditDate" class="spinner" style="width:198px" value="<fmt:formatDate value="${borrowingLoanData.firstAuditDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_firstAuditDate" name="firstAuditDate" class="spinner" style="width:225px" value="<fmt:formatDate value="${borrowingLoanData.firstAuditDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 				</tr>
 				<tr>
 					<td>初审处理意见：</td>
@@ -173,7 +173,7 @@
 					<td>复审审核状态：</td>
 					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_secondAuditState" name="secondAuditState" class="spinner" style="width:198px" value="${borrowingLoanData.secondAuditState}" readonly="readonly"/></td>
 					<td>复审审核人：</td>
-					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_secondAuditorDisplay" name="secondAuditorDisplay" class="spinner" style="width:198px" value="${borrowingLoanData.secondAuditorDisplay}" readonly="readonly"/></td>
+					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_secondAuditorDisplay" name="secondAuditorDisplay" class="spinner" style="width:225px" value="${borrowingLoanData.secondAuditorDisplay}" readonly="readonly"/></td>
 				</tr>
 				<tr>
 					<td>复审审核时间：</td>
