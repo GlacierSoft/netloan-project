@@ -154,8 +154,8 @@ public class MemberStatisticsService {
     }
     
 
-    String[] excelHeader = {"借款总额","累计亏盈","已还总额","待还总额","已收总额","待收总额","已还本金","待还本金","已还利息","待还利息","已收本金","代收本金","已收利息","待收利息","逾期罚款金额","逾期利息总额","借款管理费","借款利息总额","线下冲值奖励"};	      
-    int[] excelHeaderWidth = {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80};  
+    String[] excelHeader = {"会员","借款总额","累计亏盈","已还总额","待还总额","已收总额","待收总额","已还本金","待还本金","已还利息","待还利息","已收本金","代收本金","已收利息","待收利息","逾期罚款金额","逾期利息总额","借款管理费","借款利息总额","线下冲值奖励"};	      
+    int[] excelHeaderWidth = {80,80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80};  
     
     //借款信息导出
     public HSSFWorkbook export(List<MemberStatistics> list) {    
@@ -180,26 +180,27 @@ public class MemberStatisticsService {
         }  
         for (int i = 0; i < list.size(); i++) { 
         	row = sheet.createRow(i + 1);   
-        	MemberStatistics memberStatistics = list.get(i);    
-	        row.createCell(0).setCellValue(memberStatistics.getTotalBorrowings());//借款总额
-	        row.createCell(1).setCellValue(memberStatistics.getCumulativeLossProfit());//累计亏盈 
-	        row.createCell(2).setCellValue(memberStatistics.getAlreadyTotal());//已还总额
-	        row.createCell(3).setCellValue(memberStatistics.getWaitAlsoTotal());//待还总额
-	        row.createCell(4).setCellValue(memberStatistics.getAlreadyIncomeTotal());//已收总额
-	        row.createCell(5).setCellValue(memberStatistics.getWaitIncomeTotal());//待收总额
-	        row.createCell(6).setCellValue(memberStatistics.getAlreadyPrincipal());//已还本金
-	        row.createCell(7).setCellValue(memberStatistics.getWaitAlsoPrincipal());//待还本金
-	        row.createCell(8).setCellValue(memberStatistics.getAlreadyInterest());//已还利息
-	        row.createCell(9).setCellValue(memberStatistics.getWaitAlsoInterest());//待还利息
-	        row.createCell(10).setCellValue(memberStatistics.getAlreadyIncomePrincipal());//已收本金
-	        row.createCell(11).setCellValue(memberStatistics.getWaitIncomePrincipal());//代收本金
-	        row.createCell(12).setCellValue(memberStatistics.getAlreadyIncomeInterest());//已收利息
-	        row.createCell(13).setCellValue(memberStatistics.getWaitIncomePrincipal());//待收利息
-	        row.createCell(14).setCellValue(memberStatistics.getOverdueFineAmount());//逾期罚款金额
-	        row.createCell(15).setCellValue(memberStatistics.getOverdueInterestAmount());//逾期利息总额
-	        row.createCell(16).setCellValue(memberStatistics.getLoanManagementAmount());//借款管理费
-	        row.createCell(17).setCellValue(memberStatistics.getLoanInterestAmount());// 借款利息总额
-	        row.createCell(18).setCellValue(memberStatistics.getUplineDeltaAwards());//线下冲值奖励
+        	MemberStatistics memberStatistics = list.get(i);  
+        	row.createCell(0).setCellValue(memberStatistics.getMemberRealName());
+	        row.createCell(1).setCellValue(memberStatistics.getTotalBorrowings());//借款总额
+	        row.createCell(2).setCellValue(memberStatistics.getCumulativeLossProfit());//累计亏盈 
+	        row.createCell(3).setCellValue(memberStatistics.getAlreadyTotal());//已还总额
+	        row.createCell(4).setCellValue(memberStatistics.getWaitAlsoTotal());//待还总额
+	        row.createCell(5).setCellValue(memberStatistics.getAlreadyIncomeTotal());//已收总额
+	        row.createCell(6).setCellValue(memberStatistics.getWaitIncomeTotal());//待收总额
+	        row.createCell(7).setCellValue(memberStatistics.getAlreadyPrincipal());//已还本金
+	        row.createCell(8).setCellValue(memberStatistics.getWaitAlsoPrincipal());//待还本金
+	        row.createCell(9).setCellValue(memberStatistics.getAlreadyInterest());//已还利息
+	        row.createCell(10).setCellValue(memberStatistics.getWaitAlsoInterest());//待还利息
+	        row.createCell(11).setCellValue(memberStatistics.getAlreadyIncomePrincipal());//已收本金
+	        row.createCell(12).setCellValue(memberStatistics.getWaitIncomePrincipal());//代收本金
+	        row.createCell(13).setCellValue(memberStatistics.getAlreadyIncomeInterest());//已收利息
+	        row.createCell(14).setCellValue(memberStatistics.getWaitIncomePrincipal());//待收利息
+	        row.createCell(15).setCellValue(memberStatistics.getOverdueFineAmount());//逾期罚款金额
+	        row.createCell(16).setCellValue(memberStatistics.getOverdueInterestAmount());//逾期利息总额
+	        row.createCell(17).setCellValue(memberStatistics.getLoanManagementAmount());//借款管理费
+	        row.createCell(18).setCellValue(memberStatistics.getLoanInterestAmount());// 借款利息总额
+	        row.createCell(19).setCellValue(memberStatistics.getUplineDeltaAwards());//线下冲值奖励
 	     }    
         return wb;    
     }     

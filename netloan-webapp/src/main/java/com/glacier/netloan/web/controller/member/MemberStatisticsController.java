@@ -116,6 +116,7 @@ public class MemberStatisticsController extends AbstractController{
         }else{
         	//System.out.println("数据为空,不进入导出区域-------------------->");
         	MemberStatistics memberStatisticsNull=new MemberStatistics();
+        	memberStatisticsNull.setMemberRealName("Null");
         	memberStatisticsNull.setTotalBorrowings(new Float(0.00));
         	memberStatisticsNull.setCumulativeLossProfit(new Float(0.00));
         	memberStatisticsNull.setAlreadyTotal(new Float(0.00));
