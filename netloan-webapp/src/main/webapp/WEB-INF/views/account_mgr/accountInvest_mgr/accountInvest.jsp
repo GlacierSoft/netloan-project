@@ -103,7 +103,7 @@
 		toolbar:'#accountInvestDataGrid_toolbar',
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title:"投标详情",
+				title:"投资统计详细信息",
 				href : ctx + '/do/accountInvest/intoDetail.htm?investId='+rowData.investId,//从controller请求jsp页面进行渲染
 				width : 600,
 				height : 300,

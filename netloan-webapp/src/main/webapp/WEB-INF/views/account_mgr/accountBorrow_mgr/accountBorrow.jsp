@@ -97,7 +97,7 @@
 		toolbar:'#accountBorrowDataGrid_toolbar',
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: rowData.loanCode,
+				title: '【'+rowData.loanTitle+'】借款统计详细信息',
 				href : ctx + '/do/accountBorrow/intoDetail.htm?loanId='+rowData.loanId,//从controller请求jsp页面进行渲染
 				width : 755,
 				height : 540,

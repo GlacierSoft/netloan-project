@@ -116,7 +116,7 @@
 		toolbar:'#accountTenderDataGrid_toolbar',
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title:"投标详情",
+				title:'【'+rowData.loanTitle+'】投标统计详细信息',
 				href : ctx + '/do/accountTender/intoDetail.htm?tenderNotesId='+rowData.tenderNotesId,//从controller请求jsp页面进行渲染
 				width : 600,
 				height : 400,
