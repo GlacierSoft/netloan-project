@@ -4,7 +4,7 @@
 
 <form id="member_mgr_member_form" method="post" style="padding:15px">
 <div title="基本信息" style="padding:15px">
-    	<fieldset id="user_mgr_user_form_userGenfieldset" style="padding:10px;width: 749px" class="spinner">
+    	<fieldset id="user_mgr_user_form_userGenfieldset" style="padding:10px;" class="spinner">
 			<legend>会员定义</legend>  
 			<table  class="detailtable">
 					<tr>
@@ -122,7 +122,7 @@
 		</fieldset>
     </div>
      <div title="工作信息" style="padding:15px">
-    	<fieldset id="user_mgr_user_form_connetGenfieldset" style="padding:10px;width: 749px" class="spinner">
+    	<fieldset id="user_mgr_user_form_connetGenfieldset" style="padding:10px;" class="spinner">
 			<legend>工作信息</legend>  
 				<table  class="detailtable">
 					<tr>
