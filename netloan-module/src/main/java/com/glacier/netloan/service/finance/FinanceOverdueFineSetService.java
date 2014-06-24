@@ -51,12 +51,12 @@ public class FinanceOverdueFineSetService {
 	        
 	        financeOverdueFineSet.setOverdueFineSetId(RandomGUID.getRandomGUID());
 	        financeOverdueFineSet.setAuditState("authstr");
-	        /*financeOverdueFineSet.setAuditor(pricipalUser.getUsername());
-	        financeOverdueFineSet.setAuditDate(new Date());*/
+	        financeOverdueFineSet.setAuditor(pricipalUser.getUserId());
+	        financeOverdueFineSet.setAuditDate(new Date());
 	        financeOverdueFineSet.setCreater(pricipalUser.getUserId());
 	        financeOverdueFineSet.setCreateTime(new Date());
-	        /*financeOverdueFineSet.setUpdater(pricipalUser.getUserCnName());
-	        financeOverdueFineSet.setUpdateTime(new Date());*/
+	        financeOverdueFineSet.setUpdater(pricipalUser.getUserId());
+	        financeOverdueFineSet.setUpdateTime(new Date());
 	        
 	        count= financeOverdueFineSetMapper.insert(financeOverdueFineSet);
 	        
