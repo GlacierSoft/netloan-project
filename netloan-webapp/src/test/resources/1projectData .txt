@@ -83,8 +83,11 @@
   8.还款记录明细表	t_repayment_notes_detail
   9.收款记录表		t_receivables_notes
   10.收款记录明细表	t_receivables_notes_detail
+  11.平台资金记录表
+  12.平台资金记录明细
 
-七、会员进行收款时，
+七、会员进行收款时，(系统根据还款时自动进行收款操作)
+
 
 八、借款超过借款期限，流标时，
 
