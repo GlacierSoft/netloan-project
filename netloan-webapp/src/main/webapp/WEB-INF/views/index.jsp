@@ -63,13 +63,19 @@
 				
 				//主页
 				$("#home").click(function (){
-// 					$("#layout_center_panel").panel("setTitle",'主页');
+					//$("#layout_center_panel").panel("setTitle",'主页');
 					//$('#layout_center_panel').panel('refresh',url);
 					window.location.href = ctx + '/do/index.htm';
 				});
 				
 				editCurrentUserPwd = function(){
-					alert("修改密码");
+					$("#investDailog").dialog({
+						  title:'密码修改',
+						  width: 400,    
+						  href : ctx + '/do/user/ChangePwd.json',//从controller请求jsp页面进行渲染
+						  modal: true,
+					      closed: false   
+					});
 				};
 				
 				checkAuth = function(){
@@ -77,6 +83,43 @@
 				};
 				
 			});
+			
+			   
+          function doSavePwd(){
+				if(Pass_Before_one&&Pass_Center_one&&Pass_After_one){
+		        	$.ajax({
+			        	type:"GET",
+			        	url:ctx+'/do/user/ChangePwdTest.json',
+			        	data:$("#user_mgr_user_change").serialize(),//{username:$("#username").val(), content:$("#content").val()}
+			        	dataType:"json",
+			        	success:function(data){
+			        		$('#investDailog').dialog('close');
+			        		if(data){
+			        			 $.messager.show({
+			        	    			title:'密码修改提示',
+			        	    			msg:'密码修改成功',
+			        	    			timeout:3000,
+			        	    			showType:'show'
+			        	    		});
+			        	     }else{
+			        	    	 $.messager.show({
+			        	    			title:'密码修改提示',
+			        	    			msg:'密码修改失败',
+			        	    			timeout:3000,
+			        	    			showType:'show'
+			        	    		});
+			        	     }
+			        	}
+			         });
+		        }else{
+		        	$.messager.show({
+    	    			title:'密码修改提示',
+    	    			msg:'信息不完善，修改失败',
+    	    			timeout:3000,
+    	    			showType:'show'
+    	    		});
+		        }
+          }
 			
 		</script>
 	</head>
@@ -144,5 +187,19 @@
 				<div id="layout_center_panel" style="OVERFLOW-Y: auto; OVERFLOW-X:hidden; height: 1000px "  class="easyui-panel" title="主页" data-options="fit:true,border:false,region:'center',href:'index/center.htm'" style="padding:5px;overflow: hidden;"></div>
 			</div>
 		</div>
-	</body>
+		
+	<!--自定义对话框  -->
+    <div id="investDailog" class="easyui-dialog"  buttons="#dlg-buttons" closed="true"></div>
+
+    <div id="dlg-buttons">   
+    <table cellpadding="0" cellspacing="0" style="width:100%">   
+        <tr>   
+            <td style="text-align:right">   
+                <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="doSavePwd();">确认</a>   
+                <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#investDailog').dialog('close');">关闭</a>   
+            </td>   
+        </tr>   
+    </table>   
+   </div> 
+  </body>
 </html>

@@ -95,6 +95,27 @@ public class UserService {
         userService.entryptPassword(user);
         System.out.println(user);
     }
+    
+    
+    //获取当前用户名
+    public Object FineUser(){
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+    	return pricipalUser;
+    }
+    
+    
+    //密码自定义
+    public Object ChangePwdTest(String PassAfter){
+    	User user= (User) new UserService().FineUser();
+    	user.setPassword(PassAfter);
+    	int  count=userMapper.updateByPrimaryKeySelective(user);
+    	boolean test=false;
+    	if(count==1){
+    		test=true;
+    	}
+    	return test;
+    }
 
     /**
      * @Title: getUser
@@ -265,4 +286,5 @@ public class UserService {
         }
         return returnResult;
     }
+    
 }
