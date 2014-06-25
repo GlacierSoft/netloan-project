@@ -23,7 +23,7 @@
 			<td><input class="spinner" style="width:168px" value="${accountInvestQueryData.sumFine}" readonly="readonly" /></td>
 			<td>用户邀请好友金额：</td>
 			<td>
-				<input name="sumFine" class="spinner" style="height:18px;width:180px"  value="0.00" readonly="readonly" />
+				<input name="sumFine" class="spinner" style="height:18px;width:168px"  value="0.00" readonly="readonly" />
 			</td>
 		</tr>
 		<tr>
@@ -55,7 +55,7 @@
 			<td><input class="spinner" style="width:168px" value="0.00" readonly="readonly" /></td>
 			<td>用户邀请好友金额：</td>
 			<td>
-				<input name="sumFine" class="spinner" style="height:18px;width:180px" value="0.00" readonly="readonly" />
+				<input name="sumFine" class="spinner" style="height:18px;width:168px" value="0.00" readonly="readonly" />
 			</td>
 		</tr>
 		<tr>
