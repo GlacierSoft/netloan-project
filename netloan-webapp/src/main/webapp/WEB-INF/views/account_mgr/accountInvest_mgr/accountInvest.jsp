@@ -147,7 +147,7 @@
 		    }
 		 }
 		
-		$("#investDailog").dialog({
+		$("#investDailogTest").dialog({
 			  title:investTitle,
 			  width: 650,    
 			  height: 230,
@@ -187,7 +187,7 @@
 	});
 	
     //保存至EXCEL
-	function doSaveInvest(){
+	function doSaveInvestTest(){
 		location.href=ctx+'/do/accountInvest/expCheck.json';	
 	};
 	
@@ -229,14 +229,14 @@
 	</div>
 </div>
 <!--自定义对话款  -->
-<div id="investDailog" class="easyui-dialog"  buttons="#dlg-buttons" closed="true"></div>
+<div id="investDailogTest" class="easyui-dialog"  buttons="#dlg-buttons-invest" closed="true"></div>
 
-<div id="dlg-buttons">   
+<div id="dlg-buttons-invest">   
     <table cellpadding="0" cellspacing="0" style="width:100%">   
         <tr>   
             <td style="text-align:right">   
-                <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="doSaveInvest();">导出</a>   
-                <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#investDailog').dialog('close');">关闭</a>   
+                <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="doSaveInvestTest();">导出</a>   
+                <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#investDailogTest').dialog('close');">关闭</a>   
             </td>   
         </tr>   
     </table>   

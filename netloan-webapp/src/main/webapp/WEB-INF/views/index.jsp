@@ -210,19 +210,5 @@
 				</table>
 			</form>
 		</div>
-		
-	<!--自定义对话框  -->
-    <div id="investDailog" class="easyui-dialog"  buttons="#dlg-buttons" closed="true"></div>
-
-    <div id="dlg-buttons">   
-    <table cellpadding="0" cellspacing="0" style="width:100%">   
-        <tr>   
-            <td style="text-align:right">   
-                <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="doSavePwd();">确认</a>   
-                <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#investDailog').dialog('close');">关闭</a>   
-            </td>   
-        </tr>   
-    </table>   
-   </div> 
-  </body>
+	 </body>
 </html>
