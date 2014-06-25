@@ -27,7 +27,7 @@
 			<td>内容：</td>
 			<td colspan="3">
 				<textarea id="help_mgr_help_form_webHelpContent" name="webHelpContent" style="width:600px;height:280px;">
-					${announcementData.webAnnContent}
+					${helpData.webHelpContent}
 				</textarea>
 			</td>
 		</tr>
