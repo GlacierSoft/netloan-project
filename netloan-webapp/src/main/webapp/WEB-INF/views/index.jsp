@@ -79,7 +79,8 @@
 				};
 				
 				checkAuth = function(){
-					alert("查看权限");
+					
+					
 				};
 				
 			});
