@@ -300,6 +300,10 @@ public class MemberService {
         int creditCount = 0;
         int MessageNoticeCount = 0;
         String memberId = RandomGUID.getRandomGUID();
+        //获取管理员id
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUsernameEqualTo("admin");
+        List<User> users = userMapper.selectByExample(userExample);
         
         //设置membertoken信息
         MemberToken memberToken = new MemberToken();
@@ -313,8 +317,10 @@ public class MemberService {
         
         member.setMemberId(memberId);
         member.setMemberPassword(memberToken.getPassword());
-        member.setCreditIntegral(10f);
-        member.setCreditamount(300f);
+        //
+        member.setCreditIntegral(0f);
+        member.setCreditamount(0f);
+        //
         member.setType("general");
         member.setStatus("enable");
         member.setFirstContactRelation("family");
@@ -324,9 +330,9 @@ public class MemberService {
         member.setRegistrationTime(new Date());
         member.setLastLoginTime(new Date());
         member.setLoginCount(1);
-        member.setCreater(memberId);
+        member.setCreater(users.get(0).getUserId());
         member.setCreateTime(new Date());
-        member.setUpdater(memberId);
+        member.setUpdater(users.get(0).getUserId());
         member.setUpdateTime(new Date());
         count = memberMapper.insert(member);
         
@@ -338,11 +344,7 @@ public class MemberService {
         memberWork.setMemberId(memberId);
         countWork = memberWorkMapper.insert(memberWork);
         
-        //获取管理员id
-        UserExample userExample = new UserExample();
-        userExample.createCriteria().andUsernameEqualTo("admin");
-        List<User> users = userMapper.selectByExample(userExample);
-        
+      
         //生成会员认证表信息
         MemberAuthWithBLOBs memberAuthWithBLOBs = new MemberAuthWithBLOBs();
         memberAuthWithBLOBs.setMemberId(memberId);

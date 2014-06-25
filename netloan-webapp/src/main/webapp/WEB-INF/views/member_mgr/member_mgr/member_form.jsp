@@ -18,7 +18,7 @@
 					</tr>
 					<tr>
 						<td>会员密码：</td>
-						<td><input id="member_mgr_member_form_memberPassword" name="memberPassword" value="${memberData.memberPassword}" class="easyui-validatebox spinner" style="width:268px" required="true" validType="length[6,12]" invalidMessage="密码必须在6到12个字符之间"/></td>
+						<td><input type="password" id="member_mgr_member_form_memberPassword" name="memberPassword" value="${memberData.memberPassword}" class="easyui-validatebox spinner" style="width:268px" required="true" validType="length[6,12]" invalidMessage="密码必须在6到12个字符之间"/></td>
 						<td style="padding-left:10px;">会员年龄：</td>
 						<td><input id="member_mgr_member_form_memberAge" name="memberAge" value="${memberData.memberAge}" class="easyui-numberspinner spinner" data-options="min:0,max:99,required:true,missingMessage:'请填写年龄'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 					</tr>
