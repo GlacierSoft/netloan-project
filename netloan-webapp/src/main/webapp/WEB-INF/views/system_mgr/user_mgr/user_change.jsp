@@ -59,20 +59,20 @@
     $(":input[name=Pass_Center]").blur(function(){
     	   if(!$(":input[name=Pass_Before]").val().trim()){
     		   $("#tr_Pass_Before").css({"display":''});  
-   			   $("#Pass_Before_Span").text("初始密码填写错误!!").css({"color":"red","font-family":"微软雅黑","font-size":"12px"});
+   			   $("#Pass_Before_Span").text("初始密码填写不能为空!!").css({"color":"red","font-family":"微软雅黑","font-size":"12px"});
    			   window.setTimeout( function(){ $("#Pass_Before").focus();}, 0);
     	   }else{
     		   if(!$(":input[name=Pass_Center]").val().trim()){
     			   $("#tr_Pass_Center").css({"display":''});  
        			   $("#Pass_Center_Span").text("填写密码不能为空!!").css({"color":"red","font-family":"微软雅黑","font-size":"12px"});
-       			   window.setTimeout( function(){ $("#Pass_Center").focus();}, 0);
+       			   //window.setTimeout( function(){ $("#Pass_Center").focus();}, 0);
     			}else{
     				$("#tr_Pass_Center").css({"display":'none'});
     				var str=/[a-zA-Z0-9]{6,16}/;//6~16个字符，区分大小写
     				if(!str.test($(":input[name=Pass_Center]").val().trim())){
     					 $("#tr_Pass_Center").css({"display":''});  
-    	       			 $("#Pass_Center_Span").text("填写密码不符合规范!!").css({"color":"red","font-family":"微软雅黑","font-size":"12px"});
-    	       			 window.setTimeout( function(){ $("#Pass_Center").focus();}, 0);
+    	       			 $("#Pass_Center_Span").text("填写密码不符合规范(6~16个字符，区分大小写)!!").css({"color":"red","font-family":"微软雅黑","font-size":"12px"});
+    	       			 //window.setTimeout( function(){ $("#Pass_Center").focus();}, 0);
     				}else{
     					$("#tr_Pass_Center").css({"display":'none'});
     					Pass_Center_one=true;
@@ -80,9 +80,7 @@
     			}
     		   
     	   }
-    	
-    	
-    });
+     });
     
     $(":input[name=Pass_After]").blur(function(){
              if(!$(":input[name=Pass_Before]").val().trim()){
