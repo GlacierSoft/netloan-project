@@ -142,7 +142,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '【客服服务】- 增加',
 			width : 420,
-			height : 340,
+			height : 400,
 			queryUrl : ctx + '/do/service/intoForm.htm',
 			submitUrl : ctx + '/do/service/add.json',
 			successFun : function (){
@@ -157,7 +157,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '【客服服务】- 编辑('+row.webServiceName+')',
 			width : 420,
-			height : 340,
+			height : 400,
 			queryUrl : ctx + '/do/service/intoForm.htm',
 			submitUrl : ctx + '/do/service/edit.json',
 			queryParams : {

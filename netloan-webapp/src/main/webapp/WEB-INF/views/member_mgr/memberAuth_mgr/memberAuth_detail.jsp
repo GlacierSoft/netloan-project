@@ -278,7 +278,7 @@
 	//基本信息认证的
 	$('#infoAuthbtn1').bind('click', function(){    
 		 $.easyui.showDialog({
-				title: '${memberAuthData.memberName}'+"基本信息",
+				title: '【${memberAuthData.memberName}'+"】基本信息",
 				href : ctx + '/do/member/intoDetail.htm?memberId='+'${memberAuthData.memberId}',//从controller请求jsp页面进行渲染
 				width : 645,
 				height : 450,
@@ -291,7 +291,7 @@
 	//工作认证的
 	$('#workAuthbtn1').bind('click', function(){    
 		 $.easyui.showDialog({
-				title: '${memberAuthData.memberName}'+"基本信息",
+				title: '【${memberAuthData.memberName}'+"】基本信息",
 				href : ctx + '/do/member/intoDetail.htm?memberId='+'${memberAuthData.memberId}',//从controller请求jsp页面进行渲染
 				width : 645,
 				height : 450,
@@ -301,8 +301,7 @@
 			});
 	}); 
 	//tab
-	$('#member_mgr_memberAuth_form').tabs({
-		border:false,
+	$('#member_mgr_memberAuth_form').tabs({ 
 		border:true,
 		onSelect:function(){
 			$("div").remove(".validatebox-tip");//解决关闭窗体偶尔出现验证条bug

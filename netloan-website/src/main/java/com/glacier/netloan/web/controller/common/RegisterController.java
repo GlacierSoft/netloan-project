@@ -194,8 +194,8 @@ public class RegisterController extends AbstractController{
         financeMember.setWithdrawMoney(0f);//设置提现总金额
         financeMember.setWithdrawMonthTimes(0f);//设置本月提现总次数
         financeMember.setWithdrawTimes(0f);//设置提现总次数
-        financeMember.setBorrowerCredit(3000f);//设置借款信用额度
-        financeMember.setAvailableCredit(3000f);//设置可用信用额度
+        financeMember.setBorrowerCredit(0f);//设置借款信用额度
+        financeMember.setAvailableCredit(0f);//设置可用信用额度
         financeMemberService.addMember(financeMember);//调用添加会员资金方法，添加会员资金
         //生会员统计记录
         MemberStatistics memberStatistics = new MemberStatistics();
@@ -203,6 +203,19 @@ public class RegisterController extends AbstractController{
         memberStatistics.setTotalBorrowings(0f);//设置借款总额
         memberStatistics.setCumulativeLossProfit(0f);//设置累计亏盈
         memberStatistics.setAlreadyTotal(0f);//设置已还总额
+        memberStatistics.setWaitAlsoTotal(0f);//待还总额 
+        memberStatistics.setAlreadyPrincipal(0f);//已还本金
+        memberStatistics.setWaitAlsoPrincipal(0f);//待还本金
+        memberStatistics.setAlreadyInterest(0f);//已还利息
+        memberStatistics.setWaitAlsoInterest(0f);//待还利息
+        memberStatistics.setAlreadyIncomePrincipal(0f);//已收本金
+        memberStatistics.setWaitIncomePrincipal(0f);//代收本金
+        memberStatistics.setAlreadyIncomeInterest(0f);//已收利息
+        memberStatistics.setWaitIncomeInterest(0f);//代收利息
+        memberStatistics.setOverdueFineAmount(0f);//逾期罚款金额
+        memberStatistics.setOverdueInterestAmount(0f);//逾期利息总额
+        memberStatistics.setLoanManagementAmount(0f);//借款管理费
+        memberStatistics.setLoanInterestAmount(0f);//借款利息总额 
         memberStatistics.setBorrowSuccess(0);//借款成功次数
         memberStatistics.setNormalRepayment(0);//正常还款次数
         memberStatistics.setAdvanceRepayment(0);//提前还款次数

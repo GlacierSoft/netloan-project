@@ -18,10 +18,12 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.basicdatas.ParameterCreditTypeMapper;
+import com.glacier.netloan.dao.finance.FinanceMemberMapper;
 import com.glacier.netloan.dao.member.MemberAuthMapper;
 import com.glacier.netloan.dao.member.MemberCreditIntegralMapper;
 import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.member.MemberMessageNoticeMapper;
+import com.glacier.netloan.dao.member.MemberStatisticsMapper;
 import com.glacier.netloan.dao.member.MemberTokenMapper;
 import com.glacier.netloan.dao.member.MemberWorkMapper;
 import com.glacier.netloan.dao.system.UserMapper;
@@ -84,6 +86,14 @@ public class MemberService {
 	
 	@Autowired
 	private ParameterCreditService parameterCreditService;
+	
+	@Autowired
+	private FinanceMemberMapper financeMemberMapper;
+	
+	@Autowired
+	private MemberStatisticsMapper memberStatisticsMapper;
+	
+	
 	
 	 /**
      * 加密方式

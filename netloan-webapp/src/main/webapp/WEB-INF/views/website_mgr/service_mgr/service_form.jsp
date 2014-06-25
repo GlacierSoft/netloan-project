@@ -24,10 +24,21 @@
 			<td>客服序号：</td>
 			<td><input id="service_mgr_service_form_webServiceNum" name="webServiceNum" class="easyui-numberspinner spinner" value="${serviceData.webServiceNum}" data-options="min:0,max:99,required:true,missingMessage:'请填写客服序号'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr>
-<%-- 		<tr>
+		<tr>
 			<td>客服头像：</td>
-			<td><input id="service_mgr_service_form_webServicePhoto" name="webServicePhoto" class="easyui-validatebox spinner" style="width:268px" required="true" value="${serviceData.webServicePhoto}"/></td>
-		</tr> --%>
+			<td>
+				<input id="url" name="webServicePhoto" class="ke-input-text" type="text" style="width:180px" required="true" value="${serviceData.webServicePhoto}"/>
+				<input type="button" id="uploadButton" value="Upload"/>
+			</td>
+		</tr>
+		 <tr>
+			<td></td>
+			<td>
+			<div id="creditPhotoDiv" style="border: 1px #DDDDDD;">
+				<img id="creditPhotoDivImg"  src="${serviceData.webServicePhoto}" style="width: 34px;height: 24px ;" />
+			</div>
+			</td>
+		</tr>
 		<tr>
 			<td>附件：</td>
 			<td><input id="service_mgr_service_form_accessory" name="accessory" class="easyui-validatebox spinner" style="width:268px" value="${serviceData.accessory}"/></td>
@@ -40,6 +51,33 @@
 </form>
 
 <script type="text/javascript">
+
+	KindEditor.ready(function(K) {
+		var uploadbutton = K.uploadbutton({
+			button : K('#uploadButton')[0],
+			fieldName : 'imgFile',
+			//url : ctx+'/member/uploadFile.htm?dir=image',
+			url : ctx+'/resources/js/kindeditor/jsp/upload_json.jsp?dir=image',
+				//'../php/upload_json.php?dir=file'
+			afterUpload : function(data) {
+				if (data.error === 0) {
+					var url = K.formatUrl(data.url, 'domain');
+					K('#url').val(url);
+					//K('#url').html(url);
+					$("#creditPhotoDivImg").attr("src",url);
+				} else {
+					alert(data.message);
+				}
+			},
+			afterError : function(str) {
+				alert('自定义错误信息: ' + str);
+			}
+		});
+		uploadbutton.fileBox.change(function(e) {
+			uploadbutton.submit();
+		});
+	});
+
 	// 初始化新闻状态下拉框
 	$('#service_mgr_service_form_webServiceStatus').combobox({  
 		valueField : 'value',
