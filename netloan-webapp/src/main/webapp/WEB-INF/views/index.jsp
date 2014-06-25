@@ -68,59 +68,55 @@
 					window.location.href = ctx + '/do/index.htm';
 				});
 				
-				editCurrentUserPwd = function(){
-					$("#investDailog").dialog({
-						  title:'密码修改',
-						  width: 400,    
-						  href : ctx + '/do/user/ChangePwd.json',//从controller请求jsp页面进行渲染
-						  modal: true,
-					      closed: false   
-					});
-				};
-				
 				checkAuth = function(){
 					
-					
 				};
-				
 			});
 			
-			   
-          function doSavePwd(){
-				if(Pass_Before_one&&Pass_Center_one&&Pass_After_one){
-		        	$.ajax({
-			        	type:"GET",
-			        	url:ctx+'/do/user/ChangePwdTest.json',
-			        	data:$("#user_mgr_user_change").serialize(),//{username:$("#username").val(), content:$("#content").val()}
-			        	dataType:"json",
-			        	success:function(data){
-			        		$('#investDailog').dialog('close');
-			        		if(data){
-			        			 $.messager.show({
-			        	    			title:'密码修改提示',
-			        	    			msg:'密码修改成功',
-			        	    			timeout:3000,
-			        	    			showType:'show'
-			        	    		});
-			        	     }else{
-			        	    	 $.messager.show({
-			        	    			title:'密码修改提示',
-			        	    			msg:'密码修改失败',
-			        	    			timeout:3000,
-			        	    			showType:'show'
-			        	    		});
-			        	     }
-			        	}
-			         });
-		        }else{
-		        	$.messager.show({
-    	    			title:'密码修改提示',
-    	    			msg:'信息不完善，修改失败',
-    	    			timeout:3000,
-    	    			showType:'show'
-    	    		});
-		        }
-          }
+			//修改用户密码方法  
+			function userModifyPsd(){
+	      		$('#modifyPsdPanel').show().dialog({
+	      			width : 300,
+	      			height : 220,
+	      			modal : true,
+	      			resizable: false,
+	      			title : '修改密码',
+	      			buttons : [ 
+	      				 {
+	      					text : '保存',
+	      					iconCls : 'icon-ok',
+	      					handler : function() {
+	      						$('#modifyPsdFrom').form('submit', {
+	      							url: ctx + '/do/user/modifyPsd.json',
+	      							dataType:'json',
+	     						   success: function(r){
+	     							   if(r.success){
+	     								   $.messager.show({
+	     										title:'提示',
+	     										timeout:3000,
+	     										msg:r.msg
+	     									});
+	     								  $('#modifyPsdPanel').dialog('close');//密码修改成功后关闭窗口
+	     							   }else{
+	     								   $.messager.show({
+	     										title:'提示',
+	     										timeout:3000,
+	     										msg:r.msg,
+	     										icon:'error'
+	     									});
+	     							   }
+	     						   }
+	      						});
+	      					}
+	      				} , {
+	      					text : '取消',
+	      					iconCls : 'icon-cancel',
+	      					handler : function() {
+	      						$('#modifyPsdPanel').dialog('close');
+	      					}
+	      			}]
+	      		});
+	      	};
 			
 		</script>
 	</head>
@@ -149,7 +145,7 @@
 					<div onclick="changeThemeFun('metro-red');" title="metro-red" data-options="iconCls:'icon_custom_pink'">metro-red</div>
 				</div>
 				<div id="layout_north_kzmbMenu" style="width: 100px; display: none;">
-					<div onclick="editCurrentUserPwd();" data-options="iconCls:'icon-dortmund-drawings'">修改密码</div>
+					<div onclick="userModifyPsd();" data-options="iconCls:'icon-edit'">修改密码</div>
 					<div class="menu-sep"></div>	
 					<div onclick="checkAuth();" data-options="iconCls:'icon-dortmund-customers'">查看权限</div>
 				</div>
@@ -187,6 +183,32 @@
 			<div data-options="region:'center'"  >
 				<div id="layout_center_panel" style="OVERFLOW-Y: auto; OVERFLOW-X:hidden; height: 1000px "  class="easyui-panel" title="主页" data-options="fit:true,border:false,region:'center',href:'index/center.htm'" style="padding:5px;overflow: hidden;"></div>
 			</div>
+		</div>
+		
+		<!--密码修改弹出框  -->
+		<div id="modifyPsdPanel" style="display:none;">
+			<form id="modifyPsdFrom" method="post">
+				<table  cellpadding="3" cellspacing="0" style="padding-top:10px;padding-left:5px;">
+					<tr>
+						<td>原密码：</td>
+						<td>
+							<input name="oldPassword" type="password" class="easyui-validatebox"  required="true" style="width: 150px;"/>
+						</td>
+					</tr>
+					<tr>
+						<td>新密码：</td>
+						<td>
+							<input id="newPassword" name="newPassword" type="password" class="easyui-validatebox"  required="true" style="width: 150px;"/>
+						</td>
+					</tr>
+					<tr>
+						<td>确认新密码：</td>
+						<td>
+							<input  name="cfPsd" type="password" class="easyui-validatebox"  required="true" style="width: 150px;" validType="eqPwd['#newPassword']"/>
+						</td>
+					</tr>
+				</table>
+			</form>
 		</div>
 		
 	<!--自定义对话框  -->

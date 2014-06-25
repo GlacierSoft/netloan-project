@@ -86,23 +86,10 @@ public class UserController extends AbstractController{
 		return userService.delUser(userIds, usernames);
 	}
 	
-	//密码修改详情页
-	@RequestMapping(value="/ChangePwd.json")
-	private Object ChnagePwd(){
-		ModelAndView mav = new ModelAndView("system_mgr/user_mgr/user_change");
-		User user=(User) userService.FineUser();
-		mav.addObject("UserData",user);
-		return mav;
-	}
-	
-	//密码修改
-	@RequestMapping(value="ChangePwdTest.json")
-	@ResponseBody
-	private Object ChangePwdTest(String Pass_After){
-		boolean test=(Boolean) userService.ChangePwdTest(Pass_After);
-		System.out.println("密码修改状态======================>"+test);
-		return test;
-	}
-	
-	
+	//修改用户密码方法
+	@RequestMapping(value = "/modifyPsd.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object modifyPsd(String oldPassword, String newPassword) {
+        return userService.modifyPsd(oldPassword, newPassword);
+    }
 }

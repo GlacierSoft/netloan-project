@@ -32,6 +32,8 @@
   3.会员认证表		t_member_auth
   4.会员资金信息	t_finance_member
   5.会员借款投资统计	t_member_statistics
+  6.会员财务表		t_member_finance(先不用做)
+  7.房产信息表		t_member_estate(先不用做)
 
 
 二、前台进行借款时，
@@ -95,7 +97,9 @@
 
 十、会员进行认证时，
 
-十一、 
+十一、 会员进行充值时，
+
+十二、会员进行提现时，
 
 
 

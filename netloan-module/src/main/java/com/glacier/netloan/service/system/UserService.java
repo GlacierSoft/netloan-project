@@ -19,7 +19,6 @@
  */
 package com.glacier.netloan.service.system;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -41,9 +40,9 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.system.UserQueryDTO;
 import com.glacier.netloan.entity.common.util.CommonBuiltin;
-import com.glacier.netloan.entity.system.UserExample.Criteria;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
+import com.glacier.netloan.entity.system.UserExample.Criteria;
 import com.glacier.netloan.util.MethodLog;
 import com.glacier.security.util.Digests;
 import com.glacier.security.util.Encodes;
@@ -104,17 +103,39 @@ public class UserService {
     	return pricipalUser;
     }
     
-    
-    //密码自定义
-    public Object ChangePwdTest(String PassAfter){
-    	User user= (User) new UserService().FineUser();
-    	user.setPassword(PassAfter);
-    	int  count=userMapper.updateByPrimaryKeySelective(user);
-    	boolean test=false;
-    	if(count==1){
-    		test=true;
-    	}
-    	return test;
+    /**
+     * @Title: modifyPsd 
+     * @Description: TODO(修改用户密码方法) 
+     * @param  @param oldPassword
+     * @param  @param newPassword
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    @Transactional(readOnly = false)
+    public Object modifyPsd(String oldPassword, String newPassword) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        User principalUser = (User) SecurityUtils.getSubject().getPrincipal();// 获取通过认证用户
+        principalUser = userMapper.selectByPrimaryKey(principalUser.getUserId());// 获取通过认证用户最新信息，防止更新出错
+        byte[] salt = Encodes.decodeHex(principalUser.getSalt());// 对盐值进行解密
+        byte[] hashPassword = Digests.sha1(oldPassword.getBytes(), salt, HASH_INTERATIONS);// 对通过输入的密码进行重新加密
+        if (Encodes.encodeHex(hashPassword).equals(principalUser.getPassword())) {// 比较用户输入的密码和原密码是否一致
+            User modifyUser = new User();
+            modifyUser.setUserId(principalUser.getUserId());
+            modifyUser.setPassword(newPassword);
+            this.entryptPassword(modifyUser);
+            int count = userMapper.updateByPrimaryKeySelective(modifyUser);
+            if (count == 1) {
+                returnResult.setMsg("用户密码已修改");
+                returnResult.setSuccess(true);
+            } else {
+                returnResult.setMsg("发生未知错误，用户密码修改失败");
+            }
+
+        } else {
+            returnResult.setMsg("原用户密码错误，请重新修改");
+        }
+        return returnResult;
     }
 
     /**
