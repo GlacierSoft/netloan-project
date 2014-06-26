@@ -44,34 +44,31 @@
 
   更新数据
   1.借款表		t_borrowing_loan		(借款状态、更新时间、更新人、、)
-  2.会员资金信息	t_finance_member		(借款次数、、、、、)
-  3.会员资金记录明细	t_finance_transaction
-  4.会员借款投资统计	t_member_statistics
-  5.会员积分记录表	t_member_integral
-  6.会员信用记录表	t_member_credit_integral
+  2.会员信息通知表
 
-  创建数据
-  1.还款记录表		t_repayment_notes
-  2.还款记录明细表	t_repayment_notes_detail
 
 四、会员进行投资时，
   1.投标记录表		t_tender_notes
   2.会员资金信息	t_finance_member		
   3.会员资金记录明细	t_finance_transaction
+  4.借款表
 
 
 五、借款信息在后台进行复审成功后，
   更新数据
-  1.借款表		t_borrowing_loan
-  2.会员资金信息	t_finance_member		(借款会员，投标会员)
-  3.会员资金记录明细	t_finance_transaction	(借款会员，投标会员)
-  4.会员借款投资统计	t_member_statistics		(借款会员，投标会员)
-  5.会员积分记录表	t_member_integral		(借款会员，投标会员)
-  6.会员信用记录表	t_member_credit_integral(借款会员，投标会员)
+  1.借款表		t_borrowing_loan		(借款状态、更新时间、更新人、、)
+  2.会员资金信息	t_finance_member		(借款会员，投标会员，一共两条数据)
+  3.会员资金记录明细	t_finance_transaction	(借款会员，投标会员，一共两条数据)
+  4.会员借款投资统计	t_member_statistics		(借款会员，投标会员，一共两条数据)
+  5.会员积分记录表	t_member_integral		(借款会员，投标会员，一共两条数据)
   
   创建数据
-  1.收款记录表		t_receivables_notes
-  2.收款记录明细表	t_receivables_notes_detail
+  1.还款记录表		t_repayment_notes
+  2.还款记录明细表	t_repayment_notes_detail
+  3.收款记录表		t_receivables_notes
+  4.收款记录明细表	t_receivables_notes_detail
+  5.会员信息通知表
+  
 
 六、会员进行还款时，
  更新数据
