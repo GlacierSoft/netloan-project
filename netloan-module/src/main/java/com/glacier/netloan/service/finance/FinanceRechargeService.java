@@ -18,18 +18,26 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceMemberMapper;
+import com.glacier.netloan.dao.finance.FinancePlatformMapper;
+import com.glacier.netloan.dao.finance.FinancePlatformTransactionMapper;
 import com.glacier.netloan.dao.finance.FinanceRechargeMapper;
 import com.glacier.netloan.dao.finance.FinanceRechargeSetMapper;
 import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
+import com.glacier.netloan.dao.member.MemberMapper;
+import com.glacier.netloan.dao.member.MemberStatisticsMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.finance.FinRechargeQueryDTO;
 import com.glacier.netloan.entity.finance.FinanceMember;
+import com.glacier.netloan.entity.finance.FinancePlatform;
+import com.glacier.netloan.entity.finance.FinancePlatformExample;
+import com.glacier.netloan.entity.finance.FinancePlatformTransaction;
 import com.glacier.netloan.entity.finance.FinanceRecharge;
 import com.glacier.netloan.entity.finance.FinanceRechargeExample;
 import com.glacier.netloan.entity.finance.FinanceRechargeSet;
 import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.finance.FinanceRechargeExample.Criteria;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.util.MethodLog;
@@ -59,6 +67,18 @@ public class FinanceRechargeService {
 	
 	@Autowired
 	private FinanceMemberMapper financeMemberMapper;
+	
+	@Autowired
+	private MemberMapper memberMapper;
+	
+	@Autowired
+	private FinancePlatformTransactionMapper  financePlatformTransactionMapper;
+	
+	@Autowired
+	private FinancePlatformMapper financePlatformMapper;
+	
+	@Autowired
+	private MemberStatisticsMapper memberStatisticsMapper;
 	
 	/**
 	 * @Title: getRecharge 
@@ -163,17 +183,16 @@ public class FinanceRechargeService {
         		if ("pass".equals(financeRecharge.getAuditState())) {
         			FinanceTransaction financeTransaction = new FinanceTransaction();
         			financeTransaction.setTransactionId(RandomGUID.getRandomGUID());
-        			
-        			//根据充值会员Id找到该会员的会员财务信息记录
+        			 //根据充值会员Id找到该会员的会员财务信息记录
         			FinanceMember financeMember = new FinanceMember();
         			financeMember = financeMemberMapper.selectByMemberId(pricipalMember.getMemberId());
-        			
         			financeTransaction.setFinanceMemberId(financeMember.getFinanceMemberId());
         			financeTransaction.setMemberId(pricipalMember.getMemberId());
         			financeTransaction.setTransactionTarget("系统账号");
         			financeTransaction.setTransactionType("充值");
         			financeTransaction.setEarningMoney(financeRecharge.getArriveMoney());
         			financeTransaction.setUsableMoney(financeMember.getUsableMoney()+financeRecharge.getArriveMoney());//记录的可用金额=原来可用金额+充值的收入金额
+        			financeTransaction.setExpendMoney(0f);//支出金额
         			financeTransaction.setFrozenMoney(financeMember.getFrozenMoney());//冻结金额不变
         			financeTransaction.setCollectingMoney(financeMember.getCollectingMoney());//代收金额不变
         			financeTransaction.setRefundMoney(financeMember.getRefundMoney());//待还金额不变
@@ -184,20 +203,66 @@ public class FinanceRechargeService {
         			financeTransaction.setUpdateTime(new Date());
         			financeTransaction.setUpdater(users.get(0).getUserId());
         			count = financeTransactionMapper.insert(financeTransaction);
-        			if (count == 1) {
+        			    if (count == 1) {
                          //根据生成会员资金明显信息，自动更新会员资金信息
                          financeMember.setAmount(financeMember.getAmount()+financeRecharge.getArriveMoney());//总金额
                          financeMember.setUsableMoney(financeMember.getUsableMoney()+financeRecharge.getArriveMoney());//可用金额
                          financeMember.setRechargeMonthTimes(financeMember.getRechargeMonthTimes()+1);//本月充值次数
                          financeMember.setRechargeTimes(financeMember.getRechargeTimes()+1);//充值总次数
                          financeMember.setRechargeMoney(financeMember.getRechargeMoney()+financeRecharge.getArriveMoney());//充值总金额
+                         financeMember.setUpdaterDisplay(users.get(0).getUserId());//更新人
+                         financeMember.setUpdateTime(new Date());//更新时间
                          count = financeMemberMapper.updateByPrimaryKeySelective(financeMember);
-                         if (count == 1) {
+                          if (count == 1) {
                              returnResult.setSuccess(true);
                          }
                      } else {
                          returnResult.setMsg("发生未知错误，会员充值记录信息保存失败");
                      }
+        			    
+        			     
+        				//增加平台资金记录
+            			//根据会员id取出会员的登陆名
+            			Member member=new Member();
+            			member=memberMapper.selectByPrimaryKey(pricipalMember.getMemberId());
+            		 	//取出默认平台资金的账户总余额 
+            			FinancePlatformExample  financePlatformExample=new FinancePlatformExample();
+            			@SuppressWarnings("unchecked")
+    					List<FinancePlatform>  list=(List<FinancePlatform>)financePlatformExample.createCriteria().andPlatformTypeEqualTo("default");
+            			@SuppressWarnings("unused")
+    					FinancePlatform financePlatDate=list.get(0);  
+            		 	FinancePlatformTransaction  financePlatformTransaction=new FinancePlatformTransaction();
+            		    financePlatformTransaction.setPlatformTransactionId(RandomGUID.getRandomGUID());
+            		    financePlatformTransaction.setFinancePlatformId(financeTransaction.getTransactionId());
+            		    financePlatformTransaction.setTransactionTarget(member.getMemberName());//交易对象
+            		    financePlatformTransaction.setTransactionType("充值");//交易类型
+            		    financePlatformTransaction.setEarningMoney(financeRecharge.getArriveMoney());//收入金额
+            		    financePlatformTransaction.setExpendMoney(0f);//支出金额
+            		    financePlatformTransaction.setAmount(financePlatDate.getPlatformMoney()+financeRecharge.getArriveMoney());//总金额=原来的金额+充值的金额
+            		    financePlatformTransaction.setCreater(users.get(0).getUserId());//创建人
+            		    financePlatformTransaction.setCreateTime(new Date());
+            		    financePlatformTransaction.setUpdater(users.get(0).getUserId());
+            		    financePlatformTransaction.setUpdateTime(new Date());
+            		    
+            		    count=financePlatformTransactionMapper.insert(financePlatformTransaction);//新增平台资金记录
+            		     if (count == 1) {
+            		    	//更新资金平台的数据
+            		    	financePlatDate.setPlatformMoney(financePlatDate.getPlatformMoney()+financeRecharge.getArriveMoney());//资金平台余额=原有金额+充值金额
+            		    	financePlatDate.setUpdater(users.get(0).getUserId());//更新人
+            		    	financePlatDate.setUpdateTime(new Date());//更新时间
+            		    	financePlatformMapper.updateByPrimaryKeySelective(financePlatDate);//更新资金平台数据
+            		    	if (count == 1) {
+                                returnResult.setSuccess(true);
+                            }
+                        } else {
+                            returnResult.setMsg("发生未知错误，会员充值记录信息保存失败");
+                        } 
+            		     //根据充值的会员id，找出会员统计记录
+            		     MemberStatistics memberStatistics=memberStatisticsMapper.selectByPrimaryKey(financeRecharge.getMemberId());
+        			    //更新会员统计信息 
+            		     memberStatistics.setUplineDeltaAwards(0f);//线下充值奖励
+            		     memberStatistics.setUpdateTime(new Date());//统计时间更新
+            		     memberStatisticsMapper.updateByPrimaryKeySelective(memberStatistics);//更新会员统计信息 
         		}
         	}
             returnResult.setSuccess(true);
@@ -206,7 +271,7 @@ public class FinanceRechargeService {
             returnResult.setMsg("发生未知错误，会员充值记录信息保存失败");
         }
         return returnResult;
-    }
+    } 
     
     /**
      * @Title: auditRecharge 

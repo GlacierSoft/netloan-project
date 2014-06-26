@@ -14,8 +14,8 @@ public interface FinancePlatformMapper {
 
     int insert(FinancePlatform record);
 
-    int insertSelective(FinancePlatform record);
-
+    int insertSelective(FinancePlatform record); 
+    
     List<FinancePlatform> selectByExample(FinancePlatformExample example);
 
     FinancePlatform selectByPrimaryKey(String financePlatformId);
