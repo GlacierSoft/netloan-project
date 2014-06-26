@@ -12,6 +12,7 @@
 						<td>初审审核状态：</td>
 						<td><input type="hidden" id="borrowingLoan_mgr_borrowingLoan_firstAudit_loanId" name="loanId" value="${borrowingLoanData.loanId}" />
 							<input type="hidden" id="borrowingLoan_mgr_borrowingLoan_firstAudit_loanCode" name="loanCode" value="${borrowingLoanData.loanCode}"/>
+							<input type="hidden" id="borrowingLoan_mgr_borrowingLoan_firstAudit_memberId" name="memberId" value="${borrowingLoanData.memberId}"/>
 							<input id="borrowingLoan_mgr_borrowingLoan_firstAudit_firstAuditState" name="firstAuditState" type="radio" value="firstSucess" /><span>初审通过</span>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<input id="borrowingLoan_mgr_borrowingLoan_firstAudit_firstAuditState" name="firstAuditState" type="radio" value="firstFailure"  checked="checked"/><span>初审失败</span></td>
@@ -36,7 +37,7 @@
 					<td>借款编号：</td>
 					<td>
 						<input type="hidden" id="borrowingLoan_mgr_borrowingLoan_detail_loanId" name="loanId" value="${borrowingLoanData.loanId}" readonly="readonly"/>
-						<input id="borrowingLoan_mgr_borrowingLoan_detail_loanCode" name="loanCode" class="spinner" style="width:198px" value="${borrowingLoanData.loanCode}" readonly="readonly"/>
+						<input id="borrowingLoan_mgr_borrowingLoan_detail_loanCode" name="loanCode" class="spinner" style="width:198px" value="${borrowingLoanData.loanCode}${borrowingLoanData.loanId}" readonly="readonly"/>
 					</td>
 					<td>借款人：</td>
 					<td>
@@ -93,7 +94,9 @@
 				</tr>
 				<tr>
 					<td>借款总额：</td>
-					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_loanTotal" name="loanTotal" class="spinner" style="width:198px" value="${borrowingLoanData.loanTotal}" readonly="readonly"/></td>
+					<td>
+						<input id="borrowingLoan_mgr_borrowingLoan_detail_loanTotal" name="loanTotal" class="spinner" style="width:198px" value="${borrowingLoanData.loanTotal}" readonly="readonly"/>
+					</td>
 					<td>年利率：</td>
 					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_loanApr" name="loanApr" class="spinner" style="width:198px" value="${borrowingLoanData.loanApr}" readonly="readonly"/></td>
 				</tr>

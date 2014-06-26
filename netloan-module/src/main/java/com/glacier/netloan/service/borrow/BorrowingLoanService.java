@@ -24,11 +24,17 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.basicdatas.ParameterIntegralTypeMapper;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.TenderNotesMapper;
+import com.glacier.netloan.dao.member.MemberIntegralMapper;
+import com.glacier.netloan.dao.member.MemberMapper;
+import com.glacier.netloan.dao.member.MemberStatisticsMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
+import com.glacier.netloan.entity.basicdatas.ParameterIntegralType;
+import com.glacier.netloan.entity.basicdatas.ParameterIntegralTypeExample;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.BorrowingLoanExample;
 import com.glacier.netloan.entity.borrow.BorrowingLoanExample.Criteria;
@@ -40,7 +46,10 @@ import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.entity.borrow.TenderNotesExample;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.finance.FinanceTransaction;
+import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.entity.member.MemberIntegral;
 import com.glacier.netloan.entity.member.MemberMessageNotice;
+import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
@@ -62,9 +71,21 @@ public class BorrowingLoanService {
 
 	@Autowired
     private BorrowingLoanMapper borrowingLoanMapper;
+	
+	@Autowired
+	private MemberStatisticsMapper memberStatisticsMapper;
+	
+	@Autowired
+	private ParameterIntegralTypeMapper integralTypeMapper;
+	
+	@Autowired
+	private MemberIntegralMapper integralMapper; 
 
 	@Autowired
     private UserMapper userMapper;
+	
+	@Autowired
+	private MemberMapper memberMapper;
 	
 	@Autowired
 	private ParameterCreditService parameterCreditService;
@@ -406,8 +427,56 @@ public class BorrowingLoanService {
         if ("firstSucess".equals(borrowingLoan.getFirstAuditState())) {//初审通过，借款状态改为招标中
         	borrowingLoan.setLoanState("tendering");
         }
+        
+        //1.借款表		t_borrowing_loan
         count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);
+        
+        
+        
+        
         if (count == 1) {
+            //4.会员借款投资统计	t_member_statistics
+        	//根据会员ID查找会员统计的信息
+        	MemberStatistics m=memberStatisticsMapper.selectByMemberId(borrowingLoan.getMemberId());
+        	//根据借款的ID查找借款的信息
+        	BorrowingLoan borrowings=borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());
+        	//把借钱的总额和统计的总额相加
+        	m.setTotalBorrowings(m.getTotalBorrowings()+borrowings.getLoanTotal());
+        	m.setBorrowSuccess(m.getBorrowSuccess()+1);
+        	m.setCreateTime(new Date());
+        	
+        	//修改统计会员信息
+        	memberStatisticsMapper.updateByPrimaryKeySelective(m);
+        	
+        	//先查询出borrow的积分类型
+        	//parameterIntegralTypeMapper
+        	ParameterIntegralTypeExample integralTypeExample = new ParameterIntegralTypeExample();
+        	integralTypeExample.createCriteria().andIntegralTypeEqualTo("borrow");
+        	List<ParameterIntegralType> integralTypes = integralTypeMapper.selectByExample(integralTypeExample);
+        	ParameterIntegralType integralType = integralTypes.get(0);
+        	
+        	//构建一个积分对象
+        	MemberIntegral menberIntegral=new MemberIntegral();
+        	menberIntegral.setMemberIntegralId(RandomGUID.getRandomGUID());
+        	menberIntegral.setMemberId(borrowingLoan.getMemberId());
+        	menberIntegral.setType(integralType.getIntegralType());
+        	menberIntegral.setChangeType(integralType.getChangeType());
+        	menberIntegral.setChangeValue(integralType.getChangeValue());
+        	menberIntegral.setRemark(integralType.getRemark());
+        	menberIntegral.setCreater(pricipalUser.getUserId());
+        	menberIntegral.setCreateTime(new Date());
+        	
+        	//添加积分记录
+        	integralMapper.insert(menberIntegral);
+        	
+            //5.会员积分记录表	t_member_integral
+        	//根据会员ID取出会员信息
+        	Member ms=memberMapper.selectByPrimaryKey(borrowingLoan.getMemberId());
+        	ms.setIntegral(ms.getIntegral()+integralType.getChangeValue());
+        	
+        	//修改会员信息
+        	memberMapper.updateByPrimaryKeySelective(ms);
+        	
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + borrowingLoan.getLoanCode() + "] 初审借款信息成功");
         } else {
