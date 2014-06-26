@@ -16,7 +16,12 @@
     <result column="temp_finance_platform_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_finance_platform_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_finance_platform_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-	<result column="temp_finance_platform_auditor_display" property="auditorDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_finance_platform_opening_bank" property="openingBank" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_card_name" property="cardName" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_subbranch" property="subbranch" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_card_number" property="cardNumber" jdbcType="VARCHAR" />
+    <result column="temp_finance_platform_platform_type" property="platformType" jdbcType="CHAR" />
+    <result column="temp_finance_platform_auditor_display" property="auditorDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
     <result column="temp_finance_platform_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
     <result column="temp_finance_platform_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
   </resultMap>
@@ -86,8 +91,11 @@
     temp_finance_platform.auditor as temp_finance_platform_auditor, temp_finance_platform.audit_date as temp_finance_platform_audit_date, 
     temp_finance_platform.audit_remark as temp_finance_platform_audit_remark, temp_finance_platform.remark as temp_finance_platform_remark, 
     temp_finance_platform.creater as temp_finance_platform_creater, temp_finance_platform.create_time as temp_finance_platform_create_time, 
-    temp_finance_platform.updater as temp_finance_platform_updater, temp_finance_platform.update_time as temp_finance_platform_update_time
-	<!-- 以下字段属于扩展 -->
+    temp_finance_platform.updater as temp_finance_platform_updater, temp_finance_platform.update_time as temp_finance_platform_update_time, 
+    temp_finance_platform.opening_bank as temp_finance_platform_opening_bank, temp_finance_platform.card_name as temp_finance_platform_card_name, 
+    temp_finance_platform.subbranch as temp_finance_platform_subbranch, temp_finance_platform.card_number as temp_finance_platform_card_number, 
+    temp_finance_platform.platform_type as temp_finance_platform_platform_type
+  	<!-- 以下字段属于扩展 -->
     ,temp_auditor.user_cn_name as temp_finance_platform_auditor_display
     ,temp_creater.user_cn_name as temp_finance_platform_creater_display
     ,temp_updater.user_cn_name as temp_finance_platform_updater_display
@@ -104,7 +112,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_finance_platform temp_finance_platform
-	<include refid="Base_extend" />
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -119,7 +127,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_finance_platform temp_finance_platform
-	<include refid="Base_extend" />
+    <include refid="Base_extend" />
     where temp_finance_platform.finance_platform_id = #{financePlatformId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -127,7 +135,7 @@
     where finance_platform_id = #{financePlatformId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.finance.FinancePlatformExample" >
-    delete temp_finance_platform from t_finance_platform temp_finance_platform
+    delete from t_finance_platform temp_finance_platform
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -137,14 +145,16 @@
       platform_name, platform_account, platform_money, 
       audit_state, auditor, audit_date, 
       audit_remark, remark, creater, 
-      create_time, updater, update_time
-      )
+      create_time, updater, update_time, 
+      opening_bank, card_name, subbranch, 
+      card_number, platform_type)
     values (#{financePlatformId,jdbcType=VARCHAR}, #{platformCode,jdbcType=VARCHAR}, 
       #{platformName,jdbcType=VARCHAR}, #{platformAccount,jdbcType=VARCHAR}, #{platformMoney,jdbcType=REAL}, 
       #{auditState,jdbcType=CHAR}, #{auditor,jdbcType=VARCHAR}, #{auditDate,jdbcType=TIMESTAMP}, 
       #{auditRemark,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{openingBank,jdbcType=VARCHAR}, #{cardName,jdbcType=VARCHAR}, #{subbranch,jdbcType=VARCHAR}, 
+      #{cardNumber,jdbcType=VARCHAR}, #{platformType,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.finance.FinancePlatform" >
     insert into t_finance_platform
@@ -191,6 +201,21 @@
       <if test="updateTime != null" >
         update_time,
       </if>
+      <if test="openingBank != null" >
+        opening_bank,
+      </if>
+      <if test="cardName != null" >
+        card_name,
+      </if>
+      <if test="subbranch != null" >
+        subbranch,
+      </if>
+      <if test="cardNumber != null" >
+        card_number,
+      </if>
+      <if test="platformType != null" >
+        platform_type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="financePlatformId != null" >
@@ -235,11 +260,26 @@
       <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="openingBank != null" >
+        #{openingBank,jdbcType=VARCHAR},
+      </if>
+      <if test="cardName != null" >
+        #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="subbranch != null" >
+        #{subbranch,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNumber != null" >
+        #{cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="platformType != null" >
+        #{platformType,jdbcType=CHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.finance.FinancePlatformExample" resultType="java.lang.Integer" >
     select count(*) from t_finance_platform temp_finance_platform
-	<include refid="Base_extend" />
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -289,6 +329,21 @@
       <if test="record.updateTime != null" >
         temp_finance_platform.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.openingBank != null" >
+        temp_finance_platform.opening_bank = #{record.openingBank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardName != null" >
+        temp_finance_platform.card_name = #{record.cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subbranch != null" >
+        temp_finance_platform.subbranch = #{record.subbranch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardNumber != null" >
+        temp_finance_platform.card_number = #{record.cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.platformType != null" >
+        temp_finance_platform.platform_type = #{record.platformType,jdbcType=CHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -309,7 +364,12 @@
       temp_finance_platform.creater = #{record.creater,jdbcType=VARCHAR},
       temp_finance_platform.create_time = #{record.createTime,jdbcType=TIMESTAMP},
       temp_finance_platform.updater = #{record.updater,jdbcType=VARCHAR},
-      temp_finance_platform.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+      temp_finance_platform.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      temp_finance_platform.opening_bank = #{record.openingBank,jdbcType=VARCHAR},
+      temp_finance_platform.card_name = #{record.cardName,jdbcType=VARCHAR},
+      temp_finance_platform.subbranch = #{record.subbranch,jdbcType=VARCHAR},
+      temp_finance_platform.card_number = #{record.cardNumber,jdbcType=VARCHAR},
+      temp_finance_platform.platform_type = #{record.platformType,jdbcType=CHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -356,6 +416,21 @@
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="openingBank != null" >
+        opening_bank = #{openingBank,jdbcType=VARCHAR},
+      </if>
+      <if test="cardName != null" >
+        card_name = #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="subbranch != null" >
+        subbranch = #{subbranch,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNumber != null" >
+        card_number = #{cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="platformType != null" >
+        platform_type = #{platformType,jdbcType=CHAR},
+      </if>
     </set>
     where finance_platform_id = #{financePlatformId,jdbcType=VARCHAR}
   </update>
@@ -373,7 +448,12 @@
       creater = #{creater,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       updater = #{updater,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      opening_bank = #{openingBank,jdbcType=VARCHAR},
+      card_name = #{cardName,jdbcType=VARCHAR},
+      subbranch = #{subbranch,jdbcType=VARCHAR},
+      card_number = #{cardNumber,jdbcType=VARCHAR},
+      platform_type = #{platformType,jdbcType=CHAR}
     where finance_platform_id = #{financePlatformId,jdbcType=VARCHAR}
   </update>
 </mapper>

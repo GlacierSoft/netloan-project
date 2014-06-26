@@ -54,6 +54,29 @@
 				width:200,
 				sortable:true
 			},{
+				field:'openingBank',
+				title:'开户行',
+				width:200,
+				sortable:true
+			},{
+				field:'cardName',
+				title:'银行卡名称',
+				width:200,
+				sortable:true
+			},{
+				field:'cardNumber',
+				title:'银行卡号',
+				width:200,
+				sortable:true
+			},{
+				field:'platformType',
+				title:'资金平台类型',
+				width:120,
+				sortable:true,
+				formatter: function(value,row,index){
+					return renderGridValue(value,fields.platformType);
+				}
+			},{
 				field:'platformMoney',
 				title:'余额',
 				width:120,

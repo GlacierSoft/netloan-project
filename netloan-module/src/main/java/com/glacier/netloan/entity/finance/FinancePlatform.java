@@ -17,9 +17,19 @@ public class FinancePlatform {
 
     private String auditState;
 
-    private String auditor;
+    private String auditor; 
 
-    /**
+    private String openingBank;
+
+    private String cardName;
+
+    private String subbranch;
+
+    private String cardNumber;
+
+    private String platformType;
+
+	    /**
      * 自定义字段，审核人的真实姓名
      */
     private String auditorDisplay;
@@ -50,7 +60,7 @@ public class FinancePlatform {
     
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
-
+	
     public String getFinancePlatformId() {
         return financePlatformId;
     }
@@ -122,7 +132,7 @@ public class FinancePlatform {
     public void setAuditRemark(String auditRemark) {
         this.auditRemark = auditRemark;
     }
-    
+
     public String getRemark() {
         return remark;
     }
@@ -163,26 +173,65 @@ public class FinancePlatform {
         this.updateTime = updateTime;
     }
 
-    public String getAuditorDisplay() {
-		return auditorDisplay;
-	}
+    public String getOpeningBank() {
+        return openingBank;
+    }
 
+    public void setOpeningBank(String openingBank) {
+        this.openingBank = openingBank;
+    }
+
+    public String getCardName() {
+        return cardName;
+    }
+
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
+    }
+
+    public String getSubbranch() {
+        return subbranch;
+    }
+
+    public void setSubbranch(String subbranch) {
+        this.subbranch = subbranch;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getPlatformType() {
+        return platformType;
+    }
+
+    public void setPlatformType(String platformType) {
+        this.platformType = platformType;
+    }
+ 
+	public String getAuditorDisplay() {
+		return auditorDisplay;
+	} 
 	public void setAuditorDisplay(String auditorDisplay) {
 		this.auditorDisplay = auditorDisplay;
 	}
-
+ 
 	public String getCreaterDisplay() {
 		return createrDisplay;
 	}
-
+ 
 	public void setCreaterDisplay(String createrDisplay) {
 		this.createrDisplay = createrDisplay;
 	}
-
+ 
 	public String getUpdaterDisplay() {
 		return updaterDisplay;
 	}
-
+ 
 	public void setUpdaterDisplay(String updaterDisplay) {
 		this.updaterDisplay = updaterDisplay;
 	}
@@ -212,7 +261,12 @@ public class FinancePlatform {
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdater() == null ? other.getUpdater() == null : this.getUpdater().equals(other.getUpdater()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+            && (this.getOpeningBank() == null ? other.getOpeningBank() == null : this.getOpeningBank().equals(other.getOpeningBank()))
+            && (this.getCardName() == null ? other.getCardName() == null : this.getCardName().equals(other.getCardName()))
+            && (this.getSubbranch() == null ? other.getSubbranch() == null : this.getSubbranch().equals(other.getSubbranch()))
+            && (this.getCardNumber() == null ? other.getCardNumber() == null : this.getCardNumber().equals(other.getCardNumber()))
+            && (this.getPlatformType() == null ? other.getPlatformType() == null : this.getPlatformType().equals(other.getPlatformType()));
     }
 
     @Override
@@ -233,6 +287,11 @@ public class FinancePlatform {
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdater() == null) ? 0 : getUpdater().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
+        result = prime * result + ((getOpeningBank() == null) ? 0 : getOpeningBank().hashCode());
+        result = prime * result + ((getCardName() == null) ? 0 : getCardName().hashCode());
+        result = prime * result + ((getSubbranch() == null) ? 0 : getSubbranch().hashCode());
+        result = prime * result + ((getCardNumber() == null) ? 0 : getCardNumber().hashCode());
+        result = prime * result + ((getPlatformType() == null) ? 0 : getPlatformType().hashCode());
         return result;
     }
 }

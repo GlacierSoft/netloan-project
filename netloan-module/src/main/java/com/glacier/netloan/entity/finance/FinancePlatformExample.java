@@ -103,14 +103,14 @@ public class FinancePlatformExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
-
-        //自定义查询方法
+		
+		 //自定义查询方法
         public Criteria andPlatformNamelike(String value) {
             addCriterion("temp_finance_platform.platform_name like", value, "platformName");
             return (Criteria) this;
         }
         
-        
+
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -1069,6 +1069,356 @@ public class FinancePlatformExample {
 
         public Criteria andUpdateTimeNotBetween(Date value1, Date value2) {
             addCriterion("temp_finance_platform.update_time not between", value1, value2, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpeningBankIsNull() {
+            addCriterion("temp_finance_platform.opening_bank is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpeningBankIsNotNull() {
+            addCriterion("temp_finance_platform.opening_bank is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpeningBankEqualTo(String value) {
+            addCriterion("temp_finance_platform.opening_bank =", value, "openingBank");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpeningBankNotEqualTo(String value) {
+            addCriterion("temp_finance_platform.opening_bank <>", value, "openingBank");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpeningBankGreaterThan(String value) {
+            addCriterion("temp_finance_platform.opening_bank >", value, "openingBank");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpeningBankGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform.opening_bank >=", value, "openingBank");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpeningBankLessThan(String value) {
+            addCriterion("temp_finance_platform.opening_bank <", value, "openingBank");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpeningBankLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform.opening_bank <=", value, "openingBank");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpeningBankLike(String value) {
+            addCriterion("temp_finance_platform.opening_bank like", value, "openingBank");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpeningBankNotLike(String value) {
+            addCriterion("temp_finance_platform.opening_bank not like", value, "openingBank");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpeningBankIn(List<String> values) {
+            addCriterion("temp_finance_platform.opening_bank in", values, "openingBank");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpeningBankNotIn(List<String> values) {
+            addCriterion("temp_finance_platform.opening_bank not in", values, "openingBank");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpeningBankBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform.opening_bank between", value1, value2, "openingBank");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpeningBankNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform.opening_bank not between", value1, value2, "openingBank");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameIsNull() {
+            addCriterion("temp_finance_platform.card_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameIsNotNull() {
+            addCriterion("temp_finance_platform.card_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameEqualTo(String value) {
+            addCriterion("temp_finance_platform.card_name =", value, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameNotEqualTo(String value) {
+            addCriterion("temp_finance_platform.card_name <>", value, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameGreaterThan(String value) {
+            addCriterion("temp_finance_platform.card_name >", value, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform.card_name >=", value, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameLessThan(String value) {
+            addCriterion("temp_finance_platform.card_name <", value, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform.card_name <=", value, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameLike(String value) {
+            addCriterion("temp_finance_platform.card_name like", value, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameNotLike(String value) {
+            addCriterion("temp_finance_platform.card_name not like", value, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameIn(List<String> values) {
+            addCriterion("temp_finance_platform.card_name in", values, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameNotIn(List<String> values) {
+            addCriterion("temp_finance_platform.card_name not in", values, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform.card_name between", value1, value2, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform.card_name not between", value1, value2, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubbranchIsNull() {
+            addCriterion("temp_finance_platform.subbranch is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubbranchIsNotNull() {
+            addCriterion("temp_finance_platform.subbranch is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubbranchEqualTo(String value) {
+            addCriterion("temp_finance_platform.subbranch =", value, "subbranch");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubbranchNotEqualTo(String value) {
+            addCriterion("temp_finance_platform.subbranch <>", value, "subbranch");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubbranchGreaterThan(String value) {
+            addCriterion("temp_finance_platform.subbranch >", value, "subbranch");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubbranchGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform.subbranch >=", value, "subbranch");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubbranchLessThan(String value) {
+            addCriterion("temp_finance_platform.subbranch <", value, "subbranch");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubbranchLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform.subbranch <=", value, "subbranch");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubbranchLike(String value) {
+            addCriterion("temp_finance_platform.subbranch like", value, "subbranch");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubbranchNotLike(String value) {
+            addCriterion("temp_finance_platform.subbranch not like", value, "subbranch");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubbranchIn(List<String> values) {
+            addCriterion("temp_finance_platform.subbranch in", values, "subbranch");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubbranchNotIn(List<String> values) {
+            addCriterion("temp_finance_platform.subbranch not in", values, "subbranch");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubbranchBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform.subbranch between", value1, value2, "subbranch");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubbranchNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform.subbranch not between", value1, value2, "subbranch");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNumberIsNull() {
+            addCriterion("temp_finance_platform.card_number is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNumberIsNotNull() {
+            addCriterion("temp_finance_platform.card_number is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNumberEqualTo(String value) {
+            addCriterion("temp_finance_platform.card_number =", value, "cardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNumberNotEqualTo(String value) {
+            addCriterion("temp_finance_platform.card_number <>", value, "cardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNumberGreaterThan(String value) {
+            addCriterion("temp_finance_platform.card_number >", value, "cardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNumberGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform.card_number >=", value, "cardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNumberLessThan(String value) {
+            addCriterion("temp_finance_platform.card_number <", value, "cardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNumberLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform.card_number <=", value, "cardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNumberLike(String value) {
+            addCriterion("temp_finance_platform.card_number like", value, "cardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNumberNotLike(String value) {
+            addCriterion("temp_finance_platform.card_number not like", value, "cardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNumberIn(List<String> values) {
+            addCriterion("temp_finance_platform.card_number in", values, "cardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNumberNotIn(List<String> values) {
+            addCriterion("temp_finance_platform.card_number not in", values, "cardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNumberBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform.card_number between", value1, value2, "cardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNumberNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform.card_number not between", value1, value2, "cardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeIsNull() {
+            addCriterion("temp_finance_platform.platform_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeIsNotNull() {
+            addCriterion("temp_finance_platform.platform_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeEqualTo(String value) {
+            addCriterion("temp_finance_platform.platform_type =", value, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeNotEqualTo(String value) {
+            addCriterion("temp_finance_platform.platform_type <>", value, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeGreaterThan(String value) {
+            addCriterion("temp_finance_platform.platform_type >", value, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform.platform_type >=", value, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeLessThan(String value) {
+            addCriterion("temp_finance_platform.platform_type <", value, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeLessThanOrEqualTo(String value) {
+            addCriterion("temp_finance_platform.platform_type <=", value, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeLike(String value) {
+            addCriterion("temp_finance_platform.platform_type like", value, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeNotLike(String value) {
+            addCriterion("temp_finance_platform.platform_type not like", value, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeIn(List<String> values) {
+            addCriterion("temp_finance_platform.platform_type in", values, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeNotIn(List<String> values) {
+            addCriterion("temp_finance_platform.platform_type not in", values, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform.platform_type between", value1, value2, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeNotBetween(String value1, String value2) {
+            addCriterion("temp_finance_platform.platform_type not between", value1, value2, "platformType");
             return (Criteria) this;
         }
     }
