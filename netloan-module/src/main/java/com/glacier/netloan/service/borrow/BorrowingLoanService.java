@@ -26,6 +26,7 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.basicdatas.ParameterIntegralTypeMapper;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
+import com.glacier.netloan.dao.borrow.LoanTenderMapper;
 import com.glacier.netloan.dao.borrow.TenderNotesMapper;
 import com.glacier.netloan.dao.finance.FinanceMemberMapper;
 import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
@@ -40,6 +41,7 @@ import com.glacier.netloan.entity.basicdatas.ParameterIntegralTypeExample;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.BorrowingLoanExample;
 import com.glacier.netloan.entity.borrow.BorrowingLoanExample.Criteria;
+import com.glacier.netloan.entity.borrow.LoanTender;
 import com.glacier.netloan.entity.borrow.ReceivablesNotes;
 import com.glacier.netloan.entity.borrow.ReceivablesNotesDetail;
 import com.glacier.netloan.entity.borrow.RepaymentNotes;
@@ -121,6 +123,9 @@ public class BorrowingLoanService {
 	
 	@Autowired
 	private TenderNotesMapper tenderNotesMapper;
+	
+	@Autowired
+    private LoanTenderMapper loanTenderMapper;
 	
 	/**
 	 * @Title: getBorrowingLoan 
@@ -277,6 +282,21 @@ public class BorrowingLoanService {
         // 赋值于借款记录的借款编号
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
         borrowingLoan.setLoanCode("借款"+ "_" + dateFormat.format(new Date()));
+        
+        //根据借款选取的标种类型查找出该标种的信息记录
+        LoanTender loanTender = new LoanTender();
+        loanTender = loanTenderMapper.selectByPrimaryKey(borrowingLoan.getLoanTenderId());
+        //判断是否开启认购模式
+        //如果是开启认购模式，就必须初始化一些认购字段
+        //赋值认购总份数等
+        if(loanTender.getSubscriptionState().equals("open")) {
+            borrowingLoan.setSubTotal(borrowingLoan.getLoanTotal()/borrowingLoan.getLowestSub());//认购总份数=借款总额/最小认购单位(元)
+            borrowingLoan.setAlrSubSum((float) 0);//已认购份数
+            borrowingLoan.setAlrTenderPro((float) 0);//已完成投标比例
+            borrowingLoan.setTenderSum((float) 0);//投标数量
+        }else {
+            borrowingLoan.setSubTotal((float) 0);//如果关闭认购模式，认购总分数初始化为0
+        }
         
         if (!"".equals(borrowingLoan.getBidProReward()) && null != borrowingLoan.getBidProReward()) {// 投标金额比例奖励转换为百分比格式
             borrowingLoan.setBidProReward(borrowingLoan.getBidProReward()/100);

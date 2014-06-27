@@ -159,21 +159,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</select>
 						</td>
 					  </tr>
-<!-- 					  <tr> -->
-<!-- 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最小认购单位：</td> -->
-<!-- 					    <td class="col-md-6"> -->
-<!-- 					    <select name="lowestSub" id="lowestSub" class="sel_140"> -->
-<!-- 						    <option value="100">100元</option> -->
-<!-- 						    <option value="200">200元</option> -->
-<!-- 						    <option value="500">500元</option> -->
-<!-- 						    <option value="1000">1000元</option> -->
-<!-- 						</select> -->
-<!-- 					    </td> -->
-<!-- 					  </tr> -->
-<!-- 					  <tr> -->
-<!-- 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>投标数量：</td> -->
-<!-- 					    <td class="col-md-6"><input type="text" name="tenderSum"  class="inp280" /></td> -->
-<!-- 					  </tr> -->
+					  <tr>
+					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最小认购单位：</td>
+					    <td class="col-md-6">
+					    	<input type="text" name="lowestSub" class="inp280" />
+						</td>
+					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>筹标期限：</td>
 					    <td class="col-md-6">
