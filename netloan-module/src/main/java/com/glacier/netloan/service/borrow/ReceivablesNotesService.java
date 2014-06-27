@@ -20,12 +20,19 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.basicdatas.ParameterIntegralTypeMapper;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.ReceivablesNotesDetailMapper;
 import com.glacier.netloan.dao.borrow.ReceivablesNotesMapper;
 import com.glacier.netloan.dao.borrow.TenderNotesMapper;
+import com.glacier.netloan.dao.finance.FinanceMemberMapper;
+import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
+import com.glacier.netloan.dao.member.MemberIntegralMapper;
+import com.glacier.netloan.dao.member.MemberStatisticsMapper;
 import com.glacier.netloan.dto.query.borrow.ReceivablesNotesQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
+import com.glacier.netloan.entity.basicdatas.ParameterIntegralType;
+import com.glacier.netloan.entity.basicdatas.ParameterIntegralTypeExample;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.ReceivablesNotes;
 import com.glacier.netloan.entity.borrow.ReceivablesNotesDetail;
@@ -36,6 +43,8 @@ import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.entity.borrow.TenderNotesExample;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.finance.FinanceTransaction;
+import com.glacier.netloan.entity.member.MemberIntegral;
+import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
 import com.glacier.netloan.service.finance.FinanceMemberService;
@@ -59,10 +68,25 @@ public class ReceivablesNotesService {
 	private BorrowingLoanMapper borrowingLoanMapper;
 	
 	@Autowired
+	private FinanceTransactionMapper transactionMapper; 
+	
+	@Autowired
+	private MemberStatisticsMapper memberStatisticsMapper;
+	
+	@Autowired
+	private FinanceMemberMapper financeMemberMapper;
+	
+	@Autowired
 	private TenderNotesMapper tenderNotesMapper;
 	
 	@Autowired
 	private ReceivablesNotesDetailMapper receivablesNotesDetailMapper;
+	
+	@Autowired
+	private ParameterIntegralTypeMapper integralTypeMapper;
+	
+	@Autowired
+	private MemberIntegralMapper integralMapper; 
 	
 	@Autowired
 	private ParameterCreditService parameterCreditService;
@@ -439,15 +463,96 @@ public class ReceivablesNotesService {
               	financeMemberThaw.setFrozenMoney(financeMemberThaw.getFrozenMoney()-borrowingLoanNew.getLowestSub()*tenderNotes.getSubSum());//设置冻结金额
               	financeMemberService.editMember(financeMemberThaw);
         	}
+        	//给收款记录对象赋值//增加字段2014-6-27
         	receivablesNotes.setAlrOverdueInterest(0f);
-        	receivablesNotes.setAlrReceMoney(0f);//设置已收本息
         	receivablesNotes.setReceState("receiving");//设置收款记录的状态为收款中，”未收“？
     		receivablesNotes.setReceNotesId(RandomGUID.getRandomGUID());
             receivablesNotes.setCreater(pricipalUser.getUserId());
+            receivablesNotes.setReceivablesTotal(receivablesNotes.getReceivablesTotal()+shouldReceMoney);
+            receivablesNotes.setShouldReceMoney(shouldReceMoney);//设置应收本息
+            receivablesNotes.setAlrReceMoney(0f);//设置已收本息
+            receivablesNotes.setNotReceMoney(shouldReceMoney);//设置未收本息
+            receivablesNotes.setShouldRecePrincipal(tenderNotes.getTenderMoney());//设置投资人应收本金
+            receivablesNotes.setAlrRecePrincipal(0f);//设置已收本金
+            receivablesNotes.setNotRecePrincipal(tenderNotes.getTenderMoney());//设置未收本金
+            receivablesNotes.setShouldReceInterest(shouldReceMoney-tenderNotes.getTenderMoney());//本息减去本金得到利息
+            receivablesNotes.setAlrReceInterest(0f);//设置已收利息
+            receivablesNotes.setNotReceInterest(shouldReceMoney-tenderNotes.getTenderMoney());//设置未收利息
             receivablesNotes.setCreateTime(new Date());
             receivablesNotes.setUpdater(pricipalUser.getUserId());
             receivablesNotes.setUpdateTime(new Date());
             count = receivablesNotesMapper.insert(receivablesNotes);
+            if (count == 1) {
+            	//WT写于2014-6-27
+            	//查出投资人和会员资金和会员资金记录信息
+            	//根据会员ID取出会员资金的信息
+            	FinanceMember financeMembers=financeMemberMapper.selectByMemberId(tenderNotes.getMemberId());
+            	
+            	//根据收款人ID取出会员统计信息
+            	MemberStatistics memberStatistics=memberStatisticsMapper.selectByMemberId(receivablesNotes.getMemberId());
+            	//增加投资人的资金记录明细
+            	//创建资金记录明细对象
+            	float moneynum=0;//默认投资人的为0
+            	FinanceTransaction transactionss = new FinanceTransaction();
+            	transactionss.setTransactionId(RandomGUID.getRandomGUID());
+            	transactionss.setFinanceMemberId(financeMembers.getFinanceMemberId());//设置会员资金ID
+            	transactionss.setMemberId(tenderNotes.getMemberId());//设置会员名称
+            	transactionss.setTransactionTarget(borrowingLoan.getMemberDisplay());//设置交易人名称
+            	transactionss.setTransactionType("借款出复审");//设置交易类型
+            	transactionss.setEarningMoney(moneynum);//设置投资人默认收入金额为0
+            	transactionss.setExpendMoney(borrowingLoan.getLoanTotal());//设置投资人支出投资金额
+            	transactionss.setUsableMoney(financeMembers.getUsableMoney());//设置投资人的可用余额
+            	transactionss.setFrozenMoney(financeMembers.getFrozenMoney()-borrowingLoan.getLoanTotal());//设置投资人的冻结金额
+            	transactionss.setCollectingMoney(financeMembers.getCollectingMoney());//设置投资人的代收金额
+            	transactionss.setRefundMoney(financeMembers.getRechargeMoney());//设置投资人的代还金额
+            	transactionss.setAmount(financeMembers.getAmount()-borrowingLoan.getLoanTotal());//设置投资人的总金额
+            	transactionss.setRemark("借款["+borrowingLoan.getLoanTitle()+"]复审通过,借款成功筹到资金["+borrowingLoan.getLoanTotal()+"]元");//设置投资人的会员资金记录的备注
+            	transactionss.setCreater(pricipalUser.getUserId());
+            	transactionss.setCreateTime(new Date());
+            	transactionss.setUpdater(pricipalUser.getUserId());
+            	transactionss.setUpdateTime(new Date());
+            	//添加投资人资金记录明细数据
+            	transactionMapper.insert(transactionss);
+            	
+            	//更新投资人的资金信息
+            	financeMembers.setFrozenMoney(financeMembers.getFrozenMoney()-borrowingLoan.getLoanTotal());//设置投资人的冻结资金
+            	financeMembers.setAmount(financeMembers.getAmount()-borrowingLoan.getLoanTotal());//设置投资人的总金额
+            	financeMembers.setCollectingMoney(financeMembers.getCollectingMoney()+receivablesNotes.getShouldReceMoney());//设置投资人的代收金额
+            	
+            	//更新投资人的资金信息
+            	financeMemberMapper.updateByPrimaryKeySelective(financeMembers);
+            	
+            	//更新统计会员的信息
+            	memberStatistics.setWaitAlsoTotal(memberStatistics.getWaitAlsoTotal()+receivablesNotes.getReceivablesTotal());//设置投资人会员统计的代收总额
+            	memberStatistics.setWaitAlsoInterest(memberStatistics.getWaitAlsoInterest()+receivablesNotes.getShouldReceMoney());//设置投资人会员统计的本息
+            	memberStatistics.setWaitIncomePrincipal(memberStatistics.getWaitIncomePrincipal()+borrowingLoan.getLoanTotal());//设置投资人会员统计的应收本金
+            	memberStatistics.setWaitIncomeInterest(memberStatistics.getWaitIncomeInterest()+(receivablesNotes.getShouldReceMoney()-borrowingLoan.getLoanTotal()));//设置投资人会员统计的应收利息(原本利息+(本息减去借款总金额))
+            	memberStatistics.setCreateTime(new Date());
+            	
+            	//更新投资人会员统计操作
+            	memberStatisticsMapper.updateByPrimaryKeySelective(memberStatistics);
+            	
+            	//增加投资人的投资积分
+            	//先查询出invest的积分类型
+            	ParameterIntegralTypeExample integralTypeExample = new ParameterIntegralTypeExample();
+            	integralTypeExample.createCriteria().andIntegralTypeEqualTo("invest");
+            	List<ParameterIntegralType> integralTypes = integralTypeMapper.selectByExample(integralTypeExample);
+            	ParameterIntegralType integralType = integralTypes.get(0);
+            	
+            	//构建一个积分对象
+            	MemberIntegral menberIntegral=new MemberIntegral();
+            	menberIntegral.setMemberIntegralId(RandomGUID.getRandomGUID());
+            	menberIntegral.setMemberId(receivablesNotes.getMemberId());//收款人的ID
+            	menberIntegral.setType(integralType.getIntegralType());
+            	menberIntegral.setChangeType(integralType.getChangeType());
+            	menberIntegral.setChangeValue(integralType.getChangeValue());
+            	menberIntegral.setRemark(integralType.getRemark());
+            	menberIntegral.setCreater(pricipalUser.getUserId());
+            	menberIntegral.setCreateTime(new Date());
+            	
+            	//添加积分记录
+            	integralMapper.insert(menberIntegral);
+            }
         }
         if (count == 1) {
             returnResult.setSuccess(true);

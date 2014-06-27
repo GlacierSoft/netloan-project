@@ -17,11 +17,13 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.RepaymentNotesMapper;
+import com.glacier.netloan.dao.finance.FinanceMemberMapper;
 import com.glacier.netloan.dto.query.borrow.RepaymentNotesQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.RepaymentNotesExample.Criteria;
 import com.glacier.netloan.entity.borrow.RepaymentNotes;
 import com.glacier.netloan.entity.borrow.RepaymentNotesExample;
+import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -40,6 +42,10 @@ public class RepaymentNotesService {
 	
 	@Autowired
 	private BorrowingLoanMapper borrowingLoanMapper;
+	
+	@Autowired
+	private FinanceMemberMapper financeMemberMapper;
+	
 	
 	/**
 	 * @Title: getRepaymentNotes 
@@ -150,9 +156,17 @@ public class RepaymentNotesService {
 			float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/12);
 			shouldPayMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + borrowingLoanNew.getLoanTotal();
 		}
-		repaymentNotes.setShouldPayMoney(shouldPayMoney);//设置应还本息
+		//还款记录对象赋值//2014-6-27增加字段
 		repaymentNotes.setRepaymentTotal(shouldPayMoney);//设置还款总金额
+		repaymentNotes.setShouldPayPrincipal(borrowingLoanNew.getLoanTotal());//设置应还本金
+		repaymentNotes.setAlrPayPrincipal(0f);//设置已还本金
+		repaymentNotes.setNotPayPrincipal(borrowingLoanNew.getLoanTotal());//设置未还本金
+		repaymentNotes.setShouldPayMoney(shouldPayMoney);//设置应还本息
+		repaymentNotes.setAlrPayMoney(0f);//设置已还本息
 		repaymentNotes.setNotPayMoney(shouldPayMoney);//设置未还本息
+		repaymentNotes.setShouldPayInterest(shouldPayMoney-borrowingLoanNew.getLoanTotal());//设置应还利息
+		repaymentNotes.setAlrPayInterest(0f);//设置已还利息
+		repaymentNotes.setNotPayInterest(shouldPayMoney-borrowingLoanNew.getLoanTotal());//设置未还利息
 		repaymentNotes.setLoanId(borrowingLoanNew.getLoanId());//设置借款id
 		repaymentNotes.setMemberId(borrowingLoanNew.getMemberId());//设置还款人id
         repaymentNotes.setRepayNotesId(RandomGUID.getRandomGUID());
@@ -167,6 +181,18 @@ public class RepaymentNotesService {
         repaymentNotes.setUpdateTime(new Date());
         count = repaymentNotesMapper.insert(repaymentNotes);
         if (count == 1) {
+        	//更新借款人的会员资金
+        	//根据还款人的ID取出还款人的会员资金信息
+        	FinanceMember financeMember = financeMemberMapper.selectByMemberId(repaymentNotes.getMemberId());
+        	//根据根据还款记录中的借款ID查询出借款的信息
+        	BorrowingLoan borrowingLoan = borrowingLoanMapper.selectByPrimaryKey(repaymentNotes.getLoanId());
+        	//更新可用余额、代还金额（加上利息）、总金额
+        	financeMember.setAmount(financeMember.getAmount()+borrowingLoan.getLoanTotal());//更新总金额(原本总金额+借款总额)
+        	financeMember.setUsableMoney(financeMember.getUsableMoney()+borrowingLoan.getLoanTotal());//更新可用余额(原本可用余额+借款总额)
+        	financeMember.setRefundMoney(financeMember.getRefundMoney()+shouldPayMoney);//更新待还金额(原本待还金额+本息)
+        	
+        	financeMemberMapper.updateByPrimaryKey(financeMember);
+        	
             returnResult.setSuccess(true);
             returnResult.setObj(repaymentNotes);
             returnResult.setMsg(" 还款记录信息已保存");

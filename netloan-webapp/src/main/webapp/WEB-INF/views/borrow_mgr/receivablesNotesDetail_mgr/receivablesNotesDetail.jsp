@@ -49,12 +49,12 @@
 				sortable:true
 			},{
 				field:'shouldReceDate',
-				title:'应还日期',
+				title:'应收日期',
 				width:200,
 				sortable:true
 			},{
 				field:'actualReceDate',
-				title:'实还日期',
+				title:'实收日期',
 				width:200,
 				sortable:true
 			},{
