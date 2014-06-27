@@ -2,6 +2,8 @@ package com.glacier.netloan.entity.finance;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class FinancePlatformTransaction {
     private String platformTransactionId;
 
@@ -13,6 +15,8 @@ public class FinancePlatformTransaction {
     private String financePlatformDisplay;
     
     private String createrDisplay;
+    
+    private String updaterDisplay;
 
     private String transactionTarget;
 
@@ -28,10 +32,12 @@ public class FinancePlatformTransaction {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getPlatformTransactionId() {
@@ -89,8 +95,16 @@ public class FinancePlatformTransaction {
     public void setExpendMoney(Float expendMoney) {
         this.expendMoney = expendMoney;
     }
+ 
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+ 
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
 
-    public Float getAmount() {
+	public Float getAmount() {
         return amount;
     }
 

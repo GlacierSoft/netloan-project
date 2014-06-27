@@ -57,7 +57,7 @@
 				sortable:true
 			},{
 				field:'amount',
-				title:'总金额',
+				title:'平台资金总金额',
 				width:120,
 				sortable:true
 			},{

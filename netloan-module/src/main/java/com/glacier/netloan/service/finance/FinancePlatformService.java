@@ -99,11 +99,13 @@ public class FinancePlatformService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
        
+        
         financePlatform.setFinancePlatformId(RandomGUID.getRandomGUID());
         financePlatform.setCreater(pricipalUser.getUserId());
         financePlatform.setCreateTime(new Date());
         financePlatform.setUpdater(pricipalUser.getUserId());
         financePlatform.setUpdateTime(new Date());
+        financePlatform.setPlatformType("external");//所以新增的资金平台类型都默认为外置账户
         count = financePlatformMapper.insert(financePlatform);
         if (count == 1) {
             returnResult.setSuccess(true);
@@ -139,6 +141,51 @@ public class FinancePlatformService {
             returnResult.setMsg("发生未知错误，平台资金记录信息修改失败");
         }
         return returnResult;
+    }
+    
+    /**
+     * @Title: updatelatform 
+     * @Description: TODO(修改平台资金类型) 
+     * @param @param financePlatform
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "PlatformList_update")
+   public  Object updatePlatform(FinancePlatform financePlatform){  
+    	
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal(); 
+        //取出默认的资金平台，进行更改
+        FinancePlatformExample  financePlatformExample=new FinancePlatformExample();
+        financePlatformExample.createCriteria().andPlatformTypeEqualTo("default");
+        List<FinancePlatform> financePlatforms = financePlatformMapper.selectByExample(financePlatformExample);
+	    FinancePlatform financePlatDate=financePlatforms.get(0); 
+	    if(financePlatDate.getFinancePlatformId().equals(financePlatform.getFinancePlatformId())){
+	    	 returnResult.setMsg("改账户已经为默认账户！"); 
+	    }else{ 
+	    	
+		    financePlatDate.setPlatformType("external");//更改为外置账户
+	        financePlatDate.setUpdater(pricipalUser.getUserId());
+	        financePlatDate.setUpdateTime(new Date());
+	        financePlatformMapper.updateByPrimaryKeySelective(financePlatDate);//更改以前为默认账户的账号
+	        //根据前台传递来的参数，取出对象
+	        FinancePlatform financeInfo=financePlatformMapper.selectByPrimaryKey(financePlatform.getFinancePlatformId());
+	        financeInfo.setPlatformType("default");//更改为内置账户
+	        financeInfo.setUpdater(pricipalUser.getUserId());
+	        financeInfo.setUpdateTime(new Date());
+	        count = financePlatformMapper.updateByPrimaryKeySelective(financeInfo);
+	        if (count == 1) {
+	            returnResult.setSuccess(true);
+	            returnResult.setMsg("设置默认账户成功！");
+	        } else {
+	            returnResult.setMsg("发生未知错误，平台资金记录信息修改失败");
+	        }
+	    } 
+        return returnResult;  
     }
     
     /**

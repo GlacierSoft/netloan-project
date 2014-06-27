@@ -35,11 +35,6 @@
 				width:120,
 				sortable:true
 			},{
-				field:'bankCardDisplay',
-				title:'银行卡名称',
-				width:120,
-				sortable:true
-			},{
 				field:'usableMoney',
 				title:'可用余额',
 				width:120,
@@ -162,7 +157,7 @@
 				title: '【'+rowData.memberDisplay+'】会员资金详细信息',
 				href : ctx + '/do/financeMember/intoDetail.htm?financeMemberId='+rowData.financeMemberId,//从controller请求jsp页面进行渲染
 				width : 620,
-				height : 455,
+				height : 405,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

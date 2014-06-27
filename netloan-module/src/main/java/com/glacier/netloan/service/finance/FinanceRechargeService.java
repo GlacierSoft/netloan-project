@@ -38,6 +38,7 @@ import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.finance.FinanceRechargeExample.Criteria;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberStatistics;
+import com.glacier.netloan.entity.member.MemberStatisticsExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.util.MethodLog;
@@ -79,7 +80,7 @@ public class FinanceRechargeService {
 	
 	@Autowired
 	private MemberStatisticsMapper memberStatisticsMapper;
-	
+	 
 	/**
 	 * @Title: getRecharge 
 	 * @Description: TODO(根据会员充值记录Id获取会员充值记录信息) 
@@ -133,11 +134,9 @@ public class FinanceRechargeService {
      */
     @Transactional(readOnly = false)
     public Object addRecharge(FinanceRecharge financeRecharge) {
-    	
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
   		Member pricipalMember = (Member) pricipalSubject.getPrincipal();
-  		
   		UserExample userExample = new UserExample();
   		userExample.createCriteria().andUsernameEqualTo("admin");
   		List<User> users = userMapper.selectByExample(userExample);
@@ -146,8 +145,7 @@ public class FinanceRechargeService {
         // 赋值于充值记录的充值流水号
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
         financeRecharge.setRechargeCode("充值"+ "_" + dateFormat.format(new Date()));
-        financeRecharge.setAuditState("authstr");
-        
+        financeRecharge.setAuditState("authstr"); 
         // 获取该充值设置的取费方式进行计算该充值的费率和手续费
         FinanceRechargeSet rechargeSet = new FinanceRechargeSet();
         rechargeSet = financeRechargeSetMapper.selectByPrimaryKey(financeRecharge.getFinanceRechargeSetId());
@@ -218,22 +216,20 @@ public class FinanceRechargeService {
                          }
                      } else {
                          returnResult.setMsg("发生未知错误，会员充值记录信息保存失败");
-                     }
-        			    
-        			     
+                     } 
         				//增加平台资金记录
             			//根据会员id取出会员的登陆名
             			Member member=new Member();
             			member=memberMapper.selectByPrimaryKey(pricipalMember.getMemberId());
-            		 	//取出默认平台资金的账户总余额 
-            			FinancePlatformExample  financePlatformExample=new FinancePlatformExample();
-            			@SuppressWarnings("unchecked")
-    					List<FinancePlatform>  list=(List<FinancePlatform>)financePlatformExample.createCriteria().andPlatformTypeEqualTo("default");
-            			@SuppressWarnings("unused")
-    					FinancePlatform financePlatDate=list.get(0);  
-            		 	FinancePlatformTransaction  financePlatformTransaction=new FinancePlatformTransaction();
-            		    financePlatformTransaction.setPlatformTransactionId(RandomGUID.getRandomGUID());
-            		    financePlatformTransaction.setFinancePlatformId(financeTransaction.getTransactionId());
+            			//取出默认平台资金的账户总余额 
+            		    FinancePlatformExample  financePlatformExample=new FinancePlatformExample();
+            		    financePlatformExample.createCriteria().andPlatformTypeEqualTo("default");
+            		    List<FinancePlatform> financePlatforms = financePlatformMapper.selectByExample(financePlatformExample);
+            		    FinancePlatform financePlatDate=financePlatforms.get(0); 
+            			//新增资金平台记录
+            			FinancePlatformTransaction  financePlatformTransaction=new FinancePlatformTransaction();
+            		    financePlatformTransaction.setPlatformTransactionId(RandomGUID.getRandomGUID());  //id
+            		    financePlatformTransaction.setFinancePlatformId(financePlatDate.getFinancePlatformId());//资金平台id
             		    financePlatformTransaction.setTransactionTarget(member.getMemberName());//交易对象
             		    financePlatformTransaction.setTransactionType("充值");//交易类型
             		    financePlatformTransaction.setEarningMoney(financeRecharge.getArriveMoney());//收入金额
@@ -243,8 +239,7 @@ public class FinanceRechargeService {
             		    financePlatformTransaction.setCreateTime(new Date());
             		    financePlatformTransaction.setUpdater(users.get(0).getUserId());
             		    financePlatformTransaction.setUpdateTime(new Date());
-            		    
-            		    count=financePlatformTransactionMapper.insert(financePlatformTransaction);//新增平台资金记录
+            		    count=financePlatformTransactionMapper.insertSelective(financePlatformTransaction);//新增平台资金记录
             		     if (count == 1) {
             		    	//更新资金平台的数据
             		    	financePlatDate.setPlatformMoney(financePlatDate.getPlatformMoney()+financeRecharge.getArriveMoney());//资金平台余额=原有金额+充值金额
@@ -256,13 +251,16 @@ public class FinanceRechargeService {
                             }
                         } else {
                             returnResult.setMsg("发生未知错误，会员充值记录信息保存失败");
-                        } 
-            		     //根据充值的会员id，找出会员统计记录
-            		     MemberStatistics memberStatistics=memberStatisticsMapper.selectByPrimaryKey(financeRecharge.getMemberId());
-        			    //更新会员统计信息 
-            		     memberStatistics.setUplineDeltaAwards(0f);//线下充值奖励
-            		     memberStatistics.setUpdateTime(new Date());//统计时间更新
-            		     memberStatisticsMapper.updateByPrimaryKeySelective(memberStatistics);//更新会员统计信息 
+                        }    
+            		 	//取出默认平台资金的账户总余额 
+            		     MemberStatisticsExample  memberStatisticsExample=new MemberStatisticsExample();
+            		     memberStatisticsExample.createCriteria().andMemberIdEqualTo(financeRecharge.getMemberId());
+             		     List<MemberStatistics> memberStatistics = memberStatisticsMapper.selectByExample(memberStatisticsExample);
+             		     MemberStatistics memberStatistic=memberStatistics.get(0);
+             		     //更新会员统计信息 
+        			     memberStatistic.setUplineDeltaAwards(0f);//线下充值奖励
+        			     memberStatistic.setUpdateTime(new Date());//统计时间更新 
+            		     memberStatisticsMapper.updateByPrimaryKey(memberStatistic);
         		}
         	}
             returnResult.setSuccess(true);

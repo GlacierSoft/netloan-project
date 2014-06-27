@@ -112,6 +112,15 @@ public class FinancePlatformController extends AbstractController{
         }
         return financePlatformService.editPlatform(financePlatform);
     }
+   
+    
+    // 修改平台资金账户类型
+    @RequestMapping(value = "/update.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object editFinancePlatform(@Valid FinancePlatform financePlatform) {
+         return financePlatformService.updatePlatform(financePlatform);
+    }
+    
     
     // 批量删除平台资金记录
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)

@@ -12,7 +12,8 @@
 			actions : {
 				edit:{flag:'edit',controlType:'single'},
 				del:{flag:'del',controlType:'multiple'},
-				audit:{flag:'audit',controlType:'single'}
+				audit:{flag:'audit',controlType:'single'},
+				update:{flag:'update',controlType:'single'}
 			}
 	};
 	
@@ -55,10 +56,16 @@
 				sortable:true
 			},{
 				field:'openingBank',
-				title:'开户行',
+				title:'开户银行',
 				width:200,
 				sortable:true
 			},{
+				field:'subbranch',
+				title:'银行支行',
+				width:200,
+				sortable:true
+			},
+			{
 				field:'cardName',
 				title:'银行卡名称',
 				width:200,
@@ -162,8 +169,8 @@
 			$.easyui.showDialog({
 				title: '【'+rowData.platformName+'】的平台资金详细信息',
 				href : ctx + '/do/financePlatform/intoDetail.htm?financePlatformId='+rowData.financePlatformId,//从controller请求jsp页面进行渲染
-				width : 560,
-				height : 345,
+				width : 600,
+				height : 375,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -174,8 +181,8 @@
 	glacier.finance_mgr.financePlatform_mgr.financePlatform.addFinancePlatform = function(){
 		glacier.basicAddOrEditDialog({
 			title : '【平台资金】- 增加',
-			width : 400,
-			height : 250,
+			width : 420,
+			height : 320,
 			queryUrl : ctx + '/do/financePlatform/intoForm.htm',
 			submitUrl : ctx + '/do/financePlatform/add.json',
 			successFun : function (){
@@ -188,8 +195,8 @@
 		var row = glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【平台资金】- 编辑('+row.platformName+')',
-			width : 400,
-			height : 250,
+			width : 420,
+			height : 320,
 			queryUrl : ctx + '/do/financePlatform/intoForm.htm',
 			submitUrl : ctx + '/do/financePlatform/edit.json',
 			queryParams : {
@@ -200,8 +207,51 @@
 			}
 		});
 	};
+	
+	
+	//点击设置为默认账号按钮触发方法
+	glacier.finance_mgr.financePlatform_mgr.financePlatform.editnancePlatformType = function(){
+		var row = glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid("getSelected");
+      	$.messager.confirm('请确认', '是否要设置为默认账号?', function(r){
+			if (r){
+				$.ajax({
+					   type: "POST",
+					   url: ctx + '/do/financePlatform/update.json',
+					   data: {financePlatformId:row.financePlatformId},
+					   dataType:'json',
+					   success: function(r){
+						   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
+							   $.messager.show({
+									title:'提示',
+									timeout:3000,
+									msg:r.msg
+								});
+							   glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid('reload');
+						   }else{
+								$.messager.show({//后台验证弹出错误提示信息框
+									title:'错误提示',
+									width:380,
+									height:120,
+									msg: '<span style="color:red">'+r.msg+'<span>',
+									timeout:4500
+								});
+							}
+					   }
+				});
+			}
+		}); 
+		
+		
+	};
+	
+	
+	
+	
+	
+	
 	//点击审核按钮触发方法
 	glacier.finance_mgr.financePlatform_mgr.financePlatform.auditFinancePlatform = function(){
+		
 		var row = glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【平台资金】- 审核('+row.platformName+')',
@@ -215,8 +265,15 @@
 			successFun : function (){
 				glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid('reload');
 			}
-		});
+		}); 
+ 
+		
 	};
+	
+	
+
+	
+	
 	//点击删除按钮触发方法
 	glacier.finance_mgr.financePlatform_mgr.financePlatform.delFinancePlatform = function(){
 		var rows = glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid("getChecked");

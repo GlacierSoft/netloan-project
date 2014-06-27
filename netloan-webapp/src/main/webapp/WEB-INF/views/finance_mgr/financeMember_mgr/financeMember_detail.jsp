@@ -10,9 +10,9 @@
 				<input type="hidden"  name="financeMemberId" value="${financeMemberData.financeMemberId}" />
 				<input name="memberDisplay" class="spinner" style="width:180px" value="${financeMemberData.memberDisplay}" readonly="readonly"></input>
 			</td>	
-			<td>银行卡号：</td>
+			 <td>可用信用额度：</td>
 			<td>
-				<input name="bankCardDisplay" class="spinner" style="width:180px" value="${financeMemberData.bankCardDisplay}" readonly="readonly"/>
+				<input name="availableCredit" value="${financeMemberData.availableCredit}" class="spinner" style="width:180px" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
@@ -74,13 +74,7 @@
 			<td>
 				<input name="borrowerCredit" value="${financeMemberData.borrowerCredit}" class="spinner" style="width:180px" readonly="readonly"></input>
 			</td>
-		</tr>
-		<tr>
-			<td>可用信用额度：</td>
-			<td>
-				<input name="availableCredit" value="${financeMemberData.availableCredit}" class="spinner" style="width:180px" readonly="readonly"/>
-			</td>
-		</tr>
+		</tr> 
 		<tr>
 			<td>创建人：</td>
 			<td><input class="spinner" style="width:180px" value="${financeMemberData.createrDisplay}" readonly="readonly"/></td>

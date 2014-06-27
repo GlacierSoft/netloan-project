@@ -25,6 +25,32 @@
 				<input name="platformMoney" value="${financePlatformData.platformMoney}" class="spinner" style="width:180px" readonly="readonly"></input>
 			</td>
 		</tr>
+		
+		<tr>
+			<td>开户银行：</td>
+			<td>
+				<input name="platformAccount" value="${financePlatformData.openingBank}" class="spinner" style="width:180px" readonly="readonly"/>
+			</td>
+			<td>银行卡名称：</td>
+			<td>
+				<input name="platformMoney" value="${financePlatformData.cardName}" class="spinner" style="width:180px" readonly="readonly"></input>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>平台资金类型：</td>
+			<td>
+				<input name="platformType" id="financePlatform_mgr_financePlatform_audit_platformType" value="${financePlatformData.platformType}" class="spinner" style="width:180px" readonly="readonly"/>
+			</td>
+			<td>银行卡号：</td>
+			<td>
+				<input name="platformMoney" value="${financePlatformData.cardNumber}" class="spinner" style="width:180px" readonly="readonly"></input>
+			</td>
+		</tr>
+		
+		
+		
+		
 		<tr>
 			<td>审核状态：</td>
 			<td>
@@ -85,4 +111,6 @@
 </form>
 <script type="text/javascript">
 	$('#financePlatform_mgr_financePlatform_audit_auditState').val(renderGridValue('${financePlatformData.auditState}',fields.auditState));
+	$('#financePlatform_mgr_financePlatform_audit_platformType').val(renderGridValue('${financePlatformData.platformType}',fields.platformAccount));
+	
 </script>
