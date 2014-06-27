@@ -28,6 +28,7 @@ import com.glacier.netloan.dao.borrow.TenderNotesMapper;
 import com.glacier.netloan.dao.finance.FinanceMemberMapper;
 import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
 import com.glacier.netloan.dao.member.MemberIntegralMapper;
+import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.member.MemberStatisticsMapper;
 import com.glacier.netloan.dto.query.borrow.ReceivablesNotesQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
@@ -43,6 +44,7 @@ import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.entity.borrow.TenderNotesExample;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.finance.FinanceTransaction;
+import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberIntegral;
 import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.entity.system.User;
@@ -72,6 +74,9 @@ public class ReceivablesNotesService {
 	
 	@Autowired
 	private MemberStatisticsMapper memberStatisticsMapper;
+	
+	@Autowired
+	private MemberMapper memberMapper;
 	
 	@Autowired
 	private FinanceMemberMapper financeMemberMapper;
@@ -498,7 +503,7 @@ public class ReceivablesNotesService {
             	transactionss.setFinanceMemberId(financeMembers.getFinanceMemberId());//设置会员资金ID
             	transactionss.setMemberId(tenderNotes.getMemberId());//设置会员名称
             	transactionss.setTransactionTarget(borrowingLoan.getMemberDisplay());//设置交易人名称
-            	transactionss.setTransactionType("借款出复审");//设置交易类型
+            	transactionss.setTransactionType("投资成功,扣除冻结资金");//设置交易类型
             	transactionss.setEarningMoney(moneynum);//设置投资人默认收入金额为0
             	transactionss.setExpendMoney(borrowingLoan.getLoanTotal());//设置投资人支出投资金额
             	transactionss.setUsableMoney(financeMembers.getUsableMoney());//设置投资人的可用余额
@@ -506,7 +511,7 @@ public class ReceivablesNotesService {
             	transactionss.setCollectingMoney(financeMembers.getCollectingMoney());//设置投资人的代收金额
             	transactionss.setRefundMoney(financeMembers.getRechargeMoney());//设置投资人的代还金额
             	transactionss.setAmount(financeMembers.getAmount()-borrowingLoan.getLoanTotal());//设置投资人的总金额
-            	transactionss.setRemark("借款["+borrowingLoan.getLoanTitle()+"]复审通过,借款成功筹到资金["+borrowingLoan.getLoanTotal()+"]元");//设置投资人的会员资金记录的备注
+            	transactionss.setRemark("投资["+borrowingLoan.getLoanTitle()+"]的复审通过,成功投资资金["+borrowingLoan.getLoanTotal()+"]元");//设置投资人的会员资金记录的备注
             	transactionss.setCreater(pricipalUser.getUserId());
             	transactionss.setCreateTime(new Date());
             	transactionss.setUpdater(pricipalUser.getUserId());
@@ -552,6 +557,13 @@ public class ReceivablesNotesService {
             	
             	//添加积分记录
             	integralMapper.insert(menberIntegral);
+            	
+            	//更新借款人的会员总积分
+            	Member member=memberMapper.selectByPrimaryKey(receivablesNotes.getMemberId());
+            	member.setIntegral(member.getIntegral()+integralType.getChangeValue());
+            	
+            	//修改会员信息
+            	memberMapper.updateByPrimaryKeySelective(member);
             }
         }
         if (count == 1) {

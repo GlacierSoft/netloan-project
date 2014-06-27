@@ -435,24 +435,10 @@ public class BorrowingLoanService {
         if ("firstSucess".equals(borrowingLoan.getFirstAuditState())) {//初审通过，借款状态改为招标中
         	borrowingLoan.setLoanState("tendering");
         }
-        
-        //1.借款表t_borrowing_loan
+
         count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);
         
         if (count == 1) {
-            //4.会员借款投资统计	t_member_statistics
-        	
-        	
-        	
-        	
-            //5.会员积分记录表	t_member_integral
-        	//根据会员ID取出会员信息
-        	/*Member ms=memberMapper.selectByPrimaryKey(borrowingLoan.getMemberId());
-        	ms.setIntegral(ms.getIntegral()+integralType.getChangeValue());
-        	
-        	//修改会员信息
-        	memberMapper.updateByPrimaryKeySelective(ms);*/
-        	
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + borrowingLoan.getLoanCode() + "] 初审借款信息成功");
         } else {
