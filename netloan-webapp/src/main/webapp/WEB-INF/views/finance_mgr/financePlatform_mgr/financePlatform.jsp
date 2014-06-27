@@ -255,8 +255,8 @@
 		var row = glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【平台资金】- 审核('+row.platformName+')',
-			width : 560,
-			height : 430,
+			width : 588,
+			height : 500,
 			queryUrl : ctx + '/do/financePlatform/intoAudit.htm',
 			submitUrl : ctx + '/do/financePlatform/audit.json',
 			queryParams : {

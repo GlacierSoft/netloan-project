@@ -111,6 +111,6 @@
 </form>
 <script type="text/javascript">
 	$('#financePlatform_mgr_financePlatform_audit_auditState').val(renderGridValue('${financePlatformData.auditState}',fields.auditState));
-	$('#financePlatform_mgr_financePlatform_audit_platformType').val(renderGridValue('${financePlatformData.platformType}',fields.platformAccount));
+	$('#financePlatform_mgr_financePlatform_audit_platformType').val(renderGridValue('${financePlatformData.platformType}',fields.platformType));
 	
 </script>
