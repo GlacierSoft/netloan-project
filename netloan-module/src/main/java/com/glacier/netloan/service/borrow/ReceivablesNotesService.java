@@ -299,6 +299,7 @@ public class ReceivablesNotesService {
         tenderNotesExample.createCriteria().andLoanIdEqualTo(borrowingLoanNew.getLoanId());//查询相对应的投标的记录
         List<TenderNotes> tenderNotess = tenderNotesMapper.selectByExample(tenderNotesExample);
         for(TenderNotes tenderNotes : tenderNotess){
+        	float earningMoney=0;//存储有投标奖励的金额
         	receivablesNotes.setTenderNotesId(tenderNotes.getTenderNotesId());//设置投标id
         	receivablesNotes.setMemberId(tenderNotes.getMemberId());//设置投标人也就是收款人的Id
         	if(borrowingLoanNew.getSubTotal() == 0.0){//借款是以金额进行投资的
@@ -319,10 +320,11 @@ public class ReceivablesNotesService {
         		receivablesNotes.setShouldReceMoney(shouldReceMoney);//设置应收本息
         		receivablesNotes.setNotReceMoney(shouldReceMoney);//设置未收本息
         		//判断借款是否设置投标奖励
+        		
               	if(borrowingLoan.getIsBidReward().equals("yes")){
               		if(borrowingLoan.getFixedAppReward() != 0.0){//按固定金额分摊奖励
               			//计算收到投标奖励金额
-              			float earningMoney = borrowingLoanNew.getFixedAppReward()*(tenderNotes.getTenderMoney()/borrowingLoanNew.getLoanTotal());
+              			earningMoney = borrowingLoanNew.getFixedAppReward()*(tenderNotes.getTenderMoney()/borrowingLoanNew.getLoanTotal());
               			//添加会员资金记录明细
                       	FinanceMember financeMemberNew = (FinanceMember) financeMemberService.getMemberByMemberId(tenderNotes.getMemberId());//获取会员资金记录信息
                       	financeTransaction.setFinanceMemberId(financeMemberNew.getFinanceMemberId());//设置会员资金信息
@@ -344,7 +346,7 @@ public class ReceivablesNotesService {
                       	financeMemberService.editMember(financeMemberNew);
               		}else if(borrowingLoan.getBidProReward() != 0.0){//判断是按投标金额比例奖励
               			//计算收到投标奖励金额
-              			float earningMoney = borrowingLoanNew.getBidProReward()*borrowingLoanNew.getLoanTotal()*(tenderNotes.getTenderMoney()/borrowingLoanNew.getLoanTotal());
+              			earningMoney = borrowingLoanNew.getBidProReward()*borrowingLoanNew.getLoanTotal()*(tenderNotes.getTenderMoney()/borrowingLoanNew.getLoanTotal());
               			//添加会员资金记录明细
                       	FinanceMember financeMemberNew = (FinanceMember) financeMemberService.getMemberByMemberId(tenderNotes.getMemberId());//获取会员资金记录信息
                       	financeTransaction.setFinanceMemberId(financeMemberNew.getFinanceMemberId());//设置会员资金信息
@@ -405,7 +407,7 @@ public class ReceivablesNotesService {
               	if(borrowingLoan.getIsBidReward().equals("yes")){
               		if(borrowingLoan.getFixedAppReward() != 0.0){//按固定金额分摊奖励
               			//计算收到投标奖励金额
-              			float earningMoney = borrowingLoanNew.getFixedAppReward()*((tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub())/borrowingLoanNew.getLoanTotal());
+              			earningMoney = borrowingLoanNew.getFixedAppReward()*((tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub())/borrowingLoanNew.getLoanTotal());
               			//添加会员资金记录明细
                       	FinanceMember financeMemberNew = (FinanceMember) financeMemberService.getMemberByMemberId(tenderNotes.getMemberId());//获取会员资金记录信息
                       	financeTransaction.setFinanceMemberId(financeMemberNew.getFinanceMemberId());//设置会员资金信息
@@ -427,7 +429,7 @@ public class ReceivablesNotesService {
                       	financeMemberService.editMember(financeMemberNew);
               		}else if(borrowingLoan.getBidProReward() != 0.0){//判断是按投标金额比例奖励
               			//计算收到投标奖励金额
-              			float earningMoney = borrowingLoanNew.getBidProReward()*borrowingLoanNew.getLoanTotal()*((tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub())/borrowingLoanNew.getLoanTotal());
+              			earningMoney = borrowingLoanNew.getBidProReward()*borrowingLoanNew.getLoanTotal()*((tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub())/borrowingLoanNew.getLoanTotal());
               			//添加会员资金记录明细
                       	FinanceMember financeMemberNew = (FinanceMember) financeMemberService.getMemberByMemberId(tenderNotes.getMemberId());//获取会员资金记录信息
                       	financeTransaction.setFinanceMemberId(financeMemberNew.getFinanceMemberId());//设置会员资金信息
@@ -532,7 +534,9 @@ public class ReceivablesNotesService {
             	memberStatistics.setWaitAlsoInterest(memberStatistics.getWaitAlsoInterest()+receivablesNotes.getShouldReceMoney());//设置投资人会员统计的本息
             	memberStatistics.setWaitIncomePrincipal(memberStatistics.getWaitIncomePrincipal()+borrowingLoan.getLoanTotal());//设置投资人会员统计的应收本金
             	memberStatistics.setWaitIncomeInterest(memberStatistics.getWaitIncomeInterest()+(receivablesNotes.getShouldReceMoney()-borrowingLoan.getLoanTotal()));//设置投资人会员统计的应收利息(原本利息+(本息减去借款总金额))
-            	memberStatistics.setCreateTime(new Date());
+            	memberStatistics.setTenderAwards(earningMoney+memberStatistics.getTenderAwards());//投标奖励的总额
+            	memberStatistics.setInvestmentTotal(tenderNotes.getTenderMoney()+memberStatistics.getInvestmentTotal());//投资总额
+            	memberStatistics.setUpdateTime(new Date());
             	
             	//更新投资人会员统计操作
             	memberStatisticsMapper.updateByPrimaryKeySelective(memberStatistics);

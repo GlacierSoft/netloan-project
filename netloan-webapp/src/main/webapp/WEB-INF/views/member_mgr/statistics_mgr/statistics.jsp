@@ -187,7 +187,7 @@
 				sortable:true,
 				width:70
 			},{
-				field:'createTime',
+				field:'updateTime',
 				title:'统计时间',
 				sortable:true,
 				width:100
