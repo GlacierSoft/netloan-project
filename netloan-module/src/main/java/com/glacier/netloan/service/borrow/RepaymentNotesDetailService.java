@@ -22,16 +22,20 @@ import com.glacier.netloan.dao.borrow.RepaymentNotesMapper;
 import com.glacier.netloan.dao.finance.FinanceMemberMapper;
 import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
 import com.glacier.netloan.dao.member.MemberMapper;
+import com.glacier.netloan.dao.member.MemberStatisticsMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.borrow.RepaymentNotesDetailQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
+import com.glacier.netloan.entity.borrow.BorrowingLoanExample;
 import com.glacier.netloan.entity.borrow.RepaymentNotes;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetail;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetailExample;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetailExample.Criteria;
+import com.glacier.netloan.entity.borrow.RepaymentNotesExample;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.util.MethodLog;
@@ -57,6 +61,9 @@ public class RepaymentNotesDetailService {
 	
 	@Autowired
 	private MemberMapper memberMapper;
+	
+	@Autowired
+	private MemberStatisticsMapper memberStatisticsMapper; 
 	
 	@Autowired
 	private FinanceMemberMapper financeMemberMapper;
@@ -327,11 +334,49 @@ public class RepaymentNotesDetailService {
             return returnResult;
         }
         int count = 0;
+        // 查找出超级管理员的用户信息
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUsernameEqualTo("admin");
+        List<User> users = userMapper.selectByExample(userExample);
+        User pricipalUser = users.get(0);
+        //更新还款记录明细表WT于2014-6-30增加
         RepaymentNotesDetail repaymentNotesDetail = repaymentNotesDetailMapper.selectByPrimaryKey(repayNotesDetailId);// 根据还款明细Id查找出对应的还款明细信息记录
         repaymentNotesDetail.setRepayState("alreadRepay");
         repaymentNotesDetail.setActualPayDate(new Date());//赋值实还时间current_pay_moeny
         repaymentNotesDetail.setActualPayMoney(repaymentNotesDetail.getCurrentPayMoeny());//实还本息等于本期应还本息
-        count = repaymentNotesDetailMapper.updateByPrimaryKeySelective(repaymentNotesDetail);
+        repaymentNotesDetail.setAlsoNeedMoney(repaymentNotesDetail.getCurrentPayMoeny());//设置需还总额
+        count = repaymentNotesDetailMapper.updateByPrimaryKeySelective(repaymentNotesDetail);//执行更新操作并返回值
+        if(count==1){
+        	//更新还款记录表
+        	//根据还款明细中的还款记录ID取出还款记录信息WT于2014-6-30创建
+        	RepaymentNotes RepaymentNotess=repaymentNotesMapper.selectByPrimaryKey(repaymentNotesDetail.getRepayNotesId());
+        	RepaymentNotess.setAlrPayMoney(RepaymentNotess.getAlrPayMoney()+repaymentNotesDetail.getCurrentPayMoeny());//设置已还本息(已归还的本息+现在归还的本息)
+        	RepaymentNotess.setAlrPayPrincipal(RepaymentNotess.getAlrPayPrincipal()+repaymentNotesDetail.getCurrentPayPrincipal());//设置已还本金(已归还的本金+现在归还的本金)
+        	RepaymentNotess.setAlrPayInterest(RepaymentNotess.getAlrPayInterest()+repaymentNotesDetail.getCurrentPayInterest());//设置已还利息(已归还的利息+现在归还的利息)
+        	RepaymentNotess.setNotPayMoney(RepaymentNotess.getShouldPayMoney()-RepaymentNotess.getAlrPayMoney());//设置未还本息(应还本息-已还的本息)
+        	RepaymentNotess.setNotPayPrincipal(RepaymentNotess.getShouldPayPrincipal()-RepaymentNotess.getAlrPayPrincipal());//设置未还本金(应还本金-已还本金)
+        	RepaymentNotess.setNotPayInterest(RepaymentNotess.getShouldPayInterest()-RepaymentNotess.getAlrPayInterest());//设置未还利息(应还利息-已还利息)
+        	RepaymentNotess.setUpdater(pricipalUser.getUserId());
+        	RepaymentNotess.setUpdateTime(new Date());
+        	//执行更新还款记录的操作
+        	repaymentNotesMapper.updateByPrimaryKeySelective(RepaymentNotess);
+        	
+        	//判断是否还款记录表的还款状态有多少条
+	        RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();
+	        repaymentNotesDetailExample.createCriteria().andRepayStateEqualTo("notRepay");
+	        List<RepaymentNotesDetail> repaymentNotesDetails = repaymentNotesDetailMapper.selectByExample(repaymentNotesDetailExample);
+	        if(repaymentNotesDetails.size()<=0){
+	        	//查找还款记录明细状态为未还的条数为0时，执行更新还款记录的状态为alreadRepay
+	        	RepaymentNotess.setRepayState("alreadRepay");
+	        	repaymentNotesMapper.updateByPrimaryKeySelective(RepaymentNotess);
+	        	//然后根据还款记录中的借款ID取出借款的信息
+	        	BorrowingLoan borrowingLoan = borrowingLoanMapper.selectByPrimaryKey(RepaymentNotess.getLoanId());
+	        	//修改借款的状态
+	        	borrowingLoan.setLoanState("completed");
+	        	//执行修改操作
+	        	borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);
+	        }
+        }
         if (count == 1) {
             // 还款明细信息修改成功后，系统自动更新该会员的财务信息
             FinanceMember financeMember = financeMemberMapper.selectByMemberId(member.getMemberId());// 根据会员Id查找出该会员的财务会员信息记录
@@ -341,31 +386,41 @@ public class RepaymentNotesDetailService {
             count = financeMemberMapper.updateByPrimaryKeySelective(financeMember);
             if (count == 1) {
                 // 系统成功自动更新该会员的财务信息后，再自动生成一条会员资金记录明细信息
-                // 查找出超级管理员的用户信息
-                UserExample userExample = new UserExample();
-                userExample.createCriteria().andUsernameEqualTo("admin");
-                List<User> users = userMapper.selectByExample(userExample);
-                User pricipalUser = users.get(0);
-                // 向会员资金记录明细进行赋值
+                // 向会员资金记录明细进行赋值WT于2014-6-30增加并且检查
                 FinanceTransaction financeTransaction = new FinanceTransaction();
                 financeTransaction.setTransactionId(RandomGUID.getRandomGUID());
-                financeTransaction.setFinanceMemberId(financeMember.getFinanceMemberId());
-                financeTransaction.setMemberId(member.getMemberId());
+                financeTransaction.setFinanceMemberId(financeMember.getFinanceMemberId());//会员资金信息ID
+                financeTransaction.setMemberId(member.getMemberId());//设置会员ID
                 financeTransaction.setTransactionTarget("系统管理员");
                 financeTransaction.setTransactionType("还款扣除金额");
-                financeTransaction.setEarningMoney((float) 0);
-                financeTransaction.setExpendMoney(repaymentNotesDetail.getAlsoNeedMoney());
-                financeTransaction.setUsableMoney(financeMember.getUsableMoney());
-                financeTransaction.setFrozenMoney(financeMember.getFrozenMoney());
-                financeTransaction.setCollectingMoney(financeMember.getCollectingMoney());
-                financeTransaction.setRefundMoney(financeMember.getRefundMoney());
-                financeTransaction.setAmount(financeMember.getAmount());
+                financeTransaction.setEarningMoney((float) 0);//设置收入金额
+                financeTransaction.setExpendMoney(repaymentNotesDetail.getAlsoNeedMoney());//设置支出金额
+                financeTransaction.setUsableMoney(financeMember.getUsableMoney()-repaymentNotesDetail.getAlsoNeedMoney());//设置可用余额(原本的可用余额减去这期要还款的总额)
+                financeTransaction.setFrozenMoney(financeMember.getFrozenMoney());//设置冻结金额
+                financeTransaction.setCollectingMoney(financeMember.getCollectingMoney());//设置代收金额
+                financeTransaction.setRefundMoney(financeMember.getRefundMoney()-repaymentNotesDetail.getAlsoNeedMoney());//设置待还金额(原本的待还金额减去这期要还款的总额)
+                financeTransaction.setAmount(financeMember.getAmount()-repaymentNotesDetail.getAlsoNeedMoney());//设置总金额(原本的总金额减去这期要还款的总额)
                 financeTransaction.setRemark("会员还款成功后，系统自动生成的会员资金记录明细信息");
                 financeTransaction.setCreater(pricipalUser.getUserId());
                 financeTransaction.setCreateTime(new Date());
                 financeTransaction.setUpdater(pricipalUser.getUserId());
                 financeTransaction.setUpdateTime(new Date());
                 count = financeTransactionMapper.insert(financeTransaction);
+                
+                //更新还款人的会员统计信息WT于2014-6-30创建
+                MemberStatistics memberStatistics=memberStatisticsMapper.selectByMemberId(member.getMemberId());
+                memberStatistics.setAlreadyTotal(memberStatistics.getAlreadyTotal()+repaymentNotesDetail.getCurrentPayMoeny());//设置已还总额(现在的已还总额+现在归还的总额)
+                memberStatistics.setWaitAlsoTotal(memberStatistics.getWaitAlsoTotal()-repaymentNotesDetail.getCurrentPayMoeny());//设置待还总额(现在的待还总额-现在归还的总额)
+                memberStatistics.setNormalRepayment(memberStatistics.getNormalRepayment()+1);//设置正常还款+1
+                memberStatistics.setAlreadyPrincipal(memberStatistics.getAlreadyPrincipal()+repaymentNotesDetail.getCurrentPayPrincipal());//设置已还本金(现在的已还本金+现在归还本金)
+                memberStatistics.setWaitAlsoPrincipal(memberStatistics.getWaitAlsoPrincipal()-repaymentNotesDetail.getCurrentPayPrincipal());//设置待还本金(现在的待还本金-现在归还本金)
+                memberStatistics.setAlreadyInterest(memberStatistics.getAlreadyInterest()+repaymentNotesDetail.getCurrentPayInterest());//设置已还利息(现在的已还利息+现在归还利息)
+                memberStatistics.setWaitAlsoInterest(memberStatistics.getWaitAlsoInterest()-repaymentNotesDetail.getCurrentPayInterest());//设置待还利息(现在的待还利息-现在归还利息)
+                memberStatistics.setWaitIncomeInterest(memberStatistics.getWaitIncomeInterest()+repaymentNotesDetail.getCurrentPayMoeny());//设置已还本息(现在的已还本息+现在归还本息)
+                memberStatistics.setAlreadyIncomeInterest(memberStatistics.getAlreadyIncomeInterest()-repaymentNotesDetail.getCurrentPayMoeny());//设置待还本息(现在的待还本息-现在归还本息)
+                //执行更新操作
+                memberStatisticsMapper.updateByPrimaryKeySelective(memberStatistics);
+                
                 if (count == 1) {
                     returnResult.setSuccess(true);
                     returnResult.setMsg("还款操作成功"); 

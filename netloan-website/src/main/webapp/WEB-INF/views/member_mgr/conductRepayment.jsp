@@ -153,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            <td>逾期本息：</td>
 				            <td>${repaymentNotesDetailsData.overdueInterest}</td>
 				            <td>需还总额：</td>
-				            <td>${repaymentNotesDetailsData.actualPayMoney}</td>
+				            <td>${repaymentNotesDetailsData.alsoNeedMoney}</td>
 				          </tr>
 				          <tr>
 				            <td class="col-md-2">交易密码：</td>
