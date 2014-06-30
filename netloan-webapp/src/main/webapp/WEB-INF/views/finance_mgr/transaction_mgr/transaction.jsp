@@ -115,24 +115,6 @@
 		ptransactionSize : 10,//注意，ptransactionSize必须在ptransactionList存在
 		ptransactionList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		onCheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.finance_mgr.transaction_mgr.transaction.param,this).check();
-		},
-		onCheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.finance_mgr.transaction_mgr.transaction.param,this).check();
-		},
-		onUncheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.finance_mgr.transaction_mgr.transaction.param,this).unCheck();
-		},
-		onUncheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.finance_mgr.transaction_mgr.transaction.param,this).unCheck();
-		},
-		onSelect:function(rowIndex, rowData){//选择行事件触发
-			action_controller(glacier.finance_mgr.transaction_mgr.transaction.param,this).select();
-		},
-		onUnselectAll:function(rows){
-			action_controller(glacier.finance_mgr.transaction_mgr.transaction.param,this).unSelect();
-		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
 			$(this).datagrid('clearChecked');
@@ -149,93 +131,6 @@
 			});
 		}
 	});
-	//点击增加按钮触发方法
-	glacier.finance_mgr.transaction_mgr.transaction.addTransaction = function(){
-		glacier.basicAddOrEditDialog({
-			title : '【会员资金记录】- 增加',
-			width : 450,
-			height : 330,
-			queryUrl : ctx + '/do/transaction/intoForm.htm',
-			submitUrl : ctx + '/do/transaction/add.json',
-			successFun : function (){
-				glacier.finance_mgr.transaction_mgr.transaction.transactionDataGrid.datagrid('reload');
-			}
-		});
-	};
-	//点击编辑按钮触发方法
-	glacier.finance_mgr.transaction_mgr.transaction.editTransaction = function(){
-		var row = glacier.finance_mgr.transaction_mgr.transaction.transactionDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '【会员资金记录】- 编辑('+row.transactionName+')',
-			width : 450,
-			height : 330,
-			queryUrl : ctx + '/do/transaction/intoForm.htm',
-			submitUrl : ctx + '/do/transaction/edit.json',
-			queryParams : {
-				transactionId : row.transactionId
-			},
-			successFun : function (){
-				glacier.finance_mgr.transaction_mgr.transaction.transactionDataGrid.datagrid('reload');
-			}
-		});
-	};
-	//点击审核按钮触发方法
-	glacier.finance_mgr.transaction_mgr.transaction.auditTransaction = function(){
-		var row = glacier.finance_mgr.transaction_mgr.transaction.transactionDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '【会员资金记录】- 审核('+row.transactionName+')',
-			width : 580,
-			height : 500,
-			queryUrl : ctx + '/do/transaction/intoAudit.htm',
-			submitUrl : ctx + '/do/transaction/audit.json',
-			queryParams : {
-				transactionId : row.transactionId
-			},
-			successFun : function (){
-				glacier.finance_mgr.transaction_mgr.transaction.transactionDataGrid.datagrid('reload');
-			}
-		});
-	};
-	//点击删除按钮触发方法
-	glacier.finance_mgr.transaction_mgr.transaction.delTransaction = function(){
-		var rows = glacier.finance_mgr.transaction_mgr.transaction.transactionDataGrid.datagrid("getChecked");
-		var transactionIds = [];//删除的id标识
-		var transactionNames = [];//公告主题
-		for(var i=0;i<rows.length;i++){
-			transactionIds.push(rows[i].transactionId);
-			transactionNames.push(rows[i].transactionName);
-		}
-		if(transactionIds.length > 0){
-			$.messager.confirm('请确认', '是否要删除该记录', function(r){
-				if (r){
-					$.ajax({
-						   type: "POST",
-						   url: ctx + '/do/transaction/del.json',
-						   data: {transactionIds:transactionIds.join(','),transactionNames:transactionNames.join(',')},
-						   dataType:'json',
-						   success: function(r){
-							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
-								   $.messager.show({
-										title:'提示',
-										timeout:3000,
-										msg:r.msg
-									});
-								   glacier.finance_mgr.transaction_mgr.transaction.transactionDataGrid.datagrid('reload');
-							   }else{
-									$.messager.show({//后台验证弹出错误提示信息框
-										title:'错误提示',
-										width:380,
-										height:120,
-										msg: '<span style="color:red">'+r.msg+'<span>',
-										timeout:4500
-									});
-								}
-						   }
-					});
-				}
-			});
-		}
-	};
 	//会员资金记录资料模糊查询
 	glacier.finance_mgr.transaction_mgr.transaction.quickquery = function(value,name){
 		var obj = $.parseJSON('{"'+name+'":"'+value+'"}');//将值和对象封装成obj作为参数传递给后台

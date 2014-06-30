@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.glacier.netloan.entity.finance.FinanceWithdrawExample.Criteria;
-
 public class FinanceTransactionExample {
     protected String orderByClause;
 
@@ -111,12 +109,7 @@ public class FinanceTransactionExample {
   		    addCriterion("temp_member.member_real_name like", value, "memberDisplay");
   		    return (Criteria) this;
   		}
-  		//扩展查询条件
-  		public Criteria andTransactionTypeEqualTolike(String value) {
-            addCriterion("temp_finance_transaction.transaction_type =", value, "transactionType");
-            return (Criteria) this;
-        }
-        
+  		
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");

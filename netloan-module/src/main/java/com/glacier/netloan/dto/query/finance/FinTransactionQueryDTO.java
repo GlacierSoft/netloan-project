@@ -47,12 +47,15 @@ public class FinTransactionQueryDTO extends FinanceTransaction{
         this.createEndTime = createEndTime;
     }
     
-    public void setQueryCondition(Criteria queryCriteria){
-
+    public void setQueryCondition(Criteria queryCriteria, String memberId){
+        
+        if(null != memberId && StringUtils.isNotBlank(memberId)){//根据所属会员ID进行查找
+            queryCriteria.andMemberIdEqualTo(memberId);
+        }
+        
     	if(null != this.getTransactionType() && StringUtils.isNotBlank(this.getTransactionType())){//根据记录明细类型查找
 	        queryCriteria.andTransactionTypeLike("%" + this.getTransactionType() + "%");
 	    }
-    	
 
 	    if(null != createStartTime && null != createEndTime){//创建时间段查询
 	           queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 

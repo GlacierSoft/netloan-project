@@ -55,10 +55,8 @@ public class FinTransactionsQueryDTO extends FinanceTransaction{
 	    }
     	
     	if(null != this.getTransactionType() && StringUtils.isNotBlank(this.getTransactionType())){//根据记录明细类型查找
-	        queryCriteria.andTransactionTypeEqualTo(this.getTransactionType());
-	    }
-    	
-    	
+            queryCriteria.andTransactionTypeLike("%" + this.getTransactionType() + "%");
+        }
     	
 	    if(null != createStartTime && null != createEndTime){//创建时间段查询
 	           queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 

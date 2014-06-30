@@ -66,7 +66,7 @@ public class FinanceTransactionService {
     
     /**
      * @Title: listAsGrid 
-     * @Description: TODO(获取所有会员资金记录信息) 
+     * @Description: TODO(后台获取所有会员资金记录信息) 
      * @param @param pfinanceTransactionr
      * @param @return    设定文件 
      * @return Object    返回类型 
@@ -78,7 +78,7 @@ public class FinanceTransactionService {
         FinanceTransactionExample financeTransactionExample = new FinanceTransactionExample();
         
         Criteria queryCriteria = financeTransactionExample.createCriteria();
-        transactionsQueryDTO.setQueryConditions(queryCriteria);
+        transactionsQueryDTO.setQueryConditions(queryCriteria);//后台条件查询
         
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	financeTransactionExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
@@ -96,7 +96,7 @@ public class FinanceTransactionService {
 
     /**
      * @Title: listAsWebsite 
-     * @Description: TODO(前台获取会员资金明细记录) 
+     * @Description: TODO(前台获取登录会员资金明细记录) 
      * @param @param pager
      * @param @param memberId
      * @param @return    设定文件 
@@ -108,10 +108,7 @@ public class FinanceTransactionService {
         JqGridReturn returnResult = new JqGridReturn();
         FinanceTransactionExample financeTransactionExample = new FinanceTransactionExample();
         Criteria criteria = financeTransactionExample.createCriteria();
-        finTransactionQueryDTO.setQueryCondition(criteria);//前台条件查询
-        if(StringUtils.isNotBlank(memberId) && null != memberId){
-        	financeTransactionExample.createCriteria().andMemberIdEqualTo(memberId);
-        }
+        finTransactionQueryDTO.setQueryCondition(criteria,memberId);//前台条件查询
         
         pager.setSort("createTime");// 定义排序字段
         pager.setOrder("DESC");// 升序还是降序
