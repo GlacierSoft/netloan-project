@@ -106,28 +106,30 @@
 				       	  	</div>
 				       	  	<br>
 				       	  	<form id="investmentTenderMoneyForm" class="form-horizontal" role="form" action="${ctx}/investment/addInvestment.htm" method="post" onsubmit="return validaInvestmentTenderMoneyForm();">
-				       	  	<div class="row">
-					       	  	<div class="col-md-12">
-								  	<div class="form-group">
-								  		<label id="login_kaptcha_span" class="col-sm-3 control-label ">投标金额:</label>
-										<div class="col-sm-7">
-											<input id="loanId" name="loanId" type="hidden" value="${borrowingLoan.loanId }" />
-					  						<input id="memberId" name="memberId" type="hidden" value="${currentMember.memberId }" />
-											<input type="text" id="tenderMoney" name="tenderMoney" class="form-control" value="" required />
+					       	  	<div class="row">
+						       	  	<div class="col-md-12">
+									  	<div class="form-group">
+									  		<label id="login_kaptcha_span" class="col-sm-3 control-label ">投标金额:</label>
+											<div class="col-sm-7">
+												<input id="loanId" name="loanId" type="hidden" value="${borrowingLoan.loanId }" />
+						  						<input id="memberId" name="memberId" type="hidden" value="${currentMember.memberId }" />
+												<input type="text" id="tenderMoney" name="tenderMoney" class="form-control" value="" required />
+											</div>
+											<div class="col-sm-2">元</div>
 										</div>
-										<div class="col-sm-2">元</div>
-									</div>
+						       	  	</div>
 					       	  	</div>
-				       	  	</div>
-				       	  	<div class="row">
-				       	  	<div class="col-md-12"><span style="color: red;">注意：点击按钮表示您将确认投标金额并同意支付贷款</span></div>
-				       	  	</div>
-				       	  	<br>
-				       	  	<div class="row">
-				       	  	<div class="col-sm-3"></div>
-				       	  	<div class="col-md-6"><button  id="login_submit" type="submit" class="btn btn-primary btn-block" >确定投标</button></div>
-				       	  	<div class="col-sm-3"></div>
-				       	  	</div>
+					       	  	<div class="row">
+					       	  		<div class="col-md-12">
+					       	  			<span style="color: red;">注意：点击按钮表示您将确认投标金额并同意支付贷款</span>
+					       	  		</div>
+					       	  	</div>
+					       	  	<br>
+					       	  	<div class="row">
+						       	  	<div class="col-sm-3"></div>
+						       	  	<div class="col-md-6"><button  id="login_submit" type="submit" class="btn btn-primary btn-block" >确定投标</button></div>
+						       	  	<div class="col-sm-3"></div>
+					       	  	</div>
 				       	  	</form>
 					   </c:when>
 					   <c:otherwise> 

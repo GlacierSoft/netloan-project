@@ -293,6 +293,7 @@ public class BorrowingLoanService {
         borrowingLoan.setAlrSubSum((float) 0);//已认购份数
         borrowingLoan.setAlrTenderPro((float) 0);//已完成投标比例
         borrowingLoan.setTenderSum((float) 0);//投标数量
+        borrowingLoan.setAlrBidMoney((float) 0);//已投标金额
         if(loanTender.getSubscriptionState().equals("open")) {
             borrowingLoan.setSubTotal(borrowingLoan.getLoanTotal()/borrowingLoan.getLowestSub());//认购总份数=借款总额/最小认购单位(元)
             borrowingLoan.setLowestBidMoney("0");//最低投标金额

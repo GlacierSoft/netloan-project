@@ -237,7 +237,9 @@
 						</c:choose>
 			        	</td>
 			        	<td rowspan="4"style="text-align:center;vertical-align: middle;">
-			        	<button  id="borrowingLoan_loanState${status.index}"  type=button class="btn btn-primary btn-lg btn-block"></button>
+			        	<a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }&p=1">
+			        		<button  id="borrowingLoan_loanState${status.index}"  type=button class="btn btn-primary btn-lg btn-block"></button>
+			        	</a>
 			        	<script type="text/javascript">
 					       $('#borrowingLoan_loanState'+${status.index}).html(renderGridValue('${borrowingLoan.loanState }',fields.loanState));
 					    </script>
