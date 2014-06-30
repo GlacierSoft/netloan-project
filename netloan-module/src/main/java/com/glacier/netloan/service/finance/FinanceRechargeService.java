@@ -17,16 +17,22 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.basicdatas.ParameterIntegralTypeMapper;
 import com.glacier.netloan.dao.finance.FinanceMemberMapper;
 import com.glacier.netloan.dao.finance.FinancePlatformMapper;
 import com.glacier.netloan.dao.finance.FinancePlatformTransactionMapper;
 import com.glacier.netloan.dao.finance.FinanceRechargeMapper;
 import com.glacier.netloan.dao.finance.FinanceRechargeSetMapper;
 import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
+import com.glacier.netloan.dao.member.MemberIntegralMapper;
 import com.glacier.netloan.dao.member.MemberMapper;
+import com.glacier.netloan.dao.member.MemberMessageNoticeMapper;
 import com.glacier.netloan.dao.member.MemberStatisticsMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.finance.FinRechargeQueryDTO;
+import com.glacier.netloan.entity.basicdatas.ParameterIntegralExample;
+import com.glacier.netloan.entity.basicdatas.ParameterIntegralType;
+import com.glacier.netloan.entity.basicdatas.ParameterIntegralTypeExample;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.finance.FinancePlatform;
 import com.glacier.netloan.entity.finance.FinancePlatformExample;
@@ -38,6 +44,8 @@ import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.finance.FinanceRechargeExample.Criteria;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberExample;
+import com.glacier.netloan.entity.member.MemberIntegral;
+import com.glacier.netloan.entity.member.MemberMessageNotice;
 import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.entity.member.MemberStatisticsExample;
 import com.glacier.netloan.entity.system.User;
@@ -81,7 +89,15 @@ public class FinanceRechargeService {
 	
 	@Autowired
 	private MemberStatisticsMapper memberStatisticsMapper;
+	
+	@Autowired
+	private ParameterIntegralTypeMapper  parameterIntegralTypeMapper;
+	
+	@Autowired
+	private MemberIntegralMapper memberIntegralMapper;
 	 
+	@Autowired
+	private MemberMessageNoticeMapper memberMessageNoticeMapper;
 	/**
 	 * @Title: getRecharge 
 	 * @Description: TODO(根据会员充值记录Id获取会员充值记录信息) 
@@ -312,14 +328,12 @@ public class FinanceRechargeService {
 		    financePlatformTransaction.setUpdateTime(new Date());
 		    count=financePlatformTransactionMapper.insertSelective(financePlatformTransaction);//新增平台资金记录
 		     if (count == 1) {
-		    	//更新资金平台的数据
-		    	financePlatDate.setPlatformMoney(financePlatDate.getPlatformMoney()+financeRecharge.getArriveMoney());//资金平台余额=原有金额+充值金额
-		    	financePlatDate.setUpdater(usid);//更新人
-		    	financePlatDate.setUpdateTime(new Date());//更新时间
-		    	financePlatformMapper.updateByPrimaryKeySelective(financePlatDate);//更新资金平台数据
-		      
-		    	//取出默认平台资金的账户总余额 
-			     MemberStatisticsExample  memberStatisticsExample=new MemberStatisticsExample();
+		    	 //更新资金平台的数据
+		    	 financePlatDate.setPlatformMoney(financePlatDate.getPlatformMoney()+financeRecharge.getArriveMoney());//资金平台余额=原有金额+充值金额
+		    	 financePlatDate.setUpdater(usid);//更新人
+		    	 financePlatDate.setUpdateTime(new Date());//更新时间
+		    	 financePlatformMapper.updateByPrimaryKeySelective(financePlatDate);//更新资金平台数据
+		         MemberStatisticsExample  memberStatisticsExample=new MemberStatisticsExample();
 			     memberStatisticsExample.createCriteria().andMemberIdEqualTo(financeRecharge.getMemberId());
 	 		     List<MemberStatistics> memberStatistics = memberStatisticsMapper.selectByExample(memberStatisticsExample);
 	 		     MemberStatistics memberStatistic=memberStatistics.get(0);
@@ -327,9 +341,50 @@ public class FinanceRechargeService {
 			     memberStatistic.setUplineDeltaAwards(0f);//线下充值奖励
 			     memberStatistic.setUpdateTime(new Date());//统计时间更新 
 			     memberStatisticsMapper.updateByPrimaryKey(memberStatistic);
-		      } else {
+			    } else {
 		    	 info=false;
             }    
+		   
+		     //取出充值奖励积分的对象
+			 ParameterIntegralTypeExample  parameterIntegralTypeExample=new ParameterIntegralTypeExample();
+			 parameterIntegralTypeExample.createCriteria().andIntegralTypeEqualTo("recharge");
+			 parameterIntegralTypeExample.createCriteria().andChangeTypeEqualTo("increase");
+ 		     List<ParameterIntegralType> memberStatistics = parameterIntegralTypeMapper.selectByExample(parameterIntegralTypeExample);
+ 		     ParameterIntegralType parameterIntegralType=memberStatistics.get(0);
+ 		    //增加该会员的一条积分记录信息 
+		     MemberIntegral memberIntegral=new MemberIntegral();
+		     memberIntegral.setMemberIntegralId(RandomGUID.getRandomGUID());
+		     memberIntegral.setMemberId(member.getMemberId());
+		     memberIntegral.setChangeType(parameterIntegralType.getChangeType());//积分类型
+		     memberIntegral.setChangeValue(parameterIntegralType.getChangeValue());//增加积分的值
+		     memberIntegral.setType(parameterIntegralType.getIntegralType());//充值奖励积分
+		     memberIntegral.setRemark(parameterIntegralType.getRemark());
+		     memberIntegral.setCreater(usid);//创建人
+		     memberIntegral.setCreateTime(new Date());
+		     memberIntegral.setUpdater(usid);
+		     memberIntegral.setUpdateTime(new Date());
+		     count=memberIntegralMapper.insert(memberIntegral);//新增会员积分记录
+		      //新增站内短信记录
+		     MemberMessageNotice  memberMessageNotice=new MemberMessageNotice();
+		     memberMessageNotice.setMessageNoticeId(RandomGUID.getRandomGUID());
+		     memberMessageNotice.setSender(users.get(0).getUserId());//发现人，系统管理员
+		     memberMessageNotice.setAddressee(member.getMemberId());//收信人
+		     memberMessageNotice.setTitle("充值信息");//标题
+		     memberMessageNotice.setContent("尊敬的会员："+member.getMemberName()+",您已成功充值￥"+financeRecharge.getArriveMoney()+"元。");//短信内容
+		     memberMessageNotice.setSendtime(new Date());
+		     memberMessageNotice.setLetterstatus("unread");//信件状态，默认为未读
+		     memberMessageNotice.setLettertype("system");//信件类型，系统消息
+		     memberMessageNotice.setRemark("会员充值");//备注
+		     memberMessageNotice.setCreater(users.get(0).getUserId());//创建人，系统管理员
+		     memberMessageNotice.setCreateTime(new Date());//创建时间
+		     memberMessageNotice.setUpdater(users.get(0).getUserId());//更新人
+		     memberMessageNotice.setUpdateTime(new Date());//更新时间
+		     memberMessageNoticeMapper.insert(memberMessageNotice);//新增站内短信
+		      //更新会员信息的积分字段
+		     member.setIntegral(member.getIntegral()+parameterIntegralType.getChangeValue());//积分=原有的积分+增加的积分
+		     member.setUpdater(users.get(0).getUserId());
+		     member.setUpdateTime(new Date());
+		     memberMapper.updateByPrimaryKey(member); //更改会员积分
 	    } else{
 	    	 info=false;
 	    }
@@ -337,13 +392,7 @@ public class FinanceRechargeService {
     } 
     
     
-    
-    
-    
-    
-    
-    
-    
+     
     /**
      * @Title: delRecharge 
      * @Description: TODO(删除会员充值记录) 
