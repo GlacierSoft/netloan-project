@@ -289,13 +289,17 @@ public class BorrowingLoanService {
         //判断是否开启认购模式
         //如果是开启认购模式，就必须初始化一些认购字段
         //赋值认购总份数等
+        borrowingLoan.setSubTotal((float) 0);//认购总份数
+        borrowingLoan.setAlrSubSum((float) 0);//已认购份数
+        borrowingLoan.setAlrTenderPro((float) 0);//已完成投标比例
+        borrowingLoan.setTenderSum((float) 0);//投标数量
         if(loanTender.getSubscriptionState().equals("open")) {
             borrowingLoan.setSubTotal(borrowingLoan.getLoanTotal()/borrowingLoan.getLowestSub());//认购总份数=借款总额/最小认购单位(元)
-            borrowingLoan.setAlrSubSum((float) 0);//已认购份数
-            borrowingLoan.setAlrTenderPro((float) 0);//已完成投标比例
-            borrowingLoan.setTenderSum((float) 0);//投标数量
+            borrowingLoan.setLowestBidMoney("0");//最低投标金额
+            borrowingLoan.setLargestBidMoney("0");//最高投标金额
         }else {
             borrowingLoan.setSubTotal((float) 0);//如果关闭认购模式，认购总分数初始化为0
+            borrowingLoan.setLowestSub((float) 0);//最小认购单位(元)
         }
         
         if (!"".equals(borrowingLoan.getBidProReward()) && null != borrowingLoan.getBidProReward()) {// 投标金额比例奖励转换为百分比格式
