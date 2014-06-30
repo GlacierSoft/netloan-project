@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right">借款标的：</td>
-					    <td class="col-md-6"> <input type="hidden" id="loanTenderId" name="loanTenderId" value="aa09e227a4a40cb6cb15703b98522672"/>抵押标</td>
+					    <td class="col-md-6"> <input type="hidden" id="loanTenderId" name="loanTenderId" value="aa09e227a4a40cb6cb15703b98522672"/><span style="color:#F00">抵押标</span></td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>借款目的：</td>
@@ -145,35 +145,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>年利率：</td>
 					    <td class="col-md-6"><input type="text" name="loanApr"  class="inp280" />%</td>
 					  </tr>
-					  <tr>
-					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最低投标金额：</td>
-					    <td class="col-md-6">
-						    <select name="lowestBidMoney" id="lowestBidMoney" class="sel_140" onFocus="funLowestBidMoney()">
-							</select>
-					    </td>
-					  </tr>
-					  <tr>
-					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最多投标金额：</td>
-					    <td class="col-md-6">
-							<select name="largestBidMoney" id="largestBidMoney" class="sel_140" onFocus="funLargestBidMoney()">
-							</select>
-						</td>
-					  </tr>
-<!-- 					  <tr> -->
-<!-- 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最小认购单位：</td> -->
-<!-- 					    <td class="col-md-6"> -->
-<!-- 					    <select name="lowestSub" id="lowestSub" class="sel_140"> -->
-<!-- 						    <option value="100">100元</option> -->
-<!-- 						    <option value="200">200元</option> -->
-<!-- 						    <option value="500">500元</option> -->
-<!-- 						    <option value="1000">1000元</option> -->
-<!-- 						</select> -->
-<!-- 					    </td> -->
-<!-- 					  </tr> -->
-<!-- 					  <tr> -->
-<!-- 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>投标数量：</td> -->
-<!-- 					    <td class="col-md-6"><input type="text" name="tenderSum"  class="inp280" /></td> -->
-<!-- 					  </tr> -->
+					</tbody>
+			      </table>
+			      <div id="subscriptionStateClose">
+			      	<table style="width: 950px;">
+			      		<tbody>
+			      		  <tr>
+						    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最低投标金额：</td>
+						    <td class="col-md-6">
+							    <select name="lowestBidMoney" id="lowestBidMoney" class="sel_140" onFocus="funLowestBidMoney()">
+								</select>
+						    </td>
+						  </tr>
+						  <tr>
+						    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最多投标金额：</td>
+						    <td class="col-md-6">
+								<select name="largestBidMoney" id="largestBidMoney" class="sel_140" onFocus="funLargestBidMoney()">
+								</select>
+							</td>
+						  </tr>
+			      		</tbody>
+			      	</table>
+			      </div>
+			      <div id="subscriptionStateOpen">
+			      	<table style="width: 950px;">
+			      		<tbody>
+			      		  <tr>
+						    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最小认购单位：</td>
+						    <td class="col-md-6">
+						    	<input type="text" name="lowestSub" class="inp280" />元
+							</td>
+						  </tr>
+			      		</tbody>
+			      	</table>
+			      </div>
+			      <table  style="width: 950px;">
+		          	<tbody>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>筹标期限：</td>
 					    <td class="col-md-6">
@@ -360,8 +367,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    document.enteringDiYa.waitBidDeadlines.options[i] = new Option(waitBidDeadliness[i]+"天",waitBidDeadliness[i]);
 		  }
 		};
-		//验证码验证
 		$(function() {
+			//判断是否开启认购模式
+	        //如果是开启认购模式，就必须填写“最少认购单位(元)”
+			if ("${loanTenderDate.subscriptionState}"=="open") {
+				$("#subscriptionStateClose").hide();
+				$("#subscriptionStateOpen").show();
+			}else {//如果是关闭认购模式，就必须填写“最低投标金额”和“*最多投标金额”
+				$("#subscriptionStateClose").show();
+				$("#subscriptionStateOpen").hide();
+			}
+			//验证码验证
 			$('#login_kaptcha').click(function() {  
 				$('#captcha').val('');
 	        	$(this).hide().attr('src','${pageContext.request.contextPath}/resources/images/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();     

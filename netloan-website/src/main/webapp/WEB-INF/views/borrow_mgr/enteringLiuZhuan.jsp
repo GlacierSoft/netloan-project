@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<p style="color:#F00">* 为必填项，所有资料均会严格保密。</p>
     		<div>
     			<form id="enteringLiuZhuan" name="enteringLiuZhuan" class="form-horizontal" role="form" method="post" >
-		          <table  style="width: 950px;">
+		          <table style="width: 950px;">
 		          	<tbody>
 			          <tr>
 			            <td class="col-md-6" align="right">
@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right">借款标的：</td>
-					    <td class="col-md-6"> <input type="hidden" id="loanTenderId" name="loanTenderId" value="2587bd0ecc859e35f2874f2aff0d4852"/>流转标</td>
+					    <td class="col-md-6"> <input type="hidden" id="loanTenderId" name="loanTenderId" value="2587bd0ecc859e35f2874f2aff0d4852"/><span style="color:#F00">流转标</span></td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>借款目的：</td>
@@ -145,26 +145,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>年利率：</td>
 					    <td class="col-md-6"><input type="text" name="loanApr"  class="inp280" />%</td>
 					  </tr>
-					  <tr>
-					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最低投标金额：</td>
-					    <td class="col-md-6">
-						    <select name="lowestBidMoney" id="lowestBidMoney" class="sel_140" onFocus="funLowestBidMoney()">
-							</select>
-					    </td>
-					  </tr>
-					  <tr>
-					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最多投标金额：</td>
-					    <td class="col-md-6">
-							<select name="largestBidMoney" id="largestBidMoney" class="sel_140" onFocus="funLargestBidMoney()">
-							</select>
-						</td>
-					  </tr>
-					  <tr>
-					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最小认购单位：</td>
-					    <td class="col-md-6">
-					    	<input type="text" name="lowestSub" class="inp280" />
-						</td>
-					  </tr>
+					</tbody>
+			      </table>
+			      <div id="subscriptionStateClose">
+			      	<table style="width: 950px;">
+			      		<tbody>
+			      		  <tr>
+						    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最低投标金额：</td>
+						    <td class="col-md-6">
+							    <select name="lowestBidMoney" id="lowestBidMoney" class="sel_140" onFocus="funLowestBidMoney()">
+								</select>
+						    </td>
+						  </tr>
+						  <tr>
+						    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最多投标金额：</td>
+						    <td class="col-md-6">
+								<select name="largestBidMoney" id="largestBidMoney" class="sel_140" onFocus="funLargestBidMoney()">
+								</select>
+							</td>
+						  </tr>
+			      		</tbody>
+			      	</table>
+			      </div>
+			      <div id="subscriptionStateOpen">
+			      	<table style="width: 950px;">
+			      		<tbody>
+			      		  <tr>
+						    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最小认购单位：</td>
+						    <td class="col-md-6">
+						    	<input type="text" name="lowestSub" class="inp280" />元
+							</td>
+						  </tr>
+			      		</tbody>
+			      	</table>
+			      </div>
+			      <table  style="width: 950px;">
+		          	<tbody>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>筹标期限：</td>
 					    <td class="col-md-6">
@@ -351,8 +367,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    document.enteringLiuZhuan.waitBidDeadlines.options[i] = new Option(waitBidDeadliness[i]+"天",waitBidDeadliness[i]);
 		  }
 		};
-		//验证码验证
+		
 		$(function() {
+			//判断是否开启认购模式
+	        //如果是开启认购模式，就必须填写“最少认购单位(元)”
+			if ("${loanTenderDate.subscriptionState}"=="open") {
+				$("#subscriptionStateClose").hide();
+				$("#subscriptionStateOpen").show();
+			}else {//如果是关闭认购模式，就必须填写“最低投标金额”和“*最多投标金额”
+				$("#subscriptionStateClose").show();
+				$("#subscriptionStateOpen").hide();
+			}
+			//验证码验证
 			$('#login_kaptcha').click(function() {  
 				$('#captcha').val('');
 	        	$(this).hide().attr('src','${pageContext.request.contextPath}/resources/images/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();     
