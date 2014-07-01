@@ -2,9 +2,11 @@ package com.glacier.netloan.compent.realm;
 
 
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -19,13 +21,21 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.glacier.basic.util.RandomGUID;
+import com.glacier.netloan.dao.basicdatas.ParameterIntegralTypeMapper;
+import com.glacier.netloan.dao.member.MemberIntegralMapper;
 import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.member.MemberTokenMapper;
+import com.glacier.netloan.dao.system.UserMapper;
+import com.glacier.netloan.entity.basicdatas.ParameterIntegralType;
+import com.glacier.netloan.entity.basicdatas.ParameterIntegralTypeExample;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.entity.member.MemberIntegral;
 import com.glacier.netloan.entity.member.MemberToken;
 import com.glacier.netloan.entity.member.MemberTokenExample;
 import com.glacier.netloan.entity.system.LoginLog;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.service.system.UserService;
 import com.glacier.security.util.Encodes;
 
@@ -44,6 +54,15 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
     
     @Autowired
     private MemberMapper memberMapper;
+    
+    @Autowired
+    private ParameterIntegralTypeMapper parameterIntegralTypeMapper;
+    
+    @Autowired
+    private UserMapper userMapper;
+    
+    @Autowired
+    private MemberIntegralMapper memberIntegralMapper;
     
     public MemberPermissionsRealm() {
         setName("MemberPermissionsRealm");
@@ -121,12 +140,45 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
      */
 
     private void updatePrincipalMemberInfo(CaptchaUsernamePasswordToken token, Member principalMember) {
-            Member lastTokenMember = new Member();
-            lastTokenMember.setMemberId(principalMember.getMemberId());
-            lastTokenMember.setLastLoginIpAddress(token.getHost());
-            lastTokenMember.setLastLoginTime(new Date());// 设定最后登录时间
-            lastTokenMember.setLoginCount(principalMember.getLoginCount() + 1);
-            memberMapper.updateByPrimaryKeySelective(lastTokenMember);//更新会员信息
+                Member lastTokenMember = new Member();
+                UserExample userExample = new UserExample();
+      		    userExample.createCriteria().andUsernameEqualTo("admin");
+      		    List<User> users = userMapper.selectByExample(userExample); 
+      		    String usid=users.get(0).getUserId();
+                //取出会员上次登录的时间
+               lastTokenMember=memberMapper.selectByPrimaryKey(principalMember.getMemberId());
+                Date da=principalMember.getLastLoginTime();
+                Date datime=new Date();
+                int boo=(da.getYear()+da.getDay())-(datime.getYear()+datime.getDay()); 
+                if(boo!=0){
+                	//如果上一次登录时间和现在登录时间不是同一天，那就更改会员的积分，和新增登录积分记录
+                    //取出登录奖励积分对象
+        			 ParameterIntegralTypeExample  parameterIntegralTypeExample=new ParameterIntegralTypeExample();
+        			 parameterIntegralTypeExample.createCriteria().andIntegralTypeEqualTo("login");
+        			 parameterIntegralTypeExample.createCriteria().andChangeTypeEqualTo("increase");
+	         		 List<ParameterIntegralType> memberStatistics = parameterIntegralTypeMapper.selectByExample(parameterIntegralTypeExample);
+	         		 ParameterIntegralType parameterIntegralType=memberStatistics.get(0);
+	         		 //赋值会员积分
+	         		 lastTokenMember.setIntegral(lastTokenMember.getIntegral()+parameterIntegralType.getChangeValue());//会员积分=原有积分+新增积分
+	         		 //增加该会员的一条积分记录信息 
+	     		     MemberIntegral memberIntegral=new MemberIntegral();
+	     		     memberIntegral.setMemberIntegralId(RandomGUID.getRandomGUID());
+	     		     memberIntegral.setMemberId(lastTokenMember.getMemberId()); 
+	     		     memberIntegral.setChangeType(parameterIntegralType.getChangeType());//积分类型
+	     		     memberIntegral.setChangeValue(parameterIntegralType.getChangeValue());//增加积分的值
+	     		     memberIntegral.setType(parameterIntegralType.getIntegralType());//登录奖励积分
+	     		     memberIntegral.setRemark(parameterIntegralType.getRemark());
+	     		     memberIntegral.setCreater(usid);//创建人
+	     		     memberIntegral.setCreateTime(new Date());
+	     		     memberIntegral.setUpdater(usid);
+	     		     memberIntegral.setUpdateTime(new Date());
+                     memberIntegralMapper.insert(memberIntegral);//新增会员积分记录 
+                } 
+                 lastTokenMember.setLoginCount(principalMember.getLoginCount() + 1);
+                 lastTokenMember.setLastLoginIpAddress(token.getHost());
+                 lastTokenMember.setLastLoginTime(new Date());// 设定最后登录时间
+                 memberMapper.updateByPrimaryKeySelective(lastTokenMember);//更新会员信息
+            
     }
     /**
      * 更新用户授权信息缓存.
