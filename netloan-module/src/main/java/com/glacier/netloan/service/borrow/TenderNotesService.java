@@ -226,6 +226,12 @@ public class TenderNotesService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         tenderNotes.setTenderNotesId(RandomGUID.getRandomGUID());
+        if ("".equals(tenderNotes.getSubSum()) || null == tenderNotes.getSubSum()) {//如果认购份数为空，则表示认购模式关闭，初始化认购份数为0
+            tenderNotes.setSubSum((float) 0);
+        }
+        if ("".equals(tenderNotes.getTenderMoney()) || null == tenderNotes.getTenderMoney()) {//如果投资金额为空，则表示认购模式开启，初始化投资金额为0
+            tenderNotes.setTenderMoney((float) 0);
+        }
         tenderNotes.setCreater(pricipalMember.getMemberId());
         tenderNotes.setCreateTime(new Date());
         count = tenderNotesMapper.insert(tenderNotes);
