@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			            </td>
 			            <td class="col-md-6">
 			            	<input id="memberId" name="memberId" type="hidden" value="${currentMember.memberId}" >
-			            	<input id="loanTitle" name="loanTitle" type="text" class="inp280" maxlength="12"/>
+			            	<input id="loanTitle" name="loanTitle" type="text" class="inp280" maxlength="20"/>
 			            </td>
 			          </tr>
 					  <tr>
