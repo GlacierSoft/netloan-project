@@ -461,30 +461,27 @@ public class ReceivablesNotesService {
               	financeTransaction.setEarningMoney(0f);//设置收入金额
               	financeTransaction.setExpendMoney(0f);//设置支出金额
               	financeTransaction.setUsableMoney(financeMemberThaw.getUsableMoney());//设置可用金额
-              	financeTransaction.setFrozenMoney(financeMemberThaw.getFrozenMoney()-tenderNotes.getTenderMoney());//设置冻结金额
+              	financeTransaction.setFrozenMoney(financeMemberThaw.getFrozenMoney()-borrowingLoan.getLoanTotal());//设置冻结金额--
               	financeTransaction.setCollectingMoney(financeMemberThaw.getCollectingMoney());//设置代收金额
               	financeTransaction.setRefundMoney(financeMemberThaw.getRefundMoney());//设置待还金额
               	financeTransaction.setAmount(financeMemberThaw.getAmount());//设置总金额
               	financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
-              	//更新借款的会员资金信息
-              	financeMemberThaw.setFrozenMoney(financeMemberThaw.getFrozenMoney()-borrowingLoanNew.getLowestSub()*tenderNotes.getSubSum());//设置冻结金额
-              	financeMemberService.editMember(financeMemberThaw);
         	}
         	//给收款记录对象赋值//增加字段2014-6-27
         	receivablesNotes.setAlrOverdueInterest(0f);
         	receivablesNotes.setReceState("receiving");//设置收款记录的状态为收款中，”未收“？
     		receivablesNotes.setReceNotesId(RandomGUID.getRandomGUID());
             receivablesNotes.setCreater(pricipalUser.getUserId());
-            receivablesNotes.setReceivablesTotal(receivablesNotes.getReceivablesTotal()+shouldReceMoney);
+            //receivablesNotes.setReceivablesTotal(receivablesNotes.getReceivablesTotal()+shouldReceMoney);
             receivablesNotes.setShouldReceMoney(shouldReceMoney);//设置应收本息
             receivablesNotes.setAlrReceMoney(0f);//设置已收本息
             receivablesNotes.setNotReceMoney(shouldReceMoney);//设置未收本息
             receivablesNotes.setShouldRecePrincipal(tenderNotes.getTenderMoney());//设置投资人应收本金
             receivablesNotes.setAlrRecePrincipal(0f);//设置已收本金
             receivablesNotes.setNotRecePrincipal(tenderNotes.getTenderMoney());//设置未收本金
-            receivablesNotes.setShouldReceInterest(shouldReceMoney-tenderNotes.getTenderMoney());//本息减去本金得到利息
+            receivablesNotes.setShouldReceInterest(shouldReceMoney-borrowingLoan.getLoanTotal());//本息减去本金得到利息---
             receivablesNotes.setAlrReceInterest(0f);//设置已收利息
-            receivablesNotes.setNotReceInterest(shouldReceMoney-tenderNotes.getTenderMoney());//设置未收利息
+            receivablesNotes.setNotReceInterest(shouldReceMoney-borrowingLoan.getLoanTotal());//设置未收利息
             receivablesNotes.setCreateTime(new Date());
             receivablesNotes.setUpdater(pricipalUser.getUserId());
             receivablesNotes.setUpdateTime(new Date());

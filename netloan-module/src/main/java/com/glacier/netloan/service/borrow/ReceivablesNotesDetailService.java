@@ -311,6 +311,9 @@ public class ReceivablesNotesDetailService {
             receivablesNotesDetail.setUpdater(pricipalUser.getUserId());
             receivablesNotesDetail.setUpdateTime(new Date());
             count = receivablesNotesDetailMapper.insert(receivablesNotesDetail);
+            
+            //更新会员统计信息
+            
         }
         }
         if (count == 1) {

@@ -18,12 +18,14 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.RepaymentNotesMapper;
 import com.glacier.netloan.dao.finance.FinanceMemberMapper;
+import com.glacier.netloan.dao.member.MemberStatisticsMapper;
 import com.glacier.netloan.dto.query.borrow.RepaymentNotesQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.RepaymentNotesExample.Criteria;
 import com.glacier.netloan.entity.borrow.RepaymentNotes;
 import com.glacier.netloan.entity.borrow.RepaymentNotesExample;
 import com.glacier.netloan.entity.finance.FinanceMember;
+import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -42,6 +44,9 @@ public class RepaymentNotesService {
 	
 	@Autowired
 	private BorrowingLoanMapper borrowingLoanMapper;
+	
+	@Autowired
+	private MemberStatisticsMapper memberStatisticsMapper;
 	
 	@Autowired
 	private FinanceMemberMapper financeMemberMapper;
@@ -192,6 +197,22 @@ public class RepaymentNotesService {
         	financeMember.setRefundMoney(financeMember.getRefundMoney()+shouldPayMoney);//更新待还金额(原本待还金额+本息)
         	
         	financeMemberMapper.updateByPrimaryKey(financeMember);
+        	
+        	//更新借款的会员统计表信息
+          	//根据会员ID查找会员统计的信息
+        	MemberStatistics memberStatistics=memberStatisticsMapper.selectByMemberId(borrowingLoan.getMemberId());
+        	//根据借款的ID查找借款的信息
+        	BorrowingLoan borrowings=borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());
+        	//给要更新的会员统计数据赋值
+        	memberStatistics.setTotalBorrowings(memberStatistics.getTotalBorrowings()+borrowings.getLoanTotal());//设置借款总额(把借钱的总额和统计的总额相加)
+        	memberStatistics.setBorrowSuccess(memberStatistics.getBorrowSuccess()+1);
+        	memberStatistics.setWaitAlsoTotal(memberStatistics.getWaitAlsoTotal()+shouldPayMoney);//设置待还总额(本息(本金+利息))
+        	memberStatistics.setWaitAlsoPrincipal(memberStatistics.getWaitAlsoPrincipal()+borrowings.getLoanTotal());//设置待还本金
+        	memberStatistics.setWaitAlsoInterest(memberStatistics.getWaitAlsoInterest()+(shouldPayMoney-borrowings.getLoanTotal()));//设置待还利息(原有的利息+(本息-本金))
+        	memberStatistics.setCreateTime(new Date());
+        	
+        	//修改统计会员信息
+        	memberStatisticsMapper.updateByPrimaryKeySelective(memberStatistics);
         	
             returnResult.setSuccess(true);
             returnResult.setObj(repaymentNotes);

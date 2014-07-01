@@ -541,16 +541,15 @@ public class BorrowingLoanService {
           	financeTransaction.setMemberId(borrowingLoan.getMemberId());//设置会员id
           	List<String> memberNames = (List<String>) returnResultreceivablesNotesDetail.getObj();
           	financeTransaction.setTransactionTarget(CollectionsUtil.convertToString(memberNames, ","));//设置交易对象
-          	financeTransaction.setTransactionType("借款成功");//设置交易类型
+          	financeTransaction.setTransactionType("借款成功");//设置交易类型----
           	financeTransaction.setRemark("借款["+borrowingLoan.getLoanTitle()+"]复审通过,借款成功筹到资金["+borrowingLoan.getLoanTotal()+"]元");//设置备注
           	financeTransaction.setEarningMoney(borrowingLoan.getLoanTotal());//设置收入金额
           	financeTransaction.setExpendMoney(0f);//设置支出金额
-          	//financeTransaction.setUsableMoney(borrowingLoan.getLoanTotal() - borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());//设置可用金额
-          	financeTransaction.setUsableMoney(borrowingLoan.getLoanTotal() + financeMember.getUsableMoney());//设置可用金额
+          	financeTransaction.setUsableMoney(financeMember.getUsableMoney());//设置可用金额
           	financeTransaction.setFrozenMoney(financeMember.getFrozenMoney());//设置冻结金额
           	financeTransaction.setCollectingMoney(financeMember.getCollectingMoney());//设置代收金额
           	financeTransaction.setRefundMoney(financeMember.getRefundMoney());//设置待还金额
-          	financeTransaction.setAmount(borrowingLoan.getLoanTotal()+financeMember.getAmount());//设置总金额
+          	financeTransaction.setAmount(financeMember.getAmount());//设置总金额
           	financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
           	//添加系统账户收取管理费记录明细
           	/*financeTransaction.setTransactionTarget("系统账户");
@@ -560,23 +559,7 @@ public class BorrowingLoanService {
           	financeTransaction.setAmount(borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());//设置总金额
           	financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
           	 */          	
-          	
-          	//更新借款的会员资金信息
-          	financeMember.setUsableMoney(financeMember.getUsableMoney() + borrowingLoan.getLoanTotal());//设置会员资金可用金额
-          	financeMember.setAmount(financeMember.getAmount() +  borrowingLoan.getLoanTotal());//设置会员资金总金额
-          	financeMemberService.editMember(financeMember);
-          	//WT2014-6-27
-          	//更新借款的会员统计表信息
-          	//根据会员ID查找会员统计的信息
-        	MemberStatistics memberStatistics=memberStatisticsMapper.selectByMemberId(borrowingLoan.getMemberId());
-        	//根据借款的ID查找借款的信息
-        	BorrowingLoan borrowings=borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());
-        	//把借钱的总额和统计的总额相加
-        	memberStatistics.setTotalBorrowings(memberStatistics.getTotalBorrowings()+borrowings.getLoanTotal());
-        	memberStatistics.setBorrowSuccess(memberStatistics.getBorrowSuccess()+1);
-        	memberStatistics.setCreateTime(new Date());
-        	//修改统计会员信息
-        	memberStatisticsMapper.updateByPrimaryKeySelective(memberStatistics);
+
           	//增加借款会员积分记录表
         	//先查询出borrow的积分类型
         	ParameterIntegralTypeExample integralTypeExample = new ParameterIntegralTypeExample();
@@ -605,46 +588,6 @@ public class BorrowingLoanService {
         	//修改会员信息
         	memberMapper.updateByPrimaryKeySelective(member);
         	
-        	//-----------------------------投资人-------------------------------------
-        	/*TenderNotesExample tenderNotesExample = new TenderNotesExample();;
-            tenderNotesExample.createCriteria().andLoanIdEqualTo(borrowingLoan.getLoanId());//查询相对应的投标的记录
-            List<TenderNotes> tenderNotess = tenderNotesMapper.selectByExample(tenderNotesExample);
-            for (int i = 0; i < tenderNotess.size(); i++) {
-            	TenderNotes tenderNotes=tenderNotess.get(i);
-            	//根据会员ID取出会员资金的信息
-            	FinanceMember financeMembers=financeMemberMapper.selectByMemberId(tenderNotes.getMemberId());
-            	//增加投资人的资金记录明细
-            	//创建资金记录明细对象
-            	float moneynum=0;
-            	FinanceTransaction transactionss = new FinanceTransaction();
-            	transactionss.setTransactionId(RandomGUID.getRandomGUID());
-            	transactionss.setFinanceMemberId(financeMembers.getFinanceMemberId());
-            	transactionss.setMemberId(tenderNotes.getMemberId());
-            	transactionss.setTransactionTarget(borrowingLoan.getMemberDisplay());
-            	transactionss.setTransactionType("借款出复审");
-            	transactionss.setEarningMoney(moneynum);
-            	transactionss.setExpendMoney(borrowingLoan.getLoanTotal());
-            	transactionss.setUsableMoney(financeMembers.getUsableMoney());
-            	transactionss.setFrozenMoney(financeMembers.getFrozenMoney());
-            	transactionss.setCollectingMoney(financeMembers.getCollectingMoney());
-            	transactionss.setRefundMoney(financeMembers.getRechargeMoney());
-            	transactionss.setAmount(financeMembers.getAmount());
-            	transactionss.setRemark("借款["+borrowingLoan.getLoanTitle()+"]复审通过,借款成功筹到资金["+borrowingLoan.getLoanTotal()+"]元");
-            	transactionss.setCreater(pricipalUser.getUserId());
-            	transactionss.setCreateTime(new Date());
-            	transactionss.setUpdater(pricipalUser.getUserId());
-            	transactionss.setUpdateTime(new Date());
-            	//添加投资人资金记录明细数据
-            	transactionMapper.insert(transactionss);
-            	
-            	//更新投资人的资金信息
-            	financeMembers.setFrozenMoney(financeMembers.getFrozenMoney()-borrowingLoan.getLoanTotal());//设置投资人的冻结资金
-            	financeMembers.setAmount(financeMembers.getAmount()-borrowingLoan.getLoanTotal());
-            	
-            	//更新投资人的资金信息
-            	financeMemberMapper.updateByPrimaryKeySelective(financeMembers);
-			}*/
-          	
           	//判断借款是否设置投标奖励
           	if(borrowingLoan.getIsBidReward().equals("yes")){
           		if(borrowingLoan.getFixedAppReward() != 0.0){//按固定金额分摊奖励

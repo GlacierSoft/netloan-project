@@ -223,6 +223,7 @@ public class RepaymentNotesDetailService {
  	        c.setTime(new Date());//获取当前时间
  	        c.add(Calendar.MONTH, i+1);//在当前时间上加一个月
         	repaymentNotesDetail.setShouldPayDate(c.getTime());//设置应还款日期
+        	float shouldPayMoney=0;//设置本息
         	//满标进行二次审核时，同时生成还款记录和还款记录明细和收款记录和收款记录明细等数据
     		if(borrowingLoanNew.getRepaymentTypeDisplay().equals("等额本息")){
     			float everyMonthMoney = (float) ((borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/12) 
@@ -237,7 +238,7 @@ public class RepaymentNotesDetailService {
     		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("按月付息，到期还本")){
     			float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/12);
     			if(Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId()) == i+1){//判断是否是最后一期
-    				float shouldPayMoney = everyMonthInterest + borrowingLoanNew.getLoanTotal();
+    				shouldPayMoney = everyMonthInterest + borrowingLoanNew.getLoanTotal();
     				repaymentNotesDetail.setCurrentPayMoeny(shouldPayMoney);//设置当期应还本息
     				repaymentNotesDetail.setCurrentPayPrincipal(borrowingLoanNew.getLoanTotal());//设置当期应还本金
         			repaymentNotesDetail.setCurrentPayInterest(everyMonthInterest);//设置当期应还利息
@@ -249,7 +250,7 @@ public class RepaymentNotesDetailService {
     		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("一次性还款")){
     			if(Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId()) == i+1){//判断是否是最后一期
     				float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/12);
-        			float shouldPayMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + borrowingLoanNew.getLoanTotal();
+        			shouldPayMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + borrowingLoanNew.getLoanTotal();
     				repaymentNotesDetail.setCurrentPayMoeny(shouldPayMoney);//设置当期应还本息
     				repaymentNotesDetail.setCurrentPayPrincipal(borrowingLoanNew.getLoanTotal());//设置当期应还本金
         			repaymentNotesDetail.setCurrentPayInterest(everyMonthInterest);//设置当期应还利息
@@ -261,8 +262,8 @@ public class RepaymentNotesDetailService {
     		}
     		repaymentNotesDetail.setRepayNotesDetailId(RandomGUID.getRandomGUID());
     		repaymentNotesDetail.setMemberId(borrowingLoanNew.getMemberId());
-            repaymentNotesDetail.setActualPayMoney(0f);
-            repaymentNotesDetail.setAlsoNeedMoney(0f);
+            repaymentNotesDetail.setActualPayMoney(shouldPayMoney);
+            repaymentNotesDetail.setAlsoNeedMoney(shouldPayMoney);
             repaymentNotesDetail.setOverdueDays("0");
             repaymentNotesDetail.setOverdueInterest(0f);
             repaymentNotesDetail.setOverdueManaFee(0f);
@@ -363,7 +364,7 @@ public class RepaymentNotesDetailService {
         	
         	//判断是否还款记录表的还款状态有多少条
 	        RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();
-	        repaymentNotesDetailExample.createCriteria().andRepayStateEqualTo("notRepay");
+	        repaymentNotesDetailExample.createCriteria().andRepayStateEqualTo("notRepay").andRepayNotesDetailIdEqualTo(repaymentNotesDetail.getRepayNotesDetailId());
 	        List<RepaymentNotesDetail> repaymentNotesDetails = repaymentNotesDetailMapper.selectByExample(repaymentNotesDetailExample);
 	        if(repaymentNotesDetails.size()<=0){
 	        	//查找还款记录明细状态为未还的条数为0时，执行更新还款记录的状态为alreadRepay
