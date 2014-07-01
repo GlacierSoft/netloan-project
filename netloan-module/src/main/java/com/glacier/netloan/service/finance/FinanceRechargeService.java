@@ -261,6 +261,7 @@ public class FinanceRechargeService {
     	UserExample userExample = new UserExample();
   		userExample.createCriteria().andUsernameEqualTo("admin");
   		List<User> users = userMapper.selectByExample(userExample); 
+  		financeRecharge=financeRechargeMapper.selectByPrimaryKey(financeRecharge.getFinanceRechargeId());
   		String usid="";
   		if(i == 0){     //系统自动审核的,取出admin的id
   			usid=users.get(0).getUserId();
@@ -319,7 +320,7 @@ public class FinanceRechargeService {
 		    financePlatformTransaction.setFinancePlatformId(financePlatDate.getFinancePlatformId());//资金平台id
 		    financePlatformTransaction.setTransactionTarget(member.getMemberName());//交易对象
 		    financePlatformTransaction.setTransactionType("充值");//交易类型
-		    financePlatformTransaction.setEarningMoney(financeRecharge.getArriveMoney());//收入金额
+		    financePlatformTransaction.setEarningMoney(financeRecharge.getRechargeAmount());//收入金额
 		    financePlatformTransaction.setExpendMoney(0f);//支出金额
 		    financePlatformTransaction.setAmount(financePlatDate.getPlatformMoney()+financeRecharge.getArriveMoney());//总金额=原来的金额+充值的金额
 		    financePlatformTransaction.setCreater(usid);//创建人

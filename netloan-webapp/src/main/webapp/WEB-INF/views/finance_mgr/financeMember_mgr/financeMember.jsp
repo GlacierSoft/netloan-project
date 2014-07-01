@@ -129,25 +129,7 @@
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
 		pfinanceMemberSize : 10,//注意，pfinanceMemberSize必须在pfinanceMemberList存在
 		pfinanceMemberList : [2,10,50,100],//从session中获取
-		rownumbers:true,//True 就会显示行号的列
-		onCheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.finance_mgr.financeMember_mgr.financeMember.param,this).check();
-		},
-		onCheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.finance_mgr.financeMember_mgr.financeMember.param,this).check();
-		},
-		onUncheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.finance_mgr.financeMember_mgr.financeMember.param,this).unCheck();
-		},
-		onUncheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.finance_mgr.financeMember_mgr.financeMember.param,this).unCheck();
-		},
-		onSelect:function(rowIndex, rowData){//选择行事件触发
-			action_controller(glacier.finance_mgr.financeMember_mgr.financeMember.param,this).select();
-		},
-		onUnselectAll:function(rows){
-			action_controller(glacier.finance_mgr.financeMember_mgr.financeMember.param,this).unSelect();
-		},
+		rownumbers:true,//True 就会显示行号的列 
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
 			$(this).datagrid('clearChecked');
@@ -163,20 +145,7 @@
 				enableSaveButton : false
 			});
 		}
-	});
-	//点击增加按钮触发方法
-	glacier.finance_mgr.financeMember_mgr.financeMember.addFinanceMember = function(){
-		glacier.basicAddOrEditDialog({
-			title : '增加会员提现记录',
-			width : 450,
-			height : 330,
-			queryUrl : ctx + '/do/financeMember/intoForm.htm',
-			submitUrl : ctx + '/do/financeMember/add.json',
-			successFun : function (){
-				glacier.finance_mgr.financeMember_mgr.financeMember.financeMemberDataGrid.datagrid('reload');
-			}
-		});
-	};
+	}); 
 	//会员提现记录资料模糊查询
 	glacier.finance_mgr.financeMember_mgr.financeMember.quickquery = function(value,name){
 		var obj = $.parseJSON('{"'+name+'":"'+value+'"}');//将值和对象封装成obj作为参数传递给后台

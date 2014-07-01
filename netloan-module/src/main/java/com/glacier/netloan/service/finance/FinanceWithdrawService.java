@@ -17,20 +17,38 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.basicdatas.ParameterIntegralTypeMapper;
 import com.glacier.netloan.dao.finance.FinanceBankCardMapper;
 import com.glacier.netloan.dao.finance.FinanceMemberMapper;
+import com.glacier.netloan.dao.finance.FinancePlatformMapper;
+import com.glacier.netloan.dao.finance.FinancePlatformTransactionMapper;
 import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
 import com.glacier.netloan.dao.finance.FinanceWithdrawMapper;
+import com.glacier.netloan.dao.finance.FinanceWithdrawSetMapper;
+import com.glacier.netloan.dao.member.MemberIntegralMapper;
 import com.glacier.netloan.dao.member.MemberMapper;
+import com.glacier.netloan.dao.member.MemberMessageNoticeMapper;
+import com.glacier.netloan.dao.member.MemberStatisticsMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.finance.FinWithdrawQueryDTO;
+import com.glacier.netloan.entity.basicdatas.ParameterIntegralType;
+import com.glacier.netloan.entity.basicdatas.ParameterIntegralTypeExample;
 import com.glacier.netloan.entity.finance.FinanceBankCard;
 import com.glacier.netloan.entity.finance.FinanceMember;
+import com.glacier.netloan.entity.finance.FinancePlatform;
+import com.glacier.netloan.entity.finance.FinancePlatformExample;
+import com.glacier.netloan.entity.finance.FinancePlatformTransaction;
 import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.finance.FinanceWithdraw;
 import com.glacier.netloan.entity.finance.FinanceWithdrawExample;
 import com.glacier.netloan.entity.finance.FinanceWithdrawExample.Criteria;
+import com.glacier.netloan.entity.finance.FinanceWithdrawSet;
+import com.glacier.netloan.entity.finance.FinanceWithdrawSetExample;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.entity.member.MemberIntegral;
+import com.glacier.netloan.entity.member.MemberMessageNotice;
+import com.glacier.netloan.entity.member.MemberStatistics;
+import com.glacier.netloan.entity.member.MemberStatisticsExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.util.MethodLog;
@@ -64,6 +82,26 @@ public class FinanceWithdrawService {
 	@Autowired
 	private FinanceBankCardMapper financeBankCardMapper;
 	
+	@Autowired
+	private FinancePlatformMapper financePlatformMapper; 
+	
+	@Autowired
+	private FinancePlatformTransactionMapper financePlatformTransactionMapper;
+	
+	@Autowired
+	private MemberStatisticsMapper  memberStatisticsMapper;
+	
+	@Autowired
+	private ParameterIntegralTypeMapper parameterIntegralTypeMapper;
+	
+	@Autowired
+    private MemberIntegralMapper memberIntegralMapper;
+	
+	@Autowired
+	private MemberMessageNoticeMapper  memberMessageNoticeMapper;
+	
+	@Autowired
+	private FinanceWithdrawSetMapper  financeWithdrawSetMapper;
 	/**
 	 * @Title: getWithdraw 
 	 * @Description: TODO(根据会员提现记录Id获取会员提现记录信息) 
@@ -171,6 +209,31 @@ public class FinanceWithdrawService {
   		FinanceBankCard financeBankCard = new FinanceBankCard();
   		financeBankCard = financeBankCardMapper.selectByPrimaryKey(bankCardId);
         int count = 0;
+        
+         //提现总金额不能小于100或者大于500000，--没算手续费
+        if(financeWithdraw.getWithdrawAmount()<100||financeWithdraw.getWithdrawAmount()>500000){
+        	 returnResult.setMsg("提现金额不能低于￥100，且不能大于￥500000");
+   		     return returnResult;
+        } 
+        
+        FinanceWithdrawSetExample financeWithdrawSetExample =new FinanceWithdrawSetExample(); 
+        List<FinanceWithdrawSet> financeWithdrawSet=financeWithdrawSetMapper.selectByExample(financeWithdrawSetExample);
+       float amount=financeWithdraw.getWithdrawAmount();//提现金额
+        for (FinanceWithdrawSet finance : financeWithdrawSet) {
+		     //判断本次提现的金额是按什么提现类型进行收费
+        	if(amount>=finance.getWithdrawSetMinimum()&&amount<=finance.getWithdrawSetMaximum()){
+        	   if("directcost".equals(finance.getFeeWay())){ //直接收费
+        	       financeWithdraw.setArriveMoney(amount-finance.getWithdrawRate());//到账金额=提现金额-手续费
+        		   financeWithdraw.setHandlingCharge(finance.getWithdrawRate());//手续费
+        		   financeWithdraw.setWithdrawRate(0f);//提现利率
+        	   }else{ //比例收费
+        		   financeWithdraw.setArriveMoney(amount-(amount*finance.getWithdrawRate()));//到账金额=提现金额-（提现*比率）
+        		   financeWithdraw.setHandlingCharge(amount*finance.getWithdrawRate());//手续费
+        		   financeWithdraw.setWithdrawRate(finance.getWithdrawRate());//提现利率
+                }
+			}
+		}
+        
         financeWithdraw.setFinanceWithdrawId(RandomGUID.getRandomGUID());
         // 赋值于提现记录的提现流水号
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
@@ -193,7 +256,7 @@ public class FinanceWithdrawService {
         }
         return returnResult;
     }
-    
+     
 /*    
     *//**
      * @Title: editWithdraw 
@@ -240,13 +303,19 @@ public class FinanceWithdrawService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "WithdrawList_audit")
-    public Object auditWithdraw(FinanceWithdraw financeWithdraw) {
+    public Object auditWithdraw(FinanceWithdraw financeWithdraws) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
+        //取出本条提现记录的所有信息
+        FinanceWithdraw financeWithdraw=financeWithdrawMapper.selectByPrimaryKey(financeWithdraws.getFinanceWithdrawId()); 
+        //取出会员信息
+        Member member= memberMapper.selectByPrimaryKey(financeWithdraw.getMemberId());
+         
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         financeWithdraw.setAuditor(pricipalUser.getUserId());
-        financeWithdraw.setAuditDate(new Date());
+        financeWithdraw.setAuditState("pass");//提现记录通过
+        financeWithdraw.setAuditDate(new Date()); 
         financeWithdraw.setUpdater(pricipalUser.getUserId());
         financeWithdraw.setUpdateTime(new Date());
         count = financeWithdrawMapper.updateByPrimaryKeySelective(financeWithdraw);
@@ -255,16 +324,15 @@ public class FinanceWithdrawService {
             if (null != financeWithdraw.getAuditState() && StringUtils.isNotBlank(financeWithdraw.getAuditState())) {
                 if ("pass".equals(financeWithdraw.getAuditState())) {
                     FinanceTransaction financeTransaction = new FinanceTransaction();
-                    financeTransaction.setTransactionId(RandomGUID.getRandomGUID());
-                    
+                    financeTransaction.setTransactionId(RandomGUID.getRandomGUID()); 
                     //根据提现会员Id找到该会员的会员财务信息记录
                     FinanceMember financeMember = new FinanceMember();
-                    financeMember = financeMemberMapper.selectByMemberId(financeWithdraw.getMemberId());
-                    
+                    financeMember = financeMemberMapper.selectByMemberId(financeWithdraw.getMemberId()); 
                     financeTransaction.setFinanceMemberId(financeMember.getFinanceMemberId());
                     financeTransaction.setMemberId(financeWithdraw.getMemberId());
                     financeTransaction.setTransactionTarget("系统账号");
                     financeTransaction.setTransactionType("提现");
+                    financeTransaction.setEarningMoney(0f);//收入金额
                     financeTransaction.setExpendMoney(financeWithdraw.getWithdrawAmount());//支出金额等于提现总额
                     financeTransaction.setUsableMoney(financeMember.getUsableMoney()-financeWithdraw.getWithdrawAmount());//记录的可用金额=原来可用金额-提现的总金额
                     financeTransaction.setFrozenMoney(financeMember.getFrozenMoney());//冻结金额不变
@@ -284,10 +352,102 @@ public class FinanceWithdrawService {
                         financeMember.setWithdrawMonthTimes(financeMember.getWithdrawMonthTimes()+1);//本月提现次数
                         financeMember.setWithdrawTimes(financeMember.getWithdrawTimes()+1);//提现总次数
                         financeMember.setWithdrawMoney(financeMember.getWithdrawMoney()+financeWithdraw.getWithdrawAmount());//提现总金额
+                        financeMember.setUpdater(pricipalUser.getUserId());//更新人
+                        financeMember.setUpdateTime(new Date());//更新时间
                         count = financeMemberMapper.updateByPrimaryKeySelective(financeMember);
                         if (count == 1) {
-                            returnResult.setSuccess(true);
-                        }
+                             	//取出默认平台资金的账户总余额 
+                    		    FinancePlatformExample  financePlatformExample=new FinancePlatformExample();
+                    		    financePlatformExample.createCriteria().andPlatformTypeEqualTo("default");
+                    		    List<FinancePlatform> financePlatforms = financePlatformMapper.selectByExample(financePlatformExample);
+                    		    FinancePlatform financePlatDate=financePlatforms.get(0); 
+                    			//新增资金平台记录
+                    			FinancePlatformTransaction  financePlatformTransaction=new FinancePlatformTransaction();
+                    		    financePlatformTransaction.setPlatformTransactionId(RandomGUID.getRandomGUID());  //id
+                    		    financePlatformTransaction.setFinancePlatformId(financePlatDate.getFinancePlatformId());//资金平台id
+                    		    financePlatformTransaction.setTransactionTarget(member.getMemberName());//交易对象
+                    		    financePlatformTransaction.setTransactionType("提现");//交易类型
+                    		    financePlatformTransaction.setEarningMoney(0f);//收入金额
+                    		    financePlatformTransaction.setExpendMoney(financeWithdraw.getWithdrawAmount());//支出金额=提现总金额
+                    		    financePlatformTransaction.setAmount(financePlatDate.getPlatformMoney()-financeWithdraw.getWithdrawAmount());//总金额=原来的金额-提现的金额
+                    		    financePlatformTransaction.setCreater(pricipalUser.getUserId());//创建人
+                    		    financePlatformTransaction.setRemark("会员提现");
+                    		    financePlatformTransaction.setCreateTime(new Date());
+                    		    financePlatformTransaction.setUpdater(pricipalUser.getUserId());
+                    		    financePlatformTransaction.setUpdateTime(new Date());
+                    		    count=financePlatformTransactionMapper.insertSelective(financePlatformTransaction);//新增平台资金记录
+                    		    //新增资金平台记录,手续费记录
+                    			FinancePlatformTransaction  financePlatformTransactions=new FinancePlatformTransaction();
+                    		    financePlatformTransactions.setPlatformTransactionId(RandomGUID.getRandomGUID());  //id
+                    		    financePlatformTransactions.setFinancePlatformId(financePlatDate.getFinancePlatformId());//资金平台id
+                    		    financePlatformTransactions.setTransactionTarget(member.getMemberName());//交易对象
+                    		    financePlatformTransactions.setTransactionType("提现手续费");//交易类型
+                    		    financePlatformTransactions.setEarningMoney(financeWithdraw.getHandlingCharge());//收入金额=提现的手续费
+                    		    financePlatformTransactions.setExpendMoney(0f);//支出金额=提现总金额
+                    		    financePlatformTransactions.setAmount(financePlatDate.getPlatformMoney()-financeWithdraw.getWithdrawAmount()+financeWithdraw.getHandlingCharge());//总金额=原来的金额-提现的金额+提现的手续费
+                    		    financePlatformTransactions.setCreater(pricipalUser.getUserId());//创建人
+                    		    financePlatformTransactions.setRemark("会员提现所产生的手续费");
+                    		    financePlatformTransactions.setCreateTime(new Date());
+                    		    financePlatformTransactions.setUpdater(pricipalUser.getUserId());
+                    		    financePlatformTransactions.setUpdateTime(new Date());
+                    		    count=financePlatformTransactionMapper.insertSelective(financePlatformTransactions);//新增平台资金记录
+                    		    //更新资金平台的数据
+                    		    financePlatDate.setPlatformMoney(financePlatDate.getPlatformMoney()-financeWithdraw.getWithdrawAmount()+financeWithdraw.getHandlingCharge());//资金平台余额=原有金额-提现金额+手续费
+                    		    financePlatDate.setUpdater(pricipalUser.getUserId());//更新人
+                    		    financePlatDate.setUpdateTime(new Date());//更新时间
+                    		    financePlatformMapper.updateByPrimaryKeySelective(financePlatDate);//更新资金平台数据
+                    		    MemberStatisticsExample  memberStatisticsExample=new MemberStatisticsExample();
+                    		    memberStatisticsExample.createCriteria().andMemberIdEqualTo(member.getMemberId());
+                    	 		List<MemberStatistics> memberStatistics = memberStatisticsMapper.selectByExample(memberStatisticsExample);
+                    	 	    MemberStatistics memberStatistic=memberStatistics.get(0);
+                    	 		//更新会员统计信息 
+                    			memberStatistic.setUplineDeltaAwards(0f);//线下充值奖励
+                    			memberStatistic.setUpdater(pricipalUser.getUserId());//更新人
+                    			memberStatistic.setUpdateTime(new Date());//统计时间更新 
+                    			memberStatisticsMapper.updateByPrimaryKey(memberStatistic); 
+                           }    
+                    		   
+                    		     //取出提现奖励积分的对象
+                    			 ParameterIntegralTypeExample  parameterIntegralTypeExample=new ParameterIntegralTypeExample();
+                    			 parameterIntegralTypeExample.createCriteria().andIntegralTypeEqualTo("withdraw");
+                    			 parameterIntegralTypeExample.createCriteria().andChangeTypeEqualTo("increase");
+                     		     List<ParameterIntegralType> memberStatistics = parameterIntegralTypeMapper.selectByExample(parameterIntegralTypeExample);
+                     		     ParameterIntegralType parameterIntegralType=memberStatistics.get(0);
+                     		    //增加该会员的一条积分记录信息 
+                    		     MemberIntegral memberIntegral=new MemberIntegral();
+                    		     memberIntegral.setMemberIntegralId(RandomGUID.getRandomGUID());
+                    		     memberIntegral.setMemberId(member.getMemberId());
+                    		     memberIntegral.setChangeType(parameterIntegralType.getChangeType());//积分类型
+                    		     memberIntegral.setChangeValue(parameterIntegralType.getChangeValue());//增加积分的值
+                    		     memberIntegral.setType(parameterIntegralType.getIntegralType());//提现奖励积分
+                    		     memberIntegral.setRemark(parameterIntegralType.getRemark());
+                    		     memberIntegral.setCreater(pricipalUser.getUserId());//创建人
+                    		     memberIntegral.setCreateTime(new Date());
+                    		     memberIntegral.setUpdater(pricipalUser.getUserId());
+                    		     memberIntegral.setUpdateTime(new Date());
+                    		     count=memberIntegralMapper.insert(memberIntegral);//新增会员积分记录
+                    		      //新增站内短信记录
+                    		     MemberMessageNotice  memberMessageNotice=new MemberMessageNotice();
+                    		     memberMessageNotice.setMessageNoticeId(RandomGUID.getRandomGUID());
+                    		     memberMessageNotice.setSender(pricipalUser.getUserId());//发信人，系统管理员
+                    		     memberMessageNotice.setAddressee(member.getMemberId());//收信人
+                    		     memberMessageNotice.setTitle("提现信息");//标题
+                    		     memberMessageNotice.setContent("尊敬的会员："+member.getMemberName()+",您已成功提现￥"+financeWithdraw.getWithdrawAmount()+"元。除去手续费￥"+financeWithdraw.getHandlingCharge()+"元,实际提现为：￥"+(financeWithdraw.getWithdrawAmount()-financeWithdraw.getHandlingCharge()));//短信内容
+                    		     memberMessageNotice.setSendtime(new Date());
+                    		     memberMessageNotice.setLetterstatus("unread");//信件状态，默认为未读
+                    		     memberMessageNotice.setLettertype("system");//信件类型，系统消息
+                    		     memberMessageNotice.setRemark("会员提现");//备注
+                    		     memberMessageNotice.setCreater(pricipalUser.getUserId());//创建人，系统管理员
+                    		     memberMessageNotice.setCreateTime(new Date());//创建时间
+                    		     memberMessageNotice.setUpdater(pricipalUser.getUserId());//更新人
+                    		     memberMessageNotice.setUpdateTime(new Date());//更新时间
+                    		     memberMessageNoticeMapper.insert(memberMessageNotice);//新增站内短信
+                    		      //更新会员信息的积分字段
+                    		     member.setIntegral(member.getIntegral()+parameterIntegralType.getChangeValue());//积分=原有的积分+增加的积分
+                    		     member.setUpdater(pricipalUser.getUserId());
+                    		     member.setUpdateTime(new Date());
+                    		     memberMapper.updateByPrimaryKey(member); //更改会员积分
+                    	   
                     } else {
                         returnResult.setMsg("发生未知错误，会员提现记录信息保存失败");
                     }
