@@ -191,7 +191,7 @@ public class ReceivablesNotesDetailService {
         	ReceivablesNotes receivablesNotesNew = ReceivablesNotess.get(0);
         for(int i = 0;i < Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId());i++){
         	receivablesNotesDetail.setReceNotesId(receivablesNotesNew.getReceNotesId());
-        	receivablesNotesDetail.setNumberPeriod((i+1)+"");//设置当前是第几期
+        	receivablesNotesDetail.setNumberPeriod(i+1);//设置当前是第几期
         	Calendar c = Calendar.getInstance();//日历对象
  	        c.setTime(new Date());//获取当前时间
  	        c.add(Calendar.MONTH, i+1);//在当前时间上加一个月
