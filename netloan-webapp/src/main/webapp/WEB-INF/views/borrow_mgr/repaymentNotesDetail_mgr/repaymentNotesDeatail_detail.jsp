@@ -5,6 +5,10 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
+			<td>还款标题:</td>
+			<td colspan="3"><input  class="spinner" style="width:444px"  value="${repaymentNotesDetailData.loanTitle}" readonly="readonly"/></td>
+			 
+		<tr>
 			<td>第几期：</td>
 			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
 				<input type="hidden" name="loanReviewId" value="${repaymentNotesDetailData.repayNotesDetailId}" />
@@ -67,7 +71,7 @@
 		</tr>
 		<tr>
 			<td>备注：</td>
-			<td colspan="3"><input class="spinner" style="width:438px" value="${repaymentNotesDetailData.remark}" readonly="readonly"/></td>
+			<td colspan="3"><input class="spinner" style="width:444px" value="${repaymentNotesDetailData.remark}" readonly="readonly"/></td>
 		</tr>
 	</table>
 </form>

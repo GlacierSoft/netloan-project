@@ -4,6 +4,10 @@
 
 <form method="post" style="padding:15px">
 	<table class="detailtable">
+	  <tr>
+			<td>还款标题：</td>
+			<td colspan="3"><input  class="spinner" style="width:444px"  value="${receivablesNotesDetailData.loanTitle}" readonly="readonly"/></td>
+		 </tr>
 		<tr>
 			<td>第几期：</td>
 			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->

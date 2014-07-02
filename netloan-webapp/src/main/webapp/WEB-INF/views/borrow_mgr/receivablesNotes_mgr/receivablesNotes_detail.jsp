@@ -5,6 +5,10 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
+			<td>借款标题:</td>
+			<td colspan="3"><input  class="spinner" style="width:458px"  value="${receivablesNotesData.loanTitle}" readonly="readonly"/></td>
+		 </tr>
+		<tr>
 			<td width="80px">收款总金额：</td>
 			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
 				<input type="hidden" name="loanReviewId" value="${receivablesNotesData.receNotesId}" />

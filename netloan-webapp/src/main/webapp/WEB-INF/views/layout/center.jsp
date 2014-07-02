@@ -152,7 +152,7 @@ pageContext.setAttribute("basePath",basePath);
 			$.easyui.showDialog({
 				title: rowData.webNewsTheme,
 				href : ctx + '/do/news/intoDetail.htm?webNewsId='+rowData.webNewsId,//从controller请求jsp页面进行渲染
-				width : 720,
+				width : 750,
 				height : 520,
 				resizable: false,
 				enableApplyButton : false,

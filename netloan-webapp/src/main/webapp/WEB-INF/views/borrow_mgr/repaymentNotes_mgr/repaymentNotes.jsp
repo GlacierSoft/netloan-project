@@ -39,7 +39,7 @@
 				checkbox:true
 			},{
 				field:'loanTitle',
-				title:'借款标题',
+				title:'还款标题',
 				width:200,
 				sortable:true
 			},{

@@ -19,6 +19,12 @@ public class ReceivablesNotesDetail {
      */
     private String loanMemberDisplay;
     
+    /**
+     * 自定义字段,借款标题
+     */
+    private String loanTitle;
+    
+    
     private String memberId;
 
     private Float alrReceMoney;
@@ -110,8 +116,15 @@ public class ReceivablesNotesDetail {
 	public String getReceNotesDetailId() {
         return receNotesDetailId;
     }
+ 
+	public String getLoanTitle() {
+		return loanTitle;
+	} 
+	public void setLoanTitle(String loanTitle) {
+		this.loanTitle = loanTitle;
+	}
 
-    public void setReceNotesDetailId(String receNotesDetailId) {
+	public void setReceNotesDetailId(String receNotesDetailId) {
         this.receNotesDetailId = receNotesDetailId;
     }
 

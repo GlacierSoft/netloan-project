@@ -38,6 +38,11 @@
 				title:'ID',
 				checkbox:true
 			},{
+				field:'loanTitle',
+				title:'还款标题',
+				width:200,
+				sortable:true
+			},{
 				field:'memberDisplay',
 				title:'还款人',
 				width:200,
@@ -182,10 +187,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: '【'+rowData.memberDisplay+'】还款明细信息',
+				title: '【'+rowData.loanTitle+'】还款明细信息',
 				href : ctx + '/do/repaymentNotesDetail/intoDetail.htm?repayNotesDetailId='+rowData.repayNotesDetailId,//从controller请求jsp页面进行渲染
-				width : 570,
-				height : 400,
+				width : 590,
+				height : 450,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

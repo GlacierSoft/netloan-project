@@ -38,6 +38,11 @@
 				title:'ID',
 				checkbox:true
 			},{
+				field:'loanTitle',
+				title:'还款标题',
+				width:200,
+				sortable:true
+			},{
 				field:'memberDisplay',
 				title:'还款人',
 				width:200,
@@ -174,10 +179,10 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: '【'+rowData.memberDisplay+"】收款纪录明细信息",
+				title: '【'+rowData.loanTitle+"】收款纪录明细信息",
 				href : ctx + '/do/receivablesNotesDetail/intoDetail.htm?receNotesDetailId='+rowData.receNotesDetailId,//从controller请求jsp页面进行渲染
-				width : 560,
-				height : 390,
+				width : 590,
+				height : 420,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
