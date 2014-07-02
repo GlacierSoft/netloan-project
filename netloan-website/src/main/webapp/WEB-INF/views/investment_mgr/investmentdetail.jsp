@@ -17,7 +17,7 @@
 	</style>
   </head>
   <body>
-  <jsp:include page="../nav.jsp"/>
+ <jsp:include page="../nav_mgr/navInvestment.jsp"/>
 	    <!-- CONTAINER START======================== -->
 	    <div class="container">
 	    <div class="panel panel-default">

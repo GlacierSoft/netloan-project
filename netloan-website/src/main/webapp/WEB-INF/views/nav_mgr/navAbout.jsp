@@ -18,7 +18,7 @@
 	        </div>
 	        <div class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav">
-	            <li class="active"><a href="${ctx}/index.htm">主页</a></li>
+	            <li class="dropdown"><a href="${ctx}/index.htm">主页</a></li>
 	            <li class="dropdown">
 	              <a href="${ctx}/investment/index.htm?&p=1">我要投资</a>
 	             </li>
@@ -32,7 +32,7 @@
 	              </ul>
 	            </li>
 	            <li><a href="${ctx}/member/index.htm">个人中心</a></li>
-	            <li class="dropdown">
+	            <li class="active">
 	              <a href="${ctx}/aboutUs.htm" class="dropdown-toggle" data-toggle="dropdown">关于我们<b class="caret"></b></a>
 	              <ul class="dropdown-menu">
 	                <li><a href="${ctx}/aboutUs.htm">公司简介</a></li>

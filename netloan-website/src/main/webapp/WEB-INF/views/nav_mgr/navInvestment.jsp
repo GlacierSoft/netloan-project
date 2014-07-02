@@ -18,8 +18,8 @@
 	        </div>
 	        <div class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav">
-	            <li class="active"><a href="${ctx}/index.htm">主页</a></li>
-	            <li class="dropdown">
+	            <li class="dropdown"><a href="${ctx}/index.htm">主页</a></li>
+	            <li class="active">
 	              <a href="${ctx}/investment/index.htm?&p=1">我要投资</a>
 	             </li>
 	            <li><a href="${ctx}/borrow.htm">我要借款</a></li>

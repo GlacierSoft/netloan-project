@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 
   <body>
-  <jsp:include page="../nav.jsp"/>
+ <jsp:include page="../nav_mgr/navBorrow.jsp"/>
     <div class="container">
   	<div class="row">
     	
