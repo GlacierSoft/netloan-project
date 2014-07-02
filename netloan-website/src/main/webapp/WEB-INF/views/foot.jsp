@@ -203,7 +203,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		               "<dt><img src='<%=basePath %>resources/images/foot/Service1.jpg'></dt>"+
     		               "<dd> <strong>客服("+v.webServiceName+")</strong>"+
     		               "<P class='p1'>9:00-22:00</P>"+
-    		               "<P class='p2'><a title='点击这里给我发消息' href='http://wpa.qq.com/msgrd?v=3&amp;uin="+v.webServiceQq+"&amp;site=qq&amp;menu=yes' target='_blank'>点击交谈</A></P>"+
+    		               "<P class='p2'><a title='点击这里给我发消息' href='tencent://message/?Menu=yes&uin="+v.webServiceQq+"&Site=QQ&Service=200&sigT=2a0e37386280486ada2b5d5e69ee49186ccae1257fd9e1c9598af1f0b9c916067002a57aaaec8c8d' target='_blank'>点击交谈</A></P>"+
     		               "</dd>"+
     		               "</dl>").appendTo(".ServiceBox");     
     		       });

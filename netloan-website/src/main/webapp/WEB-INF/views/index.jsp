@@ -175,11 +175,9 @@
       <hr class="featurette-divider2">
 
       <!-- /END THE FEATURETTES -->
-      
-      <!-- FOOTER -->
-        
+      <!-- /.container -->
+	  <!-- FOOTER -->
    </div>
-	<!-- /.container -->
-	<jsp:include page="foot.jsp"/>
+   <jsp:include page="foot.jsp"/>
   </body>
 </html>
