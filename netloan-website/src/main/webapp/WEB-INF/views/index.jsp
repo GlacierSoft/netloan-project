@@ -177,9 +177,9 @@
       <!-- /END THE FEATURETTES -->
       
       <!-- FOOTER -->
-        <jsp:include page="foot.jsp"/>
-
-    </div>
+        
+   </div>
 	<!-- /.container -->
+	<jsp:include page="footTest.jsp"/>
   </body>
 </html>
