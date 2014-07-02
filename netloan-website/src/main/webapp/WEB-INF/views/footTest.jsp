@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <style>
 .foot_div{width:100%;height:300px;border-top: 2px solid #11ACE2;background-color: #373A3F;font-family: "微软雅黑";color: #808080}  
 
-.foot_youqing{width: 1200px;border-bottom: 2px solid #808080;float: left;margin-left: 80px;}
+.foot_youqing{width: 1200px;border-bottom: 2px solid #808080;float: left;}
 
 .foot_kefu_left_one_ul ,.foot_kefu_left_one_ul li,.foot_kefu_left_two_ul,.foot_kefu_left_two_ul li{list-style: none;}
 
@@ -29,13 +29,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 .foot_kefu_left_one_ul li a:HOVER,.foot_kefu_left_two_ul li a:HOVER {color: #11ACE2}
 .ul_first,.ul_kefu_first{font-size: 18px;color:#808080; }
 
-.foot_kefu{border-bottom: 2px solid #808080;width: 1200px; height: 95px;float: left;margin-left: 80px;}
+.foot_kefu{border-bottom: 2px solid #808080;width: 1200px; height: 95px;float: left;}
 .foot_kefu_left{float: left;height: 95px;width: 796px;border: 0px solid red;float: left;}
 .foot_kefu_right{float: left;height: 95px;width: 400px;border: 0px solid red;float: left;}
 .foot_kefu_left_one{width: 800px;height:40px;border: 0px solid blue;float: left;}
 .foot_kefu_left_two{width: 800px;height:50px;border: 0px solid white;float: left;}
 
-.foot_other{width: 1200px;height:110px;border: 0px solid red;float: left;margin-left: 80px;}
+.foot_other{width: 1200px;height:110px;border: 0px solid red;float: left;}
 .foot_other_one{width: 900px;margin-left: 200px;height: 30px;border: 0px solid white;line-height: 30px;color:#808080;float: left; }
 .foot_other_two{width: 600px;margin-left:300px;height: 30px;border: 0px solid white;line-height: 30px;color: #808080;float: left;}
 .foot_other_three{width: 750px;margin-left: 200px;height: 40px;border: 0px solid white;vertical-align: middle;float:left;margin-top: 10px;}
@@ -49,11 +49,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 .foot_youqing_one{font-size: 18px;color:#808080 ;border: 0px solid green;width: 100px;height: 35px;float: left;margin-top: 15px;line-height: 35px;margin-bottom: 5px;}
 .Div_Test_One{margin-top: 25px;width: 1100px;border: 0px solid red;float: left;margin-bottom: 20px;}
 
+.foot_div_middle{}
+
 </style> 
 <body>
    <!--底部样式  -->
    <div class="foot_div" >
-           <!--友情链接(可循环内容)  -->
+   
+       <div class="container marketing">
+         <!--友情链接(可循环内容)  -->
            <div class="foot_youqing">   
                <div class="foot_youqing_one">
                                                                       友情链接 : 
@@ -116,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        <div class="foot_erweima" style="width: 200px;height: 200px;display: none;position:absolute;margin-top: 40px;margin-left: 230px;">
           <img src="<%=basePath %>resources/images/foot/erweima.png" title="扫一扫有惊喜!!">
        </div>
-      
+      </div>
    </div>
        
     <!-- 客服服务begin -->
