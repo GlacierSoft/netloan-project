@@ -180,6 +180,6 @@
         
    </div>
 	<!-- /.container -->
-	<jsp:include page="footTest.jsp"/>
+	<jsp:include page="foot.jsp"/>
   </body>
 </html>
