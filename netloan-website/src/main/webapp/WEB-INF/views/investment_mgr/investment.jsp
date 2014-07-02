@@ -14,6 +14,8 @@
 		body {
 		    padding-top: 100px;
 		}
+		
+		
 	</style>
   </head>
   <body>
@@ -203,7 +205,7 @@
 						</c:choose>
 				    </div>
 				  	</div>
-				  	<table class="table" style="width:900px;padding: 10px;">
+				  	<table class="table" style="width:800px;padding: 10px;border: 0px solid red;">
 			        <c:if test="${empty borrowingDatas.rows}">
 					<tr>
 			            <td colspan="5"><strong>暂无信息</strong></td>
@@ -212,15 +214,15 @@
 					<c:if test="${!empty borrowingDatas.rows}">  	
 					<c:forEach items="${borrowingDatas.rows}" var="borrowingLoan" varStatus="status">
 			        	<tr>
-			        	<td rowspan="4" style="text-align:center;vertical-align: middle;">
-			        	<a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }&p=1">
-			        	<img id="loanPicture"  src="${borrowingLoan.loanPicture}" style="width: 120px;height: 120px ;" />
-			        	</a>
+			        	<td rowspan="4" style="text-align:center;vertical-align: middle;border: 0px solid red;">
+				        	<a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }&p=1">
+				        	<img id="loanPicture"  src="${borrowingLoan.loanPicture}" style="width: 120px;height: 120px ;" />
+				        	</a>
 			        	</td>
-			        	<td colspan="4">
-			        	<a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }&p=1">
-			        	${borrowingLoan.loanTitle }
-			        	</a>
+			        	<td colspan="4" style="border:0px solid red;">
+				        	<a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }&p=1">
+				        	${borrowingLoan.loanTitle }
+				        	</a>
 			        	<c:choose>
 						   <c:when test="${borrowingLoan.loanTenderDisplay == '流转标'}">  
 						   	<img src="${ctx}/resources/images/borrow/liu.png" alt="liuzhuan">
@@ -236,7 +238,7 @@
 						   </c:when>
 						</c:choose>
 			        	</td>
-			        	<td rowspan="4"style="text-align:center;vertical-align: middle;">
+			        	<td rowspan="4"style="text-align:center;vertical-align: middle;border: 0px solid black; ">
 			        	<a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }&p=1">
 			        		<button  id="borrowingLoan_loanState${status.index}"  type=button class="btn btn-primary btn-lg btn-block"></button>
 			        	</a>
@@ -249,7 +251,7 @@
 			        		<td>借款金额：
 			        		<span class="text-danger"><fmt:formatNumber value="${borrowingLoan.loanTotal }" pattern="#,#00.00"/>元</span>
 			        		</td>
-			        		<td>利率：<fmt:formatNumber value="${borrowingLoan.loanApr * 100}" pattern="#,#00.00"/>%/ 年</td>
+			        		<td>利率：<fmt:formatNumber value="${borrowingLoan.loanApr * 100}" pattern="#,#00.00"/> %/年</td>
 			        		<td>投标奖：0.00 元</td>
 			        		<td>招标期限：${borrowingLoan.waitBidDeadlines } 天</td>
 			        	</tr>
@@ -281,7 +283,7 @@
 			        		</td>
 			        		<td>
 			        		<div class="progress" style="border: 1px solid #DDDDDD;">
-			        		<div id="progressBar${status.index}" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="${borrowingLoan.alrTenderPro*100}" aria-valuemin="0" aria-valuemax="100" style="width: ${borrowingLoan.alrTenderPro*100}%">
+			        		<div id="progressBar${status.index}" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="${borrowingLoan.alrTenderPro*100}" aria-valuemin="0" aria-valuemax="100" style="width: ${borrowingLoan.alrTenderPro*100}%;">
 							</div>
 							<!-- <script type="text/javascript">
 				        	$('#progressBar'+${status.index}).prop("aria-valuenow", '${borrowingLoan.alrTenderPro*100}');
