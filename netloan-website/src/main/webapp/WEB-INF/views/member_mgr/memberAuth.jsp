@@ -653,10 +653,10 @@
 	    
 	    </div>
 	    <hr class="featurette-divider2">
-	    <jsp:include page="../foot.jsp"/>
+	   
 	    </div>
 	    <!-- CONTAINER START======================== -->
-	      
+	    <jsp:include page="../foot.jsp"/>
   </body>
 	<script type="text/javascript">
 	//为对应的会员type显示对应的文字

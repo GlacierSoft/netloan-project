@@ -501,9 +501,10 @@
 	    	</div>
 	    </div>
 	    
-	    <jsp:include page="../foot.jsp"/>
+	   
 	    </div>
 	    <!-- CONTAINER START======================== -->
+	     <jsp:include page="../foot.jsp"/>
   </body>
   <script type="text/javascript">
  // alert("borrowingLoan:  "+"<fmt:formatDate value='${borrowingMember.createTime}' pattern='yyyy/MM/dd HH:mm:ss'/>")

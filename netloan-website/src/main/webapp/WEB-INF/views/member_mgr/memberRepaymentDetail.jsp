@@ -168,10 +168,10 @@
 	    	</div>
 	    </div>
 	    <hr class="featurette-divider2">
-	    <jsp:include page="../foot.jsp"/>
+	    
 	    </div>
 	    <!-- CONTAINER START======================== -->
-
+        <jsp:include page="../foot.jsp"/>
 <!-- 分页显示表格数据 -->
 <script type="text/javascript">
 

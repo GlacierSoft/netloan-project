@@ -38,8 +38,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       		邮件已发送，请在10分钟之内登录邮箱，点击链接完成注册.<br>
 		  </div>
 		</div>
-		<jsp:include page="foot.jsp"/>
+		
       </div>
+      <jsp:include page="foot.jsp"/>
   </body>
 </html>
 

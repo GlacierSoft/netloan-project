@@ -106,9 +106,8 @@
 	    	</div>
 	    </div>
 	    <hr class="featurette-divider2">
-	    <jsp:include page="../foot.jsp"/>
 	    </div>
-	    
+	    <jsp:include page="../foot.jsp"/>
 <!-- 分页显示表格数据 -->
 <script type="text/javascript">
 	$(function(){

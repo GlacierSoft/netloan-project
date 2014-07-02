@@ -187,10 +187,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	</div>
 	    </div>
 	    <hr class="featurette-divider2">
-	    <jsp:include page="../foot.jsp"/>
+	   
 	    </div>
 	    <!-- CONTAINER START======================== -->
-	    
+	     <jsp:include page="../foot.jsp"/>
 <script type="text/javascript">
     $("#conductRepayment").validate({
     	rules:{

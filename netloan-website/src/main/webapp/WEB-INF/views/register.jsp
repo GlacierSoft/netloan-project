@@ -87,8 +87,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 			</div>
 		</div>
-		<jsp:include page="foot.jsp"/>
+		
       </div>
+      <jsp:include page="foot.jsp"/>
       	<script type="text/javascript">
 			$(function() {
 				$(".alert").alert();

@@ -227,8 +227,9 @@
 	    	</div>
 	    </div>
 	    <hr class="featurette-divider2">
-	    <jsp:include page="../foot.jsp"/>
+	   
 	    </div>
+	     <jsp:include page="../foot.jsp"/>
 	    <!-- CONTAINER START======================== -->
 	    <!-- 测试提交======================== -->
   </body>

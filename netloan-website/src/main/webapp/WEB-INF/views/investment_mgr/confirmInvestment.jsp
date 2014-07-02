@@ -171,13 +171,9 @@
 		  </div>
 		</div>
 	    
-	    
-	    
-	    
-	    
-	    <jsp:include page="../foot.jsp"/>
 	    </div>
 	    <!-- CONTAINER START======================== -->
+        <jsp:include page="../foot.jsp"/>
   </body>
   <script type="text/javascript">
   

@@ -679,8 +679,9 @@
 	    	</div>
 	    </div>
 	    <hr class="featurette-divider2">
-	    <jsp:include page="../foot.jsp"/>
+	    
 	    </div>
+	    <jsp:include page="../foot.jsp"/>
 	    <!-- CONTAINER START======================== -->
 	    <script type="text/javascript">
 	    $('#tabchangeMobileTab').bind('click', function(){    
