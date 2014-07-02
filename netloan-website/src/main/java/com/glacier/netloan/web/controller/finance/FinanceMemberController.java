@@ -69,7 +69,7 @@ public class FinanceMemberController extends AbstractController{
             mav.addObject("financeMemberData", financeMemberService.getFinanceMemberByMemberId(pricipalMember.getMemberId()));
             mav.addObject("financeTransactionDatas",financeTransactionService.listAsWebsite(pager, finTransactionQueryDTO, pricipalMember.getMemberId(), p));
             mav.addObject("financeWithdrawDatas",financeWithdrawService.listAsWebsite(pager, pricipalMember.getMemberId(), p));
-            mav.addObject("financeRechargeSetDatas",financeRechargeSetService.listAsGrid(pager));
+            mav.addObject("financeRechargeSetDatas",financeRechargeSetService.listWebsite());
             mav.addObject("financeBankCardDatas",bankCardService.getBankCardByMemberId(pricipalMember.getMemberId()));
         }
         return mav;

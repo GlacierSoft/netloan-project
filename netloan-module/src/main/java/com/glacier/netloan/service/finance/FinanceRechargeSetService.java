@@ -77,6 +77,24 @@ public class FinanceRechargeSetService {
     }
 
     /**
+     * @Title: listWebsite 
+     * @Description: TODO(前台查找出“审核通过”的充值设置列表) 
+     * @param  @param auditState
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object listWebsite() {
+        JqGridReturn returnResult = new JqGridReturn();
+        FinanceRechargeSetExample financeRechargeSetExample = new FinanceRechargeSetExample();
+        financeRechargeSetExample.createCriteria().andAuditStateEqualTo("pass");
+        List<FinanceRechargeSet>  financeRechargeSets = financeRechargeSetMapper.selectByExample(financeRechargeSetExample); // 查询所有会员充值设置列表
+        int total = financeRechargeSetMapper.countByExample(financeRechargeSetExample); // 查询总页数
+        returnResult.setRows(financeRechargeSets);
+        returnResult.setTotal(total);
+        return returnResult;// 返回ExtGrid表
+    }
+    /**
      * @Title: addRechargeSet 
      * @Description: TODO(新增会员充值设置) 
      * @param @param financeRechargeSet
