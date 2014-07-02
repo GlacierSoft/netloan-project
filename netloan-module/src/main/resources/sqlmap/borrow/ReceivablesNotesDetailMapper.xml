@@ -6,7 +6,7 @@
     <result column="temp_receivables_notes_detail_rece_notes_id" property="receNotesId" jdbcType="VARCHAR" />
     <result column="temp_receivables_notes_detail_member_id" property="memberId" jdbcType="VARCHAR" />
     <result column="temp_receivables_notes_detail_alr_rece_money" property="alrReceMoney" jdbcType="REAL" />
-    <result column="temp_receivables_notes_detail_number_period" property="numberPeriod" jdbcType="VARCHAR" />
+    <result column="temp_receivables_notes_detail_number_period" property="numberPeriod" jdbcType="INTEGER" />
     <result column="temp_receivables_notes_detail_should_rece_date" property="shouldReceDate" jdbcType="TIMESTAMP" />
     <result column="temp_receivables_notes_detail_actual_rece_date" property="actualReceDate" jdbcType="TIMESTAMP" />
     <result column="temp_receivables_notes_detail_current_rece_moeny" property="currentReceMoeny" jdbcType="REAL" />
@@ -25,7 +25,7 @@
     <result column="temp_receivables_notes_detail_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_receivables_notes_detail_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_receivables_notes_detail_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_receivables_notes_detail_loan_title" property="loanTitle" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+	<result column="temp_receivables_notes_detail_loan_title" property="loanTitle" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_detail_member_display" property="memberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_detail_loan_member_display" property="loanMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_detail_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
@@ -171,7 +171,7 @@
       creater, create_time, updater, 
       update_time)
     values (#{receNotesDetailId,jdbcType=VARCHAR}, #{receNotesId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
-      #{alrReceMoney,jdbcType=REAL}, #{numberPeriod,jdbcType=VARCHAR}, #{shouldReceDate,jdbcType=TIMESTAMP}, 
+      #{alrReceMoney,jdbcType=REAL}, #{numberPeriod,jdbcType=INTEGER}, #{shouldReceDate,jdbcType=TIMESTAMP}, 
       #{actualReceDate,jdbcType=TIMESTAMP}, #{currentReceMoeny,jdbcType=REAL}, #{currentRecePrincipal,jdbcType=REAL}, 
       #{currentReceInterest,jdbcType=REAL}, #{surplusPrincipal,jdbcType=REAL}, #{interestManaFee,jdbcType=REAL}, 
       #{isOverdue,jdbcType=CHAR}, #{overdueInterest,jdbcType=REAL}, #{overdueDays,jdbcType=REAL}, 
@@ -266,7 +266,7 @@
         #{alrReceMoney,jdbcType=REAL},
       </if>
       <if test="numberPeriod != null" >
-        #{numberPeriod,jdbcType=VARCHAR},
+        #{numberPeriod,jdbcType=INTEGER},
       </if>
       <if test="shouldReceDate != null" >
         #{shouldReceDate,jdbcType=TIMESTAMP},
@@ -347,7 +347,7 @@
         temp_receivables_notes_detail.alr_rece_money = #{record.alrReceMoney,jdbcType=REAL},
       </if>
       <if test="record.numberPeriod != null" >
-        temp_receivables_notes_detail.number_period = #{record.numberPeriod,jdbcType=VARCHAR},
+        temp_receivables_notes_detail.number_period = #{record.numberPeriod,jdbcType=INTEGER},
       </if>
       <if test="record.shouldReceDate != null" >
         temp_receivables_notes_detail.should_rece_date = #{record.shouldReceDate,jdbcType=TIMESTAMP},
@@ -414,7 +414,7 @@
       temp_receivables_notes_detail.rece_notes_id = #{record.receNotesId,jdbcType=VARCHAR},
       temp_receivables_notes_detail.member_id = #{record.memberId,jdbcType=VARCHAR},
       temp_receivables_notes_detail.alr_rece_money = #{record.alrReceMoney,jdbcType=REAL},
-      temp_receivables_notes_detail.number_period = #{record.numberPeriod,jdbcType=VARCHAR},
+      temp_receivables_notes_detail.number_period = #{record.numberPeriod,jdbcType=INTEGER},
       temp_receivables_notes_detail.should_rece_date = #{record.shouldReceDate,jdbcType=TIMESTAMP},
       temp_receivables_notes_detail.actual_rece_date = #{record.actualReceDate,jdbcType=TIMESTAMP},
       temp_receivables_notes_detail.current_rece_moeny = #{record.currentReceMoeny,jdbcType=REAL},
@@ -450,7 +450,7 @@
         alr_rece_money = #{alrReceMoney,jdbcType=REAL},
       </if>
       <if test="numberPeriod != null" >
-        number_period = #{numberPeriod,jdbcType=VARCHAR},
+        number_period = #{numberPeriod,jdbcType=INTEGER},
       </if>
       <if test="shouldReceDate != null" >
         should_rece_date = #{shouldReceDate,jdbcType=TIMESTAMP},
@@ -514,7 +514,7 @@
     set rece_notes_id = #{receNotesId,jdbcType=VARCHAR},
       member_id = #{memberId,jdbcType=VARCHAR},
       alr_rece_money = #{alrReceMoney,jdbcType=REAL},
-      number_period = #{numberPeriod,jdbcType=VARCHAR},
+      number_period = #{numberPeriod,jdbcType=INTEGER},
       should_rece_date = #{shouldReceDate,jdbcType=TIMESTAMP},
       actual_rece_date = #{actualReceDate,jdbcType=TIMESTAMP},
       current_rece_moeny = #{currentReceMoeny,jdbcType=REAL},

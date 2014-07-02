@@ -29,7 +29,7 @@ public class ReceivablesNotesDetail {
 
     private Float alrReceMoney;
 
-    private String numberPeriod;
+    private Integer numberPeriod;
 
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date shouldReceDate;
@@ -152,11 +152,11 @@ public class ReceivablesNotesDetail {
         this.alrReceMoney = alrReceMoney;
     }
 
-    public String getNumberPeriod() {
+    public Integer getNumberPeriod() {
         return numberPeriod;
     }
 
-    public void setNumberPeriod(String numberPeriod) {
+    public void setNumberPeriod(Integer numberPeriod) {
         this.numberPeriod = numberPeriod;
     }
 

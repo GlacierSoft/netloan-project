@@ -411,62 +411,52 @@ public class ReceivablesNotesDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodEqualTo(String value) {
+        public Criteria andNumberPeriodEqualTo(Integer value) {
             addCriterion("temp_receivables_notes_detail.number_period =", value, "numberPeriod");
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodNotEqualTo(String value) {
+        public Criteria andNumberPeriodNotEqualTo(Integer value) {
             addCriterion("temp_receivables_notes_detail.number_period <>", value, "numberPeriod");
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodGreaterThan(String value) {
+        public Criteria andNumberPeriodGreaterThan(Integer value) {
             addCriterion("temp_receivables_notes_detail.number_period >", value, "numberPeriod");
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodGreaterThanOrEqualTo(String value) {
+        public Criteria andNumberPeriodGreaterThanOrEqualTo(Integer value) {
             addCriterion("temp_receivables_notes_detail.number_period >=", value, "numberPeriod");
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodLessThan(String value) {
+        public Criteria andNumberPeriodLessThan(Integer value) {
             addCriterion("temp_receivables_notes_detail.number_period <", value, "numberPeriod");
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodLessThanOrEqualTo(String value) {
+        public Criteria andNumberPeriodLessThanOrEqualTo(Integer value) {
             addCriterion("temp_receivables_notes_detail.number_period <=", value, "numberPeriod");
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodLike(String value) {
-            addCriterion("temp_receivables_notes_detail.number_period like", value, "numberPeriod");
-            return (Criteria) this;
-        }
-
-        public Criteria andNumberPeriodNotLike(String value) {
-            addCriterion("temp_receivables_notes_detail.number_period not like", value, "numberPeriod");
-            return (Criteria) this;
-        }
-
-        public Criteria andNumberPeriodIn(List<String> values) {
+        public Criteria andNumberPeriodIn(List<Integer> values) {
             addCriterion("temp_receivables_notes_detail.number_period in", values, "numberPeriod");
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodNotIn(List<String> values) {
+        public Criteria andNumberPeriodNotIn(List<Integer> values) {
             addCriterion("temp_receivables_notes_detail.number_period not in", values, "numberPeriod");
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodBetween(String value1, String value2) {
+        public Criteria andNumberPeriodBetween(Integer value1, Integer value2) {
             addCriterion("temp_receivables_notes_detail.number_period between", value1, value2, "numberPeriod");
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodNotBetween(String value1, String value2) {
+        public Criteria andNumberPeriodNotBetween(Integer value1, Integer value2) {
             addCriterion("temp_receivables_notes_detail.number_period not between", value1, value2, "numberPeriod");
             return (Criteria) this;
         }

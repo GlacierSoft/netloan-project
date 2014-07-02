@@ -21,7 +21,7 @@ public class RepaymentNotesDetail {
 
     private String memberId;
 
-    private Float numberPeriod;
+    private Integer numberPeriod;
 
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date shouldPayDate;
@@ -131,11 +131,11 @@ public class RepaymentNotesDetail {
         this.memberId = memberId;
     }
 
-    public Float getNumberPeriod() {
+    public Integer getNumberPeriod() {
         return numberPeriod;
     }
 
-    public void setNumberPeriod(Float numberPeriod) {
+    public void setNumberPeriod(Integer numberPeriod) {
         this.numberPeriod = numberPeriod;
     }
 

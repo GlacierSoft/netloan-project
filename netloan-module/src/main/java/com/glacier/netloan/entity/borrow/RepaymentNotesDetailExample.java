@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
-
 public class RepaymentNotesDetailExample {
     protected String orderByClause;
 
@@ -106,18 +104,18 @@ public class RepaymentNotesDetailExample {
             return criteria;
         }
 
-        //扩展查询条件
+		//扩展查询条件
         public Criteria andMemberDisplayLike(String value) {
             addCriterion("temp_member.member_name like", value, "memberDisplay");
             return (Criteria) this;
         }
         
-       //扩展查询条件
+		//扩展查询条件
         public Criteria andTenderNotesIdEqualTo(String value) {
             addCriterion("temp_tender_notes.tender_notes_id =", value, "tenderNotesId");
             return (Criteria) this;
         }
-        
+		
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -359,52 +357,52 @@ public class RepaymentNotesDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodEqualTo(Float value) {
+        public Criteria andNumberPeriodEqualTo(Integer value) {
             addCriterion("temp_repayment_notes_detail.number_period =", value, "numberPeriod");
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodNotEqualTo(Float value) {
+        public Criteria andNumberPeriodNotEqualTo(Integer value) {
             addCriterion("temp_repayment_notes_detail.number_period <>", value, "numberPeriod");
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodGreaterThan(Float value) {
+        public Criteria andNumberPeriodGreaterThan(Integer value) {
             addCriterion("temp_repayment_notes_detail.number_period >", value, "numberPeriod");
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodGreaterThanOrEqualTo(Float value) {
+        public Criteria andNumberPeriodGreaterThanOrEqualTo(Integer value) {
             addCriterion("temp_repayment_notes_detail.number_period >=", value, "numberPeriod");
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodLessThan(Float value) {
+        public Criteria andNumberPeriodLessThan(Integer value) {
             addCriterion("temp_repayment_notes_detail.number_period <", value, "numberPeriod");
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodLessThanOrEqualTo(Float value) {
+        public Criteria andNumberPeriodLessThanOrEqualTo(Integer value) {
             addCriterion("temp_repayment_notes_detail.number_period <=", value, "numberPeriod");
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodIn(List<Float> values) {
+        public Criteria andNumberPeriodIn(List<Integer> values) {
             addCriterion("temp_repayment_notes_detail.number_period in", values, "numberPeriod");
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodNotIn(List<Float> values) {
+        public Criteria andNumberPeriodNotIn(List<Integer> values) {
             addCriterion("temp_repayment_notes_detail.number_period not in", values, "numberPeriod");
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodBetween(Float value1, Float value2) {
+        public Criteria andNumberPeriodBetween(Integer value1, Integer value2) {
             addCriterion("temp_repayment_notes_detail.number_period between", value1, value2, "numberPeriod");
             return (Criteria) this;
         }
 
-        public Criteria andNumberPeriodNotBetween(Float value1, Float value2) {
+        public Criteria andNumberPeriodNotBetween(Integer value1, Integer value2) {
             addCriterion("temp_repayment_notes_detail.number_period not between", value1, value2, "numberPeriod");
             return (Criteria) this;
         }

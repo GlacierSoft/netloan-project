@@ -5,7 +5,7 @@
     <id column="temp_repayment_notes_detail_repay_notes_detail_id" property="repayNotesDetailId" jdbcType="VARCHAR" />
     <result column="temp_repayment_notes_detail_repay_notes_id" property="repayNotesId" jdbcType="VARCHAR" />
     <result column="temp_repayment_notes_detail_member_id" property="memberId" jdbcType="VARCHAR" />
-    <result column="temp_repayment_notes_detail_number_period" property="numberPeriod" jdbcType="REAL" />
+    <result column="temp_repayment_notes_detail_number_period" property="numberPeriod" jdbcType="INTEGER" />
     <result column="temp_repayment_notes_detail_should_pay_date" property="shouldPayDate" jdbcType="TIMESTAMP" />
     <result column="temp_repayment_notes_detail_actual_pay_date" property="actualPayDate" jdbcType="TIMESTAMP" />
     <result column="temp_repayment_notes_detail_current_pay_moeny" property="currentPayMoeny" jdbcType="REAL" />
@@ -25,7 +25,7 @@
     <result column="temp_repayment_notes_detail_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_repayment_notes_detail_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_repayment_notes_detail_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_repayment_notes_detail_loan_title" property="loanTitle" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+	<result column="temp_repayment_notes_detail_loan_title" property="loanTitle" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_repayment_notes_detail_member_display" property="memberDisplay" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_repayment_notes_detail_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_repayment_notes_detail_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
@@ -109,7 +109,7 @@
     temp_repayment_notes_detail.remark as temp_repayment_notes_detail_remark, temp_repayment_notes_detail.creater as temp_repayment_notes_detail_creater, 
     temp_repayment_notes_detail.create_time as temp_repayment_notes_detail_create_time, 
     temp_repayment_notes_detail.updater as temp_repayment_notes_detail_updater, temp_repayment_notes_detail.update_time as temp_repayment_notes_detail_update_time
-    <!-- 以下字段属于扩展 --> 
+	<!-- 以下字段属于扩展 --> 
     ,temp_borrowing_loan.loan_title as temp_repayment_notes_detail_loan_title
     ,temp_member.member_name as temp_repayment_notes_detail_member_display
     ,temp_creater.user_cn_name as temp_repayment_notes_detail_creater_display
@@ -129,7 +129,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_repayment_notes_detail temp_repayment_notes_detail
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -144,7 +144,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_repayment_notes_detail temp_repayment_notes_detail
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     where temp_repayment_notes_detail.repay_notes_detail_id = #{repayNotesDetailId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -168,7 +168,7 @@
       create_time, updater, update_time
       )
     values (#{repayNotesDetailId,jdbcType=VARCHAR}, #{repayNotesId,jdbcType=VARCHAR}, 
-      #{memberId,jdbcType=VARCHAR}, #{numberPeriod,jdbcType=REAL}, #{shouldPayDate,jdbcType=TIMESTAMP}, 
+      #{memberId,jdbcType=VARCHAR}, #{numberPeriod,jdbcType=INTEGER}, #{shouldPayDate,jdbcType=TIMESTAMP}, 
       #{actualPayDate,jdbcType=TIMESTAMP}, #{currentPayMoeny,jdbcType=REAL}, #{currentPayPrincipal,jdbcType=REAL}, 
       #{currentPayInterest,jdbcType=REAL}, #{actualPayMoney,jdbcType=REAL}, #{alsoNeedMoney,jdbcType=REAL}, 
       #{overdueInterest,jdbcType=REAL}, #{overdueUrgeFee,jdbcType=REAL}, #{overdueManaFee,jdbcType=REAL}, 
@@ -261,7 +261,7 @@
         #{memberId,jdbcType=VARCHAR},
       </if>
       <if test="numberPeriod != null" >
-        #{numberPeriod,jdbcType=REAL},
+        #{numberPeriod,jdbcType=INTEGER},
       </if>
       <if test="shouldPayDate != null" >
         #{shouldPayDate,jdbcType=TIMESTAMP},
@@ -324,7 +324,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.RepaymentNotesDetailExample" resultType="java.lang.Integer" >
     select count(*) from t_repayment_notes_detail temp_repayment_notes_detail
-    <include refid="Base_extend" />
+	<include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -342,7 +342,7 @@
         temp_repayment_notes_detail.member_id = #{record.memberId,jdbcType=VARCHAR},
       </if>
       <if test="record.numberPeriod != null" >
-        temp_repayment_notes_detail.number_period = #{record.numberPeriod,jdbcType=REAL},
+        temp_repayment_notes_detail.number_period = #{record.numberPeriod,jdbcType=INTEGER},
       </if>
       <if test="record.shouldPayDate != null" >
         temp_repayment_notes_detail.should_pay_date = #{record.shouldPayDate,jdbcType=TIMESTAMP},
@@ -411,7 +411,7 @@
     set temp_repayment_notes_detail.repay_notes_detail_id = #{record.repayNotesDetailId,jdbcType=VARCHAR},
       temp_repayment_notes_detail.repay_notes_id = #{record.repayNotesId,jdbcType=VARCHAR},
       temp_repayment_notes_detail.member_id = #{record.memberId,jdbcType=VARCHAR},
-      temp_repayment_notes_detail.number_period = #{record.numberPeriod,jdbcType=REAL},
+      temp_repayment_notes_detail.number_period = #{record.numberPeriod,jdbcType=INTEGER},
       temp_repayment_notes_detail.should_pay_date = #{record.shouldPayDate,jdbcType=TIMESTAMP},
       temp_repayment_notes_detail.actual_pay_date = #{record.actualPayDate,jdbcType=TIMESTAMP},
       temp_repayment_notes_detail.current_pay_moeny = #{record.currentPayMoeny,jdbcType=REAL},
@@ -445,7 +445,7 @@
         member_id = #{memberId,jdbcType=VARCHAR},
       </if>
       <if test="numberPeriod != null" >
-        number_period = #{numberPeriod,jdbcType=REAL},
+        number_period = #{numberPeriod,jdbcType=INTEGER},
       </if>
       <if test="shouldPayDate != null" >
         should_pay_date = #{shouldPayDate,jdbcType=TIMESTAMP},
@@ -511,7 +511,7 @@
     update t_repayment_notes_detail
     set repay_notes_id = #{repayNotesId,jdbcType=VARCHAR},
       member_id = #{memberId,jdbcType=VARCHAR},
-      number_period = #{numberPeriod,jdbcType=REAL},
+      number_period = #{numberPeriod,jdbcType=INTEGER},
       should_pay_date = #{shouldPayDate,jdbcType=TIMESTAMP},
       actual_pay_date = #{actualPayDate,jdbcType=TIMESTAMP},
       current_pay_moeny = #{currentPayMoeny,jdbcType=REAL},
