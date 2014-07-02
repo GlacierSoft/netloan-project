@@ -112,8 +112,7 @@ public class RegisterController extends AbstractController{
          * */  
         //得到web的url路径：http://localhost:8080/ssh1/  
         String path = request.getContextPath();  
-        String basePath = request.getScheme()+"://"+request.getServerName()+  
-        ":"+request.getServerPort()+path+"/";  
+        String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";  
         //邮件发送成功后，用户点在邮箱中点击这个链接回到注册网站。
         //http://localhost:8080/netloan-website//mailBack.htm?registerId=" + registerId;
         String url = basePath+"mailBack.htm?registerId=" + registerId;
@@ -129,10 +128,10 @@ public class RegisterController extends AbstractController{
 		//email.setHostName("smtp.gmail.com");// gmail郵箱服務器
 		email.setSmtpPort(465);//设置端口号
 		email.setAuthenticator(new DefaultAuthenticator("1240033960@qq.com","zx5304960"));//用1240033960@qq.com这个邮箱发送验证邮件的
-		email.setTLS(true);//tls要设置为true,没有设置会报错。
+	    email.setTLS(true);//tls要设置为true,没有设置会报错。
 		email.setSSL(true);//ssl要设置为true,没有设置会报错。
 		try {
-			email.setFrom("1240033960@qq.com", "冰川网贷管理员", "UTF-8");
+			 email.setFrom("1240033960@qq.com", "冰川网贷管理员", "UTF-8");
 			//email.setFrom("13798985542@163.com", "13798985542@163.com", "UTF-8");
 			//email.setFrom("yuzexu1@gmail.com", "yuzexu1@gmail.com", "UTF-8");
 		} catch (EmailException e1) {
