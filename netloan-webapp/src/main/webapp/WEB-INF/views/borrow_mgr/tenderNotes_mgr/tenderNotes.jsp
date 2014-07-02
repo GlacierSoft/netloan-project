@@ -187,8 +187,7 @@
 <div class="easyui-layout" data-options="fit:true">
 	<div id="TenderNotesGridPanel" data-options="region:'center',border:true" >
 		<table id="TenderNotesDataGrid">
-			<glacierui:toolbar panelEnName="TenderNotesList" toolbarId="TenderNotesDataGrid_toolbar" menuEnName="TenderNotes"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
-		</table>
+	    </table>
 	</div>
 
 	<div data-options="region:'north',split:true"
