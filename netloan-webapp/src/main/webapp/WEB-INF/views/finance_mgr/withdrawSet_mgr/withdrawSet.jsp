@@ -193,8 +193,8 @@
 		var row = glacier.finance_mgr.withdrawSet_mgr.withdrawSet.withdrawSetDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '提现设置审核',
-			width : 560,
-			height : 460,
+			width : 590,
+			height : 480,
 			queryUrl : ctx + '/do/withdrawSet/intoAudit.htm',
 			submitUrl : ctx + '/do/withdrawSet/audit.json',
 			queryParams : {
