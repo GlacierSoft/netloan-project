@@ -117,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          </div>
          
           <!--二维码 -->
-       <div class="foot_erweima" style="width: 200px;height: 200px;display: none;position:absolute;margin-top: 40px;margin-left: 230px;">
+       <div class="foot_erweima" style="width: 200px;height: 200px;display: none;position:absolute;margin-top: 40px;margin-left: 155px;">
           <img src="<%=basePath %>resources/images/foot/erweima.png" title="扫一扫有惊喜!!">
        </div>
       </div>
@@ -201,7 +201,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		             //alert("客服姓名:"+v.webServiceName+" 客服QQ:"+v.webServiceQq);     	
     		             $("<dl>"+
     		               "<dt><img src='<%=basePath %>resources/images/foot/Service1.jpg'></dt>"+
-    		               "<dd> <strong>在线QQ客服</strong>"+
+    		               "<dd> <strong>客服("+v.webServiceName+")</strong>"+
     		               "<P class='p1'>9:00-22:00</P>"+
     		               "<P class='p2'><a title='点击这里给我发消息' href='http://wpa.qq.com/msgrd?v=3&amp;uin="+v.webServiceQq+"&amp;site=qq&amp;menu=yes' target='_blank'>点击交谈</A></P>"+
     		               "</dd>"+
