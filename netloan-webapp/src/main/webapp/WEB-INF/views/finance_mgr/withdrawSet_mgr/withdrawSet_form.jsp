@@ -26,13 +26,13 @@
 		<tr>
 			<td>提现费率：</td>
 			<td>
-				<input type="text" id="withdrawSet_mgr_withdrawSet_form_withdrawRate" name="withdrawRate" class="easyui-numberbox spinner" style="width:298px" value="${withdrawSetData.withdrawRate}" data-options="min:0,precision:2"></input>
+				<input type="text" id="withdrawSet_mgr_withdrawSet_form_withdrawRate" name="withdrawRate" class="easyui-numberbox spinner" style="width:298px" value="${withdrawSetData.withdrawRate}" data-options="min:0,precision:4"></input>
 			</td>
 		</tr> 
 		<tr>
 			<td>提现取值：</td>
 			<td>
-				<input type="text" id="withdrawSet_mgr_withdrawSet_form_value" name="value" class="easyui-numberbox spinner" style="width:298px" value="${withdrawSetData.value}" data-options="min:0,precision:2"></input>
+				<input type="text" id="withdrawSet_mgr_withdrawSet_form_value" name="value" class="easyui-numberbox spinner" style="width:298px" value="${withdrawSetData.value}" data-options="min:0,precision:4"></input>
 			</td>
 		</tr>
 		<tr>

@@ -20,7 +20,7 @@
 		<tr>
 			<td>充值类型费率：</td>
 			<td>
-				<input type="text" id="rechargeSet_mgr_rechargeSet_form_rechargeRate" name="rechargeRate" class="easyui-numberbox spinner" style="width:298px" value="${rechargeSetData.rechargeRate}" data-options="min:0,precision:2"></input>
+				<input type="text" id="rechargeSet_mgr_rechargeSet_form_rechargeRate" name="rechargeRate" class="easyui-numberbox spinner" style="width:298px" value="${rechargeSetData.rechargeRate}" data-options="min:0,precision:4"></input>
 			</td>
 		</tr>
 		<tr>
@@ -32,7 +32,7 @@
 		<tr>
 			<td>充值类型取值：</td>
 			<td>
-				<input type="text" id="rechargeSet_mgr_rechargeSet_form_value" name="value" class="easyui-numberbox spinner" style="width:298px" value="${rechargeSetData.value}" data-options="min:0,precision:2"></input>
+				<input type="text" id="rechargeSet_mgr_rechargeSet_form_value" name="value" class="easyui-numberbox spinner" style="width:298px" value="${rechargeSetData.value}" data-options="min:0,precision:4"></input>
 			</td>
 		</tr>
 		<tr>

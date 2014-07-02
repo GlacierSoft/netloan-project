@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style>
   </head>
   <body>
-  <jsp:include page="../nav.jsp"/>
+<jsp:include page="../nav_mgr/navMember.jsp"/>
        
 	    <!-- CONTAINER START======================== -->
 	    <div class="container">

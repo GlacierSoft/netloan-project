@@ -329,7 +329,8 @@ public class MemberService {
         member.setCreditIntegral((float) 0);
         member.setRegistrationTime(new Date());
         member.setLastLoginTime(new Date());
-        member.setLoginCount(1);
+        member.setLoginCount(1); 
+        member.setMemberPhoto("http://localhost:8080/netloan-website/resources/images/member/member.jpg");//会员注册后的默认头像
         member.setCreater(users.get(0).getUserId());
         member.setCreateTime(new Date());
         member.setUpdater(users.get(0).getUserId());
