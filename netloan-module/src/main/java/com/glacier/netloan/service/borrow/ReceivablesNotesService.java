@@ -469,7 +469,7 @@ public class ReceivablesNotesService {
         	}
         	//给收款记录对象赋值//增加字段2014-6-27
         	receivablesNotes.setAlrOverdueInterest(0f);
-        	receivablesNotes.setReceState("receiving");//设置收款记录的状态为收款中，”未收“？
+        	receivablesNotes.setReceState("receiving");//设置收款记录的状态为收款中，”未收“
     		receivablesNotes.setReceNotesId(RandomGUID.getRandomGUID());
             receivablesNotes.setCreater(pricipalUser.getUserId());
             //receivablesNotes.setReceivablesTotal(receivablesNotes.getReceivablesTotal()+shouldReceMoney);
@@ -492,6 +492,15 @@ public class ReceivablesNotesService {
             	//根据会员ID取出会员资金的信息
             	FinanceMember financeMembers=financeMemberMapper.selectByMemberId(tenderNotes.getMemberId());
             	
+            	//更新投资人的资金信息
+            	financeMembers.setUsableMoney(financeMembers.getUsableMoney()-borrowingLoan.getLoanTotal());//设置投资人可用余额
+            	financeMembers.setFrozenMoney(financeMembers.getFrozenMoney()-borrowingLoan.getLoanTotal());//设置投资人的冻结资金
+            	financeMembers.setAmount(financeMembers.getAmount()-borrowingLoan.getLoanTotal());//设置投资人的总金额
+            	financeMembers.setCollectingMoney(financeMembers.getCollectingMoney()+receivablesNotes.getShouldReceMoney());//设置投资人的代收金额
+            	
+            	//更新投资人的资金信息
+            	financeMemberMapper.updateByPrimaryKeySelective(financeMembers);
+            	
             	//根据收款人ID取出会员统计信息
             	MemberStatistics memberStatistics=memberStatisticsMapper.selectByMemberId(receivablesNotes.getMemberId());
             	//增加投资人的资金记录明细
@@ -507,8 +516,8 @@ public class ReceivablesNotesService {
             	transactionss.setExpendMoney(borrowingLoan.getLoanTotal());//设置投资人支出投资金额
             	transactionss.setUsableMoney(financeMembers.getUsableMoney());//设置投资人的可用余额
             	transactionss.setFrozenMoney(financeMembers.getFrozenMoney()-borrowingLoan.getLoanTotal());//设置投资人的冻结金额
-            	transactionss.setCollectingMoney(financeMembers.getCollectingMoney());//设置投资人的代收金额
-            	transactionss.setRefundMoney(financeMembers.getRechargeMoney());//设置投资人的代还金额
+            	transactionss.setCollectingMoney(financeMembers.getCollectingMoney());//设置投资人的待收金额
+            	transactionss.setRefundMoney(financeMembers.getRefundMoney());//设置投资人的代还金额
             	transactionss.setAmount(financeMembers.getAmount()-borrowingLoan.getLoanTotal());//设置投资人的总金额
             	transactionss.setRemark("投资["+borrowingLoan.getLoanTitle()+"]的复审通过,成功投资资金["+borrowingLoan.getLoanTotal()+"]元");//设置投资人的会员资金记录的备注
             	transactionss.setCreater(pricipalUser.getUserId());
@@ -518,16 +527,7 @@ public class ReceivablesNotesService {
             	//添加投资人资金记录明细数据
             	transactionMapper.insert(transactionss);
             	
-            	//更新投资人的资金信息
-            	financeMembers.setFrozenMoney(financeMembers.getFrozenMoney()-borrowingLoan.getLoanTotal());//设置投资人的冻结资金
-            	financeMembers.setAmount(financeMembers.getAmount()-borrowingLoan.getLoanTotal());//设置投资人的总金额
-            	financeMembers.setCollectingMoney(financeMembers.getCollectingMoney()+receivablesNotes.getShouldReceMoney());//设置投资人的代收金额
-            	
-            	//更新投资人的资金信息
-            	financeMemberMapper.updateByPrimaryKeySelective(financeMembers);
-            	
             	//更新统计会员的信息
-            	memberStatistics.setWaitAlsoTotal(memberStatistics.getWaitAlsoTotal()+receivablesNotes.getReceivablesTotal());//设置投资人会员统计的代收总额
             	memberStatistics.setWaitAlsoInterest(memberStatistics.getWaitAlsoInterest()+receivablesNotes.getShouldReceMoney());//设置投资人会员统计的本息
             	memberStatistics.setWaitIncomePrincipal(memberStatistics.getWaitIncomePrincipal()+borrowingLoan.getLoanTotal());//设置投资人会员统计的应收本金
             	memberStatistics.setWaitIncomeInterest(memberStatistics.getWaitIncomeInterest()+(receivablesNotes.getShouldReceMoney()-borrowingLoan.getLoanTotal()));//设置投资人会员统计的应收利息(原本利息+(本息减去借款总金额))

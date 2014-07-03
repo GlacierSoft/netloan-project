@@ -315,6 +315,7 @@ public class BorrowingLoanService {
             borrowingLoan.setLoanApr(borrowingLoan.getLoanApr()/100);
         }
         
+        borrowingLoan.setMemberId(borrowingLoan.getMemberId());
         borrowingLoan.setLoanState("firstAudit");
         borrowingLoan.setIsBidMarked("yes");
         borrowingLoan.setIsAccountFunds("yes");
@@ -326,12 +327,13 @@ public class BorrowingLoanService {
 
         UserExample userExample = new UserExample();//查找出超级管理员信息
         userExample.createCriteria().andUsernameEqualTo("admin");
-        List<User> users = userMapper.selectByExample(userExample);
+        List<User> usersList = userMapper.selectByExample(userExample);
+        User users=usersList.get(0);
         
-        borrowingLoan.setCreater(borrowingLoan.getMemberId());
+        borrowingLoan.setCreater(users.getUserId());
         borrowingLoan.setCreateTime(new Date());
         borrowingLoan.setLoanDate(new Date());
-        borrowingLoan.setUpdater(users.get(0).getUserId());
+        borrowingLoan.setUpdater(users.getUserId());
         borrowingLoan.setUpdateTime(new Date());
         count = borrowingLoanMapper.insert(borrowingLoan);
         if (count == 1) {

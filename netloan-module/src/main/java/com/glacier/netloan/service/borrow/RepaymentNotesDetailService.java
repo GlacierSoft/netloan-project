@@ -364,7 +364,6 @@ public class RepaymentNotesDetailService {
             returnResult.setMsg("验证码错误，请重新输入");
             return returnResult;
         }
-        //System.out.println(">>>>>>>>>>>>>>>>>>++++++++++++++++++"+repayNotesDetailId);
         
         int count = 1;
         // 查找出超级管理员的用户信息
@@ -386,7 +385,7 @@ public class RepaymentNotesDetailService {
         	RepaymentNotess.setAlrPayMoney(RepaymentNotess.getAlrPayMoney()+repaymentNotesDetail.getCurrentPayMoeny());//设置已还本息(已归还的本息+现在归还的本息)
         	RepaymentNotess.setAlrPayPrincipal(RepaymentNotess.getAlrPayPrincipal()+repaymentNotesDetail.getCurrentPayPrincipal());//设置已还本金(已归还的本金+现在归还的本金)
         	RepaymentNotess.setAlrPayInterest(RepaymentNotess.getAlrPayInterest()+repaymentNotesDetail.getCurrentPayInterest());//设置已还利息(已归还的利息+现在归还的利息)
-        	RepaymentNotess.setNotPayMoney(RepaymentNotess.getShouldPayMoney()-RepaymentNotess.getAlrPayMoney());//设置未还本息(应还本息-已还的本息)
+        	RepaymentNotess.setNotPayMoney(RepaymentNotess.getShouldPayMoney()-repaymentNotesDetail.getCurrentPayMoeny());//设置未还本息(应还本息-已还的本息)
         	RepaymentNotess.setNotPayPrincipal(RepaymentNotess.getShouldPayPrincipal()-RepaymentNotess.getAlrPayPrincipal());//设置未还本金(应还本金-已还本金)
         	RepaymentNotess.setNotPayInterest(RepaymentNotess.getShouldPayInterest()-RepaymentNotess.getAlrPayInterest());//设置未还利息(应还利息-已还利息)
         	RepaymentNotess.setUpdater(pricipalUser.getUserId());
@@ -470,7 +469,7 @@ public class RepaymentNotesDetailService {
                 	financePlatformTransaction.setPlatformTransactionId(RandomGUID.getRandomGUID());//随即产生字符串ID
                 	financePlatformTransaction.setFinancePlatformId(financePlatform.getFinancePlatformId());//平台资金ID
                 	financePlatformTransaction.setTransactionTarget(member.getMemberRealName());//设置对象人
-                	financePlatformTransaction.setTransactionType("还款");//设置交易类型
+                	financePlatformTransaction.setTransactionType("收款");//设置交易类型
                 	financePlatformTransaction.setEarningMoney(repaymentNotesDetail.getAlsoNeedMoney());//设置知收入金额
                 	financePlatformTransaction.setExpendMoney(0f);//设置支出金额
                 	financePlatformTransaction.setAmount(financePlatform.getPlatformMoney());//设置平台资金总金额
@@ -500,8 +499,8 @@ public class RepaymentNotesDetailService {
                 		financePlatformTransactions.setFinancePlatformId(financePlatform.getFinancePlatformId());//平台资金ID
                 		financePlatformTransactions.setTransactionTarget(tenderNotes.getMemberDisplay());//设置对象人
                 		financePlatformTransactions.setTransactionType("还款");//设置交易类型
-                		financePlatformTransactions.setEarningMoney(repaymentNotesDetail.getAlsoNeedMoney());//设置知收入金额
-                		financePlatformTransactions.setExpendMoney(0f);//设置支出金额
+                		financePlatformTransactions.setEarningMoney(0f);//设置知收入金额
+                		financePlatformTransactions.setExpendMoney(repaymentNotesDetail.getAlsoNeedMoney());//设置支出金额
                 		financePlatformTransactions.setAmount(financePlatform.getPlatformMoney());//设置平台资金总金额
                     	financePlatformTransactions.setCreater(pricipalUser.getUserId());
                     	financePlatformTransactions.setCreateTime(new Date());
@@ -545,7 +544,7 @@ public class RepaymentNotesDetailService {
                                 	financeTransactions.setUsableMoney(financeMembers.getUsableMoney());//设置可用金额
                                 	financeTransactions.setFrozenMoney(financeMembers.getFrozenMoney());//设置冻结金额
                                 	financeTransactions.setCollectingMoney(financeMembers.getCollectingMoney());;//设置待收金额
-                                	financeTransactions.setRefundMoney(financeMembers.getRechargeMoney());//设置待还金额
+                                	financeTransactions.setRefundMoney(financeMembers.getRefundMoney());//设置待还金额
                                 	financeTransactions.setAmount(financeMembers.getAmount());//设置总金额
                                 	financeTransactions.setCreater(pricipalUser.getUserId());
                                 	financeTransactions.setCreateTime(new Date());
@@ -557,127 +556,57 @@ public class RepaymentNotesDetailService {
                                 	//更新投资会员统计信息
                                 	MemberStatistics memberStatisticss = memberStatisticsMapper.selectByMemberId(tenderNotes.getMemberId());
                                 	memberStatisticss.setAlreadyIncomeTotal(memberStatisticss.getAlreadyIncomeTotal()+receivablesNotesDetail.getCurrentReceMoeny());//设置会员统计已收总额(原本的已收总额+还款人的还款总额)
-                                	memberStatisticss.setWaitIncomeTotal(memberStatisticss.getWaitAlsoTotal()-receivablesNotesDetail.getCurrentReceMoeny());//设置会员统计待收收总额(原本的已收总额-还款人的还款总额)
+                                	memberStatisticss.setWaitIncomeTotal(financeMembers.getCollectingMoney());//设置会员统计待收总额
                                 	memberStatisticss.setAlreadyIncomePrincipal(memberStatisticss.getAlreadyIncomePrincipal()+receivablesNotesDetail.getCurrentRecePrincipal());//设置已收本金(原本的已收本金+还款人的还款本金)
                                 	memberStatisticss.setWaitIncomePrincipal(memberStatisticss.getWaitIncomePrincipal()-receivablesNotesDetail.getCurrentRecePrincipal());//设置待收本金(原本的待收本金-还款人的还款本金)
                                 	memberStatisticss.setAlreadyIncomeInterest(memberStatisticss.getAlreadyIncomeInterest()+receivablesNotesDetail.getCurrentReceMoeny());//设置已收本息(原本的已收本息-还款人的还款本息)
-                                	memberStatisticss.setWaitIncomeInterest(memberStatisticss.getWaitIncomeInterest());
+                                	memberStatisticss.setWaitIncomeInterest(memberStatisticss.getWaitIncomeInterest()-receivablesNotesDetail.getCurrentReceMoeny());//设置待收本息(原本的待收本息-还款人的还款本息)
+                                	//执行会员统计更新
+                                	memberStatisticsMapper.updateByPrimaryKeySelective(memberStatisticss);
+                                	
                                 	//更改收款明细记录表的收款状态
+                                	ReceivablesNotesDetail receivablesNotesDetails = receivablesNotesDetailMapper.selectByPrimaryKey(receivablesNotesDetail.getReceNotesDetailId());
+                                	receivablesNotesDetails.setReceState("alreadReceivables");
+                                	receivablesNotesDetails.setActualReceDate(new Date());
+                                	//执行更新收款明细记录
+                                	receivablesNotesDetailMapper.updateByPrimaryKeySelective(receivablesNotesDetails);
+                                	
+                                	//更新收款记录中的已收本金、已收利息、已收本息
+                                	ReceivablesNotes ReceivablesNotesupdate=receivablesNotesMapper.selectByPrimaryKey(receivablesNotesDetails.getReceNotesId());
+                                	ReceivablesNotesupdate.setAlrRecePrincipal(ReceivablesNotesupdate.getAlrRecePrincipal()+receivablesNotesDetails.getCurrentRecePrincipal());//设置已收本金(原本的已收还本金+收款的本金)
+                                	ReceivablesNotesupdate.setNotRecePrincipal(ReceivablesNotesupdate.getNotRecePrincipal()-receivablesNotesDetails.getCurrentRecePrincipal());//设置未收本金(原本的未还本金-收款的本金)
+                                	ReceivablesNotesupdate.setAlrReceInterest(ReceivablesNotesupdate.getAlrReceInterest()+receivablesNotesDetails.getCurrentReceInterest());//设置已收利息(原本的已收还利息+收款的利息)
+                                	ReceivablesNotesupdate.setNotReceInterest(ReceivablesNotesupdate.getNotReceInterest()-receivablesNotesDetails.getCurrentReceInterest());//设置未收利息(原本的未还利息-收款的利息)
+                                	ReceivablesNotesupdate.setAlrReceMoney(ReceivablesNotesupdate.getAlrReceMoney()+receivablesNotesDetails.getCurrentReceMoeny());//设置已收本息(原本的已收还本息+收款的本息)
+                                	ReceivablesNotesupdate.setNotReceMoney(ReceivablesNotesupdate.getNotReceMoney()-receivablesNotesDetails.getCurrentReceMoeny());//设置未收本息(原本的未收还本息-收款的本息)
+                                	ReceivablesNotesupdate.setUpdater(pricipalUser.getUserId());
+                                	ReceivablesNotesupdate.setUpdateTime(new Date());
+                                	//执行更新收款记录操作
+                                	receivablesNotesMapper.updateByPrimaryKeySelective(ReceivablesNotesupdate);
+                                	
+                                	//判断是否收款款记录明细表的收款状态有多少条
+                                	ReceivablesNotesDetailExample receivablesNotesDetailsExample = new ReceivablesNotesDetailExample();
+                                	receivablesNotesDetailsExample.createCriteria().andReceStateEqualTo("notReceiving").andReceNotesIdEqualTo(receivablesNotes.getReceNotesId());
+                        	        List<ReceivablesNotesDetail> receivablesNotesDetailsList = receivablesNotesDetailMapper.selectByExample(receivablesNotesDetailsExample);
+                        	        if(receivablesNotesDetailsList.size()<=0){
+                        	        	//查找收款记录明细状态为未还的条数为0时，执行更新收款记录的状态为Receivables
+                        	        	ReceivablesNotes receivablesNotess = receivablesNotesMapper.selectByPrimaryKey(receivablesNotes.getReceNotesId());
+                        	        	receivablesNotess.setReceState("Receivables");
+                        	        	receivablesNotesMapper.updateByPrimaryKeySelective(receivablesNotess);
+                        	        	/*//然后根据还款记录中的借款ID取出借款的信息
+                        	        	BorrowingLoan borrowingLoans = borrowingLoanMapper.selectByPrimaryKey(receivablesNotess.getLoanId());
+                        	        	//修改借款的状态
+                        	        	borrowingLoan.setLoanState("completed");
+                        	        	//执行修改操作--
+                        	        	borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);*/
+                        	        }
                     			}
 							}
 						}
 					}
                 	
                 	
-                	/*//第一次还款人的还款平台投资更新
-                	//第一步根据还款人的ID获取平台资金的信息
-                	FinancePlatform FinancePlatform= financePlatformMapper.selectByPrimaryKey("779704b7753c12ae409909291ba72399");
-                	FinancePlatform.setPlatformMoney(FinancePlatform.getPlatformMoney()+repaymentNotesDetail.getAlsoNeedMoney());//设置平台资金余额(还款人的还款总额+平台资金的余额)
-                	financePlatformMapper.updateByPrimaryKeySelective(FinancePlatform);
                 	
-                	//第二步添加平台资金记录信息
-                	FinancePlatformTransaction financePlatformTransaction=new FinancePlatformTransaction();//构建平台资金记录对象
-                	financePlatformTransaction.setPlatformTransactionId(RandomGUID.getRandomGUID());//随即产生字符串ID
-                	financePlatformTransaction.setFinancePlatformId(FinancePlatform.getFinancePlatformId());//平台资金ID
-                	financePlatformTransaction.setTransactionTarget(member.getMemberRealName());//设置对象人
-                	financePlatformTransaction.setTransactionType("还款");//设置交易类型
-                	financePlatformTransaction.setEarningMoney(repaymentNotesDetail.getAlsoNeedMoney());//设置知收入金额
-                	financePlatformTransaction.setExpendMoney(0f);//设置支出金额
-                	financePlatformTransaction.setAmount(FinancePlatform.getPlatformMoney());//设置平台资金总金额
-                	financePlatformTransaction.setCreater(pricipalUser.getUserId());
-                	financePlatformTransaction.setCreateTime(new Date());
-                	financePlatformTransaction.setUpdater(pricipalUser.getUserId());
-                	financePlatformTransaction.setUpdateTime(new Date());
-                	
-                	//执行添加操作
-                	financePlatformTransactionMapper.insert(financePlatformTransaction);
-                	
-                	//第二次投标人的收款平台投资更新
-                	FinancePlatform.setPlatformMoney(FinancePlatform.getPlatformMoney()-repaymentNotesDetail.getAlsoNeedMoney());//设置平台资金余额(平台资金的余额-还款人的还款总额)
-                	financePlatformMapper.updateByPrimaryKeySelective(FinancePlatform);//更新资金平台信息
-                	
-                	//是否要判断什么还款方式?
-                	
-                	//根据还款记录明细中的还款记录ID取出还款记录信息
-                	RepaymentNotes RepaymentNotess=repaymentNotesMapper.selectByPrimaryKey(repaymentNotesDetail.getRepayNotesId());
-                	//根据还款记录表中的借款ID取出借款信息
-                	BorrowingLoan borrowingLoans=borrowingLoanMapper.selectByPrimaryKey(RepaymentNotess.getLoanId());
-                	//根据借款的ID查找出投标人
-                	TenderNotesExample TenderNotesExample=new TenderNotesExample();
-                	TenderNotesExample.createCriteria().andLoanIdEqualTo(borrowingLoans.getLoanId());
-                	List<TenderNotes> TenderNotesList=tenderNotesMapper.selectByExample(TenderNotesExample);
-                	//循环出投资人
-                	for (TenderNotes tenderNotes : TenderNotesList) {
-                		//增加一条投标人的收款平台资金记录信息
-                		FinancePlatformTransaction financePlatformTransactions=new FinancePlatformTransaction();//构建平台资金记录对象
-                		financePlatformTransactions.setPlatformTransactionId(RandomGUID.getRandomGUID());//随即产生字符串ID
-                		financePlatformTransactions.setFinancePlatformId(FinancePlatform.getFinancePlatformId());//平台资金ID
-                		financePlatformTransactions.setTransactionTarget(tenderNotes.getMemberDisplay());//设置对象人
-                		financePlatformTransactions.setTransactionType("还款");//设置交易类型
-                		financePlatformTransactions.setEarningMoney(repaymentNotesDetail.getAlsoNeedMoney());//设置知收入金额
-                		financePlatformTransactions.setExpendMoney(0f);//设置支出金额
-                		financePlatformTransactions.setAmount(FinancePlatform.getPlatformMoney());//设置平台资金总金额
-                    	financePlatformTransactions.setCreater(pricipalUser.getUserId());
-                    	financePlatformTransactions.setCreateTime(new Date());
-                    	financePlatformTransactions.setUpdater(pricipalUser.getUserId());
-                    	financePlatformTransactions.setUpdateTime(new Date());
-                    	
-                    	//执行添加操作
-                    	financePlatformTransactionMapper.insert(financePlatformTransactions);
-                    	
-                    	
-                    	//先根据投标记录ID查询出收款记录信息
-                    	ReceivablesNotesExample ReceivablesNotesExample=new ReceivablesNotesExample();
-                    	ReceivablesNotesExample.createCriteria().andTenderNotesIdEqualTo(tenderNotes.getTenderNotesId());
-                    	List<ReceivablesNotes> receivablesNotesList=receivablesNotesMapper.selectByExample(ReceivablesNotesExample);
-                    	ReceivablesNotes receivablesNotes=receivablesNotesList.get(0);
-                    	
-                    	//再根据收款记录的ID查询出收款记录明细信息
-                    	ReceivablesNotesDetailExample receivablesNotesDetailExample=new ReceivablesNotesDetailExample();
-                    	receivablesNotesDetailExample.createCriteria().andReceNotesIdEqualTo(receivablesNotes.getReceNotesId());
-                    	List<ReceivablesNotesDetail> receivablesNotesDetailList=receivablesNotesDetailMapper.selectByExample(receivablesNotesDetailExample);
-                    	//循环出跟收款记录ID有关联的收款记录明细信息
-                    	for (ReceivablesNotesDetail receivablesNotesDetail : receivablesNotesDetailList) {
-                    		//对投标人的会员资金进行更新
-                        	FinanceMember financeMembers = financeMemberMapper.selectByMemberId(tenderNotes.getMemberId());// 根据投标人Id查找出该会员的财务会员信息记录
-                        	financeMembers.setUsableMoney(financeMembers.getUsableMoney()+receivablesNotesDetail.getCurrentReceMoeny());//设置可用余额(原本的可用余额+收款记录明细本息)
-                        	financeMembers.setCollectingMoney(financeMembers.getCollectingMoney()-receivablesNotesDetail.getCurrentReceMoeny());//设置待收金额(原本的待收金额-收款记录明细本息)
-                        	financeMembers.setAmount(financeMembers.getAmount()+receivablesNotesDetail.getCurrentReceMoeny());//设置总金额(原本的总金额+收款记录明细本息)
-                        	financeMembers.setUpdater(pricipalUser.getUserId());
-                        	financeMembers.setUpdateTime(new Date());
-                        	//执行更新会员资金操作
-                        	financeMemberMapper.updateByPrimaryKeySelective(financeMembers);
-                        	
-                        	//增加一条会员资金记录信息
-                        	FinanceTransaction financeTransactions=new FinanceTransaction();
-                        	financeTransactions.setTransactionId(RandomGUID.getRandomGUID());
-                        	financeTransactions.setFinanceMemberId(financeMembers.getFinanceMemberId());//设置会员资金ID
-                        	financeTransactions.setMemberId(financeMembers.getMemberId());//设置会员ID
-                        	financeTransactions.setTransactionTarget(financeMembers.getMemberDisplay());//设置交易对象
-                        	financeTransactions.setTransactionType("收款成功");//设置交易类型
-                        	financeTransactions.setEarningMoney(receivablesNotesDetail.getAmount());//设置收入金额(还款记录明细中的总还款金额)
-                        	financeTransactions.setExpendMoney(0f);//设置支出金额
-                        	financeTransactions.setUsableMoney(financeMembers.getUsableMoney());//设置可用金额
-                        	financeTransactions.setFrozenMoney(financeMembers.getFrozenMoney());//设置冻结金额
-                        	financeTransactions.setCollectingMoney(financeMembers.getCollectingMoney());;//设置待收金额
-                        	financeTransactions.setRefundMoney(financeMembers.getRechargeMoney());//设置待还金额
-                        	financeTransactions.setAmount(financeMembers.getAmount());//设置总金额
-                        	financeTransactions.setCreater(pricipalUser.getUserId());
-                        	financeTransactions.setCreateTime(new Date());
-                        	financeTransactions.setUpdater(pricipalUser.getUserId());
-                        	financeTransactions.setUpdateTime(new Date());
-                        	//执行添加会员资金记录信息
-                        	financeTransactionMapper.insert(financeTransactions);
-                        	
-                        	
-						}
-                    	
-                    	//判断收款明细记录是否还有未还款的，如果有则忽略该操作，否就执行更改收款明细记录的收款状态
-                    	
-					}
-                	
-                	//最后判断收款记录和还款记录的状态同时为"已还完"时，就执行更改借款状态为已还完
-*/                	
                     returnResult.setSuccess(true);
                     returnResult.setMsg("还款操作成功");
                 }
