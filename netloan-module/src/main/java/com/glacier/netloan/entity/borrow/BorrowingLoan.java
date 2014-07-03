@@ -39,7 +39,7 @@ public class BorrowingLoan {
     private String loanTenderId;
 
     /**
-     * 自定义字段
+     * 自定义字段，借款标的类型
      */
     private String loanTenderDisplay;
     

@@ -39,17 +39,22 @@
 				checkbox:true
 			},{
 				field:'loanTitle',
-				title:'借款标题',
+				title:'留言标题',
 				width:200,
 				sortable:true
 			},{
 				field:'reviewContent',
-				title:'评论内容',
+				title:'留言内容',
 				width:200,
 				sortable:true
 			},{
 				field:'remark',
 				title:'备注',
+				width:200,
+				sortable:true
+			},{ 
+				field:'memberDisplay',
+				title:'留言人',
 				width:200,
 				sortable:true
 			},{

@@ -38,15 +38,20 @@
 				title:'ID',
 				checkbox:true
 			},{
+				field:'memberDisplay',
+				title:'收款人',
+				width:200,
+				sortable:true   
+			},{
 				field:'loanTitle',
-				title:'还款标题',
+				title:'收款标题',
 				width:200,
 				sortable:true
 			},{
-				field:'memberDisplay',
+				field:'loanMemberDisplay',
 				title:'还款人',
 				width:200,
-				sortable:true
+				sortable:true  
 			},{
 				field:'numberPeriod',
 				title:'第几期',

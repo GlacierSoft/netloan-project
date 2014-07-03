@@ -76,7 +76,7 @@
     temp_loan_review.creater as temp_loan_review_creater, temp_loan_review.create_time as temp_loan_review_create_time
     <!-- 以下字段属于扩展 -->
     ,temp_borrowing_loan.loan_title as temp_loan_review_loan_title
-    ,temp_creater.member_name as temp_loan_review_member_display
+    ,temp_creater.member_real_name as temp_loan_review_member_display
     ,temp_creater.member_photo as temp_loan_review_member_photo
   </sql>
   <sql id="Base_extend">

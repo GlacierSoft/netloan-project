@@ -112,8 +112,8 @@
     temp_receivables_notes_detail.updater as temp_receivables_notes_detail_updater, temp_receivables_notes_detail.update_time as temp_receivables_notes_detail_update_time
 	<!-- 以下字段属于扩展 -->
 	,temp_borrowing_loan.loan_title as temp_receivables_notes_detail_loan_title
-    ,temp_member.member_name as temp_receivables_notes_detail_member_display
-    ,temp_loan_member.member_name as temp_receivables_notes_detail_loan_member_display
+    ,temp_member.member_real_name as temp_receivables_notes_detail_member_display
+    ,temp_loan_member.member_real_name as temp_receivables_notes_detail_loan_member_display
     ,temp_creater.user_cn_name as temp_receivables_notes_detail_creater_display
     ,temp_updater.user_cn_name as temp_receivables_notes_detail_updater_display
   </sql>

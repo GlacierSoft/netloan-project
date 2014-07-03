@@ -67,7 +67,7 @@
 				width:120
 			},{
 				field:'loanTenderDisplay',
-				title:'借款标的',
+				title:'借款标的类型',
 				sortable:true,
 				width:120
 			},{

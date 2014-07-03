@@ -26,7 +26,7 @@
     <result column="temp_receivables_notes_member_display" property="memberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_receivables_notes_loanMember_display" property="loanMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_loan_member_display" property="loanMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_loan_apr" property="loanApr" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_loan_date" property="loanDate" jdbcType="TIMESTAMP"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_loan_deadlines_id" property="loanDeadlinesId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
@@ -113,7 +113,7 @@
     temp_receivables_notes.creater as temp_receivables_notes_creater, temp_receivables_notes.create_time as temp_receivables_notes_create_time, 
     temp_receivables_notes.updater as temp_receivables_notes_updater, temp_receivables_notes.update_time as temp_receivables_notes_update_time
 	<!-- 以下字段属于扩展 -->
-    ,temp_member.member_name as temp_receivables_notes_member_display
+    ,temp_member.member_real_name as temp_receivables_notes_member_display
     ,temp_creater.user_cn_name as temp_receivables_notes_creater_display
     ,temp_updater.user_cn_name as temp_receivables_notes_updater_display
     ,temp_borrowing_loan.loan_title as temp_receivables_notes_loan_title
@@ -124,7 +124,7 @@
     ,temp_borrowing_loan.loan_state as temp_receivables_notes_loan_state
     ,temp_borrowing_loan.sub_total as temp_receivables_notes_sub_total
     ,temp_borrowing_loan.lowest_sub as temp_receivables_notes_lowest_sub
-    ,temp_loan_member.member_name as temp_receivables_notes_loan_member_display
+    ,temp_loan_member.member_real_name as temp_receivables_notes_loan_member_display
     ,temp_loan_tender.loanr_tender_name as temp_receivables_notes_loan_tender_display
     ,temp_loan_member.credit_integral as temp_receivables_notes_credit_integral
     ,temp_tender_notes.sub_sum as temp_receivables_notes_sub_sum
