@@ -106,15 +106,11 @@ public class MemberStatisticsController extends AbstractController{
     @RequestMapping(value="/exp.json")
     private void expCheckStatistics(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
         List<MemberStatistics> memberStatisticsDataList=( List<MemberStatistics>)session.getAttribute("MemberStatisticsDatalist");
-        //System.out.println("我从Session中获取得对象值为:"+accountInvestDataList);
-        System.out.println("memberStatisticsDataList长度为===============>"+memberStatisticsDataList.size());
-        List<MemberStatistics> list=new ArrayList<MemberStatistics>();
+         List<MemberStatistics> list=new ArrayList<MemberStatistics>();
         HSSFWorkbook wb=null;
-        if(memberStatisticsDataList.size()>0&&memberStatisticsDataList!=null){
-        	//System.out.println("已进入导出区域------------------->");
+        if(memberStatisticsDataList.size()>0&&memberStatisticsDataList!=null){ 
         	wb = statisticsService.export(memberStatisticsDataList);
-        }else{
-        	//System.out.println("数据为空,不进入导出区域-------------------->");
+        }else{ 
         	MemberStatistics memberStatisticsNull=new MemberStatistics();
         	memberStatisticsNull.setMemberRealName("Null");
         	memberStatisticsNull.setTotalBorrowings(new Float(0.00));
@@ -139,13 +135,13 @@ public class MemberStatisticsController extends AbstractController{
         	memberStatisticsNull.setAdvanceRepayment(0);
         	memberStatisticsNull.setLate(0);
         	memberStatisticsNull.setWebsiteSubstitute(0);
+        	memberStatisticsNull.setSuccessTender(0);
         	memberStatisticsNull.setInvestmentTotal(new Float(0.00));
         	memberStatisticsNull.setTenderAwards(new Float(0.00));
         	memberStatisticsNull.setPromotionAwards(new Float(0.00));
         	memberStatisticsNull.setBorrowSuccess(0);
         	memberStatisticsNull.setUplineDeltaAwards(new Float(0.00));
-        	memberStatisticsNull.setContinueAwards(new Float(0.00));
-        	
+        	memberStatisticsNull.setContinueAwards(new Float(0.00)); 
         	list.add(memberStatisticsNull);
         	wb = statisticsService.export(list);
         }

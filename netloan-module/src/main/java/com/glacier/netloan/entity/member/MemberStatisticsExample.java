@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.glacier.netloan.entity.member.MemberIntegralExample.Criteria;
-
 public class MemberStatisticsExample {
     protected String orderByClause;
 
@@ -105,7 +103,7 @@ public class MemberStatisticsExample {
         public List<Criterion> getCriteria() {
             return criteria;
         }
-        
+  
         //扩展查询条件
         public Criteria andMemberRealNameLike(String value) {
             addCriterion("temp_member.member_real_name like", value, "memberRealName");
@@ -2269,6 +2267,66 @@ public class MemberStatisticsExample {
 
         public Criteria andUpdateTimeNotBetween(Date value1, Date value2) {
             addCriterion("temp_member_statistics.update_time not between", value1, value2, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessTenderIsNull() {
+            addCriterion("temp_member_statistics.success_tender is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessTenderIsNotNull() {
+            addCriterion("temp_member_statistics.success_tender is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessTenderEqualTo(Integer value) {
+            addCriterion("temp_member_statistics.success_tender =", value, "successTender");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessTenderNotEqualTo(Integer value) {
+            addCriterion("temp_member_statistics.success_tender <>", value, "successTender");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessTenderGreaterThan(Integer value) {
+            addCriterion("temp_member_statistics.success_tender >", value, "successTender");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessTenderGreaterThanOrEqualTo(Integer value) {
+            addCriterion("temp_member_statistics.success_tender >=", value, "successTender");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessTenderLessThan(Integer value) {
+            addCriterion("temp_member_statistics.success_tender <", value, "successTender");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessTenderLessThanOrEqualTo(Integer value) {
+            addCriterion("temp_member_statistics.success_tender <=", value, "successTender");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessTenderIn(List<Integer> values) {
+            addCriterion("temp_member_statistics.success_tender in", values, "successTender");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessTenderNotIn(List<Integer> values) {
+            addCriterion("temp_member_statistics.success_tender not in", values, "successTender");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessTenderBetween(Integer value1, Integer value2) {
+            addCriterion("temp_member_statistics.success_tender between", value1, value2, "successTender");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessTenderNotBetween(Integer value1, Integer value2) {
+            addCriterion("temp_member_statistics.success_tender not between", value1, value2, "successTender");
             return (Criteria) this;
         }
     }

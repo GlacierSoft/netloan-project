@@ -90,6 +90,11 @@
 				sortable:true,
 				width:90
 			},{
+				field:'successTender',
+				title:'投标成功次数',
+				sortable:true,
+				width:90
+			},{
 				field:'investmentTotal',
 				title:'投资总额',
 				sortable:true,
@@ -225,7 +230,7 @@
 				title: '【'+rowData.memberRealName+'】会员统计详细信息',
 				href : ctx + '/do/memberStatistics/intoDetail.htm?statisticsId='+rowData.statisticsId,//从controller请求jsp页面进行渲染
 				width : 600,
-				height : 513,
+				height : 553,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false

@@ -26,6 +26,10 @@ public class MemberStatistics {
 
     private Float waitIncomeTotal;
 
+    /***
+     * 成功投标次数
+     */ 
+    private Integer successTender;
     /**
      * 
      */
@@ -120,6 +124,14 @@ public class MemberStatistics {
         this.totalBorrowings = totalBorrowings;
     }
  
+	public Integer getSuccessTender() {
+		return successTender;
+	}
+
+	public void setSuccessTender(Integer successTender) {
+		this.successTender = successTender;
+	}
+
 	public Float getCumulativeLossProfit() {
         return cumulativeLossProfit;
     }

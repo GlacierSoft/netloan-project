@@ -50,6 +50,15 @@
 				value="${statisticsData.websiteSubstitute}" readonly="readonly" /></td>
 		</tr>
 		<tr>
+			<td>投标成功次数：</td>
+			<td><input class="spinner" style="width: 168px"
+				value="${statisticsData.successTender}" readonly="readonly" /></td>
+			<td>续投奖励：</td>
+			<td><input class="spinner" style="width: 168px"
+				value="${statisticsData.continueAwards}" readonly="readonly" /></td>
+			
+		 </tr>
+		<tr>
 			<td>投资总额：</td>
 			<td><input class="spinner" style="width: 168px"
 				value="${statisticsData.investmentTotal}" readonly="readonly" /></td>
@@ -134,11 +143,8 @@
 				value="${statisticsData.uplineDeltaAwards}" readonly="readonly" /></td>
 		</tr>
 		<tr>
-			<td>续投奖励：</td>
-			<td><input class="spinner" style="width: 168px"
-				value="${statisticsData.continueAwards}" readonly="readonly" /></td>
 			<td>统计时间：</td>
-			<td><input class="spinner" style="width: 168px"
+			<td colspan="3"><input class="spinner" style="width: 444px"
 				value="<fmt:formatDate value="${statisticsData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 				readonly="readonly" /></td>
 		</tr>

@@ -153,10 +153,10 @@ public class MemberStatisticsService {
         return returnResult;
     }
     
-
-    String[] excelHeader = {"会员","借款总额","累计亏盈","已还总额","待还总额","已收总额","待收总额","已还本金","待还本金","已还利息","待还利息","已收本金","代收本金","已收利息","待收利息","逾期罚款金额","逾期利息总额","借款管理费","借款利息总额","线下冲值奖励"};	      
-    int[] excelHeaderWidth = {80,80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80};  
-    
+    String[] excelHeader = {"会员","借款总额","累计亏盈","已还总额","待还总额","已收总额","待收总额","已还本金","待还本金","已还利息","待还利息","已收本金","代收本金","已收利息","待收利息","逾期罚款金额","逾期利息总额","借款管理费","借款利息总额","线下冲值奖励",
+    		"借款成功次数","正常还款数","代还次数","投标成功数"};	      
+     int[] excelHeaderWidth = {80,80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80,80, 80, 80, 80};  
+  
     //借款信息导出
     public HSSFWorkbook export(List<MemberStatistics> list) {    
         HSSFWorkbook wb = new HSSFWorkbook();    
@@ -201,6 +201,10 @@ public class MemberStatisticsService {
 	        row.createCell(17).setCellValue(memberStatistics.getLoanManagementAmount());//借款管理费
 	        row.createCell(18).setCellValue(memberStatistics.getLoanInterestAmount());// 借款利息总额
 	        row.createCell(19).setCellValue(memberStatistics.getUplineDeltaAwards());//线下冲值奖励
+	        row.createCell(20).setCellValue(memberStatistics.getBorrowSuccess());//借款成功次数
+	        row.createCell(21).setCellValue(memberStatistics.getNormalRepayment());//正常还款次数
+	        row.createCell(22).setCellValue(memberStatistics.getWebsiteSubstitute());//网站待还次数
+	        row.createCell(23).setCellValue(memberStatistics.getSuccessTender());//投标成功数
 	     }    
         return wb;    
     }     
