@@ -13,7 +13,10 @@ public class RepaymentNotes {
      * 自定义字段,借款标题
      */
     private String loanTitle;
-    
+    /**
+     * 自定义字段收款人
+     */
+    private String payeeDisplay;
     /**
      * 自定义字段,还款人名称
      */
@@ -101,6 +104,14 @@ public class RepaymentNotes {
 
 	public void setMemberDisplay(String memberDisplay) {
 		this.memberDisplay = memberDisplay;
+	}
+
+	public String getPayeeDisplay() {
+		return payeeDisplay;
+	}
+
+	public void setPayeeDisplay(String payeeDisplay) {
+		this.payeeDisplay = payeeDisplay;
 	}
 
 	public String getRepayNotesId() {

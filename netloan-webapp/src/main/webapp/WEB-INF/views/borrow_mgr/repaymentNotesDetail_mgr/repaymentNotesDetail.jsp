@@ -38,6 +38,11 @@
 				title:'ID',
 				checkbox:true
 			},{
+				field:'payeeDisplay',
+				title:'收款人',
+				width:200,
+				sortable:true
+			},{
 				field:'loanTitle',
 				title:'还款标题',
 				width:200,

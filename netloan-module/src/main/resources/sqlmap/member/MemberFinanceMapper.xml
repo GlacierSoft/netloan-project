@@ -26,7 +26,7 @@
     <result column="temp_member_finance_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_member_finance_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_member_finance_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="temp_member_finance_member_name" property="memberName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_member_finance_member_real_name" property="memberName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_member_finance_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->    
     <result column="temp_member_finance_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
@@ -103,7 +103,7 @@
     temp_member_finance.creater as temp_member_finance_creater, temp_member_finance.create_time as temp_member_finance_create_time, 
     temp_member_finance.updater as temp_member_finance_updater, temp_member_finance.update_time as temp_member_finance_update_time
                  <!-- 以下字段属于扩展 -->
-    ,temp_member.member_name as temp_member_finance_member_name 
+    ,temp_member.member_real_name as temp_member_finance_member_real_name 
     ,temp_creater.user_cn_name as temp_member_finance_creater_display
     ,temp_updater.user_cn_name as temp_member_finance_updater_display
   </sql>

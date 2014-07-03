@@ -28,6 +28,7 @@
     <result column="temp_repayment_notes_member_display" property="memberDisplay" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_repayment_notes_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_repayment_notes_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_repayment_notes_payee_display" property="payeeDisplay" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -102,8 +103,9 @@
     temp_repayment_notes.creater as temp_repayment_notes_creater, temp_repayment_notes.create_time as temp_repayment_notes_create_time, 
     temp_repayment_notes.updater as temp_repayment_notes_updater, temp_repayment_notes.update_time as temp_repayment_notes_update_time
 	<!-- 以下字段属于扩展 -->
+	,temp_loan_member.member_real_name as temp_repayment_notes_payee_display
     ,temp_borrowing_loan.loan_title as temp_repayment_notes_loan_title
-    ,temp_member.member_name as temp_repayment_notes_member_display
+    ,temp_member.member_real_name as temp_repayment_notes_member_display
     ,temp_creater.user_cn_name as temp_repayment_notes_creater_display
     ,temp_updater.user_cn_name as temp_repayment_notes_updater_display
   </sql>
@@ -112,6 +114,8 @@
     LEFT JOIN t_member temp_member ON temp_member.member_id = temp_repayment_notes.member_id <!-- 扩展 -->
     LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_repayment_notes.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_repayment_notes.updater <!-- 扩展 -->
+  
+    LEFT JOIN t_member temp_loan_member ON temp_loan_member.member_id = temp_borrowing_loan.member_id <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.RepaymentNotesExample" >
     select

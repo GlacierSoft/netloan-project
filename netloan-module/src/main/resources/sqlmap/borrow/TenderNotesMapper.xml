@@ -136,7 +136,7 @@
     ,temp_loan_tender.loanr_tender_name as temp_tender_notes_loan_tender_display
     ,temp_member.credit_integral as temp_tender_notes_credit_integral
     <!-- 以下字段属于扩展 -->
-    ,temp_createrTest.member_name as temp_tender_notes_creater_display
+    ,temp_createrTest.member_real_name as temp_tender_notes_creater_display
     ,temp_updaterTest.user_cn_name as temp_tender_notes_updater_display
   </sql>
   <sql id="Base_extend">
