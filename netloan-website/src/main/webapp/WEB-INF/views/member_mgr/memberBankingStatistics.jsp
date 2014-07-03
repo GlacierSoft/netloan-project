@@ -106,7 +106,7 @@
 								<tr>
 									<td>￥${memberStatisticsDate.cumulativeLossProfit}</td>
 				              		<td>￥${memberStatisticsDate.tenderAwards}</td>
-				              		<td></td>
+				              		<td>${memberStatisticsDate.successTender}</td>
 				              		<td>￥${memberStatisticsDate.uplineDeltaAwards}</td>
 								</tr>
 				            </tbody>
