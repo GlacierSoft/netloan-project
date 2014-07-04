@@ -4,6 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
+<%    
+String path = request.getContextPath();    
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";    
+%>
 <html lang="zh-cn">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -70,7 +74,7 @@
 						          <tr>
 						            <td class="col-md-7">${news.webNewsTheme}</td>
 						            <td class="col-md-3"><fmt:formatDate value="${news.createTime}" type="both"/></td>
-						          	<td class="col-md-2"><a href="${ctx}/news/newsDetail.htm?&webNewsId=${news.webNewsId}">查看详细</a></td>
+						          	<td class="col-md-2"><a href="#" onclick="doClick('${news.webNewsId}');">查看详细</a></td>
 						          </tr>
 					      		</c:forEach>
 					      	</tbody>
@@ -98,6 +102,27 @@
 	    <jsp:include page="../foot.jsp"/>
 <!-- 分页显示表格数据 -->
 <script type="text/javascript">
+	
+	//构建表单
+	function doClick(str){
+		// 创建Form  
+	    var form = $('<form></form>');  
+		// 设置属性  
+	    form.attr('action', '<%=basePath%>news/newsDetail.htm');  
+	    form.attr('method', 'post');  
+	    // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
+	    form.attr('target', '_self');  
+	    // 创建Input  
+	    var my_input = $('<input type="text" name="webNewsId" />');  
+	    my_input.attr('value', str);  
+	    // 附加到Form  
+	    form.append(my_input); 
+	    //表单设置隐藏
+	    form.css('display','none');
+	    //表单的构建 完成并提交
+	    form.appendTo(document.body).submit();
+	 }
+
 	$(function(){
 		//获得浏览器参数
 		$.extend({

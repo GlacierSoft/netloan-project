@@ -70,20 +70,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="foot_kefu_left">
                      <div class="foot_kefu_left_one">
                         <ul class="foot_kefu_left_one_ul">
-                            <li><a href="#">公司介绍</a></li>
-                            <li><a href="#">合作伙伴</a></li>
-                            <li><a href="#">安全保障</a></li>
-                            <li><a href="#">晋商文化</a></li>
-                            <li><a href="#">媒体报道</a></li>
-                            <li><a href="#">联系报道</a></li>
+                            <li><a href="http://www.glaciersoft.cn/index.html">公司介绍</a></li>
+                            <li><a href="http://www.glaciersoft.cn/index.html">合作伙伴</a></li>
+                            <li><a href="http://www.glaciersoft.cn/index.html">安全保障</a></li>
+                            <li><a href="http://www.glaciersoft.cn/index.html">冰川文化</a></li>
+                            <li><a href="http://www.glaciersoft.cn/index.html">媒体报道</a></li>
+                            <li><a href="http://www.glaciersoft.cn/index.html">联系报道</a></li>
                         </ul>
                      </div>
                      <div class="foot_kefu_left_two">
                           <ul class="foot_kefu_left_two_ul">
                             <li class="ul_kefu_first">客服服务 : </li>
-                            <li><a href="http://weibo.com/jinshangdai" ><img src="<%=basePath %>resources/images/foot/weibohui.png" id="img_one"></a></li>
+                            <li><a href="http://www.glaciersoft.cn/index.html" ><img src="<%=basePath %>resources/images/foot/weibohui.png" id="img_one"></a></li>
                             <li class="li_test"><img src="<%=basePath %>resources/images/foot/weixinghui.png" id="img_two"></li>
-                            <li><a href="http://e.t.qq.com/jinshangdai2009" ><img src="<%=basePath %>resources/images/foot/fenxianghui.png" id="img_three"></a></li>
+                            <li><a href="http://www.glaciersoft.cn/index.html" ><img src="<%=basePath %>resources/images/foot/fenxianghui.png" id="img_three"></a></li>
                             <li><a href="tencent://message/?Menu=yes&uin=123456789&Site=QQ&Service=200&sigT=2a0e37386280486ada2b5d5e69ee49186ccae1257fd9e1c9598af1f0b9c916067002a57aaaec8c8d" target="_blank" ><img src="<%=basePath %>resources/images/foot/qiehui.png" id="img_four"></a></li>
                         </ul>
                      </div>

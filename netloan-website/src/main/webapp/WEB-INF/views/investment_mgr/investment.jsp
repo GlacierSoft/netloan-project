@@ -3,6 +3,10 @@
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %><!-- 引入自定义权限标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<%    
+String path = request.getContextPath();    
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";    
+%>
 <!DOCTYPE html>
 <html lang="zh-cn">
   <head>
@@ -168,7 +172,7 @@
 					<a href="${ctx}/investment/index.htm?&p=1" class="btn btn-primary" role="button">全部借款</a></li>
 					<a href="${ctx}/investment/index.htm?&p=1&loanState=tendering" class="btn btn-primary" role="button">招标中的借款</a>
 				    <a href="${ctx}/investment/index.htm?&p=1&loanState=secondAuditor" class="btn btn-primary" role="button">满标的借款</a>
-				    <a href="${ctx}/investment/index.htm?&p=1&loanState=repaymenting" class="btn btn-primary" role="button">还款中的借款</a>
+				    <a href="${ctx}/investment/index.htm?&p=1&loanState=repaymenting" class="btn btn-primary" role="button">的借款</a>
 				    <a href="${ctx}/investment/index.htm?&p=1&loanState=completed" class="btn btn-primary" role="button">已完成的借款</a>
 				    <%-- <a href="${ctx}/investment/index.htm?&p=1&loanState=completed" class="btn btn-primary" role="button">逾期的黑名单</a> --%>
 				    <div style="float: right;">
@@ -239,7 +243,7 @@
 						</c:choose>
 			        	</td>
 			        	<td rowspan="4"style="text-align:center;vertical-align: middle;border: 0px solid black; ">
-			        	<a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }&p=1">
+			        	<a href="#" onclick="doClick('${borrowingLoan.loanId }','${borrowingLoan.memberId }','1');">
 			        		<button  id="borrowingLoan_loanState${status.index}"  type=button class="btn btn-primary btn-lg btn-block"></button>
 			        	</a>
 			        	<script type="text/javascript">
@@ -433,7 +437,31 @@
 	    <jsp:include page="../foot.jsp"/>
   </body>
   <script type="text/javascript">
-  	
+ 
+   //构建表单
+	function doClick(str,str_two,numb){
+		// 创建Form  
+	    var form = $('<form></form>');  
+		// 设置属性  
+	    form.attr('action', '<%=basePath%>investment/investmentdetail.htm');  
+	    form.attr('method', 'post');  
+	    // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
+	    form.attr('target', '_self');  
+	    // 创建Input  
+	    var my_input = $('<input type="text" name="loanId" />');  
+	    my_input.attr('value', str);  
+	    var my_input_two = $('<input type="text" name="memberId" />');  
+	    my_input_two.attr('value', str_two); 
+	    var my_input_three = $('<input type="text" name="p" />');  
+	    my_input_three.attr('value', numb); 
+	    // 附加到Form  
+	    form.append(my_input); 
+	    form.append(my_input_two); 
+	    form.append(my_input_three); 
+	    //表单的构建是否 完成
+	    form.appendTo(document.body).submit();
+	 }
+  
   
   //投资计算器
 	  $("#InvestmentCalculationsForm").validate({
