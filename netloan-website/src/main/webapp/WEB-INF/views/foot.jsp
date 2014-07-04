@@ -12,8 +12,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-<link href="<%=basePath %>resources/css/foot/lanrenzhijia.css" type="text/css" rel="stylesheet" />
-<script src="<%=basePath %>resources/js/foot/lanrenzhijia.js"></script>
+<link href="<%=basePath %>resources/css/foot/footOne.css" type="text/css" rel="stylesheet" />
+<script src="<%=basePath %>resources/js/foot/footOne.js"></script>
 
 </head>
 <style>
@@ -82,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                           <ul class="foot_kefu_left_two_ul">
                             <li class="ul_kefu_first">客服服务 : </li>
                             <li><a href="http://weibo.com/jinshangdai" ><img src="<%=basePath %>resources/images/foot/weibohui.png" id="img_one"></a></li>
-                            <li class="li_test"><a href="#" ><img src="<%=basePath %>resources/images/foot/weixinghui.png" id="img_two"></a></li>
+                            <li class="li_test"><img src="<%=basePath %>resources/images/foot/weixinghui.png" id="img_two"></li>
                             <li><a href="http://e.t.qq.com/jinshangdai2009" ><img src="<%=basePath %>resources/images/foot/fenxianghui.png" id="img_three"></a></li>
                             <li><a href="tencent://message/?Menu=yes&uin=123456789&Site=QQ&Service=200&sigT=2a0e37386280486ada2b5d5e69ee49186ccae1257fd9e1c9598af1f0b9c916067002a57aaaec8c8d" target="_blank" ><img src="<%=basePath %>resources/images/foot/qiehui.png" id="img_four"></a></li>
                         </ul>
@@ -117,8 +117,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          </div>
          
           <!--二维码 -->
-       <div class="foot_erweima" style="width: 200px;height: 200px;display: none;position:absolute;margin-top: 40px;margin-left: 155px;">
-          <img src="<%=basePath %>resources/images/foot/erweima.png" title="扫一扫有惊喜!!">
+       <div class="foot_erweima" style="position:absolute;margin-top: 40px;margin-left: 155px; ">
+            <img  id="this_erweima" src="<%=basePath %>resources/images/foot/erweima.png" title="扫一扫有惊喜!!" style="display: none">
        </div>
       </div>
    </div>
@@ -161,20 +161,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
         //微信二维码
         $(".li_test").bind({mouseenter:function(e){
-	     	  $(".foot_erweima").show()
+	     	 $("#this_erweima").attr("style","display:block");
       	     $("#img_two").attr("src","<%=basePath %>resources/images/foot/weixing.png");
          },mouseleave:function(e){
-    	   $("#img_two").attr("src","<%=basePath %>resources/images/foot/weixinghui.png"); 
-    	   $(".foot_erweima").css({"display":"none"});
+           $("#this_erweima").attr("style","display:none");
+           $("#img_two").attr("src","<%=basePath %>resources/images/foot/weixinghui.png");
      	}});
         
-//         $(".li_test").hover(function(){
-//         	 $(".foot_erweima").show();
-//         	},function(){
-//         	   $(".foot_erweima").hide();
-<%--         	   $("#img_two").attr("src","<%=basePath %>resources/images/foot/weixinghui.png"); --%>
-//          });
-
         $(function(){
     	   //友情链接数据动态读取
     	    $.ajax({
