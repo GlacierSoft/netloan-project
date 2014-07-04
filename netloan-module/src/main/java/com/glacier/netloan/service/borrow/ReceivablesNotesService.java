@@ -294,6 +294,7 @@ public class ReceivablesNotesService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         float shouldReceMoney = 0f;
+        float everyMonthInterest=0f;
         BorrowingLoan borrowingLoanNew = (BorrowingLoan)borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());//重新获取该会员 借款的信息数据
         TenderNotesExample tenderNotesExample = new TenderNotesExample();;
         tenderNotesExample.createCriteria().andLoanIdEqualTo(borrowingLoanNew.getLoanId());//查询相对应的投标的记录
@@ -310,17 +311,21 @@ public class ReceivablesNotesService {
 							/ (Math.pow(((1 + borrowingLoanNew.getLoanApr()/12)),Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))-1));
         			shouldReceMoney = everyMonthMoney * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId());
         		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("按月付息，到期还本")){
-        			float everyMonthInterest = tenderNotes.getTenderMoney() * (borrowingLoanNew.getLoanApr()/12);
+        			everyMonthInterest = tenderNotes.getTenderMoney() * (borrowingLoanNew.getLoanApr()/12);
         			shouldReceMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + tenderNotes.getTenderMoney();
         		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("一次性还款")){
-        			float everyMonthInterest = tenderNotes.getTenderMoney() * (borrowingLoanNew.getLoanApr()/12);
+        			everyMonthInterest = tenderNotes.getTenderMoney() * (borrowingLoanNew.getLoanApr()/12);
         			shouldReceMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + tenderNotes.getTenderMoney();
         		}
         		receivablesNotes.setReceivablesTotal(shouldReceMoney);//设置收款总金额
         		receivablesNotes.setShouldReceMoney(shouldReceMoney);//设置应收本息
         		receivablesNotes.setNotReceMoney(shouldReceMoney);//设置未收本息
+        		receivablesNotes.setShouldRecePrincipal(tenderNotes.getTenderMoney());//设置投资人应收本金
+                receivablesNotes.setNotRecePrincipal(tenderNotes.getTenderMoney());//设置未收本金
+                receivablesNotes.setShouldReceInterest(shouldReceMoney-tenderNotes.getTenderMoney());//本息减去本金得到利息
+                receivablesNotes.setNotReceInterest(shouldReceMoney-tenderNotes.getTenderMoney());//设置未收利息
+                
         		//判断借款是否设置投标奖励
-        		
               	if(borrowingLoan.getIsBidReward().equals("yes")){
               		if(borrowingLoan.getFixedAppReward() != 0.0){//按固定金额分摊奖励
               			//计算收到投标奖励金额
@@ -377,11 +382,11 @@ public class ReceivablesNotesService {
               	financeTransaction.setRemark("借款["+borrowingLoanNew.getLoanTitle()+"]审核通过,扣除冻结投标金额["+tenderNotes.getTenderMoney()+"]元");//设置备注
               	financeTransaction.setEarningMoney(0f);//设置收入金额
               	financeTransaction.setExpendMoney(0f);//设置支出金额
-              	financeTransaction.setUsableMoney(financeMemberThaw.getUsableMoney());//设置可用金额
+              	financeTransaction.setUsableMoney(financeMemberThaw.getUsableMoney()-tenderNotes.getTenderMoney());//设置可用金额
               	financeTransaction.setFrozenMoney(financeMemberThaw.getFrozenMoney()-tenderNotes.getTenderMoney());//设置冻结金额
               	financeTransaction.setCollectingMoney(financeMemberThaw.getCollectingMoney());//设置代收金额
               	financeTransaction.setRefundMoney(financeMemberThaw.getRefundMoney());//设置待还金额
-              	financeTransaction.setAmount(financeMemberThaw.getAmount());//设置总金额
+              	financeTransaction.setAmount(financeMemberThaw.getAmount()-tenderNotes.getTenderMoney());//设置总金额
               	financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
               	//更新借款的会员资金信息
               	financeMemberThaw.setFrozenMoney(financeMemberThaw.getFrozenMoney()-tenderNotes.getTenderMoney());//设置冻结金额
@@ -394,15 +399,20 @@ public class ReceivablesNotesService {
 							/ (Math.pow(((1 + borrowingLoanNew.getLoanApr()/12)),Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))-1));
         			shouldReceMoney = everyMonthMoney * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId());
         		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("按月付息，到期还本")){
-        			float everyMonthInterest = tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub() * (borrowingLoanNew.getLoanApr()/12);
+        			everyMonthInterest = tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub() * (borrowingLoanNew.getLoanApr()/12);
         			shouldReceMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub();
         		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("一次性还款")){
-        			float everyMonthInterest = tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub() * (borrowingLoanNew.getLoanApr()/12);
+        			everyMonthInterest = tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub() * (borrowingLoanNew.getLoanApr()/12);
         			shouldReceMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub();
         		}
         		receivablesNotes.setReceivablesTotal(shouldReceMoney);//设置收款总金额
         		receivablesNotes.setShouldReceMoney(shouldReceMoney);//设置应收本息
         		receivablesNotes.setNotReceMoney(shouldReceMoney);//设置未收本息
+        		receivablesNotes.setShouldRecePrincipal(tenderNotes.getSubSum()*borrowingLoan.getLowestSub());//设置投资人应收本金
+                receivablesNotes.setNotRecePrincipal(tenderNotes.getSubSum()*borrowingLoan.getLowestSub());//设置未收本金
+                receivablesNotes.setShouldReceInterest(shouldReceMoney-(tenderNotes.getSubSum()*borrowingLoan.getLowestSub()));//本息减去本金得到利息---
+                receivablesNotes.setNotReceInterest(shouldReceMoney-(tenderNotes.getSubSum()*borrowingLoan.getLowestSub()));//设置未收利息
+                
         		//判断借款是否设置投标奖励
               	if(borrowingLoan.getIsBidReward().equals("yes")){
               		if(borrowingLoan.getFixedAppReward() != 0.0){//按固定金额分摊奖励
@@ -472,16 +482,9 @@ public class ReceivablesNotesService {
         	receivablesNotes.setReceState("receiving");//设置收款记录的状态为收款中，”未收“
     		receivablesNotes.setReceNotesId(RandomGUID.getRandomGUID());
             receivablesNotes.setCreater(pricipalUser.getUserId());
-            //receivablesNotes.setReceivablesTotal(receivablesNotes.getReceivablesTotal()+shouldReceMoney);
-            receivablesNotes.setShouldReceMoney(shouldReceMoney);//设置应收本息
             receivablesNotes.setAlrReceMoney(0f);//设置已收本息
-            receivablesNotes.setNotReceMoney(shouldReceMoney);//设置未收本息
-            receivablesNotes.setShouldRecePrincipal(tenderNotes.getTenderMoney());//设置投资人应收本金
             receivablesNotes.setAlrRecePrincipal(0f);//设置已收本金
-            receivablesNotes.setNotRecePrincipal(tenderNotes.getTenderMoney());//设置未收本金
-            receivablesNotes.setShouldReceInterest(shouldReceMoney-borrowingLoan.getLoanTotal());//本息减去本金得到利息---
             receivablesNotes.setAlrReceInterest(0f);//设置已收利息
-            receivablesNotes.setNotReceInterest(shouldReceMoney-borrowingLoan.getLoanTotal());//设置未收利息
             receivablesNotes.setCreateTime(new Date());
             receivablesNotes.setUpdater(pricipalUser.getUserId());
             receivablesNotes.setUpdateTime(new Date());
@@ -492,11 +495,12 @@ public class ReceivablesNotesService {
             	//根据会员ID取出会员资金的信息
             	FinanceMember financeMembers=financeMemberMapper.selectByMemberId(tenderNotes.getMemberId());
             	
-            	//更新投资人的资金信息
-            	financeMembers.setUsableMoney(financeMembers.getUsableMoney()-borrowingLoan.getLoanTotal());//设置投资人可用余额
+            	//更新投资人的资金信息---------------------
+            	//financeMembers.setUsableMoney(financeMembers.getUsableMoney()-borrowingLoan.getLoanTotal());//设置投资人可用余额
             	financeMembers.setFrozenMoney(financeMembers.getFrozenMoney()-borrowingLoan.getLoanTotal());//设置投资人的冻结资金
             	financeMembers.setAmount(financeMembers.getAmount()-borrowingLoan.getLoanTotal());//设置投资人的总金额
             	financeMembers.setCollectingMoney(financeMembers.getCollectingMoney()+receivablesNotes.getShouldReceMoney());//设置投资人的代收金额
+            	
             	
             	//更新投资人的资金信息
             	financeMemberMapper.updateByPrimaryKeySelective(financeMembers);
@@ -515,10 +519,10 @@ public class ReceivablesNotesService {
             	transactionss.setEarningMoney(moneynum);//设置投资人默认收入金额为0
             	transactionss.setExpendMoney(borrowingLoan.getLoanTotal());//设置投资人支出投资金额
             	transactionss.setUsableMoney(financeMembers.getUsableMoney());//设置投资人的可用余额
-            	transactionss.setFrozenMoney(financeMembers.getFrozenMoney()-borrowingLoan.getLoanTotal());//设置投资人的冻结金额
+            	transactionss.setFrozenMoney(financeMembers.getFrozenMoney());//设置投资人的冻结金额
             	transactionss.setCollectingMoney(financeMembers.getCollectingMoney());//设置投资人的待收金额
             	transactionss.setRefundMoney(financeMembers.getRefundMoney());//设置投资人的代还金额
-            	transactionss.setAmount(financeMembers.getAmount()-borrowingLoan.getLoanTotal());//设置投资人的总金额
+            	transactionss.setAmount(financeMembers.getAmount());//设置投资人的总金额
             	transactionss.setRemark("投资["+borrowingLoan.getLoanTitle()+"]的复审通过,成功投资资金["+borrowingLoan.getLoanTotal()+"]元");//设置投资人的会员资金记录的备注
             	transactionss.setCreater(pricipalUser.getUserId());
             	transactionss.setCreateTime(new Date());
@@ -532,6 +536,7 @@ public class ReceivablesNotesService {
             	memberStatistics.setWaitIncomePrincipal(memberStatistics.getWaitIncomePrincipal()+borrowingLoan.getLoanTotal());//设置投资人会员统计的应收本金
             	memberStatistics.setWaitIncomeInterest(memberStatistics.getWaitIncomeInterest()+(receivablesNotes.getShouldReceMoney()-borrowingLoan.getLoanTotal()));//设置投资人会员统计的应收利息(原本利息+(本息减去借款总金额))
             	memberStatistics.setTenderAwards(earningMoney+memberStatistics.getTenderAwards());//投标奖励的总额
+            	memberStatistics.setSuccessTender(memberStatistics.getSuccessTender()+1);
             	memberStatistics.setInvestmentTotal(tenderNotes.getTenderMoney()+memberStatistics.getInvestmentTotal());//投资总额
             	memberStatistics.setUpdateTime(new Date());
             	

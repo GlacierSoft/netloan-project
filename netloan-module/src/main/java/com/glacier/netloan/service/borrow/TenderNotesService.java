@@ -247,32 +247,32 @@ public class TenderNotesService {
       	financeTransaction.setTransactionTarget(member.getMemberName());//设置交易对象
       	financeTransaction.setTransactionType("冻结投标金额");//设置交易类型
     	financeTransaction.setEarningMoney(0f);//设置收入金额
-      	if(tenderNotes.getTenderMoney() != null){//判断投标是按金额还是按认购份数
-      		financeTransaction.setExpendMoney(tenderNotes.getTenderMoney());//设置支出金额
+      	if(tenderNotes.getTenderMoney() != 0f){//判断投标是按金额还是按认购份数
+      		financeTransaction.setExpendMoney(0f);//设置支出金额
       		financeTransaction.setUsableMoney(financeMember.getUsableMoney() - tenderNotes.getTenderMoney());//设置可用金额
       		financeTransaction.setFrozenMoney(financeMember.getFrozenMoney() + tenderNotes.getTenderMoney());//设置冻结金额
-      		financeTransaction.setAmount(financeMember.getAmount() - tenderNotes.getTenderMoney());//设置总金额
+      		financeTransaction.setAmount(financeMember.getAmount());//设置总金额
       		financeTransaction.setRemark("投标借款["+borrowingLoan.getLoanTitle()+"],冻结投标金额["+tenderNotes.getTenderMoney()+"]元");
       	}else{
-      		financeTransaction.setExpendMoney(tenderNotes.getSubSum() * borrowingLoan.getLowestSub());//设置支出金额
+      		financeTransaction.setExpendMoney(0f);//设置支出金额
       		financeTransaction.setUsableMoney(financeMember.getUsableMoney() - tenderNotes.getSubSum() * borrowingLoan.getLowestSub());//设置可用金额
       		financeTransaction.setFrozenMoney(financeMember.getFrozenMoney() + tenderNotes.getSubSum() * borrowingLoan.getLowestSub());//设置冻结金额
-      		financeTransaction.setAmount(financeMember.getAmount() - tenderNotes.getSubSum() * borrowingLoan.getLowestSub());//设置总金额
+      		financeTransaction.setAmount(financeMember.getAmount());//设置总金额
       		financeTransaction.setRemark("投标借款["+borrowingLoan.getLoanTitle()+"],冻结投标金额["+tenderNotes.getSubSum() * borrowingLoan.getLowestSub()+"]元");
       	}
       	financeTransaction.setCollectingMoney(financeMember.getCollectingMoney());//设置代收金额
       	financeTransaction.setRefundMoney(financeMember.getRefundMoney());//设置待还金额
       	financeTransactionService.addTransactionWebsite(financeTransaction);//调用添加记录明细方法
       	
-      	//更新借款的会员资金信息
-      	if(tenderNotes.getTenderMoney() != null){//判断投标是按金额还是按认购份数
+      	//更新投资的会员资金信息
+      	if(tenderNotes.getTenderMoney() != 0f){//判断投标是按金额还是按认购份数
       		financeMember.setUsableMoney(financeMember.getUsableMoney() - tenderNotes.getTenderMoney());//设置会员资金可用金额
       		financeMember.setFrozenMoney(financeMember.getFrozenMoney() + tenderNotes.getTenderMoney());//设置会员资金冻结金额
-          	financeMember.setAmount(financeMember.getAmount() - tenderNotes.getTenderMoney());//设置会员资金总金额
+          	financeMember.setAmount(financeMember.getAmount());//设置会员资金总金额
       	}else{
       		financeMember.setUsableMoney(financeMember.getUsableMoney() - tenderNotes.getSubSum() * borrowingLoan.getLowestSub());//设置会员资金可用金额
       		financeMember.setFrozenMoney(financeMember.getFrozenMoney() + tenderNotes.getSubSum() * borrowingLoan.getLowestSub());//设置会员资金冻结金额
-          	financeMember.setAmount(financeMember.getAmount() -  tenderNotes.getSubSum() * borrowingLoan.getLowestSub());//设置会员资金总金额
+          	financeMember.setAmount(financeMember.getAmount());//设置会员资金总金额
       	}
       	financeMemberService.editMemberWebsite(financeMember);
       	
