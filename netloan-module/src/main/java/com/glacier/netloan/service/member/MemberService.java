@@ -278,6 +278,56 @@ public class MemberService {
         }
         return returnResult;
     }
+    
+    
+
+    /**
+     * @Title: isequalsbusinessPassword 
+     * @Description: TODO(会员交易密码修改) 
+     * @param  @param member
+     * @param  @param oldPassword
+     * @param  @param memberPassword
+     * @param  @return设定文件
+     * @return Object  返回类型
+     * @throws 
+     *
+     */
+    @Transactional(readOnly = false)
+    public Object isequalsbusinessPassword(Member member,String oldPassword,String memberPassword){
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	Member m1 = memberMapper.selectByPrimaryKey(member.getMemberId());//通过memberid获取member
+    	MemberToken mt = memberTokenMapper.selectByPrimaryKey(member.getMemberId());//通过memberId获取memberToken
+    	//将前台传来的密码进行加密，
+    	byte[] salt = Encodes.decodeHex(mt.getSalt());
+    	byte[] hashPassword = Digests.sha1(oldPassword.getBytes(), salt, HASH_INTERATIONS);
+    	String encodeHexPwd = Encodes.encodeHex(hashPassword);
+    	int count = 0;
+    	int countMT = 0;
+    	//将加密后的密码和存在数据库里的密码进行比较。
+        if ((m1.getTradersPassword()).equals(encodeHexPwd)) {
+        	//会员表的修改
+            member.setUpdater(member.getMemberId());
+            member.setUpdateTime(new Date());
+            mt.setPassword(memberPassword);
+            //将新密码进行加密
+            this.updateentryptPassword(mt);
+            //更新member和memberToken
+            member.setTradersPassword(mt.getPassword());
+            countMT = memberTokenMapper.updateByPrimaryKeySelective(mt);
+            count = memberMapper.updateByPrimaryKeySelective(member);
+            if(count ==1 && countMT == 1){
+            	returnResult.setSuccess(true);
+            	returnResult.setMsg("交易密码修改成功！");
+            }else{
+            	returnResult.setMsg("交易密码修改失败！");
+            }
+        }else{
+      	  returnResult.setMsg("原交易密码不正确！");
+        }
+         return returnResult;
+    }
+    
+    
     /**
      * @Title: addMemberReception 
      * @Description: TODO(前台注册会员，同时生成工作表和认证表) 
@@ -335,6 +385,7 @@ public class MemberService {
         member.setCreateTime(new Date());
         member.setUpdater(users.get(0).getUserId());
         member.setUpdateTime(new Date());
+        member.setTradersPassword(memberToken.getPassword());//会员交易密码
         count = memberMapper.insert(member);
         
         //增加membertoken信息 要先增加member记录，才能再生成外键表的记录

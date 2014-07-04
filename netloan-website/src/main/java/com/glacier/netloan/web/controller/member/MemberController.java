@@ -217,6 +217,22 @@ public class MemberController extends AbstractController{
     	return updatememberPassword;
     }
     
+    //判断修改交易密码
+    @RequestMapping(value = "/updatebusinessPassword.htm", method = RequestMethod.POST)
+    @ResponseBody
+    private Object updatebusinessPassword(Member member,String oldPassword,String memberPassword,HttpSession session){
+    	member.setTradersPassword(oldPassword);//将旧密码添加到member对象中
+    	JqReturnJson updatebusinessPassword = (JqReturnJson) memberService.isequalsbusinessPassword(member,oldPassword,memberPassword);//调用server层方法，修改密码
+    	Member loginMember = (Member) memberService.getMember(member.getMemberId());//重新获取member对象
+    	session.removeAttribute("currentMember");//移除旧的member的session
+		session.setAttribute("currentMember",loginMember);//将新获取的member对象放在session中
+    	return updatebusinessPassword;
+    }
+    
+    
+    
+    
+    
     //进行会员平台认证页面
     /**
      * @Title: intoMemberAuth 

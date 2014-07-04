@@ -98,6 +98,9 @@
 				       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
 				       <li><a href="#tabbankCard" data-toggle="tab">银行卡设置</a></li>
 				       <li id="updateSecretSecurityLi"><a id="updateSecretSecurityTab" href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
+				     
+				       <li id="tabchangeMobileLi2"><a  id="tabchangeMobileTab2" href="#tabUpdatePassword2" data-toggle="tab">修改交易密码</a></li>
+				     
 				       </c:if>
 				       <c:if test="${addBankCard == 'addBankCard' }">
 				       	   <li><a href="${ctx}/member/memberDetail.htm" class="btn " role="button">个人详细信息</a></li>
@@ -106,6 +109,9 @@
 					       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
 					       <li class="active"><a href="#tabbankCard" data-toggle="tab">银行卡设置</a></li>
 					       <li id="updateSecretSecurityLi"><a  id="updateSecretSecurityTab" href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
+				       
+				           <li id="tabchangeMobileLi2"><a  id="tabchangeMobileTab2" href="#tabUpdatePassword2" data-toggle="tab">修改交易密码</a></li>
+				     
 				       </c:if>
 				        <c:if test="${!empty updateSecretSecurity }">
 				       	   <li><a href="${ctx}/member/memberDetail.htm" class="btn " role="button">个人详细信息</a></li>
@@ -114,6 +120,9 @@
 					       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
 					       <li><a href="#tabbankCard" data-toggle="tab">银行卡设置</a></li>
 					       <li id="updateSecretSecurityLi" class="active"><a id="updateSecretSecurityTab" href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
+				      
+				           <li id="tabchangeMobileLi2"><a  id="tabchangeMobileTab2" href="#tabUpdatePassword2" data-toggle="tab">修改交易密码</a></li>
+				     
 				       </c:if>
 				     </ul>
 				      <br>
@@ -362,6 +371,42 @@
 						  </div>
 						</form>
 				       </div>
+				       <!-- sjd------------------------- -->
+				           <div class="tab-pane fade" id="tabUpdatePassword2">
+				         <form id="updatememberPasswordForm2" class="form-horizontal" role="form" method="post" >
+						  <div class="form-group">
+						    <label for="memberName" class="col-sm-3 control-label" style="color:red;">交易密码修改</label>
+						    <div class="col-sm-9">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="memberName" class="col-sm-3 control-label">原交易密码:</label>
+						    <div class="col-sm-9">
+						      <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
+						      <input type="text" class="form-control" id="oldPassword_form-group2" name="oldPassword" placeholder="输入您现在的交易密码"  />
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="memberPassword" class="col-sm-3 control-label">新交易密码:</label>
+						    <div class="col-sm-9">
+						      <input type="password" class="form-control" id="memberPassword_form-group2" name="memberPassword" placeholder="输入您的新交易密码"  />
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="comfirPassword" class="col-sm-3 control-label">确认新密码:</label>
+						    <div class="col-sm-9">
+						      <input type="password" class="form-control" id="comfirPassword_form-group2" name="comfirPassword" placeholder="请再次输入您的新交易密码" />
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-offset-3 col-sm-9">
+						      <button id="updatememberPasswordForm_form-group" type="submit" class="btn btn-primary">提    交</button>
+						    </div>
+						  </div>
+						</form>
+				       </div>
+				       
+				       
 				       <div class="tab-pane fade" id="tabchangeMobile">
 				          <form id="updatePhoneForm" class="form-horizontal" role="form" method="post" >
 						  <div class="form-group">
@@ -695,6 +740,19 @@
 	    		window.location.href="${ctx}/member/memberDetail.htm?updateSecretSecurity=updatePassword";
 	    	}
 	    }); 
+	   //--------------------
+	        $('#tabchangeMobileTab2').bind('click', function(){    
+	      	if("${SecretSecurityResult.rows[0].secretSecurityId}" == ''){
+	    		//notClonedialog("请先设置密保问题");
+	    		alert("请先设置密保问题");
+	    		window.location.href="${ctx}/member/memberDetail.htm?updateSecretSecurity=updateSecretSecurity";
+	    	}else{
+	    		//notClonedialog("请先回答安全问题");
+	    		alert("请先回答安全问题");
+	    		window.location.href="${ctx}/member/memberDetail.htm?updateSecretSecurity=updatePassword2";
+	    	}
+	    }); 
+	    ////======================
 	    $('#updateSecretSecurityTab').bind('click', function(){    
 	      	if("${SecretSecurityResult.rows[0].secretSecurityId}" == ''){
 	    		notClonedialog("请先设置密保问题");
@@ -711,7 +769,7 @@
 			$("form[id='personalMessageForm'] input,textarea[id='personalDes']").prop("readonly", true);
 			$("form[id='personalMessageForm'] select,button[id='onlyPost'],button[id='postAuthBut']").prop("disabled", true);
 			//$("button[id='postAuthBut']").prop("disabled", true);
-		} 
+		} ;
       	$(function() {
 			$(".alert").alert();
 			//用jq将下列框的值初始化。
@@ -728,8 +786,8 @@
 				$('#success_alert h4').html(perfectRegisterMessage);
 				setTimeout(function(){//延迟3秒隐藏
 					$('#success_alert').fadeOut();
-				},3000)
-			}		
+				},3000);
+			};		
 	      	
 	      	$("#personalMessageForm").validate({
 	    		rules:{
@@ -893,7 +951,72 @@
 	    				}); 
 	    		} 
 	      	});
-      	});
+      	});  
+      	
+	        	
+      	//修改交易密码
+      	$("#updatememberPasswordForm2").validate({
+	      		rules:{
+	    			oldPassword:{
+	    				required:true,
+	    				rangelength:[6,12]
+	    			},
+	    			memberPassword:{
+	    				required:true,
+	    				rangelength:[6,12]
+	    			},
+	    			comfirPassword:{
+	    				required:true,
+	    				rangelength:[6,12],
+	    				equalTo:"#memberPassword_form-group2"
+	    			}
+	    		},
+	    		messages:{
+	    			oldPassword:{
+	    				required:"原密码不能为空",
+	    				rangelength:"密码长度必须为为6-12位"
+	    			},
+	    			memberPassword:{
+	    				required:"新密码不能为空",	
+	    				rangelength:"密码长度必须为为6-12位"
+	    			},
+	    			comfirPassword:{
+	    				required:"确认密码不能为空",
+	    				rangelength:"密码长度必须为为6-12位",
+	    				equalTo:"确认密码必须和新密码一致"
+	    			}
+	    		},
+	    		submitHandler:function(){
+	    			 $.ajax({
+	    				   type: "POST",
+	    				   url: ctx+"/member/updatebusinessPassword.htm",
+	    				   dataType: "json",
+	    				   data: $("#updatememberPasswordForm2").serialize(),
+		    			   success: function(r) { 
+	    						if(r.success){
+	    							$('#success_alert').fadeIn();
+		    						$('#success_alert h4').html(r.msg);
+		    						setTimeout(function(){//延迟3秒隐藏
+		    							$('#success_alert').fadeOut();
+		    						},3000)
+		    						
+		    						$("#oldPassword_form-group2").val("");
+		    						$("#memberPassword_form-group2").val("");
+		    						$("#comfirPassword_form-group2").val("");
+	    						}else{
+	    							$('#danger_alert').fadeIn();
+		    						$('#danger_alert h4').html(r.msg);
+		    						setTimeout(function(){//延迟3秒隐藏
+		    							$('#danger_alert').fadeOut();
+		    						},3000);
+	    						} 
+		                    },
+		                    error: function() {
+		                        alert("提交出错！");
+		                    }
+	    				}); 
+	    		} 
+	      	}); 
       	$("#updateSecretSecurityForm").validate({
     		rules:{
     			answers1:"required",
@@ -967,9 +1090,20 @@
 	    				   if(r.success){
 	    					   if("${updateSecretSecurity}" == 'updatePassword'){
 	    						   $("#tabchangeMobileLi").attr("class","active");
-	    						   $("#tabUpdatePassword").attr("class","tab-pane fade in active");
+	    						   $("#tabchangeMobileLi2").attr("class",""); 
+		    					   $("#tabUpdatePassword").attr("class","tab-pane fade in active");
 	    						   $("#updateSecretSecurityLi").attr("class","");
 	    						   $("#updateSecretSecurity").attr("class","tab-pane fade");
+	    						   $("#tabUpdatePassword2").attr("class","tab-pane fade");
+		    						  
+	    					   }else if("${updateSecretSecurity}" == 'updatePassword2'){
+	    						   $("#tabchangeMobileLi2").attr("class","active"); 
+	    						   $("#tabchangeMobileLi").attr("class","");
+	    						   $("#tabUpdatePassword").attr("class","tab-pane fade ");
+	    						   $("#tabUpdatePassword2").attr("class","tab-pane fade in active");
+	    						   $("#updateSecretSecurityLi").attr("class","");
+	    						   $("#updateSecretSecurity").attr("class","tab-pane fade");
+	    					 
 	    					   }else{
 	    						   window.location.href="${ctx}/member/memberDetail.htm?updateSecretSecurity=updateSecretSecurity";
 	    					   }
