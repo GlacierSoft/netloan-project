@@ -3,6 +3,7 @@
  */
 package com.glacier.netloan.service.finance;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -137,10 +138,17 @@ public class FinanceWithdrawSetService {
         FinanceWithdrawSetExample financeWithdrawSetExample = new FinanceWithdrawSetExample();
         int count = 0;
         financeWithdrawSetExample.createCriteria().andWithdrawSetMinimumBetween(financeWithdrawSet.getWithdrawSetMinimum(), financeWithdrawSet.getWithdrawSetMaximum());
-        count = financeWithdrawSetMapper.countByExample(financeWithdrawSetExample);// 查找相同最小提现值，和最大提现值一样的提现档次
+        List<FinanceWithdrawSet>  list=new ArrayList<FinanceWithdrawSet>();
+        list = financeWithdrawSetMapper.selectByExample(financeWithdrawSetExample);// 查找相同最小提现值，和最大提现值一样的提现档次
         if (count > 0) {
-            returnResult.setMsg("会员提现设置重复");
-            return returnResult;
+        	for (FinanceWithdrawSet fin : list) {  
+        		if(financeWithdrawSet.getFinanceWithdrawSetId().equals(fin.getFinanceWithdrawSetId())){
+            		break;
+            	}else{ 
+                    returnResult.setMsg("会员提现设置重复");
+                    return returnResult; 
+            	}
+			}
         }
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
