@@ -193,7 +193,7 @@
 								          </tr>
 								          <tr>
 								            <td align="right">充值金额：</td>
-								            <td><input id="rechargeAmount" name="rechargeAmount" type="text" class="inp100x" />元</td>
+								            <td><input id="rechargeAmount" name="rechargeAmount" type="text" class="inp100x" onkeyup="clearNoNum(this)" />元</td>
 								          </tr>
 								          <tr>
 								            <td align="right">充值类型：</td>
@@ -266,7 +266,7 @@
 								          </tr>
 								          <tr>
 								            <td>提现金额：</td>
-								            <td><input id="withdrawAmount" name="withdrawAmount" type="text" class="inp100x"   onkeyup="this.value=this.value.replace(/[^\d]/g,'') "/>元
+								            <td><input id="withdrawAmount" name="withdrawAmount" type="text" class="inp100x"   onkeyup="clearNoNum(this)"/>元
 								            <input type="hidden" id="memberId" name="memberId" value="${currentMember.memberId}" ></td>
 								          </tr>
 								          <tr>
@@ -408,6 +408,9 @@
 			return;s
 	 	}
 		
+		
+		
+		
 		if((usableMoney-0)<(inputMoney-0)){ 
 			$(this).parent().append("<span id='kk' style='color:#F00'>*超过可用余额</span>");
 			$("#subm").attr({"disabled":"disabled"});
@@ -468,7 +471,17 @@
 					});
 		});
 	};
-
+	   function clearNoNum(obj)
+	    {
+	        //先把非数字的都替换掉，除了数字和.
+	        obj.value = obj.value.replace(/[^\d.]/g,"");
+	        //必须保证第一个为数字而不是.
+	        obj.value = obj.value.replace(/^\./g,"");
+	        //保证只有出现一个.而没有多个.
+	        obj.value = obj.value.replace(/\.{2,}/g,".");
+	        //保证.只出现一次，而不能出现两次以上
+	        obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+	    }
 </script>
  
   </body>
