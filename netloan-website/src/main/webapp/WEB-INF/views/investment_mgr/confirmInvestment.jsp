@@ -188,6 +188,8 @@
 		var $subSum = $('#subSum');
 		var stillNeedSum = ${borrowingLoan.subTotal-borrowingLoan.alrSubSum };
 		var r = /^[0-9]*[1-9][0-9]*$/ ;
+		var num = $subSum.val()
+		var numberAmount = ${borrowingLoan.lowestSub} * num;
 		if(!r.test($subSum.val())){
 			$subSum.focus();
 			vipdialog("请输入正整数!");
@@ -198,8 +200,8 @@
 			vipdialog("投标份数超过本轮剩余投标份数");
 			return false;
 		}
-		if(${borrowingLoan.lowestSub * stillNeedSum} > ${financeMember.usableMoney }){
-			$tenderMoney.focus();
+		if(parseFloat(numberAmount) > parseFloat(${financeMember.usableMoney })){
+			$subSum.focus();
 			vipdialog("你的可用余额不足，请先充值");
 			return false;
 		}

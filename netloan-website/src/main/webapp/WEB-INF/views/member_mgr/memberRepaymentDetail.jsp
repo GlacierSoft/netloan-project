@@ -148,7 +148,14 @@
 								       		$('#repaymentNotesDetails_repayState'+${status.index}).html(renderGridValue('${repaymentNotesDetails.repayState}',fields.repayDetailState));
 								    	</script>
 								</td>
-					            <td><a href="${ctx}/repaymentNotesDetail/conductRepayment.htm?&loanId=${borrowingLoan.loanId}&memberId=${currentMember.memberId}&repayNotesDetailId=${repaymentNotesDetails.repayNotesDetailId}">还款</a></td>
+					            <td>
+					            	<c:if test="${repaymentNotesDetails.repayState == 'notRepay'}">
+					            		<a href="${ctx}/repaymentNotesDetail/conductRepayment.htm?&loanId=${borrowingLoan.loanId}&memberId=${currentMember.memberId}&repayNotesDetailId=${repaymentNotesDetails.repayNotesDetailId}">还款</a>
+					            	</c:if>
+					            	<c:if test="${repaymentNotesDetails.repayState == 'alreadRepay'}">
+					            		已完成
+					            	</c:if>
+					            </td>
 					          </tr>
 				      		</c:forEach>
 				      	</tbody>

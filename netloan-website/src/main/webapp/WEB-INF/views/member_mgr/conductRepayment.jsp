@@ -99,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <h3 class="panel-title">会员中心 / 借款管理 / 还款明细管理</h3>
 				  </div>
 				  <div class="panel-body">
-					<form id="conductRepayment" name="conductRepayment" class="form-horizontal" role="form" method="post" >
+					<form id="conductRepayment" name="conductRepayment" class="form-horizontal" role="form" method="post" onsubmit="return validaconductRepaymentSubForm();">
 			  		  <table class="table table-bordered">
 			          	<thead>
 				          <tr>
@@ -175,7 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				          </tr>
 				          <tr>
 				            <td colspan="4" align="center">
-				            	<button type="submit" class="btn btn-default">确认还款</button>
+				            	<button id=""subSum type="submit" class="btn btn-default">确认还款</button>
 				            	<button type="reset" class="btn btn-default">重置信息</button>
 				            </td>
 				          </tr>
@@ -192,7 +192,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <!-- CONTAINER START======================== -->
 	     <jsp:include page="../foot.jsp"/>
 <script type="text/javascript">
-    $("#conductRepayment").validate({
+	
+	validaconductRepaymentSubForm = function(){
+		var $subSum = $('#subSum');
+		if(${repaymentNotesDetailsData.alsoNeedMoney} > ${financeMemberDate.usableMoney}){
+			 vipdialog("您的可用余额不足以进行此期还款!");
+			 return false;
+		}
+		
+		
+	}
+	
+	$("#conductRepayment").validate({
     	rules:{
     		tradersPassword:"required",
 			captcha:"required"
@@ -200,8 +211,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		messages:{
 			tradersPassword:"交易密码不能为空",
 			captcha:"验证码不能为空"
-		},
-   		submitHandler:function(){
+		},submitHandler:function(){
    			$.ajax({
    				   type: "POST",
    				   url: ctx+"/repaymentNotesDetail/repayment.json",
@@ -216,6 +226,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    				});
    		} 
    	});
+    
     function successAddRecharge(data){
 		KindEditor.ready(function(K) {
 		var dialog = K.dialog({
@@ -249,6 +260,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	$(this).hide().attr('src','${pageContext.request.contextPath}/resources/images/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();     
 	    });
 	});
+	function vipdialog(data){
+		KindEditor.ready(function(K) {
+		var dialog = K.dialog({
+				        width : 300,
+				        title : '信息提示',
+				        body : '<div style="margin:10px;"><strong>'+data+'</strong></div>',
+				        closeBtn : {
+				                name : '关闭',
+				                click : function(e) {
+				                        dialog.remove();
+				                }
+				        },
+				        yesBtn : {
+				                name : '确定',
+				                click : function(e) {
+				                		dialog.remove();
+				                }
+				        },
+					});
+		});
+	}
 </script>
   </body>
 </html>
