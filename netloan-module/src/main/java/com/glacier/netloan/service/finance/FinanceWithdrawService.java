@@ -209,10 +209,13 @@ public class FinanceWithdrawService {
   		FinanceBankCard financeBankCard = new FinanceBankCard();
   		financeBankCard = financeBankCardMapper.selectByPrimaryKey(bankCardId);
         int count = 0;
-        
-         //提现总金额不能小于100或者大于500000，--没算手续费
-        if(financeWithdraw.getWithdrawAmount()<100||financeWithdraw.getWithdrawAmount()>500000){
-        	 returnResult.setMsg("提现金额不能低于￥100，且不能大于￥500000");
+        //根据提现会员Id找到该会员的会员财务信息记录
+        FinanceMember financeMember = new FinanceMember();
+        financeMember = financeMemberMapper.selectByMemberId(member.getMemberId()); 
+      
+         //提现总金额不能小于100或者大于可用金额 
+        if(financeWithdraw.getWithdrawAmount()<100||financeWithdraw.getWithdrawAmount()>financeMember.getUsableMoney()){
+        	 returnResult.setMsg("提现金额不能低于￥100，且不能大于可用余额");
    		     return returnResult;
         } 
         

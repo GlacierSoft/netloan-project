@@ -258,7 +258,7 @@
 								          </tr>
 								          <tr>
 								            <td>可用余额：</td>
-								            <td>${financeMemberData.usableMoney}</td>
+								            <td id="usableMoney">${financeMemberData.usableMoney}</td>
 								          </tr>
 								          <tr>
 								            <td>冻结总额：</td>
@@ -266,7 +266,7 @@
 								          </tr>
 								          <tr>
 								            <td>提现金额：</td>
-								            <td><input id="withdrawAmount" name="withdrawAmount" type="text" class="inp100x" />元
+								            <td><input id="withdrawAmount" name="withdrawAmount" type="text" class="inp100x"   onkeyup="this.value=this.value.replace(/[^\d]/g,'') "/>元
 								            <input type="hidden" id="memberId" name="memberId" value="${currentMember.memberId}" ></td>
 								          </tr>
 								          <tr>
@@ -290,7 +290,7 @@
 								          </tr>
 								          <tr>
 								            <td colspan="2" align="center">
-								            	<button type="submit" class="btn btn-default">提交</button>
+								            	<button type="submit" class="btn btn-default" id="subm">提交</button>
 								            	<button type="reset" class="btn btn-default">重置</button>
 								            </td>
 								          </tr>
@@ -395,6 +395,29 @@
    				});
    		} 
    	});
+	
+	//----------输入提现金额不能大于可用余额-------------------
+	$("#withdrawAmount").blur(function(){
+		$("#kk").remove();
+		$("#subm").removeAttr("disabled");//将按钮可用 
+		var usableMoney=$("#usableMoney").text(); //取出余额 
+		var inputMoney=$(this).val();//输入的金额
+		if((inputMoney-0)<100){
+			$(this).parent().append("<span id='kk' style='color:#F00'>*低于最低提现额</span>");
+			$("#subm").attr({"disabled":"disabled"});
+			return;s
+	 	}
+		
+		if((usableMoney-0)<(inputMoney-0)){ 
+			$(this).parent().append("<span id='kk' style='color:#F00'>*超过可用余额</span>");
+			$("#subm").attr({"disabled":"disabled"});
+		}else{
+			$("#subm").removeAttr("disabled");//将按钮可用
+			$("#kk").remove();
+		 }
+	});
+	
+	
 	$("#financeWithdraw").validate({
    		rules:{
    			withdrawAmount:"required",
