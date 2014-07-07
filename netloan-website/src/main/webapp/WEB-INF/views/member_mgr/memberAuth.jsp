@@ -463,12 +463,18 @@
 								  		
 				            <c:forEach items="${memberIntegralDatas.rows}" var="memberIntegral" varStatus="status">
 						      	<tr>
-					              <td id="memberIntegral_type${status.index}" class="memberIntegral_type">
-					              <script type="text/javascript">
+						         <td id="memberIntegral_type${status.index}" class="memberIntegral_type">
+					             <!--  <script type="text/javascript">
 					             $('#memberIntegral_type'+${status.index}).html(renderGridValue('${memberIntegral.type}',fields.type));
-					              </script>
-					              <%--  <c:out value="${status.index}" />
-					               <c:out value="${memberIntegral.type}" /> --%>
+					              </script> --> 
+					             	<c:if test="${memberIntegral.type eq 'login' }">登录</c:if>
+					                <c:if test="${memberIntegral.type eq 'recharge' }">充值</c:if>
+					                <c:if test="${memberIntegral.type eq 'withdraw' }">提现</c:if>
+					                <c:if test="${memberIntegral.type eq 'invest' }">投资</c:if>
+					             
+					           <%--     <c:out value="${memberIntegral.type}" />   <c:if test="${memberIntegral.type eq 'te'}">正确
+					              
+					              <c:if>--%>
 					              </td>
 					              <td>${memberIntegral.changeValue}</td>
 					              <td>${memberIntegral.remark}</td>
