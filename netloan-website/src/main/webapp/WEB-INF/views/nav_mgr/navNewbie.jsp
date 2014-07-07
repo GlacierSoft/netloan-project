@@ -14,7 +14,7 @@
 	            <span class="icon-bar"></span>
 	            <span class="icon-bar"></span>
 	          </button>
-	          <a class="navbar-brand" href="#">冰川网贷平台</a>
+	          <a class="navbar-brand" href="${ctx}/index.htm">冰川网贷平台</a>
 	        </div>
 	        <div class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav">
