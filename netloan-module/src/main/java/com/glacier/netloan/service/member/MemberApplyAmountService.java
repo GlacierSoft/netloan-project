@@ -111,7 +111,7 @@ public class MemberApplyAmountService {
             long between = 0;
             between = nowDate.getTime() - lastCreateTime.getTime();
             long day = between / (24 * 60 * 60 * 1000);
-            //如果申请额度大于30天就进入此方法
+            //如果申请额度时间大于30天就进入此方法
             if(day >30){
             	int count = 0;
     	        count = insertMemberApplyAmount(applyAmount);//调用增加申请额度方法
