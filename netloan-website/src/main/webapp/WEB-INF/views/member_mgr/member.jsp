@@ -240,7 +240,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    //构建表单
 		function doClick(url,str){
 			// 创建Form  
-			alert("hahah");
 			var form = $('<form></form>');  
 			// 设置属性  
 		    form.attr('action', '<%=basePath%>'+url);  

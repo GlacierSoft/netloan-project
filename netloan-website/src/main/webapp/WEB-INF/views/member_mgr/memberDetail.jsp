@@ -2,6 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- 引入jstl解析标签 -->
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %><!-- 引入自定义权限标签 -->
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<%    
+String path = request.getContextPath();    
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";    
+%>
+
 <!DOCTYPE html>
 <html lang="zh-cn">
   <head>
@@ -58,7 +63,7 @@
 					        <div class="btn-group-vertical">
 							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit" class="btn btn-default" role="button">已发布的借款</a>
 							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting" class="btn btn-default" role="button">还款管理</a>
-							  <a href="${ctx}/borrowingLoan/memberStatistics.htm?&memberId=${currentMember.memberId}" class="btn btn-default" role="button">贷款统计</a>
+							   <a href="#" onclick="doClick('borrowingLoan/memberStatistics.htm','${currentMember.memberId}');" class="btn btn-default" role="button">贷款统计</a>
 							</div>
 					      </div>
 					    </div>
@@ -74,9 +79,9 @@
 					    <div id="collapseThree" class="panel-collapse collapse">
 					      <div class="panel-body">
 					      	<div class="btn-group-vertical">
-					      	  <a href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow&memberId=${currentMember.memberId}" class="btn btn-default" role="button">我的投标</a>
-					      	  <a href="${ctx}/attentionBorrowing/memberAttentionBorrowing.htm?&p=1&memberId=${currentMember.memberId}" class="btn btn-default" role="button">我关注的借款</a>
-					      	  <a href="${ctx}/bankingStatistics/memberBankingStatistics.htm?&memberId=${currentMember.memberId}" class="btn btn-default" role="button">投资统计</a>
+					      	  <a href="#" onclick="doClick('investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow','${currentMember.memberId}')" class="btn btn-default" role="button">我的投标</a>
+	   						  <a href="#" onclick="doClick('attentionBorrowing/memberAttentionBorrowing.htm?&p=1','${currentMember.memberId}')" class="btn btn-default" role="button">我关注的借款</a>
+	   						  <a href="#" onclick="doClick('bankingStatistics/memberBankingStatistics.htm','${currentMember.memberId}')" class="btn btn-default" role="button">投资统计</a>
 					      </div>
 					    </div>
 					  </div>
@@ -729,6 +734,24 @@
 	    <jsp:include page="../foot.jsp"/>
 	    <!-- CONTAINER START======================== -->
 	    <script type="text/javascript">
+	    //构建表单
+		function doClick(url,str){
+			// 创建Form  
+			var form = $('<form></form>');  
+			// 设置属性  
+		    form.attr('action', '<%=basePath%>'+url);  
+		    form.attr('method', 'post');  
+		    // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
+		    form.attr('target', '_self');  
+		    // 创建Input  
+		    var my_input = $('<input type="text" name="memberId" />');  
+		    my_input.attr('value', str);  
+		    // 附加到Form  
+		    form.append(my_input);  
+		    //表单的构建是否 完成
+		    form.appendTo(document.body).submit();
+		 }
+	    
 	    $('#tabchangeMobileTab').bind('click', function(){    
 	      	if("${SecretSecurityResult.rows[0].secretSecurityId}" == ''){
 	    		//notClonedialog("请先设置密保问题");
