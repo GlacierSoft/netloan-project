@@ -122,7 +122,7 @@
 							    <div class="col-sm-3"><input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${attentionBorrowingQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
 							    <div class="col-sm-3 text-center"><button id="sucessBorrowFormButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
 							    <div class="col-sm-3">
-					            <button id="sucessBorrowFormButton" type="reset" class="btn btn-primary btn-lg btn-block">重置条件</button>
+					            <button id="sucessBorrowFormButton" onclick="re()" type="reset" class="btn btn-primary btn-lg btn-block">重置条件</button>
 							    </div>
 							  	<div class="col-sm-2"></div>
 							  	</div>
@@ -197,12 +197,7 @@
   </body>
   	<script type="text/javascript">
   	
-  	//点击重置按钮，清空表单
-  	$("#attentionBorrowingFormButtonReset").click(function(){
-  		$("#loanTitle").val('');
-  		$("#loanDateCreateStartTime").val('');
-  		$("#loanDateCreateEndTime").val('');
-  	});
+   
   	
   	//bootstrap日期控件
   	$(".form_datetime").datetimepicker({
@@ -330,6 +325,12 @@
 				        }
 						});
 			});
+		};
+		//重置按钮
+		function re(){ 
+			$("#loanTitle").attr("value"," ");
+	  		$("#loanDateCreateStartTime").attr("value"," ");
+	  		$("#loanDateCreateEndTime").attr("value"," ");
 		}
 	</script>
 </html>

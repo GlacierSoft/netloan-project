@@ -177,7 +177,7 @@
 							    <div class="col-sm-3 text-center"><button id="sucessBorrowFormButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
 							    <div class="col-sm-3">
 							    <!-- <button id="sucessBorrowFormButtonReset" type="reset" class="btn btn-primary btn-lg btn-block">重&nbsp;&nbsp;置</button> -->
-							    <button id="sucessBorrowFormButton" type="reset" class="btn btn-primary btn-lg btn-block">重置条件</button>
+							    <button id="sucessBorrowFormButton" type="reset" onclick="re()" class="btn btn-primary btn-lg btn-block">重置条件</button>
 							     </div>
 							  	<div class="col-sm-2"></div>
 							  	</div>
@@ -291,7 +291,8 @@
 							    <input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${receivablesNotesQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
 							    <div class="col-sm-3 text-center"><button id="sucessBorrowFormButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
 							    <div class="col-sm-3">
-							    <a id="sucessBorrowFormButtonReset" href="javascript:void(0);" class="btn btn-primary btn-lg btn-block" data-options="" onclick="">重置条件</a>
+							     <button id="sucessBorrowFormButton" type="reset" onclick="re()" class="btn btn-primary btn-lg btn-block">重置条件</button>
+							    
 							    </div>
 							  	<div class="col-sm-2"></div>
 							  	</div>
@@ -513,9 +514,7 @@
 							    <label for="loanTitle" class="col-sm-1 control-label" >标题</label>
 							    <div class="col-sm-3"><input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${receivablesNotesQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
 							    <div class="col-sm-3 text-center"><button id="backAccountBorrowButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
-							    <div class="col-sm-3">
-							    <a id="backAccountBorrowFormReset" href="javascript:void(0);" class="btn btn-primary btn-lg btn-block" data-options="" onclick="">重置条件</a>
-							    </div>
+						        <div class="col-sm-3 "><button id="backAccountBorrowReButton" onclick="reTwo()"  type="reset" class="btn btn-primary btn-lg btn-block">重置条件2</button></div>
 							  	<div class="col-sm-2"></div>
 							  	</div>
 						     </form>
@@ -601,13 +600,7 @@
   		$("#loanTitle").val('');
   		$("#createStartTime").val('');
   		$("#createEndTime").val('');
-  	});
-  //点击重置按钮，清空表单
-  	$("#backAccountBorrowFormReset").click(function(){
-  		$("#loanTitle").val('');
-  		$("#loanDateCreateStartTime").val('');
-  		$("#loanDateCreateEndTime").val('');
-  	});
+  	}); 
   	
   	//bootstrap日期控件
   	$(".form_datetime").datetimepicker({
@@ -809,6 +802,19 @@
 			　　　　　　return resultStr;
 			　　　　}
 			　　}
+			};
+			//重置按钮
+			function re(){ 
+				 $("#createStartTime").attr("value"," ");
+				 $("#createEndTime").attr("value"," ");
+				 $("#loanTitle").attr("value","");
+			}
+			
+			//个人贷款重置按钮
+			function reTwo(){
+				$("#loanTitle").val('');
+		  		$("#loanDateCreateStartTime").attr("value"," ");
+		  		$("#loanDateCreateEndTime").val('');
 			}
 	</script>
 </html>

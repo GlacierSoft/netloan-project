@@ -234,7 +234,9 @@
 	}
 	
 	element.bootstrapPaginator(options);
-	})
+	});
+	
+	
 </script>
 
   </body>

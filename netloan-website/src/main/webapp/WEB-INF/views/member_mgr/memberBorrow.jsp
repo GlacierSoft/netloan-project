@@ -107,6 +107,7 @@
 								        <label for="cardId" class="col-sm-2 control-label" >发布时间</label>
 									    <div class="col-sm-4">
 										    <div class="input-group date form_datetime" data-link-field="dtp_input1">
+							                              
 							                    <input id="createStartTime" name="createStartTime" class="form-control" size="16" type="text" value="<fmt:formatDate value="${borrowingLoanQueryDTO.createStartTime}" type="both"/>" readonly>
 							                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 												<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
@@ -128,7 +129,7 @@
 									    <div class="col-sm-3"><input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${borrowingLoanQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
 									    <div class="col-sm-3 text-center"><button id="firstAuditBorrowFormButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
 									    <div class="col-sm-3">
-									    <button id="firstAuditBorrowFormButton" type="reset" class="btn btn-primary btn-lg btn-block">重置条件</button></div>
+									    <button id="firstAuditBorrowFormResetButton"  onclick="re()" type="reset"  class="btn btn-primary btn-lg btn-block">重置条件</button></div>
 		 
 									    </div>
 									  	<div class="col-sm-2"></div>
@@ -172,7 +173,7 @@
 									    <div class="col-sm-3"><input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${borrowingLoanQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
 									    <div class="col-sm-3 text-center"><button id="tenderingBorrowFormButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
 									    <div class="col-sm-3">
-	                                        <button id="tenderingBorrowFormButton" type="reset" class="btn btn-primary btn-lg btn-block">重置条件</button>
+	                                        <button id="tenderingBorrowFormButton" onclick="re()" type="reset" class="btn btn-primary btn-lg btn-block">重置条件</button>
 									    </div>
 									  	<div class="col-sm-2"></div>
 									  	</div>
@@ -333,6 +334,13 @@
 		}
 		elementTendering.bootstrapPaginator(optionsTendering);
 	})
+	
+	//重置按钮
+	function re(){ 
+		 $("#createStartTime").attr("value"," ");
+		 $("#createEndTime").attr("value"," ");
+		 $("#loanTitle").attr("value","");
+	}
 </script>
 
   </body>
