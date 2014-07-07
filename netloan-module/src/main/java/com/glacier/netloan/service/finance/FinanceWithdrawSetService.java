@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -137,18 +136,14 @@ public class FinanceWithdrawSetService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         FinanceWithdrawSetExample financeWithdrawSetExample = new FinanceWithdrawSetExample();
         int count = 0;
-        financeWithdrawSetExample.createCriteria().andWithdrawSetMinimumBetween(financeWithdrawSet.getWithdrawSetMinimum(), financeWithdrawSet.getWithdrawSetMaximum());
+        //在一个范围内，且不等于自己本身的数据找出来，
+        financeWithdrawSetExample.createCriteria().andWithdrawSetMinimumBetween(financeWithdrawSet.getWithdrawSetMinimum(), financeWithdrawSet.getWithdrawSetMaximum())
+        		.andFinanceWithdrawSetIdNotEqualTo(financeWithdrawSet.getFinanceWithdrawSetId());
         List<FinanceWithdrawSet>  list=new ArrayList<FinanceWithdrawSet>();
         list = financeWithdrawSetMapper.selectByExample(financeWithdrawSetExample);// 查找相同最小提现值，和最大提现值一样的提现档次
-        if (count > 0) {
-        	for (FinanceWithdrawSet fin : list) {  
-        		if(financeWithdrawSet.getFinanceWithdrawSetId().equals(fin.getFinanceWithdrawSetId())){
-            		break;
-            	}else{ 
-                    returnResult.setMsg("会员提现设置重复");
-                    return returnResult; 
-            	}
-			}
+        if (list.size() > 0) {
+            returnResult.setMsg("会员提现设置重复");
+            return returnResult; 
         }
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
