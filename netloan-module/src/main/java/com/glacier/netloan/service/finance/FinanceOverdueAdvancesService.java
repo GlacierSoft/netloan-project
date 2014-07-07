@@ -25,136 +25,131 @@ import com.glacier.netloan.util.MethodLog;
 @Transactional(readOnly = true ,propagation = Propagation.REQUIRED)
 public class FinanceOverdueAdvancesService {
 	 
-    @Autowired
+	@Autowired
 	private FinanceOverdueAdvancesMapper financeOverdueAdvancesMapper;
-	
-	
-	 //获取逾期对象
-	 public Object getFinanceOverdueAdvances(String overdueAdvancesId) {
-	    	FinanceOverdueAdvances financeOverdueAdvances =financeOverdueAdvancesMapper.selectByPrimaryKey(overdueAdvancesId);
-	        return financeOverdueAdvances;
-	 }
-	  
-	 //获取逾期数据
-	 public Object listAsGrid(JqPager pager) {
-	        JqGridReturn returnResult = new JqGridReturn();
-	        FinanceOverdueAdvancesExample financeOverdueAdvancesExample = new FinanceOverdueAdvancesExample();;
 
-	        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
-	        	financeOverdueAdvancesExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
-	        	financeOverdueAdvancesExample.setLimitEnd(pager.getRows());
-	        }
-	        if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
-	        	financeOverdueAdvancesExample.setOrderByClause(pager.getOrderBy("temp_finance_overdue_advances_"));
-	        }
-	        List<FinanceOverdueAdvances>  financeAdvancesRecord = financeOverdueAdvancesMapper.selectByExample(financeOverdueAdvancesExample); // 查询所有逾期列表
-	        int total = financeOverdueAdvancesMapper.countByExample(financeOverdueAdvancesExample); // 查询总页数
+	// 获取逾期对象
+	public Object getFinanceOverdueAdvances(String overdueAdvancesId) {
+		FinanceOverdueAdvances financeOverdueAdvances = financeOverdueAdvancesMapper.selectByPrimaryKey(overdueAdvancesId);
+		return financeOverdueAdvances;
+	}
 
-	        returnResult.setRows(financeAdvancesRecord);
-	        returnResult.setTotal(total);
-	        return returnResult;// 返回ExtGrid表
-	 }
-	  
-	  
-	  //添加逾期数据
-	  @Transactional(readOnly = false)
-	  @MethodLog(opera = "OverdueAdvances_add")
-	  public Object addOverdueAdvances(FinanceOverdueAdvances financeOverdueAdvances) {
-	    	
-	        Subject pricipalSubject = SecurityUtils.getSubject();
-	        User pricipalUser = (User) pricipalSubject.getPrincipal();
-	        
-	        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-	        int count = 0;
-	      
-	        financeOverdueAdvances.setOverdueAdvancesId(RandomGUID.getRandomGUID());
-	        financeOverdueAdvances.setOverdueAdvancesName(financeOverdueAdvances.getOverdueAdvancesName());
-	        financeOverdueAdvances.setAuditor(pricipalUser.getUserId());
-	        financeOverdueAdvances.setAuditState("authstr");
-	        financeOverdueAdvances.setAuditDate(new Date());
-	        financeOverdueAdvances.setCreater(pricipalUser.getUserId());
-	        financeOverdueAdvances.setCreateTime(new Date());
-	        financeOverdueAdvances.setUpdater(pricipalUser.getUserId());
-	        financeOverdueAdvances.setUpdateTime(new Date());
-	        
-	        count = financeOverdueAdvancesMapper.insert(financeOverdueAdvances);
-	        
-	        if (count == 1) {
-	            returnResult.setSuccess(true);
-	            returnResult.setMsg("财务逾期垫付信息已保存");
-	        } else {
-	            returnResult.setMsg("发生未知错误，逾期管理信息保存失败!");
-	        }
-	        return returnResult;
-	    }
-	    
-	    //编辑逾期数据
-	    @Transactional(readOnly = false)
-	    @MethodLog(opera = "OverdueAdvances_edit")
-	    public Object editOverdueAdvances(FinanceOverdueAdvances financeOverdueAdvances) {
-	        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-	      
-	        int count = 0;
-	       
-	        Subject pricipalSubject = SecurityUtils.getSubject();
-	        User pricipalUser = (User) pricipalSubject.getPrincipal();
-	        
-	        financeOverdueAdvances.setUpdater(pricipalUser.getUserId());
-	        financeOverdueAdvances.setUpdateTime(new Date());
-	        count = financeOverdueAdvancesMapper.updateByPrimaryKeySelective(financeOverdueAdvances);
-	        
-	        if (count == 1) {
-	            returnResult.setSuccess(true);
-	            returnResult.setMsg("逾期垫付管理信息已修改");
-	        } else {
-	            returnResult.setMsg("发生未知错误，修改失败");
-	        }
-	        return returnResult;
-	    }
-	    
-	    //逾期管理数据审核
-	    @Transactional(readOnly = false)
-	    @MethodLog(opera ="OverdueAdvances_audit")
-	    public Object auditOverdueAdvances(FinanceOverdueAdvances financeOverdueAdvances) {
-	        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-	        int count = 0;
-	        Subject pricipalSubject = SecurityUtils.getSubject();
-	        User pricipalUser = (User) pricipalSubject.getPrincipal();
-	        financeOverdueAdvances.setAuditor(pricipalUser.getUserId());
-	        financeOverdueAdvances.setAuditDate(new Date());
-	        financeOverdueAdvances.setUpdater(pricipalUser.getUserId());
-	        financeOverdueAdvances.setUpdateTime(new Date());
-	        count = financeOverdueAdvancesMapper.updateByPrimaryKeySelective(financeOverdueAdvances);
-	        if (count == 1) {
-	            returnResult.setSuccess(true);
-	            returnResult.setMsg("逾期垫付管理信息审核操作成功");
-	        } else {
-	            returnResult.setMsg("发生未知错误，逾期垫付管理信息审核操作失败");
-	        }
-	        return returnResult;
-	    }
-	    
-	    
-	    
-	    
-	  //删除逾期垫付信息
-	    @Transactional(readOnly = false)
-	    @MethodLog(opera = "OverdueAdvances_del")
-	    public Object delOverdueAdvances(List<String> overdueAdvancesIds) {
-	        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-	        int count = 0;
-	        if (overdueAdvancesIds.size() > 0) {
-	        	FinanceOverdueAdvancesExample financeOverdueAdvancesExample = new FinanceOverdueAdvancesExample();
-	        	financeOverdueAdvancesExample.createCriteria().andOverdueAdvancesIdIn(overdueAdvancesIds);
-	            count = financeOverdueAdvancesMapper.deleteByExample(financeOverdueAdvancesExample);
-	            if (count > 0) {
-	                returnResult.setSuccess(true);
-	                returnResult.setMsg("你成功删除了逾期垫付信息!!");
-	            } else {
-	                returnResult.setMsg("发生未知错误，逾期垫付信息删除失败");
-	            }
-	        }
-	        return returnResult;
-	    }
+	// 获取逾期数据
+	public Object listAsGrid(JqPager pager) {
+		JqGridReturn returnResult = new JqGridReturn();
+		FinanceOverdueAdvancesExample financeOverdueAdvancesExample = new FinanceOverdueAdvancesExample();
+		
+		if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
+			financeOverdueAdvancesExample.setLimitStart((pager.getPage() - 1)* pager.getRows());
+			financeOverdueAdvancesExample.setLimitEnd(pager.getRows());
+		}
+		if (StringUtils.isNotBlank(pager.getSort())&& StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
+			financeOverdueAdvancesExample.setOrderByClause(pager.getOrderBy("temp_finance_overdue_advances_"));
+		}
+		List<FinanceOverdueAdvances> financeAdvancesRecord = financeOverdueAdvancesMapper.selectByExample(financeOverdueAdvancesExample); // 查询所有逾期列表
+		int total = financeOverdueAdvancesMapper.countByExample(financeOverdueAdvancesExample); // 查询总页数
+
+		returnResult.setRows(financeAdvancesRecord);
+		returnResult.setTotal(total);
+		return returnResult;// 返回ExtGrid表
+	}
+
+	// 添加逾期数据
+	@Transactional(readOnly = false)
+	@MethodLog(opera = "OverdueAdvances_add")
+	public Object addOverdueAdvances(FinanceOverdueAdvances financeOverdueAdvances) {
+
+		Subject pricipalSubject = SecurityUtils.getSubject();
+		User pricipalUser = (User) pricipalSubject.getPrincipal();
+
+		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+		int count = 0;
+
+		financeOverdueAdvances.setOverdueAdvancesId(RandomGUID.getRandomGUID());
+		financeOverdueAdvances.setOverdueAdvancesName(financeOverdueAdvances.getOverdueAdvancesName());
+		financeOverdueAdvances.setAuditor(pricipalUser.getUserId());
+		financeOverdueAdvances.setAuditState("authstr");
+		financeOverdueAdvances.setAuditDate(new Date());
+		financeOverdueAdvances.setCreater(pricipalUser.getUserId());
+		financeOverdueAdvances.setCreateTime(new Date());
+		financeOverdueAdvances.setUpdater(pricipalUser.getUserId());
+		financeOverdueAdvances.setUpdateTime(new Date());
+
+		count = financeOverdueAdvancesMapper.insert(financeOverdueAdvances);
+
+		if (count == 1) {
+			returnResult.setSuccess(true);
+			returnResult.setMsg("财务逾期垫付信息已保存");
+		} else {
+			returnResult.setMsg("发生未知错误，逾期管理信息保存失败!");
+		}
+		return returnResult;
+	}
+
+	// 编辑逾期数据
+	@Transactional(readOnly = false)
+	@MethodLog(opera = "OverdueAdvances_edit")
+	public Object editOverdueAdvances(FinanceOverdueAdvances financeOverdueAdvances) {
+		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+
+		int count = 0;
+
+		Subject pricipalSubject = SecurityUtils.getSubject();
+		User pricipalUser = (User) pricipalSubject.getPrincipal();
+
+		financeOverdueAdvances.setUpdater(pricipalUser.getUserId());
+		financeOverdueAdvances.setUpdateTime(new Date());
+		count = financeOverdueAdvancesMapper.updateByPrimaryKeySelective(financeOverdueAdvances);
+
+		if (count == 1) {
+			returnResult.setSuccess(true);
+			returnResult.setMsg("逾期垫付管理信息已修改");
+		} else {
+			returnResult.setMsg("发生未知错误，修改失败");
+		}
+		return returnResult;
+	}
+
+	// 逾期管理数据审核
+	@Transactional(readOnly = false)
+	@MethodLog(opera = "OverdueAdvances_audit")
+	public Object auditOverdueAdvances(FinanceOverdueAdvances financeOverdueAdvances) {
+		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+		int count = 0;
+		Subject pricipalSubject = SecurityUtils.getSubject();
+		User pricipalUser = (User) pricipalSubject.getPrincipal();
+		financeOverdueAdvances.setAuditor(pricipalUser.getUserId());
+		financeOverdueAdvances.setAuditDate(new Date());
+		financeOverdueAdvances.setUpdater(pricipalUser.getUserId());
+		financeOverdueAdvances.setUpdateTime(new Date());
+		count = financeOverdueAdvancesMapper.updateByPrimaryKeySelective(financeOverdueAdvances);
+		if (count == 1) {
+			returnResult.setSuccess(true);
+			returnResult.setMsg("逾期垫付管理信息审核操作成功");
+		} else {
+			returnResult.setMsg("发生未知错误，逾期垫付管理信息审核操作失败");
+		}
+		return returnResult;
+	}
+
+	// 删除逾期垫付信息
+	@Transactional(readOnly = false)
+	@MethodLog(opera = "OverdueAdvances_del")
+	public Object delOverdueAdvances(List<String> overdueAdvancesIds) {
+		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+		int count = 0;
+		if (overdueAdvancesIds.size() > 0) {
+			FinanceOverdueAdvancesExample financeOverdueAdvancesExample = new FinanceOverdueAdvancesExample();
+			financeOverdueAdvancesExample.createCriteria().andOverdueAdvancesIdIn(overdueAdvancesIds);
+			count = financeOverdueAdvancesMapper.deleteByExample(financeOverdueAdvancesExample);
+			if (count > 0) {
+				returnResult.setSuccess(true);
+				returnResult.setMsg("你成功删除了逾期垫付信息!!");
+			} else {
+				returnResult.setMsg("发生未知错误，逾期垫付信息删除失败");
+			}
+		}
+		return returnResult;
+	}
 	    
 }
