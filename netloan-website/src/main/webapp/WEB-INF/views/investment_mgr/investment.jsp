@@ -155,7 +155,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   <div class="form-group">
 			    <div class="col-sm-3"></div>
 			    <div class="col-sm-3 text-center"><button id="borrowingConditionsFormButton" type="submit" class="btn btn-primary btn-lg btn-block">搜&nbsp;&nbsp;索</button></div>
-			    <div class="col-sm-3"><button id="borrowingConditionsFormButton" type="reset" class="btn btn-primary btn-lg btn-block">重&nbsp;&nbsp;置</button></div>
+			    <div class="col-sm-3"><button id="borrowingConditionsFormButton" onclick="resetForm()" type="reset" class="btn btn-primary btn-lg btn-block">重&nbsp;&nbsp;置</button></div>
 			    <div class="col-sm-3"></div>
 			  	</div>
 		     </form>
@@ -633,6 +633,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			　　　　　　return resultStr;
 			　　　　}
 			　　}
+			};
+			
+			//重置筛选条件
+			function resetForm(){
+				$("#loanTitle").attr("value","");
+				$("#waitBidDeadlines").attr("value","");
 			}
   </script>
 </html>
