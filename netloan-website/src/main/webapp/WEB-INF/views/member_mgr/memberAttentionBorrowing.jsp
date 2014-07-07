@@ -119,7 +119,7 @@
 							  </div>
 							   <div class="form-group">
 							    <label for="loanTitle" class="col-sm-1 control-label" >标题</label>
-							    <div class="col-sm-3"><input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${attentionBorrowingQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
+							     <div class="col-sm-3"><input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${attentionBorrowingQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
 							    <div class="col-sm-3 text-center"><button id="sucessBorrowFormButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
 							    <div class="col-sm-3">
 					            <button id="sucessBorrowFormButton" onclick="re()" type="reset" class="btn btn-primary btn-lg btn-block">重置条件</button>
@@ -327,10 +327,10 @@
 			});
 		};
 		//重置按钮
-		function re(){ 
-			$("#loanTitle").attr("value"," ");
-	  		$("#loanDateCreateStartTime").attr("value"," ");
-	  		$("#loanDateCreateEndTime").attr("value"," ");
+		function re(){  
+			$("#loanTitle").attr("value","").attr("placeholder","借款标题");
+	  		$("#loanDateCreateStartTime").attr("value","");
+	  		$("#loanDateCreateEndTime").attr("value","");
 		}
 	</script>
 </html>
