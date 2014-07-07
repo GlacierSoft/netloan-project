@@ -193,8 +193,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	     <jsp:include page="../foot.jsp"/>
 <script type="text/javascript">
 
-
-
   //构建表单
    function doClick(url,str){
 		// 创建Form  
