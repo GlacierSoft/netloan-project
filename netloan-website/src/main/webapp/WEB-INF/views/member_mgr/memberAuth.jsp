@@ -570,7 +570,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						   </c:when>
 						</c:choose>
 					   	<blockquote>
-						  <span class="text-muted"><strong>当前信用额度：<span class="text-danger">${currentMember.creditamount}</span>元 ,可用信用额度：<span class="text-danger">-990000</span>元</strong></span>
+						  <span class="text-muted"><strong>当前信用额度：<span class="text-danger">￥${currentMember.creditamount}</span>元 </strong></span>
 						</blockquote>
 						<hr>
 						<form id="member_applyCreditAmountForm"  class=" form-horizontal" role="form"  method="post" >

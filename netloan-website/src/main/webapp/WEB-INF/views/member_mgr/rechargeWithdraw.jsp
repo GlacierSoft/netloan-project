@@ -154,12 +154,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						          <tr>
 						            <td>${finTransaction.transactionType}</td>
 						          	<td>${finTransaction.transactionTarget}</td>
-						          	<td>${finTransaction.earningMoney}</td>
-						          	<td>${finTransaction.expendMoney}</td>
-						          	<td>${finTransaction.usableMoney}</td>
-						          	<td>${finTransaction.frozenMoney}</td>
-						          	<td>${finTransaction.collectingMoney}</td>
-						          	<td>${finTransaction.amount}</td>
+						          	<td>￥${finTransaction.earningMoney}</td>
+						          	<td>￥${finTransaction.expendMoney}</td>
+						          	<td>￥${finTransaction.usableMoney}</td>
+						          	<td>￥${finTransaction.frozenMoney}</td>
+						          	<td>￥${finTransaction.collectingMoney}</td>
+						          	<td>￥${finTransaction.amount}</td>
 						          	<td><fmt:formatDate value="${finTransaction.createTime}" type="both"/></td>
 						          </tr>
 					      		</c:forEach>
@@ -197,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								          </tr>
 								          <tr>
 								            <td align="right">充值金额：</td>
-								            <td><input id="rechargeAmount" name="rechargeAmount" type="text" class="inp100x" onkeyup="clearNoNum(this)" />元</td>
+								            <td>￥<input id="rechargeAmount" name="rechargeAmount" type="text" class="inp100x" onkeyup="clearNoNum(this)" />元</td>
 								          </tr>
 								          <tr>
 								            <td align="right">充值类型：</td>
@@ -258,19 +258,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								          </tr>
 								          <tr>
 								            <td>账户余额</td> 
-								            <td>${financeMemberData.amount}</td>
+								            <td>￥${financeMemberData.amount}</td>
 								          </tr>
 								          <tr>
 								            <td>可用余额：</td>
-								            <td id="usableMoney">${financeMemberData.usableMoney}</td>
+								            <td id="usableMoney">￥${financeMemberData.usableMoney}</td>
 								          </tr>
 								          <tr>
 								            <td>冻结总额：</td>
-								            <td>${financeMemberData.frozenMoney}</td>
+								            <td>￥${financeMemberData.frozenMoney}</td>
 								          </tr>
 								          <tr>
 								            <td>提现金额：</td>
-								            <td><input id="withdrawAmount" name="withdrawAmount" type="text" class="inp100x"   onkeyup="clearNoNum(this)"/>元
+								            <td>￥<input id="withdrawAmount" name="withdrawAmount" type="text" class="inp100x"   onkeyup="clearNoNum(this)"/>元
 								            <input type="hidden" id="memberId" name="memberId" value="${currentMember.memberId}" ></td>
 								          </tr>
 								          <tr>

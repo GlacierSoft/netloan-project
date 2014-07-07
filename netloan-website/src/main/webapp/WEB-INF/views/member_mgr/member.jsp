@@ -114,13 +114,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			            </tr>
 			            <tr>
 			              <td>会员积分：</td>
-			              <td>${requestScope.totalIntegral}</td>
+			              <td>${currentMember.integral}</td>
 			              <td>最后登录ip:</td>
 			              <td>${currentMember.lastLoginIpAddress}</td>
 			            </tr>
 			            <tr>
 			              <td>信用额度：</td>
-			              <td>${currentMember.creditamount}</td>
+			              <td>￥${currentMember.creditamount}</td>
 			              <td></td>
 			              <td></td>
 			            </tr>
@@ -222,7 +222,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        	</tr>
 			        	<tr >
 			        		<td><span>借款总额度：￥${memberStatisticsData.totalBorrowings}</span></td>
-			        		<td><span>可用信用额度：￥${financeMemberData.availableCredit}</span></td>
+			        		<td><span>可用信用额度：￥${currentMember.creditamount}</span></td>
 			        		<td><span></span></td>
 			        	</tr>
 			        </table>

@@ -161,12 +161,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							            <td>${borrowingLoan.loanTitle}</td>
 							            <td>${borrowingLoan.loanTenderDisplay}</td>
 							            <td>${borrowingLoan.repaymentTypeDisplay}</td>
-							            <td>${borrowingLoan.loanTotal}</td>
+							            <td>￥${borrowingLoan.loanTotal}</td>
 							            <td>${borrowingLoan.loanApr}</td>
 							            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="date"/></td>
-							            <td>${borrowingLoan.loanTotal}</td>
-							            <td>${borrowingLoan.loanTotal}</td>
-							            <td>${borrowingLoan.loanTotal}</td>
+							            <td>￥${borrowingLoan.loanTotal}</td>
+							            <td>￥${borrowingLoan.loanTotal}</td>
+							            <td>￥${borrowingLoan.loanTotal}</td>
 							            <td><a href="${ctx}/borrowingLoan/memberRepaymentDetail.htm?&loanId=${borrowingLoan.loanId}&memberId=${currentMember.memberId}&p=1">还款明细</a></td>
 							          </tr>
 						      		</c:forEach>

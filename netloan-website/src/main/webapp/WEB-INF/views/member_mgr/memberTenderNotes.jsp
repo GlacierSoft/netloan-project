@@ -231,10 +231,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					              <td>${tenderNotes.repaymentTypeDisplay}</td>
 					              <c:choose>
 									   <c:when test="${tenderNotes.subTotal == '0.0'}">  
-									   	 	<td><fmt:formatNumber value="${tenderNotes.tenderMoney }" pattern="#,#00.00"/></td>
+									   	 	<td>￥<fmt:formatNumber value="${tenderNotes.tenderMoney }" pattern="#,#00.00"/></td>
 									   </c:when>
 									   <c:when test="${tenderNotes.subTotal != '0.0'}">  
-									   		<td><fmt:formatNumber value="${tenderNotes.lowestSub * tenderNotes.subSum }" pattern="#,#00.00"/></td>
+									   		<td>￥<fmt:formatNumber value="${tenderNotes.lowestSub * tenderNotes.subSum }" pattern="#,#00.00"/></td>
 									   </c:when>
 								  </c:choose>
 					              <td><fmt:formatNumber value="${tenderNotes.loanApr * 100}" pattern="#,#00.00"/>%</td>
@@ -339,13 +339,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					              <td>${receivablesNotes.loanDeadlinesId}个月</td>
 					              <c:choose>
 									   <c:when test="${receivablesNotes.subTotal == '0.0'}">  
-									   	 	<td><fmt:formatNumber value="${receivablesNotes.tenderMoney }" pattern="#,#00.00"/></td>
+									   	 	<td>￥<fmt:formatNumber value="${receivablesNotes.tenderMoney }" pattern="#,#00.00"/></td>
 									   </c:when>
 									   <c:when test="${receivablesNotes.subTotal != '0.0'}">  
-									   		<td><fmt:formatNumber value="${receivablesNotes.lowestSub * receivablesNotes.subSum }" pattern="#,#00.00"/></td>
+									   		<td>￥<fmt:formatNumber value="${receivablesNotes.lowestSub * receivablesNotes.subSum }" pattern="#,#00.00"/></td>
 									   </c:when>
 								  </c:choose>
-								  <td>${receivablesNotes.alrReceMoney}</td>
+								  <td>￥${receivablesNotes.alrReceMoney}</td>
 								  <td>
 								  <div class="bs-example">
 								      <!-- <button id="receivablesNotesDetailButton" class="btn btn-primary btn-xs"  data-backdrop="static" data-toggle="modal" data-target="#receivablesNotesDetailModal"  > -->
@@ -482,10 +482,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						   </tr>
 						   <tr> 
 						   		<td>待收本息</td>
-						   		<td><fmt:formatNumber value="${requestScope.notReceMoney.nextMonth}" pattern="#,#00.00元"/></td>
-						   		<td><fmt:formatNumber value="${requestScope.notReceMoney.nextThreeMonth}" pattern="#,#00.00元"/></td>
-						   		<td><fmt:formatNumber value="${requestScope.notReceMoney.nextYear}" pattern="#,#00.00元"/></td>
-						   		<td><fmt:formatNumber value="${requestScope.notReceMoney.nextAll}" pattern="#,#00.00元"/></td>
+						   		<td>￥<fmt:formatNumber value="${requestScope.notReceMoney.nextMonth}" pattern="#,#00.00元"/></td>
+						   		<td>￥<fmt:formatNumber value="${requestScope.notReceMoney.nextThreeMonth}" pattern="#,#00.00元"/></td>
+						   		<td>￥<fmt:formatNumber value="${requestScope.notReceMoney.nextYear}" pattern="#,#00.00元"/></td>
+						   		<td>￥<fmt:formatNumber value="${requestScope.notReceMoney.nextAll}" pattern="#,#00.00元"/></td>
 						   	</tr>
 					   </table>
 					   <div class="panel panel-default">
@@ -559,14 +559,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					              <td>${receivablesNotes.loanDeadlinesId}个月</td>
 					              <c:choose>
 									   <c:when test="${receivablesNotes.subTotal == '0.0'}">  
-									   	 	<td><fmt:formatNumber value="${receivablesNotes.tenderMoney }" pattern="#,#00.00"/></td>
+									   	 	<td>￥<fmt:formatNumber value="${receivablesNotes.tenderMoney }" pattern="#,#00.00"/></td>
 									   </c:when>
 									   <c:when test="${receivablesNotes.subTotal != '0.0'}">  
-									   		<td><fmt:formatNumber value="${receivablesNotes.lowestSub * receivablesNotes.subSum }" pattern="#,#00.00"/></td>
+									   		<td>￥<fmt:formatNumber value="${receivablesNotes.lowestSub * receivablesNotes.subSum }" pattern="#,#00.00"/></td>
 									   </c:when>
 								  </c:choose>
-								  <td>${receivablesNotes.alrReceMoney}</td>
-								  <td>${receivablesNotes.notReceMoney}</td>
+								  <td>￥${receivablesNotes.alrReceMoney}</td>
+								  <td>￥${receivablesNotes.notReceMoney}</td>
 								  <td>查看协议</td>
 					            </tr>
 					      	</c:forEach>
