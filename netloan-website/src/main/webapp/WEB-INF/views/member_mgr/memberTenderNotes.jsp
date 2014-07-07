@@ -177,8 +177,8 @@
 							    <div class="col-sm-3 text-center"><button id="sucessBorrowFormButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
 							    <div class="col-sm-3">
 							    <!-- <button id="sucessBorrowFormButtonReset" type="reset" class="btn btn-primary btn-lg btn-block">重&nbsp;&nbsp;置</button> -->
-							    <a id="sucessBorrowFormButtonReset" href="javascript:void(0);" class="btn btn-primary btn-lg btn-block" data-options="" onclick="">重置条件</a>
-							    </div>
+							    <button id="sucessBorrowFormButton" type="reset" class="btn btn-primary btn-lg btn-block">重置条件</button>
+							     </div>
 							  	<div class="col-sm-2"></div>
 							  	</div>
 						     </form>

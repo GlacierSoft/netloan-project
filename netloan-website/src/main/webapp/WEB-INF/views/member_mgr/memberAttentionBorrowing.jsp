@@ -122,7 +122,7 @@
 							    <div class="col-sm-3"><input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${attentionBorrowingQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
 							    <div class="col-sm-3 text-center"><button id="sucessBorrowFormButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
 							    <div class="col-sm-3">
-							    <a id="attentionBorrowingFormButtonReset" href="javascript:void(0);" class="btn btn-primary btn-lg btn-block" data-options="" onclick="">重置条件</a>
+					            <button id="sucessBorrowFormButton" type="reset" class="btn btn-primary btn-lg btn-block">重置条件</button>
 							    </div>
 							  	<div class="col-sm-2"></div>
 							  	</div>

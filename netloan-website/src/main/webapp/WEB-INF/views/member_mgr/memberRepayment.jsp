@@ -128,7 +128,7 @@
 								    <div class="col-sm-3"><input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${borrowingLoanQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
 								    <div class="col-sm-3 text-center"><button id="repaymentingBorrowFormButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
 								    <div class="col-sm-3">
-								    <a id="repaymentingBorrowFormButtonReset" href="javascript:void(0);" class="btn btn-primary btn-lg btn-block" data-options="" onclick="">重置条件</a>
+								    <button id="repaymentingBorrowFormButton" type="reset" class="btn btn-primary btn-lg btn-block">重置条件</button>
 								    </div>
 								  	<div class="col-sm-2"></div>
 								  	</div>
@@ -213,9 +213,7 @@
 								    <label for="loanTitle" class="col-sm-1 control-label" >标题</label>
 								    <div class="col-sm-3"><input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${borrowingLoanQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
 								    <div class="col-sm-3 text-center"><button id="completedBorrowFormButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
-								    <div class="col-sm-3">
-								    <a id="completedBorrowFormButtonReset" href="javascript:void(0);" class="btn btn-primary btn-lg btn-block" data-options="" onclick="">重置条件</a>
-								    </div>
+								  								    <div class="col-sm-3"><button id="completedBorrowFormButton" type="reset" class="btn btn-primary btn-lg btn-block">重置条件</button></div>
 								  	<div class="col-sm-2"></div>
 								  	</div>
 							     </form>
