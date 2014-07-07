@@ -19,17 +19,17 @@ import com.glacier.netloan.entity.finance.FinanceOverdueFineExample.Criteria;
 @Transactional(readOnly = true ,propagation = Propagation.REQUIRED)
 public class FinanceOverdueFineService {
 	 
-	  @Autowired
-	  private FinanceOverdueFineMapper financeOverdueFineMapper;
+	 @Autowired
+	 private FinanceOverdueFineMapper financeOverdueFineMapper;
 	
 	 //获取逾期对象
-	  public Object getFinanceOverdueFineId(String overdueFineId) {
+	 public Object getFinanceOverdueFineId(String overdueFineId) {
 		  FinanceOverdueFine financeOverdueAdvances =financeOverdueFineMapper.selectByPrimaryKey(overdueFineId);
 	        return financeOverdueAdvances;
-	    }
+	  }
 	    
-	   //获取逾期数据
-	    public Object listAsGrid(FinOverdueFineQueryDTO overdueFineQueryDTO,JqPager pager) {
+	 //获取逾期数据
+	 public Object listAsGrid(FinOverdueFineQueryDTO overdueFineQueryDTO,JqPager pager) {
 	        JqGridReturn returnResult = new JqGridReturn();
 	        FinanceOverdueFineExample financeOverdueFineExample = new FinanceOverdueFineExample();;
 	        
@@ -50,8 +50,4 @@ public class FinanceOverdueFineService {
 	        returnResult.setTotal(total);
 	        return returnResult;// 返回ExtGrid表
 	    }
-	  
-	  
-	  
-	  
 }

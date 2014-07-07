@@ -6,22 +6,18 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.quartz.utils.FindbugsSuppressWarnings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceOverdueAdvancesMapper;
-import com.glacier.netloan.entity.finance.FinanceOverdueAdvancesExample;
 import com.glacier.netloan.entity.finance.FinanceOverdueAdvances;
-import com.glacier.netloan.entity.finance.FinanceRechargeSet;
-import com.glacier.netloan.entity.finance.FinanceRechargeSetExample;
+import com.glacier.netloan.entity.finance.FinanceOverdueAdvancesExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -29,18 +25,18 @@ import com.glacier.netloan.util.MethodLog;
 @Transactional(readOnly = true ,propagation = Propagation.REQUIRED)
 public class FinanceOverdueAdvancesService {
 	 
-	  @Autowired
-	  private FinanceOverdueAdvancesMapper financeOverdueAdvancesMapper;
-	private FinanceOverdueAdvancesMapper financeRechargeSetMapper;
+    @Autowired
+	private FinanceOverdueAdvancesMapper financeOverdueAdvancesMapper;
+	
 	
 	 //获取逾期对象
-	  public Object getFinanceOverdueAdvances(String overdueAdvancesId) {
+	 public Object getFinanceOverdueAdvances(String overdueAdvancesId) {
 	    	FinanceOverdueAdvances financeOverdueAdvances =financeOverdueAdvancesMapper.selectByPrimaryKey(overdueAdvancesId);
 	        return financeOverdueAdvances;
-	    }
+	 }
 	  
-	  //获取逾期数据
-	    public Object listAsGrid(JqPager pager) {
+	 //获取逾期数据
+	 public Object listAsGrid(JqPager pager) {
 	        JqGridReturn returnResult = new JqGridReturn();
 	        FinanceOverdueAdvancesExample financeOverdueAdvancesExample = new FinanceOverdueAdvancesExample();;
 
@@ -57,13 +53,13 @@ public class FinanceOverdueAdvancesService {
 	        returnResult.setRows(financeAdvancesRecord);
 	        returnResult.setTotal(total);
 	        return returnResult;// 返回ExtGrid表
-	    }
+	 }
 	  
 	  
-	    //添加逾期数据
-	    @Transactional(readOnly = false)
-	    @MethodLog(opera = "OverdueAdvances_add")
-	    public Object addOverdueAdvances(FinanceOverdueAdvances financeOverdueAdvances) {
+	  //添加逾期数据
+	  @Transactional(readOnly = false)
+	  @MethodLog(opera = "OverdueAdvances_add")
+	  public Object addOverdueAdvances(FinanceOverdueAdvances financeOverdueAdvances) {
 	    	
 	        Subject pricipalSubject = SecurityUtils.getSubject();
 	        User pricipalUser = (User) pricipalSubject.getPrincipal();
