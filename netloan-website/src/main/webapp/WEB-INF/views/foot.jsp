@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <li><a href="http://www.glaciersoft.cn/index.html" ><img src="<%=basePath %>resources/images/foot/weibohui.png" id="img_one"></a></li>
                             <li class="li_test"><img src="<%=basePath %>resources/images/foot/weixinghui.png" id="img_two"></li>
                             <li><a href="http://www.glaciersoft.cn/index.html" ><img src="<%=basePath %>resources/images/foot/fenxianghui.png" id="img_three"></a></li>
-                            <li><a href="tencent://message/?Menu=yes&uin=123456789&Site=QQ&Service=200&sigT=2a0e37386280486ada2b5d5e69ee49186ccae1257fd9e1c9598af1f0b9c916067002a57aaaec8c8d" target="_blank" ><img src="<%=basePath %>resources/images/foot/qiehui.png" id="img_four"></a></li>
+                            <li><a href="tencent://message/?Menu=yes&uin=123456789&Site=临时会话&Service=200&sigT=2a0e37386280486ada2b5d5e69ee49186ccae1257fd9e1c9598af1f0b9c916067002a57aaaec8c8d" target="_blank" ><img src="<%=basePath %>resources/images/foot/qiehui.png" id="img_four"></a></li>
                         </ul>
                      </div>
                 </div>
@@ -169,7 +169,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      	}});
         
         $(function(){
-    	   //友情链接数据动态读取
+    	   //友情链接数据读取
     	    $.ajax({
     	    	type:"post",
     	    	url:"<%=basePath%>link/list.json",
@@ -183,7 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	    	}
     	    }); 
     	   
-    	   //客服数据的动态读取
+    	   //客服数据读取
     	   $.ajax({
     		   type:"post",
     		   url:"<%=basePath%>service/list.json",
@@ -191,12 +191,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		   success:function(data){
     		        //循环开始
     		        $.each(data.rows,function(i,v){
-    		             //alert("客服姓名:"+v.webServiceName+" 客服QQ:"+v.webServiceQq);     	
-    		             $("<dl>"+
+                          //alert("客服姓名:"+v.webServiceName+" 客服QQ:"+v.webServiceQq);     	
+    		               $("<dl>"+
     		               "<dt><img src='<%=basePath %>resources/images/foot/Service1.jpg'></dt>"+
     		               "<dd> <strong>客服("+v.webServiceName+")</strong>"+
     		               "<P class='p1'>9:00-22:00</P>"+
-    		               "<P class='p2'><a title='点击这里给我发消息' href='tencent://message/?Menu=yes&uin="+v.webServiceQq+"&Site=QQ&Service=200&sigT=2a0e37386280486ada2b5d5e69ee49186ccae1257fd9e1c9598af1f0b9c916067002a57aaaec8c8d' target='_blank'>点击交谈</A></P>"+
+    		               "<P class='p2'><a title='点击这里给我发消息' href='tencent://message/?Menu=yes&uin=" + v.webServiceQq + "&Site=临时会话&Service=200&sigT=2a0e37386280486ada2b5d5e69ee49186ccae1257fd9e1c9598af1f0b9c916067002a57aaaec8c8d' target='_blank'>点击交谈</A></P>"+
     		               "</dd>"+
     		               "</dl>").appendTo(".ServiceBox");     
     		       });
