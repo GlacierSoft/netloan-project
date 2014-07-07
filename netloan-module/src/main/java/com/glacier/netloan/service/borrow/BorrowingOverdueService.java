@@ -46,9 +46,7 @@ public class BorrowingOverdueService {
 	
 	@Autowired
 	private RepaymentNotesDetailMapper repaymentNotesDetailMapper;
-	
-	//@Autowired
-	//private ParameterBasicService parameterBasicService;
+
 	@Autowired
 	private MemberStatisticsMapper memberStatisticsMapper; 
 	
@@ -141,19 +139,19 @@ public class BorrowingOverdueService {
 		    	repaymentNotes.setUpdateTime(new Date());
 		    	count=repaymentNotesMapper.updateByPrimaryKeySelective(repaymentNotes);//更新还款记录
 		    	
-		    	//更新会员统计中逾期还款次数+1，逾期罚款金额和逾期罚款利息
-		    	//第一步根据还款记录中的借款ID取出完整的借款信息
-		    	BorrowingLoan borrowingLoan = borrowingLoanMapper.selectByPrimaryKey(repaymentNotes.getLoanId());
-		    	//第二步根据借款信息中的借款人查询出会员统计信息
-		    	MemberStatistics memberStatisticsRepay = memberStatisticsMapper.selectByMemberId(borrowingLoan.getMemberId());
-		    	memberStatisticsRepay.setLateRepayment(memberStatisticsRepay.getLateRepayment()+1);//逾期罚款次数+1
-		    	memberStatisticsRepay.setOverdueFineAmount(memberStatisticsRepay.getOverdueFineAmount()+currOverDueMoney);//设置逾期罚款金额
-		    	memberStatisticsRepay.setOverdueInterestAmount(memberStatisticsRepay.getOverdueInterestAmount()+overdueInterest);//设置逾期利息总额
-		    	memberStatisticsRepay.setUpdateTime(new Date());
-		    	//执行更新会员统计信息
-		    	memberStatisticsMapper.updateByPrimaryKeySelective(memberStatisticsRepay);
-		    	
 		    	if(count==1){
+		    		//更新会员统计中逾期还款次数+1，逾期罚款金额和逾期罚款利息
+			    	//第一步根据还款记录中的借款ID取出完整的借款信息
+			    	BorrowingLoan borrowingLoan = borrowingLoanMapper.selectByPrimaryKey(repaymentNotes.getLoanId());
+			    	//第二步根据借款信息中的借款人查询出会员统计信息
+			    	MemberStatistics memberStatisticsRepay = memberStatisticsMapper.selectByMemberId(borrowingLoan.getMemberId());
+			    	memberStatisticsRepay.setLateRepayment(memberStatisticsRepay.getLateRepayment()+1);//逾期罚款次数+1
+			    	memberStatisticsRepay.setOverdueFineAmount(memberStatisticsRepay.getOverdueFineAmount()+currOverDueMoney);//设置逾期罚款金额
+			    	memberStatisticsRepay.setOverdueInterestAmount(memberStatisticsRepay.getOverdueInterestAmount()+overdueInterest);//设置逾期利息总额
+			    	memberStatisticsRepay.setUpdateTime(new Date());
+			    	//执行更新会员统计信息
+			    	memberStatisticsMapper.updateByPrimaryKeySelective(memberStatisticsRepay);
+		    		
 		    		//待做逾期罚款记录操作
 		    	}
 		    }
