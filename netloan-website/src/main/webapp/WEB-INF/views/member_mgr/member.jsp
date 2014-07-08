@@ -102,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			              </div>
 			              </td>
 			              <td>用户名：</td>
-			              <td>${currentMember.memberRealName}</td>
+			              <td>${currentMember.memberName}</td>
 			              <td>信用积分</td>
 			              <td><img id="creditPhotoDivImg"  src="${requestScope.totalCreditPhoto}" style="width: 34px;height: 24px ;" /></td>
 			            </tr>
