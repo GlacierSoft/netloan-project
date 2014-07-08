@@ -457,12 +457,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				         <table id="memberIntegralTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
 				         	<tbody>
 				         	<tr>
-				              <td colspan="3"><strong>${totalIntegral}分</strong></td>
+				              <td colspan="4"><strong>${totalIntegral}分</strong></td>
 				            </tr>
 				            <tr>
 				              <td><strong>积分类型</strong></td>
 				              <td><strong>积分</strong></td>
 				              <td><strong>备注</strong></td>
+				              <td><strong>时间</strong></td>
 				            </tr>
 								  		
 				            <c:forEach items="${memberIntegralDatas.rows}" var="memberIntegral" varStatus="status">
@@ -475,13 +476,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                <c:if test="${memberIntegral.type eq 'recharge' }">充值</c:if>
 					                <c:if test="${memberIntegral.type eq 'withdraw' }">提现</c:if>
 					                <c:if test="${memberIntegral.type eq 'invest' }">投资</c:if>
-					             
+		    			             <c:if test="${memberIntegral.type eq 'borrow' }">借款</c:if>
 					           <%--     <c:out value="${memberIntegral.type}" />   <c:if test="${memberIntegral.type eq 'te'}">正确
 					              
 					              <c:if>--%>
 					              </td>
 					              <td>${memberIntegral.changeValue}</td>
 					              <td>${memberIntegral.remark}</td>
+					              <td><fmt:formatDate value="${memberIntegral.createTime}" type="both"/></td>
+					              
 					            </tr>
 					      	</c:forEach>
 				            </tbody>
