@@ -249,7 +249,8 @@ public class MemberService {
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
     	Member m1 = memberMapper.selectByPrimaryKey(member.getMemberId());//通过memberid获取member
     	MemberToken mt = memberTokenMapper.selectByPrimaryKey(member.getMemberId());//通过memberId获取memberToken
-    	//将前台传来的密码进行加密，
+    	
+    	 //将前台传来的密码进行加密，
     	byte[] salt = Encodes.decodeHex(mt.getSalt());
     	byte[] hashPassword = Digests.sha1(oldPassword.getBytes(), salt, HASH_INTERATIONS);
     	String encodeHexPwd = Encodes.encodeHex(hashPassword);
@@ -258,7 +259,7 @@ public class MemberService {
     	//将加密后的密码和存在数据库里的密码进行比较。
         if ((m1.getMemberPassword()).equals(encodeHexPwd)) {
         	//会员表的修改
-            member.setUpdater(member.getMemberId());
+            member.setUpdater(getuserId());
             member.setUpdateTime(new Date());
             mt.setPassword(memberPassword);
             //将新密码进行加密
@@ -297,6 +298,7 @@ public class MemberService {
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
     	Member m1 = memberMapper.selectByPrimaryKey(member.getMemberId());//通过memberid获取member
     	MemberToken mt = memberTokenMapper.selectByPrimaryKey(member.getMemberId());//通过memberId获取memberToken
+     
     	//将前台传来的密码进行加密，
     	byte[] salt = Encodes.decodeHex(mt.getSalt());
     	byte[] hashPassword = Digests.sha1(oldPassword.getBytes(), salt, HASH_INTERATIONS);
@@ -306,7 +308,7 @@ public class MemberService {
     	//将加密后的密码和存在数据库里的密码进行比较。
         if ((m1.getTradersPassword()).equals(encodeHexPwd)) {
         	//会员表的修改
-            member.setUpdater(member.getMemberId());
+            member.setUpdater(getuserId());
             member.setUpdateTime(new Date());
             mt.setPassword(memberPassword);
             //将新密码进行加密
@@ -349,11 +351,7 @@ public class MemberService {
         int countToken = 0;
         int creditCount = 0;
         int MessageNoticeCount = 0;
-        String memberId = RandomGUID.getRandomGUID();
-        //获取管理员id
-        UserExample userExample = new UserExample();
-        userExample.createCriteria().andUsernameEqualTo("admin");
-        List<User> users = userMapper.selectByExample(userExample);
+        String memberId = RandomGUID.getRandomGUID(); 
         
         //设置membertoken信息
         MemberToken memberToken = new MemberToken();
@@ -381,9 +379,9 @@ public class MemberService {
         member.setLastLoginTime(new Date());
         member.setLoginCount(1); 
         member.setMemberPhoto("http://localhost:8080/netloan-website/resources/images/member/member.jpg");//会员注册后的默认头像
-        member.setCreater(users.get(0).getUserId());
+        member.setCreater(getuserId());
         member.setCreateTime(new Date());
-        member.setUpdater(users.get(0).getUserId());
+        member.setUpdater(getuserId());
         member.setUpdateTime(new Date());
         member.setTradersPassword(memberToken.getPassword());//会员交易密码
         count = memberMapper.insert(member);
@@ -406,7 +404,7 @@ public class MemberService {
         memberAuthWithBLOBs.setVipAuth("noapply");
         memberAuthWithBLOBs.setEmailName("邮箱认证");
         memberAuthWithBLOBs.setEmailAuth("pass");
-        memberAuthWithBLOBs.setEmailAuditor(users.get(0).getUserId());
+        memberAuthWithBLOBs.setEmailAuditor(getuserId());
         memberAuthWithBLOBs.setEmailRemark("邮箱验证通过");
         memberAuthWithBLOBs.setEmailTime(new Date());
         memberAuthWithBLOBs.setMobileName("手机认证");
@@ -439,9 +437,9 @@ public class MemberService {
 		memberCreditIntegral.setChangeType(parameterCreditType.getChangeType());
 		memberCreditIntegral.setChangeValue(parameterCreditType.getChangeValue());
        
-        memberCreditIntegral.setCreater(users.get(0).getUserId());
+        memberCreditIntegral.setCreater(getuserId());
         memberCreditIntegral.setCreateTime(new Date());
-        memberCreditIntegral.setUpdater(users.get(0).getUserId());
+        memberCreditIntegral.setUpdater(getuserId());
         memberCreditIntegral.setUpdateTime(new Date());
         
         creditCount = memberCreditIntegralMapper.insert(memberCreditIntegral);
@@ -449,16 +447,16 @@ public class MemberService {
         //增加邮箱认证审核通过的信息通知
         MemberMessageNotice memberMessageNotice = new MemberMessageNotice();
         memberMessageNotice.setMessageNoticeId(RandomGUID.getRandomGUID());
-   		memberMessageNotice.setSender(users.get(0).getUserId());
+   		memberMessageNotice.setSender(getuserId());
    		memberMessageNotice.setAddressee(memberId);
    		memberMessageNotice.setTitle("邮箱认证审核通知");
 		memberMessageNotice.setContent("您的邮箱认证审核状况:通过");
         memberMessageNotice.setSendtime(new Date());
         memberMessageNotice.setLetterstatus("unread");
         memberMessageNotice.setLettertype("system");
-        memberMessageNotice.setCreater(users.get(0).getUserId());
+        memberMessageNotice.setCreater(getuserId());
         memberMessageNotice.setCreateTime(new Date());
-        memberMessageNotice.setUpdater(users.get(0).getUserId());
+        memberMessageNotice.setUpdater(getuserId());
         memberMessageNotice.setUpdateTime(new Date());
         MessageNoticeCount = memberMessageNoticeMapper.insert(memberMessageNotice);
         
@@ -510,10 +508,11 @@ public class MemberService {
     public Object editMemberReception(Member member,MemberWork memberWork,String postAuth){
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         //MemberExample memberExample = new MemberExample();
-        int count = 0;
+       
+    	int count = 0;
         int countWork = 0;
         //会员表的修改
-        member.setUpdater(member.getMemberId());
+        member.setUpdater(getuserId());
         member.setUpdateTime(new Date());
         count = memberMapper.updateByPrimaryKeySelective(member);
         //工作表的修改
@@ -546,9 +545,10 @@ public class MemberService {
     @Transactional(readOnly = false)
     public Object editMemberPhotoReception(Member member){
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        int count = 0;
+     
+    	int count = 0;
         //会员表的修改
-        member.setUpdater(member.getMemberId());
+        member.setUpdater(getuserId());
         member.setUpdateTime(new Date());
         count = memberMapper.updateByPrimaryKeySelective(member);
         
@@ -741,5 +741,12 @@ public class MemberService {
         }
         return returnResult;
     }
-
+  
+       //获取管理员id
+    public String getuserId(){ 
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUsernameEqualTo("admin");
+        List<User> users = userMapper.selectByExample(userExample);
+      return users.get(0).getUserId();
+    }
 }

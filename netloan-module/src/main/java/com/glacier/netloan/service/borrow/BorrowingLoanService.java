@@ -330,7 +330,7 @@ public class BorrowingLoanService {
         List<User> usersList = userMapper.selectByExample(userExample);
         User users=usersList.get(0);
         
-        borrowingLoan.setCreater(users.getUserId());
+        borrowingLoan.setCreater(borrowingLoan.getMemberId());
         borrowingLoan.setCreateTime(new Date());
         borrowingLoan.setLoanDate(new Date());
         borrowingLoan.setUpdater(users.getUserId());
