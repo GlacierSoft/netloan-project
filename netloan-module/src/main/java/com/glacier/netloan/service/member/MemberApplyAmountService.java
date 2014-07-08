@@ -61,7 +61,6 @@ public class MemberApplyAmountService {
 	
 	//对申请额度的添加公共方法
 	public int insertMemberApplyAmount(MemberApplyAmount applyAmount){
-		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         Subject pricipalSubject = SecurityUtils.getSubject();
         Member pricipalMember = (Member) pricipalSubject.getPrincipal();
 		
@@ -112,7 +111,7 @@ public class MemberApplyAmountService {
             long between = 0;
             between = nowDate.getTime() - lastCreateTime.getTime();
             long day = between / (24 * 60 * 60 * 1000);
-            //如果没有大于30天，则不能再添加
+            //如果申请额度时间大于30天就进入此方法
             if(day >30){
             	int count = 0;
     	        count = insertMemberApplyAmount(applyAmount);//调用增加申请额度方法
@@ -122,7 +121,7 @@ public class MemberApplyAmountService {
     	        } else {
     	            returnResult.setMsg("发生未知错误，申请额度信息提交审核失败");
     	        }
-            }else{
+            }else{//如果申请额度时间小于30天，则不能再申请
             	returnResult.setMsg("一个月内不能重复申请额度");
             }
         }else {//数据等于0表示改用户从没申请过额度

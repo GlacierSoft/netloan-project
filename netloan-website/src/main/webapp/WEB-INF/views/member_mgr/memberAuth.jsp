@@ -604,7 +604,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						 <div class="form-group">
 						 	<label for="personalDes" class="col-sm-3 control-label"></label>
 						    <div class=" col-sm-9">
-						      <button type="submit" class="btn btn-primary btn-lg">确定</button>
+						      <button id="sub" type="submit" class="btn btn-primary btn-lg">确定</button>
 						    </div>
 						 </div>
 				        </form>
@@ -708,17 +708,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 }
 			});
     });
+	  
+		
 	$("#member_applyCreditAmountForm").validate({
 		rules:{
 			applyMoney:{
 				required:true,
-				number:true
+				number:true,
+				max:10000, 
 			}
 		},
 		messages:{
 			applyMoney:{
 				required:"申请额度不能为空",
-				number:"申请额度只能为数字"
+				number:"申请额度只能为数字",
+				max:"不能高于10000", 
 			}
 		},
 		submitHandler:function(){
