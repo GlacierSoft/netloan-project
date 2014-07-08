@@ -536,7 +536,8 @@ public class ReceivablesNotesService {
             	memberStatistics.setWaitIncomePrincipal(memberStatistics.getWaitIncomePrincipal()+borrowingLoan.getLoanTotal());//设置投资人会员统计的应收本金
             	memberStatistics.setWaitIncomeInterest(memberStatistics.getWaitIncomeInterest()+(receivablesNotes.getShouldReceMoney()-borrowingLoan.getLoanTotal()));//设置投资人会员统计的应收利息(原本利息+(本息减去借款总金额))
             	memberStatistics.setTenderAwards(earningMoney+memberStatistics.getTenderAwards());//投标奖励的总额
-            	memberStatistics.setSuccessTender(memberStatistics.getSuccessTender()+1);
+            	memberStatistics.setSuccessTender(memberStatistics.getSuccessTender()+1);//设置投资人的投资成功次数
+            	memberStatistics.setInvestmentTotal(memberStatistics.getInvestmentTotal()+borrowingLoan.getLoanTotal());//设置投资总额
             	memberStatistics.setInvestmentTotal(tenderNotes.getTenderMoney()+memberStatistics.getInvestmentTotal());//投资总额
             	memberStatistics.setUpdateTime(new Date());
             	
