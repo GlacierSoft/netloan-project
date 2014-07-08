@@ -262,7 +262,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								          </tr>
 								          <tr>
 								            <td>可用余额：</td>
-								            <td id="usableMoney">￥${financeMemberData.usableMoney}</td>
+								            <td >￥<lable id="usableMoney">${financeMemberData.usableMoney}</lable> </td>
 								          </tr>
 								          <tr>
 								            <td>冻结总额：</td>
@@ -406,32 +406,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#subm").removeAttr("disabled");//将按钮可用 
 		var usableMoney=$("#usableMoney").text(); //取出余额 
 		var inputMoney=$(this).val();//输入的金额
-		if((inputMoney-0)<100){
+		if(inputMoney==""){ 
+			$(this).parent().append("<span id='kk' style='color:#F00'>*必须填写提现金额</span>");
+			$("#subm").attr({"disabled":"disabled"}); 
+			return;
+	 	} 
+		if((inputMoney-0)<100){ 
 			$(this).parent().append("<span id='kk' style='color:#F00'>*低于最低提现额</span>");
 			$("#subm").attr({"disabled":"disabled"});
-			return;s
-	 	}
-		
-		
-		
-		
-		if((usableMoney-0)<(inputMoney-0)){ 
+			 
+	 	} 
+		if((usableMoney-0)<(inputMoney-0)){  
 			$(this).parent().append("<span id='kk' style='color:#F00'>*超过可用余额</span>");
 			$("#subm").attr({"disabled":"disabled"});
-		}else{
-			$("#subm").removeAttr("disabled");//将按钮可用
-			$("#kk").remove();
-		 }
+		}
 	});
 	
 	
 	$("#financeWithdraw").validate({
    		rules:{
-   			withdrawAmount:"required",
+   		//	withdrawAmount:"required",
    			tradersPassword:"required"
    		},
    		messages:{
-   			withdrawAmount:"必须填写提现金额",
+   		//	withdrawAmount:"必须填写提现金额",
    			tradersPassword:"必须填写交易密码"
    		},
    		submitHandler:function(){
