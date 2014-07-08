@@ -32,22 +32,22 @@
 			        		<td style="padding-left: 20px;"><img src="${borrowingMember.memberPhoto}" style="width: 100px;height: 100px ;"/></td>
 			        	</tr>
 			        	<tr>
-			        		<td style="padding-left: 20px;"><span>会员等级:</span><img id="creditPhotoDivImg"  src="${borrowingMember.creditPhoto}" style="width: 34px;height: 24px ;" /></td>
+			        		<td style="padding-left: 20px;"><span>会员等级：</span><img id="creditPhotoDivImg"  src="${borrowingMember.creditPhoto}" style="width: 34px;height: 24px ;" /></td>
 			        	</tr>
 			        	<tr>
-			        		<td style="padding-left: 20px;"><span>用 户 名:</span>${borrowingMember.memberName}</td>
+			        		<td style="padding-left: 20px;"><span>用 &nbsp;户&nbsp;名：</span>${borrowingMember.memberName}</td>
 			        	</tr>
 			        	<tr>
-			        		<td style="padding-left: 20px;"><span>籍　　贯:</span>${borrowingMember.hometown}</td>
+			        		<td style="padding-left: 20px;"><span>籍　　贯：</span>${borrowingMember.hometown}</td>
 			        	</tr>
 			        	<tr>
-			        		<td style="padding-left: 20px;"><span>居住城市:</span>${borrowingMember.liveAddress}</td>
+			        		<td style="padding-left: 20px;"><span>居住城市：</span>${borrowingMember.liveAddress}</td>
 			        	</tr>
 			        	<tr>
-			        		<td style="padding-left: 20px;"><span>注册时间:</span><fmt:formatDate value="${borrowingMember.registrationTime}" type="both"/></td>
+			        		<td style="padding-left: 20px;"><span>注册时间：</span><fmt:formatDate value="${borrowingMember.registrationTime}" type="both"/></td>
 			        	</tr>
 			        	<tr>
-			        		<td style="padding-left: 20px;"><span>最后登录:</span><fmt:formatDate value="${borrowingMember.lastLoginTime}" type="both"/></td>
+			        		<td style="padding-left: 20px;"><span>最后登录：</span><fmt:formatDate value="${borrowingMember.lastLoginTime}" type="both"/></td>
 			        	</tr>
 			        </table>
 			  </div>
@@ -95,7 +95,7 @@
 
 		        	}
 		        </script>
-	       	  	<div class="col-md-2" style="text-align:right;"><span>投标进度:</span></div>
+	       	  	<div class="col-md-2" style="text-align:right;"><span>投标进度：</span></div>
 		       	<div class="col-md-2" style="text-align:left;">
 		       	  	<div class="progress" style="border: 1px solid red; width:100px;">
 		        		<div id="progressBar" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/>" aria-valuemin="0" aria-valuemax="100" style="  width: <fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/>%"></div>

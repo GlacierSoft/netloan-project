@@ -22,6 +22,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		body {
 		    padding-top: 70px;
 		}
+		table td {
+			padding: 5px;
+		}
 	</style>
   </head>
 
@@ -37,6 +40,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<form id="enteringDiYa" name="enteringDiYa" class="form-horizontal" role="form" method="post" >
 		          <table  style="width: 950px;">
 		          	<tbody>
+		          	  <tr>
+		          	  	<td align="right"><b style="margin-right: 20px;">借款基本信息</b></td><td></td>
+		          	  </tr>
 			          <tr>
 			            <td class="col-md-6" align="right">
 			            	<span style="color:#F00">*</span>借款标题：
@@ -87,46 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    	<input type="radio" id="isDayMarked" name="isDayMarked" value="no" />否
 					    </td>
 					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">投标奖励：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isBidReward" name="isBidReward" checked="checked" value="no" onclick="displayIsBidReward()"/>
-					      	不设置奖励
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right"></td>
-					    <td class="col-md-6">
-					      	<input type="radio" id="isBidReward" name="isBidReward" value="yes" onclick="displayIsBidReward()"/>
-					     	按投标金额比例奖励
-					     	<input type="text" id="bidProReward" name="bidProReward" class="inp100x gray" disabled="disabled" value="0"/>
-					      %
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right"></td>
-					    <td class="col-md-6">
-					     	<input type="radio" id="isBidReward" name="isBidReward" value="yes" onclick="displayIsBidReward()"/>
-					      	按固定金额分摊奖励
-					      	<input type="text" id=fixedAppReward name="fixedAppReward" class="inp100x gray" disabled="disabled" value="0"/>
-					      	元
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right">是否设置投标密码：</td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isBidPwd" name="isBidPwd" checked="checked" value="no" onclick="displayIsBidPwd()"/>
-					      	不设置密码
-					    </td>
-					  </tr>
-					  <tr>
-					  	<td class="col-md-6" align="right"></td>
-					    <td class="col-md-6">
-					    	<input type="radio" id="isBidPwd" name="isBidPwd" value="yes" onclick="displayIsBidPwd()"/>
-					      	设置投标密码
-					      	<input type="text" id="bidPwd" name="bidPwd" maxlength="20" class="inp100x gray" disabled="disabled"/>
-					    </td>
-					  </tr>
+					  
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>还款方式：</td>
 					    <td class="col-md-6">
@@ -197,6 +164,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <td class="col-md-6"><textarea name="loanDetail" class="txt420"></textarea></td>
 					  </tr>
 					  <tr>
+		          	  	<td align="right"><b style="margin-right: 20px;">投标奖励信息</b></td><td></td>
+		          	  </tr>
+					  <tr>
+					  	<td class="col-md-6" align="right">投标奖励：</td>
+					    <td class="col-md-6">
+					    	<input type="radio" id="isBidReward" name="isBidReward" checked="checked" value="no" onclick="displayIsBidReward()"/>
+					      	不设置奖励
+					    </td>
+					  </tr>
+					  <tr>
+					  	<td class="col-md-6" align="right"></td>
+					    <td class="col-md-6">
+					      	<input type="radio" id="isBidReward" name="isBidReward" value="yes" onclick="displayIsBidReward()"/>
+					     	按投标金额比例奖励
+					     	<input type="text" onblur="checkBidProReward();" id="bidProReward" name="bidProReward" class="inp100x gray" disabled="disabled" value="0"/><span id="bidProRewardCheck"></span>
+					      %
+					    </td>
+					  </tr>
+					  <tr>
+					  	<td class="col-md-6" align="right"></td>
+					    <td class="col-md-6">
+					     	<input type="radio" id="isBidReward" name="isBidReward" value="yes" onclick="displayIsBidReward()"/>
+					      	按固定金额分摊奖励
+					      	<input type="text" onblur="checkFixedAppReward();" id=fixedAppReward name="fixedAppReward" class="inp100x gray" disabled="disabled" value="0"/><span id="fixedAppRewardCheck"></span>
+					      	元
+					    </td>
+					  </tr>
+					  <tr>
+		          	  	<td align="right"><b style="margin-right: 20px;">设置投标密码</b></td><td></td>
+		          	  </tr>
+					  <tr>
+					  	<td class="col-md-6" align="right">投标密码：</td>
+					    <td class="col-md-6">
+					    	<input type="radio" id="isBidPwd" name="isBidPwd" checked="checked" value="no" onclick="displayIsBidPwd()"/>
+					      	不设置密码
+					    </td>
+					  </tr>
+					  <tr>
+					  	<td class="col-md-6" align="right"></td>
+					    <td class="col-md-6">
+					    	<input type="radio" id="isBidPwd" name="isBidPwd" value="yes" onclick="displayIsBidPwd()"/>
+					      	设置投标密码
+					      	<input type="text" id="bidPwd" name="bidPwd" maxlength="20" class="inp100x gray" disabled="disabled"/>
+					    </td>
+					  </tr>
+					  <tr>
 					  	<td class="col-md-6" align="right">验证码：</td>
 					  	<td class="col-md-6">
 							<div class="col-md-6" align="left" style="padding: 0px; width: 120px;">
@@ -210,7 +223,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <tr>
 					  	<td class="col-md-6" align="right"></td>
 					    <td class="col-md-6">
-						<button type="submit" class="btn btn-default">提交</button>
+						<button type="submit" class="btn btn-default">提交发布</button>
 					    </td>
 					  </tr>
 			      	</tbody>
@@ -233,8 +246,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			readyRecMoney:"required",
     			loanManagementFees:"required",
     			repaymentTypeId:"required",
-    			loanTotal:"required",
-    			loanApr:"required",
+    			loanTotal:{
+    				required:true,
+    				range:["${loanTenderDate.lowestLoanAmount}","${loanTenderDate.largestLoanAmount}"]
+    			},
+    			loanApr:{
+    				required:true,
+    				range:["${loanTenderDate.lowestApr}","${loanTenderDate.largestApr}"]
+    			},
     			lowestBidMoney:"required",
     			largestBidMoney:"required",
     			lowestSub:"required",
@@ -251,8 +270,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			readyRecMoney:"待收金额设置不能为空",
     			loanManagementFees:"借款管理费不能为空",
     			repaymentTypeId:"还款方式不能为空",
-    			loanTotal:"借款总额不能为空",
-    			loanApr:"年利率不能为空",
+    			loanTotal:{
+    				required:"借款总额不能为空",
+    				range:"请输入"+"${loanTenderDate.lowestLoanAmount}"+"元 - "+"${loanTenderDate.largestLoanAmount}元"+"之间的总额"
+    			},
+    			loanApr:{
+    				required:"年利率不能为空",
+    				range:"请输入"+"${loanTenderDate.lowestApr}"+" - "+"${loanTenderDate.largestApr}"+"之间的年利率"
+    			},
     			lowestBidMoney:"最低投标金额不能为空",
     			largestBidMoney:"最高投标金额不能为空",
     			lowestSub:"最小认购单位(元)不能为空",
@@ -302,6 +327,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						});
 			});
 		};
+		//按投标金额比例奖励的隐藏验证
+		function checkBidProReward(){
+			var $bidProRewardValues = $("#bidProReward").val();
+			var lowestRewardPro = "${loanTenderDate.lowestRewardPro}";//最低的比例
+			var largestRewardPro = "${loanTenderDate.largestRewardPro}";//最高的比例
+			if(lowestRewardPro <= parseFloat($bidProRewardValues)&&parseFloat($bidProRewardValues)<=largestRewardPro){//比较
+				document.getElementById("bidProRewardCheck").innerHTML="";
+			}else{
+				document.getElementById("bidProRewardCheck").innerHTML="<font style='color: #F00;font-style: italic;font-weight: bold;'>请输入${loanTenderDate.lowestRewardPro}"+" - "+"${loanTenderDate.largestRewardPro}的金额比例</font>";
+			}
+		}
+		
+		//按固定金额分摊奖励的隐藏验证
+		function checkFixedAppReward(){
+			var $bidProRewardValues = $("#fixedAppReward").val();
+			var lowestRewardPro = "${loanTenderDate.lowestRewardMoney}";//最低的分摊奖励
+			var largestRewardPro = "${loanTenderDate.largestRewardMoney}";//最高的分摊比例
+			if(lowestRewardPro <= parseFloat($bidProRewardValues)&&parseFloat($bidProRewardValues)<=largestRewardPro){//比较
+				document.getElementById("fixedAppRewardCheck").innerHTML="";
+			}else{
+				document.getElementById("fixedAppRewardCheck").innerHTML="<font style='color: #F00;font-style: italic;font-weight: bold;'>请输入${loanTenderDate.lowestRewardMoney}"+"元 - "+"${loanTenderDate.largestRewardMoney}元的奖励金额</font>";
+			}
+		}
+		
+		
 		//是否设置奖励
 		function displayIsBidReward(){
 			var isBidReward = document.enteringDiYa.isBidReward;
@@ -310,17 +360,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(isBidReward[0].checked){
 				bidProReward.disabled = "disabled";
 				fixedAppReward.disabled = "disabled";
+				document.getElementById("bidProRewardCheck").innerHTML="";//清空金额比例的验证信息
+				document.getElementById("fixedAppRewardCheck").innerHTML="";//清空分摊金额的验证信息
+				$("#bidProReward").val(0);//设置默认值为0
+				$("#fixedAppReward").val(0);//设置默认值为0
 			}
 			if(isBidReward[1].checked){
 					bidProReward.disabled = "";
 					fixedAppReward.disabled = "disabled";
+					document.getElementById("fixedAppRewardCheck").innerHTML="";//清空分摊金额的验证信息
+					$("#fixedAppReward").val(0);//设置默认值为0
 			}
 			if(isBidReward[2].checked){
 				bidProReward.disabled = "disabled";
 				fixedAppReward.disabled = "";
+				document.getElementById("bidProRewardCheck").innerHTML="";//清空金额比例的验证信息
+				$("#bidProReward").val(0);//设置默认值为0
 			}
 
 		};
+		
 		//是否设置密码
 		function displayIsBidPwd(){
 			var isBidPwd = document.enteringDiYa.isBidPwd;
