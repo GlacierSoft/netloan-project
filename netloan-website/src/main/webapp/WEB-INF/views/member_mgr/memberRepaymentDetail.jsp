@@ -106,13 +106,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            <td>标题：</td>
 				            <td>${borrowingLoan.loanTitle}</td>
 				            <td>借款金额：</td>
-				            <td>${borrowingLoan.loanTotal}</td>
+				            <td>￥${borrowingLoan.loanTotal}</td>
 				          </tr>
 				          <tr>
 				            <td>借款利率：</td>
-				            <td>${borrowingLoan.loanApr}</td>
+				            <td>${borrowingLoan.loanApr}%</td>
 				            <td>借款期限：</td>
-				            <td>${borrowingLoan.loanDeadlinesId}</td>
+				            <td>${borrowingLoan.loanDeadlinesId}天</td>
 				          </tr>
 				          <tr>
 				            <td>还款方式：</td>
@@ -141,12 +141,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			          		<c:forEach items="${repaymentNotesDetailsDatas.rows}" var="repaymentNotesDetails" varStatus="status">
 					          <tr>
 					            <td><fmt:formatDate value="${repaymentNotesDetails.shouldPayDate}" type="date"/></td>
-					            <td>${repaymentNotesDetails.currentPayMoeny}</td>
+					            <td>￥${repaymentNotesDetails.currentPayMoeny}</td>
 					            <td><fmt:formatDate value="${repaymentNotesDetails.actualPayDate}" type="date"/></td>
 					            <td>${repaymentNotesDetails.overdueDays}</td>
-					            <td>${repaymentNotesDetails.actualPayMoney}</td>
-					            <td>${repaymentNotesDetails.overdueInterest}</td>
-					            <td>${repaymentNotesDetails.actualPayMoney}</td>
+					            <td>￥${repaymentNotesDetails.actualPayMoney}</td>
+					            <td>￥${repaymentNotesDetails.overdueInterest}</td>
+					            <td>￥${repaymentNotesDetails.actualPayMoney}</td>
 					            <td><span id="repaymentNotesDetails_repayState${status.index}"></span>
 						        		<script type="text/javascript">
 								       		$('#repaymentNotesDetails_repayState'+${status.index}).html(renderGridValue('${repaymentNotesDetails.repayState}',fields.repayDetailState));

@@ -162,7 +162,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							            <td>${borrowingLoan.loanTenderDisplay}</td>
 							            <td>${borrowingLoan.repaymentTypeDisplay}</td>
 							            <td>￥${borrowingLoan.loanTotal}</td>
-							            <td>${borrowingLoan.loanApr}</td>
+							            <td>${borrowingLoan.loanApr}%</td>
 							            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="date"/></td>
 							            <td>￥${borrowingLoan.loanTotal}</td>
 							            <td>￥${borrowingLoan.loanTotal}</td>
@@ -246,7 +246,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							            <td>${borrowingLoan.loanTenderDisplay}</td>
 							            <td>${borrowingLoan.repaymentTypeDisplay}</td>
 							            <td>${borrowingLoan.loanTotal}</td>
-							            <td>${borrowingLoan.loanApr}</td>
+							            <td>${borrowingLoan.loanApr}%</td>
 							            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="date"/></td>
 							            <td>${borrowingLoan.loanTotal}</td>
 							            <td>${borrowingLoan.loanTotal}</td>
