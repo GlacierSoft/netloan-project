@@ -209,7 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						            <td>${borrowingLoan.loanTenderDisplay}</td>
 						            <td>${borrowingLoan.repaymentTypeDisplay}</td>
 						            <td>￥${borrowingLoan.loanTotal}</td>
-						            <td>${borrowingLoan.loanApr}</td>
+						            <td>${borrowingLoan.loanApr}%</td>
 						            <td>${borrowingLoan.waitBidDeadlines}</td>
 						            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="both"/></td>
 						            <td>
