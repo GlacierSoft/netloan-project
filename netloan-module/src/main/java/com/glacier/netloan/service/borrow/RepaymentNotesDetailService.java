@@ -129,9 +129,9 @@ public class RepaymentNotesDetailService {
         
         JqGridReturn returnResult = new JqGridReturn();
         RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();
-        if(null != memberId && StringUtils.isNotBlank(memberId)){
+       /* if(null != memberId && StringUtils.isNotBlank(memberId)){
             repaymentNotesDetailExample.createCriteria().andMemberIdEqualTo(memberId);//查询相对应的还款人的还款记录明细
-        }
+        }*/
         if(null != loanId && StringUtils.isNotBlank(loanId)){
             RepaymentNotes repaymentNotes = repaymentNotesMapper.selectByPrimaryLoanId(loanId);//根据借款Id查找出对应的还款信息记录
             if(null != repaymentNotes.getRepayNotesId() && StringUtils.isNotBlank(repaymentNotes.getRepayNotesId())){
@@ -293,8 +293,10 @@ public class RepaymentNotesDetailService {
         			repaymentNotesDetail.setAlsoNeedMoney(shouldPayMoney);
     			}
     		}
+
     		repaymentNotesDetail.setRepayNotesDetailId(RandomGUID.getRandomGUID());
-    		repaymentNotesDetail.setMemberId(borrowingLoanNew.getMemberId());
+    	 	repaymentNotesDetail.setMemberId(borrowingLoanNew.getMemberId()); 
+        	repaymentNotesDetail.setRepayNotesId(repaymentNotesNew.getRepayNotesId());//设置交款标题
             repaymentNotesDetail.setActualPayMoney(shouldPayMoney);
             repaymentNotesDetail.setOverdueDays("0");
             repaymentNotesDetail.setOverdueInterest(0f);

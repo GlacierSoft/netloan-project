@@ -228,8 +228,7 @@ public class BorrowingLoanService {
     public Object listAsGrid(JqPager jqPager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String loanState) {
         
         JqGridReturn returnResult = new JqGridReturn();
-        BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
-        
+        BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample(); 
         Criteria queryCriteria = borrowingLoanExample.createCriteria();
         borrowingLoanQueryDTO.setQueryCondition(queryCriteria);
         
@@ -562,8 +561,8 @@ public class BorrowingLoanService {
           	JqReturnJson returnResultRepaymentNotes = (JqReturnJson) repaymentNotesService.addRepaymentNotes(repaymentNotes);
           	RepaymentNotes repaymentNotesNew = (RepaymentNotes) returnResultRepaymentNotes.getObj();
           	//添加还款记录明细信息
-          	RepaymentNotesDetail repaymentNotesDetail = new RepaymentNotesDetail();
-          	repaymentNotesDetail.setRepayNotesId(repaymentNotesNew.getRepayNotesId());
+          	RepaymentNotesDetail repaymentNotesDetail = new RepaymentNotesDetail();  
+          	repaymentNotesDetail.setRepayNotesId(borrowingLoan.getLoanId());
           	repaymentNotesDetailService.addRepaymentNotesDetail(repaymentNotesDetail,repaymentNotesNew);
           	//添加收款记录信息
           	ReceivablesNotes receivablesNotes = new ReceivablesNotes();
