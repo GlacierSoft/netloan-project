@@ -112,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            <td>借款利率：</td>
 				            <td>${borrowingLoan.loanApr}%</td>
 				            <td>借款期限：</td>
-				            <td>${borrowingLoan.loanDeadlinesId}天</td>
+				            <td>${borrowingLoan.loanDeadlinesId}个月</td>
 				          </tr>
 				          <tr>
 				            <td>还款方式：</td>
