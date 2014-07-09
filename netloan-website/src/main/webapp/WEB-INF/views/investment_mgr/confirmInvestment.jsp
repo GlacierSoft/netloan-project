@@ -50,7 +50,7 @@
 			        		<td >借款标题：<span style="color: red;">${borrowingLoan.loanTitle}</span></td>
 			        	</tr>
 			        	<tr>
-			        		<td >借款金额：<span style="color: red;"><fmt:formatNumber value="${borrowingLoan.loanTotal }" pattern="#,#00.00"/>元</span></td>
+			        		<td >借款金额：<span style="color: red;">￥<fmt:formatNumber value="${borrowingLoan.loanTotal }" pattern="#,#00.00"/>元</span></td>
 			        	</tr>
 			        	<tr>
 			        		<td >借款年利率：<span style="color: red;"><fmt:formatNumber value="${borrowingLoan.loanApr * 100}" pattern="#,#00.00"/>%</span></td>
@@ -59,7 +59,7 @@
 			        		<td>已经完成：<span style="color: red;"><fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/>%</span></td>
 			        	</tr>
 			        	<tr>
-			        		<td>还需借款：<span id="stillNeed" style="color: red;"> </span><span style="color: red;">元</span></td>
+			        		<td>还需借款：<span style="color: red;">￥</span><span id="stillNeed" style="color: red;"> </span><span style="color: red;">元</span></td>
 			        	<script type="text/javascript">
 				        	if('${borrowingLoan.subTotal}' == '0.0'){
 				        		$('#stillNeed').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrBidMoney}' pattern='#,#00.00'/>");
@@ -85,16 +85,16 @@
 			  <div class="col-md-5" style="border: 1px solid #DDDDDD;">
 			  <div style="margin-left: 20px;margin-top: 40px;">
 	       	  	<div class="row">
-	       	  		<div class="col-md-12">您的帐户总额：<span style="color: red;"><fmt:formatNumber value="${financeMember.amount }" pattern="#,#00.00"/></span>元
-	       	  		&nbsp; <img src="${ctx}/resources/images/borrow/woyaochongzhi.png" alt="investment"></div>
+	       	  		<div class="col-md-12">您的帐户总额：￥<span style="color: red;"><fmt:formatNumber value="${financeMember.amount }" pattern="#,#00.00"/></span>元
+	       	  		&nbsp;<a href="${ctx}/financeMember/rechargeWithdraw.htm?p=1" class="navbar-link"><img src="${ctx}/resources/images/borrow/woyaochongzhi.png" alt="investment"></a></div>
 	       	  	</div>
 	       	  	<div class="row">
-	       	  		<div class="col-md-12">您的可用余额：<span style="color: red;"><fmt:formatNumber value="${financeMember.usableMoney }" pattern="#,#00.00"/></span>元</div>
+	       	  		<div class="col-md-12">您的可用余额：￥<span style="color: red;"><fmt:formatNumber value="${financeMember.usableMoney }" pattern="#,#00.00"/></span>元</div>
 	       	  	</div>
 	       	  	<br>
 	       	  	<div class="row">
 	       	  		<div class="col-md-12"><span>请填写并确认下面投标金额</span>
-	       	  		&nbsp;<a href="#">设置交易密码</a></div>
+	       	  		&nbsp;<a href="${ctx}/member/memberDetail.htm" class="navbar-link">设置交易密码</a></div>
 	       	  	</div>
 	       	  	<c:choose>
 					   <c:when test="${borrowingLoan.subTotal == '0.0'}">  
@@ -134,7 +134,7 @@
 					   </c:when>
 					   <c:otherwise> 
 				   			<div class="row">
-			       	  		<div class="col-md-12"><span>最小认购金额：<fmt:formatNumber value="${borrowingLoan.lowestSub }" pattern="#,#00.00"/>元  当前年利率: <fmt:formatNumber value="${borrowingLoan.loanApr * 100}" pattern="#,#00.00"/>% </span></div>
+			       	  		<div class="col-md-12"><span>最小认购金额：￥<fmt:formatNumber value="${borrowingLoan.lowestSub }" pattern="#,#00.00"/>元  当前年利率: <fmt:formatNumber value="${borrowingLoan.loanApr * 100}" pattern="#,#00.00"/>% </span></div>
 				       	  	</div>
 				       	  	<div class="row">
 				       	  		<div class="col-md-12">认购总份数：${borrowingLoan.subTotal }份,还有：<span id="subLeave">${borrowingLoan.subTotal-borrowingLoan.alrSubSum }</span>份 </div>
