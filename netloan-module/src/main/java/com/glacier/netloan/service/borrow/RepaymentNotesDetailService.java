@@ -235,7 +235,7 @@ public class RepaymentNotesDetailService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "RepaymentNotesDetailList_add")
-    public Object addRepaymentNotesDetail(RepaymentNotesDetail repaymentNotesDetail,RepaymentNotes repaymentNotesNew) {
+    public Object addRepaymentNotesDetail(RepaymentNotesDetail repaymentNotesDetails,RepaymentNotes repaymentNotesNew) {
     	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -245,6 +245,7 @@ public class RepaymentNotesDetailService {
         BorrowingLoan borrowingLoanNew = (BorrowingLoan) borrowingLoanMapper.selectByPrimaryKey(repaymentNotesNew.getLoanId());
         
         for(int i = 0;i < Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId());i++){
+        	RepaymentNotesDetail repaymentNotesDetail = new RepaymentNotesDetail();
         	repaymentNotesDetail.setNumberPeriod(i+1);//设置当前是第几期
         	Calendar c = Calendar.getInstance();//日历对象
  	        c.setTime(new Date());//获取当前时间

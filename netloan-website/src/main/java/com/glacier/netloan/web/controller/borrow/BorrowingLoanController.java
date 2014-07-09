@@ -119,6 +119,34 @@ public class BorrowingLoanController extends AbstractController{
     	return borrowingLoanService.delBorrowingLoan(loanIds, loanCodes);
     }
     
+    //转到“流转标详细”页面
+  	@RequestMapping(value = "/borrowLiuZhuan.htm")
+  	public Object borrowLiuZhuan(){
+  		return "borrow_mgr/borrowLiuZhuan";
+  	}
+  	//转到“抵押标详细”页面
+  	@RequestMapping(value = "/borrowDiYa.htm")
+  	public Object borrowDiYa(){
+  		return "borrow_mgr/borrowDiYa";
+  	}
+  	//转到“信用标详细”页面
+  	@RequestMapping(value = "/borrowXinYong.htm")
+  	public Object borrowXinYong(){
+  		return "borrow_mgr/borrowXinYong";
+  	}
+  	//转到“净值标详细”页面
+  	@RequestMapping(value = "/borrowJingZhi.htm")
+  	public Object borrowJingZhi(){
+  		return "borrow_mgr/borrowJingZhi";
+  	}
+  	
+    //判断该登录会员是否已经存在初审状态中的借款
+  	@RequestMapping(value = "/judgeBorrowingLoan.json", method = RequestMethod.POST)
+  	@ResponseBody
+  	public Object judgeBorrowingLoan(@RequestParam String memberId){
+          return borrowingLoanService.judgeBorrowingLoan(memberId);
+  	}
+  	
 	//转到“流转标申请页面”页面
 	@RequestMapping(value = "/enteringLiuZhuan.htm")
 	public Object enteringLiuZhuan(){

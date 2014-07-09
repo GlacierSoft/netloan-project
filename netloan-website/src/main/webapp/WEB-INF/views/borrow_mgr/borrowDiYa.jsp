@@ -37,7 +37,13 @@
 					            <p >22-65周岁的中国公民&nbsp;&nbsp;<br />
 					              	在现居住地居住满6个月<br />
 					            </p>
-					            <div class="jk_mid_con_but"><a href="${ctx}/borrowingLoan/enteringDiYa.htm" class="sq_but">立即申请</a></div>
+					            <%-- <div class="jk_mid_con_but"><a href="${ctx}/borrowingLoan/enteringDiYa.htm" class="sq_but">立即申请</a></div> --%>
+					            <div class="jk_mid_con_but">
+							        <form id="judgeBorrowya" name="judgeBorrowya" class="form-horizontal" role="form" method="post" >
+							        	<input id="memberId" name="memberId" type="hidden" value="${currentMember.memberId}" >
+							        	<button type="submit" class="btn sq_but" >立即申请</button>
+							        </form>
+						        </div>
 					          </div>
 					        </div>
 					        
@@ -71,9 +77,12 @@
 							            可体现经营情况的近6个月常用银行卡流水（对公账户或个人账户）</p>
 					          </div>
 					        </div>
-					        
-					        <div class="jk_mid_bot_but"><a href="${ctx}/borrowingLoan/enteringDiYa.htm" class="sq_but">立即申请</a></div>
-					        
+					        <div class="jk_mid_bot_but">
+						        <form id="judgeBorrowya2" name="judgeBorrowya2" class="form-horizontal" role="form" method="post" >
+						        	<input id="memberId" name="memberId" type="hidden" value="${currentMember.memberId}" >
+						        	<button type="submit" class="btn sq_but" >立即申请</button>
+						        </form>
+					        </div>
 						</div>
 					</div>					
 			        
@@ -86,5 +95,74 @@
     <hr class="featurette-divider2">
     </div>
    <jsp:include page="../foot.jsp"/>
+   <script type="text/javascript">
+    	//判断该登录会员是否已经存在初审状态中的借款，上面提交按钮
+	    $("#judgeBorrowya").validate({
+    		rules:{
+    		},
+    		messages:{
+    		},
+    		submitHandler:function(){
+    			$.ajax({
+   				   type: "POST",
+   				   url: ctx+"/borrowingLoan/judgeBorrowingLoan.json",
+   				   dataType: "json",
+   				   data: $("#judgeBorrowya").serialize(),
+    			   success: function(r) {
+    				   successAddLiuZhuan(r);
+                    },
+                    error: function() {
+                        alert("提交出错！");
+                    }
+   				});
+    		}
+    	});
+	  	//判断该登录会员是否已经存在初审状态中的借款,下面提交按钮
+	    $("#judgeBorrowya2").validate({
+    		rules:{
+    		},
+    		messages:{
+    		},
+    		submitHandler:function(){
+    			$.ajax({
+   				   type: "POST",
+   				   url: ctx+"/borrowingLoan/judgeBorrowingLoan.json",
+   				   dataType: "json",
+   				   data: $("#judgeBorrowya2").serialize(),
+    			   success: function(r) {
+    				   successAddLiuZhuan(r);
+                    },
+                    error: function() {
+                        alert("提交出错！");
+                    }
+   				});
+    		}
+    	});
+	    function successAddLiuZhuan(data){
+	    	//如果不存在，则转到借款页面
+	    	if(data.success){
+        		window.location.href="${ctx}/borrowingLoan/enteringDiYa.htm";
+        	}else{//如果存在，则提示错误信息
+        		KindEditor.ready(function(K) {
+    				var dialog = K.dialog({
+    			        width : 500,
+    			        body : '<div style="margin:10px;"><strong>'+"您还有未审核通过的借款，暂时还不能再次发布！"+'</strong></div>',
+    			        closeBtn : {
+    		                name : '关闭',
+    		                click : function(e) {
+   		                        dialog.remove();
+    		                }
+    		        	},
+    			        yesBtn : {
+    		                name : '关闭',
+    		                click : function(e) {
+    		                	dialog.remove();
+    		                }
+    			        }
+    				});
+    			});
+          	}
+	    }
+	</script>
   </body>
 </html>

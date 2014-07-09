@@ -172,7 +172,7 @@ public class RepaymentNotesService {
 		repaymentNotes.setShouldPayInterest(shouldPayMoney-borrowingLoanNew.getLoanTotal());//设置应还利息
 		repaymentNotes.setAlrPayInterest(0f);//设置已还利息
 		repaymentNotes.setNotPayInterest(shouldPayMoney-borrowingLoanNew.getLoanTotal());//设置未还利息
-		repaymentNotes.setLoanId(borrowingLoanNew.getLoanId());//设置借款id
+		repaymentNotes.setLoanId(borrowingLoanNew.getLoanId());//设置借款id--
 		repaymentNotes.setMemberId(borrowingLoanNew.getMemberId());//设置还款人id
         repaymentNotes.setRepayNotesId(RandomGUID.getRandomGUID());
         repaymentNotes.setAlrPayMoney(0f);

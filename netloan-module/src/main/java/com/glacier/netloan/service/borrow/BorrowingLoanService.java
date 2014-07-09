@@ -53,7 +53,6 @@ import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberIntegral;
 import com.glacier.netloan.entity.member.MemberMessageNotice;
-import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
@@ -252,6 +251,28 @@ public class BorrowingLoanService {
         return returnResult;// 返回ExtGrid表
     }
 
+    /**
+     * @Title: judgeBorrowingLoan 
+     * @Description: TODO(判断该登录会员是否已经存在初审状态中的借款) 
+     * @param  @param memberId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    @Transactional(readOnly = false)
+    public Object judgeBorrowingLoan(String memberId) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
+        borrowingLoanExample.createCriteria().andMemberIdEqualTo(memberId).andLoanStateEqualTo("firstAudit");
+        int total = borrowingLoanMapper.countByExample(borrowingLoanExample); // 查询该会员借款列表下为初审状态的借款条数
+        if (total > 0) {//如果存在，则返回错误提示信息
+            returnResult.setMsg("您还有未审核通过的借款，暂时还不能再次发布！");
+            return returnResult;
+        }
+        returnResult.setSuccess(true);
+        return returnResult;
+    }
+    
     /**
      * @Title: addBorrowingLoan 
      * @Description: TODO(新增借款) 
