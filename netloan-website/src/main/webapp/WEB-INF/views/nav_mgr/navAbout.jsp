@@ -59,7 +59,7 @@
 				   		      </c:when>
 				   		      <c:otherwise>
 				   		      	 <a  href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1" class="navbar-link">
-				   		         <span id="nav_messageNoticCount" class="badge">${messageNoticCount}</span>
+				   		              <span id="nav_messageNoticCount" class="badge">${messageNoticCount}</span>
 				   		        </a> 
 				   		      </c:otherwise>
 				   		 </c:choose>|</span>
