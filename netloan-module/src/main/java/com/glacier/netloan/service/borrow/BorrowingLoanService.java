@@ -518,9 +518,17 @@ public class BorrowingLoanService {
         BorrowingLoan borrowingLoan = this.borrowingLoanMapper.selectByPrimaryKey(borrowingLoanNew.getLoanId());
         int count = 0;
         //满标审核站内信通知
-        MemberMessageNotice  memberMessageNotice = new MemberMessageNotice();
-        memberMessageNotice.setTitle("借款标题为："+borrowingLoan.getLoanTitle()+",满标审核通知");
-        memberMessageNotice.setContent(borrowingLoanNew.getSecondMesNotice());
+        MemberMessageNotice  memberMessageNotice = new MemberMessageNotice(); 
+        memberMessageNotice.setTitle(borrowingLoan.getLoanTitle()+",满标审核通知");
+             if(borrowingLoan.getSecondMesNotice()!=null){ 
+                 memberMessageNotice.setContent(borrowingLoan.getSecondMesNotice());
+             }else{ 
+             	if(borrowingLoan.getFirstAuditState().equals("firstSucess")){ 
+                     memberMessageNotice.setContent("借款审审核通过");
+             	}else{
+             		memberMessageNotice.setContent("借款初审审核不通过，请重新申请");
+             	}
+             } 
         memberMessageNotice.setAddressee(borrowingLoanNew.getMemberId());
         memberMessageNoticeService.addMemberMessageNotice(memberMessageNotice);
         
