@@ -140,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			      		  <tr>
 						    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最小认购单位：</td>
 						    <td class="col-md-6">
-						    	<input type="text" name="lowestSub" class="inp280" />元
+						    	<input type="text" onblur="checkToalsDivideExactly();" id="lowestSub" name="lowestSub" class="inp280" /><span id="lowestSubCheck"></span>元
 							</td>
 						  </tr>
 			      		</tbody>
@@ -223,7 +223,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <tr>
 					  	<td class="col-md-6" align="right"></td>
 					    <td class="col-md-6">
-						<button type="submit" class="btn btn-default">提交</button>
+						<button type="submit" class="btn btn-default">提交发布</button>
 					    </td>
 					  </tr>
 			      	</tbody>
@@ -236,6 +236,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
      <jsp:include page="../foot.jsp"/>
     <script type="text/javascript">
+    
+    	var lowestAprDiYa = "${loanTenderDate.lowestApr}";
+		var largestApr = "${loanTenderDate.largestApr}";
+    
 	    $("#enteringXinYong").validate({
     		rules:{
     			loanCode:"required",
@@ -251,7 +255,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			},
     			loanApr:{
     				required:true,
-    				range:["${loanTenderDate.lowestApr}","${loanTenderDate.largestApr}"]
+    				range:[(lowestAprDiYa*100),(largestApr*100)]
     			},
     			lowestBidMoney:"required",
     			largestBidMoney:"required",
@@ -275,7 +279,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			},
     			loanApr:{
     				required:"年利率不能为空",
-    				range:"请输入"+"${loanTenderDate.lowestApr}"+" - "+"${loanTenderDate.largestApr}"+"之间的年利率"
+    				range:"请输入"+(lowestAprDiYa*100)+" - "+(largestApr*100)+"之间的年利率"
     			},
     			lowestBidMoney:"最低投标金额不能为空",
     			largestBidMoney:"最高投标金额不能为空",
@@ -326,6 +330,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						});
 			});
 		};
+		
+		//判断最小认购单位必须能给借款总额整除
+		function checkToalsDivideExactly(){
+			var loanTotals = $("#loanTotal").val();
+			var lowestSub = $("#lowestSub").val();
+			if(loanTotals!=null&&loanTotals>0){
+				if(loanTotals%lowestSub==0){
+					document.getElementById("lowestSubCheck").innerHTML="";
+				}else{
+					document.getElementById("lowestSubCheck").innerHTML="<font style='color: #F00;font-style: italic;font-weight: bold;float:left;'>请输入能被借款总额整除的最小认购单位</font>";
+				}
+			}
+		}
+		
+		
 		//按投标金额比例奖励的隐藏验证
 		function checkBidProReward(){
 			var $bidProRewardValues = $("#bidProReward").val();
