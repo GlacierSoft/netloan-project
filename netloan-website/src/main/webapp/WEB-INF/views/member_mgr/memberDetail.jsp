@@ -750,23 +750,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    form.append(my_input);  
 		    //表单的构建是否 完成
 		    form.appendTo(document.body).submit();
-		 }
-		function doClicks(url,str){
-			// 创建Form  
-			var form = $('<form></form>');  
-			// 设置属性  
-		    form.attr('action', '<%=basePath%>'+url);  
-		    form.attr('method', 'post');  
-		    // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
-		    form.attr('target', '_self');  
-		    // 创建Input  
-		    var my_input = $('<input type="text" name="memberId" />');  
-		    my_input.attr('value', str);  
-		    // 附加到Form  
-		    form.append(my_input);  
-		    //表单的构建是否 完成
-		    form.appendTo(document.body).submit();
-		 }
+		 } 
 	    $('#tabchangeMobileTab').bind('click', function(){    
 	      	if("${SecretSecurityResult.rows[0].secretSecurityId}" == ''){
 	    		//notClonedialog("请先设置密保问题");
