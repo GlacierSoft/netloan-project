@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
 							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit" class="btn btn-default" role="button">已发布的借款</a>
-							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting" class="btn btn-default" role="button">还款管理</a>
+							  <a  href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting','${currentMember.memberId}');" class="btn btn-default" role="button">还款管理</a>
 							  <a href="#" onclick="doClick('borrowingLoan/memberStatistics.htm','${currentMember.memberId}');" class="btn btn-default" role="button">贷款统计</a>
 							</div>
 					      </div>
@@ -167,7 +167,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					              <td>${attentionBorrowing.loanTenderDisplay}</td>
 					              <td>${attentionBorrowing.repaymentTypeDisplay}</td>
 					              <td>￥<fmt:formatNumber value="${attentionBorrowing.loanTotal}" pattern="#,#00.00"/></td>
-					              <td>￥<fmt:formatNumber value="${attentionBorrowing.loanApr}" pattern="#0.00%"/></td>
+					              <td><fmt:formatNumber value="${attentionBorrowing.loanApr}" pattern="#0.00%"/>%</td>
 					              <td>${attentionBorrowing.loanDeadlinesId}个月</td>
 					              <td><fmt:formatDate value="${attentionBorrowing.loanDate}" type="both"/></td>
 					              <td><fmt:formatNumber value='${attentionBorrowing.alrTenderPro}' pattern='#0.00%'/>/剩余时间</td>
@@ -220,7 +220,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    //表单的构建是否 完成
 	    form.appendTo(document.body).submit();
 	 }
-  	
+  	//构建还款管理表单
+  	    function doClicks(url,str){
+				// 创建Form  
+				var form = $('<form></form>');  
+				// 设置属性  
+			    form.attr('action', '<%=basePath%>'+url);  
+			    form.attr('method', 'post');  
+			    // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
+			    form.attr('target', '_self');  
+			    // 创建Input  
+			    var my_input = $('<input type="text" name="memberId" />');  
+			    my_input.attr('value', str);  
+			    // 附加到Form  
+			    form.append(my_input);  
+			    //表单的构建是否 完成
+			    form.appendTo(document.body).submit();
+			 }
   	//bootstrap日期控件
   	$(".form_datetime").datetimepicker({
   		language:  'zh-CN',

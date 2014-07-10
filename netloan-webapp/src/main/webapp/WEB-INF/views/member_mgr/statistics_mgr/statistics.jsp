@@ -147,12 +147,12 @@
 				width:70
 		 	},{    
 				field:'alreadyIncomeInterest',
-				title:'已收本息',
+				title:'已收利息',
 				sortable:true,
 				width:70
 		 	},{    
 				field:'waitIncomeInterest',
-				title:'待收本息',
+				title:'待收利息',
 				sortable:true,
 				width:70
 		 	},  {    

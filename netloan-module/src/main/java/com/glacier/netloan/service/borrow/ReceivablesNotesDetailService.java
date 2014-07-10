@@ -21,6 +21,7 @@ import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.ReceivablesNotesDetailMapper;
 import com.glacier.netloan.dao.borrow.ReceivablesNotesMapper;
 import com.glacier.netloan.dao.borrow.TenderNotesMapper;
+import com.glacier.netloan.dao.member.MemberStatisticsMapper;
 import com.glacier.netloan.dto.query.borrow.ReceivablesNotesDetailQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterBasic;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
@@ -32,6 +33,7 @@ import com.glacier.netloan.entity.borrow.ReceivablesNotesDetailExample.Criteria;
 import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.entity.borrow.TenderNotesExample;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.service.basicdatas.ParameterBasicService;
 import com.glacier.netloan.service.member.MemberService;
@@ -58,6 +60,9 @@ public class ReceivablesNotesDetailService {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private MemberStatisticsMapper memberStatisticsMapper;
 	
 	@Autowired
 	private ParameterBasicService parameterBasicService;

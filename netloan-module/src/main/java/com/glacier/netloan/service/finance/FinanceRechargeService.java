@@ -371,7 +371,7 @@ public class FinanceRechargeService {
 		     memberMessageNotice.setSender(users.get(0).getUserId());//发现人，系统管理员
 		     memberMessageNotice.setAddressee(member.getMemberId());//收信人
 		     memberMessageNotice.setTitle("充值信息");//标题
-		     memberMessageNotice.setContent("尊敬的会员："+member.getMemberName()+",您已成功充值￥"+financeRecharge.getArriveMoney()+"元。");//短信内容
+		     memberMessageNotice.setContent("尊敬的会员："+member.getMemberName()+"，您已成功充值￥"+financeRecharge.getArriveMoney()+"元。");//短信内容
 		     memberMessageNotice.setSendtime(new Date());
 		     memberMessageNotice.setLetterstatus("unread");//信件状态，默认为未读
 		     memberMessageNotice.setLettertype("system");//信件类型，系统消息

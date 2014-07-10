@@ -38,7 +38,12 @@
 					              在现单位工作满3个月<br />
 					              月收入3000以上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
 					            </p>
-					            <div class="jk_mid_con_but"><a href="${ctx}/borrowingLoan/enteringLiuZhuan.htm" class="sq_but">立即申请</a></div>
+					            <div class="jk_mid_con_but">
+							        <form id="judgeBorrowLiu" name="judgeBorrowLiu" class="form-horizontal" role="form" method="post" >
+							        	<input id="memberId" name="memberId" type="hidden" value="${currentMember.memberId}" >
+							        	<button type="submit" class="btn sq_but" >立即申请</button>
+							        </form>
+						        </div>
 					          </div>
 					        </div>
 					        
@@ -70,9 +75,13 @@
 					            近3个月工资卡银行流水&#160;  </p>
 					          </div>
 					        </div>
-					        
-					        <div class="jk_mid_bot_but"><a href="${ctx}/borrowingLoan/enteringLiuZhuan.htm" class="sq_but">立即申请</a></div>
-					        
+					        <div class="jk_mid_bot_but">
+						        <form id="judgeBorrowLiu2" name="judgeBorrowLiu2" class="form-horizontal" role="form" method="post" >
+						        	<input id="memberId" name="memberId" type="hidden" value="${currentMember.memberId}" >
+						        	<button type="submit" class="btn sq_but" style="float: left;margin-left: 400px;" >立即申请</button>
+						        	<a href="${ctx}/borrow.htm" class="btn sq_but" style="line-height: 30px;float: left;margin-left: 30px;">返回</a>
+						        </form>
+					        </div>
 						</div>
 					</div>					
 			        
@@ -85,5 +94,74 @@
     <hr class="featurette-divider2">
     </div>
    <jsp:include page="../foot.jsp"/>
+   <script type="text/javascript">
+    	//判断该登录会员是否已经存在初审状态中的借款，上面提交按钮
+	    $("#judgeBorrowLiu").validate({
+    		rules:{
+    		},
+    		messages:{
+    		},
+    		submitHandler:function(){
+    			$.ajax({
+   				   type: "POST",
+   				   url: ctx+"/borrowingLoan/judgeBorrowingLoan.json",
+   				   dataType: "json",
+   				   data: $("#judgeBorrowLiu").serialize(),
+    			   success: function(r) {
+    				   successAddLiuZhuan(r);
+                    },
+                    error: function() {
+                        alert("提交出错！");
+                    }
+   				});
+    		}
+    	});
+	  	//判断该登录会员是否已经存在初审状态中的借款,下面提交按钮
+	    $("#judgeBorrowLiu2").validate({
+    		rules:{
+    		},
+    		messages:{
+    		},
+    		submitHandler:function(){
+    			$.ajax({
+   				   type: "POST",
+   				   url: ctx+"/borrowingLoan/judgeBorrowingLoan.json",
+   				   dataType: "json",
+   				   data: $("#judgeBorrowLiu2").serialize(),
+    			   success: function(r) {
+    				   successAddLiuZhuan(r);
+                    },
+                    error: function() {
+                        alert("提交出错！");
+                    }
+   				});
+    		}
+    	});
+	    function successAddLiuZhuan(data){
+	    	//如果不存在，则转到借款页面
+	    	if(data.success){
+        		window.location.href="${ctx}/borrowingLoan/enteringLiuZhuan.htm";
+        	}else{//如果存在，则提示错误信息
+        		KindEditor.ready(function(K) {
+    				var dialog = K.dialog({
+    			        width : 500,
+    			        body : '<div style="margin:10px;"><strong>'+"您还有未审核通过的借款，暂时还不能再次发布！"+'</strong></div>',
+    			        closeBtn : {
+    		                name : '关闭',
+    		                click : function(e) {
+   		                        dialog.remove();
+    		                }
+    		        	},
+    			        yesBtn : {
+    		                name : '关闭',
+    		                click : function(e) {
+    		                	dialog.remove();
+    		                }
+    			        }
+    				});
+    			});
+          	}
+	    }
+	</script>
   </body>
 </html>

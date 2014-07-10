@@ -68,10 +68,10 @@ public class CommonController {
      *             <p>
      */
     @RequestMapping(value = "/")
-    private Object index(JqPager pager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String pagetype) {
+    private Object index(JqPager pager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String pagetype, String memberId) {
         ModelAndView mav = new ModelAndView("index");
         int p = 1;
-        mav.addObject("borrowingDatas",  borrowingLoanService.listAsGridWebsite(pager, borrowingLoanQueryDTO, pagetype, p));//主页加载借款信息
+        mav.addObject("borrowingDatas",  borrowingLoanService.listAsGridWebsite(pager, borrowingLoanQueryDTO, pagetype, p,  memberId));//主页加载借款信息
         mav.addObject("announcementDatas", announcementService.listAsGrid(pager));//主页加载公告信息
         mav.addObject("newsDatas", newsService.listAsGrid(pager));//主页加载新闻信息
         // 进入首页初始化导航信息
@@ -89,10 +89,10 @@ public class CommonController {
      *             <p>
      */
     @RequestMapping(value = "/index.htm")
-    private Object mappingIndexPage(JqPager pager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String pagetype) {
+    private Object mappingIndexPage(JqPager pager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String pagetype, String memberId) {
         ModelAndView mav = new ModelAndView("index");
         int p = 1;
-        mav.addObject("borrowingDatas",  borrowingLoanService.listAsGridWebsite(pager, borrowingLoanQueryDTO, pagetype, p));//主页加载借款信息
+        mav.addObject("borrowingDatas",  borrowingLoanService.listAsGridWebsite(pager, borrowingLoanQueryDTO, pagetype, p,  memberId));//主页加载借款信息
         mav.addObject("announcementDatas", announcementService.listAsGrid(pager));//主页加载公告信息
         mav.addObject("newsDatas", newsService.listAsGrid(pager));//主页加载新闻信息
         // 进入首页初始化导航信息
@@ -160,13 +160,13 @@ public class CommonController {
      *
      */
     @RequestMapping(value = "/logout.htm")
-    public Object logout(JqPager pager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String pagetype){
+    public Object logout(JqPager pager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String pagetype, String memberId){
     	ModelAndView mav = new ModelAndView("index");
     	if (null != SecurityUtils.getSubject() && null != SecurityUtils.getSubject().getSession()) {
             SecurityUtils.getSubject().logout();// ，默认把登录用户注销
         }
     	int p = 1;
-        mav.addObject("borrowingDatas",  borrowingLoanService.listAsGridWebsite(pager, borrowingLoanQueryDTO, pagetype, p));//主页加载借款信息
+        mav.addObject("borrowingDatas",  borrowingLoanService.listAsGridWebsite(pager, borrowingLoanQueryDTO, pagetype, p,memberId));//主页加载借款信息
     	mav.addObject("announcementDatas", announcementService.listAsGrid(pager));//主页加载公告信息
         mav.addObject("newsDatas", newsService.listAsGrid(pager));//主页加载新闻信息
         // 进入首页初始化导航信息
