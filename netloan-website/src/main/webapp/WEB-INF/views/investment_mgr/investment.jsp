@@ -443,10 +443,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var loanTotalEndIndex = loanTotalEnd.selectedIndex;//结束框选中项的下标
 		var loanTotalEndValues = parseFloat(loanTotalEnd.options[loanTotalEndIndex].value);//取出结束框选中的值
 		
-		if( v > loanTotalEndValues ){
-			alert("必须要选择比"+loanTotalEndValues+"元低来做查询!");
-			$("#loanTotalStart").val(0);
+		if(loanTotalEndValues!=0){
+			if( v > loanTotalEndValues ){
+				alert("必须要选择比"+loanTotalEndValues+"元低来做查询!");
+				$("#loanTotalStart").val(0);
+			}
 		}
+		
 	}
   
   
