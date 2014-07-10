@@ -75,9 +75,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="col-sm-2">
 					<input type="text" id="captcha" name="captcha" maxlength="4" class="form-control" placeholder="验证码" required />
 				</div>
-				<div class="col-sm-2">
-					<img style="width:120px;height:32px;" class="img-responsive" id="login_kaptcha" src="${ctx}/resources/images/kaptcha.jpg" />
-				</div>
+				<div class="col-sm-2" style="width: 500px" >
+					<img style="width:120px;height:32px;float: left;" class="img-responsive" id="login_kaptcha" src="${ctx}/resources/images/kaptcha.jpg" />
+					<div style="margin-top:10px;"><a id="login_kaptchas" href="#">&nbsp;换一张</a></div>
+				 </div> 
 			</div>
 			  <div class="form-group">
 			    <div class="col-sm-offset-2 col-sm-10">
@@ -98,7 +99,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$('#captcha').val('');
 		        	$(this).hide().attr('src','${pageContext.request.contextPath}/resources/images/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();     
 			    });
-				
+				//超链接换图片
+				$('#login_kaptchas').click(function() {   
+					$('#captcha').val('');
+		        	$("#login_kaptcha").hide().attr('src','${pageContext.request.contextPath}/resources/images/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();     
+			    });
 				//表单验证
 				validaForm = function(){
 					var $memberName = $('#memberName_form-group');
@@ -158,12 +163,87 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				//$("#loginForm").submit();//自动登录，方便测试，后期删除
 			});
 		</script>
+		
 		<script type="text/javascript">
-	
-		
-		
-		
-		
+		//输入框得到焦点
+		 $("#email_form-group").focus(function(){
+			 $("#eml").remove();
+			 $("#eml2").remove();
+		 });
+		//邮箱失去焦点前台验证
+		 $("#email_form-group").blur(function(){ 
+			 $("#eml").remove();
+			 $("#eml2").remove();
+			 var str=$(this).val();
+			 var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+		     var boo= reg.test(str);
+		     if(str==""){
+		     	 $(this).after("<label id='eml2' style='color: red'>*注册邮箱不能为空</label>");
+				  return;
+		     }
+		    if(boo==false){
+		    	 $(this).after("<label id='eml' style='color: red'>*邮箱格式不正确</label>");
+		     }else{
+		    	 $("#eml").remove();
+		    }  
+		 });  
+
+		 $("#memberName_form-group").focus(function(){
+			 $("#name1").remove(); 
+		 });
+		 //用户名验证 
+		 $("#memberName_form-group").blur(function(){ 
+			 $("#name1").remove(); 
+			 var str=$(this).val(); 
+		     if(str==""){
+		     	 $(this).after("<label id='name1' style='color: red'>*用户名不能为空</label>");
+				  return;
+		     } 
+		 });  
+		 
+		 $("#comfirPassword_form-group").focus(function(){ 
+			 $("#password2").remove(); 
+			 $("#password2s").remove(); 
+		 });
+		 //确认密码验证 
+		 $("#comfirPassword_form-group").blur(function(){ 
+			 $("#password2").remove(); 
+			 $("#password2s").remove(); 
+			 var password2=$(this).val(); 
+			 var password1=$("#memberPassword_form-group").val(); 
+		     if(password1==""){
+		    	 $("#password2").remove(); 
+				 $("#password2s").remove(); 
+		       return;
+		     }else if(password1.length<6){ 
+		    	 $("#password2").remove(); 
+				 $("#password2s").remove(); 
+				 return;
+		     }else if(password2==""){ 
+		    	 $(this).after("<label id='password2s' style='color: red'>*确认密码不能为空</label>");
+		         return; 
+			 }else if(password1!=password2){ 
+		     	 $(this).after("<label id='password2' style='color: red'>*两次密码输入不一致</label>"); 
+		      }
+		     
+		 });  
+		 $("#memberPassword_form-group").focus(function(){
+			 $("#password1").remove(); 
+		 });
+		 //密码验证 
+		 $("#memberPassword_form-group").blur(function(){ 
+			 $("#password1").remove(); 
+			 var str=$(this).val(); 
+		     if(str==""){
+		     	 $(this).after("<label id='password1' style='color: red'>*密码不能为空</label>");
+				  return;
+		     } 
+		     if(str.length<6){
+		     	 $(this).after("<label id='password1' style='color: red'>*密码长度不能小于6</label>");
+			  }
+		     
+		 });  
+		 
 			var errorCaptcha = '${errorCaptcha}';
 			var usernameRepeat = '${usernameRepeat}';
 			var emailRepeat = '${emailRepeat}';
