@@ -81,10 +81,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      <div class="foot_kefu_left_two">
                           <ul class="foot_kefu_left_two_ul">
                             <li class="ul_kefu_first">客服服务 : </li>
-                            <li><a href="http://www.glaciersoft.cn/index.html" ><img src="<%=basePath %>resources/images/foot/weibohui.png" id="img_one"></a></li>
-                            <li class="li_test"><img src="<%=basePath %>resources/images/foot/weixinghui.png" id="img_two"></li>
-                            <li><a href="http://www.glaciersoft.cn/index.html" ><img src="<%=basePath %>resources/images/foot/fenxianghui.png" id="img_three"></a></li>
-                            <li><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1060344404&site=qq&menu=yes"><img src="<%=basePath %>resources/images/foot/qiehui.png" id="img_four"></a></li>
+                            <li><a href="http://www.glaciersoft.cn/index.html" ><img src="<%=basePath %>resources/images/foot/weibohui.png" style="width: 45px;height: 35px;"  id="img_one"></a></li>
+                            <li class="li_test"><img src="<%=basePath %>resources/images/foot/weixinghui.png" id="img_two"  style="width: 45px;height: 35px;"></li>
+                            <li><a href="http://www.glaciersoft.cn/index.html" ><img src="<%=basePath %>resources/images/foot/fenxianghui.png" id="img_three"  style="width: 45px;height: 35px;"></a></li>
+                            <li><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1060344404&site=qq&menu=yes"><img src="<%=basePath %>resources/images/foot/qiehui.png" id="img_four"  style="width: 45px;height: 35px;"></a></li>
                         </ul>
                      </div>
                 </div>
@@ -106,12 +106,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              <div class="foot_other_two">珠海冰川-创建于贰零壹肆年 @2014 珠海冰川股份有限公司 版权所有 </div>
              <div class="foot_other_three">
                 <ul class="foot_other_three_ul">
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_one.png" id="img_ones"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_two.png" id="img_twos"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_three.png" id="img_threes"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_four.png" id="img_fours"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_five.png" id="img_fives"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_six.png" id="img_sixs"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_one.png" id="img_ones" style="width:90px;height: 35px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_two.png" id="img_twos" style="width:90px;height: 35px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_three.png" id="img_threes" style="width:90px;height: 35px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_four.png" id="img_fours" style="width:90px;height: 35px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_five.png" id="img_fives" style="width:90px;height: 35px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_six.png" id="img_sixs" style="width:90px;height: 35px;"></a></li>
                 </ul>
              </div>
          </div>
