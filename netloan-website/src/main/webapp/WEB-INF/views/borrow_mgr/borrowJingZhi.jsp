@@ -37,7 +37,6 @@
 					             <p >20-55周岁的中国公民<br />
 								            发净值标的账户待收金额必须大于20万元
 								 </p>
-					            <%-- <div class="jk_mid_con_but"><a href="${ctx}/borrowingLoan/enteringJingZhi.htm" class="sq_but">立即申请</a></div> --%>
 					            <div class="jk_mid_con_but">
 							        <form id="judgeBorrowzhi" name="judgeBorrowzhi" class="form-horizontal" role="form" method="post" >
 							        	<input id="memberId" name="memberId" type="hidden" value="${currentMember.memberId}" >
@@ -65,12 +64,11 @@
               						按借款期限收取成交管理费，每月0.1%（暂定，后期如有调整以最新调整费用为准）</p>
 					          </div>
 					        </div>
-					        
-					        <%-- <div class="jk_mid_bot_but"><a href="${ctx}/borrowingLoan/enteringJingZhi.htm" class="sq_but">立即申请</a></div> --%>
 					        <div class="jk_mid_bot_but">
 						        <form id="judgeBorrowzhi2" name="judgeBorrowzhi2" class="form-horizontal" role="form" method="post" >
 						        	<input id="memberId" name="memberId" type="hidden" value="${currentMember.memberId}" >
-						        	<button type="submit" class="btn sq_but" >立即申请</button>
+						        	<button type="submit" class="btn sq_but" style="float: left;margin-left: 400px;" >立即申请</button>
+						        	<a href="${ctx}/borrow.htm" class="btn sq_but" style="line-height: 30px;float: left;margin-left: 30px;">返回</a>
 						        </form>
 					        </div>
 						</div>

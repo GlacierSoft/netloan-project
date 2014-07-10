@@ -83,7 +83,8 @@
 					        <div class="jk_mid_bot_but">
 						        <form id="judgeBorrowxin2" name="judgeBorrowxin2" class="form-horizontal" role="form" method="post" >
 						        	<input id="memberId" name="memberId" type="hidden" value="${currentMember.memberId}" >
-						        	<button type="submit" class="btn sq_but" >立即申请</button>
+						        	<button type="submit" class="btn sq_but" style="float: left;margin-left: 400px;" >立即申请</button>
+						        	<a href="${ctx}/borrow.htm" class="btn sq_but" style="line-height: 30px;float: left;margin-left: 30px;">返回</a>
 						        </form>
 					        </div>
 						</div>
