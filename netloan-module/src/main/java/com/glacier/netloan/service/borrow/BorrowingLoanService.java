@@ -158,13 +158,13 @@ public class BorrowingLoanService {
      * @throws 
      *
      */
-    public Object listAsGridWebsite(JqPager jqPager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String pagetype,int p) {
+    public Object listAsGridWebsite(JqPager jqPager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String pagetype,int p, String memberId) {
         
         JqGridReturn returnResult = new JqGridReturn();
         BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
         
         Criteria queryCriteria = borrowingLoanExample.createCriteria();
-        borrowingLoanQueryDTO.setQueryConditionWebsite(queryCriteria);
+        borrowingLoanQueryDTO.setQueryConditionWebsite(queryCriteria, memberId);
         
         //根据前台传来的pagetype参数类型，相对应的进行排序
         if(null == pagetype || "".equals(pagetype.trim())){

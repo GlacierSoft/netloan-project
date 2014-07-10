@@ -88,9 +88,9 @@ public class TenderNotesController {
 	private ReceivablesNotesService receivablesNotesService;// 注入收款记录业务Bean
 	
 	@RequestMapping(value="/index.htm")
-	private Object intoInvestment(JqPager jqPager,int p,BorrowingLoanQueryDTO borrowingLoanQueryDTO,String pagetype,HttpServletRequest request){
+	private Object intoInvestment(JqPager jqPager,int p,BorrowingLoanQueryDTO borrowingLoanQueryDTO,String pagetype,HttpServletRequest request,String memberId){
 		//获取信息通知列表
-		JqGridReturn returnResult = (JqGridReturn) borrowingLoanService.listAsGridWebsite(jqPager, borrowingLoanQueryDTO, pagetype, p);
+		JqGridReturn returnResult = (JqGridReturn) borrowingLoanService.listAsGridWebsite(jqPager, borrowingLoanQueryDTO, pagetype, p,memberId);
 		JqPager jqPagerLoanTender = new JqPager();
 		JqPager jqPagerRepaymentType = new JqPager();
 		JqGridReturn returnLoanTender = (JqGridReturn)loanTenderService.listAsGrid(jqPagerLoanTender);
