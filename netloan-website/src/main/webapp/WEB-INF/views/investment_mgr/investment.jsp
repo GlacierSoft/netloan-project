@@ -63,35 +63,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  <div class="form-group">
 			    <label for="cardId" class="col-sm-1 control-label" >金额范围</label>
 			    <div class="col-sm-2">
-			      <select class="form-control col-sm-2" name="loanTotalStart" id="loanTotalStart">
+			      <select class="form-control col-sm-2"  name="loanTotalStart" id="loanTotalStart" onchange="loanTotalStartChecks(this.value);">
 					  <option value="0">--请选择--</option>
-					    <option value="50.0">50</option>
-					    <option value="1000.0">1000</option>
-					    <option value="5000.0">5000</option>
-					    <option value="10000.0">1万</option>
-					    <option value="50000.0">5万</option>
-					    <option value="100000.0">10万</option>
-					    <option value="200000.0">20万</option>
-					    <option value="500000.0">50万</option>
-					    <option value="1000000.0">100万</option>
-					    <option value="1000001.0">100万以上</option>
-					</select>
+				      <option value="50.0">50</option>
+				      <option value="1000.0">1000</option>
+				      <option value="5000.0">5000</option>
+				      <option value="10000.0">1万</option>
+				      <option value="50000.0">5万</option>
+				      <option value="100000.0">10万</option>
+				      <option value="200000.0">20万</option>
+				      <option value="500000.0">50万</option>
+				      <option value="1000000.0">100万</option>
+				      <option value="1000001.0">100万以上</option>
+				  </select>
 			    </div>
-			    <span style="float: left;">至</span>
+			    <span style="float: left;margin-top: 8px;">至</span>
 			    <div class="col-sm-2">
-			     <select class="form-control col-sm-2" name="loanTotalEnd" id="loanTotalEnd" >
-					    <option value="0">--请选择--</option>
-					    <option value="50.0">50</option>
-					    <option value="1000.0">1000</option>
-					    <option value="5000.0">5000</option>
-					    <option value="10000.0">1万</option>
-					    <option value="50000.0">5万</option>
-					    <option value="100000.0">10万</option>
-					    <option value="200000.0">20万</option>
-					    <option value="500000.0">50万</option>
-					    <option value="1000000.0">100万</option>
-					    <option value="1000001.0">100万以上</option>
-					</select>
+			     <select class="form-control col-sm-2" name="loanTotalEnd" id="loanTotalEnd" onchange="loanTotalEndChecks(this.value);" >
+				    <option value="0">--请选择--</option>
+				    <option value="50.0">50</option>
+				    <option value="1000.0">1000</option>
+				    <option value="5000.0">5000</option>
+				    <option value="10000.0">1万</option>
+				    <option value="50000.0">5万</option>
+				    <option value="100000.0">10万</option>
+				    <option value="200000.0">20万</option>
+				    <option value="500000.0">50万</option>
+				    <option value="1000000.0">100万</option>
+				    <option value="1000001.0">100万以上</option>
+				 </select>
 			    </div>
 			    <label for="waitBidDeadlines" class="col-sm-1 control-label" >期限</label>
 			    <div class="col-sm-2">
@@ -172,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<a href="${ctx}/investment/index.htm?&p=1" class="btn btn-primary" role="button">全部借款</a></li>
 					<a href="${ctx}/investment/index.htm?&p=1&loanState=tendering" class="btn btn-primary" role="button">招标中的借款</a>
 				    <a href="${ctx}/investment/index.htm?&p=1&loanState=secondAuditor" class="btn btn-primary" role="button">满标的借款</a>
-				    <a href="${ctx}/investment/index.htm?&p=1&loanState=repaymenting" class="btn btn-primary" role="button">的借款</a>
+				    <a href="${ctx}/investment/index.htm?&p=1&loanState=repaymenting" class="btn btn-primary" role="button">还款中的借款</a>
 				    <a href="${ctx}/investment/index.htm?&p=1&loanState=completed" class="btn btn-primary" role="button">已完成的借款</a>
 				    <%-- <a href="${ctx}/investment/index.htm?&p=1&loanState=completed" class="btn btn-primary" role="button">逾期的黑名单</a> --%>
 				    <div style="float: right;">
@@ -437,8 +437,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <jsp:include page="../foot.jsp"/>
   </body>
   <script type="text/javascript">
+	
+  	function loanTotalStartChecks(v){
+		var loanTotalEnd = document.getElementById("loanTotalEnd");//取出结束框
+		var loanTotalEndIndex = loanTotalEnd.selectedIndex;//结束框选中项的下标
+		var loanTotalEndValues = parseFloat(loanTotalEnd.options[loanTotalEndIndex].value);//取出结束框选中的值
+		
+		if( v > loanTotalEndValues ){
+			alert("必须要选择比"+loanTotalEndValues+"元低来做查询!");
+			$("#loanTotalStart").val(0);
+		}
+	}
+  
+  
+  	function loanTotalEndChecks(v){
+		var loanTotalStart = document.getElementById("loanTotalStart");//取出开始框
+		var loanTotalStartIndex = loanTotalStart.selectedIndex;//开始框选中项的下标
+		var loanTotalStartValues = parseFloat(loanTotalStart.options[loanTotalStartIndex].value);//取出开始框选中的值
+		
+		if(loanTotalStartValues > v){
+			alert("必须要选择比"+loanTotalStartValues+"元高来做查询!");
+			$("#loanTotalEnd").val(0);
+		}
+  	}
  
-   //构建表单
+   	//构建表单
 	function doClick(str,str_two,numb){
 		// 创建Form  
 	    var form = $('<form></form>');  
@@ -463,7 +486,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 }
   
   
-  //投资计算器
+	  //投资计算器
 	  $("#InvestmentCalculationsForm").validate({
 			rules:{
 				investmentMoney:{
@@ -539,7 +562,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	if("${borrowingLoanQueryDTO.reward }" != 0){
 			$("#reward").val("${borrowingLoanQueryDTO.reward }");	
 		}
-	  <!-- 分页显示表格数据 开始 -->
+	  	<!-- 分页显示表格数据 开始 -->
 		$(function(){
 			//获得浏览器参数
 			$.extend({
@@ -559,22 +582,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			});
 		
-		//封装浏览器参数
-		var composeUrlParams=function(){
-			var param='';
-			$.each($.getUrlVars(), function(i, item) {
-				if(item!='p'){
-					var val=$.getUrlVar(item);
-					if(val) param += "&" + item+"="+val;
-				}
-			});
-			//获取p参数，也就是第几页,不是分页功能的代码，
-			$.each($.getUrlVars(), function(i, item) {
-				if(item=='p'){
-					valp=$.getUrlVar(item);
-					return false;
-				}
-			});
+		 //封装浏览器参数
+		 var composeUrlParams=function(){
+		 var param='';
+		 $.each($.getUrlVars(), function(i, item) {
+			if(item!='p'){
+				var val=$.getUrlVar(item);
+				if(val) param += "&" + item+"="+val;
+			}
+		 });
+		 //获取p参数，也就是第几页,不是分页功能的代码，
+		 $.each($.getUrlVars(), function(i, item) {
+			 if(item=='p'){
+				valp=$.getUrlVar(item);
+				return false;
+			 }
+	 	 });
 			//到这里结束，这部分不是分页代码
 			return param;
 		}
@@ -599,7 +622,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		elementpageborrowingLoan.bootstrapPaginator(messageNoticeOptions);
 		})
-	<!-- 分页显示表格数据 结束 -->
+		<!-- 分页显示表格数据 结束 -->
 		
 		//编写FormatNumber方法，通过jquery格式化数据格式
 		function FormatNumber(srcStr,nAfterDot){
