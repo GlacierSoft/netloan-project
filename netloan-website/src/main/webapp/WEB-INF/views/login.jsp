@@ -60,21 +60,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  <div class="form-group">
 			    <label for="password" class="col-sm-2 control-label">密码</label>
 			    <div class="col-sm-6">
-			      <input type="password" class="form-control" id="password" name="password" placeholder="密码" value="${member.memberPassword}" required />
+			      <input type="password" class="form-control" id="password" name="password" placeholder="密码" value="${member.memberPassword}" required /> 
 			    </div>
+			      <label for="password" style="margin-top: 10px"><a href="#">忘记密码?</a></label>
+			   
 			  </div>
-<%-- 			 <li>验证码：<input type="text" name="validateCode" />
-				 &nbsp;&nbsp;<img id="validateCodeImg" src="<%=basePath%>/validateCode.htm" />
-				 &nbsp;&nbsp;<a href="#" onclick="javascript:reloadValidateCode();">看不清？</a>
-				 </li> --%>
+
 				<div class="form-group">
 					<label id="login_kaptcha_span" class="col-sm-2 control-label ">验证码</label>
 					<div class="col-sm-2">
 						<input type="text" id="captcha" name="captcha" maxlength="4" class="form-control" placeholder="验证码" required />
 					</div>
-					<div class="col-sm-2">
-						<img style="width:120px;height:32px;" class="img-responsive" id="login_kaptcha" src="${pageContext.request.contextPath}/resources/images/kaptcha.jpg" />
-					</div>
+					 <div class="col-sm-2" style="width: 500px" >
+					<img style="width:120px;height:32px;float: left;" class="img-responsive" id="login_kaptcha" src="${ctx}/resources/images/kaptcha.jpg" />
+					<div style="margin-top:10px;"><a id="login_kaptchas" href="#">&nbsp;换一张</a></div>
+				 </div> 
 				</div>
 			  <div class="form-group">
 			    <label for="inputPassword" class="col-sm-5 control-label">还没加入冰川网贷？<a href="${ctx}/intoregister.htm" class="navbar-link">立即注册</a></label>
@@ -99,6 +99,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$('#captcha').val('');
 		        	$(this).hide().attr('src','${pageContext.request.contextPath}/resources/images/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();     
 			    });
+				
+				//超链接换图片
+				$('#login_kaptchas').click(function() {   
+					$('#captcha').val('');
+		        	$("#login_kaptcha").hide().attr('src','${pageContext.request.contextPath}/resources/images/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();     
+			    });
+				
 				
 				var registerName = '${registerName}';
 				if(registerName != ''){
@@ -145,6 +152,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				};
 				
 				//$("#loginForm").submit();//自动登录，方便测试，后期删除
+				 //输入框得到焦点,用户名验证
+				 $("#username").focus(function(){
+					 $("#nameinfo").remove(); 
+				 });
+				//用户名去焦点前台验证
+				  $("#username").blur(function(){ 
+					  if($(this).val()==""){
+					     	  $(this).after("<label id='nameinfo' style='color: red'>*用户名/邮箱/手机    不能为空</label>");
+							  return;
+					     }
+				  });
+				
+		         $("#password").focus(function(){
+				    $("#password1").remove(); 
+			     });
+			     //密码验证 
+			     $("#password").blur(function(){  
+				     if($(this).val()==""){
+			         	 $(this).after("<label id='password1' style='color: red'>*密码不能为空</label>");
+					  return;
+			          } 
+			     });
+				 //验证码验证 
+				 $("#captcha").focus(function(){
+					 $("#captchaInfo").remove(); 
+				 });
+				 //验证码验证 
+				 $("#captcha").blur(function(){ 
+					 $("#captchaInfo").remove(); 
+					 var str=$(this).val(); 
+				     if(str==""){
+				     	 $(this).after("<label id='captchaInfo' style='color: red'>*请输入验证码</label>");
+						  return;
+				     } else if(str.length<4){
+				    	 $(this).after("<label id='captchaInfo' style='color: red'>*验证码长度小于4</label>");
+				    }
+				 });  
 			});
 		</script>
 		<%

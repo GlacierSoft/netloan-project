@@ -248,7 +248,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 $("#captcha").focus(function(){
 			 $("#captchaInfo").remove(); 
 		 });
-		 //用户名验证 
+		 //验证码验证 
 		 $("#captcha").blur(function(){ 
 			 $("#captchaInfo").remove(); 
 			 var str=$(this).val(); 

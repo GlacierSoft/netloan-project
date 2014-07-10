@@ -22,9 +22,11 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.borrow.RepaymentTypeMapper;
+import com.glacier.netloan.dao.borrow.TenderRepaymentMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.entity.borrow.RepaymentType;
 import com.glacier.netloan.entity.borrow.RepaymentTypeExample;
+import com.glacier.netloan.entity.borrow.TenderRepaymentExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -41,7 +43,10 @@ public class RepaymentTypeService {
 
 	@Autowired
     private RepaymentTypeMapper repaymentTypeMapper;
-
+    
+	@Autowired
+	private TenderRepaymentMapper tenderRepaymentMapper;
+	
 	@Autowired
     private UserMapper userMapper;
 	
@@ -145,6 +150,16 @@ public class RepaymentTypeService {
         if (count > 0) {
             returnResult.setMsg("还款方式名称重复");
             return returnResult;
+        }
+        if (repaymentType.getState().equals("close")) {
+        	//查找相关的标种类型，看还款方式是否已经和标种类型相关联，如果已经关联就不能修改该还款方式状态
+        	TenderRepaymentExample  tenderRepaymentExample=new TenderRepaymentExample();
+        	tenderRepaymentExample.createCriteria().andRepaymentTypeIdEqualTo(repaymentType.getRepaymentTypeId());
+        	count = tenderRepaymentMapper.countByExample(tenderRepaymentExample);
+        	if (count > 0) {
+                returnResult.setMsg("已存在关联数据，状态不能更改");
+                return returnResult;
+            }
         }
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
