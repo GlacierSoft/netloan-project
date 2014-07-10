@@ -243,6 +243,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  }
 		     
 		 });  
+		 //验证码验证
+		 
+		 $("#captcha").focus(function(){
+			 $("#captchaInfo").remove(); 
+		 });
+		 //用户名验证 
+		 $("#captcha").blur(function(){ 
+			 $("#captchaInfo").remove(); 
+			 var str=$(this).val(); 
+		     if(str==""){
+		     	 $(this).after("<label id='captchaInfo' style='color: red'>*请输入验证码</label>");
+				  return;
+		     } else if(str.length<4){
+		    	 $(this).after("<label id='captchaInfo' style='color: red'>*验证码长度小于4</label>");
+		    }
+		 });  
 		 
 			var errorCaptcha = '${errorCaptcha}';
 			var usernameRepeat = '${usernameRepeat}';
