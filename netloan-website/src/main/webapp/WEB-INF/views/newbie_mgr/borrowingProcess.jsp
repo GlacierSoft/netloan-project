@@ -44,7 +44,7 @@
 	    	<div class="col-md-10">
 	    		<div class="panel panel-default">
 				  <div class="panel-heading">
-				    <h3 class="panel-title">信用引导/ 借款流程</h3>
+				    <h3 class="panel-title">新手引导/ 借款流程</h3>
 				  </div>
 				  <div class="panel-body">
 			          

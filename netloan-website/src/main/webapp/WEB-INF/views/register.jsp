@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 
   <body>
-  <jsp:include page="nav.jsp"/>
+  <jsp:include page="nav_mgr/navRegister.jsp"/>
 
    <div id="danger_alert" style="width:100%;position: absolute;top:0px;z-index:5000;display: none;">
       <div class="alert alert-danger fade in">

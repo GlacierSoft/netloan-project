@@ -190,7 +190,7 @@ public class BorrowingLoanQueryDTO extends BorrowingLoan{
      * @throws 
      * 备注<p>已检查测试:Green<p>
      */
-	public void setQueryConditionWebsite(Criteria queryCriteria){
+	public void setQueryConditionWebsite(Criteria queryCriteria, String memberId){
 
     	if(null != this.getLoanCode() && StringUtils.isNotBlank(this.getLoanCode())){//根据借款编号查询
 	        queryCriteria.andLoanCodeLike("%" + this.getLoanCode() + "%");
@@ -203,6 +203,9 @@ public class BorrowingLoanQueryDTO extends BorrowingLoan{
 	    }
     	if(null != this.getLoanPurposeId() && StringUtils.isNotBlank(this.getLoanPurposeId())){//根据借款目的
 	        queryCriteria.andLoanPurposeIdLike("%" + this.getLoanPurposeId() + "%");
+	    }
+    	if(null != memberId && StringUtils.isNotBlank(memberId)){//查询该会员的还款记录
+	        queryCriteria.andMemberIdEqualTo(memberId);
 	    }
 	   	if(null != this.getLoanState()){//根据借款状态查询
 	        queryCriteria.andLoanStateEqualTo(this.getLoanState().toString());

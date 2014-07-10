@@ -53,7 +53,6 @@ import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberIntegral;
 import com.glacier.netloan.entity.member.MemberMessageNotice;
-import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
@@ -159,13 +158,13 @@ public class BorrowingLoanService {
      * @throws 
      *
      */
-    public Object listAsGridWebsite(JqPager jqPager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String pagetype,int p) {
+    public Object listAsGridWebsite(JqPager jqPager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String pagetype,int p, String memberId) {
         
         JqGridReturn returnResult = new JqGridReturn();
         BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
         
         Criteria queryCriteria = borrowingLoanExample.createCriteria();
-        borrowingLoanQueryDTO.setQueryConditionWebsite(queryCriteria);
+        borrowingLoanQueryDTO.setQueryConditionWebsite(queryCriteria, memberId);
         
         //根据前台传来的pagetype参数类型，相对应的进行排序
         if(null == pagetype || "".equals(pagetype.trim())){
@@ -229,8 +228,7 @@ public class BorrowingLoanService {
     public Object listAsGrid(JqPager jqPager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String loanState) {
         
         JqGridReturn returnResult = new JqGridReturn();
-        BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
-        
+        BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample(); 
         Criteria queryCriteria = borrowingLoanExample.createCriteria();
         borrowingLoanQueryDTO.setQueryCondition(queryCriteria);
         
@@ -252,6 +250,28 @@ public class BorrowingLoanService {
         return returnResult;// 返回ExtGrid表
     }
 
+    /**
+     * @Title: judgeBorrowingLoan 
+     * @Description: TODO(判断该登录会员是否已经存在初审状态中的借款) 
+     * @param  @param memberId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    @Transactional(readOnly = false)
+    public Object judgeBorrowingLoan(String memberId) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
+        borrowingLoanExample.createCriteria().andMemberIdEqualTo(memberId).andLoanStateEqualTo("firstAudit");
+        int total = borrowingLoanMapper.countByExample(borrowingLoanExample); // 查询该会员借款列表下为初审状态的借款条数
+        if (total > 0) {//如果存在，则返回错误提示信息
+            returnResult.setMsg("您还有未审核通过的借款，暂时还不能再次发布！");
+            return returnResult;
+        }
+        returnResult.setSuccess(true);
+        return returnResult;
+    }
+    
     /**
      * @Title: addBorrowingLoan 
      * @Description: TODO(新增借款) 
@@ -330,7 +350,7 @@ public class BorrowingLoanService {
         List<User> usersList = userMapper.selectByExample(userExample);
         User users=usersList.get(0);
         
-        borrowingLoan.setCreater(users.getUserId());
+        borrowingLoan.setCreater(borrowingLoan.getMemberId());
         borrowingLoan.setCreateTime(new Date());
         borrowingLoan.setLoanDate(new Date());
         borrowingLoan.setUpdater(users.getUserId());
@@ -433,8 +453,16 @@ public class BorrowingLoanService {
         int count = 0;
         //借款初次审核站内信通知
         MemberMessageNotice  memberMessageNotice = new MemberMessageNotice();
-        memberMessageNotice.setTitle("借款标题为："+borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId()).getLoanTitle()+",初次审核通知");
-        memberMessageNotice.setContent(borrowingLoan.getSecondMesNotice());
+        memberMessageNotice.setTitle(borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId()).getLoanTitle()+",初次审核通知");
+        if(borrowingLoan.getSecondMesNotice()!=null){ 
+            memberMessageNotice.setContent(borrowingLoan.getSecondMesNotice());
+        }else{ 
+        	if(borrowingLoan.getFirstAuditState().equals("firstSucess")){ 
+                memberMessageNotice.setContent("借款初审审核通过");
+        	}else{
+        		memberMessageNotice.setContent("借款初审审核不通过，请重新申请");
+        	}
+        }
         memberMessageNotice.setAddressee(borrowingLoan.getMemberId());
         memberMessageNoticeService.addMemberMessageNotice(memberMessageNotice);
         
@@ -489,9 +517,17 @@ public class BorrowingLoanService {
         BorrowingLoan borrowingLoan = this.borrowingLoanMapper.selectByPrimaryKey(borrowingLoanNew.getLoanId());
         int count = 0;
         //满标审核站内信通知
-        MemberMessageNotice  memberMessageNotice = new MemberMessageNotice();
-        memberMessageNotice.setTitle("借款标题为："+borrowingLoan.getLoanTitle()+",满标审核通知");
-        memberMessageNotice.setContent(borrowingLoanNew.getSecondMesNotice());
+        MemberMessageNotice  memberMessageNotice = new MemberMessageNotice(); 
+        memberMessageNotice.setTitle(borrowingLoan.getLoanTitle()+",满标审核通知");
+             if(borrowingLoan.getSecondMesNotice()!=null){ 
+                 memberMessageNotice.setContent(borrowingLoan.getSecondMesNotice());
+             }else{ 
+             	if(borrowingLoan.getFirstAuditState().equals("firstSucess")){ 
+                     memberMessageNotice.setContent("借款审审核通过");
+             	}else{
+             		memberMessageNotice.setContent("借款初审审核不通过，请重新申请");
+             	}
+             } 
         memberMessageNotice.setAddressee(borrowingLoanNew.getMemberId());
         memberMessageNoticeService.addMemberMessageNotice(memberMessageNotice);
         
@@ -525,8 +561,8 @@ public class BorrowingLoanService {
           	JqReturnJson returnResultRepaymentNotes = (JqReturnJson) repaymentNotesService.addRepaymentNotes(repaymentNotes);
           	RepaymentNotes repaymentNotesNew = (RepaymentNotes) returnResultRepaymentNotes.getObj();
           	//添加还款记录明细信息
-          	RepaymentNotesDetail repaymentNotesDetail = new RepaymentNotesDetail();
-          	repaymentNotesDetail.setRepayNotesId(repaymentNotesNew.getRepayNotesId());
+          	RepaymentNotesDetail repaymentNotesDetail = new RepaymentNotesDetail();  
+          	repaymentNotesDetail.setRepayNotesId(borrowingLoan.getLoanId());
           	repaymentNotesDetailService.addRepaymentNotesDetail(repaymentNotesDetail,repaymentNotesNew);
           	//添加收款记录信息
           	ReceivablesNotes receivablesNotes = new ReceivablesNotes();

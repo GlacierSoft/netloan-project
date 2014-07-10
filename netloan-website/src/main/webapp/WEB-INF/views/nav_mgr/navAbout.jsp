@@ -50,8 +50,20 @@
 		         		<span>您好！| <a href="${ctx}/login.htm" class="navbar-link">登录</a> |</span>
 		         		<span><a href="${ctx}/intoregister.htm" class="navbar-link">注册</a></span>
 				   </c:when>
-			   		<c:otherwise> 
-				   		<span>您好！${currentMember.memberName}<a  href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1" class="navbar-link"><span id="nav_messageNoticCount" class="badge">${messageNoticCount}</span></a> |</span>
+			   	<c:otherwise> 
+				   		<span>您好！${currentMember.memberName}
+				   		  <c:choose>
+				   		      <c:when test="${empty currentMember.memberRealName}">
+				   		     	 <a  href="${ctx}/member/memberDetail.htm?&p=1" class="navbar-link">
+				   		         <span id="nav_messageNoticCount" class="badge">${messageNoticCount}</span>
+				   		         </a>  
+				   		      </c:when>
+				   		      <c:otherwise>
+				   		      	 <a  href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1" class="navbar-link">
+				   		              <span id="nav_messageNoticCount" class="badge">${messageNoticCount}</span>
+				   		        </a> 
+				   		      </c:otherwise>
+				   		 </c:choose>|</span>
 				   		<span><a href="${ctx}/member/index.htm" class="navbar-link">个人中心</a> |</span>
 				   		<span><a href="${ctx}/logout.htm" class="navbar-link">退出</a></span>
 				   </c:otherwise>

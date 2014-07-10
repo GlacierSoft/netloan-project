@@ -13,7 +13,7 @@
 			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
 				<input class="spinner" style="width:168px"  value="${receivablesNotesDetailData.numberPeriod}" readonly="readonly"/></td>
 			<td>还款人：</td>
-			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesDetailData.memberDisplay}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesDetailData.loanMemberDisplay}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>应还日期：</td>

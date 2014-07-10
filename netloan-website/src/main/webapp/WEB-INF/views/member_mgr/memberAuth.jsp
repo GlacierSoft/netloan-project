@@ -61,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
 							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit" class="btn btn-default" role="button">已发布的借款</a>
-							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting" class="btn btn-default" role="button">还款管理</a>
+							  <a  href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting','${currentMember.memberId}');" class="btn btn-default" role="button">还款管理</a>
 							  <a href="#" onclick="doClick('borrowingLoan/memberStatistics.htm','${currentMember.memberId}');" class="btn btn-default" role="button">贷款统计</a>
 							</div>
 					      </div>
@@ -457,12 +457,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				         <table id="memberIntegralTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
 				         	<tbody>
 				         	<tr>
-				              <td colspan="3"><strong>${totalIntegral}分</strong></td>
+				              <td colspan="4"><strong>${totalIntegral}分</strong></td>
 				            </tr>
 				            <tr>
 				              <td><strong>积分类型</strong></td>
 				              <td><strong>积分</strong></td>
 				              <td><strong>备注</strong></td>
+				              <td><strong>时间</strong></td>
 				            </tr>
 								  		
 				            <c:forEach items="${memberIntegralDatas.rows}" var="memberIntegral" varStatus="status">
@@ -475,13 +476,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                <c:if test="${memberIntegral.type eq 'recharge' }">充值</c:if>
 					                <c:if test="${memberIntegral.type eq 'withdraw' }">提现</c:if>
 					                <c:if test="${memberIntegral.type eq 'invest' }">投资</c:if>
-					             
+		    			             <c:if test="${memberIntegral.type eq 'borrow' }">借款</c:if>
 					           <%--     <c:out value="${memberIntegral.type}" />   <c:if test="${memberIntegral.type eq 'te'}">正确
 					              
 					              <c:if>--%>
 					              </td>
 					              <td>${memberIntegral.changeValue}</td>
 					              <td>${memberIntegral.remark}</td>
+					              <td><fmt:formatDate value="${memberIntegral.createTime}" type="both"/></td>
+					              
 					            </tr>
 					      	</c:forEach>
 				            </tbody>
@@ -687,6 +690,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    //表单的构建是否 完成
 	    form.appendTo(document.body).submit();
 	 }
+	  
+	  
+	function doClicks(url,str){
+		// 创建Form  
+		var form = $('<form></form>');  
+		// 设置属性  
+	    form.attr('action', '<%=basePath%>'+url);  
+	    form.attr('method', 'post');  
+	    // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
+	    form.attr('target', '_self');  
+	    // 创建Input  
+	    var my_input = $('<input type="text" name="memberId" />');  
+	    my_input.attr('value', str);  
+	    // 附加到Form  
+	    form.append(my_input);  
+	    //表单的构建是否 完成
+	    form.appendTo(document.body).submit();
+	 }
+	  
+	  
 	
 	//为对应的会员type显示对应的文字
 	$('#memberType').html(renderGridValue('${currentMember.type}',fields.type));

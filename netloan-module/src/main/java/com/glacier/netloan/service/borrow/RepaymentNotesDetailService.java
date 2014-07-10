@@ -129,9 +129,9 @@ public class RepaymentNotesDetailService {
         
         JqGridReturn returnResult = new JqGridReturn();
         RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();
-        if(null != memberId && StringUtils.isNotBlank(memberId)){
+       /* if(null != memberId && StringUtils.isNotBlank(memberId)){
             repaymentNotesDetailExample.createCriteria().andMemberIdEqualTo(memberId);//查询相对应的还款人的还款记录明细
-        }
+        }*/
         if(null != loanId && StringUtils.isNotBlank(loanId)){
             RepaymentNotes repaymentNotes = repaymentNotesMapper.selectByPrimaryLoanId(loanId);//根据借款Id查找出对应的还款信息记录
             if(null != repaymentNotes.getRepayNotesId() && StringUtils.isNotBlank(repaymentNotes.getRepayNotesId())){
@@ -235,7 +235,7 @@ public class RepaymentNotesDetailService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "RepaymentNotesDetailList_add")
-    public Object addRepaymentNotesDetail(RepaymentNotesDetail repaymentNotesDetail,RepaymentNotes repaymentNotesNew) {
+    public Object addRepaymentNotesDetail(RepaymentNotesDetail repaymentNotesDetails,RepaymentNotes repaymentNotesNew) {
     	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -245,6 +245,7 @@ public class RepaymentNotesDetailService {
         BorrowingLoan borrowingLoanNew = (BorrowingLoan) borrowingLoanMapper.selectByPrimaryKey(repaymentNotesNew.getLoanId());
         
         for(int i = 0;i < Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId());i++){
+        	RepaymentNotesDetail repaymentNotesDetail = new RepaymentNotesDetail();
         	repaymentNotesDetail.setNumberPeriod(i+1);//设置当前是第几期
         	Calendar c = Calendar.getInstance();//日历对象
  	        c.setTime(new Date());//获取当前时间
@@ -292,8 +293,10 @@ public class RepaymentNotesDetailService {
         			repaymentNotesDetail.setAlsoNeedMoney(shouldPayMoney);
     			}
     		}
+
     		repaymentNotesDetail.setRepayNotesDetailId(RandomGUID.getRandomGUID());
-    		repaymentNotesDetail.setMemberId(borrowingLoanNew.getMemberId());
+    	 	repaymentNotesDetail.setMemberId(borrowingLoanNew.getMemberId()); 
+        	repaymentNotesDetail.setRepayNotesId(repaymentNotesNew.getRepayNotesId());//设置交款标题
             repaymentNotesDetail.setActualPayMoney(shouldPayMoney);
             repaymentNotesDetail.setOverdueDays("0");
             repaymentNotesDetail.setOverdueInterest(0f);
@@ -449,8 +452,6 @@ public class RepaymentNotesDetailService {
             memberStatistics.setWaitAlsoPrincipal(memberStatistics.getWaitAlsoPrincipal()-repaymentNotesDetail.getCurrentPayPrincipal());//设置待还本金(现在的待还本金-现在归还本金)
             memberStatistics.setAlreadyInterest(memberStatistics.getAlreadyInterest()+repaymentNotesDetail.getCurrentPayInterest());//设置已还利息(现在的已还利息+现在归还利息)
             memberStatistics.setWaitAlsoInterest(memberStatistics.getWaitAlsoInterest()-repaymentNotesDetail.getCurrentPayInterest());//设置待还利息(现在的待还利息-现在归还利息)
-            memberStatistics.setWaitIncomeInterest(memberStatistics.getWaitIncomeInterest()+repaymentNotesDetail.getCurrentPayMoeny());//设置已还本息(现在的已还本息+现在归还本息)
-            memberStatistics.setAlreadyIncomeInterest(memberStatistics.getAlreadyIncomeInterest()-repaymentNotesDetail.getCurrentPayMoeny());//设置待还本息(现在的待还本息-现在归还本息)
             //执行更新操作--
             memberStatisticsMapper.updateByPrimaryKeySelective(memberStatistics);
             
@@ -557,11 +558,11 @@ public class RepaymentNotesDetailService {
                             	//更新投资会员统计信息
                             	MemberStatistics memberStatisticsTemp = memberStatisticsMapper.selectByMemberId(tenderNotes.getMemberId());
                             	memberStatisticsTemp.setAlreadyIncomeTotal(memberStatisticsTemp.getAlreadyIncomeTotal()+receivablesNotesDetail.getCurrentReceMoeny());//设置会员统计已收总额(原本的已收总额+还款人的还款总额)
-                            	memberStatisticsTemp.setWaitIncomeTotal(financeMembers.getCollectingMoney());//设置会员统计待收总额
+                            	memberStatisticsTemp.setWaitIncomeTotal(memberStatisticsTemp.getWaitIncomeTotal()-receivablesNotesDetail.getCurrentReceMoeny());//设置会员统计待收总额(原来的待收总额-还款的总额)
                             	memberStatisticsTemp.setAlreadyIncomePrincipal(memberStatisticsTemp.getAlreadyIncomePrincipal()+receivablesNotesDetail.getCurrentRecePrincipal());//设置已收本金(原本的已收本金+还款人的还款本金)
                             	memberStatisticsTemp.setWaitIncomePrincipal(memberStatisticsTemp.getWaitIncomePrincipal()-receivablesNotesDetail.getCurrentRecePrincipal());//设置待收本金(原本的待收本金-还款人的还款本金)
-                            	memberStatisticsTemp.setAlreadyIncomeInterest(memberStatisticsTemp.getAlreadyIncomeInterest()+receivablesNotesDetail.getCurrentReceMoeny());//设置已收本息(原本的已收本息-还款人的还款本息)
-                            	memberStatisticsTemp.setWaitIncomeInterest(memberStatisticsTemp.getWaitIncomeInterest()-receivablesNotesDetail.getCurrentReceMoeny());//设置待收本息(原本的待收本息-还款人的还款本息)
+                            	memberStatisticsTemp.setAlreadyIncomeInterest(memberStatisticsTemp.getAlreadyIncomeInterest()+receivablesNotesDetail.getCurrentReceInterest());//设置已收本息(原本的已收利息+还款人的还款利息)
+                            	memberStatisticsTemp.setWaitIncomeInterest(memberStatisticsTemp.getWaitIncomeInterest()-receivablesNotesDetail.getCurrentReceInterest());//设置待收本息(原本的待收利息-还款人的还款利息)
                             	//执行会员统计更新
                             	memberStatisticsMapper.updateByPrimaryKeySelective(memberStatisticsTemp);
                             	

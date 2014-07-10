@@ -61,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
 							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit" class="btn btn-default" role="button">已发布的借款</a>
-							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting" class="btn btn-default" role="button">还款管理</a>
+							  <a href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting','${currentMember.memberId}');" class="btn btn-default" role="button">还款管理</a>
 							  <a href="#" onclick="doClick('borrowingLoan/memberStatistics.htm','${currentMember.memberId}');" class="btn btn-default" role="button">贷款统计</a>
 							</div>
 					      </div>
@@ -102,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			              </div>
 			              </td>
 			              <td>用户名：</td>
-			              <td>${currentMember.memberRealName}</td>
+			              <td>${currentMember.memberName}</td>
 			              <td>信用积分</td>
 			              <td><img id="creditPhotoDivImg"  src="${requestScope.totalCreditPhoto}" style="width: 34px;height: 24px ;" /></td>
 			            </tr>
@@ -115,14 +115,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			            <tr>
 			              <td>会员积分：</td>
 			              <td>${currentMember.integral}</td>
-			              <td>最后登录ip:</td>
+			              <td>最后登录ip：</td>
 			              <td>${currentMember.lastLoginIpAddress}</td>
 			            </tr>
 			            <tr>
 			              <td>信用额度：</td>
 			              <td>￥${currentMember.creditamount}</td>
-			              <td></td>
-			              <td></td>
+			              <td>账户可用余额：</td>
+			              <td>￥${financeMemberData.usableMoney}</td>
 			            </tr>
 			             <tr>
 			              <td>个人统计:</td>
@@ -253,7 +253,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    form.append(my_input);  
 		    //表单的构建是否 完成
 		    form.appendTo(document.body).submit();
-		 }
+		 }; 
 	    </script>
 </body>
 </html>

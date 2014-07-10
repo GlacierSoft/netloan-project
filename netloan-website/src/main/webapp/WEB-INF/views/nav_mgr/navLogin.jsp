@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 获取项目根path -->
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
-
     	<!-- NAVBAR START============================= -->
 	    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	      <div class="container">
@@ -18,7 +17,7 @@
 	        </div>
 	        <div class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav">
-	            <li class="dropdown" ><a href="${ctx}/index.htm">主页</a></li>
+	            <li class="dropdown"><a href="${ctx}/index.htm">主页</a></li>
 	            <li class="dropdown">
 	              <a href="${ctx}/investment/index.htm?&p=1">我要投资</a>
 	             </li>
@@ -31,7 +30,7 @@
 	                <li><a href="${ctx}/riskGuarantee.htm">风险保障</a></li>
 	              </ul>
 	            </li>
-	            <li class="active"><a href="${ctx}/member/index.htm">个人中心</a></li>
+	            <li><a href="${ctx}/member/index.htm">个人中心</a></li>
 	            <li class="dropdown">
 	              <a href="${ctx}/aboutUs.htm" class="dropdown-toggle" data-toggle="dropdown">关于我们<b class="caret"></b></a>
 	              <ul class="dropdown-menu">
@@ -40,17 +39,16 @@
 					<li><a href="${ctx}/news/news.htm?&p=1">网站新闻</a></li>
 	                <li><a href="${ctx}/hiring/hiring.htm?&p=1">招纳贤士</a></li>
 	                <li><a href="${ctx}/contactUs.htm">联系我们</a></li>
-	                <li><a href="${ctx}/others/others.htm?&str=IPNumber">其他业务</a></li>
 	              </ul>
 	            </li>
 	          </ul>
 	          	<p class="navbar-text navbar-right">
 	          	<c:choose>
 				   <c:when test="${empty currentMember}">  
-		         		<span>您好！| <a href="${ctx}/login.htm" class="navbar-link">登录</a> |</span>
-		         		<span><a href="${ctx}/intoregister.htm" class="navbar-link">注册</a></span>
+		         		<span>您好！| <a href="${ctx}/login.htm" class="navbar-link" style="color: white;">登录</a> |</span>
+		         		<span ><a href="${ctx}/intoregister.htm" class="navbar-link">注册</a></span>
 				   </c:when>
-			   		<c:otherwise> 
+			   	<c:otherwise> 
 				   		<span>您好！${currentMember.memberName}
 				   		  <c:choose>
 				   		      <c:when test="${empty currentMember.memberRealName}">
@@ -63,10 +61,7 @@
 				   		         <span id="nav_messageNoticCount" class="badge">${messageNoticCount}</span>
 				   		        </a> 
 				   		      </c:otherwise>
-				   		 </c:choose>
-				   	
-				   		
-				   		|</span>
+				   		 </c:choose>|</span>
 				   		<span><a href="${ctx}/member/index.htm" class="navbar-link">个人中心</a> |</span>
 				   		<span><a href="${ctx}/logout.htm" class="navbar-link">退出</a></span>
 				   </c:otherwise>
