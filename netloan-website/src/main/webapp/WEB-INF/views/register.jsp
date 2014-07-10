@@ -61,13 +61,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  <div class="form-group">
 			    <label for="memberPassword" class="col-sm-2 control-label">密码</label>
 			    <div class="col-sm-6">
-			      <input type="password" class="form-control" id="memberPassword_form-group" name="memberPassword" placeholder="密码" required value="${member.memberPassword}"/>
+			      <input type="password" class="form-control" id="memberPassword_form-group" name="memberPassword" placeholder="密码长度不能小于6个字符" required value="${member.memberPassword}"/>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="comfirPassword" class="col-sm-2 control-label">确认密码</label>
 			    <div class="col-sm-6">
-			      <input type="password" class="form-control" id="comfirPassword_form-group" placeholder="确认密码" required value="${member.memberPassword}"/>
+			      <input type="password" class="form-control" id="comfirPassword_form-group" placeholder="再次确认密码" required value="${member.memberPassword}"/>
 			    </div>
 			  </div>
 		  	<div class="form-group">
@@ -159,6 +159,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 		</script>
 		<script type="text/javascript">
+	
+		
+		
+		
+		
 			var errorCaptcha = '${errorCaptcha}';
 			var usernameRepeat = '${usernameRepeat}';
 			var emailRepeat = '${emailRepeat}';
