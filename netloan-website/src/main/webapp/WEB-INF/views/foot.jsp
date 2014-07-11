@@ -51,9 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 .foot_div_middle{}
 
-a{text-decoration: none;color: white;}
 
-a:HOVER {color: white;text-decoration: none;}
 
 </style> 
 <body>
@@ -110,12 +108,12 @@ a:HOVER {color: white;text-decoration: none;}
              <div class="foot_other_two">珠海冰川-创建于贰零壹肆年 @2014 珠海冰川股份有限公司 版权所有 </div>
              <div class="foot_other_three">
                 <ul class="foot_other_three_ul">
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_one.png" id="img_ones" style="width:90px;height: 35px;"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_two.png" id="img_twos" style="width:90px;height: 35px;"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_three.png" id="img_threes" style="width:90px;height: 35px;"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_four.png" id="img_fours" style="width:90px;height: 35px;"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_five.png" id="img_fives" style="width:90px;height: 35px;"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_six.png" id="img_sixs" style="width:90px;height: 35px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_one.png" id="img_ones" style="width:60px;height: 25px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_two.png" id="img_twos" style="width:60px;height: 25px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_three.png" id="img_threes" style="width:60px;height: 25px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_four.png" id="img_fours" style="width:60px;height: 25px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_five.png" id="img_fives" style="width:60px;height: 25px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_six.png" id="img_sixs" style="width:60px;height: 25px;"></a></li>
                 </ul>
              </div>
          </div>
@@ -166,7 +164,7 @@ a:HOVER {color: white;text-decoration: none;}
          
          <div style="width:30px;height:350px;border: 0px solid #009CE7;float: right;margin-bottom: 20px;">
                   <Div style="width:30px;height: 140px;border:0px solid blue;background: #16A6EC;color: white;text-align: center;margin-top: 100px;border-radius:5px;">
-                      <a href="#" onclick="DoHide();"><img src="<%=basePath %>resources/images/foot/online_kufu.png">在</br>线</br>客</br>服</br>>></a>
+                      <a href="#" onclick="DoHide();" style="color: white;text-decoration: none;"><img src="<%=basePath %>resources/images/foot/online_kufu.png">在</br>线</br>客</br>服</br>>></a>
                   </Div>
           </div>
           
