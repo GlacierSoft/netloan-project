@@ -366,4 +366,8 @@ public class MemberController extends AbstractController{
     	jqReturnJson.setObj(memberAuthWithBLOBs);
 		return jqReturnJson;
 	}
+	
+	
+
+    
 }

@@ -61,6 +61,8 @@ public class RegisterController extends AbstractController{
         }
     	return "register";
     }
+	 
+	
 	/**
 	 * @Title: register 
 	 * @Description: TODO(前台注册功能) 
@@ -164,7 +166,8 @@ public class RegisterController extends AbstractController{
 	public Object mailBack(String registerId,HttpServletRequest request,HttpSession session){
 		if(registerId == null){
 			return "index";
-		}
+		}  
+		
 		String registerName = (String) session.getAttribute(registerId);
 		 // 如果session设置的有限时间过期，则注册不成功，直接返回
         if(registerName == null || registerName.equals("")){ 
@@ -228,6 +231,7 @@ public class RegisterController extends AbstractController{
         memberStatistics.setPromotionAwards(0f);//推广奖励
         memberStatistics.setUplineDeltaAwards(0f);//线下冲值奖励
         memberStatistics.setContinueAwards(0f);//续投奖励
+        memberStatistics.setSuccessTender(0);//投资次数
         memberStatisticsService.addStatistics(memberStatistics);//调用添加会员统计记录方法，添加会员统计记录
         request.setAttribute("returnResult", returnResult);
         if(!returnResult.isSuccess()){
@@ -247,6 +251,24 @@ public class RegisterController extends AbstractController{
 	public Object sendMailSuccess(){
 		return "sendMailSuccess";
 	}
+	
+	
+	
+	/**
+	 * @Title: sendMailSuccessEmal 
+	 * @Description: TODO(邮件发送成功，转向页面，会员找回密码) 
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 *
+	 */
+	@RequestMapping(value = "/sendMail.htm")
+	public Object sendMailSuccessEmal(){ 
+		return "retrievePassword/sendMail";
+	}
+	
+	
+	
 	/**
 	 * @Title: perfectRegister 
 	 * @Description: TODO(前台完善用户信息) 
@@ -307,6 +329,120 @@ public class RegisterController extends AbstractController{
 		session.setAttribute("currentMember",loginMember);
 		return perfectRegister;
 	}
+	
+	
+	/**
+	 * @Title: getpassword 
+	 * @Description: TODO(会员忘记密码，通过邮箱获取密码) 
+	 * @param  @param member
+	 * @param  @param session
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 *
+	 */
+	@RequestMapping(value = "/getPasswrod.htm", method = RequestMethod.POST)
+    public Object getPasswrod(@Valid String useremal,HttpServletRequest request, HttpSession session){ 
+	   JqReturnJson perfectRegister = (JqReturnJson) memberService.retrievePassword(useremal);
+             if(perfectRegister.isSuccess()==false){
+            	 //邮箱不存在，就返回这个消息给前台
+            	 session.setAttribute("emailStatus", "false");
+            	 return "retrievePassword/retrievePasswordEmail";
+             }
+			ModelAndView mav = new ModelAndView("retrievePassword/sendMail"); 
+			// 创建一个临时ID
+	        String retrieveId = ""+Math.random() * Math.random();
+	        /** 
+	         * 得到web系统url路径的方法 
+	         * */  
+	        //得到web的url路径：http://localhost:8080/ssh1/  
+	        String path = request.getContextPath();  
+	        String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";  
+	        //邮件发送成功后，用户点在邮箱中点击这个链接回到设置新密码网站。
+	         String url = basePath+"mailBackPassword.htm?retrieveId=" + retrieveId;
+	        //将验证邮箱链接后面的registerId存到session中
+	        session.setAttribute(retrieveId, retrieveId); 
+	        session.setAttribute("userEmail", useremal);//把用户邮箱保存起来
+	        //把用户邮箱存起来
+	        // 设置session的有效时间，为10分钟，10分钟内没有点击链接的话，设置密码将失败
+	        session.setMaxInactiveInterval(600); 
+	        //基于org.apache.commons.mail,封装好的mail，发邮件流程比较简单，比原生态mail简单。
+	        HtmlEmail email = new HtmlEmail();
+	        email.setHostName("smtp.qq.com");// QQ郵箱服務器
+			//email.setHostName("smtp.163.com");// 163郵箱服務器
+			//email.setHostName("smtp.gmail.com");// gmail郵箱服務器
+			email.setSmtpPort(465);//设置端口号
+			email.setAuthenticator(new DefaultAuthenticator("1240033960@qq.com","zx5304960"));//用1240033960@qq.com这个邮箱发送验证邮件的
+		    email.setTLS(true);//tls要设置为true,没有设置会报错。
+			email.setSSL(true);//ssl要设置为true,没有设置会报错。
+			try {
+				 email.setFrom("1240033960@qq.com", "冰川网贷管理员", "UTF-8");
+				//email.setFrom("13798985542@163.com", "13798985542@163.com", "UTF-8");
+				//email.setFrom("yuzexu1@gmail.com", "yuzexu1@gmail.com", "UTF-8");
+			} catch (EmailException e1) {
+				e1.printStackTrace();
+			}
+			email.setCharset("UTF-8");//没有设置会乱码。
+	        try {
+				email.setSubject("冰川网贷密码找回");//设置邮件名称
+				email.setHtmlMsg("点击<a href='" + url + "'>" + url + "</a>完成新密码设置！");//设置邮件内容
+				email.addTo(useremal);//给会员发邮件 
+				email.send();//邮件发送
+			} catch (EmailException e) {
+				throw new RuntimeException(e);
+			}
+			return mav; 
+	}
+	
+	/**
+	 * @Title: mailBackPassword 
+	 * @Description: TODO(密码找回功能，点击邮件验证，转向页面。) 
+	 * @param  @param retrieveId
+	 * @param  @param request
+	 * @param  @param session
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 *
+	 */
+	@RequestMapping(value = "/mailBackPassword.htm")
+	public Object mailBackPassword(String retrieveId,HttpServletRequest request,HttpSession session){
+	 	if(retrieveId == null){
+			return "index";
+		}
+		String registerName = (String) session.getAttribute(retrieveId);
+		 // 如果session设置的有限时间过期，则注册不成功，直接返回主页
+	    if(registerName == null || registerName.equals("")){ 
+            return "index"; 
+        }
+        return "retrievePassword/setNewPassword";//点击找回密码跳转到的页面
+       }
+	
+	
+	
+	  //找回密码,设置新的密码
+    @RequestMapping(value = "/setNewPassword.htm") 
+    private Object setNewPassword(String captcha,String newPassword,String memberPassword,HttpServletRequest request,HttpSession session){
+		//后台验证
+     	String isCaptcha = (String) request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+    	//判断验证码是否输入正确
+		if (StringUtils.isBlank(captcha) || !isCaptcha.equalsIgnoreCase(captcha)) {
+         	request.setAttribute("errorCaptcha", "errorCaptcha");//通过设置errorCaptcha的 值，来判断验证码是否正确。
+         	return "retrievePassword/setNewPassword";
+        } 
+    	String userEmail=(String)session.getAttribute("userEmail");//取出刚刚找回密码的那个邮箱
+    	if(newPassword.equals(memberPassword)&&newPassword!=""){ 
+    	  JqReturnJson setNewPassword = (JqReturnJson) memberService.setNewPassword(userEmail,memberPassword);//调用server层方法，修改密码
+    	 
+    	   if(setNewPassword.isSuccess()){//设置新密码成功，跳到登录页面
+    		  return "login";
+    	    }
+      } 
+    	return "retrievePassword/setNewPassword";
+    }
+	
+	
+	
 	//转到“关于我们”页面
 	@RequestMapping(value = "/aboutUs.htm")
 	public Object aboutUs(){
@@ -342,4 +478,9 @@ public class RegisterController extends AbstractController{
 	public Object borrow(){
 		return "borrow_mgr/borrow";
 	}
+	//转到'找回密码'页面
+	@RequestMapping(value = "/retrievePasswordEmail.htm")
+    public String retrievePasswordEmail(){ 
+    	return "retrievePassword/retrievePasswordEmail";
+    }
 }

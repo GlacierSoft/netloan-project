@@ -743,11 +743,78 @@ public class MemberService {
         return returnResult;
     }
   
+    
+    /**
+     * @Title: retrievePassword 
+     * @Description: TODO(会员忘记密码通过邮箱找回密码) 
+     * @param @param member
+     * @param @param  
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false) 
+    public Object retrievePassword(String email) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        MemberExample memberExample = new MemberExample();
+        memberExample.createCriteria().andEmailEqualTo(email);
+       int count = memberMapper.countByExample(memberExample);
+       if(count==0){
+    	   returnResult.setMsg("邮箱不存在"); 
+       }else{
+    	   returnResult.setSuccess(true); 
+       }
+    	return returnResult;
+    }
+    
+    
+    
+    /**
+     * @Title: retrievePassword 
+     * @Description: TODO(会员忘记密码通过邮箱找回密码，设置新密码) 
+     * @param @param member
+     * @param @param  
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false) 
+    public Object setNewPassword(String email,String newPassword) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        MemberExample memberExample = new MemberExample();
+        memberExample.createCriteria().andEmailEqualTo(email);
+        List<Member> list=new ArrayList<Member>();
+        list  = memberMapper.selectByExample(memberExample);
+        Member member=list.get(0);
+        int countMT=0;
+        int count=0;
+       if(member==null||newPassword.equals("")){ 
+    	   returnResult.setMsg("会话失效，请重新发邮件找回密码"); 
+       }else{ 
+    	    returnResult.setSuccess(true); 
+    	    MemberToken mt = memberTokenMapper.selectByPrimaryKey(member.getMemberId());//通过memberId获取memberToken
+    	    //将前台传来的密码进行加密，
+            mt.setPassword(newPassword);
+            this.updateentryptPassword(mt);
+            //更新member和memberToken
+            member.setMemberPassword(mt.getPassword());
+            countMT = memberTokenMapper.updateByPrimaryKeySelective(mt);
+            count = memberMapper.updateByPrimaryKeySelective(member);
+            if(count ==1 && countMT == 1){
+            	returnResult.setSuccess(true);
+            	returnResult.setMsg("密码修改成功！");
+            }else{
+            	returnResult.setMsg("密码修改失败！");
+            } 
+       }
+    	return returnResult;
+    }
+    
        //获取管理员id
-    public String getuserId(){ 
+      public String getuserId(){ 
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUsernameEqualTo("admin");
         List<User> users = userMapper.selectByExample(userExample);
-      return users.get(0).getUserId();
-    }
+        return users.get(0).getUserId();
+       }
 }

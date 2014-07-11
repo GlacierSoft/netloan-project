@@ -62,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    <div class="col-sm-6">
 			      <input type="password" class="form-control" id="password" name="password" placeholder="密码" value="${member.memberPassword}" required /> 
 			    </div>
-			      <label for="password" style="margin-top: 10px"><a href="#">忘记密码?</a></label>
+			      <label for="password" style="margin-top: 10px"><a href="${ctx}/retrievePasswordEmail.htm">忘记密码?</a></label>
 			   
 			  </div>
 
@@ -111,6 +111,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				if(registerName != ''){
 					$('#success_alert').fadeIn();
 					$('#success_alert h4').html('注册成功！请重新登录');
+					setTimeout(function(){//延迟3秒隐藏
+						$('#success_alert').fadeOut();
+					},3000)
+				}
+				
+				
+				var userEmail = '${userEmail}';
+				if(userEmail != ''){
+					$('#success_alert').fadeIn();
+					$('#success_alert h4').html('密码设置成功！请重新登录');
 					setTimeout(function(){//延迟3秒隐藏
 						$('#success_alert').fadeOut();
 					},3000)
