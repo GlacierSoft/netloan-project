@@ -108,12 +108,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              <div class="foot_other_two">珠海冰川-创建于贰零壹肆年 @2014 珠海冰川股份有限公司 版权所有 </div>
              <div class="foot_other_three">
                 <ul class="foot_other_three_ul">
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_one.png" id="img_ones" style="width:60px;height: 25px;"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_two.png" id="img_twos" style="width:60px;height: 25px;"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_three.png" id="img_threes" style="width:60px;height: 25px;"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_four.png" id="img_fours" style="width:60px;height: 25px;"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_five.png" id="img_fives" style="width:60px;height: 25px;"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_six.png" id="img_sixs" style="width:60px;height: 25px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_one.png" id="img_ones" style="width:80px;height: 30px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_two.png" id="img_twos" style="width:80px;height: 30px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_three.png" id="img_threes" style="width:80px;height: 30px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_four.png" id="img_fours" style="width:80px;height: 30px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_five.png" id="img_fives" style="width:80px;height: 30px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_six.png" id="img_sixs" style="width:80px;height: 30px;"></a></li>
                 </ul>
              </div>
          </div>
