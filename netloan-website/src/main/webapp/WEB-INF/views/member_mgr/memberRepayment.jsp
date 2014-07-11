@@ -156,6 +156,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						          </tr>
 						        </thead>
 					          	<tbody>
+					          	<c:if test="${empty borrowingDatas.rows}">
+										<tr>
+							           		<td colspan="10" style="text-align:center;vertical-align: middle;"><strong>暂无信息</strong></td>
+							          	</tr>
+									</c:if>	  		
+									<c:if test="${!empty borrowingDatas.rows}">  
 					          		<c:forEach items="${borrowingDatas.rows}" var="borrowingLoan" varStatus="status">
 							          <tr>
 							            <td>${borrowingLoan.loanTitle}</td>
@@ -170,6 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							            <td><a href="${ctx}/borrowingLoan/memberRepaymentDetail.htm?&loanId=${borrowingLoan.loanId}&memberId=${currentMember.memberId}&p=1">还款明细</a></td>
 							          </tr>
 						      		</c:forEach>
+						      		</c:if>
 						      	</tbody>
 						      	<tfoot>
 						          <tr>
@@ -240,25 +247,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						          </tr>
 						        </thead>
 					          	<tbody>
-					          		<c:forEach items="${borrowingDatas.rows}" var="borrowingLoan" varStatus="status">
-							          <tr>
-							            <td>${borrowingLoan.loanTitle}</td>
-							            <td>${borrowingLoan.loanTenderDisplay}</td>
-							            <td>${borrowingLoan.repaymentTypeDisplay}</td>
-							            <td>￥${borrowingLoan.loanTotal}</td>
-							            <td>${borrowingLoan.loanApr}%</td>
-							            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="date"/></td>
-							            <td>￥${borrowingLoan.shouldPayMoney}</td>
-							            <td>￥${borrowingLoan.alrPayMoney}</td>
-							            <td>￥${borrowingLoan.notPayMoney}</td>
-							            <td>
-							            	<span id="borrowingLoan_loanState2${status.index}"></span>
-							        		<script type="text/javascript">
-									       		$('#borrowingLoan_loanState2'+${status.index}).html(renderGridValue('${borrowingLoan.loanState }',fields.loanState));
-									    	</script>
-						    			</td>
-							          </tr>
-						      		</c:forEach>
+					          		<c:if test="${empty borrowingDatas.rows}">
+										<tr>
+							           		<td colspan="10" style="text-align:center;vertical-align: middle;"><strong>暂无信息</strong></td>
+							          	</tr>
+									</c:if>	  		
+									<c:if test="${!empty borrowingDatas.rows}">  
+						          		<c:forEach items="${borrowingDatas.rows}" var="borrowingLoan" varStatus="status">
+								          <tr>
+								            <td>${borrowingLoan.loanTitle}</td>
+								            <td>${borrowingLoan.loanTenderDisplay}</td>
+								            <td>${borrowingLoan.repaymentTypeDisplay}</td>
+								            <td>￥${borrowingLoan.loanTotal}</td>
+								            <td>${borrowingLoan.loanApr}%</td>
+								            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="date"/></td>
+								            <td>￥${borrowingLoan.shouldPayMoney}</td>
+								            <td>￥${borrowingLoan.alrPayMoney}</td>
+								            <td>￥${borrowingLoan.notPayMoney}</td>
+								            <td>
+								            	<span id="borrowingLoan_loanState2${status.index}"></span>
+								        		<script type="text/javascript">
+										       		$('#borrowingLoan_loanState2'+${status.index}).html(renderGridValue('${borrowingLoan.loanState }',fields.loanState));
+										    	</script>
+							    			</td>
+								          </tr>
+							      		</c:forEach>
+						      		</c:if>
 						      	</tbody>
 						      	<tfoot>
 						          <tr>
