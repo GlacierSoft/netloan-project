@@ -48,26 +48,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       		<form id="registerForm" class="form-horizontal" role="form" action="${pageContext.request.contextPath}/register.htm" method="post" onsubmit="return validaForm();">
 			  <div class="form-group">
 			    <label for="email" class="col-sm-2 control-label">常用邮箱</label>
-			    <div class="col-sm-6">
-			      <input type="email" class="form-control" id="email_form-group" name="email" placeholder="常用邮箱"  required autofocus value="${member.email}"  />
+			    <div class="col-sm-6" style="float: left; width: 800px">
+			      <input type="email" class="form-control" style="float: left;width: 428px"  id="email_form-group" name="email" placeholder="常用邮箱"  required autofocus value="${member.email}"  />
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="memberName" class="col-sm-2 control-label">用户名</label>
-			    <div class="col-sm-6">
-			      <input type="text" class="form-control" id="memberName_form-group" name="memberName" placeholder="用户名" required  value="${member.memberName}"/>
+			    <div class="col-sm-6" style="float: left; width: 800px">
+			      <input type="text" class="form-control" style="float: left;width: 428px" id="memberName_form-group" name="memberName" placeholder="用户名" required  value="${member.memberName}"/>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="memberPassword" class="col-sm-2 control-label">密码</label>
-			    <div class="col-sm-6">
-			      <input type="password" class="form-control" id="memberPassword_form-group" name="memberPassword" placeholder="密码长度不能小于6个字符" required value="${member.memberPassword}"/>
+			    <div class="col-sm-6" style="float: left; width: 800px">
+			      <input type="password" class="form-control" style="float: left;width: 428px" id="memberPassword_form-group" name="memberPassword" placeholder="密码长度不能小于6个字符" required value="${member.memberPassword}"/>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="comfirPassword" class="col-sm-2 control-label">确认密码</label>
-			    <div class="col-sm-6">
-			      <input type="password" class="form-control" id="comfirPassword_form-group" placeholder="再次确认密码" required value="${member.memberPassword}"/>
+			    <div class="col-sm-6" style="float: left; width: 800px">
+			      <input type="password" class="form-control" style="float: left;width: 428px" id="comfirPassword_form-group" placeholder="再次确认密码" required value="${member.memberPassword}"/>
 			    </div>
 			  </div>
 		  	<div class="form-group">

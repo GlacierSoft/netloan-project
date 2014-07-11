@@ -52,24 +52,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  <div class="panel-body">
       		<form id="loginForm" class="form-horizontal" role="form" action="${pageContext.request.contextPath}/login.htm" method="post" onsubmit="return validaForm();">
 			  <div class="form-group">
-			    <label for="username" class="col-sm-2 control-label">用户名/邮箱/手机</label>
-			    <div class="col-sm-6">
-			      <input type=text class="form-control" id="username" name="username" placeholder="用户名/邮箱/手机" value="${member.memberName}" required autofocus />
+			    <label for="username" class="col-sm-2 control-label">用户名</label>
+			    <div class="col-sm-6" style="float: left; width: 800px">
+			      <input type=text class="form-control" style="float: left;width: 428px" id="username" name="username" placeholder="请输入用户名" value="${member.memberName}" required  />
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="password" class="col-sm-2 control-label">密码</label>
-			    <div class="col-sm-6">
-			      <input type="password" class="form-control" id="password" name="password" placeholder="密码" value="${member.memberPassword}" required /> 
+			    <div class="col-sm-6"  style="float: left; width: 800px">
+			      <input type="password" class="form-control" style="float: left;width: 428px" id="password" name="password" placeholder="请输入密码" value="${member.memberPassword}" required /> 
 			    </div>
-			      <label for="password" style="margin-top: 10px"><a href="${ctx}/retrievePasswordEmail.htm">忘记密码?</a></label>
-			   
+			     
 			  </div>
 
 				<div class="form-group">
 					<label id="login_kaptcha_span" class="col-sm-2 control-label ">验证码</label>
 					<div class="col-sm-2">
-						<input type="text" id="captcha" name="captcha" maxlength="4" class="form-control" placeholder="验证码" required />
+						<input type="text" id="captcha" name="captcha" maxlength="4" class="form-control" placeholder="输入验证码" required />
 					</div>
 					 <div class="col-sm-2" style="width: 500px" >
 					<img style="width:120px;height:32px;float: left;" class="img-responsive" id="login_kaptcha" src="${ctx}/resources/images/kaptcha.jpg" />
@@ -77,7 +76,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 </div> 
 				</div>
 			  <div class="form-group">
-			    <label for="inputPassword" class="col-sm-5 control-label">还没加入冰川网贷？<a href="${ctx}/intoregister.htm" class="navbar-link">立即注册</a></label>
+			    <label for="inputPassword" class="col-sm-5 control-label" style="margin-left: 200px">还没加入冰川网贷？<a href="${ctx}/intoregister.htm" class="navbar-link">立即注册</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${ctx}/retrievePasswordEmail.htm">忘记密码?</a>
+			   </label>
 			    <div class="col-sm-2"></div>
 			  </div>
 			  <div class="form-group">
@@ -169,7 +169,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				//用户名去焦点前台验证
 				  $("#username").blur(function(){ 
 					  if($(this).val()==""){
-					     	  $(this).after("<label id='nameinfo' style='color: red'>*用户名/邮箱/手机    不能为空</label>");
+					     	  $(this).after("<label id='nameinfo' style='color: red'>*用户名 不能为空</label>");
 							  return;
 					     }
 				  });
