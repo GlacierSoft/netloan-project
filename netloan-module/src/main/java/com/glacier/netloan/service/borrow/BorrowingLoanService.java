@@ -541,7 +541,7 @@ public class BorrowingLoanService {
              		memberMessageNotice.setContent("借款初审审核不通过，请重新申请");
              	}
              } 
-        memberMessageNotice.setAddressee(borrowingLoanNew.getMemberId());
+        memberMessageNotice.setAddressee(borrowingLoan.getMemberId());
         memberMessageNoticeService.addMemberMessageNotice(memberMessageNotice);
         
         Subject pricipalSubject = SecurityUtils.getSubject();

@@ -16,8 +16,8 @@
           }
      };
 
-//初始化客服DataGrid
-glacier.member_mgr.member_mgr.member.memberDataGrid = $('#memberDataGrid').datagrid({
+	//初始化客服DataGrid
+	glacier.member_mgr.member_mgr.member.memberDataGrid = $('#memberDataGrid').datagrid({
 						fit : true,//控件自动resize占满窗口大小
 						iconCls : 'icon-save',//图标样式
 						border : false,//是否存在边框
@@ -68,12 +68,7 @@ glacier.member_mgr.member_mgr.member.memberDataGrid = $('#memberDataGrid').datag
 							title : '信用积分',
 							width : 120,
 							sortable : true
-						},{
-							field : 'creditamount',
-							title : '信用额度',
-							width : 200,
-							sortable : true
-						},{
+						}, {
 							field : 'integral',
 							title : '积分',
 							width : 120,
@@ -147,7 +142,7 @@ glacier.member_mgr.member_mgr.member.memberDataGrid = $('#memberDataGrid').datag
 								title : '【' + rowData.memberName + '】会员详细信息',
 								href : ctx+ '/do/member/intoDetail.htm?memberId='+ rowData.memberId,//从controller请求jsp页面进行渲染
 								width : 645,
-								height : 480,
+								height : 450,
 								resizable : false,
 								enableApplyButton : false,
 								enableSaveButton : false
@@ -155,9 +150,9 @@ glacier.member_mgr.member_mgr.member.memberDataGrid = $('#memberDataGrid').datag
 						}
 					});
 
-//点击增加按钮触发方法
-glacier.member_mgr.member_mgr.member.addMember = function(){
-glacier.basicAddOrEditDialog({
+	//点击增加按钮触发方法
+	glacier.member_mgr.member_mgr.member.addMember = function(){
+	glacier.basicAddOrEditDialog({
 			title : '增加会员信息',
 			width : 855,
 			height : 415,

@@ -143,7 +143,7 @@ public class ParameterIntegralTypeService {
         ParameterIntegralTypeExample parameterIntegralTypeExample = new ParameterIntegralTypeExample();
         int count = 0;
         // 防止积分类型名称重复
-        parameterIntegralTypeExample.createCriteria().andIntegralTypeIdNotEqualTo(parameterIntegralType.getIntegralType()).andIntegralTypeEqualTo(parameterIntegralType.getIntegralType());
+        parameterIntegralTypeExample.createCriteria().andIntegralTypeIdNotEqualTo(parameterIntegralType.getIntegralType()).andIntegralTypeEqualTo(parameterIntegralType.getIntegralType()).andIntegralTypeIdNotEqualTo(parameterIntegralType.getIntegralTypeId());
         count = integralTypeMapper.countByExample(parameterIntegralTypeExample);// 查找相同名称的积分类型数量
         if (count > 0) {
             returnResult.setMsg("积分类型名称重复");

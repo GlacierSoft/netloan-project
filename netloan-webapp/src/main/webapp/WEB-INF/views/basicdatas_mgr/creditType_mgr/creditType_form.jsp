@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <form id="creditType_mgr_creditType_form" method="POST" modelAttribute="parameterCredit" style="padding:15px" enctype="multipart/form-data">
 	<table class="formtable">
@@ -8,16 +9,22 @@
 			<td>信用积分类型名称：</td>
 			<td>
 				<input type="hidden" name="creditTypeId" value="${creditTypeData.creditTypeId}" />
-				<input name="creditType" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditTypeData.creditType}" data-options="validType:'code'"/>
+				<c:if test="${creditTypeData.creditTypeId!=null}">
+					<input type="hidden" name="creditType" value="${creditTypeData.creditType}">
+					<input disabled="disabled" readonly="readonly" id="creditType_detail_creditType" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditTypeData.creditType}" data-options="validType:'code'"/>
+				</c:if>
+				<c:if test="${creditTypeData.creditTypeId==null}">
+					<input name="creditType" class="easyui-validatebox spinner" style="width:268px" required="true" value="${creditTypeData.creditType}" data-options="validType:'code'"/>
+				</c:if>
 			</td>
 		</tr>
 		<tr>
 			<td>积分：</td>
-			<td><input name="changeValue" class="easyui-numberspinner spinner" value="${creditTypeData.changeValue}" data-options="min:0,max:9999,required:true,missingMessage:'请填写信用积分'" style="width: 270px;height:18px;"/></td>
+			<td><input maxlength="3" name="changeValue" class="easyui-numberspinner spinner" value="${creditTypeData.changeValue}" data-options="min:0,max:9999,required:true,missingMessage:'请填写信用积分'" style="width: 270px;height:18px;"/></td>
 		</tr>
 		<tr>
 			<td>改变类型：</td>
-			<td><input id="changeType" name="changeType" value="${creditTypeData.changeType}" /></td>
+			<td><input readonly="readonly" id="changeType" name="changeType" value="${creditTypeData.changeType}" /></td>
 		</tr>
 		<tr>
 			<td>备注：</td>
@@ -44,4 +51,6 @@
 		required:true,
 		data : fields.changeType
 	});
+	$('#creditType_detail_creditType').val(renderGridValue('${creditTypeData.creditType}',fields.creditIntegralType));
+	$('#changeType').val(renderGridValue('${creditTypeData.changeType}',fields.changeType));
 </script>

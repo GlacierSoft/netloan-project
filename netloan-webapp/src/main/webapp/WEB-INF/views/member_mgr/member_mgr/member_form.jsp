@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <form id="member_mgr_member_form" method="post" style="padding:15px">
 <div title="基本信息" style="padding:15px;">
@@ -18,7 +19,14 @@
 					</tr>
 					<tr>
 						<td>会员密码：</td>
-						<td><input type="password" id="member_mgr_member_form_memberPassword" name="memberPassword" value="${memberData.memberPassword}" class="easyui-validatebox spinner" style="width:268px" required="true" validType="length[6,12]" invalidMessage="密码必须在6到12个字符之间"/></td>
+						<td>
+							<c:if test="${memberData.memberId!=null}">
+								<input readonly="readonly" type="password" id="member_mgr_member_form_memberPassword" name="memberPassword" value="${memberData.memberPassword}" class="easyui-validatebox spinner" style="width:268px" validType="length[6,12]" invalidMessage="密码必须在6到12个字符之间"/>
+							</c:if>
+							<c:if test="${memberData.memberId==null}">
+								<input type="password" id="member_mgr_member_form_memberPassword" name="memberPassword" value="${memberData.memberPassword}" class="easyui-validatebox spinner" style="width:268px" required="true" validType="length[6,12]" invalidMessage="密码必须在6到12个字符之间"/>
+							</c:if>
+						</td>
 						<td style="padding-left:10px;">会员年龄：</td>
 						<td><input id="member_mgr_member_form_memberAge" name="memberAge" value="${memberData.memberAge}" class="easyui-numberspinner spinner" data-options="min:0,max:99,required:true,missingMessage:'请填写年龄'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 					</tr>
@@ -54,16 +62,16 @@
 					<tr>
 						<td>手机号码：</td>
 						<td>
-							<input id="member_mgr_member_form_mobileNumber" name="mobileNumber" value="${memberData.mobileNumber}" style="width:268px" class="easyui-validatebox spinner" required="true" validType="customReg['^[1][3458][0-9]{9}$','<fmt:message key="Member.mobileNumber.illegal"/>']"/>
+							<input invalidMessage="手机号码必须为11位，如:1372627392X" id="member_mgr_member_form_mobileNumber" name="mobileNumber" value="${memberData.mobileNumber}" style="width:268px" class="easyui-validatebox spinner" required="true" validType="customReg['^[1][3458][0-9]{9}$','<fmt:message key="Member.mobileNumber.illegal"/>']"/>
 						</td>
 						<td style="padding-left:10px;">住宅电话：</td>
-						<td><input id="member_mgr_member_form_homePhone" name="homePhone" value="${memberData.homePhone}" style="width:268px" class="easyui-validatebox spinner" data-options="required:true,validType:'tel'"/></td>
+						<td><input id="member_mgr_member_form_homePhone" name="homePhone" value="${memberData.homePhone}" style="width:268px" class="easyui-validatebox spinner" data-options="validType:'tel'"/></td>
 					</tr>
 						<tr>
 						<td>身份证：</td>
-						<td><input id="member_mgr_member_form_cardId" name="cardId" value="${memberData.cardId}" style="width:268px" class="easyui-validatebox spinner" data-options="required:true,validType:'idCard'" /></td>
+						<td><input invalidMessage="身份证必须符合国家格式，位数通常为15为或18位" id="member_mgr_member_form_cardId" name="cardId" value="${memberData.cardId}" style="width:268px" class="easyui-validatebox spinner" data-options="required:true,validType:'idCard'" /></td>
 						<td style="padding-left:10px;">邮件：</td>
-						<td><input id="member_mgr_member_form_email" name="email" value="${memberData.email}" style="width:268px" class="easyui-validatebox spinner" data-options="required:true,validType:'email'" /></td>
+						<td><input invalidMessage="格式：XXX@163.com" id="member_mgr_member_form_email" name="email" value="${memberData.email}" style="width:268px" class="easyui-validatebox spinner" data-options="required:true,validType:'email'" /></td>
 					</tr>
 					<tr>
 						<td>籍贯：</td>
