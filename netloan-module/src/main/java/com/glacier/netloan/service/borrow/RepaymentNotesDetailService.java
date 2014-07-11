@@ -28,6 +28,7 @@ import com.glacier.netloan.dao.finance.FinancePlatformTransactionMapper;
 import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
 import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.member.MemberStatisticsMapper;
+import com.glacier.netloan.dao.member.MemberTokenMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.borrow.RepaymentNotesDetailQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
@@ -48,9 +49,12 @@ import com.glacier.netloan.entity.finance.FinancePlatformTransaction;
 import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberStatistics;
+import com.glacier.netloan.entity.member.MemberToken;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.util.MethodLog;
+import com.glacier.security.util.Digests;
+import com.glacier.security.util.Encodes;
 
 /**
  * @ClassName: RepaymentNotesDetailDetailService 
@@ -90,6 +94,9 @@ public class RepaymentNotesDetailService {
 	private MemberMapper memberMapper;
 	
 	@Autowired
+    private MemberTokenMapper memberTokenMapper;
+	
+	@Autowired
 	private MemberStatisticsMapper memberStatisticsMapper; 
 	
 	@Autowired
@@ -101,6 +108,21 @@ public class RepaymentNotesDetailService {
 	@Autowired
 	private UserMapper userMapper;
 	
+	/**
+     * 加密方式
+     */
+    public static final String HASH_ALGORITHM = "SHA-1";
+
+    /**
+     * 计算次数
+     */
+    public static final int HASH_INTERATIONS = 1024;
+
+    /**
+     * 盐值长度
+     */
+    public static final int SALT_SIZE = 8;
+    
 	/**
 	 * @Title: getRepaymentNotesDetail 
 	 * @Description: TODO(根据还款记录明细Id获取还款记录明细信息) 
@@ -355,14 +377,18 @@ public class RepaymentNotesDetailService {
     public Object repaymentRepaymentNotesDetail(String repayNotesDetailId, Member member, boolean captchaBoolean) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         // 验证会员真正的交易密码是否等于输入的交易密码
-        Member memberTemp = new Member();
-        memberTemp = memberMapper.selectByPrimaryKey(member.getMemberId());// 根据前台返回的会员Id，查询出该会员的信息
-        if (null != member.getTradersPassword() && StringUtils.isNotBlank(member.getTradersPassword())) {
-            if (!member.getTradersPassword().equals(memberTemp.getTradersPassword())) {// 判断前台的交易密码是否正确
-                returnResult.setMsg("交易密码错误，请重新输入");
-                return returnResult;
-            }
+        Member m1 = memberMapper.selectByPrimaryKey(member.getMemberId());//通过memberid获取member
+        MemberToken mt = memberTokenMapper.selectByPrimaryKey(member.getMemberId());//通过memberId获取memberToken
+        //将前台传来的密码进行加密，
+        byte[] salt = Encodes.decodeHex(mt.getSalt());
+        byte[] hashPassword = Digests.sha1(member.getTradersPassword().getBytes(), salt, HASH_INTERATIONS);
+        String encodeHexPwd = Encodes.encodeHex(hashPassword);
+        //将加密后的密码和存在数据库里的密码进行比较。
+        if (!(m1.getTradersPassword()).equals(encodeHexPwd)) {
+            returnResult.setMsg("交易密码错误，请重新输入");
+            return returnResult;
         }
+        
         // 防止验证码错误
         if (!captchaBoolean) {
             returnResult.setMsg("验证码错误，请重新输入");
