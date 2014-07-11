@@ -22,7 +22,6 @@
   	<div class="row">
     	<div class="col-md-12">
 			<h2 style="margin-bottom: 25px;">冰川贷借款 - 流转标详细介绍</h2>
-			
 			<div class="col-md-12">
 			 	<div class="panel panel-default">       
 			        <div class="lc_middle_items_top lc_blue"  style="width: 1108px;">流转标</div>
@@ -84,11 +83,8 @@
 					        </div>
 						</div>
 					</div>					
-			        
-			        
 				</div>
 			</div>
-			
     	</div>
     </div>
     <hr class="featurette-divider2">
@@ -140,7 +136,7 @@
 	    function successAddLiuZhuan(data){
 	    	//如果不存在，则转到借款页面
 	    	if(data.success){
-        		window.location.href="${ctx}/borrowingLoan/enteringLiuZhuan.htm";
+        		window.location.href="${ctx}/borrowingLoan/enteringLiuZhuan.htm?&memberId=${currentMember.memberId}";
         	}else{//如果存在，则提示错误信息
         		KindEditor.ready(function(K) {
     				var dialog = K.dialog({

@@ -154,9 +154,9 @@
 				  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
 				  	<div style="padding-left: 50px;">
 					  	<div class="row" >
-				       	  	<div class="col-md-3"><span style="color: red;">晓风网贷信用等级：
+				       	  	<div class="col-md-3"><span style="color: red;">冰川网贷信用等级：
 				       	  	<img id="creditPhotoDivImg"  src="${borrowingLoan.creditPhoto}" style="width: 34px;height: 24px ;" /></span></div>
-				       	  	<div class="col-md-3"><span>晓风网贷信用额度：<fmt:formatNumber value="${borrowingMember.creditamount}" pattern="#,#00.00"/></span></div>
+				       	  	<div class="col-md-3"><span>冰川网贷信用额度：<fmt:formatNumber value="${borrowingMember.creditamount}" pattern="#,#00.00"/></span></div>
 			       	  	</div><br>
 			       	  	<div class="row" >
 				       	  	<div class="col-md-12"><span>以下基本信息资料，经用户同意披露。其中红色字体的信息，为通过冰川贷审核的项目。</span></div>
@@ -206,7 +206,7 @@
 				       	  			<td></td>
 				       	  		</tr> -->
 				       	  	</table>
-			       	  	<div class="row" ><div class="col-md-12"><span><strong>晓风网贷借款记录</strong></span></div></div><br>
+			       	  	<div class="row" ><div class="col-md-12"><span><strong>冰川网贷借款记录</strong></span></div></div><br>
 			       	  	<table class="table">
 				       	  		<tr>
 				       	  			<td>发布借款标的：1</td>
@@ -237,7 +237,7 @@
 				  </div>
 				  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
 				  	<blockquote>
-					       	<h4>晓风网贷将以客观、公正的原则，最大程度地核实借入者信息的真实性，但不保证审核信息100%真实。如果借入者长期逾期，其提供的信息将被公布。</h4>
+					       	<h4>冰川网贷将以客观、公正的原则，最大程度地核实借入者信息的真实性，但不保证审核信息100%真实。如果借入者长期逾期，其提供的信息将被公布。</h4>
 					</blockquote>
 					<table class="table table-bordered" style="text-align:center;vertical-align: middle;">
 					            <tr>
@@ -324,7 +324,7 @@
 				  </div>
 				  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
 				  	<blockquote>
-					       	<h4>晓风网贷将以客观、公正的原则，最大程度地核实借入者信息的真实性，但不保证审核信息100%真实。如果借入者长期逾期，其提供的信息将被公布。</h4>
+					       	<h4>冰川网贷将以客观、公正的原则，最大程度地核实借入者信息的真实性，但不保证审核信息100%真实。如果借入者长期逾期，其提供的信息将被公布。</h4>
 					</blockquote>
 					<table class="table table-bordered" style="text-align:center;vertical-align: middle;">
 			            <tr>

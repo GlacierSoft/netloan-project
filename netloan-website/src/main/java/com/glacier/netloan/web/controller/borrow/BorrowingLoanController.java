@@ -28,6 +28,7 @@ import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.borrow.LoanTenderService;
 import com.glacier.netloan.service.borrow.RepaymentNotesDetailService;
+import com.glacier.netloan.service.member.MemberService;
 import com.glacier.netloan.service.member.MemberStatisticsService;
 
 /** 
@@ -52,6 +53,9 @@ public class BorrowingLoanController extends AbstractController{
     
     @Autowired
     private RepaymentNotesDetailService repaymentNotesDetailService;
+    
+    @Autowired
+    private MemberService memberService;
     
     // 进入借款列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -149,11 +153,13 @@ public class BorrowingLoanController extends AbstractController{
   	
 	//转到“流转标申请页面”页面
 	@RequestMapping(value = "/enteringLiuZhuan.htm")
-	public Object enteringLiuZhuan(){
+	public Object enteringLiuZhuan(String memberId){
 	    ModelAndView mav = new ModelAndView("borrow_mgr/enteringLiuZhuan");
         mav.addObject("loanTenderDate",loanTenderService.getLoanTender("2587bd0ecc859e35f2874f2aff0d4852"));
         //根据标种类型Id查找相关联的还款方式
         mav.addObject("loanTenderRepayDate",loanTenderService.getLoanTenderRepay("2587bd0ecc859e35f2874f2aff0d4852"));
+        //根据会员Id查找会员信息
+        mav.addObject("memberDate",memberService.getMember(memberId));
         return mav;
 	}
 	

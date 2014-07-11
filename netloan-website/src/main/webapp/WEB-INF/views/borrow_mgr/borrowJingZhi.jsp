@@ -129,7 +129,7 @@
 	    function successAddLiuZhuan(data){
 	    	//如果不存在，则转到借款页面
 	    	if(data.success){
-        		window.location.href="${ctx}/borrowingLoan/enteringJingZhi.htm";
+        		window.location.href="${ctx}/borrowingLoan/enteringJingZhi.htm?&memberId=${currentMember.memberId}";
         	}else{//如果存在，则提示错误信息
         		KindEditor.ready(function(K) {
     				var dialog = K.dialog({

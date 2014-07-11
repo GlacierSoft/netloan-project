@@ -106,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>借款总额：</td>
-					    <td class="col-md-6"><input type="text" id="loanTotal" name="loanTotal" class="inp280"/></td>
+					    <td class="col-md-6"><input type="text"  id="loanTotal" name="loanTotal" class="inp280"/></td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>年利率：</td>
@@ -255,7 +255,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			repaymentTypeId:"required",
     			loanTotal:{
     				required:true,
-    				range:["${loanTenderDate.lowestLoanAmount}","${loanTenderDate.largestLoanAmount}"]
+    				range:["${loanTenderDate.lowestLoanAmount}","${loanTenderDate.largestLoanAmount}"],
+    				max:"${memberDate.creditamount}"
     			},
     			loanApr:{
     				required:true,
@@ -279,7 +280,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			repaymentTypeId:"还款方式不能为空",
     			loanTotal:{
     				required:"借款总额不能为空",
-    				range:"请输入"+"${loanTenderDate.lowestLoanAmount}"+"元 - "+"${loanTenderDate.largestLoanAmount}元"+"之间的总额"
+    				range:"请输入"+"${loanTenderDate.lowestLoanAmount}"+"元 - "+"${loanTenderDate.largestLoanAmount}元"+"之间的总额",
+    				max:"您的信用额度不足以支持此借款总额，<a href='${ctx}/member/memberAuth.htm?&p=0'>点击申请信用额度</a>"
     			},
     			loanApr:{
     				required:"年利率不能为空",
@@ -308,8 +310,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				});
     		} 
     	});
-	    
-	  	
 	    
 	    function successAddLiuZhuan(data){
 			KindEditor.ready(function(K) {
