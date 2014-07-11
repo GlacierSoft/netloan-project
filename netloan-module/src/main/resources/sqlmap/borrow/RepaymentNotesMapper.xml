@@ -25,10 +25,12 @@
     <result column="temp_repayment_notes_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_repayment_notes_update_time" property="updateTime" jdbcType="TIMESTAMP" />
 	<result column="temp_repayment_notes_loan_title" property="loanTitle" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
-    <result column="temp_repayment_notes_member_display" property="memberDisplay" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_repayment_notes_member_display" property="memberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_repayment_notes_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_repayment_notes_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
-    <result column="temp_repayment_notes_payee_display" property="payeeDisplay" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+    <result column="temp_repayment_notes_payee_display" property="payeeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 收款人-->
+    <result column="temp_repayment_notes_loan_apr" property="loanApr" jdbcType="REAL"/> <!-- 自定义扩展字段 年利率-->
+    <result column="temp_repayment_notes_borrowing_create_time" property="borrowingCreateTime" jdbcType="TIMESTAMP"/> <!-- 自定义扩展字段 借款时间-->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -108,14 +110,17 @@
     ,temp_member.member_real_name as temp_repayment_notes_member_display
     ,temp_creater.user_cn_name as temp_repayment_notes_creater_display
     ,temp_updater.user_cn_name as temp_repayment_notes_updater_display
+    ,temp_borrowing_loan_apr.loan_apr as temp_repayment_notes_loan_apr
+    ,temp_borrowing_loan_time.create_time as temp_repayment_notes_borrowing_create_time
   </sql>
   <sql id="Base_extend">
     LEFT JOIN t_borrowing_loan temp_borrowing_loan ON temp_borrowing_loan.loan_id = temp_repayment_notes.loan_id <!-- 扩展 -->
     LEFT JOIN t_member temp_member ON temp_member.member_id = temp_repayment_notes.member_id <!-- 扩展 -->
     LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_repayment_notes.creater <!-- 扩展 -->
     LEFT JOIN t_user temp_updater ON temp_updater.user_id = temp_repayment_notes.updater <!-- 扩展 -->
-  
     LEFT JOIN t_member temp_loan_member ON temp_loan_member.member_id = temp_borrowing_loan.member_id <!-- 扩展 -->
+    LEFT JOIN t_borrowing_loan temp_borrowing_loan_apr ON temp_borrowing_loan_apr.loan_id = temp_repayment_notes.loan_id <!-- 扩展 年利率-->
+    LEFT JOIN t_borrowing_loan temp_borrowing_loan_time ON temp_borrowing_loan_time.loan_id = temp_repayment_notes.loan_id <!-- 扩展 借款时间-->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.borrow.RepaymentNotesExample" >
     select

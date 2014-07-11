@@ -136,6 +136,8 @@ public class TenderNotesController {
 		request.setAttribute("memberAuthWithBLOBs", memberAuthService.getMemberAuth(memberId));//获取该会员 的认证数据
 		request.setAttribute("loanReviewDatas", loanReviewService.listAsGridWebsite(jqPager, 1,loanId));//获取借款留言列表
 		request.setAttribute("tenderNotesDatas", tenderNotesService.listAsGridWebsite(jqPager, p,loanId));//获取投标记录列表
+		//根据条件查找出该会员该借款的详细还款记录信息
+		request.setAttribute("repaymentNotesDetailsDatas", repaymentNotesDetailService.listByRepDetailLoadIdOrMemberId(jqPager, p, loanId, memberId));
 		return "investment_mgr/investmentdetail";
 	}
 	/**

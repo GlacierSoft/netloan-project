@@ -27,6 +27,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.basicdatas.ParameterIntegralTypeMapper;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.LoanTenderMapper;
+import com.glacier.netloan.dao.borrow.RepaymentNotesMapper;
 import com.glacier.netloan.dao.borrow.TenderNotesMapper;
 import com.glacier.netloan.dao.finance.FinanceMemberMapper;
 import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
@@ -126,6 +127,9 @@ public class BorrowingLoanService {
 	@Autowired
     private LoanTenderMapper loanTenderMapper;
 	
+	@Autowired
+	private RepaymentNotesMapper repaymentNotesMapper;
+	
 	/**
 	 * @Title: getBorrowingLoan 
 	 * @Description: TODO(根据借款Id获取借款信息) 
@@ -208,6 +212,15 @@ public class BorrowingLoanService {
         			borrowingLoan.setCreditPhoto(parameterCredit.getCreditPhoto());
         			break;
         		}	
+        	}
+        	//如果该借款信息的状态为“repaymenting”还款中，“completed”已还完，则赋值给“偿还本息shouldPayMoney ，已还本息alrPayMoney，未还本息notPayMoney”这几个字段
+        	if (borrowingLoan.getLoanState().equals("repaymenting") || borrowingLoan.getLoanState().equals("completed")) {
+        	    RepaymentNotes repaymentNotes = repaymentNotesMapper.selectByPrimaryLoanId(borrowingLoan.getLoanId());
+        	    if (!repaymentNotes.equals(null)) {
+        	        borrowingLoan.setShouldPayMoney(repaymentNotes.getShouldPayMoney());//把该还款记录的 偿还本息 赋值给借款记录的 偿还本息
+                    borrowingLoan.setAlrPayMoney(repaymentNotes.getAlrPayMoney());//把该还款记录的 已还本息 赋值给借款记录的 已还本息
+                    borrowingLoan.setNotPayMoney(repaymentNotes.getNotPayMoney());//把该还款记录的 未还本息 赋值给借款记录的 未还本息
+                }
         	}
         	allborrowingLoans.add(borrowingLoan);
         }
