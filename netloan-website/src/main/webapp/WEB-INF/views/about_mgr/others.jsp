@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	<div class="panel panel-default">
 				  		<div class="bs-example">
 					      <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
-					        <li><a href="${ctx}/aboutUs.htm">公司简介</a></li>
+					        <li><a href="${ctx}/aboutUs.htm" >公司简介</a></li>
 					        <li><a href="${ctx}/announcement/announcement.htm?&p=1">网站公告</a></li>
 						    <li><a href="${ctx}/news/news.htm?&p=1">网站新闻</a></li>
 					        <li><a href="${ctx}/hiring/hiring.htm?&p=1">招纳贤士</a></li>

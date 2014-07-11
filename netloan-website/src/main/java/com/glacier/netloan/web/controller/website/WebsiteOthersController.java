@@ -11,6 +11,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
@@ -54,17 +55,21 @@ public class WebsiteOthersController {
 			try {
 				String str = getJsonContent("http://ip.taobao.com/service/getIpInfo.php?ip="+ IP);
                 System.out.println(str);
-                JSONObject obj = JSONObject.fromObject(str);
-                JSONObject obj2 = (JSONObject) obj.get("data");
-                Integer code =  (Integer) obj.get("code");   
-                if(code.equals(0)){  
-                    resout = obj2.get("country") + "--" + obj2.get("region") + "--"+ obj2.get("city") + "--"+ obj2.get("isp");
-                 } else {
-                     resout = "IP地址有误";
-                  }
-               } catch (Exception e) {
-                 e.printStackTrace();
-                 resout = "获取IP地址异常";
+                try{
+                	JSONObject obj = JSONObject.fromObject(str);
+                    JSONObject obj2 = (JSONObject) obj.get("data");
+                    Integer code =  (Integer) obj.get("code");   
+                    if(code.equals(0)){  
+                        resout = obj2.get("country") + "--" + obj2.get("region") + "--"+ obj2.get("city") + "--"+ obj2.get("isp");
+                     } else {
+                         resout = "IP地址有误";
+                      }
+                }catch(ClassCastException e){
+                	 resout = "IP地址格式错误!";
+                }
+               } catch (Exception e){
+                    e.printStackTrace();
+                    resout = "获取IP地址异常";
               }
 			
 			    System.out.println("最终显示的地址为:"+resout);
@@ -161,12 +166,15 @@ public class WebsiteOthersController {
 		            array = JSONArray.fromObject(jsonString2);
 
 		            // 获取JSONArray的JSONObject对象，便于读取array里的键值对
-		            jsonObject = array.getJSONObject(0);        
-		            PhoneNumberAddress=jsonObject.getString("province")+"--"+jsonObject.getString("catName");
-		            
-		            mav.addObject("PhoneNumberAddress",PhoneNumberAddress);
-		        
-		        }catch(Exception e){
+		            try{
+		            	jsonObject = array.getJSONObject(0);        
+			            PhoneNumberAddress=jsonObject.getString("province")+"--"+jsonObject.getString("catName");
+			            mav.addObject("PhoneNumberAddress",PhoneNumberAddress);
+		            }catch(JSONException e){
+		            	PhoneNumberAddress="电话号码格式输入错误!!";
+			            mav.addObject("PhoneNumberAddress",PhoneNumberAddress);
+		            }
+		         }catch(Exception e){
 		            e.printStackTrace();
 		        }
 		        return mav;
