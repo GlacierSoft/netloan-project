@@ -68,7 +68,12 @@ glacier.member_mgr.member_mgr.member.memberDataGrid = $('#memberDataGrid').datag
 							title : '信用积分',
 							width : 120,
 							sortable : true
-						}, {
+						},{
+							field : 'creditamount',
+							title : '信用额度',
+							width : 200,
+							sortable : true
+						},{
 							field : 'integral',
 							title : '积分',
 							width : 120,
@@ -142,7 +147,7 @@ glacier.member_mgr.member_mgr.member.memberDataGrid = $('#memberDataGrid').datag
 								title : '【' + rowData.memberName + '】会员详细信息',
 								href : ctx+ '/do/member/intoDetail.htm?memberId='+ rowData.memberId,//从controller请求jsp页面进行渲染
 								width : 645,
-								height : 450,
+								height : 480,
 								resizable : false,
 								enableApplyButton : false,
 								enableSaveButton : false
