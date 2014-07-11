@@ -156,8 +156,12 @@ public class RepaymentNotesDetailService {
         }*/
         if(null != loanId && StringUtils.isNotBlank(loanId)){
             RepaymentNotes repaymentNotes = repaymentNotesMapper.selectByPrimaryLoanId(loanId);//根据借款Id查找出对应的还款信息记录
-            if(null != repaymentNotes.getRepayNotesId() && StringUtils.isNotBlank(repaymentNotes.getRepayNotesId())){
-                repaymentNotesDetailExample.createCriteria().andRepayNotesIdEqualTo(repaymentNotes.getRepayNotesId());//根据还款信息记录Id查找出对应的还款记录明细
+            if (repaymentNotes != null) {//如果借款记录存在了还款信息，系统就把还款明细信息查询出来
+                if(null != repaymentNotes.getRepayNotesId() && StringUtils.isNotBlank(repaymentNotes.getRepayNotesId())){
+                    repaymentNotesDetailExample.createCriteria().andRepayNotesIdEqualTo(repaymentNotes.getRepayNotesId());//根据还款信息记录Id查找出对应的还款记录明细
+                }
+            }else {
+                return returnResult;// 返回ExtGrid表
             }
         }
         jqPager.setSort("createTime");// 定义排序字段

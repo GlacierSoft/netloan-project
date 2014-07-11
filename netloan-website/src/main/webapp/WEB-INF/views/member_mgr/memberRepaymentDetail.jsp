@@ -126,6 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  				  <table class="table table-bordered">
 			          	<thead>
 				          <tr>
+				          	<th>第几期</th>
 				            <th>计划还款日期</th>
 				            <th>计划还款本息</th>
 				            <th>实还日期</th>
@@ -140,6 +141,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			          	<tbody>
 			          		<c:forEach items="${repaymentNotesDetailsDatas.rows}" var="repaymentNotesDetails" varStatus="status">
 					          <tr>
+					          	<td>${repaymentNotesDetails.numberPeriod}</td>
 					            <td><fmt:formatDate value="${repaymentNotesDetails.shouldPayDate}" type="date"/></td>
 					            <td>￥${repaymentNotesDetails.currentPayMoeny}</td>
 					            <td><fmt:formatDate value="${repaymentNotesDetails.actualPayDate}" type="date"/></td>
@@ -165,7 +167,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				      	</tbody>
 				      	<tfoot>
 				          <tr>
-				            <th colspan="9">
+				            <th colspan="10">
 				            	<div align="right">
 									<ul id='pageRepaymentNotesDetails'></ul>
 								</div>
@@ -234,7 +236,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    totalPages:total,
 	    pageUrl: function(type, page, current){
 	    	return "${ctx}/borrowingLoan/memberRepaymentDetail.htm?"+composeUrlParams()+"&p="+page;
-	    	}
+	    }
 	}
 	
 	element.bootstrapPaginator(options);

@@ -108,10 +108,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        </thead>
 			          	<tbody>
 				          <tr>
-				            <td>标题：</td>
+				            <td>借款标题：</td>
 				            <td>${borrowingLoan.loanTitle}</td>
 				            <td>借款金额：</td>
-				            <td>${borrowingLoan.loanTotal}</td>
+				            <td>￥${borrowingLoan.loanTotal}</td>
 				          </tr>
 				          <tr>
 				            <td>借款利率：</td>
@@ -138,22 +138,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            <td>账户余额：</td>
 				            <td>
 				            	<input type="hidden" id="financeMemberId" name="financeMemberId" value="${financeMemberDate.financeMemberId}"/>
-				            	${financeMemberDate.amount}
+				            	￥${financeMemberDate.amount}
 				            </td>
 				            <td>可用余额：</td>
-				            <td>${financeMemberDate.usableMoney}</td>
+				            <td>￥${financeMemberDate.usableMoney}</td>
 				          </tr>
 				          <tr>
 				            <td>还款日期： </td>
 				            <td><fmt:formatDate value="${repaymentNotesDetailsData.shouldPayDate}" type="date"/></td>
 				            <td>待还本息：</td>
-				            <td>${repaymentNotesDetailsData.currentPayMoeny}</td>
+				            <td>￥${repaymentNotesDetailsData.currentPayMoeny}</td>
 				          </tr>
 				          <tr>
 				            <td>逾期本息：</td>
-				            <td>${repaymentNotesDetailsData.overdueInterest}</td>
+				            <td>￥${repaymentNotesDetailsData.overdueInterest}</td>
 				            <td>需还总额：</td>
-				            <td>${repaymentNotesDetailsData.alsoNeedMoney}</td>
+				            <td>￥${repaymentNotesDetailsData.alsoNeedMoney}</td>
 				          </tr>
 				          <tr>
 				            <td class="col-md-2">交易密码：</td>

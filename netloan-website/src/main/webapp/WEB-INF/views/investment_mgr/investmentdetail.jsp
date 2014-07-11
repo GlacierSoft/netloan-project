@@ -329,6 +329,7 @@
 					<table class="table table-bordered">
 			          	<thead>
 				          <tr>
+				          	<th>第几期</th>
 				          	<th>借款标题</th>
 				            <th>计划还款日期</th>
 				            <th>计划还款本息</th>
@@ -342,41 +343,40 @@
 				          </tr>
 				        </thead>
 			          	<tbody>
-			          		<c:forEach items="${repaymentNotesDetailsDatas.rows}" var="repaymentNotesDetails" varStatus="status">
-					          <tr>
-					          	<td>${repaymentNotesDetails.loanTitle}</td>
-					            <td><fmt:formatDate value="${repaymentNotesDetails.shouldPayDate}" type="date"/></td>
-					            <td>￥${repaymentNotesDetails.currentPayMoeny}</td>
-					            <td><fmt:formatDate value="${repaymentNotesDetails.actualPayDate}" type="date"/></td>
-					            <td>${repaymentNotesDetails.overdueDays}</td>
-					            <td>￥${repaymentNotesDetails.actualPayMoney}</td>
-					            <td>￥${repaymentNotesDetails.overdueInterest}</td>
-					            <td>￥${repaymentNotesDetails.actualPayMoney}</td>
-					            <td><span id="repaymentNotesDetails_repayState${status.index}"></span>
-						        		<script type="text/javascript">
-								       		$('#repaymentNotesDetails_repayState'+${status.index}).html(renderGridValue('${repaymentNotesDetails.repayState}',fields.repayDetailState));
-								    	</script>
-								</td>
-					            <td>
-					            	<c:if test="${repaymentNotesDetails.repayState == 'notRepay'}">
-					            		<a href="${ctx}/repaymentNotesDetail/conductRepayment.htm?&loanId=${borrowingLoan.loanId}&memberId=${currentMember.memberId}&repayNotesDetailId=${repaymentNotesDetails.repayNotesDetailId}">还款</a>
-					            	</c:if>
-					            	<c:if test="${repaymentNotesDetails.repayState == 'alreadRepay'}">
-					            		已完成
-					            	</c:if>
-					            </td>
-					          </tr>
-				      		</c:forEach>
+			          		<c:if test="${empty tenderNotesDatas.rows}">
+								<tr>
+						            <td colspan="11" style="text-align:center;vertical-align: middle;"><strong>暂无信息</strong></td>
+						        </tr>
+							</c:if>	
+							<c:if test="${!empty tenderNotesDatas.rows}">
+				          		<c:forEach items="${repaymentNotesDetailsDatas.rows}" var="repaymentNotesDetails" varStatus="status">
+						          <tr>
+						          	<td>${repaymentNotesDetails.numberPeriod}</td>
+						          	<td>${repaymentNotesDetails.loanTitle}</td>
+						            <td><fmt:formatDate value="${repaymentNotesDetails.shouldPayDate}" type="date"/></td>
+						            <td>￥${repaymentNotesDetails.currentPayMoeny}</td>
+						            <td><fmt:formatDate value="${repaymentNotesDetails.actualPayDate}" type="date"/></td>
+						            <td>${repaymentNotesDetails.overdueDays}</td>
+						            <td>￥${repaymentNotesDetails.actualPayMoney}</td>
+						            <td>￥${repaymentNotesDetails.overdueInterest}</td>
+						            <td>￥${repaymentNotesDetails.actualPayMoney}</td>
+						            <td><span id="repaymentNotesDetails_repayState${status.index}"></span>
+							        		<script type="text/javascript">
+									       		$('#repaymentNotesDetails_repayState'+${status.index}).html(renderGridValue('${repaymentNotesDetails.repayState}',fields.repayDetailState));
+									    	</script>
+									</td>
+						            <td>
+						            	<c:if test="${repaymentNotesDetails.repayState == 'notRepay'}">
+						            		<a href="${ctx}/repaymentNotesDetail/conductRepayment.htm?&loanId=${borrowingLoan.loanId}&memberId=${currentMember.memberId}&repayNotesDetailId=${repaymentNotesDetails.repayNotesDetailId}">还款</a>
+						            	</c:if>
+						            	<c:if test="${repaymentNotesDetails.repayState == 'alreadRepay'}">
+						            		已完成
+						            	</c:if>
+						            </td>
+						          </tr>
+					      		</c:forEach>
+					    	</c:if>
 				      	</tbody>
-				      	<tfoot>
-				          <tr>
-				            <th colspan="9">
-				            	<div align="right">
-									<ul id='pageRepaymentNotesDetails'></ul>
-								</div>
-							</th>
-				          </tr>
-				        </tfoot>
 				  	</table>
 				  </div>
 	    		</div>
@@ -653,7 +653,7 @@
 	    pageUrl: function(type, page, current){
 	    	return "${ctx}/loanReview/loanReviewPage.htm?&p="+page+"&loanId=${borrowingLoan.loanId }&memberId=${borrowingMember.memberId }";
 	    	//return "${ctx}/investment/investmentdetail.htm?"+composeUrlParams()+"&p="+page+"&loanId=${borrowingLoan.loanId }&memberId=${borrowingMember.memberId }";
-	    	}
+	    }
 	}
 	
 	var optionsTenderNotes = {
@@ -663,13 +663,13 @@
 		    totalPages:totalTenderNotes,
 		    pageUrl: function(type, page, current){
 		    	return "${ctx}/investment/investmentdetail.htm?&p="+page+"&loanId=${borrowingLoan.loanId }&memberId=${borrowingMember.memberId }";
-		    	}
-		}
+	    	}
+	}
 	
 	element.bootstrapPaginator(options);
 	elementTenderNotes.bootstrapPaginator(optionsTenderNotes);
 	})
-<!-- 分页显示表格数据 结束 -->
+	<!-- 分页显示表格数据 结束 -->
   
 	//更换验证码的值
 	$('#login_kaptcha').click(function() {  
