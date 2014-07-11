@@ -43,6 +43,16 @@
 				width:200,
 				sortable:true
 			},{
+				field:'loanApr',
+				title:'年利率',
+				width:100,
+				sortable:true
+			},{
+				field:'borrowingCreateTime',
+				title:'借款时间',
+				width:150,
+				sortable:true
+			},{
 				field:'memberDisplay',
 				title:'还款人',
 				width:200,

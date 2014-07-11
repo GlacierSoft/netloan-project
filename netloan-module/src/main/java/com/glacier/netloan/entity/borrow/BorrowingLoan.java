@@ -31,7 +31,22 @@ public class BorrowingLoan {
      * 自定义字段,会员信用图标
      */
     private String creditPhoto;
-
+    
+    /**
+     * 自定义字段,应还本息
+     */
+    private Float shouldPayMoney;
+    
+    /**
+     * 自定义字段,已还本息
+     */
+    private Float alrPayMoney;
+    
+    /**
+     * 自定义字段,未还本息
+     */
+    private Float notPayMoney;
+    
     private String loanTitle;
 
     private String loanPicture;
@@ -675,8 +690,32 @@ public class BorrowingLoan {
 	public void setCreditPhoto(String creditPhoto) {
 		this.creditPhoto = creditPhoto;
 	}
+	
+    public Float getShouldPayMoney() {
+        return shouldPayMoney;
+    }
 
-	public Float getCreditIntegral() {
+    public void setShouldPayMoney(Float shouldPayMoney) {
+        this.shouldPayMoney = shouldPayMoney;
+    }
+
+    public Float getAlrPayMoney() {
+        return alrPayMoney;
+    }
+
+    public void setAlrPayMoney(Float alrPayMoney) {
+        this.alrPayMoney = alrPayMoney;
+    }
+
+    public Float getNotPayMoney() {
+        return notPayMoney;
+    }
+
+    public void setNotPayMoney(Float notPayMoney) {
+        this.notPayMoney = notPayMoney;
+    }
+
+    public Float getCreditIntegral() {
 		return creditIntegral;
 	}
 

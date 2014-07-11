@@ -211,6 +211,7 @@ public class BorrowingLoanController extends AbstractController{
         } else if ("completed".equals(borrowingLoanQueryDTO.getLoanState())) {
             mav.addObject("buttonState","completed");
         }
+		//根据条件进行查询借款信息记录列表
 		mav.addObject("borrowingDatas",borrowingLoanService.listAsGridWebsite(jqPager, borrowingLoanQueryDTO, pagetype, p, memberId));
 		return mav;
 	}
@@ -220,6 +221,7 @@ public class BorrowingLoanController extends AbstractController{
     public Object memberRepaymentDetail(JqPager jqPager, int p, String loanId, String memberId){
         ModelAndView mav = new ModelAndView("member_mgr/memberRepaymentDetail");
         mav.addObject("borrowingLoan",borrowingLoanService.getBorrowingLoan(loanId));
+        //根据条件查找出该会员该借款的详细还款记录信息
         mav.addObject("repaymentNotesDetailsDatas",repaymentNotesDetailService.listByRepDetailLoadIdOrMemberId(jqPager, p, loanId, memberId));
         return mav;
     }

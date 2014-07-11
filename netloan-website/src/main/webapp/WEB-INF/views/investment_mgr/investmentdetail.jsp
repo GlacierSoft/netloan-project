@@ -326,26 +326,58 @@
 				  	<blockquote>
 					       	<h4>冰川网贷将以客观、公正的原则，最大程度地核实借入者信息的真实性，但不保证审核信息100%真实。如果借入者长期逾期，其提供的信息将被公布。</h4>
 					</blockquote>
-					<table class="table table-bordered" style="text-align:center;vertical-align: middle;">
-			            <tr>
-			              <td>序号</td>
-			              <td>还款日期</td>
-			              <td>已还本息</td>
-			              <td>待还本息</td>
-			              <td>已付罚息</td>
-			              <td>待还罚息</td>
-			              <td>状态</td>
-			            </tr> 
-			            <tr>
-			              <td>1/1</td>
-			              <td>2014-05-24</td>
-			              <td>0.00</td>
-			              <td>10083.33</td>
-			              <td>0.00</td>
-			              <td>0.00</td>
-			              <td>未偿还</td>
-			            </tr>
-			        </table>
+					<table class="table table-bordered">
+			          	<thead>
+				          <tr>
+				          	<th>借款标题</th>
+				            <th>计划还款日期</th>
+				            <th>计划还款本息</th>
+				            <th>实还日期</th>
+				            <th>逾期天数</th>
+				            <th>实还本息</th>
+				            <th>逾期罚息</th>
+				            <th>总还款金额</th>
+				            <th>状态</th>
+				            <th>操作</th>
+				          </tr>
+				        </thead>
+			          	<tbody>
+			          		<c:forEach items="${repaymentNotesDetailsDatas.rows}" var="repaymentNotesDetails" varStatus="status">
+					          <tr>
+					          	<td>${repaymentNotesDetails.loanTitle}</td>
+					            <td><fmt:formatDate value="${repaymentNotesDetails.shouldPayDate}" type="date"/></td>
+					            <td>￥${repaymentNotesDetails.currentPayMoeny}</td>
+					            <td><fmt:formatDate value="${repaymentNotesDetails.actualPayDate}" type="date"/></td>
+					            <td>${repaymentNotesDetails.overdueDays}</td>
+					            <td>￥${repaymentNotesDetails.actualPayMoney}</td>
+					            <td>￥${repaymentNotesDetails.overdueInterest}</td>
+					            <td>￥${repaymentNotesDetails.actualPayMoney}</td>
+					            <td><span id="repaymentNotesDetails_repayState${status.index}"></span>
+						        		<script type="text/javascript">
+								       		$('#repaymentNotesDetails_repayState'+${status.index}).html(renderGridValue('${repaymentNotesDetails.repayState}',fields.repayDetailState));
+								    	</script>
+								</td>
+					            <td>
+					            	<c:if test="${repaymentNotesDetails.repayState == 'notRepay'}">
+					            		<a href="${ctx}/repaymentNotesDetail/conductRepayment.htm?&loanId=${borrowingLoan.loanId}&memberId=${currentMember.memberId}&repayNotesDetailId=${repaymentNotesDetails.repayNotesDetailId}">还款</a>
+					            	</c:if>
+					            	<c:if test="${repaymentNotesDetails.repayState == 'alreadRepay'}">
+					            		已完成
+					            	</c:if>
+					            </td>
+					          </tr>
+				      		</c:forEach>
+				      	</tbody>
+				      	<tfoot>
+				          <tr>
+				            <th colspan="9">
+				            	<div align="right">
+									<ul id='pageRepaymentNotesDetails'></ul>
+								</div>
+							</th>
+				          </tr>
+				        </tfoot>
+				  	</table>
 				  </div>
 	    		</div>
 	    	</div>

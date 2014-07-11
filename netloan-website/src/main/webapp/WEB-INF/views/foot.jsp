@@ -51,6 +51,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 .foot_div_middle{}
 
+
+
 </style> 
 <body>
    <!--底部样式  -->
@@ -106,12 +108,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              <div class="foot_other_two">珠海冰川-创建于贰零壹肆年 @2014 珠海冰川股份有限公司 版权所有 </div>
              <div class="foot_other_three">
                 <ul class="foot_other_three_ul">
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_one.png" id="img_ones" style="width:90px;height: 35px;"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_two.png" id="img_twos" style="width:90px;height: 35px;"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_three.png" id="img_threes" style="width:90px;height: 35px;"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_four.png" id="img_fours" style="width:90px;height: 35px;"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_five.png" id="img_fives" style="width:90px;height: 35px;"></a></li>
-                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_six.png" id="img_sixs" style="width:90px;height: 35px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_one.png" id="img_ones" style="width:60px;height: 25px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_two.png" id="img_twos" style="width:60px;height: 25px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_three.png" id="img_threes" style="width:60px;height: 25px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_four.png" id="img_fours" style="width:60px;height: 25px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_five.png" id="img_fives" style="width:60px;height: 25px;"></a></li>
+                     <li><a href=""><img src="<%=basePath %>resources/images/foot/foot_six.png" id="img_sixs" style="width:60px;height: 25px;"></a></li>
                 </ul>
              </div>
          </div>
@@ -123,29 +125,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </div>
    </div>
        
-    <!-- 客服服务begin -->
-	<div class="fixedBox">
-	  <UL class="fixedBoxList">
-	    <LI class="fixeBoxLi Service"> <span class="fixeBoxSpan"></span> <strong>在线客服</strong>
-	      <div class="ServiceBox">
-	        <div class="bjfff"></div>
-	           <!--可循环内容-->
-		       <!--  <dl >
-		          <dt><img src="<%=basePath %>resources/images/foot/Service1.jpg"></dt>
-		          <dd> <strong>在线QQ客服</strong>
-		            <P class="p1">9:00-22:00</P>
-		            <P class="p2"><a title="点击这里给我发消息"href="http://wpa.qq.com/msgrd?v=3&amp;uin=123456789&amp;site=qq&amp;menu=yes"target="_blank">点击交谈</A></P>
-		          </dd>
-		        </dl>-->
-		        <!--循环内容结束  -->
-	      </div>
-	    </LI>
-	    <LI class="fixeBoxLi Home"> <A href="<%=basePath %>index.htm"> <span class="fixeBoxSpan"></span> <strong>返回首页</strong> </A> </LI>
-	    <LI class="fixeBoxLi BackToTop"> <span class="fixeBoxSpan"></span> <strong>返回顶部</strong> </LI>
-	  </UL>
-	</div>
-	<!--客服服务End  -->
-    
+       
+       
+     <!-- 客服数据 --> 
+     <div id="keFu_daohang" style="top:200px;width:70px;right:8px;position:fixed;z-index:9999;box-shadow:0px 0px 10px rgba(0, 0, 0, 0.3);border: 0px solid red;">
+          <div style="width: 60px;height: 60px;float: right;border: 0px solid  red;margin-top: 5px;">
+               <img title="点击展开客服列表" src="<%=basePath %>resources/images/foot/one.png" id="KeFuDivOne" style="cursor: pointer;">
+          </div>
+          <div style="width: 60px;height: 60px;float: right;border: 0px solid  red;margin-top: 5px;" >
+                <img title="点击返回主页" src="<%=basePath %>resources/images/foot/two.png" id="KeFuDivTwo" style="cursor: pointer;">
+          </div>
+          <div style="width: 60px;height: 60px;float: right;border: 0px solid  red;margin-top: 5px;">
+               <img title="点击回到顶部" src="<%=basePath %>resources/images/foot/three.png" id="KeFuDivThree" style="cursor: pointer;">
+          </div>
+     </div>
+     
+     <!--  客服展示页-->
+     <Div id="keFu_Show" style="top:200px;width:183px;right:8px;position:fixed;display: none;">
+          <Div style="width:150px;border: 6px solid #009CE7;border-radius:10px;background: #FFFFFF;float: right;" >
+	          <Div style="float:left;margin-top: 10px;margin-left: 8px;width: 120px;height:50px;line-height:50px;border-top: 3px solid #00724F;text-align: center;color: #009CE7;background: #E4E4E5;">
+	                 QQ在线咨询
+	          </Div>
+	          <Div style="float:left;margin-top: 5px;margin-left: 8px;width: 120px;height:32px;line-height:32px;border: 0px solid #00724F;text-align: center;color: #009CE7;background: #FFFFFF">
+	               <img  src="<%=basePath %>resources/images/foot/zixun.png"> 在线咨询
+	          </Div>
+	          <Div  id="KeFu_PutIn" style="float:left;width:120px;margin-top: 5px;margin-left: 8px;line-height:32px;border: 0px solid #00724F;text-align: center;color: #009CE7;vertical-align:middle;">
+	          </Div>
+	          <Div style="float:left;margin-top: 10px;margin-left: 8px;width: 120px;height:40px;line-height:40px;border-top: 3px solid #E5E4E2;text-align: center;color: #009CE7;border-bottom: 3px solid #E5E4E2;">
+	                                                      电话咨询
+	          </Div>
+	          <Div style="float:left;margin-left: 8px;width: 120px;height:40px;line-height:40px;text-align: center;color: #009CE7;border-bottom: 3px solid #E5E4E2;">
+	               <img src="<%=basePath %>resources/images/foot/kefu_dianhua.png">400-0688-163
+	          </Div>
+	          <Div style="float:left;margin-left: 8px;width: 120px;height:40px;line-height:40px;text-align: center;color: #009CE7;border-bottom: 3px solid #E5E4E2;color: #FE8405;">
+	               <img src="<%=basePath %>resources/images/foot/kefu_zixun.png">点我咨询
+	          </Div>
+         </Div>
+         
+         <div style="width:30px;height:350px;border: 0px solid #009CE7;float: right;margin-bottom: 20px;">
+                  <Div style="width:30px;height: 140px;border:0px solid blue;background: #16A6EC;color: white;text-align: center;margin-top: 100px;border-radius:5px;">
+                      <a href="#" onclick="DoHide();" style="color: white;text-decoration: none;"><img src="<%=basePath %>resources/images/foot/online_kufu.png">在</br>线</br>客</br>服</br>>></a>
+                  </Div>
+          </div>
+          
+          
+     
+     </Div>
+   
+     
+       
 <script type="text/javascript">
      
        $("#img_one").mouseover(function(){$("#img_one").attr("src","<%=basePath %>resources/images/foot/weibo.png");}).mouseout(function(){$("#img_one").attr("src","<%=basePath %>resources/images/foot/weibohui.png");});
@@ -159,6 +187,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        $("#img_fives").mouseover(function(){$("#img_fives").attr("src","<%=basePath %>resources/images/foot/foot_five_s.png");}).mouseout(function(){$("#img_fives").attr("src","<%=basePath %>resources/images/foot/foot_five.png");});
        $("#img_sixs").mouseover(function(){$("#img_sixs").attr("src","<%=basePath %>resources/images/foot/foot_six_s.png");}).mouseout(function(){$("#img_sixs").attr("src","<%=basePath %>resources/images/foot/foot_six.png");});
 
+      $("#KeFuDivOne").click(function(){
+    	   $("#keFu_daohang").hide();
+    	   $("#keFu_Show").show();
+       });
+      
+       function DoHide(){
+    	   $("#keFu_Show").hide();
+    	   $("#keFu_daohang").show();
+       };
+       
+       $("#KeFuDivTwo").click(function(){
+    	   location.href="<%=basePath%>/index.htm";
+       });
+       
+       $("#KeFuDivThree").click(function(){
+    	   $('body,html').animate({scrollTop:0},1000);
+       });
+       
+       
         //微信二维码
         $(".li_test").bind({mouseenter:function(e){
 	     	 $("#this_erweima").attr("style","display:block");
@@ -181,29 +228,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	    		        $("<span style='padding-top: 20px;padding-right: 15px;color: #808080;'><a href='http://"+comment.webLinkUrl+"' target='_blank'>"+comment.webLinkName+"</a></span>").appendTo(".Div_Test_One");
     	    		  });
     	    	}
-    	    }); 
+    	    });
     	   
-    	   //客服数据读取
-    	   $.ajax({
-    		   type:"post",
-    		   url:"<%=basePath%>service/list.json",
-    		   dataType:"json",
-    		   success:function(data){
-    		        //循环开始
-    		        $.each(data.rows,function(i,v){
-                          //alert("客服姓名:"+v.webServiceName+" 客服QQ:"+v.webServiceQq);     	
-    		               $("<dl>"+
-    		               "<dt><img src='<%=basePath %>resources/images/foot/Service1.jpg'></dt>"+
-    		               "<dd> <strong>客服("+v.webServiceName+")</strong>"+
-    		               "<P class='p1'>9:00-22:00</P>"+
-    		               "<P class='p2'><a title='点击这里给我发消息' href='http://wpa.qq.com/msgrd?v=3&uin="+v.webServiceQq+"&site=qq&menu=yes' target='_blank'>点击交谈</A></P>"+
-    		               "</dd>"+
-    		               "</dl>").appendTo(".ServiceBox");     
-    		       });
-    		   }
-    		});
     	   
-       });
+    	    $.ajax({
+     		   type:"post",
+     		   url:"<%=basePath%>service/list.json",
+     		   dataType:"json",
+     		   success:function(data){
+     		        //循环开始
+     		        $.each(data.rows,function(i,v){
+                           //alert("客服姓名:"+v.webServiceName+" 客服QQ:"+v.webServiceQq);   	
+     		               $("<a target='_blank' href='http://wpa.qq.com/msgrd?v=3&uin="+v.webServiceQq+"&site=qq&menu=yes'><img border='0' src='http://wpa.qq.com/pa?p=2:1203807137:51' alt='点击这里给我发消息' title='点击这里给我发消息'/></a>").appendTo("#KeFu_PutIn");     
+     		       });
+     		   }
+     		});
+    	   
+    	   
+    	 });
        </script>
        
 </body>

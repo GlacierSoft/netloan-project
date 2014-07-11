@@ -164,9 +164,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							            <td>￥${borrowingLoan.loanTotal}</td>
 							            <td>${borrowingLoan.loanApr}%</td>
 							            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="date"/></td>
-							            <td>￥${borrowingLoan.loanTotal}</td>
-							            <td>￥${borrowingLoan.loanTotal}</td>
-							            <td>￥${borrowingLoan.loanTotal}</td>
+							            <td>￥${borrowingLoan.shouldPayMoney}</td>
+							            <td>￥${borrowingLoan.alrPayMoney}</td>
+							            <td>￥${borrowingLoan.notPayMoney}</td>
 							            <td><a href="${ctx}/borrowingLoan/memberRepaymentDetail.htm?&loanId=${borrowingLoan.loanId}&memberId=${currentMember.memberId}&p=1">还款明细</a></td>
 							          </tr>
 						      		</c:forEach>
@@ -245,12 +245,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							            <td>${borrowingLoan.loanTitle}</td>
 							            <td>${borrowingLoan.loanTenderDisplay}</td>
 							            <td>${borrowingLoan.repaymentTypeDisplay}</td>
-							            <td>${borrowingLoan.loanTotal}</td>
+							            <td>￥${borrowingLoan.loanTotal}</td>
 							            <td>${borrowingLoan.loanApr}%</td>
 							            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="date"/></td>
-							            <td>${borrowingLoan.loanTotal}</td>
-							            <td>${borrowingLoan.loanTotal}</td>
-							            <td>${borrowingLoan.loanTotal}</td>
+							            <td>￥${borrowingLoan.shouldPayMoney}</td>
+							            <td>￥${borrowingLoan.alrPayMoney}</td>
+							            <td>￥${borrowingLoan.notPayMoney}</td>
 							            <td>
 							            	<span id="borrowingLoan_loanState2${status.index}"></span>
 							        		<script type="text/javascript">

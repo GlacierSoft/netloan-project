@@ -13,14 +13,37 @@ public class RepaymentNotes {
      * 自定义字段,借款标题
      */
     private String loanTitle;
+    
     /**
      * 自定义字段收款人
      */
     private String payeeDisplay;
+    
     /**
      * 自定义字段,还款人名称
      */
     private String memberDisplay;
+    
+    /**
+     * 自定义字段,借款类型
+     */
+    private String loanTenderDisplay;
+    
+    /**
+     * 自定义字段,还款方式
+     */
+    private String repaymentTypeDisplay;
+    
+    /**
+     * 自定义字段,年利率
+     */
+    private Float loanApr;
+    
+    /**
+     * 自定义字段,借款时间
+     */
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    private Date borrowingCreateTime;
     
     private String memberId;
 
@@ -106,7 +129,39 @@ public class RepaymentNotes {
 		this.memberDisplay = memberDisplay;
 	}
 
-	public String getPayeeDisplay() {
+	public String getLoanTenderDisplay() {
+        return loanTenderDisplay;
+    }
+
+    public void setLoanTenderDisplay(String loanTenderDisplay) {
+        this.loanTenderDisplay = loanTenderDisplay;
+    }
+
+    public String getRepaymentTypeDisplay() {
+        return repaymentTypeDisplay;
+    }
+
+    public void setRepaymentTypeDisplay(String repaymentTypeDisplay) {
+        this.repaymentTypeDisplay = repaymentTypeDisplay;
+    }
+
+    public Float getLoanApr() {
+        return loanApr;
+    }
+
+    public void setLoanApr(Float loanApr) {
+        this.loanApr = loanApr;
+    }
+
+    public Date getBorrowingCreateTime() {
+        return borrowingCreateTime;
+    }
+
+    public void setBorrowingCreateTime(Date borrowingCreateTime) {
+        this.borrowingCreateTime = borrowingCreateTime;
+    }
+
+    public String getPayeeDisplay() {
 		return payeeDisplay;
 	}
 
