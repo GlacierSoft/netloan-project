@@ -14,6 +14,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 
+import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -132,7 +133,7 @@ public class WebsiteOthersController {
 		       }
 		   
 		   
-		    @RequestMapping(value="FindTellAddress")
+		    @RequestMapping(value="FindTellAddress_two")
 		    public  Object calcMobileCity(String mobileNumber) throws MalformedURLException{
 		    	ModelAndView mav=new ModelAndView("about_mgr/others");
 				mav.addObject("str","TellNumber");
@@ -180,7 +181,62 @@ public class WebsiteOthersController {
 		        return mav;
 		    }
 		   
+		    @RequestMapping(value="FindTellAddress_three")
+		    public Object FindPhoneTestTwo(String mobileNumber) throws Exception{
+		    	ModelAndView mav=new ModelAndView("about_mgr/others");
+				mav.addObject("str","TellNumber");
+		    	mav.addObject("mobileNumber",mobileNumber);
+		    	String urlString = "http://www.096.me/api.php?mode=txt&phone="+mobileNumber ;
+		    	URL url=new URL(urlString);
+		    	try{
+		    		InputStream in = url.openStream();
+			    	StringBuffer sb = new StringBuffer();
+			    	 // 解决乱码问题
+			    	 BufferedReader buffer = new BufferedReader(new InputStreamReader(in,"gb2312"));
+			    	 String line = null;
+			            while((line = buffer.readLine()) != null){
+			                sb.append(line);
+			            }
+			        in.close();
+			        buffer.close();
+			        String jsonString_two= sb.toString();
+			        System.out.println(jsonString_two);
+				    int numb_one=jsonString_two.indexOf("||");
+				    int  numb_two=jsonString_two.indexOf("||", numb_one+2); 
+				    String jsonString=jsonString_two.substring(numb_one+2, numb_two);
+			        System.out.println("numb_one="+numb_one+"  numb_two="+numb_two+" words="+jsonString);
+			        mav.addObject("PhoneNumberAddress",jsonString);
+		    	}catch(StringIndexOutOfBoundsException e){
+		    		 String jsonString="手机号码格式输入错误!!!";
+		    		 mav.addObject("PhoneNumberAddress",jsonString);
+		    	}
+		    	return mav;
+		    }
 		    
-		   
-		   
+		    
+		    @RequestMapping(value="FindTellAddress")
+		    public Object findPhonenNumber(String mobileNumber) throws Exception{
+		    	String str = getJsonContent("http://api.k780.com:88/?app=phone.get&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4&format=json&phone="+mobileNumber);
+		    	ModelAndView mav=new ModelAndView("about_mgr/others");
+				mav.addObject("str","TellNumber");
+		    	mav.addObject("mobileNumber",mobileNumber);
+		    	System.out.println(str);
+                try{
+		    		JSONObject obj = JSONObject.fromObject(str);
+	                JSONObject obj2 = (JSONObject) obj.get("result");
+	                String code =  (String) obj.get("success");
+	                if(code.equals("1")){  
+	                    String resout = obj2.get("style_simcall") + "," + obj2.get("ctype");
+	                    mav.addObject("PhoneNumberAddress",resout);
+	                } else {
+	                	String resout = (String) obj2.get("msg");
+	                	mav.addObject("PhoneNumberAddress",resout);
+	                }
+		    	}catch(NullPointerException e){
+		    		mav.addObject("PhoneNumberAddress","手机号码输入格式错误!!!");
+		    	}
+		    	return mav;
+		    }  
+		    
+		  
 }

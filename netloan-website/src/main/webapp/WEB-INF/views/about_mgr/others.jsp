@@ -109,8 +109,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						   <div style="width:920px;height:40px;border: 0px solid black;margin-top: 20px;line-height: 40px;">
 						        <form action="${ctx}/others/FindTellAddress" method="post">
 						            <label>请输入手机号 ： </label>
-						            <input type="text"  id="TellNumberOne" name="mobileNumber" class="IpNumber" placeholder="手机号" value="${ mobileNumber}" >&nbsp;
-						            <button class="btn btn-primary" id="TellPhone_Commit" type="submit">查询</button>&nbsp;
+						            <input type="text"  id="TellNumberOne" name="mobileNumber" class="IpNumber" placeholder="请输入合法手机号" value="${ mobileNumber}" >&nbsp;
+						            <button class="btn btn-primary" id="TellPhone_Commit" type="submit" onclick="FindPhoneInfo();">查询</button>&nbsp;
 						            <button class="btn btn-primary" id="TellPhone_Clean" type="reset">重置</button>&nbsp;
 						        </form>
 						   </div>
@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						                    <input type="text" style="background: #F5F5F5;border: 0px;color: red;height: 30px;" value="暂无消息" readonly="readonly"> 
 						                   </c:if>
 						                   <c:if test="${PhoneNumberAddress!=null }">
-						                    <input type="text" style="background: #F5F5F5;border: 0px;color: red;height: 30px;" value="${PhoneNumberAddress}" readonly="readonly"> 
+						                    <input type="text" style="background: #F5F5F5;border: 0px;color: red;height: 30px;width: 560px;" value="${PhoneNumberAddress}" readonly="readonly"> 
 						                   </c:if>
 						                
 						   </div>
@@ -241,6 +241,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		 $("#TellNumberOne").attr("value",""); 
     	 });
     	}); 
+       
 </script>
 	    
 </body>
