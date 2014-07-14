@@ -270,7 +270,7 @@
     where menu_id = #{menuId,jdbcType=VARCHAR}
   </update>
   <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
-	  	SELECT <include refid="Base_Column_List" /> FROM t_menu temp_menu 
+	  	SELECT DISTINCT<include refid="Base_Column_List" /> FROM t_menu temp_menu 
 		INNER JOIN t_authority temp_auth ON  temp_menu.menu_id = temp_auth.menu_id
 		LEFT JOIN t_menu temp_parentMenu ON temp_menu.pid = temp_parentMenu.menu_id
 		WHERE temp_auth.role_id IN
