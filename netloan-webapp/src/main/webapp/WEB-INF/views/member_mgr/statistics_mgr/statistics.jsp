@@ -195,7 +195,7 @@
 				field:'updateTime',
 				title:'统计时间',
 				sortable:true,
-				width:100
+				width:150
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏

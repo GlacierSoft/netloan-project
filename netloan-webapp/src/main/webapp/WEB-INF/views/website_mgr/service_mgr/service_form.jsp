@@ -8,7 +8,6 @@
 			<td>客服名称：</td>
 			<td>
 				<input type="hidden" id="service_mgr_service_form_webServiceId" name="webServiceId" value="${serviceData.webServiceId}" />
-<%-- 				<input id="service_mgr_service_form_webServiceName"  name="webServiceName" class="easyui-validatebox spinner" style="width:268px" value="${serviceData.webServiceName}" required="true"  validType="customReg['^[\u0391-\uFFE5]{2,10}$','<fmt:message key="WebsiteService.webServiceName.illegal"/>']"/> --%>
 				<input id="service_mgr_service_form_webServiceName"  name="webServiceName" class="easyui-validatebox spinner" style="width:268px" value="${serviceData.webServiceName}" required="true"  validType="length[1,25]" invalidMessage="客服名称必须在1到25个字符之间"/>
 			</td>
 		</tr>
@@ -66,11 +65,11 @@
 					//K('#url').html(url);
 					$("#creditPhotoDivImg").attr("src",url);
 				} else {
-					alert(data.message);
+					alert("添加成功");
 				}
 			},
 			afterError : function(str) {
-				alert('自定义错误信息: ' + str);
+				alert('自定义错误信息: ');
 			}
 		});
 		uploadbutton.fileBox.change(function(e) {
