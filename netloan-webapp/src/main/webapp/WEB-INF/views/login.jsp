@@ -51,13 +51,13 @@
 								<div id="userrname_form_group" class="form-group">
 									<label for="username" class="control-label col-xs-3 hidden-sm hidden-xs">用户名</label>
 									<div class="col-md-9 col-xs-12">
-										<input type="text" id="username" name="username" class="form-control input-lg"  placeholder="用户名/邮箱/手机" value="admin" />
+										<input type="text" id="username" name="username" class="form-control input-lg"  placeholder="请输入用户名"  />
 									</div>
 								</div>
 								<div id="password_form_group" class="form-group">
 									<label for="password" class="control-label col-xs-3 hidden-sm hidden-xs">密码</label>
 									<div class="col-md-9 col-xs-12">
-										<input type="password" id="password" name="password" class="form-control input-lg"  placeholder="密码" value="admin"/>
+										<input type="password" id="password" name="password" class="form-control input-lg"  placeholder="密码" />
 									</div>
 								</div>
 								
