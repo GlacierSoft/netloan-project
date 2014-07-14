@@ -554,16 +554,9 @@ public class BorrowingLoanService {
                  memberMessageNotice.setContent(borrowingLoan.getSecondMesNotice());
              }else{ 
              	if(borrowingLoan.getFirstAuditState().equals("firstSucess")){ 
-                     memberMessageNotice.setContent("借款审审核通过");
+                     memberMessageNotice.setContent("借款复审审核通过");
              	}else{
-             		memberMessageNotice.setContent("借款初审审核不通过，请重新申请");
-             		//根据借款人的ID查询出借款人的信息，扣除信用额度
-                    Member memberborrowingLoan = memberMapper.selectByPrimaryKey(borrowingLoan.getMemberId());//根据借款会员ID取出借款人的信息
-                    BorrowingLoan mborrowingLoan = borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());//根据借款ID取出该借款的信息
-                    memberborrowingLoan.setCreditamount(memberborrowingLoan.getCreditamount()+mborrowingLoan.getLoanTotal());//扣除信用额度(信用额度+借款总额)
-                    memberborrowingLoan.setUpdater(pricipalUser.getUserId());
-                    memberborrowingLoan.setUpdateTime(new Date());
-                    memberMapper.updateByPrimaryKeySelective(memberborrowingLoan);//执行更新操作
+             		memberMessageNotice.setContent("借款复审审核不通过，请重新申请");
              	}
              } 
         memberMessageNotice.setAddressee(borrowingLoan.getMemberId());
@@ -769,6 +762,13 @@ public class BorrowingLoanService {
             }
             	borrowingLoan.setFailedReason("other");
             	borrowingLoan.setLoanState("bids");
+            	//根据借款人的ID查询出借款人的信息，扣除信用额度
+                Member memberborrowingLoan = memberMapper.selectByPrimaryKey(borrowingLoan.getMemberId());//根据借款会员ID取出借款人的信息
+                BorrowingLoan mborrowingLoan = borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());//根据借款ID取出该借款的信息
+                memberborrowingLoan.setCreditamount(memberborrowingLoan.getCreditamount()+mborrowingLoan.getLoanTotal());//扣除信用额度(信用额度+借款总额)
+                memberborrowingLoan.setUpdater(pricipalUser.getUserId());
+                memberborrowingLoan.setUpdateTime(new Date());
+                memberMapper.updateByPrimaryKeySelective(memberborrowingLoan);//执行更新操作
         }
         count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);
         if (count == 1) {
