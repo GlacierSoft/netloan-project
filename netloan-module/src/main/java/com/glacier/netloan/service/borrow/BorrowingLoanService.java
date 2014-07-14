@@ -762,6 +762,13 @@ public class BorrowingLoanService {
             }
             	borrowingLoan.setFailedReason("other");
             	borrowingLoan.setLoanState("bids");
+            	borrowingLoan.setSecondAuditState("secondFailure");
+            	borrowingLoan.setSecondAdvice(borrowingLoanNew.getSecondAdvice());
+            	borrowingLoan.setSecondMesNotice(borrowingLoanNew.getSecondMesNotice());
+            	borrowingLoan.setSecondAuditorId(pricipalUser.getUserId());
+                borrowingLoan.setSecondAuditDate(new Date());
+                borrowingLoan.setUpdater(pricipalUser.getUserId());
+                borrowingLoan.setUpdateTime(new Date());
             	//根据借款人的ID查询出借款人的信息，扣除信用额度
                 Member memberborrowingLoan = memberMapper.selectByPrimaryKey(borrowingLoan.getMemberId());//根据借款会员ID取出借款人的信息
                 BorrowingLoan mborrowingLoan = borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());//根据借款ID取出该借款的信息

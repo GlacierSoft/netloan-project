@@ -306,7 +306,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				});
     		} 
     	});
-	    alert("${memberDate.memberId}");
 	    function successAddLiuZhuan(data){
 			KindEditor.ready(function(K) {
 			var dialog = K.dialog({
