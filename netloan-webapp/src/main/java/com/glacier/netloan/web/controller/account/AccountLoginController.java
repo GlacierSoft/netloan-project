@@ -31,7 +31,11 @@ import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.service.account.AccountLoginService;
 import com.glacier.netloan.service.member.MemberService;
 
-
+/***
+ * 
+ * 会员登陆统计信息
+ * 
+ * **/
 
 
 @Controller

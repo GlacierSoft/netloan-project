@@ -29,6 +29,11 @@ import com.glacier.netloan.service.account.AccountBorrowService;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
 
 
+/**
+ * 会员借款统计信息
+ * 
+ * **/
+
 @Controller
 @RequestMapping(value="/accountBorrow")
 public class AccountBorrowController{

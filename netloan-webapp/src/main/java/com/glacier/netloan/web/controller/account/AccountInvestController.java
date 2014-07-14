@@ -37,7 +37,10 @@ import com.glacier.netloan.service.account.AccountInvestService;
 import com.glacier.netloan.service.account.AccountLoginService;
 import com.glacier.netloan.service.member.MemberService;
 
-
+/**
+ * 
+ * 会员投标统计信息
+ * ***/
 
 
 @Controller
