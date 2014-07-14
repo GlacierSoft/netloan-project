@@ -114,7 +114,7 @@
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
-			$(this).datagrid('clearChecked');
+			$(this).datagrid('clearChecked'); 
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({

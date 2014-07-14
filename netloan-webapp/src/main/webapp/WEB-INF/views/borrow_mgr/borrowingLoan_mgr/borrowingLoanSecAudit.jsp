@@ -41,7 +41,7 @@
 			},{
 				field:'loanCode',
 				title:'借款编号',
-				width:120,
+				width:140,
 				sortable:true
 			},{
 				field:'memberDisplay',
@@ -258,7 +258,7 @@
 				field:'loanDate',
 				title:'借款日期',
 				sortable:true,
-				width:120
+				width:150
 			},{
 				field:'firstAuditState',
 				title:'初审审核状态',
@@ -286,7 +286,7 @@
 				field:'firstAuditDate',
 				title:'初审审核时间',
 				sortable:true,
-				width:120
+				width:150
 			},{
 				field:'secondAuditState',
 				title:'复审审核状态',
@@ -314,7 +314,7 @@
 				field:'secondAuditDate',
 				title:'复审审核时间',
 				sortable:true,
-				width:120
+				width:150
 			},{
 				field:'remark',
 				title:'备注',
@@ -368,6 +368,11 @@
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
 			$(this).datagrid('clearChecked');
+			var rows=$(this).datagrid("getRows");
+			if(rows.length==0){   
+				var body = $(this).data().datagrid.dc.body2;
+				body.find('table tbody').append('<tr><td width="' + body.width() + '" style="height: 25px; text-align: center;color:red">暂时没有记录</td></tr>');
+			}
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({

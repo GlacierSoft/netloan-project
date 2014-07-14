@@ -118,9 +118,14 @@
 		onUnselectAll:function(rows){
 			action_controller(glacier.member_mgr.applyAmount_mgr.applyAmount.param,this).unSelect();
 		},
-		onLoadSuccess:function(index, record){//加载数据成功触发事件
+		onLoadSuccess:function(index, record){//加载数据成功触发事件 
 			$(this).datagrid('clearSelections');
-			$(this).datagrid('clearChecked');
+			$(this).datagrid('clearChecked');  
+			var rows=$(this).datagrid("getRows");
+			if(rows.length==0){   
+				var body = $(this).data().datagrid.dc.body2;
+				body.find('table tbody').append('<tr><td width="' + body.width() + '" style="height: 25px; text-align: center;color:red">暂时没有记录</td></tr>');
+			}
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
@@ -134,7 +139,6 @@
 			});
 		}
 	});
-	
 	//点击增加按钮触发方法
 	glacier.member_mgr.applyAmount_mgr.applyAmount.addApplyAmount = function(){
 		glacier.basicAddOrEditDialog({
@@ -200,6 +204,7 @@
 		//required:true,
 		data : fields.auths
 	});
+	 
 </script>
 
 <!-- 所有会员申请额度列表面板和表格 -->
@@ -220,7 +225,7 @@
 					<td>审核状态：</td>
 					<td><input id="memberApplyAmountSearchForm_auditState" name="auditState" style="width: 80px;" class="spinner"/></td>
 					<td>录入时间：</td>
-					<td>
+					<td >
 						<input name="createStartTime" class="easyui-datetimebox" style="width: 150px;" />
 						-
 						<input name="createEndTime" class="easyui-datetimebox" style="width: 150px;" />

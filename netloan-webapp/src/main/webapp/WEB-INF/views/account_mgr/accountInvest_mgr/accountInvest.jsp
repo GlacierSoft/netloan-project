@@ -83,7 +83,7 @@
 			},{
 				field:'createTime',
 				title:'创建时间',
-				width:290,
+				width:350,
 				sortable:true
 			},{
 				field:'updaterDisplay',
@@ -93,7 +93,7 @@
 			},{
 				field:'updateTime',
 				title:'更新时间',
-				width:290,
+				width:350,
 			    sortable:true
 			}]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
@@ -101,6 +101,15 @@
 		pmemberList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
 		toolbar:'#accountInvestDataGrid_toolbar',
+		onLoadSuccess:function(index, record){//加载数据成功触发事件 
+			$(this).datagrid('clearSelections');
+			$(this).datagrid('clearChecked');  
+			var rows=$(this).datagrid("getRows");
+			if(rows.length==0){   
+				var body = $(this).data().datagrid.dc.body2;
+				body.find('table tbody').append('<tr><td width="' + body.width() + '" style="height: 25px; text-align: center;color:red">暂时没有记录</td></tr>');
+			}
+		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
 				title:"投资统计详细信息",

@@ -21,7 +21,7 @@
 						fit : true,//控件自动resize占满窗口大小
 						iconCls : 'icon-save',//图标样式
 						border : false,//是否存在边框
-						fitColumns : true,//自动填充行
+						fitColumns : false,//自动填充行
 						nowrap : true,//禁止单元格中的文字自动换行
 						autoRowHeight : false,//禁止设置自动行高以适应内容
 						striped : true,//true就是把行条纹化。（即奇偶行使用不同背景色）
@@ -76,18 +76,18 @@
 						}, {
 							field : 'mobileNumber',
 							title : '手机号码',
-							width : 120,
+							width : 140,
 							sortable : true,
 						}, {
 							field : 'cardId',
 							title : '身份证',
-							width : 120,
+							width : 200,
 							sortable : true
 						}, {
 							field : 'createrDisplay',
 							title : '录入人',
 							sortable : true,
-							width : 100
+							width : 120
 						}, {
 							field : 'createTime',
 							title : '录入时间',
@@ -97,7 +97,7 @@
 							field : 'updaterDisplay',
 							title : '更新人',
 							sortable : true,
-							width : 100
+							width : 120
 						}, {
 							field : 'updateTime',
 							title : '更新时间',
@@ -136,6 +136,11 @@
 						onLoadSuccess : function(index, record) {//加载数据成功触发事件
 							$(this).datagrid('clearSelections');
 							$(this).datagrid('clearChecked');
+							var rows=$(this).datagrid("getRows");
+							if(rows.length==0){   
+								var body = $(this).data().datagrid.dc.body2;
+								body.find('table tbody').append('<tr><td width="' + body.width() + '" style="height: 25px; text-align: center;color:red">暂时没有记录</td></tr>');
+							}
 						},
 						onDblClickRow : function(rowIndex, rowData){
                         $.easyui.showDialog({

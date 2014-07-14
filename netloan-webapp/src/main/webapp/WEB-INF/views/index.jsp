@@ -126,7 +126,7 @@
 	      	var month = time.getMonth() + 1;
 	      	var day1 = time.getDate();
 	      	var hour=time.getHours();
-	      	var minute=time.getMinutes();
+	      	var minute=time.getMinutes(); 
 	      	var second=time.getSeconds(); 
 	        var day;
 	        switch (time.getDay()){

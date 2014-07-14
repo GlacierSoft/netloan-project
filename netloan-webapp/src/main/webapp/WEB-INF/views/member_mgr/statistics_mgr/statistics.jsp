@@ -42,7 +42,7 @@
 			},{
 				field:'memberRealName',
 				title:'会员名称',
-				width:70,
+				width:100,
 				sortable:true
 			},{
 				field:'totalBorrowings',
@@ -195,7 +195,7 @@
 				field:'updateTime',
 				title:'统计时间',
 				sortable:true,
-				width:150
+				width:160
 			}
 		]],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
@@ -224,6 +224,11 @@
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
 			$(this).datagrid('clearChecked');
+			var rows=$(this).datagrid("getRows");
+			if(rows.length==0){   
+				var body = $(this).data().datagrid.dc.body2;
+				body.find('table tbody').append('<tr><td width="' + body.width() + '" style="height: 25px; text-align: center;color:red">暂时没有记录</td></tr>');
+			}
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({

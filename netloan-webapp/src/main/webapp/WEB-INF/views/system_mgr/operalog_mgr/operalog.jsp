@@ -80,6 +80,7 @@
 			},{
 				field:'operaTime',
 				title:'创建时间',
+				width:160,
 				sortable:true
 			}
 		]],
@@ -108,7 +109,12 @@
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
-			$(this).datagrid('clearChecked');
+			$(this).datagrid('clearChecked'); 
+			var rows=$(this).datagrid("getRows");
+			if(rows.length==0){   
+				var body = $(this).data().datagrid.dc.body2;
+				body.find('table tbody').append('<tr><td width="' + body.width() + '" style="height: 25px; text-align: center;color:red">暂时没有记录</td></tr>');
+			}
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({

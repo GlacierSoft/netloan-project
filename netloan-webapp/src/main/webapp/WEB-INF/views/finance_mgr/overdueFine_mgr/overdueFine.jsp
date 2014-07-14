@@ -53,12 +53,12 @@
 			},{
 			   field:'shouldPayDate',
 			   title:'应还款日期',
-			   width:140,
+			   width:150,
 			   sortable:true,
 		    },{
 				field:'actualPayDate',
 				title:'实还款日期',
-				width:140,
+				width:150,
 				sortable:true,
 			},{
 				field:'auditState',
@@ -74,7 +74,7 @@
 				field:'auditDate',
 				title:'审核时间',
 				sortable:true,
-				width:140
+				width:150
 			},{
 				field:'creater',
 				title:'创建人',
@@ -84,7 +84,7 @@
 				field:'createTime',
 				title:'录入时间',
 				sortable:true,
-				width:140
+				width:150
 			},{
 				field:'createTime',
 				title:'最后修改人',
@@ -94,7 +94,7 @@
 				field:'updateTime',
 				title:'最后修改时间',
 				sortable:true,
-				width:140
+				width:150
 			},{
 				field:'remark',
 				title:'备注',
@@ -106,6 +106,15 @@
 		padvancesRecordSize : 10,//注意，padvancesRecordSize必须在pbankCardList存在
 		padvancesRecordList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
+		onLoadSuccess:function(index, record){//加载数据成功触发事件
+			$(this).datagrid('clearSelections');
+			$(this).datagrid('clearChecked');
+			var rows=$(this).datagrid("getRows");
+			if(rows.length==0){   
+				var body = $(this).data().datagrid.dc.body2;
+				body.find('table tbody').append('<tr><td width="' + body.width() + '" style="height: 25px; text-align: center;color:red">暂时没有记录</td></tr>');
+			}
+		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
 				title: '【'+rowData.overdueFineSetName+'】逾期罚款记录详细信息',

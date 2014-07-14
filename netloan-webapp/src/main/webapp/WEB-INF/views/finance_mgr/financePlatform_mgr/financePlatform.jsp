@@ -105,7 +105,7 @@
 				field:'auditDate',
 				title:'审核时间',
 				sortable:true,
-				width:100
+				width:150
 			},{
 				field:'auditRemark',
 				title:'审核说明',
@@ -164,6 +164,11 @@
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
 			$(this).datagrid('clearChecked');
+			var rows=$(this).datagrid("getRows");
+			if(rows.length==0){   
+				var body = $(this).data().datagrid.dc.body2;
+				body.find('table tbody').append('<tr><td width="' + body.width() + '" style="height: 25px; text-align: center;color:red">暂时没有记录</td></tr>');
+			}
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({

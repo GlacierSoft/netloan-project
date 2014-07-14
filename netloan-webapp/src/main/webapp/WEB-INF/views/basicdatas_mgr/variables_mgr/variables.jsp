@@ -69,22 +69,22 @@
 				field:'createrDisplay',
 				title:'创建人',
 				sortable:true,
-				width:100
+				width:120
 			},{
 				field:'createTime',
 				title:'创建时间',
 				sortable:true,
-				width:200
+				width:230
 			},{
 				field:'updaterDisplay',
 				title:'更新人',
 				sortable:true,
-				width:100
+				width:120
 			},{
 				field:'updateTime',
 				title:'更新时间',
 				sortable:true,
-				width:200
+				width:230
 			},{
 				field:'remark',
 				title:'备注',
@@ -118,6 +118,11 @@
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
 			$(this).datagrid('clearChecked');
+			var rows=$(this).datagrid("getRows");
+			if(rows.length==0){   
+				var body = $(this).data().datagrid.dc.body2;
+				body.find('table tbody').append('<tr><td width="' + body.width() + '" style="height: 25px; text-align: center;color:red">暂时没有记录</td></tr>');
+			}
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
