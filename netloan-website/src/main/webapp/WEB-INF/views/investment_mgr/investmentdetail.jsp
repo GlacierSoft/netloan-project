@@ -64,17 +64,22 @@
 	       	  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	       	  	<span>借款目的：</span>${borrowingLoan.loanPurposeId }
 	       	  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	       	  	<c:if test="${borrowingLoan.loanState == 'repaymenting' }">
-				    <img src="${ctx}/resources/images/borrow/huankuanzhong.jpg" alt="investment">
-	       	  	</c:if>
-	       	  	<c:if test="${borrowingLoan.loanState == 'secondAuditor' }">
-				    <img src="${ctx}/resources/images/borrow/fushenzhong.jpg" alt="investment">
-	       	  	</c:if>
+	       	  	
 	       	  	<c:if test="${borrowingLoan.loanState == 'tendering' }">
 		       	  	<a id="intoInvestment" href="${ctx}/investment/confirmInvestment.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingMember.memberId }&p=1">
 				        <img src="${ctx}/resources/images/borrow/investment.jpg" alt="investment">
 				    </a>
 	       	  	</c:if>
+	       	  	<c:if test="${borrowingLoan.loanState == 'secondAuditor' }">
+				    <img src="${ctx}/resources/images/borrow/secondAuditor.png" alt="investment">
+	       	  	</c:if>
+	       	  	<c:if test="${borrowingLoan.loanState == 'repaymenting' }">
+				    <img src="${ctx}/resources/images/borrow/repaymenting.png" alt="investment">
+	       	  	</c:if>
+	       	  	<c:if test="${borrowingLoan.loanState == 'completed' }">
+				    <img src="${ctx}/resources/images/borrow/completed.png" alt="investment">
+	       	  	</c:if>
+	       	  	
 	       	  	
 	       	  	<div>
 	       	  	<span>借款年利率：</span><fmt:formatNumber value="${borrowingLoan.loanApr}" pattern="#0.00%"/>（月利率：<fmt:formatNumber value="${borrowingLoan.loanApr/12}" pattern="#0.00%"/>）
