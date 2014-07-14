@@ -399,7 +399,7 @@ public class RepaymentNotesDetailService {
             return returnResult;
         }
         
-        int count = 1;
+        int count = 0;
         // 查找出超级管理员的用户信息
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUsernameEqualTo("admin");
@@ -426,6 +426,13 @@ public class RepaymentNotesDetailService {
         	repaymentNotesUpdate.setUpdateTime(new Date());
         	//执行更新还款记录的操作--
         	repaymentNotesMapper.updateByPrimaryKeySelective(repaymentNotesUpdate);
+        	
+        	//执行更新还款人用户的信用额度
+        	Member MemberRepayment = memberMapper.selectByPrimaryKey(member.getMemberId());
+        	MemberRepayment.setCreditamount(MemberRepayment.getCreditamount()+repaymentNotesDetail.getCurrentPayPrincipal());//设置信用额度(原本的信用额度+本期应还的本金)
+        	MemberRepayment.setUpdater(pricipalUser.getUserId());
+        	MemberRepayment.setUpdateTime(new Date());
+        	memberMapper.updateByPrimaryKeySelective(MemberRepayment);//执行更新
         	
         	//根据还款记录明细中的状态为"notRepay"和是还款记录的ID查询出符合条件的记录明细信息
 	        RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();

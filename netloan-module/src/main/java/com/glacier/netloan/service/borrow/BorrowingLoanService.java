@@ -363,6 +363,13 @@ public class BorrowingLoanService {
         List<User> usersList = userMapper.selectByExample(userExample);
         User users=usersList.get(0);
         
+        //根据借款人的ID查询出借款人的信息，扣除信用额度
+        Member memberBrrowingLoan = memberMapper.selectByPrimaryKey(borrowingLoan.getMemberId());
+        memberBrrowingLoan.setCreditamount(memberBrrowingLoan.getCreditamount()-borrowingLoan.getLoanTotal());//扣除信用额度(信用额度-借款总额)
+        memberBrrowingLoan.setUpdater(users.getUserId());
+        memberBrrowingLoan.setUpdateTime(new Date());
+        memberMapper.updateByPrimaryKeySelective(memberBrrowingLoan);//执行更新操作
+        
         borrowingLoan.setCreater(borrowingLoan.getMemberId());
         borrowingLoan.setCreateTime(new Date());
         borrowingLoan.setLoanDate(new Date());
@@ -389,7 +396,6 @@ public class BorrowingLoanService {
     @Transactional(readOnly = false)
     public Object editBorrowingLoan(BorrowingLoan borrowingLoan) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
         int count = 0;
         borrowingLoan.setUpdateTime(new Date());
         count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);
@@ -412,7 +418,6 @@ public class BorrowingLoanService {
     @Transactional(readOnly = false)
     public Object editBorrowingLoan(BorrowingLoan borrowingLoan,TenderNotes tenderNotes) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
         int count = 0;
         if(borrowingLoan.getSubTotal() == 0.0){
 			if(borrowingLoan.getAlrBidMoney() == null){
@@ -463,6 +468,8 @@ public class BorrowingLoanService {
     @MethodLog(opera = "BorrowingLoanList_firstAudit")
     public Object firstAuditBorrowingLoan(BorrowingLoan borrowingLoan) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
         int count = 0;
         //借款初次审核站内信通知
         MemberMessageNotice  memberMessageNotice = new MemberMessageNotice();
@@ -474,13 +481,22 @@ public class BorrowingLoanService {
                 memberMessageNotice.setContent("借款初审审核通过");
         	}else{
         		memberMessageNotice.setContent("借款初审审核不通过，请重新申请");
+        		//根据借款人的ID查询出借款人的信息，扣除信用额度
+                Member memberborrowingLoan = memberMapper.selectByPrimaryKey(borrowingLoan.getMemberId());//根据借款会员ID取出借款人的信息
+                BorrowingLoan mborrowingLoan = borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());//根据借款ID取出该借款的信息
+                memberborrowingLoan.setCreditamount(memberborrowingLoan.getCreditamount()+mborrowingLoan.getLoanTotal());//扣除信用额度(信用额度+借款总额)
+                memberborrowingLoan.setUpdater(pricipalUser.getUserId());
+                memberborrowingLoan.setUpdateTime(new Date());
+                memberMapper.updateByPrimaryKeySelective(memberborrowingLoan);//执行更新操作
+                
+                mborrowingLoan.setLoanState("bids");//将此借款改成流标
+                borrowingLoanMapper.updateByPrimaryKeySelective(mborrowingLoan);
         	}
         }
         memberMessageNotice.setAddressee(borrowingLoan.getMemberId());
         memberMessageNoticeService.addMemberMessageNotice(memberMessageNotice);
         
-        Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        
         borrowingLoan.setFirstAuditorId(pricipalUser.getUserId());
         borrowingLoan.setFirstAuditDate(new Date());
         borrowingLoan.setUpdater(pricipalUser.getUserId());
@@ -527,6 +543,8 @@ public class BorrowingLoanService {
     @MethodLog(opera = "BorrowingLoanList_secondAudit")
     public Object secondAuditBorrowingLoan(BorrowingLoan borrowingLoanNew) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
         BorrowingLoan borrowingLoan = this.borrowingLoanMapper.selectByPrimaryKey(borrowingLoanNew.getLoanId());
         int count = 0;
         //满标审核站内信通知
@@ -539,13 +557,18 @@ public class BorrowingLoanService {
                      memberMessageNotice.setContent("借款审审核通过");
              	}else{
              		memberMessageNotice.setContent("借款初审审核不通过，请重新申请");
+             		//根据借款人的ID查询出借款人的信息，扣除信用额度
+                    Member memberborrowingLoan = memberMapper.selectByPrimaryKey(borrowingLoan.getMemberId());//根据借款会员ID取出借款人的信息
+                    BorrowingLoan mborrowingLoan = borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());//根据借款ID取出该借款的信息
+                    memberborrowingLoan.setCreditamount(memberborrowingLoan.getCreditamount()+mborrowingLoan.getLoanTotal());//扣除信用额度(信用额度+借款总额)
+                    memberborrowingLoan.setUpdater(pricipalUser.getUserId());
+                    memberborrowingLoan.setUpdateTime(new Date());
+                    memberMapper.updateByPrimaryKeySelective(memberborrowingLoan);//执行更新操作
              	}
              } 
         memberMessageNotice.setAddressee(borrowingLoan.getMemberId());
         memberMessageNoticeService.addMemberMessageNotice(memberMessageNotice);
         
-        Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
         borrowingLoanNew.setSecondAuditorId(pricipalUser.getUserId());
         borrowingLoanNew.setSecondAuditDate(new Date());
         borrowingLoanNew.setUpdater(pricipalUser.getUserId());

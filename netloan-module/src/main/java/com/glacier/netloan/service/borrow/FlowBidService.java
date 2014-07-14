@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -16,6 +18,7 @@ import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.TenderNotesMapper;
 import com.glacier.netloan.dao.finance.FinanceMemberMapper;
 import com.glacier.netloan.dao.finance.FinanceTransactionMapper;
+import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.BorrowingLoanExample;
 import com.glacier.netloan.entity.borrow.TenderNotes;
@@ -23,6 +26,8 @@ import com.glacier.netloan.entity.borrow.TenderNotesExample;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.finance.FinanceMemberExample;
 import com.glacier.netloan.entity.finance.FinanceTransaction;
+import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.entity.system.User;
 
 /**
  * @ClassName: FlowBidService 
@@ -43,6 +48,9 @@ public class FlowBidService {
 	
 	//@Autowired
 	//private FinanceMemberService financeMemberService;
+	
+	@Autowired
+	private MemberMapper memberMapper;
 	
 	@Autowired
 	private FinanceMemberMapper financeMemberMapper;
@@ -167,6 +175,13 @@ public class FlowBidService {
 	            borrowingLoan.setRemark("已过筹标期限，此借款变成流标。");
 	            borrowingLoan.setUpdateTime(new Date());
 	            borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);//修改借款状态等
+	            
+	            //根据借款人的ID查询出借款人的信息，扣除信用额度
+                Member memberborrowingLoan = memberMapper.selectByPrimaryKey(borrowingLoan.getMemberId());//根据借款会员ID取出借款人的信息
+                BorrowingLoan mborrowingLoan = borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());//根据借款ID取出该借款的信息
+                memberborrowingLoan.setCreditamount(memberborrowingLoan.getCreditamount()+mborrowingLoan.getLoanTotal());//扣除信用额度(信用额度+借款总额)
+                memberborrowingLoan.setUpdateTime(new Date());
+                memberMapper.updateByPrimaryKeySelective(memberborrowingLoan);//执行更新操作
 		    }
 		}
 		

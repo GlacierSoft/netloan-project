@@ -165,31 +165,37 @@ public class BorrowingLoanController extends AbstractController{
 	
 	//转到“抵押标申请页面”页面
 	@RequestMapping(value = "/enteringDiYa.htm")
-	public Object enteringDiYa(){
+	public Object enteringDiYa(String memberId){
         ModelAndView mav = new ModelAndView("borrow_mgr/enteringDiYa");
         mav.addObject("loanTenderDate",loanTenderService.getLoanTender("aa09e227a4a40cb6cb15703b98522672"));
         //根据标种类型Id查找相关联的还款方式
         mav.addObject("loanTenderRepayDate",loanTenderService.getLoanTenderRepay("aa09e227a4a40cb6cb15703b98522672"));
+        //根据会员Id查找会员信息
+        mav.addObject("memberDate",memberService.getMember(memberId));
         return mav;
 	}
 	
 	//转到“信用标申请页面”页面
 	@RequestMapping(value = "/enteringXinYong.htm")
-	public Object enteringXinYong(){
+	public Object enteringXinYong(String memberId){
 	    ModelAndView mav = new ModelAndView("borrow_mgr/enteringXinYong");
         mav.addObject("loanTenderDate",loanTenderService.getLoanTender("1c362eac7ec315aa47ab84360d4e390d"));
         //根据标种类型Id查找相关联的还款方式
         mav.addObject("loanTenderRepayDate",loanTenderService.getLoanTenderRepay("1c362eac7ec315aa47ab84360d4e390d"));
+        //根据会员Id查找会员信息
+        mav.addObject("memberDate",memberService.getMember(memberId));
         return mav;
 	}
 	
 	//转到“净值标申请页面”页面
 	@RequestMapping(value = "/enteringJingZhi.htm")
-	public Object enteringJingZhi(){
+	public Object enteringJingZhi(String memberId){
 		ModelAndView mav = new ModelAndView("borrow_mgr/enteringJingZhi");
 		mav.addObject("loanTenderDate",loanTenderService.getLoanTender("9788195653f335695256551b82fcbac6"));
 		//根据标种类型Id查找相关联的还款方式
 		mav.addObject("loanTenderRepayDate",loanTenderService.getLoanTenderRepay("9788195653f335695256551b82fcbac6"));
+		//根据会员Id查找会员信息
+        mav.addObject("memberDate",memberService.getMember(memberId));
 		return mav;
 	}
 	
