@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>   
 
 <form method="post" style="padding:15px">
 	<table class="detailtable">
@@ -21,7 +22,7 @@
 		</tr>
 		<tr>
 			<td>返回内容：</td>
-			<td><input value="${operaLogData.operaDesc}" class="spinner" style="width:168px"  readonly="readonly"/></td>
+			<td><input id="returnResult" value="${operaLogData.operaDesc}"  class="spinner" style="width:168px"  readonly="readonly"/></td>
 			<td>调用类：</td>
 			<td><input value="${operaLogData.operaClass}" class="spinner" style="width:168px"  readonly="readonly"/></td>
 		</tr>
@@ -39,4 +40,13 @@
 		</tr>
 	</table>
 </form>
+<script> 
+        $(function(){
+        	  var str="${operaLogData.operaDesc}";
+        	  var reg=new RegExp("<font style='color:red;font-weight: bold;'>","g");//创建正则RegExp对象
+        	  var reg_two=new RegExp("</font>","g");//创建正则RegExp对象
+        	  var newstr=str.replace(reg,"").replace(reg_two,""); //执行样式替换
+        	  $("#returnResult").val(newstr);
+        });
+</script>
 
