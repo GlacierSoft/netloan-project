@@ -5,7 +5,6 @@
  */
 package com.glacier.netloan.service.member;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -27,9 +26,6 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.member.MemberStatisticsMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.member.MemBerStatisticsQueryDTO;
-import com.glacier.netloan.entity.basicdatas.ParameterCredit;
-import com.glacier.netloan.entity.basicdatas.ParameterCreditExample;
-import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.member.MemberStatistics; 
 import com.glacier.netloan.entity.member.MemberStatisticsExample;
 import com.glacier.netloan.entity.member.MemberStatisticsExample.Criteria;
@@ -164,9 +160,6 @@ public class MemberStatisticsService {
         HSSFRow row = sheet.createRow((int) 0);    
         HSSFCellStyle style = wb.createCellStyle();    
         style.setAlignment(HSSFCellStyle.ALIGN_CENTER);   
-        
-        //时间转化
-        SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
     
         for (int i = 0; i < excelHeader.length; i++) {    
             HSSFCell cell = row.createCell(i);    

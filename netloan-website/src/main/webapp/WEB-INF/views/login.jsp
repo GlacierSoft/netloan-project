@@ -159,10 +159,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 					$('#login_submit').attr('disabled', 'disabled').html('登录中...');
 					return true;
-				};
-				
-				//$("#loginForm").submit();//自动登录，方便测试，后期删除
-				 //输入框得到焦点,用户名验证
+				}; 
+			  //输入框得到焦点,用户名验证
 				 $("#username").focus(function(){
 					 $("#nameinfo").remove(); 
 				 });
@@ -180,7 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			     //密码验证 
 			     $("#password").blur(function(){  
 				     if($(this).val()==""){
-			         	 $(this).after("<label id='password1' style='color: red'>*密码不能为空</label>");
+			         	  $(this).after("<label id='password1' style='color: red'>*密码不能为空</label>");
 					  return;
 			          } 
 			     });
@@ -193,12 +191,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					 $("#captchaInfo").remove(); 
 					 var str=$(this).val(); 
 				     if(str==""){
-				     	 $(this).after("<label id='captchaInfo' style='color: red'>*请输入验证码</label>");
+				     	$(this).after("<label id='captchaInfo' style='color: red'>*请输入验证码</label>");
 						  return;
 				     } else if(str.length<4){
-				    	 $(this).after("<label id='captchaInfo' style='color: red'>*验证码长度小于4</label>");
+				    	$(this).after("<label id='captchaInfo' style='color: red'>*验证码长度小于4</label>");
 				    }
-				 });  
+				 });    
 			});
 		</script>
 		<%
