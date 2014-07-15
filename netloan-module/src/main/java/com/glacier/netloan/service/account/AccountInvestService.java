@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.security.auth.login.AccountException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -14,9 +13,7 @@ import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.util.SystemOutLogger;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,8 +52,6 @@ public class AccountInvestService {
 	 @Autowired
 	 private UserMapper userMapper;
 	 
-	 private static  int counter=0;
-	 
 	 //用户条件查询
 	 public Object getAccountInvestQuery(String str,Date StartTime,Date EndTime){
 		 
@@ -85,124 +80,128 @@ public class AccountInvestService {
 	        
 	    }
 		
-		//投资统计信息获取
-        if("investToday".equals(str)){//当日查询
-    	  //当前日历设置
-	      Calendar calendar=Calendar.getInstance();
-	      calendar.set(Calendar.HOUR_OF_DAY, 0);//设置日历时
-	      calendar.set(Calendar.MINUTE,0);//设置日历分
-	      calendar.set(Calendar.SECOND,0);//设置日历秒
+		// 投资统计信息获取
+		if ("investToday".equals(str)) {// 当日查询
+			// 当前日历设置
+			Calendar calendar = Calendar.getInstance();
+			calendar.set(Calendar.HOUR_OF_DAY, 0);// 设置日历时
+			calendar.set(Calendar.MINUTE, 0);// 设置日历分
+			calendar.set(Calendar.SECOND, 0);// 设置日历秒
 	      
-    	 //今日数据更新
-		  AccountInvestExample accountInvestExample = new AccountInvestExample();     
-		  accountInvestExample.createCriteria().andCreateTimeGreaterThanOrEqualTo(calendar.getTime());
-		  List<AccountInvest> list=accountInvestMapper.selectByExample(accountInvestExample);
-		//System.out.println("在规定时间段内的查询数据:"+list.size()+"-------------------->");
+			// 今日数据更新
+			AccountInvestExample accountInvestExample = new AccountInvestExample();
+			accountInvestExample.createCriteria().andCreateTimeGreaterThanOrEqualTo(calendar.getTime());
+			List<AccountInvest> list = accountInvestMapper.selectByExample(accountInvestExample);
+		
 		  
-		     if(list!=null&&list.size()>0){
-			  
-			   AccountInvest accountInvestChange=new AccountInvest();
-			  
-			   float sum_uncollected_Finally=sum_uncollected-list.get(0).getSumUncollected();
-			   float sum_reward_Finally=sum_reward-list.get(0).getSumReward();
-			   float sum_borrow_Finally=sum_borrow-list.get(0).getSumBorrow();
-			   float sum_fine_finally=sum_fine-list.get(0).getSumFine();
-			   float sum_advfee_finally=sum_advfee-list.get(0).getSumAdvfee();
-			   float sum_interest_finally=sum_interest-list.get(0).getSumInterest();
-			   float sum_interestfee_finally=sum_interestfee-list.get(0).getSumInterestfee();
+			if (list != null && list.size() > 0) {
 
-			   //暂存对象
-			   accountInvestChange.setSumUncollected(sum_uncollected_Finally);
-			   accountInvestChange.setSumReward(sum_reward_Finally);
-			   accountInvestChange.setSumBorrow(sum_borrow_Finally);
-			   accountInvestChange.setSumFine(sum_fine_finally);
-			   accountInvestChange.setSumAdvfee(sum_advfee_finally);
-			   accountInvestChange.setSumInterest(sum_interest_finally);
-			   accountInvestChange.setSumInterestfee(sum_interestfee_finally);
-			
-			    //返回结果集
-			    return accountInvestChange; 
-		     }
+				AccountInvest accountInvestChange = new AccountInvest();
+
+				float sum_uncollected_Finally = sum_uncollected- list.get(0).getSumUncollected();
+				float sum_reward_Finally = sum_reward- list.get(0).getSumReward();
+				float sum_borrow_Finally = sum_borrow- list.get(0).getSumBorrow();
+				float sum_fine_finally = sum_fine - list.get(0).getSumFine();
+				float sum_advfee_finally = sum_advfee- list.get(0).getSumAdvfee();
+				float sum_interest_finally = sum_interest- list.get(0).getSumInterest();
+				float sum_interestfee_finally = sum_interestfee- list.get(0).getSumInterestfee();
+
+				// 暂存对象
+				accountInvestChange.setSumUncollected(sum_uncollected_Finally);
+				accountInvestChange.setSumReward(sum_reward_Finally);
+				accountInvestChange.setSumBorrow(sum_borrow_Finally);
+				accountInvestChange.setSumFine(sum_fine_finally);
+				accountInvestChange.setSumAdvfee(sum_advfee_finally);
+				accountInvestChange.setSumInterest(sum_interest_finally);
+				accountInvestChange.setSumInterestfee(sum_interestfee_finally);
+
+				// 返回结果集
+				return accountInvestChange;
+			}
 		  }else if("investMonth".equals(str)){//当月查询
 	        
-	    	//日历设置
-	    	Calendar cal=Calendar.getInstance();
-	    	cal.set(Calendar.DAY_OF_MONTH,1);//设置日
-	    	cal.set(Calendar.HOUR_OF_DAY, 0);//设置小时
-	    	cal.set(Calendar.MINUTE,0);//设置分钟
-	    	cal.set(Calendar.SECOND,0);//设置秒
-	    	//System.out.println("当月的时间为:"+cal.getTime());
-	    	 
-	        //当月第一条数据
-	    	AccountInvestExample accountInvcestExample=new AccountInvestExample();
-	        accountInvcestExample.createCriteria().andCreateTimeGreaterThanOrEqualTo(cal.getTime());
-	    	List<AccountInvest>  list_Month=accountInvestMapper.selectByExample(accountInvcestExample);
-	        //System.out.println("当月第一条数据为:"+list_Month.get(0).getInvestId());
-	      
-	       if(list_Month.size()>0&&list_Month!=null){
-		       float sum_uncollected_Finally=sum_uncollected-list_Month.get(0).getSumUncollected();
-			   float sum_reward_Finally=sum_reward-list_Month.get(0).getSumReward();
-			   float sum_borrow_Finally=sum_borrow-list_Month.get(0).getSumBorrow();
-			   float sum_fine_finally=sum_fine-list_Month.get(0).getSumFine();
-			   float sum_advfee_finally=sum_advfee-list_Month.get(0).getSumAdvfee();
-			   float sum_interest_finally=sum_interest-list_Month.get(0).getSumInterest();
-			   float sum_interestfee_finally=sum_interestfee-list_Month.get(0).getSumInterestfee();
-		
-			   AccountInvest accountInvestChange=new AccountInvest();
-		
-			   //暂存对象
-			   accountInvestChange.setSumUncollected(sum_uncollected_Finally);
-			   accountInvestChange.setSumReward(sum_reward_Finally);
-			   accountInvestChange.setSumBorrow(sum_borrow_Finally);
-			   accountInvestChange.setSumFine(sum_fine_finally);
-			   accountInvestChange.setSumAdvfee(sum_advfee_finally);
-			   accountInvestChange.setSumInterest(sum_interest_finally);
-			   accountInvestChange.setSumInterestfee(sum_interestfee_finally);
-			 
-			   //返回结果集
-		      return accountInvestChange;
-	      }
+			// 日历设置
+			Calendar cal = Calendar.getInstance();
+			cal.set(Calendar.DAY_OF_MONTH, 1);// 设置日
+			cal.set(Calendar.HOUR_OF_DAY, 0);// 设置小时
+			cal.set(Calendar.MINUTE, 0);// 设置分钟
+			cal.set(Calendar.SECOND, 0);// 设置秒
+			// System.out.println("当月的时间为:"+cal.getTime());
+
+			// 当月第一条数据
+			AccountInvestExample accountInvcestExample = new AccountInvestExample();
+			accountInvcestExample.createCriteria()
+					.andCreateTimeGreaterThanOrEqualTo(cal.getTime());
+			List<AccountInvest> list_Month = accountInvestMapper
+					.selectByExample(accountInvcestExample);
+			// System.out.println("当月第一条数据为:"+list_Month.get(0).getInvestId());
+
+			if (list_Month.size() > 0 && list_Month != null) {
+				float sum_uncollected_Finally = sum_uncollected- list_Month.get(0).getSumUncollected();
+				float sum_reward_Finally = sum_reward- list_Month.get(0).getSumReward();
+				float sum_borrow_Finally = sum_borrow- list_Month.get(0).getSumBorrow();
+				float sum_fine_finally = sum_fine- list_Month.get(0).getSumFine();
+				float sum_advfee_finally = sum_advfee- list_Month.get(0).getSumAdvfee();
+				float sum_interest_finally = sum_interest- list_Month.get(0).getSumInterest();
+				float sum_interestfee_finally = sum_interestfee- list_Month.get(0).getSumInterestfee();
+
+				AccountInvest accountInvestChange = new AccountInvest();
+
+				// 暂存对象
+				accountInvestChange.setSumUncollected(sum_uncollected_Finally);
+				accountInvestChange.setSumReward(sum_reward_Finally);
+				accountInvestChange.setSumBorrow(sum_borrow_Finally);
+				accountInvestChange.setSumFine(sum_fine_finally);
+				accountInvestChange.setSumAdvfee(sum_advfee_finally);
+				accountInvestChange.setSumInterest(sum_interest_finally);
+				accountInvestChange.setSumInterestfee(sum_interestfee_finally);
+
+				// 返回结果集
+				return accountInvestChange;
+			}
 			  
-		}else if("investYear".equals(str)){//当年时间查询
-			
-			//日历设置
-	    	Calendar cal=Calendar.getInstance();
-	        cal.set(Calendar.MONTH,1);//设置月
-	    	cal.set(Calendar.DAY_OF_MONTH,1);//设置日
-	    	cal.set(Calendar.HOUR_OF_DAY, 0);//设置时
-	    	cal.set(Calendar.SECOND,0);//设置秒
-	    	cal.set(Calendar.MINUTE,0);//设置分
-	    	
-	    	//System.out.println("当月的时间为:"+cal.getTime());
-	    	
-	    	//当年第一条数据
-	    	AccountInvestExample accountInvcestExample=new AccountInvestExample();
-	        accountInvcestExample.createCriteria().andCreateTimeGreaterThanOrEqualTo(cal.getTime());
-	    	List<AccountInvest>  list_Month=accountInvestMapper.selectByExample(accountInvcestExample);
-	       //System.out.println("当年第一条数据为:"+list_Month.get(0).getInvestId());
-	      
-	      if(list_Month.size()>0&&list_Month!=null){
-           float sum_uncollected_Finally=sum_uncollected-list_Month.get(0).getSumUncollected();
-		   float sum_reward_Finally=sum_reward-list_Month.get(0).getSumReward();
-		   float sum_borrow_Finally=sum_borrow-list_Month.get(0).getSumBorrow();
-		   float sum_fine_finally=sum_fine-list_Month.get(0).getSumFine();
-		   float sum_advfee_finally=sum_advfee-list_Month.get(0).getSumAdvfee();
-		   float sum_interest_finally=sum_interest-list_Month.get(0).getSumInterest();
-		   float sum_interestfee_finally=sum_interestfee-list_Month.get(0).getSumInterestfee();
+		} else if ("investYear".equals(str)) {// 当年时间查询
 
-		   AccountInvest accountInvestChange=new AccountInvest();
+			// 日历设置
+			Calendar cal = Calendar.getInstance();
+			cal.set(Calendar.MONTH, 1);// 设置月
+			cal.set(Calendar.DAY_OF_MONTH, 1);// 设置日
+			cal.set(Calendar.HOUR_OF_DAY, 0);// 设置时
+			cal.set(Calendar.SECOND, 0);// 设置秒
+			cal.set(Calendar.MINUTE, 0);// 设置分
 
-		   //暂存对象
-		   accountInvestChange.setSumUncollected(sum_uncollected_Finally);
-		   accountInvestChange.setSumReward(sum_reward_Finally);
-		   accountInvestChange.setSumBorrow(sum_borrow_Finally);
-		   accountInvestChange.setSumFine(sum_fine_finally);
-		   accountInvestChange.setSumAdvfee(sum_advfee_finally);
-		   accountInvestChange.setSumInterest(sum_interest_finally);
-		   accountInvestChange.setSumInterestfee(sum_interestfee_finally);
-		     
-		   //返回结果集
-		   return accountInvestChange;
+			// System.out.println("当月的时间为:"+cal.getTime());
+
+			// 当年第一条数据
+			AccountInvestExample accountInvcestExample = new AccountInvestExample();
+			accountInvcestExample.createCriteria()
+					.andCreateTimeGreaterThanOrEqualTo(cal.getTime());
+			List<AccountInvest> list_Month = accountInvestMapper
+					.selectByExample(accountInvcestExample);
+			// System.out.println("当年第一条数据为:"+list_Month.get(0).getInvestId());
+
+			if (list_Month.size() > 0 && list_Month != null) {
+				float sum_uncollected_Finally = sum_uncollected- list_Month.get(0).getSumUncollected();
+				float sum_reward_Finally = sum_reward- list_Month.get(0).getSumReward();
+				float sum_borrow_Finally = sum_borrow- list_Month.get(0).getSumBorrow();
+				float sum_fine_finally = sum_fine- list_Month.get(0).getSumFine();
+				float sum_advfee_finally = sum_advfee- list_Month.get(0).getSumAdvfee();
+				float sum_interest_finally = sum_interest- list_Month.get(0).getSumInterest();
+				float sum_interestfee_finally = sum_interestfee- list_Month.get(0).getSumInterestfee();
+
+				AccountInvest accountInvestChange = new AccountInvest();
+
+				// 暂存对象
+				accountInvestChange.setSumUncollected(sum_uncollected_Finally);
+				accountInvestChange.setSumReward(sum_reward_Finally);
+				accountInvestChange.setSumBorrow(sum_borrow_Finally);
+				accountInvestChange.setSumFine(sum_fine_finally);
+				accountInvestChange.setSumAdvfee(sum_advfee_finally);
+				accountInvestChange.setSumInterest(sum_interest_finally);
+				accountInvestChange.setSumInterestfee(sum_interestfee_finally);
+
+				// 返回结果集
+				return accountInvestChange;
 		  }
 		}else if("investOther".equals(str)){
     		
@@ -260,221 +259,239 @@ public class AccountInvestService {
     		   }
             }
     		
-    		if(calendar_Start!=null&&calendar_End==null){
-            	  
-    			  AccountInvestExample accountInvestExample=new AccountInvestExample();
-                  accountInvestExample.createCriteria().andCreateTimeGreaterThanOrEqualTo(calendar_Start.getTime());
-                  List<AccountInvest> list_start=accountInvestMapper.selectByExample(accountInvestExample);
-                  
-                  if(list_start.size()>0&&list_start!=null){
-       			    
-                	float sum_uncollected_Finally=list_start.get(list_start.size()-1).getSumUncollected()-list_start.get(0).getSumUncollected();
-       			    float sum_reward_Finally=list_start.get(list_start.size()-1).getSumReward()-list_start.get(0).getSumReward();
-       			    float sum_borrow_Finally=list_start.get(list_start.size()-1).getSumBorrow()-list_start.get(0).getSumBorrow();
-       			    float sum_fine_finally=list_start.get(list_start.size()-1).getSumFine()-list_start.get(0).getSumFine();
-       			    float sum_advfee_finally=list_start.get(list_start.size()-1).getSumAdvfee()-list_start.get(0).getSumAdvfee();
-       			    float sum_interest_finally=list_start.get(list_start.size()-1).getSumInterest()-list_start.get(0).getSumInterest();
-       			    float sum_interestfee_finally=list_start.get(list_start.size()-1).getSumInterestfee()-list_start.get(0).getSumInterestfee();
+			if (calendar_Start != null && calendar_End == null) {
 
-       			    AccountInvest accountInvestChange=new AccountInvest();
-    
-       			    //暂存对象
-       			    accountInvestChange.setSumUncollected(sum_uncollected_Finally);
-       			    accountInvestChange.setSumReward(sum_reward_Finally);
-       			    accountInvestChange.setSumBorrow(sum_borrow_Finally);
-       			    accountInvestChange.setSumFine(sum_fine_finally);
-       			    accountInvestChange.setSumAdvfee(sum_advfee_finally);
-       			    accountInvestChange.setSumInterest(sum_interest_finally);
-       			    accountInvestChange.setSumInterestfee(sum_interestfee_finally);
-       			     
-       			    //返回结果集
-       			    return accountInvestChange;
-                  }
-                }
-    		  
-                if(calendar_End!=null&&calendar_Start==null){
-            	  
-                  AccountInvestExample accountInvestExample=new AccountInvestExample();
-                  accountInvestExample.createCriteria().andCreateTimeLessThanOrEqualTo(calendar_End.getTime());
-                  List<AccountInvest> list_start=accountInvestMapper.selectByExample(accountInvestExample);
-                  if(list_start.size()>0&&list_start!=null){
-      			    
-               	    float sum_uncollected_Finally=list_start.get(list_start.size()-1).getSumUncollected()-list_start.get(0).getSumUncollected();
-      			    float sum_reward_Finally=list_start.get(list_start.size()-1).getSumReward()-list_start.get(0).getSumReward();
-      			    float sum_borrow_Finally=list_start.get(list_start.size()-1).getSumBorrow()-list_start.get(0).getSumBorrow();
-      			    float sum_fine_finally=list_start.get(list_start.size()-1).getSumFine()-list_start.get(0).getSumFine();
-      			    float sum_advfee_finally=list_start.get(list_start.size()-1).getSumAdvfee()-list_start.get(0).getSumAdvfee();
-      			    float sum_interest_finally=list_start.get(list_start.size()-1).getSumInterest()-list_start.get(0).getSumInterest();
-      			    float sum_interestfee_finally=list_start.get(list_start.size()-1).getSumInterestfee()-list_start.get(0).getSumInterestfee();
+				AccountInvestExample accountInvestExample = new AccountInvestExample();
+				accountInvestExample.createCriteria()
+						.andCreateTimeGreaterThanOrEqualTo(
+								calendar_Start.getTime());
+				List<AccountInvest> list_start = accountInvestMapper
+						.selectByExample(accountInvestExample);
 
-      			    AccountInvest accountInvestChange=new AccountInvest();
-   
-      			   //暂存对象
-      			   accountInvestChange.setSumUncollected(sum_uncollected_Finally);
-      			   accountInvestChange.setSumReward(sum_reward_Finally);
-      			   accountInvestChange.setSumBorrow(sum_borrow_Finally);
-      			   accountInvestChange.setSumFine(sum_fine_finally);
-      			   accountInvestChange.setSumAdvfee(sum_advfee_finally);
-      			   accountInvestChange.setSumInterest(sum_interest_finally);
-      			   accountInvestChange.setSumInterestfee(sum_interestfee_finally);
-      			     
-      			   //返回结果集
-      			   return accountInvestChange; 
-                  }
-            }
-    	}
-           return null;
-	 }
+				if (list_start.size() > 0 && list_start != null) {
+
+					float sum_uncollected_Finally = list_start.get(
+							list_start.size() - 1).getSumUncollected()- list_start.get(0).getSumUncollected();
+					float sum_reward_Finally = list_start.get(
+							list_start.size() - 1).getSumReward()- list_start.get(0).getSumReward();
+					float sum_borrow_Finally = list_start.get(
+							list_start.size() - 1).getSumBorrow()- list_start.get(0).getSumBorrow();
+					float sum_fine_finally = list_start.get(
+							list_start.size() - 1).getSumFine()- list_start.get(0).getSumFine();
+					float sum_advfee_finally = list_start.get(
+							list_start.size() - 1).getSumAdvfee()- list_start.get(0).getSumAdvfee();
+					float sum_interest_finally = list_start.get(
+							list_start.size() - 1).getSumInterest()- list_start.get(0).getSumInterest();
+					float sum_interestfee_finally = list_start.get(
+							list_start.size() - 1).getSumInterestfee()- list_start.get(0).getSumInterestfee();
+
+					AccountInvest accountInvestChange = new AccountInvest();
+
+					// 暂存对象
+					accountInvestChange.setSumUncollected(sum_uncollected_Finally);
+					accountInvestChange.setSumReward(sum_reward_Finally);
+					accountInvestChange.setSumBorrow(sum_borrow_Finally);
+					accountInvestChange.setSumFine(sum_fine_finally);
+					accountInvestChange.setSumAdvfee(sum_advfee_finally);
+					accountInvestChange.setSumInterest(sum_interest_finally);
+					accountInvestChange.setSumInterestfee(sum_interestfee_finally);
+
+					// 返回结果集
+					return accountInvestChange;
+				}
+			}
+
+			if (calendar_End != null && calendar_Start == null) {
+
+				AccountInvestExample accountInvestExample = new AccountInvestExample();
+				accountInvestExample.createCriteria()
+						.andCreateTimeLessThanOrEqualTo(calendar_End.getTime());
+				List<AccountInvest> list_start = accountInvestMapper
+						.selectByExample(accountInvestExample);
+				if (list_start.size() > 0 && list_start != null) {
+
+					float sum_uncollected_Finally = list_start.get(
+							list_start.size() - 1).getSumUncollected()- list_start.get(0).getSumUncollected();
+					float sum_reward_Finally = list_start.get(
+							list_start.size() - 1).getSumReward()- list_start.get(0).getSumReward();
+					float sum_borrow_Finally = list_start.get(
+							list_start.size() - 1).getSumBorrow()- list_start.get(0).getSumBorrow();
+					float sum_fine_finally = list_start.get(
+							list_start.size() - 1).getSumFine()- list_start.get(0).getSumFine();
+					float sum_advfee_finally = list_start.get(
+							list_start.size() - 1).getSumAdvfee()- list_start.get(0).getSumAdvfee();
+					float sum_interest_finally = list_start.get(
+							list_start.size() - 1).getSumInterest()- list_start.get(0).getSumInterest();
+					float sum_interestfee_finally = list_start.get(
+							list_start.size() - 1).getSumInterestfee()- list_start.get(0).getSumInterestfee();
+
+					AccountInvest accountInvestChange = new AccountInvest();
+
+					// 暂存对象
+					accountInvestChange.setSumUncollected(sum_uncollected_Finally);
+					accountInvestChange.setSumReward(sum_reward_Finally);
+					accountInvestChange.setSumBorrow(sum_borrow_Finally);
+					accountInvestChange.setSumFine(sum_fine_finally);
+					accountInvestChange.setSumAdvfee(sum_advfee_finally);
+					accountInvestChange.setSumInterest(sum_interest_finally);
+					accountInvestChange.setSumInterestfee(sum_interestfee_finally);
+
+					// 返回结果集
+					return accountInvestChange;
+				}
+			}
+		}
+		return null;
+	}
 	 
 	 
-	  //后台定时任务
-	 @PostConstruct  //监听设置
-	 @Transactional(readOnly=false)
-	 public void handleAccountInvest(){
-		  	
-	    //获取当前用户
-	    UserExample userExample = new UserExample();
-	    userExample.createCriteria().andUsernameEqualTo("admin");
-	    List<User> userList = userMapper.selectByExample(userExample);
-		   
-		//会员统计信息获取
-		List<MemberStatistics> list=(List<MemberStatistics>) statisticsService.listMemberStatistics();   
-		
-		//时间设置
-		Calendar calendar=Calendar.getInstance();
-	    calendar.set(Calendar.HOUR_OF_DAY, 0);//设置日历时
-	    calendar.set(Calendar.MINUTE,0);//设置日历分
-	    calendar.set(Calendar.SECOND,0);//设置日历秒
-		
-		
-		AccountInvestExample accountInvestExamole=new AccountInvestExample();
+	// 后台定时任务
+	@PostConstruct
+	// 监听设置
+	@Transactional(readOnly = false)
+	public void handleAccountInvest() {
+
+		// 获取当前用户
+		UserExample userExample = new UserExample();
+		userExample.createCriteria().andUsernameEqualTo("admin");
+		List<User> userList = userMapper.selectByExample(userExample);
+
+		// 会员统计信息获取
+		List<MemberStatistics> list = (List<MemberStatistics>) statisticsService.listMemberStatistics();
+
+		// 时间设置
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY, 0);// 设置日历时
+		calendar.set(Calendar.MINUTE, 0);// 设置日历分
+		calendar.set(Calendar.SECOND, 0);// 设置日历秒
+
+		AccountInvestExample accountInvestExamole = new AccountInvestExample();
 		accountInvestExamole.createCriteria().andCreateTimeGreaterThan(calendar.getTime());
-		List<AccountInvest> accountInvestDataList=(List<AccountInvest>)accountInvestMapper.selectByExample(accountInvestExamole);
-		
-		if(accountInvestDataList.size()>0&&accountInvestDataList!=null){
+		List<AccountInvest> accountInvestDataList = (List<AccountInvest>) accountInvestMapper.selectByExample(accountInvestExamole);
+
+		if (accountInvestDataList.size() > 0 && accountInvestDataList != null) {
 			System.out.println("当天已有数据");
-		}else{
-			//投资变量数据定义
-			float sum_uncollected=0;//投资成功待收金额
-			float sum_reward=0;//投资奖励金额
-			float sum_fine=0; //借款人逾期罚款金额
-			float sum_borrow=0;//借款成功总额
-			float sum_advfee=0;//借款管理费总额
-			float sum_interest=0;//借款利息总额
-			float sum_interestfee=0;//借款逾期罚息总额
-			
-			//System.out.println("我没问题呐(" + counter++ + ")");
-			//System.out.println("我获取的超级管理员ID是:"+ userList.get(0).getUserId());
-			
-		    //构建投资对象
-		    AccountInvest accountInvest_add=new AccountInvest();
-		    
-		    //变量累加
-		    for (int j = 0; j < list.size(); j++) {
-		    	
-		        sum_uncollected+=list.get(j).getWaitIncomeTotal();
-		        sum_reward+=list.get(j).getTenderAwards();
-		        sum_fine+=list.get(j).getOverdueFineAmount();
-		        sum_borrow+=list.get(j).getTotalBorrowings();
-		        sum_advfee+=list.get(j).getLoanManagementAmount();
-		        sum_interest=list.get(j).getLoanInterestAmount();
-		        sum_interestfee+=list.get(j).getOverdueInterestAmount();
-		        
-		    }
-		 
-		    accountInvest_add.setInvestId(RandomGUID.getRandomGUID());
-		    accountInvest_add.setSumUncollected(sum_uncollected);
-		    accountInvest_add.setSumReward(sum_reward);
-		    accountInvest_add.setSumFine(sum_fine);
-		    accountInvest_add.setSumBorrow(sum_borrow);
-		    accountInvest_add.setSumAdvfee(sum_advfee);
-		    accountInvest_add.setSumInterest(sum_interest);
-		    accountInvest_add.setSumInterestfee(sum_interestfee);
-		    accountInvest_add.setCreater(userList.get(0).getUserId());
-		    accountInvest_add.setCreateTime(new Date());
-		    accountInvest_add.setUpdater(userList.get(0).getUserId());
-		    accountInvest_add.setUpdateTime(new Date()); 
-		  
-		    //投资统计数据添加
-		    accountInvestMapper.insert(accountInvest_add);		
+		} else {
+			// 投资变量数据定义
+			float sum_uncollected = 0;// 投资成功待收金额
+			float sum_reward = 0;// 投资奖励金额
+			float sum_fine = 0; // 借款人逾期罚款金额
+			float sum_borrow = 0;// 借款成功总额
+			float sum_advfee = 0;// 借款管理费总额
+			float sum_interest = 0;// 借款利息总额
+			float sum_interestfee = 0;// 借款逾期罚息总额
+
+			// System.out.println("我没问题呐(" + counter++ + ")");
+			// System.out.println("我获取的超级管理员ID是:"+ userList.get(0).getUserId());
+
+			// 构建投资对象
+			AccountInvest accountInvest_add = new AccountInvest();
+
+			// 变量累加
+			for (int j = 0; j < list.size(); j++) {
+
+				sum_uncollected += list.get(j).getWaitIncomeTotal();
+				sum_reward += list.get(j).getTenderAwards();
+				sum_fine += list.get(j).getOverdueFineAmount();
+				sum_borrow += list.get(j).getTotalBorrowings();
+				sum_advfee += list.get(j).getLoanManagementAmount();
+				sum_interest = list.get(j).getLoanInterestAmount();
+				sum_interestfee += list.get(j).getOverdueInterestAmount();
+
+			}
+
+			accountInvest_add.setInvestId(RandomGUID.getRandomGUID());
+			accountInvest_add.setSumUncollected(sum_uncollected);
+			accountInvest_add.setSumReward(sum_reward);
+			accountInvest_add.setSumFine(sum_fine);
+			accountInvest_add.setSumBorrow(sum_borrow);
+			accountInvest_add.setSumAdvfee(sum_advfee);
+			accountInvest_add.setSumInterest(sum_interest);
+			accountInvest_add.setSumInterestfee(sum_interestfee);
+			accountInvest_add.setCreater(userList.get(0).getUserId());
+			accountInvest_add.setCreateTime(new Date());
+			accountInvest_add.setUpdater(userList.get(0).getUserId());
+			accountInvest_add.setUpdateTime(new Date());
+
+			// 投资统计数据添加
+			accountInvestMapper.insert(accountInvest_add);
 		}
 	}
 	 
 	 
 	 
+	// 会员投资信息统计
+	public Object listAsGrid(JqPager jqPager_Final,AccountInvestQueryDTO accountInvestQueryDTO) {
+
+		// 更新数据查询
+		JqGridReturn returnResult = new JqGridReturn();
+		AccountInvestExample accountInvestExample = new AccountInvestExample();
+
+		// 追加查询条件
+		Criteria queryCriteria = accountInvestExample.createCriteria();
+		accountInvestQueryDTO.setQueryCondition(queryCriteria);
+
+		if (null != jqPager_Final.getPage() && null != jqPager_Final.getRows()) {// 设置排序信息
+			accountInvestExample.setLimitStart((jqPager_Final.getPage() - 1)* jqPager_Final.getRows());
+			accountInvestExample.setLimitEnd(jqPager_Final.getRows());
+		}
+		if (StringUtils.isNotBlank(jqPager_Final.getSort())&& StringUtils.isNotBlank(jqPager_Final.getOrder())) {// 设置排序信息
+			accountInvestExample.setOrderByClause(jqPager_Final.getOrderBy("temp_account_invest_"));
+		}
+
+		List<AccountInvest> accountInvest = accountInvestMapper.selectByExample(accountInvestExample); // 查询所有投资信息
+
+		int total = accountInvestMapper.countByExample(accountInvestExample); // 查询总页数
+
+		returnResult.setRows(accountInvest);
+		returnResult.setTotal(total);
+		return returnResult;// 返回ExtGrid表
+	}
 	 
-	 //会员投资信息统计
-	 public Object listAsGrid(JqPager jqPager_Final,AccountInvestQueryDTO accountInvestQueryDTO){
-		    
-		   //更新数据查询
-	        JqGridReturn returnResult = new JqGridReturn();
-	        AccountInvestExample accountInvestExample = new AccountInvestExample();
-	        
-	        //追加查询条件
-	        Criteria queryCriteria = accountInvestExample.createCriteria();
-	        accountInvestQueryDTO.setQueryCondition(queryCriteria);
-	        
-	        if (null != jqPager_Final.getPage() && null != jqPager_Final.getRows()) {// 设置排序信息
-	        	accountInvestExample.setLimitStart((jqPager_Final.getPage() - 1) * jqPager_Final.getRows());
-	        	accountInvestExample.setLimitEnd(jqPager_Final.getRows());
-	        }
-	        if (StringUtils.isNotBlank(jqPager_Final.getSort()) && StringUtils.isNotBlank(jqPager_Final.getOrder())) {// 设置排序信息
-	        	accountInvestExample.setOrderByClause(jqPager_Final.getOrderBy("temp_account_invest_"));
-	        }
-	        
-	        List<AccountInvest>  accountInvest = accountInvestMapper.selectByExample(accountInvestExample); // 查询所有投资信息
-	        
-	        int total = accountInvestMapper.countByExample(accountInvestExample); // 查询总页数
-	        
-	        returnResult.setRows(accountInvest);
-	        returnResult.setTotal(total);
-	        return returnResult;// 返回ExtGrid表
-	   }
-	 
-      //投资信息详情
-	   public Object getAccountInvest(String investId) {
-	    	AccountInvest accountInvest= accountInvestMapper.selectByPrimaryKey(investId);
-	        return accountInvest;
-	    }
-	   
-      
-	  String[] excelHeader = {"投资统计ID","投资成功待收金额","投资奖励金额","借款人逾期罚金金额","借款成功总额","借款管理费总额","借款利息总额","借款逾期罚息总额"};	      
-	  int[] excelHeaderWidth = {100, 100, 100,100, 100,100,100,100,100,100};   
-	 
-	  //投资信息导出
-	  public HSSFWorkbook export(List<AccountInvest> list) {    
-	        HSSFWorkbook wb = new HSSFWorkbook();    
-	        HSSFSheet sheet = wb.createSheet("投资信息报表统计");    
-	        HSSFRow row = sheet.createRow((int) 0);    
-	        HSSFCellStyle style = wb.createCellStyle();    
-	        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);    
-	    
-	        //时间转化
-	        SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
-	        
-	        for (int i = 0; i < excelHeader.length; i++) {    
-	            HSSFCell cell = row.createCell(i);    
-	            cell.setCellValue(excelHeader[i]);    
-	            cell.setCellStyle(style);    
-	            sheet.autoSizeColumn(i);    
-	        } 
-	        // 设置列宽度（像素）  
-	        for (int i = 0; i < excelHeaderWidth.length; i++) {  
-	            sheet.setColumnWidth(i, 32 * excelHeaderWidth[i]);  
-	        }  
-	        for (int i = 0; i < list.size(); i++) { 
-	        	row = sheet.createRow(i + 1);    
-	            AccountInvest accountInvest= list.get(i);    
-	            row.createCell(0).setCellValue(accountInvest.getInvestId());    
-	            row.createCell(1).setCellValue(accountInvest.getSumUncollected());
-	            row.createCell(2).setCellValue(accountInvest.getSumReward());
-	            row.createCell(3).setCellValue(accountInvest.getSumFine());
-	            row.createCell(4).setCellValue(accountInvest.getSumBorrow());
-	            row.createCell(5).setCellValue(accountInvest.getSumAdvfee());
-	            row.createCell(6).setCellValue(accountInvest.getSumInterest());
-	            row.createCell(7).setCellValue(accountInvest.getSumInterestfee());
-	        }    
-	        return wb;    
-	    }  
+	// 投资信息详情
+	public Object getAccountInvest(String investId) {
+		AccountInvest accountInvest = accountInvestMapper.selectByPrimaryKey(investId);
+		return accountInvest;
+	}
+
+	String[] excelHeader = { "投资统计ID", "投资成功待收金额", "投资奖励金额", "借款人逾期罚金金额",
+			"借款成功总额", "借款管理费总额", "借款利息总额", "借款逾期罚息总额" };
+	int[] excelHeaderWidth = { 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 };
+
+	// 投资信息导出
+	public HSSFWorkbook export(List<AccountInvest> list) {
+		HSSFWorkbook wb = new HSSFWorkbook();
+		HSSFSheet sheet = wb.createSheet("投资信息报表统计");
+		HSSFRow row = sheet.createRow((int) 0);
+		HSSFCellStyle style = wb.createCellStyle();
+		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+
+		// 时间转化
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+
+		for (int i = 0; i < excelHeader.length; i++) {
+			HSSFCell cell = row.createCell(i);
+			cell.setCellValue(excelHeader[i]);
+			cell.setCellStyle(style);
+			sheet.autoSizeColumn(i);
+		}
+		// 设置列宽度（像素）
+		for (int i = 0; i < excelHeaderWidth.length; i++) {
+			sheet.setColumnWidth(i, 32 * excelHeaderWidth[i]);
+		}
+		for (int i = 0; i < list.size(); i++) {
+			row = sheet.createRow(i + 1);
+			AccountInvest accountInvest = list.get(i);
+			row.createCell(0).setCellValue(accountInvest.getInvestId());
+			row.createCell(1).setCellValue(accountInvest.getSumUncollected());
+			row.createCell(2).setCellValue(accountInvest.getSumReward());
+			row.createCell(3).setCellValue(accountInvest.getSumFine());
+			row.createCell(4).setCellValue(accountInvest.getSumBorrow());
+			row.createCell(5).setCellValue(accountInvest.getSumAdvfee());
+			row.createCell(6).setCellValue(accountInvest.getSumInterest());
+			row.createCell(7).setCellValue(accountInvest.getSumInterestfee());
+		}
+		return wb;
+	}
 	  
 } 

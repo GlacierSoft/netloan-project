@@ -24,10 +24,7 @@ import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.borrow.TenderNotesQueryDTO;
-import com.glacier.netloan.dto.query.member.MemberQueryDTO;
 import com.glacier.netloan.entity.borrow.TenderNotes;
-import com.glacier.netloan.entity.member.Member;
-import com.glacier.netloan.service.account.AccountLoginService;
 import com.glacier.netloan.service.account.AccountTenderService;
 
 /**

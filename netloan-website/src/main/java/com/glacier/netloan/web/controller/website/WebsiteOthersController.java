@@ -225,14 +225,13 @@ public class WebsiteOthersController {
 		ModelAndView mav = new ModelAndView("about_mgr/others");
 		mav.addObject("str", "TellNumber");
 		mav.addObject("mobileNumber", mobileNumber);
-		System.out.println(str);
+		//System.out.println(str);
 		try {
 			JSONObject obj = JSONObject.fromObject(str);
 			JSONObject obj2 = (JSONObject) obj.get("result");
 			String code = (String) obj.get("success");
 			if (code.equals("1")) {
-				String resout = obj2.get("style_simcall") + ","
-						+ obj2.get("ctype");
+				String resout = obj2.get("style_simcall") + ","+ obj2.get("operators");
 				mav.addObject("PhoneNumberAddress", resout);
 			} else {
 				String resout = (String) obj2.get("msg");

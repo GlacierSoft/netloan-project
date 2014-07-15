@@ -24,9 +24,8 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
-import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.service.account.AccountBorrowService;
-import com.glacier.netloan.service.borrow.BorrowingLoanService;
+
 
 
 /**
