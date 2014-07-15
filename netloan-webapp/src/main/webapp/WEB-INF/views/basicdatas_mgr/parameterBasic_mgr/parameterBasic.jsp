@@ -123,7 +123,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '【基础参数】- 增加',
 			width : 430,
-			height : 270,
+			height : 290,
 			queryUrl : ctx + '/do/parameterBasic/intoForm.htm',
 			submitUrl : ctx + '/do/parameterBasic/add.json',
 			successFun : function (){
@@ -138,7 +138,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '【基础参数】- 编辑('+row.basicTitle+')',
 			width : 430,
-			height : 270,
+			height : 290,
 			queryUrl : ctx + '/do/parameterBasic/intoForm.htm',
 			submitUrl : ctx + '/do/parameterBasic/edit.json',
 			queryParams : {

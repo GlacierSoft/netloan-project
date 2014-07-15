@@ -860,4 +860,6 @@ public class BorrowingLoanService {
         int borrowingLoanNum = borrowingLoanMapper.countByExample(borrowingLoanExample); // 查询总条数
         return borrowingLoanNum;
     }
+    
+    
 }

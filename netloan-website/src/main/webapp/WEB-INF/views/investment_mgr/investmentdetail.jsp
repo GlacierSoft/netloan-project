@@ -138,7 +138,7 @@
 	       	  	<div class="col-md-4"><span></span></div>
 	       	  	</div><br>
 	       	  	<div class="row">
-	       	  	<div class="col-md-8"><span>总投标数：0 浏览量：9</span></div>
+	       	  	<div class="col-md-8"><span>总投标数：${tenderNotesCount}&nbsp;次</span></div>
 	       	  	<div class="col-md-4"><span></span></div>
 	       	  	</div><br>
 	       	  	<div class="row">
@@ -214,18 +214,18 @@
 			       	  	<div class="row" ><div class="col-md-12"><span><strong>冰川网贷借款记录</strong></span></div></div><br>
 			       	  	<table class="table">
 				       	  		<tr>
-				       	  			<td>发布借款标的：1</td>
-				       	  			<td>成功借款笔数：0</td>
-				       	  			<td>还清笔数：0</td>
-				       	  			<td>逾期次数：0</td>
-				       	  			<td>严重逾期次数：0</td>
+				       	  			<td>发布借款次数：${borrowingLoanCount}&nbsp;次</td>
+				       	  			<td>借款成功次数：${memberStatistics.borrowSuccess }&nbsp;次</td>
+				       	  			<td>正常还款次数：${memberStatistics.normalRepayment }&nbsp;次</td>
+				       	  			<td>逾期还款次数：${memberStatistics.lateRepayment }&nbsp;次</td>
+				       	  			<td>投标成功次数：${memberStatistics.successTender }&nbsp;次</td>
 				       	  		</tr>
 				       	  		<tr>
-				       	  			<td>共借入：0</td>
-				       	  			<td>待还金额：0.00</td>
-				       	  			<td>逾期金额：0</td>
-				       	  			<td>共借出：0.00</td>
-				       	  			<td>待收金额：0.00</td>
+				       	  			<td>借款总额：${memberStatistics.totalBorrowings }&nbsp;元</td>
+				       	  			<td>待还总额：${memberStatistics.waitAlsoTotal }&nbsp;元</td>
+				       	  			<td>逾期罚款金额：${memberStatistics.overdueFineAmount }&nbsp;元</td>
+				       	  			<td>投资总额：${memberStatistics.investmentTotal }&nbsp;元</td>
+				       	  			<td>待收总额：${memberStatistics.waitIncomeTotal }&nbsp;元</td>
 				       	  		</tr>
 				       	  	</table>
 			       	  	<br>
