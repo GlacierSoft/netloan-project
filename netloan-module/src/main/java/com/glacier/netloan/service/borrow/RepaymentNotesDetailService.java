@@ -151,9 +151,6 @@ public class RepaymentNotesDetailService {
         
         JqGridReturn returnResult = new JqGridReturn();
         RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();
-       /* if(null != memberId && StringUtils.isNotBlank(memberId)){
-            repaymentNotesDetailExample.createCriteria().andMemberIdEqualTo(memberId);//查询相对应的还款人的还款记录明细
-        }*/
         if(null != loanId && StringUtils.isNotBlank(loanId)){
             RepaymentNotes repaymentNotes = repaymentNotesMapper.selectByPrimaryLoanId(loanId);//根据借款Id查找出对应的还款信息记录
             if (repaymentNotes != null) {//如果借款记录存在了还款信息，系统就把还款明细信息查询出来
@@ -392,13 +389,11 @@ public class RepaymentNotesDetailService {
             returnResult.setMsg("交易密码错误，请重新输入");
             return returnResult;
         }
-        
         // 防止验证码错误
         if (!captchaBoolean) {
             returnResult.setMsg("验证码错误，请重新输入");
             return returnResult;
         }
-        
         int count = 0;
         // 查找出超级管理员的用户信息
         UserExample userExample = new UserExample();
@@ -426,14 +421,12 @@ public class RepaymentNotesDetailService {
         	repaymentNotesUpdate.setUpdateTime(new Date());
         	//执行更新还款记录的操作--
         	repaymentNotesMapper.updateByPrimaryKeySelective(repaymentNotesUpdate);
-        	
         	//执行更新还款人用户的信用额度
         	Member MemberRepayment = memberMapper.selectByPrimaryKey(member.getMemberId());
         	MemberRepayment.setCreditamount(MemberRepayment.getCreditamount()+repaymentNotesDetail.getCurrentPayPrincipal());//设置信用额度(原本的信用额度+本期应还的本金)
         	MemberRepayment.setUpdater(pricipalUser.getUserId());
         	MemberRepayment.setUpdateTime(new Date());
         	memberMapper.updateByPrimaryKeySelective(MemberRepayment);//执行更新
-        	
         	//根据还款记录明细中的状态为"notRepay"和是还款记录的ID查询出符合条件的记录明细信息
 	        RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();
 	        repaymentNotesDetailExample.createCriteria().andRepayStateEqualTo("notRepay").andRepayNotesIdEqualTo(repaymentNotesUpdate.getRepayNotesId());
@@ -450,14 +443,12 @@ public class RepaymentNotesDetailService {
 	        	//执行修改操作
 	        	borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);
 	        }
-        
             // 还款明细信息修改成功后，更新该会员的会员资金信息
             FinanceMember financeMember = financeMemberMapper.selectByMemberId(member.getMemberId());// 根据会员Id查找出该会员的财务会员信息记录
             financeMember.setAmount(financeMember.getAmount() - repaymentNotesDetail.getAlsoNeedMoney());// 现在的会员帐号总余额=之前的会员帐号余额-需还总额
             financeMember.setUsableMoney(financeMember.getUsableMoney() - repaymentNotesDetail.getAlsoNeedMoney());// 现在的会员帐号可用余额=之前的会员帐号可用余额-需还总额
             financeMember.setRefundMoney(financeMember.getRefundMoney() - repaymentNotesDetail.getAlsoNeedMoney());// 现在的会员帐号待还金额=之前的会员帐号待还金额-需还总额
             count = financeMemberMapper.updateByPrimaryKeySelective(financeMember);
-            
             // 系统成功自动更新该会员的财务信息后，再自动生成一条会员资金记录明细信息
             // 向会员资金记录明细进行赋值WT于2014-6-30增加并且检查
             FinanceTransaction financeTransaction = new FinanceTransaction();
@@ -491,7 +482,6 @@ public class RepaymentNotesDetailService {
             memberStatistics.setWaitAlsoInterest(memberStatistics.getWaitAlsoInterest()-repaymentNotesDetail.getCurrentPayInterest());//设置待还利息(现在的待还利息-现在归还利息)
             //执行更新操作--
             memberStatisticsMapper.updateByPrimaryKeySelective(memberStatistics);
-            
             if (count == 1) {
             	//-----------------------投资人收款更新---------------------------
             	//第一步先取出默认的资金平台default
@@ -518,7 +508,6 @@ public class RepaymentNotesDetailService {
             	financePlatformTransaction.setUpdateTime(new Date());
             	//执行添加操作
             	financePlatformTransactionMapper.insert(financePlatformTransaction);
-            	
             	//------------------------投资人的操作部分----------------------------------
             	//第一步根据还款记录明细ID取出还款记录明细完整信息
             	RepaymentNotesDetail repaymentNotesDetailTemp = repaymentNotesDetailMapper.selectByPrimaryKey(repayNotesDetailId);

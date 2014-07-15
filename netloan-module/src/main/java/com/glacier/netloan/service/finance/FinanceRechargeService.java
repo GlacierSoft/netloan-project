@@ -29,8 +29,7 @@ import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.member.MemberMessageNoticeMapper;
 import com.glacier.netloan.dao.member.MemberStatisticsMapper;
 import com.glacier.netloan.dao.system.UserMapper;
-import com.glacier.netloan.dto.query.finance.FinRechargeQueryDTO;
-import com.glacier.netloan.entity.basicdatas.ParameterIntegralExample;
+import com.glacier.netloan.dto.query.finance.FinRechargeQueryDTO; 
 import com.glacier.netloan.entity.basicdatas.ParameterIntegralType;
 import com.glacier.netloan.entity.basicdatas.ParameterIntegralTypeExample;
 import com.glacier.netloan.entity.finance.FinanceMember;
@@ -156,8 +155,7 @@ public class FinanceRechargeService {
   		Member pricipalMember = (Member) pricipalSubject.getPrincipal();
   		UserExample userExample = new UserExample();
   		userExample.createCriteria().andUsernameEqualTo("admin");
-  		List<User> users = userMapper.selectByExample(userExample);
-  		
+  		List<User> users = userMapper.selectByExample(userExample); 
         financeRecharge.setFinanceRechargeId(RandomGUID.getRandomGUID());
         // 赋值于充值记录的充值流水号
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
@@ -209,8 +207,7 @@ public class FinanceRechargeService {
             returnResult.setMsg("发生未知错误，会员充值记录信息保存失败");
         }
         return returnResult;
-    } 
-    
+    }  
     
     /**
      * @Title: auditRecharge 
@@ -227,8 +224,7 @@ public class FinanceRechargeService {
     	
     	Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
   		User pricipalUser = (User) pricipalSubject.getPrincipal();
-  		
-  		
+  		 
   		financeRecharge.setAuditDate(new Date());
   		financeRecharge.setAuditor(pricipalUser.getUserId());
   		financeRecharge.setUpdateTime(new Date());

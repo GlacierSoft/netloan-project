@@ -258,43 +258,7 @@ public class FinanceWithdrawService {
             returnResult.setMsg("发生未知错误，会员提现记录信息保存失败");
         }
         return returnResult;
-    }
-     
-/*    
-    *//**
-     * @Title: editWithdraw 
-     * @Description: TODO(修改会员提现记录) 
-     * @param @param financeWithdraw
-     * @param @return    设定文件 
-     * @return Object    返回类型 
-     * @throws
-     *//*
-    @Transactional(readOnly = false)
-    @MethodLog(opera = "WithdrawList_edit")
-    public Object editWithdraw(FinanceWithdraw financeWithdraw) {
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        FinanceWithdrawExample financeWithdrawExample = new FinanceWithdrawExample();
-        int count = 0;
-        // 防止会员提现记录名称重复
-        financeWithdrawExample.createCriteria().andFinanceWithdrawIdNotEqualTo(financeWithdraw.getFinanceWithdrawId()).andWithdrawNameEqualTo(financeWithdraw.getWithdrawName());
-        count = financeWithdrawMapper.countByExample(financeWithdrawExample);// 查找相同名称的会员提现记录数量
-        if (count > 0) {
-            returnResult.setMsg("会员提现记录名称重复");
-            return returnResult;
-        }
-        Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
-        financeWithdraw.setUpdater(pricipalUser.getUserId());
-        financeWithdraw.setUpdateTime(new Date());
-        count = financeWithdrawMapper.updateByPrimaryKeySelective(financeWithdraw);
-        if (count == 1) {
-            returnResult.setSuccess(true);
-            returnResult.setMsg("[" + financeWithdraw.getWithdrawName() + "] 会员提现记录信息已修改");
-        } else {
-            returnResult.setMsg("发生未知错误，会员提现记录信息修改失败");
-        }
-        return returnResult;
-    }*/
+    } 
     
     /**
      * @Title: auditWithdraw 

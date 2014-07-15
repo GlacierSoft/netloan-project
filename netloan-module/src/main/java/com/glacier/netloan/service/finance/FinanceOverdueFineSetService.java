@@ -22,20 +22,43 @@ import com.glacier.netloan.entity.finance.FinanceOverdueFineSetExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
+/**
+ * 
+ * @ClassName:  FinanceOverdueFineSetService
+ * @Description: TODO(逾期罚款设置service)
+ * @author songjundong
+ * @email 985776597@QQ.com
+ * @date 2014-7-15  下午5:28:09
+ */
 @Service
 @Transactional(readOnly = true ,propagation = Propagation.REQUIRED)
 public class FinanceOverdueFineSetService {
 
 	@Autowired
 	private FinanceOverdueFineSetMapper financeOverdueFineSetMapper;
-
-	// 获取逾期对象
+ 
+	/**
+	* @Title: getFinanceOverdueFineSetId  
+	* @Description: TODO(获取逾期对象)  
+	* @param @param overdueFineSetId
+	* @param @return    设定文件  
+	* @return Object    返回类型  
+	* @throws
+	 */
 	public Object getFinanceOverdueFineSetId(String overdueFineSetId) {
 		FinanceOverdueFineSet financeOverdueFineSet = financeOverdueFineSetMapper.selectByPrimaryKey(overdueFineSetId);
 		return financeOverdueFineSet;
 	}
-
-	// 添加逾期罚款数据
+ 
+	/**
+	 * 
+	* @Title: addOverdueFineSet  
+	* @Description: TODO(添加逾期罚款数据)  
+	* @param @param financeOverdueFineSet
+	* @param @return    设定文件  
+	* @return Object    返回类型  
+	* @throws
+	 */
 	@Transactional(readOnly = false)
 	@MethodLog(opera = "OverdueFineSet_add")
 	public Object addOverdueFineSet(FinanceOverdueFineSet financeOverdueFineSet) {
@@ -64,8 +87,16 @@ public class FinanceOverdueFineSetService {
 		}
 		return returnResult;
 	}
-
-	// 编辑逾期罚款信息
+   
+	/**
+	 * 
+	* @Title: editOverdueFineSet  
+	* @Description: TODO(编辑逾期罚款信息)  
+	* @param @param financeOverdueFineSet
+	* @param @return    设定文件  
+	* @return Object    返回类型  
+	* @throws
+	 */
 	@Transactional(readOnly = false)
 	@MethodLog(opera = "OverdueFineSet_edit")
 	public Object editOverdueFineSet(FinanceOverdueFineSet financeOverdueFineSet) {
@@ -78,11 +109,10 @@ public class FinanceOverdueFineSetService {
 		financeOverdueFineSet.setUpdateTime(new Date());
 
 		if ("disable".equals(financeOverdueFineSet.getMemberPrivilege()))
-			financeOverdueFineSet.setVipDays(new Float(0));
-
+			financeOverdueFineSet.setVipDays(new Float(0)); 
+		
 		count = financeOverdueFineSetMapper.updateByPrimaryKeySelective(financeOverdueFineSet);
-
-		if (count == 1) {
+        if (count == 1) {
 			returnResult.setSuccess(true);
 			returnResult.setMsg("逾期垫付罚款信息已修改");
 		} else {
@@ -90,8 +120,17 @@ public class FinanceOverdueFineSetService {
 		}
 		return returnResult;
 	}
-
-	// 批量删除逾期罚款信息
+ 
+	/**
+	 * 
+	* @Title: delOverdueFineSet  
+	* @Description: TODO(批量删除逾期罚款信息)  
+	* @param @param overdueFineSetIds
+	* @param @return    设定文件  
+	* @return Object    返回类型  
+	* @throws
+	 */
+	
 	@Transactional(readOnly = false)
 	@MethodLog(opera = "OverdueFineSet_del")
 	public Object delOverdueFineSet(List<String> overdueFineSetIds) {
@@ -111,7 +150,15 @@ public class FinanceOverdueFineSetService {
 		return returnResult;
 	}
 
-	// 逾期管理数据审核
+	/**
+	 * 
+	* @Title: auditOverdueFineSet  
+	* @Description: TODO(逾期管理数据审核)  
+	* @param @param financeOverdueFineSet
+	* @param @return    设定文件  
+	* @return Object    返回类型  
+	* @throws
+	 */
 	@Transactional(readOnly = false)
 	@MethodLog(opera = "OverdueFineSet_audit")
 	public Object auditOverdueFineSet(FinanceOverdueFineSet financeOverdueFineSet) {
@@ -132,8 +179,15 @@ public class FinanceOverdueFineSetService {
 		}
 		return returnResult;
 	}
-
-	// 获取逾期数据
+    /**
+     * 
+    * @Title: listAsGrid  
+    * @Description: TODO(获取逾期数据)  
+    * @param @param pager
+    * @param @return    设定文件  
+    * @return Object    返回类型  
+    * @throws
+     */
 	public Object listAsGrid(JqPager pager) {
 		JqGridReturn returnResult = new JqGridReturn();
 		FinanceOverdueFineSetExample financeOverdueFineSetExample = new FinanceOverdueFineSetExample();

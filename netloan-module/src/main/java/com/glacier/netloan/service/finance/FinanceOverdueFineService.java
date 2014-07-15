@@ -21,14 +21,31 @@ public class FinanceOverdueFineService {
 	 
 	@Autowired
 	private FinanceOverdueFineMapper financeOverdueFineMapper;
-
-	// 获取逾期对象
+ 
+	/**
+	 * 
+	* @Title: getFinanceOverdueFineId  
+	* @Description: TODO(获取逾期对象)  
+	* @param @param overdueFineId
+	* @param @return    设定文件  
+	* @return Object    返回类型  
+	* @throws
+	 */
 	public Object getFinanceOverdueFineId(String overdueFineId) {
 		FinanceOverdueFine financeOverdueAdvances = financeOverdueFineMapper.selectByPrimaryKey(overdueFineId);
 		return financeOverdueAdvances;
 	}
 
-	// 获取逾期数据
+	/**
+	 * 
+	* @Title: listAsGrid  
+	* @Description: TODO(获取逾期数据)  
+	* @param @param overdueFineQueryDTO
+	* @param @param pager
+	* @param @return    设定文件  
+	* @return Object    返回类型  
+	* @throws
+	 */
 	public Object listAsGrid(FinOverdueFineQueryDTO overdueFineQueryDTO,JqPager pager) {
 		JqGridReturn returnResult = new JqGridReturn();
 		FinanceOverdueFineExample financeOverdueFineExample = new FinanceOverdueFineExample();

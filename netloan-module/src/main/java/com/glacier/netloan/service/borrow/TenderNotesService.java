@@ -158,7 +158,8 @@ public class TenderNotesService {
         List<TenderNotes>  tenderNotess = tenderNotesMapper.selectByExample(tenderNotesExample); // 查询所有借款列表
 
         //查询基础信用积分的所有数据
-        List<ParameterCredit> parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
+        @SuppressWarnings("unchecked")
+		List<ParameterCredit> parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
         List<TenderNotes> allTenderNotess = new ArrayList<TenderNotes>();//定义一个空的借款列表
         //通过嵌套for循环，将会员的信用图标加到借款对象中去
         for(TenderNotes tenderNotes : tenderNotess){
@@ -190,10 +191,8 @@ public class TenderNotesService {
         JqGridReturn returnResult = new JqGridReturn();
         TenderNotesExample tenderNotesExample = new TenderNotesExample();;
 
-        
         Criteria queryCriteria = tenderNotesExample.createCriteria();
         tenderNotesQueryDTO.setQueryCondition(queryCriteria);
-
           
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	tenderNotesExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
