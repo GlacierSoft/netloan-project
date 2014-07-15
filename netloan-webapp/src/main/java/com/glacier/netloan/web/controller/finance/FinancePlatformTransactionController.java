@@ -18,9 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
-import com.glacier.netloan.dto.query.finance.FinPlatformTransactionsQueryDTO;
-import com.glacier.netloan.entity.finance.FinancePlatform;
-import com.glacier.netloan.entity.finance.FinancePlatformTransaction;
+import com.glacier.netloan.dto.query.finance.FinPlatformTransactionsQueryDTO; 
 import com.glacier.netloan.service.finance.FinancePlatformTransactionService;
 
 /** 
