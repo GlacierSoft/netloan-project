@@ -305,58 +305,48 @@ public class UserService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "UserList_del")
     public Object delUser(List<String> userIds, List<String> usernames) {
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        int rightNumber = 0;
-        int falseNumber=0;
-        String result_one="";
-        boolean isFlag=true;
-        if (userIds.size() > 0) {
-             for(int i=0;i<userIds.size();i++){
-            	 System.out.println("当前获取的第"+(i+1)+"个ID值为:"+userIds.get(i));
-            	 RoleExample roleExample = new RoleExample();
-            	 roleExample.createCriteria().andCreaterEqualTo(userIds.get(i));
-            	 List<Role> list=roleMapper.selectByExample(roleExample);
-            	 
-            	 LoginLogExample loginLogExample=new LoginLogExample();
-        		 loginLogExample.createCriteria().andUserIdEqualTo(userIds.get(i));
-        		 List<LoginLog> list_two=loginLogMapper.selectByExample(loginLogExample);
-        		 
-        		 System.out.println("list="+list.size()+"      "+list+"   list_two="+list_two.size()+"     "+list_two);
-        		 
-        		 
-        		 if(list.size()<=0&&list_two.size()<=0){
-        			 UserExample userExample = new UserExample();
-            		 userExample.createCriteria().andUserIdEqualTo(userIds.get(i));
-            		 int number=userMapper.deleteByExample(userExample);
-            		 rightNumber+=number; 
-            		 System.out.println("成功删除数据:"+rightNumber);
-        		 }else{
-        			  if(isFlag){
-        				 if(list.size()>0&&list!=null&&list_two.size()>0&&list_two!=null){
-            				 result_one+="选中第<font style='color:red;font-weight: bold;'>【"+(i+1)+"】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+list.size()+"】</font>条依赖关系,与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+list_two.size()+"】</font>依赖关系,须先删除【角色管理】中<font style='color:red;font-weight: bold;'>【"+list.size()+"】</font>条依赖数据,再删除【登录日志管理】<font style='color:red;font-weight: bold;'>【"+list_two.size()+"】</font>条依赖数据";
-            			 }else{
-            			     if(list.size()>0&&list!=null){
-            			    	 result_one+="选中第<font style='color:red;font-weight: bold;'>【"+(i+1)+"】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+list.size()+"</font>条依赖关系,须先删除【角色管理】中<font style='color:red;font-weight: bold;'>"+list.size()+"】</font>条依赖数据"; 
-            			     } 
-            			     if(list_two.size()>0&&list_two!=null){
-            			    	 result_one+="选中第<font style='color:red;font-weight: bold;'>【"+(i+1)+"】</font>行数据与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+list_two.size()+"】</font>条依赖关系,须先删除【登录日志管理】中<font style='color:red;font-weight: bold;'>【"+list_two.size()+"】</font>条依赖数据";
-            			     }
-            			}
-        				 isFlag=false;
-        			 }
-        		}
-        				 
-           }
-             System.out.println("成功删除数据==============:"+rightNumber);
-             if(rightNumber>0){
-            	 returnResult.setMsg("已成功删除<font style='color:red;font-weight: bold;'>【"+rightNumber+"】</font>条数据,"+result_one);
-            	 returnResult.setSuccess(true);
-             }else{
-            	 returnResult.setMsg(result_one);
-             }
-                 
-        }
-        return returnResult;
-    }
-    
+		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+		int rightNumber = 0;
+		String result_one = "";
+		boolean isFlag = true;
+		if (userIds.size() > 0) {
+			for (int i = 0; i < userIds.size(); i++) {
+				RoleExample roleExample = new RoleExample();
+				roleExample.createCriteria().andCreaterEqualTo(userIds.get(i));
+				List<Role> list = roleMapper.selectByExample(roleExample);
+
+				LoginLogExample loginLogExample = new LoginLogExample();
+				loginLogExample.createCriteria().andUserIdEqualTo(userIds.get(i));
+				List<LoginLog> list_two = loginLogMapper.selectByExample(loginLogExample);
+
+				if (list.size() <= 0 && list_two.size() <= 0) {
+					UserExample userExample = new UserExample();
+					userExample.createCriteria().andUserIdEqualTo(userIds.get(i));
+					int number = userMapper.deleteByExample(userExample);
+					rightNumber += number;
+				} else {
+					if (isFlag) {
+						if (list.size() > 0 && list != null&& list_two.size() > 0 && list_two != null) {
+							result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ list.size()+ "】</font>条依赖关系,与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ list_two.size()+ "】</font>依赖关系,须先删除【角色管理】中<font style='color:red;font-weight: bold;'>【"+ list.size()+ "】</font>条依赖数据,再删除【登录日志管理】<font style='color:red;font-weight: bold;'>【"+ list_two.size() + "】</font>条依赖数据";
+						} else {
+							if (list.size() > 0 && list != null) {
+								result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ list.size()+ "</font>条依赖关系,须先删除【角色管理】中<font style='color:red;font-weight: bold;'>"+ list.size() + "】</font>条依赖数据";
+							}
+							if (list_two.size() > 0 && list_two != null) {
+								result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ list_two.size()+ "】</font>条依赖关系,须先删除【登录日志管理】中<font style='color:red;font-weight: bold;'>【"+ list_two.size() + "】</font>条依赖数据";
+							}
+						}
+						isFlag = false;
+					}
+				}
+            }
+			if (rightNumber > 0) {
+				returnResult.setMsg("已成功删除<font style='color:red;font-weight: bold;'>【"+ rightNumber + "】</font>条数据," + result_one);
+				returnResult.setSuccess(true);
+			} else {
+				returnResult.setMsg(result_one);
+			}
+         }
+		return returnResult;
+	}
 }
