@@ -73,6 +73,16 @@
 	$('#rechargeSet_mgr_rechargeSet_detail_memberType').val(renderGridValue('${rechargeSetData.memberType}',fields.memberType));
 	$('#rechargeSet_mgr_rechargeSet_detail_feeWay').val(renderGridValue('${rechargeSetData.feeWay}',fields.feeWay));
 	$('#rechargeSet_mgr_rechargeSet_detail_auditState').val(renderGridValue('${rechargeSetData.auditState}',fields.auditState));
+	
+	//审核按钮初始化
+	if(${rechargeSetData.auditState == 'pass'}){
+		document.all("rechargeSet_mgr_rechargeSet_form_auditState")[1].checked=true;
+	}else if(${rechargeSetData.auditState == 'failure'}){
+		document.all("rechargeSet_mgr_rechargeSet_form_auditState")[2].checked=true;
+	}else{
+		document.all("rechargeSet_mgr_rechargeSet_form_auditState")[0].checked=true;
+	}
+
 </script>
 
 <form  method="post" style="padding:15px">
@@ -81,8 +91,10 @@
 			<td>审核充值设置：</td>
 			<td><input type="hidden" id="rechargeSet_mgr_rechargeSet_form_financeRechargeSetId" name="financeRechargeSetId" value="${rechargeSetData.financeRechargeSetId}" />
 				<input type="hidden" id="rechargeSet_mgr_rechargeSet_form_rechargeSetName" name="rechargeSetName" value="${rechargeSetData.rechargeSetName}"/>
+				<input id="rechargeSet_mgr_rechargeSet_form_auditState" name="auditState" type="radio" value="authstr" /><span>审核中</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
 				<input id="rechargeSet_mgr_rechargeSet_form_auditState" name="auditState" type="radio" value="pass" /><span>审核通过</span>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;
 				<input id="rechargeSet_mgr_rechargeSet_form_auditState" name="auditState" type="radio" value="failure"  checked="checked"/><span>审核失败</span></td>
 		</tr>
 		<tr>
