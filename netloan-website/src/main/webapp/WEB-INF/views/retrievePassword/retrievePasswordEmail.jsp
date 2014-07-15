@@ -65,29 +65,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <jsp:include page="../foot.jsp"/>
 <script type="text/javascript">
 $(function(){
-	 
+	 $("#sub").attr({"disabled":"disabled"});
 	
 	//输入框得到焦点
 	 $("#useremal").focus(function(){
 		 $("#eml").remove();
 		 $("#eml2").remove();
 	 });
-	//邮箱失去焦点前台验证
-	 $("#useremal").blur(function(){ 
-		 $("#eml").remove();
-		 $("#eml2").remove();
+	
+	 $("#useremal").keyup(function(){  
+
+		 $("#eml").remove(); 
 		 var str=$(this).val();
 		 var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/;
 	     var boo= reg.test(str);
 	     if(str==""){
-	     	 $(this).after("<label id='eml2' style='color: red'>*邮箱不能为空</label>");
-			  return;
+	     	  return;
 	     }
 	    if(boo==false){
 	    	 $(this).after("<label id='eml' style='color: red'>*邮箱格式不正确</label>");
+	    	 return;
 	     }else{
 	    	 $("#eml").remove();
+	    	 $("#sub").removeAttr("disabled");
 	     }  
+	 });
+	//邮箱失去焦点前台验证
+	 $("#useremals").blur(function(){ 
 	 });  
 	
 
@@ -98,16 +102,7 @@ $(function(){
 			setTimeout(function(){//延迟3秒隐藏
 				$('#success_alert').fadeOut();
 			},3000)
-		}
-/*  $("#sub").click(function(){
-	 alert("---");
-		var emal=$("#useremal").val();
-		$.post("${pageContext.request.contextPath}/getPasswrod.htm",emal,function(resutText){
-			alert(resulText);
-		});
-		alert(">>>");
-  	});  */ 
-	
+		} 
 	
 });
 </script>
