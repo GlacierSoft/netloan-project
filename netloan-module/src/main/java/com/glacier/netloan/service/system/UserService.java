@@ -37,9 +37,15 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.system.LoginLogMapper;
+import com.glacier.netloan.dao.system.RoleMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.system.UserQueryDTO;
 import com.glacier.netloan.entity.common.util.CommonBuiltin;
+import com.glacier.netloan.entity.system.LoginLog;
+import com.glacier.netloan.entity.system.LoginLogExample;
+import com.glacier.netloan.entity.system.Role;
+import com.glacier.netloan.entity.system.RoleExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.entity.system.UserExample.Criteria;
@@ -60,6 +66,13 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
+    
+    @Autowired
+	private RoleMapper roleMapper;
+    
+    @Autowired
+    private	LoginLogMapper loginLogMapper;
+     
 
     /**
      * 加密方式
@@ -293,17 +306,55 @@ public class UserService {
     @MethodLog(opera = "UserList_del")
     public Object delUser(List<String> userIds, List<String> usernames) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        int count = 0;
+        int rightNumber = 0;
+        int falseNumber=0;
+        String result_one="";
+        boolean isFlag=true;
         if (userIds.size() > 0) {
-            UserExample userExample = new UserExample();
-            userExample.createCriteria().andUserIdIn(userIds);
-            count = userMapper.deleteByExample(userExample);
-            if (count > 0) {
-                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(usernames, ",") + " ]操作");
-                returnResult.setSuccess(true);
-            } else {
-                returnResult.setMsg("发生未知错误，管理员信息删除失败");
-            }
+             for(int i=0;i<userIds.size();i++){
+            	 System.out.println("当前获取的第"+(i+1)+"个ID值为:"+userIds.get(i));
+            	 RoleExample roleExample = new RoleExample();
+            	 roleExample.createCriteria().andCreaterEqualTo(userIds.get(i));
+            	 List<Role> list=roleMapper.selectByExample(roleExample);
+            	 
+            	 LoginLogExample loginLogExample=new LoginLogExample();
+        		 loginLogExample.createCriteria().andUserIdEqualTo(userIds.get(i));
+        		 List<LoginLog> list_two=loginLogMapper.selectByExample(loginLogExample);
+        		 
+        		 System.out.println("list="+list.size()+"      "+list+"   list_two="+list_two.size()+"     "+list_two);
+        		 
+        		 
+        		 if(list.size()<=0&&list_two.size()<=0){
+        			 UserExample userExample = new UserExample();
+            		 userExample.createCriteria().andUserIdEqualTo(userIds.get(i));
+            		 int number=userMapper.deleteByExample(userExample);
+            		 rightNumber+=number; 
+            		 System.out.println("成功删除数据:"+rightNumber);
+        		 }else{
+        			  if(isFlag){
+        				 if(list.size()>0&&list!=null&&list_two.size()>0&&list_two!=null){
+            				 result_one+="选中第"+(i+1)+"行数据与【角色管理】存在"+list.size()+"条依赖关系,与【登录日志管理】存在"+list_two.size()+"依赖关系,须先删除【角色管理】中"+list.size()+"条依赖数据,再删除【登录日志管理】"+list_two.size()+"条依赖数据";
+            			 }else{
+            			     if(list.size()>0&&list!=null){
+            			    	 result_one+="选中第"+(i+1)+"行数据与【角色管理】存在"+list.size()+"条依赖关系,须先删除【角色管理】中"+list.size()+"条依赖数据"; 
+            			     } 
+            			     if(list_two.size()>0&&list_two!=null){
+            			    	 result_one+="选中第"+(i+1)+"行数据与【登录日志管理】存在"+list_two.size()+"条依赖关系,须先删除【登录日志管理】中"+list_two.size()+"条依赖数据";
+            			     }
+            			}
+        				 isFlag=false;
+        			 }
+        		}
+        				 
+           }
+             System.out.println("成功删除数据==============:"+rightNumber);
+             if(rightNumber>0){
+            	 returnResult.setMsg("已成功删除【"+rightNumber+"】条数据,"+result_one);
+            	 returnResult.setSuccess(true);
+             }else{
+            	 returnResult.setMsg(result_one);
+             }
+                 
         }
         return returnResult;
     }
