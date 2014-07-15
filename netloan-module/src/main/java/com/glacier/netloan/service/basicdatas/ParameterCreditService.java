@@ -20,8 +20,6 @@ import com.glacier.netloan.dao.basicdatas.ParameterCreditMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditExample;
-import com.glacier.netloan.entity.basicdatas.ParameterIntegral;
-import com.glacier.netloan.entity.basicdatas.ParameterIntegralExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 

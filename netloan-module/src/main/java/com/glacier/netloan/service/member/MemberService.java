@@ -345,7 +345,6 @@ public class MemberService {
         //User pricipalUser = (User) pricipalSubject.getPrincipal();
         
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        MemberExample memberExample = new MemberExample();
         int count = 0;
         int countWork = 0;
         int countToken = 0;
