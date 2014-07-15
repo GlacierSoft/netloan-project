@@ -29,8 +29,6 @@ import com.glacier.netloan.entity.member.MemberIntegral;
 import com.glacier.netloan.entity.member.MemberIntegralExample;
 import com.glacier.netloan.entity.member.MemberIntegralExample.Criteria;
 import com.glacier.netloan.entity.system.User;
-import com.glacier.netloan.entity.website.WebsiteAnnouncement;
-import com.glacier.netloan.entity.website.WebsiteAnnouncementExample;
 import com.glacier.netloan.util.MethodLog;
 
 /** 

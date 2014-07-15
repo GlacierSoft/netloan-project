@@ -65,16 +65,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <jsp:include page="../foot.jsp"/>
 <script type="text/javascript">
 $(function(){
-	 $("#sub").attr({"disabled":"disabled"});
-	
+	 $("#sub").attr({"disabled":"disabled"}); 
 	//输入框得到焦点
 	 $("#useremal").focus(function(){
-		 $("#eml").remove();
-		 $("#eml2").remove();
+		 $("#eml").remove(); 
 	 });
 	
-	 $("#useremal").keyup(function(){  
-
+	 $("#useremal").keyup(function(){   
 		 $("#eml").remove(); 
 		 var str=$(this).val();
 		 var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/;
@@ -89,12 +86,28 @@ $(function(){
 	    	 $("#eml").remove();
 	    	 $("#sub").removeAttr("disabled");
 	     }  
-	 });
-	//邮箱失去焦点前台验证
-	 $("#useremals").blur(function(){ 
 	 });  
-	
-
+		
+	 $("#useremal").blur(function(){   
+		 $("#eml").remove(); 
+		 var str=$(this).val();
+		 var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+	     var boo= reg.test(str);
+	     if(str==""){
+	     	  return;
+	     }
+	    if(boo==false){
+	    	 $(this).after("<label id='eml' style='color: red'>*邮箱格式不正确</label>");
+	    	 return;
+	     }else{
+	    	 $("#eml").remove();
+	    	 $("#sub").removeAttr("disabled");
+	     }  
+	 });  
+	 
+	 
+	 
+	 
 		var emailStatus = '${emailStatus}';
 		if(emailStatus!=""){
 			$('#success_alert').fadeIn();

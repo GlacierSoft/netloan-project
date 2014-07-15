@@ -122,7 +122,6 @@ public class MemberMessageNoticeService {
     @Transactional(readOnly = false)
     public Object editMessageNoticeWebsit(MemberMessageNotice memberMessageNotice) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        MemberMessageNoticeExample memberMessageNoticeExample = new MemberMessageNoticeExample();
         int count = 0;
        /* Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -153,9 +152,7 @@ public class MemberMessageNoticeService {
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        MemberMessageNoticeExample memberMessageNoticeExample = new MemberMessageNoticeExample();
         int count = 0;
-       
         memberMessageNotice.setMessageNoticeId(RandomGUID.getRandomGUID());
         memberMessageNotice.setSender(pricipalUser.getUserId());
         memberMessageNotice.setSendtime(new Date());
@@ -187,7 +184,6 @@ public class MemberMessageNoticeService {
     @MethodLog(opera = "MessageNoticList_edit")
     public Object editMemberMessageNotice(MemberMessageNotice memberMessageNotice) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        MemberMessageNoticeExample memberMessageNoticeExample = new MemberMessageNoticeExample();
         int count = 0;
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
