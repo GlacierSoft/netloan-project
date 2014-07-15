@@ -24,6 +24,7 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.basicdatas.ParameterCreditMapper;
 import com.glacier.netloan.dao.basicdatas.ParameterIntegralTypeMapper;
 import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dao.borrow.LoanTenderMapper;
@@ -37,6 +38,7 @@ import com.glacier.netloan.dao.member.MemberStatisticsMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
+import com.glacier.netloan.entity.basicdatas.ParameterCreditExample;
 import com.glacier.netloan.entity.basicdatas.ParameterIntegralType;
 import com.glacier.netloan.entity.basicdatas.ParameterIntegralTypeExample;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
@@ -130,6 +132,9 @@ public class BorrowingLoanService {
 	@Autowired
 	private RepaymentNotesMapper repaymentNotesMapper;
 	
+	@Autowired
+    private ParameterCreditMapper parameterCreditMapper;
+	
 	/**
 	 * @Title: getBorrowingLoan 
 	 * @Description: TODO(根据借款Id获取借款信息) 
@@ -140,6 +145,18 @@ public class BorrowingLoanService {
 	 */
     public Object getBorrowingLoan(String loanId) {
     	BorrowingLoan borrowingLoan = borrowingLoanMapper.selectByPrimaryKey(loanId);
+    	//查询基础信用积分的所有数据
+        ParameterCreditExample parameterCreditExample = new ParameterCreditExample();
+        List<ParameterCredit> parameterCredits = parameterCreditMapper.selectByExample(parameterCreditExample);
+        //通过嵌套for循环，将会员的信用图标加到借款对象中去
+        if(borrowingLoan != null){
+            for(ParameterCredit parameterCredit : parameterCredits){
+                if(borrowingLoan.getCreditIntegral() >= parameterCredit.getCreditBeginIntegral() && borrowingLoan.getCreditIntegral() < parameterCredit.getCreditEndIntegral()){
+                    borrowingLoan.setCreditPhoto(parameterCredit.getCreditPhoto());
+                    break;
+                }   
+            }
+        }
     	Calendar c = Calendar.getInstance();
     	if(borrowingLoan.getFirstAuditDate() != null){
     		c.setTime(borrowingLoan.getFirstAuditDate());//获取初审通过时间
@@ -203,7 +220,8 @@ public class BorrowingLoanService {
         borrowingLoanExample.setLimitEnd(10);
         List<BorrowingLoan>  borrowingLoans = borrowingLoanMapper.selectByExample(borrowingLoanExample); // 查询所有借款列表
         //查询基础信用积分的所有数据
-        List<ParameterCredit> parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
+        ParameterCreditExample parameterCreditExample = new ParameterCreditExample();
+        List<ParameterCredit> parameterCredits = parameterCreditMapper.selectByExample(parameterCreditExample);
         List<BorrowingLoan> allborrowingLoans = new ArrayList<BorrowingLoan>();//定义一个空的借款列表
         //通过嵌套for循环，将会员的信用图标加到借款对象中去
         for(BorrowingLoan borrowingLoan : borrowingLoans){
