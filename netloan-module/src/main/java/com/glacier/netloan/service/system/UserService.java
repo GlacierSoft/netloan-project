@@ -306,19 +306,26 @@ public class UserService {
     @MethodLog(opera = "UserList_del")
     public Object delUser(List<String> userIds, List<String> usernames) {
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+		//定义删除成功数据行数量
 		int rightNumber = 0;
+		//定义返回结果
 		String result_one = "";
+		//定义是否显示提示
 		boolean isFlag = true;
 		if (userIds.size() > 0) {
 			for (int i = 0; i < userIds.size(); i++) {
+				
+                //相关联表t_role			
 				RoleExample roleExample = new RoleExample();
 				roleExample.createCriteria().andCreaterEqualTo(userIds.get(i));
 				List<Role> list = roleMapper.selectByExample(roleExample);
 
+				//相关联表	t_loginLog
 				LoginLogExample loginLogExample = new LoginLogExample();
 				loginLogExample.createCriteria().andUserIdEqualTo(userIds.get(i));
 				List<LoginLog> list_two = loginLogMapper.selectByExample(loginLogExample);
 
+				//判断是否关联
 				if (list.size() <= 0 && list_two.size() <= 0) {
 					UserExample userExample = new UserExample();
 					userExample.createCriteria().andUserIdEqualTo(userIds.get(i));
@@ -326,6 +333,7 @@ public class UserService {
 					rightNumber += number;
 				} else {
 					if (isFlag) {
+						//为提示信息赋值
 						if (list.size() > 0 && list != null&& list_two.size() > 0 && list_two != null) {
 							result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ list.size()+ "】</font>条依赖关系,与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ list_two.size()+ "】</font>依赖关系,须先删除【角色管理】中<font style='color:red;font-weight: bold;'>【"+ list.size()+ "】</font>条依赖数据,再删除【登录日志管理】<font style='color:red;font-weight: bold;'>【"+ list_two.size() + "】</font>条依赖数据";
 						} else {
@@ -336,17 +344,21 @@ public class UserService {
 								result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ list_two.size()+ "】</font>条依赖关系,须先删除【登录日志管理】中<font style='color:red;font-weight: bold;'>【"+ list_two.size() + "】</font>条依赖数据";
 							}
 						}
+						//赋值False,只留一条提示信息
 						isFlag = false;
 					}
 				}
             }
 			if (rightNumber > 0) {
+				//删除成功数量大于0即为操作成功,且提示关联信息 
 				returnResult.setMsg("已成功删除<font style='color:red;font-weight: bold;'>【"+ rightNumber + "】</font>条数据," + result_one);
 				returnResult.setSuccess(true);
 			} else {
+				//删除失败信息设置
 				returnResult.setMsg(result_one);
 			}
          }
+		
 		return returnResult;
 	}
 }
