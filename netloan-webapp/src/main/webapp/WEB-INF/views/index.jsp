@@ -121,13 +121,13 @@
 	      	//动态时钟显示
 	      	function disptime()
 	      	{
-	      	var time= new Date();
+	      	var time= new Date(); 
 	      	var year = time.getFullYear(); //得到当前时间的年份
-	      	var month = time.getMonth() + 1;
-	      	var day1 = time.getDate();
-	      	var hour=time.getHours();
-	      	var minute=time.getMinutes(); 
-	      	var second=time.getSeconds(); 
+	      	var month =formatDate(time.getMonth() + 1);
+	      	var day1 = formatDate(time.getDate());
+	      	var hour=formatDate(time.getHours());
+	      	var minute=formatDate(time.getMinutes()); 
+	      	var second=formatDate(time.getSeconds()); 
 	        var day;
 	        switch (time.getDay()){
 	         case 0:day="日";
@@ -145,20 +145,29 @@
 	         case 6:day="六";
 	           break;
 	        }
+	        
 	      	document.getElementById("time").value="星期"+day+"  "+year+"-"+month+"-"+day1+"  "+hour+":"+minute+":"+second+"";
 	      	var myTime=setTimeout("disptime()",1000);
 	      	}
+	      	
+	      	function formatDate(val){
+	    		var valFormate = val;
+	    		if(valFormate<10){
+	    			valFormate = "0"+valFormate;
+	    		}
+	    		return valFormate;
+	       } 
 		</script>
 	</head>
 	<body  onload="disptime()">
 		<div id="index_layout" class="easyui-layout" data-options="fit:true,border:false">
 			<div data-options="region:'north',border:false" class="logo">
-				<div id="sessionInfoDiv" style="position: absolute; right: 0px; top: 0px;width: 300px" class="login_name">
+				<div id="sessionInfoDiv" style="position: absolute; right: 0px; top: 0px;width: 350px" class="login_name">
 					<span class="icon-dortmund-user" style="vertical-align: top;display:inline-block;width:16px;height:16px;"></span>
 					<a href="javascript:void(0);" class="user" rel="shareit">
 						${currentUser.userCnName}
 					</a>
-					<span class="label label-info" ><input id="time" readonly="readonly" type="text" size="10" style="width: 180px;background-color:transparent;border-style:none;border: 0"/></span>
+					<span class="label label-info" ><input id="time" readonly="readonly" type="text" size="10" style="width: 200px;background-color:transparent;border-style:none;border: 0"/></span>
 				</div>
 				<div style="position: absolute; right: 0px; bottom: 0px;">
 					<a id="home" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-dortmund-home'">主页</a> 

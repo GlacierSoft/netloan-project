@@ -146,8 +146,8 @@
                         $.easyui.showDialog({
 								title : '【' + rowData.memberName + '】会员详细信息',
 								href : ctx+ '/do/member/intoDetail.htm?memberId='+ rowData.memberId,//从controller请求jsp页面进行渲染
-								width : 645,
-								height : 450,
+								width : 655,
+								height : 470,
 								resizable : false,
 								enableApplyButton : false,
 								enableSaveButton : false
@@ -174,7 +174,7 @@
     var row = glacier.member_mgr.member_mgr.member.memberDataGrid.datagrid("getSelected");
     glacier.basicAddOrEditDialog({
 			title : '编辑【' + row.memberName + '】会员信息',
-			width : 855,
+			width : 865,
 			height : 415,
 			queryUrl : ctx + '/do/member/intoForm.htm',
 			submitUrl : ctx + '/do/member/edit.json',

@@ -14,7 +14,7 @@
 							<input type="hidden" id="borrowingLoan_mgr_borrowingLoan_secondAudit_loanCode" name="loanCode" value="${borrowingLoanData.loanCode}"/>
 							<input id="borrowingLoan_mgr_borrowingLoan_secondAudit_secondAuditState" name="secondAuditState" type="radio" value="secondSucess" /><span>复审通过</span>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<input id="borrowingLoan_mgr_borrowingLoan_secondAudit_secondAuditState" name="secondAuditState" type="radio" value="secondFailure"  checked="checked"/><span>复审失败</span></td>
+							<input id="borrowingLoan_mgr_borrowingLoan_secondAudit_secondAuditState" name="secondAuditState" type="radio" value="secondFailure"/><span>复审失败</span></td>
 					</tr>
 					<tr>
 						<td>复审处理意见：</td>

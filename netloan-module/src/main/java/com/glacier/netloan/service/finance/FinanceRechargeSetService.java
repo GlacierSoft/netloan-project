@@ -16,7 +16,9 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.finance.FinanceRechargeMapper;
 import com.glacier.netloan.dao.finance.FinanceRechargeSetMapper;
+import com.glacier.netloan.entity.finance.FinanceRechargeExample;
 import com.glacier.netloan.entity.finance.FinanceRechargeSet;
 import com.glacier.netloan.entity.finance.FinanceRechargeSetExample;
 import com.glacier.netloan.entity.system.User;
@@ -36,6 +38,8 @@ public class FinanceRechargeSetService {
 	@Autowired
 	private FinanceRechargeSetMapper financeRechargeSetMapper;
 
+	@Autowired
+	private FinanceRechargeMapper  financeRechargeMapper;
 	/**
 	 * @Title: getRechargeSet 
 	 * @Description: TODO(根据会员充值设置Id获取会员充值设置信息) 
@@ -210,7 +214,7 @@ public class FinanceRechargeSetService {
     public Object delRechargeSet(List<String> financeRechargeSetIds, List<String> rechargeSetNames) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
-        if (financeRechargeSetIds.size() > 0) {
+        if (financeRechargeSetIds.size() > 0) { 
         	FinanceRechargeSetExample financeRechargeSetExample = new FinanceRechargeSetExample();
         	financeRechargeSetExample.createCriteria().andFinanceRechargeSetIdIn(financeRechargeSetIds);
             count = financeRechargeSetMapper.deleteByExample(financeRechargeSetExample);

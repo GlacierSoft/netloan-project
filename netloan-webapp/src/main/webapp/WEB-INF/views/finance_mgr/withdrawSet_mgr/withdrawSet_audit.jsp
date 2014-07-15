@@ -68,11 +68,6 @@
 		</tr>
 	</table>
 </div>
-<script type="text/javascript">
- $('#withdrawSet_mgr_withdrawSet_detail_memberType').val(renderGridValue('${withdrawSetData.memberType}',fields.memberType));
-	$('#withdrawSet_mgr_withdrawSet_detail_feeWay').val(renderGridValue('${withdrawSetData.feeWay}',fields.feeWay));
-	$('#withdrawSet_mgr_withdrawSet_detail_auditState').val(renderGridValue('${withdrawSetData.auditState}',fields.auditState));
-</script>
 
 <form  method="post" style="padding:15px">
 	<table class="formtable">
@@ -81,7 +76,7 @@
 			<td><input type="hidden" id="withdrawSet_mgr_withdrawSet_form_financeWithdrawSetId" name="financeWithdrawSetId" value="${withdrawSetData.financeWithdrawSetId}" />
 				 <input id="withdrawSet_mgr_withdrawSet_form_auditState" name="auditState" type="radio" value="pass" /><span>审核通过</span>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<input id="withdrawSet_mgr_withdrawSet_form_auditState" name="auditState" type="radio" value="failure"  checked="checked"/><span>审核失败</span></td>
+				<input id="withdrawSet_mgr_withdrawSet_form_auditState" name="auditState" type="radio" value="failure" /><span>审核失败</span></td>
 		</tr>
 		<tr>
 			<td>审核说明：</td>
@@ -91,3 +86,18 @@
 		</tr>
 	</table>
 </form>
+
+<script type="text/javascript">
+ $('#withdrawSet_mgr_withdrawSet_detail_memberType').val(renderGridValue('${withdrawSetData.memberType}',fields.memberType));
+	$('#withdrawSet_mgr_withdrawSet_detail_feeWay').val(renderGridValue('${withdrawSetData.feeWay}',fields.feeWay));
+	$('#withdrawSet_mgr_withdrawSet_detail_auditState').val(renderGridValue('${withdrawSetData.auditState}',fields.auditState));
+ 
+  
+	//审核按钮初始化
+	if(${withdrawSetData.auditState == 'pass'}){
+		document.all("withdrawSet_mgr_withdrawSet_form_auditState")[0].checked=true;
+	}else{
+		document.all("withdrawSet_mgr_withdrawSet_form_auditState")[1].checked=true;
+	} 
+	
+ </script>

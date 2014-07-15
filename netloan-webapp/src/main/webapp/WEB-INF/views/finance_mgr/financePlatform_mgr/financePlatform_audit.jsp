@@ -54,7 +54,7 @@
 		<tr>
 			<td>审核状态：</td>
 			<td>
-				<input name="auditState" id="financePlatform_mgr_financePlatform_audit_auditState" class="spinner" style="width:180px" readonly="readonly"/>
+				<input name="auditState" id="financePlatform_mgr_financePlatform_deaut_auditState" class="spinner" value="${financePlatformData.auditState}"  style="width:180px" readonly="readonly"/>
 			</td>
 			<td>审核说明：</td>
 			<td>
@@ -92,13 +92,16 @@
 <form  method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
-			<td>账号代码：</td>
+			<td>审核状态：</td>
 			<td>
 				<input type="hidden" name="financePlatformId" value="${financePlatformData.financePlatformId}" />
 				<input type="hidden" name="platformCode" value="${financePlatformData.platformCode}"/>
-				<input id="financePlatform_mgr_financePlatform_audit_auditState" name="auditState" type="radio" value="pass" /><span>审核通过</span>
+					<input id="financePlatform_mgr_financePlatform_audit_auditState" name="auditState" type="radio" value="authstr"  /><span>审核中</span>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<input id="financePlatform_mgr_financePlatform_audit_auditState" name="auditState" type="radio" value="failure"  checked="checked"/><span>审核失败</span></td>
+				
+				<input id="financePlatform_mgr_financePlatform_audit_auditState" name="auditState" type="radio" value="pass"  /><span>审核通过</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input id="financePlatform_mgr_financePlatform_audit_auditState" name="auditState" type="radio" value="failure"  /><span>审核失败</span></td>
 			</td>
 		</tr>
 		<tr>
@@ -107,10 +110,19 @@
 				<textarea name="auditRemark" class="spinner" style="height:50px;width:445px">${financePlatformData.auditRemark}</textarea>
 			</td>
 		</tr>
-	</table>
+	</table> 
 </form>
 <script type="text/javascript">
-	$('#financePlatform_mgr_financePlatform_audit_auditState').val(renderGridValue('${financePlatformData.auditState}',fields.auditState));
+	$('#financePlatform_mgr_financePlatform_deaut_auditState').val(renderGridValue('${financePlatformData.auditState}',fields.auditState));
 	$('#financePlatform_mgr_financePlatform_audit_platformType').val(renderGridValue('${financePlatformData.platformType}',fields.platformType));
+  	//审核按钮初始化
+ 		if(${financePlatformData.auditState== 'pass'}){
+ 			document.all("financePlatform_mgr_financePlatform_audit_auditState")[1].checked=true;
+ 		}else if(${rechargeSetData.auditState == 'failure'}){
+ 			document.all("financePlatform_mgr_financePlatform_audit_auditState")[2].checked=true;
+ 		}else{
+ 			document.all("financePlatform_mgr_financePlatform_audit_auditState")[0].checked=true;
+ 		} 
+ 	 
 	
 </script>

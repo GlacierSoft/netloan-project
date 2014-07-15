@@ -69,6 +69,14 @@
 <script type="text/javascript"> 
 	$('#estate_mgr_estate_audit_ageExpenses').val(renderGridValue('${estateData.ageExpenses}',fields.ageExpenses));
 	$('#estate_mgr_estate_audit_auditState').val(renderGridValue('${estateData.auditState}',fields.auditState));
+	//审核按钮初始化
+	if(${estateData.auditState== 'pass'}){
+		document.all("estate_mgr_estate_audit_auditState")[1].checked=true;
+	}else if(${estateData.auditState== 'failure'}){
+		document.all("estate_mgr_estate_audit_auditState")[2].checked=true;
+	}else{
+		document.all("estate_mgr_estate_audit_auditState")[0].checked=true;
+	}
 </script>
 
 <form  method="post" style="padding:15px">
@@ -76,10 +84,12 @@
 		<tr>
 			<td>审核结果：</td>
 			<td><input type="hidden" id="estate_mgr_estate_audit_estateId" name="estateId" value="${estateData.estateId}" />
+				<input id="estate_mgr_estate_audit_auditState" name="auditState" type="radio" value="authstr" /><span>审核中</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 				<input type="hidden" id="estate_mgr_estate_audit_memberRealName" name="memberRealName" value="${estateData.memberRealName}" />
 				<input id="estate_mgr_estate_audit_auditState" name="auditState" type="radio" value="pass" /><span>审核通过</span>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<input id="estate_mgr_estate_audit_auditState" name="auditState" type="radio" value="failure"  checked="checked"/><span>审核失败</span></td>
+				<input id="estate_mgr_estate_audit_auditState" name="auditState" type="radio" value="failure" /><span>审核失败</span></td>
 		</tr>
 		<tr>
 			<td>审核说明：</td>

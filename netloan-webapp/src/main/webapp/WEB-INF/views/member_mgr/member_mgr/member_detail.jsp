@@ -93,7 +93,7 @@
 						<td><input id="member_mgr_member_form_firstContactRelation" name="firstContactRelation" class="spinner" style="width:168px" value="${memberData.firstContactRelation}" readonly="readonly"/></td>
 					</tr>
 					<tr>
-						<td>第一联系人手机：</td>
+						<td>第一联系人手机号码：</td>
 						<td><input id="member_mgr_member_form_firstContactPhone" name="firstContactPhone" class="spinner" style="width:168px" value="${memberData.firstContactPhone}" readonly="readonly"/></td>
 						<td style="padding-left:10px;">第一联系人地址：</td>
 						<td><input id="member_mgr_member_form_firstContactAddress" name="firstContactAddress" class="spinner" style="width:168px" value="${memberData.firstContactAddress}" readonly="readonly" /></td>
@@ -105,7 +105,7 @@
 						<td><input id="member_mgr_member_form_secondContactRelation" name="secondContactRelation" class="spinner" style="width:168px" value="${memberData.secondContactRelation}" readonly="readonly"/></td>
 					</tr>
 					<tr>
-						<td>第二联系人手机：</td>
+						<td>第二联系人手机号码：</td>
 						<td><input id="member_mgr_member_form_secondContactPhone" name="secondContactPhone" value="${memberData.secondContactPhone}" class="spinner" style="width:168px" readonly="readonly"/></td>
 						<td style="padding-left:10px;">第二联系人地址：</td>
 						<td><input id="member_mgr_member_form_secondContactAddress" name="secondContactAddress" value="${memberData.secondContactAddress}" class="spinner" style="width:168px" readonly="readonly"/></td>
@@ -150,7 +150,7 @@
 					<tr>
 						<td>证明人：</td>
 						<td><input id="member_mgr_member_form_proofPerson" name="proofPerson" value="${memberWorkData.proofPerson}" class="spinner" style="width:168px" readonly="readonly"/></td>
-						<td style="padding-left:10px;">证明人手机：</td>
+						<td style="padding-left:10px;">证明人手机号码：</td>
 						<td><input id="member_mgr_member_form_proofPhone" name="proofPhone" value="${memberWorkData.proofPhone}" class="spinner" style="width:168px" readonly="readonly"/></td>
 					</tr>
 				</table>

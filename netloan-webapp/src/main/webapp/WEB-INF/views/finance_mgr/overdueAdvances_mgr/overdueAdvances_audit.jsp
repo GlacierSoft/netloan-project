@@ -57,13 +57,24 @@
 <script type="text/javascript">
 	$('#overdueAdvances_mgr_overdueAdvances_detail_memberType').val(renderGridValue('${overdueAdvancesData.memberType}',fields.memberType));
 	$('#overdueAdvances_mgr_overdueAdvances_detail_auditState').val(renderGridValue('${overdueAdvancesData.auditState}',fields.auditState));
+	//审核按钮初始化
+		if(${overdueAdvancesData.auditState== 'pass'}){
+			document.all("overdueAdvances_mgr_overdueAdvances_form_auditState")[1].checked=true;
+		}else if(${overdueAdvancesData.auditState== 'failure'}){
+			document.all("overdueAdvances_mgr_overdueAdvances_form_auditState")[2].checked=true;
+		}else{
+			document.all("overdueAdvances_mgr_overdueAdvances_form_auditState")[0].checked=true;
+		} 
+	
 </script>
 
 <form  method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
-			<td>审核充值设置：</td>
+			<td>审核状态：</td>
 			<td><input type="hidden" id="overdueAdvances_mgr_overdueAdvances_form_overdueAdvancesId" name="overdueAdvancesId" value="${overdueAdvancesData.overdueAdvancesId}" />
+				<input id="overdueAdvances_mgr_overdueAdvances_form_auditState" name="auditState" type="radio" value="authstr" /><span>审核中</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 				<input id="overdueAdvances_mgr_overdueAdvances_form_auditState" name="auditState" type="radio" value="pass" /><span>审核通过</span>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<input id="overdueAdvances_mgr_overdueAdvances_form_auditState" name="auditState" type="radio" value="failure"  checked="checked"/><span>审核失败</span></td>

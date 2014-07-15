@@ -59,13 +59,26 @@
 	$('#overdueFineSet_mgr_overdueFineSet_detail_auditState').val(renderGridValue('${overdueFineSetData.auditState}',fields.auditState));
 	$('#overdueFineSet_mgr_overdueFineSet_detail_feeWay').val(renderGridValue('${overdueFineSetData.feeWay}',fields.feeWay));
 	$('#overdueFineSet_mgr_overdueFineSet_detail_memberPrivilege').val(renderGridValue('${overdueFineSetData.memberPrivilege}',fields.status));
-</script>
+
+	
+	//审核按钮初始化
+	if(${overdueFineSetData.auditState == 'pass'}){
+		document.all("overdueFineSet_mgr_overdueFineSet_form_auditState")[1].checked=true;
+	}else if(${overdueFineSetData.auditState== 'failure'}){
+		document.all("overdueFineSet_mgr_overdueFineSet_form_auditState")[2].checked=true;
+	}else{
+		document.all("overdueFineSet_mgr_overdueFineSet_form_auditState")[0].checked=true;
+	}
+	</script>
 
 <form  method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
 			<td>审核充值设置：</td>
 			<td><input type="hidden" id="overdueFineSet_mgr_overdueFineSet_form_overdueFineSetId" name="overdueFineSetId" value="${overdueFineSetData.overdueFineSetId}" />
+				<input id="overdueFineSet_mgr_overdueFineSet_form_auditState" name="auditState" type="radio" value="authstr" /><span>审核中</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				
 				<input id="overdueFineSet_mgr_overdueFineSet_form_auditState" name="auditState" type="radio" value="pass" /><span>审核通过</span>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<input id="overdueFineSet_mgr_overdueFineSet_form_auditState" name="auditState" type="radio" value="failure"  checked="checked"/><span>审核失败</span></td>
