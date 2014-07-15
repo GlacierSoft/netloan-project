@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 .foot_kefu_left_one_ul ,.foot_kefu_left_one_ul li,.foot_kefu_left_two_ul,.foot_kefu_left_two_ul li{list-style: none;}
 
-.foot_kefu_left_one_ul li{float:left; /* 往左浮动 */padding-right: 20px;line-height:50px; }
+.foot_kefu_left_one_ul li{float:left; /* 往左浮动 */padding-right: 20px;line-height:50px;}
 .foot_kefu_left_two_ul li{float:left; /* 往左浮动 */padding-right: 20px;line-height:50px; }
 .foot_kefu_left_one_ul li a,.foot_kefu_left_two_ul li a{color: #808080;font-family: "微软雅黑";text-decoration: none;}
 .foot_kefu_left_one_ul li a:HOVER,.foot_kefu_left_two_ul li a:HOVER {color: #11ACE2}

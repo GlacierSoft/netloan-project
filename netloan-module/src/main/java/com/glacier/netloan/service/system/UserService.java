@@ -333,13 +333,13 @@ public class UserService {
         		 }else{
         			  if(isFlag){
         				 if(list.size()>0&&list!=null&&list_two.size()>0&&list_two!=null){
-            				 result_one+="选中第"+(i+1)+"行数据与【角色管理】存在"+list.size()+"条依赖关系,与【登录日志管理】存在"+list_two.size()+"依赖关系,须先删除【角色管理】中"+list.size()+"条依赖数据,再删除【登录日志管理】"+list_two.size()+"条依赖数据";
+            				 result_one+="选中第<font style='color:red;font-weight: bold;'>【"+(i+1)+"】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+list.size()+"】</font>条依赖关系,与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+list_two.size()+"】</font>依赖关系,须先删除【角色管理】中<font style='color:red;font-weight: bold;'>【"+list.size()+"】</font>条依赖数据,再删除【登录日志管理】<font style='color:red;font-weight: bold;'>【"+list_two.size()+"】</font>条依赖数据";
             			 }else{
             			     if(list.size()>0&&list!=null){
-            			    	 result_one+="选中第"+(i+1)+"行数据与【角色管理】存在"+list.size()+"条依赖关系,须先删除【角色管理】中"+list.size()+"条依赖数据"; 
+            			    	 result_one+="选中第<font style='color:red;font-weight: bold;'>【"+(i+1)+"】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+list.size()+"</font>条依赖关系,须先删除【角色管理】中<font style='color:red;font-weight: bold;'>"+list.size()+"】</font>条依赖数据"; 
             			     } 
             			     if(list_two.size()>0&&list_two!=null){
-            			    	 result_one+="选中第"+(i+1)+"行数据与【登录日志管理】存在"+list_two.size()+"条依赖关系,须先删除【登录日志管理】中"+list_two.size()+"条依赖数据";
+            			    	 result_one+="选中第<font style='color:red;font-weight: bold;'>【"+(i+1)+"】</font>行数据与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+list_two.size()+"】</font>条依赖关系,须先删除【登录日志管理】中<font style='color:red;font-weight: bold;'>【"+list_two.size()+"】</font>条依赖数据";
             			     }
             			}
         				 isFlag=false;
@@ -349,7 +349,7 @@ public class UserService {
            }
              System.out.println("成功删除数据==============:"+rightNumber);
              if(rightNumber>0){
-            	 returnResult.setMsg("已成功删除【"+rightNumber+"】条数据,"+result_one);
+            	 returnResult.setMsg("已成功删除<font style='color:red;font-weight: bold;'>【"+rightNumber+"】</font>条数据,"+result_one);
             	 returnResult.setSuccess(true);
              }else{
             	 returnResult.setMsg(result_one);
