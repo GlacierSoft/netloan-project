@@ -35,8 +35,7 @@ public class FinanceOverdueAdvancesController extends AbstractController {
 		ModelAndView mode=new ModelAndView("finance_mgr/overdueAdvances_mgr/overdueAdvances");
 	    return mode ;	
 	}
-	
-	
+	 
 	// 进入会员充值设置Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoOverdueAdvancesForm(String overdueAdvancesId) {
@@ -63,8 +62,7 @@ public class FinanceOverdueAdvancesController extends AbstractController {
         }
         return overdueAdvancesServices.addOverdueAdvances(financeOverdueAdvances);
     }
-    
-    
+     
     //编辑逾期管理信息页
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
@@ -81,7 +79,6 @@ public class FinanceOverdueAdvancesController extends AbstractController {
     public Object delOverdueAdvances(@RequestParam List<String> overdueAdvancesIds) {
     	return overdueAdvancesServices.delOverdueAdvances(overdueAdvancesIds);
     }
-    
      
     // 进入会员充值设置audit表单页面
     @RequestMapping(value = "/intoAudit.htm")
@@ -93,8 +90,7 @@ public class FinanceOverdueAdvancesController extends AbstractController {
         return mav;
     }
     
-    
-    
+     
     // 审核会员充值设置
     @RequestMapping(value = "/audit.json", method = RequestMethod.POST)
     @ResponseBody

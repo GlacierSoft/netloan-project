@@ -33,21 +33,37 @@ public class FinancesAdvancesRecord {
 	
 	  @Autowired
 	  private MemberMessageNoticeMapper memberMessageNoticeMapper;
-	  
-	  //获取逾期对象
+	   
+	  /**
+	   * 
+	  * @Title: getFinanceAdvancesRecord  
+	  * @Description: TODO(获取逾期对象)  
+	  * @param @param advancesRecordId
+	  * @param @return    设定文件  
+	  * @return Object    返回类型  
+	  * @throws
+	   */
 	  public Object getFinanceAdvancesRecord(String advancesRecordId) {
 	    	FinanceOverdueAdvancesRecord financeAdvancesRecord = financeAdvancesRecordMapper.selectByPrimaryKey(advancesRecordId);
 	        return financeAdvancesRecord;
 	    }
-	    
-	   //获取逾期数据
+	     
+	  /**
+	   * 
+	  * @Title: listAsGrid  
+	  * @Description: TODO(获取逾期数据)  
+	  * @param @param overdueAdvancesRecordQueryDTO
+	  * @param @param pager
+	  * @param @return    设定文件  
+	  * @return Object    返回类型  
+	  * @throws
+	   */
 	    public Object listAsGrid(FinOverdueAdvancesRecordQueryDTO overdueAdvancesRecordQueryDTO,JqPager pager) {
 	        JqGridReturn returnResult = new JqGridReturn();
 	        FinanceOverdueAdvancesRecordExample financeAdvancesRecordExample = new FinanceOverdueAdvancesRecordExample();;
 	        
 	        Criteria queryCriteria = financeAdvancesRecordExample.createCriteria();
-	        overdueAdvancesRecordQueryDTO.setQueryConditions(queryCriteria);
-
+	        overdueAdvancesRecordQueryDTO.setQueryConditions(queryCriteria); 
 	        
 	        if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
 	        	financeAdvancesRecordExample.setLimitStart((pager.getPage() - 1) * pager.getRows());

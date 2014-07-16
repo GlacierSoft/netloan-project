@@ -98,7 +98,6 @@ public class FinancePlatformService {
         
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
-       
         
         financePlatform.setFinancePlatformId(RandomGUID.getRandomGUID());
         financePlatform.setCreater(pricipalUser.getUserId());

@@ -148,7 +148,6 @@ public class RepaymentNotesService {
         int count = 0;
         float shouldPayMoney = 0f;
         BorrowingLoan borrowingLoanNew = (BorrowingLoan)borrowingLoanMapper.selectByPrimaryKey(repaymentNotes.getLoanId());//重新获取该会员 借款的信息数据
-		
 		if(borrowingLoanNew.getRepaymentTypeDisplay().equals("等额本息")){
 			float everyMonthMoney = (float) ((borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/12) 
 											* Math.pow(((1 + borrowingLoanNew.getLoanApr()/12)),Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())))

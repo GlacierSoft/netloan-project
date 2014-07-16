@@ -210,17 +210,16 @@ public class ReceivablesNotesService {
         
         int startTemp = ((p-1)*10);//根据前台返回的页数进行设置
         receivablesNotesExample.setLimitStart(startTemp);
-        receivablesNotesExample.setLimitEnd(10);
-        
+        receivablesNotesExample.setLimitEnd(10); 
         List<ReceivablesNotes> allReceivablesNotess = new ArrayList<ReceivablesNotes>();//定义一个空的收款列表
         //如果flag为true,就什么都不操作，返回一个allReceivablesNotess空的list回去
         if(flag){
         	
         }else{
         	List<ReceivablesNotes>  receivablesNotess = receivablesNotesMapper.selectByExample(receivablesNotesExample); // 查询所有借款列表
-
             //查询基础信用积分的所有数据
-            List<ParameterCredit> parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
+            @SuppressWarnings("unchecked")
+			List<ParameterCredit> parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
             allReceivablesNotess = new ArrayList<ReceivablesNotes>();//定义一个空的收款列表
             //通过嵌套for循环，将会员的信用图标加到借款对象中去
             for(ReceivablesNotes receivablesNotes : receivablesNotess){
@@ -289,8 +288,7 @@ public class ReceivablesNotesService {
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         
         //添加会员资金记录明细
-      	FinanceTransaction financeTransaction = new FinanceTransaction();
-        
+      	FinanceTransaction financeTransaction = new FinanceTransaction(); 
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         float shouldReceMoney = 0f;
@@ -305,7 +303,6 @@ public class ReceivablesNotesService {
         	receivablesNotes.setMemberId(tenderNotes.getMemberId());//设置投标人也就是收款人的Id
         	if(borrowingLoanNew.getSubTotal() == 0.0){//借款是以金额进行投资的
         		if(borrowingLoanNew.getRepaymentTypeDisplay().equals("等额本息")){
-        			//float everyMonthMoney = (tenderNotes.getTenderMoney() * (borrowingLoanNew.getLoanApr()/12) * (1 + borrowingLoanNew.getLoanApr()/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))/(1 + borrowingLoanNew.getLoanApr()/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())-1;
         			float everyMonthMoney = (float) ((tenderNotes.getTenderMoney() * (borrowingLoanNew.getLoanApr()/12) 
 							* Math.pow(((1 + borrowingLoanNew.getLoanApr()/12)),Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())))
 							/ (Math.pow(((1 + borrowingLoanNew.getLoanApr()/12)),Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))-1));
@@ -393,7 +390,6 @@ public class ReceivablesNotesService {
               	financeMemberService.editMember(financeMemberThaw);
         	}else{//借款是认购份数进行投资的
         		if(borrowingLoanNew.getRepaymentTypeDisplay().equals("等额本息")){
-        			//float everyMonthMoney = (tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub() * (borrowingLoanNew.getLoanApr()/12) * (1 + borrowingLoanNew.getLoanApr()/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))/(1 + borrowingLoanNew.getLoanApr()/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())-1;
         			float everyMonthMoney = (float) ((tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub() * (borrowingLoanNew.getLoanApr()/12) 
 							* Math.pow(((1 + borrowingLoanNew.getLoanApr()/12)),Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())))
 							/ (Math.pow(((1 + borrowingLoanNew.getLoanApr()/12)),Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))-1));
@@ -496,15 +492,12 @@ public class ReceivablesNotesService {
             	FinanceMember financeMembers=financeMemberMapper.selectByMemberId(tenderNotes.getMemberId());
             	
             	//更新投资人的资金信息---------------------
-            	//financeMembers.setUsableMoney(financeMembers.getUsableMoney()-borrowingLoan.getLoanTotal());//设置投资人可用余额
             	financeMembers.setFrozenMoney(financeMembers.getFrozenMoney()-borrowingLoan.getLoanTotal());//设置投资人的冻结资金
             	financeMembers.setAmount(financeMembers.getAmount()-borrowingLoan.getLoanTotal());//设置投资人的总金额
             	financeMembers.setCollectingMoney(financeMembers.getCollectingMoney()+receivablesNotes.getShouldReceMoney());//设置投资人的代收金额
             	
-            	
             	//更新投资人的资金信息
             	financeMemberMapper.updateByPrimaryKeySelective(financeMembers);
-            	
             	//根据收款人ID取出会员统计信息
             	MemberStatistics memberStatistics=memberStatisticsMapper.selectByMemberId(receivablesNotes.getMemberId());
             	//增加投资人的资金记录明细
@@ -561,14 +554,11 @@ public class ReceivablesNotesService {
             	menberIntegral.setRemark(integralType.getRemark());
             	menberIntegral.setCreater(pricipalUser.getUserId());
             	menberIntegral.setCreateTime(new Date());
-            	
             	//添加积分记录
             	integralMapper.insert(menberIntegral);
-            	
             	//更新借款人的会员总积分
             	Member member=memberMapper.selectByPrimaryKey(receivablesNotes.getMemberId());
             	member.setIntegral(member.getIntegral()+integralType.getChangeValue());
-            	
             	//修改会员信息
             	memberMapper.updateByPrimaryKeySelective(member);
             }

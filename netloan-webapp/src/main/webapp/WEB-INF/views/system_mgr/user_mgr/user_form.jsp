@@ -12,7 +12,7 @@
 		</tr>
 		<tr>
 			<td>真实姓名：</td>
-			<td><input name="userCnName" class="easyui-validatebox spinner" style="width:268px" value="${userData.userCnName}" required="true" validType="customReg['^[\u0391-\uFFE5]{2,10}','<fmt:message key="User.username.illegal"/>']"/></td>
+			<td><input name="userCnName" class="easyui-validatebox spinner" style="width:268px" value="${userData.userCnName}" required="true" invalidMessage="用户真实姓名由字符组成，例如：张三" validType="customReg['^[\u0391-\uFFE5]{2,10}','<fmt:message key="User.username.illegal"/>']"/></td>
 		</tr>
 		<tr>
 			<td>用户状态：</td>
