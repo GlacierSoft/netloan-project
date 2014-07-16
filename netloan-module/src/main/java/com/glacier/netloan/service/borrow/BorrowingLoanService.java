@@ -332,7 +332,7 @@ public class BorrowingLoanService {
         borrowingLoan.setLoanId(RandomGUID.getRandomGUID());//初始化一些借款信息
         // 赋值于借款记录的借款编号
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
-        borrowingLoan.setLoanCode("借款"+ "_" + dateFormat.format(new Date()));
+        borrowingLoan.setLoanCode("borrowing"+ "_" + dateFormat.format(new Date()));
         
         //根据借款选取的标种类型查找出该标种的信息记录
         LoanTender loanTender = new LoanTender();

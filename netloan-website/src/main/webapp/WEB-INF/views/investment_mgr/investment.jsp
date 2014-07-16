@@ -532,11 +532,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  			   	   success: function(r) {
 							$("#InvestmentCalculationsTable").show();
 							$("#tenderReward").html(FormatNumber(r.tenderReward,2)+"元");
-							$("#AnnualizedRevenue").html(FormatNumber(r.AnnualizedRevenue,2)+"元");
+							$("#AnnualizedRevenue").html(FormatNumber(r.AnnualizedRevenue,2)+"元"); 
 							$("#totalInterest").html(FormatNumber(r.totalInterest,2)+"元");
 							$("#currentPayMoney").html(FormatNumber(r.currentPayMoney,2)+"元");
 							$("#totalReceMoney").html(FormatNumber(r.totalReceMoney,2)+"元");
 							$("#actualReceMoney").html(FormatNumber(r.actualReceMoney,2)+"元<br/>(扣除10%管理费)");
+							
 	                  },
 	                  error: function() {
 	                      alert("提交出错！");

@@ -159,7 +159,7 @@ public class FinanceRechargeService {
         financeRecharge.setFinanceRechargeId(RandomGUID.getRandomGUID());
         // 赋值于充值记录的充值流水号
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
-        financeRecharge.setRechargeCode("充值"+ "_" + dateFormat.format(new Date()));
+        financeRecharge.setRechargeCode("recharge"+ "_" + dateFormat.format(new Date()));
         financeRecharge.setAuditState("authstr"); 
         // 获取该充值设置的取费方式进行计算该充值的费率和手续费
         FinanceRechargeSet rechargeSet = new FinanceRechargeSet();
