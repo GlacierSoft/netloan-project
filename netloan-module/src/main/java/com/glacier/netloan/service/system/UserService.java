@@ -313,6 +313,8 @@ public class UserService {
 		int rightNumber = 0;
 		// 定义返回结果
 		String result_one = "";
+		//名称记录
+		String result_name="";
 		// 定义是否显示提示
 		boolean isFlag = true;
 		//数据行长度判断
@@ -337,16 +339,17 @@ public class UserService {
 						userExample.createCriteria().andUserIdEqualTo(userIds.get(i));
 						int number = userMapper.deleteByExample(userExample);
 	                    rightNumber += number;// 删除成功数据行数量记录
+	                    result_name+=usernames.get(i)+" ";// 删除成功数据名称记录
                 } else {
                 	if(isFlag){
 						if( userRole_number>0){
-							result_one="选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与" + "【分配角色管理】存在<font style='color:red;font-weight: bold;'>【"+ userRole_number+ "】</font>条依赖关系," + "须删除【分配角色管理】中<font style='color:red;font-weight: bold;'>【"+ userRole_number + "】</font>条依赖数据    ";
+							result_one="数据行<font style='color:red;font-weight: bold;'>【"+ usernames.get(i)+ "】</font>与" + "【分配角色管理】存在<font style='color:red;font-weight: bold;'>【"+ userRole_number+ "】</font>条依赖关系," + "须删除【分配角色管理】中<font style='color:red;font-weight: bold;'>【"+ userRole_number + "】</font>条依赖数据    ";
 						}else{
 							if(role_number>0){
-								result_one="选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据" + "与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ role_number+ "</font>条依赖关系," +"须删除【角色管理】中<font style='color:red;font-weight: bold;'>"+ role_number + "】</font>条依赖数据 ";
+								result_one="数据行<font style='color:red;font-weight: bold;'>【"+ usernames.get(i)+ "】</font>与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ role_number+ "</font>条依赖关系," +"须删除【角色管理】中<font style='color:red;font-weight: bold;'>"+ role_number + "】</font>条依赖数据 ";
 							}else{
 								if(loginLog_number>0){
-									result_one="选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与" +"【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ loginLog_number+ "】</font>条依赖关系," +"须删除【登录日志管理】中<font style='color:red;font-weight: bold;'>【"+ loginLog_number + "】</font>条依赖数据    ";
+									result_one="数据行<font style='color:red;font-weight: bold;'>【"+ usernames.get(i)+ "】</font>与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ loginLog_number+ "】</font>条依赖关系," +"须删除【登录日志管理】中<font style='color:red;font-weight: bold;'>【"+ loginLog_number + "】</font>条依赖数据    ";
 								}
 							}
 						 }
@@ -356,7 +359,7 @@ public class UserService {
 			}
 		// 删除成功数量大于0即为操作成功,且提示关联信息
 		if(rightNumber>0){
-			returnResult.setMsg("已成功删除<font style='color:red;font-weight: bold;'>【"+ rightNumber + "】</font>条数据," + result_one);
+			returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+result_name.trim() + "】</font>"+ rightNumber+"条数据" +result_one);
 			returnResult.setSuccess(true);
 		}else{
 			returnResult.setMsg(result_one);
