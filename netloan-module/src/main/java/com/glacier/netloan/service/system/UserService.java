@@ -343,13 +343,13 @@ public class UserService {
                 } else {
                 	if(isFlag){
 						if( userRole_number>0){
-							result_one="数据行<font style='color:red;font-weight: bold;'>【"+ usernames.get(i)+ "】</font>与" + "【分配角色管理】存在<font style='color:red;font-weight: bold;'>【"+ userRole_number+ "】</font>条依赖关系," + "须删除【分配角色管理】中<font style='color:red;font-weight: bold;'>【"+ userRole_number + "】</font>条依赖数据    ";
+							result_one=" 数据行<font style='color:red;font-weight: bold;'>【"+ usernames.get(i)+ "】</font>与" + "【分配角色管理】存在<font style='color:red;font-weight: bold;'>【"+ userRole_number+ "】</font>条依赖关系," + "须删除【分配角色管理】中<font style='color:red;font-weight: bold;'>【"+ userRole_number + "】</font>条依赖数据    ";
 						}else{
 							if(role_number>0){
-								result_one="数据行<font style='color:red;font-weight: bold;'>【"+ usernames.get(i)+ "】</font>与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ role_number+ "</font>条依赖关系," +"须删除【角色管理】中<font style='color:red;font-weight: bold;'>"+ role_number + "】</font>条依赖数据 ";
+								result_one=" 数据行<font style='color:red;font-weight: bold;'>【"+ usernames.get(i)+ "】</font>与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ role_number+ "</font>条依赖关系," +"须删除【角色管理】中<font style='color:red;font-weight: bold;'>"+ role_number + "】</font>条依赖数据 ";
 							}else{
 								if(loginLog_number>0){
-									result_one="数据行<font style='color:red;font-weight: bold;'>【"+ usernames.get(i)+ "】</font>与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ loginLog_number+ "】</font>条依赖关系," +"须删除【登录日志管理】中<font style='color:red;font-weight: bold;'>【"+ loginLog_number + "】</font>条依赖数据    ";
+									result_one=" 数据行<font style='color:red;font-weight: bold;'>【"+ usernames.get(i)+ "】</font>与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ loginLog_number+ "】</font>条依赖关系," +"须删除【登录日志管理】中<font style='color:red;font-weight: bold;'>【"+ loginLog_number + "】</font>条依赖数据    ";
 								}
 							}
 						 }
@@ -362,7 +362,7 @@ public class UserService {
 			returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+result_name.trim() + "】</font>"+ rightNumber+"条数据" +result_one);
 			returnResult.setSuccess(true);
 		}else{
-			returnResult.setMsg(result_one);
+			returnResult.setMsg(result_one.trim());
 			returnResult.setSuccess(false);
 		 }
 	   }
