@@ -20,8 +20,7 @@
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
-		fitColumns:true,//自动填充行
-		//fitColumns:false,//自动填充行,出现滚动条
+		fitColumns:true,//自动填充行,出现滚动条
 		nowrap: true,//禁止单元格中的文字自动换行
 		autoRowHeight: false,//禁止设置自动行高以适应内容
 		striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
@@ -41,7 +40,7 @@
 			},{
 				field:'userId',
 				title:'用户ID',
-				width:120,
+				width:300,
 				sortable:true
 			},{
 				field:'loginUser',
