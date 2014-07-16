@@ -177,28 +177,23 @@ public class ParameterQuestionService {
     @MethodLog(opera = "QuestionList_del")
     public Object delQuestion(List<String> questionIds ,List<String> questionDess) {
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-    	int count = 0;
+    	//接收数据数量
+    	int count=0;
     	//定义一个接受返回信息的变量
     	String returnResultMsg = "";
     	//定义删除成功数据行数量
     	int rightNumber = 0;
-    	//定义是否显示提示
-    	boolean isFlag = true;
     	//定义一个行数
     	int row = 0;
     	if(questionIds.size()>0){
     		for (String questionId : questionIds) {
     			MemberSecretSecurityExample memberSecretSecurityExample = new MemberSecretSecurityExample();
             	memberSecretSecurityExample.createCriteria().andQuestionIdEqualTo(questionId);
-            	List<MemberSecretSecurity> memberSecretSecuritys = memberSecretSecurityMapper.selectByExample(memberSecretSecurityExample);
-            	if(memberSecretSecurityMapper.countByExample(memberSecretSecurityExample)>0){
-            		if (isFlag) {
-	            		if(memberSecretSecuritys.size() > 0 && memberSecretSecuritys != null){
-	            			returnResultMsg += "选中第<font style='color:red;font-weight: bold;'>【"+ ((row++) + 1)+ "】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ memberSecretSecuritys.size()+ "】</font>条依赖关系,";
-	            		}
-	            		isFlag = false;
-            		}
-            	}else{
+            	count = memberSecretSecurityMapper.countByExample(memberSecretSecurityExample);
+            	//根据ID取出密保管理的信息是否大于0
+            	if(count>0){//大于0执行消息结果赋值
+        			returnResultMsg += "选中第<font style='color:red;font-weight: bold;'>【"+ ((row++) + 1)+ "】</font>行数据与【密保管理】存在<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖关系,";
+            	}else{//否则删除没关联的数据然后rightNumber++
             		ParameterQuestionExample parameterQuestionExample = new ParameterQuestionExample();
                 	parameterQuestionExample.createCriteria().andQuestionIdEqualTo(questionId);
                 	int number = parameterQuestionMapper.deleteByExample(parameterQuestionExample);
