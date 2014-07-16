@@ -159,7 +159,7 @@
 					       	  	</div>
 				       	  	</div>
 				       	  	<div class="row">
-				       	  	<div class="col-md-12">您的可投标金额为：<span style="color: red;">￥100,000.00</span>元，最多可认购：<span style="color: red;">10000份 </span></div>
+				       	  	<div class="col-md-12">您的可投标金额为：<span style="color: red;">￥${financeMember.usableMoney }</span>&nbsp;元，最多可认购：<span id="maxSub" style="color: red;"></span>&nbsp;份</div>
 				       	  	</div>
 					   </c:otherwise>
 				</c:choose>
@@ -176,6 +176,11 @@
         <jsp:include page="../foot.jsp"/>
   </body>
   <script type="text/javascript">
+ 	window.onload=function(){
+ 		var usableMoneyFloor=Math.floor("${financeMember.usableMoney}");//先去掉小数
+ 		var maxLowestSub=usableMoneyFloor/"${borrowingLoan.lowestSub }">"${borrowingLoan.subTotal }"?"${borrowingLoan.subTotal }":usableMoneyFloor/"${borrowingLoan.lowestSub }";//再整除(运用三元表达式)
+ 	  	document.getElementById("maxSub").innerHTML=maxLowestSub;
+ 	}
   
   	if('${borrowingLoan.subTotal}' == '0.0'){
 		$('#stillNeed').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrBidMoney}' pattern='#,#00.00'/>");
