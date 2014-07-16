@@ -114,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						            <td>冻结金额</td>
 						          </tr>
 						          <tr>
-						            <td>￥${financeMemberData.amount}</td>
+						            <td>￥<fmt:formatNumber value='${financeMemberData.amount}' pattern='#,#00.00'/></td>
 						            <td>￥${financeMemberData.usableMoney}</td>
 						            <td>￥${financeMemberData.frozenMoney}</td>
 						          </tr>
@@ -159,7 +159,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						          	<td>￥${finTransaction.usableMoney}</td>
 						          	<td>￥${finTransaction.frozenMoney}</td>
 						          	<td>￥${finTransaction.collectingMoney}</td>
-						          	<td>￥${finTransaction.amount}</td>
+						          	<td>￥<fmt:formatNumber value='${finTransaction.amount}' pattern='#,#00.00'/></td>
 						          	<td><fmt:formatDate value="${finTransaction.createTime}" type="both"/></td>
 						          </tr>
 					      		</c:forEach>
@@ -258,7 +258,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								          </tr>
 								          <tr>
 								            <td>账户余额</td> 
-								            <td>￥${financeMemberData.amount}</td>
+								            <td>￥<fmt:formatNumber value='${financeMemberData.amount}' pattern='#,#00.00'/></td>
 								          </tr>
 								          <tr>
 								            <td>可用余额：</td>
