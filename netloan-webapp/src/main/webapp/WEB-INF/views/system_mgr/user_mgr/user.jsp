@@ -189,7 +189,25 @@
 						   data: {userIds:userIds.join(','),usernames:usernames.join(',')},
 						   dataType:'json',
 						   success: function(r){
-							   glacier.show({msg:r.msg,result:r.success});
+							   //glacier.show({msg:r.msg,result:r.success});
+							   if(r.success){
+								   $.messager.show({
+										title:'成功提示',
+										msg:r.msg,
+										width:520,
+									    height:135,
+										timeout:3000,
+										showType:'slide'
+									});
+							   }else{
+								   $.messager.show({//后台验证弹出错误提示信息框
+										title:'错误提示',
+										width:520,
+									    height:135,
+										msg: '<span style="color:red">'+r.msg+'<span>',
+										timeout:4500
+									});
+							   }
 							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
 								   glacier.system_mgr.user_mgr.user.userDataGrid.datagrid('reload');
 							   }
