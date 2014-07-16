@@ -47,10 +47,14 @@
 				/loanReview/* = user
 				/investment/confirmInvestment.htm = user
 				/investment/addInvestment.htm = user
-				/investment/memberTenderNotes.htm = user
+				/investment/memberTenderNotes.htm = user 
+				/investment/investmentdetail.htm=user
 				/receivablesNotes/* = user
 				/attentionBorrowing/* = user
-			   <!-- /validateCode.htm = anon
+				/repaymentNotesDetail/* = user
+				/bankingStatistics/*=user
+				<!-- /investment/*=user
+			    /validateCode.htm = anon
 				/login.htm = authc
 				/resources/** = anon
 				/logout = logout

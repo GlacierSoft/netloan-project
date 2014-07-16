@@ -344,7 +344,7 @@
 				            <th>逾期罚息</th>
 				            <th>总还款金额</th>
 				            <th>状态</th>
-				            <th>操作</th>
+				          <!--   <th>操作</th> -->
 				          </tr>
 				        </thead>
 			          	<tbody>
@@ -370,14 +370,14 @@
 									       		$('#repaymentNotesDetails_repayState'+${status.index}).html(renderGridValue('${repaymentNotesDetails.repayState}',fields.repayDetailState));
 									    	</script>
 									</td>
-						            <td>
+						          <%--   <td>
 						            	<c:if test="${repaymentNotesDetails.repayState == 'notRepay'}">
 						            		<a href="${ctx}/repaymentNotesDetail/conductRepayment.htm?&loanId=${borrowingLoan.loanId}&memberId=${currentMember.memberId}&repayNotesDetailId=${repaymentNotesDetails.repayNotesDetailId}">还款</a>
 						            	</c:if>
 						            	<c:if test="${repaymentNotesDetails.repayState == 'alreadRepay'}">
 						            		已完成
 						            	</c:if>
-						            </td>
+						            </td> --%>
 						          </tr>
 					      		</c:forEach>
 					    	</c:if>
