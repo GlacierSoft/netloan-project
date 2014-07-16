@@ -250,7 +250,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    </div>
 									  </div>
 									  <div class="form-group">
-									    <label for="firstContactPhone" class="col-sm-2 control-label">第一联系人手机:</label>
+									    <label for="firstContactPhone" class="col-sm-2 control-label" style="width: 150px">第一联系人手机:</label>
 									    <div class="col-sm-4">
 									      <input type="text" class="form-control" name="firstContactPhone" id="firstContactPhone"  value="${currentMember.firstContactPhone}" placeholder="第一联系人手机">
 									    </div>
@@ -320,9 +320,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								    <div class="col-sm-4">
 								      <input type="text" class="form-control" id="proofPerson" name="proofPerson" value="${currentMemberWork.proofPerson}"  placeholder="证明人">
 								    </div>
-								    <label for="proofPhone" class="col-sm-2 control-label">证明人手机:</label>
+								    <label for="proofPhone" class="col-sm-2 control-label">证明人手机号码:</label>
 								    <div class="col-sm-4">
-								      <input type="text" class="form-control" id="proofPhone" name="proofPhone" value="${currentMemberWork.proofPhone}"  placeholder="证明人手机">
+								      <input type="text" class="form-control" id="proofPhone" name="proofPhone" value="${currentMemberWork.proofPhone}"  placeholder="证明人手机号码">
 								    </div>
 								  </div>
 						       </div>

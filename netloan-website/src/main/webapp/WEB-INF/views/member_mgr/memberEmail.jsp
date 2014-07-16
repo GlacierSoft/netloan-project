@@ -101,10 +101,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			              <td>邮箱地址:</td>
 			              <td>${currentMember.email}</td>
 			              <c:if test="${currentMember.email != ''}">
-			              <td><p style="color:red;">(改邮箱已绑定)</p></td>
+			              <td><p style="color:red;">(该邮箱已绑定)</p></td>
 			              </c:if>
 			              <c:if test="${currentMember.email == ''}">
-			              <td><p>(改邮箱未绑定)</p></td>
+			              <td><p>(该邮箱未绑定)</p></td>
 			              </c:if>
 			            </tr>
 			        </table>

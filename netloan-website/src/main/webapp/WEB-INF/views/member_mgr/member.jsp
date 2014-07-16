@@ -182,7 +182,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        		<td colspan="3"><span><strong>账户总汇：</strong></span></td>
 			        	</tr>
 			        	<tr >
-			        		<td><span>账户总额：￥${financeMemberData.amount}</span></td>
+			        		<td><span>账户总额：￥<fmt:formatNumber value='${financeMemberData.amount}' pattern='#,#00.00'/></span></td>
 			        		<td><span>可用余额：￥${financeMemberData.usableMoney}</span></td>
 			        		<td><span>冻结金额：￥${financeMemberData.frozenMoney}</span></td>
 			        	</tr>
@@ -195,34 +195,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        		<td colspan="3"><span><strong>投资总汇：</strong></span></td>
 			        	</tr>
 			        	<tr >
-			        		<td><span>已收总额：￥${memberStatisticsData.alreadyIncomeTotal}</span></td>
+			        		<td><span>已收总额：￥<fmt:formatNumber value='${memberStatisticsData.alreadyIncomeTotal}' pattern='#,#00.00'/></span></td>
 			        		<td><span>已收本金：￥${memberStatisticsData.alreadyIncomePrincipal}</span></td>
-			        		<td><span>已收利息：￥${memberStatisticsData.alreadyIncomeInterest}</span></td>
+			        		<td><span>已收利息：￥<fmt:formatNumber value='${memberStatisticsData.alreadyIncomeInterest}' pattern='#,#00.00'/></span></td>
 			        	</tr>
 			        	<tr>
-			        		<td><span>待收总额：￥${memberStatisticsData.waitIncomeTotal}</span></td>
+			        		<td><span>待收总额：￥<fmt:formatNumber value='${memberStatisticsData.waitIncomeTotal}' pattern='#,#00.00'/></span></td>
 			        		<td><span>待收本金：￥${memberStatisticsData.waitIncomePrincipal}</span></td>
-			        		<td><span>待收利息：￥${memberStatisticsData.waitIncomeInterest}</span></td>
+			        		<td><span>待收利息：￥<fmt:formatNumber value='${memberStatisticsData.waitIncomeInterest}' pattern='#,#00.00'/></span></td>
 			        	</tr>
 			        	<tr>
 			        		<td colspan="3"><span><strong>借款总汇：</strong></span></td>
 			        	</tr>
 			        	<tr >
-			        		<td><span>已还总额：￥${memberStatisticsData.alreadyTotal}</span></td>
+			        		<td><span>已还总额：￥<fmt:formatNumber value='${memberStatisticsData.alreadyTotal}' pattern='#,#00.00'/></span></td>
 			        		<td><span>已还本金：￥${memberStatisticsData.alreadyPrincipal}</span></td>
-			        		<td><span>已还利息：￥${memberStatisticsData.alreadyInterest}</span></td>
+			        		<td><span>已还利息：￥<fmt:formatNumber value='${memberStatisticsData.alreadyInterest}' pattern='#,#00.00'/></span></td>
 			        	</tr>
 			        	<tr>
-			        		<td><span>待还总额：￥${memberStatisticsData.waitAlsoTotal}</span></td>
+			        		<td><span>待还总额：￥<fmt:formatNumber value='${memberStatisticsData.waitAlsoTotal}' pattern='#,#00.00'/></span></td>
 			        		<td><span>待还本金：￥${memberStatisticsData.waitAlsoPrincipal}</span></td>
-			        		<td><span>待还利息：￥${memberStatisticsData.waitAlsoInterest}</span></td>
+			        		<td><span>待还利息：￥<fmt:formatNumber value='${memberStatisticsData.waitAlsoInterest}' pattern='#,#00.00'/></span></td>
 			        	</tr>
 			        	<tr>
 			        		<td colspan="3"><span><strong>额度总汇：</strong></span></td>
 			        	</tr>
 			        	<tr >
-			        		<td><span>借款总额度：￥${memberStatisticsData.totalBorrowings}</span></td>
-			        		<td><span>可用信用额度：￥${currentMember.creditamount}</span></td>
+			        		<td><span>借款总额度：￥<fmt:formatNumber value='${memberStatisticsData.totalBorrowings}' pattern='#,#00.00'/></span></td>
+			        		<td><span>可用信用额度：￥<fmt:formatNumber value='${currentMember.creditamount}' pattern='#,#00.00'/></span></td>
 			        		<td><span></span></td>
 			        	</tr>
 			        </table>

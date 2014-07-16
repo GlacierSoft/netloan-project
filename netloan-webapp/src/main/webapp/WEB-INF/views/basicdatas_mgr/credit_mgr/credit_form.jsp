@@ -27,7 +27,7 @@
 	    	<td>级别图标:</td>
 	    	<td>
 	    	<input class="ke-input-text" type="text" name=creditPhoto id="url" value="${creditData.creditPhoto}" readonly="readonly" />
-	    	<input type="button" id="uploadButton" value="Upload"/>
+	    	<input type="button" id="uploadButton" value="上传"/>
 	    	</td>
 	    </tr>
 	    <tr>

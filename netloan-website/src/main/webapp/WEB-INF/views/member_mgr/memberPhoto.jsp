@@ -102,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <label for="personalDes" class="col-sm-2 control-label">个人头像:</label>
 						    <div class="col-sm-4" style="float: left;">
 								<input class="ke-input-text" type="text" name="memberPhoto" id="url" value="${currentMember.memberPhoto}" readonly="readonly" />
-								<input type="button" id="uploadButton" value="Upload"/>
+								<input type="button" id="uploadButton" value="上传"/>
 						    </div> 
 						    <div class="col-sm-6" id="memberPhotoDiv" style="border: 1px #DDDDDD;">
 								<img id="memberPhotoDivImg"  src="${currentMember.memberPhoto}" style="width: 120px;height: 120px ;" />

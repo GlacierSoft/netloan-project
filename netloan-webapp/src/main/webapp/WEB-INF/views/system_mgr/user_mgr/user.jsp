@@ -194,16 +194,16 @@
 								   $.messager.show({
 										title:'成功提示',
 										msg:r.msg,
-										width:520,
-									    height:135,
+										width:400,
+									    height:120,
 										timeout:3000,
 										showType:'slide'
 									});
 							   }else{
 								   $.messager.show({//后台验证弹出错误提示信息框
 										title:'错误提示',
-										width:520,
-									    height:135,
+										width:400,
+									    height:120,
 									    icon:'error',
 										msg: r.msg,
 										timeout:4500
