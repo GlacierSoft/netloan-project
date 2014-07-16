@@ -317,71 +317,53 @@ public class UserService {
 		boolean isFlag = true;
 		//数据行长度判断
 		if (userIds.size() > 0) {
-			
 			//匹配删除信息
 			for (int i = 0; i < userIds.size(); i++) {
-
-				// 相关联表t_role
+                // 相关联表t_role
 				RoleExample roleExample = new RoleExample();
 				roleExample.createCriteria().andCreaterEqualTo(userIds.get(i));
 				int role_number = roleMapper.countByExample(roleExample);
-
-				// 相关联表 t_loginLog
+                // 相关联表 t_loginLog
 				LoginLogExample loginLogExample = new LoginLogExample();
 				loginLogExample.createCriteria().andUserIdEqualTo(userIds.get(i));
 				int loginLog_number = loginLogMapper.countByExample(loginLogExample);
-
-				// 相关联表t_user_role
+                // 相关联表t_user_role
 				UserRoleExample userRoleExample = new UserRoleExample();
 				userRoleExample.createCriteria().andUserIdEqualTo(userIds.get(i));
 				int userRole_number = userRoleMapper.countByExample(userRoleExample);
-
-				// 判断是否关联
-				if (role_number <= 0 && loginLog_number <= 0&& userRole_number <= 0) {
+                // 判断是否关联
+				if (role_number <= 0 && loginLog_number <= 0 && userRole_number <= 0) {
 						UserExample userExample = new UserExample();
 						userExample.createCriteria().andUserIdEqualTo(userIds.get(i));
 						int number = userMapper.deleteByExample(userExample);
 	                    rightNumber += number;// 删除成功数据行数量记录
                 } else {
-					
-					if (isFlag) {
-						if (role_number > 0 && loginLog_number > 0&& userRole_number > 0) {// 为提示信息赋值
-							result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据" +
-									      "与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ role_number+ "】</font>条依赖关系," +
-									      "与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ loginLog_number+ "】</font>依赖关系," +
-									      "须删除【角色管理】中<font style='color:red;font-weight: bold;'>【"+ role_number+ "】</font>条依赖数据," +
-									      "须删除【登录日志管理】<font style='color:red;font-weight: bold;'>【"+ loginLog_number + "】</font>条依赖数据    ";
+                	if(isFlag){
+						if( userRole_number>0){
+							result_one="选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与" + "【分配角色管理】存在<font style='color:red;font-weight: bold;'>【"+ userRole_number+ "】</font>条依赖关系," + "须删除【分配角色管理】中<font style='color:red;font-weight: bold;'>【"+ userRole_number + "】</font>条依赖数据    ";
 						}else{
-							if (role_number > 0) {
-								result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据" +
-										      "与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ role_number+ "</font>条依赖关系," +
-										      "须删除【角色管理】中<font style='color:red;font-weight: bold;'>"+ role_number + "】</font>条依赖数据     ";
+							if(role_number>0){
+								result_one="选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据" + "与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ role_number+ "</font>条依赖关系," +"须删除【角色管理】中<font style='color:red;font-weight: bold;'>"+ role_number + "】</font>条依赖数据 ";
+							}else{
+								if(loginLog_number>0){
+									result_one="选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与" +"【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ loginLog_number+ "】</font>条依赖关系," +"须删除【登录日志管理】中<font style='color:red;font-weight: bold;'>【"+ loginLog_number + "】</font>条依赖数据    ";
+								}
 							}
-							if (loginLog_number > 0) {
-								result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与" +
-										      "【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ loginLog_number+ "】</font>条依赖关系," +
-										      "须删除【登录日志管理】中<font style='color:red;font-weight: bold;'>【"+ loginLog_number + "】</font>条依赖数据    ";
-							}
-							if (userRole_number > 0) {
-								result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与" +
-										      "【分配角色管理】存在<font style='color:red;font-weight: bold;'>【"+ userRole_number+ "】</font>条依赖关系," +
-										      "须删除【分配角色管理】中<font style='color:red;font-weight: bold;'>【"+ userRole_number + "】</font>条依赖数据    ";
-							}
-						}
-						isFlag = false;// 赋值False,只留一条提示信息
-					}
-				}
+						 }
+						isFlag=false;
+				   }
+               }
 			}
-			if (rightNumber > 0) {
-				// 删除成功数量大于0即为操作成功,且提示关联信息
-				returnResult.setMsg("已成功删除<font style='color:red;font-weight: bold;'>【"+ rightNumber + "】</font>条数据," + result_one);
-				returnResult.setSuccess(true);
-			} else {
-				returnResult.setMsg(result_one);// 删除失败信息设置
-			}
-		}
-
-		return returnResult;
+		// 删除成功数量大于0即为操作成功,且提示关联信息
+		if(rightNumber>0){
+			returnResult.setMsg("已成功删除<font style='color:red;font-weight: bold;'>【"+ rightNumber + "】</font>条数据," + result_one);
+			returnResult.setSuccess(true);
+		}else{
+			returnResult.setMsg(result_one);
+			returnResult.setSuccess(false);
+		 }
+	   }
+       return returnResult;
 	}
     
     
