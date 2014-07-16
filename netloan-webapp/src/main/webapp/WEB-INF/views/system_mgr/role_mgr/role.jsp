@@ -177,7 +177,8 @@
 										title:'错误提示',
 										width:380,
 										height:120,
-										msg: '<span style="color:red">'+r.msg+'<span>',
+										icon:'error',
+										msg: r.msg,
 										timeout:4500
 									});
 								}
