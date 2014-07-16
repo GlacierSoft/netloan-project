@@ -194,7 +194,7 @@ public class ParameterQuestionService {
             	if(memberSecretSecurityMapper.countByExample(memberSecretSecurityExample)>0){
             		if (isFlag) {
 	            		if(memberSecretSecuritys.size() > 0 && memberSecretSecuritys != null){
-	            			returnResultMsg += "选中第<font style='color:red;font-weight: bold;'>【"+ (row + 1)+ "】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ memberSecretSecuritys.size()+ "】</font>条依赖关系,";
+	            			returnResultMsg += "选中第<font style='color:red;font-weight: bold;'>【"+ ((row++) + 1)+ "】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ memberSecretSecuritys.size()+ "】</font>条依赖关系,";
 	            		}
 	            		isFlag = false;
             		}
