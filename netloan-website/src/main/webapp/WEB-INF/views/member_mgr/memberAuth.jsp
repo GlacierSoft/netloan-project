@@ -490,7 +490,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            </tbody>
 				            <tfoot>
 					          <tr>
-					            <th colspan="3">
+					            <th colspan="4">
 					            	<div align="right">
 									    <ul id='pagememberIntegral'></ul>
 									</div>
