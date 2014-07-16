@@ -1,6 +1,5 @@
 package com.glacier.netloan.service.system;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,6 +23,8 @@ import com.glacier.netloan.dao.system.AuthorityMapper;
 import com.glacier.netloan.dao.system.RoleMapper;
 import com.glacier.netloan.dto.query.system.RoleQueryDTO;
 import com.glacier.netloan.entity.common.util.CommonBuiltin;
+import com.glacier.netloan.entity.system.Authority;
+import com.glacier.netloan.entity.system.AuthorityExample;
 import com.glacier.netloan.entity.system.Role;
 import com.glacier.netloan.entity.system.RoleExample;
 import com.glacier.netloan.entity.system.RoleExample.Criteria;
@@ -42,7 +43,7 @@ public class RoleService {
 
     @Autowired
     private ActionMapper actionMapper;
-
+    
     /**
      * @Title: getRole
      * @Description: TODO(根据角色ID获取角色信息)
@@ -227,16 +228,39 @@ public class RoleService {
     public Object delRoles(List<String> roleIds, List<String> roleCnNames) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
+        int rightNumber=0;
+        boolean isFlag=true;
+        String result_set="";
         if (roleIds.size() > 0) {
-            RoleExample roleExample = new RoleExample();
-            roleExample.createCriteria().andRoleIdIn(roleIds);
-            count = roleMapper.deleteByExample(roleExample);
-            if (count > 0) {
-                returnResult.setSuccess(true);
-                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(roleCnNames, ",") + " ]操作");
-            } else {
-                returnResult.setMsg("发生未知错误，角色信息删除失败");
+        	for(int i=0;i<roleIds.size();i++){
+        		//关联表
+        		AuthorityExample authorityExample=new AuthorityExample();
+            	authorityExample.createCriteria().andRoleIdEqualTo(roleIds.get(i));
+            	List<Authority> authority_list=authorityMapper.selectByExample(authorityExample);
+            	
+            	if(authority_list.size()<=0){
+            		 RoleExample roleExample = new RoleExample();
+                     roleExample.createCriteria().andRoleIdEqualTo(roleIds.get(i));
+                     int number=roleMapper.deleteByExample(roleExample);
+                     rightNumber+=number;
+            	}else{
+                   if(isFlag){
+                	   result_set="选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【操作管理】存在<font style='color:red;font-weight: bold;'>【"+ authority_list.size()+ "】</font>条依赖关系,须先删除【操作管理】中<font style='color:red;font-weight: bold;'>【"+ authority_list.size() + "】</font>条依赖数据"; 
+                   }
+                   isFlag=false;
+            	}
+            	
             }
+        	
+        	if (rightNumber > 0) {
+				//删除成功数量大于0即为操作成功,且提示关联信息 
+				returnResult.setMsg("已成功删除<font style='color:red;font-weight: bold;'>【"+ rightNumber + "】</font>条数据," + result_set);
+				returnResult.setSuccess(true);
+			} else {
+				//删除失败信息设置
+				returnResult.setMsg(result_set);
+			}
+        	
         }
         return returnResult;
     }

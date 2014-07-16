@@ -40,6 +40,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.system.LoginLogMapper;
 import com.glacier.netloan.dao.system.RoleMapper;
 import com.glacier.netloan.dao.system.UserMapper;
+import com.glacier.netloan.dao.system.UserRoleMapper;
 import com.glacier.netloan.dto.query.system.UserQueryDTO;
 import com.glacier.netloan.entity.common.util.CommonBuiltin;
 import com.glacier.netloan.entity.system.LoginLog;
@@ -49,6 +50,8 @@ import com.glacier.netloan.entity.system.RoleExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.entity.system.UserExample.Criteria;
+import com.glacier.netloan.entity.system.UserRoleExample;
+import com.glacier.netloan.entity.system.UserRoleKey;
 import com.glacier.netloan.util.MethodLog;
 import com.glacier.security.util.Digests;
 import com.glacier.security.util.Encodes;
@@ -72,6 +75,9 @@ public class UserService {
     
     @Autowired
     private	LoginLogMapper loginLogMapper;
+    
+    @Autowired
+    private UserRoleMapper userRoleMapper;
      
 
     /**
@@ -318,15 +324,20 @@ public class UserService {
                 //相关联表t_role			
 				RoleExample roleExample = new RoleExample();
 				roleExample.createCriteria().andCreaterEqualTo(userIds.get(i));
-				List<Role> list = roleMapper.selectByExample(roleExample);
+				List<Role> list_role = roleMapper.selectByExample(roleExample);
 
 				//相关联表	t_loginLog
 				LoginLogExample loginLogExample = new LoginLogExample();
 				loginLogExample.createCriteria().andUserIdEqualTo(userIds.get(i));
-				List<LoginLog> list_two = loginLogMapper.selectByExample(loginLogExample);
+				List<LoginLog> list_loginLog = loginLogMapper.selectByExample(loginLogExample);
+				
+				//相关联表t_user_role
+				UserRoleExample userRoleExample=new UserRoleExample();
+				userRoleExample.createCriteria().andUserIdEqualTo(userIds.get(i));
+				List<UserRoleKey> list_userRole = userRoleMapper.selectByExample(userRoleExample);
 
 				//判断是否关联
-				if (list.size() <= 0 && list_two.size() <= 0) {
+				if (list_role.size() <= 0 && list_loginLog.size() <= 0&&list_userRole.size()<=0) {
 					UserExample userExample = new UserExample();
 					userExample.createCriteria().andUserIdEqualTo(userIds.get(i));
 					int number = userMapper.deleteByExample(userExample);
@@ -334,14 +345,17 @@ public class UserService {
 				} else {
 					if (isFlag) {
 						//为提示信息赋值
-						if (list.size() > 0 && list != null&& list_two.size() > 0 && list_two != null) {
-							result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ list.size()+ "】</font>条依赖关系,与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ list_two.size()+ "】</font>依赖关系,须先删除【角色管理】中<font style='color:red;font-weight: bold;'>【"+ list.size()+ "】</font>条依赖数据,再删除【登录日志管理】<font style='color:red;font-weight: bold;'>【"+ list_two.size() + "】</font>条依赖数据";
+						if (list_role.size() > 0 && list_role != null&& list_loginLog.size() > 0 && list_loginLog != null&&list_userRole.size()>0&&list_userRole!=null) {
+							result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ list_role.size()+ "】</font>条依赖关系,与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ list_loginLog.size()+ "】</font>依赖关系,须先删除【角色管理】中<font style='color:red;font-weight: bold;'>【"+ list_role.size()+ "】</font>条依赖数据,再删除【登录日志管理】<font style='color:red;font-weight: bold;'>【"+ list_loginLog.size() + "】</font>条依赖数据";
 						} else {
-							if (list.size() > 0 && list != null) {
-								result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ list.size()+ "</font>条依赖关系,须先删除【角色管理】中<font style='color:red;font-weight: bold;'>"+ list.size() + "】</font>条依赖数据";
+							if (list_role.size() > 0 && list_role != null) {
+								result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ list_role.size()+ "</font>条依赖关系,须先删除【角色管理】中<font style='color:red;font-weight: bold;'>"+ list_role.size() + "】</font>条依赖数据";
 							}
-							if (list_two.size() > 0 && list_two != null) {
-								result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ list_two.size()+ "】</font>条依赖关系,须先删除【登录日志管理】中<font style='color:red;font-weight: bold;'>【"+ list_two.size() + "】</font>条依赖数据";
+							if (list_loginLog.size() > 0 && list_loginLog != null) {
+								result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ list_loginLog.size()+ "】</font>条依赖关系,须先删除【登录日志管理】中<font style='color:red;font-weight: bold;'>【"+ list_loginLog.size() + "】</font>条依赖数据";
+							}
+							if (list_userRole.size() > 0 && list_userRole != null) {
+								result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【分配角色管理】存在<font style='color:red;font-weight: bold;'>【"+ list_userRole.size()+ "】</font>条依赖关系,须先删除【登录日志管理】中<font style='color:red;font-weight: bold;'>【"+ list_userRole.size() + "】</font>条依赖数据";
 							}
 						}
 						//赋值False,只留一条提示信息

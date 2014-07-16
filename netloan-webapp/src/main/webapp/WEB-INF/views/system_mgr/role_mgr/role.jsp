@@ -167,6 +167,8 @@
 								   $.messager.show({
 										title:'提示',
 										timeout:3000,
+										width:380,
+										height:120,
 										msg:r.msg
 									});
 								   glacier.system_mgr.role_mgr.role.roleDataGrid.datagrid('reload');
