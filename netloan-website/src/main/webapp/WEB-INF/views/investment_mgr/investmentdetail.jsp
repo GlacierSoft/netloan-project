@@ -119,16 +119,27 @@
 		       	<div class="col-md-4"><span>交易类型：线上交易</span></div>
 	       	  	</div><br>
 	       	  	<div class="row">
-	       	  	<div class="col-md-4"><span>
-	       	  	最小投标金额： 
-	       	  	<c:if test="${empty borrowingLoan.lowestBidMoney }">没有限制</c:if>
-	       	  	<c:if test="${!empty borrowingLoan.lowestBidMoney }"><fmt:formatNumber value="${borrowingLoan.lowestBidMoney }" pattern="#,#00.00"/>元</c:if>
-	       	  	</span></div>
-	       	  	<div class="col-md-4"><span>
-	       	  	最大投标金额：  
-	       	  	<c:if test="${empty borrowingLoan.largestBidMoney }">没有限制</c:if>
-	       	  	<c:if test="${!empty borrowingLoan.largestBidMoney }"><fmt:formatNumber value="${borrowingLoan.largestBidMoney }" pattern="#,#00.00"/>元</c:if>
-	       	  	</span></div>
+	       	  	<div class="col-md-4">
+	       	  		<c:if test="${borrowingLoan.subTotal!=0}"><!-- 根据认购总份数来判断,如果份数大于0的时候，开启认购模式，显示最小投标金额 | 份数等于0则关闭认购模式，显示最小投标金额和最大投标金额 -->
+	       	  			<span>
+				       	  	最小投标金额： 
+				       	  	<c:if test="${!empty borrowingLoan.lowestSub }"><fmt:formatNumber value="${borrowingLoan.lowestSub }" pattern="#,#00.00"/>元</c:if>
+		       	  		</span>
+	       	  		</c:if>
+	       	  		<c:if test="${borrowingLoan.subTotal==0}">
+	       	  			最小投标金额： 
+	       	  			<c:if test="${!empty borrowingLoan.lowestBidMoney }"><fmt:formatNumber value="${borrowingLoan.lowestBidMoney }" pattern="#,#00.00"/>元</c:if>
+	       	  		</c:if>
+		       	</div>
+			    <div class="col-md-4">
+			    	<c:if test="${borrowingLoan.subTotal==0}">
+			       	  	<span>
+				       	  	最大投标金额：  
+				       	  	<c:if test="${empty borrowingLoan.largestBidMoney }">没有限制</c:if>
+				       	  	<c:if test="${!empty borrowingLoan.largestBidMoney }"><fmt:formatNumber value="${borrowingLoan.largestBidMoney }" pattern="#,#00.00"/>元</c:if>
+			       	  	</span>
+		       	  	</c:if>
+	       	  	</div>
 		       	<div class="col-md-4"><span></span></div>
 	       	  	</div><br>
 	       	  	<div class="row">
@@ -142,12 +153,11 @@
 	       	  	<div class="col-md-4"><span></span></div>
 	       	  	</div><br>
 	       	  	<div class="row">
-	       	  	<div class="col-md-8"><span style="color: red;">投标1000.0元,年利率：10.0%,期限1个月,可获得利息收益：￥8.33元</span></div>
+	       	  	<!-- <div class="col-md-8"><span style="color: red;">投标1000.0元,年利率：10.0%,期限1个月,可获得利息收益：￥8.33元</span></div> -->
 	       	  	<div class="col-md-4"><span></span></div>
 	       	  	</div><br>
 			  </div>
 			</div>
-		    
 		  </div>
 		</div>
 	    <div class="row">
@@ -161,7 +171,7 @@
 					  	<div class="row" >
 				       	  	<div class="col-md-3"><span style="color: red;">冰川网贷信用等级：
 				       	  	<img id="creditPhotoDivImg"  src="${borrowingLoan.creditPhoto}" style="width: 34px;height: 24px ;" /></span></div>
-				       	  	<div class="col-md-3"><span>冰川网贷信用额度：<fmt:formatNumber value="${borrowingMember.creditamount}" pattern="#,#00.00"/></span></div>
+				       	  	<div class="col-md-3"><span>冰川网贷信用额度：<fmt:formatNumber value="${borrowingMember.creditamount}" pattern="#,#00.00"/></span>&nbsp;元</div>
 			       	  	</div><br>
 			       	  	<div class="row" >
 				       	  	<div class="col-md-12"><span>以下基本信息资料，经用户同意披露。其中红色字体的信息，为通过冰川贷审核的项目。</span></div>
