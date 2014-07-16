@@ -17,9 +17,12 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.basicdatas.ParameterQuestionMapper;
+import com.glacier.netloan.dao.member.MemberSecretSecurityMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterQuestion;
 import com.glacier.netloan.entity.basicdatas.ParameterQuestionExample;
+import com.glacier.netloan.entity.member.MemberSecretSecurity;
+import com.glacier.netloan.entity.member.MemberSecretSecurityExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -36,6 +39,9 @@ public class ParameterQuestionService {
 	
 	@Autowired
 	private ParameterQuestionMapper parameterQuestionMapper;
+	
+	@Autowired
+	private MemberSecretSecurityMapper memberSecretSecurityMapper;
 	
 	@Autowired
     private UserMapper userMapper;
@@ -172,17 +178,44 @@ public class ParameterQuestionService {
     public Object delQuestion(List<String> questionIds ,List<String> questionDess) {
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
     	int count = 0;
-    	if(questionIds.size() >0){
-    		ParameterQuestionExample parameterQuestionExample = new ParameterQuestionExample();
-        	parameterQuestionExample.createCriteria().andQuestionIdIn(questionIds);
-        	count = parameterQuestionMapper.deleteByExample(parameterQuestionExample);
-    		if(count >0){
-        		returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(questionDess, ",") + " ]操作");
-        		returnResult.setSuccess(true);
-        	}else{
-        		returnResult.setMsg("发生未知错误，密保问题信息删除失败");
-        	}
+    	//定义一个接受返回信息的变量
+    	String returnResultMsg = "";
+    	//定义删除成功数据行数量
+    	int rightNumber = 0;
+    	//定义是否显示提示
+    	boolean isFlag = true;
+    	//定义一个行数
+    	int row = 0;
+    	if(questionIds.size()>0){
+    		for (String questionId : questionIds) {
+    			MemberSecretSecurityExample memberSecretSecurityExample = new MemberSecretSecurityExample();
+            	memberSecretSecurityExample.createCriteria().andQuestionIdEqualTo(questionId);
+            	List<MemberSecretSecurity> memberSecretSecuritys = memberSecretSecurityMapper.selectByExample(memberSecretSecurityExample);
+            	if(memberSecretSecurityMapper.countByExample(memberSecretSecurityExample)>0){
+            		if (isFlag) {
+	            		if(memberSecretSecuritys.size() > 0 && memberSecretSecuritys != null){
+	            			returnResultMsg += "选中第<font style='color:red;font-weight: bold;'>【"+ (row + 1)+ "】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ memberSecretSecuritys.size()+ "】</font>条依赖关系,";
+	            		}
+	            		isFlag = false;
+            		}
+            	}else{
+            		ParameterQuestionExample parameterQuestionExample = new ParameterQuestionExample();
+                	parameterQuestionExample.createCriteria().andQuestionIdEqualTo(questionId);
+                	int number = parameterQuestionMapper.deleteByExample(parameterQuestionExample);
+                	rightNumber +=number;
+            	}
+            	
+    		}
     	}
+    	
+    	if (rightNumber > 0) {
+			//删除成功数量大于0即为操作成功,且提示关联信息 
+			returnResult.setMsg("已成功删除<font style='color:red;font-weight: bold;'>【"+ rightNumber + "】</font>条数据," + returnResultMsg);
+			returnResult.setSuccess(true);
+		} else {
+			//删除失败信息设置
+			returnResult.setMsg(returnResultMsg);
+		}
 		return returnResult;
      }
     
