@@ -52,7 +52,7 @@
 					        <div class="jk_mid_con_k jk_mid_con_k_border">
 					          <div class="jk_mid_con_k_title">借款方式</div>
 					          <div class="jk_mid_con_k_con">
-					             <p >借款额度：50,00&nbsp;-100,000<br />
+					             <p >借款额度：￥50,00&nbsp;-￥100,000<br />
 								              借款年利率：1-24%&#160;<br />
 								              借款期限：&nbsp;1-12个月<br />
 								              审核时间：&nbsp;1-3个工作日<br />

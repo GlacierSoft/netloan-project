@@ -27,7 +27,7 @@
 			<td>客服头像：</td>
 			<td>
 				<input id="url" name="webServicePhoto" class="ke-input-text" type="text" style="width:180px" required="true" value="${serviceData.webServicePhoto}"/>
-				<input type="button" id="uploadButton" value="Upload"/>
+				<input type="button" id="uploadButton" value="上传"/>
 			</td>
 		</tr>
 		 <tr>
