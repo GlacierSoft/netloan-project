@@ -55,11 +55,8 @@ public class BankingStatisticsService {
     public Object getBankingStatistics(String memberId) {
     	float nextAll = 0f;//全部待收本息
     	float alrReceInterest = 0f;//已赚利息
-    	float alrOverdueInterest = 0f;//已赚逾期罚息
-    	float totalBorrowNum = 0f;//总借出笔数
-    	float alrReceMoney = 0f;//已回收本息
-    	float alrReceNum = 0f;//已回收笔数
-    	float nextReceNum = 0f;//待回收笔数
+    	float alrOverdueInterest = 0f;//已赚逾期罚息 
+    	float alrReceMoney = 0f;//已回收本息 
     	float totalBorrowMoney = 0f;//总借出金额
     	JSONObject obj = new JSONObject();//定义json对象
     	
@@ -111,8 +108,7 @@ public class BankingStatisticsService {
 		obj.put("alrReceMoney", alrReceMoney);
 		obj.put("alrReceNum", receivablesNotess2.size());
 		obj.put("nextReceNum", receivablesNotess.size() - receivablesNotess2.size());
-		obj.put("totalBorrowMoney", totalBorrowMoney);
-    	
+		obj.put("totalBorrowMoney", totalBorrowMoney); 
         return obj;
     }
 

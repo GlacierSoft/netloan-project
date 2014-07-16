@@ -21,8 +21,7 @@ import com.glacier.netloan.dao.borrow.BorrowingLoanMapper;
 import com.glacier.netloan.dto.query.borrow.AttentionBorrowingQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.borrow.AttentionBorrowing;
-import com.glacier.netloan.entity.borrow.AttentionBorrowingExample;
-import com.glacier.netloan.entity.borrow.ReceivablesNotes;
+import com.glacier.netloan.entity.borrow.AttentionBorrowingExample; 
 import com.glacier.netloan.entity.borrow.AttentionBorrowingExample.Criteria;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
@@ -70,7 +69,8 @@ public class AttentionBorrowingService {
      * @throws 
      *
      */
-    public Object listAsGridWebsite(AttentionBorrowingQueryDTO attentionBorrowingQueryDTO,JqPager jqPager,int p,String memberId) {
+    @SuppressWarnings("unchecked")
+	public Object listAsGridWebsite(AttentionBorrowingQueryDTO attentionBorrowingQueryDTO,JqPager jqPager,int p,String memberId) {
         
         JqGridReturn returnResult = new JqGridReturn();
         AttentionBorrowingExample attentionBorrowingExample = new AttentionBorrowingExample();
@@ -80,19 +80,16 @@ public class AttentionBorrowingService {
         
         if(memberId != null){
         	queryCriteria.andMemberIdEqualTo(memberId);//查询相对应的还款人的关注借款
-        }
-        
+        } 
         jqPager.setSort("createTime");// 定义排序字段
         jqPager.setOrder("DESC");// 升序还是降序
         if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
         	attentionBorrowingExample.setOrderByClause(jqPager.getOrderBy("temp_attention_borrowing_"));
-        }
-        
+        } 
         int startTemp = ((p-1)*10);//根据前台返回的页数进行设置
         attentionBorrowingExample.setLimitStart(startTemp);
         attentionBorrowingExample.setLimitEnd(10);
         List<AttentionBorrowing>  attentionBorrowings = attentionBorrowingMapper.selectByExample(attentionBorrowingExample); // 查询所有借款列表
-
         //查询基础信用积分的所有数据
         List<ParameterCredit> parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
         List<AttentionBorrowing> allAttentionBorrowings = new ArrayList<AttentionBorrowing>();//定义一个空的收款列表
@@ -105,8 +102,7 @@ public class AttentionBorrowingService {
         		}	
         	}
         	allAttentionBorrowings.add(attentionBorrowing);
-        }
-        
+        } 
         int total = attentionBorrowingMapper.countByExample(attentionBorrowingExample); // 查询总页数
         returnResult.setRows(allAttentionBorrowings);//设置查询数据
         returnResult.setTotal(total);//设置总条数

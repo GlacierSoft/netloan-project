@@ -54,14 +54,7 @@ public class FinancePlatformTransactionService {
     public Object getTransaction(String transactionId) {
     	FinancePlatformTransaction financePlatformTransaction = financePlatformTransactionMapper.selectByPrimaryKey(transactionId);
         return financePlatformTransaction;
-    }
-    
-//    public Object getFinTraList(String memberId){
-//    	FinancePlatformTransactionExample financePlatformTransactionExample = new FinancePlatformTransactionExample();
-//    	financePlatformTransactionExample.createCriteria().andMemberIdEqualTo(memberId);
-//    	List<FinancePlatformTransaction> FinTraList = financePlatformTransactionMapper.selectByExample(financePlatformTransactionExample);
-//    	return FinTraList;
-//    }
+    } 
     
     /**
      * @Title: listAsGrid 
@@ -193,42 +186,7 @@ public class FinancePlatformTransactionService {
             returnResult.setMsg("发生未知错误，平台资金记录信息保存失败");
         }
         return returnResult;
-    }
-    
-    /**
-     * @Title: editTransaction 
-     * @Description: TODO(修改平台资金记录) 
-     * @param @param financePlatformTransaction
-     * @param @return    设定文件 
-     * @return Object    返回类型 
-     * @throws
-     */
-    /*@Transactional(readOnly = false)
-    @MethodLog(opera = "TransactionList_edit")
-    public Object editTransaction(FinancePlatformTransaction financePlatformTransaction) {
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        FinancePlatformTransactionExample financePlatformTransactionExample = new FinancePlatformTransactionExample();
-        int count = 0;
-        // 防止平台资金记录名称重复
-        financePlatformTransactionExample.createCriteria().andFinancePlatformTransactionIdNotEqualTo(financePlatformTransaction.getFinancePlatformTransactionId()).andTransactionNameEqualTo(financePlatformTransaction.getTransactionName());
-        count = financePlatformTransactionMapper.countByExample(financePlatformTransactionExample);// 查找相同名称的平台资金记录数量
-        if (count > 0) {
-            returnResult.setMsg("平台资金记录名称重复");
-            return returnResult;
-        }
-        Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
-        financePlatformTransaction.setUpdater(pricipalUser.getUserId());
-        financePlatformTransaction.setUpdateTime(new Date());
-        count = financePlatformTransactionMapper.updateByPrimaryKeySelective(financePlatformTransaction);
-        if (count == 1) {
-            returnResult.setSuccess(true);
-            returnResult.setMsg("[" + financePlatformTransaction.getTransactionName() + "] 平台资金记录信息已修改");
-        } else {
-            returnResult.setMsg("发生未知错误，平台资金记录信息修改失败");
-        }
-        return returnResult;
-    }*/
+    } 
     
     /**
      * @Title: delTransaction 

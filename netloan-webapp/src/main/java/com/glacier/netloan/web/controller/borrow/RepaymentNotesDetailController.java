@@ -72,8 +72,7 @@ public class RepaymentNotesDetailController extends AbstractController{
     private Object addRepaymentNotesDetail(@Valid RepaymentNotesDetail review, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
-        }
-        //return repaymentNotesDetailService.addRepaymentNotesDetail(review);
+        } 
         return null;
     }
     

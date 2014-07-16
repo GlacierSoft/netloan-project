@@ -506,15 +506,13 @@ public class BorrowingLoanService {
                 memberborrowingLoan.setUpdater(pricipalUser.getUserId());
                 memberborrowingLoan.setUpdateTime(new Date());
                 memberMapper.updateByPrimaryKeySelective(memberborrowingLoan);//执行更新操作
-                
                 mborrowingLoan.setLoanState("bids");//将此借款改成流标
                 borrowingLoanMapper.updateByPrimaryKeySelective(mborrowingLoan);
         	}
         }
         memberMessageNotice.setAddressee(borrowingLoan.getMemberId());
         memberMessageNoticeService.addMemberMessageNotice(memberMessageNotice);
-        
-        
+         
         borrowingLoan.setFirstAuditorId(pricipalUser.getUserId());
         borrowingLoan.setFirstAuditDate(new Date());
         borrowingLoan.setUpdater(pricipalUser.getUserId());
@@ -538,8 +536,7 @@ public class BorrowingLoanService {
         	borrowingLoan.setLoanState("tendering");
         }
 
-        count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);
-        
+        count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan); 
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + borrowingLoan.getLoanCode() + "] 初审借款信息成功");
@@ -578,7 +575,7 @@ public class BorrowingLoanService {
              	}
              } 
         memberMessageNotice.setAddressee(borrowingLoan.getMemberId());
-        memberMessageNoticeService.addMemberMessageNotice(memberMessageNotice);
+        memberMessageNoticeService.addMemberMessageNotice(memberMessageNotice); 
         
         borrowingLoanNew.setSecondAuditorId(pricipalUser.getUserId());
         borrowingLoanNew.setSecondAuditDate(new Date());
@@ -598,8 +595,7 @@ public class BorrowingLoanService {
         }
         if ("".equals(borrowingLoanNew.getIsBidPwd()) && StringUtils.isBlank(borrowingLoanNew.getIsBidPwd())) {
         	borrowingLoanNew.setIsBidPwd(null);
-        }
-       
+        } 
         if ("secondSucess".equals(borrowingLoanNew.getSecondAuditState())) {//复审通过，借款状态改为还款中
         	//满标进行二次审核时，同时生成还款记录和还款记录明细和收款记录和收款记录明细，记录明细，改变会员资金等数据
         	//添加还款记录信息
@@ -624,7 +620,8 @@ public class BorrowingLoanService {
           	FinanceMember financeMember = (FinanceMember) financeMemberService.getMemberByMemberId(borrowingLoan.getMemberId());
           	financeTransaction.setFinanceMemberId(financeMember.getFinanceMemberId());//设置会员资金信息
           	financeTransaction.setMemberId(borrowingLoan.getMemberId());//设置会员id
-          	List<String> memberNames = (List<String>) returnResultreceivablesNotesDetail.getObj();
+          	@SuppressWarnings("unchecked")
+			List<String> memberNames = (List<String>) returnResultreceivablesNotesDetail.getObj();
           	financeTransaction.setTransactionTarget(CollectionsUtil.convertToString(memberNames, ","));//设置交易对象
           	financeTransaction.setTransactionType("借款成功");//设置交易类型----
           	financeTransaction.setRemark("借款["+borrowingLoan.getLoanTitle()+"]复审通过,借款成功筹到资金["+borrowingLoan.getLoanTotal()+"]元");//设置备注
@@ -636,15 +633,7 @@ public class BorrowingLoanService {
           	financeTransaction.setRefundMoney(financeMember.getRefundMoney());//设置待还金额
           	financeTransaction.setAmount(financeMember.getAmount());//设置总金额
           	financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
-          	//添加系统账户收取管理费记录明细
-          	/*financeTransaction.setTransactionTarget("系统账户");
-          	financeTransaction.setTransactionType("借款管理费");//设置交易类型
-          	financeTransaction.setEarningMoney(borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());//设置收入金额
-          	financeTransaction.setUsableMoney(borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());//设置可用金额
-          	financeTransaction.setAmount(borrowingLoan.getLoanTotal() * borrowingLoan.getLoanManagementFees());//设置总金额
-          	financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
-          	 */          	
-
+                  	 
           	//增加借款会员积分记录表
         	//先查询出borrow的积分类型
         	ParameterIntegralTypeExample integralTypeExample = new ParameterIntegralTypeExample();
@@ -664,8 +653,7 @@ public class BorrowingLoanService {
         	menberIntegral.setCreateTime(new Date());
         	
         	//添加积分记录
-        	integralMapper.insert(menberIntegral);
-        	
+        	integralMapper.insert(menberIntegral); 
         	//更新借款人的会员总积分
         	Member member=memberMapper.selectByPrimaryKey(borrowingLoan.getMemberId());
         	member.setIntegral(member.getIntegral()+integralType.getChangeValue());
@@ -680,7 +668,8 @@ public class BorrowingLoanService {
                   	FinanceMember financeMemberNew = (FinanceMember) financeMemberService.getMemberByMemberId(borrowingLoan.getMemberId());//获取会员资金记录信息
                   	financeTransaction.setFinanceMemberId(financeMemberNew.getFinanceMemberId());//设置会员资金信息
                   	financeTransaction.setMemberId(borrowingLoan.getMemberId());//设置会员id
-                  	List<String> memberNamesNew = (List<String>) returnResultreceivablesNotesDetail.getObj();
+                  	@SuppressWarnings("unchecked")
+					List<String> memberNamesNew = (List<String>) returnResultreceivablesNotesDetail.getObj();
                   	financeTransaction.setTransactionTarget(CollectionsUtil.convertToString(memberNamesNew, ","));//设置交易对象
                   	financeTransaction.setTransactionType("扣除借款奖励");//设置交易类型
                   	financeTransaction.setRemark("扣除借款奖励["+borrowingLoan.getFixedAppReward()+"]元");//设置备注
@@ -701,7 +690,8 @@ public class BorrowingLoanService {
                   	FinanceMember financeMemberNew = (FinanceMember) financeMemberService.getMemberByMemberId(borrowingLoan.getMemberId());//获取会员资金记录信息
                   	financeTransaction.setFinanceMemberId(financeMemberNew.getFinanceMemberId());//设置会员资金信息
                   	financeTransaction.setMemberId(borrowingLoan.getMemberId());//设置会员id
-                  	List<String> memberNamesNew = (List<String>) returnResultreceivablesNotesDetail.getObj();
+                  	@SuppressWarnings("unchecked")
+					List<String> memberNamesNew = (List<String>) returnResultreceivablesNotesDetail.getObj();
                   	financeTransaction.setTransactionTarget(CollectionsUtil.convertToString(memberNamesNew, ","));//设置交易对象
                   	financeTransaction.setTransactionType("扣除借款奖励");//设置交易类型
                   	financeTransaction.setRemark("扣除借款奖励["+borrowingLoan.getBidProReward()*borrowingLoan.getLoanTotal()+"]元");//设置备注

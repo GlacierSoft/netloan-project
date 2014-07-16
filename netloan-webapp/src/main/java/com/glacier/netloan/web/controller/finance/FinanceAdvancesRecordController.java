@@ -27,8 +27,7 @@ import com.glacier.netloan.service.finance.FinancesAdvancesRecord;
 @RequestMapping(value="/advancesRecord")
 public class FinanceAdvancesRecordController {
         
-	//注入Service
-	
+	//注入Service 
 	@Autowired
 	private FinancesAdvancesRecord  advancesRecordServices;
 	
@@ -55,13 +54,6 @@ public class FinanceAdvancesRecordController {
             mav.addObject("advancesRecordData", advancesRecordServices.getFinanceAdvancesRecord(advancesRecordId));
         }
         return mav;
-    }
-   
-	
-	
-	
-	
-	
-	
+    } 
 	
 }

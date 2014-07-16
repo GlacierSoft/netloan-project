@@ -55,15 +55,7 @@ public class FinanceTransactionService {
     public Object getTransaction(String transactionId) {
     	FinanceTransaction financeTransaction = financeTransactionMapper.selectByPrimaryKey(transactionId);
         return financeTransaction;
-    }
-    
-//    public Object getFinTraList(String memberId){
-//    	FinanceTransactionExample financeTransactionExample = new FinanceTransactionExample();
-//    	financeTransactionExample.createCriteria().andMemberIdEqualTo(memberId);
-//    	List<FinanceTransaction> FinTraList = financeTransactionMapper.selectByExample(financeTransactionExample);
-//    	return FinTraList;
-//    }
-    
+    } 
     /**
      * @Title: listAsGrid 
      * @Description: TODO(后台获取所有会员资金记录信息) 
@@ -196,43 +188,7 @@ public class FinanceTransactionService {
             returnResult.setMsg("发生未知错误，会员资金记录信息保存失败");
         }
         return returnResult;
-    }
-    
-    /**
-     * @Title: editTransaction 
-     * @Description: TODO(修改会员资金记录) 
-     * @param @param financeTransaction
-     * @param @return    设定文件 
-     * @return Object    返回类型 
-     * @throws
-     */
-    /*@Transactional(readOnly = false)
-    @MethodLog(opera = "TransactionList_edit")
-    public Object editTransaction(FinanceTransaction financeTransaction) {
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        FinanceTransactionExample financeTransactionExample = new FinanceTransactionExample();
-        int count = 0;
-        // 防止会员资金记录名称重复
-        financeTransactionExample.createCriteria().andFinanceTransactionIdNotEqualTo(financeTransaction.getFinanceTransactionId()).andTransactionNameEqualTo(financeTransaction.getTransactionName());
-        count = financeTransactionMapper.countByExample(financeTransactionExample);// 查找相同名称的会员资金记录数量
-        if (count > 0) {
-            returnResult.setMsg("会员资金记录名称重复");
-            return returnResult;
-        }
-        Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
-        financeTransaction.setUpdater(pricipalUser.getUserId());
-        financeTransaction.setUpdateTime(new Date());
-        count = financeTransactionMapper.updateByPrimaryKeySelective(financeTransaction);
-        if (count == 1) {
-            returnResult.setSuccess(true);
-            returnResult.setMsg("[" + financeTransaction.getTransactionName() + "] 会员资金记录信息已修改");
-        } else {
-            returnResult.setMsg("发生未知错误，会员资金记录信息修改失败");
-        }
-        return returnResult;
-    }*/
-    
+    } 
     /**
      * @Title: delTransaction 
      * @Description: TODO(删除会员资金记录) 

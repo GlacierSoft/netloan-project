@@ -4,10 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
+import javax.annotation.PostConstruct; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -26,8 +23,7 @@ import com.glacier.netloan.entity.borrow.TenderNotesExample;
 import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.finance.FinanceMemberExample;
 import com.glacier.netloan.entity.finance.FinanceTransaction;
-import com.glacier.netloan.entity.member.Member;
-import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.member.Member; 
 
 /**
  * @ClassName: FlowBidService 
@@ -45,18 +41,12 @@ public class FlowBidService {
 	
 	@Autowired
 	private TenderNotesMapper tenderNotesMapper;
-	
-	//@Autowired
-	//private FinanceMemberService financeMemberService;
-	
+	  
 	@Autowired
 	private MemberMapper memberMapper;
 	
 	@Autowired
-	private FinanceMemberMapper financeMemberMapper;
-	
-	//@Autowired
-	//private FinanceTransactionService financeTransactionService;
+	private FinanceMemberMapper financeMemberMapper; 
 	
 	@Autowired
 	private FinanceTransactionMapper financeTransactionMapper;
@@ -100,8 +90,7 @@ public class FlowBidService {
 	                	financeMemberExample.createCriteria().andMemberIdEqualTo(tenderNotes.getMemberId());
 	                	List<FinanceMember>  financeMembers = financeMemberMapper.selectByExample(financeMemberExample); 
 	                	FinanceMember financeMemberThaw =  financeMembers.get(0);
-	                  	//FinanceMember financeMemberThaw = (FinanceMember) financeMemberService.getMemberByMemberId(tenderNotes.getMemberId());//获取会员资金记录信息
-	                  	financeTransaction.setFinanceMemberId(financeMemberThaw.getFinanceMemberId());//设置会员资金信息
+	                   	financeTransaction.setFinanceMemberId(financeMemberThaw.getFinanceMemberId());//设置会员资金信息
 	                  	financeTransaction.setMemberId(tenderNotes.getMemberId());//设置会员id
 	                  	financeTransaction.setTransactionTarget(tenderNotes.getLoanMemberDisplay());//设置交易对象
 	                  	financeTransaction.setTransactionType("解冻投标金额");//设置交易类型
@@ -113,23 +102,19 @@ public class FlowBidService {
 	                  	financeTransaction.setCollectingMoney(financeMemberThaw.getCollectingMoney());//设置代收金额
 	                  	financeTransaction.setRefundMoney(financeMemberThaw.getRefundMoney());//设置待还金额
 	                  	financeTransaction.setAmount(financeMemberThaw.getAmount()+tenderNotes.getTenderMoney());//设置总金额
-	                  	
 	                  	financeTransaction.setTransactionId(RandomGUID.getRandomGUID());
 	                    financeTransaction.setCreater(financeMemberThaw.getCreater());
 	                    financeTransaction.setCreateTime(new Date());
 	                    financeTransaction.setUpdater(financeMemberThaw.getUpdater());
 	                    financeTransaction.setUpdateTime(new Date());
 	                    financeTransactionMapper.insert(financeTransaction);
-	                    
-	                  	//financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
-	                  	//更新借款的会员资金信息
+	                    //更新借款的会员资金信息
 	                  	financeMemberThaw.setFrozenMoney(financeMemberThaw.getFrozenMoney()-tenderNotes.getTenderMoney());//设置冻结金额
 	                  	financeMemberThaw.setUsableMoney(financeMemberThaw.getUsableMoney() + tenderNotes.getTenderMoney());//设置会员资金可用金额
 	                  	financeMemberThaw.setAmount(financeMemberThaw.getAmount() +  tenderNotes.getTenderMoney());//设置会员资金总金额
 	                  	financeMemberThaw.setUpdateTime(new Date());
 	                    financeMemberMapper.updateByPrimaryKeySelective(financeMemberThaw);//更新会员资金信息
-	                  	//financeMemberService.editMember(financeMemberThaw);
-	                }
+	                 }
 	            }else{//借款是认购份数进行投资的
 	            	for(TenderNotes tenderNotes : tenderNotess){
 	                	//添加会员资金记录明细
@@ -139,8 +124,7 @@ public class FlowBidService {
 	                	financeMemberExample.createCriteria().andMemberIdEqualTo(tenderNotes.getMemberId());
 	                	List<FinanceMember>  financeMembers = financeMemberMapper.selectByExample(financeMemberExample); 
 	                	FinanceMember financeMemberThaw =  financeMembers.get(0);
-	                  	//FinanceMember financeMemberThaw = (FinanceMember) financeMemberService.getMemberByMemberId(tenderNotes.getMemberId());//获取会员资金记录信息
-	                  	financeTransaction.setFinanceMemberId(financeMemberThaw.getFinanceMemberId());//设置会员资金信息
+	                   	financeTransaction.setFinanceMemberId(financeMemberThaw.getFinanceMemberId());//设置会员资金信息
 	                  	financeTransaction.setMemberId(tenderNotes.getMemberId());//设置会员id
 	                  	financeTransaction.setTransactionTarget(tenderNotes.getLoanMemberDisplay());//设置交易对象
 	                  	financeTransaction.setTransactionType("解冻投标金额");//设置交易类型
@@ -152,30 +136,25 @@ public class FlowBidService {
 	                  	financeTransaction.setCollectingMoney(financeMemberThaw.getCollectingMoney());//设置代收金额
 	                  	financeTransaction.setRefundMoney(financeMemberThaw.getRefundMoney());//设置待还金额
 	                  	financeTransaction.setAmount(financeMemberThaw.getAmount()+borrowingLoan.getLowestSub()*tenderNotes.getSubSum());//设置总金额
-	                  	
 	                  	financeTransaction.setTransactionId(RandomGUID.getRandomGUID());
 	                    financeTransaction.setCreater(financeMemberThaw.getCreater());
 	                    financeTransaction.setCreateTime(new Date());
 	                    financeTransaction.setUpdater(financeMemberThaw.getUpdater());
 	                    financeTransaction.setUpdateTime(new Date());
 	                    financeTransactionMapper.insert(financeTransaction);
-	                  	
-	                    //financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
-	                  	//更新借款的会员资金信息
+	                    //更新借款的会员资金信息
 	                  	financeMemberThaw.setFrozenMoney(financeMemberThaw.getFrozenMoney()-borrowingLoan.getLowestSub()*tenderNotes.getSubSum());//设置冻结金额
 	                  	financeMemberThaw.setUsableMoney(financeMemberThaw.getUsableMoney() + borrowingLoan.getLowestSub()*tenderNotes.getSubSum());//设置会员资金可用金额
 	                  	financeMemberThaw.setAmount(financeMemberThaw.getAmount() +  borrowingLoan.getLowestSub()*tenderNotes.getSubSum());//设置会员资金总金额
 	                  	financeMemberThaw.setUpdateTime(new Date());
 	                    financeMemberMapper.updateByPrimaryKeySelective(financeMemberThaw);//更新会员资金信息
-	                  	//financeMemberService.editMember(financeMemberThaw);
-	                }
+	                 }
 	            }
 	            borrowingLoan.setFailedReason("other");
 	            borrowingLoan.setLoanState("bids");
 	            borrowingLoan.setRemark("已过筹标期限，此借款变成流标。");
 	            borrowingLoan.setUpdateTime(new Date());
 	            borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);//修改借款状态等
-	            
 	            //根据借款人的ID查询出借款人的信息，扣除信用额度
                 Member memberborrowingLoan = memberMapper.selectByPrimaryKey(borrowingLoan.getMemberId());//根据借款会员ID取出借款人的信息
                 BorrowingLoan mborrowingLoan = borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());//根据借款ID取出该借款的信息
@@ -184,7 +163,6 @@ public class FlowBidService {
                 memberMapper.updateByPrimaryKeySelective(memberborrowingLoan);//执行更新操作
 		    }
 		}
-		
-		
+		 
 	}
 }

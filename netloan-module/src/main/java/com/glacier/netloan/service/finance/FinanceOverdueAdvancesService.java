@@ -27,14 +27,28 @@ public class FinanceOverdueAdvancesService {
 	 
 	@Autowired
 	private FinanceOverdueAdvancesMapper financeOverdueAdvancesMapper;
-
-	// 获取逾期对象
+ 
+	  /**
+     * @Title: getFinanceOverdueAdvances 
+     * @Description: TODO(获取逾期对象) 
+     * @param @param overdueAdvancesId
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
 	public Object getFinanceOverdueAdvances(String overdueAdvancesId) {
 		FinanceOverdueAdvances financeOverdueAdvances = financeOverdueAdvancesMapper.selectByPrimaryKey(overdueAdvancesId);
 		return financeOverdueAdvances;
 	}
-
-	// 获取逾期数据
+ 
+	  /**
+     * @Title: listAsGrid 
+     * @Description: TODO(获取逾期数据) 
+     * @param @param overdueAdvancesId
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
 	public Object listAsGrid(JqPager pager) {
 		JqGridReturn returnResult = new JqGridReturn();
 		FinanceOverdueAdvancesExample financeOverdueAdvancesExample = new FinanceOverdueAdvancesExample();
@@ -53,8 +67,15 @@ public class FinanceOverdueAdvancesService {
 		returnResult.setTotal(total);
 		return returnResult;// 返回ExtGrid表
 	}
-
-	// 添加逾期数据
+ 
+	 /**
+     * @Title: addOverdueAdvances 
+     * @Description: TODO(添加逾期数据) 
+     * @param @param overdueAdvancesId
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
 	@Transactional(readOnly = false)
 	@MethodLog(opera = "OverdueAdvances_add")
 	public Object addOverdueAdvances(FinanceOverdueAdvances financeOverdueAdvances) {
@@ -63,8 +84,7 @@ public class FinanceOverdueAdvancesService {
 		User pricipalUser = (User) pricipalSubject.getPrincipal();
 
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-		int count = 0;
-
+		int count = 0; 
 		financeOverdueAdvances.setOverdueAdvancesId(RandomGUID.getRandomGUID());
 		financeOverdueAdvances.setOverdueAdvancesName(financeOverdueAdvances.getOverdueAdvancesName());
 		financeOverdueAdvances.setAuditor(pricipalUser.getUserId());
@@ -74,9 +94,7 @@ public class FinanceOverdueAdvancesService {
 		financeOverdueAdvances.setCreateTime(new Date());
 		financeOverdueAdvances.setUpdater(pricipalUser.getUserId());
 		financeOverdueAdvances.setUpdateTime(new Date());
-
 		count = financeOverdueAdvancesMapper.insert(financeOverdueAdvances);
-
 		if (count == 1) {
 			returnResult.setSuccess(true);
 			returnResult.setMsg("财务逾期垫付信息已保存");
@@ -85,23 +103,26 @@ public class FinanceOverdueAdvancesService {
 		}
 		return returnResult;
 	}
-
-	// 编辑逾期数据
+ 
+	 /**
+     * @Title: editOverdueAdvances 
+     * @Description: TODO(编辑逾期数据) 
+     * @param @param overdueAdvancesId
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
 	@Transactional(readOnly = false)
 	@MethodLog(opera = "OverdueAdvances_edit")
 	public Object editOverdueAdvances(FinanceOverdueAdvances financeOverdueAdvances) {
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-
 		int count = 0;
-
 		Subject pricipalSubject = SecurityUtils.getSubject();
 		User pricipalUser = (User) pricipalSubject.getPrincipal();
-
 		financeOverdueAdvances.setUpdater(pricipalUser.getUserId());
 		financeOverdueAdvances.setUpdateTime(new Date());
 		count = financeOverdueAdvancesMapper.updateByPrimaryKeySelective(financeOverdueAdvances);
-
-		if (count == 1) {
+        if (count == 1) {
 			returnResult.setSuccess(true);
 			returnResult.setMsg("逾期垫付管理信息已修改");
 		} else {
@@ -109,8 +130,16 @@ public class FinanceOverdueAdvancesService {
 		}
 		return returnResult;
 	}
-
-	// 逾期管理数据审核
+ 
+	/**
+	* 
+	* @Title: auditOverdueAdvances  
+	* @Description: TODO(逾期管理数据审核)  
+	* @param @param financeOverdueAdvances
+	* @param @return    设定文件  
+	* @return Object    返回类型  
+	* @throws
+	 */
 	@Transactional(readOnly = false)
 	@MethodLog(opera = "OverdueAdvances_audit")
 	public Object auditOverdueAdvances(FinanceOverdueAdvances financeOverdueAdvances) {
@@ -132,7 +161,16 @@ public class FinanceOverdueAdvancesService {
 		return returnResult;
 	}
 
-	// 删除逾期垫付信息
+	
+	/**
+	 * 
+	* @Title: delOverdueAdvances  
+	* @Description: TODO(删除逾期垫付信息)  
+	* @param @param overdueAdvancesIds
+	* @param @return    设定文件  
+	* @return Object    返回类型  
+	* @throws
+	 */
 	@Transactional(readOnly = false)
 	@MethodLog(opera = "OverdueAdvances_del")
 	public Object delOverdueAdvances(List<String> overdueAdvancesIds) {

@@ -17,8 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.finance.FinBankCardQueryDTO;
-import com.glacier.netloan.entity.finance.FinanceBankCard;
-import com.glacier.netloan.entity.member.MemberApplyAmount;
+import com.glacier.netloan.entity.finance.FinanceBankCard; 
 import com.glacier.netloan.service.finance.FinanceBankCardService;
 
 /**
@@ -32,8 +31,9 @@ import com.glacier.netloan.service.finance.FinanceBankCardService;
 @RequestMapping(value = "/bankCard")
 public class FinanceBankCardController extends AbstractController {
 	
+	//注入会员银行卡service类
 	@Autowired
-	FinanceBankCardService bankCardService;//注入会员银行卡service类
+	FinanceBankCardService bankCardService;
 	
 	// 进入会员银行卡列表展示页面
     @RequestMapping(value = "/index.htm")

@@ -203,8 +203,7 @@ public class ReceivablesNotesDetailService {
         	receivablesNotesDetail.setShouldReceDate(c.getTime());//设置应收款日期
         	if(borrowingLoanNew.getSubTotal() == 0.0){//借款是以金额进行投资的
         		if(borrowingLoanNew.getRepaymentTypeDisplay().equals("等额本息")){
-        			//float everyMonthMoney = (tenderNotes.getTenderMoney() * (borrowingLoanNew.getLoanApr()/12) * (1 + borrowingLoanNew.getLoanApr()/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))/(1 + borrowingLoanNew.getLoanApr()/12) * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())-1;
-        			currentReceMoeny = (float) ((tenderNotes.getTenderMoney() * (borrowingLoanNew.getLoanApr()/12) 
+        		    currentReceMoeny = (float) ((tenderNotes.getTenderMoney() * (borrowingLoanNew.getLoanApr()/12) 
 							* Math.pow(((1 + borrowingLoanNew.getLoanApr()/12)),Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())))
 							/ (Math.pow(((1 + borrowingLoanNew.getLoanApr()/12)),Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()))-1));
         			float everyMonthPrincipal = (float) ((tenderNotes.getTenderMoney() * (borrowingLoanNew.getLoanApr()/12) 
@@ -373,7 +372,6 @@ public class ReceivablesNotesDetailService {
         int count = 0;
         if (receNotesDetailIds.size() > 0) {
         	ReceivablesNotesDetailExample receivablesNotesDetailExample = new ReceivablesNotesDetailExample();
-        	//receivablesNotesDetailExample.createCriteria().andRepayNotesIdIn(receNotesDetailIds);
             count = receivablesNotesDetailMapper.deleteByExample(receivablesNotesDetailExample);
             if (count > 0) {
                 returnResult.setSuccess(true);

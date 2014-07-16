@@ -72,8 +72,7 @@ public class ReceivablesNotesController extends AbstractController{
     private Object addReceivablesNotes(@Valid ReceivablesNotes review, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
-        }
-       // return receivablesNotesService.addReceivablesNotes(review);
+        } 
         return null;
     }
     

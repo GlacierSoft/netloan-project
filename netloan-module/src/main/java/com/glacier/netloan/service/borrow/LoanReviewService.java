@@ -1,6 +1,5 @@
 package com.glacier.netloan.service.borrow;
-
-import java.util.ArrayList;
+ 
 import java.util.Date;
 import java.util.List;
 
@@ -16,17 +15,12 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
-import com.glacier.netloan.dao.borrow.LoanReviewMapper;
-import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
-import com.glacier.netloan.dto.query.borrow.LoanReviewNotesQueryDTO;
-import com.glacier.netloan.entity.basicdatas.ParameterCredit;
-import com.glacier.netloan.entity.borrow.BorrowingLoan;
-import com.glacier.netloan.entity.borrow.BorrowingLoanExample;
+import com.glacier.netloan.dao.borrow.LoanReviewMapper; 
+import com.glacier.netloan.dto.query.borrow.LoanReviewNotesQueryDTO; 
 import com.glacier.netloan.entity.borrow.LoanReview;
 import com.glacier.netloan.entity.borrow.LoanReviewExample; 
 import com.glacier.netloan.entity.borrow.LoanReviewExample.Criteria;
-import com.glacier.netloan.entity.member.Member;
-import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.member.Member; 
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -71,23 +65,19 @@ public class LoanReviewService {
         JqGridReturn returnResult = new JqGridReturn();
         LoanReviewExample loanReviewExample = new LoanReviewExample();;
         loanReviewExample.createCriteria().andLoanIdEqualTo(loanId);//查询相对应的借款的留言
-        
         if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息
         	loanReviewExample.setLimitStart((jqPager.getPage() - 1) * jqPager.getRows());
         	loanReviewExample.setLimitEnd(jqPager.getRows());
-        }
-        
+        } 
         jqPager.setSort("createTime");// 定义排序字段
         jqPager.setOrder("DESC");// 升序还是降序
         if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
         	loanReviewExample.setOrderByClause(jqPager.getOrderBy("temp_loan_review_"));
-        }
-        
+        } 
         int startTemp = ((p-1)*5);//根据前台返回的页数进行设置
         loanReviewExample.setLimitStart(startTemp);
         loanReviewExample.setLimitEnd(5);
         List<LoanReview>  loanReviews = loanReviewMapper.selectByExample(loanReviewExample); // 查询所有借款列表
-
         int total = loanReviewMapper.countByExample(loanReviewExample); // 查询总页数
         returnResult.setRows(loanReviews);//设置查询数据
         returnResult.setTotal(total);//设置总条数
@@ -108,10 +98,7 @@ public class LoanReviewService {
         LoanReviewExample loanReviewExample = new LoanReviewExample();
       
         Criteria queryCriteria = loanReviewExample.createCriteria();
-        loanReviewNotesQueryDTO.setQueryCondition(queryCriteria);
-
-        
-        
+        loanReviewNotesQueryDTO.setQueryCondition(queryCriteria); 
         
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	loanReviewExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
