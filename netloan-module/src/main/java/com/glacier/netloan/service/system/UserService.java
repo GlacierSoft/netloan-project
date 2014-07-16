@@ -324,38 +324,41 @@ public class UserService {
                 //相关联表t_role			
 				RoleExample roleExample = new RoleExample();
 				roleExample.createCriteria().andCreaterEqualTo(userIds.get(i));
-				List<Role> list_role = roleMapper.selectByExample(roleExample);
+				int role_number = roleMapper.countByExample(roleExample);
 
 				//相关联表	t_loginLog
 				LoginLogExample loginLogExample = new LoginLogExample();
 				loginLogExample.createCriteria().andUserIdEqualTo(userIds.get(i));
-				List<LoginLog> list_loginLog = loginLogMapper.selectByExample(loginLogExample);
+				int  loginLog_number = loginLogMapper.countByExample(loginLogExample);
 				
 				//相关联表t_user_role
 				UserRoleExample userRoleExample=new UserRoleExample();
 				userRoleExample.createCriteria().andUserIdEqualTo(userIds.get(i));
-				List<UserRoleKey> list_userRole = userRoleMapper.selectByExample(userRoleExample);
+				int userRole_number=userRoleMapper.countByExample(userRoleExample);
 
 				//判断是否关联
-				if (list_role.size() <= 0 && list_loginLog.size() <= 0&&list_userRole.size()<=0) {
+				if (role_number <= 0 && loginLog_number<= 0&&userRole_number<=0) {
 					UserExample userExample = new UserExample();
 					userExample.createCriteria().andUserIdEqualTo(userIds.get(i));
 					int number = userMapper.deleteByExample(userExample);
+					
+					//删除成功数据行数量记录
 					rightNumber += number;
+				
 				} else {
 					if (isFlag) {
 						//为提示信息赋值
-						if (list_role.size()>0&& list_role != null&& list_loginLog.size() > 0 && list_loginLog != null&&list_userRole.size()>0&&list_userRole!=null) {
-							   result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ list_role.size()+ "】</font>条依赖关系,与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ list_loginLog.size()+ "】</font>依赖关系,须删除【角色管理】中<font style='color:red;font-weight: bold;'>【"+ list_role.size()+ "】</font>条依赖数据,删除【登录日志管理】<font style='color:red;font-weight: bold;'>【"+ list_loginLog.size() + "】</font>条依赖数据    ";
+						if (role_number>0&&loginLog_number>0&&userRole_number>0) {
+							   result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ role_number+ "】</font>条依赖关系,与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ loginLog_number+ "】</font>依赖关系,须删除【角色管理】中<font style='color:red;font-weight: bold;'>【"+ role_number+ "】</font>条依赖数据,删除【登录日志管理】<font style='color:red;font-weight: bold;'>【"+ loginLog_number + "】</font>条依赖数据    ";
 						} else {
-							if (list_role.size() > 0 && list_role != null) {
-								result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ list_role.size()+ "</font>条依赖关系,须删除【角色管理】中<font style='color:red;font-weight: bold;'>"+ list_role.size() + "】</font>条依赖数据     ";
+							if (role_number > 0) {
+								result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【角色管理】存在<font style='color:red;font-weight: bold;'>【"+ role_number+ "</font>条依赖关系,须删除【角色管理】中<font style='color:red;font-weight: bold;'>"+ role_number + "】</font>条依赖数据     ";
 							}
-							if (list_loginLog.size() > 0 && list_loginLog != null) {
-								result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ list_loginLog.size()+ "】</font>条依赖关系,须删除【登录日志管理】中<font style='color:red;font-weight: bold;'>【"+ list_loginLog.size() + "】</font>条依赖数据    ";
+							if (loginLog_number> 0) {
+								result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【登录日志管理】存在<font style='color:red;font-weight: bold;'>【"+ loginLog_number+ "】</font>条依赖关系,须删除【登录日志管理】中<font style='color:red;font-weight: bold;'>【"+ loginLog_number + "】</font>条依赖数据    ";
 							}
-							if (list_userRole.size() > 0 && list_userRole != null) {
-								result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【分配角色管理】存在<font style='color:red;font-weight: bold;'>【"+ list_userRole.size()+ "】</font>条依赖关系,须删除【分配角色管理】中<font style='color:red;font-weight: bold;'>【"+ list_userRole.size() + "】</font>条依赖数据    ";
+							if (userRole_number> 0) {
+								result_one += "选中第<font style='color:red;font-weight: bold;'>【"+ (i + 1)+ "】</font>行数据与【分配角色管理】存在<font style='color:red;font-weight: bold;'>【"+ userRole_number+ "】</font>条依赖关系,须删除【分配角色管理】中<font style='color:red;font-weight: bold;'>【"+ userRole_number + "】</font>条依赖数据    ";
 							}
 						}
 						//赋值False,只留一条提示信息
