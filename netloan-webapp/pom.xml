@@ -55,6 +55,13 @@
 				<artifactId>poi</artifactId>
 				<version>3.10-FINAL</version>
        </dependency>
+       
+       <!-- JFreeChart -->
+    <dependency>
+      <groupId>jfree</groupId>
+      <artifactId>jfreechart</artifactId>
+      <version>1.0.9</version>
+    </dependency>
 		
 
 	</dependencies>

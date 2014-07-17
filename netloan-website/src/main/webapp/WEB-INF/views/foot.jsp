@@ -146,10 +146,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	          <Div style="float:left;margin-top: 10px;margin-left: 8px;width: 120px;height:50px;line-height:50px;border-top: 3px solid #00724F;text-align: center;color: #009CE7;background: #E4E4E5;">
 	                 QQ在线咨询
 	          </Div>
-	          <Div style="float:left;margin-top: 5px;margin-left: 8px;width: 120px;height:32px;line-height:32px;border: 0px solid #00724F;text-align: center;color: #009CE7;background: #FFFFFF">
+	          <Div style="float:left;margin-top: 5px;margin-left: 8px;width: 120px;height:30px;line-height:30px;border: 0px solid #00724F;text-align: center;color: #009CE7;background: #FFFFFF">
 	               <img  src="<%=basePath %>resources/images/foot/zixun.png"> 在线咨询
 	          </Div>
+	           <Div style="float:left;margin-left: 8px;width: 120px;height:30px;line-height:30px;border: 0px solid #00724F;text-align: center;color: #009CE7;background: #FFFFFF">
+	               <a href="http://qiao.baidu.com/v3/?module=default&controller=im&action=index&ucid=7542571&type=n&siteid=5128180" target="_blank"><img  src="<%=basePath %>resources/images/foot/zixun.png">商桥交谈</a>
+	          </Div>
 	          <Div  id="KeFu_PutIn" style="float:left;width:120px;margin-top: 5px;margin-left: 8px;line-height:32px;border: 0px solid #00724F;text-align: center;color: #009CE7;vertical-align:middle;">
+                   <!--<a href="http://qiao.baidu.com/v3/?module=default&controller=im&action=index&ucid=7542571&type=n&siteid=5128180" target="_blank"></a> -->
 	          </Div>
 	          <Div style="float:left;margin-top: 10px;margin-left: 8px;width: 120px;height:40px;line-height:40px;border-top: 3px solid #E5E4E2;text-align: center;color: #009CE7;border-bottom: 3px solid #E5E4E2;">
 	                                                      电话咨询
