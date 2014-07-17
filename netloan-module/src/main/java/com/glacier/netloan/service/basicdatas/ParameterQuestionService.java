@@ -181,23 +181,30 @@ public class ParameterQuestionService {
     	int count=0;
     	//定义一个接受返回信息的变量
     	String returnResultMsg = "";
+    	//名称记录
+    	String result_name="";
     	//定义删除成功数据行数量
     	int rightNumber = 0;
-    	//定义一个行数
-    	int row = 0;
+    	// 定义是否显示提示
+    	boolean isFlag = true;
     	if(questionIds.size()>0){
-    		for (String questionId : questionIds) {
+    		for (int i = 0;i < questionIds.size();i++) {
     			MemberSecretSecurityExample memberSecretSecurityExample = new MemberSecretSecurityExample();
-            	memberSecretSecurityExample.createCriteria().andQuestionIdEqualTo(questionId);
+            	memberSecretSecurityExample.createCriteria().andQuestionIdEqualTo(questionIds.get(i));
             	count = memberSecretSecurityMapper.countByExample(memberSecretSecurityExample);
             	//根据ID取出密保管理的信息是否大于0
             	if(count>0){//大于0执行消息结果赋值
-        			returnResultMsg += "选中第<font style='color:red;font-weight: bold;'>【"+ ((row++) + 1)+ "】</font>行数据与【密保管理】存在<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖关系,";
+            		if(isFlag){
+            			returnResultMsg += "选中第<font style='color:red;font-weight: bold;'>【"+questionDess.get(i)+"】</font>行数据与【密保管理】存在<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖关系," 
+            							   + "须删除【密保管理】中<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖数据    ";
+            			isFlag = false;
+            		}
             	}else{//否则删除没关联的数据然后rightNumber++
             		ParameterQuestionExample parameterQuestionExample = new ParameterQuestionExample();
-                	parameterQuestionExample.createCriteria().andQuestionIdEqualTo(questionId);
+                	parameterQuestionExample.createCriteria().andQuestionIdEqualTo(questionIds.get(i));
                 	int number = parameterQuestionMapper.deleteByExample(parameterQuestionExample);
                 	rightNumber +=number;
+                	result_name +=questionDess.get(i)+" ";
             	}
             	
     		}
@@ -205,11 +212,12 @@ public class ParameterQuestionService {
     	
     	if (rightNumber > 0) {
 			//删除成功数量大于0即为操作成功,且提示关联信息 
-			returnResult.setMsg("已成功删除<font style='color:red;font-weight: bold;'>【"+ rightNumber + "】</font>条数据," + returnResultMsg);
+			returnResult.setMsg("已成功删除<font style='color:red;font-weight: bold;'>【"+ result_name.trim() + "】</font>&nbsp;"+rightNumber+"条数据" + returnResultMsg);
 			returnResult.setSuccess(true);
 		} else {
 			//删除失败信息设置
-			returnResult.setMsg(returnResultMsg);
+			returnResult.setMsg(returnResultMsg.trim());
+			returnResult.setSuccess(false);
 		}
 		return returnResult;
      }
