@@ -31,7 +31,7 @@
 			<td>最大年利率：</td>
 			<td><input id="loanTender_mgr_loanTender_detail_largestApr" name="largestApr" class="spinner" style="width:198px" value="${loanTenderData.largestApr}" readonly="readonly"/></td>
 			<td>借款期限(月标)：</td>
-			<td><input id="loanTender_mgr_loanTender_detail_loanDeadlinesMon" name="loanDeadlinesMon" class="spinner" style="width:198px" value="${loanTenderData.loanDeadlinesMon} readonly="readonly""/></td>
+			<td><input id="loanTender_mgr_loanTender_detail_loanDeadlinesMon" name="loanDeadlinesMon" class="spinner" style="width:198px" value="${loanTenderData.loanDeadlinesMon}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>借款期限(天标)：</td>

@@ -184,13 +184,16 @@ public class TenderNotesController {
 		BorrowingLoan borrowingLoan = (BorrowingLoan) borrowingLoanService.getBorrowingLoan(tenderNotes.getLoanId());//获取所投标的借款数据
 		borrowingLoanService.editBorrowingLoan(borrowingLoan,tenderNotes);//更新借款中相对应的数据
 		
-		request.setAttribute("borrowingMember", memberService.getMember(tenderNotes.getMemberId()));//获取该会员 信息数据
-		request.setAttribute("borrowingMemberWork", memberService.getMemberWork(tenderNotes.getMemberId()));//获取该会员 信息数据
-		request.setAttribute("borrowingLoan", borrowingLoanService.getBorrowingLoan(tenderNotes.getLoanId()));//获取该会员 借款的信息数据
-		request.setAttribute("memberAuthWithBLOBs", memberAuthService.getMemberAuth(tenderNotes.getMemberId()));//获取该会员 的认证数据
+		request.setAttribute("borrowingMember", memberService.getMember(borrowingLoan.getMemberId()));//获取该会员 信息数据
+		request.setAttribute("borrowingMemberWork", memberService.getMemberWork(borrowingLoan.getMemberId()));//获取该会员 信息数据
+		request.setAttribute("borrowingLoan", borrowingLoanService.getBorrowingLoan(borrowingLoan.getLoanId()));//获取该会员 借款的信息数据
+		request.setAttribute("memberAuthWithBLOBs", memberAuthService.getMemberAuth(borrowingLoan.getMemberId()));//获取该会员 的认证数据
 		JqPager jqPager = new JqPager();
-		request.setAttribute("loanReviewDatas", loanReviewService.listAsGridWebsite(jqPager, 1,tenderNotes.getLoanId()));//获取借款留言列表
-		request.setAttribute("tenderNotesDatas", tenderNotesService.listAsGridWebsite(jqPager, 1,tenderNotes.getLoanId()));//获取投标记录列表
+		request.setAttribute("loanReviewDatas", loanReviewService.listAsGridWebsite(jqPager, 1,borrowingLoan.getLoanId()));//获取借款留言列表
+		request.setAttribute("tenderNotesDatas", tenderNotesService.listAsGridWebsite(jqPager, 1,borrowingLoan.getLoanId()));//获取投标记录列表
+		request.setAttribute("tenderNotesCount", tenderNotesService.getTenderNotesNumByMemberId(borrowingLoan.getMemberId()));//获取该用户投标数量
+		request.setAttribute("borrowingLoanCount", borrowingLoanService.getBorrowingLoanNumByMemberId(borrowingLoan.getMemberId()));//获取该用户的借款记录数量
+		request.setAttribute("memberStatistics", memberStatisticsService.getStatisticsByMember(borrowingLoan.getMemberId()));
 		return "investment_mgr/investmentdetail";
 	}
 	/**
