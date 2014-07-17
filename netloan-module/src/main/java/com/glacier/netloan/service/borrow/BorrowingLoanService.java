@@ -709,8 +709,9 @@ public class BorrowingLoanService {
                   	financeMemberService.editMember(financeMemberNew);
           		}
           	}
-          	
-        	borrowingLoan.setLoanState("repaymenting");
+        	//复审成功，初始化借款信息记录
+          	borrowingLoan.setLoanState("repaymenting");
+            borrowingLoan.setSecondAuditState("secondSucess");
         }
         if ("secondFailure".equals(borrowingLoanNew.getSecondAuditState())) {//复审不通过，借款状态改为流标
         	TenderNotesExample tenderNotesExample = new TenderNotesExample();;
@@ -768,15 +769,10 @@ public class BorrowingLoanService {
                   	financeMemberService.editMember(financeMemberThaw);
                 }
             }
+                //复审失败，初始化借款信息记录
             	borrowingLoan.setFailedReason("other");
             	borrowingLoan.setLoanState("bids");
             	borrowingLoan.setSecondAuditState("secondFailure");
-            	borrowingLoan.setSecondAdvice(borrowingLoanNew.getSecondAdvice());
-            	borrowingLoan.setSecondMesNotice(borrowingLoanNew.getSecondMesNotice());
-            	borrowingLoan.setSecondAuditorId(pricipalUser.getUserId());
-                borrowingLoan.setSecondAuditDate(new Date());
-                borrowingLoan.setUpdater(pricipalUser.getUserId());
-                borrowingLoan.setUpdateTime(new Date());
             	//根据借款人的ID查询出借款人的信息，扣除信用额度
                 Member memberborrowingLoan = memberMapper.selectByPrimaryKey(borrowingLoan.getMemberId());//根据借款会员ID取出借款人的信息
                 BorrowingLoan mborrowingLoan = borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());//根据借款ID取出该借款的信息
@@ -785,6 +781,13 @@ public class BorrowingLoanService {
                 memberborrowingLoan.setUpdateTime(new Date());
                 memberMapper.updateByPrimaryKeySelective(memberborrowingLoan);//执行更新操作
         }
+        //初始化借款审核信息
+        borrowingLoan.setSecondAdvice(borrowingLoanNew.getSecondAdvice());
+        borrowingLoan.setSecondMesNotice(borrowingLoanNew.getSecondMesNotice());
+        borrowingLoan.setSecondAuditorId(pricipalUser.getUserId());
+        borrowingLoan.setSecondAuditDate(new Date());
+        borrowingLoan.setUpdater(pricipalUser.getUserId());
+        borrowingLoan.setUpdateTime(new Date());
         count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan);
         if (count == 1) {
             returnResult.setSuccess(true);
