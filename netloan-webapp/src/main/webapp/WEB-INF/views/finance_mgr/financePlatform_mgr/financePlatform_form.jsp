@@ -20,7 +20,7 @@
 		<tr>
 			<td>账号：</td>
 			<td>
-				<input name="platformAccount" class="easyui-validatebox spinner" style="width:268px" required="true" value="${financePlatformData.platformAccount}"/>
+				<input missingMessage="必须是由数字组成的账号" maxlength="18" name="platformAccount" class="easyui-numberbox" style="width:268px" required="true" value="${financePlatformData.platformAccount}"/>
 			</td> 
 		</tr>
 		
@@ -47,7 +47,7 @@
 		<tr>
 			<td>银行卡号：</td>
 			<td>
-				<input  name="cardNumber" class="easyui-validatebox spinner" style="width:268px" required="true" value="${financePlatformData.cardNumber}"/>
+				<input missingMessage="必须是由数字组成的银行卡号" maxlength="20" name="cardNumber" class="easyui-numberbox" style="width:268px" required="true" value="${financePlatformData.cardNumber}"/>
 			</td>
 		</tr>  
 		<tr>
