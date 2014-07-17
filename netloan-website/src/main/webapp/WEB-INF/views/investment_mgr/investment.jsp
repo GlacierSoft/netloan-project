@@ -498,11 +498,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				},
 				rate:{
 					required:true,
-					number:true
+					number:true,
+					min:1
 				},
 				loanDaadline:{
 					required:true,
-					digits:true
+					digits:true,
+					min:1
 				},
 				bidProReward:"number",
 				addCash:"number"
@@ -514,11 +516,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				},
 				rate:{
 					required:"年利率不能为空",
-					number:"请输入正确的年利率"
+					number:"请输入正确的年利率",
+					min:"年利率不能为0"
 				},
 				loanDaadline:{
-					required:"借款期限不能为空",	
-					digits:"请输入正确的借款期限"
+					required:"投资期限不能为空",	
+					digits:"请输入正确的投资期限",
+					min:"投资期限至少为一个月"
 				},
 				bidProReward:"请输入正确的投资奖励",
 				addCash:" 请输入正确的加现金"
