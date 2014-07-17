@@ -20,7 +20,7 @@
 		<tr>
 			<td>账号：</td>
 			<td>
-				<input missingMessage="必须是由数字组成的账号" maxlength="18" name="platformAccount" class="easyui-numberbox" style="width:268px" required="true" value="${financePlatformData.platformAccount}"/>
+				<input  maxlength="18" name="platformAccount" class=" easyui-validatebox spinner" onkeyup="this.value=this.value.replace(/[^\d]/g,'') "  style="width:268px" required="true" missingMessage="必须是由数字组成的账号"  value="${financePlatformData.platformAccount}"/>
 			</td> 
 		</tr>
 		
@@ -47,13 +47,13 @@
 		<tr>
 			<td>银行卡号：</td>
 			<td>
-				<input missingMessage="必须是由数字组成的银行卡号" maxlength="20" name="cardNumber" class="easyui-numberbox" style="width:268px" required="true" value="${financePlatformData.cardNumber}"/>
+				<input missingMessage="必须是由数字组成的银行卡号" maxlength="20" name="cardNumber" class="easyui-validatebox spinner"  onkeyup="this.value=this.value.replace(/[^\d]/g,'') " style="width:268px" required="true" value="${financePlatformData.cardNumber}"/>
 			</td>
 		</tr>  
 		<tr>
 			<td>余额：</td>
 			<td>
-				<input name="platformMoney" class="easyui-validatebox spinner" style="width:268px" required="true" value="${financePlatformData.platformMoney}"/>
+				<input name="platformMoney" class="easyui-validatebox spinner" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " style="width:268px" required="true" value="${financePlatformData.platformMoney}"/>
 			</td>
 		</tr>
 	</table>

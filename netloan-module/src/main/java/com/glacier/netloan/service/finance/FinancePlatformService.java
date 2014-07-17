@@ -234,29 +234,30 @@ public class FinancePlatformService {
 		// 定义删除成功数据行数量
 		int rightNumber = 0;
 		// 定义返回结果
-		String result_str = "";
+		String result_str = "";  
 		//名称记录
-		String result_name = "";
+		String result_name="";
 		// 定义是否显示提示
 		boolean isFlag = true;
 		//数据行长度判断
-		if (financePlatformIds.size() > 0) {
+		if (financePlatformIds.size() > 0) { 
 			//匹配删除信息
-			for (int i = 0; i < financePlatformIds.size(); i++) {  
+			for (int i = 0; i < financePlatformIds.size(); i++) {   
                 // 相关联平台资金记录
-				FinancePlatformTransactionExample financeOverdueAdvancesRecordExample = new FinancePlatformTransactionExample();
-				financeOverdueAdvancesRecordExample.createCriteria().andFinancePlatformIdEqualTo(financePlatformIds.get(i));
-				int count = financePlatformTransactionMapper.countByExample(financeOverdueAdvancesRecordExample);
-                // 判断是否关联
+				FinancePlatformTransactionExample financePlatformTransactionExample = new FinancePlatformTransactionExample();
+				financePlatformTransactionExample.createCriteria().andFinancePlatformIdEqualTo(financePlatformIds.get(i));
+				int count = financePlatformTransactionMapper.countByExample(financePlatformTransactionExample); 
+				// 判断是否关联
 				if (count <= 0) {
 				 	FinancePlatformExample financePlatformExample = new FinancePlatformExample();
-		        	financePlatformExample.createCriteria().andFinancePlatformIdEqualTo(financePlatformIds.get(i));
-		         int number = financePlatformMapper.deleteByExample(financePlatformExample);
-	                rightNumber += number;// 删除成功数据行数量记录 
+		        	financePlatformExample.createCriteria().andFinancePlatformIdEqualTo(financePlatformIds.get(i)); 
+		        	int number = financePlatformMapper.deleteByPrimaryKey(financePlatformIds.get(i));
+	                rightNumber += number;// 删除成功数据行数量记录  
+                    result_name+=platformNames.get(i)+" ";// 删除成功数据名称记录
                 } else { 
                 	if(isFlag){ 
 						if(count > 0){
-							result_str=" 数据行第<font style='color:red;font-weight: bold;'>【"+ (i+1) +"】</font>条记录与" + "【逾期垫付记录】存在<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖关系," + "须删除【平台资金记录】中<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖数据    ";
+							result_str=" 数据行第<font style='color:red;font-weight: bold;'>【"+ (i+1) +"】</font>条记录与" + "【平台资金记录】存在<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖关系," + "须删除【平台资金记录】中<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖数据    ";
 							isFlag = false;
 						} 
                 	}  
@@ -264,7 +265,7 @@ public class FinancePlatformService {
 			}
 		// 删除成功数量大于0即为操作成功,且提示关联信息
 		if(rightNumber>0){
-			returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+ result_name.trim() +"】</font>" + rightNumber + "条数据," +result_str);
+			returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+result_name+"】</font>," +result_str);
 			returnResult.setSuccess(true);
 		}else{
 			returnResult.setMsg(result_str.trim());

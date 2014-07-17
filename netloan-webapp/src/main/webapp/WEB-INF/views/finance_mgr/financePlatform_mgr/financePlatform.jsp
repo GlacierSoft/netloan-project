@@ -301,6 +301,8 @@
 								   $.messager.show({
 										title:'提示',
 										timeout:3000,
+										width:380,
+										height:150,
 										msg:r.msg
 									});
 								   glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid('reload');
