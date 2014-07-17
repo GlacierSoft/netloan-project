@@ -70,7 +70,7 @@
 				        </script>
 			        	</tr>
 			        	<tr>
-			        		<td>借款期限：<span style="color: red;">${borrowingLoan.waitBidDeadlines }个月</span></td>
+			        		<td>借款期限：<span style="color: red;">${borrowingLoan.loanDeadlinesId }个月</span></td>
 			        	</tr>
 			        	<tr>
 			        		<td>还款方式：<span style="color: red;">${borrowingLoan.repaymentTypeDisplay }</span></td>
