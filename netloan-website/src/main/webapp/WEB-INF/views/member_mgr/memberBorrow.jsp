@@ -202,7 +202,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					            <th>借款状态</th>
 					          </tr>
 					        </thead>
-				          	<tbody>
+				          	<tbody><c:if test="${empty borrowingDatas.rows}">
+										<tr>
+							           		<td colspan="10" style="text-align:center;vertical-align: middle;"><strong>暂无信息</strong></td>
+							          	</tr>
+									</c:if>	  	
+									<c:if test="${!empty borrowingDatas.rows}">  
 				          		<c:forEach items="${borrowingDatas.rows}" var="borrowingLoan" varStatus="status">
 						          <tr>
 						            <td>${borrowingLoan.loanTitle}</td>
@@ -220,6 +225,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    			</td>
 						          </tr>
 					      		</c:forEach>
+					      		</c:if>
 					      	</tbody>
 					      	<tfoot>
 					          <tr>
