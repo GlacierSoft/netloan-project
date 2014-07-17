@@ -256,7 +256,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        		<span class="text-danger"><fmt:formatNumber value="${borrowingLoan.loanTotal }" pattern="#,#00.00"/>元</span>
 			        		</td>
 			        		<td>利率：<fmt:formatNumber value="${borrowingLoan.loanApr * 100}" pattern="#,#00.00"/> %/年</td>
-			        		<td>投标奖：0.00 元</td>
+			        		<td>
+			        			投标奖：
+			        			<c:if test="${borrowingLoan.isBidReward == 'no'}">
+			        				00.00
+			        			</c:if>
+			        			<c:if test="${borrowingLoan.isBidReward == 'yes'}">
+				        			<c:if test="${borrowingLoan.fixedAppReward!=0}">
+				        				<fmt:formatNumber value='${borrowingLoan.fixedAppReward}' pattern='#0.00'/>
+				        			</c:if>
+				        			<c:if test="${borrowingLoan.bidProReward!=0}">
+				        				<fmt:formatNumber value='${borrowingLoan.bidProReward * borrowingLoan.loanTotal}' pattern='#0.00'/>
+				        			</c:if>
+			        			</c:if>
+			        		</td>
 			        		<td>招标期限：${borrowingLoan.waitBidDeadlines } 天</td>
 			        	</tr>
 			        	<tr>
