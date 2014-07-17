@@ -358,12 +358,12 @@
 				          </tr>
 				        </thead>
 			          	<tbody>
-			          		<c:if test="${empty tenderNotesDatas.rows}">
+			          		<c:if test="${empty repaymentNotesDetailsDatas.rows}">
 								<tr>
 						            <td colspan="11" style="text-align:center;vertical-align: middle;"><strong>暂无信息</strong></td>
 						        </tr>
 							</c:if>	
-							<c:if test="${!empty tenderNotesDatas.rows}">
+							<c:if test="${!empty repaymentNotesDetailsDatas.rows}">
 				          		<c:forEach items="${repaymentNotesDetailsDatas.rows}" var="repaymentNotesDetails" varStatus="status">
 						          <tr>
 						          	<td>${repaymentNotesDetails.numberPeriod}</td>
