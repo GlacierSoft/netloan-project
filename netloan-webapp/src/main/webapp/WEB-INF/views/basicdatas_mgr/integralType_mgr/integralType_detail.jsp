@@ -19,13 +19,13 @@
 		</tr>
 		<tr>
 			<td>创建者：</td>
-			<td><input class="spinner" style="width:150px" value="${creditTypeData.creater}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:150px" value="${creditTypeData.createrDisplay}" readonly="readonly"/></td>
 			<td>创建时间：</td>
 			<td><input class="spinner" style="width:150px" value="<fmt:formatDate value="${creditTypeData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>更新人：</td>
-			<td><input class="spinner" style="width:150px" value="${creditTypeData.updater}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:150px" value="${creditTypeData.updaterDisplay}" readonly="readonly"/></td>
 			<td>更新时间：</td>
 			<td><input class="spinner" style="width:150px" value="<fmt:formatDate value="${creditTypeData.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 		</tr>

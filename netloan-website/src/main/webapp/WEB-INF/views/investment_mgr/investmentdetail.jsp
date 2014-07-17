@@ -231,11 +231,11 @@
 				       	  			<td>投标成功次数：${memberStatistics.successTender }&nbsp;次</td>
 				       	  		</tr>
 				       	  		<tr>
-				       	  			<td>借款总额：${memberStatistics.totalBorrowings }&nbsp;元</td>
-				       	  			<td>待还总额：${memberStatistics.waitAlsoTotal }&nbsp;元</td>
-				       	  			<td>逾期罚款金额：${memberStatistics.overdueFineAmount }&nbsp;元</td>
-				       	  			<td>投资总额：${memberStatistics.investmentTotal }&nbsp;元</td>
-				       	  			<td>待收总额：${memberStatistics.waitIncomeTotal }&nbsp;元</td>
+				       	  			<td>借款总额：<fmt:formatNumber value='${memberStatistics.totalBorrowings}' pattern='#,#00.00'/>&nbsp;元</td>
+				       	  			<td>待还总额：<fmt:formatNumber value='${memberStatistics.waitAlsoTotal }' pattern='#,#00.00'/>&nbsp;元</td>
+				       	  			<td>逾期罚款金额：<fmt:formatNumber value='${memberStatistics.overdueFineAmount }' pattern='#,#00.00'/>&nbsp;元</td>
+				       	  			<td>投资总额：<fmt:formatNumber value='${memberStatistics.investmentTotal }' pattern='#,#00.00'/>&nbsp;元</td>
+				       	  			<td>待收总额：<fmt:formatNumber value='${memberStatistics.waitIncomeTotal }' pattern='#,#00.00'/>&nbsp;元</td>
 				       	  		</tr>
 				       	  	</table>
 			       	  	<br>
@@ -369,12 +369,12 @@
 						          	<td>${repaymentNotesDetails.numberPeriod}</td>
 						          	<td>${repaymentNotesDetails.loanTitle}</td>
 						            <td><fmt:formatDate value="${repaymentNotesDetails.shouldPayDate}" type="date"/></td>
-						            <td>￥${repaymentNotesDetails.currentPayMoeny}</td>
+						            <td>￥<fmt:formatNumber value='${repaymentNotesDetails.currentPayMoeny}' pattern='#,#00.00'/></td>
 						            <td><fmt:formatDate value="${repaymentNotesDetails.actualPayDate}" type="date"/></td>
 						            <td>${repaymentNotesDetails.overdueDays}</td>
-						            <td>￥${repaymentNotesDetails.actualPayMoney}</td>
-						            <td>￥${repaymentNotesDetails.overdueInterest}</td>
-						            <td>￥${repaymentNotesDetails.actualPayMoney}</td>
+						            <td>￥<fmt:formatNumber value='${repaymentNotesDetails.actualPayMoney}' pattern='#,#00.00'/></td>
+						            <td>￥<fmt:formatNumber value='${repaymentNotesDetails.overdueInterest}' pattern='#,#00.00'/></td>
+						            <td>￥<fmt:formatNumber value='${repaymentNotesDetails.actualPayMoney}' pattern='#,#00.00'/></td>
 						            <td><span id="repaymentNotesDetails_repayState${status.index}"></span>
 							        		<script type="text/javascript">
 									       		$('#repaymentNotesDetails_repayState'+${status.index}).html(renderGridValue('${repaymentNotesDetails.repayState}',fields.repayDetailState));
@@ -515,9 +515,9 @@
 									<c:forEach items="${tenderNotesDatas.rows}" var="tenderNotes" varStatus="status">
 							        	<tr>
 							        		<td>${tenderNotes.memberDisplay }</td>
-							        		<td><span id="investmentMoney${status.index}"></span>元</td>
+							        		<td><span id="investmentMoney${status.index}">${tenderNotes.tenderMoney }</span>元</td>
 							        		<script type="text/javascript">
-									        	if('${tenderNotes.subSum}' == ''){
+									        	if('${tenderNotes.subSum}' == 0){
 									        		$('#investmentMoney'+${status.index}).html("<fmt:formatNumber value='${tenderNotes.tenderMoney}' pattern='#,#00.00'/>");
 									        	}else{
 									        		$('#investmentMoney'+${status.index}).html("<fmt:formatNumber value='${tenderNotes.subSum*borrowingLoan.lowestSub}' pattern='#,#00.00'/>");
