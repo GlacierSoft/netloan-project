@@ -149,7 +149,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						            <th>借款金额</th>
 						            <th>年利率</th>
 						            <th>借款时间</th>
-						            <th>偿还本息</th>
+						            <th>应还本息</th>
 						            <th>已还本息</th>
 						            <th>未还本息</th>
 						            <th>操作</th>
@@ -240,9 +240,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						            <th>借款金额</th>
 						            <th>年利率</th>
 						            <th>借款时间</th>
-						            <th>偿还本息</th>
+						            <th>应还本息</th>
 						            <th>已还本息</th>
-						            <th>未还本息</th>
+						            <th>已还逾期总额</th>
 						            <th>借款状态</th>
 						          </tr>
 						        </thead>
@@ -263,7 +263,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="date"/></td>
 								            <td>￥${borrowingLoan.shouldPayMoney}</td>
 								            <td>￥${borrowingLoan.alrPayMoney}</td>
-								            <td>￥${borrowingLoan.notPayMoney}</td>
+								            <td>￥${borrowingLoan.overdueMoney}</td>
 								            <td>
 								            	<span id="borrowingLoan_loanState2${status.index}"></span>
 								        		<script type="text/javascript">

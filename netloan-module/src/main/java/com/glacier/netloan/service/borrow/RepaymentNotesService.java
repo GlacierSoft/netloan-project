@@ -161,7 +161,7 @@ public class RepaymentNotesService {
 			shouldPayMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + borrowingLoanNew.getLoanTotal();
 		}
 		//还款记录对象赋值//2014-6-27增加字段
-		repaymentNotes.setRepaymentTotal(shouldPayMoney);//设置还款总金额
+		repaymentNotes.setRepaymentTotal(0f);//设置还款总金额
 		repaymentNotes.setShouldPayPrincipal(borrowingLoanNew.getLoanTotal());//设置应还本金
 		repaymentNotes.setAlrPayPrincipal(0f);//设置已还本金
 		repaymentNotes.setNotPayPrincipal(borrowingLoanNew.getLoanTotal());//设置未还本金

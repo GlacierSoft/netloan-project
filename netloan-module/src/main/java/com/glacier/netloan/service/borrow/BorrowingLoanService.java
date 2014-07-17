@@ -238,6 +238,9 @@ public class BorrowingLoanService {
         	        borrowingLoan.setShouldPayMoney(repaymentNotes.getShouldPayMoney());//把该还款记录的 偿还本息 赋值给借款记录的 偿还本息
                     borrowingLoan.setAlrPayMoney(repaymentNotes.getAlrPayMoney());//把该还款记录的 已还本息 赋值给借款记录的 已还本息
                     borrowingLoan.setNotPayMoney(repaymentNotes.getNotPayMoney());//把该还款记录的 未还本息 赋值给借款记录的 未还本息
+                    //设置逾期总额=逾期罚息+逾期催收费+逾期管理费
+                    borrowingLoan.setOverdueMoney(repaymentNotes.getAlrOverdueInterest()+repaymentNotes.getAlrOverdueUrge()+repaymentNotes.getAlrOverdueMana());
+                    borrowingLoan.setAlsoNeedMoney(repaymentNotes.getRepaymentTotal());//还款总额
                 }
         	}
         	allborrowingLoans.add(borrowingLoan);

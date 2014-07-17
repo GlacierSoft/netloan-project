@@ -314,7 +314,7 @@ public class ReceivablesNotesService {
         			everyMonthInterest = tenderNotes.getTenderMoney() * (borrowingLoanNew.getLoanApr()/12);
         			shouldReceMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + tenderNotes.getTenderMoney();
         		}
-        		receivablesNotes.setReceivablesTotal(shouldReceMoney);//设置收款总金额
+        		receivablesNotes.setReceivablesTotal(0f);//设置收款总金额
         		receivablesNotes.setShouldReceMoney(shouldReceMoney);//设置应收本息
         		receivablesNotes.setNotReceMoney(shouldReceMoney);//设置未收本息
         		receivablesNotes.setShouldRecePrincipal(tenderNotes.getTenderMoney());//设置投资人应收本金
@@ -401,7 +401,7 @@ public class ReceivablesNotesService {
         			everyMonthInterest = tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub() * (borrowingLoanNew.getLoanApr()/12);
         			shouldReceMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub();
         		}
-        		receivablesNotes.setReceivablesTotal(shouldReceMoney);//设置收款总金额
+        		receivablesNotes.setReceivablesTotal(0f);//设置收款总金额
         		receivablesNotes.setShouldReceMoney(shouldReceMoney);//设置应收本息
         		receivablesNotes.setNotReceMoney(shouldReceMoney);//设置未收本息
         		receivablesNotes.setShouldRecePrincipal(tenderNotes.getSubSum()*borrowingLoan.getLowestSub());//设置投资人应收本金

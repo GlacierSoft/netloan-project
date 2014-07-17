@@ -47,6 +47,16 @@ public class BorrowingLoan {
      */
     private Float notPayMoney;
     
+    /**
+     * 自定义字段,已还逾期罚息
+     */
+    private Float overdueMoney;
+    
+    /**
+     * 自定义字段,还款总金额
+     */
+    private Float alsoNeedMoney;
+    
     private String loanTitle;
 
     private String loanPicture;
@@ -713,6 +723,22 @@ public class BorrowingLoan {
 
     public void setNotPayMoney(Float notPayMoney) {
         this.notPayMoney = notPayMoney;
+    }
+
+    public Float getOverdueMoney() {
+        return overdueMoney;
+    }
+
+    public void setOverdueMoney(Float overdueMoney) {
+        this.overdueMoney = overdueMoney;
+    }
+
+    public Float getAlsoNeedMoney() {
+        return alsoNeedMoney;
+    }
+
+    public void setAlsoNeedMoney(Float alsoNeedMoney) {
+        this.alsoNeedMoney = alsoNeedMoney;
     }
 
     public Float getCreditIntegral() {

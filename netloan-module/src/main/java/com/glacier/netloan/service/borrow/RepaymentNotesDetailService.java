@@ -161,8 +161,8 @@ public class RepaymentNotesDetailService {
                 return returnResult;// 返回ExtGrid表
             }
         }
-        jqPager.setSort("createTime");// 定义排序字段
-        jqPager.setOrder("DESC");// 升序还是降序
+        jqPager.setSort("numberPeriod");// 定义排序字段
+        jqPager.setOrder("ASC");// 升序还是降序
         if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
             repaymentNotesDetailExample.setOrderByClause(jqPager.getOrderBy("temp_repayment_notes_detail_"));
         }
@@ -405,18 +405,23 @@ public class RepaymentNotesDetailService {
         repaymentNotesDetail.setRepayState("alreadRepay");
         repaymentNotesDetail.setActualPayDate(new Date());//赋值实还时间current_pay_moeny
         repaymentNotesDetail.setActualPayMoney(repaymentNotesDetail.getCurrentPayMoeny());//实还本息等于本期应还本息
-        repaymentNotesDetail.setAlsoNeedMoney(repaymentNotesDetail.getCurrentPayMoeny());//设置需还总额
+        //设置需还总额=应还本息+逾期罚息+逾期催收费+逾期管理费
+        repaymentNotesDetail.setAlsoNeedMoney(repaymentNotesDetail.getCurrentPayMoeny()+repaymentNotesDetail.getOverdueInterest()+repaymentNotesDetail.getOverdueUrgeFee()+repaymentNotesDetail.getOverdueManaFee());
         count = repaymentNotesDetailMapper.updateByPrimaryKeySelective(repaymentNotesDetail);//执行更新操作并返回值
         if(count==1){
         	//更新还款记录表
         	//根据还款明细中的还款记录ID取出还款记录信息WT于2014-6-30创建
         	RepaymentNotes repaymentNotesUpdate = repaymentNotesMapper.selectByPrimaryKey(repaymentNotesDetail.getRepayNotesId());
+        	repaymentNotesUpdate.setRepaymentTotal(repaymentNotesUpdate.getRepaymentTotal()+repaymentNotesDetail.getAlsoNeedMoney());//设置还款总金额(原来还款总金额+现在归还总还款金额)
         	repaymentNotesUpdate.setAlrPayMoney(repaymentNotesUpdate.getAlrPayMoney()+repaymentNotesDetail.getCurrentPayMoeny());//设置已还本息(已归还的本息+现在归还的本息)
         	repaymentNotesUpdate.setAlrPayPrincipal(repaymentNotesUpdate.getAlrPayPrincipal()+repaymentNotesDetail.getCurrentPayPrincipal());//设置已还本金(已归还的本金+现在归还的本金)
         	repaymentNotesUpdate.setAlrPayInterest(repaymentNotesUpdate.getAlrPayInterest()+repaymentNotesDetail.getCurrentPayInterest());//设置已还利息(已归还的利息+现在归还的利息)
-        	repaymentNotesUpdate.setNotPayMoney(repaymentNotesUpdate.getShouldPayMoney()-repaymentNotesDetail.getCurrentPayMoeny());//设置未还本息(应还本息-已还的本息)
+        	repaymentNotesUpdate.setNotPayMoney(repaymentNotesUpdate.getShouldPayMoney()-repaymentNotesUpdate.getAlrPayMoney());//设置未还本息(应还本息-已还的本息)
         	repaymentNotesUpdate.setNotPayPrincipal(repaymentNotesUpdate.getShouldPayPrincipal()-repaymentNotesUpdate.getAlrPayPrincipal());//设置未还本金(应还本金-已还本金)
         	repaymentNotesUpdate.setNotPayInterest(repaymentNotesUpdate.getShouldPayInterest()-repaymentNotesUpdate.getAlrPayInterest());//设置未还利息(应还利息-已还利息)
+            repaymentNotesUpdate.setAlrOverdueInterest(repaymentNotesUpdate.getAlrOverdueInterest()+repaymentNotesDetail.getOverdueInterest());//设置已还逾期罚息
+            repaymentNotesUpdate.setAlrOverdueUrge(repaymentNotesUpdate.getAlrOverdueUrge()+repaymentNotesDetail.getOverdueUrgeFee());//已还逾期催收费
+            repaymentNotesUpdate.setAlrOverdueMana(repaymentNotesUpdate.getAlrOverdueMana()+repaymentNotesDetail.getOverdueManaFee());//已还逾期管理费
         	repaymentNotesUpdate.setUpdater(pricipalUser.getUserId());
         	repaymentNotesUpdate.setUpdateTime(new Date());
         	//执行更新还款记录的操作--
@@ -600,12 +605,14 @@ public class RepaymentNotesDetailService {
                             	
                             	//更新收款记录中的已收本金、已收利息、已收本息
                             	ReceivablesNotes receivablesNotesTemp = receivablesNotesMapper.selectByPrimaryKey(receivablesNotesDetail.getReceNotesId());
-                            	receivablesNotesTemp.setAlrRecePrincipal(receivablesNotesTemp.getAlrRecePrincipal()+receivablesNotesDetail.getCurrentRecePrincipal());//设置已收本金(原本的已收还本金+收款的本金)
-                            	receivablesNotesTemp.setNotRecePrincipal(receivablesNotesTemp.getNotRecePrincipal()-receivablesNotesDetail.getCurrentRecePrincipal());//设置未收本金(原本的未还本金-收款的本金)
-                            	receivablesNotesTemp.setAlrReceInterest(receivablesNotesTemp.getAlrReceInterest()+receivablesNotesDetail.getCurrentReceInterest());//设置已收利息(原本的已收还利息+收款的利息)
-                            	receivablesNotesTemp.setNotReceInterest(receivablesNotesTemp.getNotReceInterest()-receivablesNotesDetail.getCurrentReceInterest());//设置未收利息(原本的未还利息-收款的利息)
-                            	receivablesNotesTemp.setAlrReceMoney(receivablesNotesTemp.getAlrReceMoney()+receivablesNotesDetail.getCurrentReceMoeny());//设置已收本息(原本的已收还本息+收款的本息)
-                            	receivablesNotesTemp.setNotReceMoney(receivablesNotesTemp.getNotReceMoney()-receivablesNotesDetail.getCurrentReceMoeny());//设置未收本息(原本的未收还本息-收款的本息)
+                            	receivablesNotesTemp.setReceivablesTotal(receivablesNotesTemp.getReceivablesTotal()+receivablesNotesDetail.getAmount());//设置收款总金额(原来的收款总金额+收款明细的总金额)
+                            	receivablesNotesTemp.setAlrRecePrincipal(receivablesNotesTemp.getAlrRecePrincipal()+receivablesNotesDetail.getCurrentRecePrincipal());//设置已收本金(原本的已收还本金+收款明细的本金)
+                            	receivablesNotesTemp.setNotRecePrincipal(receivablesNotesTemp.getNotRecePrincipal()-receivablesNotesDetail.getCurrentRecePrincipal());//设置未收本金(原本的未还本金-收款明细的本金)
+                            	receivablesNotesTemp.setAlrReceInterest(receivablesNotesTemp.getAlrReceInterest()+receivablesNotesDetail.getCurrentReceInterest());//设置已收利息(原本的已收还利息+收款明细的利息)
+                            	receivablesNotesTemp.setNotReceInterest(receivablesNotesTemp.getNotReceInterest()-receivablesNotesDetail.getCurrentReceInterest());//设置未收利息(原本的未还利息-收款明细的利息)
+                            	receivablesNotesTemp.setAlrReceMoney(receivablesNotesTemp.getAlrReceMoney()+receivablesNotesDetail.getCurrentReceMoeny());//设置已收本息(原本的已收还本息+收款明细的本息)
+                            	receivablesNotesTemp.setNotReceMoney(receivablesNotesTemp.getNotReceMoney()-receivablesNotesDetail.getCurrentReceMoeny());//设置未收本息(原本的未收还本息-收款明细的本息)
+                            	receivablesNotesTemp.setAlrOverdueInterest(receivablesNotesTemp.getAlrOverdueInterest()+receivablesNotesDetail.getOverdueInterest());//已收逾期罚息(原来的已逾期罚息+收款明细的逾期罚息)
                             	receivablesNotesTemp.setUpdater(pricipalUser.getUserId());
                             	receivablesNotesTemp.setUpdateTime(new Date());
                             	//执行更新收款记录操作

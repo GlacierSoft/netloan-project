@@ -117,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            <td>借款利率：</td>
 				            <td>${borrowingLoan.loanApr}</td>
 				            <td>借款期限：</td>
-				            <td>${borrowingLoan.loanDeadlinesId}</td>
+				            <td>${borrowingLoan.loanDeadlinesId}个月</td>
 				          </tr>
 				          <tr>
 				            <td>还款方式：</td>
@@ -150,10 +150,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            <td>￥${repaymentNotesDetailsData.currentPayMoeny}</td>
 				          </tr>
 				          <tr>
-				            <td>逾期本息：</td>
+				            <td>逾期罚息：</td>
 				            <td>￥${repaymentNotesDetailsData.overdueInterest}</td>
+				            <td>逾期催收费：</td>
+				            <td>￥${repaymentNotesDetailsData.overdueUrgeFee}</td>
+				          </tr>
+				          <tr>
+				            <td>逾期管理费：</td>
+				            <td>￥${repaymentNotesDetailsData.overdueManaFee}</td>
 				            <td>需还总额：</td>
-				            <td>￥${repaymentNotesDetailsData.alsoNeedMoney}</td>
+				            <td>￥${repaymentNotesDetailsData.currentPayMoeny+repaymentNotesDetailsData.overdueInterest+repaymentNotesDetailsData.overdueUrgeFee+repaymentNotesDetailsData.overdueManaFee}</td>
 				          </tr>
 				          <tr>
 				            <td class="col-md-2">交易密码：</td>

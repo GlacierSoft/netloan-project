@@ -132,7 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            <th>实还日期</th>
 				            <th>逾期天数</th>
 				            <th>实还本息</th>
-				            <th>逾期罚息</th>
+				            <th>逾期罚款总额</th>
 				            <th>总还款金额</th>
 				            <th>状态</th>
 				            <th>操作</th>
@@ -141,14 +141,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			          	<tbody>
 			          		<c:forEach items="${repaymentNotesDetailsDatas.rows}" var="repaymentNotesDetails" varStatus="status">
 					          <tr>
-					          	<td>${repaymentNotesDetails.numberPeriod}</td>
+					          	<td>${repaymentNotesDetails.numberPeriod}/${borrowingLoan.loanDeadlinesId}</td>
 					            <td><fmt:formatDate value="${repaymentNotesDetails.shouldPayDate}" type="date"/></td>
 					            <td>￥${repaymentNotesDetails.currentPayMoeny}</td>
 					            <td><fmt:formatDate value="${repaymentNotesDetails.actualPayDate}" type="date"/></td>
 					            <td>${repaymentNotesDetails.overdueDays}</td>
 					            <td>￥${repaymentNotesDetails.actualPayMoney}</td>
-					            <td>￥${repaymentNotesDetails.overdueInterest}</td>
-					            <td>￥${repaymentNotesDetails.actualPayMoney}</td>
+					            <td>￥${repaymentNotesDetails.overdueInterest+repaymentNotesDetails.overdueUrgeFee+repaymentNotesDetails.overdueManaFee}</td>
+					            <td>￥${repaymentNotesDetails.alsoNeedMoney}</td>
 					            <td><span id="repaymentNotesDetails_repayState${status.index}"></span>
 						        		<script type="text/javascript">
 								       		$('#repaymentNotesDetails_repayState'+${status.index}).html(renderGridValue('${repaymentNotesDetails.repayState}',fields.repayDetailState));
