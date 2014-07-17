@@ -240,7 +240,7 @@ public class FinanceWithdrawService {
         financeWithdraw.setFinanceWithdrawId(RandomGUID.getRandomGUID());
         // 赋值于提现记录的提现流水号
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
-        financeWithdraw.setWithdrawCode("提现"+ "_" + dateFormat.format(new Date()));
+        financeWithdraw.setWithdrawCode("withdraw"+ "_" + dateFormat.format(new Date()));
         financeWithdraw.setAuditState("authstr");
         financeWithdraw.setOpeningBank(financeBankCard.getOpeningBank());//提现银行
         financeWithdraw.setSubbranch(financeBankCard.getSubbranch());//提现支行

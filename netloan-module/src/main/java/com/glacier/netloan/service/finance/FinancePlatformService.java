@@ -9,18 +9,18 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.glacier.basic.util.CollectionsUtil;
+import org.springframework.transaction.annotation.Transactional; 
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinancePlatformMapper;
-import com.glacier.netloan.dto.query.finance.FinFinancePlatformQueryDTO;
+import com.glacier.netloan.dao.finance.FinancePlatformTransactionMapper;
+import com.glacier.netloan.dto.query.finance.FinFinancePlatformQueryDTO; 
 import com.glacier.netloan.entity.finance.FinancePlatform;
 import com.glacier.netloan.entity.finance.FinancePlatformExample;
 import com.glacier.netloan.entity.finance.FinancePlatformExample.Criteria;
+import com.glacier.netloan.entity.finance.FinancePlatformTransactionExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -38,6 +38,9 @@ public class FinancePlatformService {
 	@Autowired
 	private FinancePlatformMapper financePlatformMapper;
 
+	@Autowired
+	private FinancePlatformTransactionMapper financePlatformTransactionMapper;
+	
 	/**
 	 * @Title: getPlatform 
 	 * @Description: TODO(根据平台资金记录Id获取平台资金记录信息) 
@@ -227,19 +230,47 @@ public class FinancePlatformService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "PlatformList_del")
     public Object delPlatform(List<String> financePlatformIds, List<String> platformNames) {
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        int count = 0;
-        if (financePlatformIds.size() > 0) {
-        	FinancePlatformExample financePlatformExample = new FinancePlatformExample();
-        	financePlatformExample.createCriteria().andFinancePlatformIdIn(financePlatformIds);
-            count = financePlatformMapper.deleteByExample(financePlatformExample);
-            if (count > 0) {
-                returnResult.setSuccess(true);
-                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(platformNames, ",") + " ]平台资金记录");
-            } else {
-                returnResult.setMsg("发生未知错误，平台资金记录信息删除失败");
-            }
-        }
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false  
+		// 定义删除成功数据行数量
+		int rightNumber = 0;
+		// 定义返回结果
+		String result_str = "";
+		//名称记录
+		String result_name = "";
+		// 定义是否显示提示
+		boolean isFlag = true;
+		//数据行长度判断
+		if (financePlatformIds.size() > 0) {
+			//匹配删除信息
+			for (int i = 0; i < financePlatformIds.size(); i++) {  
+                // 相关联平台资金记录
+				FinancePlatformTransactionExample financeOverdueAdvancesRecordExample = new FinancePlatformTransactionExample();
+				financeOverdueAdvancesRecordExample.createCriteria().andFinancePlatformIdEqualTo(financePlatformIds.get(i));
+				int count = financePlatformTransactionMapper.countByExample(financeOverdueAdvancesRecordExample);
+                // 判断是否关联
+				if (count <= 0) {
+				 	FinancePlatformExample financePlatformExample = new FinancePlatformExample();
+		        	financePlatformExample.createCriteria().andFinancePlatformIdEqualTo(financePlatformIds.get(i));
+		         int number = financePlatformMapper.deleteByExample(financePlatformExample);
+	                rightNumber += number;// 删除成功数据行数量记录 
+                } else { 
+                	if(isFlag){ 
+						if(count > 0){
+							result_str=" 数据行第<font style='color:red;font-weight: bold;'>【"+ (i+1) +"】</font>条记录与" + "【逾期垫付记录】存在<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖关系," + "须删除【平台资金记录】中<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖数据    ";
+							isFlag = false;
+						} 
+                	}  
+               }
+			}
+		// 删除成功数量大于0即为操作成功,且提示关联信息
+		if(rightNumber>0){
+			returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+ result_name.trim() +"】</font>" + rightNumber + "条数据," +result_str);
+			returnResult.setSuccess(true);
+		}else{
+			returnResult.setMsg(result_str.trim());
+			returnResult.setSuccess(false);
+		     }
+	   }
         return returnResult;
     }
 }

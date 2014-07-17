@@ -11,18 +11,18 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.glacier.basic.util.CollectionsUtil;
+import org.springframework.transaction.annotation.Transactional; 
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceBankCardMapper;
+import com.glacier.netloan.dao.finance.FinanceMemberMapper;
 import com.glacier.netloan.dao.member.MemberMessageNoticeMapper;
 import com.glacier.netloan.dto.query.finance.FinBankCardQueryDTO;
 import com.glacier.netloan.entity.finance.FinanceBankCard;
 import com.glacier.netloan.entity.finance.FinanceBankCardExample;
+import com.glacier.netloan.entity.finance.FinanceMemberExample; 
 import com.glacier.netloan.entity.member.MemberMessageNotice;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.finance.FinanceBankCardExample.Criteria;
@@ -45,6 +45,9 @@ public class FinanceBankCardService {
 	
 	@Autowired
 	private MemberMessageNoticeMapper memberMessageNoticeMapper;
+	
+	@Autowired
+	private FinanceMemberMapper financeMemberMapper;
 	/**
 	 * @Title: addFinanceBankCardWebsit 
 	 * @Description: TODO(前台增加会员银行卡) 
@@ -267,19 +270,45 @@ public class FinanceBankCardService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "bankCardList_del")
     public Object delFinanceBankCard(List<String> bankCardIds, List<String> cardNames) {
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        int count = 0;
-        if (bankCardIds.size() > 0) {
-        	FinanceBankCardExample financeBankCardExample = new FinanceBankCardExample();
-        	financeBankCardExample.createCriteria().andBankCardIdIn(bankCardIds);
-            count = financeBankCardMapper.deleteByExample(financeBankCardExample);
-            if (count > 0) {
-                returnResult.setSuccess(true);
-                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(cardNames, ",") + " ]操作");
-            } else {
-                returnResult.setMsg("发生未知错误，会员银行卡信息删除失败");
-            }
-        }
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
+        // 定义删除成功数据行数量
+		int rightNumber = 0;
+		// 定义返回结果
+		String result_str = ""; 
+		// 定义是否显示提示
+		boolean isFlag = true;
+		//数据行长度判断
+		if (bankCardIds.size() > 0) {
+			//匹配删除信息
+			for (int i = 0; i < bankCardIds.size(); i++) {  
+                // 相关会员资金记录
+				FinanceMemberExample financeMemberExample = new FinanceMemberExample();
+				financeMemberExample.createCriteria().andBankCardIdEqualTo(bankCardIds.get(i));
+				int count = financeMemberMapper.countByExample(financeMemberExample);
+                // 判断是否关联
+				if (count <= 0) { 
+					FinanceBankCardExample financeBankCardExample = new FinanceBankCardExample();
+					financeBankCardExample.createCriteria().andBankCardIdEqualTo(bankCardIds.get(i));
+		            int number = financeBankCardMapper.deleteByExample(financeBankCardExample);
+	                rightNumber += number;// 删除成功数据行数量记录 
+                } else { 
+                	if(isFlag){ 
+						if(count > 0){
+							result_str=" 数据行第<font style='color:red;font-weight: bold;'>【"+ (i+1) +"】</font>条记录与" + "【会员资金记录】存在<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖关系," + "须删除【会员资金记录】中<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖数据    ";
+							isFlag = false;
+						} 
+                	}  
+               }
+			}
+		// 删除成功数量大于0即为操作成功,且提示关联信息
+		if(rightNumber>0){
+			returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+ rightNumber +"】</font> 条数据," +result_str);
+			returnResult.setSuccess(true);
+		}else{
+			returnResult.setMsg(result_str.trim());
+			returnResult.setSuccess(false);
+		     }
+	   }
         return returnResult;
     }
     /**
@@ -293,17 +322,21 @@ public class FinanceBankCardService {
      */
     @Transactional(readOnly = false)
     public Object delFinanceBankCardWebsit(String bankCardId) {
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        int count = 0;
-        	FinanceBankCardExample financeBankCardExample = new FinanceBankCardExample();
-        	financeBankCardExample.createCriteria().andBankCardIdEqualTo(bankCardId);
-            count = financeBankCardMapper.deleteByExample(financeBankCardExample);
-            if (count == 1) {
-                returnResult.setSuccess(true);
-                returnResult.setMsg("成功删除了会员银行卡");
-            } else {
-                returnResult.setMsg("发生未知错误，会员银行卡信息删除失败");
-            }
+           JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+             // 相关会员资金记录
+			FinanceMemberExample financeMemberExample = new FinanceMemberExample();
+			financeMemberExample.createCriteria().andBankCardIdEqualTo(bankCardId);
+			int count = financeMemberMapper.countByExample(financeMemberExample);
+            // 判断是否关联
+			if (count <= 0) {  
+		        returnResult.setSuccess(true);
+				FinanceBankCardExample financeBankCardExample = new FinanceBankCardExample();
+	        	financeBankCardExample.createCriteria().andBankCardIdEqualTo(bankCardId);
+	            count = financeBankCardMapper.deleteByExample(financeBankCardExample); 
+	        	returnResult.setMsg("操作成功！"); 
+			} else {   
+				returnResult.setMsg("该银行卡与资金记录存在关联，请先清除该银行卡相关联的资金记录"); 
+             } 
         return returnResult;
     }
     /**

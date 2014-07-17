@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional; 
-import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceRechargeMapper;
 import com.glacier.netloan.dao.finance.FinanceRechargeSetMapper; 
+import com.glacier.netloan.entity.finance.FinanceRechargeExample;
 import com.glacier.netloan.entity.finance.FinanceRechargeSet;
 import com.glacier.netloan.entity.finance.FinanceRechargeSetExample;
 import com.glacier.netloan.entity.system.User;
@@ -210,19 +210,45 @@ public class FinanceRechargeSetService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "RechargeSetList_del")
     public Object delRechargeSet(List<String> financeRechargeSetIds, List<String> rechargeSetNames) {
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        int count = 0;
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
+        // 定义删除成功数据行数量
+        int rightNumber = 0;
+        // 定义返回结果
+        String result_str = ""; 
+        // 定义是否显示提示
+        boolean isFlag = true;
+        //数据行长度判断
         if (financeRechargeSetIds.size() > 0) { 
-        	FinanceRechargeSetExample financeRechargeSetExample = new FinanceRechargeSetExample();
-        	financeRechargeSetExample.createCriteria().andFinanceRechargeSetIdIn(financeRechargeSetIds);
-            count = financeRechargeSetMapper.deleteByExample(financeRechargeSetExample);
-            if (count > 0) {
-                returnResult.setSuccess(true);
-                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(rechargeSetNames, ",") + " ]会员充值设置记录");
-            } else {
-                returnResult.setMsg("发生未知错误，会员充值设置信息删除失败");
-            }
-        }
+           //匹配删除信息
+           for (int i = 0; i < financeRechargeSetIds.size(); i++) {  
+                 // 相关联充值记录
+        		FinanceRechargeExample financeRechargeExample = new FinanceRechargeExample();
+        		financeRechargeExample.createCriteria().andFinanceRechargeSetIdEqualTo(financeRechargeSetIds.get(i));
+        		int count = financeRechargeMapper.countByExample(financeRechargeExample);
+                // 判断是否关联
+        		if (count <= 0) { 
+        		      FinanceRechargeSetExample financeRechargeSetExample = new FinanceRechargeSetExample();
+        		      financeRechargeSetExample.createCriteria().andFinanceRechargeSetIdEqualTo(financeRechargeSetIds.get(i));
+        		      int number = financeRechargeSetMapper.deleteByExample(financeRechargeSetExample);
+        	          rightNumber += number;// 删除成功数据行数量记录 
+                 } else { 
+                       if(isFlag){ 
+        				if(count > 0){
+        					result_str=" 数据行第<font style='color:red;font-weight: bold;'>【"+ (i+1) +"】</font>条记录与" + "【充值记录】存在<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖关系," + "须删除【充值记录】中<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖数据    ";
+        					isFlag = false;
+        					} 
+                        }  
+                       }
+        			}
+        		// 删除成功数量大于0即为操作成功,且提示关联信息
+        		if(rightNumber>0){
+        			returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+ rightNumber +"】</font> 条数据," +result_str);
+        			returnResult.setSuccess(true);
+        		}else{
+        			returnResult.setMsg(result_str.trim());
+        			returnResult.setSuccess(false);
+        		     }
+        	   }
         return returnResult;
     }
 }

@@ -16,8 +16,10 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceOverdueAdvancesMapper;
+import com.glacier.netloan.dao.finance.FinanceOverdueAdvancesRecordMapper;
 import com.glacier.netloan.entity.finance.FinanceOverdueAdvances;
 import com.glacier.netloan.entity.finance.FinanceOverdueAdvancesExample;
+import com.glacier.netloan.entity.finance.FinanceOverdueAdvancesRecordExample; 
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -28,6 +30,9 @@ public class FinanceOverdueAdvancesService {
 	@Autowired
 	private FinanceOverdueAdvancesMapper financeOverdueAdvancesMapper;
  
+
+	@Autowired
+	private  FinanceOverdueAdvancesRecordMapper financeOverdueAdvancesRecordMapper;
 	  /**
      * @Title: getFinanceOverdueAdvances 
      * @Description: TODO(获取逾期对象) 
@@ -165,7 +170,7 @@ public class FinanceOverdueAdvancesService {
 	/**
 	 * 
 	* @Title: delOverdueAdvances  
-	* @Description: TODO(删除逾期垫付信息)  
+	* @Description: TODO(删除逾期垫付设置信息)  
 	* @param @param overdueAdvancesIds
 	* @param @return    设定文件  
 	* @return Object    返回类型  
@@ -174,19 +179,47 @@ public class FinanceOverdueAdvancesService {
 	@Transactional(readOnly = false)
 	@MethodLog(opera = "OverdueAdvances_del")
 	public Object delOverdueAdvances(List<String> overdueAdvancesIds) {
-		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-		int count = 0;
-		if (overdueAdvancesIds.size() > 0) {
-			FinanceOverdueAdvancesExample financeOverdueAdvancesExample = new FinanceOverdueAdvancesExample();
-			financeOverdueAdvancesExample.createCriteria().andOverdueAdvancesIdIn(overdueAdvancesIds);
-			count = financeOverdueAdvancesMapper.deleteByExample(financeOverdueAdvancesExample);
-			if (count > 0) {
-				returnResult.setSuccess(true);
-				returnResult.setMsg("你成功删除了逾期垫付信息!!");
-			} else {
-				returnResult.setMsg("发生未知错误，逾期垫付信息删除失败");
-			}
-		}
+		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false  
+				// 定义删除成功数据行数量
+				int rightNumber = 0;
+				// 定义返回结果
+				String result_str = "";
+				//名称记录
+				String result_name = "";
+				// 定义是否显示提示
+				boolean isFlag = true;
+				//数据行长度判断
+				if (overdueAdvancesIds.size() > 0) {
+					//匹配删除信息
+					for (int i = 0; i < overdueAdvancesIds.size(); i++) {  
+		                // 相关联表逾期垫付记录
+						FinanceOverdueAdvancesRecordExample financeOverdueAdvancesRecordExample = new FinanceOverdueAdvancesRecordExample();
+						financeOverdueAdvancesRecordExample.createCriteria().andOverdueAdvancesIdEqualTo(overdueAdvancesIds.get(i));
+						int count = financeOverdueAdvancesRecordMapper.countByExample(financeOverdueAdvancesRecordExample);
+		                // 判断是否关联
+						if (count <= 0) {
+							FinanceOverdueAdvancesExample financeOverdueAdvancesExample = new FinanceOverdueAdvancesExample();
+							financeOverdueAdvancesExample.createCriteria().andOverdueAdvancesIdEqualTo(overdueAdvancesIds.get(i));
+							int number = financeOverdueAdvancesMapper.deleteByExample(financeOverdueAdvancesExample);
+			                rightNumber += number;// 删除成功数据行数量记录 
+		                } else { 
+		                	if(isFlag){ 
+								if(count > 0){
+									result_str=" 数据行第<font style='color:red;font-weight: bold;'>【"+ (i+1) + "】</font>条记录与" + "【逾期垫付记录】存在<font style='color:red;font-weight: bold;'>【"+ count+ "】</font>条依赖关系," + "须删除【逾期垫付记录】中<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖数据    ";
+									isFlag = false;
+								} 
+		                	}  
+		               }
+					}
+				// 删除成功数量大于0即为操作成功,且提示关联信息
+				if(rightNumber>0){
+					returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+result_name.trim() + "】</font>"+ rightNumber+"条数据," +result_str);
+					returnResult.setSuccess(true);
+				}else{
+					returnResult.setMsg(result_str.trim());
+					returnResult.setSuccess(false);
+				     }
+			   }
 		return returnResult;
 	}
 	    

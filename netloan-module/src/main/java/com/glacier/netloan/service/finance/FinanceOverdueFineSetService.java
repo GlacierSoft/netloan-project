@@ -16,10 +16,12 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.netloan.dao.finance.FinanceOverdueFineMapper;
 import com.glacier.netloan.dao.finance.FinanceOverdueFineSetMapper;
+import com.glacier.netloan.entity.finance.FinanceOverdueFineExample;
 import com.glacier.netloan.entity.finance.FinanceOverdueFineSet;
-import com.glacier.netloan.entity.finance.FinanceOverdueFineSetExample;
-import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.finance.FinanceOverdueFineSetExample; 
+import com.glacier.netloan.entity.system.User; 
 import com.glacier.netloan.util.MethodLog;
 
 /**
@@ -36,6 +38,9 @@ public class FinanceOverdueFineSetService {
 
 	@Autowired
 	private FinanceOverdueFineSetMapper financeOverdueFineSetMapper;
+	
+	@Autowired
+	private FinanceOverdueFineMapper financeOverdueFineMapper;
  
 	/**
 	* @Title: getFinanceOverdueFineSetId  
@@ -134,19 +139,47 @@ public class FinanceOverdueFineSetService {
 	@Transactional(readOnly = false)
 	@MethodLog(opera = "OverdueFineSet_del")
 	public Object delOverdueFineSet(List<String> overdueFineSetIds) {
-		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-		int count = 0;
+		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false  
+		// 定义删除成功数据行数量
+		int rightNumber = 0;
+		// 定义返回结果
+		String result_str = "";
+		//名称记录
+		String result_name = "";
+		// 定义是否显示提示
+		boolean isFlag = true;
+		//数据行长度判断
 		if (overdueFineSetIds.size() > 0) {
-			FinanceOverdueFineSetExample financeOverdueFineSetExample = new FinanceOverdueFineSetExample();
-			financeOverdueFineSetExample.createCriteria().andOverdueFineSetIdIn(overdueFineSetIds);
-			count = financeOverdueFineSetMapper.deleteByExample(financeOverdueFineSetExample);
-			if (count > 0) {
-				returnResult.setSuccess(true);
-				returnResult.setMsg("[" + overdueFineSetIds.size()+ "]条逾期罚款信息删除成功!!");
-			} else {
-				returnResult.setMsg("发生未知错误,[" + overdueFineSetIds.size()+ "]条逾期垫罚款信息删除失败!!");
+			//匹配删除信息
+			for (int i = 0; i < overdueFineSetIds.size(); i++) {  
+                // 相关联表逾期罚款记录
+				FinanceOverdueFineExample financeOverdueFineExample = new FinanceOverdueFineExample();
+				financeOverdueFineExample.createCriteria().andOverdueFineSetIdEqualTo(overdueFineSetIds.get(i));
+				int count = financeOverdueFineMapper.countByExample(financeOverdueFineExample);
+                // 判断是否关联
+				if (count <= 0) {
+					FinanceOverdueFineSetExample financeOverdueFineSetExample = new FinanceOverdueFineSetExample();
+					financeOverdueFineSetExample.createCriteria().andOverdueFineSetIdEqualTo(overdueFineSetIds.get(i));
+					int number = financeOverdueFineSetMapper.deleteByExample(financeOverdueFineSetExample);
+	                    rightNumber += number;// 删除成功数据行数量记录 
+                } else { 
+                	if(isFlag){ 
+						if(count > 0){
+							result_str=" 数据行第<font style='color:red;font-weight: bold;'>【"+ (i+1) + "】</font>条记录与" + "【逾期罚款记录】存在<font style='color:red;font-weight: bold;'>【"+ count+ "】</font>条依赖关系," + "须删除【逾期罚款记录】中<font style='color:red;font-weight: bold;'>【"+ count + "】</font>条依赖数据    ";
+							isFlag = false;
+						} 
+                	}  
+               }
 			}
-		}
+		// 删除成功数量大于0即为操作成功,且提示关联信息
+		if(rightNumber>0){
+			returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+result_name.trim() + "】</font>"+ rightNumber+"条数据," +result_str);
+			returnResult.setSuccess(true);
+		}else{
+			returnResult.setMsg(result_str.trim());
+			returnResult.setSuccess(false);
+		 }
+	   }
 		return returnResult;
 	}
 
