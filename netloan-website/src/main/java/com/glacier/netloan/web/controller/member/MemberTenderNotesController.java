@@ -7,31 +7,19 @@ package com.glacier.netloan.web.controller.member;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
-import com.glacier.jqueryui.util.JqPager;
-import com.glacier.netloan.dao.borrow.ReceivablesNotesMapper;
-import com.glacier.netloan.dao.borrow.RepaymentNotesMapper;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
-import com.glacier.netloan.entity.borrow.ReceivablesNotes;
-import com.glacier.netloan.entity.borrow.ReceivablesNotesExample;
 import com.glacier.netloan.entity.borrow.RepaymentNotes;
-import com.glacier.netloan.entity.borrow.RepaymentNotesDetail;
-import com.glacier.netloan.entity.borrow.RepaymentNotesExample;
-import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.borrow.ReceivablesNotesService;
 import com.glacier.netloan.service.borrow.RepaymentNotesDetailService;
 import com.glacier.netloan.service.borrow.RepaymentNotesService;
 import com.glacier.netloan.service.borrow.TenderNotesService;
-import com.glacier.netloan.service.member.MemberCreditIntegralService;
 import com.glacier.netloan.service.member.MemberService;
 
 /** 
@@ -87,17 +75,5 @@ public class MemberTenderNotesController extends AbstractController{
         mav.addObject("repaymentNotesList", repaymentNotesDetailService.getRepaymentNotesDetailList(repaymentNotesList.get(0).getRepayNotesId()));
         return mav;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 }
