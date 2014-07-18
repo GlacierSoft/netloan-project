@@ -159,7 +159,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            <td>逾期管理费：</td>
 				            <td>￥${repaymentNotesDetailsData.overdueManaFee}</td>
 				            <td>需还总额：</td>
-				            <td>￥${repaymentNotesDetailsData.currentPayMoeny+repaymentNotesDetailsData.overdueInterest+repaymentNotesDetailsData.overdueUrgeFee+repaymentNotesDetailsData.overdueManaFee}</td>
+				            <td>￥<fmt:formatNumber value='${repaymentNotesDetailsData.currentPayMoeny+repaymentNotesDetailsData.overdueInterest+repaymentNotesDetailsData.overdueUrgeFee+repaymentNotesDetailsData.overdueManaFee}' pattern='#,#00.00'/></td>
 				          </tr>
 				          <tr>
 				            <td class="col-md-2">交易密码：</td>
