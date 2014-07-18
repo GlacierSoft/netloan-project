@@ -465,7 +465,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				              <td><strong>备注</strong></td>
 				              <td><strong>时间</strong></td>
 				            </tr>
-								  		
+							 <c:if test="${empty memberIntegralDatas.rows}">
+								 <tr>
+							       <td colspan="4" style="text-align:center;vertical-align: middle;"><strong>暂无信息</strong></td>
+							      </tr>
+							 </c:if>	   
+							  <c:if test="${!empty memberIntegralDatas.rows}">
+							 		
 				            <c:forEach items="${memberIntegralDatas.rows}" var="memberIntegral" varStatus="status">
 						      	<tr>
 						         <td id="memberIntegral_type${status.index}" class="memberIntegral_type">
@@ -487,6 +493,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					              
 					            </tr>
 					      	</c:forEach>
+					      	</c:if>
 				            </tbody>
 				            <tfoot>
 					          <tr>
