@@ -243,7 +243,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					              <c:choose>
 									   <c:when test="${buttonState == 'sucessBorrow'}">  
 									   	 <td><img id="creditPhotoDivImg"  src="${tenderNotes.creditPhoto}" style="width: 34px;height: 24px ;" /></td>
-					              		 <td></td>
+					              		 <td><a href="${ctx}/memberTenderNotes/agreement.htm?loanId=${tenderNotes.loanId }&memberId=${tenderNotes.loanMemberId }">查看协议</a></td>
 									   </c:when>
 									   <c:when test="${buttonState == 'tenderingBorrow'}">  
 									      <td><fmt:formatNumber value='${tenderNotes.alrTenderPro*100}' pattern='#0.00'/>%</td>

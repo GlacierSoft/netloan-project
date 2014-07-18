@@ -114,6 +114,21 @@ public class ReceivablesNotesService {
     	ReceivablesNotes receivablesNotes = receivablesNotesMapper.selectByPrimaryKey(receNotesId);
         return receivablesNotes;
     }
+    
+    /**
+	 * @Title: getReceivablesNotes 
+	 * @Description: TODO(根据借款Id获取关联此ID收款记录信息) 
+	 * @param @param receNotesId
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
+    public Object getReceivablesNotesList(String loanId) {
+    	ReceivablesNotesExample receivablesNotesExample = new ReceivablesNotesExample();
+    	receivablesNotesExample.createCriteria().andLoanIdEqualTo(loanId);
+        return receivablesNotesMapper.selectByExample(receivablesNotesExample);
+    }
+    
     /**
      * @Title: listAsGridWebsite 
      * @Description: TODO(前台收款记录列表) 

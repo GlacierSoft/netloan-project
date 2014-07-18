@@ -128,6 +128,12 @@ public class ReceivablesNotesExample {
         }
         
         /*自定义查询条件*/
+        public Criteria andLoanIdEqualTo(String value) {
+            addCriterion("temp_borrowing_loan.loan_id =", value, "loanId");
+            return (Criteria) this;
+        }
+        
+        /*自定义查询条件*/
         public Criteria andLoanDateGreaterThanOrEqualTo(Date value) {
             addCriterion("temp_borrowing_loan.loan_date >=", value, "loanDate");
             return (Criteria) this;

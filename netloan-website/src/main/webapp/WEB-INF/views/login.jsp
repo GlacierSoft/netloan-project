@@ -113,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$('#success_alert h4').html('注册成功！请重新登录');
 					setTimeout(function(){//延迟3秒隐藏
 						$('#success_alert').fadeOut();
-					},3000)
+					},6000)
 				}
 				
 				
@@ -123,7 +123,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$('#success_alert h4').html('密码设置成功！请重新登录');
 					setTimeout(function(){//延迟3秒隐藏
 						$('#success_alert').fadeOut();
-					},3000)
+					},6000)
 				}
 				
 				/* $('#captcha').val('').keyup(function() {

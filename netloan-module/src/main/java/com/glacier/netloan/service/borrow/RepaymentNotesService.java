@@ -64,6 +64,22 @@ public class RepaymentNotesService {
     	RepaymentNotes repaymentNotes = repaymentNotesMapper.selectByPrimaryKey(repayNotesId);
         return repaymentNotes;
     }
+    
+    /**
+	 * @Title: getRepaymentNotes 
+	 * @Description: TODO(根据借款获取还款记录信息) 
+	 * @param @param repayNotesId
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
+    
+    public Object getRepaymentNotesLoan(String loanId) {
+    	RepaymentNotesExample repaymentNotesExample = new RepaymentNotesExample();
+        repaymentNotesExample.createCriteria().andLoanIdEqualTo(loanId);
+        return repaymentNotesMapper.selectByExample(repaymentNotesExample);
+    }
+    
     /**
      * @Title: listAsGridWebsite 
      * @Description: TODO(前台还款记录列表) 

@@ -137,6 +137,48 @@ public class RepaymentNotesDetailService {
     }
     
     /**
+	 * @Title: getRepaymentNotesDetailStart 
+	 * @Description: TODO(根据还款记录明细Id获取还款记录明细信息第一期) 
+	 * @param @param repayNotesDetailId
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
+    public Object getRepaymentNotesDetailStart(String repayNotesId) {
+    	RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();
+    	repaymentNotesDetailExample.createCriteria().andNumberPeriodEqualTo(1).andRepayNotesIdEqualTo(repayNotesId);
+        return repaymentNotesDetailMapper.selectByExample(repaymentNotesDetailExample);
+    }
+    
+    /**
+	 * @Title: getRepaymentNotesDetailEnd 
+	 * @Description: TODO(根据还款记录明细Id获取还款记录明细信息最后一期) 
+	 * @param @param repayNotesDetailId
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
+    public Object getRepaymentNotesDetailEnd(String repayNotesId,int numberPeriod) {
+    	RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();
+    	repaymentNotesDetailExample.createCriteria().andNumberPeriodEqualTo(numberPeriod).andRepayNotesIdEqualTo(repayNotesId);
+        return repaymentNotesDetailMapper.selectByExample(repaymentNotesDetailExample);
+    }
+    
+    /**
+	 * @Title: getRepaymentNotesDetailList 
+	 * @Description: TODO(根据还款记录明细Id获取所有关联此ID的还款记录明细信息) 
+	 * @param @param repayNotesDetailId
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
+    public Object getRepaymentNotesDetailList(String repayNotesId) {
+    	RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();
+    	repaymentNotesDetailExample.createCriteria().andRepayNotesIdEqualTo(repayNotesId);
+        return repaymentNotesDetailMapper.selectByExample(repaymentNotesDetailExample);
+    }
+    
+    /**
      * @Title: listByRepDetailLoadIdOrMemberId 
      * @Description: TODO(根据借款Id和会员Id来查找相对应的还款明细信息列表，用于前台的会员中心--正在还款的借款--还款明细列表) 
      * @param  @param jqPager
