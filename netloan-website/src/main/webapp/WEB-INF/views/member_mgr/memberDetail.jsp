@@ -444,7 +444,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group">
 						    <label for="memberPassword" class="col-sm-3 control-label">验证码:</label>
 						    <div class="col-sm-6">
-						      <input type="password" class="form-control" id="memberPassword_form-group" name="memberPassword" placeholder="输入手机验证码"  />
+						      <input type="password" class="form-control" id="memberPassword_form-group" maxlength="6" name="memberPassword" placeholder="输入手机验证码"  />
 						    </div>
 						     <div class="col-sm-3">
 						    </div>
@@ -534,7 +534,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				              <td><strong>卡号</strong></td>
 				              <td><strong>状态</strong></td>
 				              <td><strong>操作</strong></td>
-				            </tr>
+				            </tr><c:if test="${empty memberBankCardDatas}">
+										<tr>
+							           		<td colspan="6" style="text-align:center;vertical-align: middle;"><strong>暂无信息</strong></td>
+							          	</tr>
+									</c:if>	  	
 				            <c:forEach items="${memberBankCardDatas}" var="bankCard" varStatus="indexStatus">
 						      	<tr>
 						      	  <td>${currentMember.memberRealName}</td>
@@ -909,6 +913,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				});
 	    		} 
 	    	});
+	      	//////////////////////-----------------
+	      	$("#updatePhoneForm").validate({
+	      	    rules:{
+	      	     	mobileNumber:{
+    				    required:true,
+    				    isMobile:true
+    			     } 
+	      	    },
+	      	    messages:{ 
+	      	    	mobileNumber:{
+		    				required:"手机号码不能为空",
+		    				rangelength:"密码长度必须为为11位"
+		    			}
+	      	    }
+	      	});
+	      	
 	      	$("#updatememberPasswordForm").validate({
 	      		rules:{
 	    			oldPassword:{
