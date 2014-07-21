@@ -150,6 +150,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					          </tr>
 					        </thead>
 				          	<tbody>
+				          	<c:if test="${empty financeTransactionDatas.rows}">
+								<tr>
+						            <td colspan="11" style="text-align:center;vertical-align: middle;"><strong>暂无信息</strong></td>
+						        </tr>
+							</c:if>	
+							<c:if test="${!empty financeTransactionDatas.rows}">
 					          <c:forEach items="${financeTransactionDatas.rows}" var="finTransaction">
 						          <tr>
 						            <td>${finTransaction.transactionType}</td>
@@ -163,6 +169,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						          	<td><fmt:formatDate value="${finTransaction.createTime}" type="both"/></td>
 						          </tr>
 					      		</c:forEach>
+					      	</c:if>
 					      	</tbody>
 					      	<tfoot>
 					          <tr>

@@ -632,7 +632,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				              <td><strong>状态</strong></td>
 				              <td><strong>申请时间</strong></td>
 				            </tr>
-								  		
+							<c:if test="${empty memberApplyAmountDatas.rows}">
+								<tr>
+						            <td colspan="11" style="text-align:center;vertical-align: middle;"><strong>暂无信息</strong></td>
+						        </tr>
+							</c:if>	
+							<c:if test="${!empty memberApplyAmountDatas.rows}">	
 				            <c:forEach items="${memberApplyAmountDatas.rows}" var="memberApplyAmount" varStatus="status">
 						      	<tr>
 						      	  <td>${status.index+1}</td>
@@ -652,6 +657,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					              <td><fmt:formatDate value="${memberApplyAmount.applyDate}" type="both"/></td>
 					            </tr>
 					      	</c:forEach>
+					      	</c:if>
 				            </tbody>
 				            <tfoot>
 					          <tr>
