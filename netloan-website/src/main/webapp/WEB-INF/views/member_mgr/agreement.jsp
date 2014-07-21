@@ -194,7 +194,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						                <tr style="background: #D9D9D9"><td> 借款利率: </td><td>${repaymentNotes[0].loanApr }</td></tr>
 						                <tr ><td> 还款方式: </td><td>${borrowingLoan.repaymentTypeDisplay}</td></tr>
 						                 <tr ><td>  借款描述: : </td><td>${borrowingLoan.loanDetail}</td></tr>
-						                 <tr style="background: #D9D9D9"><td>  还款日: </td><td>每月日（24：00前，节假日不顺延）</td></tr>
+						                 <tr style="background: #D9D9D9"><td>  还款日: </td><td>每月<fmt:formatDate value="${repaymentNotesStartTime[0].shouldPayDate }" pattern='dd'/>日（24：00前，节假日不顺延）</td></tr>
 						                 <tr ><td>还款起止日期: </td><td><fmt:formatDate value="${repaymentNotesStartTime[0].shouldPayDate }" pattern='yyyy-MM-dd'/> 至 <fmt:formatDate value="${repaymentNotesEndTime[0].shouldPayDate }" pattern='yyyy-MM-dd'/> 止</td></tr>
 						          </table>
 						       </div>
