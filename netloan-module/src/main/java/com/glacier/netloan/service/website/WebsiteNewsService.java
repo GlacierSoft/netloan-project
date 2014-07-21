@@ -53,8 +53,9 @@ public class WebsiteNewsService {
 	 * @return Object    返回类型 
 	 * @throws
 	 */
+
     public Object getNews(String webNewsId) {
-    	WebsiteNews news = newsMapper.selectByPrimaryKey(webNewsId);
+    	WebsiteNews news = newsMapper.selectByPrimaryKey(webNewsId); 
         return news;
     }
     

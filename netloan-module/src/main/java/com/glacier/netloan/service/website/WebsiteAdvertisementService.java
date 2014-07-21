@@ -53,9 +53,12 @@ public class WebsiteAdvertisementService {
 	 * @return Object    返回类型 
 	 * @throws
 	 */
+
+    @Transactional(readOnly = false)
     public Object getAdvertisement(String webAdvId) {
     	WebsiteAdvertisement websiteAdvertisement = advertisementMapper.selectByPrimaryKey(webAdvId);
-        return websiteAdvertisement;
+    	websiteAdvertisement.setClicks(websiteAdvertisement.getClicks()+1);
+    	return websiteAdvertisement;
     }
     
     /**

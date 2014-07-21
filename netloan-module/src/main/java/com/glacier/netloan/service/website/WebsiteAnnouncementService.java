@@ -53,9 +53,13 @@ public class WebsiteAnnouncementService {
 	 * @return Object    返回类型 
 	 * @throws
 	 */
+
+    @Transactional(readOnly = false)
     public Object getAnnouncement(String webAnnId) {
-    	WebsiteAnnouncement websiteAnnouncement = announcementMapper.selectByPrimaryKey(webAnnId);
-        return websiteAnnouncement;
+    	WebsiteAnnouncement websiteAnnouncement = announcementMapper.selectByPrimaryKey(webAnnId); 
+        websiteAnnouncement.setClicks(websiteAnnouncement.getClicks()+1);
+    	announcementMapper.updateByPrimaryKeySelective(websiteAnnouncement);
+    	return websiteAnnouncement;
     }
     
     /**
