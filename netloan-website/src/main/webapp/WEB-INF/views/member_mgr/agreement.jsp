@@ -211,7 +211,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						               </tr>
 						               <c:forEach items="${repaymentNotesList}" var="repaymentNotes" varStatus="status">
 						               	<tr>
-						               		<td>${repaymentNotes.numberPeriod}</td><td><fmt:formatDate value="${repaymentNotesStartTime[0].shouldPayDate }" pattern='yyyy-MM-dd'/></td>
+						               		<td>${repaymentNotes.numberPeriod}</td><td><fmt:formatDate value="${repaymentNotes.shouldPayDate }" pattern='yyyy-MM-dd'/></td>
 						               		<td>￥${repaymentNotes.currentPayMoeny}</td><td>￥${repaymentNotes.currentPayPrincipal}</td>
 						               		<td>￥${repaymentNotes.currentPayInterest}</td>
 						               		<td>
