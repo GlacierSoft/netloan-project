@@ -155,7 +155,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						               </tr>
 						               <c:forEach items="${receivablesNotesList}" var="receivablesNotes" varStatus="status">
 						               	<tr>
-						               		<td>${receivablesNotes.memberDisplay }</td><td>￥${receivablesNotes.shouldRecePrincipal }</td>
+						               		<td>${receivablesNotes.memberDisplay }</td><td>￥<fmt:formatNumber value='${receivablesNotes.shouldRecePrincipal }' pattern='#0.00'/></td>
 						               		<td>${borrowingLoan.loanDeadlinesId} </td><td>${repaymentNotes[0].loanApr }</td>
 						               		<td><fmt:formatDate value="${repaymentNotesStartTime[0].shouldPayDate }" pattern='yyyy-MM-dd'/></td>
 						               		<td><fmt:formatDate value="${repaymentNotesEndTime[0].shouldPayDate }" pattern='yyyy-MM-dd'/></td>
@@ -173,7 +173,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						               		}
 						               %>
 						               <tr>
-						                   <td>总金额：</td><td>￥<%=shouldRecePrincipal %></td><td></td><td></td><td></td><td></td><td>总还本息：</td><td>￥<fmt:formatNumber value='<%=shouldReceMoney %>' pattern='#0.00'/></td>
+						                   <td>总金额：</td><td>￥<fmt:formatNumber value='<%=shouldRecePrincipal %>' pattern='#0.00'/></td><td></td><td></td><td></td><td></td><td>总还本息：</td><td>￥<fmt:formatNumber value='<%=shouldReceMoney %>' pattern='#0.00'/></td>
 						               </tr>
 						          </table>
 						       </div>
@@ -188,8 +188,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						        <div style="wdith:560;margin-left: 200px;height: 200px;border: 0px solid red;line-height: 20px;font-size: 12px;">
 						          <table style="width: 560px;height: 200px;border: 1px solid black;" class="table_one">
 						               <tr style="background: #D9D9D9"> <td>借款人名称</td><td>${borrowingLoan.memberDisplay }</td></tr>
-						                <tr ><td> 借款本金数额: </td><td>${borrowingLoan.loanTotal }</td></tr>
-						                <tr style="background: #D9D9D9"><td> 应偿还本息数额: </td><td>￥${repaymentNotes[0].shouldPayMoney }</td></tr>
+						                <tr ><td> 借款本金数额: </td><td>￥<fmt:formatNumber value='${borrowingLoan.loanTotal }' pattern='#0.00'/></td></tr>
+						                <tr style="background: #D9D9D9"><td> 应偿还本息数额: </td><td>￥<fmt:formatNumber value='${repaymentNotes[0].shouldPayMoney }' pattern='#0.00'/></td></tr>
 						                <tr > <td> 还款分期月数: </td><td>${borrowingLoan.loanDeadlinesId}</td></tr>
 						                <tr style="background: #D9D9D9"><td> 借款利率: </td><td>${repaymentNotes[0].loanApr }</td></tr>
 						                <tr ><td> 还款方式: </td><td>${borrowingLoan.repaymentTypeDisplay}</td></tr>
@@ -212,8 +212,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						               <c:forEach items="${repaymentNotesList}" var="repaymentNotes" varStatus="status">
 						               	<tr>
 						               		<td>${repaymentNotes.numberPeriod}</td><td><fmt:formatDate value="${repaymentNotes.shouldPayDate }" pattern='yyyy-MM-dd'/></td>
-						               		<td>￥${repaymentNotes.currentPayMoeny}</td><td>￥${repaymentNotes.currentPayPrincipal}</td>
-						               		<td>￥${repaymentNotes.currentPayInterest}</td>
+						               		<td>￥<fmt:formatNumber value='${repaymentNotes.currentPayMoeny}' pattern='#0.00'/></td><td>￥<fmt:formatNumber value='${repaymentNotes.currentPayPrincipal}' pattern='#0.00'/></td>
+						               		<td>￥<fmt:formatNumber value='${repaymentNotes.currentPayInterest}' pattern='#0.00'/></td>
 						               		<td>
 						               			<c:if test="${repaymentNotes.repayState=='notRepay'}">
 						               				未还
