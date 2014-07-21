@@ -2,29 +2,60 @@ package com.glacier.netloan.entity.finance;
 
 import java.util.Date;
 
+import javax.validation.constraints.Pattern;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class FinancePlatform {
     private String financePlatformId;
-
+    /**
+     * 账号代码由数字组成，长度为5-15个字符
+     */
+    @Pattern(regexp = "^[0-9]{4,8}", message = "{FinancePlat.platformCode.illegal}")
+  
     private String platformCode;
-
+    /**
+     * 平台资金账号名称中文组成，长度为2-10
+     */
+    @Pattern(regexp = "^[\u0391-\uFFE5]{4,10}", message = "{FinancePlat.platformName.illegal}")
+   
     private String platformName;
-
+    /**
+     * 账号由数字组成，长度为19个字符
+     */
+    @Pattern(regexp = "^[0-9]{19}", message = "{FinancePlat.platformAccount.illegal}")
+  
     private String platformAccount;
 
+     
     private Float platformMoney;
 
     private String auditState;
 
     private String auditor; 
-
+    /**
+     * 开户银行由中文组成，长度为4-10
+     */
+    @Pattern(regexp = "^[\u0391-\uFFE5]{4,10}", message = "{FinancePlat.openingBank.illegal}")
+ 
     private String openingBank;
-
+    /**
+     * 银行卡名称由中文组成，长度为4-10
+     */
+    @Pattern(regexp = "^[\u0391-\uFFE5]{4,10}", message = "{FinancePlat.cardName.illegal}")
+ 
     private String cardName;
-
+    /**
+     * 支行由中文组成，长度为4-10
+     */
+    @Pattern(regexp = "^[\u0391-\uFFE5]{4,10}", message = "{FinancePlat.subbranch.illegal}")
+ 
     private String subbranch;
-
+    /**
+     * 账号由数字组成，长度为19个字符
+     */
+    @Pattern(regexp = "^[0-9]{19}", message = "{FinancePlat.cardNumber.illegal}")
+  
     private String cardNumber;
 
     private String platformType;

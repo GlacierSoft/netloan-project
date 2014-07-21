@@ -210,7 +210,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									  <div class="form-group">
 									     <label for="hometown" class="validate[required] col-sm-2 control-label">籍贯:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class=" form-control" name="hometown" id="hometown" value="${currentMember.hometown}"  placeholder="籍贯">
+									      <input type="text" class=" form-control" name="hometown" id="hometown" value="${currentMember.hometown}"  placeholder="籍贯" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" 
+									      onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" >
 									    </div>
 									    <label for="homePhone" class="col-sm-2 control-label">住宅电话:</label>
 									    <div class="col-sm-4">
@@ -250,9 +251,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    </div>
 									  </div>
 									  <div class="form-group">
-									    <label for="firstContactPhone" class="col-sm-2 control-label" style="width: 150px">第一联系人手机:</label>
+									    <label for="firstContactPhone" class="col-sm-2 control-label" style="width: 150px">联系人手机号码:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" name="firstContactPhone" id="firstContactPhone"  value="${currentMember.firstContactPhone}" placeholder="第一联系人手机">
+									      <input type="text" class="form-control" name="firstContactPhone" id="firstContactPhone"  value="${currentMember.firstContactPhone}" placeholder="第一联系人手机号码">
 									    </div>
 									    <label for="firstContactAddress" class="col-sm-2 control-label">第一联系人地址:</label>
 									    <div class="col-sm-4">
@@ -274,9 +275,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    </div>
 									  </div>
 									  <div class="form-group">
-									    <label for="secondContactPhone" class="col-sm-2 control-label">第二联系人手机:</label>
+									    <label for="secondContactPhone" class="col-sm-2 control-label">联系人手机号码:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" name="secondContactPhone" id="secondContactPhone" value="${currentMember.secondContactPhone}"  placeholder="第二联系人手机">
+									      <input type="text" class="form-control" name="secondContactPhone" id="secondContactPhone" value="${currentMember.secondContactPhone}"  placeholder="第二联系人手机号码">
 									    </div>
 									    <label for="secondContactAddress" class="col-sm-2 control-label">第二联系人地址:</label>
 									    <div class="col-sm-4">
@@ -354,7 +355,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <label for="memberName" class="col-sm-3 control-label">原密码:</label>
 						    <div class="col-sm-9">
 						      <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
-						      <input type="text" class="form-control" id="oldPassword_form-group" name="oldPassword" placeholder="输入您现在的帐号密码"  />
+						      <input type="password" class="form-control" id="oldPassword_form-group" name="oldPassword" placeholder="输入您现在的帐号密码"  />
 						    </div>
 						  </div>
 						  <div class="form-group">
@@ -388,7 +389,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <label for="memberName" class="col-sm-3 control-label">原交易密码:</label>
 						    <div class="col-sm-9">
 						      <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
-						      <input type="text" class="form-control" id="oldPassword_form-group2" name="oldPassword" placeholder="输入您现在的交易密码"  />
+						      <input type="password" class="form-control" id="oldPassword_form-group2" name="oldPassword" placeholder="输入您现在的交易密码"  />
 						    </div>
 						  </div>
 						  <div class="form-group">
@@ -435,7 +436,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <label for="mobileNumber" class="col-sm-3 control-label">手机号码:</label>
 						    <div class="col-sm-6">
 						      <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
-						      <input type="text" class="form-control" id="mobileNumber_form-group" name="mobileNumber" placeholder="输入您要更改的手机号码"  />
+						      <input type="text" class="form-control" id="mobileNumber_form-group" maxlength="15" name="mobileNumber" placeholder="输入您要更改的手机号码" onkeyup="value=value.replace(/[^\d]/g,'') "
+                               onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"  />
 						    </div>
 						    <div class="col-sm-3">
 						       <button id="updatePhoneForm_form-group" type="submit" class="btn btn-primary">发送手机验证码</button>
@@ -480,14 +482,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group">
 						    <label for="mobileNumber" class="col-sm-3 control-label">真实姓名:</label>
 						    <div class="col-sm-9">
-						    ${currentMember.memberRealName}
+						    <div style="margin-top: 5px">  ${currentMember.memberRealName}</div>
 						      <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
 						    </div>
 						  </div>
 						  <div class="form-group">
 						    <label for="openingBank" class="col-sm-3 control-label">开户行:</label>
 						    <div class="col-sm-6">
-						      <input type="text" class="form-control" id="openingBank_form-group" name="openingBank" placeholder="输入您的开户银行名称"  />
+						      <input type="text" class="form-control" id="openingBank_form-group" name="openingBank" placeholder="输入您的开户银行名称" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"
+						         onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))"  />
 						    </div>
 						     <div class="col-sm-3">
 						    </div>
@@ -495,7 +498,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group">
 						    <label for="subbranch" class="col-sm-3 control-label">支行:</label>
 						    <div class="col-sm-6">
-						      <input type="text" class="form-control" id="subbranch_form-group" name="subbranch" placeholder="输入您的开户支行"  />
+						      <input type="text" class="form-control" id="subbranch_form-group" name="subbranch" placeholder="输入您的开户支行"  onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"
+						      onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" />
 						    </div>
 						     <div class="col-sm-3">
 						    </div>
@@ -503,7 +507,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						   <div class="form-group">
 						    <label for="cardNumber" class="col-sm-3 control-label">卡号:</label>
 						    <div class="col-sm-6">
-						      <input type="text" class="form-control" id="cardNumber_form-group" name="cardNumber" placeholder="输入您的卡号"  />
+						      <input type="text" class="form-control" id="cardNumber_form-group" name="cardNumber" placeholder="输入您的卡号"  maxlength="19" onkeyup="value=value.replace(/[^\d]/g,'') "
+                                              onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
 						    </div>
 						     <div class="col-sm-3">
 						    </div>
@@ -511,7 +516,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group">
 						    <label for="cardName" class="col-sm-3 control-label">银行卡名称:</label>
 						    <div class="col-sm-6">
-						      <input type="text" class="form-control" id="cardName_form-group" name="cardName" placeholder="输入您的银行卡名称"  />
+						      <input type="text" class="form-control" id="cardName_form-group" name="cardName" placeholder="输入您的银行卡名称" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"
+						      onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" />
 						    </div>
 						     <div class="col-sm-3">
 						    </div>
@@ -766,6 +772,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		window.location.href="${ctx}/member/memberDetail.htm?updateSecretSecurity=updatePassword";
 	    	}
 	    }); 
+	    
+	
 	   //--------------------
 	        $('#tabchangeMobileTab2').bind('click', function(){    
 	      	if("${SecretSecurityResult.rows[0].secretSecurityId}" == ''){
@@ -825,7 +833,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			mobileNumber:{
 	    				required:true,
 	    				isMobile:true
-	    			},
+	    			}, 
 	    			homePhone:"isPhone",
 	    			memberAge:"digits",
 	    			firstContactPhone:"isMobile",
@@ -1169,7 +1177,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			KindEditor.ready(function(K) {
 			var dialog = K.dialog({
 					        width : 300,
-					        title : '保存成功',
+					        title : '提示信息',
 					        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
 					        closeBtn : {
 					                name : '关闭',
@@ -1190,7 +1198,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				KindEditor.ready(function(K) {
 				var dialog = K.dialog({
 						        width : 500,
-						        title : '保存成功',
+						        title : '提示信息',
 						        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
 						        closeBtn : {
 						                name : '关闭',
