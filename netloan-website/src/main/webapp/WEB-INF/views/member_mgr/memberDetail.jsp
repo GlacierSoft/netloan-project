@@ -446,7 +446,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group">
 						    <label for="memberPassword" class="col-sm-3 control-label">验证码:</label>
 						    <div class="col-sm-6">
-						      <input type="password" class="form-control" id="memberPassword_form-group" maxlength="6" name="memberPassword" placeholder="输入手机验证码"  />
+						      <input type="text" class="form-control" id="memberPassword_form-group" maxlength="6" name="memberPassword" placeholder="输入手机验证码"  />
 						    </div>
 						     <div class="col-sm-3">
 						    </div>
