@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		#buttomsAgreement {
 			margin-left: 60px;
 			margin-bottom: 20px;
-			margin-top: 30px;
+			margin-top: 50px;
 		}
 		
 		#buttomsAgreement div{
