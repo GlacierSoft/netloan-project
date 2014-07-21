@@ -5,10 +5,10 @@
 <form  method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
-			<td>充值类型名称：</td>
+			<td>充值名称：</td>
 			<td>
 				<input type="hidden" id="rechargeSet_mgr_rechargeSet_form_financeRechargeSetId" name="financeRechargeSetId" value="${rechargeSetData.financeRechargeSetId}" />
-				<input data-options="missingMessage:'充值类型名称必须由1-20个中文字符组成'" id="rechargeSet_mgr_rechargeSet_form_rechargeSetName" name="rechargeSetName" class="easyui-validatebox spinner" style="width:298px;height: 16px;" required="true" maxlength="50" value="${rechargeSetData.rechargeSetName}"/>
+				<input  id="rechargeSet_mgr_rechargeSet_form_rechargeSetName" name="rechargeSetName" class="easyui-validatebox spinner" style="width:298px;height: 16px;" required="true" maxlength="50" value="${rechargeSetData.rechargeSetName}"  validType="customReg['^[\u0391-\uFFE5]{2,10}','<fmt:message key="RechargeSet.rechargeSetName.illegal"/>']"/> 
 			</td>
 		</tr>
 		<tr>

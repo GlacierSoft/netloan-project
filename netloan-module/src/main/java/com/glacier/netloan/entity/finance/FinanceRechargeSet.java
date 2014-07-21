@@ -2,11 +2,17 @@ package com.glacier.netloan.entity.finance;
 
 import java.util.Date;
 
+import javax.validation.constraints.Pattern;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class FinanceRechargeSet {
-    private String financeRechargeSetId;
-
+    private String financeRechargeSetId; 
+    /**
+     * 充值名称由中文组成，长度为2-10
+     */
+    @Pattern(regexp = "^[\u0391-\uFFE5]{2,10}", message = "{RechargeSet.rechargeSetName.illegal}")
+   
     private String rechargeSetName;
 
     private String rechargeType;
