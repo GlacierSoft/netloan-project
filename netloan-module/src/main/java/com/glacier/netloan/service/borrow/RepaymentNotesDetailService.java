@@ -328,7 +328,6 @@ public class RepaymentNotesDetailService {
     			repaymentNotesDetail.setCurrentPayMoeny(everyMonthMoney);//设置当期应还本息
     			repaymentNotesDetail.setCurrentPayPrincipal(everyMonthPrincipal);//设置当期应还本金
     			repaymentNotesDetail.setCurrentPayInterest(everyMonthMoney-everyMonthPrincipal);//设置当期应还利息
-    			repaymentNotesDetail.setAlsoNeedMoney(shouldPayMoney);
     		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("按月付息，到期还本")){
     			float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/12);
     			if(Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId()) == i+1){//判断是否是最后一期
@@ -336,12 +335,10 @@ public class RepaymentNotesDetailService {
     				repaymentNotesDetail.setCurrentPayMoeny(shouldPayMoney);//设置当期应还本息
     				repaymentNotesDetail.setCurrentPayPrincipal(borrowingLoanNew.getLoanTotal());//设置当期应还本金
         			repaymentNotesDetail.setCurrentPayInterest(everyMonthInterest);//设置当期应还利息
-        			repaymentNotesDetail.setAlsoNeedMoney(shouldPayMoney);
     			}else{
     				repaymentNotesDetail.setCurrentPayMoeny(everyMonthInterest);//设置当期应还本息
     				repaymentNotesDetail.setCurrentPayPrincipal(0f);//设置当期应还本金
         			repaymentNotesDetail.setCurrentPayInterest(everyMonthInterest);//设置当期应还利息
-        			repaymentNotesDetail.setAlsoNeedMoney(shouldPayMoney);
     			}
     		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("一次性还款")){
     			if(Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId()) == i+1){//判断是否是最后一期
@@ -350,19 +347,18 @@ public class RepaymentNotesDetailService {
     				repaymentNotesDetail.setCurrentPayMoeny(shouldPayMoney);//设置当期应还本息
     				repaymentNotesDetail.setCurrentPayPrincipal(borrowingLoanNew.getLoanTotal());//设置当期应还本金
         			repaymentNotesDetail.setCurrentPayInterest(everyMonthInterest);//设置当期应还利息
-        			repaymentNotesDetail.setAlsoNeedMoney(shouldPayMoney);
     			}else{
     				repaymentNotesDetail.setCurrentPayMoeny(0f);//设置当期应还本息
     				repaymentNotesDetail.setCurrentPayPrincipal(0f);//设置当期应还本金
         			repaymentNotesDetail.setCurrentPayInterest(0f);//设置当期应还利息
-        			repaymentNotesDetail.setAlsoNeedMoney(shouldPayMoney);
     			}
     		}
 
     		repaymentNotesDetail.setRepayNotesDetailId(RandomGUID.getRandomGUID());
     	 	repaymentNotesDetail.setMemberId(borrowingLoanNew.getMemberId()); 
         	repaymentNotesDetail.setRepayNotesId(repaymentNotesNew.getRepayNotesId());//设置交款标题
-            repaymentNotesDetail.setActualPayMoney(shouldPayMoney);
+            repaymentNotesDetail.setActualPayMoney(0f);//实还本息
+            repaymentNotesDetail.setAlsoNeedMoney(0f);//总还款金额
             repaymentNotesDetail.setOverdueDays("0");
             repaymentNotesDetail.setOverdueInterest(0f);
             repaymentNotesDetail.setOverdueManaFee(0f);
@@ -370,6 +366,7 @@ public class RepaymentNotesDetailService {
             repaymentNotesDetail.setIsAdvances("no");//设置是否网站代还
             repaymentNotesDetail.setIsOverdue("no");//设置是否逾期
             repaymentNotesDetail.setRepayState("notRepay");//设置还款记录明细表状态为“还款中”
+            repaymentNotesDetail.setRemark("满标复审通过时，系统自动添加还款记录明细信息");
             repaymentNotesDetail.setCreater(pricipalUser.getUserId());
             repaymentNotesDetail.setCreateTime(new Date());
             repaymentNotesDetail.setUpdater(pricipalUser.getUserId());
@@ -449,6 +446,10 @@ public class RepaymentNotesDetailService {
         repaymentNotesDetail.setActualPayMoney(repaymentNotesDetail.getCurrentPayMoeny());//实还本息等于本期应还本息
         //设置需还总额=应还本息+逾期罚息+逾期催收费+逾期管理费
         repaymentNotesDetail.setAlsoNeedMoney(repaymentNotesDetail.getCurrentPayMoeny()+repaymentNotesDetail.getOverdueInterest()+repaymentNotesDetail.getOverdueUrgeFee()+repaymentNotesDetail.getOverdueManaFee());
+        repaymentNotesDetail.setRemark("借款人进行还款成功时，系统进行更新还款明细信息");
+        repaymentNotesDetail.setUpdater(pricipalUser.getUserId());
+        repaymentNotesDetail.setUpdateTime(new Date());
+        //执行更新还款记录明细操作
         count = repaymentNotesDetailMapper.updateByPrimaryKeySelective(repaymentNotesDetail);//执行更新操作并返回值
         if(count==1){
         	//更新还款记录表
@@ -464,6 +465,7 @@ public class RepaymentNotesDetailService {
             repaymentNotesUpdate.setAlrOverdueInterest(repaymentNotesUpdate.getAlrOverdueInterest()+repaymentNotesDetail.getOverdueInterest());//设置已还逾期罚息
             repaymentNotesUpdate.setAlrOverdueUrge(repaymentNotesUpdate.getAlrOverdueUrge()+repaymentNotesDetail.getOverdueUrgeFee());//已还逾期催收费
             repaymentNotesUpdate.setAlrOverdueMana(repaymentNotesUpdate.getAlrOverdueMana()+repaymentNotesDetail.getOverdueManaFee());//已还逾期管理费
+            repaymentNotesUpdate.setRemark("借款人进行还款成功时，系统进行更新还款信息");
         	repaymentNotesUpdate.setUpdater(pricipalUser.getUserId());
         	repaymentNotesUpdate.setUpdateTime(new Date());
         	//执行更新还款记录的操作--
@@ -642,10 +644,15 @@ public class RepaymentNotesDetailService {
                             	//更改收款明细记录表的收款状态
                             	receivablesNotesDetail.setReceState("alreadReceivables");
                             	receivablesNotesDetail.setActualReceDate(new Date());
+                            	receivablesNotesDetail.setSurplusPrincipal(0f);//设置未收本金为0
+                            	receivablesNotesDetail.setAmount(receivablesNotesDetail.getCurrentReceMoeny() - receivablesNotesDetail.getInterestManaFee());//设置收款总金额=应收本息-利息管理费
+                            	receivablesNotesDetail.setRemark("借款人进行还款成功时，系统自动进行更新收款明细信息");
+                            	receivablesNotesDetail.setUpdater(pricipalUser.getUserId());
+                            	receivablesNotesDetail.setUpdateTime(new Date());
                             	//执行更新收款明细记录
                             	receivablesNotesDetailMapper.updateByPrimaryKeySelective(receivablesNotesDetail);
                             	
-                            	//更新收款记录中的已收本金、已收利息、已收本息
+                            	//更新收款记录中的收款总金额、已收本金、已收利息、已收本息、未收利息、已收本息、未收本息、已收逾期罚息
                             	ReceivablesNotes receivablesNotesTemp = receivablesNotesMapper.selectByPrimaryKey(receivablesNotesDetail.getReceNotesId());
                             	receivablesNotesTemp.setReceivablesTotal(receivablesNotesTemp.getReceivablesTotal()+receivablesNotesDetail.getAmount());//设置收款总金额(原来的收款总金额+收款明细的总金额)
                             	receivablesNotesTemp.setAlrRecePrincipal(receivablesNotesTemp.getAlrRecePrincipal()+receivablesNotesDetail.getCurrentRecePrincipal());//设置已收本金(原本的已收还本金+收款明细的本金)
@@ -655,6 +662,7 @@ public class RepaymentNotesDetailService {
                             	receivablesNotesTemp.setAlrReceMoney(receivablesNotesTemp.getAlrReceMoney()+receivablesNotesDetail.getCurrentReceMoeny());//设置已收本息(原本的已收还本息+收款明细的本息)
                             	receivablesNotesTemp.setNotReceMoney(receivablesNotesTemp.getNotReceMoney()-receivablesNotesDetail.getCurrentReceMoeny());//设置未收本息(原本的未收还本息-收款明细的本息)
                             	receivablesNotesTemp.setAlrOverdueInterest(receivablesNotesTemp.getAlrOverdueInterest()+receivablesNotesDetail.getOverdueInterest());//已收逾期罚息(原来的已逾期罚息+收款明细的逾期罚息)
+                            	receivablesNotesTemp.setRemark("借款人进行还款成功时，系统自动进行更新收款信息");
                             	receivablesNotesTemp.setUpdater(pricipalUser.getUserId());
                             	receivablesNotesTemp.setUpdateTime(new Date());
                             	//执行更新收款记录操作

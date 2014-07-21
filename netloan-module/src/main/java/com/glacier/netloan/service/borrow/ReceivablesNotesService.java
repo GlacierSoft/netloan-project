@@ -492,10 +492,11 @@ public class ReceivablesNotesService {
         	receivablesNotes.setAlrOverdueInterest(0f);
         	receivablesNotes.setReceState("receiving");//设置收款记录的状态为收款中，”未收“
     		receivablesNotes.setReceNotesId(RandomGUID.getRandomGUID());
-            receivablesNotes.setCreater(pricipalUser.getUserId());
             receivablesNotes.setAlrReceMoney(0f);//设置已收本息
             receivablesNotes.setAlrRecePrincipal(0f);//设置已收本金
             receivablesNotes.setAlrReceInterest(0f);//设置已收利息
+            receivablesNotes.setRemark("满标复审通过时，系统自动添加收款记录信息");
+            receivablesNotes.setCreater(pricipalUser.getUserId());
             receivablesNotes.setCreateTime(new Date());
             receivablesNotes.setUpdater(pricipalUser.getUserId());
             receivablesNotes.setUpdateTime(new Date());

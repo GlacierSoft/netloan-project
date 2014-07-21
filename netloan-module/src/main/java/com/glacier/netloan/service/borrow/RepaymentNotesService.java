@@ -195,6 +195,7 @@ public class RepaymentNotesService {
         repaymentNotes.setAlrOverdueMana(0f);
         repaymentNotes.setAlrOverdueUrge(0f);
         repaymentNotes.setRepayState("repaying");//设置还款记录表状态为“还款中”
+        repaymentNotes.setRemark("满标复审通过时，系统自动添加还款记录信息");
         repaymentNotes.setCreater(pricipalUser.getUserId());
         repaymentNotes.setCreateTime(new Date());
         repaymentNotes.setUpdater(pricipalUser.getUserId());

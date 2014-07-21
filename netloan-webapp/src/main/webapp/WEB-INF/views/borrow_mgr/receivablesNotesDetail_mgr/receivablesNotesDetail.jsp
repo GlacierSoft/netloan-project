@@ -79,7 +79,7 @@
 				sortable:true
 			},{
 				field:'surplusPrincipal',
-				title:'剩余本金',
+				title:'未收本金',
 				width:200,
 				sortable:true
 			},{

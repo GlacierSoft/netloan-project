@@ -183,7 +183,6 @@ public class ReceivablesNotesDetailService {
         tenderNotesExample.createCriteria().andLoanIdEqualTo(borrowingLoanNew.getLoanId());// 查询相对应的投标的记录
         List<TenderNotes> tenderNotess = tenderNotesMapper.selectByExample(tenderNotesExample);
         for (TenderNotes tenderNotes : tenderNotess) {
-            float everyPrincipal = 0f;// 设置当期剩余本金
             if (memberIds.contains(tenderNotes.getMemberId())) {// 将交易对方，通过for循环查询处理，如果包含相同的就不做任何操作，否则添加到list中
 
             } else {
@@ -210,17 +209,16 @@ public class ReceivablesNotesDetailService {
                                 Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())) - 1));
                         float everyMonthPrincipal = (float) ((tenderNotes.getTenderMoney() * (borrowingLoanNew.getLoanApr() / 12) * Math.pow(((1 + borrowingLoanNew.getLoanApr() / 12)), i)) / (Math
                                 .pow(((1 + borrowingLoanNew.getLoanApr() / 12)), Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())) - 1));
-                        everyPrincipal += everyMonthPrincipal;
                         everyMonthInterest = currentReceMoeny - everyMonthPrincipal;
                         receivablesNotesDetail.setCurrentReceMoeny(currentReceMoeny);// 设置当期应收本息
                         receivablesNotesDetail.setCurrentRecePrincipal(everyMonthPrincipal);// 设置当期应收本金
                         receivablesNotesDetail.setCurrentReceInterest(everyMonthInterest);// 设置当期应收利息
                         //float surplusPrincipal = tenderNotes.getTenderMoney() - everyPrincipal;
-                        //receivablesNotesDetail.setSurplusPrincipal(surplusPrincipal);// 设置当期剩余本金
-                        receivablesNotesDetail.setSurplusPrincipal(everyMonthPrincipal);// 设置当期剩余本金，这里等于应收本金
+                        //receivablesNotesDetail.setSurplusPrincipal(surplusPrincipal);// 设置当期未收本金
+                        receivablesNotesDetail.setSurplusPrincipal(everyMonthPrincipal);// 设置当期未收本金，这里等于应收本金
                         receivablesNotesDetail.setIncome(everyMonthInterest - everyMonthInterest * Float.valueOf(parameterBasic.getBasicValue()));// 设置当期收益
                         receivablesNotesDetail.setInterestManaFee(everyMonthInterest * Float.valueOf(parameterBasic.getBasicValue()));// 设置利息管理费
-                        receivablesNotesDetail.setAmount(currentReceMoeny - receivablesNotesDetail.getInterestManaFee());// 设置总收款金额 = 本息 - 利息管理费
+                        receivablesNotesDetail.setAmount(0f);// 设置总收款金额
                     } else if (borrowingLoanNew.getRepaymentTypeDisplay().equals("按月付息，到期还本")) {
                         everyMonthInterest = tenderNotes.getTenderMoney() * (borrowingLoanNew.getLoanApr() / 12);
                         receivablesNotesDetail.setIncome(everyMonthInterest - everyMonthInterest * Float.valueOf(parameterBasic.getBasicValue()));// 设置当期收益
@@ -229,14 +227,15 @@ public class ReceivablesNotesDetailService {
                             currentReceMoeny = everyMonthInterest + tenderNotes.getTenderMoney();
                             receivablesNotesDetail.setCurrentReceMoeny(currentReceMoeny);// 设置当期应收本息
                             receivablesNotesDetail.setCurrentReceInterest(everyMonthInterest);// 设置当期应收利息
-                            receivablesNotesDetail.setCurrentRecePrincipal(currentReceMoeny - everyMonthInterest);// 设置当期应收本金
-                            receivablesNotesDetail.setSurplusPrincipal(0f);// 设置当期剩余本金
-                            receivablesNotesDetail.setAmount(currentReceMoeny - receivablesNotesDetail.getInterestManaFee());// 设置总收款金额 = 本息 - 利息管理费
+                            receivablesNotesDetail.setCurrentRecePrincipal(tenderNotes.getTenderMoney());// 设置当期应收本金=投资记录的投资金额
+                            receivablesNotesDetail.setSurplusPrincipal(tenderNotes.getTenderMoney());// 设置当期未收本金=投资记录的投资金额
+                            receivablesNotesDetail.setAmount(0f);// 设置总收款金额
                         } else {
                             receivablesNotesDetail.setCurrentReceMoeny(everyMonthInterest);// 设置当期应收本息
                             receivablesNotesDetail.setCurrentReceInterest(everyMonthInterest);// 设置当期应收利息
-                            receivablesNotesDetail.setCurrentRecePrincipal(currentReceMoeny - everyMonthInterest);// 设置当期应收本金
-                            receivablesNotesDetail.setSurplusPrincipal(tenderNotes.getTenderMoney());// 设置当期剩余本金
+                            receivablesNotesDetail.setCurrentRecePrincipal(0f);// 设置当期应收本金
+                            receivablesNotesDetail.setSurplusPrincipal(0f);// 设置当期未收本金
+                            receivablesNotesDetail.setAmount(0f);// 设置总收款金额
                         }
                     } else if (borrowingLoanNew.getRepaymentTypeDisplay().equals("一次性还款")) {
                         if (Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId()) == i + 1) {// 判断是否是最后一期
@@ -245,16 +244,17 @@ public class ReceivablesNotesDetailService {
                             receivablesNotesDetail.setCurrentReceMoeny(currentReceMoeny);// 设置当期应收本息
                             receivablesNotesDetail.setCurrentReceInterest(everyMonthInterest);// 设置当期应收利息
                             receivablesNotesDetail.setCurrentRecePrincipal(currentReceMoeny - everyMonthInterest);// 设置当期应收本金
-                            receivablesNotesDetail.setSurplusPrincipal(0f);// 设置当期剩余本金
+                            receivablesNotesDetail.setSurplusPrincipal(0f);// 设置当期未收本金
                             receivablesNotesDetail.setIncome(everyMonthInterest - everyMonthInterest * Float.valueOf(parameterBasic.getBasicValue()));// 设置当期收益
                             receivablesNotesDetail.setInterestManaFee(everyMonthInterest * Float.valueOf(parameterBasic.getBasicValue()));// 设置利息管理费
-                            receivablesNotesDetail.setAmount(currentReceMoeny - receivablesNotesDetail.getInterestManaFee());// 设置总收款金额 = 本息 - 利息管理费
+                            receivablesNotesDetail.setAmount(0f);// 设置总收款金额
                         } else {
                             receivablesNotesDetail.setCurrentReceMoeny(0f);// 设置当期应收本息
                             receivablesNotesDetail.setCurrentReceInterest(0f);// 设置当期应收利息
                             receivablesNotesDetail.setCurrentRecePrincipal(currentReceMoeny - everyMonthInterest);// 设置当期应收本金
-                            receivablesNotesDetail.setSurplusPrincipal(tenderNotes.getTenderMoney());// 设置当期剩余本金
+                            receivablesNotesDetail.setSurplusPrincipal(tenderNotes.getTenderMoney());// 设置当期未收本金
                             receivablesNotesDetail.setIncome(0f);// 设置当期收益
+                            receivablesNotesDetail.setAmount(0f);// 设置总收款金额
                         }
                     }
                 } else {// 借款是认购份数进行投资的
@@ -264,16 +264,15 @@ public class ReceivablesNotesDetailService {
                                 Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())) - 1));
                         float everyMonthPrincipal = (float) ((tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub() * (borrowingLoanNew.getLoanApr() / 12) * Math.pow(
                                 ((1 + borrowingLoanNew.getLoanApr() / 12)), i)) / (Math.pow(((1 + borrowingLoanNew.getLoanApr() / 12)), Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId())) - 1));
-                        everyPrincipal += everyMonthPrincipal;
                         everyMonthInterest = currentReceMoeny - everyMonthPrincipal;
                         receivablesNotesDetail.setCurrentReceMoeny(currentReceMoeny);// 设置当期应收本息
                         receivablesNotesDetail.setCurrentRecePrincipal(everyMonthPrincipal);// 设置当期应收本金
                         receivablesNotesDetail.setCurrentReceInterest(everyMonthInterest);// 设置当期应收利息
-                        //receivablesNotesDetail.setSurplusPrincipal(tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub()-everyPrincipal);//设置当期剩余本金
-                        receivablesNotesDetail.setSurplusPrincipal(everyMonthPrincipal);// 设置当期剩余本金，这里等于应收本金
+                        //receivablesNotesDetail.setSurplusPrincipal(tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub()-everyPrincipal);//设置当期未收本金
+                        receivablesNotesDetail.setSurplusPrincipal(everyMonthPrincipal);// 设置当期未收本金，这里等于应收本金
                         receivablesNotesDetail.setIncome(everyMonthInterest - everyMonthInterest * Float.valueOf(parameterBasic.getBasicValue()));// 设置当期收益
                         receivablesNotesDetail.setInterestManaFee(everyMonthInterest * Float.valueOf(parameterBasic.getBasicValue()));// 设置利息管理费
-                        receivablesNotesDetail.setAmount(currentReceMoeny - receivablesNotesDetail.getInterestManaFee());// 设置总收款金额 = 本息 - 利息管理费
+                        receivablesNotesDetail.setAmount(0f);// 设置总收款金额
                     } else if (borrowingLoanNew.getRepaymentTypeDisplay().equals("按月付息，到期还本")) {
                         everyMonthInterest = tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub() * (borrowingLoanNew.getLoanApr() / 12);
                         receivablesNotesDetail.setIncome(everyMonthInterest - everyMonthInterest * Float.valueOf(parameterBasic.getBasicValue()));// 设置当期收益
@@ -282,14 +281,15 @@ public class ReceivablesNotesDetailService {
                             currentReceMoeny = everyMonthInterest + tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub();
                             receivablesNotesDetail.setCurrentReceMoeny(currentReceMoeny);// 设置当期应收本息
                             receivablesNotesDetail.setCurrentReceInterest(everyMonthInterest);// 设置当期应收利息
-                            receivablesNotesDetail.setCurrentRecePrincipal(currentReceMoeny - everyMonthInterest);// 设置当期应收本金
-                            receivablesNotesDetail.setSurplusPrincipal(0f);// 设置当期剩余本金
-                            receivablesNotesDetail.setAmount(currentReceMoeny - receivablesNotesDetail.getInterestManaFee());// 设置总收款金额 = 本息 - 利息管理费
+                            receivablesNotesDetail.setCurrentRecePrincipal(tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub());// 设置当期应收本金=投资份数*认购份数金额
+                            receivablesNotesDetail.setSurplusPrincipal(tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub());// 设置当期未收本金=投资份数*认购份数金额
+                            receivablesNotesDetail.setAmount(0f);// 设置总收款金额
                         } else {
                             receivablesNotesDetail.setCurrentReceMoeny(everyMonthInterest);// 设置当期应收本息
                             receivablesNotesDetail.setCurrentReceInterest(everyMonthInterest);// 设置当期应收利息
-                            receivablesNotesDetail.setCurrentRecePrincipal(currentReceMoeny - everyMonthInterest);// 设置当期应收本金
-                            receivablesNotesDetail.setSurplusPrincipal(tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub());// 设置当期剩余本金
+                            receivablesNotesDetail.setCurrentRecePrincipal(0f);// 设置当期应收本金
+                            receivablesNotesDetail.setSurplusPrincipal(0f);// 设置当期未收本金
+                            receivablesNotesDetail.setAmount(0f);// 设置总收款金额
                         }
                     } else if (borrowingLoanNew.getRepaymentTypeDisplay().equals("一次性还款")) {
                         if (Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId()) == i + 1) {// 判断是否是最后一期
@@ -298,16 +298,17 @@ public class ReceivablesNotesDetailService {
                             receivablesNotesDetail.setCurrentReceMoeny(currentReceMoeny);// 设置当期应收本息
                             receivablesNotesDetail.setCurrentReceInterest(everyMonthInterest);// 设置当期应收利息
                             receivablesNotesDetail.setCurrentRecePrincipal(currentReceMoeny - everyMonthInterest);// 设置当期应收本金
-                            receivablesNotesDetail.setSurplusPrincipal(0f);// 设置当期剩余本金
+                            receivablesNotesDetail.setSurplusPrincipal(0f);// 设置当期未收本金
                             receivablesNotesDetail.setIncome(everyMonthInterest - everyMonthInterest * Float.valueOf(parameterBasic.getBasicValue()));// 设置当期收益
                             receivablesNotesDetail.setInterestManaFee(everyMonthInterest * Float.valueOf(parameterBasic.getBasicValue()));// 设置利息管理费
-                            receivablesNotesDetail.setAmount(currentReceMoeny - receivablesNotesDetail.getInterestManaFee());// 设置总收款金额 = 本息 - 利息管理费
+                            receivablesNotesDetail.setAmount(0f);// 设置总收款金额
                         } else {
                             receivablesNotesDetail.setCurrentReceMoeny(0f);// 设置当期应收本息
                             receivablesNotesDetail.setCurrentReceInterest(0f);// 设置当期应收利息
                             receivablesNotesDetail.setCurrentRecePrincipal(currentReceMoeny - everyMonthInterest);// 设置当期应收本金
-                            receivablesNotesDetail.setSurplusPrincipal(tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub());// 设置当期剩余本金
+                            receivablesNotesDetail.setSurplusPrincipal(tenderNotes.getSubSum() * borrowingLoanNew.getLowestSub());// 设置当期未收本金
                             receivablesNotesDetail.setIncome(0f);// 设置当期收益
+                            receivablesNotesDetail.setAmount(0f);// 设置总收款金额
                         }
                     }
                 }
@@ -318,6 +319,7 @@ public class ReceivablesNotesDetailService {
                 receivablesNotesDetail.setReceState("notReceiving");// 设置收款状态为未收
                 receivablesNotesDetail.setReceNotesDetailId(RandomGUID.getRandomGUID());// 设置收款记录明细id
                 receivablesNotesDetail.setMemberId(tenderNotes.getMemberId());
+                receivablesNotesDetail.setRemark("满标复审通过时，系统自动添加收款记录明细信息");
                 receivablesNotesDetail.setCreater(pricipalUser.getUserId());
                 receivablesNotesDetail.setCreateTime(new Date());
                 receivablesNotesDetail.setUpdater(pricipalUser.getUserId());
