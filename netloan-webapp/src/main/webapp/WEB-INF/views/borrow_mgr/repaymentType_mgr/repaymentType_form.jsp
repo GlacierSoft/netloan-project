@@ -8,7 +8,7 @@
 			<td>方式名称：</td>
 			<td>
 				<input type="hidden" id="repaymentType_mgr_repaymentType_form_repaymentTypeId" name="repaymentTypeId" value="${repaymentTypeData.repaymentTypeId}" />
-				<input id="repaymentType_mgr_repaymentType_form_repaymentTypeName" name="repaymentTypeName" style="width:298px" value="${repaymentTypeData.repaymentTypeName}" class="easyui-validatebox spinner"  required="true"  validType="length[1,25]" invalidMessage="招聘管理主题必须在1到25个字符之间"/>
+				<input id="repaymentType_mgr_repaymentType_form_repaymentTypeName" name="repaymentTypeName" style="width:298px" value="${repaymentTypeData.repaymentTypeName}" class="easyui-validatebox spinner"  required="true" validType="customReg['^[\u0391-\uFFE5]{2,10}','<fmt:message key="RepaymentType.repaymentTypeName.illegal"/>']"/> 
 			</td>
 		</tr>
 		<tr>
