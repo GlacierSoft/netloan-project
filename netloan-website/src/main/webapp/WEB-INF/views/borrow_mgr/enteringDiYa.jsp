@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<h3>发布抵押标</h3>
     		<p style="color:#F00">* 为必填项，所有资料均会严格保密。</p>
     		<div>
-    			<form id="enteringDiYa" name="enteringDiYa" class="form-horizontal" role="form" method="post" >
+    			<form id="enteringDiYa" name="enteringDiYa" class="form-horizontal" role="form" method="post" onsubmit="return checkCreditamount();">
 		          <table  style="width: 950px;">
 		          	<tbody>
 		          	  <tr>
@@ -106,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>借款总额：</td>
-					    <td class="col-md-6"><input type="text" id="loanTotal" name="loanTotal" class="inp280"/></td>
+					    <td class="col-md-6"><input type="text" id="loanTotal" name="loanTotal" class="inp280" onblur="checkCreditamount();"/><span id="creditamountSpan"></span></td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>年利率：</td>
@@ -223,7 +223,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <tr>
 					  	<td class="col-md-6" align="right"></td>
 					    <td class="col-md-6">
-						<button type="submit" class="btn btn-default">提交发布</button>
+						<button type="submit" class="btn btn-default" onclick="return checkCreditamount()">提交发布</button>
 					    </td>
 					  </tr>
 			      	</tbody>
@@ -252,8 +252,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			repaymentTypeId:"required",
     			loanTotal:{
     				required:true,
-    				range:["${loanTenderDate.lowestLoanAmount}","${loanTenderDate.largestLoanAmount}"],
-    				max:"${memberDate.creditamount}"
+    				range:["${loanTenderDate.lowestLoanAmount}","${loanTenderDate.largestLoanAmount}"]
     			},
     			loanApr:{
     				required:true,
@@ -277,8 +276,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			repaymentTypeId:"还款方式不能为空",
     			loanTotal:{
     				required:"借款总额不能为空",
-    				range:"请输入"+"${loanTenderDate.lowestLoanAmount}"+"元 - "+"${loanTenderDate.largestLoanAmount}元"+"之间的总额",
-    				max:"您的信用额度不足以支持此借款总额，<a href='${ctx}/member/memberAuth.htm?&p=0'>点击申请信用额度</a>"
+    				range:"请输入"+"${loanTenderDate.lowestLoanAmount}"+"元 - "+"${loanTenderDate.largestLoanAmount}元"+"之间的总额"
     			},
     			loanApr:{
     				required:"年利率不能为空",
@@ -333,6 +331,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						});
 			});
 		};
+		
+		//判断信用额度
+		function checkCreditamount(){
+			var creditamount = "${memberDate.creditamount}";//信用额度
+			var loanTotals = $("#loanTotal").val();//借款总额
+			var lowestLoanAmount = "${loanTenderDate.lowestLoanAmount}";//最低总额
+			if(parseFloat(loanTotals) > parseFloat(creditamount)){
+				document.getElementById("creditamountSpan").innerHTML="<font style='color: #F00;font-style: italic;font-weight: bold;float:left;'>您的信用额度不足以支持此借款总额，<a href='${ctx}/member/memberAuth.htm?&p=0'>点击申请信用额度</a></font>";
+				return false;
+			}else if(parseFloat(loanTotals) < parseFloat(lowestLoanAmount)){
+				document.getElementById("creditamountSpan").innerHTML="";
+				return true;
+			}else{
+				document.getElementById("creditamountSpan").innerHTML="";
+				return true;
+			}
+		}
+		
 		
 		//判断最小认购单位必须能给借款总额整除
 		function checkToalsDivideExactly(){
