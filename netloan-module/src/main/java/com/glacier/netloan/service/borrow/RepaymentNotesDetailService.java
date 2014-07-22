@@ -342,18 +342,17 @@ public class RepaymentNotesDetailService {
     			}
     		}else if(borrowingLoanNew.getRepaymentTypeDisplay().equals("一次性还款")){
     			if(Integer.parseInt(borrowingLoanNew.getLoanDeadlinesId()) == i+1){//判断是否是最后一期
-    				float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/12);
-        			shouldPayMoney = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId()) + borrowingLoanNew.getLoanTotal();
+    				float everyMonthInterest = borrowingLoanNew.getLoanTotal() * (borrowingLoanNew.getLoanApr()/12);//每月利息
+    				float interest = everyMonthInterest * Float.parseFloat(borrowingLoanNew.getLoanDeadlinesId());//总利息
+        			shouldPayMoney = interest + borrowingLoanNew.getLoanTotal();//总本息=总利息+本金
     				repaymentNotesDetail.setCurrentPayMoeny(shouldPayMoney);//设置当期应还本息
     				repaymentNotesDetail.setCurrentPayPrincipal(borrowingLoanNew.getLoanTotal());//设置当期应还本金
-        			repaymentNotesDetail.setCurrentPayInterest(everyMonthInterest);//设置当期应还利息
-    			}else{
-    				repaymentNotesDetail.setCurrentPayMoeny(0f);//设置当期应还本息
-    				repaymentNotesDetail.setCurrentPayPrincipal(0f);//设置当期应还本金
-        			repaymentNotesDetail.setCurrentPayInterest(0f);//设置当期应还利息
+        			repaymentNotesDetail.setCurrentPayInterest(interest);//设置当期应还利息
+    			}else {
+    			    continue;//跳出本次循环,“一次性还款”指最后一期才进行还款本息
     			}
     		}
-
+    		//还款明细公共字段进行赋值
     		repaymentNotesDetail.setRepayNotesDetailId(RandomGUID.getRandomGUID());
     	 	repaymentNotesDetail.setMemberId(borrowingLoanNew.getMemberId()); 
         	repaymentNotesDetail.setRepayNotesId(repaymentNotesNew.getRepayNotesId());//设置交款标题
