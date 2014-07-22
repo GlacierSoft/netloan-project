@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %><!-- 引入自定义权限标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><!-- 引入国际化标签 -->
+<%    
+String path = request.getContextPath();    
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";    
+%>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -8,6 +12,10 @@
 		<title>冰川基本系统</title>
 		<!-- 引入公用的js和样式库 -->
 		<jsp:include page="inc.jsp"/>
+		<script type="text/javascript" src="<%=basePath %>resources/HighCharts/highcharts.js"></script>
+        <script type="text/javascript" src="<%=basePath %>resources/HighCharts/exporting.js"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=28f141a7f98bb07afec4968ecd7fc808"></script>
+        
 		<script type="text/javascript" charset="utf-8">
 			$(function(){
 				

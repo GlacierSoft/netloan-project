@@ -53,17 +53,7 @@
 			<version>${project.version}</version>
 		</dependency>
 		
-		<dependency>
-			<groupId>org.jsonObject</groupId>
-			<artifactId>jsonObject</artifactId>
-			<version>${jsonObject.version}</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/lib/JSONObject-lib.jar</systemPath>
-		</dependency>    
-		<!--JSONObject end  -->
 		
-		
-  	
 	</dependencies>
 	<build>
 		<finalName>netloan-website</finalName>

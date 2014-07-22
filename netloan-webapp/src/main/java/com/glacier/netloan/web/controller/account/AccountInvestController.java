@@ -5,12 +5,16 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+import net.sf.json.JSONArray;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -100,6 +104,29 @@ public class AccountInvestController extends AbstractController {
 	          ouputStream.close();  
 	    	
 	   }
+	   
+	   
+	   //柱形图数据绑定
+	  @RequestMapping(value="/data.json")
+	  @ResponseBody
+	  private Object FindAccountInvestData(){
+		  List<Map<String,Object>>  data_invest=new ArrayList<Map<String,Object>>();
+		  List<AccountInvest> list_invest=(List<AccountInvest>) accountInvestService.FindAccountInvest();
+		  
+		  //时间转化
+		  SimpleDateFormat sf=new SimpleDateFormat("MM.dd");
+		  
+		  for(int i=0;i<list_invest.size();i++){
+			 Map<String,Object> map=new HashMap<String,Object>();  
+			 map.put("name", sf.format(list_invest.get(i).getCreateTime()));
+			 Float[] invest_float={list_invest.get(i).getSumUncollected(),list_invest.get(i).getSumReward(),list_invest.get(i).getSumFine(),list_invest.get(i).getSumBorrow(),list_invest.get(i).getSumAdvfee(),list_invest.get(i).getSumInterest(),list_invest.get(i).getSumInterestfee()};
+			 map.put("data",invest_float );
+			 data_invest.add(map);
+		  }
+		  return data_invest;
+     }
+	   
+	   
 	    
 	    
 	    //投资统计查询信息导出

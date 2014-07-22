@@ -447,6 +447,15 @@ public class AccountInvestService {
 		returnResult.setTotal(total);
 		return returnResult;// 返回ExtGrid表
 	}
+	
+	
+	//会员投资信息统计数据获取
+	public Object FindAccountInvest(){
+		AccountInvestExample accountInvestExample=new AccountInvestExample();
+		List<AccountInvest> accountInvest=accountInvestMapper.selectByExample(accountInvestExample);
+		return accountInvest;
+		
+	}	
 	 
 	// 投资信息详情
 	public Object getAccountInvest(String investId) {

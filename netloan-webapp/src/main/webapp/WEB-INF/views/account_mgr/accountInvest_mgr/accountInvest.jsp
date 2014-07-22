@@ -2,6 +2,8 @@
 <!-- 引入自定义权限标签 -->
 <%@ taglib prefix="glacierui" uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
 
+
+
 <script type="text/javascript">
 
 	$.util.namespace('glacier.account_mgr.accountInvest_mgr.accountInvest');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
@@ -128,6 +130,79 @@
 		location.href=ctx+"/do/accountInvest/exp.json";
 	};
 	
+	//点击生成按钮触发方法
+	glacier.account_mgr.accountInvest_mgr.accountInvest.outExpAccountInvest= function(){
+		//location.href=ctx+"/do/accountInvest/data.json";
+		$.ajax({
+  		   type:"post",
+  		   url:ctx+"/do/accountInvest/data.json",
+  		   dataType:"json",
+  		   success:function(data){
+  		    //数据打印
+  		    console.info(data);
+  		    //柱状图 
+  		    $('#container').highcharts({
+  		        chart: {
+  		            type: 'column'
+  		        },
+  		        title: {
+  		            text: '投资统计柱状图'
+  		        },
+  		        subtitle: {
+  		            text: '投资统计报表'
+  		        },
+  		        xAxis: {
+  		            categories: [
+  		                '投资成功待收金额',
+  		                '投资奖励金额',
+  		                '逾期罚金金额',
+  		                '成功金额',
+  		                '借款管理费总额',
+  		                '借款利息总额',
+  		                '借款逾期罚金金额'
+  		            ]
+  		        },
+  		        yAxis: {
+  		            min: 0,
+  		            title: {
+  		                text: 'Rainfall (mm)'
+  		            }
+  		        },
+  		       credits:{
+  		        enabled:false // 禁用版权信息
+  		       },
+  		      tooltip: {
+  	            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+  	            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+  	                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+  	            footerFormat: '</table>',
+  	            shared: true,
+  	            useHTML: true
+  	           },
+  	           plotOptions: {
+  		            column: {
+  		                pointPadding: 0.2,
+  		                borderWidth: 0
+  		            }
+  		        },
+  		        series:data
+  		    });
+  		        
+  		  $("#investOutExpDailogTest").dialog(
+  				{
+  					title : "会员投资统计信息报表生成",
+  					width : 740,
+  					height : 500,
+  					modal : true,
+  					closed : false
+  				});	      
+  		      
+  		   }
+  		});
+ 	};
+	
+	
+	
 	function doCheckQuery(){
 		   
 		//alert("用户自定义开始时间:"+$("#investStartTime").datetimebox('getValue')+"   用户自定义结束时间:"+$("#investEndTime").datetimebox('getValue'));
@@ -166,6 +241,27 @@
 		});
 		
 	}
+	
+	
+	//地图查看
+	glacier.account_mgr.accountInvest_mgr.accountInvest.MapAccountInvest= function(){
+
+		// 百度地图API功能
+		var map = new BMap.Map("allmap");            // 创建Map实例
+		var point = new BMap.Point(113.606216,22.375557);    // 创建点坐标
+		map.centerAndZoom(point,13);                     // 初始化地图,设置中心点坐标和地图级别。
+		map.enableScrollWheelZoom();                            //启用滚轮放大缩小	
+		
+		$("#investMapDailogTest").dialog({
+			  title:"查看地图",
+			  width: 650,    
+			  height: 450,
+			  modal: true,
+		      closed: false   
+		});
+		
+	}
+	
 	
 	//Radio验证
 	$(document).ready(function(){    
@@ -250,6 +346,42 @@
         </tr>   
     </table>   
 </div> 
+
+<!--自定义对话款  -->
+<div id="investOutExpDailogTest" class="easyui-dialog"  buttons="#dlg-buttons-invest-outExp" closed="true">
+   <div id="container" style="min-width:700px;height:400px"></div>       
+</div>
+
+<div id="dlg-buttons-invest-outExp">   
+    <table cellpadding="0" cellspacing="0" style="width:100%">   
+        <tr>   
+            <td style="text-align:right">   
+                <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="javascript:$('#investOutExpDailogTest').dialog('close');">确认</a>   
+                <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#investOutExpDailogTest').dialog('close');">关闭</a>   
+            </td>   
+        </tr>   
+    </table>   
+</div> 
+
+<!--百度地图  -->
+
+<!--自定义对话款  -->
+<div id="investMapDailogTest" class="easyui-dialog"  buttons="#Map-buttons-invest-map" closed="true">
+   <div id="allmap" style="width: 600px;height: 350px;margin-top: 10px;margin-left: 15px;"></div>
+</div>
+<div id="Map-buttons-invest-map">   
+    <table cellpadding="0" cellspacing="0" style="width:100%">   
+        <tr>   
+            <td style="text-align:right">   
+                <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="javascript:$('#investMapDailogTest').dialog('close');">确认</a>   
+                <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#investMapDailogTest').dialog('close');">关闭</a>   
+            </td>   
+        </tr>   
+    </table>   
+</div> 
+
+
+
    
 
 
