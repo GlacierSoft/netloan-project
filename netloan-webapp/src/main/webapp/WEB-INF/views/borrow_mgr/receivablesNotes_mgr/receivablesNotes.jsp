@@ -43,11 +43,6 @@
 				width:200,
 				sortable:true
 			},{
-				field:'loanTitle',
-				title:'收款标题',
-				width:200,
-				sortable:true
-			},{
 				field:'loanMemberDisplay',
 				title:'还款人',
 				width:200,
@@ -118,6 +113,16 @@
 					return renderGridValue(value,fields.receState);
 				}
 			},{
+				field:'interestManaFee',
+				title:'利息管理费',
+				width:200,
+				sortable:true
+			},{
+				field:'income',
+				title:'收益',
+				width:200,
+				sortable:true
+			},{
 				field:'remark',
 				title:'备注',
 				width:200,
@@ -181,7 +186,7 @@
 				title: '【'+rowData.loanTitle+'】收款详细信息',
 				href : ctx + '/do/receivablesNotes/intoDetail.htm?receNotesId='+rowData.receNotesId,//从controller请求jsp页面进行渲染
 				width : 620,
-				height : 380,
+				height : 410,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
