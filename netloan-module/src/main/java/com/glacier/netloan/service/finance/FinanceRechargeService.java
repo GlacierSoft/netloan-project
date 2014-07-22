@@ -193,7 +193,7 @@ public class FinanceRechargeService {
         if (count == 1) {
         	//判断如果该充值记录通过审核，系统则会自动生成一条会员资金记录明细信息、平台资金记录明细信息，同时还会自动更新该会员的资金记录信息和平台的资金记录信息
         	if (null != financeRecharge.getAuditState() && StringUtils.isNotBlank(financeRecharge.getAuditState())) {
-        		if ("pass".equals(financeRecharge.getAuditState())) {
+        		if ("pass".equals(financeRecharge.getAuditState())) {//状态为通过的时候所执行的方法
         		   boolean boo =updatFinanceRecharge(financeRecharge,pricipalMember.getMemberId(),0);//其他的关联操作，抽出在另外一个方法
         		   if(boo){//判断关联操作是否一起成功
         			   returnResult.setSuccess(true);
@@ -201,6 +201,9 @@ public class FinanceRechargeService {
         		   }else{
                   	 returnResult.setMsg("发生未知错误，会员充值记录信息审核失败");
                    }
+        		}else if("authstr".equals(financeRecharge.getAuditState())){//状态为待审核时进行的方法
+        			returnResult.setSuccess(true);
+                    returnResult.setMsg("[" + financeRecharge.getRechargeCode() + "] 所选的充值方式为线下充值,请耐心等待审核");
         		}
         	} 
          } else {
