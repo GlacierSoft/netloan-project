@@ -222,7 +222,7 @@ $(function(){
 					   return;
 					}
 				}  
-				alert("请正确输入完整信息"+password1.length);
+				alert("请正确输入完整信息");
 			});
 			 
 }) 
