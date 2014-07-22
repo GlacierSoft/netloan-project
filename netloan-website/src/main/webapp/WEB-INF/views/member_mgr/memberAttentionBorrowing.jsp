@@ -138,14 +138,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					   <table id="attentionBorrowingTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
 				  		<thead>
 				  			<tr>
-				              <td>标题</td>
+				              <td width=144px>标题</td>
 				              <td>类型</td>
-				              <td>还款方式</td>
+				              <td width="90px">还款方式</td>
 				              <td>金额（元）</td>
 				              <td>年利率</td>
 				              <td>期限</td>
 				              <td>发布时间</td>
-				        	  <td>进度/剩余时间</td>
+				        	  <td width="135px">进度/剩余时间</td>
 				              <td>信用等级</td>
 				              <td>操作</td>
 				            </tr>
@@ -159,7 +159,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<c:if test="${!empty returnResultAttentionBorrowing.rows}">  		
 				            <c:forEach items="${returnResultAttentionBorrowing.rows}" var="attentionBorrowing" varStatus="status">
 						      	<tr>
-					              <td>
+					              <td  style="border-bottom-width:0px;display:block;width:144px; height:43px; text-align:center; heword-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
 					              <a href="${ctx}/investment/investmentdetail.htm?loanId=${attentionBorrowing.loanId }&memberId=${attentionBorrowing.loanMemberId }&p=1">
 					              ${attentionBorrowing.loanTitle}
 					              </a>

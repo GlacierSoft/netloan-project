@@ -189,17 +189,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  </div>
 				  
 			          <div>
-				          <table class="table table-hover">
+				          <table class="table table-bordered" style="text-align:center;vertical-align: middle;">
 				          	<thead>
 					          <tr>
-					            <th>借款标题</th>
-					            <th>借款类型</th>
-					            <th>还款方式</th>
-					            <th>借款金额</th>
-					            <th>年利率</th>
-					            <th>招标期限</th>
-					            <th>发布时间</th>
-					            <th>借款状态</th>
+					            <th width="144" style="text-align: center;">借款标题</th>
+					            <th style="text-align: center;width: 80px">借款类型</th>
+					            <th style="text-align: center;width: 100px">还款方式</th>
+					            <th style="text-align: center;">借款金额</th>
+					            <th style="text-align: center;">年利率</th>
+					            <th style="text-align: center;">招标期限</th>
+					            <th style="text-align: center;">发布时间</th>
+					            <th style="text-align: center;">借款状态</th>
 					          </tr>
 					        </thead>
 				          	<tbody><c:if test="${empty borrowingDatas.rows}">
@@ -210,7 +210,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<c:if test="${!empty borrowingDatas.rows}">  
 				          		<c:forEach items="${borrowingDatas.rows}" var="borrowingLoan" varStatus="status">
 						          <tr>
-						            <td>${borrowingLoan.loanTitle}</td>
+						            <td  style="border-bottom-width:0px;display:block;width:144px; height:43px; text-align:center; heword-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${borrowingLoan.loanTitle}</td>
 						            <td>${borrowingLoan.loanTenderDisplay}</td>
 						            <td>${borrowingLoan.repaymentTypeDisplay}</td>
 						            <td>￥${borrowingLoan.loanTotal}</td>

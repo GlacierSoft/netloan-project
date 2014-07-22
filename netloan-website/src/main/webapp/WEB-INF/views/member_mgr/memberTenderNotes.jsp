@@ -191,19 +191,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 					   <table id="tenderNotesTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
 				  		<thead>
-				  			<tr>
+				  			<tr style="height:50px;">
 				              <td>借款人</td>
-				              <td>标题</td>
+				              <td width=144px>标题</td>
 				              <td>类型</td>
 				              <td>还款方式</td>
-				              <td>我的投标金额（元）</td>
+				              <td width="97px">我的投标金额（元）</td>
 				              <td>年利率</td>
 				              <td>期限</td>
 				              <td>发布时间</td>
 				        <c:choose>
 						   <c:when test="${buttonState == 'sucessBorrow'}">  
 						   	  <td>信用等级</td>
-				              <td>协议书</td>
+				              <td width="80px">协议书</td>
 						   </c:when>
 						   <c:when test="${buttonState == 'tenderingBorrow'}">  
 						   	  <td>进度/剩余时间</td>
@@ -220,9 +220,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</c:if>	  		
 							<c:if test="${!empty tenderNotesDatas.rows}">  		
 				            <c:forEach items="${tenderNotesDatas.rows}" var="tenderNotes" varStatus="status">
-						      	<tr>
+						      	<tr >
 						      	  <td>${tenderNotes.loanMemberDisplay}</td>
-					              <td>
+					              <td   style="border-bottom-width:0px;display:block;width:144px; height:43px; text-align:center; heword-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
 					              <a href="${ctx}/investment/investmentdetail.htm?loanId=${tenderNotes.loanId }&memberId=${tenderNotes.loanMemberId }&p=1">
 					              ${tenderNotes.loanTitle}
 					              </a>
