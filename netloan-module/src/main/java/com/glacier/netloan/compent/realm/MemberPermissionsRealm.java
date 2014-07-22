@@ -4,9 +4,7 @@ package com.glacier.netloan.compent.realm;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
-import org.apache.commons.lang.time.DateUtils;
+import javax.annotation.PostConstruct; 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -32,8 +30,7 @@ import com.glacier.netloan.entity.basicdatas.ParameterIntegralTypeExample;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberIntegral;
 import com.glacier.netloan.entity.member.MemberToken;
-import com.glacier.netloan.entity.member.MemberTokenExample;
-import com.glacier.netloan.entity.system.LoginLog;
+import com.glacier.netloan.entity.member.MemberTokenExample; 
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.service.system.UserService;
@@ -149,7 +146,8 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
                lastTokenMember=memberMapper.selectByPrimaryKey(principalMember.getMemberId());
                 Date da=principalMember.getLastLoginTime();
                 Date datime=new Date();
-                int boo=(da.getYear()+da.getDay())-(datime.getYear()+datime.getDay()); 
+                @SuppressWarnings("deprecation")
+				int boo=(da.getYear()+da.getDay())-(datime.getYear()+datime.getDay()); 
                 if(boo!=0){
                 	//如果上一次登录时间和现在登录时间不是同一天，那就更改会员的积分，和新增登录积分记录
                     //取出登录奖励积分对象
