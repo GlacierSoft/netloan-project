@@ -9,7 +9,6 @@ import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.poi.ss.formula.functions.FinanceFunction;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.glacier.netloan.entity.finance.FinancePlatformExample.Criteria;
@@ -32,7 +31,6 @@ public class FinFinancePlatformQueryDTO extends FinancePlatform{
     @JSONField(format="yyyy-MM-dd")
     private Date createEndTime;
 
-    
 	public Date getCreateStartTime() {
         return createStartTime;
     }

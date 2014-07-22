@@ -3,7 +3,6 @@ package com.glacier.netloan.dto.query.account;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.alibaba.fastjson.annotation.JSONField;

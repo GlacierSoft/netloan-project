@@ -98,8 +98,7 @@ public class MemberStatisticsController extends AbstractController{
         return statisticsService.addStatistics(statistics);
     }
     
-    
-  //投资统计查询信息导出
+    //投资统计查询信息导出
     @RequestMapping(value="/exp.json")
     private void expCheckStatistics(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
         @SuppressWarnings("unchecked")
@@ -152,7 +151,5 @@ public class MemberStatisticsController extends AbstractController{
         ouputStream.flush();    
         ouputStream.close();  
     }
-    
-    
     
 }

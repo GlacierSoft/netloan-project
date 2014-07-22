@@ -11,9 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.glacier.netloan.entity.finance.FinancePlatform;
 import com.glacier.netloan.entity.finance.FinancePlatformTransaction;
-import com.glacier.netloan.entity.finance.FinanceTransaction;
 import com.glacier.netloan.entity.finance.FinancePlatformTransactionExample.Criteria;
 
 
@@ -33,7 +31,6 @@ public class FinPlatformTransactionsQueryDTO extends FinancePlatformTransaction{
     @JSONField(format="yyyy-MM-dd")
     private Date createEndTime;
 
-    
 	public Date getCreateStartTime() {
         return createStartTime;
     }

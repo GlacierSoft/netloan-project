@@ -13,7 +13,6 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.glacier.netloan.entity.finance.FinanceOverdueFine;
 import com.glacier.netloan.entity.finance.FinanceOverdueFineExample.Criteria;
-import com.glacier.netloan.entity.finance.FinanceWithdraw;
 
 
 
@@ -32,7 +31,6 @@ public class FinOverdueFineQueryDTO extends FinanceOverdueFine{
     @JSONField(format="yyyy-MM-dd")
     private Date createEndTime;
 
-    
 	public Date getCreateStartTime() {
         return createStartTime;
     }
