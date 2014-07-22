@@ -8,13 +8,13 @@
 			<td>提现最小金额：</td>
 			<td>
 				<input type="hidden" id="withdrawSet_mgr_withdrawSet_form_financeWithdrawSetId" name="financeWithdrawSetId" value="${withdrawSetData.financeWithdrawSetId}" />
-				<input data-options="min:100,missingMessage:'最小充值金额必须大于等于￥100',value:100" id="withdrawSet_mgr_withdrawSet_form_withdrawSetMinimum" name="withdrawSetMinimum"  class="easyui-numberbox spinner" style="width:298px;height: 16px;" required="true" maxlength="50" value="${withdrawSetData.withdrawSetMinimum}"/>
+				<input data-options="min:100,missingMessage:'最小充值金额必须大于等于￥100'" id="withdrawSet_mgr_withdrawSet_form_withdrawSetMinimum" name="withdrawSetMinimum"  class="easyui-numberbox spinner" style="width:298px;height: 16px;" required="true" maxlength="50" value="${withdrawSetData.withdrawSetMinimum}"/>
 			</td>
 		</tr>
 		<tr>
 			<td>提现最高金额：</td>
 			<td>
-				<input id="withdrawSet_mgr_withdrawSet_form_withdrawSetMaximum" name="withdrawSetMaximum" value="${withdrawSetData.withdrawSetMaximum}" class="easyui-validatebox spinner" style="height:18px;width:300px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.withdrawSetMaximum"/>
+				<input id="withdrawSet_mgr_withdrawSet_form_withdrawSetMaximum" name="withdrawSetMaximum" value="${withdrawSetData.withdrawSetMaximum}" class="easyui-numberbox spinner" style="height:18px;width:300px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.withdrawSetMaximum"/>
 			</td>
 		</tr>
 		<tr>

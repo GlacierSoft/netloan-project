@@ -53,7 +53,7 @@
 		<tr>
 			<td>余额：</td>
 			<td>
-				<input name="platformMoney" class="easyui-validatebox spinner"   style="width:268px" required="true" value="${financePlatformData.platformMoney}" validType="customReg['^[0-9]','<fmt:message key="FinancePlat.platformMoney.illegal"/>']"/> 
+				<input name="platformMoney" class="easyui-validatebox spinner"   style="width:268px" required="true" value="${financePlatformData.platformMoney}" validType="customReg['^[0-9]','余额只能输入整数以及保留小数位']"/> 
 			</td>
 		</tr>
 	</table>

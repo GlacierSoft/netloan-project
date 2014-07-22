@@ -20,7 +20,7 @@
 		</tr>
 		<tr>
 			<td>积分：</td>
-			<td><input maxlength="3" name="changeValue" class="easyui-numberspinner spinner" value="${creditTypeData.changeValue}" data-options="min:0,max:9999,required:true,missingMessage:'请填写信用积分'" style="width: 270px;height:18px;"/></td>
+			<td><input maxlength="3" name="changeValue" class="easyui-numberspinner spinner" value="${creditTypeData.changeValue}" data-options="min:0,max:9999,required:true,missingMessage:'请填写信用积分,只能输入整数'" style="width: 270px;height:18px;"/></td>
 		</tr>
 		<tr>
 			<td>改变类型：</td>

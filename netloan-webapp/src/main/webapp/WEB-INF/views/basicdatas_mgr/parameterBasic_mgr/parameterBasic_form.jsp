@@ -19,7 +19,7 @@
 		</tr>
 		<tr>
 			<td>基础参数值：</td>
-			<td><input class="easyui-numberspinner spinner" name="basicValue"  value="${parameterBasicData.basicValue}" style="width:268px;height: 18px;" required="true" value="${parameterBasicData.basicTitle}" data-options="min:0,max:9999,precision:3,missingMessage:'请输入基础参数值'"></td>
+			<td><input class="easyui-numberspinner spinner" name="basicValue"  value="${parameterBasicData.basicValue}" style="width:268px;height: 18px;" required="true" value="${parameterBasicData.basicTitle}" data-options="min:0,max:9999,precision:3,missingMessage:'请输入基础参数值,只能输入整数及保留小数'"></td>
 		</tr>
 		<tr>
 			<td>备注：</td>

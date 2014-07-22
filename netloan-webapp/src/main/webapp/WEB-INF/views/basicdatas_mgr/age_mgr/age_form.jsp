@@ -13,11 +13,11 @@
 		</tr>
 		<tr>
 			<td>开始年龄：</td>
-			<td><input name="ageBegin" class="easyui-numberspinner spinner" value="${ageData.ageBegin}" data-options="min:0,max:999,required:true,missingMessage:'请选择开始年龄'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
+			<td><input name="ageBegin" class="easyui-numberspinner spinner" value="${ageData.ageBegin}" data-options="min:0,max:999,required:true,missingMessage:'请输入开始年龄,只能输入整数'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr>
 		<tr>
 			<td>结束年龄：</td>
-			<td><input name="ageEnd" class="easyui-numberspinner spinner" value="${ageData.ageEnd}" data-options="min:0,max:999,required:true,missingMessage:'请选择结束年龄'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
+			<td><input name="ageEnd" class="easyui-numberspinner spinner" value="${ageData.ageEnd}" data-options="min:0,max:999,required:true,missingMessage:'请输入结束年龄,只能输入整数'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr>
 		<tr>
 			<td>排序：</td>

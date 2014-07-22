@@ -265,7 +265,7 @@ public class FinancePlatformService {
 			}
 		// 删除成功数量大于0即为操作成功,且提示关联信息
 		if(rightNumber>0){
-			returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+result_name+"】</font>," +result_str);
+			returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+result_name+"】</font> " +result_str);
 			returnResult.setSuccess(true);
 		}else{
 			returnResult.setMsg(result_str.trim());

@@ -13,11 +13,11 @@
 		</tr>
 		<tr>
 			<td>开始积分：</td>
-			<td><input name="creditBeginIntegral" class="easyui-numberspinner spinner" value="${creditData.creditBeginIntegral}" data-options="min:0,max:9999,required:true,missingMessage:'请选择信用级别开始积分'" style="width: 270px;height:18px;"/></td>
+			<td><input name="creditBeginIntegral" class="easyui-numberspinner spinner" value="${creditData.creditBeginIntegral}" data-options="min:0,max:9999,required:true,missingMessage:'请输入信用级别开始积分,只能输入整数'" style="width: 270px;height:18px;"/></td>
 		</tr>
 		<tr>
 			<td>结束积分：</td>
-			<td><input name="creditEndIntegral" class="easyui-numberspinner spinner" value="${creditData.creditEndIntegral}" data-options="min:0,max:9999,required:true,missingMessage:'请选择信用级别结束积分'" style="width: 270px;height:18px;"/></td>
+			<td><input name="creditEndIntegral" class="easyui-numberspinner spinner" value="${creditData.creditEndIntegral}" data-options="min:0,max:9999,required:true,missingMessage:'请输入信用级别结束积分,只能输入整数'" style="width: 270px;height:18px;"/></td>
 		</tr>
 		<tr>
 			<td>排序：</td>

@@ -181,7 +181,7 @@
  		var maxLowestSub=usableMoneyFloor/"${borrowingLoan.lowestSub }">"${borrowingLoan.subTotal }"?"${borrowingLoan.subTotal }":usableMoneyFloor/"${borrowingLoan.lowestSub }";//再整除(运用三元表达式)
  	  	document.getElementById("maxSub").innerHTML=maxLowestSub;
  	}
-  
+ 	
   	if('${borrowingLoan.subTotal}' == '0.0'){
 		$('#stillNeed').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrBidMoney}' pattern='#,#00.00'/>");
 	}else{
