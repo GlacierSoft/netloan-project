@@ -4,7 +4,6 @@ import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 public interface MemberMapper {
     int countByExample(MemberExample example);

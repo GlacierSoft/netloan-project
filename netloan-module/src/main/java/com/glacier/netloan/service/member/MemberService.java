@@ -31,7 +31,6 @@ import com.glacier.netloan.dto.query.member.MemberQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditType;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditTypeExample;
-import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberAuthExample;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
@@ -131,7 +130,8 @@ public class MemberService {
     public Object getMember(String memberId) {
     	Member member = memberMapper.selectByPrimaryKey(memberId);
     	//查询基础信用积分的所有数据
-        List<ParameterCredit> parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
+        @SuppressWarnings("unchecked")
+		List<ParameterCredit> parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
         //通过嵌套for循环，将会员的信用图标加到会员对象中去
         	for(ParameterCredit parameterCredit : parameterCredits){
     			if(member.getCreditIntegral() >= parameterCredit.getCreditBeginIntegral() && member.getCreditIntegral() < parameterCredit.getCreditEndIntegral()){

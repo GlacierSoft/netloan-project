@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.mail.Flags;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,7 +19,6 @@ import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.formula.ptg.MemErrPtg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -33,8 +31,6 @@ import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.member.MemBerStatisticsQueryDTO;
-import com.glacier.netloan.entity.account.AccountInvest;
-import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.service.member.MemberStatisticsService;
 
@@ -85,7 +81,8 @@ public class MemberStatisticsController extends AbstractController{
     private Object listStatisticsAsGridByMenuId(JqPager pstatisticsr,MemBerStatisticsQueryDTO memBerStatisticsQueryDTO,HttpSession session) {
     	JqGridReturn returnResult=(JqGridReturn)statisticsService.listAsGrid(pstatisticsr, memBerStatisticsQueryDTO);  
     	 if(returnResult!=null){
-	        	List<MemberStatistics> MemberStatisticsDatalist=(List<MemberStatistics>)returnResult.getRows();
+	        	@SuppressWarnings("unchecked")
+				List<MemberStatistics> MemberStatisticsDatalist=(List<MemberStatistics>)returnResult.getRows();
 	        	session.setAttribute("MemberStatisticsDatalist", MemberStatisticsDatalist);
 	       }
     	return returnResult;
@@ -105,7 +102,8 @@ public class MemberStatisticsController extends AbstractController{
   //投资统计查询信息导出
     @RequestMapping(value="/exp.json")
     private void expCheckStatistics(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
-        List<MemberStatistics> memberStatisticsDataList=( List<MemberStatistics>)session.getAttribute("MemberStatisticsDatalist");
+        @SuppressWarnings("unchecked")
+		List<MemberStatistics> memberStatisticsDataList=( List<MemberStatistics>)session.getAttribute("MemberStatisticsDatalist");
          List<MemberStatistics> list=new ArrayList<MemberStatistics>();
         HSSFWorkbook wb=null;
         if(memberStatisticsDataList.size()>0&&memberStatisticsDataList!=null){ 

@@ -233,7 +233,8 @@ public class UserService {
         int month=cal.get(Calendar.MONTH)+1;//获取月份   
         int day=cal.get(Calendar.DATE);//获取日   
         //int hour=cal.get(Calendar.HOUR);//小时  
-        int hour=new Date().getHours();
+        @SuppressWarnings("deprecation")
+		int hour=new Date().getHours();
         System.out.println(hour);
         int minute=cal.get(Calendar.MINUTE);//分              
         int second=cal.get(Calendar.SECOND);//秒 

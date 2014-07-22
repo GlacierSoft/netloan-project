@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -21,7 +20,6 @@ import com.glacier.netloan.dao.member.MemberSecretSecurityMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterQuestion;
 import com.glacier.netloan.entity.basicdatas.ParameterQuestionExample;
-import com.glacier.netloan.entity.member.MemberSecretSecurity;
 import com.glacier.netloan.entity.member.MemberSecretSecurityExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
