@@ -586,14 +586,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<form id="member_applyCreditAmountForm"  class=" form-horizontal" role="form"  method="post" >
 						 <div class="form-group">
 						    <label for="memberName" class="col-sm-3 control-label">申请账户:</label>
-						    <div class="col-sm-4">
-								<span>${currentMember.memberName}</span>						    
+						    <div class="col-sm-4"><div style="margin-top: 5px">
+								<span>${currentMember.memberName}</span> </div>					    
 						    </div>
 						 </div>
 						 <div class="form-group">
 						    <label for="applyType" class="col-sm-3 control-label">申请类型:</label>
-						    <div class="col-sm-4">
-						    	<span>信用额度</span>
+						    <div class="col-sm-4"><div style="margin-top: 5px">
+						    	<span>信用额度</span></div>
 						      <input type="hidden" class="form-control" id="applyType" name="applyType" value="internet"  placeholder="" >
 						    </div>
 						 </div>
