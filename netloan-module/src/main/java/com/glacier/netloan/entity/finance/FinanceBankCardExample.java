@@ -2,9 +2,7 @@ package com.glacier.netloan.entity.finance;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import com.glacier.netloan.entity.member.MemberEstateExample.Criteria;
+import java.util.List; 
 
 public class FinanceBankCardExample {
     protected String orderByClause;

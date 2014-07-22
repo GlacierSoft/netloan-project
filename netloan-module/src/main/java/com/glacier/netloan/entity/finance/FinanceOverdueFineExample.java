@@ -3,8 +3,7 @@ package com.glacier.netloan.entity.finance;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import com.glacier.netloan.entity.finance.FinanceBankCardExample.Criteria;
+ 
 
 public class FinanceOverdueFineExample {
     protected String orderByClause;

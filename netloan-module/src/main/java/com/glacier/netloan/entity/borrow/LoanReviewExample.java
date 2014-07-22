@@ -2,10 +2,7 @@ package com.glacier.netloan.entity.borrow;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import com.glacier.netloan.entity.member.MemberStatisticsExample.Criteria;
-
+import java.util.List; 
 public class LoanReviewExample {
     protected String orderByClause;
 
