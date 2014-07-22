@@ -1,24 +1,19 @@
 /*
- * @(#)BorrowingLoanQueryDTO.java
+ * @(#)FinFinancePlatformQueryDTO.java
  * @author xichao.dong
  * Copyright (c) 2013 Glacier SoftWare Company Limited. All Rights Reserved.
  */
-package com.glacier.netloan.dto.query.finance;
-
-import java.util.Date;
-
+package com.glacier.netloan.dto.query.finance; 
+import java.util.Date; 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder; 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.glacier.netloan.entity.finance.FinancePlatformExample.Criteria;
 import com.glacier.netloan.entity.finance.FinancePlatform;
-
-
-
+  
 /**
  * @ClassName: FinFinancePlatformQueryDTO
- * @Description: TODO(这里用一句话描述这个类的作用) 
+ * @Description: TODO(FinFinancePlatformQueryDTO) 
  * @author zhenfei.zhang
  * @email 289556866@qq.com
  * @date 2014-5-22 下午3:16:58

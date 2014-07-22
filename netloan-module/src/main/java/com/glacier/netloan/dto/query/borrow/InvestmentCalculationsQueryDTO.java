@@ -1,15 +1,13 @@
 /*
- * @(#)BorrowingLoanQueryDTO.java
+ * @(#)InvestmentCalculationsQueryDTO.java
  * @author xichao.dong
  * Copyright (c) 2013 Glacier SoftWare Company Limited. All Rights Reserved.
  */
 package com.glacier.netloan.dto.query.borrow;
-
-
-
+  
 /** 
  * @ClassName: InvestmentCalculationsQueryDTO 
- * @Description: TODO(InvestmentCalculationsdto) 
+ * @Description: TODO(投资dto) 
  * @author yuzexu
  * @email 804346249@QQ.com
  * @date 2014-5-22下午4:44:28

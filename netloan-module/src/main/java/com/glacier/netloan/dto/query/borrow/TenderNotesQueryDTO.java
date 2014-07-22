@@ -1,5 +1,5 @@
 /*
- * @(#)BorrowingLoanQueryDTO.java
+ * @(#)RepaymentNotesDetailQueryDTO.java
  * @author xichao.dong
  * Copyright (c) 2013 Glacier SoftWare Company Limited. All Rights Reserved.
  */
@@ -17,7 +17,7 @@ import com.glacier.netloan.entity.borrow.TenderNotesExample.Criteria;
 
 /** 
  * @ClassName: RepaymentNotesDetailQueryDTO 
- * @Description: TODO(这里用一句话描述这个类的作用) 
+ * @Description: TODO(RepaymentNotesDetailQueryDTO) 
  * @author yuzexu
  * @email 804346249@QQ.com
  * @date 2014-5-13下午4:22:33
@@ -83,18 +83,17 @@ public class TenderNotesQueryDTO extends TenderNotes{
     	 if(null!=EndTenderMoney)
     		  queryCriteria.andTenderMoneyLessThan(new Float(EndTenderMoney));
      }
-  	 
-  	 
+  	  
   	 if(null != createStartTime && null != createEndTime){//创建时间段查询
            queryCriteria.andLoanDateBetween(createStartTime, createEndTime); 
      }else{
-    	if(null != createStartTime){
-    		queryCriteria.andLoanDateGreaterThanOrEqualTo(createStartTime);
-    	}
-    	if(null != createEndTime){
+    	 if(null != createStartTime){
+    	 	queryCriteria.andLoanDateGreaterThanOrEqualTo(createStartTime);
+    	 }
+    	 if(null != createEndTime){
     		queryCriteria.andLoanDateLessThanOrEqualTo(createEndTime);
-    	}
-    }
+    	 }
+      }
      	 if(null != this.getLoanTitle() && StringUtils.isNotBlank(this.getLoanTitle())){//标题Like查询
 	            queryCriteria.andLoanTitleLike("%" + this.getLoanTitle() + "%");
 	        }  

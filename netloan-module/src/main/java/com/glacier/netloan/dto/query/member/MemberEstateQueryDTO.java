@@ -15,7 +15,7 @@ import com.glacier.netloan.entity.member.MemberEstateExample.Criteria;
 
 /** 
  * @ClassName: MemberEstateQueryDTO 
- * @Description: TODO(这里用一句话描述这个类的作用) 
+ * @Description: TODO(MemberEstateQueryDTO) 
  * @author xichao.dong
  * @email 406592176@QQ.com
  * @date 2014-2-25 下午3:49:02  

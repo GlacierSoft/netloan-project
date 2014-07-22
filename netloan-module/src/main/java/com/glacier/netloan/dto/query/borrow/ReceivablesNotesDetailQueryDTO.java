@@ -1,5 +1,5 @@
 /*
- * @(#)BorrowingLoanQueryDTO.java
+ * @(#)RepaymentNotesDetailQueryDTO.java
  * @author xichao.dong
  * Copyright (c) 2013 Glacier SoftWare Company Limited. All Rights Reserved.
  */
@@ -12,11 +12,10 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.glacier.netloan.entity.borrow.ReceivablesNotesDetail;
 import com.glacier.netloan.entity.borrow.ReceivablesNotesDetailExample.Criteria;
-
-
+ 
 /** 
  * @ClassName: RepaymentNotesDetailQueryDTO 
- * @Description: TODO(这里用一句话描述这个类的作用) 
+ * @Description: TODO(RepaymentNotesDetailQueryDTO) 
  * @author yuzexu
  * @email 804346249@QQ.com
  * @date 2014-5-13下午4:22:33

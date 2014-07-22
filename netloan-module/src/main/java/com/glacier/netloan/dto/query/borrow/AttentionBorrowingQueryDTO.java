@@ -1,19 +1,16 @@
 /*
- * @(#)BorrowingLoanQueryDTO.java
+ * @(#)AttentionBorrowingQueryDTO.java
  * @author xichao.dong
  * Copyright (c) 2013 Glacier SoftWare Company Limited. All Rights Reserved.
- */
+ */ 
 package com.glacier.netloan.dto.query.borrow;
 
-import java.util.Date;
-
+import java.util.Date; 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder; 
 import com.glacier.netloan.entity.borrow.AttentionBorrowing;
 import com.glacier.netloan.entity.borrow.AttentionBorrowingExample.Criteria;
-
-
+ 
 /** 
  * @ClassName: AttentionBorrowingQueryDTO 
  * @Description: TODO(关注借款dto) 

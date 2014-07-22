@@ -1,5 +1,5 @@
 /*
- * @(#)BorrowingLoanQueryDTO.java
+ * @(#)FinTransactionQueryDTO.java
  * @author xichao.dong
  * Copyright (c) 2013 Glacier SoftWare Company Limited. All Rights Reserved.
  */
@@ -13,11 +13,10 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.glacier.netloan.entity.finance.FinanceTransactionExample.Criteria;
 import com.glacier.netloan.entity.finance.FinanceTransaction;
-
-
+ 
 /**
  * @ClassName: FinTransactionQueryDTO 
- * @Description: TODO(这里用一句话描述这个类的作用) 
+ * @Description: TODO(FinTransactionQueryDTO) 
  * @author zhenfei.zhang
  * @email 289556866@qq.com
  * @date 2014-5-22 下午3:16:58
@@ -28,8 +27,7 @@ public class FinTransactionQueryDTO extends FinanceTransaction{
 	private Date createStartTime;
 
     @JSONField(format="yyyy-MM-dd")
-    private Date createEndTime;
-
+    private Date createEndTime; 
     
 	public Date getCreateStartTime() {
         return createStartTime;

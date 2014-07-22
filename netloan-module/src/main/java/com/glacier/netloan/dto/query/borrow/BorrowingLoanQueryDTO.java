@@ -14,11 +14,10 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.BorrowingLoanExample.Criteria;
-
-
+ 
 /** 
  * @ClassName: BorrowingLoanQueryDTO 
- * @Description: TODO(这里用一句话描述这个类的作用) 
+ * @Description: TODO(借款DTO) 
  * @author xichao.dong
  * @email 406592176@QQ.com
  * @date 2014-4-18 下午4:45:25  

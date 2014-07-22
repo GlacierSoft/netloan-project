@@ -1,3 +1,8 @@
+/*
+ * @(#)MemberFinanceQueryDTO.java
+ * @author xichao.dong
+ * Copyright (c) 2013 Glacier SoftWare Company Limited. All Rights Reserved.
+ */
 package com.glacier.netloan.dto.query.member;
 
 import java.util.Date;

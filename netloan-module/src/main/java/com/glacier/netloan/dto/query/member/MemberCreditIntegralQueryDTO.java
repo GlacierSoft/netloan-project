@@ -15,7 +15,7 @@ import com.glacier.netloan.entity.member.MemberCreditIntegral;
 
 /** 
  * @ClassName: MemberCreditIntegralQueryDTO 
- * @Description: TODO(这里用一句话描述这个类的作用) 
+ * @Description: TODO(MemberCreditIntegralQueryDTO) 
  * @author xichao.dong
  * @email 406592176@QQ.com
  * @date 2014-2-25 下午3:11:43  

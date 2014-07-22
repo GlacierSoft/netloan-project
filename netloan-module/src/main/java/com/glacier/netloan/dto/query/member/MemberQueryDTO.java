@@ -1,3 +1,8 @@
+/*
+ * @(#)MemberQueryDTO.java
+ * @author xichao.dong
+ * Copyright (c) 2013 Glacier SoftWare Company Limited. All Rights Reserved.
+ */
 package com.glacier.netloan.dto.query.member;
 
 import java.util.Date;
@@ -101,8 +106,7 @@ public class MemberQueryDTO extends Member{
           }
           if(null != createEndTime){
               queryCriteria.andRegistrationTimeLessThanOrEqualTo(createEndTime);
-          }
-           
+          } 
        }
      
      if(null!=lastStartLoginTime&&null!=lastEndLoginTime){//创建时间段查询
@@ -120,21 +124,14 @@ public class MemberQueryDTO extends Member{
     	 queryCriteria.andLoginCountBetween(Integer.parseInt(loginStartCount), Integer.parseInt(loginEndCount)); 
      }else{
     	 if(null!=loginStartCount)
-    		   queryCriteria.andLoginCountGreaterThanOrEqualTo(Integer.parseInt(loginStartCount));
+    		 queryCriteria.andLoginCountGreaterThanOrEqualTo(Integer.parseInt(loginStartCount));
     	 if(null!=loginEndCount)
-    		   queryCriteria.andLoginCountLessThanOrEqualTo(Integer.parseInt(loginEndCount));
-     }
-     
-     
-     
-     
-     
- }
+    		 queryCriteria.andLoginCountLessThanOrEqualTo(Integer.parseInt(loginEndCount));
+     } 
+    }
    
    @Override
    public String toString() {
        return ReflectionToStringBuilder.toString(this);
-   }
-
-
+   } 
 }

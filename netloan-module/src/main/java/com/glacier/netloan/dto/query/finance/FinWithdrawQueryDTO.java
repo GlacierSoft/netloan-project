@@ -1,5 +1,5 @@
 /*
- * @(#)BorrowingLoanQueryDTO.java
+ * @(#)FinBankCardQueryDTO.java
  * @author xichao.dong
  * Copyright (c) 2013 Glacier SoftWare Company Limited. All Rights Reserved.
  */
@@ -13,12 +13,10 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.glacier.netloan.entity.finance.FinanceWithdrawExample.Criteria;
 import com.glacier.netloan.entity.finance.FinanceWithdraw;
-
-
-
+  
 /**
  * @ClassName: FinBankCardQueryDTO
- * @Description: TODO(这里用一句话描述这个类的作用) 
+ * @Description: TODO(FinBankCardQueryDTO) 
  * @author zhenfei.zhang
  * @email 289556866@qq.com
  * @date 2014-5-22 下午3:16:58
@@ -29,8 +27,7 @@ public class FinWithdrawQueryDTO extends FinanceWithdraw{
 	private Date createStartTime;
 
     @JSONField(format="yyyy-MM-dd")
-    private Date createEndTime;
-
+    private Date createEndTime; 
     
 	public Date getCreateStartTime() {
         return createStartTime;
@@ -61,9 +58,7 @@ public class FinWithdrawQueryDTO extends FinanceWithdraw{
     	if(null != this.getSubbranch() && StringUtils.isNotBlank(this.getSubbranch())){//根据记录明细类型查找
 	        queryCriteria.andSubbranchEqualTo(this.getSubbranch());
 	    }
-    	
-    	
-    	
+    	 
     	if(null != this.getAuditState() && StringUtils.isNotBlank(this.getAuditState())){//审核状态
 	        queryCriteria.andAuditStateEqualTo(this.getAuditState());
 	    }

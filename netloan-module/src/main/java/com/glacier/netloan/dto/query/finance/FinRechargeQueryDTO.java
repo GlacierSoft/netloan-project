@@ -5,20 +5,16 @@
  */
 package com.glacier.netloan.dto.query.finance;
 
-import java.util.Date;
-
+import java.util.Date; 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder; 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.glacier.netloan.entity.finance.FinanceRechargeExample.Criteria;
 import com.glacier.netloan.entity.finance.FinanceRecharge;
-
-
-
+ 
 /**
  * @ClassName: FinBankCardQueryDTO
- * @Description: TODO(这里用一句话描述这个类的作用) 
+ * @Description: TODO(FinBankCardQueryDTO) 
  * @author zhenfei.zhang
  * @email 289556866@qq.com
  * @date 2014-5-22 下午3:16:58
@@ -29,8 +25,7 @@ public class FinRechargeQueryDTO extends FinanceRecharge{
 	private Date createStartTime;
 
     @JSONField(format="yyyy-MM-dd")
-    private Date createEndTime;
-
+    private Date createEndTime; 
     
 	public Date getCreateStartTime() {
         return createStartTime;

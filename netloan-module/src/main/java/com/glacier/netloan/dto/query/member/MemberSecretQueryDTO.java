@@ -1,5 +1,7 @@
-/**
- * 
+/*
+ * @(#)MemberSecretQueryDTO.java
+ * @author xichao.dong
+ * Copyright (c) 2013 Glacier SoftWare Company Limited. All Rights Reserved.
  */
 package com.glacier.netloan.dto.query.member;
 
@@ -40,11 +42,9 @@ public class MemberSecretQueryDTO extends MemberSecretSecurity {
 	}
 
 	public void setQueryCondition(Criteria queryCriteria) {
-		if (null != this.getMemberRealName()
-				&& StringUtils.isNotBlank(this.getMemberRealName())) {// 会员名称Like查询
+		if (null != this.getMemberRealName()&& StringUtils.isNotBlank(this.getMemberRealName())) {// 会员名称Like查询
 		   	queryCriteria.andMemberRealNameLike("%" + this.getMemberRealName()+ "%");
-
-		}
+        }
 		if (null != createStartTime && null != createEndTime) {// 创建时间段查询
 			queryCriteria.andCreateTimeBetween(createStartTime, createEndTime);
 		} else {

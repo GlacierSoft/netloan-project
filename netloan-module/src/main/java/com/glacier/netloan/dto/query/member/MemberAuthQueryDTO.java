@@ -1,6 +1,10 @@
+/*
+ * @(#)MemberAuthQueryDTO.java
+ * @author xichao.dong
+ * Copyright (c) 2013 Glacier SoftWare Company Limited. All Rights Reserved.
+ */
 package com.glacier.netloan.dto.query.member;
-
-
+ 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
@@ -63,24 +67,11 @@ public class MemberAuthQueryDTO extends MemberAuth{
 	   		 }else if(authType.equals("workAuth")){
 	   			 queryCriteria.andWorkAuthEqualTo(auths.toString());
 	   		 }
-	   	 }
-	   	 /*if(null != auths && null == authType){
-	   		queryCriteria.andInfoAuthEqualTo(auths.toString());
-   			queryCriteria.andVipAuthEqualTo(auths.toString());
-    		queryCriteria.andEmailAuthEqualTo(auths.toString());
-    		queryCriteria.andMobileAuthEqualTo(auths.toString());
-    		queryCriteria.andCreditAuthEqualTo(auths.toString());
-	   		queryCriteria.andCompanyAuthEqualTo(auths.toString());
-    		queryCriteria.andRealNameAuthEqualTo(auths.toString());
-    		queryCriteria.andIdCardAuthEqualTo(auths.toString());
-   			queryCriteria.andWorkAuthEqualTo(auths.toString());
-	   	 }*/
+	   	 } 
    }
    
    @Override
    public String toString() {
        return ReflectionToStringBuilder.toString(this);
-   }
-
-
+   } 
 }

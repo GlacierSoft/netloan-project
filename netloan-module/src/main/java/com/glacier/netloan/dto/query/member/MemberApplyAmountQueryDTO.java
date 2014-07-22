@@ -5,17 +5,15 @@
  */
 package com.glacier.netloan.dto.query.member;
 
-import java.util.Date;
-
+import java.util.Date; 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder; 
 import com.glacier.netloan.entity.member.MemberApplyAmount;
 import com.glacier.netloan.entity.member.MemberApplyAmountExample.Criteria;
 
 /** 
  * @ClassName: MemberApplyAmountQueryDTO 
- * @Description: TODO(这里用一句话描述这个类的作用) 
+ * @Description: TODO(MemberApplyAmountQueryDTO) 
  * @author xichao.dong
  * @email 406592176@QQ.com
  * @date 2014-2-25 下午3:59:36  

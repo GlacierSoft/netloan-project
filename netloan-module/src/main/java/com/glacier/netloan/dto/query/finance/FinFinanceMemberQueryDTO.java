@@ -1,5 +1,5 @@
 /*
- * @(#)BorrowingLoanQueryDTO.java
+ * @(#)FinFinanceMemberQueryDTO.java
  * @author xichao.dong
  * Copyright (c) 2013 Glacier SoftWare Company Limited. All Rights Reserved.
  */
@@ -17,8 +17,8 @@ import com.glacier.netloan.entity.finance.FinanceMember;
 
 
 /**
- * @ClassName: z
- * @Description: TODO(这里用一句话描述这个类的作用) 
+ * @ClassName: FinFinanceMemberQueryDTO
+ * @Description: TODO(FinFinanceMemberQueryDTO) 
  * @author zhenfei.zhang
  * @email 289556866@qq.com
  * @date 2014-5-22 下午3:16:58
@@ -30,8 +30,7 @@ public class FinFinanceMemberQueryDTO extends FinanceMember{
 
     @JSONField(format="yyyy-MM-dd")
     private Date createEndTime;
-
-    
+ 
 	public Date getCreateStartTime() {
         return createStartTime;
     }
