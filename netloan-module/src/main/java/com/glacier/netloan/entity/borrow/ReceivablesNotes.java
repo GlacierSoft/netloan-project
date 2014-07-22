@@ -117,7 +117,10 @@ public class ReceivablesNotes {
     private String receState;
 
     private String remark;
+     
+    private Float interestManaFee;
 
+    private Float income;
     /**
      * 自定义字段   创建人名称
      */
@@ -140,6 +143,30 @@ public class ReceivablesNotes {
 
     public String getLoanId() {
 		return loanId;
+	}
+
+	public Date getLoanDate() {
+		return loanDate;
+	}
+
+	public void setLoanDate(Date loanDate) {
+		this.loanDate = loanDate;
+	}
+
+	public Float getInterestManaFee() {
+		return interestManaFee;
+	}
+
+	public void setInterestManaFee(Float interestManaFee) {
+		this.interestManaFee = interestManaFee;
+	}
+
+	public Float getIncome() {
+		return income;
+	}
+
+	public void setIncome(Float income) {
+		this.income = income;
 	}
 
 	public void setLoanId(String loanId) {

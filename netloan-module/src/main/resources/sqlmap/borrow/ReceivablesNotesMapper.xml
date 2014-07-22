@@ -22,7 +22,9 @@
     <result column="temp_receivables_notes_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_receivables_notes_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_receivables_notes_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-	<result column="temp_receivables_notes_loan_title" property="loanTitle" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes_interest_mana_fee" property="interestManaFee" jdbcType="REAL" />
+    <result column="temp_receivables_notes_income" property="income" jdbcType="REAL" />
+    <result column="temp_receivables_notes_loan_title" property="loanTitle" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_member_display" property="memberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
@@ -111,8 +113,10 @@
     temp_receivables_notes.alr_overdue_interest as temp_receivables_notes_alr_overdue_interest, 
     temp_receivables_notes.rece_state as temp_receivables_notes_rece_state, temp_receivables_notes.remark as temp_receivables_notes_remark, 
     temp_receivables_notes.creater as temp_receivables_notes_creater, temp_receivables_notes.create_time as temp_receivables_notes_create_time, 
-    temp_receivables_notes.updater as temp_receivables_notes_updater, temp_receivables_notes.update_time as temp_receivables_notes_update_time
-	<!-- 以下字段属于扩展 -->
+    temp_receivables_notes.updater as temp_receivables_notes_updater, temp_receivables_notes.update_time as temp_receivables_notes_update_time, 
+    temp_receivables_notes.interest_mana_fee as temp_receivables_notes_interest_mana_fee, 
+    temp_receivables_notes.income as temp_receivables_notes_income
+   <!-- 以下字段属于扩展 -->
     ,temp_member.member_real_name as temp_receivables_notes_member_display
     ,temp_creater.user_cn_name as temp_receivables_notes_creater_display
     ,temp_updater.user_cn_name as temp_receivables_notes_updater_display
@@ -146,7 +150,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_receivables_notes temp_receivables_notes
-	<include refid="Base_extend" />
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -161,7 +165,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_receivables_notes temp_receivables_notes
-	<include refid="Base_extend" />
+    <include refid="Base_extend" />
     where temp_receivables_notes.rece_notes_id = #{receNotesId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -169,7 +173,7 @@
     where rece_notes_id = #{receNotesId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotesExample" >
-    delete temp_receivables_notes from t_receivables_notes temp_receivables_notes
+    delete t_receivables_notes from t_receivables_notes temp_receivables_notes
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -181,14 +185,16 @@
       not_rece_principal, should_rece_interest, alr_rece_interest, 
       not_rece_interest, alr_overdue_interest, rece_state, 
       remark, creater, create_time, 
-      updater, update_time)
+      updater, update_time, interest_mana_fee, 
+      income)
     values (#{receNotesId,jdbcType=VARCHAR}, #{tenderNotesId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
       #{receivablesTotal,jdbcType=REAL}, #{shouldReceMoney,jdbcType=REAL}, #{alrReceMoney,jdbcType=REAL}, 
       #{notReceMoney,jdbcType=REAL}, #{shouldRecePrincipal,jdbcType=REAL}, #{alrRecePrincipal,jdbcType=REAL}, 
       #{notRecePrincipal,jdbcType=REAL}, #{shouldReceInterest,jdbcType=REAL}, #{alrReceInterest,jdbcType=REAL}, 
       #{notReceInterest,jdbcType=REAL}, #{alrOverdueInterest,jdbcType=REAL}, #{receState,jdbcType=CHAR}, 
       #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{interestManaFee,jdbcType=REAL}, 
+      #{income,jdbcType=REAL})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotes" >
     insert into t_receivables_notes
@@ -253,6 +259,12 @@
       <if test="updateTime != null" >
         update_time,
       </if>
+      <if test="interestManaFee != null" >
+        interest_mana_fee,
+      </if>
+      <if test="income != null" >
+        income,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="receNotesId != null" >
@@ -315,11 +327,17 @@
       <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="interestManaFee != null" >
+        #{interestManaFee,jdbcType=REAL},
+      </if>
+      <if test="income != null" >
+        #{income,jdbcType=REAL},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.borrow.ReceivablesNotesExample" resultType="java.lang.Integer" >
     select count(*) from t_receivables_notes temp_receivables_notes
-	<include refid="Base_extend" />
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -387,6 +405,12 @@
       <if test="record.updateTime != null" >
         temp_receivables_notes.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.interestManaFee != null" >
+        temp_receivables_notes.interest_mana_fee = #{record.interestManaFee,jdbcType=REAL},
+      </if>
+      <if test="record.income != null" >
+        temp_receivables_notes.income = #{record.income,jdbcType=REAL},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -413,7 +437,9 @@
       temp_receivables_notes.creater = #{record.creater,jdbcType=VARCHAR},
       temp_receivables_notes.create_time = #{record.createTime,jdbcType=TIMESTAMP},
       temp_receivables_notes.updater = #{record.updater,jdbcType=VARCHAR},
-      temp_receivables_notes.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+      temp_receivables_notes.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      temp_receivables_notes.interest_mana_fee = #{record.interestManaFee,jdbcType=REAL},
+      temp_receivables_notes.income = #{record.income,jdbcType=REAL}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -478,6 +504,12 @@
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="interestManaFee != null" >
+        interest_mana_fee = #{interestManaFee,jdbcType=REAL},
+      </if>
+      <if test="income != null" >
+        income = #{income,jdbcType=REAL},
+      </if>
     </set>
     where rece_notes_id = #{receNotesId,jdbcType=VARCHAR}
   </update>
@@ -501,7 +533,9 @@
       creater = #{creater,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       updater = #{updater,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      interest_mana_fee = #{interestManaFee,jdbcType=REAL},
+      income = #{income,jdbcType=REAL}
     where rece_notes_id = #{receNotesId,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -51,6 +51,12 @@
 			<td>已收逾期罚息：</td>
 			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesData.alrOverdueInterest}" readonly="readonly"/></td>
 		</tr>
+			<tr>
+			<td>利息管理费：</td>
+			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesData.interestManaFee}" readonly="readonly"/></td>
+			<td>收益：</td>
+			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesData.income}" readonly="readonly"/></td>
+		</tr>
 		<tr>
 			<td>收款状态：</td>
 			<td><input id="detailtable_receState" class="spinner" style="width:168px"  readonly="readonly"/></td>

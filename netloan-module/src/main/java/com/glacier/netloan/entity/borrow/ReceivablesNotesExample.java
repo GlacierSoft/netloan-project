@@ -104,6 +104,7 @@ public class ReceivablesNotesExample {
             return criteria;
         }
 
+
 		//扩展查询条件
         public Criteria andMemberDisplayLike(String value) {
             addCriterion("temp_member.member_name like", value, "memberDisplay");
@@ -148,7 +149,10 @@ public class ReceivablesNotesExample {
             addCriterion("temp_borrowing_loan.loan_date between", value1, value2, "loanDate");
             return (Criteria) this;
         }
-		
+        
+        
+        
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
@@ -1437,6 +1441,126 @@ public class ReceivablesNotesExample {
 
         public Criteria andUpdateTimeNotBetween(Date value1, Date value2) {
             addCriterion("temp_receivables_notes.update_time not between", value1, value2, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterestManaFeeIsNull() {
+            addCriterion("temp_receivables_notes.interest_mana_fee is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterestManaFeeIsNotNull() {
+            addCriterion("temp_receivables_notes.interest_mana_fee is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterestManaFeeEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.interest_mana_fee =", value, "interestManaFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterestManaFeeNotEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.interest_mana_fee <>", value, "interestManaFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterestManaFeeGreaterThan(Float value) {
+            addCriterion("temp_receivables_notes.interest_mana_fee >", value, "interestManaFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterestManaFeeGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.interest_mana_fee >=", value, "interestManaFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterestManaFeeLessThan(Float value) {
+            addCriterion("temp_receivables_notes.interest_mana_fee <", value, "interestManaFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterestManaFeeLessThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.interest_mana_fee <=", value, "interestManaFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterestManaFeeIn(List<Float> values) {
+            addCriterion("temp_receivables_notes.interest_mana_fee in", values, "interestManaFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterestManaFeeNotIn(List<Float> values) {
+            addCriterion("temp_receivables_notes.interest_mana_fee not in", values, "interestManaFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterestManaFeeBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes.interest_mana_fee between", value1, value2, "interestManaFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterestManaFeeNotBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes.interest_mana_fee not between", value1, value2, "interestManaFee");
+            return (Criteria) this;
+        }
+
+        public Criteria andIncomeIsNull() {
+            addCriterion("temp_receivables_notes.income is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIncomeIsNotNull() {
+            addCriterion("temp_receivables_notes.income is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIncomeEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.income =", value, "income");
+            return (Criteria) this;
+        }
+
+        public Criteria andIncomeNotEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.income <>", value, "income");
+            return (Criteria) this;
+        }
+
+        public Criteria andIncomeGreaterThan(Float value) {
+            addCriterion("temp_receivables_notes.income >", value, "income");
+            return (Criteria) this;
+        }
+
+        public Criteria andIncomeGreaterThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.income >=", value, "income");
+            return (Criteria) this;
+        }
+
+        public Criteria andIncomeLessThan(Float value) {
+            addCriterion("temp_receivables_notes.income <", value, "income");
+            return (Criteria) this;
+        }
+
+        public Criteria andIncomeLessThanOrEqualTo(Float value) {
+            addCriterion("temp_receivables_notes.income <=", value, "income");
+            return (Criteria) this;
+        }
+
+        public Criteria andIncomeIn(List<Float> values) {
+            addCriterion("temp_receivables_notes.income in", values, "income");
+            return (Criteria) this;
+        }
+
+        public Criteria andIncomeNotIn(List<Float> values) {
+            addCriterion("temp_receivables_notes.income not in", values, "income");
+            return (Criteria) this;
+        }
+
+        public Criteria andIncomeBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes.income between", value1, value2, "income");
+            return (Criteria) this;
+        }
+
+        public Criteria andIncomeNotBetween(Float value1, Float value2) {
+            addCriterion("temp_receivables_notes.income not between", value1, value2, "income");
             return (Criteria) this;
         }
     }
