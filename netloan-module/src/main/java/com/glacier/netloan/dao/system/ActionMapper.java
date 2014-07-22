@@ -12,9 +12,8 @@ public interface ActionMapper {
 
     int deleteByPrimaryKey(String actionId);
 
-    int insert(Action record);
+    int insert(Action record); 
     
-
     int insertSelective(Action record);
 
     List<Action> selectByExample(ActionExample example);

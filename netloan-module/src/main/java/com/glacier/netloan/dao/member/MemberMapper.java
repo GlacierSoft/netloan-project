@@ -27,7 +27,5 @@ public interface MemberMapper {
     int updateByPrimaryKeySelective(Member record);
 
     int updateByPrimaryKey(Member record);
-    
-    //@Select("SELECT * FROM t_b_sale _sale WHERE _sale.projectId = #{projectId}")
-    //List<String> selectSalerByProId(String memberId);
+     
 }

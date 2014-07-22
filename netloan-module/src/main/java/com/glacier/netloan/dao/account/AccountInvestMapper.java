@@ -3,8 +3,7 @@ package com.glacier.netloan.dao.account;
 import com.glacier.netloan.entity.account.AccountInvest;
 import com.glacier.netloan.entity.account.AccountInvestExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Param; 
 
 public interface AccountInvestMapper {
     int countByExample(AccountInvestExample example);
