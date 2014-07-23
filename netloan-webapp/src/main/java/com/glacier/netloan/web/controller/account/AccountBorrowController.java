@@ -29,9 +29,10 @@ import com.glacier.netloan.service.account.AccountBorrowService;
 
 
 /**
- * 会员借款统计信息
  * 
- * **/
+ * @author junjie.zheng 
+ *
+ */
 
 @Controller
 @RequestMapping(value="/accountBorrow")
@@ -59,15 +60,16 @@ public class AccountBorrowController{
         return  returnResult;
     }
     
-    // 进入借款Detail信息页面
-    @RequestMapping(value = "/intoDetail.htm")
-    private Object intoAccountBorrowDetailPage(String loanId) {
-        ModelAndView mav = new ModelAndView("account_mgr/accountBorrow_mgr/accountBorrow_detail");
-        if(StringUtils.isNotBlank(loanId)){
-            mav.addObject("borrowingLoanData", accountBorrowService.getBorrowingLoan(loanId));
-        }
-        return mav;
-    }
+	// 进入借款Detail信息页面
+	@RequestMapping(value = "/intoDetail.htm")
+	private Object intoAccountBorrowDetailPage(String loanId) {
+		ModelAndView mav = new ModelAndView("account_mgr/accountBorrow_mgr/accountBorrow_detail");
+		if (StringUtils.isNotBlank(loanId)) {
+			mav.addObject("borrowingLoanData",
+					accountBorrowService.getBorrowingLoan(loanId));
+		}
+		return mav;
+	}
     
     //借款信息导出
     @RequestMapping(value="/exp.json")

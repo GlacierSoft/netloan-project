@@ -165,7 +165,7 @@
   		        yAxis: {
   		            min: 0,
   		            title: {
-  		                text: 'Rainfall (mm)'
+  		                text: 'Rainfall (百万)'
   		            }
   		        },
   		       credits:{
@@ -174,7 +174,7 @@
   		      tooltip: {
   	            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
   	            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-  	                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+  	                '<td style="padding:0"><b>{point.y:.1f} 百万</b></td></tr>',
   	            footerFormat: '</table>',
   	            shared: true,
   	            useHTML: true
@@ -245,13 +245,15 @@
 	
 	//地图查看
 	glacier.account_mgr.accountInvest_mgr.accountInvest.MapAccountInvest= function(){
-
-		// 百度地图API功能
-		var map = new BMap.Map("allmap");            // 创建Map实例
-		var point = new BMap.Point(113.606216,22.375557);    // 创建点坐标
-		map.centerAndZoom(point,13);                     // 初始化地图,设置中心点坐标和地图级别。
-		map.enableScrollWheelZoom();                            //启用滚轮放大缩小	
-		
+        //创建地图实列
+		var map = new BMap.Map("allmap");
+		map.centerAndZoom(new BMap.Point(113.606216,22.375557), 14);
+		var marker1 = new BMap.Marker(new BMap.Point(113.606216,22.375557));  // 创建标注
+		map.addOverlay(marker1);// 将标注添加到地图中
+		//创建信息窗口
+		var infoWindow1 = new BMap.InfoWindow("珠海冰川有限公司!!");
+		marker1.addEventListener("click", function(){this.openInfoWindow(infoWindow1);});
+		//对话框窗口
 		$("#investMapDailogTest").dialog({
 			  title:"查看地图",
 			  width: 650,    
@@ -259,9 +261,7 @@
 			  modal: true,
 		      closed: false   
 		});
-		
 	}
-	
 	
 	//Radio验证
 	$(document).ready(function(){    

@@ -43,8 +43,12 @@ public class WebsiteOthersController {
 		return mav;
 	}
 	
-	
-	
+	//公司地址
+	@RequestMapping(value="/otherAddress.htm")
+	public Object OtherAddress(){
+	 ModelAndView mav=new ModelAndView("about_mgr/aboutAddress");
+	 return mav;
+	}
 	
 	// Ip地址查询
 	@RequestMapping(value = "FindIPAddress")

@@ -38,6 +38,7 @@
 	                <li><a href="${ctx}/announcement/announcement.htm?&p=1">网站公告</a></li>
 					<li><a href="${ctx}/news/news.htm?&p=1">网站新闻</a></li>
 	                <li><a href="${ctx}/hiring/hiring.htm?&p=1">招纳贤士</a></li>
+	                <li><a href="${ctx}/others/otherAddress.htm">公司地图</a></li>
 	                <li><a href="${ctx}/contactUs.htm">联系我们</a></li>
 	              </ul>
 	            </li>

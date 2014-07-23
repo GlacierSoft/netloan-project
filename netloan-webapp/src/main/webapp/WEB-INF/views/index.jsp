@@ -14,9 +14,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<jsp:include page="inc.jsp"/>
 		<script type="text/javascript" src="<%=basePath %>resources/HighCharts/highcharts.js"></script>
         <script type="text/javascript" src="<%=basePath %>resources/HighCharts/exporting.js"></script>
+        <!--引入地图库  -->
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=28f141a7f98bb07afec4968ecd7fc808"></script>
-        
-		<script type="text/javascript" charset="utf-8">
+        <script type="text/javascript" charset="utf-8">
 			$(function(){
 				
 				var userInfoDetailStr = '<table class="formtable" style="font-weight: bold;">'+
