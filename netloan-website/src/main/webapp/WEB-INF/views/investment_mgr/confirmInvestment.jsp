@@ -17,6 +17,11 @@
 	</style>
   </head>
   <body>
+  <%
+    response.setHeader("Cache-Control","no-store");
+    response.setDateHeader("Expires", 0);
+    response.setHeader("Pragma","no-cache"); 
+  %>
   <jsp:include page="../nav_mgr/navInvestment.jsp"/>
 	    <!-- CONTAINER START======================== -->
 	    <div class="container">
@@ -178,7 +183,7 @@
   <script type="text/javascript">
  	window.onload=function(){
  		var usableMoneyFloor=Math.floor("${financeMember.usableMoney}");//先去掉小数
- 		var maxLowestSub=usableMoneyFloor/"${borrowingLoan.lowestSub }">"${borrowingLoan.subTotal }"?"${borrowingLoan.subTotal }":usableMoneyFloor/"${borrowingLoan.lowestSub }";//再整除(运用三元表达式)
+ 		var maxLowestSub=usableMoneyFloor/"${borrowingLoan.lowestSub }">"${borrowingLoan.subTotal }"?"${borrowingLoan.subTotal-borrowingLoan.alrSubSum }":usableMoneyFloor/"${borrowingLoan.lowestSub }";//再整除(运用三元表达式)
  	  	document.getElementById("maxSub").innerHTML=maxLowestSub;
  	}
  	
