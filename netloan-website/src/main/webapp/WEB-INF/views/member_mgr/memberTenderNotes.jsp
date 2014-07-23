@@ -99,39 +99,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  <div style="padding-top:10px;padding-bottom: 20px;">
 				  		<c:choose>
 						   <c:when test="${buttonState == 'sucessBorrow'}">  
-						   	<a id="sucessBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow&memberId=${currentMember.memberId}" class="btn btn-success" role="button">成功借出</a>
-							<a id="tenderingBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=tenderingBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">招标中借款</a>
-							<a id="receingBorrow" href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">回收中借款</a>
-							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanDetailStates=alreadReceivables&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">已回收借款</a>
-							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=backAccountBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">回账查询</a> 
+						   	<a id="sucessBorrow" href="#" onclick="doClick('investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow','${currentMember.memberId}');" class="btn btn-success" role="button">成功借出</a>
+							<a id="tenderingBorrow" href="#" onclick="doClick('investment/memberTenderNotes.htm?&p=1&loanStates=tenderingBorrow','${currentMember.memberId}');" class="btn btn-primary" role="button">招标中借款</a>
+							<a id="receingBorrow" href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow','${currentMember.memberId}');" class="btn btn-primary" role="button">回收中借款</a>
+							<a href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanDetailStates=alreadReceivables','${currentMember.memberId}');" class="btn btn-primary" role="button">已回收借款</a>
+							<a href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=backAccountBorrow','${currentMember.memberId}');" class="btn btn-primary" role="button">回账查询</a> 
 						   </c:when>
 						   <c:when test="${buttonState == 'tenderingBorrow'}">  
-						   	<a id="sucessBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">成功借出</a>
-							<a id="tenderingBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=tenderingBorrow&memberId=${currentMember.memberId}" class="btn btn-success" role="button">招标中借款</a>
-							<a id="receingBorrow" href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">回收中借款</a>
-							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanDetailStates=alreadReceivables&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">已回收借款</a>
-							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=backAccountBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">回账查询</a> 
+						   	<a id="sucessBorrow" href="#" onclick="doClick('investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow','${currentMember.memberId}');" class="btn btn-primary" role="button">成功借出</a>
+							<a id="tenderingBorrow" href="#" onclick="doClick('investment/memberTenderNotes.htm?&p=1&loanStates=tenderingBorrow','${currentMember.memberId}');"class="btn btn-success" role="button">招标中借款</a>
+							<a id="receingBorrow" href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow','${currentMember.memberId}');" class="btn btn-primary" role="button">回收中借款</a>
+							<a href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanDetailStates=alreadReceivables','${currentMember.memberId}');" class="btn btn-primary" role="button">已回收借款</a>
+							<a href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=backAccountBorrow','${currentMember.memberId}');" class="btn btn-primary" role="button">回账查询</a> 
 						   </c:when>
 						   <c:when test="${buttonState == 'repaymentingBorrow'}">  
-						   	<a id="sucessBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">成功借出</a>
-							<a id="tenderingBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=tenderingBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">招标中借款</a>
-							<a id="receingBorrow" href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow&memberId=${currentMember.memberId}" class="btn btn-success" role="button">回收中借款</a>
-							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanDetailStates=alreadReceivables&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">已回收借款</a>
-							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=backAccountBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">回账查询</a> 
+						   	<a id="sucessBorrow" href="#" onclick="doClick('investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow','${currentMember.memberId}');" class="btn btn-primary" role="button">成功借出</a>
+							<a id="tenderingBorrow" href="#" onclick="doClick('investment/memberTenderNotes.htm?&p=1&loanStates=tenderingBorrow','${currentMember.memberId}');"class="btn btn-primary" role="button">招标中借款</a>
+							<a id="receingBorrow" href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow','${currentMember.memberId}');" class="btn btn-success" role="button">回收中借款</a>
+							<a href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanDetailStates=alreadReceivables','${currentMember.memberId}');" class="btn btn-primary" role="button">已回收借款</a>
+							<a href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=backAccountBorrow','${currentMember.memberId}');" class="btn btn-primary" role="button">回账查询</a> 
 						   </c:when>
 						   <c:when test="${buttonState == 'alreadReceivablesBorrow'}">  
-						   	<a id="sucessBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">成功借出</a>
-							<a id="tenderingBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=tenderingBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">招标中借款</a>
-							<a id="receingBorrow" href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">回收中借款</a>
-							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanDetailStates=alreadReceivables&memberId=${currentMember.memberId}" class="btn btn-success" role="button">已回收借款</a>
-							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=backAccountBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">回账查询</a> 
+						   	<a id="sucessBorrow" href="#" onclick="doClick('investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow','${currentMember.memberId}');" class="btn btn-primary" role="button">成功借出</a>
+							<a id="tenderingBorrow" href="#" onclick="doClick('investment/memberTenderNotes.htm?&p=1&loanStates=tenderingBorrow','${currentMember.memberId}');" class="btn btn-primary" role="button">招标中借款</a>
+							<a id="receingBorrow" href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow','${currentMember.memberId}');" class="btn btn-primary" role="button">回收中借款</a>
+							<a href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanDetailStates=alreadReceivables','${currentMember.memberId}');" class="btn btn-success" role="button">已回收借款</a>
+							<a href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=backAccountBorrow','${currentMember.memberId}');" class="btn btn-primary" role="button">回账查询</a> 
 						   </c:when>
 						   <c:when test="${buttonState == 'backAccountBorrow'}">  
-						   	<a id="sucessBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">成功借出</a>
-							<a id="tenderingBorrow" href="${ctx}/investment/memberTenderNotes.htm?&p=1&loanStates=tenderingBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">招标中借款</a>
-							<a id="receingBorrow" href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">回收中借款</a>
-							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanDetailStates=alreadReceivables&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">已回收借款</a>
-							<a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=backAccountBorrow&memberId=${currentMember.memberId}" class="btn btn-success" role="button">回账查询</a> 
+						   	<a id="sucessBorrow" href="#" onclick="doClick('investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow','${currentMember.memberId}');" class="btn btn-primary" role="button">成功借出</a>
+							<a id="tenderingBorrow" href="#" onclick="doClick('investment/memberTenderNotes.htm?&p=1&loanStates=tenderingBorrow','${currentMember.memberId}');" class="btn btn-primary" role="button">招标中借款</a>
+							<a id="receingBorrow" href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow','${currentMember.memberId}');" class="btn btn-primary" role="button">回收中借款</a>
+							<a href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanDetailStates=alreadReceivables','${currentMember.memberId}');" class="btn btn-primary" role="button">已回收借款</a>
+							<a href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=backAccountBorrow','${currentMember.memberId}');" class="btn btn-success" role="button">回账查询</a> 
 						   </c:when>
 						</c:choose>
 				  </div>
@@ -223,7 +223,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						      	<tr >
 						      	  <td>${tenderNotes.loanMemberDisplay}</td>
 					              <td   style="border-bottom-width:0px;display:block;width:144px; height:43px; text-align:center; heword-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-					              <a href="${ctx}/investment/investmentdetail.htm?loanId=${tenderNotes.loanId }&memberId=${tenderNotes.loanMemberId }&p=1">
+					              <a href="#" onclick="doClicks('investment/investmentdetail.htm?&p=1','${tenderNotes.loanMemberId }','${tenderNotes.loanId }');">
 					              ${tenderNotes.loanTitle}
 					              </a>
 					              </td>
@@ -243,7 +243,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					              <c:choose>
 									   <c:when test="${buttonState == 'sucessBorrow'}">  
 									   	 <td><img id="creditPhotoDivImg"  src="${tenderNotes.creditPhoto}" style="width: 34px;height: 24px ;" /></td>
-					              		 <td><a href="${ctx}/memberTenderNotes/agreement.htm?loanId=${tenderNotes.loanId }&memberId=${tenderNotes.loanMemberId }">查看协议</a></td>
+					              		 <td><a href="#" onclick="doClicks('memberTenderNotes/agreement.htm','${tenderNotes.loanMemberId }','${tenderNotes.loanId }');">查看协议</a></td>
 									   </c:when>
 									   <c:when test="${buttonState == 'tenderingBorrow'}">  
 									      <td><fmt:formatNumber value='${tenderNotes.alrTenderPro*100}' pattern='#0.00'/>%</td>
@@ -284,15 +284,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							   <div class="form-group">
 							    <label for="loanTitle" class="col-sm-1 control-label" >标题</label>
 							    <div class="col-sm-3">
-							   <%--  <c:choose>
-								   <c:when test="${buttonState == 'repaymentingBorrow'}">  
-								   	  <input type="hidden" id="dtp_input2" name="loanStates" value="repaymentingBorrow" />
-								   </c:when>
-								   <c:when test="${buttonState == 'alreadReceivablesBorrow'}">  
-								   	  <input type="hidden" id="dtp_input2" name="loanDetailStates" value="alreadReceivables" />
-								   </c:when>
-								</c:choose>
-						      	<input type="hidden" id="dtp_input3" name="memberId" value="${currentMember.memberId}" /> --%>
 							    <input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${receivablesNotesQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
 							    <div class="col-sm-3 text-center"><button id="sucessBorrowFormButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
 							    <div class="col-sm-3">
@@ -329,7 +320,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						      	<tr>
 						      	  <td>${receivablesNotes.loanMemberDisplay}</td>
 					              <td  style="border-bottom-width:0px;display:block;width:144px; height:43px; text-align:center; heword-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-					              <a href="${ctx}/investment/investmentdetail.htm?loanId=${receivablesNotes.loanId }&memberId=${receivablesNotes.loanMemberId }&p=1">
+					              <a href="#" onclick="doClicks('investment/investmentdetail.htm?&p=1','${receivablesNotes.loanMemberId }','${receivablesNotes.loanId }');">
 					              ${receivablesNotes.loanTitle}
 					              </a>
 					              </td>
@@ -376,11 +367,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								 			   success: function(r) {
 								 				  var receivablesNotesTbody = $("#receivablesNotesTbody")
 								 				  for(var i=0;i<r.total;i++){
-								 					   var row = r.rows[i];
+								 					   var row = r.rows[i]; 
+								 					   var str=row.actualReceDate; 
+								 					   if (typeof(str) == "undefined")
+								 					   { 
+								 						  str="未知";
+								 					    }
 													   $("#receivablesNotesTbody").append(
 															   "<tr>"+
 						   										"<td>"+row.numberPeriod+"/"+r.total+"</td>"+
-						   										"<td>"+row.actualReceDate+"</td>"+
+						   										"<td>"+str+"</td>"+
 						   										"<td>"+FormatNumber(row.currentRecePrincipal,2)+"元</td>"+
 						   										"<td>"+FormatNumber(row.currentReceInterest,2)+"元</td>"+
 						   										"<td>"+FormatNumber(row.surplusPrincipal,2)+"元</td>"+
@@ -482,10 +478,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						   </tr>
 						   <tr> 
 						   		<td>待收本息</td>
-						   		<td>￥<fmt:formatNumber value="${requestScope.notReceMoney.nextMonth}" pattern="#,#00.00元"/></td>
-						   		<td>￥<fmt:formatNumber value="${requestScope.notReceMoney.nextThreeMonth}" pattern="#,#00.00元"/></td>
-						   		<td>￥<fmt:formatNumber value="${requestScope.notReceMoney.nextYear}" pattern="#,#00.00元"/></td>
-						   		<td>￥<fmt:formatNumber value="${requestScope.notReceMoney.nextAll}" pattern="#,#00.00元"/></td>
+						   		<td>￥<fmt:formatNumber value="${requestScope.notReceMoney.nextMonth}" pattern="#,#00.00"/></td>
+						   		<td>￥<fmt:formatNumber value="${requestScope.notReceMoney.nextThreeMonth}" pattern="#,#00.00"/></td>
+						   		<td>￥<fmt:formatNumber value="${requestScope.notReceMoney.nextYear}" pattern="#,#00.00"/></td>
+						   		<td>￥<fmt:formatNumber value="${requestScope.notReceMoney.nextAll}" pattern="#,#00.00"/></td>
 						   	</tr>
 					   </table>
 					   <div class="panel panel-default">
@@ -550,7 +546,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						      	<tr>
 						      	  <td>${receivablesNotes.loanMemberDisplay}</td>
 					              <td  style="border-bottom-width:0px;display:block;width:144px; height:43px; text-align:center; heword-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-					              <a href="${ctx}/investment/investmentdetail.htm?loanId=${receivablesNotes.loanId }&memberId=${receivablesNotes.loanMemberId }&p=1">
+					              <a href="#" onclick="doClicks('investment/investmentdetail.htm?&p=1','${receivablesNotes.loanMemberId }','${receivablesNotes.loanId }');">
 					              ${receivablesNotes.loanTitle}
 					              </a>
 					              </td>
@@ -567,7 +563,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  </c:choose>
 								  <td>￥${receivablesNotes.alrReceMoney}</td>
 								  <td>￥${receivablesNotes.notReceMoney}</td>
-								  <td><a href="${ctx}/memberTenderNotes/agreement.htm?loanId=${receivablesNotes.loanId }&memberId=${receivablesNotes.loanMemberId }">查看协议</a></td>
+								  <td><a href="#" onclick="doClicks('memberTenderNotes/agreement.htm','${receivablesNotes.loanMemberId }','${receivablesNotes.loanId }');">查看协议</a></td>
 					            </tr>
 					      	</c:forEach>
 					      	</c:if>
@@ -835,6 +831,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    my_input.attr('value', str);  
 			    // 附加到Form  
 			    form.append(my_input);  
+			    //表单的构建是否 完成
+			    form.appendTo(document.body).submit();
+			 }
+			  
+
+			  //构建表单2
+			function doClicks(url,str,loanid){
+				// 创建Form  
+				var form = $('<form></form>');  
+				// 设置属性  
+			    form.attr('action', '<%=basePath%>'+url);  
+			    form.attr('method', 'post');  
+			    // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
+			    form.attr('target', '_self');  
+			    // 创建Input  
+			    var my_input = $('<input type="text" name="memberId" />');  
+			    var my_input2 = $('<input type="text" name="loanId" />');  
+			    
+			    my_input.attr('value', str);  
+			    my_input2.attr('value', loanid); 
+			    
+			    // 附加到Form  
+			    form.append(my_input);  
+			    form.append(my_input2)
 			    //表单的构建是否 完成
 			    form.appendTo(document.body).submit();
 			 }

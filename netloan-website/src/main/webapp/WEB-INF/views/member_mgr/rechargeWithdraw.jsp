@@ -204,7 +204,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								          </tr>
 								          <tr>
 								            <td align="right">充值金额：</td>
-								            <td>￥<input id="rechargeAmount" name="rechargeAmount" type="text" class="inp100x" onkeyup="clearNoNum(this)" />元</td>
+								            <td>￥<input maxlength="8" id="rechargeMoney" name="rechargeAmount" type="text" class="inp100x" onkeyup="clearNoNum(this)"/></td>
 								          </tr>
 								          <tr>
 								            <td align="right">充值类型：</td>
@@ -227,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							              </tr>
 								          <tr>
 								            <td align="right">
-								            	<button type="submit" class="btn btn-default">提交</button>
+								            	<button   type="submit" class="btn btn-default">提交</button>
 								            </td>
 								            <td>
 								            	<button type="reset" class="btn btn-default">重置</button>
@@ -277,7 +277,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								          </tr>
 								          <tr>
 								            <td>提现金额：</td>
-								            <td>￥<input id="withdrawAmount" name="withdrawAmount" type="text" class="inp100x"   onkeyup="clearNoNum(this)"/>元
+								            <td>￥<input maxlength="8" id="withdrawAmount" name="withdrawAmount" type="text" class="inp100x"   onkeyup="clearNoNum(this)"/>元
 								            <input type="hidden" id="memberId" name="memberId" value="${currentMember.memberId}" ></td>
 								          </tr>
 								          <tr>
@@ -383,14 +383,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
     $("#financeRecharge").validate({
-   		rules:{
-   			rechargeAmount:"required",
-   			financeRechargeSetId:"required"
+   		 rules:{ 
+   			financeRechargeSetId:"required",
+   			rechargeAmount:{
+   				required: true,  
+   				min:10
+   			 } 
    		},
-   		messages:{
-   			rechargeAmount:"必须填写充值金额",
-   			financeRechargeSetId:"必须选择一种充值类型"
-   		},
+   		messages:{ 
+   			financeRechargeSetId:" &nbsp;&nbsp;&nbsp;必须选择一种充值类型",
+   			rechargeAmount:{
+   				required:"请输入充值金额", 
+   				min:"充值金额不能低于10元"
+   			}
+   		},  
    		submitHandler:function(){
    			$.ajax({
    				   type: "POST",
@@ -404,9 +410,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         alert("提交出错！");
                     }
    				});
-   		} 
-   	});
-	
+   		},
+   		errorPlacement : function(error, element) {
+   		 if ( element.is(":radio") ) 
+   	        error.appendTo ( element.parent().next()  ); 
+   	    else if ( element.is(":checkbox") ) 
+   	        error.appendTo ( element.parent() ); 
+   	    else if ( element.is("input[name=captcha]") ) 
+   	        error.appendTo ( element.parent() ); 
+   	    else 
+   	        error.insertAfter(element); 
+   		}
+   	}); 
 	//----------输入提现金额不能大于可用余额-------------------
 	$("#withdrawAmount").blur(function(){
 		$("#kk").remove();
@@ -421,11 +436,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		if((inputMoney-0)<100){ 
 			$(this).parent().append("<span id='kk' style='color:#F00'>*低于最低提现额</span>");
 			$("#subm").attr({"disabled":"disabled"});
-			 
+			 return;
 	 	} 
 		if((usableMoney-0)<(inputMoney-0)){  
 			$(this).parent().append("<span id='kk' style='color:#F00'>*超过可用余额</span>");
 			$("#subm").attr({"disabled":"disabled"});
+			return;
 		}
 	});
 	

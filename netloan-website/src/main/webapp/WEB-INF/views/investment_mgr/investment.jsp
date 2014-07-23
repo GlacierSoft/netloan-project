@@ -224,7 +224,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        	</a>
 			        	</td>
 			        	<td colspan="4" style="border:0px solid red;">
-				        	<a href="${ctx}/investment/investmentdetail.htm?loanId=${borrowingLoan.loanId }&memberId=${borrowingLoan.memberId }&p=1">
+				        	<a href="#" onclick="doClicks('investment/investmentdetail.htm?&p=1','${borrowingLoan.memberId }','${borrowingLoan.loanId }');">
 				        	${borrowingLoan.loanTitle }
 				        	</a>
 			        	<c:choose>
@@ -679,6 +679,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			　　}
 			};
 			
+
+
+			  //构建表单2
+			function doClicks(url,str,loanid){
+				// 创建Form  
+				var form = $('<form></form>');  
+				// 设置属性  
+			    form.attr('action', '<%=basePath%>'+url);  
+			    form.attr('method', 'post');  
+			    // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
+			    form.attr('target', '_self');  
+			    // 创建Input  
+			    var my_input = $('<input type="text" name="memberId" />');  
+			    var my_input2 = $('<input type="text" name="loanId" />');  
+			    
+			    my_input.attr('value', str);  
+			    my_input2.attr('value', loanid); 
+			    
+			    // 附加到Form  
+			    form.append(my_input);  
+			    form.append(my_input2)
+			    //表单的构建是否 完成
+			    form.appendTo(document.body).submit();
+			 }
 			//重置筛选条件
 			function resetForm(){
 				$("#loanTitle").attr("value","");
