@@ -70,8 +70,8 @@ public class indexController {
         
         ModelAndView mav = new ModelAndView("layout/center");
         //借款管理
-        mav.addObject("borrowingLoanNumFirstAudit", borrowingLoanService.getBorrowingLoanNumByLoanState("FirstAudit"));//查询初审中的借款记录条数
-        mav.addObject("borrowingLoanNumSecondAuditor", borrowingLoanService.getBorrowingLoanNumByLoanState("SecondAuditors"));//查询复审中的借款记录条数
+        mav.addObject("borrowingLoanNumFirstAudit", borrowingLoanService.getBorrowingLoanNumByLoanState("firstAudit"));//查询初审中的借款记录条数
+        mav.addObject("borrowingLoanNumSecondAuditor", borrowingLoanService.getBorrowingLoanNumByLoanState("secondAuditor"));//查询复审中的借款记录条数
         
         //资金管理
         mav.addObject("financeRechargeNumAuthstr", financeRechargeService.getFinanceRechargeNumByAuditState("Authstr"));//查询审核中的会员充值记录条数

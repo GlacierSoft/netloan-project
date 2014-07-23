@@ -31,6 +31,7 @@ import com.glacier.netloan.dao.member.MemberIntegralMapper;
 import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.member.MemberStatisticsMapper;
 import com.glacier.netloan.dto.query.borrow.ReceivablesNotesQueryDTO;
+import com.glacier.netloan.entity.basicdatas.ParameterBasic;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.basicdatas.ParameterIntegralType;
 import com.glacier.netloan.entity.basicdatas.ParameterIntegralTypeExample;
@@ -48,6 +49,7 @@ import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberIntegral;
 import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.service.basicdatas.ParameterBasicService;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
 import com.glacier.netloan.service.finance.FinanceMemberService;
 import com.glacier.netloan.service.finance.FinanceTransactionService;
@@ -102,6 +104,8 @@ public class ReceivablesNotesService {
 	@Autowired
 	private FinanceTransactionService financeTransactionService;
 	
+	@Autowired
+    private ParameterBasicService parameterBasicService;
 	/**
 	 * @Title: getReceivablesNotes 
 	 * @Description: TODO(根据收款记录Id获取收款记录信息) 
@@ -490,11 +494,15 @@ public class ReceivablesNotesService {
         	}
         	//给收款记录对象赋值//增加字段2014-6-27
         	receivablesNotes.setAlrOverdueInterest(0f);
-        	receivablesNotes.setReceState("receiving");//设置收款记录的状态为收款中，”未收“
+        	receivablesNotes.setReceState("receiving");//设置收款记录的状态为收款中，"未收"
     		receivablesNotes.setReceNotesId(RandomGUID.getRandomGUID());
             receivablesNotes.setAlrReceMoney(0f);//设置已收本息
             receivablesNotes.setAlrRecePrincipal(0f);//设置已收本金
             receivablesNotes.setAlrReceInterest(0f);//设置已收利息
+            //查找利息管理费的参数信息记录
+            ParameterBasic parameterBasic = (ParameterBasic) parameterBasicService.getParameterBasicByTitle("利息管理费");
+            receivablesNotes.setInterestManaFee(receivablesNotes.getShouldReceInterest() * Float.valueOf(parameterBasic.getBasicValue()));//设置利息管理费=应收利息*利息管理费利率
+            receivablesNotes.setIncome(receivablesNotes.getShouldReceInterest() - receivablesNotes.getInterestManaFee());//设置收益=应收利息-利息管理费
             receivablesNotes.setRemark("满标复审通过时，系统自动添加收款记录信息");
             receivablesNotes.setCreater(pricipalUser.getUserId());
             receivablesNotes.setCreateTime(new Date());
