@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  <div class="form-group">
 			    <label for="email" class="col-sm-2 control-label">常用邮箱</label>
 			    <div class="col-sm-6" style="float: left; width: 800px">
-			      <input type="email" class="form-control" style="float: left;width: 428px"  id="email_form-group" name="email" placeholder="常用邮箱"  maxlength="21" required autofocus value="${member.email}"  />
+			      <input type="email" class="form-control" style="float: left;width: 428px"  id="email_form-group" name="email" placeholder="常用邮箱"  maxlength="21" required  value="${member.email}"  />
 			    </div>
 			  </div>
 			  <div class="form-group">
