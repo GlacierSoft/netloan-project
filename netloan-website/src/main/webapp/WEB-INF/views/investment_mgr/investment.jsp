@@ -74,14 +74,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				      <option value="200000.0">20万</option>
 				      <option value="500000.0">50万</option>
 				      <option value="1000000.0">100万</option>
-				      <option value="1000001.0">100万以上</option>
 				  </select>
 			    </div>
 			    <span style="float: left;margin-top: 8px;">至</span>
 			    <div class="col-sm-2">
 			     <select class="form-control col-sm-2" name="loanTotalEnd" id="loanTotalEnd" onchange="loanTotalEndChecks(this.value);" >
 				    <option value="0">--请选择--</option>
-				    <option value="50.0">50</option>
 				    <option value="1000.0">1000</option>
 				    <option value="5000.0">5000</option>
 				    <option value="10000.0">1万</option>
@@ -458,7 +456,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		if(loanTotalEndValues!=0){
 			if( v >= loanTotalEndValues ){
-				alert("必须要选择比"+loanTotalEndValues+"元低来做查询!");
+				alert("必须要选择高于"+loanTotalEndValues+"元查询!");
 				$("#loanTotalStart").val(0);
 			}
 		}
