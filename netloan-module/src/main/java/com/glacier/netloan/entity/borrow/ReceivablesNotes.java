@@ -140,10 +140,7 @@ public class ReceivablesNotes {
 
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
-
-    public String getLoanId() {
-		return loanId;
-	}
+ 
 
 	public Date getLoanDate() {
 		return loanDate;
@@ -151,6 +148,10 @@ public class ReceivablesNotes {
 
 	public void setLoanDate(Date loanDate) {
 		this.loanDate = loanDate;
+	}
+
+	public String getLoanId() {
+		return loanId;
 	}
 
 	public Float getInterestManaFee() {

@@ -34,6 +34,7 @@
     <result column="temp_receivables_notes_loan_deadlines_id" property="loanDeadlinesId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_loan_tender_display" property="loanTenderDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_loan_member_id" property="loanMemberId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_receivables_notes__loan_id" property="loanId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_loan_state" property="loanState" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_credit_integral" property="creditIntegral" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_receivables_notes_sub_total" property="subTotal" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
@@ -124,7 +125,8 @@
     ,temp_borrowing_loan.loan_apr as temp_receivables_notes_loanApr
     ,temp_borrowing_loan.loan_date as temp_tender_notes_loanDate
     ,temp_borrowing_loan.loan_deadlines_id as temp_receivables_notes_loan_deadlines_id
-    ,temp_borrowing_loan.member_id as temp_receivables_notes_loan_member_id
+    ,temp_borrowing_loan.member_id as temp_receivables_notes_loan_member_id 
+    ,temp_borrowing_loan.loan_id as temp_receivables_notes__loan_id 
     ,temp_borrowing_loan.loan_state as temp_receivables_notes_loan_state
     ,temp_borrowing_loan.sub_total as temp_receivables_notes_sub_total
     ,temp_borrowing_loan.lowest_sub as temp_receivables_notes_lowest_sub

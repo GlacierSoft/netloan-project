@@ -293,11 +293,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								          </tr>
 								          <tr>
 								            <td>交易密码：</td>
-								            <td><input type="password" id="tradersPassword" name="tradersPassword" maxlength="50" class="inp100x"/></td>
+								            <td><input type="text" onfocus="this.type='password'" autocomplete="off"  id="tradersPassword" name="tradersPassword" maxlength="50" class="inp100x"/></td>
 								          </tr>
 								          <tr>
 								            <td>验证码：</td>
-								            <td><input  type="text" class="inp100x" />&nbsp;<button type="submit" class="btn btn-default">发送手机验证码</button>&nbsp;<span style="color:#F00"> * 演示站点不发送短信</span></td>
+								            <td><input  type="text"  class="inp100x" />&nbsp;<button type="submit" class="btn btn-default">发送手机验证码</button>&nbsp;<span style="color:#F00"> * 演示站点不发送短信</span></td>
 								          </tr>
 								          <tr>
 								            <td colspan="2" align="center">

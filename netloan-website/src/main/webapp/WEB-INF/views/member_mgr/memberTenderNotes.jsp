@@ -308,7 +308,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  		<thead>
 				  			<tr>
 				              <td>借款人</td>
-				              <td>标题</td>
+				              <td width=144px>标题</td>
 				              <td>类型</td>
 				              <td>信用等级</td>
 				              <td>年利率</td>
@@ -328,7 +328,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            <c:forEach items="${receivablesNotesDatas.rows}" var="receivablesNotes" varStatus="status">
 						      	<tr>
 						      	  <td>${receivablesNotes.loanMemberDisplay}</td>
-					              <td>
+					              <td  style="border-bottom-width:0px;display:block;width:144px; height:43px; text-align:center; heword-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
 					              <a href="${ctx}/investment/investmentdetail.htm?loanId=${receivablesNotes.loanId }&memberId=${receivablesNotes.loanMemberId }&p=1">
 					              ${receivablesNotes.loanTitle}
 					              </a>
@@ -380,7 +380,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													   $("#receivablesNotesTbody").append(
 															   "<tr>"+
 						   										"<td>"+row.numberPeriod+"/"+r.total+"</td>"+
-						   										"<td>"+row.shouldPayDate+"</td>"+
+						   										"<td>"+row.actualReceDate+"</td>"+
 						   										"<td>"+FormatNumber(row.currentRecePrincipal,2)+"元</td>"+
 						   										"<td>"+FormatNumber(row.currentReceInterest,2)+"元</td>"+
 						   										"<td>"+FormatNumber(row.surplusPrincipal,2)+"元</td>"+
@@ -519,7 +519,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							    <label for="loanTitle" class="col-sm-1 control-label" >标题</label>
 							    <div class="col-sm-3"><input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${receivablesNotesQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
 							    <div class="col-sm-3 text-center"><button id="backAccountBorrowButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
-						        <div class="col-sm-3 "><button id="backAccountBorrowReButton" onclick="reTwo()"  type="reset" class="btn btn-primary btn-lg btn-block">重置条件2</button></div>
+						        <div class="col-sm-3 "><button id="backAccountBorrowReButton" onclick="reTwo()"  type="reset" class="btn btn-primary btn-lg btn-block">重置条件</button></div>
 							  	<div class="col-sm-2"></div>
 							  	</div>
 						     </form>
@@ -529,7 +529,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  		<thead>
 				  			<tr>
 				              <td>借款人</td>
-				              <td>标题</td>
+				              <td width="144px">标题</td>
 				              <td>类型</td>
 				              <td>年利率</td>
 				              <td>期限</td>
@@ -549,7 +549,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            <c:forEach items="${receivablesNotesDatas.rows}" var="receivablesNotes" varStatus="status">
 						      	<tr>
 						      	  <td>${receivablesNotes.loanMemberDisplay}</td>
-					              <td>
+					              <td  style="border-bottom-width:0px;display:block;width:144px; height:43px; text-align:center; heword-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
 					              <a href="${ctx}/investment/investmentdetail.htm?loanId=${receivablesNotes.loanId }&memberId=${receivablesNotes.loanMemberId }&p=1">
 					              ${receivablesNotes.loanTitle}
 					              </a>
@@ -567,7 +567,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  </c:choose>
 								  <td>￥${receivablesNotes.alrReceMoney}</td>
 								  <td>￥${receivablesNotes.notReceMoney}</td>
-								  <td>查看协议</td>
+								  <td><a href="${ctx}/memberTenderNotes/agreement.htm?loanId=${receivablesNotes.loanId }&memberId=${receivablesNotes.loanMemberId }">查看协议</a></td>
 					            </tr>
 					      	</c:forEach>
 					      	</c:if>

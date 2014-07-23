@@ -43,6 +43,11 @@
 				width:200,
 				sortable:true
 			},{
+				field:'loanTitle',
+				title:'借款标题',
+				width:200,
+				sortable:true
+			},{
 				field:'loanMemberDisplay',
 				title:'还款人',
 				width:200,
