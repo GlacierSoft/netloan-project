@@ -108,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	//创建地图函数：
 	function createMap() {
 		var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
-		var point = new BMap.Point(113.574626, 22.370401);//定义一个中心点坐标
+		var point = new BMap.Point(113.571580,22.376296);//定义一个中心点坐标
 		map.centerAndZoom(point, 18);//设定地图的中心点和坐标并将地图显示在地图容器中
 		window.map = map;//将map变量存储在全局
 	}
@@ -146,7 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	var markerArr = [ {
 		title : "珠海冰川科技有限公司",
 		content : "珠海市唐家镇哈工大路一号工大集团新经济资源开发港博士楼A301E",
-		point : "113.573881|22.370209",
+		point : "113.571480|22.376956",
 		isOpen : 0,
 		icon : {
 			w : 21,
