@@ -181,7 +181,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					            </tr>
 					            <tr>
 					              <td>项目</td>
-					              <td>项目</td>
+					              <td>认证类型</td>
 					              <td>状态</td>
 					              <td>信用分数</td>
 					            </tr> 
@@ -793,7 +793,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#credit_auth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.creditAuth}',fields.auths));	
 		
 		//下拉项emun的值
-		$('#memberAuth_form_infoAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.infoAuth}',fields.auths));
+	/* 	$('#memberAuth_form_infoAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.infoAuth}',fields.auths));
 	 	$('#memberAuth_form_vipAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.vipAuth}',fields.auths));
 	 	$('#memberAuth_form_emailAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.emailAuth}',fields.auths));
 	 	$('#memberAuth_form_mobileAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.mobileAuth}',fields.auths));
@@ -803,6 +803,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#memberAuth_form_idCardAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.idCardAuth}',fields.auths));
 		$('#memberAuth_form_workAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.workAuth}',fields.auths));   
 		
+		 */ 
+		if("${requestScope.memberAuthWithBLOBs.infoAuth}" == 'pass'){
+			$('#memberAuth_form_infoAuth').html('<img src="${ctx}/resources/images/borrow/auth_pass.jpg" alt="auth_pass">');
+		}else{
+			$('#memberAuth_form_infoAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.infoAuth}',fields.auths));	
+		}
+		if("${requestScope.memberAuthWithBLOBs.vipAuth}" == 'pass'){
+			$('#memberAuth_form_vipAuth').html('<img src="${ctx}/resources/images/borrow/auth_pass.jpg" alt="auth_pass">');
+		}else{
+			$('#memberAuth_form_vipAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.vipAuth}',fields.auths));
+		}
+		if("${requestScope.memberAuthWithBLOBs.emailAuth}" == 'pass'){
+			$('#memberAuth_form_emailAuth').html('<img src="${ctx}/resources/images/borrow/auth_pass.jpg" alt="auth_pass">');
+		 }else{
+			$('#memberAuth_form_emailAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.emailAuth}',fields.auths));
+		}
+		if("${requestScope.memberAuthWithBLOBs.mobileAuth}" == 'pass'){
+			$('#memberAuth_form_mobileAuth').html('<img src="${ctx}/resources/images/borrow/auth_pass.jpg" alt="auth_pass">');
+		}else{
+			$('#memberAuth_form_mobileAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.mobileAuth}',fields.auths));
+		}
+		if("${requestScope.memberAuthWithBLOBs.companyAuth}" == 'pass'){
+			$('#memberAuth_form_companyAuth').html('<img src="${ctx}/resources/images/borrow/auth_pass.jpg" alt="auth_pass">');
+		}else{
+			$('#memberAuth_form_companyAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.companyAuth}',fields.auths));	
+		}
+		if("${requestScope.memberAuthWithBLOBs.creditAuth}" == 'pass'){
+			$('#memberAuth_form_creditAuth').html('<img src="${ctx}/resources/images/borrow/auth_pass.jpg" alt="auth_pass">');
+		}else{
+			$('#memberAuth_form_creditAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.creditAuth}',fields.auths));	
+		}
+		if("${requestScope.memberAuthWithBLOBs.realNameAuth}" == 'pass'){
+			$('#memberAuth_form_realNameAuth').html('<img src="${ctx}/resources/images/borrow/auth_pass.jpg" alt="auth_pass">');
+		}else{
+			$('#memberAuth_form_realNameAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.realNameAuth}',fields.auths));
+		}
+		if("${requestScope.memberAuthWithBLOBs.idCardAuth}" == 'pass'){
+			$('#memberAuth_form_idCardAuth').html('<img src="${ctx}/resources/images/borrow/auth_pass.jpg" alt="auth_pass">');
+		}else{
+			$('#memberAuth_form_idCardAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.idCardAuth}',fields.auths));
+		}
+		if("${requestScope.memberAuthWithBLOBs.workAuth}" == 'pass'){
+			$('#memberAuth_form_workAuth').html('<img src="${ctx}/resources/images/borrow/auth_pass.jpg" alt="auth_pass">');
+		}else{
+			$('#memberAuth_form_workAuth').html(renderGridValue('${requestScope.memberAuthWithBLOBs.workAuth}',fields.auths));   
+		}
+		 
+		 
 		//编辑器
 		var idCardeditor;
 		var crediteditor;
