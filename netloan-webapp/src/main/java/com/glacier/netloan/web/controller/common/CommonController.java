@@ -20,8 +20,7 @@
 package com.glacier.netloan.web.controller.common;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
-import org.junit.runner.Request;
+import org.apache.shiro.web.filter.authc.FormAuthenticationFilter; 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
