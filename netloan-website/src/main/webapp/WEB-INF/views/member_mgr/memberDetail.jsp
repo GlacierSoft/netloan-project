@@ -489,8 +489,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group">
 						    <label for="openingBank" class="col-sm-3 control-label">开户行:</label>
 						    <div class="col-sm-6">
-						      <input type="text" class="form-control" id="openingBank_form-group" name="openingBank" placeholder="输入您的开户银行名称" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"
-						         onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))"  />
+						      <input type="text" class="form-control" id="openingBank_form-group" name="openingBank" placeholder="输入您的开户银行名称" 
+						      onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))"/>
 						    </div>
 						     <div class="col-sm-3">
 						    </div>
