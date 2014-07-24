@@ -126,10 +126,10 @@ public class MemberService {
     private void entryptTradersPassword(MemberToken memberToken) {
         byte[] salt = Digests.generateSalt(SALT_SIZE);
         memberToken.setTradersSalt(Encodes.encodeHex(salt));
-        byte[] hashPassword = Digests.sha1(memberToken.getTratersPassword().getBytes(), salt, HASH_INTERATIONS);
+        byte[] hashPassword = Digests.sha1(memberToken.getTratersPassword().getBytes(), salt, HASH_INTERATIONS); 
         memberToken.setTratersPassword(Encodes.encodeHex(hashPassword));
     }
-    
+     
 	/**
 	 * @Title: getMember 
 	 * @Description: TODO(根据会员Id获取会员信息) 
@@ -319,7 +319,7 @@ public class MemberService {
     	byte[] hashPassword = Digests.sha1(oldPassword.getBytes(), salt, HASH_INTERATIONS);
     	String encodeHexPwd = Encodes.encodeHex(hashPassword); 
     	int count = 0;
-    	int countMT = 0;
+    	int countMT = 0; 
     	//将加密后的密码和存在数据库里的密码进行比较。
         if ((m1.getTradersPassword()).equals(encodeHexPwd)) { 
         	//会员表的修改
@@ -367,10 +367,9 @@ public class MemberService {
         MemberToken memberToken = new MemberToken();
         memberToken.setMemberId(memberId);
         memberToken.setUsername(member.getMemberName());
-        memberToken.setPassword(member.getMemberPassword());
-        memberToken.setTratersPassword(member.getMemberPassword());
-        this.entryptPassword(memberToken);
-        this.entryptTradersPassword(memberToken); 
+        memberToken.setPassword(member.getMemberPassword()); 
+        this.entryptPassword(memberToken); 
+        
         //增加邮箱认证信用积分
         ParameterCreditType parameterCreditType = null;
         ParameterCreditTypeExample parameterCreditTypeExample = new ParameterCreditTypeExample();
@@ -402,6 +401,8 @@ public class MemberService {
         member.setTradersPassword(memberToken.getPassword());//会员交易密码
         count = memberMapper.insert(member); 
         //增加membertoken信息 要先增加member记录，才能再生成外键表的记录
+        memberToken.setTradersSalt(memberToken.getSalt());
+        memberToken.setTratersPassword(memberToken.getPassword());//交易密码
         countToken = memberTokenMapper.insert(memberToken);
         
         //增加会员工作信息
@@ -587,6 +588,7 @@ public class MemberService {
         memberToken.setMemberId(memberId);
         memberToken.setUsername(member.getMemberName());
         memberToken.setPassword(member.getMemberPassword());
+        memberToken.setTratersPassword(member.getTradersPassword());
         this.entryptPassword(memberToken);
         this.entryptTradersPassword(memberToken); 
         //增加会员信息
@@ -598,6 +600,7 @@ public class MemberService {
         } 
         member.setMemberId(memberId);
         member.setMemberPassword(memberToken.getPassword());
+        member.setTradersPassword(memberToken.getTratersPassword());
         member.setIntegral((float) 0);
         member.setCreditIntegral((float) 0);
         member.setRegistrationTime(new Date());

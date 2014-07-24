@@ -387,14 +387,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    			financeRechargeSetId:"required",
    			rechargeAmount:{
    				required: true,  
-   				min:10
+   				min:100
    			 } 
    		},
    		messages:{ 
    			financeRechargeSetId:" &nbsp;&nbsp;&nbsp;必须选择一种充值类型",
    			rechargeAmount:{
    				required:"请输入充值金额", 
-   				min:"充值金额不能低于10元"
+   				min:"充值金额不能低于100元"
    			}
    		},  
    		submitHandler:function(){
