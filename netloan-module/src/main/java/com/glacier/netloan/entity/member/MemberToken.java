@@ -9,6 +9,10 @@ public class MemberToken {
 
     private String salt;
 
+    private String tratersPassword;
+    
+    private String tradersSalt;
+    
     public String getMemberId() {
         return memberId;
     }
@@ -37,7 +41,23 @@ public class MemberToken {
         return salt;
     }
 
-    public void setSalt(String salt) {
+    public String getTratersPassword() {
+		return tratersPassword;
+	}
+
+	public void setTratersPassword(String tratersPassword) {
+		this.tratersPassword = tratersPassword;
+	}
+
+	public String getTradersSalt() {
+		return tradersSalt;
+	}
+
+	public void setTradersSalt(String tradersSalt) {
+		this.tradersSalt = tradersSalt;
+	}
+
+	public void setSalt(String salt) {
         this.salt = salt;
     }
 

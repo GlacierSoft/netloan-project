@@ -419,7 +419,7 @@ public class RepaymentNotesDetailService {
         Member m1 = memberMapper.selectByPrimaryKey(member.getMemberId());//通过memberid获取member
         MemberToken mt = memberTokenMapper.selectByPrimaryKey(member.getMemberId());//通过memberId获取memberToken
         //将前台传来的密码进行加密，
-        byte[] salt = Encodes.decodeHex(mt.getSalt());
+        byte[] salt = Encodes.decodeHex(mt.getTradersSalt());
         byte[] hashPassword = Digests.sha1(member.getTradersPassword().getBytes(), salt, HASH_INTERATIONS);
         String encodeHexPwd = Encodes.encodeHex(hashPassword);
         //将加密后的密码和存在数据库里的密码进行比较。

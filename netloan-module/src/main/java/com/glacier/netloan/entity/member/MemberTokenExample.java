@@ -403,6 +403,146 @@ public class MemberTokenExample {
             addCriterion("temp_member_token.salt not between", value1, value2, "salt");
             return (Criteria) this;
         }
+
+        public Criteria andTratersPasswordIsNull() {
+            addCriterion("temp_member_token.traters_password is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTratersPasswordIsNotNull() {
+            addCriterion("temp_member_token.traters_password is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTratersPasswordEqualTo(String value) {
+            addCriterion("temp_member_token.traters_password =", value, "tratersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTratersPasswordNotEqualTo(String value) {
+            addCriterion("temp_member_token.traters_password <>", value, "tratersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTratersPasswordGreaterThan(String value) {
+            addCriterion("temp_member_token.traters_password >", value, "tratersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTratersPasswordGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_member_token.traters_password >=", value, "tratersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTratersPasswordLessThan(String value) {
+            addCriterion("temp_member_token.traters_password <", value, "tratersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTratersPasswordLessThanOrEqualTo(String value) {
+            addCriterion("temp_member_token.traters_password <=", value, "tratersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTratersPasswordLike(String value) {
+            addCriterion("temp_member_token.traters_password like", value, "tratersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTratersPasswordNotLike(String value) {
+            addCriterion("temp_member_token.traters_password not like", value, "tratersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTratersPasswordIn(List<String> values) {
+            addCriterion("temp_member_token.traters_password in", values, "tratersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTratersPasswordNotIn(List<String> values) {
+            addCriterion("temp_member_token.traters_password not in", values, "tratersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTratersPasswordBetween(String value1, String value2) {
+            addCriterion("temp_member_token.traters_password between", value1, value2, "tratersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTratersPasswordNotBetween(String value1, String value2) {
+            addCriterion("temp_member_token.traters_password not between", value1, value2, "tratersPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersSaltIsNull() {
+            addCriterion("temp_member_token.traders_salt is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersSaltIsNotNull() {
+            addCriterion("temp_member_token.traders_salt is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersSaltEqualTo(String value) {
+            addCriterion("temp_member_token.traders_salt =", value, "tradersSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersSaltNotEqualTo(String value) {
+            addCriterion("temp_member_token.traders_salt <>", value, "tradersSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersSaltGreaterThan(String value) {
+            addCriterion("temp_member_token.traders_salt >", value, "tradersSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersSaltGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_member_token.traders_salt >=", value, "tradersSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersSaltLessThan(String value) {
+            addCriterion("temp_member_token.traders_salt <", value, "tradersSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersSaltLessThanOrEqualTo(String value) {
+            addCriterion("temp_member_token.traders_salt <=", value, "tradersSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersSaltLike(String value) {
+            addCriterion("temp_member_token.traders_salt like", value, "tradersSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersSaltNotLike(String value) {
+            addCriterion("temp_member_token.traders_salt not like", value, "tradersSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersSaltIn(List<String> values) {
+            addCriterion("temp_member_token.traders_salt in", values, "tradersSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersSaltNotIn(List<String> values) {
+            addCriterion("temp_member_token.traders_salt not in", values, "tradersSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersSaltBetween(String value1, String value2) {
+            addCriterion("temp_member_token.traders_salt between", value1, value2, "tradersSalt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradersSaltNotBetween(String value1, String value2) {
+            addCriterion("temp_member_token.traders_salt not between", value1, value2, "tradersSalt");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

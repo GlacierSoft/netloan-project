@@ -255,7 +255,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		KindEditor.ready(function(K) {
 		var dialog = K.dialog({
 				        width : 500,
-				        title : '保存成功',
+				        title : '提示信息',
 				        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
 				        closeBtn : {
 				                name : '关闭',
