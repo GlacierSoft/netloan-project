@@ -105,11 +105,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>借款总额：</td>
-					    <td class="col-md-6"><input type="text" id="loanTotal" name="loanTotal" class="inp280" onblur="checkCreditamount();"/><span id="creditamountSpan"></span></td>
+					    <td class="col-md-6"><input type="text" id="loanTotal" name="loanTotal" class="inp280" onblur="checkCreditamount();" onkeyup="clearNoNum(this)"/><span id="creditamountSpan"></span></td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-6" align="right"><span style="color:#F00">*</span>年利率：</td>
-					    <td class="col-md-6"><input type="text" name="loanApr"  class="inp280" />%</td>
+					    <td class="col-md-6"><input type="text" name="loanApr"  class="inp280"  onkeyup="clearNoNum(this)" maxlength="8"/>%</td>
 					  </tr>
 					</tbody>
 			      </table>
@@ -139,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			      		  <tr>
 						    <td class="col-md-6" align="right"><span style="color:#F00">*</span>最小认购单位：</td>
 						    <td class="col-md-6">
-						    	<input type="text" onblur="checkToalsDivideExactly();" id="lowestSub" name="lowestSub" class="inp280" /><span id="lowestSubCheck"></span>元
+						    	<input type="text" onblur="checkToalsDivideExactly();" id="lowestSub" name="lowestSub" class="inp280"  onkeyup="clearNoNum(this)"/><span id="lowestSubCheck"></span>元
 							</td>
 						  </tr>
 			      		</tbody>
@@ -177,7 +177,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <td class="col-md-6">
 					      	<input type="radio" id="isBidReward" name="isBidReward" value="yes" onclick="displayIsBidReward()"/>
 					     	按投标金额比例奖励
-					     	<input type="text" onblur="checkBidProReward();" id="bidProReward" name="bidProReward" class="inp100x gray" disabled="disabled" value="0"/><span id="bidProRewardCheck"></span>
+					     	<input type="text" onblur="checkBidProReward();" id="bidProReward" name="bidProReward" class="inp100x gray" disabled="disabled" value="0" onkeyup="clearNoNum(this)" maxlength="8"/><span id="bidProRewardCheck"></span>
 					      %
 					    </td>
 					  </tr>
@@ -186,7 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <td class="col-md-6">
 					     	<input type="radio" id="isBidReward" name="isBidReward" value="yes" onclick="displayIsBidReward()"/>
 					      	按固定金额分摊奖励
-					      	<input type="text" onblur="checkFixedAppReward();" id=fixedAppReward name="fixedAppReward" class="inp100x gray" disabled="disabled" value="0"/><span id="fixedAppRewardCheck"></span>
+					      	<input type="text" onblur="checkFixedAppReward();" id=fixedAppReward name="fixedAppReward" class="inp100x gray" disabled="disabled" value="0" onkeyup="clearNoNum(this)" maxlength="8"/><span id="fixedAppRewardCheck"></span>
 					      	元
 					    </td>
 					  </tr>
@@ -482,6 +482,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	$(this).hide().attr('src','${pageContext.request.contextPath}/resources/images/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();     
 		    });
 		});
+		
+		 function clearNoNum(obj)
+		    {
+		        //先把非数字的都替换掉，除了数字和.
+		        obj.value = obj.value.replace(/[^\d.]/g,"");
+		        //必须保证第一个为数字而不是.
+		        obj.value = obj.value.replace(/^\./g,"");
+		        //保证只有出现一个.而没有多个.
+		        obj.value = obj.value.replace(/\.{2,}/g,".");
+		        //保证.只出现一次，而不能出现两次以上
+		        obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+		    }
+		   
 	</script> 
 
   </body>
