@@ -83,18 +83,22 @@ public class BorrowingOverdueService {
     	parameterBasicExample.createCriteria().andBasicTitleEqualTo("罚息利率1至30天");
         List<ParameterBasic>  basicTitles1 = parameterBasicMapper.selectByExample(parameterBasicExample); // 查询所有基础参数列表
 	    ParameterBasic parameterBasic1 = basicTitles1.get(0);
+	    parameterBasicExample.clear();
 	    
 	    parameterBasicExample.createCriteria().andBasicTitleEqualTo("罚息利率30天以上");
         List<ParameterBasic>  basicTitles2 = parameterBasicMapper.selectByExample(parameterBasicExample); // 查询所有基础参数列表
 	    ParameterBasic parameterBasic2 = basicTitles2.get(0);
+	    parameterBasicExample.clear();
 	    
 	    parameterBasicExample.createCriteria().andBasicTitleEqualTo("逾期管理费1至30天");
         List<ParameterBasic>  basicTitles3 = parameterBasicMapper.selectByExample(parameterBasicExample); // 查询所有基础参数列表
 	    ParameterBasic parameterBasic3 = basicTitles3.get(0);
+	    parameterBasicExample.clear();
 	    
 	    parameterBasicExample.createCriteria().andBasicTitleEqualTo("逾期管理费30天以上");
         List<ParameterBasic>  basicTitles4 = parameterBasicMapper.selectByExample(parameterBasicExample); // 查询所有基础参数列表
 	    ParameterBasic parameterBasic4 = basicTitles4.get(0);
+	    parameterBasicExample.clear();
 	    
 	    parameterBasicExample.createCriteria().andBasicTitleEqualTo("利息管理费");
         List<ParameterBasic>  basicTitles5 = parameterBasicMapper.selectByExample(parameterBasicExample); // 查询所有基础参数列表
