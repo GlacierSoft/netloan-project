@@ -88,7 +88,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <option value="200000.0">20万</option>
 				    <option value="500000.0">50万</option>
 				    <option value="1000000.0">100万</option>
-				    <option value="1000001.0">100万以上</option>
 				 </select>
 			    </div>
 			    <label for="waitBidDeadlines" class="col-sm-1 control-label" >期限</label>
