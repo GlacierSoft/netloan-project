@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<title>冰川基本系统</title>
 		<!-- 引入公用的js和样式库 -->
 		<jsp:include page="inc.jsp"/>
-		<script type="text/javascript" src="<%=basePath %>resources/HighCharts/highcharts.js"></script>
+		<script type="text/javascript" src="<%=basePath %>resources/HighCharts/highstock.js"></script>
         <script type="text/javascript" src="<%=basePath %>resources/HighCharts/exporting.js"></script>
         <!--引入地图库  -->
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=28f141a7f98bb07afec4968ecd7fc808"></script>

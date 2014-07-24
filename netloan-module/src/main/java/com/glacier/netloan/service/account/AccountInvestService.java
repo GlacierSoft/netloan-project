@@ -30,7 +30,6 @@ import com.glacier.netloan.dto.query.account.AccountInvestQueryDTO;
 import com.glacier.netloan.entity.account.AccountInvest;
 import com.glacier.netloan.entity.account.AccountInvestExample;
 import com.glacier.netloan.entity.account.AccountInvestExample.Criteria;
-
 import com.glacier.netloan.entity.member.MemberStatistics;
 
 import com.glacier.netloan.entity.system.User;
@@ -452,8 +451,20 @@ public class AccountInvestService {
 	//会员投资信息统计数据获取
 	public Object FindAccountInvest(){
 		AccountInvestExample accountInvestExample=new AccountInvestExample();
+		JqPager pager=new JqPager();
+		pager.setSort("createTime");
+		pager.setOrder("ASC");
+		accountInvestExample.setOrderByClause(pager.getOrderBy("temp_account_invest_"));
 		List<AccountInvest> accountInvest=accountInvestMapper.selectByExample(accountInvestExample);
 		return accountInvest;
+		
+//		ParameterCreditExample parameterCreditExample = new ParameterCreditExample();
+//    	JqPager pager = new JqPager();
+//    	pager.setSort("creditNum");
+//    	pager.setOrder("DESC");
+//    	parameterCreditExample.setOrderByClause(pager.getOrderBy("temp_parameter_credit_"));
+//    	List<ParameterCredit>  parameterCredits = parameterCreditMapper.selectByExample(parameterCreditExample); // 查询所有操作列表
+		
 		
 	}	
 	 

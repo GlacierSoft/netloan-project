@@ -132,76 +132,75 @@
 	
 	//点击生成按钮触发方法
 	glacier.account_mgr.accountInvest_mgr.accountInvest.outExpAccountInvest= function(){
-		//location.href=ctx+"/do/accountInvest/data.json";
+		
+		//X轴日期绑定
 		$.ajax({
-  		   type:"post",
-  		   url:ctx+"/do/accountInvest/data.json",
-  		   dataType:"json",
-  		   success:function(data){
-  		    //数据打印
-  		    console.info(data);
-  		    //柱状图 
-  		    $('#container').highcharts({
-  		        chart: {
-  		            type: 'column'
-  		        },
-  		        title: {
-  		            text: '投资统计柱状图'
-  		        },
-  		        subtitle: {
-  		            text: '投资统计报表'
-  		        },
-  		        xAxis: {
-  		            categories: [
-  		                '投资成功待收金额',
-  		                '投资奖励金额',
-  		                '逾期罚金金额',
-  		                '成功金额',
-  		                '借款管理费总额',
-  		                '借款利息总额',
-  		                '借款逾期罚金金额'
-  		            ]
-  		        },
-  		        yAxis: {
-  		            min: 0,
-  		            title: {
-  		                text: 'Rainfall (百万)'
-  		            }
-  		        },
-  		       credits:{
-  		        enabled:false // 禁用版权信息
-  		       },
-  		      tooltip: {
-  	            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-  	            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-  	                '<td style="padding:0"><b>{point.y:.1f} 百万</b></td></tr>',
-  	            footerFormat: '</table>',
-  	            shared: true,
-  	            useHTML: true
-  	           },
-  	           plotOptions: {
-  		            column: {
-  		                pointPadding: 0.2,
-  		                borderWidth: 0
-  		            }
-  		        },
-  		        series:data
-  		    });
-  		        
-  		  $("#investOutExpDailogTest").dialog(
-  				{
-  					title : "会员投资统计信息报表生成",
-  					width : 740,
-  					height : 500,
-  					modal : true,
-  					closed : false
-  				});	      
-  		      
-  		   }
-  		});
+			   type:"post",
+	  		   url:ctx+"/do/accountInvest/date.json",
+	  		   dataType:"json",
+	  		   success:function(dataX){	
+	  			   console.info(dataX);
+	  			   //Y轴数据绑定
+	  				$.ajax({
+	  					   type:"post",
+	  			  		   url:ctx+"/do/accountInvest/data.json",
+	  			  		   dataType:"json",
+	  			  		   success:function(dataY){	
+	  			  			    console.info(dataY);
+	  			  		        //数据绑定
+	  			  		        $('#container').highcharts({
+		  					        title: {
+		  					            text: '投资统计报表',
+		  					            x: -20 //center
+		  					        },
+		  					        xAxis: {
+		  					            categories: dataX[0].date,
+		  					        },
+		  					        yAxis: {
+		  					          min: 0,
+		  		  		            title: {
+		  		  		                text: '金额(百万)'
+		  		  		            },
+		  		  		          labels: {
+		  		  		            formatter:function(){
+		  		  		              if(this.value <=100) { 
+		  		  		                return "第一等级("+this.value+")";
+		  		  		              }else if(this.value >100 && this.value <=200) { 
+		  		  		                return "第二等级("+this.value+")"; 
+		  		  		              }else { 
+		  		  		                return "第三等级("+this.value+")";
+		  		  		              }
+		  		  		            }
+		  		  		            },
+		  		  		            step:2
+		  		  		          },
+		  					      credits:{
+		  			  		        enabled:false // 禁用版权信息
+		  			  		       },
+		  					        tooltip: {
+		  					            valueSuffix: '/百万'
+		  					        },
+		  					        
+		  					        series:dataY,
+		  					        scrollbar: { enabled: true }
+		  					    });
+	  			  			    
+	  			  		   }
+	  					
+	  				});
+	  		   }
+		});
+		
+	    $("#investOutExpDailogTest").dialog(
+	  				{
+	  					title : "会员投资统计信息报表生成",
+	  					width : 760,
+	  					height : 540,
+	  					modal : true,
+	  					closed : false
+	  				});	     
+		
  	};
-	
-	
 	
 	function doCheckQuery(){
 		   
@@ -296,8 +295,6 @@
 		location.href=ctx+'/do/accountInvest/expCheck.json';	
 	};
 	
-	
-	
 </script>
 
 <!-- 所有客服列表面板和表格 -->
@@ -347,25 +344,7 @@
     </table>   
 </div> 
 
-<!--自定义对话款  -->
-<div id="investOutExpDailogTest" class="easyui-dialog"  buttons="#dlg-buttons-invest-outExp" closed="true">
-   <div id="container" style="min-width:700px;height:400px"></div>       
-</div>
-
-<div id="dlg-buttons-invest-outExp">   
-    <table cellpadding="0" cellspacing="0" style="width:100%">   
-        <tr>   
-            <td style="text-align:right">   
-                <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="javascript:$('#investOutExpDailogTest').dialog('close');">确认</a>   
-                <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#investOutExpDailogTest').dialog('close');">关闭</a>   
-            </td>   
-        </tr>   
-    </table>   
-</div> 
-
-<!--百度地图  -->
-
-<!--自定义对话款  -->
+<!--百度地图对话款  -->
 <div id="investMapDailogTest" class="easyui-dialog"  buttons="#Map-buttons-invest-map" closed="true">
    <div id="allmap" style="width: 600px;height: 350px;margin-top: 10px;margin-left: 15px;"></div>
 </div>
@@ -381,7 +360,65 @@
 </div> 
 
 
+<!--自定义折线图对话款  -->
+<div id="investOutExpDailogTest" class="easyui-dialog"  buttons="#dlg-buttons-invest-outExp" closed="true">
+  <div style="width:700px;heght:50px;margin-bottom: 10px;margin-top: 10px;margin-left: 40px;">
+   <form action=""  method="post" id="form_line">      
+            选择年份&nbsp;:&nbsp;<select id="year_number" name="year_number">
+                 <option value="0">选择年份</option>
+                 <option value="2014">2014</option>
+                 <option value="2014">2015</option>
+                 <option value="2014">2016</option>
+                 <option value="2014">2017</option>
+                 <option value="2014">2018</option>
+                 <option value="2014">2010</option>
+                 <option value="2014">2011</option>
+            </select>
+                    选择月份&nbsp;:&nbsp;<select id="month_number" name="month_number">
+                 <option value="0">选择月份</option>
+                 <option value="1">1月</option>
+                 <option value="2">2月</option>
+                 <option value="3">3月</option>
+                 <option value="4">4月</option>
+                 <option value="5">5月</option>
+                 <option value="6">6月</option>
+             </select>
+       &nbsp;&nbsp;<a href="#" class="easyui-linkbutton"  onclick="doCheck();">提交</a>
+    </form>
+  </div>
+  <div id="container" style="min-width:700px;height:400px"></div>       
+</div>
 
+<div id="dlg-buttons-invest-outExp">   
+    <table cellpadding="0" cellspacing="0" style="width:100%">   
+        <tr>   
+            <td style="text-align:right">   
+                <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#investOutExpDailogTest').dialog('close');">关闭</a>   
+            </td>   
+        </tr>   
+    </table>   
+</div> 
+<script>
+//提交折线
+function doCheck(){
+	
+	$.ajax({
+		type: "POST",
+	    url: ctx+"/do/accountInvest/yearMonth.json",
+	    dataType: "json",
+	    data: $("#form_line").serialize(),
+        success:function(data){
+        	console.info(data);
+        	if(!data[0].flag){
+        		glacier.account_mgr.accountInvest_mgr.accountInvest.outExpAccountInvest();
+        	}	
+		}
+	});
+	
+	
+	
+}
+</script>
    
 
 

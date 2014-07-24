@@ -112,26 +112,117 @@ public class AccountInvestController extends AbstractController {
 	  private Object FindAccountInvestData(){
 		  List<Map<String,Object>>  data_invest=new ArrayList<Map<String,Object>>();
 		  List<AccountInvest> list_invest=(List<AccountInvest>) accountInvestService.FindAccountInvest();
+		  //定义变量
+		  Float[]  sumUncollected=new Float[list_invest.size()];
+		  Float[]  sumReward=new Float[list_invest.size()];
+		  Float[]  sumFine=new Float[list_invest.size()];
+		  Float[]  sumBorrow=new Float[list_invest.size()];
+		  Float[]  sumAdvfee=new Float[list_invest.size()];
+		  Float[]  sumInterest=new Float[list_invest.size()];
+		  Float[]  sumInterestfee=new Float[list_invest.size()];
+		 
+		 //变量赋值
+		  for(int i=0;i<list_invest.size();i++){
+			  sumUncollected[i]=list_invest.get(i).getSumUncollected();
+			  sumReward[i]=list_invest.get(i).getSumReward();
+			  sumFine[i]=list_invest.get(i).getSumFine();
+			  sumBorrow[i]=list_invest.get(i).getSumBorrow();
+			  sumAdvfee[i]=list_invest.get(i).getSumAdvfee();
+			  sumInterest[i]=list_invest.get(i).getSumInterest();
+			  sumInterestfee[i]=list_invest.get(i).getSumInterestfee();
+		  }
+		  
+		  //变量存储
+		  for(int i=0;i<6;i++){
+			  Map<String,Object> map=new HashMap<String, Object>();
+			  if(i==0){
+				  map.put("name", "投资成功待收");
+				  map.put("data", sumUncollected);
+				  data_invest.add(map);
+			  }else if(i==1){
+				  map.put("name", "投资奖励");
+				  map.put("data", sumReward);
+				  data_invest.add(map);
+			   }else if(i==2){
+				   map.put("name", "借款人逾期罚金");
+				   map.put("data", sumFine);
+				   data_invest.add(map);
+			   }else if(i==3){
+				   map.put("name", "借款成功");
+				   map.put("data", sumBorrow);
+				   data_invest.add(map);
+			   }else if(i==4){
+				   map.put("name", "借款管理费");
+				   map.put("data", sumAdvfee);
+				   data_invest.add(map);
+			   }else if(i==5){
+				   map.put("name", "借款利息");
+				   map.put("data", sumInterest);
+				   data_invest.add(map);
+			   }else if(i==5){
+				   map.put("name", "借款逾期罚金总额");
+				   map.put("data", sumInterestfee);
+				   data_invest.add(map);
+			   }
+				  
+			}
+		  return data_invest;
+		
+     }
+	  
+	  //X轴日期绑定
+	  @RequestMapping(value="/date.json")
+	  @ResponseBody
+	  private Object FindInvestDate(){
+		  List<Map<String,Object>>  data_invest=new ArrayList<Map<String,Object>>();
+		  List<AccountInvest> list_invest=(List<AccountInvest>) accountInvestService.FindAccountInvest();
 		  
 		  //时间转化
 		  SimpleDateFormat sf=new SimpleDateFormat("MM.dd");
+		  String[] str_date=new String[list_invest.size()]; 
 		  
 		  for(int i=0;i<list_invest.size();i++){
-			 Map<String,Object> map=new HashMap<String,Object>();  
-			 map.put("name", sf.format(list_invest.get(i).getCreateTime()));
-			 Float[] invest_float={list_invest.get(i).getSumUncollected(),list_invest.get(i).getSumReward(),list_invest.get(i).getSumFine(),list_invest.get(i).getSumBorrow(),list_invest.get(i).getSumAdvfee(),list_invest.get(i).getSumInterest(),list_invest.get(i).getSumInterestfee()};
-			 map.put("data",invest_float );
-			 data_invest.add(map);
+			  str_date[i]=sf.format(list_invest.get(i).getCreateTime());  
 		  }
+		  
+		  Map<String, Object> map_invest=new HashMap<String, Object>();
+		  map_invest.put("date", str_date);
+		  data_invest.add(map_invest);
+		  
 		  return data_invest;
-     }
-	   
-	   
-	    
-	    
-	    //投资统计查询信息导出
-	    @RequestMapping(value="/expCheck.json")
-	    private void expCheckInvest(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
+	  }
+	  
+	  
+	  //年月数据存储
+	  @RequestMapping(value="/yearMonth.json")
+	  @ResponseBody
+	  private Object FindYeayAndMonth(int year_number,int month_number,HttpSession session){
+		  List<Map<String, Object>> list=new ArrayList<Map<String, Object>>();
+		  boolean flag=false; 
+		  if(year_number>0&&month_number>0){
+			  	session.setAttribute("year_number",year_number);
+			  	session.setAttribute("month_number", month_number);
+			  	flag=true;
+			}else{
+			  if(year_number>0){
+				  session.setAttribute("year_number",year_number);
+				  flag=true;
+				  
+			  }
+			  if(month_number>0){
+				  session.setAttribute("month_number", month_number);
+				  flag=true;
+			  }
+			}
+		    Map<String, Object> map=new HashMap<String, Object>();
+		    map.put("flag", flag);
+		    list.add(map);
+		  return list;
+	  }
+	 
+	  //投资统计查询信息导出
+	  @RequestMapping(value="/expCheck.json")
+	  private void expCheckInvest(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
 	        AccountInvest accountInvestDataList=(AccountInvest)session.getAttribute("AccountInvestCheck");
 	        //System.out.println("我从Session中获取得对象值为:"+accountInvestDataList);
 	        List<AccountInvest> list=new ArrayList<AccountInvest>();
