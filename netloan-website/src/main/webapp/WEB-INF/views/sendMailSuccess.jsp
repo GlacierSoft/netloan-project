@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <div class="container">
       	<div class="panel panel-primary">
 		  <div class="panel-heading panel-title">邮箱验证</div>
-		  <div class="panel-body">
+		  <div class="panel-body"  style="height: 170px">
       		邮件已发送，请在10分钟之内登录邮箱，点击链接完成注册.<br>
 		  </div>
 		</div>
