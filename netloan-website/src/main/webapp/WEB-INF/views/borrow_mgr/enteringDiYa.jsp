@@ -260,7 +260,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			},
     			lowestBidMoney:"required",
     			largestBidMoney:"required",
-    			lowestSub:"required",
+    			lowestSub:{
+    				required:true,
+    				min:100
+    			},
     			subTotal:"required",
     			tenderSum:"required",
     			waitBidDeadlines:"required",
@@ -284,7 +287,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			},
     			lowestBidMoney:"最低投标金额不能为空",
     			largestBidMoney:"最高投标金额不能为空",
-    			lowestSub:"最小认购单位(元)不能为空",
+    			lowestSub:{
+    				required:"最小认购单位(元)不能为空",
+    				min:"至少100作为认购单位而且必须为整数"
+    			},
     			subTotal:"认购总份数不能为空",
     			tenderSum:"投标数量不能为空",
     			waitBidDeadlines:"筹标期限不能为空",
