@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,9 +13,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-
-import net.sf.json.JSONArray;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -51,8 +49,7 @@ public class AccountInvestController extends AbstractController {
 	@RequestMapping(value="/intoCheckQuery.htm")
 	public Object intoCheckQuery(String investStr,Date StartTime,Date EndTime,HttpSession session){
 		ModelAndView mav=new ModelAndView("account_mgr/accountInvest_mgr/accountInvestQuery");
-   //System.out.println("这是 Controler开始时间为:"+StartTime+"  结束时间为:"+EndTime);
-		session.setAttribute("investStr", investStr);
+        session.setAttribute("investStr", investStr);
 		session.setAttribute("StartTime", StartTime);
 		session.setAttribute("EndTime", EndTime);
 		if(investStr!=null){
@@ -112,11 +109,16 @@ public class AccountInvestController extends AbstractController {
 	  @ResponseBody
 	  private Object FindAccountInvestData(HttpSession session){
 		  List<Map<String,Object>>  data_invest=new ArrayList<Map<String,Object>>();
-		  //获取参数
-		  int year_number=(Integer) session.getAttribute("year_number");
-		  int month_number=(Integer) session.getAttribute("month_number");
-		  
-		  
+		  //获取当前年月
+		  Calendar calendar=Calendar.getInstance();
+		  int year_number=calendar.get(Calendar.YEAR);
+		  int month_number=calendar.get(Calendar.MONTH)+1;
+		  try{
+			  year_number=(Integer) session.getAttribute("year_number");
+			  month_number=(Integer) session.getAttribute("month_number");  
+		  }catch(Exception e){
+			  System.out.println("异常已抛出!");
+		  }
 		  List<AccountInvest> list_invest=(List<AccountInvest>) accountInvestService.FindAccountInvest(year_number,month_number);
 		  //定义变量
 		  Float[]  sumUncollected=new Float[list_invest.size()];
@@ -182,8 +184,17 @@ public class AccountInvestController extends AbstractController {
 	  private Object FindInvestDate(HttpSession session){
 		  List<Map<String,Object>>  data_invest=new ArrayList<Map<String,Object>>();
 		  //获取参数
-		  int year_number=(Integer) session.getAttribute("year_number");
-		  int month_number=(Integer) session.getAttribute("month_number");
+		  //获取当前年月
+		  Calendar calendar=Calendar.getInstance();
+		  int year_number=calendar.get(Calendar.YEAR);
+		  int month_number=calendar.get(Calendar.MONTH)+1;
+		  try{
+			  year_number=(Integer) session.getAttribute("year_number");
+			  month_number=(Integer) session.getAttribute("month_number");  
+		  }catch(Exception e){
+			  System.out.println("异常已抛出!!!!");  
+		  }
+		  
 		  List<AccountInvest> list_invest=(List<AccountInvest>) accountInvestService.FindAccountInvest(year_number,month_number);
 		  
 		  //时间转化
@@ -206,27 +217,53 @@ public class AccountInvestController extends AbstractController {
 	  @RequestMapping(value="/yearMonth.json")
 	  @ResponseBody
 	  private Object FindYeayAndMonth(int year_number,int month_number,HttpSession session){
+		  Map<String, Object> map=new HashMap<String, Object>();
 		  List<Map<String, Object>> list=new ArrayList<Map<String, Object>>();
-		  boolean flag=false; 
+		  boolean flag=false;
+		  //记录查询数
+		  int invest_number=0;
+		  //获取当前年月
+		  Calendar calendar=Calendar.getInstance();
+		  int year_now=calendar.get(Calendar.YEAR);
+		  int month_now=calendar.get(Calendar.MONTH)+1;
 		  if(year_number>0&&month_number>0){
 			  	session.setAttribute("year_number",year_number);
 			  	session.setAttribute("month_number", month_number);
+			  	map.put("year_number", year_number);
+			  	map.put("month_number",month_number);
 			  	flag=true;
 			}else{
 			  if(year_number>0){
 				  session.setAttribute("year_number",year_number);
+				  session.setAttribute("month_number", month_now);
+				  map.put("year_number", year_number);
+				  map.put("month_number",month_now);
 				  flag=true;
-				  
-			  }
+			    }
 			  if(month_number>0){
+				  session.setAttribute("year_number",year_now);
 				  session.setAttribute("month_number", month_number);
+				  map.put("year_number", year_now);
+				  map.put("month_number",month_number);
 				  flag=true;
-			  }
+				}
 			}
-		    Map<String, Object> map=new HashMap<String, Object>();
+		   
+		   if(year_number>0&&month_number>0){
+			   invest_number=(Integer) accountInvestService.FindInvestListTest(year_number, month_number);
+		   }else{
+			   if(year_number>0)
+				 invest_number=(Integer) accountInvestService.FindInvestListTest(year_number, month_now);
+			   else
+				   invest_number=(Integer) accountInvestService.FindInvestListTest(year_now, month_number);
+		   }
+		   if(invest_number==0) 
+		        map.put("msg", "条件内无效，，请重新检索!!!!");
+		   else
+			     map.put("msg", "");
 		    map.put("flag", flag);
 		    list.add(map);
-		  return list;
+		    return list;
 	  }
 	 
 	  //投资统计查询信息导出

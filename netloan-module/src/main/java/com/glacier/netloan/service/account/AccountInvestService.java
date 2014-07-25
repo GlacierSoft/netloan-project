@@ -3,7 +3,9 @@ package com.glacier.netloan.service.account;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -450,33 +452,70 @@ public class AccountInvestService {
 	
 	//会员投资信息统计数据获取
 	public Object FindAccountInvest(int year_number,int month_number){
-		AccountInvestExample accountInvestExample=new AccountInvestExample();
-		if(year_number>0&&month_number>0){
-		    Calendar carendar_year=Calendar.getInstance();
-		    carendar_year.set(Calendar.YEAR,year_number);
-		    carendar_year.set(month_number, month_number);
-		    
-			
-		}
-		return null;
-//		AccountInvestExample accountInvestExample=new AccountInvestExample();
-//		JqPager pager=new JqPager();
-//		pager.setSort("createTime");
-//		pager.setOrder("ASC");
-//		accountInvestExample.setOrderByClause(pager.getOrderBy("temp_account_invest_"));
-//		List<AccountInvest> accountInvest=accountInvestMapper.selectByExample(accountInvestExample);
-//		return accountInvest;
+		//设置发挥信息
+		AccountInvestExample accountInvestExample = new AccountInvestExample();
+		// 设置开始时间
+		Calendar carendar_before = Calendar.getInstance();
+		carendar_before.set(Calendar.YEAR, year_number);
+		carendar_before.set(Calendar.MONTH, month_number - 1);
+		carendar_before.set(Calendar.DATE, 1);
+		carendar_before.set(Calendar.HOUR_OF_DAY, 0);
+		carendar_before.set(Calendar.MINUTE, 0);
+		carendar_before.set(Calendar.SECOND, 0);
+		// 设置结束时间
+		Calendar carendar_After = Calendar.getInstance();
+		carendar_After.set(Calendar.YEAR, year_number);
+		carendar_After.set(Calendar.MONTH, month_number - 1);
+		carendar_After.set(Calendar.DATE, 31);
+		carendar_After.set(Calendar.HOUR_OF_DAY, 23);
+		carendar_After.set(Calendar.MINUTE, 59);
+		carendar_After.set(Calendar.SECOND, 59);
+
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		accountInvestExample.createCriteria().andCreateTimeBetween(carendar_before.getTime(), carendar_After.getTime());
+		JqPager pager = new JqPager();
+		pager.setSort("createTime");
+		pager.setOrder("ASC");
+		accountInvestExample.setOrderByClause(pager.getOrderBy("temp_account_invest_"));
+		List<AccountInvest> accountInvest = accountInvestMapper.selectByExample(accountInvestExample);
 		
-    }	
+	    return accountInvest;
+	 }	
 	 
+	//用户条件判断
+	public Object FindInvestListTest(int year_number,int month_number){
+		//设置发挥信息
+		AccountInvestExample accountInvestExample = new AccountInvestExample();
+		// 设置开始时间
+		Calendar carendar_before = Calendar.getInstance();
+		carendar_before.set(Calendar.YEAR, year_number);
+		carendar_before.set(Calendar.MONTH, month_number - 1);
+		carendar_before.set(Calendar.DATE, 1);
+		carendar_before.set(Calendar.HOUR_OF_DAY, 0);
+		carendar_before.set(Calendar.MINUTE, 0);
+		carendar_before.set(Calendar.SECOND, 0);
+		// 设置结束时间
+		Calendar carendar_After = Calendar.getInstance();
+		carendar_After.set(Calendar.YEAR, year_number);
+		carendar_After.set(Calendar.MONTH, month_number - 1);
+		carendar_After.set(Calendar.DATE, 31);
+		carendar_After.set(Calendar.HOUR_OF_DAY, 23);
+		carendar_After.set(Calendar.MINUTE, 59);
+		carendar_After.set(Calendar.SECOND, 59);
+
+	   accountInvestExample.createCriteria().andCreateTimeBetween(carendar_before.getTime(), carendar_After.getTime());
+	   int count=accountInvestMapper.countByExample(accountInvestExample);
+	   return count;
+	}
+	
+	
 	// 投资信息详情
 	public Object getAccountInvest(String investId) {
 		AccountInvest accountInvest = accountInvestMapper.selectByPrimaryKey(investId);
 		return accountInvest;
 	}
 
-	String[] excelHeader = { "投资统计ID", "投资成功待收金额", "投资奖励金额", "借款人逾期罚金金额",
-			"借款成功总额", "借款管理费总额", "借款利息总额", "借款逾期罚息总额" };
+	String[] excelHeader = { "投资统计ID", "投资成功待收金额", "投资奖励金额", "借款人逾期罚金金额","借款成功总额", "借款管理费总额", "借款利息总额", "借款逾期罚息总额" };
 	int[] excelHeaderWidth = { 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 };
 
 	// 投资信息导出

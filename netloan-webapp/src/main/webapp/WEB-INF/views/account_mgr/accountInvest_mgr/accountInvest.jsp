@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!-- 引入自定义权限标签 -->
 <%@ taglib prefix="glacierui" uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
-
+<%@ taglib  prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <script type="text/javascript">
@@ -195,7 +195,7 @@
 	  				{
 	  					title : "会员投资统计信息报表生成",
 	  					width : 760,
-	  					height : 540,
+	  					height : 600,
 	  					modal : true,
 	  					closed : false
 	  				});	     
@@ -366,25 +366,20 @@
    <form action=""  method="post" id="form_line">      
             选择年份&nbsp;:&nbsp;<select id="year_number" name="year_number">
                  <option value="0">选择年份</option>
-                 <option value="2014">2014</option>
-                 <option value="2014">2015</option>
-                 <option value="2014">2016</option>
-                 <option value="2014">2017</option>
-                 <option value="2014">2018</option>
-                 <option value="2014">2010</option>
-                 <option value="2014">2011</option>
+                 <c:forEach  var="i"  begin="2014" end="2114" >
+                       <option value="${i}">${i}</option>
+                 </c:forEach>
             </select>
-                    选择月份&nbsp;:&nbsp;<select id="month_number" name="month_number">
+    &nbsp;&nbsp;&nbsp;选择月份&nbsp;:&nbsp;<select id="month_number" name="month_number">
                  <option value="0">选择月份</option>
-                 <option value="1">1月</option>
-                 <option value="2">2月</option>
-                 <option value="3">3月</option>
-                 <option value="4">4月</option>
-                 <option value="5">5月</option>
-                 <option value="6">6月</option>
+                 <c:forEach  var="i"  begin="1" end="12" >
+                       <option value="${i}">${i}月</option>
+                 </c:forEach>
              </select>
        &nbsp;&nbsp;<a href="#" class="easyui-linkbutton"  onclick="doCheck();">提交</a>
     </form>
+  </div>
+  <div  id="invest_warn" style="width:360px;height:25px;margin-bottom: 10px;margin-top: 10px;margin-left: 40px;border: 3px solid #6CAEF5;border-radius:3px;line-height: 25px;display: none;color: red;padding-left: 10px;">
   </div>
   <div id="container" style="min-width:700px;height:400px"></div>       
 </div>
@@ -399,25 +394,41 @@
     </table>   
 </div> 
 <script>
-//提交折线
-function doCheck(){
-	
-	$.ajax({
-		type: "POST",
-	    url: ctx+"/do/accountInvest/yearMonth.json",
-	    dataType: "json",
-	    data: $("#form_line").serialize(),
-        success:function(data){
-        	console.info(data);
-        	if(!data[0].flag){
-        		glacier.account_mgr.accountInvest_mgr.accountInvest.outExpAccountInvest();
-        	}	
-		}
+	$(function(){
+		//获取当前时间
+		var data_now=new Date();
+		var year_now=data_now.getFullYear();
+		var month_now=data_now.getMonth()+1;
+		
+		$("#year_number").val(year_now);
+		$("#month_number").val(month_now);
 	});
-	
-	
-	
-}
+
+	//用户自定义搜索条件
+	function doCheck(){
+		$.ajax({
+			type: "POST",
+		    url: ctx+"/do/accountInvest/yearMonth.json",
+		    dataType: "json",
+		    data: $("#form_line").serialize(),
+	        success:function(data){
+	        	console.info(data);
+	        	if(data[0].flag){
+	        		 if(data[0].msg){
+	        			 $("#invest_warn").text("条件内无数据，请重新检索!!!");
+	        			 $("#invest_warn").show();
+	        		}else{
+	        			$("#invest_warn").hide();
+	        			glacier.account_mgr.accountInvest_mgr.accountInvest.outExpAccountInvest();
+	        		}
+	        	}else{
+	        		 $("#invest_warn").text("条件不充分，请重新检索!!!");
+	    			 $("#invest_warn").show();
+	        	}	
+			}
+		});
+	}
+
 </script>
    
 
