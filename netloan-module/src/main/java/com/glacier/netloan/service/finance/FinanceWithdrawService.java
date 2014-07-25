@@ -29,6 +29,7 @@ import com.glacier.netloan.dao.member.MemberIntegralMapper;
 import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.member.MemberMessageNoticeMapper;
 import com.glacier.netloan.dao.member.MemberStatisticsMapper;
+import com.glacier.netloan.dao.member.MemberTokenMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.finance.FinWithdrawQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterIntegralType;
@@ -49,9 +50,12 @@ import com.glacier.netloan.entity.member.MemberIntegral;
 import com.glacier.netloan.entity.member.MemberMessageNotice;
 import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.entity.member.MemberStatisticsExample;
+import com.glacier.netloan.entity.member.MemberToken;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.util.MethodLog;
+import com.glacier.security.util.Digests;
+import com.glacier.security.util.Encodes;
 
 /**
  * @ClassName: FinanceWithdrawService 
@@ -102,6 +106,10 @@ public class FinanceWithdrawService {
 	
 	@Autowired
 	private FinanceWithdrawSetMapper  financeWithdrawSetMapper;
+	
+	@Autowired
+	private MemberTokenMapper memberTokenMapper;
+	
 	/**
 	 * @Title: getWithdraw 
 	 * @Description: TODO(根据会员提现记录Id获取会员提现记录信息) 
@@ -182,19 +190,37 @@ public class FinanceWithdrawService {
      * @return Object    返回类型 
      * @throws
      */
+
+	 /**
+    * 加密方式
+    */
+   public static final String HASH_ALGORITHM = "SHA-1";
+
+   /**
+    * 计算次数
+    */
+   public static final int HASH_INTERATIONS = 1024;
+
+   /**
+    * 盐值长度
+    */
+   public static final int SALT_SIZE = 8;
     @Transactional(readOnly = false)
     public Object addWithdraw(FinanceWithdraw financeWithdraw, Member member, String bankCardId) {
     	
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-    	// 验证会员真正的交易密码是否等于输入的交易密码
-        Member memberTemp = new Member();
-        memberTemp = memberMapper.selectByPrimaryKey(member.getMemberId());// 根据前台返回的会员Id，查询出该会员的信息
-        if (null != member.getTradersPassword() && StringUtils.isNotBlank(member.getTradersPassword())) {
-            if (!member.getTradersPassword().equals(memberTemp.getTradersPassword())) {// 判断前台的交易密码是否正确
-                returnResult.setMsg("交易密码错误，请重新输入");
-                return returnResult;
-            }
+    	// 验证会员真正的交易密码是否等于输入的交易密码 
+    	MemberToken mt = memberTokenMapper.selectByPrimaryKey(member.getMemberId());//通过memberId获取memberToken
+        //将前台传来的密码进行加密，
+    	byte[] salt = Encodes.decodeHex(mt.getTradersSalt());
+    	byte[] hashPassword = Digests.sha1(member.getTradersPassword().getBytes(), salt, HASH_INTERATIONS);
+    	String encodeHexPwd = Encodes.encodeHex(hashPassword);
+       //将加密后的密码和存在数据库里的密码进行比较。
+        if (!(mt.getTratersPassword()).equals(encodeHexPwd)) {
+        	 returnResult.setMsg("交易密码错误，请重新输入");
+             return returnResult;
         }
+         
     	Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
   		Member pricipalMember = (Member) pricipalSubject.getPrincipal();
   		//获取超级管理员用户
@@ -270,11 +296,20 @@ public class FinanceWithdrawService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "WithdrawList_audit")
-    public Object auditWithdraw(FinanceWithdraw financeWithdraws) {
+    public Object auditWithdraw(FinanceWithdraw finance) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         //取出本条提现记录的所有信息
-        FinanceWithdraw financeWithdraw=financeWithdrawMapper.selectByPrimaryKey(financeWithdraws.getFinanceWithdrawId()); 
+        FinanceWithdraw financeWithdraw=financeWithdrawMapper.selectByPrimaryKey(finance.getFinanceWithdrawId()); 
+        if(financeWithdraw.getAuditState().equals("pass")){
+        	returnResult.setMsg("该提现记录已审核通过，无需重复审核");
+        	return returnResult;
+        }
+        if(!finance.getAuditState().equals("pass")){
+        	returnResult.setMsg("无效的操作");
+        	return returnResult;
+        }
+        
         //取出会员信息
         Member member= memberMapper.selectByPrimaryKey(financeWithdraw.getMemberId());
          

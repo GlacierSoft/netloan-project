@@ -224,6 +224,11 @@ public class FinanceRechargeService {
     @MethodLog(opera = "RechargeList_audit")
     public Object auditRecharge(FinanceRecharge financeRecharge) {
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	FinanceRecharge recharge=financeRechargeMapper.selectByPrimaryKey(financeRecharge.getFinanceRechargeId());
+    	if(recharge.getAuditState().equals("pass")){
+           	returnResult.setMsg("该已审核记录已审核通过,无需重复审核");
+           	return returnResult;
+         } 
     	
     	Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
   		User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -321,7 +326,7 @@ public class FinanceRechargeService {
 		    financePlatformTransaction.setTransactionType("充值");//交易类型
 		    financePlatformTransaction.setEarningMoney(financeRecharge.getRechargeAmount());//收入金额
 		    financePlatformTransaction.setExpendMoney(0f);//支出金额
-		    financePlatformTransaction.setAmount(financePlatDate.getPlatformMoney()+financeRecharge.getArriveMoney());//总金额=原来的金额+充值的金额
+		    financePlatformTransaction.setAmount(financePlatDate.getPlatformMoney()+financeRecharge.getRechargeAmount());//总金额=原来的金额+充值的金额
 		    financePlatformTransaction.setCreater(usid);//创建人
 		    financePlatformTransaction.setCreateTime(new Date());
 		    financePlatformTransaction.setUpdater(usid);
@@ -329,7 +334,7 @@ public class FinanceRechargeService {
 		    count=financePlatformTransactionMapper.insertSelective(financePlatformTransaction);//新增平台资金记录
 		     if (count == 1) {
 		    	 //更新资金平台的数据
-		    	 financePlatDate.setPlatformMoney(financePlatDate.getPlatformMoney()+financeRecharge.getArriveMoney());//资金平台余额=原有金额+充值金额
+		    	 financePlatDate.setPlatformMoney(financePlatDate.getPlatformMoney()+financeRecharge.getRechargeAmount());//资金平台余额=原有金额+充值金额
 		    	 financePlatDate.setUpdater(usid);//更新人
 		    	 financePlatDate.setUpdateTime(new Date());//更新时间
 		    	 financePlatformMapper.updateByPrimaryKeySelective(financePlatDate);//更新资金平台数据
