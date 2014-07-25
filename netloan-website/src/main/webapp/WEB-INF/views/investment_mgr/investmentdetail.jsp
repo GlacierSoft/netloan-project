@@ -115,8 +115,29 @@
 	       	  	</div>
 	       	  	<div class="row">
 	       	  	<div class="col-md-4"><span>还款方式：${borrowingLoan.repaymentTypeDisplay } </span></div>
-	       	  	<div class="col-md-4"><span>投标奖励：无</span></div>
-		       	<div class="col-md-4"><span>交易类型：线上交易</span></div>
+	       	  	<c:if test="${borrowingLoan.isBidReward=='no' }">
+	       	  			是否有投标奖励：
+		       	  		<span id="isBidReward">
+		       	  			${borrowingLoan.isBidReward}
+		       	  		</span>
+	       	  	</c:if>
+	       	  	<c:if test="${borrowingLoan.isBidReward=='yes' }">
+	       	  		<div class="col-md-4">
+	       	  			是否有投标奖励：
+		       	  		<span id="isBidReward">
+		       	  			${borrowingLoan.isBidReward}
+		       	  		</span>
+	       	  		</div>
+	       	  		<c:if test="${borrowingLoan.bidProReward!=0 }">
+	       	  			<div class="col-md-4"><span>按投标金额比例奖励：<fmt:formatNumber value='${borrowingLoan.bidProReward*100}' pattern='#0'/>%</span></div>
+	       	  		</c:if>
+	       	  		<c:if test="${borrowingLoan.fixedAppReward!=0 }">
+	       	  			<div class="col-md-4"><span>按固定金额分摊奖励：<fmt:formatNumber value='${borrowingLoan.fixedAppReward}' pattern='#,#00.00'/>&nbsp;元</span></div>
+	       	  		</c:if>
+	       	  	</c:if>
+		       	<script type="text/javascript">
+						         $('#isBidReward').html(renderGridValue('${borrowingLoan.isBidReward}',fields.yesOrNo));
+						</script>
 	       	  	</div><br>
 	       	  	<div class="row">
 	       	  	<div class="col-md-4">
