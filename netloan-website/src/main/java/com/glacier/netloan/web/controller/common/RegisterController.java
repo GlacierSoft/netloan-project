@@ -342,13 +342,17 @@ public class RegisterController extends AbstractController{
 	 *
 	 */
 	@RequestMapping(value = "/getPasswrod.htm", method = RequestMethod.POST)
-    public Object getPasswrod(@Valid String useremal,HttpServletRequest request, HttpSession session){ 
-	   JqReturnJson perfectRegister = (JqReturnJson) memberService.retrievePassword(useremal);
-             if(perfectRegister.isSuccess()==false){
+    public Object getPasswrod(@Valid String useremal,HttpServletRequest request, HttpSession session){  
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+	        Member member=new Member();
+	        member=memberService.retrievePassword(useremal);
+             if(member==null){
+            	 returnResult.setMsg("邮箱不存在");
             	 //邮箱不存在，就返回这个消息给前台
             	 session.setAttribute("emailStatus", "false");
             	 return "retrievePassword/retrievePasswordEmail";
              }
+            returnResult.setSuccess(true);
 			ModelAndView mav = new ModelAndView("retrievePassword/sendMail"); 
 			// 创建一个临时ID
 	        String retrieveId = ""+Math.random() * Math.random();
@@ -385,7 +389,7 @@ public class RegisterController extends AbstractController{
 			email.setCharset("UTF-8");//没有设置会乱码。
 	        try {
 				email.setSubject("冰川网贷密码找回");//设置邮件名称
-				email.setHtmlMsg("点击<a href='" + url + "'>" + url + "</a>完成新密码设置！");//设置邮件内容
+				email.setHtmlMsg("尊敬的会员：<font color='blue'>"+member.getMemberName()+"</font>,请点击<a href='" + url + "'>" + url + "</a>完成新密码设置！");//设置邮件内容
 				email.addTo(useremal);//给会员发邮件 
 				email.send();//邮件发送
 			} catch (EmailException e) {

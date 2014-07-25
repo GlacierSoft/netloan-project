@@ -739,17 +739,12 @@ public class MemberService {
      * @throws
      */
     @Transactional(readOnly = false) 
-    public Object retrievePassword(String email) {
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    public Member retrievePassword(String email) { 
+    	Member member=new Member();
         MemberExample memberExample = new MemberExample();
         memberExample.createCriteria().andEmailEqualTo(email);
-       int count = memberMapper.countByExample(memberExample);
-       if(count==0){
-    	   returnResult.setMsg("邮箱不存在"); 
-       }else{
-    	   returnResult.setSuccess(true); 
-       }
-    	return returnResult;
+        member= memberMapper.selectByExample(memberExample).get(0);
+        return member;
     }
      
     /**

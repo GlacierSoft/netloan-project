@@ -646,8 +646,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					             $('#applyType'+${status.index}).html(renderGridValue('${memberApplyAmount.applyType}',fields.applyType));
 					              </script>
 					              </td>
-					              <td>${memberApplyAmount.applyMoney}</td>
-					              <td>${memberApplyAmount.authorizedAmount}</td>
+					              <td>￥<fmt:formatNumber value='${memberApplyAmount.applyMoney}' pattern='#,#00.00'/></td>
+					              <td>￥<fmt:formatNumber value='${memberApplyAmount.authorizedAmount}' pattern='#,#00.00'/></td>
 					              <td id="auditState${status.index}" class="auditState">
 					              ${memberApplyAmount.auditState}
 					              <script type="text/javascript">
