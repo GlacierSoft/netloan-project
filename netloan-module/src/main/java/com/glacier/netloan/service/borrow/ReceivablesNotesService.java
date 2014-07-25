@@ -309,13 +309,14 @@ public class ReceivablesNotesService {
       	FinanceTransaction financeTransaction = new FinanceTransaction(); 
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
-        float shouldReceMoney = 0f;
-        float everyMonthInterest=0f;
+        
         BorrowingLoan borrowingLoanNew = (BorrowingLoan)borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());//重新获取该会员 借款的信息数据
         TenderNotesExample tenderNotesExample = new TenderNotesExample();;
         tenderNotesExample.createCriteria().andLoanIdEqualTo(borrowingLoanNew.getLoanId());//查询相对应的投标的记录
         List<TenderNotes> tenderNotess = tenderNotesMapper.selectByExample(tenderNotesExample);
         for(TenderNotes tenderNotes : tenderNotess){
+        	float shouldReceMoney = 0f;
+            float everyMonthInterest=0f;
         	float earningMoney=0;//存储有投标奖励的金额
         	receivablesNotes.setTenderNotesId(tenderNotes.getTenderNotesId());//设置投标id
         	receivablesNotes.setMemberId(tenderNotes.getMemberId());//设置投标人也就是收款人的Id
@@ -475,7 +476,7 @@ public class ReceivablesNotesService {
                       	financeMemberService.editMember(financeMemberNew);
               		}
               	}
-              //添加会员"解冻投标金额"的资金记录明细
+              /*//添加会员"解冻投标金额"的资金记录明细
               	FinanceMember financeMemberThaw = (FinanceMember) financeMemberService.getMemberByMemberId(tenderNotes.getMemberId());//获取会员资金记录信息
               	financeTransaction.setFinanceMemberId(financeMemberThaw.getFinanceMemberId());//设置会员资金信息
               	financeTransaction.setMemberId(tenderNotes.getMemberId());//设置会员id
@@ -490,7 +491,7 @@ public class ReceivablesNotesService {
               	financeTransaction.setRefundMoney(financeMemberThaw.getRefundMoney());//设置待还金额
               	financeTransaction.setAmount(financeMemberThaw.getAmount());//设置总金额
               	financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
-        	}
+*/        	}
         	//给收款记录对象赋值//增加字段2014-6-27
         	receivablesNotes.setAlrOverdueInterest(0f);
         	receivablesNotes.setReceState("receiving");//设置收款记录的状态为收款中，"未收"
@@ -515,10 +516,13 @@ public class ReceivablesNotesService {
             	//查出投资人和会员资金和会员资金记录信息
             	//根据会员ID取出会员资金的信息
             	FinanceMember financeMembers=financeMemberMapper.selectByMemberId(tenderNotes.getMemberId());
+            	//创建资金记录明细对象
+            	FinanceTransaction transactionss = new FinanceTransaction();
+            	transactionss.setFrozenMoney(financeMembers.getFrozenMoney()-receivablesNotes.getShouldRecePrincipal());//设置投资人的冻结金额
             	
             	//更新投资人的资金信息---------------------
-            	financeMembers.setFrozenMoney(financeMembers.getFrozenMoney()-borrowingLoan.getLoanTotal());//设置投资人的冻结资金
-            	financeMembers.setAmount(financeMembers.getAmount()-borrowingLoan.getLoanTotal());//设置投资人的总金额
+            	financeMembers.setFrozenMoney(financeMembers.getFrozenMoney()-receivablesNotes.getShouldRecePrincipal());//设置投资人的冻结资金
+            	financeMembers.setAmount(financeMembers.getAmount()-receivablesNotes.getShouldRecePrincipal());//设置投资人的总金额
             	financeMembers.setCollectingMoney(financeMembers.getCollectingMoney()+receivablesNotes.getShouldReceMoney());//设置投资人的代收金额
             	
             	//更新投资人的资金信息
@@ -526,18 +530,16 @@ public class ReceivablesNotesService {
             	//根据收款人ID取出会员统计信息
             	MemberStatistics memberStatistics=memberStatisticsMapper.selectByMemberId(receivablesNotes.getMemberId());
             	//增加投资人的资金记录明细
-            	//创建资金记录明细对象
+            	
             	float moneynum=0;//默认投资人的为0
-            	FinanceTransaction transactionss = new FinanceTransaction();
             	transactionss.setTransactionId(RandomGUID.getRandomGUID());
             	transactionss.setFinanceMemberId(financeMembers.getFinanceMemberId());//设置会员资金ID
             	transactionss.setMemberId(tenderNotes.getMemberId());//设置会员名称
             	transactionss.setTransactionTarget(borrowingLoan.getMemberDisplay());//设置交易人名称
             	transactionss.setTransactionType("投资成功,扣除冻结资金");//设置交易类型
             	transactionss.setEarningMoney(moneynum);//设置投资人默认收入金额为0
-            	transactionss.setExpendMoney(borrowingLoan.getLoanTotal());//设置投资人支出投资金额
+            	transactionss.setExpendMoney(receivablesNotes.getShouldRecePrincipal());//设置投资人支出投资金额
             	transactionss.setUsableMoney(financeMembers.getUsableMoney());//设置投资人的可用余额
-            	transactionss.setFrozenMoney(financeMembers.getFrozenMoney());//设置投资人的冻结金额
             	transactionss.setCollectingMoney(financeMembers.getCollectingMoney());//设置投资人的待收金额
             	transactionss.setRefundMoney(financeMembers.getRefundMoney());//设置投资人的代还金额
             	transactionss.setAmount(financeMembers.getAmount());//设置投资人的总金额
