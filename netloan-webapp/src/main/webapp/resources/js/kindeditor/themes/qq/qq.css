@@ -159,6 +159,39 @@
 	width: 23px;
 	height: 16px;
 }
+
+/* add icons */
+.ke-container-qq .ke-icon-plug-align{
+	background-position: 0px -144px;
+}
+.plug-align-justifyleft{
+	background-position: 0px -144px;
+}
+.plug-align-justifycenter{
+	background-position: 0px -160px;
+}
+.plug-align-justifyright{
+	background-position: 0px -176px;
+}
+.ke-container-qq .ke-icon-plug-order{
+	background-position: 0px -224px;
+}
+.plug-order-insertorderedlist{
+	background-position: 0px -208px;
+}
+.plug-order-insertunorderedlist{
+	background-position: 0px -224px;
+}
+.ke-container-qq .ke-icon-plug-indent{
+	background-position: 0px -256px;
+}
+.plug-indent-indent{
+	background-position: 0px -256px;
+}
+.plug-indent-outdent{
+	background-position: 0px -240px;
+}
+
 .ke-icon-bold {
 	background-position: 0px -416px;
 	width: 16px;
