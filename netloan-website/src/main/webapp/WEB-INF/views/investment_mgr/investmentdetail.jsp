@@ -101,7 +101,7 @@
 		        	}
 		        </script>
 	       	  	<div class="col-md-2" style="text-align:right;"><span>投标进度：</span></div>
-		       	<div class="col-md-2" style="text-align:left;">
+		       	<div class="col-md-3" style="text-align:left;">
 		       	  	<div class="progress" style="border: 1px solid red; width:100px;">
 		        		<div id="progressBar" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/>" aria-valuemin="0" aria-valuemax="100" style="  width: <fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/>%"></div>
 		        		<!-- <div id="progressBar" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%"></div>
@@ -111,7 +111,7 @@
 				        </script> -->
 					</div>
 				</div>
-				<div class="col-md-2" style="text-align:left;"><span><fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/>%</span></div>
+				<div class="col-md-4" style="text-align:left;"><span><fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/>%</span></div>
 	       	  	</div>
 	       	  	<div class="row">
 	       	  	<div class="col-md-4"><span>还款方式：${borrowingLoan.repaymentTypeDisplay } </span></div>
@@ -149,7 +149,7 @@
 	       	  	<div class="col-md-4"><span></span></div>
 	       	  	</div><br>
 	       	  	<div class="row">
-	       	  	<div class="col-md-8"><span>总投标数：${tenderNotesCount}&nbsp;次</span></div>
+	       	  	<div class="col-md-8"><span>投标数量：${borrowingLoan.tenderSum}&nbsp;次</span></div>
 	       	  	<div class="col-md-4"><span></span></div>
 	       	  	</div><br>
 	       	  	<div class="row">
@@ -576,7 +576,7 @@
             if(endtime<=nowtime){
             	$("#lxftime").html("已过期")//如果结束日期小于当前日期就提示过期啦
             }else{
-            	$("#lxftime").html("<span>"+days+"</span><em>天</em><span>"+CHour+"</span><em>时</em><span>"+CMinute+"</span><em>分</em><span>"+CSecond+"</span><em>秒</em>");          //输出有天数的数据
+            	$("#lxftime").html("<span>"+days+"</span> 天 <span>"+CHour+"</span> 时 <span>"+CMinute+"</span> 分 <span>"+CSecond+"</span> 秒 ");          //输出有天数的数据
             }
 	setTimeout("lxfEndtime()",1000);
 	};
