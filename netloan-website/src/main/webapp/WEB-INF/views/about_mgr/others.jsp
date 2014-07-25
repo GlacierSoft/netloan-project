@@ -81,20 +81,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						   <a id="completed_two" href="${ctx}/others/others.htm?&str=BorrowAgree" class="btn btn-primary" role="button">借款协议范本</a>
 						   <a id="completed_three" href="${ctx}/others/others.htm?&str=ManageMoney" class="btn btn-primary" role="button">如何理财</a>
 						   <div style="width:920px;height:40px;border: 0px solid black;margin-top: 20px;line-height: 40px;">
-						        <form action="${ctx}/others/FindIPAddress" method="Post">
+						        <form action="${ctx}/others/FindIPAddress" method="Post" id="form_IpNUmber">
 						            <label>IP地址 ： </label>
 						            <input type="text"  id="IpNumber_one" name="IP" class="IpNumber" placeholder="请输入合法IP地址" value="${ResoutIP}">&nbsp;
-						            <button class="btn btn-primary" type="submit">查询</button>&nbsp;
+						            <input type="button" id="IPNUmberCommit" class="btn btn-primary" value="查询">&nbsp;
 						            <button class="btn btn-primary" id="CleanIPNumber">重置</button>&nbsp;
 						        </form>
 						   </div>
 						   <div style="width:920px;height:30px;border: 0px solid black;margin-top: 25px;line-height: 30px;background-color: #F5F5F5;padding-left: 20px;">
 						                                     查询结果：  
 						             <c:if test="${Resout==null}">
-						                 <input type="text" style="background: #F5F5F5;border: 0px;color: red;height: 30px;width: 250px;" value="暂无消息" readonly="readonly">
+						                 <input type="text" style="background: #F5F5F5;border: 0px;color: red;height: 30px;width: 250px;" value="暂无消息" readonly="readonly" id="IpNUmber_invest_First">
 						             </c:if>
 						             <c:if test="${Resout!=null}">
-						                 <input type="text" style="background: #F5F5F5;border: 0px;color: red;height: 30px;width: 250px;" value="${Resout }" readonly="readonly">
+						                 <input type="text" style="background: #F5F5F5;border: 0px;color: red;height: 30px;width: 250px;" value="${Resout }" readonly="readonly" id="IpNumber_invest_Second">
 						             </c:if>
 						   </div>
 						</div>
@@ -108,28 +108,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						   <a id="completed_two" href="${ctx}/others/others.htm?&str=BorrowAgree" class="btn btn-primary" role="button">借款协议范本</a>
 						   <a id="completed_three" href="${ctx}/others/others.htm?&str=ManageMoney" class="btn btn-primary" role="button">如何理财</a>
 						   <div style="width:920px;height:40px;border: 0px solid black;margin-top: 20px;line-height: 40px;">
-						        <form action="${ctx}/others/FindTellAddress" method="post">
+						        <form action="${ctx}/others/FindTellAddress" method="post" id="form_mobile">
 						            <label>请输入手机号 ： </label>
 						            <input type="text"  id="TellNumberOne" name="mobileNumber" class="IpNumber" placeholder="请输入合法手机号" value="${ mobileNumber}" >&nbsp;
-						            <button class="btn btn-primary" id="TellPhone_Commit" type="submit">查询</button>&nbsp;
+						            <input type="button" id="TellPhone_Commit" value="查询" class="btn btn-primary">&nbsp;
 						            <button class="btn btn-primary" id="TellPhone_Clean" type="reset">重置</button>&nbsp;
 						        </form>
 						   </div>
 						   <div style="width:920px;height:30px;border: 0px solid black;margin-top: 25px;line-height: 30px;background-color: #F5F5F5;padding-left: 20px;">
 						                                     查询结果：
 						                   <c:if test="${PhoneNumberAddress==null }">
-						                    <input type="text" style="background: #F5F5F5;border: 0px;color: red;height: 30px;" value="暂无消息" readonly="readonly"> 
+						                    <input type="text" style="background: #F5F5F5;border: 0px;color: red;height: 30px;" value="暂无消息" readonly="readonly" id="Phone_Text"> 
 						                   </c:if>
 						                   <c:if test="${PhoneNumberAddress!=null }">
-						                    <input type="text" style="background: #F5F5F5;border: 0px;color: red;height: 30px;width: 560px;" value="${PhoneNumberAddress}" readonly="readonly"> 
+						                    <input type="text" style="background: #F5F5F5;border: 0px;color: red;height: 30px;width: 560px;" value="${PhoneNumberAddress}" readonly="readonly" id="Phone_Text_warn"> 
 						                   </c:if>
 						                
 						   </div>
 						</div>
 					 </c:when>
 					 
-					 
-					 <c:when test="${str=='ManageMoney'}">
+					<c:when test="${str=='ManageMoney'}">
 					     <a id="repaymenting" href="${ctx}/others/others.htm?&str=IPNumber" class="btn btn-primary" role="button">IP地址查询</a>
 						 <a id="completed" href="${ctx}/others/others.htm?&str=TellNumber" class="btn btn-primary" role="button">手机号码查询</a>
 						 <a id="completed_two" href="${ctx}/others/others.htm?&str=BorrowAgree" class="btn btn-primary" role="button">借款协议范本</a>
@@ -241,14 +240,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	 $("#TellPhone_Clean").click(function(){
     		 $("#TellNumberOne").attr("value",""); 
     	 });
-    	}); 
-       
-       
-       //Tell验证
-       
-       
-       
+    	 
+    	 //手机号验证
+    	 $("#TellPhone_Commit").click(function(){
+            var str=$("#TellNumberOne").val();
+            if(str){
+            	if(!(/^0?(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/.test(str))){
+            		$("#Phone_Text").val("手机号格式输入错误!!!");
+            		$("#Phone_Text_warn").val("手机号格式输入错误!!!");
+            	}else{
+            		$("#form_mobile").submit();
+            	}
+            }else{
+            	$("#Phone_Text").val("请正确填写手机号!!!");
+            	$("#Phone_Text_warn").val("请正确填写手机号!!!");
+            }
+    	});
+    	 //IP验证
+    	 $("#IPNUmberCommit").click(function(){
+    		 var str=$("#IpNumber_one").val();
+    		 if(str){
+    			 if(!(/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/.test(str))){
+   				 $("#IpNUmber_invest_First").val("IP地址格式输入错误!!!");
+   	    		 $("#IpNUmber_invest_Second").val("IP地址格式输入错误!!!");  
+   			  }else{
+   				$("#form_IpNUmber").submit();
+   			  }
+    		 }else{
+    			 $("#IpNUmber_invest_First").val("请正确填写IP号!");
+    			 $("#IpNUmber_invest_Second").val("请正确填写IP号!");
+    		 }
+    	 });
+      }); 	 
 </script>
-	    
 </body>
 </html>
