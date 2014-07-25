@@ -731,6 +731,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			applyMoney:{
 				required:true,
 				number:true,
+				min:100,
 				max:10000, 
 			}
 		},
@@ -738,6 +739,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			applyMoney:{
 				required:"申请额度不能为空",
 				number:"申请额度只能为数字",
+				min:"申请额度不能低于100",
 				max:"不能高于10000", 
 			}
 		},
