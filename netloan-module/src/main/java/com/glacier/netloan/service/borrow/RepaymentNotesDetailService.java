@@ -440,6 +440,13 @@ public class RepaymentNotesDetailService {
         User pricipalUser = users.get(0);
         //更新还款记录明细表WT于2014-6-30增加
         RepaymentNotesDetail repaymentNotesDetail = repaymentNotesDetailMapper.selectByPrimaryKey(repayNotesDetailId);// 根据还款明细Id查找出对应的还款明细信息记录
+        
+        if(repaymentNotesDetail.getRepayState().equals("alreadRepay")){
+        	  returnResult.setMsg("该期数已还完");
+        	  return returnResult;
+        }
+        
+        
         repaymentNotesDetail.setRepayState("alreadRepay");
         repaymentNotesDetail.setActualPayDate(new Date());//赋值实还时间current_pay_moeny
         repaymentNotesDetail.setActualPayMoney(repaymentNotesDetail.getCurrentPayMoeny());//实还本息等于本期应还本息

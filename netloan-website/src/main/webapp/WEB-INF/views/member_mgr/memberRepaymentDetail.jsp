@@ -110,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				          </tr>
 				          <tr>
 				            <td>借款利率：</td>
-				            <td>${borrowingLoan.loanApr}</td>
+				            <td><fmt:formatNumber value="${borrowingLoan.loanApr * 100}" pattern="#,#00.00"/> %</td>
 				            <td>借款期限：</td>
 				            <td>${borrowingLoan.loanDeadlinesId}个月</td>
 				          </tr>
@@ -156,8 +156,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</td>
 					            <td>
 					            	<c:if test="${repaymentNotesDetails.repayState == 'notRepay'}">
-					            		<a href="${ctx}/repaymentNotesDetail/conductRepayment.htm?&loanId=${borrowingLoan.loanId}&memberId=${currentMember.memberId}&repayNotesDetailId=${repaymentNotesDetails.repayNotesDetailId}">还款</a>
-					            	</c:if>
+					            		<a href="#" onclick="doClicks('repaymentNotesDetail/conductRepayment.htm','${currentMember.memberId}','${borrowingLoan.loanId}','${repaymentNotesDetails.repayNotesDetailId}')">还款</a>
+					            	 </c:if>
 					            	<c:if test="${repaymentNotesDetails.repayState == 'alreadRepay'}">
 					            		已完成
 					            	</c:if>
@@ -256,6 +256,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    my_input.attr('value', str);  
 	    // 附加到Form  
 	    form.append(my_input);  
+	    //表单的构建是否 完成
+	    form.appendTo(document.body).submit();
+	 }
+	
+	//构建表单
+	function doClicks(url,str,loanid,repayNotesDetailId){
+		// 创建Form  
+		var form = $('<form></form>');  
+		// 设置属性  
+	    form.attr('action', '<%=basePath%>'+url);  
+	    form.attr('method', 'post');  
+	    // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
+	    form.attr('target', '_self');  
+	    // 创建Input  
+	    var my_input = $('<input type="text" name="memberId" />');  
+
+	    var loanid_input = $('<input type="text" name="loanId" />');  
+
+	    var repayNotesDetailId_input = $('<input type="text" name="repayNotesDetailId" />');  
+	    my_input.attr('value', str);  
+	    loanid_input.attr('value', loanid);  
+	    repayNotesDetailId_input.attr('value', repayNotesDetailId);  
+	    // 附加到Form  
+	    form.append(my_input);  
+
+	    form.append(loanid_input);  
+
+	    form.append(repayNotesDetailId_input);  
 	    //表单的构建是否 完成
 	    form.appendTo(document.body).submit();
 	 }

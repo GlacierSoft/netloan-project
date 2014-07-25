@@ -43,8 +43,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <div class="btn-group-vertical">
 					          <a href="${ctx}/member/index.htm" class="btn btn-default" role="button">我的主页</a>
 					          <a href="${ctx}/financeMember/rechargeWithdraw.htm?p=1" class="btn btn-default" role="button">充值提现</a>
-					          <a href="${ctx}/member/memberAuth.htm?&p=0" class="btn btn-default" role="button">平台认证</a>
-					          <a href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1" class="btn btn-default" role="button">站内信</a>
+					          <a href="${ctx}/member/memberAuth.htm?p=0" class="btn btn-default" role="button">平台认证</a>
+					          <a href="${ctx}/messageNotice/intoMessageNotice.htm?p=1" class="btn btn-default" role="button">站内信</a>
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">个人设置</a>
 							  <a href="${ctx}/member/memberPhotoInto.htm" class="btn btn-default" role="button">头像上传</a>
 							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">邮箱设置</a>
@@ -63,8 +63,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <div id="collapseTwo" class="panel-collapse collapse">
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
-							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit" class="btn btn-default" role="button">已发布的借款</a>
-							  <a  href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting','${currentMember.memberId}');" class="btn btn-default" role="button">还款管理</a>
+							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?p=1&loanState=firstAudit" class="btn btn-default" role="button">已发布的借款</a>
+							  <a  href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?p=1&loanState=repaymenting','${currentMember.memberId}');" class="btn btn-default" role="button">还款管理</a>
 							  <a href="#" onclick="doClick('borrowingLoan/memberStatistics.htm','${currentMember.memberId}');" class="btn btn-default" role="button">贷款统计</a>
 							</div>
 					      </div>
@@ -81,9 +81,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <div id="collapseThree" class="panel-collapse collapse in">
 					      <div class="panel-body">
 					      	<div class="btn-group-vertical">
-					      	  <a href="#" onclick="doClick('investment/memberTenderNotes.htm?&p=1&loanStates=sucessBorrow','${currentMember.memberId}')" class="btn btn-default" role="button">我的投标</a>
-			                  <a href="#" onclick="doClick('attentionBorrowing/memberAttentionBorrowing.htm?&p=1','${currentMember.memberId}')" class="btn btn-info" role="button">我关注的借款</a>
-			                  <a href="#" onclick="doClick('bankingStatistics/memberBankingStatistics.htm','${currentMember.memberId}')" class="btn btn-default" role="button">投资统计</a>
+					      	  <a href="#" onclick="doClick('investment/memberTenderNotes.htm?p=1&loanStates=sucessBorrow','${currentMember.memberId}');" class="btn btn-default" role="button">我的投标</a>
+			                  <a href="#" onclick="doClick('attentionBorrowing/memberAttentionBorrowing.htm?p=1','${currentMember.memberId}');" class="btn btn-info" role="button">我关注的借款</a>
+			                  <a href="#" onclick="doClick('bankingStatistics/memberBankingStatistics.htm','${currentMember.memberId}');" class="btn btn-default" role="button">投资统计</a>
 					      </div>
 					    </div>
 					  </div>
@@ -102,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <h4 class="panel-title"><strong>条件筛选</strong></h3>
 						  </div>
 						  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
-						     <form id="attentionBorrowingForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/attentionBorrowing/memberAttentionBorrowing.htm?&p=1" >
+						     <form id="attentionBorrowingForm"  class=" form-horizontal" role="form"  method="post" action="${ctx}/attentionBorrowing/memberAttentionBorrowing.htm?p=1" >
 						      <div class="form-group">
 						        <label for="cardId" class="col-sm-2 control-label" >发布时间</label>
 							    <div class="col-sm-4">
@@ -160,8 +160,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            <c:forEach items="${returnResultAttentionBorrowing.rows}" var="attentionBorrowing" varStatus="status">
 						      	<tr>
 					              <td  style="border-bottom-width:0px;display:block;width:144px; height:43px; text-align:center; heword-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-					              <a href="${ctx}/investment/investmentdetail.htm?loanId=${attentionBorrowing.loanId }&memberId=${attentionBorrowing.loanMemberId }&p=1">
-					              ${attentionBorrowing.loanTitle}
+					              <a href="#" onclick="doClicks('investment/investmentdetail.htm?p=1','${attentionBorrowing.loanId }','${attentionBorrowing.loanMemberId }')">
+					                 ${attentionBorrowing.loanTitle}
 					              </a>
 					              </td>
 					              <td>${attentionBorrowing.loanTenderDisplay}</td>
@@ -172,8 +172,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					              <td><fmt:formatDate value="${attentionBorrowing.loanDate}" type="both"/></td>
 					              <td><fmt:formatNumber value='${attentionBorrowing.alrTenderPro}' pattern='#0.00%'/>/剩余时间</td>
 								  <td><img id="creditPhotoDivImg"  src="${attentionBorrowing.creditPhoto}" style="width: 34px;height: 24px ;" /></td>
-								  <td><a href="${ctx}/attentionBorrowing/delAttentionBorrowing.json?&memberId=${currentMember.memberId}&attentionBorrowingId=${attentionBorrowing.attentionBorrowingId}">删除</a></td>
-					            </tr>
+								  <td><a href="#" onclick="doClickDelete('attentionBorrowing/delAttentionBorrowing.json','${currentMember.memberId}','${attentionBorrowing.attentionBorrowingId}')">删除</a></td>
+					              </tr>
 					      	</c:forEach>
 					      	</c:if>	<!-- <span id="alrTenderPro${status.index}"><fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/></span>% -->
 				            </tbody>
@@ -217,6 +217,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    my_input.attr('value', str);  
 	    // 附加到Form  
 	    form.append(my_input);  
+	    //表单的构建是否 完成
+	    form.appendTo(document.body).submit();
+	 }
+    
+    //构建表单
+	function doClickDelete(url,str,attentionBorrowingId){
+		// 创建Form  
+		var form = $('<form></form>');  
+		// 设置属性  
+	    form.attr('action', '<%=basePath%>'+url);  
+	    form.attr('method', 'post');  
+	    // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
+	    form.attr('target', '_self');  
+	    // 创建Input  
+	    var my_input = $('<input type="text" name="memberId" />');  
+
+	    var at_input = $('<input type="text" name="attentionBorrowingId" />');  
+	    my_input.attr('value', str);  
+	    at_input.attr('value', attentionBorrowingId);
+	    // 附加到Form  
+	    form.append(my_input);   
+	    form.append(at_input);  
+	    //表单的构建是否 完成
+	    form.appendTo(document.body).submit();
+	 }
+	 //构建表单
+	function doClicks(url,loanId,str){
+		// 创建Form  
+		var form = $('<form></form>');  
+		// 设置属性  
+	    form.attr('action', '<%=basePath%>'+url);  
+	    form.attr('method', 'post');  
+	    // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
+	    form.attr('target', '_self');  
+	    // 创建Input  
+	    var my_input = $('<input type="text" name="memberId" />'); 
+	    var loanId_input = $('<input type="text" name="loanId" />'); 
+	    my_input.attr('value', str);  
+	    loanId_input.attr('value', loanId);
+	    // 附加到Form  
+	    form.append(my_input);  
+	    form.append(loanId_input);  
 	    //表单的构建是否 完成
 	    form.appendTo(document.body).submit();
 	 }
@@ -279,7 +321,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    numberOfPages: 10,
 			    totalPages:totalattentionBorrowing,
 			    pageUrl: function(type, page, current){
-			    	return "${ctx}/attentionBorrowing/memberAttentionBorrowing.htm?"+composeUrlParams()+"&p="+page;
+			    	return "${ctx}/attentionBorrowing/memberAttentionBorrowing.htm?"+composeUrlParams()+"p="+page;
 			    	}
 			}
 			

@@ -168,13 +168,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							            <td>${borrowingLoan.loanTenderDisplay}</td>
 							            <td>${borrowingLoan.repaymentTypeDisplay}</td>
 							            <td>￥<fmt:formatNumber value='${borrowingLoan.loanTotal}' pattern='#,#00.00'/></td>
-							            <td>${borrowingLoan.loanApr}%</td>
+							            <td> <fmt:formatNumber value="${borrowingLoan.loanApr * 100}" pattern="#,#00.00"/> %</td>
 							            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="date"/></td>
 							            <td>￥<fmt:formatNumber value='${borrowingLoan.shouldPayMoney}' pattern='#,#00.00'/></td>
 							            <td>￥<fmt:formatNumber value='${borrowingLoan.alrPayMoney}' pattern='#,#00.00'/></td>
 							            <td>￥<fmt:formatNumber value='${borrowingLoan.notPayMoney}' pattern='#,#00.00'/></td>
-							            <td><a href="${ctx}/borrowingLoan/memberRepaymentDetail.htm?&loanId=${borrowingLoan.loanId}&memberId=${currentMember.memberId}&p=1">还款明细</a></td>
-							          </tr>
+							            <td><a  href="#" onclick="doClicks('borrowingLoan/memberRepaymentDetail.htm?p=1','${currentMember.memberId}','${borrowingLoan.loanId}')">还款明细</a></td>
+							        </tr>
 						      		</c:forEach>
 						      		</c:if>
 						      	</tbody>
@@ -234,7 +234,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					          <table  class="table table-bordered" style="text-align:center;vertical-align: middle;">
 					          	<thead>
 						          <tr>
-				 		            <th width="144" style="text-align: center;">借款标题</th>
+				 		            <th width="114" style="text-align: center;">借款标题</th>
 						            <th style="text-align: center;width: 80px">借款类型</th>
 						            <th style="text-align: center;width: 100px">还款方式</th>
 						            <th style="text-align: center;">借款金额</th>
@@ -255,11 +255,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<c:if test="${!empty borrowingDatas.rows}">  
 						          		<c:forEach items="${borrowingDatas.rows}" var="borrowingLoan" varStatus="status">
 								          <tr>
-								            <td  style="border-bottom-width:0px;display:block;width:144px; height:43px; text-align:center; heword-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${borrowingLoan.loanTitle}</td>
+								            <td  style="border-bottom-width:0px;display:block;width:114px; height:43px; text-align:center; heword-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${borrowingLoan.loanTitle}</td>
 								            <td>${borrowingLoan.loanTenderDisplay}</td>
 								            <td>${borrowingLoan.repaymentTypeDisplay}</td>
 								            <td>￥<fmt:formatNumber value='${borrowingLoan.loanTotal}' pattern='#,#00.00'/></td>
-								            <td>${borrowingLoan.loanApr}%</td>
+								            <td><fmt:formatNumber value="${borrowingLoan.loanApr * 100}" pattern="#,#00.00"/> %</td>
 								            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="date"/></td>
 								            <td>￥<fmt:formatNumber value='${borrowingLoan.shouldPayMoney}' pattern='#,#00.00'/></td>
 								            <td>￥<fmt:formatNumber value='${borrowingLoan.alrPayMoney}' pattern='#,#00.00'/></td>
@@ -386,6 +386,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    my_input.attr('value', str);  
 	    // 附加到Form  
 	    form.append(my_input);  
+	    //表单的构建是否 完成
+	    form.appendTo(document.body).submit();
+	 }
+	
+	 //构建表单
+	function doClicks(url,str,loanid){
+		// 创建Form  
+		var form = $('<form></form>');  
+		// 设置属性  
+	    form.attr('action', '<%=basePath%>'+url);  
+	    form.attr('method', 'post');  
+	    // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
+	    form.attr('target', '_self');  
+	    // 创建Input  
+	    var my_input = $('<input type="text" name="memberId" />');  
+	    var loan_input = $('<input type="text" name="loanId" />');   
+	    my_input.attr('value', str); 
+	    loan_input.attr('value',loanid);
+	    // 附加到Form  
+	    form.append(my_input);   
+	    form.append(loan_input);  
 	    //表单的构建是否 完成
 	    form.appendTo(document.body).submit();
 	 }

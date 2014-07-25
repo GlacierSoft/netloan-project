@@ -26,6 +26,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style>
   </head>
   <body>
+  <%
+    response.setHeader("Cache-Control","no-store");
+    response.setDateHeader("Expires", 0);
+    response.setHeader("Pragma","no-cache"); 
+  %>
 <jsp:include page="../nav_mgr/navMember.jsp"/>
        
 	    <!-- CONTAINER START======================== -->
@@ -111,11 +116,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            <td>借款标题：</td>
 				            <td>${borrowingLoan.loanTitle}</td>
 				            <td>借款金额：</td>
-				            <td>￥${borrowingLoan.loanTotal}</td>
+				            <td>￥<fmt:formatNumber value='${borrowingLoan.loanTotal}' pattern='#,#00.00'/></td>
 				          </tr>
 				          <tr>
 				            <td>借款利率：</td>
-				            <td>${borrowingLoan.loanApr}</td>
+				            <td><fmt:formatNumber value="${borrowingLoan.loanApr * 100}" pattern="#,#00.00"/> %</td>
 				            <td>借款期限：</td>
 				            <td>${borrowingLoan.loanDeadlinesId}个月</td>
 				          </tr>
@@ -138,26 +143,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            <td>账户余额：</td>
 				            <td>
 				            	<input type="hidden" id="financeMemberId" name="financeMemberId" value="${financeMemberDate.financeMemberId}"/>
-				            	￥${financeMemberDate.amount}
+				            	￥<fmt:formatNumber value='${financeMemberDate.amount}' pattern='#,#00.00'/>
 				            </td>
 				            <td>可用余额：</td>
-				            <td>￥${financeMemberDate.usableMoney}</td>
+				            <td>￥<fmt:formatNumber value='${financeMemberDate.usableMoney}' pattern='#,#00.00'/></td>
 				          </tr>
 				          <tr>
 				            <td>还款日期： </td>
 				            <td><fmt:formatDate value="${repaymentNotesDetailsData.shouldPayDate}" type="date"/></td>
 				            <td>待还本息：</td>
-				            <td>￥${repaymentNotesDetailsData.currentPayMoeny}</td>
+				            <td>￥<fmt:formatNumber value='${repaymentNotesDetailsData.currentPayMoeny}' pattern='#,#00.00'/></td>
 				          </tr>
 				          <tr>
 				            <td>逾期罚息：</td>
-				            <td>￥${repaymentNotesDetailsData.overdueInterest}</td>
+				            <td>￥<fmt:formatNumber value='${repaymentNotesDetailsData.overdueInterest}' pattern='#,#00.00'/></td>
 				            <td>逾期催收费：</td>
-				            <td>￥${repaymentNotesDetailsData.overdueUrgeFee}</td>
+				            <td>￥<fmt:formatNumber value='${repaymentNotesDetailsData.overdueUrgeFee}' pattern='#,#00.00'/></td>
 				          </tr>
 				          <tr>
 				            <td>逾期管理费：</td>
-				            <td>￥${repaymentNotesDetailsData.overdueManaFee}</td>
+				            <td>￥<fmt:formatNumber value='${repaymentNotesDetailsData.overdueManaFee}' pattern='#,#00.00'/></td>
 				            <td>需还总额：</td>
 				            <td>￥<fmt:formatNumber value='${repaymentNotesDetailsData.currentPayMoeny+repaymentNotesDetailsData.overdueInterest+repaymentNotesDetailsData.overdueUrgeFee+repaymentNotesDetailsData.overdueManaFee}' pattern='#,#00.00'/></td>
 				          </tr>
@@ -199,8 +204,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	     <jsp:include page="../foot.jsp"/>
 <script type="text/javascript">
 
+
+
   //构建表单
-   function doClick(url,str){
+   function doClick(url,str){ 
 		// 创建Form  
 		var form = $('<form></form>');  
 		// 设置属性  
@@ -217,6 +224,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    form.appendTo(document.body).submit();
     }
 	
+   window.onload=function(){  
+		    if("${repaymentNotesDetailsData.repayState}"=="alreadRepay"){
+		    	doClick('/borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting','${currentMember.memberId}');
+		    }
+		}
+  
 	validaconductRepaymentSubForm = function(){
 		var $subSum = $('#subSum');
 		if(${repaymentNotesDetailsData.alsoNeedMoney} > ${financeMemberDate.usableMoney}){
@@ -260,17 +273,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        closeBtn : {
 				                name : '关闭',
 				                click : function(e) {
-				                        dialog.remove();
+				                        dialog.remove(); 
 				                }
 				        },
 				        yesBtn : {
 				                name : '确定',
-				                click : function(e) {
-				                	dialog.remove();
+				                click : function(e) {   
+				                	 dialog.remove(); 
 				                	if(data.success){
 				                		window.location.href="${ctx}/borrowingLoan/memberRepaymentDetail.htm?&loanId=${borrowingLoan.loanId}&memberId=${currentMember.memberId}&p=1";
-				                	}else{
-				                		dialog.remove();
+				                	}else{ 
+				                		dialog.remove();  
 				                	}
 				                }
 				        }
@@ -299,6 +312,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        yesBtn : {
 				                name : '确定',
 				                click : function(e) {
+
+			                		alert("---3");
 				                		dialog.remove();
 				                }
 				        },

@@ -135,7 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <h3 class="panel-title">借款协议</h3>
 				  </div>
 				  <div style="padding-top:10px;padding-bottom: 20px;">
-						   <div style="width:920px;height:1000px;border: 0px solid black;margin-top: 20px;">
+						   <div style="width:920px;border: 0px solid black;margin-top: 20px;">
 						       <h2 style="font-size: 20px;text-align: center;color: black;font-weight: bold;">借款协议</h2>
 						       <div id="topAgreement">
 							       <div class="BorrowAgreeDiv">合同编号：<b><u>P2P—<fmt:formatDate value="${repaymentNotesStartTime[0].shouldPayDate }" pattern='yyyyMMddhhmm'/></u></b></div>
@@ -156,7 +156,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						               <c:forEach items="${receivablesNotesList}" var="receivablesNotes" varStatus="status">
 						               	<tr>
 						               		<td>${receivablesNotes.memberDisplay }</td><td>￥<fmt:formatNumber value='${receivablesNotes.shouldRecePrincipal }' pattern='#0.00'/></td>
-						               		<td>${borrowingLoan.loanDeadlinesId} </td><td>${repaymentNotes[0].loanApr }</td>
+						               		<td>${borrowingLoan.loanDeadlinesId} </td><td><fmt:formatNumber value="${repaymentNotes[0].loanApr * 100}" pattern="#,#00.00"/> %</td>
 						               		<td><fmt:formatDate value="${repaymentNotesStartTime[0].shouldPayDate }" pattern='yyyy-MM-dd'/></td>
 						               		<td><fmt:formatDate value="${repaymentNotesEndTime[0].shouldPayDate }" pattern='yyyy-MM-dd'/></td>
 						               		<td></td><td>￥${receivablesNotes.shouldReceMoney }</td>
@@ -191,7 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						                <tr ><td> 借款本金数额: </td><td>￥<fmt:formatNumber value='${borrowingLoan.loanTotal }' pattern='#0.00'/></td></tr>
 						                <tr style="background: #D9D9D9"><td> 应偿还本息数额: </td><td>￥<fmt:formatNumber value='${repaymentNotes[0].shouldPayMoney }' pattern='#0.00'/></td></tr>
 						                <tr > <td> 还款分期月数: </td><td>${borrowingLoan.loanDeadlinesId}</td></tr>
-						                <tr style="background: #D9D9D9"><td> 借款利率: </td><td>${repaymentNotes[0].loanApr }</td></tr>
+						                <tr style="background: #D9D9D9"><td> 借款利率: </td><td><fmt:formatNumber value="${repaymentNotes[0].loanApr * 100}" pattern="#,#00.00"/> %</td></tr>
 						                <tr ><td> 还款方式: </td><td>${borrowingLoan.repaymentTypeDisplay}</td></tr>
 						                 <tr ><td>  借款描述: : </td><td>${borrowingLoan.loanDetail}</td></tr>
 						                 <tr style="background: #D9D9D9"><td>  还款日: </td><td>每月<fmt:formatDate value="${repaymentNotesStartTime[0].shouldPayDate }" pattern='dd'/>日（24：00前，节假日不顺延）</td></tr>
@@ -226,7 +226,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						               </c:forEach>
 						          </table>
 						        </div>
-						       <div id="buttomsAgreement">
+						       <div id="buttomsAgreement" style="padding-top: 40px">
 						       <div class="BorrowAgreeDiv"></div>
 						       <div class="BorrowAgreeDiv">第二条 各方权利和义务</div>
 						       <div class="BorrowAgreeDiv">贷出方的权利和义务 : </div>

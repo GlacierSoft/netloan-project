@@ -214,7 +214,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						            <td>${borrowingLoan.loanTenderDisplay}</td>
 						            <td>${borrowingLoan.repaymentTypeDisplay}</td>
 						            <td>￥<fmt:formatNumber value='${borrowingLoan.loanTotal}' pattern='#,#00.00'/></td>
-						            <td>${borrowingLoan.loanApr}%</td>
+						            <td><fmt:formatNumber value="${borrowingLoan.loanApr * 100}" pattern="#,#00.00"/>%</td>
 						            <td>${borrowingLoan.waitBidDeadlines}天</td>
 						            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="both"/></td>
 						            <td>
