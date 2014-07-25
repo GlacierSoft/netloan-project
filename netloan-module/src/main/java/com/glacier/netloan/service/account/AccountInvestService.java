@@ -449,24 +449,25 @@ public class AccountInvestService {
 	
 	
 	//会员投资信息统计数据获取
-	public Object FindAccountInvest(){
+	public Object FindAccountInvest(int year_number,int month_number){
 		AccountInvestExample accountInvestExample=new AccountInvestExample();
-		JqPager pager=new JqPager();
-		pager.setSort("createTime");
-		pager.setOrder("ASC");
-		accountInvestExample.setOrderByClause(pager.getOrderBy("temp_account_invest_"));
-		List<AccountInvest> accountInvest=accountInvestMapper.selectByExample(accountInvestExample);
-		return accountInvest;
+		if(year_number>0&&month_number>0){
+		    Calendar carendar_year=Calendar.getInstance();
+		    carendar_year.set(Calendar.YEAR,year_number);
+		    carendar_year.set(month_number, month_number);
+		    
+			
+		}
+		return null;
+//		AccountInvestExample accountInvestExample=new AccountInvestExample();
+//		JqPager pager=new JqPager();
+//		pager.setSort("createTime");
+//		pager.setOrder("ASC");
+//		accountInvestExample.setOrderByClause(pager.getOrderBy("temp_account_invest_"));
+//		List<AccountInvest> accountInvest=accountInvestMapper.selectByExample(accountInvestExample);
+//		return accountInvest;
 		
-//		ParameterCreditExample parameterCreditExample = new ParameterCreditExample();
-//    	JqPager pager = new JqPager();
-//    	pager.setSort("creditNum");
-//    	pager.setOrder("DESC");
-//    	parameterCreditExample.setOrderByClause(pager.getOrderBy("temp_parameter_credit_"));
-//    	List<ParameterCredit>  parameterCredits = parameterCreditMapper.selectByExample(parameterCreditExample); // 查询所有操作列表
-		
-		
-	}	
+    }	
 	 
 	// 投资信息详情
 	public Object getAccountInvest(String investId) {

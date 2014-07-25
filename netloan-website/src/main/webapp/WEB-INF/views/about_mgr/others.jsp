@@ -111,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						        <form action="${ctx}/others/FindTellAddress" method="post">
 						            <label>请输入手机号 ： </label>
 						            <input type="text"  id="TellNumberOne" name="mobileNumber" class="IpNumber" placeholder="请输入合法手机号" value="${ mobileNumber}" >&nbsp;
-						            <button class="btn btn-primary" id="TellPhone_Commit" type="submit" onclick="FindPhoneInfo();">查询</button>&nbsp;
+						            <button class="btn btn-primary" id="TellPhone_Commit" type="submit">查询</button>&nbsp;
 						            <button class="btn btn-primary" id="TellPhone_Clean" type="reset">重置</button>&nbsp;
 						        </form>
 						   </div>

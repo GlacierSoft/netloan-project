@@ -182,7 +182,7 @@ public class WebsiteOthersController {
 		return mav;
 	}
 		   
-	@RequestMapping(value = "FindTellAddress_three")
+	@RequestMapping(value = "FindTellAddress")
 	public Object FindPhoneTestTwo(String mobileNumber) throws Exception {
 		ModelAndView mav = new ModelAndView("about_mgr/others");
 		mav.addObject("str", "TellNumber");
@@ -219,7 +219,7 @@ public class WebsiteOthersController {
 	}
 		    
 		    
-	@RequestMapping(value = "FindTellAddress")
+	@RequestMapping(value = "FindTellAddress_three")
 	public Object findPhonenNumber(String mobileNumber) throws Exception {
 		String str = getJsonContent("http://api.k780.com:88/?app=phone.get&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4&format=json&phone="
 				+ mobileNumber);

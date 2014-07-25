@@ -89,6 +89,7 @@ public class AccountInvestController extends AbstractController {
 	    
 	    
 	    //投资统计信息导出
+	   @SuppressWarnings("unchecked")
 	   @RequestMapping(value = "/exp.json")
 	   private void expAccountInvest(JqPager jqPager, AccountInvestQueryDTO accountInvestQueryDTO, String q,HttpServletRequest request,HttpServletResponse response) throws IOException{
 	    	  JqGridReturn returnResult=(JqGridReturn) accountInvestService.listAsGrid(jqPager,accountInvestQueryDTO);
@@ -109,9 +110,14 @@ public class AccountInvestController extends AbstractController {
 	   //柱形图数据绑定
 	  @RequestMapping(value="/data.json")
 	  @ResponseBody
-	  private Object FindAccountInvestData(){
+	  private Object FindAccountInvestData(HttpSession session){
 		  List<Map<String,Object>>  data_invest=new ArrayList<Map<String,Object>>();
-		  List<AccountInvest> list_invest=(List<AccountInvest>) accountInvestService.FindAccountInvest();
+		  //获取参数
+		  int year_number=(Integer) session.getAttribute("year_number");
+		  int month_number=(Integer) session.getAttribute("month_number");
+		  
+		  
+		  List<AccountInvest> list_invest=(List<AccountInvest>) accountInvestService.FindAccountInvest(year_number,month_number);
 		  //定义变量
 		  Float[]  sumUncollected=new Float[list_invest.size()];
 		  Float[]  sumReward=new Float[list_invest.size()];
@@ -173,9 +179,12 @@ public class AccountInvestController extends AbstractController {
 	  //X轴日期绑定
 	  @RequestMapping(value="/date.json")
 	  @ResponseBody
-	  private Object FindInvestDate(){
+	  private Object FindInvestDate(HttpSession session){
 		  List<Map<String,Object>>  data_invest=new ArrayList<Map<String,Object>>();
-		  List<AccountInvest> list_invest=(List<AccountInvest>) accountInvestService.FindAccountInvest();
+		  //获取参数
+		  int year_number=(Integer) session.getAttribute("year_number");
+		  int month_number=(Integer) session.getAttribute("month_number");
+		  List<AccountInvest> list_invest=(List<AccountInvest>) accountInvestService.FindAccountInvest(year_number,month_number);
 		  
 		  //时间转化
 		  SimpleDateFormat sf=new SimpleDateFormat("MM.dd");
