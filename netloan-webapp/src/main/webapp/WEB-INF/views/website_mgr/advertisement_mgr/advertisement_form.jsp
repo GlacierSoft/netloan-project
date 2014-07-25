@@ -20,7 +20,7 @@
 		<tr>
 			<td>广告排序：</td>
 			<td>
-				<input name="webAdvNum" class="easyui-numberspinner spinner" value="${advertisementData.webAdvNum}" data-options="min:0,max:999,missingMessage:'请输入广告排序'" value="10" style="width: 600px;height:18px;" min="1" max="99"/>
+				<input name="webAdvNum" class="easyui-numberspinner spinner" value="${advertisementData.webAdvNum}" data-options="min:0,max:999,missingMessage:'请输入广告排序'" value="10" style="width: 600px;height:18px;" min="1" max="999"/>
 			</td>
 		</tr>
 		<tr>

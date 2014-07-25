@@ -18,7 +18,7 @@ public class WebsiteHiring {
 
     private String accessory;
 
-    @Max(value = 99, message = "{WebsiteHiring.webHiringNum.illegal}")
+    @Max(value = 999, message = "{WebsiteHiring.webHiringNum.illegal}")
     private Integer webHiringNum;
 
     @Length(max = 255, message = "{WebsiteHiring.remark.illegal}")

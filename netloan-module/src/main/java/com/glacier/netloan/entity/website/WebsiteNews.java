@@ -16,7 +16,7 @@ public class WebsiteNews {
 
     private String webNewsStatus;
 
-    @Max(value = 99, message = "{WebsiteNews.webNewsNum.illegal}")
+    @Max(value = 999, message = "{WebsiteNews.webNewsNum.illegal}")
     private Integer webNewsNum;
 
     private String accessory;

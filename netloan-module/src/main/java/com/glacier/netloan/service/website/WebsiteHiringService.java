@@ -92,6 +92,7 @@ public class WebsiteHiringService {
         
         JqGridReturn returnResult = new JqGridReturn();
         WebsiteHiringExample websiteHiringExample = new WebsiteHiringExample();
+        websiteHiringExample.createCriteria().andWebHiringStatusEqualTo("enable");//获取启用状态的招聘信息
 
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	websiteHiringExample.setLimitStart((pager.getPage() - 1) * pager.getRows());

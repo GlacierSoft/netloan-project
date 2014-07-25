@@ -29,7 +29,7 @@
 		<tr>
 			<td>排序：</td>
 			<td>
-				<input id="nav_mgr_nav_form_webNavNum" name="webNavNum" class="easyui-numberspinner spinner" value="${websiteNavData.webNavNum}" data-options="min:0,max:99,required:true,missingMessage:'请填写导航序号'" value="10" style="width: 243px;height:18px;" min="1" max="99"/>
+				<input id="nav_mgr_nav_form_webNavNum" name="webNavNum" class="easyui-numberspinner spinner" value="${websiteNavData.webNavNum}" data-options="min:0,max:999,required:true,missingMessage:'请填写导航序号'" value="10" style="width: 243px;height:18px;" min="1" max="999"/>
 			</td>
 		</tr>
 		<tr>

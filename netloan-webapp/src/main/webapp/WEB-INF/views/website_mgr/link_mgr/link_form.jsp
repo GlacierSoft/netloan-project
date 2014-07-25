@@ -25,7 +25,7 @@
 		</tr>
 		<tr>
 			<td>排序：</td>
-			<td><input id="area_mgr_area_form_webLinkNum" name="webLinkNum" class="easyui-numberspinner spinner" value="${linkData.webLinkNum}" data-options="min:0,max:999,missingMessage:'请输入友情链接排序'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
+			<td><input id="area_mgr_area_form_webLinkNum" name="webLinkNum" class="easyui-numberspinner spinner" value="${linkData.webLinkNum}" data-options="min:0,max:999,missingMessage:'请输入友情链接排序'" value="10" style="width: 270px;height:18px;" min="1" max="999"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>

@@ -72,8 +72,8 @@ public class CommonController {
         ModelAndView mav = new ModelAndView("index");
         int p = 1;
         mav.addObject("borrowingDatas",  borrowingLoanService.listAsGridWebsite(pager, borrowingLoanQueryDTO, pagetype, p,  memberId));//主页加载借款信息
-        mav.addObject("announcementDatas", announcementService.listAsGrid(pager));//主页加载公告信息
-        mav.addObject("newsDatas", newsService.listAsGrid(pager));//主页加载新闻信息
+        mav.addObject("announcementDatas", announcementService.listAsWebsite(pager, 1));//主页加载公告信息
+        mav.addObject("newsDatas", newsService.listAsWebsite(pager, 1));//主页加载新闻信息
         // 进入首页初始化导航信息
         return mav;
     }
@@ -93,8 +93,8 @@ public class CommonController {
         ModelAndView mav = new ModelAndView("index");
         int p = 1;
         mav.addObject("borrowingDatas",  borrowingLoanService.listAsGridWebsite(pager, borrowingLoanQueryDTO, pagetype, p,  memberId));//主页加载借款信息
-        mav.addObject("announcementDatas", announcementService.listAsGrid(pager));//主页加载公告信息
-        mav.addObject("newsDatas", newsService.listAsGrid(pager));//主页加载新闻信息
+        mav.addObject("announcementDatas", announcementService.listAsWebsite(pager, 1));//主页加载公告信息
+        mav.addObject("newsDatas", newsService.listAsWebsite(pager, 1));//主页加载新闻信息
         // 进入首页初始化导航信息
         return mav;
     }
@@ -167,8 +167,8 @@ public class CommonController {
         }
     	int p = 1;
         mav.addObject("borrowingDatas",  borrowingLoanService.listAsGridWebsite(pager, borrowingLoanQueryDTO, pagetype, p,memberId));//主页加载借款信息
-    	mav.addObject("announcementDatas", announcementService.listAsGrid(pager));//主页加载公告信息
-        mav.addObject("newsDatas", newsService.listAsGrid(pager));//主页加载新闻信息
+        mav.addObject("announcementDatas", announcementService.listAsWebsite(pager, 1));//主页加载公告信息
+        mav.addObject("newsDatas", newsService.listAsWebsite(pager, 1));//主页加载新闻信息
         // 进入首页初始化导航信息
         return mav;
     }

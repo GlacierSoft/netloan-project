@@ -15,7 +15,7 @@
 		</tr>
 		<tr>
 			<td>序号：</td>
-			<td><input id="hiring_mgr_hiring_form_webHiringNum" name="webHiringNum" class="easyui-numberspinner spinner" value="${hiringData.webHiringNum}" data-options="min:0,max:99,required:true,missingMessage:'请填写招聘管理序号'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
+			<td><input id="hiring_mgr_hiring_form_webHiringNum" name="webHiringNum" class="easyui-numberspinner spinner" value="${hiringData.webHiringNum}" data-options="min:0,max:999,required:true,missingMessage:'请填写招聘管理序号'" value="10" style="width: 270px;height:18px;" min="1" max="999"/></td>
 			<td>附件：</td>
 			<td><input id="hiring_mgr_hiring_form_accessory" name="accessory" class="easyui-validatebox spinner" style="width:288px" value="${hiringData.accessory}"/></td>
 		</tr>

@@ -96,7 +96,7 @@ public class WebsiteNewsService {
         	websiteNewsExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	websiteNewsExample.setLimitEnd(pager.getRows());
         }
-        pager.setSort("createTime");// 定义排序字段
+        pager.setSort("webNewsNum");// 定义排序字段
         pager.setOrder("DESC");// 升序还是降序
         if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
         	websiteNewsExample.setOrderByClause(pager.getOrderBy("temp_website_news_"));

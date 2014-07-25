@@ -22,7 +22,7 @@ public class WebsiteService {
 
     private String accessory;
     
-    @Max(value = 99, message = "{WebsiteService.webServiceNum.illegal}")
+    @Max(value = 999, message = "{WebsiteService.webServiceNum.illegal}")
     private Integer webServiceNum;
 
     @Length(max = 255, message = "{WebsiteService.remark.illegal}")

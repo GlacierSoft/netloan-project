@@ -33,7 +33,7 @@ public class WebsiteNav {
 
     private String webNavStatus;
 
-    @Max(value = 99, message = "{WebsiteNav.webNavNum.illegal}")
+    @Max(value = 999, message = "{WebsiteNav.webNavNum.illegal}")
     private Integer webNavNum;
 
     @Length(max = 255, message = "{WebsiteNav.remark.illegal}")

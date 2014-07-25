@@ -24,7 +24,7 @@ public class WebsiteLink {
 
     private String accessory;
 
-    @Max(value = 99, message = "{WebsiteLink.webLinkNum.illegal}")
+    @Max(value = 999, message = "{WebsiteLink.webLinkNum.illegal}")
     private Integer webLinkNum;
 
     @Length(max = 255, message = "{WebsiteLink.remark.illegal}")

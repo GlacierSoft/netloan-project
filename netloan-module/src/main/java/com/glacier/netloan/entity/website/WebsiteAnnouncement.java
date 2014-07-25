@@ -20,7 +20,7 @@ public class WebsiteAnnouncement {
 
     private String accessory;
 
-    @Max(value = 99, message = "{WebsiteAnnouncement.webAnnNum.illegal}")
+    @Max(value = 999, message = "{WebsiteAnnouncement.webAnnNum.illegal}")
     private Integer webAnnNum;
 
     @Length(max = 255, message = "{WebsiteAnnouncement.remark.illegal}")

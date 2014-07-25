@@ -108,7 +108,7 @@ public class WebsiteAnnouncementService {
         	websiteAnnouncementExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	websiteAnnouncementExample.setLimitEnd(pager.getRows());
         }
-        pager.setSort("createTime");// 定义排序字段
+        pager.setSort("webAnnNum");// 定义排序字段
         pager.setOrder("DESC");// 升序还是降序
         if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
         	websiteAnnouncementExample.setOrderByClause(pager.getOrderBy("temp_website_announcement_"));

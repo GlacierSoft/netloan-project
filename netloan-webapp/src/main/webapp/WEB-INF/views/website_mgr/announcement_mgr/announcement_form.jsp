@@ -20,7 +20,7 @@
 		<tr>
 			<td>公告排序：</td>
 			<td>
-				<input name="webAnnNum" class="easyui-numberspinner spinner" value="${announcementData.webAnnNum}" data-options="min:0,max:999,missingMessage:'请输入公告排序'" value="10" style="width: 600px;height:18px;" min="1" max="99"/>
+				<input name="webAnnNum" class="easyui-numberspinner spinner" value="${announcementData.webAnnNum}" data-options="min:0,max:999,missingMessage:'请输入公告排序'" value="10" style="width: 600px;height:18px;" min="1" max="999"/>
 			</td>
 		</tr>
 		<tr>

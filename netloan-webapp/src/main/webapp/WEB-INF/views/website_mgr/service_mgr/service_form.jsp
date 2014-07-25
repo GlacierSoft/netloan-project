@@ -21,7 +21,7 @@
 		</tr>
 		<tr>
 			<td>客服序号：</td>
-			<td><input id="service_mgr_service_form_webServiceNum" name="webServiceNum" class="easyui-numberspinner spinner" value="${serviceData.webServiceNum}" data-options="min:0,max:99,required:true,missingMessage:'请填写客服序号'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
+			<td><input id="service_mgr_service_form_webServiceNum" name="webServiceNum" class="easyui-numberspinner spinner" value="${serviceData.webServiceNum}" data-options="min:0,max:999,required:true,missingMessage:'请填写客服序号'" value="10" style="width: 270px;height:18px;" min="1" max="999"/></td>
 		</tr>
 		<tr>
 			<td>客服头像：</td>
