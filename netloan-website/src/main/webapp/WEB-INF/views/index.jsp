@@ -110,7 +110,7 @@
 		            <td><img id="creditPhotoDivImg" src="${borrowingLoan.creditPhoto}" style="width: 34px;height: 24px ;" /></td>
 		            <td>${borrowingLoan.loanTenderDisplay}</td>
 	    			<td><fmt:formatNumber value='${borrowingLoan.loanApr*100}' pattern='#0'/>%</td>
-		            <td><fmt:formatNumber value='${borrowingLoan.loanTotal}' pattern='#0.00'/>&nbsp;元</td>
+		            <td><fmt:formatNumber value='${borrowingLoan.loanTotal}' pattern='#,#00.00'/>&nbsp;元</td>
 		            <td>${borrowingLoan.waitBidDeadlines}个月</td>
 					<td>
 		            	<span id="borrowingLoan_loanState2${status.index}"></span>
