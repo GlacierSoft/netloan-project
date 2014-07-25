@@ -345,7 +345,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var loanTotals = $("#loanTotal").val();//借款总额
 			var lowestLoanAmount = "${loanTenderDate.lowestLoanAmount}";//最低总额
 			if(parseFloat(loanTotals) > parseFloat(creditamount)){
-				document.getElementById("creditamountSpan").innerHTML="<font style='color: #F00;font-style: italic;font-weight: bold;float:left;'>您的信用额度不足以支持此借款总额，<a href='${ctx}/member/memberAuth.htm?&p=0'>点击申请信用额度</a></font>";
+				document.getElementById("creditamountSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>您的信用额度不足以支持此借款总额，<a href='${ctx}/member/memberAuth.htm?&p=0'>点击申请信用额度</a></font>";
 				return false;
 			}else if(parseFloat(loanTotals) < parseFloat(lowestLoanAmount)){
 				document.getElementById("creditamountSpan").innerHTML="";
