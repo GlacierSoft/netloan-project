@@ -469,7 +469,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var loanTotalStartValues = parseFloat(loanTotalStart.options[loanTotalStartIndex].value);//取出开始框选中的值
 		
 		if(loanTotalStartValues >= v){
-			alert("必须要选择比"+loanTotalStartValues+"元高来做查询!");
+			alert("必须要选择高于"+loanTotalStartValues+"元查询!");
 			$("#loanTotalEnd").val(0);
 		}
   	}
