@@ -113,14 +113,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						            <td>借款利息总额</td>
 						          </tr>
 						          <tr>
-						            <td>￥${memberStatisticsDate.totalBorrowings}</td>
+						            <td>￥<fmt:formatNumber value='${memberStatisticsDate.totalBorrowings}' pattern='#,#00.00'/></td>
 						            <td>${memberStatisticsDate.borrowSuccess}</td>
-						            <td>￥${memberStatisticsDate.alreadyTotal}</td>
-						            <td>￥${memberStatisticsDate.waitAlsoTotal}</td>
+						            <td>￥<fmt:formatNumber value='${memberStatisticsDate.alreadyTotal}' pattern='#,#00.00'/></td>
+						            <td>￥<fmt:formatNumber value='${memberStatisticsDate.waitAlsoTotal}' pattern='#,#00.00'/></td>
 						            <td>${memberStatisticsDate.normalRepayment}</td>
 						            <td>${memberStatisticsDate.advanceRepayment}</td>
-						            <td>￥${memberStatisticsDate.loanManagementAmount}</td>
-						            <td>￥${memberStatisticsDate.loanInterestAmount}</td>
+						            <td>￥<fmt:formatNumber value='${memberStatisticsDate.loanManagementAmount}' pattern='#,#00.00'/></td>
+						            <td>￥<fmt:formatNumber value='${memberStatisticsDate.loanInterestAmount}' pattern='#,#00.00'/></td>
 						          </tr>
 					      	</tbody>
 					      </table>
@@ -140,8 +140,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						          <tr>
 						          	<td>${memberStatisticsDate.lateRepayment}</td>
 						            <td>${memberStatisticsDate.websiteSubstitute}</td>
-						            <td>￥${memberStatisticsDate.overdueFineAmount}</td>
-						            <td>￥${memberStatisticsDate.overdueInterestAmount}</td>
+						            <td>￥<fmt:formatNumber value='${memberStatisticsDate.overdueFineAmount}' pattern='#,#00.00'/></td>
+						            <td>￥<fmt:formatNumber value='${memberStatisticsDate.overdueInterestAmount}' pattern='#,#00.00'/></td>
 						          </tr>
 					      	</tbody>
 					      </table>

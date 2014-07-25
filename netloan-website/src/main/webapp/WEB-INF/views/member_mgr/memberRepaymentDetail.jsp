@@ -106,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            <td>标题：</td>
 				            <td>${borrowingLoan.loanTitle}</td>
 				            <td>借款金额：</td>
-				            <td>￥${borrowingLoan.loanTotal}</td>
+				            <td>￥<fmt:formatNumber value='${borrowingLoan.loanTotal}' pattern='#,#00.00'/></td>
 				          </tr>
 				          <tr>
 				            <td>借款利率：</td>
@@ -146,9 +146,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					            <td>￥${repaymentNotesDetails.currentPayMoeny}</td>
 					            <td><fmt:formatDate value="${repaymentNotesDetails.actualPayDate}" type="date"/></td>
 					            <td>${repaymentNotesDetails.overdueDays}</td>
-					            <td>￥${repaymentNotesDetails.actualPayMoney}</td>
-					            <td>￥${repaymentNotesDetails.overdueInterest+repaymentNotesDetails.overdueUrgeFee+repaymentNotesDetails.overdueManaFee}</td>
-					            <td>￥${repaymentNotesDetails.alsoNeedMoney}</td>
+					            <td>￥<fmt:formatNumber value='${repaymentNotesDetails.actualPayMoney}' pattern='#,#00.00'/></td>
+					            <td>￥<fmt:formatNumber value='${repaymentNotesDetails.overdueInterest+repaymentNotesDetails.overdueUrgeFee+repaymentNotesDetails.overdueManaFee}' pattern='#,#00.00'/></td>
+					            <td>￥<fmt:formatNumber value='${repaymentNotesDetails.alsoNeedMoney}' pattern='#,#00.00'/></td>
 					            <td><span id="repaymentNotesDetails_repayState${status.index}"></span>
 						        		<script type="text/javascript">
 								       		$('#repaymentNotesDetails_repayState'+${status.index}).html(renderGridValue('${repaymentNotesDetails.repayState}',fields.repayDetailState));

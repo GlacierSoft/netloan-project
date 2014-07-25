@@ -115,8 +115,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						          </tr>
 						          <tr>
 						            <td>￥<fmt:formatNumber value='${financeMemberData.amount}' pattern='#,#00.00'/></td>
-						            <td>￥${financeMemberData.usableMoney}</td>
-						            <td>￥${financeMemberData.frozenMoney}</td>
+						            <td>￥<fmt:formatNumber value='${financeMemberData.usableMoney}' pattern='#,#00.00'/></td>
+						            <td>￥<fmt:formatNumber value='${financeMemberData.frozenMoney}' pattern='#,#00.00'/></td>
 						          </tr>
 					      	</tbody>
 					      </table>
@@ -160,11 +160,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						          <tr>
 						            <td>${finTransaction.transactionType}</td>
 						          	<td>${finTransaction.transactionTarget}</td>
-						          	<td>￥${finTransaction.earningMoney}</td>
-						          	<td>￥${finTransaction.expendMoney}</td>
-						          	<td>￥${finTransaction.usableMoney}</td>
-						          	<td>￥${finTransaction.frozenMoney}</td>
-						          	<td>￥${finTransaction.collectingMoney}</td>
+						          	<td>￥<fmt:formatNumber value='${finTransaction.earningMoney}' pattern='#,#00.00'/></td>
+						          	<td>￥<fmt:formatNumber value='${finTransaction.expendMoney}' pattern='#,#00.00'/></td>
+						          	<td>￥<fmt:formatNumber value='${finTransaction.usableMoney}' pattern='#,#00.00'/></td>
+						          	<td>￥<fmt:formatNumber value='${finTransaction.frozenMoney}' pattern='#,#00.00'/></td>
+						          	<td>￥<fmt:formatNumber value='${finTransaction.collectingMoney}' pattern='#,#00.00'/></td>
 						          	<td>￥<fmt:formatNumber value='${finTransaction.amount}' pattern='#,#00.00'/></td>
 						          	<td><fmt:formatDate value="${finTransaction.createTime}" type="both"/></td>
 						          </tr>
@@ -269,11 +269,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								          </tr>
 								          <tr>
 								            <td>可用余额：</td>
-								            <td >￥<lable id="usableMoney">${financeMemberData.usableMoney}</lable> </td>
+								            <td >￥<lable id="usableMoney"><fmt:formatNumber value='${financeMemberData.usableMoney}' pattern='#,#00.00'/></lable> </td>
 								          </tr>
 								          <tr>
 								            <td>冻结总额：</td>
-								            <td>￥${financeMemberData.frozenMoney}</td>
+								            <td>￥<fmt:formatNumber value='${financeMemberData.frozenMoney}' pattern='#,#00.00'/></td>
 								          </tr>
 								          <tr>
 								            <td>提现金额：</td>
@@ -293,7 +293,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								          </tr>
 								          <tr>
 								            <td>交易密码：</td>
-								            <td><input type="text" onfocus="this.type='password'" autocomplete="off"  id="tradersPassword" name="tradersPassword" maxlength="50" class="inp100x"/></td>
+								            <td><input type="text" onfocus="this.type='password'" autocomplete="off"  id="tradersPassword" name="tradersPassword" maxlength="50" class="inp100x" value=""/></td>
 								          </tr>
 								          <tr>
 								            <td>验证码：</td>

@@ -210,7 +210,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									  <div class="form-group">
 									     <label for="hometown" class="validate[required] col-sm-2 control-label">籍贯:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class=" form-control" name="hometown" id="hometown" value="${currentMember.hometown}"  placeholder="籍贯" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" 
+									      <input type="text" class=" form-control" name="hometown" id="hometown" value="${currentMember.hometown}"  placeholder="籍贯" onchange="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" 
 									      onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" >
 									    </div>
 									    <label for="homePhone" class="col-sm-2 control-label">住宅电话:</label>
@@ -355,19 +355,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <label for="memberName" class="col-sm-3 control-label">原密码:</label>
 						    <div class="col-sm-9">
 						      <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
-						      <input type="password" class="form-control" id="oldPassword_form-group" name="oldPassword" placeholder="输入您现在的帐号密码"  />
+						      <input type="password" class="form-control" id="oldPassword_form-group" name="oldPassword" placeholder="输入您现在的帐号密码"  value="" />
 						    </div>
 						  </div>
 						  <div class="form-group">
 						    <label for="memberPassword" class="col-sm-3 control-label">新密码:</label>
 						    <div class="col-sm-9">
-						      <input type="password" class="form-control" id="memberPassword_form-group" name="memberPassword" placeholder="输入您的新密码"  />
+						      <input type="password" class="form-control" id="memberPassword_form-group" name="memberPassword" placeholder="输入您的新密码"  value="" />
 						    </div>
 						  </div>
 						  <div class="form-group">
 						    <label for="comfirPassword" class="col-sm-3 control-label">确认新密码:</label>
 						    <div class="col-sm-9">
-						      <input type="password" class="form-control" id="comfirPassword_form-group" name="comfirPassword" placeholder="请再次输入您的新密码" />
+						      <input type="password" class="form-control" id="comfirPassword_form-group" name="comfirPassword" placeholder="请再次输入您的新密码" value="" />
 						    </div>
 						  </div>
 						  <div class="form-group">
@@ -389,19 +389,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <label for="memberName" class="col-sm-3 control-label">原交易密码:</label>
 						    <div class="col-sm-9">
 						      <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
-						      <input type="password" class="form-control" id="oldPassword_form-group2" name="oldPassword" placeholder="输入您现在的交易密码"  />
+						      <input type="password" class="form-control" id="oldPassword_form-group2" name="oldPassword" placeholder="输入您现在的交易密码" value="" />
 						    </div>
 						  </div>
 						  <div class="form-group">
 						    <label for="memberPassword" class="col-sm-3 control-label">新交易密码:</label>
 						    <div class="col-sm-9">
-						      <input type="password" class="form-control" id="memberPassword_form-group2" name="memberPassword" placeholder="输入您的新交易密码"  />
+						      <input type="password" class="form-control" id="memberPassword_form-group2" name="memberPassword" placeholder="输入您的新交易密码" value="" />
 						    </div>
 						  </div>
 						  <div class="form-group">
 						    <label for="comfirPassword" class="col-sm-3 control-label">确认新密码:</label>
 						    <div class="col-sm-9">
-						      <input type="password" class="form-control" id="comfirPassword_form-group2" name="comfirPassword" placeholder="请再次输入您的新交易密码" />
+						      <input type="password" class="form-control" id="comfirPassword_form-group2" name="comfirPassword" placeholder="请再次输入您的新交易密码" value=""/>
 						    </div>
 						  </div>
 						  <div class="form-group">
@@ -490,7 +490,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <label for="openingBank" class="col-sm-3 control-label">开户行:</label>
 						    <div class="col-sm-6">
 						      <input type="text" class="form-control" id="openingBank_form-group" name="openingBank" placeholder="输入您的开户银行名称" 
-						      onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))"/>
+						      onchange="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))"/>
 						    </div>
 						     <div class="col-sm-3">
 						    </div>
@@ -498,7 +498,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group">
 						    <label for="subbranch" class="col-sm-3 control-label">支行:</label>
 						    <div class="col-sm-6">
-						      <input type="text" class="form-control" id="subbranch_form-group" name="subbranch" placeholder="输入您的开户支行"  onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"
+						      <input type="text" class="form-control" id="subbranch_form-group" name="subbranch" placeholder="输入您的开户支行"  onchange="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"
 						      onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" />
 						    </div>
 						     <div class="col-sm-3">
@@ -516,7 +516,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group">
 						    <label for="cardName" class="col-sm-3 control-label">银行卡名称:</label>
 						    <div class="col-sm-6">
-						      <input type="text" class="form-control" id="cardName_form-group" name="cardName" placeholder="输入您的银行卡名称" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"
+						      <input type="text" class="form-control" id="cardName_form-group" name="cardName" placeholder="输入您的银行卡名称" onchange="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"
 						      onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" />
 						    </div>
 						     <div class="col-sm-3">

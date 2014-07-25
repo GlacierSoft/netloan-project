@@ -336,7 +336,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									   		<td>￥<fmt:formatNumber value="${receivablesNotes.lowestSub * receivablesNotes.subSum }" pattern="#,#00.00"/></td>
 									   </c:when>
 								  </c:choose>
-								  <td>￥${receivablesNotes.alrReceMoney}</td>
+								  <td>￥<fmt:formatNumber value='${receivablesNotes.alrReceMoney}' pattern='#,#00.00'/></td>
 								  <td>
 								  <div class="bs-example">
 								      <!-- <button id="receivablesNotesDetailButton" class="btn btn-primary btn-xs"  data-backdrop="static" data-toggle="modal" data-target="#receivablesNotesDetailModal"  > -->
@@ -561,8 +561,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									   		<td>￥<fmt:formatNumber value="${receivablesNotes.lowestSub * receivablesNotes.subSum }" pattern="#,#00.00"/></td>
 									   </c:when>
 								  </c:choose>
-								  <td>￥${receivablesNotes.alrReceMoney}</td>
-								  <td>￥${receivablesNotes.notReceMoney}</td>
+								  <td>￥<fmt:formatNumber value='${receivablesNotes.alrReceMoney}' pattern='#,#00.00'/></td>
+								  <td>￥<fmt:formatNumber value='${receivablesNotes.notReceMoney}' pattern='#,#00.00'/></td>
 								  <td><a href="#" onclick="doClicks('memberTenderNotes/agreement.htm','${receivablesNotes.loanMemberId }','${receivablesNotes.loanId }');">查看协议</a></td>
 					            </tr>
 					      	</c:forEach>

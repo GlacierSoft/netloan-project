@@ -114,15 +114,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			            </tr>
 			            <tr>
 			              <td>会员积分：</td>
-			              <td>${currentMember.integral}</td>
+			              <td><fmt:formatNumber value='${currentMember.integral}' pattern='#,#00'/></td>
 			              <td>最后登录ip：</td>
 			              <td>${currentMember.lastLoginIpAddress}</td>
 			            </tr>
 			            <tr>
 			              <td>信用额度：</td>
-			              <td>￥${currentMember.creditamount}</td>
+			              <td>￥<fmt:formatNumber value='${currentMember.creditamount}' pattern='#,#00.00'/></td>
 			              <td>账户可用余额：</td>
-			              <td>￥${financeMemberData.usableMoney}</td>
+			              <td>￥<fmt:formatNumber value='${financeMemberData.usableMoney}' pattern='#,#00.00'/></td>
 			            </tr>
 			             <tr>
 			              <td>个人统计:</td>
@@ -183,25 +183,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        	</tr>
 			        	<tr >
 			        		<td><span>账户总额：￥<fmt:formatNumber value='${financeMemberData.amount}' pattern='#,#00.00'/></span></td>
-			        		<td><span>可用余额：￥${financeMemberData.usableMoney}</span></td>
-			        		<td><span>冻结金额：￥${financeMemberData.frozenMoney}</span></td>
+			        		<td><span>可用余额：￥<fmt:formatNumber value='${financeMemberData.usableMoney}' pattern='#,#00.00'/></span></td>
+			        		<td><span>冻结金额：￥<fmt:formatNumber value='${financeMemberData.frozenMoney}' pattern='#,#00.00'/></span></td>
 			        	</tr>
 			        	<tr>
-			        		<td><span>投标奖励：￥${memberStatisticsData.tenderAwards}</span></td>
-			        		<td><span>线下冲值奖励：￥${memberStatisticsData.uplineDeltaAwards}</span></td>
-			        		<td><span>续投奖励：￥${memberStatisticsData.continueAwards}</span></td>
+			        		<td><span>投标奖励：￥<fmt:formatNumber value='${memberStatisticsData.tenderAwards}' pattern='#,#00.00'/></span></td>
+			        		<td><span>线下冲值奖励：￥<fmt:formatNumber value='${memberStatisticsData.uplineDeltaAwards}' pattern='#,#00.00'/></span></td>
+			        		<td><span>续投奖励：￥<fmt:formatNumber value='${memberStatisticsData.continueAwards}' pattern='#,#00.00'/></span></td>
 			        	</tr>
 			        	<tr>
 			        		<td colspan="3"><span><strong>投资总汇：</strong></span></td>
 			        	</tr>
 			        	<tr >
 			        		<td><span>已收总额：￥<fmt:formatNumber value='${memberStatisticsData.alreadyIncomeTotal}' pattern='#,#00.00'/></span></td>
-			        		<td><span>已收本金：￥${memberStatisticsData.alreadyIncomePrincipal}</span></td>
+			        		<td><span>已收本金：￥<fmt:formatNumber value='${memberStatisticsData.alreadyIncomePrincipal}' pattern='#,#00.00'/></span></td>
 			        		<td><span>已收利息：￥<fmt:formatNumber value='${memberStatisticsData.alreadyIncomeInterest}' pattern='#,#00.00'/></span></td>
 			        	</tr>
 			        	<tr>
 			        		<td><span>待收总额：￥<fmt:formatNumber value='${memberStatisticsData.waitIncomeTotal}' pattern='#,#00.00'/></span></td>
-			        		<td><span>待收本金：￥${memberStatisticsData.waitIncomePrincipal}</span></td>
+			        		<td><span>待收本金：￥<fmt:formatNumber value='${memberStatisticsData.waitIncomePrincipal}' pattern='#,#00.00'/></span></td>
 			        		<td><span>待收利息：￥<fmt:formatNumber value='${memberStatisticsData.waitIncomeInterest}' pattern='#,#00.00'/></span></td>
 			        	</tr>
 			        	<tr>
@@ -209,12 +209,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        	</tr>
 			        	<tr >
 			        		<td><span>已还总额：￥<fmt:formatNumber value='${memberStatisticsData.alreadyTotal}' pattern='#,#00.00'/></span></td>
-			        		<td><span>已还本金：￥${memberStatisticsData.alreadyPrincipal}</span></td>
+			        		<td><span>已还本金：￥<fmt:formatNumber value='${memberStatisticsData.alreadyPrincipal}' pattern='#,#00.00'/></span></td>
 			        		<td><span>已还利息：￥<fmt:formatNumber value='${memberStatisticsData.alreadyInterest}' pattern='#,#00.00'/></span></td>
 			        	</tr>
 			        	<tr>
 			        		<td><span>待还总额：￥<fmt:formatNumber value='${memberStatisticsData.waitAlsoTotal}' pattern='#,#00.00'/></span></td>
-			        		<td><span>待还本金：￥${memberStatisticsData.waitAlsoPrincipal}</span></td>
+			        		<td><span>待还本金：￥<fmt:formatNumber value='${memberStatisticsData.waitAlsoPrincipal}' pattern='#,#00.00'/></span></td>
 			        		<td><span>待还利息：￥<fmt:formatNumber value='${memberStatisticsData.waitAlsoInterest}' pattern='#,#00.00'/></span></td>
 			        	</tr>
 			        	<tr>

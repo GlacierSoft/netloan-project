@@ -167,12 +167,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							            <td  style="border-bottom-width:0px;display:block;width:144px; height:43px; text-align:center; heword-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${borrowingLoan.loanTitle}</td>
 							            <td>${borrowingLoan.loanTenderDisplay}</td>
 							            <td>${borrowingLoan.repaymentTypeDisplay}</td>
-							            <td>￥${borrowingLoan.loanTotal}</td>
+							            <td>￥<fmt:formatNumber value='${borrowingLoan.loanTotal}' pattern='#,#00.00'/></td>
 							            <td>${borrowingLoan.loanApr}%</td>
 							            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="date"/></td>
-							            <td>￥${borrowingLoan.shouldPayMoney}</td>
-							            <td>￥${borrowingLoan.alrPayMoney}</td>
-							            <td>￥${borrowingLoan.notPayMoney}</td>
+							            <td>￥<fmt:formatNumber value='${borrowingLoan.shouldPayMoney}' pattern='#,#00.00'/></td>
+							            <td>￥<fmt:formatNumber value='${borrowingLoan.alrPayMoney}' pattern='#,#00.00'/></td>
+							            <td>￥<fmt:formatNumber value='${borrowingLoan.notPayMoney}' pattern='#,#00.00'/></td>
 							            <td><a href="${ctx}/borrowingLoan/memberRepaymentDetail.htm?&loanId=${borrowingLoan.loanId}&memberId=${currentMember.memberId}&p=1">还款明细</a></td>
 							          </tr>
 						      		</c:forEach>
@@ -258,12 +258,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								            <td  style="border-bottom-width:0px;display:block;width:144px; height:43px; text-align:center; heword-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${borrowingLoan.loanTitle}</td>
 								            <td>${borrowingLoan.loanTenderDisplay}</td>
 								            <td>${borrowingLoan.repaymentTypeDisplay}</td>
-								            <td>￥${borrowingLoan.loanTotal}</td>
+								            <td>￥<fmt:formatNumber value='${borrowingLoan.loanTotal}' pattern='#,#00.00'/></td>
 								            <td>${borrowingLoan.loanApr}%</td>
 								            <td><fmt:formatDate value="${borrowingLoan.createTime}" type="date"/></td>
-								            <td>￥${borrowingLoan.shouldPayMoney}</td>
-								            <td>￥${borrowingLoan.alrPayMoney}</td>
-								            <td>￥${borrowingLoan.overdueMoney}</td>
+								            <td>￥<fmt:formatNumber value='${borrowingLoan.shouldPayMoney}' pattern='#,#00.00'/></td>
+								            <td>￥<fmt:formatNumber value='${borrowingLoan.alrPayMoney}' pattern='#,#00.00'/></td>
+								            <td>￥<fmt:formatNumber value='${borrowingLoan.overdueMoney}' pattern='#,#00.00'/></td>
 								            <td>
 								            	<span id="borrowingLoan_loanState2${status.index}"></span>
 								        		<script type="text/javascript">

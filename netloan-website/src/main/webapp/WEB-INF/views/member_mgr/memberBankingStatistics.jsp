@@ -108,10 +108,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				              		<td>线下冲值奖励</td>
 								</tr>
 								<tr>
-									<td>￥${memberStatisticsDate.cumulativeLossProfit}</td>
-				              		<td>￥${memberStatisticsDate.tenderAwards}</td>
+									<td>￥<fmt:formatNumber value='${memberStatisticsDate.cumulativeLossProfit}' pattern='#,#00.00'/></td>
+				              		<td>￥<fmt:formatNumber value='${memberStatisticsDate.tenderAwards}' pattern='#,#00.00'/></td>
 				              		<td>${memberStatisticsDate.successTender}</td>
-				              		<td>￥${memberStatisticsDate.uplineDeltaAwards}</td>
+				              		<td>￥<fmt:formatNumber value='${memberStatisticsDate.uplineDeltaAwards}' pattern='#,#00.00'/></td>
 								</tr>
 				            </tbody>
 				        </table>
@@ -132,13 +132,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<td>待收利息</td>
 								</tr>
 								<tr>
-									<td>￥${memberStatisticsDate.investmentTotal}</td>
-									<td>￥${memberStatisticsDate.alreadyIncomeTotal}</td>
-									<td>￥${memberStatisticsDate.waitIncomeTotal}</td>
-									<td>￥${memberStatisticsDate.alreadyIncomePrincipal}</td>
-									<td>￥${memberStatisticsDate.waitIncomePrincipal}</td>
-									<td>￥${memberStatisticsDate.alreadyIncomeInterest}</td>
-									<td>￥${memberStatisticsDate.waitIncomeInterest}</td>
+									<td>￥<fmt:formatNumber value='${memberStatisticsDate.investmentTotal}' pattern='#,#00.00'/></td>
+									<td>￥<fmt:formatNumber value='${memberStatisticsDate.alreadyIncomeTotal}' pattern='#,#00.00'/></td>
+									<td>￥<fmt:formatNumber value='${memberStatisticsDate.waitIncomeTotal}' pattern='#,#00.00'/></td>
+									<td>￥<fmt:formatNumber value='${memberStatisticsDate.alreadyIncomePrincipal}' pattern='#,#00.00'/></td>
+									<td>￥<fmt:formatNumber value='${memberStatisticsDate.waitIncomePrincipal}' pattern='#,#00.00'/></td>
+									<td>￥<fmt:formatNumber value='${memberStatisticsDate.alreadyIncomeInterest}' pattern='#,#00.00'/></td>
+									<td>￥<fmt:formatNumber value='${memberStatisticsDate.waitIncomeInterest}' pattern='#,#00.00'/></td>
 								</tr>
 				            </tbody>
 				        </table>  
