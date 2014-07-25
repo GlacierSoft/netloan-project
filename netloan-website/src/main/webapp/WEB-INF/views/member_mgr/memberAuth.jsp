@@ -399,7 +399,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						            <h4 class="modal-title" id="myModalLabel">会员认证</h4>
 						          </div>
 						          <div class="modal-body">
-						            <h4>央行信用认证：</h4>
+						            <h4>信用认证：</h4>
 						            <p>
 						            	个人信用报告是由中国人民银行出具，全面记录个人信用活动，反映个人信用基本状况的文件。
 						            	本报告是晓风网贷了解您信用状况的一个重要参考资料。 您信用报告内体现的信用记录，和信用卡额度等数据，
