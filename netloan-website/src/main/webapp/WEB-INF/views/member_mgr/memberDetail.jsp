@@ -219,7 +219,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    </div>
 									  </div>
 									  <div class="form-group">
-									    <label for="liveAddress" class="col-sm-2 control-label">现居住地址:</label>
+									    <label for="liveAddress" class="col-sm-2 control-label">*现居住地址:</label>
 									    <div class="col-sm-10">
 									      <input type="text" class="form-control" name="liveAddress" id="liveAddress" value="${currentMember.liveAddress}"  placeholder="现居住地址">
 									    </div>
@@ -835,7 +835,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				isMobile:true
 	    			}, 
 	    			homePhone:"isPhone",
-	    			memberAge:"digits",
+	    			memberAge:{
+	    				min:18,
+	    				max:100,
+	    				digits:true 
+	    			},
+	    			liveAddress:"required",
 	    			firstContactPhone:"isMobile",
 	    			secondContactPhone:"isMobile",
 	    			workAge:"number",
@@ -856,7 +861,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			mobileNumber:{
 	    				required:"手机号码不能为空",	
 	    			},
-	    			memberAge:"年龄只能为数字",
+	    			memberAge:{
+	    				min:" 年龄不能低于18岁",
+	    				max:"年龄不能大于100岁",
+	    				digits:"请输入整数"
+	    			},
+	    			liveAddress:"居住地址不能为空",
 	    			workAge:"只能为数字",
 	    			salary:"只能为数字",
 	    			unitName:{
