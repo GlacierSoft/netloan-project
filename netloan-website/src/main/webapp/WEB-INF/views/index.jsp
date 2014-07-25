@@ -15,7 +15,12 @@
   <script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/4.0.1/modules/exporting.js"></script>
 	
   </head>
-
+	<style type="text/css">
+		#tabsTemp td,th{
+			text-align: center;
+		}
+		
+	</style>
   <body>
   <jsp:include page="nav.jsp"/>
 
@@ -82,7 +87,7 @@
 	  <h3>投资列表</h3>
       <div class="row featurette">
         <div class="col-md-12">
-          <table class="table table-bordered">
+          <table class="table table-bordered" id="tabsTemp">
 	        <thead>
 	          <tr>
 	            <th>借款标题</th>
@@ -90,9 +95,9 @@
 	            <th>借款类型</th>
 	            <th>年利率</th>
 	            <th>借款金额</th>
-	            <th>招标期限</th>
+	            <th>借款期限</th>
 	            <th>借款状态</th>
-	            <th>进度</th>
+	            <th>投标进度</th>
 	          </tr>
 	        </thead>
 	        <tbody>
@@ -114,8 +119,8 @@
 				    	</script>
 	    			</td>
 	    			<td align="center">
-	    				<div style="position:absolute; padding-left: 10px;">
-	    					<span id="alrTenderPro${status.index}"><fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/></span>%</div>
+	    				<div style="position:absolute; padding-left: 45px;">
+	    					<span id="alrTenderPro${status.index}" ><fmt:formatNumber value='${borrowingLoan.alrTenderPro*100}' pattern='#0.00'/></span>%</div>
 		            	<div class="progress" style="border: 1px solid #DDDDDD;">
 			        		<div id="progressBar${status.index}" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="${borrowingLoan.alrTenderPro*100}" aria-valuemin="0" aria-valuemax="100" style="width: ${borrowingLoan.alrTenderPro*100}%"></div>
 						</div>
