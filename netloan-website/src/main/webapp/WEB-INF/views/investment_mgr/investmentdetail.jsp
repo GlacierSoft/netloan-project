@@ -507,17 +507,20 @@
 				  <div class="panel-body"><!-- style="text-align:center;vertical-align: middle;" -->
 				  	<div style="padding-left: 20px;">
 				  		<div class="row" style="text-align:center;vertical-align: middle;">
-				  		<div class="col-md-4">目前总投标金额：<span style="color: red;"><fmt:formatNumber value="${borrowingLoan.loanTotal }" pattern="#,#00.00"/>元</span></div>
-				  		<div class="col-md-3">剩余投标金额：<span id="stillNeed2" style="color: red;"></span><span style="color: red;">元</span></div>
-				  		<script type="text/javascript">
-				        	if('${borrowingLoan.subTotal}' == '0.0'){
-				        		$('#stillNeed2').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrBidMoney}' pattern='#,#00.00'/>");
-				        	}else{
-				        		$('#stillNeed2').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrSubSum*borrowingLoan.lowestSub}' pattern='#,#00.00'/>");
-		
-				        	}
-				        </script>
-				  		<div class="col-md-5">剩余投标时间：<span style="color: red;"></span></div>
+					  		<div class="col-md-4">目前总投标金额：<span style="color: red;"><fmt:formatNumber value="${borrowingLoan.loanTotal }" pattern="#,#00.00"/>元</span></div>
+					  		<div class="col-md-3">剩余投标金额：<span id="stillNeed2" style="color: red;"></span><span style="color: red;">元</span></div>
+					  		<script type="text/javascript">
+					        	if('${borrowingLoan.subTotal}' == '0.0'){
+					        		$('#stillNeed2').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrBidMoney}' pattern='#,#00.00'/>");
+					        	}else{
+					        		$('#stillNeed2').html("<fmt:formatNumber value='${borrowingLoan.loanTotal-borrowingLoan.alrSubSum*borrowingLoan.lowestSub}' pattern='#,#00.00'/>");
+			
+					        	}
+					        </script>
+					  		<div class="col-md-5">剩余投标时间：
+					  			<span id="lxftime2" endtime="">0天1小时59分9秒</span>
+		       	  				<input id="shijian" type="hidden" value="1401445405000"/>
+		       	  			</div>
 				  		</div><br>
 				  		<div class="row" >
 				  		<div class="col-md-12">
@@ -598,6 +601,11 @@
             	$("#lxftime").html("已过期")//如果结束日期小于当前日期就提示过期啦
             }else{
             	$("#lxftime").html("<span>"+days+"</span> 天 <span>"+CHour+"</span> 时 <span>"+CMinute+"</span> 分 <span>"+CSecond+"</span> 秒 ");          //输出有天数的数据
+            }
+            if(endtime<=nowtime){
+            	$("#lxftime2").html("已过期")//如果结束日期小于当前日期就提示过期啦
+            }else{
+            	$("#lxftime2").html("<span>"+days+"</span> 天 <span>"+CHour+"</span> 时 <span>"+CMinute+"</span> 分 <span>"+CSecond+"</span> 秒 ");          //输出有天数的数据
             }
 	setTimeout("lxfEndtime()",1000);
 	};
