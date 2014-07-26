@@ -256,14 +256,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        		<td>
 			        			投标奖：
 			        			<c:if test="${borrowingLoan.isBidReward == 'no'}">
-			        				00.00
+			        				00.00元
 			        			</c:if>
 			        			<c:if test="${borrowingLoan.isBidReward == 'yes'}">
 				        			<c:if test="${borrowingLoan.fixedAppReward!=0}">
-				        				<fmt:formatNumber value='${borrowingLoan.fixedAppReward}' pattern='#0.00'/>
+				        				<fmt:formatNumber value='${borrowingLoan.fixedAppReward}' pattern='#0.00'/>元
 				        			</c:if>
 				        			<c:if test="${borrowingLoan.bidProReward!=0}">
-				        				<fmt:formatNumber value='${borrowingLoan.bidProReward * borrowingLoan.loanTotal}' pattern='#0.00'/>
+				        				<fmt:formatNumber value='${borrowingLoan.bidProReward * borrowingLoan.loanTotal}' pattern='#0.00'/>元
 				        			</c:if>
 			        			</c:if>
 			        		</td>
