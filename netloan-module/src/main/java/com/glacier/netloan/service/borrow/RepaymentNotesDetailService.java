@@ -510,7 +510,7 @@ public class RepaymentNotesDetailService {
             financeTransaction.setTransactionId(RandomGUID.getRandomGUID());
             financeTransaction.setFinanceMemberId(financeMember.getFinanceMemberId());//会员资金信息ID
             financeTransaction.setMemberId(member.getMemberId());//设置会员ID
-            financeTransaction.setTransactionTarget("系统管理员");
+            financeTransaction.setTransactionTarget("系统账号");
             financeTransaction.setTransactionType("还款扣除金额");
             financeTransaction.setEarningMoney((float) 0);//设置收入金额
             financeTransaction.setExpendMoney(repaymentNotesDetail.getAlsoNeedMoney());//设置支出金额
@@ -553,7 +553,8 @@ public class RepaymentNotesDetailService {
             	financePlatformTransaction.setPlatformTransactionId(RandomGUID.getRandomGUID());//随即产生字符串ID
             	financePlatformTransaction.setFinancePlatformId(financePlatform.getFinancePlatformId());//平台资金ID
             	financePlatformTransaction.setTransactionTarget(member.getMemberRealName());//设置对象人
-            	financePlatformTransaction.setTransactionType("收款");//设置交易类型
+            	System.out.println("-------"+financePlatformTransaction.getTransactionTarget());
+            	financePlatformTransaction.setTransactionType("平台向会员收款");//设置交易类型
             	financePlatformTransaction.setEarningMoney(repaymentNotesDetail.getAlsoNeedMoney());//设置知收入金额
             	financePlatformTransaction.setExpendMoney(0f);//设置支出金额
             	financePlatformTransaction.setAmount(financePlatform.getPlatformMoney());//设置平台资金总金额

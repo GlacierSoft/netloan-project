@@ -250,11 +250,11 @@ public class TenderNotesService {
             financeTransaction.setExpendMoney(0f);//设置支出金额
             if(tenderNotes.getTenderMoney() != 0f){//判断投标是按金额还是按认购份数
                 financeTransaction.setUsableMoney(financeMember.getUsableMoney() - tenderNotes.getTenderMoney());//设置可用金额
-                financeTransaction.setFrozenMoney(tenderNotes.getTenderMoney());//设置冻结金额
+                financeTransaction.setFrozenMoney(financeMember.getFrozenMoney() + tenderNotes.getTenderMoney());//设置冻结金额=会员原来冻结金额+投资金额
                 financeTransaction.setRemark("投标借款["+borrowingLoan.getLoanTitle()+"],冻结投标金额["+tenderNotes.getTenderMoney()+"]元");
             }else{
                 financeTransaction.setUsableMoney(financeMember.getUsableMoney() - tenderNotes.getSubSum() * borrowingLoan.getLowestSub());//设置可用金额
-                financeTransaction.setFrozenMoney(tenderNotes.getSubSum() * borrowingLoan.getLowestSub());//设置冻结金额
+                financeTransaction.setFrozenMoney(financeMember.getFrozenMoney() + tenderNotes.getSubSum() * borrowingLoan.getLowestSub());//设置冻结金额=会员原来冻结金额+投资金额
                 financeTransaction.setRemark("投标借款["+borrowingLoan.getLoanTitle()+"],冻结投标金额["+tenderNotes.getSubSum() * borrowingLoan.getLowestSub()+"]元");
             }
             financeTransaction.setAmount(financeMember.getAmount());//设置总金额

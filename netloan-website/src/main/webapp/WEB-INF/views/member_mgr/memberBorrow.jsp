@@ -62,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <div id="collapseTwo" class="panel-collapse collapse in">
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
-							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit" class="btn btn-info" role="button">已发布的借款</a>
+							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit&memberId=${currentMember.memberId}" class="btn btn-info" role="button">已发布的借款</a>
 							  <a href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting','${currentMember.memberId}');" class="btn btn-default" role="button">还款管理</a>
 							  <a href="#" onclick="doClick('borrowingLoan/memberStatistics.htm','${currentMember.memberId}');" class="btn btn-default" role="button">贷款统计</a>
 							</div>
@@ -99,8 +99,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <div style="padding-top:10px;padding-bottom: 20px;">
 					  		<c:choose>
 							   <c:when test="${buttonState == 'firstAudit'}">  
-							   	<a id="firstAudit" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit" class="btn btn-success" role="button">初审中的借款</a>
-							   	<a id="tendering" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=tendering" class="btn btn-primary" role="button">招标中的借款</a>
+							   	<a id="firstAudit" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit&memberId=${currentMember.memberId}" class="btn btn-success" role="button">初审中的借款</a>
+							   	<a id="tendering" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=tendering&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">招标中的借款</a>
 							   	<div class="panel panel-default">
 								  <div class="panel-heading">
 								    <h4 class="panel-title"><strong>条件筛选</strong></h3>
@@ -133,10 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    <label for="loanTitle" class="col-sm-1 control-label" >标题</label>
 									    <div class="col-sm-3"><input type="text" class="form-control" id="loanTitle" name="loanTitle" value="${borrowingLoanQueryDTO.loanTitle}"  placeholder="借款标题"  /></div>
 									    <div class="col-sm-3 text-center"><button id="firstAuditBorrowFormButton" type="submit" class="btn btn-primary btn-lg btn-block">查&nbsp;&nbsp;询</button></div>
-									    <div class="col-sm-3">
-									    <button id="firstAuditBorrowFormResetButton"  onclick="re()" type="reset"  class="btn btn-primary btn-lg btn-block">重置条件</button></div>
-		 
-									    </div>
+									    <div class="col-sm-3"><button id="firstAuditBorrowFormResetButton"  onclick="re()" type="reset"  class="btn btn-primary btn-lg btn-block">重置条件</button></div>
 									  	<div class="col-sm-2"></div>
 									  	</div>
 								     </form>
@@ -144,8 +141,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							  	</div>
 							   </c:when>
 							   <c:when test="${buttonState == 'tendering'}">  
-							    <a id="firstAudit" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit" class="btn btn-primary" role="button">初审中的借款</a>
-							   	<a id="tendering" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=tendering" class="btn btn-success" role="button">招标中的借款</a>
+							    <a id="firstAudit" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">初审中的借款</a>
+							   	<a id="tendering" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=tendering&memberId=${currentMember.memberId}" class="btn btn-success" role="button">招标中的借款</a>
 							   	<div class="panel panel-default">
 								  <div class="panel-heading">
 								    <h4 class="panel-title"><strong>条件筛选</strong></h3>
