@@ -134,22 +134,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        <div style="border: 1px solid #DDDDDD;">
 			        <div class="row" style="padding:10px;">
 					  <div class="col-md-2 text-right"><img alt="" src="${ctx}/resources/images/member/wenxintisi.jpg"><span class="text-danger"><strong>温馨提示：</strong></span></div>
-					  <div class="col-md-2"><span>未读站内信<a href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1" class="navbar-link"><span class="badge">${messageNoticCount}</span></a>封</span></div>
-					</div>
+					  <div class="col-md-2"><span>未读站内信<a  href="#" onclick="doClick('messageNotice/intoMessageNotice.htm?&p=1','${currentMember.memberId}')" class="navbar-link"><span class="badge">${messageNoticCount}</span></a>封</span></div>
+					 
+					 </div>
 					<div class="row" style="padding:10px;">
 					  <div class="col-md-2 text-right"></div>
-					  <div class="col-md-2"><span>等待初审借款<a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit" class="navbar-link"><span class="badge">${borrowingLoanNumFirstAudit}</span></a>个</span></div>
+					  <div class="col-md-2"><span>等待初审借款<a  href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit','${currentMember.memberId}')" class="navbar-link"><span class="badge">${borrowingLoanNumFirstAudit}</span></a>个</span></div>
+					  
+					  
 					  <%-- <div class="col-md-2"><span>等待复审借款<a href="#" class="navbar-link"><span class="badge">${borrowingLoanNumSecondAuditor}</span></a>个</span></div> --%>
-					  <div class="col-md-2"><span>招标中的借款<a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=tendering" class="navbar-link"><span class="badge">${borrowingLoanNumTendering}</span></a>个</span></div>
-					  <div class="col-md-3"><span>正在还款的借款<a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting" class="navbar-link"><span class="badge">${borrowingLoanNumRepaymenting}</span></a>个</span></div>
-					  <div class="col-md-2" style="padding-left: 0px;"><span>已还完的借款<a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=completed" class="navbar-link"><span class="badge">${borrowingLoanNumCompleted}</span></a>个</span></div>
+					  <div class="col-md-2"><span>招标中的借款<a href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=tendering','${currentMember.memberId}')" class="navbar-link"><span class="badge">${borrowingLoanNumTendering}</span></a>个</span></div>
+					   
+					   
+					  <div class="col-md-3"><span>正在还款的借款<a href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting','${currentMember.memberId}')" class="navbar-link"><span class="badge">${borrowingLoanNumRepaymenting}</span></a>个</span></div>
+					  <div class="col-md-2" style="padding-left: 0px;"><span>已还完的借款<a href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=completed','${currentMember.memberId}')" class="navbar-link"><span class="badge">${borrowingLoanNumCompleted}</span></a>个</span></div>
+					                            
 					</div>
 					<div class="row" style="padding:10px;">
 					  <div class="col-md-2 text-right"></div>
-					  <div class="col-md-2"><span>未申请认证<a href="${ctx}/member/memberAuth.htm?&p=0" class="navbar-link"><span class="badge">${authNumNoapply}</span></a>个</span></div>
-					  <div class="col-md-2"><span>审核中认证<a href="${ctx}/member/memberAuth.htm?&p=0" class="navbar-link"><span class="badge">${authNumAuthstr}</span></a>个</span></div>
-					  <div class="col-md-3"><span>通过审核认证<a href="${ctx}/member/memberAuth.htm?&p=0" class="navbar-link"><span class="badge">${authNumPass}</span></a>个</span></div>
-					  <div class="col-md-2" style="padding-left: 0px;"><span>审核失败认证<a href="${ctx}/member/memberAuth.htm?&p=0" class="navbar-link"><span class="badge">${authNumFailure}</span></a>个</span></div>
+					  <div class="col-md-2"><span>未申请认证<a href="#" onclick="doClick('member/memberAuth.htm?&p=0','${currentMember.memberId}')" class="navbar-link"><span class="badge">${authNumNoapply}</span></a>个</span></div>
+					   
+					  
+					  <div class="col-md-2"><span>审核中认证<a href="#" onclick="doClick('member/memberAuth.htm?&p=0','${currentMember.memberId}')" class="navbar-link"><span class="badge">${authNumAuthstr}</span></a>个</span></div>
+					
+					  <div class="col-md-3"><span>通过审核认证<a href="#" onclick="doClick('member/memberAuth.htm?&p=0','${currentMember.memberId}')" class="navbar-link"><span class="badge">${authNumPass}</span></a>个</span></div>
+					
+					  <div class="col-md-2" style="padding-left: 0px;"><span>审核失败认证<a href="#" onclick="doClick('member/memberAuth.htm?&p=0','${currentMember.memberId}')" class="navbar-link"><span class="badge">${authNumFailure}</span></a>个</span></div>
+				
 					</div>
 			        </div>
 			        <div style="margin:40px;text-align:center;vertical-align: middle;">
@@ -166,9 +177,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        	<tr style="height:40px;margin: 10px;">
 			        		<td><a href="${ctx}/financeMember/rechargeWithdraw.htm?p=1" class="navbar-link"><span>我要充值</span></a></td>
 			        		<td><a href="${ctx}/investment/index.htm?&p=1" class="navbar-link"><span>我要贷出</span></a></td>
-			        		<td><a href="${ctx}/bankingStatistics/memberBankingStatistics.htm?&memberId=${currentMember.memberId}" class="navbar-link"><span>投资统计</span></a></td>
+			        		<td><a href="#" onclick="doClick('bankingStatistics/memberBankingStatistics.htm','${currentMember.memberId}')"  class="navbar-link"><span>投资统计</span></a></td>
+			        		
 			        		<td><a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting" class="navbar-link"><span>我要还款</span></a></td>
-			        		<td><a href="${ctx}/receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow&memberId=${currentMember.memberId}" class="navbar-link"><span>待收款</span></a></td>
+			        		<td><a href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow','${currentMember.memberId}')"  class="navbar-link"><span>待收款</span></a></td>
+			        		
 			        		<td><a href="${ctx}/financeMember/rechargeWithdraw.htm?p=1" class="navbar-link"><span>资金流水</span></a></td>
 			        		<td><a href="${ctx}/borrow.htm" class="navbar-link"><span>我要借款</span></a></td>
 			        	</tr>
