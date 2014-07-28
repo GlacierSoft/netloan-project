@@ -32,6 +32,7 @@ import com.glacier.netloan.service.finance.FinanceMemberService;
 import com.glacier.netloan.service.finance.FinanceRechargeSetService;
 import com.glacier.netloan.service.finance.FinanceTransactionService;
 import com.glacier.netloan.service.finance.FinanceWithdrawService;
+import com.glacier.netloan.service.member.MemberService;
 
 /** 
  * @ClassName: FinanceMemberController 
@@ -58,6 +59,17 @@ public class FinanceMemberController extends AbstractController{
     
     @Autowired
     private FinanceBankCardService bankCardService;
+    
+    @Autowired
+    private MemberService memberService;
+    
+    
+    //转到“充值提现”页面前作出完善资料的判断
+  	@RequestMapping(value = "/judgeCheckRechargeWithdraw.json", method = RequestMethod.POST)
+  	@ResponseBody
+  	public Object judgeRechargeWithdraw(@RequestParam String memberId){
+          return memberService.checkMemberDatum(memberId);
+  	}
     
     //转到“充值提现”页面
   	@RequestMapping(value = "/rechargeWithdraw.htm")

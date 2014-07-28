@@ -39,11 +39,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
 					          <a href="${ctx}/member/index.htm" class="btn btn-info" role="button">我的主页</a>
-					          <a href="${ctx}/financeMember/rechargeWithdraw.htm?p=1" class="btn btn-default" role="button">充值提现</a>
-					          <a href="${ctx}/member/memberAuth.htm?&p=0" class="btn btn-default" role="button">平台认证</a>
+					          <a href="#" onclick="checkRechargeWithdraw('${currentMember.memberId}','${ctx}/financeMember/rechargeWithdraw.htm?p=1');" class="btn btn-default" role="button">充值提现</a>
+					          <a href="#" onclick="checksMember('${currentMember.memberId}','${ctx}/member/memberAuth.htm?&p=0');" class="btn btn-default" role="button">平台认证</a>
 					          <a href="${ctx}/messageNotice/intoMessageNotice.htm?&p=1" class="btn btn-default" role="button">站内信</a>
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">个人设置</a>
-							  <a href="${ctx}/member/memberPhotoInto.htm" class="btn btn-default" role="button">头像上传</a>
+							  <a href="#" onclick="checksMember('${currentMember.memberId}','${ctx}/member/memberPhotoInto.htm');" class="btn btn-default" role="button">头像上传</a>
 							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">邮箱设置</a>
 							</div>
 					      </div>
@@ -250,6 +250,67 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <!-- CONTAINER START======================== -->
 	    <!-- 测试提交======================== -->
 	    <script>
+	    //功能判断
+	    function checksMember(memberId,url){
+	    	$.ajax({
+				   type: "POST",
+				   url: ctx+"/member/judgeCheckMember.json",
+				   dataType: "json",
+				   data: 'memberId='+memberId,
+			   success: function(r) {
+				   successHint(r,url);
+               },
+               error: function() {
+                   alert("提交出错！");
+               }
+			});
+	    }
+	    
+	    //充值提现判断
+	    function checkRechargeWithdraw(memberId,url){
+	    	$.ajax({
+				   type: "POST",
+				   url: ctx+"/financeMember/judgeCheckRechargeWithdraw.json",
+				   dataType: "json",
+				   data: 'memberId='+memberId,
+			   success: function(r) {
+				   successHint(r,url);
+	            },
+	            error: function() {
+	                alert("提交出错！");
+	            }
+			});
+	    }
+	    
+	  	function successHint(data,url){
+	  		//如果不存在，则转到借款页面
+	  		if(data.success){
+	    		window.location.href=url;
+	    	}else{//如果存在，则提示错误信息
+	    		KindEditor.ready(function(K) {
+					var dialog = K.dialog({
+				        width : 500,
+				        title : "提示",
+				        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
+				        closeBtn : {
+			                name : '关闭',
+			                click : function(e) {
+			                        dialog.remove();
+			                        window.location.href="${ctx}/member/memberDetail.htm";
+			                }
+			        	},
+				        yesBtn : {
+			                name : '关闭',
+			                click : function(e) {
+			                	dialog.remove();
+			                	window.location.href="${ctx}/member/memberDetail.htm";
+			                }
+				        }
+					});
+				});
+	      	}
+	    }
+	    
 	    //构建表单
 		function doClick(url,str){
 			// 创建Form  

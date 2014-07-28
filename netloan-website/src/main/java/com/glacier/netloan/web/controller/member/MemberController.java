@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONArray;
@@ -152,6 +153,13 @@ public class MemberController extends AbstractController{
 	     session.removeAttribute("messageNoticCount");
 	     session.setAttribute("messageNoticCount", messageNoticCount);
     }
+    
+    //判断该登录会员是否已经完善资料
+  	@RequestMapping(value = "/judgeCheckMember.json", method = RequestMethod.POST)
+  	@ResponseBody
+  	public Object judgeBorrowingLoan(@RequestParam String memberId){
+          return memberService.checkMemberDatum(memberId);
+  	}
     
     //转到头像上传页面。
   	@RequestMapping(value = "/memberPhotoInto.htm")

@@ -94,6 +94,24 @@ public class MemberService {
 	
 	
 	
+	/**
+	 * 判断用用户的信息是否完善
+	 */
+	public Object checkMemberDatum(String memberId){
+		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+		MemberExample memberExample = new MemberExample();
+		memberExample.createCriteria().andMemberIdEqualTo(memberId);
+		List<Member> MemberList = memberMapper.selectByExample(memberExample);
+		System.out.println("数量:"+MemberList.get(0).getMemberRealName());
+		if(MemberList.get(0).getMemberRealName() == null){
+			returnResult.setMsg("此操作需要完善用户资料！");
+			returnResult.setSuccess(false);
+			return returnResult;
+		}
+		returnResult.setSuccess(true);
+		return returnResult;
+	}
+	
 	 /**
      * 加密方式
      */
