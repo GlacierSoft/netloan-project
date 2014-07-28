@@ -546,6 +546,11 @@ public class RepaymentNotesDetailService {
             	FinancePlatform financePlatform = financePlatformList.get(0);
             	//给资金平台增加相应的资金余额--
             	financePlatform.setPlatformMoney(financePlatform.getPlatformMoney()+repaymentNotesDetail.getAlsoNeedMoney());//设置平台资金余额(还款人的还款总额+平台资金的余额)
+            	financePlatform.setRemark("平台向借款人收款成功后，更新平台资金");//设置备注
+                financePlatform.setCreater(pricipalUser.getUserId());
+                financePlatform.setCreateTime(new Date());
+                financePlatform.setUpdater(pricipalUser.getUserId());
+                financePlatform.setUpdateTime(new Date());
             	financePlatformMapper.updateByPrimaryKeySelective(financePlatform);//执行更新资金平台的操作
             	
             	//第二步添加平台资金记录信息
@@ -554,7 +559,7 @@ public class RepaymentNotesDetailService {
             	financePlatformTransaction.setFinancePlatformId(financePlatform.getFinancePlatformId());//平台资金ID
             	financePlatformTransaction.setTransactionTarget(m1.getMemberRealName());//设置对象人
             	financePlatformTransaction.setTransactionType("平台向借款人收款");//设置交易类型
-            	financePlatformTransaction.setEarningMoney(repaymentNotesDetail.getAlsoNeedMoney());//设置知收入金额
+            	financePlatformTransaction.setEarningMoney(repaymentNotesDetail.getAlsoNeedMoney());//设置收入金额
             	financePlatformTransaction.setExpendMoney(0f);//设置支出金额
             	financePlatformTransaction.setAmount(financePlatform.getPlatformMoney());//设置平台资金总金额
             	financePlatformTransaction.setRemark("平台向借款人收款成功，生成平台资金信息记录");//设置备注信息
@@ -648,6 +653,15 @@ public class RepaymentNotesDetailService {
                                 financePlatformTransactions.setUpdateTime(new Date());
                                 //执行添加操作
                                 financePlatformTransactionMapper.insert(financePlatformTransactions);
+                                
+                                //平台向投资人还款成功后，更新平台资金
+                                financePlatform.setPlatformMoney(financePlatformTransactions.getAmount());//更新平台资金
+                                financePlatform.setRemark("平台向投资人还款成功后，更新平台资金");//设置备注
+                                financePlatform.setCreater(pricipalUser.getUserId());
+                                financePlatform.setCreateTime(new Date());
+                                financePlatform.setUpdater(pricipalUser.getUserId());
+                                financePlatform.setUpdateTime(new Date());
+                                financePlatformMapper.updateByPrimaryKeySelective(financePlatform);//执行更新资金平台的操作
                                 
                             	//对投标人的会员资金进行更新
                                 FinanceMember financeMembers = financeMemberMapper.selectByMemberId(tenderNotes.getMemberId());// 根据投标人Id查找出该会员的财务会员信息记录
