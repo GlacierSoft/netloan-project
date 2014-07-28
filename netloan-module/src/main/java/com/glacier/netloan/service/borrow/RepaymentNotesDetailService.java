@@ -511,7 +511,7 @@ public class RepaymentNotesDetailService {
             financeTransaction.setFinanceMemberId(financeMember.getFinanceMemberId());//会员资金信息ID
             financeTransaction.setMemberId(member.getMemberId());//设置会员ID
             financeTransaction.setTransactionTarget("系统账号");
-            financeTransaction.setTransactionType("还款扣除金额");
+            financeTransaction.setTransactionType("借款人进行还款");
             financeTransaction.setEarningMoney((float) 0);//设置收入金额
             financeTransaction.setExpendMoney(repaymentNotesDetail.getAlsoNeedMoney());//设置支出金额
             financeTransaction.setUsableMoney(financeMember.getUsableMoney());//设置可用余额
@@ -552,12 +552,12 @@ public class RepaymentNotesDetailService {
             	FinancePlatformTransaction financePlatformTransaction = new FinancePlatformTransaction();//构建平台资金记录对象
             	financePlatformTransaction.setPlatformTransactionId(RandomGUID.getRandomGUID());//随即产生字符串ID
             	financePlatformTransaction.setFinancePlatformId(financePlatform.getFinancePlatformId());//平台资金ID
-            	financePlatformTransaction.setTransactionTarget(member.getMemberRealName());//设置对象人
-            	System.out.println("-------"+financePlatformTransaction.getTransactionTarget());
-            	financePlatformTransaction.setTransactionType("平台向会员收款");//设置交易类型
+            	financePlatformTransaction.setTransactionTarget(m1.getMemberRealName());//设置对象人
+            	financePlatformTransaction.setTransactionType("平台向借款人收款");//设置交易类型
             	financePlatformTransaction.setEarningMoney(repaymentNotesDetail.getAlsoNeedMoney());//设置知收入金额
             	financePlatformTransaction.setExpendMoney(0f);//设置支出金额
             	financePlatformTransaction.setAmount(financePlatform.getPlatformMoney());//设置平台资金总金额
+            	financePlatformTransaction.setRemark("平台向借款人收款成功，生成平台资金信息记录");//设置备注信息
             	financePlatformTransaction.setCreater(pricipalUser.getUserId());
             	financePlatformTransaction.setCreateTime(new Date());
             	financePlatformTransaction.setUpdater(pricipalUser.getUserId());
@@ -577,22 +577,7 @@ public class RepaymentNotesDetailService {
             	List<TenderNotes> tenderNotesList = tenderNotesMapper.selectByExample(tenderNotesExample);
             	//第五步循环TenderNotesList中每一条投资记录
             	for (TenderNotes tenderNotes : tenderNotesList) {
-            		//增加一条投标人的收款平台资金记录信息
-            		FinancePlatformTransaction financePlatformTransactions=new FinancePlatformTransaction();//构建平台资金记录对象
-            		financePlatformTransactions.setPlatformTransactionId(RandomGUID.getRandomGUID());//随即产生字符串ID
-            		financePlatformTransactions.setFinancePlatformId(financePlatform.getFinancePlatformId());//平台资金ID
-            		financePlatformTransactions.setTransactionTarget(tenderNotes.getMemberDisplay());//设置对象人
-            		financePlatformTransactions.setTransactionType("还款");//设置交易类型
-            		financePlatformTransactions.setEarningMoney(0f);//设置知收入金额
-            		financePlatformTransactions.setExpendMoney(repaymentNotesDetail.getAlsoNeedMoney());//设置支出金额
-            		financePlatformTransactions.setAmount(financePlatform.getPlatformMoney());//设置平台资金总金额
-                	financePlatformTransactions.setCreater(pricipalUser.getUserId());
-                	financePlatformTransactions.setCreateTime(new Date());
-                	financePlatformTransactions.setUpdater(pricipalUser.getUserId());
-                	financePlatformTransactions.setUpdateTime(new Date());
-                	
-                	//执行添加操作
-                	financePlatformTransactionMapper.insert(financePlatformTransactions);
+            		
             		//第六步根据投资记录ID取出跟该投资记录ID有关联的收款记录List集合信息
             		ReceivablesNotesExample ReceivablesNotesExample = new ReceivablesNotesExample();
                 	ReceivablesNotesExample.createCriteria().andTenderNotesIdEqualTo(tenderNotes.getTenderNotesId());
@@ -606,36 +591,6 @@ public class RepaymentNotesDetailService {
                 		for (ReceivablesNotesDetail receivablesNotesDetail : receivablesNotesDetailList) {
 							//判断收款的期数跟还款的期数是否一样
                 			if(receivablesNotesDetail.getNumberPeriod()==repaymentNotesDetailTemp.getNumberPeriod()){
-                				//对投标人的会员资金进行更新
-                            	FinanceMember financeMembers = financeMemberMapper.selectByMemberId(tenderNotes.getMemberId());// 根据投标人Id查找出该会员的财务会员信息记录
-                            	financeMembers.setUsableMoney(financeMembers.getUsableMoney()+receivablesNotesDetail.getCurrentReceMoeny());//设置可用余额(原本的可用余额+收款记录明细本息)
-                            	financeMembers.setCollectingMoney(financeMembers.getCollectingMoney()-receivablesNotesDetail.getCurrentReceMoeny());//设置待收金额(原本的待收金额-收款记录明细本息)
-                            	financeMembers.setAmount(financeMembers.getAmount()+receivablesNotesDetail.getCurrentReceMoeny());//设置总金额(原本的总金额+收款记录明细本息)
-                            	financeMembers.setUpdater(pricipalUser.getUserId());
-                            	financeMembers.setUpdateTime(new Date());
-                            	//执行更新会员资金操作
-                            	financeMemberMapper.updateByPrimaryKeySelective(financeMembers);
-                            	
-                            	//增加一条会员资金记录信息
-                            	FinanceTransaction financeTransactionTemp = new FinanceTransaction();
-                            	financeTransactionTemp.setTransactionId(RandomGUID.getRandomGUID());
-                            	financeTransactionTemp.setFinanceMemberId(financeMembers.getFinanceMemberId());//设置会员资金ID
-                            	financeTransactionTemp.setMemberId(financeMembers.getMemberId());//设置会员ID
-                            	financeTransactionTemp.setTransactionTarget(financeMembers.getMemberDisplay());//设置交易对象
-                            	financeTransactionTemp.setTransactionType("收款成功");//设置交易类型
-                            	financeTransactionTemp.setEarningMoney(receivablesNotesDetail.getAmount());//设置收入金额(还款记录明细中的总还款金额)
-                            	financeTransactionTemp.setExpendMoney(0f);//设置支出金额
-                            	financeTransactionTemp.setUsableMoney(financeMembers.getUsableMoney());//设置可用金额
-                            	financeTransactionTemp.setFrozenMoney(financeMembers.getFrozenMoney());//设置冻结金额
-                            	financeTransactionTemp.setCollectingMoney(financeMembers.getCollectingMoney());;//设置待收金额
-                            	financeTransactionTemp.setRefundMoney(financeMembers.getRefundMoney());//设置待还金额
-                            	financeTransactionTemp.setAmount(financeMembers.getAmount());//设置总金额
-                            	financeTransactionTemp.setCreater(pricipalUser.getUserId());
-                            	financeTransactionTemp.setCreateTime(new Date());
-                            	financeTransactionTemp.setUpdater(pricipalUser.getUserId());
-                            	financeTransactionTemp.setUpdateTime(new Date());
-                            	//执行添加会员资金记录信息
-                            	financeTransactionMapper.insert(financeTransactionTemp);
                             	
                             	//更新投资会员统计信息
                             	MemberStatistics memberStatisticsTemp = memberStatisticsMapper.selectByMemberId(tenderNotes.getMemberId());
@@ -677,6 +632,55 @@ public class RepaymentNotesDetailService {
                             	//执行更新收款记录操作
                             	receivablesNotesMapper.updateByPrimaryKeySelective(receivablesNotesTemp);
                             	
+                            	//增加一条投标人的收款平台资金记录信息
+                                FinancePlatformTransaction financePlatformTransactions=new FinancePlatformTransaction();//构建平台资金记录对象
+                                financePlatformTransactions.setPlatformTransactionId(RandomGUID.getRandomGUID());//随即产生字符串ID
+                                financePlatformTransactions.setFinancePlatformId(financePlatform.getFinancePlatformId());//平台资金ID
+                                financePlatformTransactions.setTransactionTarget(tenderNotes.getMemberDisplay());//设置对象人
+                                financePlatformTransactions.setTransactionType("平台向投资人还款");//设置交易类型
+                                financePlatformTransactions.setEarningMoney(0f);//设置收入金额
+                                financePlatformTransactions.setExpendMoney(receivablesNotesDetail.getAmount());//设置支出金额
+                                financePlatformTransactions.setAmount(financePlatform.getPlatformMoney()-financePlatformTransactions.getExpendMoney());//设置平台资金总金额=原来资金-支出金额
+                                financePlatformTransactions.setRemark("平台向投资人还款成功，生成平台资金记录明细信息");//设置备注
+                                financePlatformTransactions.setCreater(pricipalUser.getUserId());
+                                financePlatformTransactions.setCreateTime(new Date());
+                                financePlatformTransactions.setUpdater(pricipalUser.getUserId());
+                                financePlatformTransactions.setUpdateTime(new Date());
+                                //执行添加操作
+                                financePlatformTransactionMapper.insert(financePlatformTransactions);
+                                
+                            	//对投标人的会员资金进行更新
+                                FinanceMember financeMembers = financeMemberMapper.selectByMemberId(tenderNotes.getMemberId());// 根据投标人Id查找出该会员的财务会员信息记录
+                                financeMembers.setUsableMoney(financeMembers.getUsableMoney()+receivablesNotesDetail.getAmount());//设置可用余额(原本的可用余额+收款记录明细本息)
+                                financeMembers.setCollectingMoney(financeMembers.getCollectingMoney()-receivablesNotesDetail.getCurrentReceMoeny());//设置待收金额(原本的待收金额-收款记录明细本息)
+                                financeMembers.setAmount(financeMembers.getAmount()+receivablesNotesDetail.getAmount());//设置总金额(原本的总金额+收款记录明细本息)
+                                financeMembers.setUpdater(pricipalUser.getUserId());
+                                financeMembers.setUpdateTime(new Date());
+                                //执行更新会员资金操作
+                                financeMemberMapper.updateByPrimaryKeySelective(financeMembers);
+                                
+                                //增加一条会员资金记录信息
+                                FinanceTransaction financeTransactionTemp = new FinanceTransaction();
+                                financeTransactionTemp.setTransactionId(RandomGUID.getRandomGUID());
+                                financeTransactionTemp.setFinanceMemberId(financeMembers.getFinanceMemberId());//设置会员资金ID
+                                financeTransactionTemp.setMemberId(financeMembers.getMemberId());//设置会员ID
+                                financeTransactionTemp.setTransactionTarget("系统帐号");//设置交易对象
+                                financeTransactionTemp.setTransactionType("投资人进行收款");//设置交易类型
+                                financeTransactionTemp.setEarningMoney(receivablesNotesDetail.getAmount());//设置收入金额(还款记录明细中的总还款金额)
+                                financeTransactionTemp.setExpendMoney(0f);//设置支出金额
+                                financeTransactionTemp.setUsableMoney(financeMembers.getUsableMoney());//设置可用金额=原会员的可用金额
+                                financeTransactionTemp.setFrozenMoney(financeMembers.getFrozenMoney());//设置冻结金额
+                                financeTransactionTemp.setCollectingMoney(financeMembers.getCollectingMoney());//设置待收金额
+                                financeTransactionTemp.setRefundMoney(financeMembers.getRefundMoney());//设置待还金额
+                                financeTransactionTemp.setAmount(financeMembers.getAmount());//设置总金额
+                                financeTransactionTemp.setRemark("会员进行投资收款成功，生成会员资金记录明细信息");//设置备注
+                                financeTransactionTemp.setCreater(pricipalUser.getUserId());
+                                financeTransactionTemp.setCreateTime(new Date());
+                                financeTransactionTemp.setUpdater(pricipalUser.getUserId());
+                                financeTransactionTemp.setUpdateTime(new Date());
+                                //执行添加会员资金记录信息
+                                financeTransactionMapper.insert(financeTransactionTemp);
+                                
                             	//判断是否收款款记录明细表的收款状态有多少条
                             	ReceivablesNotesDetailExample receivablesNotesDetailsExample = new ReceivablesNotesDetailExample();
                             	receivablesNotesDetailsExample.createCriteria().andReceStateEqualTo("notReceiving").andReceNotesIdEqualTo(receivablesNotes.getReceNotesId());

@@ -10,69 +10,59 @@
 				<input type="hidden"  name="financeMemberId" value="${financeMemberData.financeMemberId}" />
 				<input name="memberDisplay" class="spinner" style="width:180px" value="${financeMemberData.memberDisplay}" readonly="readonly"></input>
 			</td>	
-			 <td>可用信用额度：</td>
-			<td>
-				<input name="availableCredit" value="${financeMemberData.availableCredit}" class="spinner" style="width:180px" readonly="readonly"/>
-			</td>
-		</tr>
-		<tr>
 			<td>可用余额：</td>
 			<td>
 				<input name="usableMoney" value="${financeMemberData.usableMoney}" class="spinner" style="width:180px" readonly="readonly"/>
 			</td>
+		</tr>
+		<tr>
 			<td>冻结金额：</td>
 			<td>
 				<input name="frozenMoney" value="${financeMemberData.frozenMoney}" class="spinner" style="width:180px" readonly="readonly"></input>
 			</td>
-		</tr>
-		<tr>
 			<td>代收金额：</td>
 			<td>
 				<input name="collectingMoney" value="${financeMemberData.collectingMoney}" class="spinner" style="width:180px" readonly="readonly"/>
 			</td>
+		</tr>
+		<tr>
 			<td>待还金额：</td>
 			<td>
 				<input name="refundMoney" value="${financeMemberData.refundMoney}" class="spinner" style="width:180px" readonly="readonly"></input>
 			</td>
-		</tr>
-		<tr>
 			<td>总金额：</td>
 			<td>
 				<input name="amount" value="${financeMemberData.amount}" class="spinner" style="width:180px" readonly="readonly"/>
 			</td>
+		</tr>
+		<tr>
 			<td>本月充值次数：</td>
 			<td>
 				<input name="rechargeMonthTimes" value="${financeMemberData.rechargeMonthTimes}" class="spinner" style="width:180px" readonly="readonly"></input>
 			</td>
-		</tr>
-		<tr>
 			<td>充值总次数：</td>
 			<td>
 				<input name="rechargeTimes" value="${financeMemberData.rechargeTimes}" class="spinner" style="width:180px" readonly="readonly"/>
 			</td>
+		</tr>
+		<tr>
 			<td>充值总金额：</td>
 			<td>
 				<input name="rechargeMoney" value="${financeMemberData.rechargeMoney}" class="spinner" style="width:180px" readonly="readonly"></input>
 			</td>
-		</tr>
-		<tr>
 			<td>本月提现次数：</td>
 			<td>
 				<input name="withdrawMonthTimes" value="${financeMemberData.withdrawMonthTimes}" class="spinner" style="width:180px" readonly="readonly"/>
 			</td>
+		</tr>
+		<tr>
 			<td>提现总次数：</td>
 			<td>
 				<input name="withdrawTimes" value="${financeMemberData.withdrawTimes}" class="spinner" style="width:180px" readonly="readonly"></input>
 			</td>
-		</tr>
-		<tr>
 			<td>提现总金额：</td>
 			<td>
 				<input name="withdrawMoney" value="${financeMemberData.withdrawMoney}" class="spinner" style="width:180px" readonly="readonly"/>
-			</td>
-			<td>借款信用额度：</td>
-			<td>
-				<input name="borrowerCredit" value="${financeMemberData.borrowerCredit}" class="spinner" style="width:180px" readonly="readonly"></input>
 			</td>
 		</tr> 
 		<tr>

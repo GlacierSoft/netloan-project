@@ -90,16 +90,6 @@
 				width:120,
 				sortable:true
 			},{
-				field:'borrowerCredit',
-				title:'借款信用额度',
-				width:120,
-				sortable:true
-			},{
-				field:'availableCredit',
-				title:'可用信用额度',
-				sortable:true,
-				width:100
-			},{
 				field:'createrDisplay',
 				title:'创建人',
 				sortable:true,
