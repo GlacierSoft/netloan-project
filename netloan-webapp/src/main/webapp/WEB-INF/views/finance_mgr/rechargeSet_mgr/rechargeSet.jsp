@@ -199,19 +199,24 @@
 	//点击审核按钮触发方法
 	glacier.finance_mgr.rechargeSet_mgr.rechargeSet.auditRechargeSet = function(){
 		var row = glacier.finance_mgr.rechargeSet_mgr.rechargeSet.rechargeSetDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '【充值设置】- 审核('+row.rechargeSetName+')',
-			width : 560,
-			height : 460,
-			queryUrl : ctx + '/do/rechargeSet/intoAudit.htm',
-			submitUrl : ctx + '/do/rechargeSet/audit.json',
-			queryParams : {
-				financeRechargeSetId : row.financeRechargeSetId
-			},
-			successFun : function (){
-				glacier.finance_mgr.rechargeSet_mgr.rechargeSet.rechargeSetDataGrid.datagrid('reload');
-			}
-		});
+		var auditState = row.auditState;
+		if ("authstr" == auditState) {
+			glacier.basicAddOrEditDialog({
+				title : '【充值设置】- 审核('+row.rechargeSetName+')',
+				width : 560,
+				height : 460,
+				queryUrl : ctx + '/do/rechargeSet/intoAudit.htm',
+				submitUrl : ctx + '/do/rechargeSet/audit.json',
+				queryParams : {
+					financeRechargeSetId : row.financeRechargeSetId
+				},
+				successFun : function (){
+					glacier.finance_mgr.rechargeSet_mgr.rechargeSet.rechargeSetDataGrid.datagrid('reload');
+				}
+			});
+		} else {
+			alert("该记录已经进行了审核，不需要重复操作。");
+		}
 	};
 	//点击删除按钮触发方法
 	glacier.finance_mgr.rechargeSet_mgr.rechargeSet.delRechargeSet = function(){

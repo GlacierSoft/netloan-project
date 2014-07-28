@@ -157,19 +157,24 @@
 	//点击审核按钮触发方法
 	glacier.finance_mgr.bankCard_mgr.bankCard.auditBankCard = function(){
 		var row = glacier.finance_mgr.bankCard_mgr.bankCard.bankCardDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '【会员银行卡】- 审核('+row.memberRealName+')',
-			width : 540,
-			height : 360,
-			queryUrl : ctx + '/do/bankCard/intoAudit.htm',
-			submitUrl : ctx + '/do/bankCard/audit.json',
-			queryParams : {
-				bankCardId : row.bankCardId
-			},
-			successFun : function (){
-				glacier.finance_mgr.bankCard_mgr.bankCard.bankCardDataGrid.datagrid('reload');
-			}
-		});
+		var auditState = row.status;
+		if ("authstr" == auditState) {
+			glacier.basicAddOrEditDialog({
+				title : '【会员银行卡】- 审核('+row.memberRealName+')',
+				width : 540,
+				height : 360,
+				queryUrl : ctx + '/do/bankCard/intoAudit.htm',
+				submitUrl : ctx + '/do/bankCard/audit.json',
+				queryParams : {
+					bankCardId : row.bankCardId
+				},
+				successFun : function (){
+					glacier.finance_mgr.bankCard_mgr.bankCard.bankCardDataGrid.datagrid('reload');
+				}
+			});
+		} else {
+			alert("该记录已经进行了审核，不需要重复操作。");
+		}
 	};
 	//点击删除按钮触发方法
 	glacier.finance_mgr.bankCard_mgr.bankCard.delBankCard = function(){

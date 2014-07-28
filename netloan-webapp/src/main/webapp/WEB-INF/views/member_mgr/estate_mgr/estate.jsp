@@ -197,19 +197,24 @@
 	//点击审核按钮触发方法
 	glacier.member_mgr.estate_mgr.estate.auditHiring = function(){
 		var row = glacier.member_mgr.estate_mgr.estate.estateDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '审核【'+row.memberRealName+'】房产信息',
-			width : 530,
-			height : 500,
-			queryUrl : ctx + '/do/estate/intoAudit.htm',
-			submitUrl : ctx + '/do/estate/audit.json',
-			queryParams : {
-				estateId : row.estateId
-			},
-			successFun : function (){
-				glacier.member_mgr.estate_mgr.estate.estateDataGrid.datagrid('reload');
-			}
-		});
+		var auditState = row.auditState;
+		if ("authstr" == auditState) {
+			glacier.basicAddOrEditDialog({
+				title : '审核【'+row.memberRealName+'】房产信息',
+				width : 530,
+				height : 500,
+				queryUrl : ctx + '/do/estate/intoAudit.htm',
+				submitUrl : ctx + '/do/estate/audit.json',
+				queryParams : {
+					estateId : row.estateId
+				},
+				successFun : function (){
+					glacier.member_mgr.estate_mgr.estate.estateDataGrid.datagrid('reload');
+				}
+			});
+		} else {
+			alert("该记录已经进行了审核，不需要重复操作。");
+		}
 	};
 </script>
 

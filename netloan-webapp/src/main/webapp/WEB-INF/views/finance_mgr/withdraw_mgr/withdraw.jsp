@@ -208,19 +208,24 @@
 	//点击审核按钮触发方法
 	glacier.finance_mgr.withdraw_mgr.withdraw.auditWithdraw = function(){
 		var row = glacier.finance_mgr.withdraw_mgr.withdraw.withdrawDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '【提现记录】- 审核('+row.withdrawCode+')',
-			width : 580,
-			height : 500,
-			queryUrl : ctx + '/do/withdraw/intoAudit.htm',
-			submitUrl : ctx + '/do/withdraw/audit.json',
-			queryParams : {
-				financeWithdrawId : row.financeWithdrawId
-			},
-			successFun : function (){
-				glacier.finance_mgr.withdraw_mgr.withdraw.withdrawDataGrid.datagrid('reload');
-			}
-		});
+		var auditState = row.auditState;
+		if ("authstr" == auditState) {
+			glacier.basicAddOrEditDialog({
+				title : '【提现记录】- 审核('+row.withdrawCode+')',
+				width : 580,
+				height : 500,
+				queryUrl : ctx + '/do/withdraw/intoAudit.htm',
+				submitUrl : ctx + '/do/withdraw/audit.json',
+				queryParams : {
+					financeWithdrawId : row.financeWithdrawId
+				},
+				successFun : function (){
+					glacier.finance_mgr.withdraw_mgr.withdraw.withdrawDataGrid.datagrid('reload');
+				}
+			});
+		} else {
+			alert("该记录已经进行了审核，不需要重复操作。");
+		}
 	};
 	//点击删除按钮触发方法
 	glacier.finance_mgr.withdraw_mgr.withdraw.delWithdraw = function(){

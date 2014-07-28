@@ -184,19 +184,24 @@
 	//点击审核按钮触发方法
 	glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.auditOverdueAdvances = function(){
 		var row = glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.overdueAdvancesDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '【逾期垫付管理】- 审核信息('+row.overdueAdvancesName+')',
-			width : 560,
-			height : 435,
-			queryUrl : ctx + '/do/overdueAdvances/intoAudit.htm',
-			submitUrl : ctx + '/do/overdueAdvances/audit.json',
-			queryParams : {
-				overdueAdvancesId : row.overdueAdvancesId
-			},
-			successFun : function (){
-				glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.overdueAdvancesDataGrid.datagrid('reload');
-			}
-		});
+		var auditState = row.auditState;
+		if ("authstr" == auditState) {
+			glacier.basicAddOrEditDialog({
+				title : '【逾期垫付管理】- 审核信息('+row.overdueAdvancesName+')',
+				width : 560,
+				height : 435,
+				queryUrl : ctx + '/do/overdueAdvances/intoAudit.htm',
+				submitUrl : ctx + '/do/overdueAdvances/audit.json',
+				queryParams : {
+					overdueAdvancesId : row.overdueAdvancesId
+				},
+				successFun : function (){
+					glacier.finance_mgr.overdueAdvances_mgr.overdueAdvances.overdueAdvancesDataGrid.datagrid('reload');
+				}
+			});
+		} else {
+			alert("该记录已经进行了审核，不需要重复操作。");
+		}
 	};
 	
 	//点击删除按钮触发方法

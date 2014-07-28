@@ -256,22 +256,25 @@
 	
 	//点击审核按钮触发方法
 	glacier.finance_mgr.financePlatform_mgr.financePlatform.auditFinancePlatform = function(){
-		
 		var row = glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '【平台资金】- 审核('+row.platformName+')',
-			width : 588,
-			height : 500,
-			queryUrl : ctx + '/do/financePlatform/intoAudit.htm',
-			submitUrl : ctx + '/do/financePlatform/audit.json',
-			queryParams : {
-				financePlatformId : row.financePlatformId
-			},
-			successFun : function (){
-				glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid('reload');
-			}
-		}); 
- 
+		var auditState = row.auditState;
+		if ("authstr" == auditState) {
+			glacier.basicAddOrEditDialog({
+				title : '【平台资金】- 审核('+row.platformName+')',
+				width : 588,
+				height : 500,
+				queryUrl : ctx + '/do/financePlatform/intoAudit.htm',
+				submitUrl : ctx + '/do/financePlatform/audit.json',
+				queryParams : {
+					financePlatformId : row.financePlatformId
+				},
+				successFun : function (){
+					glacier.finance_mgr.financePlatform_mgr.financePlatform.financePlatformDataGrid.datagrid('reload');
+				}
+			}); 
+		} else {
+			alert("该记录已经进行了审核，不需要重复操作。");
+		}
 		
 	};
 	
