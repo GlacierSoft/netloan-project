@@ -290,19 +290,29 @@ public class MemberApplyAmountService {
     @MethodLog(opera = "ApplyAmounts_audit")
     public Object auditApplyAmount(MemberApplyAmount applyAmount) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        
+    
         Subject pricipalSubject = SecurityUtils.getSubject();// 查找当前系统登录用户
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         applyAmount.setUpdater(pricipalUser.getUserId());// 更新人为当前系统登录用户
         applyAmount.setUpdateTime(new Date());// 更新时间为当前系统时间
         applyAmount.setAuditorId(pricipalUser.getUserId());// 审核人为当前系统登录用户
         applyAmount.setAuditDate(new Date());// 审核时间为当前系统时间
+        
+        MemberApplyAmount mem=applyAmountMapper.selectByPrimaryKey(applyAmount.getApplyAmountId());
+        if(mem.getAuditState().equals("authstr")==false){ //如果数据库的该条记录状态不是审核中的，就说明该记录已经审核了，不能继续操作
+        	returnResult.setMsg("该申请记录已进行过审核操作");
+        	return returnResult;
+        } 
+        //审核额度不能大于申请额度
+        if(applyAmount.getAuthorizedAmount()>applyAmount.getApplyMoney()){
+        	returnResult.setMsg("审核额度不能大于申请额度！");
+        	return returnResult;
+        } 
         if (StringUtils.isNotBlank(applyAmount.getAuditState())) {// 如果审核状态为非“通过”，则审核金额为零
         	if (!applyAmount.getAuditState().equals("pass")) {
         		applyAmount.setAuthorizedAmount((float) 0.00);
         	}
-        }
-        
+        } 
         int count = 0;
         count = applyAmountMapper.updateByPrimaryKeySelective(applyAmount);
         
