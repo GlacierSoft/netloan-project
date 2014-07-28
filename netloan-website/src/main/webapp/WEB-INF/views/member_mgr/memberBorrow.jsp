@@ -62,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <div id="collapseTwo" class="panel-collapse collapse in">
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
-							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit&memberId=${currentMember.memberId}" class="btn btn-info" role="button">已发布的借款</a>
+							  <a href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit','${currentMember.memberId}');"  class="btn btn-info" role="button">已发布的借款</a>
 							  <a href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting','${currentMember.memberId}');" class="btn btn-default" role="button">还款管理</a>
 							  <a href="#" onclick="doClick('borrowingLoan/memberStatistics.htm','${currentMember.memberId}');" class="btn btn-default" role="button">贷款统计</a>
 							</div>
@@ -99,8 +99,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <div style="padding-top:10px;padding-bottom: 20px;">
 					  		<c:choose>
 							   <c:when test="${buttonState == 'firstAudit'}">  
-							   	<a id="firstAudit" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit&memberId=${currentMember.memberId}" class="btn btn-success" role="button">初审中的借款</a>
-							   	<a id="tendering" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=tendering&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">招标中的借款</a>
+							   	<a id="firstAudit" href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit','${currentMember.memberId}');"  class="btn btn-success" role="button">初审中的借款</a>
+							  
+							   	<a id="tendering"  href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=tendering','${currentMember.memberId}');"  class="btn btn-primary" role="button">招标中的借款</a>
 							   	<div class="panel panel-default">
 								  <div class="panel-heading">
 								    <h4 class="panel-title"><strong>条件筛选</strong></h3>
@@ -141,8 +142,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							  	</div>
 							   </c:when>
 							   <c:when test="${buttonState == 'tendering'}">  
-							    <a id="firstAudit" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">初审中的借款</a>
-							   	<a id="tendering" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=tendering&memberId=${currentMember.memberId}" class="btn btn-success" role="button">招标中的借款</a>
+							    <a id="firstAudit"  href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit','${currentMember.memberId}');"  class="btn btn-primary" role="button">初审中的借款</a>
+							   	<a id="tendering" href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=tendering','${currentMember.memberId}');" class="btn btn-success" role="button">招标中的借款</a>
 							   	<div class="panel panel-default">
 								  <div class="panel-heading">
 								    <h4 class="panel-title"><strong>条件筛选</strong></h3>

@@ -61,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <div id="collapseTwo" class="panel-collapse collapse in">
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
-							  <a href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit&memberId=${currentMember.memberId}" class="btn btn-default" role="button">已发布的借款</a>
+							  <a href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit','${currentMember.memberId}');"  class="btn btn-default" role="button">已发布的借款</a>
 							  <a  href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting','${currentMember.memberId}');" class="btn btn-info" role="button">还款管理</a>
 							  <a href="#" onclick="doClick('borrowingLoan/memberStatistics.htm','${currentMember.memberId}');" class="btn btn-default" role="button">贷款统计</a>
 							</div>
@@ -98,8 +98,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  		<div style="padding-top:10px;padding-bottom: 20px;">
 				  		<c:choose>
 						   <c:when test="${buttonState == 'repaymenting'}">  
-						   	<a id="repaymenting" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting&memberId=${currentMember.memberId}" class="btn btn-success" role="button">正在还款的借款</a>
-						   	<a id="completed" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=completed&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">已还完的借款</a>
+						   	<a id="repaymenting" href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting','${currentMember.memberId}');"  class="btn btn-success" role="button">正在还款的借款</a>
+						   	 
+						   	
+						   	<a id="completed" href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=completed','${currentMember.memberId}');"  class="btn btn-primary" role="button">已还完的借款</a>
 						   	<div class="panel panel-default">
 							  <div class="panel-heading">
 							    <h4 class="panel-title"><strong>条件筛选</strong></h3>
@@ -191,8 +193,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        </div>
 						   </c:when>
 						   <c:when test="${buttonState == 'completed'}">  
-						    <a id="repaymenting" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting&memberId=${currentMember.memberId}" class="btn btn-primary" role="button">正在还款的借款</a>
-						   	<a id="completed" href="${ctx}/borrowingLoan/memberBorrow.htm?&p=1&loanState=completed&memberId=${currentMember.memberId}" class="btn btn-success" role="button">已还完的借款</a>
+						    <a id="repaymenting"  href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting','${currentMember.memberId}');"  class="btn btn-primary" role="button">正在还款的借款</a>
+						    <a id="completed" href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=completed','${currentMember.memberId}');"  class="btn btn-success" role="button">已还完的借款</a>
 						   	<div class="panel panel-default">
 							  <div class="panel-heading">
 							    <h4 class="panel-title"><strong>条件筛选</strong></h3>
