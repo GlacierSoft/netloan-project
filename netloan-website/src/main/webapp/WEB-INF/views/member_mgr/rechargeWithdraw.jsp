@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					      <table class="table table-bordered">
 				          	<thead>
 					          <tr>
-					            <th>交易类型</th>
+					            <th width="100px">交易类型</th>
 					            <th>交易对方</th>
 					            <th>收入金额</th>
 					            <th>支出金额</th>
