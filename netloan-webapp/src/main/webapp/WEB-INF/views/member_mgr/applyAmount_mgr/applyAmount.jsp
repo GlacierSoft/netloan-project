@@ -171,7 +171,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '审核【'+row.memberRealName+'】申请额度信息',
 			width : 540,
-			height : 360,
+			height : 390,
             queryUrl : ctx + '/do/applyAmount/intoAudit.htm',
 			submitUrl : ctx + '/do/applyAmount/audit.json',
 			queryParams : {
