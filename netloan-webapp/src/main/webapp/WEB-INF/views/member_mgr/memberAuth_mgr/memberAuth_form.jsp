@@ -28,10 +28,10 @@
 				<td>
 				<c:choose>
 				    <c:when test="${memberAuthData.infoAuth == 'noapply'}"> 
-						<a id="infoAuthbtn" href="#" class="easyui-linkbutton" disabled="disabled" data-options="">审核</a>
+						<a id="infoAuthbtn" href="#" class="easyui-linkbutton" disabled='true' data-options="" >审核</a>
 		            </c:when>
 		   			<c:otherwise> 
-		   				<a id="infoAuthbtn" href="#" class="easyui-linkbutton" data-options="">审核</a>
+		   				<a id="infoAuthbtn" href="#" class="easyui-linkbutton l-btn" data-options="">审核</a>
 		   		    </c:otherwise>
 				</c:choose>
 				</td>
@@ -223,121 +223,139 @@
     /* 	if('${memberAuthData.memberName}' != 'authstr'){
     		
     	} */
-    	 glacier.basicAddOrEditDialog({
- 			title : '${memberAuthData.memberName}'+"基本信息认证",
- 			width : 600,
-			height : 310,
-			border : true,
- 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.infoName}',
- 			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.infoName}',
- 			successFun : function (){
- 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
- 				$('#memberAuthShow').dialog('destroy');//关闭窗体
- 			}
- 		});
+	    if('${memberAuthData.infoAuth}' == 'authstr'){
+	    	glacier.basicAddOrEditDialog({
+	 			title : '${memberAuthData.memberName}'+"基本信息认证",
+	 			width : 600,
+				height : 310,
+				border : true,
+	 			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.infoName}',
+	 			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.infoName}',
+	 			successFun : function (){
+	 				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+	 				$('#memberAuthShow').dialog('destroy');//关闭窗体
+	 			}
+	 		});
+	    }
     }); 
-    $('#vipAuthbtn').bind('click', function(){    
-   	 glacier.basicAddOrEditDialog({
-			title : '${memberAuthData.memberName}'+"会员vip认证",
-			width : 600,
-			height : 310,
-			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.vipName}',
-			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.vipName}',
-			successFun : function (){
-				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
-				$('#memberAuthShow').dialog('destroy');//关闭窗体
-			}
-		});
+    $('#vipAuthbtn').bind('click', function(){
+    	if('${memberAuthData.vipAuth}' == 'authstr'){
+    		glacier.basicAddOrEditDialog({
+    			title : '${memberAuthData.memberName}'+"会员vip认证",
+    			width : 600,
+    			height : 310,
+    			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.vipName}',
+    			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.vipName}',
+    			successFun : function (){
+    				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+    				$('#memberAuthShow').dialog('destroy');//关闭窗体
+    			}
+    		});
+    	}
    }); 
-    $('#emailAuthbtn').bind('click', function(){    
-   	 glacier.basicAddOrEditDialog({
-			title : '${memberAuthData.memberName}'+"邮箱认证",
-			width : 760,
-			height : 560,
-			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.emailName}',
-			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.emailName}',
-			successFun : function (){
-				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
-				$('#memberAuthShow').dialog('destroy');//关闭窗体
-			}
-		});
+    $('#emailAuthbtn').bind('click', function(){
+    	if('${memberAuthData.emailAuth}' == 'authstr'){
+    		glacier.basicAddOrEditDialog({
+    			title : '${memberAuthData.memberName}'+"邮箱认证",
+    			width : 760,
+    			height : 560,
+    			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.emailName}',
+    			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.emailName}',
+    			successFun : function (){
+    				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+    				$('#memberAuthShow').dialog('destroy');//关闭窗体
+    			}
+    		});
+    	}
    }); 
     $('#mobileAuthbtn').bind('click', function(){    
-   	 glacier.basicAddOrEditDialog({
-			title : '${memberAuthData.memberName}'+"手机认证",
-			width : 760,
-			height : 560,
-			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.mobileName}',
-			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.mobileName}',
-			successFun : function (){
-				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
-				$('#memberAuthShow').dialog('destroy');//关闭窗体
-			}
-		});
+    	if('${memberAuthData.mobileAuth}' == 'authstr'){
+	   	 glacier.basicAddOrEditDialog({
+				title : '${memberAuthData.memberName}'+"手机认证",
+				width : 760,
+				height : 560,
+				queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.mobileName}',
+				submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.mobileName}',
+				successFun : function (){
+					glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+					$('#memberAuthShow').dialog('destroy');//关闭窗体
+				}
+			});
+    	}
    }); 
     $('#creditAuthbtn').bind('click', function(){    
-   	 glacier.basicAddOrEditDialog({
-			title : '${memberAuthData.memberName}'+"信用认证",
-			width : 760,
-			height : 560,
-			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.creditName}',
-			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.creditName}',
-			successFun : function (){
-				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
-				$('#memberAuthShow').dialog('destroy');//关闭窗体
-			}
-		});
+    	if('${memberAuthData.creditAuth}' == 'authstr'){
+	   	 glacier.basicAddOrEditDialog({
+				title : '${memberAuthData.memberName}'+"信用认证",
+				width : 760,
+				height : 560,
+				queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.creditName}',
+				submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.creditName}',
+				successFun : function (){
+					glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+					$('#memberAuthShow').dialog('destroy');//关闭窗体
+				}
+			});
+    	}
    }); 
     $('#companyAuthbtn').bind('click', function(){    
-   	 glacier.basicAddOrEditDialog({
-			title : '${memberAuthData.memberName}'+"企业认证",
-			width : 760,
-			height : 560,
-			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.companyName}',
-			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.companyName}',
-			successFun : function (){
-				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
-				$('#memberAuthShow').dialog('destroy');//关闭窗体
-			}
-		});
+    	if('${memberAuthData.companyAuth}' == 'authstr'){
+	   	 glacier.basicAddOrEditDialog({
+				title : '${memberAuthData.memberName}'+"企业认证",
+				width : 760,
+				height : 560,
+				queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.companyName}',
+				submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.companyName}',
+				successFun : function (){
+					glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+					$('#memberAuthShow').dialog('destroy');//关闭窗体
+				}
+			});
+    	}
    }); 
     $('#realNameAuthbtn').bind('click', function(){    
-   	 glacier.basicAddOrEditDialog({
-			title : '${memberAuthData.memberName}'+"实名认证",
-			width : 760,
-			height : 560,
-			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.realName}',
-			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.realName}',
-			successFun : function (){
-				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
-				$('#memberAuthShow').dialog('destroy');//关闭窗体
-			}
-		});
+    	if('${memberAuthData.realNameAuth}' == 'authstr'){
+	   	 glacier.basicAddOrEditDialog({
+				title : '${memberAuthData.memberName}'+"实名认证",
+				width : 760,
+				height : 560,
+				queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.realName}',
+				submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.realName}',
+				successFun : function (){
+					glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+					$('#memberAuthShow').dialog('destroy');//关闭窗体
+				}
+			});
+    	}
    }); 
     $('#idCardAuthbtn').bind('click', function(){    
-   	 glacier.basicAddOrEditDialog({
-			title : '${memberAuthData.memberName}'+"身份证认证",
-			width : 790,
-			height : 560,
-			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.idCardName}',
-			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.idCardName}',
-			successFun : function (){
-				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
-				$('#memberAuthShow').dialog('destroy');//关闭窗体
-			}
-		});
+    	if('${memberAuthData.idCardAuth}' == 'authstr'){
+	   	 glacier.basicAddOrEditDialog({
+				title : '${memberAuthData.memberName}'+"身份证认证",
+				width : 790,
+				height : 560,
+				queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.idCardName}',
+				submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.idCardName}',
+				successFun : function (){
+					glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+					$('#memberAuthShow').dialog('destroy');//关闭窗体
+				}
+			});
+    	}
    }); 
     $('#workAuthbtn').bind('click', function(){    
-   	 glacier.basicAddOrEditDialog({
-			title : '${memberAuthData.memberName}'+"工作认证",
-			width : 600,
-			height : 310,
-			queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.workName}',
-			submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.workName}',
-			successFun : function (){
-				glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
-				$('#memberAuthShow').dialog('destroy');//关闭窗体
-			}
-		});
+    	if('${memberAuthData.workAuth}' == 'authstr'){
+	   	 glacier.basicAddOrEditDialog({
+				title : '${memberAuthData.memberName}'+"工作认证",
+				width : 600,
+				height : 310,
+				queryUrl : ctx + '/do/memberAuth/intoAuthDetail.htm?memberId='+'${memberAuthData.memberId}'+'&auth='+'${memberAuthData.workName}',
+				submitUrl : ctx + '/do/memberAuth/edit.json?auth='+'${memberAuthData.workName}',
+				successFun : function (){
+					glacier.member_mgr.memberAuth_mgr.memberAuth.memberAuthDataGrid.datagrid('reload');
+					$('#memberAuthShow').dialog('destroy');//关闭窗体
+				}
+			});
+    	}
    }); 
 </script>

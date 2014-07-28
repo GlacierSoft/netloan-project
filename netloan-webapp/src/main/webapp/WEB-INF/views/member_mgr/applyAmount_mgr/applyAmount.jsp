@@ -168,19 +168,24 @@
 	//点击审核按钮触发方法
 	glacier.member_mgr.applyAmount_mgr.applyAmount.auditApplyAmount = function(){
 		var row = glacier.member_mgr.applyAmount_mgr.applyAmount.applyAmountDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '审核【'+row.memberRealName+'】申请额度信息',
-			width : 540,
-			height : 390,
-            queryUrl : ctx + '/do/applyAmount/intoAudit.htm',
-			submitUrl : ctx + '/do/applyAmount/audit.json',
-			queryParams : {
-				applyAmountId : row.applyAmountId
-			},
-			successFun : function (){
-				glacier.member_mgr.applyAmount_mgr.applyAmount.applyAmountDataGrid.datagrid('reload');
-			}
-		});
+		var auditState = row.auditState;
+		if ("authstr" == auditState) {
+			glacier.basicAddOrEditDialog({
+				title : '审核【'+row.memberRealName+'】申请额度信息',
+				width : 540,
+				height : 390,
+	            queryUrl : ctx + '/do/applyAmount/intoAudit.htm',
+				submitUrl : ctx + '/do/applyAmount/audit.json',
+				queryParams : {
+					applyAmountId : row.applyAmountId
+				},
+				successFun : function (){
+					glacier.member_mgr.applyAmount_mgr.applyAmount.applyAmountDataGrid.datagrid('reload');
+				}
+			});
+		} else {
+			alert("该记录已经进行了审核，不需要重复操作。");
+		}
 	};
 	
 	//下拉项的值

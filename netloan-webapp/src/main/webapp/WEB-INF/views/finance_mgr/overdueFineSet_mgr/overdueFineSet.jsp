@@ -187,19 +187,24 @@
 	//点击审核按钮触发方法
 	glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.auditOverdueFineSet = function(){
 		var row = glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.overdueFineSetDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '【逾期垫付设置】- 审核('+row.overdueFineSetName+')',
-			width : 580,
-			height : 450,
-			queryUrl : ctx + '/do/overdueFineSet/intoAudit.htm',
-			submitUrl : ctx + '/do/overdueFineSet/audit.json',
-			queryParams : {
-				overdueFineSetId : row.overdueFineSetId
-			},
-			successFun : function (){
-				glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.overdueFineSetDataGrid.datagrid('reload');
-			}
-		});
+		var auditState = row.auditState;
+		if ("authstr" == auditState) {
+			glacier.basicAddOrEditDialog({
+				title : '【逾期垫付设置】- 审核('+row.overdueFineSetName+')',
+				width : 580,
+				height : 450,
+				queryUrl : ctx + '/do/overdueFineSet/intoAudit.htm',
+				submitUrl : ctx + '/do/overdueFineSet/audit.json',
+				queryParams : {
+					overdueFineSetId : row.overdueFineSetId
+				},
+				successFun : function (){
+					glacier.finance_mgr.overdueFineSet_mgr.overdueFineSet.overdueFineSetDataGrid.datagrid('reload');
+				}
+			});
+		} else {
+			alert("该记录已经进行了审核，不需要重复操作。");
+		}
 	};
 	
 	
