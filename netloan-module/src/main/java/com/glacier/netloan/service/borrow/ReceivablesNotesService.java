@@ -105,6 +105,10 @@ public class ReceivablesNotesService {
 	
 	@Autowired
     private ParameterBasicService parameterBasicService;
+	
+	@Autowired
+	private RepaymentNotesDetailService repaymentNotesDetailService;
+	
 	/**
 	 * @Title: getReceivablesNotes 
 	 * @Description: TODO(根据收款记录Id获取收款记录信息) 
@@ -309,12 +313,13 @@ public class ReceivablesNotesService {
       	FinanceTransaction financeTransaction = new FinanceTransaction(); 
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
-        
+        int secondNum=0;//为了排序清晰，创建时间不能相同
         BorrowingLoan borrowingLoanNew = (BorrowingLoan)borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());//重新获取该会员 借款的信息数据
         TenderNotesExample tenderNotesExample = new TenderNotesExample();;
         tenderNotesExample.createCriteria().andLoanIdEqualTo(borrowingLoanNew.getLoanId());//查询相对应的投标的记录
         List<TenderNotes> tenderNotess = tenderNotesMapper.selectByExample(tenderNotesExample);
         for(TenderNotes tenderNotes : tenderNotess){
+        	secondNum=secondNum+1;//为了排序能够清晰显示，同时创建的记录，后面每加一条加一秒
         	float shouldReceMoney = 0f;
             float everyMonthInterest=0f;
         	float earningMoney=0;//存储有投标奖励的金额
@@ -545,20 +550,19 @@ public class ReceivablesNotesService {
             	transactionss.setAmount(financeMembers.getAmount());//设置投资人的总金额
             	transactionss.setRemark("投资["+borrowingLoan.getLoanTitle()+"]的复审通过,成功投资资金["+borrowingLoan.getLoanTotal()+"]元");//设置投资人的会员资金记录的备注
             	transactionss.setCreater(pricipalUser.getUserId());
-            	transactionss.setCreateTime(new Date());
+            	transactionss.setCreateTime(repaymentNotesDetailService.addOneSecond(new Date(), secondNum));//为了排序能够清晰显示，同时创建的记录，后面每加一条加一秒
             	transactionss.setUpdater(pricipalUser.getUserId());
-            	transactionss.setUpdateTime(new Date());
+            	transactionss.setUpdateTime(repaymentNotesDetailService.addOneSecond(new Date(), secondNum));//这里创建时间等于更新时间
             	//添加投资人资金记录明细数据
             	transactionMapper.insert(transactionss);
             	
             	//更新统计会员的信息
             	memberStatistics.setWaitIncomeTotal(memberStatistics.getWaitIncomeTotal()+receivablesNotes.getShouldReceMoney());//设置投资人会员统计的本息
-            	memberStatistics.setWaitIncomePrincipal(memberStatistics.getWaitIncomePrincipal()+borrowingLoan.getLoanTotal());//设置投资人会员统计的应收本金
-            	memberStatistics.setWaitIncomeInterest(memberStatistics.getWaitIncomeInterest()+(receivablesNotes.getShouldReceMoney()-borrowingLoan.getLoanTotal()));//设置投资人会员统计的应收利息(原本利息+(本息减去借款总金额))
+            	memberStatistics.setWaitIncomePrincipal(memberStatistics.getWaitIncomePrincipal()+receivablesNotes.getShouldRecePrincipal());//设置投资人会员统计的待收本金=原来的待收本金+收款记录的应收本金
+            	memberStatistics.setWaitIncomeInterest(memberStatistics.getWaitIncomeInterest()+receivablesNotes.getShouldReceInterest());//设置投资人会员统计的应收利息(原本利息+收款记录的应收利息)
             	memberStatistics.setTenderAwards(earningMoney+memberStatistics.getTenderAwards());//投标奖励的总额
             	memberStatistics.setSuccessTender(memberStatistics.getSuccessTender()+1);//设置投资人的投资成功次数
-            	memberStatistics.setInvestmentTotal(memberStatistics.getInvestmentTotal()+borrowingLoan.getLoanTotal());//设置投资总额
-            	memberStatistics.setInvestmentTotal(tenderNotes.getTenderMoney()+memberStatistics.getInvestmentTotal());//投资总额
+            	memberStatistics.setInvestmentTotal(memberStatistics.getInvestmentTotal()+receivablesNotes.getShouldRecePrincipal());//设置投资总额=原来的投资总额+收款记录的应收本金
             	memberStatistics.setUpdateTime(new Date());
             	
             	//更新投资人会员统计操作
