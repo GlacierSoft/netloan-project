@@ -186,7 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        </div>
 				        <div class="tab-pane fade" id="recharge">
 				            <div class="rechargeFontSize">
-				            	温馨提示:凡是在冰川网贷充值未投标的用户，15天以内提现收取本金0.5%，15天以后提现免费 冰川网贷禁止信用卡套现、虚假交易等行为,一经发现将予以处罚,包括但不限于：限制收款、冻结账户、永久停止服务,并有可能影响相关信用记录。
+				            	温馨提示:凡是在冰川网贷充值未投标的用户，15天以内提现收取本金0.5%，15天以后提现免费 冰川网贷禁止信用卡套现、虚假交易等行为,一经发现将予以处罚,包括但不限于：限制收款、冻结账户、永久停止服务,并有可能影响相关信用记录。注：单笔充值金额上限为：10万元
 				            </div>
 				            <form id="financeRecharge" name="financeRecharge" class="form-horizontal" role="form" method="post" >
 					        	<table class="table table-bordered">
@@ -227,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							              </tr>
 								          <tr>
 								            <td align="right">
-								            	<button   type="submit" class="btn btn-default">提交</button>
+								            	<button   type="submit"   class="btn btn-default">提交</button>
 								            </td>
 								            <td>
 								            	<button type="reset" class="btn btn-default">重置</button>
@@ -327,7 +327,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <jsp:include page="../foot.jsp"/> 
 <!-- 分页显示表格数据 -->
 <script type="text/javascript">
+/* var flag=false;
+function checkForm(){
+	alert(:---)
+  if (flag==true){
+      return false;
+  }
+ flag=true;
+ this.submit();
 
+} */
 	//功能判断
 	function checksMember(memberId,url){
 		$.ajax({
@@ -448,14 +457,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    			financeRechargeSetId:"required",
    			rechargeAmount:{
    				required: true,  
-   				min:100
+   				min:100,
+   				max:100000
    			 } 
    		},
    		messages:{ 
    			financeRechargeSetId:" &nbsp;&nbsp;&nbsp;必须选择一种充值类型",
    			rechargeAmount:{
    				required:"请输入充值金额", 
-   				min:"充值金额不能低于100元"
+   				min:"充值金额不能低于100元",
+   				max:"充值金额不能高于上限10万"
    			}
    		},  
    		submitHandler:function(){

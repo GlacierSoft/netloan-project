@@ -186,7 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				          </tr>
 				          <tr>
 				            <td colspan="4" align="center">
-				            	<button id=""subSum type="submit" class="btn btn-default">确认还款</button>
+				            	<button id="subSum" type="submit" class="btn btn-default">确认还款</button>
 				            	<button type="reset" class="btn btn-default">重置信息</button>
 				            </td>
 				          </tr>
@@ -371,9 +371,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        },
 				        yesBtn : {
 				                name : '确定',
-				                click : function(e) {
-
-			                		alert("---3");
+				                click : function(e) { 
 				                		dialog.remove();
 				                }
 				        },
