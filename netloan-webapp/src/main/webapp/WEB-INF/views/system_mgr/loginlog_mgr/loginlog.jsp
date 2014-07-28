@@ -40,7 +40,7 @@
 			},{
 				field:'userId',
 				title:'用户ID',
-				width:300,
+				width:280,
 				sortable:true
 			},{
 				field:'loginUser',
@@ -50,7 +50,7 @@
 			},{
 				field:'loginIp',
 				title:'登录IP',
-				width:120
+				width:280
 			},{
 				field:'browserVersion',
 				title:'浏览器版本',
