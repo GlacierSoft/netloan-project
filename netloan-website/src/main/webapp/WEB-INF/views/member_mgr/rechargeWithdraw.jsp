@@ -227,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							              </tr>
 								          <tr>
 								            <td align="right">
-								            	<button   type="submit"   class="btn btn-default">提交</button>
+								            	<button   type="submit" id="sub"  class="btn btn-default">提交</button>
 								            </td>
 								            <td>
 								            	<button type="reset" class="btn btn-default">重置</button>
@@ -372,8 +372,8 @@ function checkForm(){
 		function successHint(data,url){
 			//如果不存在，则转到借款页面
 			if(data.success){
-			window.location.href=url;
-		}else{//如果存在，则提示错误信息
+			 window.location.href=url;
+		    }else{//如果存在，则提示错误信息
 			KindEditor.ready(function(K) {
 				var dialog = K.dialog({
 			        width : 500,
@@ -470,6 +470,7 @@ function checkForm(){
    			}
    		},  
    		submitHandler:function(){
+   		 $('#sub').attr('disabled',"true");//提交就禁用按钮
    			$.ajax({
    				   type: "POST",
    				   url: ctx+"/recharge/add.json",
@@ -528,6 +529,7 @@ function checkForm(){
    			tradersPassword:"必须填写交易密码"
    		},
    		submitHandler:function(){
+   		 $('#subm').attr('disabled',"true");//提交就禁用按钮
    			$.ajax({
    				   type: "POST",
    				   url: ctx+"/withdraw/add.json",

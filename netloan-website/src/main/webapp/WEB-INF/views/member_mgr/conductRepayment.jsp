@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <div id="collapseTwo" class="panel-collapse collapse in">
 					      <div class="panel-body">
 					        <div class="btn-group-vertical">
-							  <a href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit','${currentMember.memberId}');"  class="btn btn-default" role="button">已发布的借款</a>
+							  <a href="#" onclick="doClick('/borrowingLoan/memberBorrow.htm?&p=1&loanState=firstAudit','${currentMember.memberId}');"  class="btn btn-default" role="button">已发布的借款</a>
 							  <a href="#" onclick="doClick('/borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting','${currentMember.memberId}');" class="btn btn-info" role="button">还款管理</a>
 							  <a href="#" onclick="doClick('/borrowingLoan/memberStatistics.htm','${currentMember.memberId}');" class="btn btn-default" role="button">贷款统计</a>
 							</div>
@@ -172,8 +172,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            	<input type="hidden" id="repayNotesDetailId" name="repayNotesDetailId" value="${repaymentNotesDetailsData.repayNotesDetailId}"/>
 				            	<input type="hidden" id="loanTitle" name="loanTitle" value="${repaymentNotesDetailsData.loanTitle}"/>
 				            	<input type="hidden" id="memberId" name="memberId" value="${currentMember.memberId}" >
-				            	<input type="password" id="tradersPassword" name="tradersPassword" maxlength="50" class="inp200x"/>
-				            </td>
+				             	<input type="text" autocomplete="off"  id="tradersPassword" name="tradersPassword" maxlength="50" class="inp200x" onfocus="this.type='password'" value=""/>
+				           </td>
 				            <td class="col-md-2">验证码：</td>
 						  	<td class="col-md-5">
 								<div class="col-md-6" align="left" style="padding: 0px; width: 120px;">
@@ -309,6 +309,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			tradersPassword:"交易密码不能为空",
 			captcha:"验证码不能为空"
 		},submitHandler:function(){
+			$('#subSum').attr('disabled',"true");//提交就禁用按钮
    			$.ajax({
    				   type: "POST",
    				   url: ctx+"/repaymentNotesDetail/repayment.json",

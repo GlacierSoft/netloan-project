@@ -355,19 +355,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <label for="memberName" class="col-sm-3 control-label">原密码:</label>
 						    <div class="col-sm-9">
 						      <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
-						      <input type="password" class="form-control" id="oldPassword_form-group" name="oldPassword" placeholder="输入您现在的帐号密码"  value="" />
+						      <input type="text" autocomplete="off" onfocus="this.type='password'" class="form-control" id="oldPassword_form-group" name="oldPassword" placeholder="输入您现在的帐号密码"  value="" />
 						    </div>
 						  </div>
 						  <div class="form-group">
 						    <label for="memberPassword" class="col-sm-3 control-label">新密码:</label>
 						    <div class="col-sm-9">
-						      <input type="password" class="form-control" id="memberPassword_form-group" name="memberPassword" placeholder="输入您的新密码"  value="" />
+						      <input type="text" autocomplete="off" onfocus="this.type='password'" class="form-control" id="memberPassword_form-group" name="memberPassword" placeholder="输入您的新密码"  value="" />
 						    </div>
 						  </div>
 						  <div class="form-group">
 						    <label for="comfirPassword" class="col-sm-3 control-label">确认新密码:</label>
 						    <div class="col-sm-9">
-						      <input type="password" class="form-control" id="comfirPassword_form-group" name="comfirPassword" placeholder="请再次输入您的新密码" value="" />
+						      <input type="text" autocomplete="off" onfocus="this.type='password'" class="form-control" id="comfirPassword_form-group" name="comfirPassword" placeholder="请再次输入您的新密码" value="" />
 						    </div>
 						  </div>
 						  <div class="form-group">
@@ -389,19 +389,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <label for="memberName" class="col-sm-3 control-label">原交易密码:</label>
 						    <div class="col-sm-9">
 						      <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
-						      <input type="password" class="form-control" id="oldPassword_form-group2" name="oldPassword" placeholder="输入您现在的交易密码" value="" />
+						      <input type="text" autocomplete="off" onfocus="this.type='password'" class="form-control" id="oldPassword_form-group2" name="oldPassword" placeholder="输入您现在的交易密码" value="" />
 						    </div>
 						  </div>
 						  <div class="form-group">
 						    <label for="memberPassword" class="col-sm-3 control-label">新交易密码:</label>
 						    <div class="col-sm-9">
-						      <input type="password" class="form-control" id="memberPassword_form-group2" name="memberPassword" placeholder="输入您的新交易密码" value="" />
+						      <input type="text" autocomplete="off" onfocus="this.type='password'" class="form-control" id="memberPassword_form-group2" name="memberPassword" placeholder="输入您的新交易密码" value="" />
 						    </div>
 						  </div>
 						  <div class="form-group">
 						    <label for="comfirPassword" class="col-sm-3 control-label">确认新密码:</label>
 						    <div class="col-sm-9">
-						      <input type="password" class="form-control" id="comfirPassword_form-group2" name="comfirPassword" placeholder="请再次输入您的新交易密码" value=""/>
+						      <input type="text" autocomplete="off" onfocus="this.type='password'" class="form-control" id="comfirPassword_form-group2" name="comfirPassword" placeholder="请再次输入您的新交易密码" value=""/>
 						    </div>
 						  </div>
 						  <div class="form-group">

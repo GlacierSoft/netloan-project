@@ -214,8 +214,7 @@ public class AccountAndBorrowService implements InitializingBean {
 	     
 	    @Override  
 	    public void afterPropertiesSet() throws Exception {  
-	       System.out.println("我是投资统计，，我是 初始化bean 第二执行............!!!!!");
-	    // 获取当前用户
+	        // 获取当前用户
 			UserExample userExample = new UserExample();
 			userExample.createCriteria().andUsernameEqualTo("admin");
 			List<User> userList = userMapper.selectByExample(userExample);
