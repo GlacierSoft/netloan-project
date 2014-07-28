@@ -367,9 +367,9 @@ public class RepaymentNotesDetailService {
             repaymentNotesDetail.setRepayState("notRepay");//设置还款记录明细表状态为“还款中”
             repaymentNotesDetail.setRemark("满标复审通过时，系统自动添加还款记录明细信息");
             repaymentNotesDetail.setCreater(pricipalUser.getUserId());
-            repaymentNotesDetail.setCreateTime(new Date());
+            repaymentNotesDetail.setCreateTime(addOneSecond(new Date(), i));//为了排序清晰，创建时间不能相同
             repaymentNotesDetail.setUpdater(pricipalUser.getUserId());
-            repaymentNotesDetail.setUpdateTime(new Date());
+            repaymentNotesDetail.setUpdateTime(addOneSecond(new Date(), i));//更新时间等于创建时间
             count = repaymentNotesDetailMapper.insert(repaymentNotesDetail);
         }
         
@@ -433,7 +433,7 @@ public class RepaymentNotesDetailService {
             return returnResult;
         }
         int count = 0;
-        int secondNum=0;
+        int secondNum=0;//为了排序清晰，创建时间不能相同
         // 查找出超级管理员的用户信息
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUsernameEqualTo("admin");
