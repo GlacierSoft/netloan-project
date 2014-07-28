@@ -411,7 +411,7 @@ public class MemberService {
         member.setRegistrationTime(new Date());
         member.setLastLoginTime(new Date());
         member.setLoginCount(1); 
-        member.setMemberPhoto("http://localhost:8080/netloan-website/resources/images/member/member.jpg");//会员注册后的默认头像
+        member.setMemberPhoto("http://bdmu.v068041.10000net.cn/netloan-website/resources/images/member/member.jpg");//会员注册后的默认头像
         member.setCreater(getuserId());
         member.setCreateTime(new Date());
         member.setUpdater(getuserId());
