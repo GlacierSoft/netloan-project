@@ -68,6 +68,9 @@ public class ReceivablesNotesDetailService {
 
     @Autowired
     private ReceivablesNotesMapper receivablesNotesMapper;
+    
+    @Autowired
+    private RepaymentNotesDetailService repaymentNotesDetailService;
 
     /**
      * @Title: getReceivablesNotesDetail
@@ -313,9 +316,9 @@ public class ReceivablesNotesDetailService {
                 receivablesNotesDetail.setMemberId(tenderNotes.getMemberId());
                 receivablesNotesDetail.setRemark("满标复审通过时，系统自动添加收款记录明细信息");
                 receivablesNotesDetail.setCreater(pricipalUser.getUserId());
-                receivablesNotesDetail.setCreateTime(new Date());
+                receivablesNotesDetail.setCreateTime(repaymentNotesDetailService.addOneSecond(new Date(), i));//为了排序清晰，创建时间不能相同
                 receivablesNotesDetail.setUpdater(pricipalUser.getUserId());
-                receivablesNotesDetail.setUpdateTime(new Date());
+                receivablesNotesDetail.setUpdateTime(repaymentNotesDetailService.addOneSecond(new Date(), i));//更新时间等于创建时间
                 count = receivablesNotesDetailMapper.insert(receivablesNotesDetail);
 
             }
