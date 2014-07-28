@@ -65,7 +65,8 @@ public class MemberTenderNotesController extends AbstractController{
         mav.addObject("member", memberService.getMember(borrowingLoan.getMemberId()));
         //----------------------------------还款人操作-------------------------------------------------
         //根据相关借款的查找出还款记录
-        List<RepaymentNotes> repaymentNotesList = (List<RepaymentNotes>) repaymentNotesService.getRepaymentNotesLoan(loanId);
+        @SuppressWarnings("unchecked")
+		List<RepaymentNotes> repaymentNotesList = (List<RepaymentNotes>) repaymentNotesService.getRepaymentNotesLoan(loanId);
         mav.addObject("repaymentNotes", repaymentNotesList);
         //根据相关还款记录ID查找出还款记录明细信息中第一期的信息
         mav.addObject("repaymentNotesStartTime", repaymentNotesDetailService.getRepaymentNotesDetailStart(repaymentNotesList.get(0).getRepayNotesId()));

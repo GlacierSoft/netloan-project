@@ -1,11 +1,7 @@
 package com.glacier.netloan.web.filter;
 
 import java.util.Arrays;
-
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.web.filter.PathMatchingFilter;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 

@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.alibaba.fastjson.JSONArray;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -101,9 +99,11 @@ public class MemberController extends AbstractController{
         session.setAttribute("currentMember", member);
         float memberCreditTotal = member.getCreditIntegral();
         //获取全部信用积分的范围列表
-    	List<ParameterCredit>  parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
+    	@SuppressWarnings("unchecked")
+		List<ParameterCredit>  parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
     	//调用totalIntegralAndPhoto方法， 通过会员信用总分，循环判断获取会员信用图标
-        Map<String,Object> map = totalIntegralAndPhoto(parameterCredits,memberCreditTotal);
+        @SuppressWarnings("unchecked")
+		Map<String,Object> map = totalIntegralAndPhoto(parameterCredits,memberCreditTotal);
     	request.setAttribute("totalCreditPhoto", map.get("totalCreditPhoto"));//将会员信用图片设置在request.setAttribute
     	//获取会员积分总数
     	request.setAttribute("totalIntegral", memberIntegralService.totalIntegral());//获取会员积分总分
@@ -178,7 +178,8 @@ public class MemberController extends AbstractController{
         request.setAttribute("SecretSecurityResult", SecretSecurityResult);
         //查询银行卡列表
         JqGridReturn returnResult = (JqGridReturn) financeBankCardService.listAsGridWebsite(pricipalMember.getMemberId(), pager);
-        List<FinanceBankCard> bandCards =  (List<FinanceBankCard>) returnResult.getRows();//获取会员个人的银行卡数据
+        @SuppressWarnings("unchecked")
+		List<FinanceBankCard> bandCards =  (List<FinanceBankCard>) returnResult.getRows();//获取会员个人的银行卡数据
         request.setAttribute("memberBankCardDatas", bandCards);
         //判断会员基本信息认证和工作认证状态，让相对应的表单是否可编辑
         if((memberAuthWithBLOBs.getInfoAuth().equals("authstr") && memberAuthWithBLOBs.getWorkAuth().equals("authstr"))||
@@ -246,7 +247,8 @@ public class MemberController extends AbstractController{
      * @throws 
      * 和MemberApplyAmountController的addApplyAmountReception关联
      */
-    @RequestMapping(value = "/memberAuth.htm")
+    @SuppressWarnings("unchecked")
+	@RequestMapping(value = "/memberAuth.htm")
     public Object intoMemberAuth(JqPager pager,int p,HttpServletRequest request,HttpSession session){
     	ModelAndView mav = new ModelAndView("member_mgr/memberAuth");
     	Map<String,Object> integralMap = new HashMap<String,Object>();
@@ -291,7 +293,8 @@ public class MemberController extends AbstractController{
     }
     
     //通过会员信用总分，循环判断获取会员信用图标
-    public Map totalIntegralAndPhoto(List<ParameterCredit> parameterCredits,float memberCreditTotal){
+    @SuppressWarnings("rawtypes")
+	public Map totalIntegralAndPhoto(List<ParameterCredit> parameterCredits,float memberCreditTotal){
     	String totalCreditPhoto = null;
     	Map<String,Object> map = new HashMap<String, Object>();
     	for(ParameterCredit parameterCredit : parameterCredits){

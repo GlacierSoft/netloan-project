@@ -1,11 +1,8 @@
 package com.glacier.netloan.web.controller.finance;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +11,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
-import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.entity.basicdatas.ParameterQuestion;
 import com.glacier.netloan.entity.finance.FinanceBankCard;
 import com.glacier.netloan.entity.member.Member;
@@ -69,11 +64,13 @@ public class FinanceBankCardController extends AbstractController {
         pager.setSort("createTime");// 定义排序字段
         pager.setOrder("DESC");// 升序还是降序
         //查询密保问题数据，放到rqquest.setAttribute中
-        List<ParameterQuestion> parameterQuestionResult = (List<ParameterQuestion>)parameterQuestionService.listAsGrid(pager);
+		@SuppressWarnings("unchecked")
+		List<ParameterQuestion> parameterQuestionResult = (List<ParameterQuestion>)parameterQuestionService.listAsGrid(pager);
         request.setAttribute("parameterQuestionResult", parameterQuestionResult);
         //查询银行卡列表
         JqGridReturn returnResult = (JqGridReturn) financeBankCardService.listAsGridWebsite(pricipalMember.getMemberId(), pager);
-        List<FinanceBankCard> bandCards =  (List<FinanceBankCard>) returnResult.getRows();
+        @SuppressWarnings("unchecked")
+		List<FinanceBankCard> bandCards =  (List<FinanceBankCard>) returnResult.getRows();
         request.setAttribute("memberBankCardDatas", bandCards);
         //判断会员基本信息认证和工作认证状态，让相对应的表单是否可编辑
         if((memberAuthWithBLOBs.getInfoAuth().equals("authstr") && memberAuthWithBLOBs.getWorkAuth().equals("authstr"))||

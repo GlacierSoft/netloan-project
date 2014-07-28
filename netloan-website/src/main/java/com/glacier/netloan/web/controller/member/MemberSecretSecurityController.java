@@ -89,7 +89,8 @@ public class MemberSecretSecurityController extends AbstractController{
         pager.setSort("createTime");// 定义排序字段
         pager.setOrder("DESC");// 升序还是降序
         JqGridReturn memberSecretSecuritysResult = (JqGridReturn) secretSecurityService.listAsGridWebsite(memberId, pager);
-        List<MemberSecretSecurity> memberSecretSecuritys = (List<MemberSecretSecurity>) memberSecretSecuritysResult.getRows();
+        @SuppressWarnings("unchecked")
+		List<MemberSecretSecurity> memberSecretSecuritys = (List<MemberSecretSecurity>) memberSecretSecuritysResult.getRows();
         List<String> secretSecurityIds = new ArrayList<String>();
         boolean falg = false;
         if(memberSecretSecuritys.size() > 0){
@@ -142,7 +143,8 @@ public class MemberSecretSecurityController extends AbstractController{
         pager.setSort("createTime");// 定义排序字段
         pager.setOrder("DESC");// 升序还是降序
         JqGridReturn memberSecretSecuritysResult = (JqGridReturn) secretSecurityService.listAsGridWebsite(memberId, pager);
-    	List<MemberSecretSecurity> memberSecretSecuritys = (List<MemberSecretSecurity>) memberSecretSecuritysResult.getRows();
+    	@SuppressWarnings("unchecked")
+		List<MemberSecretSecurity> memberSecretSecuritys = (List<MemberSecretSecurity>) memberSecretSecuritysResult.getRows();
     	for(MemberSecretSecurity memberSecretSecurity : memberSecretSecuritys){
     		if(memberSecretSecurity.getQuestionId().equals(questionId1.trim())){
     			if(memberSecretSecurity.getAnswer().equals(answers1.trim())){

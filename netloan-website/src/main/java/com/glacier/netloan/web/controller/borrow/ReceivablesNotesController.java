@@ -3,15 +3,11 @@ package com.glacier.netloan.web.controller.borrow;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.alibaba.fastjson.JSONObject;
-import com.glacier.basic.util.JackJson;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -59,6 +55,7 @@ public class ReceivablesNotesController extends AbstractController{
 		request.setAttribute("receivablesNotesQueryDTO", receivablesNotesQueryDTO);
 		JqGridReturn returnResultTenderNotes = (JqGridReturn)tenderNotesService.listAsGridWebsite(tenderNotesQueryDTO,jqPager, p,loanId,memberId,loanStatesList);//获取我的投标列表
 		request.setAttribute("tenderNotesDatas", returnResultTenderNotes);
+		@SuppressWarnings("unchecked")
 		Map<String,Object> returnMap = (Map<String, Object>) receivablesNotesService.listAsGridWebsite(receivablesNotesQueryDTO,jqPager, p,memberId,loanStatesList,loanDetailStates,backAccountBorrow);//获取我的投标中的回收中借款列表
 		JqGridReturn returnResultReceivablesNotes = (JqGridReturn)returnMap.get("returnResult");//获取我的投标中的回收中借款列表
 		JSONObject obj = (JSONObject) returnMap.get("obj");

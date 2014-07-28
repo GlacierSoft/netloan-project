@@ -88,7 +88,8 @@ public class MemberApplyAmountController extends AbstractController{
         }
         return applyAmountService.addApplyAmountReception(applyAmount);
     }
-    @RequestMapping(value = "/applyAmountPage.htm")
+    @SuppressWarnings("unchecked")
+	@RequestMapping(value = "/applyAmountPage.htm")
     public Object intoMemberAuth(JqPager pager,int p,String pageType,HttpServletRequest request,HttpSession session){
     	ModelAndView mav = new ModelAndView("member_mgr/memberAuth");
     	Map<String,Object> integralMap = new HashMap<String,Object>();
@@ -125,7 +126,8 @@ public class MemberApplyAmountController extends AbstractController{
     	return mav;
     }
   //通过会员信用总分，循环判断获取会员信用图标
-    public Map totalIntegralAndPhoto(List<ParameterCredit> parameterCredits,float memberCreditTotal){
+    @SuppressWarnings("rawtypes")
+	public Map totalIntegralAndPhoto(List<ParameterCredit> parameterCredits,float memberCreditTotal){
     	String totalCreditPhoto = null;
     	Map<String,Object> map = new HashMap<String, Object>();
     	for(ParameterCredit parameterCredit : parameterCredits){
