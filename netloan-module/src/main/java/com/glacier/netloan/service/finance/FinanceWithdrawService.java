@@ -367,7 +367,7 @@ public class FinanceWithdrawService {
                     			FinancePlatformTransaction  financePlatformTransaction=new FinancePlatformTransaction();
                     		    financePlatformTransaction.setPlatformTransactionId(RandomGUID.getRandomGUID());  //id
                     		    financePlatformTransaction.setFinancePlatformId(financePlatDate.getFinancePlatformId());//资金平台id
-                    		    financePlatformTransaction.setTransactionTarget(member.getMemberName());//交易对象
+                    		    financePlatformTransaction.setTransactionTarget(member.getMemberRealName());//交易对象
                     		    financePlatformTransaction.setTransactionType("提现");//交易类型
                     		    financePlatformTransaction.setEarningMoney(0f);//收入金额
                     		    financePlatformTransaction.setExpendMoney(financeWithdraw.getWithdrawAmount());//支出金额=提现总金额
@@ -382,7 +382,7 @@ public class FinanceWithdrawService {
                     			FinancePlatformTransaction  financePlatformTransactions=new FinancePlatformTransaction();
                     		    financePlatformTransactions.setPlatformTransactionId(RandomGUID.getRandomGUID());  //id
                     		    financePlatformTransactions.setFinancePlatformId(financePlatDate.getFinancePlatformId());//资金平台id
-                    		    financePlatformTransactions.setTransactionTarget(member.getMemberName());//交易对象
+                    		    financePlatformTransactions.setTransactionTarget(member.getMemberRealName());//交易对象
                     		    financePlatformTransactions.setTransactionType("提现手续费");//交易类型
                     		    financePlatformTransactions.setEarningMoney(financeWithdraw.getHandlingCharge());//收入金额=提现的手续费
                     		    financePlatformTransactions.setExpendMoney(0f);//支出金额=提现总金额

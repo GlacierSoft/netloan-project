@@ -322,7 +322,7 @@ public class FinanceRechargeService {
 			FinancePlatformTransaction  financePlatformTransaction=new FinancePlatformTransaction();
 		    financePlatformTransaction.setPlatformTransactionId(RandomGUID.getRandomGUID());  //id
 		    financePlatformTransaction.setFinancePlatformId(financePlatDate.getFinancePlatformId());//资金平台id
-		    financePlatformTransaction.setTransactionTarget(member.getMemberName());//交易对象
+		    financePlatformTransaction.setTransactionTarget(member.getMemberRealName());//交易对象
 		    financePlatformTransaction.setTransactionType("充值");//交易类型
 		    financePlatformTransaction.setEarningMoney(financeRecharge.getRechargeAmount());//收入金额
 		    financePlatformTransaction.setExpendMoney(0f);//支出金额
