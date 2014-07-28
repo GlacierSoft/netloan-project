@@ -433,6 +433,7 @@ public class RepaymentNotesDetailService {
             return returnResult;
         }
         int count = 0;
+        int secondNum=0;
         // 查找出超级管理员的用户信息
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUsernameEqualTo("admin");
@@ -648,9 +649,10 @@ public class RepaymentNotesDetailService {
                                 financePlatformTransactions.setAmount(financePlatform.getPlatformMoney()-financePlatformTransactions.getExpendMoney());//设置平台资金总金额=原来资金-支出金额
                                 financePlatformTransactions.setRemark("平台向投资人还款成功，生成平台资金记录明细信息");//设置备注
                                 financePlatformTransactions.setCreater(pricipalUser.getUserId());
-                                financePlatformTransactions.setCreateTime(new Date());
+                                secondNum=secondNum+1;//为了排序能够清晰显示，同时创建的记录，后面每加一条加一秒
+                                financePlatformTransactions.setCreateTime(addOneSecond(new Date(), secondNum));
                                 financePlatformTransactions.setUpdater(pricipalUser.getUserId());
-                                financePlatformTransactions.setUpdateTime(new Date());
+                                financePlatformTransactions.setUpdateTime(addOneSecond(new Date(), secondNum));
                                 //执行添加操作
                                 financePlatformTransactionMapper.insert(financePlatformTransactions);
                                 
@@ -689,9 +691,9 @@ public class RepaymentNotesDetailService {
                                 financeTransactionTemp.setAmount(financeMembers.getAmount());//设置总金额
                                 financeTransactionTemp.setRemark("会员进行投资收款成功，生成会员资金记录明细信息");//设置备注
                                 financeTransactionTemp.setCreater(pricipalUser.getUserId());
-                                financeTransactionTemp.setCreateTime(new Date());
+                                financeTransactionTemp.setCreateTime(addOneSecond(new Date(), secondNum));
                                 financeTransactionTemp.setUpdater(pricipalUser.getUserId());
-                                financeTransactionTemp.setUpdateTime(new Date());
+                                financeTransactionTemp.setUpdateTime(addOneSecond(new Date(), secondNum));
                                 //执行添加会员资金记录信息
                                 financeTransactionMapper.insert(financeTransactionTemp);
                                 
@@ -718,6 +720,22 @@ public class RepaymentNotesDetailService {
         }
         return returnResult;
     }
+    
+    /**
+     * @Title: addOneSecond 
+     * @Description: TODO(参数date时间上面加上secondNum秒) 
+     * @param  @param date
+     * @param  @param secondNum
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Date addOneSecond(Date date, int secondNum) {  
+        Calendar calendar = Calendar.getInstance();  
+        calendar.setTime(date);  
+        calendar.add(Calendar.SECOND, secondNum);  
+        return calendar.getTime();  
+    } 
     
    /**
      * @Title: delRepaymentNotesDetail 
