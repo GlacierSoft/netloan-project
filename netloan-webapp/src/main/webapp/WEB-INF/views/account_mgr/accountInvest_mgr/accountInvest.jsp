@@ -155,7 +155,8 @@
 		  					        },
 		  					        xAxis: {
 		  					            categories: dataX[0].date,
-		  					        },
+		  					            rotation: -45
+		  				            },
 		  					        yAxis: {
 		  					          min: 0,
 		  		  		            title: {
@@ -402,6 +403,7 @@
 		
 		$("#year_number").val(year_now);
 		$("#month_number").val(month_now);
+		
 	});
 
 	//用户自定义搜索条件

@@ -143,7 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <!--  客服展示页-->
      <Div id="keFu_Show" style="top:200px;width:183px;right:8px;position:fixed;display: none;">
           <Div style="width:150px;border: 6px solid #009CE7;border-radius:10px;background: #FFFFFF;float: right;" >
-	          <Div style="float:left;margin-top: 10px;margin-left: 8px;width: 120px;height:50px;line-height:50px;border-top: 3px solid #00724F;text-align: center;color: #009CE7;background: #E4E4E5;">
+	          <Div style="float:left;margin-top: 10px;margin-left: 8px;width: 120px;height:40px;line-height:40px;border-top: 3px solid #00724F;text-align: center;color: #009CE7;background: #E4E4E5;">
 	                 QQ在线咨询
 	          </Div>
 	          <Div style="float:left;margin-top: 5px;margin-left: 8px;width: 120px;height:30px;line-height:30px;border: 0px solid #00724F;text-align: center;color: #009CE7;background: #FFFFFF">
@@ -159,10 +159,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                                                      电话咨询
 	          </Div>
 	          <Div style="float:left;margin-left: 8px;width: 120px;height:40px;line-height:40px;text-align: center;color: #009CE7;border-bottom: 3px solid #E5E4E2;">
-	               <img src="<%=basePath %>resources/images/foot/kefu_dianhua.png">400-0688-163
+	               <img src="<%=basePath %>resources/images/foot/kefu_dianhua.png">0756 - 3628802
 	          </Div>
-	          <Div style="float:left;margin-left: 8px;width: 120px;height:40px;line-height:40px;text-align: center;color: #009CE7;border-bottom: 3px solid #E5E4E2;color: #FE8405;">
-	               <img src="<%=basePath %>resources/images/foot/kefu_zixun.png">点我咨询
+	          <Div style="float:left;margin-left: 8px;width: 120px;height:35px;line-height:35px;text-align: center;color: #009CE7;border-bottom: 3px solid #E5E4E2;color: #FE8405;">
+	               <img src="<%=basePath %>resources/images/foot/kefu_zixun.png"><a href="http://www.glaciersoft.cn/index.html" target="_blank">点我咨询</a>
 	          </Div>
          </Div>
          

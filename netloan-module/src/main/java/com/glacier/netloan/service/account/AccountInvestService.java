@@ -466,7 +466,6 @@ public class AccountInvestService  {
 		carendar_After.set(Calendar.MINUTE, 59);
 		carendar_After.set(Calendar.SECOND, 59);
 
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		accountInvestExample.createCriteria().andCreateTimeBetween(carendar_before.getTime(), carendar_After.getTime());
 		JqPager pager = new JqPager();
 		pager.setSort("createTime");
@@ -474,7 +473,29 @@ public class AccountInvestService  {
 		accountInvestExample.setOrderByClause(pager.getOrderBy("temp_account_invest_"));
 		List<AccountInvest> accountInvest = accountInvestMapper.selectByExample(accountInvestExample);
 		
-	    return accountInvest;
+		if(accountInvest.size()<=0){
+			// 设置开始时间
+			Calendar carendar_before_none = Calendar.getInstance();
+			carendar_before_none.set(Calendar.DATE, 1);
+			carendar_before_none.set(Calendar.HOUR_OF_DAY, 0);
+			carendar_before_none.set(Calendar.MINUTE, 0);
+			carendar_before_none.set(Calendar.SECOND, 0);
+			// 设置结束时间
+			Calendar carendar_After_none = Calendar.getInstance();
+			carendar_After_none.set(Calendar.DATE, 31);
+			carendar_After_none.set(Calendar.HOUR_OF_DAY, 23);
+			carendar_After_none.set(Calendar.MINUTE, 59);
+			carendar_After_none.set(Calendar.SECOND, 59);
+			
+			AccountInvestExample accountInvestExampleNone = new AccountInvestExample();
+			accountInvestExampleNone.createCriteria().andCreateTimeBetween(carendar_before_none.getTime(), carendar_After_none.getTime());
+			accountInvestExampleNone.setOrderByClause(pager.getOrderBy("temp_account_invest_"));
+			List<AccountInvest> accountInvestNone = accountInvestMapper.selectByExample(accountInvestExampleNone);
+		   
+			return accountInvestNone;
+		}
+		
+		return accountInvest;
 	 }	
 	 
 	//用户条件判断
