@@ -86,7 +86,17 @@
 </div>
 <script type="text/javascript">
 	$('#withdraw_mgr_withdraw_detail_auditState').val(renderGridValue('${withdrawData.auditState}',fields.auditState));
-z</script>
+
+
+	//审核按钮初始化
+	if(${withdrawData.auditState == 'pass'}){
+		document.all("withdraw_mgr_withdraw_form_auditState")[1].checked=true;
+	}else if(${withdrawData.auditState == 'failure'}){
+		document.all("withdraw_mgr_withdraw_form_auditState")[2].checked=true;
+	}else{
+		document.all("withdraw_mgr_withdraw_form_auditState")[0].checked=true;
+	}
+</script>
 
 <form  method="post" style="padding:15px">
 	<table class="formtable">
@@ -96,7 +106,9 @@ z</script>
 			<input type="hidden" id="withdraw_mgr_withdraw_form_memberId" name="memberId" value="${withdrawData.memberId}"/>
 				<input type="hidden" id="withdraw_mgr_withdraw_form_withdrawCode" name="withdrawCode" value="${withdrawData.withdrawCode}"/>
 				<input type="hidden" id="withdraw_mgr_withdraw_form_withdrawAmount" name="withdrawAmount" value="${withdrawData.withdrawAmount}"/>
-				<input id="withdraw_mgr_withdraw_form_auditState" name="auditState" type="radio" value="pass" checked="checked"/><span>审核通过</span>
+				<input id="withdraw_mgr_withdraw_form_auditState" name="auditState" type="radio" value="authstr" /><span>审核中</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input id="withdraw_mgr_withdraw_form_auditState" name="auditState" type="radio" value="pass" /><span>审核通过</span>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<input id="withdraw_mgr_withdraw_form_auditState" name="auditState" type="radio" value="failure"  /><span>审核失败</span></td>
 		</tr>

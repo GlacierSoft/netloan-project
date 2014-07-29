@@ -39,13 +39,21 @@
 			},{
 				field:'withdrawCode',
 				title:'提现流水号',
-				width:150,
+				width:190,
 				sortable:true
 			},{
 				field:'memberDisplay',
 				title:'会员名称',
 				width:150,
 				sortable:true
+			},{
+				field:'auditState',
+				title:'提现状态',
+				width:120,
+				sortable:true,
+				formatter: function(value,row,index){//数据格式化，例如'failure'显示审核失败,'pass'显示审核通过,'authstr'显示审核中
+					return renderGridValue(value,fields.auditState);
+				}
 			},{
 				field:'openingBank',
 				title:'提现银行',
@@ -86,14 +94,6 @@
 				title:'到帐金额(元)',
 				width:120,
 				sortable:true
-			},{
-				field:'auditState',
-				title:'提现状态',
-				width:120,
-				sortable:true,
-				formatter: function(value,row,index){//数据格式化，例如'failure'显示审核失败,'pass'显示审核通过,'authstr'显示审核中
-					return renderGridValue(value,fields.auditState);
-				}
 			},{
 				field:'auditorDisplay',
 				title:'审核人',
@@ -161,7 +161,7 @@
 			if(rows.length==0){   
 				var body = $(this).data().datagrid.dc.body2;
 				body.find('table tbody').append('<tr><td width="' + body.width() + '" style="height: 25px; text-align: center;color:red">暂时没有记录</td></tr>');
-			}ss
+			};
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({

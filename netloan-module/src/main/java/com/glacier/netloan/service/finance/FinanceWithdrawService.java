@@ -301,11 +301,11 @@ public class FinanceWithdrawService {
         int count = 0;
         //取出本条提现记录的所有信息
         FinanceWithdraw financeWithdraw=financeWithdrawMapper.selectByPrimaryKey(finance.getFinanceWithdrawId()); 
-        if(financeWithdraw.getAuditState().equals("pass")){
-        	returnResult.setMsg("该提现记录已审核通过，无需重复审核");
+        if(financeWithdraw.getAuditState().equals("pass")||financeWithdraw.getAuditState().equals("failure")){
+        	returnResult.setMsg("该提现记录已进行过审核操作！");
         	return returnResult;
         }
-        if(!finance.getAuditState().equals("pass")){
+        if(finance.getAuditState().equals("authstr")){
         	returnResult.setMsg("无效的操作");
         	return returnResult;
         }
@@ -316,7 +316,7 @@ public class FinanceWithdrawService {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         financeWithdraw.setAuditor(pricipalUser.getUserId());
-        financeWithdraw.setAuditState("pass");//提现记录通过
+        financeWithdraw.setAuditState(finance.getAuditState());//提现记录状态
         financeWithdraw.setAuditDate(new Date()); 
         financeWithdraw.setUpdater(pricipalUser.getUserId());
         financeWithdraw.setUpdateTime(new Date());
@@ -453,10 +453,10 @@ public class FinanceWithdrawService {
                     } else {
                         returnResult.setMsg("发生未知错误，会员提现记录信息保存失败");
                     }
-                }
+                } 
             }
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + financeWithdraw.getWithdrawCode() + "] 会员提现记录信息已审核");
+            returnResult.setMsg("[" + financeWithdraw.getWithdrawCode() + "] 会员提现记录操作成功！");
         } else {
             returnResult.setMsg("发生未知错误，会员提现记录信息审核失败");
         }
