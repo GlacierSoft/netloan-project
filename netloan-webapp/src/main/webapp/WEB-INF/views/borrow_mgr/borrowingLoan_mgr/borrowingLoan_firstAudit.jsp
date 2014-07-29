@@ -15,7 +15,7 @@
 							<input type="hidden" id="borrowingLoan_mgr_borrowingLoan_firstAudit_memberId" name="memberId" value="${borrowingLoanData.memberId}"/>
 							<input id="borrowingLoan_mgr_borrowingLoan_firstAudit_firstAuditState" name="firstAuditState" type="radio" value="firstSucess" /><span>初审通过</span>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<input id="borrowingLoan_mgr_borrowingLoan_firstAudit_firstAuditState" name="firstAuditState" type="radio" value="firstFailure"  checked="checked"/><span>初审失败</span></td>
+							<input id="borrowingLoan_mgr_borrowingLoan_firstAudit_firstAuditState" name="firstAuditState" type="radio" value="firstFailure"  /><span>初审失败</span></td>
 					</tr>
 					<tr>
 						<td>初审处理意见：</td>

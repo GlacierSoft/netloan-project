@@ -491,6 +491,11 @@ public class BorrowingLoanService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
+        
+        if(borrowingLoan.getFirstAuditState().equals("")){ 
+        	returnResult.setMsg("操作失败,请选择审核状态!");
+        	return returnResult; 
+         }   
         int count = 0;
         //借款初次审核站内信通知
         MemberMessageNotice  memberMessageNotice = new MemberMessageNotice();
@@ -542,7 +547,7 @@ public class BorrowingLoanService {
         count = borrowingLoanMapper.updateByPrimaryKeySelective(borrowingLoan); 
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + borrowingLoan.getLoanCode() + "] 初审借款信息成功");
+            returnResult.setMsg("[" + borrowingLoan.getLoanCode() + "] 初审借款信息操作成功");
         } else {
             returnResult.setMsg("发生未知错误，初审借款信息失败");
         }
@@ -564,6 +569,10 @@ public class BorrowingLoanService {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         BorrowingLoan borrowingLoan = this.borrowingLoanMapper.selectByPrimaryKey(borrowingLoanNew.getLoanId());
+        if(borrowingLoanNew.getSecondAuditState().equals("")){ 
+        	returnResult.setMsg("操作失败,请选择审核状态!");
+        	return returnResult; 
+         }  
         int count = 0;
         //满标审核站内信通知
         MemberMessageNotice  memberMessageNotice = new MemberMessageNotice(); 

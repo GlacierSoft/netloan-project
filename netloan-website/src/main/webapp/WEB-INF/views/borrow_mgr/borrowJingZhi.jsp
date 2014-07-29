@@ -3,6 +3,10 @@
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %><!-- 引入自定义权限标签 -->
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+%>
 <html lang="zh-cn">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -84,6 +88,23 @@
     </div>
     <jsp:include page="../foot.jsp"/>
     <script type="text/javascript">
+    //构建表单
+ 	function doClick(url,str){
+ 		// 创建Form  
+ 		var form = $('<form></form>');  
+ 		// 设置属性  
+ 	    form.attr('action', '<%=basePath%>'+url);  
+ 	    form.attr('method', 'post');  
+ 	    // form的target属性决定form在哪个页面提交  (_self -> 当前页面 _blank -> 新页面)  
+ 	    form.attr('target', '_self');  
+ 	    // 创建Input  
+ 	    var my_input = $('<input type="text" name="memberId" />');  
+ 	    my_input.attr('value', str);  
+ 	    // 附加到Form  
+ 	    form.append(my_input);  
+ 	    //表单的构建是否 完成
+ 	    form.appendTo(document.body).submit();
+ 	 }; 
     	//判断该登录会员是否已经存在初审状态中的借款，上面提交按钮
 	    $("#judgeBorrowzhi").validate({
     		rules:{
@@ -129,7 +150,8 @@
 	    function successAddLiuZhuan(data){
 	    	//如果不存在，则转到借款页面
 	    	if(data.success){
-        		window.location.href="${ctx}/borrowingLoan/enteringJingZhi.htm?&memberId=${currentMember.memberId}";
+	    		doClick('/borrowingLoan/enteringJingZhi.htm','${currentMember.memberId}');
+        		// window.location.href="${ctx}/borrowingLoan/enteringJingZhi.htm?&memberId=${currentMember.memberId}";
         	}else{//如果存在，则提示错误信息
         		KindEditor.ready(function(K) {
     				var dialog = K.dialog({

@@ -224,7 +224,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <tr>
 					  	<td class="col-md-6" align="right"></td>
 					    <td class="col-md-6">
-						<button type="submit" class="btn btn-default" onclick="return checkCreditamount()">提交发布</button>
+						<button id="sub" type="submit" class="btn btn-default" onclick="return checkCreditamount()">提交发布</button>
 					    </td>
 					  </tr>
 			      	</tbody>
@@ -304,29 +304,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				   dataType: "json",
     				   data: $("#enteringDiYa").serialize(),
 	    			   success: function(r) {
-	    				   successAddLiuZhuan(r);
+	    				   successAddLiuZhuan(r);  
+	    	    		   $("#sub").attr('disabled',"true");
 	                    },
 	                    error: function() {
 	                        alert("提交出错！");
 	                    }
-    				});
+    				}); 
     		} 
     	});
-	    function successAddLiuZhuan(data){
+	    function successAddLiuZhuan(data){ 
 			KindEditor.ready(function(K) {
 			var dialog = K.dialog({
 					        width : 500,
-					        title : '保存成功',
+					        title : '温馨提示',
 					        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
 					        closeBtn : {
 					                name : '关闭',
 					                click : function(e) {
-					                        dialog.remove();
+					                        dialog.remove(); 
+					              		   $("#sub").removeAttr("disabled"); 
 					                }
 					        },
 					        yesBtn : {
 					                name : '确定',
-					                click : function(e) {
+					                click : function(e) { 
+					          		   $("#sub").removeAttr("disabled"); 
 					                	dialog.remove();
 					                	if(data.success){
 					                		window.location.href="${ctx}/investment/index.htm?&p=1";

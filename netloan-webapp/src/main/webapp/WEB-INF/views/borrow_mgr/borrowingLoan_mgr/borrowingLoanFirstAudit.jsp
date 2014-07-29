@@ -388,7 +388,7 @@
 	});
 	//点击审核按钮触发方法
 	glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanFirstAudit.auditBorrowingLoanFirstAudit = function(){
-		var row = glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanFirstAudit.borrowingLoanFirstAuditDataGrid.datagrid("getSelected");
+        var row = glacier.borrow_mgr.borrowingLoan_mgr.borrowingLoanFirstAudit.borrowingLoanFirstAuditDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '审核【'+row.loanTitle+'】',
 			width : 750,
