@@ -74,6 +74,11 @@
 							width : 120,
 							sortable : true
 						}, {
+							field : 'creditamount',
+							title : '信用额度',
+							width : 140,
+							sortable : true,
+						},{
 							field : 'mobileNumber',
 							title : '手机号码',
 							width : 140,
