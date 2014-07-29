@@ -65,9 +65,12 @@
 							}
 						}, {
 							field : 'creditIntegral',
-							title : '信用积分',
+							title : '信用积分(元)',
 							width : 120,
-							sortable : true
+							sortable : true,
+							formatter: function(value,row,index){//金额数据格式化
+								return formatNum(value);
+							}
 						}, {
 							field : 'integral',
 							title : '积分',

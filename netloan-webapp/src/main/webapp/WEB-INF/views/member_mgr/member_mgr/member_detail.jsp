@@ -25,7 +25,7 @@
 						<td>积分：</td>
 						<td><input id="member_mgr_member_form_integral" name="integral" class="spinner" style="width:168px" value="${memberData.integral}" readonly="readonly"/></td>
 						<td style="padding-left:10px;">信用积分：</td>
-						<td><input id="member_mgr_member_form_creditIntegral" name="creditIntegral" class="spinner" style="width:168px" value="${memberData.creditIntegral}" readonly="readonly"/></td>
+						<td><input id="member_mgr_member_form_creditIntegral" name="creditIntegral" class="spinner" style="width:168px" value="<fmt:formatNumber value='${memberData.creditIntegral}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 					</tr>
 					<tr>
 					  <td>可用信用额度:</td>
