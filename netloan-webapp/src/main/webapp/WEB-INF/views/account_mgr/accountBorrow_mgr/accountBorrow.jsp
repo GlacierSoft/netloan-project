@@ -55,7 +55,7 @@
 				width:120
 			},{
 				field:'loanTotal',
-				title:'借款金额',
+				title:'借款金额(元)',
 				sortable:true,
 				width:120
 			 },{
@@ -80,7 +80,7 @@
 				sortable:true
 			},{
 				field:'loanManagementFees',
-				title:'借款管理费',
+				title:'借款管理费(元)',
 				sortable:true,
 				width:120
 			},{

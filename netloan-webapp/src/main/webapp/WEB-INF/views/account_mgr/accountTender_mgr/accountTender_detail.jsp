@@ -11,7 +11,7 @@
 				<input name="memberDisplay" value="${accountTenderData.memberDisplay}" class="spinner" style="height:18px;width:168px" readonly="readonly"/>
 			</td>
 		    <td>投标总额：</td>
-			<td><input class="spinner" style="width:168px"  value="${accountTenderData.tenderMoney}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px"  value="<fmt:formatNumber value='${accountTenderData.tenderMoney}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>借款标题：</td>
@@ -47,7 +47,7 @@
 		</tr>
 		<tr>
 			<td>会员积分：</td>
-			<td><input class="spinner" style="width:168px"  value="${accountTenderData.creditIntegral}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px"  value="<fmt:formatNumber value='${accountTenderData.creditIntegral}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>发布时间：</td>
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate  value="${accountTenderData.loanDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"   readonly="readonly"/></td>
 		</tr>

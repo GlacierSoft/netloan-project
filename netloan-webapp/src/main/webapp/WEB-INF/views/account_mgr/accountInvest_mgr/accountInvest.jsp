@@ -42,39 +42,39 @@
 				checkbox:true
 			},{
 				field:'sumUncollected',
-				title:'投资成功待收金额',
+				title:'投资成功待收金额(元)',
 				width:350,
 				sortable:true
 			},{
 				field:'sumReward',
-				title:'投资奖励金额',
+				title:'投资奖励金额(元)',
 				width:300,
 				sortable:true
 			},{
 				field:'sumFine',
-				title:'借款人逾期罚金金额',
+				title:'借款人逾期罚金金额(元)',
 				width:400,
 				sortable:true
 			},{
 				field:'sumBorrow',
-				title:'借款成功金额',
+				title:'借款成功金额(元)',
 				width:300,
 				sortable:true
 				
 			},{
 				field:'sumAdvfee',
-				title:'借款管理费总额',
+				title:'借款管理费总额(元)',
 				width:300,
 				sortable:true
 			},{
 				field:'sumInterest',
-				title:'借款利息总额',
+				title:'借款利息总额(元)',
 				width:300,
 				sortable:true
 				
 			},{
 				field:'sumInterestfee',
-				title:'借款逾期罚金总额',
+				title:'借款逾期罚金总额(元)',
 				width:350,
 				sortable:true
 			},{
