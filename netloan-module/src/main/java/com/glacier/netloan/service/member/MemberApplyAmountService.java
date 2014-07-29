@@ -106,6 +106,7 @@ public class MemberApplyAmountService {
         if(memberApplyAmountList.size()>0){//已经申请过额度
         	//判断最后一次申请额度离现在是否有30天
             MemberApplyAmount memberApplyAmount = applyAmountMapper.selectMaxCreatTime(pricipalMember.getMemberId());
+            System.out.println("----------------"+pricipalMember.getMemberId());
             Date lastCreateTime = memberApplyAmount.getCreateTime();
             Date nowDate = new Date();
             long between = 0;

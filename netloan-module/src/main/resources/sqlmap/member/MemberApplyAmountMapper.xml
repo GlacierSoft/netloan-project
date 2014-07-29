@@ -432,6 +432,6 @@
   	<include refid="Base_extend"/>
   	where temp_member_apply_amount.member_id = #{memberId} 
   	and temp_member_apply_amount.create_time IN (
-	SELECT max(create_time) FROM t_member_apply_amount);
+	SELECT max(create_time) FROM t_member_apply_amount t_member_apply_amount_two where t_member_apply_amount_two.member_id = #{memberId});
   </select>
 </mapper>
