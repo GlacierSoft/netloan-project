@@ -34,7 +34,7 @@
 		</tr>
 		<tr>
 			<td>垫付金额：</td>
-			<td><input class="spinner" style="width:168px" value="${advancesRecordData.advancesMoney}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="<fmt:formatNumber value='${advancesRecordData.advancesMoney}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>审核状态：</td>
 			<td><input class="spinner" style="width:168px" value="${advancesRecordData.auditState}" readonly="readonly"/></td>
 		</tr>

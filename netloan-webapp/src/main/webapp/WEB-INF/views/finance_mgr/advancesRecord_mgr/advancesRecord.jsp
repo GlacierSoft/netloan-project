@@ -65,7 +65,7 @@
 				sortable:true,
 			},{
 				field:'advancesMoney',
-				title:'垫付金额',
+				title:'垫付金额(元)',
 				sortable:true,
 				width:100
 			},{

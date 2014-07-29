@@ -22,37 +22,37 @@
 			</td>
 			<td>收入金额：</td>
 			<td>
-				<input name="earningMoney" class="spinner" style="width:180px" value="${transactionData.earningMoney}" readonly="readonly"/>
+				<input name="earningMoney" class="spinner" style="width:180px" value="<fmt:formatNumber value='${transactionData.earningMoney}' pattern="#,#00.00元"/>" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
 			<td>支出金额：</td>
 			<td>
-				<input name="expendMoney" class="spinner" style="width:180px" value="${transactionData.expendMoney}" readonly="readonly"></input>
+				<input name="expendMoney" class="spinner" style="width:180px" value="<fmt:formatNumber value='${transactionData.expendMoney}' pattern="#,#00.00元"/>" readonly="readonly"></input>
 			</td>
 			<td>可用金额：</td>
 			<td>
-				<input name="usableMoney" class="spinner" style="width:180px" value="${transactionData.usableMoney}" readonly="readonly"/>
+				<input name="usableMoney" class="spinner" style="width:180px" value="<fmt:formatNumber value='${transactionData.usableMoney}' pattern="#,#00.00元"/>" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
 			<td>冻结金额：</td>
 			<td>
-				<input name="frozenMoney" class="spinner" style="width:180px" value="${transactionData.frozenMoney}" readonly="readonly"></input>
+				<input name="frozenMoney" class="spinner" style="width:180px" value="<fmt:formatNumber value='${transactionData.frozenMoney}' pattern="#,#00.00元"/>" readonly="readonly"></input>
 			</td>
 			<td>代收金额：</td>
 			<td>
-				<input name="collectingMoney" class="spinner" style="width:180px" value="${transactionData.collectingMoney}" readonly="readonly"/>
+				<input name="collectingMoney" class="spinner" style="width:180px" value="<fmt:formatNumber value='${transactionData.collectingMoney}' pattern="#,#00.00元"/>" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
 			<td>待还金额：</td>
 			<td>
-				<input name="refundMoney" class="spinner" style="width:180px" value="${transactionData.refundMoney}" readonly="readonly"></input>
+				<input name="refundMoney" class="spinner" style="width:180px" value="<fmt:formatNumber value='${transactionData.refundMoney}' pattern="#,#00.00元"/>" readonly="readonly"></input>
 			</td>
 			<td>总金额：</td>
 			<td>
-				<input name="amount" class="spinner" style="width:180px" value="${transactionData.amount}" readonly="readonly"/>
+				<input name="amount" class="spinner" style="width:180px" value="<fmt:formatNumber value='${transactionData.amount}' pattern="#,#00.00元"/>" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>

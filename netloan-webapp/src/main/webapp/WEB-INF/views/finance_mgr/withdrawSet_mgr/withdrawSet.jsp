@@ -40,12 +40,12 @@
 				checkbox:true
 			},{
 				field:'withdrawSetMinimum',
-				title:'最小提现金额',
+				title:'最小提现金额(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'withdrawSetMaximum',
-				title:'最大提现金额',
+				title:'最大提现金额(元)',
 				width:120,
 				sortable:true, 
 			},{

@@ -68,12 +68,12 @@
 				sortable:true
 			},{
 				field:'withdrawAmount',
-				title:'提现总金额',
+				title:'提现总金额(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'handlingCharge',
-				title:'手续费',
+				title:'手续费(元)',
 				width:120,
 				sortable:true
 			},{
@@ -83,7 +83,7 @@
 				sortable:true
 			},{
 				field:'arriveMoney',
-				title:'到帐金额',
+				title:'到帐金额(元)',
 				width:120,
 				sortable:true
 			},{

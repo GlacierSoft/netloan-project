@@ -24,7 +24,7 @@
 			<td>罚款明细ID：</td>
 			<td><input class="spinner" style="width:168px"  value="${overdueFineData.repayNotesDetailId}" readonly="readonly"/></td>
 			<td>罚款金额：</td>
-			<td><input class="spinner" style="width:168px"  value="${overdueFineData.overdueFineMoney}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px"  value="<fmt:formatNumber value='${overdueFineData.overdueFineMoney}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>应还款日期：</td>

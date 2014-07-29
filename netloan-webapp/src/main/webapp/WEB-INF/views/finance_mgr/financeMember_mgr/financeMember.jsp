@@ -36,27 +36,27 @@
 				sortable:true
 			},{
 				field:'usableMoney',
-				title:'可用余额',
+				title:'可用余额(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'frozenMoney',
-				title:'冻结金额',
+				title:'冻结金额(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'collectingMoney',
-				title:'代收金额',
+				title:'代收金额(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'refundMoney',
-				title:'待还金额',
+				title:'待还金额(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'amount',
-				title:'总金额',
+				title:'总金额(元)',
 				width:120,
 				sortable:true
 			},{
@@ -71,7 +71,7 @@
 				sortable:true
 			},{
 				field:'rechargeMoney',
-				title:'充值总金额',
+				title:'充值总金额(元)',
 				width:120,
 				sortable:true
 			},{
@@ -86,7 +86,7 @@
 				sortable:true
 			},{
 				field:'withdrawMoney',
-				title:'提现总金额',
+				title:'提现总金额(元)',
 				width:120,
 				sortable:true
 			},{
