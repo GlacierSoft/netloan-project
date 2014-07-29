@@ -309,7 +309,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								   		    </c:otherwise>
 										</c:choose>
 										<br>
-							            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，晓风网贷会将你加入系统黑名单，永久取消您在晓风网贷的借款资格。</p>
+							            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，冰川网贷会将你加入系统黑名单，永久取消您在冰川网贷的借款资格。</p>
 							          </div>
 							          <div class="modal-footer">
 							          	<c:choose>
@@ -1001,7 +1001,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						$('#idCard_auth').html(renderGridValue(data.obj.idCardAuth,fields.auths));	
 						successdialog(data);
 					}
-				}
+				} 
 			});
 		}
 		function submitCreditAccessoryForm()
@@ -1040,7 +1040,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			KindEditor.ready(function(K) {
 			var dialog = K.dialog({
 					        width : 300,
-					        title : '保存成功',
+					        title : '提示信息',
 					        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
 					        closeBtn : {
 					                name : '关闭',
@@ -1072,7 +1072,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			KindEditor.ready(function(K) {
 			var dialog = K.dialog({
 					        width : 300,
-					        title : '申请成功',
+					        title : '提示信息',
 					        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
 					        closeBtn : {
 					                name : '关闭',

@@ -43,7 +43,7 @@
 			},{
 				field:'overdueAdvancesName',
 				title:'逾期垫付设置名称',
-				width:140,
+				width:220,
 				sortable:true
 			},{
 				field:'memberType',

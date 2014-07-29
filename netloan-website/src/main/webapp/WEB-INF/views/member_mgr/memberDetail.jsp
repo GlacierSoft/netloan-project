@@ -852,7 +852,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      	if("${SecretSecurityResult.rows[0].secretSecurityId}" == ''){
 	    		notClonedialog("请先设置密保问题");
 	    	}else{
-	    		notClonedialog("请先回答密保问题");
+	    		//notClonedialog("请先回答密保问题"); 
+	    		alert("请先回答密保问题");
 	    	}
 	    }); 
 	  	//通过设置这个隐藏文本的值来判断是保存按钮还是保存并提交审核按钮。进行相应的操作。
@@ -863,7 +864,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 if('${requestScope.infoAndWorAuthstr}' == 'infoAndWorRealOnly'){
 			$("form[id='personalMessageForm'] input,textarea[id='personalDes']").prop("readonly", true);
 			$("form[id='personalMessageForm'] select,button[id='onlyPost'],button[id='postAuthBut']").prop("disabled", true);
-			//$("button[id='postAuthBut']").prop("disabled", true);
+			$("button[id='onlyPost']").prop("disabled", true);
+			
 		} ;
       	$(function() {
 			$(".alert").alert();
@@ -943,6 +945,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				   data: $("#personalMessageForm").serialize(),
 		    			   success: function(r) {
 	    						successdialog(r);
+	    						$("#onlyPost").attr('disabled',"true");
 	    						 if(r.obj == 'infoAndWorRealOnly'){
 	    								$("form[id='personalMessageForm'] input,textarea[id='personalDes']").prop("readonly", true);
 	    								$("form[id='personalMessageForm'] select,button[id='onlyPost'],button[id='postAuthBut']").prop("disabled", true);
@@ -952,6 +955,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                        alert("提交出错！");
 		                    }
 	    				});
+	    			
+	    			
 	    		} 
 	    	});
 	      	$("#bankCardForm").validate({
@@ -981,10 +986,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				   dataType: "json",
 	    				   data: $("#bankCardForm").serialize(),
 		    			   success: function(r) {
-		    				   successAddBankCard(r);
-	    						/* if(r.success){
-	    							$("form[id='bankCardForm'] input").val("");	
-	    						} */
+		    				   successAddBankCard(r); 
 		                    },
 		                    error: function() {
 		                        alert("提交出错！");
@@ -1254,12 +1256,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                name : '关闭',
 					                click : function(e) {
 					                        dialog.remove();
+					                        $("#onlyPost").removeAttr("disabled");
 					                }
 					        },
 					        yesBtn : {
 					                name : '确定',
 					                click : function(e) {
 					                		dialog.remove();
+					                		 $("#onlyPost").removeAttr("disabled");
 					                }
 					        }
 						});
@@ -1295,7 +1299,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			KindEditor.ready(function(K) {
 			var dialog = K.dialog({
 					        width : 300,
-					        title : '添加成功',
+					        title : '提示信息',
 					        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
 					        closeBtn : {
 					                name : '关闭',

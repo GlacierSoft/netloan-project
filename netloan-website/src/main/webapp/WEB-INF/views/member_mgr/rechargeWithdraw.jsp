@@ -539,13 +539,14 @@ function checkForm(){
     				   successAddRecharge(r);
                     },
                     error: function() {
-                        alert("提交出错！");
+                        alert("提交出错！"); 
                     }
    				});
    		} 
    	});
     function successAddRecharge(data){
-		KindEditor.ready(function(K) {
+		KindEditor.ready(function(K) { 
+      	$('#subm').removeAttr("disabled");
 		var dialog = K.dialog({
 				        width : 500,
 				        title : '提示信息',
@@ -553,7 +554,7 @@ function checkForm(){
 				        closeBtn : {
 				                name : '关闭',
 				                click : function(e) {
-				                        dialog.remove();
+				                        dialog.remove(); 
 				                }
 				        },
 				        yesBtn : {

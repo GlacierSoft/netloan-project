@@ -444,7 +444,10 @@ public class MemberAuthService {
 	public Object editMemberAuthReception(MemberAuthWithBLOBs memberAuthWithBLOBs) {
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
 		int count = 0;
-
+	  /*  if(memberAuthWithBLOBs.getIdCardAccessory()==""){
+        	returnResult.setMsg("请上传身份证，以便平台认证");
+        	return returnResult;
+        } */
 		Subject pricipalSubject = SecurityUtils.getSubject();
         Member pricipalMember = (Member) pricipalSubject.getPrincipal();
         
@@ -458,7 +461,7 @@ public class MemberAuthService {
             returnResult.setObj(memberAuthWithBLOBs);
             returnResult.setMsg("[" + memberAuthWithBLOBs.getMemberName() + "]会员认证资料已上传");
         } else {
-            returnResult.setMsg("发生未知错误，会员认证资料已上传");
+            returnResult.setMsg("发生未知错误，会员认证资料上传失败");
         }
         
 		return returnResult;
