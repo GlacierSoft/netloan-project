@@ -42,12 +42,12 @@
 				sortable:true
 			},{
 				field:'aveIncome',
-				title:'月均收入',
+				title:'月均收入(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'aveExpenses',
-				title:'月均支出',
+				title:'月均支出(元)',
 				width:120,
 				sortable:true
 			},{

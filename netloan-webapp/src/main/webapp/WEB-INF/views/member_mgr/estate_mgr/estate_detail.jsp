@@ -33,11 +33,11 @@
 			<td>贷款年限：</td>
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${estateData.loanPeriod}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 			<td>每月供款：</td>
-			<td><input class="spinner" style="width:168px" value="${estateData.monthContributions}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="<fmt:formatNumber value='${estateData.monthContributions}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>尚欠余额：</td>
-			<td><input class="spinner" style="width:168px" value="${estateData.outstandBalances}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="<fmt:formatNumber value='${estateData.outstandBalances}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>按揭银行：</td>
 			<td><input class="spinner" style="width:168px" value="${estateData.mortgageBank}" readonly="readonly"/></td>
 		</tr>

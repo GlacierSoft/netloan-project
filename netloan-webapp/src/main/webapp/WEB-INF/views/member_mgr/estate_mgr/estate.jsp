@@ -81,12 +81,12 @@
 				sortable:true
 			},{
 				field:'monthContributions',
-				title:'每月供款',
+				title:'每月供款(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'outstandBalances',
-				title:'尚欠贷款余额',
+				title:'尚欠贷款余额(元)',
 				width:120,
 				sortable:true
 			},{

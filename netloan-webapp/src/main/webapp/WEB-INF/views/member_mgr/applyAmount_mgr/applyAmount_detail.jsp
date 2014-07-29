@@ -15,9 +15,9 @@
 		</tr>
 		<tr>
 			<td>原来额度：</td>
-			<td><input class="spinner" style="width:168px" value="${applyAmountData.originalAmount}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="<fmt:formatNumber value='${applyAmountData.originalAmount}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>申请额度：</td>
-			<td><input class="spinner" style="width:168px" value="${applyAmountData.applyMoney}"  readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="<fmt:formatNumber value='${applyAmountData.applyMoney}' pattern="#,#00.00元"/>"  readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>申请说明：</td>
@@ -33,7 +33,7 @@
 		</tr>
 		<tr>
 			<td>审核额度：</td>
-			<td><input class="spinner" style="width:168px" value="${applyAmountData.authorizedAmount}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="<fmt:formatNumber value='${applyAmountData.authorizedAmount}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>审核时间：</td>
 			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${applyAmountData.auditDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"  readonly="readonly"/></td>
 		</tr>

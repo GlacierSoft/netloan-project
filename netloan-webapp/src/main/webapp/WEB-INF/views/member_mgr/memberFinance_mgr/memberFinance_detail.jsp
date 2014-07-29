@@ -13,9 +13,9 @@
 		</tr>
 		<tr>
 			<td>月均收入：</td>
-			<td><input class="spinner" style="width:168px" value="${memberFinanceData.aveIncome}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="<fmt:formatNumber value='${memberFinanceData.aveIncome}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>月均支出：</td>
-			<td><input class="spinner" style="width:168px" value="${memberFinanceData.aveExpenses}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="<fmt:formatNumber value='${memberFinanceData.aveExpenses}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			
 		</tr>
 		<tr>

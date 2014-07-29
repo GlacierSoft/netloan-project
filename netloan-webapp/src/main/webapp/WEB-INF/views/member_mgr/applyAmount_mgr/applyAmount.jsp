@@ -52,12 +52,12 @@
 				}
 			},{
 				field:'originalAmount',
-				title:'原来额度',
+				title:'原来额度(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'applyMoney',
-				title:'申请金额',
+				title:'申请金额(元)',
 				width:120,
 				sortable:true
 			},{
@@ -70,7 +70,7 @@
 				}
 			},{
 				field:'authorizedAmount',
-				title:'审核额度',
+				title:'审核额度(元)',
 				width:120,
 				sortable:true
 			},{
