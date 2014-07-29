@@ -58,7 +58,7 @@
 				}
 			},{
 				field:'lowestLoanAmount',
-				title:'最小标种类型额度',
+				title:'最小标种类型额度(元)',
 				width:120,
 				sortable:true,
 				formatter: function(value,row,index){//数据格式化
@@ -66,7 +66,7 @@
 				}
 			},{
 				field:'largestLoanAmount',
-				title:'最大标种类型额度',
+				title:'最大标种类型额度(元)',
 				width:120,
 				sortable:true
 			},{
@@ -101,12 +101,12 @@
 				sortable:true
 			},{
 				field:'lowestBidMoney',
-				title:'最低投标金额',
+				title:'最低投标金额(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'largestBidMoney',
-				title:'最高投标金额',
+				title:'最高投标金额(元)',
 				width:120,
 				sortable:true
 			},{
@@ -137,22 +137,22 @@
 				sortable:true
 			},{
 				field:'lowestRewardMoney',
-				title:'最低奖励金额',
+				title:'最低奖励金额(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'largestRewardMoney',
-				title:'最高奖励金额',
+				title:'最高奖励金额(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'vipFreezeBail',
-				title:'Vip冻结保证金',
+				title:'Vip冻结保证金(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'generalFreezeBail',
-				title:'普通会员冻结保证金',
+				title:'普通会员冻结保证金(元)',
 				width:120,
 				sortable:true
 			},{
@@ -182,7 +182,7 @@
 				sortable:true
 			},{
 				field:'overLimitedFee',
-				title:'超出限定期数每月的标种类型费',
+				title:'超出限定期数每月的标种类型费(元)',
 				width:120,
 				sortable:true
 			},{

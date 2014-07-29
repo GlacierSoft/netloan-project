@@ -46,13 +46,13 @@
 					<td>按投标金额比例奖励：</td>
 					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_bidProReward" name="bidProReward" class="spinner" style="width:198px" value="${borrowingLoanData.bidProReward}" readonly="readonly"/></td>
 					<td>按固定金额分摊奖励：</td>
-					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_fixedAppReward" name="fixedAppReward" class="spinner" style="width:198px" value="${borrowingLoanData.fixedAppReward}" readonly="readonly"/></td>
+					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_fixedAppReward" name="fixedAppReward" class="spinner" style="width:198px" value="<fmt:formatNumber value='${borrowingLoanData.fixedAppReward}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 				</tr>
 				<tr>
 					<td>是否有投标待收限制：</td>
 					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_isBidMarked" name="isBidMarked" class="spinner" style="width:198px" value="${borrowingLoanData.isBidMarked}" readonly="readonly"/></td>
 					<td>待收金额设置：</td>
-					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_readyRecMoney" name="readyRecMoney" class="spinner" style="width:198px" value="${borrowingLoanData.readyRecMoney}" readonly="readonly"/></td>
+					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_readyRecMoney" name="readyRecMoney" class="spinner" style="width:198px" value="<fmt:formatNumber value='${borrowingLoanData.readyRecMoney}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 				</tr>
 				<tr>
 					<td>是否设置投标密码：</td>
@@ -62,13 +62,13 @@
 				</tr>
 				<tr>
 					<td>借款管理费：</td>
-					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_loanManagementFees" name="loanManagementFees" class="spinner" style="width:198px" value="${borrowingLoanData.loanManagementFees}" readonly="readonly"/></td>
+					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_loanManagementFees" name="loanManagementFees" class="spinner" style="width:198px" value="<fmt:formatNumber value='${borrowingLoanData.loanManagementFees}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 					<td>还款方式：</td>
 					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_repaymentTypeDisplay" name="repaymentTypeDisplay" class="spinner" style="width:198px" value="${borrowingLoanData.repaymentTypeDisplay}" readonly="readonly"/></td>
 				</tr>
 				<tr>
 					<td>借款总额：</td>
-					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_loanTotal" name="loanTotal" class="spinner" style="width:198px" value="${borrowingLoanData.loanTotal}" readonly="readonly"/></td>
+					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_loanTotal" name="loanTotal" class="spinner" style="width:198px" value="<fmt:formatNumber value='${borrowingLoanData.loanTotal}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 					<td>年利率：</td>
 					<td><input id="borrowingLoan_mgr_borrowingLoan_detail_loanApr" name="loanApr" class="spinner" style="width:198px" value="${borrowingLoanData.loanApr}" readonly="readonly"/></td>
 				</tr>

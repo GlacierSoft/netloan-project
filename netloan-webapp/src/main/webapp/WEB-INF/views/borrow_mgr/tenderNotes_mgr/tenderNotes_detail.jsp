@@ -14,7 +14,7 @@
 		</tr>
 		<tr>
 			<td>投标金额：</td>
-			<td><input  class="spinner" style="width:168px"  value="${tenderNotesData.tenderMoney}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${tenderNotesData.tenderMoney}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>投标份数：</td>
 			<td><input  class="spinner" style="width:168px"  value="${tenderNotesData.subSum}" readonly="readonly"/></td>
 		</tr>

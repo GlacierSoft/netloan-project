@@ -17,9 +17,9 @@
 		</tr>
 		<tr>
 			<td>最大借款额度：</td>
-			<td><input id="loanTender_mgr_loanTender_detail_lowestLoanAmount" name="lowestLoanAmount" class="spinner" style="width:198px" value="${loanTenderData.lowestLoanAmount}" readonly="readonly"/></td>
+			<td><input id="loanTender_mgr_loanTender_detail_lowestLoanAmount" name="lowestLoanAmount" class="spinner" style="width:198px" value="<fmt:formatNumber value='${loanTenderData.lowestLoanAmount}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>最大借款额度：</td>
-			<td><input id="loanTender_mgr_loanTender_detail_largestLoanAmount" name="largestLoanAmount" class="spinner" style="width:198px" value="${loanTenderData.largestLoanAmount}" readonly="readonly"/></td>
+			<td><input id="loanTender_mgr_loanTender_detail_largestLoanAmount" name="largestLoanAmount" class="spinner" style="width:198px" value="<fmt:formatNumber value='${loanTenderData.largestLoanAmount}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>借款金额倍数：</td>
@@ -59,15 +59,15 @@
 		</tr>
 		<tr>
 			<td>最低奖励金额：</td>
-			<td><input id="loanTender_mgr_loanTender_detail_lowestRewardMoney" name="lowestRewardMoney" class="spinner" style="width:198px" value="${loanTenderData.lowestRewardMoney}" readonly="readonly"/></td>
+			<td><input id="loanTender_mgr_loanTender_detail_lowestRewardMoney" name="lowestRewardMoney" class="spinner" style="width:198px" value="<fmt:formatNumber value='${loanTenderData.lowestRewardMoney}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>最高奖励金额：</td>
-			<td><input id="loanTender_mgr_loanTender_detail_largestRewardMoney" name="largestRewardMoney" class="spinner" style="width:198px" value="${loanTenderData.largestRewardMoney}" readonly="readonly"/></td>
+			<td><input id="loanTender_mgr_loanTender_detail_largestRewardMoney" name="largestRewardMoney" class="spinner" style="width:198px" value="<fmt:formatNumber value='${loanTenderData.largestRewardMoney}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>Vip冻结保证金：</td>
-			<td><input id="loanTender_mgr_loanTender_detail_vipFreezeBail" name="vipFreezeBail" class="spinner" style="width:198px" value="${loanTenderData.vipFreezeBail}" readonly="readonly"/></td>
+			<td><input id="loanTender_mgr_loanTender_detail_vipFreezeBail" name="vipFreezeBail" class="spinner" style="width:198px" value="<fmt:formatNumber value='${loanTenderData.vipFreezeBail}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>普通会员冻结保证金：</td>
-			<td><input id="loanTender_mgr_loanTender_detail_generalFreezeBail" name="generalFreezeBail" class="spinner" style="width:198px" value="${loanTenderData.generalFreezeBail}" readonly="readonly"/></td>
+			<td><input id="loanTender_mgr_loanTender_detail_generalFreezeBail" name="generalFreezeBail" class="spinner" style="width:198px" value="<fmt:formatNumber value='${loanTenderData.generalFreezeBail}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>垫付逾期天数（月标）：</td>
@@ -77,15 +77,15 @@
 		</tr>
 		<tr>
 			<td>借款管理费(月)：</td>
-			<td><input id="loanTender_mgr_loanTender_detail_loanManaFeeMonth" name="loanManaFeeMonth" class="spinner" style="width:198px" value="${loanTenderData.loanManaFeeMonth}" readonly="readonly"/></td>
+			<td><input id="loanTender_mgr_loanTender_detail_loanManaFeeMonth" name="loanManaFeeMonth" class="spinner" style="width:198px" value="<fmt:formatNumber value='${loanTenderData.loanManaFeeMonth}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>借款管理费（天）：</td>
-			<td><input id="loanTender_mgr_loanTender_detail_loanManaFeeDay" name="loanManaFeeDay" class="spinner" style="width:198px" value="${loanTenderData.loanManaFeeDay}" readonly="readonly"/></td>
+			<td><input id="loanTender_mgr_loanTender_detail_loanManaFeeDay" name="loanManaFeeDay" class="spinner" style="width:198px" value="<fmt:formatNumber value='${loanTenderData.loanManaFeeDay}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>限定期数：</td>
 			<td><input id="loanTender_mgr_loanTender_detail_limitedPeriods" name="limitedPeriods" class="spinner" style="width:198px" value="${loanTenderData.limitedPeriods}" readonly="readonly"/></td>
 			<td>超出限定期数每月的借款费：</td>
-			<td><input id="loanTender_mgr_loanTender_detail_overLimitedFee" name="overLimitedFee" class="spinner" style="width:198px" value="${loanTenderData.overLimitedFee}" readonly="readonly"/></td>
+			<td><input id="loanTender_mgr_loanTender_detail_overLimitedFee" name="overLimitedFee" class="spinner" style="width:198px" value="<fmt:formatNumber value='${loanTenderData.overLimitedFee}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>是否开启认购模式：</td>

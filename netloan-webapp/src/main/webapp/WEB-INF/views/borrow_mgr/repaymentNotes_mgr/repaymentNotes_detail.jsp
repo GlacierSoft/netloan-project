@@ -14,42 +14,42 @@
 		</tr>
 		<tr>
 			<td>还款总金额：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.repaymentTotal}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesData.repaymentTotal}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>应还本金：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.shouldPayPrincipal}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesData.shouldPayPrincipal}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			 </tr>
 		<tr>
 			 <td>已还本金：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.alrPayPrincipal}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesData.alrPayPrincipal}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>未还本金：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.notPayPrincipal}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesData.notPayPrincipal}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			
 		</tr>
 		<tr>
 			<td>应还利息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.shouldPayInterest}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesData.shouldPayInterest}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>已还利息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.alrPayInterest}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesData.alrPayInterest}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		
 		</tr>
 		<tr>
 				<td>未还利息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.notPayInterest}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesData.notPayInterest}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 	
 			<td>应还本息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.shouldPayMoney}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesData.shouldPayMoney}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>已还本息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.alrPayMoney}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesData.alrPayMoney}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>未还本息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.notPayMoney}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesData.notPayMoney}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>已还逾期罚息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.alrOverdueInterest}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesData.alrOverdueInterest}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>已还逾期催收费：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesData.alrOverdueUrge}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesData.alrOverdueUrge}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>还款状态：</td>

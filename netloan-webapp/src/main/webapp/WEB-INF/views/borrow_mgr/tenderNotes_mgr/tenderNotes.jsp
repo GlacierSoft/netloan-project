@@ -49,7 +49,7 @@
 				sortable:true
 			},{
 				field:'tenderMoney',
-				title:'投标金额',
+				title:'投标金额(元)',
 				width:200,
 				sortable:true
 			},{

@@ -12,50 +12,50 @@
 			<td width="80px">收款总金额：</td>
 			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
 				<input type="hidden" name="loanReviewId" value="${receivablesNotesData.receNotesId}" />
-				<input class="spinner" style="width:168px"  value="${receivablesNotesData.receivablesTotal}" readonly="readonly"/></td>
+				<input class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesData.receivablesTotal}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td width="100px">收款人：</td>
 			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesData.memberDisplay}" readonly="readonly"/></td>
 		</tr>
 		
 		<tr>
 			<td>应收本金：</td>
-			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesData.shouldRecePrincipal}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesData.shouldRecePrincipal}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>已收本金：</td>
-			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesData.alrRecePrincipal}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesData.alrRecePrincipal}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		
 		<tr>
 			<td>未收本金：</td>
-			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesData.notRecePrincipal}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesData.notRecePrincipal}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>应收利息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesData.shouldReceInterest}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesData.shouldReceInterest}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		
 			<tr>
 			<td>已收利息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesData.alrReceInterest}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesData.alrReceInterest}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>未收利息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesData.notReceInterest}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesData.notReceInterest}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		
 		
 		<tr>
 			<td>应收本息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesData.shouldReceMoney}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesData.shouldReceMoney}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>已收本息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesData.alrReceMoney}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesData.alrReceMoney}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>未收本息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesData.notReceMoney}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesData.notReceMoney}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>已收逾期罚息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesData.alrOverdueInterest}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesData.alrOverdueInterest}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 			<tr>
 			<td>利息管理费：</td>
-			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesData.interestManaFee}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesData.interestManaFee}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>收益：</td>
-			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesData.income}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesData.income}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>收款状态：</td>

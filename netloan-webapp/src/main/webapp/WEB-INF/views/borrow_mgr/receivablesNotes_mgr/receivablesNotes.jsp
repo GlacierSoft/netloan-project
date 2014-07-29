@@ -54,59 +54,59 @@
 				sortable:true
 			},{
 				field:'receivablesTotal',
-				title:'收款总金额',
+				title:'收款总金额(元)',
 				width:200,
 				sortable:true
 			},
 			//新增字段
 			{   field:'shouldRecePrincipal',
-				title:'应收本金',
+				title:'应收本金(元)',
 				width:200,
 				sortable:true
 			},
 			{   field:'alrRecePrincipal',
-				title:'已收本金',
+				title:'已收本金(元)',
 				width:200,
 				sortable:true
 			},{   
 				field:'notRecePrincipal',
-				title:'未收本金',
+				title:'未收本金(元)',
 				width:200,
 				sortable:true
 			},{   
 				field:'shouldReceInterest',
-				title:'应收利息',
+				title:'应收利息(元)',
 				width:200,
 				sortable:true
 			},{   
 				field:'alrReceInterest',
-				title:'已收利息',
+				title:'已收利息(元)',
 				width:200,
 				sortable:true
 			},{   
 				field:'notReceInterest',
-				title:'未收利息',
+				title:'未收利息(元)',
 				width:200,
 				sortable:true
 			}, {
 				field:'shouldReceMoney',
-				title:'应收本息',
+				title:'应收本息(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'alrReceMoney',
-				title:'已收本息',
+				title:'已收本息(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'notReceMoney',
-				title:'未收本息',
+				title:'未收本息(元)',
 				width:200,
 				sortable:true
 			},
 			{
 				field:'alrOverdueInterest',
-				title:'已收逾期罚息',
+				title:'已收逾期罚息(元)',
 				width:200,
 				sortable:true
 			},{
@@ -119,12 +119,12 @@
 				}
 			},{
 				field:'interestManaFee',
-				title:'已收利息管理费',
+				title:'已收利息管理费(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'income',
-				title:'已收收益',
+				title:'已收收益(元)',
 				width:200,
 				sortable:true
 			},{

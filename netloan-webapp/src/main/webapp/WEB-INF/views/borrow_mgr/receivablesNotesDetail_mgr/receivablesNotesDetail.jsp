@@ -64,27 +64,27 @@
 				sortable:true
 			},{
 				field:'currentReceMoeny',
-				title:'应收本息',
+				title:'应收本息(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'currentRecePrincipal',
-				title:'应收本金',
+				title:'应收本金(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'currentReceInterest',
-				title:'应收利息',
+				title:'应收利息(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'surplusPrincipal',
-				title:'未收本金',
+				title:'未收本金(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'interestManaFee',
-				title:'利息管理费',
+				title:'利息管理费(元)',
 				width:200,
 				sortable:true
 			},{
@@ -97,7 +97,7 @@
 				}
 			},{
 				field:'overdueInterest',
-				title:'逾期罚息',
+				title:'逾期罚息(元)',
 				width:200,
 				sortable:true
 			},{
@@ -107,12 +107,12 @@
 				sortable:true
 			},{
 				field:'income',
-				title:'收益',
+				title:'收益(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'amount',
-				title:'总收款金额',
+				title:'总收款金额(元)',
 				width:200,
 				sortable:true
 			},{

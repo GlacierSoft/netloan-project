@@ -59,67 +59,67 @@
 				sortable:true
 			},{
 				field:'repaymentTotal',
-				title:'还款总金额',
+				title:'还款总金额(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'shouldPayMoney',
-				title:'应还本息',
+				title:'应还本息(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'alrPayMoney',
-				title:'已还本息',
+				title:'已还本息(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'notPayMoney',
-				title:'未还本息',
+				title:'未还本息(元)',
 				width:200,
 				sortable:true
 			},{        /**新增**/
 				field:'shouldPayPrincipal',
-				title:'应还本金',
+				title:'应还本金(元)',
 				sortable:true,
 				width:200
 			},{       
 				field:'alrPayPrincipal',
-				title:'已还本金',
+				title:'已还本金(元)',
 				sortable:true,
 				width:200
 			},{       
 				field:'notPayPrincipal',
-				title:'未还本金',
+				title:'未还本金(元)',
 				sortable:true,
 				width:200
 			},{       
 				field:'shouldPayInterest',
-				title:'应还利息',
+				title:'应还利息(元)',
 				sortable:true,
 				width:200
 			},{       
 				field:'alrPayInterest',
-				title:'已还利息',
+				title:'已还利息(元)',
 				sortable:true,
 				width:200
 			},{       
 				field:'notPayInterest',
-				title:'未还利息',
+				title:'未还利息(元)',
 				sortable:true,
 				width:200
 			},{
 				field:'alrOverdueInterest',
-				title:'已还逾期罚息',
+				title:'已还逾期罚息(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'alrOverdueUrge',
-				title:'已还逾期催收费',
+				title:'已还逾期催收费(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'alrOverdueMana',
-				title:'已还逾期管理费',
+				title:'已还逾期管理费(元)',
 				width:200,
 				sortable:true
 			},{

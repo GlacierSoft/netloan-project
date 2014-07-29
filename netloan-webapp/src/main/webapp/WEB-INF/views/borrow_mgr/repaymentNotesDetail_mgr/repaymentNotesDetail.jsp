@@ -64,42 +64,42 @@
 				sortable:true
 			},{
 				field:'currentPayMoeny',
-				title:'应还本息',
+				title:'应还本息(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'currentPayPrincipal',
-				title:'应还本金',
+				title:'应还本金(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'currentPayInterest',
-				title:'应还利息',
+				title:'应还利息(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'actualPayMoney',
-				title:'实还本息',
+				title:'实还本息(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'alsoNeedMoney',
-				title:'总还款金额',
+				title:'总还款金额(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'overdueInterest',
-				title:'逾期罚息',
+				title:'逾期罚息(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'overdueUrgeFee',
-				title:'逾期催收费',
+				title:'逾期催收费(元)',
 				width:200,
 				sortable:true
 			},{
 				field:'overdueManaFee',
-				title:'逾期管理费',
+				title:'逾期管理费(元)',
 				width:200,
 				sortable:true
 			},{

@@ -112,7 +112,7 @@
 				width:120
 			},{
 				field:'fixedAppReward',
-				title:'按固定金额分摊奖励',
+				title:'按固定金额分摊奖励(元)',
 				sortable:true,
 				width:120
 			},{
@@ -125,7 +125,7 @@
 				}
 			},{
 				field:'readyRecMoney',
-				title:'待收金额设置',
+				title:'待收金额设置(元)',
 				width:120,
 				sortable:true
 			},{
@@ -143,7 +143,7 @@
 				width:120
 			},{
 				field:'loanManagementFees',
-				title:'借款管理费',
+				title:'借款管理费(元)',
 				sortable:true,
 				width:120
 			},{
@@ -153,7 +153,7 @@
 				width:120
 			},{
 				field:'loanTotal',
-				title:'借款总额',
+				title:'借款总额(元)',
 				width:120,
 				sortable:true
 			},{
@@ -163,12 +163,12 @@
 				sortable:true
 			},{
 				field:'lowestBidMoney',
-				title:'最低投标金额',
+				title:'最低投标金额(元)',
 				sortable:true,
 				width:120
 			},{
 				field:'largestBidMoney',
-				title:'最高投标金额',
+				title:'最高投标金额(元)',
 				sortable:true,
 				width:120
 			},{

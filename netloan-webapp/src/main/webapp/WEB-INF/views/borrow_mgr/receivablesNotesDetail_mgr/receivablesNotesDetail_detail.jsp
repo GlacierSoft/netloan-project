@@ -23,13 +23,13 @@
 		</tr>
 		<tr>
 			<td>应收本息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesDetailData.currentReceMoeny}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesDetailData.currentReceMoeny}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>应收本金：</td>
-			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesDetailData.currentRecePrincipal}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesDetailData.currentRecePrincipal}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>应收利息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesDetailData.currentReceInterest}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesDetailData.currentReceInterest}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>剩余本金：</td>
 			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesDetailData.surplusPrincipal}' pattern='#,#00.00'/>" readonly="readonly"/></td>
 		</tr>
@@ -37,11 +37,11 @@
 			<td>是否逾期：</td>
 			<td><input id="detailtable_isOverdue" class="spinner" style="width:168px" value="${receivablesNotesDetailData.isOverdue}" readonly="readonly"/></td>
 			<td>利息管理费：</td>
-			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesDetailData.interestManaFee}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesDetailData.interestManaFee}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>逾期罚息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesDetailData.overdueInterest}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${receivablesNotesDetailData.overdueInterest}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>逾期天数：</td>
 			<td><input  class="spinner" style="width:168px"  value="${receivablesNotesDetailData.overdueDays}" readonly="readonly"/></td>
 		</tr>
@@ -49,11 +49,11 @@
 			<td>收款状态：</td>
 			<td><input id="detailtable_receState" class="spinner" style="width:168px"  readonly="readonly"/></td>
 			<td>收益：</td>
-			<td><input class="spinner" style="width:168px" value="${receivablesNotesDetailData.income}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="<fmt:formatNumber value='${receivablesNotesDetailData.income}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>总收款金额：</td>
-			<td><input class="spinner" style="width:168px" value="${receivablesNotesDetailData.amount}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="<fmt:formatNumber value='${receivablesNotesDetailData.amount}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>备注：</td>
 			<td><input class="spinner" style="width:168px" value="${receivablesNotesDetailData.remark}" readonly="readonly"/></td>
 		

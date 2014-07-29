@@ -24,27 +24,27 @@
 		</tr>
 		<tr>
 			<td>应还本息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesDetailData.currentPayMoeny}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesDetailData.currentPayMoeny}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>应还本金：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesDetailData.currentPayPrincipal}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesDetailData.currentPayPrincipal}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>应还利息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesDetailData.currentPayInterest}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesDetailData.currentPayInterest}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>实还本息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesDetailData.actualPayMoney}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesDetailData.actualPayMoney}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>总还款金额：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesDetailData.alsoNeedMoney}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesDetailData.alsoNeedMoney}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>逾期罚息：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesDetailData.overdueInterest}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesDetailData.overdueInterest}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>逾期催收费：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesDetailData.overdueUrgeFee}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesDetailData.overdueUrgeFee}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 			<td>逾期管理费：</td>
-			<td><input  class="spinner" style="width:168px"  value="${repaymentNotesDetailData.overdueManaFee}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${repaymentNotesDetailData.overdueManaFee}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>逾期天数：</td>
