@@ -937,15 +937,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				rangelength:"单位名称长度为1-10个字符"
 	    			}
 	    		},
-	    		submitHandler:function(){
+	    		submitHandler:function(){ 
 	    			$.ajax({
 	    				   type: "POST",
 	    				   url: ctx+"/perfectRegister.htm",
 	    				   dataType: "json",
 	    				   data: $("#personalMessageForm").serialize(),
-		    			   success: function(r) {
+		    			   success: function(r) { 
+		   					$("#onlyPost").attr('disabled',"true");
 	    						successdialog(r);
-	    						$("#onlyPost").attr('disabled',"true");
 	    						 if(r.obj == 'infoAndWorRealOnly'){
 	    								$("form[id='personalMessageForm'] input,textarea[id='personalDes']").prop("readonly", true);
 	    								$("form[id='personalMessageForm'] select,button[id='onlyPost'],button[id='postAuthBut']").prop("disabled", true);
@@ -1247,6 +1247,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		} 
     	});
       	function successdialog(data){
+      	var boo=$("#postAuthBut").attr("disabled");
+      	if(boo==true){
+      		 $("#onlyPost").attr("disabled",true);
+      	}else{
+      		 $("#onlyPost").removeAttr("disabled");
+      	}
 			KindEditor.ready(function(K) {
 			var dialog = K.dialog({
 					        width : 300,
@@ -1255,15 +1261,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        closeBtn : {
 					                name : '关闭',
 					                click : function(e) {
-					                        dialog.remove();
-					                        $("#onlyPost").removeAttr("disabled");
+					                        dialog.remove(); 
 					                }
 					        },
 					        yesBtn : {
 					                name : '确定',
 					                click : function(e) {
 					                		dialog.remove();
-					                		 $("#onlyPost").removeAttr("disabled");
+					                		
 					                }
 					        }
 						});
