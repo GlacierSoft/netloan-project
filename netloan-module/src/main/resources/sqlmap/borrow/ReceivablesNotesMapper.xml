@@ -138,7 +138,6 @@
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_tender_notes temp_tender_notes ON temp_receivables_notes.tender_notes_id = temp_tender_notes.tender_notes_id <!-- 扩展 -->
-  	
   	LEFT JOIN t_borrowing_loan temp_borrowing_loan ON temp_borrowing_loan.loan_id = temp_tender_notes.loan_id <!-- 扩展 -->
     LEFT JOIN t_member temp_loan_member ON temp_borrowing_loan.member_id = temp_loan_member.member_id <!-- 扩展 -->
  	LEFT JOIN t_loan_tender temp_loan_tender ON temp_borrowing_loan.loan_tender_id = temp_loan_tender.loan_tender_id <!-- 扩展 -->
