@@ -64,7 +64,7 @@
 				sortable:true
 			},{
 				field:'loanTotal',
-				title:'借款金额',
+				title:'借款金额(元)',
 				width:200,
 				sortable:true
 			},{

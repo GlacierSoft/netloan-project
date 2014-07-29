@@ -51,37 +51,37 @@
 				sortable:true
 			},{
 				field:'earningMoney',
-				title:'收入金额',
+				title:'收入金额(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'expendMoney',
-				title:'支出金额',
+				title:'支出金额(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'usableMoney',
-				title:'可用金额',
+				title:'可用金额(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'frozenMoney',
-				title:'冻结金额',
+				title:'冻结金额(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'collectingMoney',
-				title:'待收金额',
+				title:'待收金额(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'refundMoney',
-				title:'待还金额',
+				title:'待还金额(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'amount',
-				title:'总金额',
+				title:'总金额(元)',
 				width:120,
 				sortable:true
 			},{

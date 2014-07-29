@@ -8,11 +8,11 @@
 			<td>最小提现金额:</td> 
 			<td class="forminputtable">
 				<input type="hidden"  name="financeWithdrawSetId" value="${withdrawSetData.financeWithdrawSetId}" />
-				<input name="withdrawSetMinimum" class="spinner" style="width:180px" value="${withdrawSetData.withdrawSetMinimum}" readonly="readonly"/>
+				<input name="withdrawSetMinimum" class="spinner" style="width:180px" value="<fmt:formatNumber value='${withdrawSetData.withdrawSetMinimum}' pattern="#,#00.00元"/>" readonly="readonly"/>
 			</td>
 			<td>最大提现金额:</td>
 			<td>
-				<input id="withdrawSet_mgr_withdrawSet_detail_withdrawType" name="withdrawSetMaximum" value="${withdrawSetData.withdrawSetMaximum}" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
+				<input id="withdrawSet_mgr_withdrawSet_detail_withdrawType" name="withdrawSetMaximum" value="<fmt:formatNumber value='${withdrawSetData.withdrawSetMaximum}' pattern="#,#00.00元"/>" class="spinner" style="height:18px;width:180px" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>

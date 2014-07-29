@@ -47,17 +47,17 @@
 				sortable:true
 			},{
 				field:'earningMoney',
-				title:'收入金额',
+				title:'收入金额(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'expendMoney',
-				title:'支出金额',
+				title:'支出金额(元)',
 				width:120,
 				sortable:true
 			},{
 				field:'amount',
-				title:'平台资金总金额',
+				title:'平台资金总金额(元)',
 				width:120,
 				sortable:true
 			},{

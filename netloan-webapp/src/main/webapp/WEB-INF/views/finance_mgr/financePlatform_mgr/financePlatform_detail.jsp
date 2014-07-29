@@ -22,7 +22,7 @@
 			</td>
 			<td>余额：</td>
 			<td>
-				<input name="platformMoney" value="${financePlatformData.platformMoney}" class="spinner" style="width:180px" readonly="readonly"></input>
+				<input name="platformMoney" value="<fmt:formatNumber value='${financePlatformData.platformMoney}' pattern="#,#00.00元"/>" class="spinner" style="width:180px" readonly="readonly"></input>
 			</td>
 		</tr>
 			<tr>

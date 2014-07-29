@@ -28,11 +28,11 @@
 		<tr>
 			<td>充值金额：</td>
 			<td>
-				<input name="rechargeAmount" class="spinner" style="width:180px" value="${rechargeData.rechargeAmount}" readonly="readonly"></input>
+				<input name="rechargeAmount" class="spinner" style="width:180px" value="<fmt:formatNumber value='${rechargeData.rechargeAmount}' pattern="#,#00.00元"/>" readonly="readonly"></input>
 			</td>	
 			<td>手续费：</td>
 			<td>
-				<input name="handlingCharge" class="spinner" style="width:180px" value="${rechargeData.handlingCharge}" readonly="readonly"></input>
+				<input name="handlingCharge" class="spinner" style="width:180px" value="<fmt:formatNumber value='${rechargeData.handlingCharge}' pattern="#,#00.00元"/>" readonly="readonly"></input>
 			</td>
 		</tr>
 		<tr>
@@ -42,7 +42,7 @@
 			</td>
 			<td>到帐金额：</td>
 			<td>
-				<input name="arriveMoney" class="spinner" style="width:180px" value="${rechargeData.arriveMoney}" readonly="readonly"></input>
+				<input name="arriveMoney" class="spinner" style="width:180px" value="<fmt:formatNumber value='${rechargeData.arriveMoney}' pattern="#,#00.00元"/>" readonly="readonly"></input>
 			</td>
 		</tr>
 		<tr>

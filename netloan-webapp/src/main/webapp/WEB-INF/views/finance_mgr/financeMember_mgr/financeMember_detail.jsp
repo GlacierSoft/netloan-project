@@ -12,27 +12,27 @@
 			</td>	
 			<td>可用余额：</td>
 			<td>
-				<input name="usableMoney" value="${financeMemberData.usableMoney}" class="spinner" style="width:180px" readonly="readonly"/>
+				<input name="usableMoney" value="<fmt:formatNumber value='${financeMemberData.usableMoney}' pattern="#,#00.00元"/>" class="spinner" style="width:180px" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
 			<td>冻结金额：</td>
 			<td>
-				<input name="frozenMoney" value="${financeMemberData.frozenMoney}" class="spinner" style="width:180px" readonly="readonly"></input>
+				<input name="frozenMoney" value="<fmt:formatNumber value='${financeMemberData.frozenMoney}' pattern="#,#00.00元"/>" class="spinner" style="width:180px" readonly="readonly"></input>
 			</td>
 			<td>代收金额：</td>
 			<td>
-				<input name="collectingMoney" value="${financeMemberData.collectingMoney}" class="spinner" style="width:180px" readonly="readonly"/>
+				<input name="collectingMoney" value="<fmt:formatNumber value='${financeMemberData.collectingMoney}' pattern="#,#00.00元"/>" class="spinner" style="width:180px" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
 			<td>待还金额：</td>
 			<td>
-				<input name="refundMoney" value="${financeMemberData.refundMoney}" class="spinner" style="width:180px" readonly="readonly"></input>
+				<input name="refundMoney" value="<fmt:formatNumber value='${financeMemberData.refundMoney}' pattern="#,#00.00元"/>" class="spinner" style="width:180px" readonly="readonly"></input>
 			</td>
 			<td>总金额：</td>
 			<td>
-				<input name="amount" value="${financeMemberData.amount}" class="spinner" style="width:180px" readonly="readonly"/>
+				<input name="amount" value="<fmt:formatNumber value='${financeMemberData.amount}' pattern="#,#00.00元"/>" class="spinner" style="width:180px" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
@@ -48,7 +48,7 @@
 		<tr>
 			<td>充值总金额：</td>
 			<td>
-				<input name="rechargeMoney" value="${financeMemberData.rechargeMoney}" class="spinner" style="width:180px" readonly="readonly"></input>
+				<input name="rechargeMoney" value="<fmt:formatNumber value='${financeMemberData.rechargeMoney}' pattern="#,#00.00元"/>" class="spinner" style="width:180px" readonly="readonly"></input>
 			</td>
 			<td>本月提现次数：</td>
 			<td>
@@ -62,7 +62,7 @@
 			</td>
 			<td>提现总金额：</td>
 			<td>
-				<input name="withdrawMoney" value="${financeMemberData.withdrawMoney}" class="spinner" style="width:180px" readonly="readonly"/>
+				<input name="withdrawMoney" value="<fmt:formatNumber value='${financeMemberData.withdrawMoney}' pattern="#,#00.00元"/>" class="spinner" style="width:180px" readonly="readonly"/>
 			</td>
 		</tr> 
 		<tr>

@@ -22,17 +22,17 @@
 			</td>
 			<td>收入金额：</td>
 			<td>
-				<input name="earningMoney" class="spinner" style="width:180px" value="${transactionData.earningMoney}" readonly="readonly"/>
+				<input name="earningMoney" class="spinner" style="width:180px" value="<fmt:formatNumber value='${transactionData.earningMoney}' pattern="#,#00.00元"/>" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
 			<td>支出金额：</td>
 			<td>
-				<input name="expendMoney" class="spinner" style="width:180px" value="${transactionData.expendMoney}" readonly="readonly"></input>
+				<input name="expendMoney" class="spinner" style="width:180px" value="<fmt:formatNumber value='${transactionData.expendMoney}' pattern="#,#00.00元"/>" readonly="readonly"></input>
 			</td>
 			<td>总金额：</td>
 			<td>
-				<input name="amount" class="spinner" style="width:180px" value="${transactionData.amount}" readonly="readonly"/>
+				<input name="amount" class="spinner" style="width:180px" value="<fmt:formatNumber value='${transactionData.amount}' pattern="#,#00.00元"/>" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>

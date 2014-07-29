@@ -85,7 +85,7 @@
 				}
 			},{
 				field:'platformMoney',
-				title:'余额',
+				title:'余额(元)',
 				width:120,
 				sortable:true
 			},{

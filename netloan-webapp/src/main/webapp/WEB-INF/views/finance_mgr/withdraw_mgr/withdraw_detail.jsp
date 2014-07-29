@@ -38,13 +38,13 @@
 		<tr>
 			<td>提现总金额：</td>
 			<td colspan="3">
-				<input name="withdrawAmount" class="spinner" style="width:445px" value="${withdrawData.withdrawAmount}" readonly="readonly"></input>
+				<input name="withdrawAmount" class="spinner" style="width:445px" value="<fmt:formatNumber value='${withdrawData.withdrawAmount}' pattern="#,#00.00元"/>" readonly="readonly"></input>
 			</td>
 		</tr>
 		<tr>
 			<td>手续费：</td>
 			<td>
-				<input name="handlingCharge" class="spinner" style="width:180px" value="${withdrawData.handlingCharge}" readonly="readonly"></input>
+				<input name="handlingCharge" class="spinner" style="width:180px" value="<fmt:formatNumber value='${withdrawData.handlingCharge}' pattern="#,#00.00元"/>" readonly="readonly"></input>
 			</td>
 			<td>提现费率：</td>
 			<td>
@@ -54,7 +54,7 @@
 		<tr>
 			<td>到帐金额：</td>
 			<td>
-				<input name="arriveMoney" class="spinner" style="width:180px" value="${withdrawData.arriveMoney}" readonly="readonly"></input>
+				<input name="arriveMoney" class="spinner" style="width:180px" value="<fmt:formatNumber value='${withdrawData.arriveMoney}' pattern="#,#00.00元"/>" readonly="readonly"></input>
 			</td>
 			<td>提现状态：</td>
 			<td>

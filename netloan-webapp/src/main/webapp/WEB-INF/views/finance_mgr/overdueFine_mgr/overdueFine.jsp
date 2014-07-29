@@ -47,7 +47,7 @@
 				sortable:true
 			},{
 				field:'overdueFineMoney',
-				title:'罚款金额',
+				title:'罚款金额(元)',
 				width:100,
 				sortable:true
 			},{

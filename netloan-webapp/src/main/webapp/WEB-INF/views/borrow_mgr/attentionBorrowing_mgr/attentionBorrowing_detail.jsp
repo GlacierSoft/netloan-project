@@ -22,7 +22,7 @@
 			<td>还款方式：</td>
 			<td><input  class="spinner" style="width:168px"  value="${attentionBorrowingData.repaymentTypeDisplay}" readonly="readonly"/></td>
 			<td>借款金额：</td>
-			<td><input  class="spinner" style="width:168px"  value="${attentionBorrowingData.loanTotal}" readonly="readonly"/></td>
+			<td><input  class="spinner" style="width:168px"  value="<fmt:formatNumber value='${attentionBorrowingData.loanTotal}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>年利率：</td>
