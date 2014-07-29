@@ -80,6 +80,7 @@ public class AccountLoginService {
 		Member member = memberMapper.selectByPrimaryKey(memberId);
 
 		// 查询基础信用积分的所有数据
+		@SuppressWarnings("unchecked")
 		List<ParameterCredit> parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
 
 		// 通过嵌套for循环，将会员的信用图标加到会员对象中去

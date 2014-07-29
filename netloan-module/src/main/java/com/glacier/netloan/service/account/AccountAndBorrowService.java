@@ -220,6 +220,7 @@ public class AccountAndBorrowService implements InitializingBean {
 			List<User> userList = userMapper.selectByExample(userExample);
 
 			// 会员统计信息获取
+			@SuppressWarnings("unchecked")
 			List<MemberStatistics> list = (List<MemberStatistics>) statisticsService.listMemberStatistics();
 
 			// 时间设置
