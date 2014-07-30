@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  <div class="form-group">
 			    <label for="username" class="col-sm-2 control-label">用户名</label>
 			    <div class="col-sm-6" style="float: left; width: 800px">
-			      <input type=text class="form-control" style="float: left;width: 428px" id="username" name="username" placeholder="请输入用户名" value="${member.memberName}" required  />
+			      <input type=text class="form-control" style="float: left;width: 428px" id="username" name="username" placeholder="请输入用户名或邮箱" value="${member.memberName}" required  />
 			    </div>
 			  </div>
 			  <div class="form-group">

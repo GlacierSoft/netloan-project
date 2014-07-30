@@ -47,15 +47,28 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
         return WebUtils.getCleanParam(request, getCaptchaParam());
     }
 
-    protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
-        String username = getUsername(request);
+    protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) { 
+    	String username="";
+    	//验证是否是邮箱登陆
+    	String email=getUsername(request);
+    	String reg = "[\\w]+@[\\w]+.[\\w]+"; 
+		 //告知此字符串是否匹配给定的正则表达式。
+		if(email.matches(reg)) { //匹配的是邮箱，那么进行邮箱登陆验证  
+			Member mem=memberService.retrievePassword(email);//通过该邮箱，看是否存在
+			if(mem!=null){//说明数据库存在 
+				username=mem.getMemberName();//取出用户名称，交给shiro去验证密码
+			}else{//否则的话，把他当成用户名登陆验证
+				username = email;
+			}
+		}else {//否则按照用户名登陆验证  
+	         username = email;
+		} 
         String password = getPassword(request);
         String captcha = getCaptcha(request);
         boolean rememberMe = isRememberMe(request);
         String ip = IpUtil.getIpAddr((HttpServletRequest) request);
         String host = ip + IpUtil.getIpInfo(ip);
-        char[] charPassword = null;
-
+        char[] charPassword = null; 
         if (StringUtils.isNotBlank(password)) {
             charPassword = password.toCharArray();
         }

@@ -749,7 +749,7 @@ public class MemberService {
     
     /**
      * @Title: retrievePassword 
-     * @Description: TODO(会员忘记密码通过邮箱找回密码) 
+     * @Description: TODO(判断该邮箱是否存在) 
      * @param @param member
      * @param @param  
      * @param @return    设定文件 
@@ -757,12 +757,12 @@ public class MemberService {
      * @throws
      */
     @Transactional(readOnly = false) 
-    public Member retrievePassword(String email) { 
-    	Member member=new Member();
+    public Member retrievePassword(String email) {  
         MemberExample memberExample = new MemberExample();
         memberExample.createCriteria().andEmailEqualTo(email);
-        member= memberMapper.selectByExample(memberExample).get(0);
-        return member;
+        List<Member> memberlist= memberMapper.selectByExample(memberExample); 
+        //如果取出来的是没数据的，就返回null,否则就把集合里的第一条数据返回
+        return memberlist.size()==0?null:memberlist.get(0);
     }
      
     /**
@@ -805,7 +805,7 @@ public class MemberService {
        }
     	return returnResult;
     }
-    
+     
        //获取管理员id
       public String getuserId(){ 
         UserExample userExample = new UserExample();
