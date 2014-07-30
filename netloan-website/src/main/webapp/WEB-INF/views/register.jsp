@@ -171,11 +171,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 $("#email_form-group").focus(function(){
 			 $("#eml").remove();
 			 $("#eml2").remove();
+			 $("#em2").remove(); 
 		 });
 		//邮箱失去焦点前台验证
 		 $("#email_form-group").blur(function(){ 
 			 $("#eml").remove();
 			 $("#eml2").remove();
+			 $("#em2").remove();
+		    	
 			 var str=$(this).val();
 			 var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/;
 		     var boo= reg.test(str);
@@ -185,22 +188,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		     }
 		    if(boo==false){
 		    	 $(this).after("<label id='eml' style='color: red'>*邮箱格式不正确</label>");
+		    	 return;
 		     }else{
-		    	 $("#eml").remove();
-		    }  
+		    	 $("#eml").remove(); 
+		     }    
+		     $.ajax({
+				   type: "POST",
+				   url: ctx+"/confinMenberName.json",
+				   dataType: "json",
+				   data: 'str='+str+"&action=E",
+			       success: function(date) {  
+			    	  if(date.success==false){ //改用户已被注册
+			              $("#email_form-group").after("<label id='em2' style='color: red'>&nbsp;&nbsp;该邮箱已被注册</label>");
+			    	  }
+			   }  
+			}); 
 		 });  
 
 		 $("#memberName_form-group").focus(function(){
 			 $("#name1").remove(); 
+			 $("#name2").remove(); 
 		 });
 		 //用户名验证 
 		 $("#memberName_form-group").blur(function(){ 
-			 $("#name1").remove(); 
+			 $("#name1").remove();  
+			 $("#name2").remove(); 
 			 var str=$(this).val(); 
 		     if(str==""){
 		     	 $(this).after("<label id='name1' style='color: red'>*用户名不能为空</label>");
 				  return;
-		     } 
+		     }  
+		     $.ajax({
+				   type: "POST",
+				   url: ctx+"/confinMenberName.json",
+				   dataType: "json",
+				   data: 'str='+str+"&action=N",
+			       success: function(date) {  
+			    	  if(date.success==false){ //改用户已被注册
+			              $("#memberName_form-group").after("<label id='name2' style='color: red'>&nbsp;&nbsp;该用户名已被注册</label>");
+			    	  }
+			   } 
+			});
+		     
 		 });  
 		 
 		 $("#comfirPassword_form-group").focus(function(){ 

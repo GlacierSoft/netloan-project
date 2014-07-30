@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestMethod; 
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -420,6 +420,33 @@ public class RegisterController extends AbstractController{
             return "index"; 
         }
         return "retrievePassword/setNewPassword";//点击找回密码跳转到的页面
+       }
+	
+	
+	/**
+	 * @Title: confinMenberName 
+	 * @Description: TODO(会员注册验证邮箱和用户名是否存在) 
+	 * @param  @param retrieveId
+	 * @param  @param request
+	 * @param  @param session
+	 * @param  @return设定文件
+	 * @return Object  返回类型
+	 * @throws 
+	 *,method=RequestMethod.POST
+	 */
+	@RequestMapping(value = "/confinMenberName.json",method = RequestMethod.POST)
+	@ResponseBody
+	public Object confinMenberName(String str,String action){
+		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+		Member member=new Member();
+		if(action.equals("E")){ 
+			member.setEmail(str);
+			returnResult=(JqReturnJson)memberService.isEmailRepeat(member);
+		}else{
+			member.setMemberName(str);
+			returnResult=(JqReturnJson)memberService.isUsernameRepeat(member); 
+		}  
+        return returnResult; 
        }
 	
 	
