@@ -106,7 +106,6 @@ public class MemberApplyAmountService {
         if(memberApplyAmountList.size()>0){//已经申请过额度
         	//判断最后一次申请额度离现在是否有30天
             MemberApplyAmount memberApplyAmount = applyAmountMapper.selectMaxCreatTime(pricipalMember.getMemberId());
-            System.out.println("----------------"+pricipalMember.getMemberId());
             Date lastCreateTime = memberApplyAmount.getCreateTime();
             Date nowDate = new Date();
             long between = 0;
@@ -298,7 +297,10 @@ public class MemberApplyAmountService {
         applyAmount.setUpdateTime(new Date());// 更新时间为当前系统时间
         applyAmount.setAuditorId(pricipalUser.getUserId());// 审核人为当前系统登录用户
         applyAmount.setAuditDate(new Date());// 审核时间为当前系统时间
-        
+        if(applyAmount.getAuditState().equals("authstr")||applyAmount.getAuditState().equals("noapply")){
+        	returnResult.setMsg("无效的操作，请选择审核状态！");
+        	return returnResult;
+        } 
         MemberApplyAmount mem=applyAmountMapper.selectByPrimaryKey(applyAmount.getApplyAmountId());
         if(mem.getAuditState().equals("authstr")==false){ //如果数据库的该条记录状态不是审核中的，就说明该记录已经审核了，不能继续操作
         	returnResult.setMsg("该申请记录已进行过审核操作");
@@ -315,8 +317,7 @@ public class MemberApplyAmountService {
         	}
         } 
         int count = 0;
-        count = applyAmountMapper.updateByPrimaryKeySelective(applyAmount);
-        
+        count = applyAmountMapper.updateByPrimaryKeySelective(applyAmount); 
         //创建信息通知对象
         MemberMessageNotice memberMessageNotice = new MemberMessageNotice();
         if (count == 1) {
