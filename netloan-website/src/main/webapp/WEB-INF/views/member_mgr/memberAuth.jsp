@@ -235,7 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        </table>
 				       </div>
 				       <div class="tab-pane fade" id="uploasdData">
-					        <p class="text-primary">温馨提示：晓风网贷对于用户上传的所有信息，都将进行加密处理。您可以在此放心上传个人材料，您的个人信用将不会被以任何形式外泄。</p>
+					        <p class="text-primary">温馨提示：冰川网贷对于用户上传的所有信息，都将进行加密处理。您可以在此放心上传个人材料，您的个人信用将不会被以任何形式外泄。</p>
 					        <p class="text-danger">注：认证资料上传完毕后，等待后台进行审核。</p>
 					       	<blockquote>
 					       	<h4>必要信用认证</h4>
@@ -685,6 +685,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <jsp:include page="../foot.jsp"/>
   </body>
 	<script type="text/javascript">
+	function checkIdCardIsNull(){
+		
+		
+	}
+	
 	//功能判断
     function checksMember(memberId,url){
     	$.ajax({
@@ -987,54 +992,77 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				items : [],
 				readonlyMode : true
 			});  
+			
 		});
 		function submitIdCardAccessoryForm()
 		{
-			$.ajax({
-				type: "POST",
-				url: ctx+'/member/memberAccessoryForm.htm?whichAuth=idCardAuth',
-				data: {"member_Accessory":idCardeditor.html()},
-				success: function(data){
-					var data = $.parseJSON(data);
-					if(data.success){
-						$('#memberAuth_form_idCardAuth').html(renderGridValue(data.obj.idCardAuth,fields.auths));
-						$('#idCard_auth').html(renderGridValue(data.obj.idCardAuth,fields.auths));	
-						successdialog(data);
-					}
-				} 
-			});
+			idCardeditor.sync();//赋值操作
+			var $idCard = document.getElementById('member_idCardAccessory').value;
+			if($idCard == ""){
+				alert("提交的内容不能为空！");
+			}else{
+				$.ajax({
+					type: "POST",
+					url: ctx+'/member/memberAccessoryForm.htm?whichAuth=idCardAuth',
+					data: {"member_Accessory":idCardeditor.html()},
+					success: function(data){
+						var data = $.parseJSON(data);
+						if(data.success){
+							$('#memberAuth_form_idCardAuth').html(renderGridValue(data.obj.idCardAuth,fields.auths));
+							$('#idCard_auth').html(renderGridValue(data.obj.idCardAuth,fields.auths));	
+							successdialog(data);
+							document.getElementById("member_idCardAccessory").value="";
+						}
+					} 
+				});
+			}
 		}
 		function submitCreditAccessoryForm()
 		{
-			$.ajax({
-				type: "POST",
-				url: ctx+'/member/memberAccessoryForm.htm?whichAuth=creditAuth',
-				data: {"member_Accessory":crediteditor.html()},
-				success: function(data){
-					var data = $.parseJSON(data);
-					if(data.success){
-						$('#memberAuth_form_creditAuth').html(renderGridValue(data.obj.creditAuth,fields.auths));
-						$('#credit_auth').html(renderGridValue(data.obj.creditAuth,fields.auths));	
-						successdialog(data);
+			//var crediteditor;
+			crediteditor.sync();//赋值操作
+			var $credit = document.getElementById('member_creditAccessory').value;
+			if($credit.length <= 0){
+				alert("提交的内容不能为空！");
+			}else{
+				$.ajax({
+					type: "POST",
+					url: ctx+'/member/memberAccessoryForm.htm?whichAuth=creditAuth',
+					data: {"member_Accessory":crediteditor.html()},
+					success: function(data){
+						var data = $.parseJSON(data);
+						if(data.success){
+							$('#memberAuth_form_creditAuth').html(renderGridValue(data.obj.creditAuth,fields.auths));
+							$('#credit_auth').html(renderGridValue(data.obj.creditAuth,fields.auths));	
+							successdialog(data);
+						}
 					}
-				}
-			});
+				});
+			}
 		}
 		function submitCompanyAccessoryForm()
 		{
-			$.ajax({
-				type: "POST",
-				url: ctx+'/member/memberAccessoryForm.htm?whichAuth=companyAuth',
-				data: {"member_Accessory":companyeditor.html()},
-				success: function(data){
-					var data = $.parseJSON(data);
-					if(data.success){
-						$('#memberAuth_form_companyAuth').html(renderGridValue(data.obj.companyAuth,fields.auths));
-						$('#company_auth').html(renderGridValue(data.obj.companyAuth,fields.auths));	
-						successdialog(data);
+			//var companyeditor;
+			companyeditor.sync();//赋值操作
+			var $company = document.getElementById('member_companyAccessory').value;
+			if($company.length <= 0){
+				alert("提交的内容不能为空！");
+				return false;
+			}else{
+				$.ajax({
+					type: "POST",
+					url: ctx+'/member/memberAccessoryForm.htm?whichAuth=companyAuth',
+					data: {"member_Accessory":companyeditor.html()},
+					success: function(data){
+						var data = $.parseJSON(data);
+						if(data.success){
+							$('#memberAuth_form_companyAuth').html(renderGridValue(data.obj.companyAuth,fields.auths));
+							$('#company_auth').html(renderGridValue(data.obj.companyAuth,fields.auths));	
+							successdialog(data);
+						}
 					}
-				}
-			});
+				});
+			}
 		}
 		function successdialog(data){
 			KindEditor.ready(function(K) {
