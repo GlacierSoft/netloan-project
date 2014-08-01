@@ -241,11 +241,11 @@ public class ResourcesController extends AbstractController{
     	Map<String,Object> map=new HashMap<String,Object>();
     	List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
     	try {     
-    	File file=new File("E:\\NetloanSql");
+    	File file=new File("C:\\Program Files\\NetloanSql\\");
 	    long time=file.lastModified();//返回文件最后修改时间，是以个long型毫秒数
 	    String ctime = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new Date(time));
 	    String netlaon_name="netloan"+ctime+".sql";
-	    String fPath = "E:\\NetloanSql\\"+netlaon_name+"";  
+	    String fPath = "C:\\Program Files\\NetloanSql\\"+netlaon_name+"";  
 	    Runtime rt = Runtime.getRuntime();     
 
         // 调用 mysql 的 cmd:     

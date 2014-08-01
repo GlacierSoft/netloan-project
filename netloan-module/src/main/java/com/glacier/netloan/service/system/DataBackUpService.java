@@ -47,7 +47,7 @@ public class DataBackUpService {
 	            outStr = sb.toString(); 
 	            
 	            //创建隐藏文件夹存储备份数据
-	            File file_netloan=new File("E:\\NetloanSql");
+	            File file_netloan=new File("C:\\Program Files\\NetloanSql");
 	            if(!file_netloan.exists()||!file_netloan .isDirectory()){
 	            	file_netloan .mkdir();   
 	                String string=" attrib +H  "+file_netloan.getAbsolutePath(); 
@@ -57,7 +57,7 @@ public class DataBackUpService {
 	            	System.out.println("文件夹已创建!!!");
 	            }
 	            
-	            file_netloan=new File("E:\\NetloanSql\\ReadMe.txt");
+	            file_netloan=new File("C:\\Program Files\\NetloanSql\\ReadMe.txt");
 	            if(!file_netloan.exists()){
 	            	file_netloan.createNewFile();
 	            	FileWriter fw = new FileWriter(file_netloan);
@@ -72,7 +72,7 @@ public class DataBackUpService {
 	            String str="netloan"+sf.format(new Date())+".sql";
 	            
 	            // 要用来做导入用的sql目标文件：     
-	            FileOutputStream fout = new FileOutputStream("E:\\NetloanSql\\"+str+"");     
+	            FileOutputStream fout = new FileOutputStream("C:\\Program Files\\NetloanSql\\"+str+"");     
 	            OutputStreamWriter writer = new OutputStreamWriter(fout, "utf8");     
 	            writer.write(outStr);     
 	            // 这里如果用缓冲方式写入文件的话，会导致中文乱码，用flush()方法则可以避免     
