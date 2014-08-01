@@ -3,11 +3,7 @@ package com.glacier.netloan.service.account;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -41,7 +37,7 @@ import com.glacier.netloan.service.member.MemberStatisticsService;
 
 @Service("accountInvestService")
 @Transactional(readOnly=true,propagation=Propagation.REQUIRED)
-public class AccountInvestService {
+public class AccountInvestService  {
     
 	 @Autowired
 	 private AccountInvestMapper accountInvestMapper;
@@ -346,8 +342,7 @@ public class AccountInvestService {
 	}
 	 
 	 
-	// 后台定时任务
-	@PostConstruct
+	
 	// 监听设置
 	@Transactional(readOnly = false)
 	public void handleAccountInvest() {
@@ -553,5 +548,5 @@ public class AccountInvestService {
 		}
 		return wb;
 	}
-	  
+
 } 

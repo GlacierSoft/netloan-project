@@ -10,11 +10,7 @@
     <title>冰川网贷平台</title>
    	<!-- 引入公用的js和样式库 -->
 	<jsp:include page="inc.jsp"/>
-	
-	<script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/4.0.1/highcharts.js"></script>
-  <script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/4.0.1/modules/exporting.js"></script>
-	
-  </head>
+	</head>
 	<style type="text/css">
 		#tabsTemp td,th{
 			text-align: center;
