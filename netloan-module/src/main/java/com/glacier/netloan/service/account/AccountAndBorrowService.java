@@ -77,8 +77,7 @@ public class AccountAndBorrowService implements InitializingBean {
 	
 	@PostConstruct  
 	public void postConstruct() {  
-        	System.out.println("我是逾期说明，，我是 初始化bean 第一执行...............!!!!!");
-    		RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();
+        	RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();
     		repaymentNotesDetailExample.createCriteria().andRepayStateEqualTo("notRepay");
     		List<RepaymentNotesDetail>  repaymentNotesDetails = repaymentNotesDetailMapper.selectByExample(repaymentNotesDetailExample); // 查询所有状态为"未还"的还款明细列表
     		ReceivablesNotesDetailExample receivablesNotesDetailExample = new ReceivablesNotesDetailExample();

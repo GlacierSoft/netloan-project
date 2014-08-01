@@ -2,7 +2,10 @@
 <!-- 引入自定义权限标签 -->
 <%@ taglib prefix="glacierui" uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
 <%@ taglib  prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%    
+String path = request.getContextPath();    
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";    
+%>
 
 <script type="text/javascript">
 
@@ -242,7 +245,6 @@
 		
 	}
 	
-	
 	//地图查看
 	glacier.account_mgr.accountInvest_mgr.accountInvest.MapAccountInvest= function(){
         //创建地图实列
@@ -295,6 +297,19 @@
 	function doSaveInvestTest(){
 		location.href=ctx+'/do/accountInvest/expCheck.json';	
 	};
+	
+	
+	//数据录入
+	glacier.account_mgr.accountInvest_mgr.accountInvest.FindAccountInvestIn=function(){
+		$("#accountInvestInDailogTest").dialog({
+			title:"数据录入",
+		    width: 400,    
+			height: 100,
+			modal: true,
+		    closed: false  
+		});
+	}
+	
 	
 </script>
 
@@ -394,6 +409,30 @@
         </tr>   
     </table>   
 </div> 
+
+
+<!--自定义录入数据框  -->
+<div id="accountInvestInDailogTest" class="easyui-dialog"  buttons="#dlg-buttons-invest-In" closed="true">
+   <form method="post" id="form_in" enctype="multipart/form-data"  action="<%=basePath %>do/accountInvest/ExcelIn.json">
+         <table>   
+           <tr>           
+               <td> 选择数据导入文件:<input type="file" name="AccountFile" id="AccountFileIn"/><td>
+           </tr>                      
+         </table>                        
+  </form>
+</div>
+<div id="dlg-buttons-invest-In">   
+    <table cellpadding="0" cellspacing="0" style="width:100%">   
+        <tr>   
+            <td style="text-align:right">   
+                <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="doUpLoad();">提交</a>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#accountInvestInDailogTest').dialog('close');">关闭</a>   
+            </td>   
+        </tr>   
+    </table>   
+</div>
+
+
 <script>
 	$(function(){
 		//获取当前时间
@@ -404,8 +443,34 @@
 		$("#year_number").val(year_now);
 		$("#month_number").val(month_now);
 		
-	});
-
+		});
+	
+	
+	function doUpLoad(){
+		 var imgArr = ["xls","txt"];
+	     var file = $("#AccountFileIn").val();
+	     var len = file.length;
+	     var flag=true;
+	     if(len<=0)
+	          alert("请选择文件!!!");
+	     else{
+	    	 var ext = file.substring(len-3,len).toLowerCase();
+	    	 if($.inArray(ext,imgArr) == -1)
+	    		 flag=false;
+			 if(flag){
+				//$('#form_in').submit(); 
+				$("#form_in").form('submit',{
+					success:function(data){
+					    alert(data);	
+					}
+				});
+            }else
+	    		 alert("请重新选择!");
+	    	  
+	     }
+	}
+	 
+	
 	//用户自定义搜索条件
 	function doCheck(){
 		$.ajax({

@@ -19,7 +19,18 @@
  */
 package com.glacier.netloan.web.controller.system;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -221,5 +232,49 @@ public class ResourcesController extends AbstractController{
     public Object getPanelsByMenuId(String menuId) {
         return panelService.getPanelsByMenuId(menuId);
     }
+    
+    //数据还原
+    @RequestMapping(value="/dataBcakUp.json")
+    @ResponseBody
+    public Object dataBcakUp(){
+    	boolean flag=true;
+    	Map<String,Object> map=new HashMap<String,Object>();
+    	List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+    	try {     
+    	File file=new File("E:\\NetloanSql");
+	    long time=file.lastModified();//返回文件最后修改时间，是以个long型毫秒数
+	    String ctime = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new Date(time));
+	    String netlaon_name="netloan"+ctime+".sql";
+	    String fPath = "E:\\NetloanSql\\"+netlaon_name+"";  
+	    Runtime rt = Runtime.getRuntime();     
 
+        // 调用 mysql 的 cmd:     
+        Process child = rt.exec("C://Program Files//MySQL//MySQL Server 5.0//bin//mysql.exe -uroot -proot netloan");     
+        OutputStream out = child.getOutputStream();//控制台的输入信息作为输出流     
+        String inStr;     
+        StringBuffer sb = new StringBuffer("");     
+        String outStr;     
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fPath), "utf8"));     
+        while ((inStr = br.readLine()) != null) {     
+            sb.append(inStr + "\r\n");     
+        }     
+        outStr = sb.toString();     
+
+        OutputStreamWriter writer = new OutputStreamWriter(out, "utf8");     
+        writer.write(outStr);     
+        //这里如果用缓冲方式写入文件的话，会导致中文乱码，用flush()方法则可以避免     
+        writer.flush();     
+        //这里是关闭输入输出流     
+        out.close();     
+        br.close();     
+        writer.close();     
+     } catch (Exception e) { 
+    	flag=false;
+        //e.printStackTrace();     
+    }     
+      map.put("data", flag);
+      list.add(map);
+      return list;
+    }
+    
 }

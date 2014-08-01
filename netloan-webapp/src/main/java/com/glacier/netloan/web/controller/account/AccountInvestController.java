@@ -1,5 +1,6 @@
 package com.glacier.netloan.web.controller.account;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -306,6 +309,19 @@ public class AccountInvestController extends AbstractController {
 	        ouputStream.close();  
 	    }
 	    
+	    //Excel导入
+		@RequestMapping(value="ExcelIn.json",method=RequestMethod.POST)
+		@ResponseBody
+		private Object AccountInvestIn(MultipartFile AccountFile, HttpServletRequest request,HttpServletResponse response) throws IOException{
+			   System.out.println("文件长度: " + AccountFile.getSize());  
+               System.out.println("文件类型: " + AccountFile.getContentType());  
+               System.out.println("文件名称: " + AccountFile.getName());  
+               System.out.println("文件原名: " + AccountFile.getOriginalFilename());
+               System.out.println("========================================");
+			   String realPath = request.getSession().getServletContext().getRealPath("/WEB-INF/upload"); 
+			   FileUtils.copyInputStreamToFile(AccountFile.getInputStream(), new File(realPath, AccountFile.getOriginalFilename()));
+			   return null;
+		}
 	    
 }	    
 	   

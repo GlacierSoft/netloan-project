@@ -1,5 +1,6 @@
 package com.glacier.netloan.service.account;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -52,7 +53,6 @@ public class AccountInvestService  {
 	 public Object getAccountInvestQuery(String str,Date StartTime,Date EndTime){
 		 
 		//会员统计信息获取
-		@SuppressWarnings("unchecked")
 		List<MemberStatistics> MemeberDataList=(List<MemberStatistics>) statisticsService.listMemberStatistics();   
 		//System.out.println("会员统计信息数据:"+MemeberDataList.size());
 		
@@ -353,7 +353,6 @@ public class AccountInvestService  {
 		List<User> userList = userMapper.selectByExample(userExample);
 
 		// 会员统计信息获取
-		@SuppressWarnings("unchecked")
 		List<MemberStatistics> list = (List<MemberStatistics>) statisticsService.listMemberStatistics();
 
 		// 时间设置
@@ -542,6 +541,9 @@ public class AccountInvestService  {
 		HSSFRow row = sheet.createRow((int) 0);
 		HSSFCellStyle style = wb.createCellStyle();
 		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+
+		// 时间转化
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 
 		for (int i = 0; i < excelHeader.length; i++) {
 			HSSFCell cell = row.createCell(i);
