@@ -1,5 +1,4 @@
-package com.glacier.netloan.service.borrow;
-
+package com.glacier.netloan.service.borrow; 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -142,7 +141,8 @@ public class BorrowingOverdueService {
 		    	RepaymentNotes repaymentNotes = repaymentNotesMapper.selectByPrimaryKey(repaymentNotesDetail.getRepayNotesId());//获取还款记录信息
 //		    	repaymentNotes.setRepaymentTotal(repaymentNotes.getRepaymentTotal() + currOverDueMoney);//设置还款记录的还款总金额
 //		    	repaymentNotes.setUpdateTime(new Date());
-//		    	count=repaymentNotesMapper.updateByPrimaryKeySelective(repaymentNotes);//更新还款记录
+//		    	count=repaymentNotesMapper.updateByPrimaryKeySelective(repaymentNotes);//更新还款记录 
+		    	 
 		    	if(count==1){
 		    		//更新会员统计中逾期还款次数+1，逾期罚款金额和逾期罚款利息
 			    	//第一步根据还款记录中的借款ID取出完整的借款信息
