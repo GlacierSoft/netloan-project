@@ -109,6 +109,11 @@ public class ParameterAgeService {
             returnResult.setMsg("会员年龄别称重复");
             return returnResult;
         }
+        if(age.getAgeEnd()<age.getAgeBegin()){
+        	 returnResult.setMsg("会员结束年龄必须大于开始年龄!");
+        	 
+             return returnResult;
+        }
         age.setAgeId(RandomGUID.getRandomGUID());
         age.setCreater(pricipalUser.getUserId());
         age.setCreateTime(new Date());

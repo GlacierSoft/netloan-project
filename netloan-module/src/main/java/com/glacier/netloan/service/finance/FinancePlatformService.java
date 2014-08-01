@@ -101,6 +101,21 @@ public class FinancePlatformService {
         
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
+        //判断账号代码和账号名称是否相同
+        FinancePlatformExample financePlatformExample = new FinancePlatformExample();
+        financePlatformExample.createCriteria().andPlatformCodeEqualTo(financePlatform.getPlatformCode());
+        int codeNum = financePlatformMapper.countByExample(financePlatformExample);
+        FinancePlatformExample financePlatformExampleTwo = new FinancePlatformExample();
+        financePlatformExampleTwo.createCriteria().andPlatformNameEqualTo(financePlatform.getPlatformName());
+        int nameNum = financePlatformMapper.countByExample(financePlatformExampleTwo);
+        if(codeNum > 0){
+        	returnResult.setMsg("平台资金账号代码信息不能重复，保存失败");
+        	return returnResult;
+        }
+        if(codeNum > 0 || nameNum >0){
+        	returnResult.setMsg("平台资金账号名称信息不能重复，保存失败");
+        	return returnResult;
+        }
         
         financePlatform.setFinancePlatformId(RandomGUID.getRandomGUID());
         financePlatform.setCreater(pricipalUser.getUserId());
@@ -111,9 +126,9 @@ public class FinancePlatformService {
         count = financePlatformMapper.insert(financePlatform);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("平台资金记录信息已保存");
+            returnResult.setMsg("平台资金信息已保存");
         } else {
-            returnResult.setMsg("发生未知错误，平台资金记录信息保存失败");
+            returnResult.setMsg("发生未知错误，平台资金信息保存失败");
         }
         return returnResult;
     }

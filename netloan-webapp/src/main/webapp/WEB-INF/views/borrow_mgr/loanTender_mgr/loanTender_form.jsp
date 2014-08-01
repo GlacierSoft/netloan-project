@@ -96,7 +96,7 @@
 		<tr>
 			<td>反担保方式id：</td>
 			<td><input id="loanTender_mgr_loanTender_form_antiGuaranteeId" name="antiGuaranteeId" class="easyui-validatebox spinner" style="width:198px" value="${loanTenderData.antiGuaranteeId}"/></td>
-			<td>描述：</td>
+			<td>备注：</td>
 			<td><input id="loanTender_mgr_loanTender_form_remark" name="remark" class="easyui-validatebox spinner" style="width:198px" value="${loanTenderData.remark}"/></td>
 		</tr>
 		<tr>
@@ -115,4 +115,179 @@ $('#loanTender_mgr_loanTender_form_lowestLoanAmount').numberbox({
 		groupSeparator:',',
 		missingMessage:'请填写最小借款额度'
 	});
+$('#loanTender_mgr_loanTender_form_largestLoanAmount').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写最大借款额度'
+});
+$('#loanTender_mgr_loanTender_form_loanMoneyMultiple').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写金额倍数'
+});
+$('#loanTender_mgr_loanTender_form_lowestApr').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写最小年利率'
+});
+$('#loanTender_mgr_loanTender_form_largestApr').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写最大年利率'
+});
+$('#loanTender_mgr_loanTender_form_loanDeadlinesMon').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写借款期限(月标),如:1,2,3,4,5,7,9'
+});
+$('#loanTender_mgr_loanTender_form_loanDeadlinesDay').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写借款期限(天标),如:1,2,3,4,5'
+});
+$('#loanTender_mgr_loanTender_form_waitBidDeadlines').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写筹标期限,如:1,2,3,4,5'
+});
+$('#loanTender_mgr_loanTender_form_lowestBidMoney').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写最低投标金额,如:100,200,500,1000,10000'
+});
+$('#loanTender_mgr_loanTender_form_largestBidMoney').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写最高投标金额,如:100,200,500,1000,10000'
+});
+$('#loanTender_mgr_loanTender_form_lowestRewardPro').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写最低奖励比例'
+});
+
+$('#loanTender_mgr_loanTender_form_largestRewardPro').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写最高奖励比例'
+});
+$('#loanTender_mgr_loanTender_form_lowestRewardMoney').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写最低奖励金额'
+});
+$('#loanTender_mgr_loanTender_form_largestRewardMoney').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写最高奖励金额'
+});
+$('#loanTender_mgr_loanTender_form_vipFreezeBail').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写vip冻结保证金'
+});
+
+$('#loanTender_mgr_loanTender_form_generalFreezeBail').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写普通会员冻结保证金'
+});
+
+$('#loanTender_mgr_loanTender_form_advOverMonth').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写垫付逾期天数（月标）'
+});
+
+$('#loanTender_mgr_loanTender_form_advOverDay').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写垫付逾期天数（天标）'
+});
+$('#loanTender_mgr_loanTender_form_loanManaFeeMonth').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写借款管理费(月)'
+});
+$('#loanTender_mgr_loanTender_form_loanManaFeeDay').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写借款管理费（天）'
+});
+
+$('#loanTender_mgr_loanTender_form_limitedPeriods').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写限定期数'
+});
+
+$('#loanTender_mgr_loanTender_form_overLimitedFee').numberbox({
+	required:true,
+	min:0,
+	max:99999999,
+	precision:0,
+	groupSeparator:',',
+	missingMessage:'请填写超出限定期数每月的借款费'
+});
+
 </script>

@@ -12,14 +12,14 @@
 						<td>会员名称：</td>
 						<td>
 							<input type="hidden" id="member_mgr_member_form_memberId" name="memberId" value="${memberData.memberId}" />
-							<input id="member_mgr_member_form_memberName" name="memberName" style="width:268px" value="${memberData.memberName}" class="easyui-validatebox spinner"  required="true"  validType="length[1,10]" invalidMessage="会员名称必须在1到10个字符之间"/>
+							<input onkeyup="value=value.replace(/[\d]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[\d]/g,''))" id="member_mgr_member_form_memberName" name="memberName" style="width:268px" value="${memberData.memberName}" class="easyui-validatebox spinner"  required="true"  validType="length[1,10]" invalidMessage="会员名称必须在1到10个字符之间"/>
 						</td>
 						<td style="padding-left:10px;">会员真实姓名：</td>
-						<td><input id="member_mgr_member_form_memberRealName" name="memberRealName" style="width:268px" value="${memberData.memberRealName}" class="easyui-validatebox spinner"  required="true"  validType="length[1,10]" invalidMessage="会员真实姓名必须在1到10个字符之间"/></td>
+						<td><input onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" id="member_mgr_member_form_memberRealName" name="memberRealName" style="width:268px" value="${memberData.memberRealName}" class="easyui-validatebox spinner"  required="true"  validType="length[1,10]" invalidMessage="会员真实姓名必须在1到10个字符之间"/></td>
 					</tr>
 					<tr> 
 						<td>最高学历：</td>
-						<td><input id="member_mgr_member_form_educational" name="educational" class="easyui-validatebox spinner" style="width:268px" value="${memberData.educational}"/></td>
+						<td><input onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" id="member_mgr_member_form_educational" name="educational" class="easyui-validatebox spinner" style="width:268px" value="${memberData.educational}"/></td>
 					
 						<td style="padding-left:10px;">会员年龄：</td>
 						<td><input id="member_mgr_member_form_memberAge" name="memberAge" value="${memberData.memberAge}" class="easyui-numberspinner spinner" data-options="min:0,max:99,required:true,missingMessage:'请填写年龄'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
@@ -67,7 +67,7 @@
 					</tr>
 					<tr>
 						<td>籍贯：</td>
-						<td><input id="member_mgr_member_form_hometown" name="hometown" class="easyui-validatebox spinner" style="width:268px" required="true" value="${memberData.hometown}"/></td>
+						<td><input onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" id="member_mgr_member_form_hometown" name="hometown" class="easyui-validatebox spinner" style="width:268px" required="true" value="${memberData.hometown}"/></td>
 						<td style="padding-left:10px;">现居住地址：</td>
 						<td><input id="member_mgr_member_form_liveAddress" name="liveAddress" class="easyui-validatebox spinner" style="width:268px" value="${memberData.liveAddress}"  required="true" /></td>
 					</tr>
@@ -105,7 +105,7 @@
 					<tr>
 						<td>单位名称：</td>
 						<td colspan="3">
-							<input type="hidden" id="memberWork_mgr_memberWork_form_memberId" name="memberId" value="${memberWorkData.memberId}" />
+							<input onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" type="hidden" id="memberWork_mgr_memberWork_form_memberId" name="memberId" value="${memberWorkData.memberId}" />
 							<input id="member_mgr_member_form_unitName" name="unitName" value="${memberWorkData.unitName}" style="width:268px"  class="easyui-validatebox spinner" data-options="required:true,validType:'length[1,25]'" invalidMessage="单位名称必须在1到25个字符之间" />
 						</td>
 					</tr>
