@@ -59,6 +59,7 @@ public class FinanceBankCardService {
 	 */
     @Transactional(readOnly = false)
     public Object addFinanceBankCardWebsit(FinanceBankCard financeBankCard) {
+    	System.out.println("会员ID："+financeBankCard.getMemberId());
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         FinanceBankCardExample financeBankCardExample = new FinanceBankCardExample();
         int count = 0;
@@ -67,8 +68,9 @@ public class FinanceBankCardService {
         bankCount = financeBankCardMapper.selectByExample(financeBankCardExample).size();
         if(bankCount < 2){
         	// 防止会员银行卡名称重复
-            financeBankCardExample.createCriteria().andCardNumberEqualTo(financeBankCard.getCardNumber());
-            count = financeBankCardMapper.countByExample(financeBankCardExample);// 查找相同名称的会员银行卡数量
+        	FinanceBankCardExample financeBankCardExampleCardNum = new FinanceBankCardExample();
+        	financeBankCardExampleCardNum.createCriteria().andCardNumberEqualTo(financeBankCard.getCardNumber());
+            count = financeBankCardMapper.countByExample(financeBankCardExampleCardNum);// 查找相同名称的会员银行卡数量
             if (count > 0) {
                 returnResult.setMsg("会员银行卡号不能重复");
                 return returnResult;

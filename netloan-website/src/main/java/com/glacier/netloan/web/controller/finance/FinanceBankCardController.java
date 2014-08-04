@@ -40,11 +40,11 @@ public class FinanceBankCardController extends AbstractController {
 	
 	@RequestMapping(value = "/addBankCard.htm")
 	@ResponseBody
-	public Object addBankCard(@Valid FinanceBankCard bankCard, BindingResult bindingResult, String memberId){
+	public Object addBankCard(@Valid FinanceBankCard bankCard, BindingResult bindingResult){
 		if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
-		bankCard.setMemberId(memberId);
+		//bankCard.setMemberId(memberId);
 		//JqReturnJson returnResult = (JqReturnJson) bankCardService.addFinanceBankCardWebsit(bankCard);
 		
 		return bankCardService.addFinanceBankCardWebsit(bankCard);

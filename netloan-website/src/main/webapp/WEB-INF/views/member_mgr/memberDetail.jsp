@@ -1293,7 +1293,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						                	if(data.success){
 						                		window.location.href="${ctx}/member/memberDetail.htm?addBankCard=addBankCard";
 						                	}else{
-						                		$("form[id='bankCardForm'] input").val("");	
+						                		//$("form[id='bankCardForm'] input").val("");	
 						                	}
 						                }
 						        }
