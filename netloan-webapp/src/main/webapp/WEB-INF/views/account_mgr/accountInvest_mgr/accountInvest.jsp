@@ -447,6 +447,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 	function doUpLoad(){
+		 alert("啦啦啦啦!!!!");
 		 var imgArr = ["xls","txt"];
 	     var file = $("#AccountFileIn").val();
 	     var len = file.length;
