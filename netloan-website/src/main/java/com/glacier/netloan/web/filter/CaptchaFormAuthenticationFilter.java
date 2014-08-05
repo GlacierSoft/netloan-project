@@ -71,7 +71,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
         char[] charPassword = null; 
         if (StringUtils.isNotBlank(password)) {
             charPassword = password.toCharArray();
-        }
+        } 
         return new CaptchaUsernamePasswordToken(username, charPassword, rememberMe, host, captcha);
     }
 
@@ -85,10 +85,10 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             Subject subject = getSubject(request, response);
             subject.login(token);
             HttpSession session = ((HttpServletRequest) request).getSession(false);
-            Member member = (Member) subject.getPrincipal();
+            Member member = (Member) subject.getPrincipal(); 
             session.setAttribute("currentMember", member);
             session.setAttribute("currentMemberWork", memberService.getMemberWork(member.getMemberId()));
-            int messageNoticCount = loginTotalMessageNotic(member.getMemberId());
+            int messageNoticCount = loginTotalMessageNotic(member.getMemberId()); 
             session.setAttribute("messageNoticCount", messageNoticCount);
             return onLoginSuccess(token, subject, request, response);
         } catch (AuthenticationException e) {

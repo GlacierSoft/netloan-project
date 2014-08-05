@@ -18,9 +18,11 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.basicdatas.ParameterCreditTypeMapper;
+import com.glacier.netloan.dao.basicdatas.ParameterIntegralTypeMapper;
 import com.glacier.netloan.dao.finance.FinanceMemberMapper;
 import com.glacier.netloan.dao.member.MemberAuthMapper;
 import com.glacier.netloan.dao.member.MemberCreditIntegralMapper;
+import com.glacier.netloan.dao.member.MemberIntegralMapper;
 import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.member.MemberMessageNoticeMapper;
 import com.glacier.netloan.dao.member.MemberStatisticsMapper;
@@ -31,11 +33,14 @@ import com.glacier.netloan.dto.query.member.MemberQueryDTO;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditType;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditTypeExample;
+import com.glacier.netloan.entity.basicdatas.ParameterIntegralType;
+import com.glacier.netloan.entity.basicdatas.ParameterIntegralTypeExample;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberAuthExample;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
 import com.glacier.netloan.entity.member.MemberCreditIntegral;
 import com.glacier.netloan.entity.member.MemberExample;
+import com.glacier.netloan.entity.member.MemberIntegral;
 import com.glacier.netloan.entity.member.MemberMessageNotice;
 import com.glacier.netloan.entity.member.MemberExample.Criteria;
 import com.glacier.netloan.entity.member.MemberToken;
@@ -92,8 +97,11 @@ public class MemberService {
 	@Autowired
 	private MemberStatisticsMapper memberStatisticsMapper;
 	
+	@Autowired
+	private ParameterIntegralTypeMapper parameterIntegralTypeMapper;
 	
-	
+	@Autowired
+	private MemberIntegralMapper memberIntegralMapper;
 	/**
 	 * 判断用用户的信息是否完善
 	 */
@@ -805,6 +813,47 @@ public class MemberService {
        }
     	return returnResult;
     }
+    
+    
+   /* 
+    *//**
+     * @Title: retrievePassword 
+     * @Description: TODO(会员登录，如果是当天第一次登陆就新增登录积分，同时修改会员的积分) 
+     * @param @param member
+     * @param @param  
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     *//*
+    @Transactional(readOnly = false) 
+    public void updateIntegra(String memberId) { 
+      ParameterIntegralTypeExample parameterIntegralTypeExample=new ParameterIntegralTypeExample();
+      parameterIntegralTypeExample.createCriteria().andIntegralTypeEqualTo("login").andChangeTypeEqualTo("increase");
+      try{ 
+    	  ParameterIntegralType parameterIntegralType=parameterIntegralTypeMapper.selectByExample(parameterIntegralTypeExample).get(0);
+    	 if(parameterIntegralType!=null){ 
+       	     MemberIntegral memberIntegral=new MemberIntegral();
+        	 memberIntegral.setMemberIntegralId(RandomGUID.getRandomGUID());
+        	 memberIntegral.setMemberId(memberId);
+        	 memberIntegral.setType(parameterIntegralType.getIntegralType());
+        	 memberIntegral.setChangeType(parameterIntegralType.getChangeType());
+        	 memberIntegral.setChangeValue(parameterIntegralType.getChangeValue());
+        	 memberIntegral.setRemark(parameterIntegralType.getRemark());
+        	 memberIntegral.setCreater(getuserId());
+        	 memberIntegral.setCreateTime(new Date());
+        	 memberIntegral.setUpdateTime(new Date());
+        	 memberIntegral.setUpdater(getuserId());
+        	 memberIntegralMapper.insert(memberIntegral); 
+        	 Member member=memberMapper.selectByPrimaryKey(memberId);
+        	 member.setIntegral(member.getIntegral()+parameterIntegralType.getChangeValue());
+        	 memberMapper.updateByPrimaryKeySelective(member);  
+    	 }  
+         }catch(Exception ce){
+    	  System.out.println(ce);
+      }
+   }*/
+     
+    
      
        //获取管理员id
       public String getuserId(){ 

@@ -109,14 +109,13 @@ public class FinanceRechargeSetService {
     public Object addRechargeSet(FinanceRechargeSet financeRechargeSet) {
     	
         Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
+        User pricipalUser = (User) pricipalSubject.getPrincipal(); 
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         FinanceRechargeSetExample financeRechargeSetExample = new FinanceRechargeSetExample();
         int count = 0;
         // 防止会员充值设置名称重复
-        financeRechargeSetExample.createCriteria().andRechargeSetNameEqualTo(financeRechargeSet.getRechargeSetName());
-        count = financeRechargeSetMapper.countByExample(financeRechargeSetExample);// 查找相同名称的会员充值设置数量
+        financeRechargeSetExample.createCriteria().andRechargeSetNameEqualTo(financeRechargeSet.getRechargeSetName()).andMemberTypeEqualTo(financeRechargeSet.getMemberType());
+         count = financeRechargeSetMapper.countByExample(financeRechargeSetExample);// 查找相同名称的会员充值设置数量
         if (count > 0) {
             returnResult.setMsg("会员充值设置名称重复");
             return returnResult;
@@ -152,8 +151,9 @@ public class FinanceRechargeSetService {
         FinanceRechargeSetExample financeRechargeSetExample = new FinanceRechargeSetExample();
         int count = 0;
         // 防止会员充值设置名称重复
-        financeRechargeSetExample.createCriteria().andFinanceRechargeSetIdNotEqualTo(financeRechargeSet.getFinanceRechargeSetId()).andRechargeSetNameEqualTo(financeRechargeSet.getRechargeSetName());
-        count = financeRechargeSetMapper.countByExample(financeRechargeSetExample);// 查找相同名称的会员充值设置数量
+        financeRechargeSetExample.createCriteria().andFinanceRechargeSetIdNotEqualTo(financeRechargeSet.getFinanceRechargeSetId())
+        .andRechargeSetNameEqualTo(financeRechargeSet.getRechargeSetName()).andMemberTypeEqualTo(financeRechargeSet.getMemberType());
+         count = financeRechargeSetMapper.countByExample(financeRechargeSetExample);// 查找相同名称的会员充值设置数量
         if (count > 0) {
             returnResult.setMsg("会员充值设置名称重复");
             return returnResult;
@@ -183,7 +183,11 @@ public class FinanceRechargeSetService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "RechargeSetList_audit")
     public Object auditRechargeSet(FinanceRechargeSet financeRechargeSet) {
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
+        if(financeRechargeSet.getAuditState().equals("authstr")){
+        	 returnResult.setMsg("无效的操作，请选择是否通过！！"); 
+             return returnResult; 
+        } 
         int count = 0;
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();

@@ -99,7 +99,7 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
     	CaptchaUsernamePasswordToken token = (CaptchaUsernamePasswordToken) authcToken;
-        String username = token.getUsername();
+        String username = token.getUsername(); 
         if (null != username && !"".equals(username)) {
             MemberTokenExample memberTokenExample = new MemberTokenExample();
             memberTokenExample.createCriteria().andUsernameEqualTo(username);
@@ -143,12 +143,17 @@ public class MemberPermissionsRealm extends AuthorizingRealm {
       		    List<User> users = userMapper.selectByExample(userExample); 
       		    String usid=users.get(0).getUserId();
                 //取出会员上次登录的时间
-               lastTokenMember=memberMapper.selectByPrimaryKey(principalMember.getMemberId());
+                lastTokenMember=memberMapper.selectByPrimaryKey(principalMember.getMemberId());
                 Date da=principalMember.getLastLoginTime();
                 Date datime=new Date();
                 @SuppressWarnings("deprecation")
 				int boo=(da.getYear()+da.getDay())-(datime.getYear()+datime.getDay()); 
+              //	System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+boo);
+
                 if(boo!=0){
+                  //	System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+boo);
+
+                	//System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+lastTokenMember);
                 	//如果上一次登录时间和现在登录时间不是同一天，那就更改会员的积分，和新增登录积分记录
                     //取出登录奖励积分对象
         			 ParameterIntegralTypeExample  parameterIntegralTypeExample=new ParameterIntegralTypeExample();
