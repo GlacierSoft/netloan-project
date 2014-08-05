@@ -233,7 +233,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div id="layout_north_kzmbMenu" style="width: 100px; display: none;">
 					<div onclick="userModifyPsd();" data-options="iconCls:'icon-edit'">修改密码</div>
 					<div class="menu-sep"></div>	
-					<div onclick="checkAuth();" data-options="iconCls:'icon-dortmund-customers'">查看权限</div>
+					<!-- <div onclick="checkAuth();" data-options="iconCls:'icon-dortmund-customers'">查看权限</div> -->
 					<div class="menu-sep"></div>
 					<div onclick="doBackUp();" data-options="iconCls:'icon-dortmund-customers'" title="还原数据为前一天数据!!">数据还原</div>
 				</div>

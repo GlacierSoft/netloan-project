@@ -197,13 +197,13 @@ public class FinanceRechargeService {
         		   boolean boo =updatFinanceRecharge(financeRecharge,pricipalMember.getMemberId(),0);//其他的关联操作，抽出在另外一个方法
         		   if(boo){//判断关联操作是否一起成功
         			   returnResult.setSuccess(true);
-                       returnResult.setMsg("[" + financeRecharge.getRechargeCode() + "] 会员充值记录信息已审核"); 
+                       returnResult.setMsg("会员[" + pricipalMember.getMemberName()+ "] 充值记录信息已审核"); 
         		   }else{
                   	 returnResult.setMsg("发生未知错误，会员充值记录信息审核失败");
                    }
         		}else if("authstr".equals(financeRecharge.getAuditState())){//状态为待审核时进行的方法
         			returnResult.setSuccess(true);
-                    returnResult.setMsg("[" + financeRecharge.getRechargeCode() + "] 所选的充值方式为线下充值,请耐心等待审核");
+                    returnResult.setMsg("所选的充值方式为线下充值,请耐心等待审核");
         		}
         	} 
          } else {

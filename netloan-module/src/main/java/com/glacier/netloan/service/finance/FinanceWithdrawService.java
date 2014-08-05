@@ -279,7 +279,7 @@ public class FinanceWithdrawService {
         count = financeWithdrawMapper.insert(financeWithdraw);
         if (count == 1) {
             returnResult.setSuccess(true);
-            returnResult.setMsg("[" + financeWithdraw.getWithdrawCode() + "] 会员提现信息提交成功，等待审核中");
+            returnResult.setMsg("会员[" +pricipalMember.getMemberName()+"] 提现信息提交成功，等待审核中");
         } else {
             returnResult.setMsg("发生未知错误，会员提现记录信息保存失败");
         }

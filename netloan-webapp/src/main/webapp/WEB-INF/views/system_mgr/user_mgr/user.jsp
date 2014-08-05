@@ -35,11 +35,11 @@
 		remoteSort: true,//开启远程排序，默认为false
 		idField:'userId',
 		columns:[[
-			{
+			/* {
 				field:'userId',
 				title:'ID',
 				checkbox:true
-			},{
+			}, */{
 				field:'username',
 				title:'用户名',
 				width:120,

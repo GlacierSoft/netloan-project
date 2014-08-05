@@ -124,7 +124,7 @@
 	//点击增加按钮触发方法
 	glacier.website_mgr.announcement_mgr.announcement.addAnnouncement = function(){
 		glacier.basicAddOrEditDialog({
-			title : '【公共管理】- 增加',
+			title : '【公告管理】- 增加',
 			width : 720,
 			height : 500,
 			queryUrl : ctx + '/do/announcement/intoForm.htm',
@@ -138,7 +138,7 @@
 	glacier.website_mgr.announcement_mgr.announcement.editAnnouncement = function(){
 		var row = glacier.website_mgr.announcement_mgr.announcement.announcementDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '【公共管理】- 编辑('+row.webAnnTheme+')',
+			title : '【公告管理】- 编辑('+row.webAnnTheme+')',
 			width : 720,
 			height : 500,
 			queryUrl : ctx + '/do/announcement/intoForm.htm',
