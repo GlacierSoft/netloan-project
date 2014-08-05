@@ -23,8 +23,13 @@ import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.entity.borrow.BorrowingLoanExample;
 import com.glacier.netloan.entity.borrow.BorrowingLoanExample.Criteria;
 
-
-
+/**
+ * @ClassName: AccountBorrowService
+ * @Description: TODO(借款统计业务层) 
+ * @author junjie.zheng
+ * @email 1203807137@QQ.com
+ * @date 2014-8-5上午8:57:51
+ */
 
 @Service
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)

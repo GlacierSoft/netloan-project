@@ -30,7 +30,13 @@ import com.glacier.netloan.entity.member.MemberExample;
 import com.glacier.netloan.entity.member.MemberWork;
 import com.glacier.netloan.entity.member.MemberExample.Criteria;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
-
+/**
+ * @ClassName: AccountLoginService
+ * @Description: TODO(登录统计业务层) 
+ * @author junjie.zheng
+ * @email 1203807137@QQ.com
+ * @date 2014-8-5上午8:57:51
+ */
 
 @Service
 @Transactional(readOnly = true ,propagation = Propagation.REQUIRED)

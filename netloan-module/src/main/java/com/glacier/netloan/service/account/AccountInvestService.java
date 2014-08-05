@@ -35,6 +35,14 @@ import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.service.member.MemberStatisticsService;
 
 
+/**
+ * @ClassName: AccountInvestService
+ * @Description: TODO( 投资统计业务层) 
+ * @author junjie.zheng
+ * @email 1203807137@QQ.com
+ * @date 2014-8-5上午8:57:51
+ */
+
 @Service("accountInvestService")
 @Transactional(readOnly=true,propagation=Propagation.REQUIRED)
 public class AccountInvestService  {

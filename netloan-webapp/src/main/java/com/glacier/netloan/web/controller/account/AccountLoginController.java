@@ -29,13 +29,13 @@ import com.glacier.netloan.dto.query.member.MemberQueryDTO;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.service.account.AccountLoginService;
 
-
-/***
- * 
- * 会员登陆统计信息
- * 
- * **/
-
+/**
+ * @ClassName: AccountLogintController 
+ * @Description: TODO(登录统计控制层) 
+ * @author junjie.zheng
+ * @email 1203807137@QQ.com
+ * @date 2014-8-5上午8:57:51
+ */
 
 @Controller
 @RequestMapping("/accountLogin")

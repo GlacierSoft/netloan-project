@@ -237,18 +237,23 @@ public class ResourcesController extends AbstractController{
     @RequestMapping(value="/dataBcakUp.json")
     @ResponseBody
     public Object dataBcakUp(){
-		boolean flag = true;
+    	//获取当前项目目录
+    	String sqlPath=System.getProperty("user.dir");
+    	//路径格式转化
+	    String sqlWebapp=sqlPath.replaceAll("\\\\","\\\\\\\\");
+			
+    	boolean flag = true;
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		try {
-			File file = new File("C:\\Program Files\\NetloanSql\\");
+			File file = new File(""+sqlWebapp+"\\src\\main\\webapp\\resources\\backupsql");
 			long time = file.lastModified();// 返回文件最后修改时间，是以个long型毫秒数
 			String ctime = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new Date(time));
 			String netlaon_name = "netloan" + ctime + ".sql";
-			String fPath = "C:\\Program Files\\NetloanSql\\" + netlaon_name+ "";
+			String fPath = ""+sqlWebapp+"\\src\\main\\webapp\\resources\\backupsql\\" + netlaon_name+ "";
 			Runtime rt = Runtime.getRuntime();
-            // 调用 mysql 的 cmd:
-			Process child = rt.exec("C://Program Files//MySQL//MySQL Server 5.0//bin//mysql.exe -uroot -proot netloan");
+            // 调用 mysql 的 cmd
+			Process child = rt.exec(""+sqlWebapp+"\\src\\main\\webapp\\resources\\mysql\\mysql.exe -uroot -proot netloan");
 			OutputStream out = child.getOutputStream();// 控制台的输入信息作为输出流
 			String inStr;
 			StringBuffer sb = new StringBuffer("");
@@ -260,15 +265,16 @@ public class ResourcesController extends AbstractController{
 			outStr = sb.toString();
             OutputStreamWriter writer = new OutputStreamWriter(out, "utf8");
 			writer.write(outStr);
-			// 这里如果用缓冲方式写入文件的话，会导致中文乱码，用flush()方法则可以避免
+			// 如果用缓冲方式写入文件的话，会导致中文乱码，用flush()方法则可以避免
 			writer.flush();
-			// 这里是关闭输入输出流
+			// 关闭输入输出流
 			out.close();
 			br.close();
 			writer.close();
+			System.out.println("/**还原成功!!!!!**/");
 		} catch (Exception e) {
 			flag = false;
-			// e.printStackTrace();
+			System.out.println("/**还原失败!!!!!**/");
 		}
 		map.put("data", flag);
 		list.add(map);

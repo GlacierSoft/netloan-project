@@ -34,12 +34,13 @@ import com.glacier.netloan.dto.query.account.AccountInvestQueryDTO;
 import com.glacier.netloan.entity.account.AccountInvest;
 import com.glacier.netloan.service.account.AccountInvestService;
 
-
 /**
- * 
- * 会员投标统计信息
- * ***/
-
+ * @ClassName: AccountInvestController 
+ * @Description: TODO(投资统计控制层) 
+ * @author junjie.zheng
+ * @email 1203807137@QQ.com
+ * @date 2014-8-5上午8:57:51
+ */
 
 @Controller
 @RequestMapping("/accountInvest")
@@ -120,7 +121,7 @@ public class AccountInvestController extends AbstractController {
 			  year_number=(Integer) session.getAttribute("year_number");
 			  month_number=(Integer) session.getAttribute("month_number");  
 		  }catch(Exception e){
-			  System.out.println("异常已抛出!");
+			  e.printStackTrace();
 		  }
 		  List<AccountInvest> list_invest=(List<AccountInvest>) accountInvestService.FindAccountInvest(year_number,month_number);
 		  //定义变量
@@ -281,7 +282,6 @@ public class AccountInvestController extends AbstractController {
 	        }else{
 	        	list.add(accountInvestDataList);	
 	        }
-	        //System.out.println("我是没问题的那 !!我的数据长度是:"+list.size());
 	        HSSFWorkbook wb = accountInvestService.export(list);   
 	        response.setContentType("application/vnd.ms-excel"); 
 	        SimpleDateFormat sf=new SimpleDateFormat("yyyyMMddHHmmss");//yyyy-MM-dd HH:mm:ss
@@ -313,12 +313,11 @@ public class AccountInvestController extends AbstractController {
 		@RequestMapping(value="ExcelIn.json",method=RequestMethod.POST)
 		@ResponseBody
 		private Object AccountInvestIn(MultipartFile AccountFile, HttpServletRequest request,HttpServletResponse response) throws IOException{
-			   System.out.println("文件长度: " + AccountFile.getSize());  
-               System.out.println("文件类型: " + AccountFile.getContentType());  
-               System.out.println("文件名称: " + AccountFile.getName());  
-               System.out.println("文件原名: " + AccountFile.getOriginalFilename());
-               System.out.println("========================================");
-			   String realPath = request.getSession().getServletContext().getRealPath("/WEB-INF/upload"); 
+			   //System.out.println("文件长度: " + AccountFile.getSize());  
+               //System.out.println("文件类型: " + AccountFile.getContentType());  
+               //System.out.println("文件名称: " + AccountFile.getName());  
+               //System.out.println("文件原名: " + AccountFile.getOriginalFilename());
+               String realPath = request.getSession().getServletContext().getRealPath("/WEB-INF/upload"); 
 			   FileUtils.copyInputStreamToFile(AccountFile.getInputStream(), new File(realPath, AccountFile.getOriginalFilename()));
 			   return null;
 		}

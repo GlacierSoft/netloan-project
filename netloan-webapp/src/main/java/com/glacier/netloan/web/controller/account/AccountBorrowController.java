@@ -26,12 +26,12 @@ import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
 import com.glacier.netloan.service.account.AccountBorrowService;
 
-
-
 /**
- * 
- * @author junjie.zheng 
- *
+ * @ClassName: AccountBorrowController 
+ * @Description: TODO(借款统计控制层) 
+ * @author junjie.zheng
+ * @email 1203807137@QQ.com
+ * @date 2014-8-5上午8:57:51
  */
 
 @Controller

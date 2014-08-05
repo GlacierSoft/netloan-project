@@ -28,11 +28,12 @@ import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.service.account.AccountTenderService;
 
 /**
- *   
- * 会员投资统计信息
- * 
- * **/
-
+ * @ClassName: AccountTenderController 
+ * @Description: TODO(投标统计控制层) 
+ * @author junjie.zheng
+ * @email 1203807137@QQ.com
+ * @date 2014-8-5上午8:57:51
+ */
 
 @Controller
 @RequestMapping("/accountTender")
