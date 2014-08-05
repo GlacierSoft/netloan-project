@@ -277,7 +277,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								          </tr>
 								          <tr>
 								            <td>提现金额：</td>
-								            <td>￥<input maxlength="8" id="withdrawAmount" name="withdrawAmount" type="text" class="inp100x"   onkeyup="clearNoNum(this)"/>元
+								            <td>￥<input maxlength="8" id="withdrawAmount" name="withdrawAmount" type="text" class="inp100x"   onkeyup="clearNoNum(this)"/>
 								            <input type="hidden" id="memberId" name="memberId" value="${currentMember.memberId}" ></td>
 								          </tr>
 								          <tr>
@@ -297,7 +297,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								          </tr>
 								          <tr>
 								            <td>验证码：</td>
-								            <td><input  type="text"  class="inp100x" />&nbsp;<button type="submit" class="btn btn-default">发送手机验证码</button>&nbsp;<span style="color:#F00"> * 演示站点不发送短信</span></td>
+								            <td><input  type="text"  class="inp100x" />&nbsp;<button type="submit" disabled="true" class="btn btn-default">发送手机验证码</button>&nbsp;<span style="color:#F00"> * 演示站点不发送短信</span></td>
 								          </tr>
 								          <tr>
 								            <td colspan="2" align="center">
@@ -500,32 +500,35 @@ function checkForm(){
 		$("#kk").remove();
 		$("#subm").removeAttr("disabled");//将按钮可用 
 		var usableMoney=$("#usableMoney").text(); //取出余额 
-		var inputMoney=$(this).val();//输入的金额
-		if(inputMoney==""){ 
-			$(this).parent().append("<span id='kk' style='color:#F00'>*必须填写提现金额</span>");
-			$("#subm").attr({"disabled":"disabled"}); 
-			return;
-	 	} 
-		if((inputMoney-0)<100){ 
+		var inputMoney=$(this).val();//输入的金额 
+	/* 	if((inputMoney-0)<100){ 
 			$(this).parent().append("<span id='kk' style='color:#F00'>*低于最低提现额</span>");
 			$("#subm").attr({"disabled":"disabled"});
 			 return;
-	 	} 
+	 	}  */
 		if((usableMoney-0)<(inputMoney-0)){  
 			$(this).parent().append("<span id='kk' style='color:#F00'>*超过可用余额</span>");
 			$("#subm").attr({"disabled":"disabled"});
 			return;
 		}
-	});
+	}); 
 	
 	
 	$("#financeWithdraw").validate({
    		rules:{
-   		//	withdrawAmount:"required",
+   			//withdrawAmount:"required",
+   			withdrawAmount:{
+   				required:true,  
+	            min:100,
+   				
+   			},
    			tradersPassword:"required"
    		},
    		messages:{
-   		//	withdrawAmount:"必须填写提现金额",
+   		    withdrawAmount:{
+   		    	required:"请输入提现金额", 
+   				min:"提现金额不能低于100元" 
+   		    },
    			tradersPassword:"必须填写交易密码"
    		},
    		submitHandler:function(){
