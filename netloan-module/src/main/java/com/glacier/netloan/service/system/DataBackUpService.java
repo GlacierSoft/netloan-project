@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -30,14 +29,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly=true,propagation=Propagation.REQUIRED)
 public class DataBackUpService {
     
-	
 	@PostConstruct
 	public void handleDataBackUp(){
-		 try {   
+		 try { 
+			 String sqlWebapp=null; 
 			String sqlPath=System.getProperty("user.dir");
 		    System.out.println("PATH="+sqlPath);
-		    String sqlWebapp=sqlPath.replaceAll("\\\\","\\\\\\\\").replaceAll("netloan-module","netloan-webapp");
-			System.out.println("After PATH="+sqlWebapp);	 
+		    if(sqlPath.contains("netloan-module"))
+		    	sqlWebapp=sqlPath.replaceAll("\\\\","\\\\\\\\").replaceAll("netloan-module","netloan-webapp");
+		    if(sqlPath.contains("netloan-website"))
+		        sqlWebapp=sqlPath.replaceAll("\\\\","\\\\\\\\").replaceAll("netloan-website","netloan-webapp");
+		    if(sqlPath.contains("netloan-webapp"))
+		        sqlWebapp=sqlPath.replaceAll("\\\\","\\\\\\\\");
+			System.out.println("After PATH="+sqlWebapp);
 			
 			Runtime rt = Runtime.getRuntime();
             // 调用 mysql 的 cmd
@@ -91,12 +95,4 @@ public class DataBackUpService {
 		}
 		 
 	}
-	
-	public static void main(String[] args) {
-		new DataBackUpService().handleDataBackUp();
-		
-	}
-	
-	
-	
 }
