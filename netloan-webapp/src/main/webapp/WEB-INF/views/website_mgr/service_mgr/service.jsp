@@ -141,38 +141,61 @@
 			});
 		}
 	});
-	
-	//点击增加按钮触发方法
+
+	// 增加客服
 	glacier.website_mgr.service_mgr.service.addService = function(){
-		glacier.basicAddOrEditDialog({
-			title : '【客服服务】- 增加',
+		glacier.website_mgr.service_mgr.service.newServiceDialog('【客服服务】- 增加客服',false,'/do/service/add.json');
+	};
+	//编辑客服
+	glacier.website_mgr.service_mgr.service.editService = function(){
+		glacier.website_mgr.service_mgr.service.newServiceDialog('【客服服务】- 编辑客服',true,'/do/service/edit.json');
+	};
+	/**
+		打开新建或者编辑窗口
+		title:要打开的窗口标题
+		editModel: true or false ，是否复制当前选择行数据到form中
+		url:点击保存按钮请求的url
+	*/
+	glacier.website_mgr.service_mgr.service.newServiceDialog = function(title,editModel,url){
+		$.easyui.showDialog({
+			href : ctx + '/do/service/intoForm.htm',//从controller请求jsp页面进行渲染
 			width : 420,
 			height : 400,
-			queryUrl : ctx + '/do/service/intoForm.htm',
-			submitUrl : ctx + '/do/service/add.json',
-			successFun : function (){
-				glacier.website_mgr.service_mgr.service.serviceDataGrid.datagrid('reload');
+			resizable: false,
+			enableSaveButton : false,
+			enableApplyButton : false,
+			title : title,
+			buttons : [{
+				text : '保存',
+				iconCls : 'icon-save',
+				handler : function(dia) {
+					$('#service_mgr_service_form').form('submit', {
+						url: ctx + url,
+						success: function(r){
+							glacier.show({msg:r.msg,result:r.success});
+							glacier.website_mgr.service_mgr.service.serviceDataGrid.datagrid('reload');
+						    dia.dialog("close"); 
+						}
+					});
+				}
+			}],
+			onLoad : function() {
+				if(editModel){//编辑模式
+					var row = glacier.website_mgr.service_mgr.service.serviceDataGrid.datagrid("getSelected");
+					if(row){
+						$('#service_mgr_service_form').form('load', row );
+					}else{
+						$.messager.show({//提示用户
+							title : '提示',
+							timeout:3000,
+							msg : '请选择一行数据进行编辑'
+						});
+					}
+				}
 			}
 		});
 	};
 	
-	//点击编辑按钮触发方法
-	glacier.website_mgr.service_mgr.service.editService = function(){
-		var row = glacier.website_mgr.service_mgr.service.serviceDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '【客服服务】- 编辑('+row.webServiceName+')',
-			width : 420,
-			height : 400,
-			queryUrl : ctx + '/do/service/intoForm.htm',
-			submitUrl : ctx + '/do/service/edit.json',
-			queryParams : {
-				webServiceId : row.webServiceId
-			},
-			successFun : function (){
-				glacier.website_mgr.service_mgr.service.serviceDataGrid.datagrid('reload');
-			}
-		});
-	};
 	//点击删除按钮触发方法
 	glacier.website_mgr.service_mgr.service.delService = function(){
 		var rows = glacier.website_mgr.service_mgr.service.serviceDataGrid.datagrid("getChecked");

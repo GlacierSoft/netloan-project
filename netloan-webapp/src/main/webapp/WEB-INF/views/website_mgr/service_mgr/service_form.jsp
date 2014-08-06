@@ -2,7 +2,7 @@
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<form method="post" style="padding:15px">
+<form id="service_mgr_service_form" method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
 			<td>客服名称：</td>
