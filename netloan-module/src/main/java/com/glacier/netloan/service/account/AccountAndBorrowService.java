@@ -248,8 +248,6 @@ public class AccountAndBorrowService implements InitializingBean {
 		}
     }  
 	
-	
-	
     @Override  
     public void afterPropertiesSet() throws Exception {  
         // 获取当前用户

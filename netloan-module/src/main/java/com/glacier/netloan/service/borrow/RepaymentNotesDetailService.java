@@ -587,7 +587,6 @@ public class RepaymentNotesDetailService {
             	List<TenderNotes> tenderNotesList = tenderNotesMapper.selectByExample(tenderNotesExample);
             	//第五步循环TenderNotesList中每一条投资记录
             	for (TenderNotes tenderNotes : tenderNotesList) {
-            		
             		//第六步根据投资记录ID取出跟该投资记录ID有关联的收款记录List集合信息
             		ReceivablesNotesExample ReceivablesNotesExample = new ReceivablesNotesExample();
                 	ReceivablesNotesExample.createCriteria().andTenderNotesIdEqualTo(tenderNotes.getTenderNotesId());
@@ -614,9 +613,7 @@ public class RepaymentNotesDetailService {
                             	//更新投资会员统计信息
                             	MemberStatistics memberStatisticsTemp = memberStatisticsMapper.selectByMemberId(tenderNotes.getMemberId());
                             	memberStatisticsTemp.setAlreadyIncomeTotal(memberStatisticsTemp.getAlreadyIncomeTotal()+receivablesNotesDetail.getAmount());//设置会员统计已收总额(原本的已收总额+还款人的还款总额)
-                            	System.out.println("收款总金额："+receivablesNotesDetail.getAmount());
                             	memberStatisticsTemp.setWaitIncomeTotal(memberStatisticsTemp.getWaitIncomeTotal()-receivablesNotesDetail.getAmount());//设置会员统计待收总额(原来的待收总额-还款的总额)
-                            	System.out.println("收款总金额："+memberStatisticsTemp.getWaitIncomeTotal());
                             	memberStatisticsTemp.setAlreadyIncomePrincipal(memberStatisticsTemp.getAlreadyIncomePrincipal()+receivablesNotesDetail.getCurrentRecePrincipal());//设置已收本金(原本的已收本金+还款人的还款本金)
                             	memberStatisticsTemp.setWaitIncomePrincipal(memberStatisticsTemp.getWaitIncomePrincipal()-receivablesNotesDetail.getCurrentRecePrincipal());//设置待收本金(原本的待收本金-还款人的还款本金)
                             	memberStatisticsTemp.setAlreadyIncomeInterest(memberStatisticsTemp.getAlreadyIncomeInterest()+receivablesNotesDetail.getCurrentReceInterest());//设置已收本息(原本的已收利息+还款人的还款利息)
