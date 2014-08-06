@@ -2,7 +2,6 @@ package com.glacier.netloan.service.finance;
 
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -54,7 +53,6 @@ public class FinancePlatformService {
         return financePlatform;
     }
     
-    
     /**
      * @Title: listAsGrid 
      * @Description: TODO(获取所有平台资金信息) 
@@ -64,7 +62,6 @@ public class FinancePlatformService {
      * @throws
      */
     public Object listAsGrid(FinFinancePlatformQueryDTO financePlatformQueryDTO,JqPager pager) {
-
         JqGridReturn returnResult = new JqGridReturn();
         FinancePlatformExample financePlatformExample = new FinancePlatformExample();
 
@@ -87,7 +84,7 @@ public class FinancePlatformService {
 
     /**
      * @Title: addPlatform 
-     * @Description: TODO(新增平台资金记录) 
+     * @Description: TODO(新增平台资金) 
      * @param @param financePlatform
      * @param @return    设定文件 
      * @return Object    返回类型 
@@ -95,19 +92,24 @@ public class FinancePlatformService {
      */
     @Transactional(readOnly = false)
     public Object addPlatform(FinancePlatform financePlatform) {
-    	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         //判断账号代码和账号名称是否相同
+        //账号代码
         FinancePlatformExample financePlatformExample = new FinancePlatformExample();
         financePlatformExample.createCriteria().andPlatformCodeEqualTo(financePlatform.getPlatformCode());
         int codeNum = financePlatformMapper.countByExample(financePlatformExample);
+        //账号名称
         FinancePlatformExample financePlatformExampleTwo = new FinancePlatformExample();
         financePlatformExampleTwo.createCriteria().andPlatformNameEqualTo(financePlatform.getPlatformName());
         int nameNum = financePlatformMapper.countByExample(financePlatformExampleTwo);
+        //判断账号与银行卡是否相同
+        FinancePlatformExample financePlatformExamplecard = new FinancePlatformExample();
+        financePlatformExamplecard.createCriteria().andPlatformAccountEqualTo(financePlatform.getCardNumber());
+        int cardNum = financePlatformMapper.countByExample(financePlatformExamplecard);
         if(codeNum > 0){
         	returnResult.setMsg("平台资金账号代码信息不能重复，保存失败");
         	return returnResult;
@@ -116,7 +118,11 @@ public class FinancePlatformService {
         	returnResult.setMsg("平台资金账号名称信息不能重复，保存失败");
         	return returnResult;
         }
-        
+        if(cardNum > 0){
+        	returnResult.setMsg("平台资金账号与银行卡不能重复，保存失败");
+        	return returnResult;
+        }
+        //进行赋值
         financePlatform.setFinancePlatformId(RandomGUID.getRandomGUID());
         financePlatform.setCreater(pricipalUser.getUserId());
         financePlatform.setCreateTime(new Date());
@@ -135,7 +141,7 @@ public class FinancePlatformService {
     
     /**
      * @Title: editPlatform 
-     * @Description: TODO(修改平台资金记录) 
+     * @Description: TODO(修改平台资金) 
      * @param @param financePlatform
      * @param @return    设定文件 
      * @return Object    返回类型 
@@ -151,6 +157,14 @@ public class FinancePlatformService {
         financePlatform.setUpdater(pricipalUser.getUserId());
         financePlatform.setUpdateTime(new Date());
         count = financePlatformMapper.updateByPrimaryKeySelective(financePlatform);
+        //判断账号与银行卡是否相同
+        FinancePlatformExample financePlatformExamplecard = new FinancePlatformExample();
+        financePlatformExamplecard.createCriteria().andPlatformAccountEqualTo(financePlatform.getCardNumber());
+        int cardNum = financePlatformMapper.countByExample(financePlatformExamplecard);
+        if(cardNum > 0){
+        	returnResult.setMsg("平台资金账号与银行卡不能重复，保存失败");
+        	return returnResult;
+        }
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("平台资金记录信息已修改");
@@ -170,8 +184,7 @@ public class FinancePlatformService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "PlatformList_update")
-   public  Object updatePlatform(FinancePlatform financePlatform){  
-    	
+    public  Object updatePlatform(FinancePlatform financePlatform){  
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         Subject pricipalSubject = SecurityUtils.getSubject();
@@ -184,7 +197,6 @@ public class FinancePlatformService {
 	    if(financePlatDate.getFinancePlatformId().equals(financePlatform.getFinancePlatformId())){
 	    	 returnResult.setMsg("改账户已经为默认账户！"); 
 	    }else{ 
-	    	
 		    financePlatDate.setPlatformType("external");//更改为外置账户
 	        financePlatDate.setUpdater(pricipalUser.getUserId());
 	        financePlatDate.setUpdateTime(new Date());

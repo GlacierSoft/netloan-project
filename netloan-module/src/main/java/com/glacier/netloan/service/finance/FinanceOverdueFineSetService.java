@@ -2,7 +2,6 @@ package com.glacier.netloan.service.finance;
 
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -25,7 +22,6 @@ import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
 /**
- * 
  * @ClassName:  FinanceOverdueFineSetService
  * @Description: TODO(逾期罚款设置service)
  * @author songjundong
@@ -43,12 +39,12 @@ public class FinanceOverdueFineSetService {
 	private FinanceOverdueFineMapper financeOverdueFineMapper;
  
 	/**
-	* @Title: getFinanceOverdueFineSetId  
-	* @Description: TODO(获取逾期对象)  
-	* @param @param overdueFineSetId
-	* @param @return    设定文件  
-	* @return Object    返回类型  
-	* @throws
+	 * @Title: getFinanceOverdueFineSetId  
+	 * @Description: TODO(获取逾期对象)  
+	 * @param @param overdueFineSetId
+	 * @param @return    设定文件  
+	 * @return Object    返回类型  
+	 * @throws
 	 */
 	public Object getFinanceOverdueFineSetId(String overdueFineSetId) {
 		FinanceOverdueFineSet financeOverdueFineSet = financeOverdueFineSetMapper.selectByPrimaryKey(overdueFineSetId);
@@ -57,22 +53,20 @@ public class FinanceOverdueFineSetService {
  
 	/**
 	 * 
-	* @Title: addOverdueFineSet  
-	* @Description: TODO(添加逾期罚款数据)  
-	* @param @param financeOverdueFineSet
-	* @param @return    设定文件  
-	* @return Object    返回类型  
-	* @throws
+	 * @Title: addOverdueFineSet  
+	 * @Description: TODO(添加逾期罚款数据)  
+	 * @param @param financeOverdueFineSet
+	 * @param @return    设定文件  
+	 * @return Object    返回类型  
+	 * @throws
 	 */
 	@Transactional(readOnly = false)
 	@MethodLog(opera = "OverdueFineSet_add")
 	public Object addOverdueFineSet(FinanceOverdueFineSet financeOverdueFineSet) {
-
 		Subject pricipalSubject = SecurityUtils.getSubject();
 		User pricipalUser = (User) pricipalSubject.getPrincipal();
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
 		int count = 0;
-
 		financeOverdueFineSet.setOverdueFineSetId(RandomGUID.getRandomGUID());
 		financeOverdueFineSet.setAuditState("authstr");
 		financeOverdueFineSet.setAuditor(pricipalUser.getUserId());
@@ -95,12 +89,12 @@ public class FinanceOverdueFineSetService {
    
 	/**
 	 * 
-	* @Title: editOverdueFineSet  
-	* @Description: TODO(编辑逾期罚款信息)  
-	* @param @param financeOverdueFineSet
-	* @param @return    设定文件  
-	* @return Object    返回类型  
-	* @throws
+	 * @Title: editOverdueFineSet  
+	 * @Description: TODO(编辑逾期罚款信息)  
+	 * @param @param financeOverdueFineSet
+	 * @param @return    设定文件  
+	 * @return Object    返回类型  
+	 * @throws
 	 */
 	@Transactional(readOnly = false)
 	@MethodLog(opera = "OverdueFineSet_edit")
@@ -128,14 +122,13 @@ public class FinanceOverdueFineSetService {
  
 	/**
 	 * 
-	* @Title: delOverdueFineSet  
-	* @Description: TODO(批量删除逾期罚款信息)  
-	* @param @param overdueFineSetIds
-	* @param @return    设定文件  
-	* @return Object    返回类型  
-	* @throws
+	 * @Title: delOverdueFineSet  
+	 * @Description: TODO(批量删除逾期罚款信息)  
+	 * @param @param overdueFineSetIds
+	 * @param @return    设定文件  
+	 * @return Object    返回类型  
+	 * @throws
 	 */
-	
 	@Transactional(readOnly = false)
 	@MethodLog(opera = "OverdueFineSet_del")
 	public Object delOverdueFineSet(List<String> overdueFineSetIds) {
@@ -160,8 +153,9 @@ public class FinanceOverdueFineSetService {
 				if (count <= 0) {
 					FinanceOverdueFineSetExample financeOverdueFineSetExample = new FinanceOverdueFineSetExample();
 					financeOverdueFineSetExample.createCriteria().andOverdueFineSetIdEqualTo(overdueFineSetIds.get(i));
+					result_name += financeOverdueFineSetMapper.selectByPrimaryKey(overdueFineSetIds.get(i)).getOverdueFineSetName()+" ";
 					int number = financeOverdueFineSetMapper.deleteByExample(financeOverdueFineSetExample);
-	                    rightNumber += number;// 删除成功数据行数量记录 
+	                rightNumber += number;// 删除成功数据行数量记录 
                 } else { 
                 	if(isFlag){ 
 						if(count > 0){
@@ -173,7 +167,7 @@ public class FinanceOverdueFineSetService {
 			}
 		// 删除成功数量大于0即为操作成功,且提示关联信息
 		if(rightNumber>0){
-			returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+result_name.trim() + "】</font>"+ rightNumber+"条数据," +result_str);
+			returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+result_name.trim() + "】</font>"+ rightNumber+"条数据 " +result_str);
 			returnResult.setSuccess(true);
 		}else{
 			returnResult.setMsg(result_str.trim());
