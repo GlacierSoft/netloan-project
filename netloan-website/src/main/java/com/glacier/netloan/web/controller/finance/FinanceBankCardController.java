@@ -14,10 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
-import com.glacier.netloan.entity.basicdatas.ParameterQuestion;
 import com.glacier.netloan.entity.finance.FinanceBankCard;
 import com.glacier.netloan.entity.member.Member;
-import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
 import com.glacier.netloan.service.basicdatas.ParameterQuestionService;
 import com.glacier.netloan.service.finance.FinanceBankCardService;
 import com.glacier.netloan.service.member.MemberAuthService;
@@ -49,14 +47,10 @@ public class FinanceBankCardController extends AbstractController {
 		
 		return bankCardService.addFinanceBankCardWebsit(bankCard);
 	}
+	
 	@RequestMapping(value = "del.htm")
 	public Object del(String bankCardId,HttpServletRequest request,String addBankCard){
-		
-		 //删除银行卡
-        bankCardService.delFinanceBankCardWebsit(bankCardId);
-		
-        ModelAndView mav = new ModelAndView("member_mgr/memberDetail");
-        Subject pricipalSubject = SecurityUtils.getSubject();
+        /*Subject pricipalSubject = SecurityUtils.getSubject();
         Member pricipalMember = (Member) pricipalSubject.getPrincipal();
         MemberAuthWithBLOBs memberAuthWithBLOBs = (MemberAuthWithBLOBs)memberAuthService.getMemberAuth(pricipalMember.getMemberId());
         //对于前台查询列表，设置pager的值
@@ -82,7 +76,20 @@ public class FinanceBankCardController extends AbstractController {
         //判断是否是增加银行卡表单提交过来的，以addBankCard字符串作为标记。
         if(addBankCard != null){
         	request.setAttribute("addBankCard", "addBankCard");
-        }
+        }*/
+		//删除银行卡
+        bankCardService.delFinanceBankCardWebsit(bankCardId);
+        ModelAndView mav = new ModelAndView("member_mgr/memberDetail");
+        JqPager pager = new JqPager();
+        pager.setSort("createTime");// 定义排序字段
+        pager.setOrder("DESC");// 升序还是降序
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        Member pricipalMember = (Member) pricipalSubject.getPrincipal();
+        //查询银行卡列表
+        JqGridReturn returnResult = (JqGridReturn) financeBankCardService.listAsGridWebsite(pricipalMember.getMemberId(), pager);
+        @SuppressWarnings("unchecked")
+		List<FinanceBankCard> bandCards =  (List<FinanceBankCard>) returnResult.getRows();//获取会员个人的银行卡数据
+        request.setAttribute("memberBankCardDatas", bandCards);
         return mav;
 	}
 	/*@RequestMapping(value = "del.htm")
