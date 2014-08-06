@@ -904,8 +904,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				digits:true 
 	    			},
 	    			liveAddress:"required",
-	    			firstContactPhone:"isMobile",
-	    			secondContactPhone:"isMobile",
+	    			firstContactPhone:"required",
+	    			firstContactAddress:"required",
+	    			firstContact:"required",
+	    			firstContactRelation:"required",
 	    			workAge:"number",
 	    			salary:"number",
 	    			proofPhone:"isMobile",
@@ -930,6 +932,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				digits:"请输入整数"
 	    			},
 	    			liveAddress:"居住地址不能为空",
+	    			firstContactPhone:"请填写联系号码",
+	    			firstContactAddress:"请填写联系人地址",
+	    			firstContact:"请填写联系人名称",
+	    			firstContactRelation:"请填写与联系人的关系",
 	    			workAge:"只能为数字",
 	    			salary:"只能为数字",
 	    			unitName:{
@@ -1326,7 +1332,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			KindEditor.ready(function(K) {
 			var dialog = K.dialog({
 					        width : 300,
-					        title : '删除成功',
+					        title : '删除提示',
 					        body : '<div style="margin:10px;"><strong>确定删除？</strong></div>',
 					        closeBtn : {
 					                name : '关闭',

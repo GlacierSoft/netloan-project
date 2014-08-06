@@ -105,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  	<table id="messageNoticeTable" class="table table-bordered" style="text-align:center;vertical-align: middle;">
 				  		<thead>
 				  			<tr>
-				              <td><input id="totalCheckbox" type="checkbox" value="" /></td>
+				              <td><input id="totalCheckbox" name="totalCheckbox" type="checkbox" value="" /></td>
 				              <td><strong>标记</strong></td>
 				              <td><strong>发件人</strong></td>
 				              <td><strong>标题</strong></td>
@@ -122,7 +122,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            <c:forEach items="${messageNoticeDatas.rows}" var="messageNotice" varStatus="status">
 						      	<tr>
 						      	  	<td>
-									<input name="messageNoticeIds" type="checkbox" value="${messageNotice.messageNoticeId}">
+									<input name="messageNoticeIds" onclick="checkMessageNoticeIds();" type="checkbox" value="${messageNotice.messageNoticeId}">
 									</td>	
 					              <td id="messageNotice_letterstatus${status.index}">
 					              <script type="text/javascript">
@@ -383,13 +383,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	$("#totalCheckbox").attr("checked",false);	
 	//点击总的复选框触发事件
 	$("#totalCheckbox").change(function() {
-		var checked =$("#totalCheckbox").is(":checked");
-           if (checked) {
-        	    $("input[name='messageNoticeIds']").prop("checked",true);
-           }else{
-        	    $("input[name='messageNoticeIds']").prop("checked",false);
-           } 
-       });
+		var checked = $("#totalCheckbox").is(":checked");
+        if(checked) {
+      	    $("input[name='messageNoticeIds']").prop("checked",true);
+         }else{
+      	    $("input[name='messageNoticeIds']").prop("checked",false);
+         }
+     });
+	
+	//判断全选时标题的复选框是否勾住
+	function checkMessageNoticeIds(){
+		var messageNoticeIdsTrue = $("input[name=messageNoticeIds]:checked").length;
+		var messageNoticeIdsCount = $("input[name=messageNoticeIds]").length;
+		if(parseInt(messageNoticeIdsTrue) == parseInt(messageNoticeIdsCount)){
+			$("input[name='totalCheckbox']").prop("checked",true);
+		}else{
+			$("input[name='totalCheckbox']").prop("checked",false);
+		}
+	}
 	
 	//点击删除信息按钮
   	$("#deleteMessageNotice").bind('click', function(){   
