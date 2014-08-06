@@ -104,6 +104,7 @@ public class FinanceWithdrawSetService {
             returnResult.setMsg("会员提现设置重复");
             return returnResult;
         }
+        financeWithdrawSet.setMemberType("all"); 
         financeWithdrawSet.setFinanceWithdrawSetId(RandomGUID.getRandomGUID());
         financeWithdrawSet.setCreater(pricipalUser.getUserId());
         financeWithdrawSet.setAuditState("authstr");
@@ -147,6 +148,7 @@ public class FinanceWithdrawSetService {
             returnResult.setMsg("会员提现设置重复");
             return returnResult; 
         }
+        financeWithdrawSet.setMemberType("all"); 
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         financeWithdrawSet.setUpdater(pricipalUser.getUserId());
