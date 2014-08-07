@@ -130,12 +130,4 @@ public class DataBackUpService {
 			e.printStackTrace();
 		}
    }
-	
-	
-	public static void main(String[] args) {
-		String url=System.getProperty("user.dir");
-		System.out.println("输出===="+url);
-		
-	}
-	
 }
