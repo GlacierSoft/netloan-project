@@ -175,7 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        		<td><img alt="" src="${ctx}/resources/images/member/jiekuan.jpg"></td>
 			        	</tr>
 			        	<tr style="height:40px;margin: 10px;">
-			        		<td><a href="${ctx}/financeMember/rechargeWithdraw.htm?p=1" class="navbar-link"><span>我要充值</span></a></td>
+			        		<td><a href="javascript:checkRechargeWithdraw('${currentMember.memberId}','${ctx}/financeMember/rechargeWithdraw.htm?p=1');" class="navbar-link"><span>我要充值</span></a></td>
 			        		
 			        		<td><a href="${ctx}/investment/index.htm?&p=1" class="navbar-link"><span>我要贷出</span></a></td>
 			        		 
