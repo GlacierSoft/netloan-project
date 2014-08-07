@@ -831,14 +831,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }); 
 	    
 	    $('#tabbankCardTab').bind('click', function(){    
-	      	if("${SecretSecurityResult.rows[0].secretSecurityId}" == ''){
-	    		//notClonedialog("请先设置密保问题");
-	    		alert("请先设置密保问题");
-	    		window.location.href="${ctx}/member/memberDetail.htm?updateSecretSecurity=updateSecretSecurity";
+	    	if("${currentMember.memberRealName}" == ""){
+	    		alert("请先完善个人信息!");
+	    		window.location.href="${ctx}/member/memberDetail.htm";
 	    	}else{
-	    		//notClonedialog("请先回答安全问题");
-	    		alert("请先回答安全问题");
-	    		window.location.href="${ctx}/member/memberDetail.htm?updateSecretSecurity=cardTab";
+		      	if("${SecretSecurityResult.rows[0].secretSecurityId}" == ''){
+		    		//notClonedialog("请先设置密保问题");
+		    		alert("请先设置密保问题");
+		    		window.location.href="${ctx}/member/memberDetail.htm?updateSecretSecurity=updateSecretSecurity";
+		    	}else{
+		    		//notClonedialog("请先回答安全问题");
+		    		alert("请先回答安全问题");
+		    		window.location.href="${ctx}/member/memberDetail.htm?updateSecretSecurity=cardTab";
+		    	}
 	    	}
 	    }); 
 	   //--------------------
@@ -1251,10 +1256,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    					   }else if("${updateSecretSecurity}" == 'updatejiaoyi'){
 	    						   $("#tabchangeMobileLi2").attr("class",""); 
 	    						   $("#tabchangeMobileLi").attr("class","");
-	    						   //$("#tabUpdatePassword").attr("class","tab-pane fade ");
+	    						   $("#tabUpdatePassword").attr("class","tab-pane fade ");
 	    						   $("#updateSecretSecurity").attr("class","tab-pane fade in active");//设置隐藏的面板
 	    						   //$("#updateSecretSecurityLi").attr("class","active");
 	    						   $("#updateSecretSecurityLi").attr("class","tab-pane fade in active");
+	    						   
 	    					   }else{
 	    						   window.location.href="${ctx}/member/memberDetail.htm?updateSecretSecurity=updateSecretSecurity";
 	    					   }
