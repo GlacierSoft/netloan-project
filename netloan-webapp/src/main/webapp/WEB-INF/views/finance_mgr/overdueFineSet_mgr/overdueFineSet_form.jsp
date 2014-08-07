@@ -9,7 +9,7 @@
 			 <td>罚款名称：</td>
 			<td>
 				<input type="hidden" id="overdueFineSet_mgr_overdueFineSet_form_overdueFineSetId" name="overdueFineSetId" value="${overdueFineSetData.overdueFineSetId}" />
-				<input  name="overdueFineSetName" value="${overdueFineSetData.overdueFineSetName}" class="easyui-validatebox spinner"  style="width:298px" required="true" maxlength="50"/>
+				<input id="overdueFineSetName" name="overdueFineSetName" value="${overdueFineSetData.overdueFineSetName}" class="easyui-validatebox spinner"  style="width:298px" required="true" maxlength="50"/>
 			</td>
 		</tr>
 		<tr>
@@ -83,6 +83,11 @@ $('#overdueFineSet_mgr_overdueFineSet_form_memberPrivilege').combobox({
         }
 	}
  });
+ 
+$('#overdueFineSetName').validatebox({    
+    required: true,    
+    validType: 'email'   
+});
 </script>
 
 

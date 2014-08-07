@@ -757,7 +757,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				   successHint(r,url);
                },
                error: function() {
-                   alert("提交出错！");
+            	   location.href="${ctx}/login.htm";
                }
 			});
 	    }
@@ -773,7 +773,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				   successHint(r,url);
 	            },
 	            error: function() {
-	                alert("提交出错！");
+	            	location.href="${ctx}/login.htm";
 	            }
 			});
 	    }

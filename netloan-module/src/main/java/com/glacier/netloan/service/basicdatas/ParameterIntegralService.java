@@ -110,7 +110,7 @@ public class ParameterIntegralService {
             returnResult.setMsg("会员积分级别名称重复");
             return returnResult;
         }
-        if(parameterIntegral.getIntegralBegin() > parameterIntegral.getIntegralEnd()){
+        if(parameterIntegral.getIntegralBegin() >= parameterIntegral.getIntegralEnd()){
         	returnResult.setMsg("开始积分不能大于结束积分");
             return returnResult;
         }
@@ -151,7 +151,7 @@ public class ParameterIntegralService {
             returnResult.setMsg("会员积分级别名称重复");
             return returnResult;
         }       
-        if(parameterIntegral.getIntegralBegin() > parameterIntegral.getIntegralEnd()){
+        if(parameterIntegral.getIntegralBegin() >= parameterIntegral.getIntegralEnd()){
         	returnResult.setMsg("开始积分不能大于结束积分");
             return returnResult;
         }

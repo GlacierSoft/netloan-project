@@ -366,7 +366,7 @@ function checkForm(){
 			   successHint(r,url);
 	       },
 	       error: function() {
-	           alert("提交出错！");
+	    	   location.href="${ctx}/login.htm";
 	       }
 		});
 	}
@@ -382,7 +382,7 @@ function checkForm(){
 			   successHint(r,url);
 	        },
 	        error: function() {
-	            alert("提交出错！");
+	        	location.href="${ctx}/login.htm";
 	        }
 		});
 	}

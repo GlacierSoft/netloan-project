@@ -313,7 +313,7 @@ function checksMember(memberId,url){
 		   successHint(r,url);
        },
        error: function() {
-           alert("提交出错！");
+    	   location.href="${ctx}/login.htm";
        }
 	});
 }
@@ -329,7 +329,7 @@ function checkRechargeWithdraw(memberId,url){
 		   successHint(r,url);
         },
         error: function() {
-            alert("提交出错！");
+        	location.href="${ctx}/login.htm";
         }
 	});
 }

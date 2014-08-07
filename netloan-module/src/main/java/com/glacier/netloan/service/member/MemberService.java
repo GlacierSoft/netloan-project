@@ -112,7 +112,7 @@ public class MemberService {
 		MemberExample memberExample = new MemberExample();
 		memberExample.createCriteria().andMemberIdEqualTo(memberId);
 		List<Member> MemberList = memberMapper.selectByExample(memberExample); 
-		if(MemberList.get(0).getMemberRealName() == null){
+		if(MemberList.get(0).getMemberRealName() == null && MemberList.get(0).getMemberRealName().length() == 0){
 			returnResult.setMsg("此操作需要完善用户资料！");
 			returnResult.setSuccess(false);
 			return returnResult;
