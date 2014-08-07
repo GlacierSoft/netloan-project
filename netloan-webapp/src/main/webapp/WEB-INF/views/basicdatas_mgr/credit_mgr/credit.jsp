@@ -123,37 +123,6 @@
 			});
 		}
 	});
-	//点击增加按钮触发方法
-	/* glacier.basicdatas_mgr.credit_mgr.credit.addCredit = function(){
-		glacier.basicAddOrEditDialog({
-			title : '【会员信用】- 增加',
-			width : 420,
-			height : 380,
-			queryUrl : ctx + '/do/credit/intoForm.htm',
-			submitUrl : ctx + '/do/credit/add.json',
-			successFun : function (){
-				glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid('reload');
-			}
-		});
-	}; */
-	
-	//点击编辑按钮触发方法
-	/* glacier.basicdatas_mgr.credit_mgr.credit.editCredit = function(){
-		var row = glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
-			title : '【会员信用】- 编辑('+row.creditName+')',
-			width : 420,
-			height : 380,
-			queryUrl : ctx + '/do/credit/intoForm.htm',
-			submitUrl : ctx + '/do/credit/edit.json',
-			queryParams : {
-				creditId : row.creditId
-			},
-			successFun : function (){
-				glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid('reload');
-			}
-		});
-	}; */
 	
 	// 增加会员信用等级
 	glacier.basicdatas_mgr.credit_mgr.credit.addCredit = function(){
