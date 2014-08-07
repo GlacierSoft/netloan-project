@@ -37,12 +37,12 @@
 				field:'loginlogId',
 				title:'ID',
 				checkbox:true
-			},{
+			}/* ,{
 				field:'userId',
 				title:'用户ID',
 				width:280,
 				sortable:true
-			},{
+			} */,{
 				field:'loginUser',
 				title:'登录人',
 				width:120,
