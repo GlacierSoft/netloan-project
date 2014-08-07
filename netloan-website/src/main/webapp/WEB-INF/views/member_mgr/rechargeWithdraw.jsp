@@ -212,7 +212,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								            	<table>
 									            	<c:forEach items="${financeRechargeSetDatas.rows}" var="financeRechargeSet">
 									            		<tr>
-									            			<td><input name="financeRechargeSetId" type="radio" onclick="displayIsFinanceRechargeSet();" value="${financeRechargeSet.financeRechargeSetId}"/></td>
+									            			<td><input name="financeRechargeSetId" type="radio" onclick="displayIsFinanceRechargeSet('${financeRechargeSet.rechargeType}');" value="${financeRechargeSet.financeRechargeSetId}"/></td>
 									            			<td>${financeRechargeSet.rechargeSetName}</td>
 									            		</tr>
 									            	</c:forEach>
@@ -338,9 +338,9 @@ function checkForm(){
 
 } */
 
-	function displayIsFinanceRechargeSet(){
+	function displayIsFinanceRechargeSet(rechargeSetType){
 		var financeRechargeSet = document.financeRecharge.financeRechargeSetId;
-		if(financeRechargeSet[0].checked){
+		/* if(financeRechargeSet[0].checked){
 			rechargeReceipt.disabled = "disabled";
 			$("#rechargeReceipt").val("");
 		}
@@ -351,6 +351,12 @@ function checkForm(){
 		}
 		
 		if(financeRechargeSet[2].checked){
+			rechargeReceipt.disabled = "";
+		} */
+		if(rechargeSetType == "onLine"){
+			rechargeReceipt.disabled = "disabled";
+			$("#rechargeReceipt").val("");
+		}else{
 			rechargeReceipt.disabled = "";
 		}
 	}
