@@ -176,19 +176,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        	</tr>
 			        	<tr style="height:40px;margin: 10px;">
 			        		<td><a href="javascript:checkRechargeWithdraw('${currentMember.memberId}','${ctx}/financeMember/rechargeWithdraw.htm?p=1');" class="navbar-link"><span>我要充值</span></a></td>
-			        		
 			        		<td><a href="${ctx}/investment/index.htm?&p=1" class="navbar-link"><span>我要贷出</span></a></td>
-			        		 
 			        		<td><a href="#" onclick="doClick('bankingStatistics/memberBankingStatistics.htm','${currentMember.memberId}')"  class="navbar-link"><span>投资统计</span></a></td>
-			        		
 			        		<td><a href="#" onclick="doClick('borrowingLoan/memberBorrow.htm?&p=1&loanState=repaymenting','${currentMember.memberId}')"  class="navbar-link"><span>我要还款</span></a></td>
-			        		
 			        		<td><a href="#" onclick="doClick('receivablesNotes/memberReceivablesNotes.htm?&p=1&loanStates=repaymentingBorrow','${currentMember.memberId}')"  class="navbar-link"><span>待收款</span></a></td>
-			        		
-			        		<td><a href="#" onclick="doClick('financeMember/rechargeWithdraw.htm?p=1','${currentMember.memberId}')"  class="navbar-link"><span>资金流水</span></a></td>
-			        		
-			        		
-			        		
+			        		<td><a href="#" onclick="checkRechargeWithdraw('${currentMember.memberId}','${ctx}/financeMember/rechargeWithdraw.htm?p=1');"  class="navbar-link"><span>资金流水</span></a></td>
 			        		<td><a href="${ctx}/borrow.htm" class="navbar-link"><span>我要借款</span></a></td>
 			        	</tr>
 			        </table>
