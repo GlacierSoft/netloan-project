@@ -345,7 +345,7 @@ public class RegisterController extends AbstractController{
     public Object getPasswrod(@Valid String useremal,HttpServletRequest request, HttpSession session){  
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
 	        Member member=new Member();
-	        member=memberService.retrievePassword(useremal);
+	        member=memberService.retrieveEmail(useremal);
              if(member==null){
             	 returnResult.setMsg("邮箱不存在");
             	 //邮箱不存在，就返回这个消息给前台

@@ -755,7 +755,7 @@ public class MemberService {
   
     
     /**
-     * @Title: retrievePassword 
+     * @Title: retrieveEmail 
      * @Description: TODO(判断该邮箱是否存在) 
      * @param @param member
      * @param @param  
@@ -764,7 +764,7 @@ public class MemberService {
      * @throws
      */
     @Transactional(readOnly = false) 
-    public Member retrievePassword(String email) {  
+    public Member retrieveEmail(String email) {  
         MemberExample memberExample = new MemberExample();
         memberExample.createCriteria().andEmailEqualTo(email);
         List<Member> memberlist= memberMapper.selectByExample(memberExample); 
@@ -772,6 +772,25 @@ public class MemberService {
         return memberlist.size()==0?null:memberlist.get(0);
     }
      
+    
+    /**
+     * @Title: retrieveName 
+     * @Description: TODO(判断该会员名称是否存在) 
+     * @param @param member
+     * @param @param  
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false) 
+    public Member retrieveName(String name) {  
+        MemberExample memberExample = new MemberExample();
+        memberExample.createCriteria().andMemberNameEqualTo(name);
+        List<Member> memberlist= memberMapper.selectByExample(memberExample); 
+        //如果取出来的是没数据的，就返回null,否则就把集合里的第一条数据返回
+        return memberlist.size()==0?null:memberlist.get(0);
+    }
+    
     /**
      * @Title: retrievePassword 
      * @Description: TODO(会员忘记密码通过邮箱找回密码，设置新密码) 

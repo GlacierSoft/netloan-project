@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
@@ -54,14 +55,27 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     	String reg = "[\\w]+@[\\w]+.[\\w]+"; 
 		 //告知此字符串是否匹配给定的正则表达式。
 		if(email.matches(reg)) { //匹配的是邮箱，那么进行邮箱登陆验证  
-			Member mem=memberService.retrievePassword(email);//通过该邮箱，看是否存在
+			Member mem=memberService.retrieveEmail(email);//通过该邮箱，看是否存在
 			if(mem!=null){//说明数据库存在 
-				username=mem.getMemberName();//取出用户名称，交给shiro去验证密码
+				//是否禁用了该会员
+				if(mem.getStatus().equals("disable")){
+					username="NO";//不让它登陆
+				}else{ 
+					username=mem.getMemberName();//取出用户名称，交给shiro去验证密码
+				}
 			}else{//否则的话，把他当成用户名登陆验证
 				username = email;
 			}
-		}else {//否则按照用户名登陆验证  
-	         username = email;
+		}else {//否则按照用户名登陆验证   
+			Member member=memberService.retrieveName(email);
+			if(member!=null){
+				//是否禁用了该会员
+				if(member.getStatus().equals("disable")){
+					username="NO";//不让它登陆
+				}else{ 
+					username=email;//取出用户名称，交给shiro去验证密码
+				}
+			} 
 		} 
        String password = getPassword(request);
         String captcha = getCaptcha(request);
@@ -81,8 +95,11 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
         CaptchaUsernamePasswordToken token = (CaptchaUsernamePasswordToken) createToken(request, response);
         try {
-            doCaptchaValidate( (HttpServletRequest)request,token);
-            Subject subject = getSubject(request, response);
+            doCaptchaValidate( (HttpServletRequest)request,token); 
+            if(token.getUsername().equals("NO")){
+            	 throw new DisabledAccountException("该用户被禁用，请联系客服！");
+            } 
+           Subject subject = getSubject(request, response);
             subject.login(token);
             HttpSession session = ((HttpServletRequest) request).getSession(false);
             Member member = (Member) subject.getPrincipal(); 
@@ -104,6 +121,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             throw new IncorrectCaptchaException("验证码错误！");
         }
     }
+     
     /**
      * @Title: loginTotalMessageNotic 
      * @Description: TODO(登录之后获取改会员的信息通知条数) 
