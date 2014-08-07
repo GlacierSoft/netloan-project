@@ -121,6 +121,8 @@ public class FinanceBankCardService {
         List<FinanceBankCard> financeBankCards = financeBankCardMapper.selectByExample(financeBankCardExample);
         Map<String,String> map = new HashMap<String,String>();
         for (FinanceBankCard financeBankCard : financeBankCards) {
+        	financeBankCard.setCardName(financeBankCard.getCardName()+" (**"+financeBankCard.getCardNumber().substring(15)+")");
+        	 
             map.put(financeBankCard.getBankCardId(),financeBankCard.getCardName());
         }
         return map;
@@ -177,7 +179,7 @@ public class FinanceBankCardService {
         if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
         	financeBankCardExample.setOrderByClause(pager.getOrderBy("temp_finance_bank_card_"));
         }
-        List<FinanceBankCard>  financeBankCards = financeBankCardMapper.selectByExample(financeBankCardExample); // 查询所有会员银行卡列表
+        List<FinanceBankCard>  financeBankCards = financeBankCardMapper.selectByExample(financeBankCardExample); // 查询会员银行卡列表
         int total = financeBankCardMapper.countByExample(financeBankCardExample); // 查询总页数
         returnResult.setRows(financeBankCards);
         returnResult.setTotal(total);

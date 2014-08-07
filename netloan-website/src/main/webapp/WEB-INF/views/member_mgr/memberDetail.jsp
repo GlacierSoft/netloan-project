@@ -158,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    <input type="hidden" class="form-control" id="postAuth" name="postAuth" value="">
 									    <label for="memberRealName" class="col-sm-2 control-label">*真实姓名:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" id="memberRealName" name="memberRealName" value="${currentMember.memberRealName}"  placeholder="真实姓名" >
+									      <input type="text" class="form-control" id="memberRealName" name="memberRealName" value="${currentMember.memberRealName}" onkeyup="value=value.replace(/[\d]/ig,'')"  placeholder="真实姓名" >
 									    </div>
 									  </div>
 									  <div class="form-group">
@@ -440,7 +440,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"  />
 						    </div>
 						    <div class="col-sm-3">
-						       <button id="updatePhoneForm_form-group" type="submit" class="btn btn-primary">发送手机验证码</button>
+						       <button id="updatePhoneForm_form-group" type="submit" disabled="disabled" class="btn btn-primary">发送手机验证码</button>
 						    </div>
 						  </div>
 						  <div class="form-group">
@@ -459,7 +459,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  </div>
 						  <div class="form-group">
 						    <div class="col-sm-offset-3 col-sm-9">
-						      <button id="updatePhoneForm_form-group" type="submit" class="btn btn-primary">手机变更</button>
+						      <button id="updatePhoneForm_form-group" type="submit" disabled="disabled" class="btn btn-primary">手机变更</button>
+						   &nbsp;<span style="color:#F00"> * 演示站点不发送短信</span>
 						    </div>
 						  </div>
 						</form>
@@ -743,7 +744,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </div>
 	    <jsp:include page="../foot.jsp"/>
 	    <!-- CONTAINER START======================== -->
-	    <script type="text/javascript">
+	    <script type="text/javascript"> 
+	    
 	   	//功能判断
 	    function checksMember(memberId,url){
 	    	$.ajax({

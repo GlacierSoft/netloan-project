@@ -238,7 +238,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    </form>
 						    <br>
 						    <div class="rechargeFontSize">
-						    	国付宝简介:国付宝信息科技有限公司（以下简称“国付宝”）是商务部中国国际电子商务中心（以下简称“CIECC”）与海航商业控股有限公司（以下简称“海航商业”）合资成立，针对政府及企业的需求和电子商务的发展，精心打造的国有背景的，引入社会诚信体系的独立第三方电子支付平台，也是“金关工程”的重要组成部分。国付宝信息科技有限公司成立于2011年1月25日，由商务部中国国际电子商务中心与海航商业控股有限公司合作成立，主要经营第三方支付业务。公司注册资本14285.72万元，主要经营第三方支付业务，互联网支付及移动电话支付（全国）。
+						    	支付宝简介:支付宝信息科技有限公司（以下简称“支付宝”）是商务部中国国际电子商务中心（以下简称“CIECC”）与海航商业控股有限公司（以下简称“海航商业”）合资成立，针对政府及企业的需求和电子商务的发展，精心打造的国有背景的，引入社会诚信体系的独立第三方电子支付平台，也是“金关工程”的重要组成部分。支付宝信息科技有限公司成立于2011年1月25日，由商务部中国国际电子商务中心与海航商业控股有限公司合作成立，主要经营第三方支付业务。公司注册资本14285.72万元，主要经营第三方支付业务，互联网支付及移动电话支付（全国）。
 						    </div>
 				        </div>
 				        <div class="tab-pane fade" id="withdraw">
@@ -250,7 +250,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<p>4、在钱打到您账号时会发一封站内信通知你。 <p>
 								<p>5、每笔提现金额至少为100元以上（备注：如101、632等）<p>
 								<p>6、每笔提现金额最高不能超过50000元。 <p>
-								<p>7、您目前能提取的最高额度是1354539.92元。<p>
+								<p>7、您目前能提取的最高额度是<fmt:formatNumber value='${financeMemberData.amount}' pattern='#,#00.00'/>元。<p>
 						    </div>
 						    <form id="financeWithdraw" name="financeWithdraw" class="form-horizontal" role="form" method="post" >
 							    <table class="table table-bordered">
@@ -283,7 +283,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								          <tr>
 								            <td>银行卡：</td>
 								            <td>
-									            <select name="bankCardId" id="bankCardId" class="inp100x"> 
+									            <select name="bankCardId" id="bankCardId" class="inp100x" style="width: 122px"> 
 										    		<c:forEach items="${financeBankCardDatas}" var="financeBankCard">
 										            	<option value="${financeBankCard.key}">${financeBankCard.value}</option>
 										       		</c:forEach>
