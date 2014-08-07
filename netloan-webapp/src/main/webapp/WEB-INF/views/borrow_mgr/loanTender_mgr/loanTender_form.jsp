@@ -107,7 +107,7 @@
 </form>
 
 <script type="text/javascript">
-$('#loanTender_mgr_loanTender_form_lowestLoanAmount').numberbox({
+/* $('#loanTender_mgr_loanTender_form_lowestLoanAmount').numberbox({
 		required:true,
 		min:0,
 		max:99999999,
@@ -288,6 +288,6 @@ $('#loanTender_mgr_loanTender_form_overLimitedFee').numberbox({
 	precision:0,
 	groupSeparator:',',
 	missingMessage:'请填写超出限定期数每月的借款费'
-});
+}); */
 
 </script>
