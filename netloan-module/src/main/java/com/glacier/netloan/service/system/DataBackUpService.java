@@ -26,7 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly=true,propagation=Propagation.REQUIRED)
 public class DataBackUpService {
     
-	
 	/**
 	  * @Title: handleDataBackUp 
 	  * @Description: TODO(数据备份) 
@@ -131,5 +130,12 @@ public class DataBackUpService {
 			e.printStackTrace();
 		}
    }
+	
+	
+	public static void main(String[] args) {
+		String url=System.getProperty("user.dir");
+		System.out.println("输出===="+url);
+		
+	}
 	
 }

@@ -70,7 +70,8 @@ public class MemberStatisticsController extends AbstractController{
     private Object intoStatisticsDetailPage(String statisticsId) {
         ModelAndView mav = new ModelAndView("member_mgr/statistics_mgr/statistics_detail");
         if(StringUtils.isNotBlank(statisticsId)){
-            mav.addObject("statisticsData", statisticsService.getStatistics(statisticsId));
+           MemberStatistics member=(MemberStatistics)statisticsService.getStatistics(statisticsId);
+           mav.addObject("statisticsData", member);
         }
         return mav;
     }

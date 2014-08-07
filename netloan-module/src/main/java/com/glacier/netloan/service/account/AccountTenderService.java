@@ -1,5 +1,6 @@
 package com.glacier.netloan.service.account;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -20,7 +21,6 @@ import com.glacier.netloan.dto.query.borrow.TenderNotesQueryDTO;
 import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.entity.borrow.TenderNotesExample;
 import com.glacier.netloan.entity.borrow.TenderNotesExample.Criteria;
-
 
 /**
  * @ClassName: AccountTenderService
@@ -100,8 +100,8 @@ public class AccountTenderService {
 	
 	public HSSFWorkbook export(List<TenderNotes> list) {
 		
-		String[] excelHeader = { "投标用户", "用户积分", "认购份数", "借款名称", "借款用户", "年利率","还款期限", "借款完成百分比", "备注" };
-		int[] excelHeaderWidth = { 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50 };
+		String[] excelHeader = { "投标用户", "用户积分", "认购份数", "借款标题", "借款用户", "投标状态" ,"创建人","创建时间","备注" };
+		int[] excelHeaderWidth = { 80, 80, 80, 80, 80, 80, 80, 80,80 };
 		
 		HSSFWorkbook wb = new HSSFWorkbook();
 		HSSFSheet sheet = wb.createSheet("用户投标报表统计");
@@ -119,22 +119,40 @@ public class AccountTenderService {
 		for (int i = 0; i < excelHeaderWidth.length; i++) {
 			sheet.setColumnWidth(i, 32 * excelHeaderWidth[i]);
 		}
+		//时间格式
+		SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
+		//遍历投标信息
 		for (int i = 0; i < list.size(); i++) {
 			row = sheet.createRow(i + 1);
 			TenderNotes tenderNotes = list.get(i);
+			String loanState=null;
+			String remark=tenderNotes.getRemark(); 
+			if(tenderNotes.getLoanState().equals("firstAudit"))
+				loanState="初审中";
+			else if(tenderNotes.getLoanState().equals("tendering"))
+				loanState="招标中";
+			else if(tenderNotes.getLoanState().equals("secondAuditor"))
+				loanState="满标";
+			else if(tenderNotes.getLoanState().equals("repaymenting"))
+				loanState="还款中";
+			else if(tenderNotes.getLoanState().equals("completed"))
+				loanState="已还完";
+			else if(tenderNotes.getLoanState().equals("bids"))
+				loanState="流标";
+			else 
+				loanState="其他";
+			if(remark==null)
+                remark="无";
 			row.createCell(0).setCellValue(tenderNotes.getMemberDisplay());// 投标用户
 			row.createCell(1).setCellValue(tenderNotes.getCreditIntegral());// 用户积分
 			row.createCell(2).setCellValue(tenderNotes.getSubTotal());// 认购份数
 			row.createCell(3).setCellValue(tenderNotes.getLoanTitle());// 借款标题
 			row.createCell(4).setCellValue(tenderNotes.getLoanMemberDisplay());// 借款用户
-			row.createCell(5).setCellValue(tenderNotes.getLoanApr());// 年利率
-			row.createCell(6).setCellValue(tenderNotes.getLoanDeadlinesId());// 还款期限
-			row.createCell(7).setCellValue(tenderNotes.getAlrTenderPro());// 借款完成百分比
-			row.createCell(8).setCellValue(tenderNotes.getRemark());// 备注
+			row.createCell(5).setCellValue(loanState);// 借款状态
+			row.createCell(6).setCellValue(tenderNotes.getCreaterDisplay());// 创建人
+			row.createCell(7).setCellValue(sf.format(tenderNotes.getCreateTime()));// 创建时间
+			row.createCell(8).setCellValue(remark);// 备注
 		}
 		return wb;
 	}
-	
-	
-	   
 }

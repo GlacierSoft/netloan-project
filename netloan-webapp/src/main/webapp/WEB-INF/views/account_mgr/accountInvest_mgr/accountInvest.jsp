@@ -117,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title:"投资统计详细信息",
+				title:"截止【"+rowData.createTime+"】投资统计详细信息",
 				href : ctx + '/do/accountInvest/intoDetail.htm?investId='+rowData.investId,//从controller请求jsp页面进行渲染
 				width : 600,
 				height : 300,
@@ -478,8 +478,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	console.info(data);
 	        	if(data[0].flag){
 	        		 if(data[0].msg){
-	        			$("#invest_warn").text("条件内无数据，请重新检索!!!");
-	        			$("#invest_warn").show();
+	        			 $("#invest_warn").text("条件内无数据，请重新检索!!!");
+	        			 $("#invest_warn").show();
 	        		}else{
 	        			$("#invest_warn").hide();
 	        			glacier.account_mgr.accountInvest_mgr.accountInvest.outExpAccountInvest();

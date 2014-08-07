@@ -127,8 +127,10 @@ public class AccountLoginService {
 	 */
 	
 	public HSSFWorkbook export(List<Member> list) {
+		
+		//定义导出变量
 		String[] excelHeader = { "会员名称", "真实姓名", "身份证号", "居住地址", "联系方式", "电子邮件","用户等级", "信用积分", "最后登陆IP", "登入次数" };
-		int[] excelHeaderWidth = { 60, 60, 60, 60, 60, 60, 60, 60, 60, 60 };
+		int[] excelHeaderWidth = { 85, 85, 85, 85, 85,85, 85, 85, 95, 85 };
 		
 		HSSFWorkbook wb = new HSSFWorkbook();
 		HSSFSheet sheet = wb.createSheet("用户登录报表统计");
@@ -142,20 +144,31 @@ public class AccountLoginService {
 			cell.setCellStyle(style);
 			sheet.autoSizeColumn(i);
 		}
+		
 		// 设置列宽度（像素）
 		for (int i = 0; i < excelHeaderWidth.length; i++) {
 			sheet.setColumnWidth(i, 32 * excelHeaderWidth[i]);
 		}
+		
+		//遍历信息
 		for (int i = 0; i < list.size(); i++) {
 			row = sheet.createRow(i + 1);
 			Member member = list.get(i);
+			String type_info=null;
+			if(member.getType().equals("general")){
+				type_info="普通会员";
+			}else if(member.getType().equals("vip")){
+				  type_info="Vip会员";
+			}else{
+				  type_info="全部会员";
+			}
 			row.createCell(0).setCellValue(member.getMemberName());
 			row.createCell(1).setCellValue(member.getMemberRealName());
 			row.createCell(2).setCellValue(member.getCardId());
 			row.createCell(3).setCellValue(member.getLiveAddress());
 			row.createCell(4).setCellValue(member.getMobileNumber());
 			row.createCell(5).setCellValue(member.getEmail());
-			row.createCell(6).setCellValue(member.getType() == "general" ? "普通会员": member.getType() == "vip" ? "vip会员" : member.getType() == "all" ? "全部会员" : "Null");
+			row.createCell(6).setCellValue(type_info);
 			row.createCell(7).setCellValue(member.getCreditIntegral());
 			row.createCell(8).setCellValue(member.getLastLoginIpAddress());
 			row.createCell(9).setCellValue(member.getLoginCount());
