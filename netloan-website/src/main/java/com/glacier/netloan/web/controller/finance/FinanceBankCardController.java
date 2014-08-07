@@ -19,6 +19,7 @@ import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.service.basicdatas.ParameterQuestionService;
 import com.glacier.netloan.service.finance.FinanceBankCardService;
 import com.glacier.netloan.service.member.MemberAuthService;
+import com.glacier.netloan.service.member.MemberSecretSecurityService;
 
 @Controller
 @RequestMapping(value = "/bankCard")
@@ -35,6 +36,9 @@ public class FinanceBankCardController extends AbstractController {
 	
 	@Autowired
 	private ParameterQuestionService parameterQuestionService;
+	
+	@Autowired
+	private MemberSecretSecurityService memberSecretSecurityService;
 	
 	@RequestMapping(value = "/addBankCard.htm")
 	@ResponseBody
@@ -85,6 +89,9 @@ public class FinanceBankCardController extends AbstractController {
         pager.setOrder("DESC");// 升序还是降序
         Subject pricipalSubject = SecurityUtils.getSubject();
         Member pricipalMember = (Member) pricipalSubject.getPrincipal();
+        //查询该会员是否已设置了密保信息，
+        JqGridReturn SecretSecurityResult = (JqGridReturn)memberSecretSecurityService.listAsGridWebsite(pricipalMember.getMemberId(), pager);
+        request.setAttribute("SecretSecurityResult", SecretSecurityResult);
         //查询银行卡列表
         JqGridReturn returnResult = (JqGridReturn) financeBankCardService.listAsGridWebsite(pricipalMember.getMemberId(), pager);
         @SuppressWarnings("unchecked")

@@ -101,33 +101,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				       <li id="tabchangeMobileLi"><a  id="tabchangeMobileTab" href="#tabUpdatePassword" data-toggle="tab">修改密码</a></li>
 				       <li><a href="#tabchangeMobile" data-toggle="tab">更换手机</a></li>
 				       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
-				       <li><a href="#tabbankCard" data-toggle="tab">银行卡设置</a></li>
+				       <li id="tabbankCardTabs"><a href="#tabbankCard" id="tabbankCardTab" data-toggle="tab">银行卡设置</a></li>
 				       <li id="updateSecretSecurityLi"><a id="updateSecretSecurityTab" href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
-				     
-				       <li id="tabchangeMobileLi2"><a  id="tabchangeMobileTab2" href="#tabUpdatePassword2" data-toggle="tab">修改交易密码</a></li>
-				     
+				       <li id="tabchangeMobileLi2"><a id="tabchangeMobileTab2" href="#tabUpdatePassword2" data-toggle="tab">修改交易密码</a></li>
 				       </c:if>
 				       <c:if test="${addBankCard == 'addBankCard' }">
 				       	   <li><a href="${ctx}/member/memberDetail.htm" class="btn " role="button">个人详细信息</a></li>
 					       <li id="tabchangeMobileLi"><a id="tabchangeMobileTab" href="#tabUpdatePassword" data-toggle="tab">修改密码</a></li>
 					       <li><a href="#tabchangeMobile" data-toggle="tab">更换手机</a></li>
 					       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
-					       <li class="active"><a href="#tabbankCard" data-toggle="tab">银行卡设置</a></li>
+					       <li id="tabbankCardTabs" class="active"><a href="#tabbankCard" id="tabbankCardTab" data-toggle="tab">银行卡设置</a></li>
 					       <li id="updateSecretSecurityLi"><a  id="updateSecretSecurityTab" href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
-				       
 				           <li id="tabchangeMobileLi2"><a  id="tabchangeMobileTab2" href="#tabUpdatePassword2" data-toggle="tab">修改交易密码</a></li>
-				     
 				       </c:if>
 				        <c:if test="${!empty updateSecretSecurity }">
 				       	   <li><a href="${ctx}/member/memberDetail.htm" class="btn " role="button">个人详细信息</a></li>
 					       <li id="tabchangeMobileLi"><a id="tabchangeMobileTab" href="#tabUpdatePassword" data-toggle="tab">修改密码</a></li>
 					       <li><a href="#tabchangeMobile" data-toggle="tab">更换手机</a></li>
 					       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
-					       <li><a href="#tabbankCard" data-toggle="tab">银行卡设置</a></li>
+					       <li id="tabbankCardTabs"><a href="#tabbankCard" id="tabbankCardTab" data-toggle="tab">银行卡设置</a></li>
 					       <li id="updateSecretSecurityLi" class="active"><a id="updateSecretSecurityTab" href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
-				      
 				           <li id="tabchangeMobileLi2"><a  id="tabchangeMobileTab2" href="#tabUpdatePassword2" data-toggle="tab">修改交易密码</a></li>
-				     
 				       </c:if>
 				     </ul>
 				      <br>
@@ -836,9 +830,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    }); 
 	    
-	
+	    $('#tabbankCardTab').bind('click', function(){    
+	      	if("${SecretSecurityResult.rows[0].secretSecurityId}" == ''){
+	    		//notClonedialog("请先设置密保问题");
+	    		alert("请先设置密保问题");
+	    		window.location.href="${ctx}/member/memberDetail.htm?updateSecretSecurity=updateSecretSecurity";
+	    	}else{
+	    		//notClonedialog("请先回答安全问题");
+	    		alert("请先回答安全问题");
+	    		window.location.href="${ctx}/member/memberDetail.htm?updateSecretSecurity=cardTab";
+	    	}
+	    }); 
 	   //--------------------
-	        $('#tabchangeMobileTab2').bind('click', function(){    
+        $('#tabchangeMobileTab2').bind('click', function(){    
 	      	if("${SecretSecurityResult.rows[0].secretSecurityId}" == ''){
 	    		//notClonedialog("请先设置密保问题");
 	    		alert("请先设置密保问题");
@@ -852,10 +856,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    ////======================
 	    $('#updateSecretSecurityTab').bind('click', function(){    
 	      	if("${SecretSecurityResult.rows[0].secretSecurityId}" == ''){
-	    		notClonedialog("请先设置密保问题");
+	    		//notClonedialog("请先设置密保问题");
+	    		alert("请先设置密保问题");
+	    		window.location.href="${ctx}/member/memberDetail.htm?updateSecretSecurity=updateSecretSecurity";
 	    	}else{
 	    		//notClonedialog("请先回答密保问题"); 
 	    		alert("请先回答密保问题");
+	    		window.location.href="${ctx}/member/memberDetail.htm?updateSecretSecurity=updatejiaoyi";
 	    	}
 	    }); 
 	  	//通过设置这个隐藏文本的值来判断是保存按钮还是保存并提交审核按钮。进行相应的操作。
@@ -1226,7 +1233,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    						   $("#updateSecretSecurityLi").attr("class","");
 	    						   $("#updateSecretSecurity").attr("class","tab-pane fade");
 	    						   $("#tabUpdatePassword2").attr("class","tab-pane fade");
-		    						  
 	    					   }else if("${updateSecretSecurity}" == 'updatePassword2'){
 	    						   $("#tabchangeMobileLi2").attr("class","active"); 
 	    						   $("#tabchangeMobileLi").attr("class","");
@@ -1234,7 +1240,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    						   $("#tabUpdatePassword2").attr("class","tab-pane fade in active");
 	    						   $("#updateSecretSecurityLi").attr("class","");
 	    						   $("#updateSecretSecurity").attr("class","tab-pane fade");
-	    					 
+	    					   }else if("${updateSecretSecurity}" == 'cardTab'){//银行卡设置
+	    						   $("#tabchangeMobileLi2").attr("class",""); 
+	    						   $("#tabchangeMobileLi").attr("class","");
+	    						   $("#tabUpdatePassword").attr("class","tab-pane fade ");
+	    						   $("#tabbankCard").attr("class","tab-pane fade in active");//设置隐藏的面板
+	    						   $("#updateSecretSecurityLi").attr("class","");
+	    						   $("#updateSecretSecurity").attr("class","tab-pane fade");
+	    						   $("#tabbankCardTabs").attr("class","active");//设置显示标题
+	    					   }else if("${updateSecretSecurity}" == 'updatejiaoyi'){
+	    						   $("#tabchangeMobileLi2").attr("class",""); 
+	    						   $("#tabchangeMobileLi").attr("class","");
+	    						   //$("#tabUpdatePassword").attr("class","tab-pane fade ");
+	    						   $("#updateSecretSecurity").attr("class","tab-pane fade in active");//设置隐藏的面板
+	    						   //$("#updateSecretSecurityLi").attr("class","active");
+	    						   $("#updateSecretSecurityLi").attr("class","tab-pane fade in active");
 	    					   }else{
 	    						   window.location.href="${ctx}/member/memberDetail.htm?updateSecretSecurity=updateSecretSecurity";
 	    					   }
