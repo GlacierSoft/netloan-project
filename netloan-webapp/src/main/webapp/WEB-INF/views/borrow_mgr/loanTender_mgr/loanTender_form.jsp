@@ -135,7 +135,7 @@ $('#loanTender_mgr_loanTender_form_lowestApr').numberbox({
 	required:true,
 	min:0,
 	max:99999999,
-	precision:0,
+	precision:2,
 	groupSeparator:',',
 	missingMessage:'请填写最小年利率'
 });
@@ -143,7 +143,7 @@ $('#loanTender_mgr_loanTender_form_largestApr').numberbox({
 	required:true,
 	min:0,
 	max:99999999,
-	precision:0,
+	precision:2,
 	groupSeparator:',',
 	missingMessage:'请填写最大年利率'
 });
