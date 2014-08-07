@@ -112,7 +112,7 @@ public class MemberService {
 		MemberExample memberExample = new MemberExample();
 		memberExample.createCriteria().andMemberIdEqualTo(memberId);
 		List<Member> MemberList = memberMapper.selectByExample(memberExample); 
-		if(MemberList.get(0).getMemberRealName() == null && MemberList.get(0).getMemberRealName().length() == 0){
+		if(MemberList.get(0).getMemberRealName() == null){
 			returnResult.setMsg("此操作需要完善用户资料！");
 			returnResult.setSuccess(false);
 			return returnResult;
@@ -539,11 +539,12 @@ public class MemberService {
         count = memberMapper.updateByPrimaryKeySelective(member);
         //工作表的修改
         countWork = memberWorkMapper.updateByPrimaryKeySelective(memberWork);
-        //将基本信息和工作信息提交审核
+        //将基本信息和工作信息提交审核手机认证提交审核
         if(postAuth.equalsIgnoreCase("postAuth")){
         	MemberAuthWithBLOBs memberAuthWithBLOBs = memberAuthMapper.selectByPrimaryKey(member.getMemberId());
         	memberAuthWithBLOBs.setInfoAuth("authstr");
         	memberAuthWithBLOBs.setWorkAuth("authstr");
+        	memberAuthWithBLOBs.setMobileAuth("authstr");  
         	memberAuthMapper.updateByPrimaryKeySelective(memberAuthWithBLOBs);
         }
         if (count == 1 && countWork == 1) {

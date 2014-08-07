@@ -133,7 +133,7 @@
 				</c:choose>
 				</td>
 			</tr>
-			<tr>
+			<%-- <tr>
 				<td><input id="member_mgr_memberAuth_form_realName" name="realName" class="spinner" style="width:168px" value="${memberAuthData.realName}" readonly="readonly"/></td>
 				<td>
 				<c:choose>
@@ -155,7 +155,7 @@
 		   		    </c:otherwise>
 				</c:choose>
 				</td>
-			</tr>
+			</tr> --%>
 			<tr>
 				<td><input id="member_mgr_memberAuth_form_idCardName" name="idCardName" class="spinner" style="width:168px" value="${memberAuthData.idCardName}" readonly="readonly"/></td>
 				<td>
@@ -214,7 +214,7 @@
 	$('#member_mgr_memberAuth_form_mobileAuth').val(renderGridValue('${memberAuthData.mobileAuth}',fields.auths));
 	$('#member_mgr_memberAuth_form_creditAuth').val(renderGridValue('${memberAuthData.creditAuth}',fields.auths));
 	$('#member_mgr_memberAuth_form_companyAuth').val(renderGridValue('${memberAuthData.companyAuth}',fields.auths));
-	$('#member_mgr_memberAuth_form_realNameAuth').val(renderGridValue('${memberAuthData.realNameAuth}',fields.auths));
+	//$('#member_mgr_memberAuth_form_realNameAuth').val(renderGridValue('${memberAuthData.realNameAuth}',fields.auths));
 	$('#member_mgr_memberAuth_form_idCardAuth').val(renderGridValue('${memberAuthData.idCardAuth}',fields.auths));
 	$('#member_mgr_memberAuth_form_workAuth').val(renderGridValue('${memberAuthData.workAuth}',fields.auths));  
 	

@@ -222,11 +222,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					              <td id="memberAuth_form_companyAuth"></td>
 					              <td id="memberAuth_form_companyAuth_creditIntegral">0</td>
 					            </tr>
-					            <tr>
+					           <%--  <tr>
 					              <td>${requestScope.memberAuthWithBLOBs.realName}</td>
 					              <td id="memberAuth_form_realNameAuth"></td>
 					              <td id="memberAuth_form_realNameAuth_creditIntegral">0</td>
-					            </tr>
+					            </tr> --%>
 					            <tr>
 					              <td>${requestScope.memberAuthWithBLOBs.vipName}</td>
 					              <td id="memberAuth_form_vipAuth"></td>
@@ -249,10 +249,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        	</div>
 					          <img src="${pageContext.request.contextPath}/resources/images/index/4.jpg"  alt="Generic placeholder image">
 					          <h3>身份认证</h3>
-					          <div class="bs-example " style="padding-bottom:24px;">
-							      <button class="btn btn-primary btn-lg"  data-backdrop="static" data-toggle="modal" data-target="#idCardAccessoryModal"  >
+					          <div class="bs-example " style="padding-bottom:24px;"> 
+							    <c:choose>   
+                                <c:when test="${requestScope.memberAuthWithBLOBs.idCardAuth == 'noapply' || requestScope.memberAuthWithBLOBs.idCardAuth == 'failure' }">  
+                                    <button id="but1" class="btn btn-primary btn-lg"  data-backdrop="static" data-toggle="modal" data-target="#idCardAccessoryModal"  >
 							        	点击上传
 							      </button>
+                                </c:when>   
+                             <c:otherwise>  
+							      <button id="but1" class="btn btn-primary btn-lg"  disabled="disabled" data-backdrop="static" data-toggle="modal" data-target="#idCardAccessoryModal"  >
+							        	点击上传
+							      </button>
+                            </c:otherwise>  
+                            </c:choose>  
 							    </div><!-- /example -->
 					        </div><!-- /.col-lg-4 -->
 					        <div class="col-lg-4 center-block" style="border: 1px solid #DDDDDD;">
@@ -261,10 +270,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        	</div>
 					          <img src="${pageContext.request.contextPath}/resources/images/index/5.jpg" alt="Generic placeholder image">
 					          <h3>企业认证</h3>
-					         <div class="bs-example " style="padding-bottom:24px;">
-							      <button class="btn btn-primary btn-lg " data-backdrop="static" data-toggle="modal" data-target="#companyAccessoryModal">
+					         <div class="bs-example " style="padding-bottom:24px;">  
+							   <c:choose>   
+                                <c:when test="${requestScope.memberAuthWithBLOBs.companyAuth == 'noapply' || requestScope.memberAuthWithBLOBs.companyAuth == 'failure' }">  
+                                     <button id="but2" class="btn btn-primary btn-lg " data-backdrop="static" data-toggle="modal" data-target="#companyAccessoryModal">
 							        	点击上传
-							      </button>
+							      </button> 
+                                </c:when>   
+                             <c:otherwise> 
+                               <button id="but2" class="btn btn-primary btn-lg " disabled="disabled" data-backdrop="static" data-toggle="modal" data-target="#companyAccessoryModal">
+							        	点击上传
+							      </button> 
+                            </c:otherwise>  
+                            </c:choose>      
 							    </div><!-- /example -->
 					        </div><!-- /.col-lg-4 -->
 					        <div class="col-lg-4 center-block" style="border: 1px solid #DDDDDD;">
@@ -273,10 +291,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        	</div>
 					          <img src="${pageContext.request.contextPath}/resources/images/index/6.jpg"   alt="Generic placeholder image">
 					          <h3>信用认证</h3>
-					          <div class="bs-example " style="padding-bottom:24px;">
-							      <button class="btn btn-primary btn-lg " data-backdrop="static" data-toggle="modal" data-target="#creditAccessoryModal">
+					          <div class="bs-example " style="padding-bottom:24px;"> 
+					             <c:choose>   
+                                <c:when test="${requestScope.memberAuthWithBLOBs.creditAuth == 'noapply' || requestScope.memberAuthWithBLOBs.creditAuth == 'failure' }">  
+                                    <button id="but3" class="btn btn-primary btn-lg " data-backdrop="static" data-toggle="modal" data-target="#creditAccessoryModal">
 							        	点击上传
 							      </button>
+                                </c:when>   
+                             <c:otherwise> 
+                               <button id="but3" class="btn btn-primary btn-lg " disabled="disabled" data-backdrop="static" data-toggle="modal" data-target="#creditAccessoryModal">
+							        	点击上传
+							      </button>
+                            </c:otherwise>  
+                            </c:choose> 
+					           
+							      
 							    </div><!-- /example -->
 					        </div><!-- /.col-lg-4 -->
 					      </div><!-- /.row -->	 
@@ -343,9 +372,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										  <li>1、工薪阶层（入职须6个月以上）：
 										  	<ul class="list-unstyled">
 										  		<li>a）为必须上传资料，b）和c）任选一项或者两项</li>
-										  		<li>a）正式劳动合同</li>
-										  		<li>b）盖有单位公章的在职证明</li>
-										  		<li>c）带有姓名及照片的工作证</li>
+										  		<li>b）正式劳动合同</li>
+										  		<li>c）盖有单位公章的在职证明</li>
+										  		<li>d）带有姓名及照片的工作证</li>
 										  	</ul>
 										  </li>
 										  <li>2、企业私营业主（经营须一年以上）：</li>
@@ -373,7 +402,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							   		    </c:otherwise>
 									</c:choose>
 									<br>
-						            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，晓风网贷会将你加入系统黑名单，永久取消您在晓风网贷的借款资格。</p>
+						            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，冰川网贷会将你加入系统黑名单，永久取消您在冰川网贷的借款资格。</p>
 						          </div>
 						          <div class="modal-footer">
 						           <c:choose>
@@ -402,8 +431,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						            <h4>信用认证：</h4>
 						            <p>
 						            	个人信用报告是由中国人民银行出具，全面记录个人信用活动，反映个人信用基本状况的文件。
-						            	本报告是晓风网贷了解您信用状况的一个重要参考资料。 您信用报告内体现的信用记录，和信用卡额度等数据，
-						            	将在您发布借款时经晓风网贷工作人员整理，在充分保护您隐私的前提下披露给晓风网贷借出者，
+						            	本报告是冰川网贷了解您信用状况的一个重要参考资料。 您信用报告内体现的信用记录，和信用卡额度等数据，
+						            	将在您发布借款时经冰川网贷工作人员整理，在充分保护您隐私的前提下披露给冰川网贷借出者，
 						            	作为借出者投标的依据。
 						            </p>
 									<hr>
@@ -425,7 +454,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							   		    </c:otherwise>
 									</c:choose>
 									<br>
-						            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，晓风网贷会将你加入系统黑名单，永久取消您在晓风网贷的借款资格。</p>
+						            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，冰川网贷会将你加入系统黑名单，永久取消您在冰川网贷的借款资格。</p>
 						          </div>
 						          <div class="modal-footer">
 						          <c:choose>
@@ -1012,6 +1041,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							$('#idCard_auth').html(renderGridValue(data.obj.idCardAuth,fields.auths));	
 							successdialog(data);
 							document.getElementById("member_idCardAccessory").value="";
+							$("#but1").attr('disabled',"true");
 						}
 					} 
 				});
@@ -1034,7 +1064,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						if(data.success){
 							$('#memberAuth_form_creditAuth').html(renderGridValue(data.obj.creditAuth,fields.auths));
 							$('#credit_auth').html(renderGridValue(data.obj.creditAuth,fields.auths));	
-							successdialog(data);
+							successdialog(data); 
+							$("#but3").attr('disabled',"true");
 						}
 					}
 				});
@@ -1059,6 +1090,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							$('#memberAuth_form_companyAuth').html(renderGridValue(data.obj.companyAuth,fields.auths));
 							$('#company_auth').html(renderGridValue(data.obj.companyAuth,fields.auths));	
 							successdialog(data);
+							$("#but2").attr('disabled',"true");
 						}
 					}
 				});
