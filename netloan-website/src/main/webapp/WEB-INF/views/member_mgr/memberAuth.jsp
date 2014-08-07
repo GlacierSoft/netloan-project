@@ -372,9 +372,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										  <li>1、工薪阶层（入职须6个月以上）：
 										  	<ul class="list-unstyled">
 										  		<li>a）为必须上传资料，b）和c）任选一项或者两项</li>
-										  		<li>a）正式劳动合同</li>
-										  		<li>b）盖有单位公章的在职证明</li>
-										  		<li>c）带有姓名及照片的工作证</li>
+										  		<li>b）正式劳动合同</li>
+										  		<li>c）盖有单位公章的在职证明</li>
+										  		<li>d）带有姓名及照片的工作证</li>
 										  	</ul>
 										  </li>
 										  <li>2、企业私营业主（经营须一年以上）：</li>

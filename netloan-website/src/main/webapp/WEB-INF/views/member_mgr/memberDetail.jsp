@@ -285,7 +285,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							  		<p class="text-primary">* 为必填项，所有资料均会严格保密。*成为借款人必填项。</p>
 								</blockquote>
 						  		  <div class="form-group">
-								    <label for="unitName" class="col-sm-2 control-label">单位名称:</label>
+								    <label for="unitName" class="col-sm-2 control-label">*单位名称:</label>
 								    <div class="col-sm-4">
 								      <input type="text" class="form-control" id="unitName" name="unitName" value="${currentMemberWork.unitName}"  placeholder="单位名称">
 								    </div>
