@@ -434,6 +434,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 <script>
+
 	$(function(){
 		//获取当前时间
 		var data_now=new Date();
@@ -447,7 +448,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 	function doUpLoad(){
-		 alert("啦啦啦啦!!!!");
 		 var imgArr = ["xls","txt"];
 	     var file = $("#AccountFileIn").val();
 	     var len = file.length;
@@ -459,13 +459,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	 if($.inArray(ext,imgArr) == -1)
 	    		 flag=false;
 			 if(flag){
-				//$('#form_in').submit(); 
-				$("#form_in").form('submit',{
-					success:function(data){
-					    alert(data);	
-					}
-				});
-            }else
+				$('#form_in').submit();
+			}else
 	    		 alert("请重新选择!");
 	    	  
 	     }

@@ -309,17 +309,27 @@ public class AccountInvestController extends AbstractController {
 	        ouputStream.close();  
 	    }
 	    
-	    //Excel导入
+	    //投资统计查询信息导入
 		@RequestMapping(value="ExcelIn.json",method=RequestMethod.POST)
 		@ResponseBody
 		private Object AccountInvestIn(MultipartFile AccountFile, HttpServletRequest request,HttpServletResponse response) throws IOException{
-			   //System.out.println("文件长度: " + AccountFile.getSize());  
-               //System.out.println("文件类型: " + AccountFile.getContentType());  
-               //System.out.println("文件名称: " + AccountFile.getName());  
-               //System.out.println("文件原名: " + AccountFile.getOriginalFilename());
-               String realPath = request.getSession().getServletContext().getRealPath("/WEB-INF/upload"); 
-			   FileUtils.copyInputStreamToFile(AccountFile.getInputStream(), new File(realPath, AccountFile.getOriginalFilename()));
-			   return null;
+			   System.out.println("文件长度: " + AccountFile.getSize());  
+               System.out.println("文件类型: " + AccountFile.getContentType());  
+               System.out.println("文件名称: " + AccountFile.getName());  
+               System.out.println("文件原名: " + AccountFile.getOriginalFilename());
+               boolean flag=true;
+               Map<String,Object> map=new HashMap<String,Object>();
+               List<Map<String,Object>> list=new ArrayList<Map<String, Object>>();
+               try{
+            	   String realPath = request.getSession().getServletContext().getRealPath("/WEB-INF/upload"); 
+    			   FileUtils.copyInputStreamToFile(AccountFile.getInputStream(), new File(realPath, AccountFile.getOriginalFilename()));   
+               }catch(Exception e){
+            	   flag=false;
+            	   e.printStackTrace();
+            	}
+               map.put("data", flag);
+               list.add(map);
+			   return list;
 		}
 	    
 }	    

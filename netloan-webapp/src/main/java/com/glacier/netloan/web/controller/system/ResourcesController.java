@@ -271,10 +271,8 @@ public class ResourcesController extends AbstractController{
 			out.close();
 			br.close();
 			writer.close();
-			System.out.println("/**还原成功!!!!!**/");
 		} catch (Exception e) {
 			flag = false;
-			System.out.println("/**还原失败!!!!!**/");
 		}
 		map.put("data", flag);
 		list.add(map);
