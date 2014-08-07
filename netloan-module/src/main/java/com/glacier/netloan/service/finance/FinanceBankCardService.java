@@ -19,12 +19,13 @@ import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceBankCardMapper;
 import com.glacier.netloan.dao.finance.FinanceMemberMapper;
 import com.glacier.netloan.dao.member.MemberMessageNoticeMapper;
+import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.dto.query.finance.FinBankCardQueryDTO;
 import com.glacier.netloan.entity.finance.FinanceBankCard;
 import com.glacier.netloan.entity.finance.FinanceBankCardExample;
 import com.glacier.netloan.entity.finance.FinanceMemberExample; 
 import com.glacier.netloan.entity.member.MemberMessageNotice;
-import com.glacier.netloan.entity.system.User;
+import com.glacier.netloan.entity.system.User; 
 import com.glacier.netloan.entity.finance.FinanceBankCardExample.Criteria;
 import com.glacier.netloan.util.MethodLog;
 
@@ -48,6 +49,11 @@ public class FinanceBankCardService {
 	
 	@Autowired
 	private FinanceMemberMapper financeMemberMapper;
+	 
+	@Autowired
+	private UserMapper userMapper; 
+	
+	
 	/**
 	 * @Title: addFinanceBankCardWebsit 
 	 * @Description: TODO(前台增加会员银行卡) 
@@ -355,30 +361,43 @@ public class FinanceBankCardService {
     @MethodLog(opera = "bankCardList_audit")
 	public Object auditApplyAmount(FinanceBankCard bankCard) {
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-	    
+	    FinanceBankCard card=financeBankCardMapper.selectByPrimaryKey(bankCard.getBankCardId()); 
+        if(card.getStatus().equals("pass")||card.getStatus().equals("failure")){  
+	         returnResult.setMsg("操作失败，该会员银行卡已进行过审核！"); 
+			 return returnResult;
+		 }else if(bankCard.getStatus().equals(card.getStatus())){
+			 returnResult.setMsg("无效的操作！"); 
+			 return returnResult;
+		 } 
+        String  mesginfo="";
+        if(bankCard.getRemark()!=null){
+        	mesginfo="。审核说明："+bankCard.getRemark();
+        }
 	    Subject pricipalSubject = SecurityUtils.getSubject();// 查找当前系统登录用户
-	    User pricipalUser = (User) pricipalSubject.getPrincipal();
+	    User pricipalUser = (User) pricipalSubject.getPrincipal(); 
 	    bankCard.setUpdater(pricipalUser.getUserId());// 更新人为当前系统登录用户
 	    bankCard.setUpdateTime(new Date());// 更新时间为当前系统时间
 	    bankCard.setAuditor(pricipalUser.getUserId());// 审核人为当前系统登录用户
-	    bankCard.setAuditDate(new Date());// 审核时间为当前系统时间
-	    
+	    bankCard.setAuditDate(new Date());// 审核时间为当前系统时间 
 	    //创建信息通知对象
-        MemberMessageNotice memberMessageNotice = new MemberMessageNotice();
-	    
+        MemberMessageNotice memberMessageNotice = new MemberMessageNotice();  
 	    int count = 0;
 	    count = financeBankCardMapper.updateByPrimaryKeySelective(bankCard);
-	    if (count == 1) {
+	    if (count == 1) {    
 	        returnResult.setSuccess(true);
-	        returnResult.setMsg("会员银行卡审核成功");
-  			if(bankCard.getStatus().equals("bankCard")){
+	        returnResult.setMsg("会员银行卡审核操作成功！"); 
+	       //变更中
+	    	if(bankCard.getStatus().equals("changing")){
+	    		 return returnResult;
+	    	} 
+  			if(bankCard.getStatus().equals("pass")){
   				memberMessageNotice.setTitle("会员银行卡审核通知");
-  	  			memberMessageNotice.setContent("您的银行卡号为["+bankCard.getCardNumber()+"]审核状态:通过");
+  	  			memberMessageNotice.setContent("您的银行卡号为["+card.getCardNumber()+"]，审核状态:通过"+mesginfo);
   			}else if(bankCard.getStatus().equals("failure")){
   				memberMessageNotice.setTitle("会员银行卡审核通知");
-  	  			memberMessageNotice.setContent("您的银行卡号为["+bankCard.getCardNumber()+"]审核状态:不通过");
+  	  			memberMessageNotice.setContent("您的银行卡号为["+card.getCardNumber()+"]，审核状态:不通过"+mesginfo);
   			}
-  			this.addMessageNotice(memberMessageNotice,bankCard.getMemberId());
+  			this.addMessageNotice(memberMessageNotice,card.getMemberId());
 	    } else {
 	        returnResult.setMsg("发生未知错误，会员银行卡审核失败");
 	    }
@@ -395,8 +414,8 @@ public class FinanceBankCardService {
    	 */
    	public int addMessageNotice(MemberMessageNotice memberMessageNotice,String memberId){
    	    //获取当前登录用户
-   		Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
+   		Subject pricipalSubject = SecurityUtils.getSubject(); 
+        User pricipalUser = (User) pricipalSubject.getPrincipal();  
         //为信息通知对象设置值
    		memberMessageNotice.setMessageNoticeId(RandomGUID.getRandomGUID());
    		memberMessageNotice.setSender(pricipalUser.getUserId());

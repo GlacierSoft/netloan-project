@@ -222,11 +222,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					              <td id="memberAuth_form_companyAuth"></td>
 					              <td id="memberAuth_form_companyAuth_creditIntegral">0</td>
 					            </tr>
-					            <tr>
+					           <%--  <tr>
 					              <td>${requestScope.memberAuthWithBLOBs.realName}</td>
 					              <td id="memberAuth_form_realNameAuth"></td>
 					              <td id="memberAuth_form_realNameAuth_creditIntegral">0</td>
-					            </tr>
+					            </tr> --%>
 					            <tr>
 					              <td>${requestScope.memberAuthWithBLOBs.vipName}</td>
 					              <td id="memberAuth_form_vipAuth"></td>
@@ -249,10 +249,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        	</div>
 					          <img src="${pageContext.request.contextPath}/resources/images/index/4.jpg"  alt="Generic placeholder image">
 					          <h3>身份认证</h3>
-					          <div class="bs-example " style="padding-bottom:24px;">
-							      <button class="btn btn-primary btn-lg"  data-backdrop="static" data-toggle="modal" data-target="#idCardAccessoryModal"  >
+					          <div class="bs-example " style="padding-bottom:24px;"> 
+							    <c:choose>   
+                                <c:when test="${requestScope.memberAuthWithBLOBs.idCardAuth == 'noapply' || requestScope.memberAuthWithBLOBs.idCardAuth == 'failure' }">  
+                                    <button class="btn btn-primary btn-lg"  data-backdrop="static" data-toggle="modal" data-target="#idCardAccessoryModal"  >
 							        	点击上传
 							      </button>
+                                </c:when>   
+                             <c:otherwise> 
+                               
+							      <button class="btn btn-primary btn-lg"  disabled="disabled" data-backdrop="static" data-toggle="modal" data-target="#idCardAccessoryModal"  >
+							        	点击上传
+							      </button>
+                            </c:otherwise>  
+                            </c:choose>  
 							    </div><!-- /example -->
 					        </div><!-- /.col-lg-4 -->
 					        <div class="col-lg-4 center-block" style="border: 1px solid #DDDDDD;">
@@ -261,10 +271,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        	</div>
 					          <img src="${pageContext.request.contextPath}/resources/images/index/5.jpg" alt="Generic placeholder image">
 					          <h3>企业认证</h3>
-					         <div class="bs-example " style="padding-bottom:24px;">
-							      <button class="btn btn-primary btn-lg " data-backdrop="static" data-toggle="modal" data-target="#companyAccessoryModal">
+					         <div class="bs-example " style="padding-bottom:24px;">  
+							   <c:choose>   
+                                <c:when test="${requestScope.memberAuthWithBLOBs.companyAuth == 'noapply' || requestScope.memberAuthWithBLOBs.companyAuth == 'failure' }">  
+                                     <button class="btn btn-primary btn-lg " data-backdrop="static" data-toggle="modal" data-target="#companyAccessoryModal">
 							        	点击上传
-							      </button>
+							      </button> 
+                                </c:when>   
+                             <c:otherwise> 
+                               <button class="btn btn-primary btn-lg " disabled="disabled" data-backdrop="static" data-toggle="modal" data-target="#companyAccessoryModal">
+							        	点击上传
+							      </button> 
+                            </c:otherwise>  
+                            </c:choose>      
 							    </div><!-- /example -->
 					        </div><!-- /.col-lg-4 -->
 					        <div class="col-lg-4 center-block" style="border: 1px solid #DDDDDD;">
@@ -273,10 +292,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        	</div>
 					          <img src="${pageContext.request.contextPath}/resources/images/index/6.jpg"   alt="Generic placeholder image">
 					          <h3>信用认证</h3>
-					          <div class="bs-example " style="padding-bottom:24px;">
-							      <button class="btn btn-primary btn-lg " data-backdrop="static" data-toggle="modal" data-target="#creditAccessoryModal">
+					          <div class="bs-example " style="padding-bottom:24px;"> 
+					             <c:choose>   
+                                <c:when test="${requestScope.memberAuthWithBLOBs.creditAuth == 'noapply' || requestScope.memberAuthWithBLOBs.creditAuth == 'failure' }">  
+                                    <button class="btn btn-primary btn-lg " data-backdrop="static" data-toggle="modal" data-target="#creditAccessoryModal">
 							        	点击上传
 							      </button>
+                                </c:when>   
+                             <c:otherwise> 
+                               <button class="btn btn-primary btn-lg " disabled="disabled" data-backdrop="static" data-toggle="modal" data-target="#creditAccessoryModal">
+							        	点击上传
+							      </button>
+                            </c:otherwise>  
+                            </c:choose> 
+					           
+							      
 							    </div><!-- /example -->
 					        </div><!-- /.col-lg-4 -->
 					      </div><!-- /.row -->	 

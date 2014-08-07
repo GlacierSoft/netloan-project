@@ -96,7 +96,7 @@
 				formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
 					return renderGridValue(value,fields.auths);
 				}
-			},{
+			},/* {
 				field:'realNameAuth',
 				title:'真实姓名认证状态',
 				width:120,
@@ -104,7 +104,7 @@
 				formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
 					return renderGridValue(value,fields.auths);
 				}
-			},{
+			}, */{
 				field:'idCardAuth',
 				title:'身份证认证状态',
 				width:120,

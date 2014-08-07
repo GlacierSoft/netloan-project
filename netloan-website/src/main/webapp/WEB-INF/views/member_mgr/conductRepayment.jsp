@@ -51,10 +51,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <div class="btn-group-vertical">
 					          <a href="${ctx}/member/index.htm" class="btn btn-default" role="button">我的主页</a>
 					          <a href="#" onclick="checkRechargeWithdraw('${currentMember.memberId}','${ctx}/financeMember/rechargeWithdraw.htm?p=1');" class="btn btn-default" role="button">充值提现</a>
-					          <a href="#" onclick="checksMember('${currentMember.memberId}','${ctx}/member/memberAuth.htm?&p=0');" role="button">平台认证</a>
+					          <a href="#" onclick="checksMember('${currentMember.memberId}','${ctx}/member/memberAuth.htm?&p=0');" class="btn btn-default" role="button">平台认证</a>
 					          <a href="#" onclick="checksMember('${currentMember.memberId}','${ctx}/messageNotice/intoMessageNotice.htm?&p=1');" class="btn btn-default" role="button">站内信</a>
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-default" role="button">个人设置</a>
-							  <a href="#" onclick="checksMember('${currentMember.memberId}','${ctx}/member/memberPhotoInto.htm');" role="button">头像上传</a>
+							  <a href="#" onclick="checksMember('${currentMember.memberId}','${ctx}/member/memberPhotoInto.htm');" class="btn btn-default" role="button">头像上传</a>
 							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">邮箱设置</a>
 							</div>
 					      </div>
@@ -317,9 +317,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    				   data: $("#conductRepayment").serialize(),
     			   success: function(r) {
     				   successAddRecharge(r);
+    				   $('#subSum').removeAttr("disabled");
                     },
                     error: function() {
-                        alert("提交出错！");
+                        alert("提交出错！"); 
+                        $('#subSum').removeAttr("disabled");
                     }
    				});
    		} 

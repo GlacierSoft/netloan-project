@@ -539,11 +539,12 @@ public class MemberService {
         count = memberMapper.updateByPrimaryKeySelective(member);
         //工作表的修改
         countWork = memberWorkMapper.updateByPrimaryKeySelective(memberWork);
-        //将基本信息和工作信息提交审核
+        //将基本信息和工作信息提交审核手机认证提交审核
         if(postAuth.equalsIgnoreCase("postAuth")){
         	MemberAuthWithBLOBs memberAuthWithBLOBs = memberAuthMapper.selectByPrimaryKey(member.getMemberId());
         	memberAuthWithBLOBs.setInfoAuth("authstr");
         	memberAuthWithBLOBs.setWorkAuth("authstr");
+        	memberAuthWithBLOBs.setMobileAuth("authstr");  
         	memberAuthMapper.updateByPrimaryKeySelective(memberAuthWithBLOBs);
         }
         if (count == 1 && countWork == 1) {

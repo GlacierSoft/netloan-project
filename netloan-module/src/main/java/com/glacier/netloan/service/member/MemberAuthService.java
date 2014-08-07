@@ -165,14 +165,40 @@ public class MemberAuthService {
       			if(memberAuthWithBLOBs.getInfoAuth().equals("pass")){
       				if(memberCreditIntegrals.size() == 0){
     	      			//判断是哪个认证，添加信用积分记录
-    	      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("infoAuth");
+    	      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("infoAuth").andChangeTypeEqualTo("increase");
     	      			//调用方法为会员信用积分设置值，因为很多地方都是一样的，所以抽出来作为一个方法。
-    	      			this.memberCreditSet(parameterCreditTypeExample, parameterCreditType, memberCreditIntegral);
-          			}
+    	      			this.memberCreditSet(parameterCreditTypeExample, parameterCreditType, memberCreditIntegral);  
+    	      			//手机认证也是属于基本信息认证
+    	      	        MemberCreditIntegral parame = new MemberCreditIntegral(); 
+    	      	        ParameterCreditTypeExample pramExample = new ParameterCreditTypeExample();
+    	      	        pramExample.createCriteria().andCreditTypeEqualTo("mobileAuth").andChangeTypeEqualTo("increase"); 
+    	      	        List<ParameterCreditType>  pas=creditTypeMapper.selectByExample(pramExample);
+    	      	        ParameterCreditType creditType=pas.get(0);
+    	      	        parame.setIntegralType(creditType.getCreditType());
+    	      	        parame.setChangeType(creditType.getChangeType());
+    	      	        parame.setChangeValue(creditType.getChangeValue());  
+    	      			//新增会员信用积分。
+    	    	        String creditIntegralId = RandomGUID.getRandomGUID();
+    	    	        parame.setMemberId(memberAuthWithBLOBs.getMemberId());
+    	    	        parame.setCreditIntegralId(creditIntegralId);
+    	    	        parame.setCreater(pricipalUser.getUserId());
+    	    	        parame.setCreateTime(new Date());
+    	    	        parame.setUpdater(pricipalUser.getUserId());
+    	    	        parame.setUpdateTime(new Date()); 
+    	    	        memberCreditIntegralMapper.insert(parame);
+    	    	        //改变会员表里面的信用积分的值  
+    	    	        member.setCreditIntegral(member.getCreditIntegral() + memberCreditIntegral.getChangeValue()); 
+    	    	        memberMapper.updateByPrimaryKeySelective(member);
+    	    	        memberAuthWithBLOBs.setMobileAuth("pass"); 
+    	    	        memberAuthWithBLOBs.setMobileAuditor(pricipalUser.getUserId());
+    	    	        memberAuthWithBLOBs.setMobileTime(new Date());
+    	      			
+    	      	 	}
       				//为信息通知对象设置值,并新增相应的信息通知
 	      			memberMessageNotice.setTitle("基本信息认证审核通知");
 	      			memberMessageNotice.setContent("您的基本信息认证审核状况:通过");
-	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
+	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId()); 
+	      			
       			}else if(memberAuthWithBLOBs.getInfoAuth().equals("failure")){
       				if(memberCreditIntegrals.size() != 0){
       					//调用方法为会员信用积分总分设置值，因为很多地方都是一样的，所以抽出来作为一个方法。
@@ -197,8 +223,9 @@ public class MemberAuthService {
       			if(memberAuthWithBLOBs.getVipAuth().equals("pass")){
       				//计算出当前时间到下一年的时间,设置会员VIP的有效时间
       		        long dateTimes = new Date().getTime()+(365*24*60*60*1000L);
+      		        member.setType("vip");
       		        member.setExpireTime(new Date(dateTimes));
-      		        member.setValidTime(new Date(dateTimes));
+      		        member.setValidTime(new Date());
       		        member.setUpdater(pricipalUser.getUserId());
       		        member.setUpdateTime(new Date());
       				if(memberCreditIntegrals.size() == 0){
@@ -225,8 +252,6 @@ public class MemberAuthService {
       			memberAuthWithBLOBs.setVipAuditor(pricipalUser.getUserId());
             	memberAuthWithBLOBs.setVipTime(new Date());
       		}else if(auth.trim().equals("邮箱认证")){
-      			//邮箱认证可以忽略
-      		}else if(auth.trim().equals("手机认证")){
       			//邮箱认证可以忽略
       		}else if(auth.trim().equals("信用认证")){
       			if(memberAuthWithBLOBs.getCreditAuth().equals("")){ 
