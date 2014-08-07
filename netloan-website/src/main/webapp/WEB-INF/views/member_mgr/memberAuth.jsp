@@ -252,13 +252,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					          <div class="bs-example " style="padding-bottom:24px;"> 
 							    <c:choose>   
                                 <c:when test="${requestScope.memberAuthWithBLOBs.idCardAuth == 'noapply' || requestScope.memberAuthWithBLOBs.idCardAuth == 'failure' }">  
-                                    <button class="btn btn-primary btn-lg"  data-backdrop="static" data-toggle="modal" data-target="#idCardAccessoryModal"  >
+                                    <button id="but1" class="btn btn-primary btn-lg"  data-backdrop="static" data-toggle="modal" data-target="#idCardAccessoryModal"  >
 							        	点击上传
 							      </button>
                                 </c:when>   
-                             <c:otherwise> 
-                               
-							      <button class="btn btn-primary btn-lg"  disabled="disabled" data-backdrop="static" data-toggle="modal" data-target="#idCardAccessoryModal"  >
+                             <c:otherwise>  
+							      <button id="but1" class="btn btn-primary btn-lg"  disabled="disabled" data-backdrop="static" data-toggle="modal" data-target="#idCardAccessoryModal"  >
 							        	点击上传
 							      </button>
                             </c:otherwise>  
@@ -274,12 +273,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					         <div class="bs-example " style="padding-bottom:24px;">  
 							   <c:choose>   
                                 <c:when test="${requestScope.memberAuthWithBLOBs.companyAuth == 'noapply' || requestScope.memberAuthWithBLOBs.companyAuth == 'failure' }">  
-                                     <button class="btn btn-primary btn-lg " data-backdrop="static" data-toggle="modal" data-target="#companyAccessoryModal">
+                                     <button id="but2" class="btn btn-primary btn-lg " data-backdrop="static" data-toggle="modal" data-target="#companyAccessoryModal">
 							        	点击上传
 							      </button> 
                                 </c:when>   
                              <c:otherwise> 
-                               <button class="btn btn-primary btn-lg " disabled="disabled" data-backdrop="static" data-toggle="modal" data-target="#companyAccessoryModal">
+                               <button id="but2" class="btn btn-primary btn-lg " disabled="disabled" data-backdrop="static" data-toggle="modal" data-target="#companyAccessoryModal">
 							        	点击上传
 							      </button> 
                             </c:otherwise>  
@@ -295,12 +294,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					          <div class="bs-example " style="padding-bottom:24px;"> 
 					             <c:choose>   
                                 <c:when test="${requestScope.memberAuthWithBLOBs.creditAuth == 'noapply' || requestScope.memberAuthWithBLOBs.creditAuth == 'failure' }">  
-                                    <button class="btn btn-primary btn-lg " data-backdrop="static" data-toggle="modal" data-target="#creditAccessoryModal">
+                                    <button id="but3" class="btn btn-primary btn-lg " data-backdrop="static" data-toggle="modal" data-target="#creditAccessoryModal">
 							        	点击上传
 							      </button>
                                 </c:when>   
                              <c:otherwise> 
-                               <button class="btn btn-primary btn-lg " disabled="disabled" data-backdrop="static" data-toggle="modal" data-target="#creditAccessoryModal">
+                               <button id="but3" class="btn btn-primary btn-lg " disabled="disabled" data-backdrop="static" data-toggle="modal" data-target="#creditAccessoryModal">
 							        	点击上传
 							      </button>
                             </c:otherwise>  
@@ -403,7 +402,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							   		    </c:otherwise>
 									</c:choose>
 									<br>
-						            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，晓风网贷会将你加入系统黑名单，永久取消您在晓风网贷的借款资格。</p>
+						            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，冰川网贷会将你加入系统黑名单，永久取消您在冰川网贷的借款资格。</p>
 						          </div>
 						          <div class="modal-footer">
 						           <c:choose>
@@ -432,8 +431,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						            <h4>信用认证：</h4>
 						            <p>
 						            	个人信用报告是由中国人民银行出具，全面记录个人信用活动，反映个人信用基本状况的文件。
-						            	本报告是晓风网贷了解您信用状况的一个重要参考资料。 您信用报告内体现的信用记录，和信用卡额度等数据，
-						            	将在您发布借款时经晓风网贷工作人员整理，在充分保护您隐私的前提下披露给晓风网贷借出者，
+						            	本报告是冰川网贷了解您信用状况的一个重要参考资料。 您信用报告内体现的信用记录，和信用卡额度等数据，
+						            	将在您发布借款时经冰川网贷工作人员整理，在充分保护您隐私的前提下披露给冰川网贷借出者，
 						            	作为借出者投标的依据。
 						            </p>
 									<hr>
@@ -455,7 +454,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							   		    </c:otherwise>
 									</c:choose>
 									<br>
-						            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，晓风网贷会将你加入系统黑名单，永久取消您在晓风网贷的借款资格。</p>
+						            <p class="text-danger"><strong>注意：</strong>冰川网贷是一个注重诚信的网络平台。如果我们发现您上传的资料系伪造或有人工修改痕迹，冰川网贷会将你加入系统黑名单，永久取消您在冰川网贷的借款资格。</p>
 						          </div>
 						          <div class="modal-footer">
 						          <c:choose>
@@ -1042,6 +1041,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							$('#idCard_auth').html(renderGridValue(data.obj.idCardAuth,fields.auths));	
 							successdialog(data);
 							document.getElementById("member_idCardAccessory").value="";
+							$("#but1").attr('disabled',"true");
 						}
 					} 
 				});
@@ -1064,7 +1064,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						if(data.success){
 							$('#memberAuth_form_creditAuth').html(renderGridValue(data.obj.creditAuth,fields.auths));
 							$('#credit_auth').html(renderGridValue(data.obj.creditAuth,fields.auths));	
-							successdialog(data);
+							successdialog(data); 
+							$("#but3").attr('disabled',"true");
 						}
 					}
 				});
@@ -1089,6 +1090,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							$('#memberAuth_form_companyAuth').html(renderGridValue(data.obj.companyAuth,fields.auths));
 							$('#company_auth').html(renderGridValue(data.obj.companyAuth,fields.auths));	
 							successdialog(data);
+							$("#but2").attr('disabled',"true");
 						}
 					}
 				});
