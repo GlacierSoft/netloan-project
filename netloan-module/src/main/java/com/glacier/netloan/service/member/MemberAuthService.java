@@ -155,6 +155,10 @@ public class MemberAuthService {
         MemberCreditIntegralExample memberCreditIntegralExample = new MemberCreditIntegralExample();
         	//判断是通过哪个按钮进来的
       		if(auth.trim().equals("基本信息认证")){
+      			if(memberAuthWithBLOBs.getInfoAuth().equals("")){ 
+      	        	returnResult.setMsg("操作失败,请选择审核状态!");
+      	        	return returnResult; 
+      	         }
       			//判断是否有重复的信用认证积分
       			memberCreditIntegralExample.createCriteria().andMemberIdEqualTo(memberAuthWithBLOBs.getMemberId()).andIntegralTypeEqualTo("infoAuth");
       			memberCreditIntegrals = memberCreditIntegralMapper.selectByExample(memberCreditIntegralExample);
@@ -183,6 +187,10 @@ public class MemberAuthService {
       			memberAuthWithBLOBs.setInfoTime(new Date());
                 memberAuthWithBLOBs.setInfoAuditor(pricipalUser.getUserId());
       		}else if(auth.trim().equals("VIP认证")){
+      			if(memberAuthWithBLOBs.getVipAuth().equals("")){ 
+      	        	returnResult.setMsg("操作失败,请选择审核状态!");
+      	        	return returnResult; 
+      	         }
       			//判断是否有重复的信用认证积分
       			memberCreditIntegralExample.createCriteria().andMemberIdEqualTo(memberAuthWithBLOBs.getMemberId()).andIntegralTypeEqualTo("vipAuth");
       			memberCreditIntegrals = memberCreditIntegralMapper.selectByExample(memberCreditIntegralExample);
@@ -221,6 +229,10 @@ public class MemberAuthService {
       		}else if(auth.trim().equals("手机认证")){
       			//邮箱认证可以忽略
       		}else if(auth.trim().equals("信用认证")){
+      			if(memberAuthWithBLOBs.getCreditAuth().equals("")){ 
+      	        	returnResult.setMsg("操作失败,请选择审核状态!");
+      	        	return returnResult; 
+      	         }
       			//判断是否有重复的信用认证积分
       			memberCreditIntegralExample.createCriteria().andMemberIdEqualTo(memberAuthWithBLOBs.getMemberId()).andIntegralTypeEqualTo("creditAuth");
       			memberCreditIntegrals = memberCreditIntegralMapper.selectByExample(memberCreditIntegralExample);
@@ -249,6 +261,10 @@ public class MemberAuthService {
       			memberAuthWithBLOBs.setCreditAuditor(pricipalUser.getUserId());
             	memberAuthWithBLOBs.setCreditTime(new Date());
       		}else if(auth.trim().equals("企业认证")){
+      			if(memberAuthWithBLOBs.getCompanyAuth().equals("")){ 
+      	        	returnResult.setMsg("操作失败,请选择审核状态!");
+      	        	return returnResult; 
+      	         }
       			//判断是否有重复的信用认证积分
       			memberCreditIntegralExample.createCriteria().andMemberIdEqualTo(memberAuthWithBLOBs.getMemberId()).andIntegralTypeEqualTo("companyAuth");
       			memberCreditIntegrals = memberCreditIntegralMapper.selectByExample(memberCreditIntegralExample);
@@ -277,6 +293,10 @@ public class MemberAuthService {
       			memberAuthWithBLOBs.setCompanyAuditor(pricipalUser.getUserId());
             	memberAuthWithBLOBs.setCompanyTime(new Date());
       		}else if(auth.trim().equals("真实姓名认证")){
+      			if(memberAuthWithBLOBs.getRealNameAuth().equals("")){ 
+      	        	returnResult.setMsg("操作失败,请选择审核状态!");
+      	        	return returnResult; 
+      	         }
       			//判断是否有重复的信用认证积分
       			memberCreditIntegralExample.createCriteria().andMemberIdEqualTo(memberAuthWithBLOBs.getMemberId()).andIntegralTypeEqualTo("realNameAuth");
       			memberCreditIntegrals = memberCreditIntegralMapper.selectByExample(memberCreditIntegralExample);
@@ -305,6 +325,10 @@ public class MemberAuthService {
       			memberAuthWithBLOBs.setRealNameAuditor(pricipalUser.getUserId());
             	memberAuthWithBLOBs.setRealNameTime(new Date());
       		}else if(auth.trim().equals("身份证认证")){
+      			if(memberAuthWithBLOBs.getIdCardAuth().equals("")){ 
+      	        	returnResult.setMsg("操作失败,请选择审核状态!");
+      	        	return returnResult; 
+      	         }
       			//判断是否有重复的信用认证积分
       			memberCreditIntegralExample.createCriteria().andMemberIdEqualTo(memberAuthWithBLOBs.getMemberId()).andIntegralTypeEqualTo("idCardAuth");
       			memberCreditIntegrals = memberCreditIntegralMapper.selectByExample(memberCreditIntegralExample);
@@ -333,6 +357,10 @@ public class MemberAuthService {
       			memberAuthWithBLOBs.setIdCardAuditor(pricipalUser.getUserId());
             	memberAuthWithBLOBs.setIdCardTime(new Date());
       		}else if(auth.trim().equals("工作认证")){
+      			if(memberAuthWithBLOBs.getWorkAuth().equals("")){ 
+      	        	returnResult.setMsg("操作失败,请选择审核状态!");
+      	        	return returnResult; 
+      	         }
       			//判断是否有重复的信用认证积分
       			memberCreditIntegralExample.createCriteria().andMemberIdEqualTo(memberAuthWithBLOBs.getMemberId()).andIntegralTypeEqualTo("workAuth");
       			memberCreditIntegrals = memberCreditIntegralMapper.selectByExample(memberCreditIntegralExample);

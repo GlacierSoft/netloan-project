@@ -194,8 +194,8 @@
 		<tr>
 			<td>审核结果：</td>
 			<td>
-				<input id="member_mgr_memberAuth_form_workAuthPass" name="workAuth"  type="radio" value="pass"/>审核通过
-				<input id="member_mgr_memberAuth_form_workAuthFailure" name="workAuth"  type="radio" value="failure"/>审核不通过
+				<input id="member_mgr_memberAuth_form_workAuthPass" name="workAuth"  type="radio" value="pass" readonly="readonly"/>审核通过
+				<input id="member_mgr_memberAuth_form_workAuthFailure" name="workAuth"  type="radio" value="failure" readonly="readonly"/>审核不通过
 			</td>
 		</tr>
 		
