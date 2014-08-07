@@ -18,7 +18,7 @@ public class ParameterCredit {
     @Max(value = 9999, message = "{ParameterCredit.creditBeginIntegral.illegal}")
     private Integer creditBeginIntegral;
     
-    @Max(value = 9999, message = "{ParameterCredit.creditBeginIntegral.illegal}")
+    @Max(value = 9999, message = "{ParameterCredit.creditEndIntegral.illegal}")
     private Integer creditEndIntegral;
 
     private String creditPhoto;
