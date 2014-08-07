@@ -124,7 +124,7 @@
 		}
 	});
 	//点击增加按钮触发方法
-	glacier.basicdatas_mgr.credit_mgr.credit.addCredit = function(){
+	/* glacier.basicdatas_mgr.credit_mgr.credit.addCredit = function(){
 		glacier.basicAddOrEditDialog({
 			title : '【会员信用】- 增加',
 			width : 420,
@@ -135,10 +135,10 @@
 				glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid('reload');
 			}
 		});
-	};
+	}; */
 	
 	//点击编辑按钮触发方法
-	glacier.basicdatas_mgr.credit_mgr.credit.editCredit = function(){
+	/* glacier.basicdatas_mgr.credit_mgr.credit.editCredit = function(){
 		var row = glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【会员信用】- 编辑('+row.creditName+')',
@@ -153,7 +153,65 @@
 				glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid('reload');
 			}
 		});
+	}; */
+	
+	// 增加会员信用等级
+	glacier.basicdatas_mgr.credit_mgr.credit.addCredit = function(){
+		glacier.basicdatas_mgr.credit_mgr.credit.newCreditDialog('【会员信用】- 增加信用等级',false,'/do/credit/add.json');
 	};
+	
+	//编辑会员信用等级
+	glacier.basicdatas_mgr.credit_mgr.credit.editCredit = function(){
+		glacier.basicdatas_mgr.credit_mgr.credit.newCreditDialog('【会员信用】- 编辑信用等级',true,'/do/credit/edit.json');
+	};
+	
+	/**
+	打开新建或者编辑窗口
+	title:要打开的窗口标题
+	editModel: true or false ，是否复制当前选择行数据到form中
+	url:点击保存按钮请求的url
+	*/
+	glacier.basicdatas_mgr.credit_mgr.credit.newCreditDialog = function(title,editModel,url){
+		$.easyui.showDialog({
+			href : ctx + '/do/credit/intoForm.htm',//从controller请求jsp页面进行渲染
+			width : 420,
+			height : 400,
+			resizable: false,
+			enableSaveButton : false,
+			enableApplyButton : false,
+			title : title,
+			buttons : [{
+				text : '保存',
+				iconCls : 'icon-save',
+				handler : function(dia) {
+					$('#credit_mgr_credit_form').form('submit', {
+						url: ctx + url,
+						success: function(r){
+							glacier.show({msg:r.msg,result:r.success});
+							glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid('reload');
+						    dia.dialog("close"); 
+						}
+					});
+				}
+			}],
+			onLoad : function() {
+				if(editModel){//编辑模式
+					var row = glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid("getSelected");
+					if(row){
+						$('#credit_mgr_credit_form').form('load', row );
+					}else{
+						$.messager.show({//提示用户
+							title : '提示',
+							timeout:3000,
+							msg : '请选择一行数据进行编辑'
+						});
+					}
+				}
+			}
+		});
+	};
+	
+	
 	//点击删除按钮触发方法
 	glacier.basicdatas_mgr.credit_mgr.credit.delCredit = function(){
 		var rows = glacier.basicdatas_mgr.credit_mgr.credit.creditDataGrid.datagrid("getChecked");
