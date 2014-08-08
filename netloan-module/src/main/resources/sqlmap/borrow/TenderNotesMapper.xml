@@ -27,6 +27,9 @@
     <result column="temp_tender_notes_alr_tender_pro" property="alrTenderPro" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_sub_total" property="subTotal" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_lowest_sub" property="lowestSub" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+   
+    <result column="temp_tender_notes_loan_total" property="loanTotal" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
+   
     <result column="temp_tender_notes_repaymentTypeDisplay" property="repaymentTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_loanApr" property="loanApr" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_loanDeadlinesId" property="loanDeadlinesId" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
@@ -41,6 +44,7 @@
     <result column="temp_tender_notes_lowestSub" property="lowestSub" jdbcType="REAL"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_tender_notes_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    
     
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -118,6 +122,8 @@
     ,temp_borrowing_loan.alr_tender_pro as temp_tender_notes_alr_tender_pro
     ,temp_borrowing_loan.sub_total as temp_tender_notes_sub_total
     ,temp_borrowing_loan.lowest_sub as temp_tender_notes_lowest_sub
+    ,temp_borrowing_loan.loan_total as temp_tender_notes_loan_total
+    
     ,temp_creater.member_real_name as temp_tender_notes_member_display
     ,temp_member.member_real_name as temp_tender_notes_loan_member_display
     ,temp_repayment_type.repayment_type_name as temp_tender_notes_repayment_type_display

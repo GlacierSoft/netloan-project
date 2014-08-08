@@ -22,7 +22,12 @@ public class TenderNotes {
     /**
      * 自定义字段,借款人名称
      */
-    private String loanMemberDisplay;
+    private String loanMemberDisplay; 
+    
+    /**
+     * 自定义字段,借款总额
+     */
+    private String loanTotal; 
     
     /**
      * 自定义字段,借款人id
@@ -138,6 +143,14 @@ public class TenderNotes {
 
 	public void setAlrTenderPro(Float alrTenderPro) {
 		this.alrTenderPro = alrTenderPro;
+	}
+
+	public String getLoanTotal() {
+		return loanTotal;
+	}
+
+	public void setLoanTotal(String loanTotal) {
+		this.loanTotal = loanTotal;
 	}
 
 	public String getLoanState() {

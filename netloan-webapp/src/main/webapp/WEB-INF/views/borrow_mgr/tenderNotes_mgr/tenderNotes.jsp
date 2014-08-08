@@ -20,7 +20,7 @@
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
-		fitColumns:true,//自动填充行
+		fitColumns:false,//自动填充行
 		nowrap: true,//禁止单元格中的文字自动换行
 		autoRowHeight: false,//禁止设置自动行高以适应内容
 		striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
@@ -38,24 +38,52 @@
 				title:'ID',
 				checkbox:true
 			},{
+				field:'loanMemberDisplay',
+				title:'借款人',
+				width:100,
+				sortable:true
+			},{
 				field:'loanTitle',
 				title:'借款标题',
 				width:200,
 				sortable:true
 			},{
+				field:'loanState',
+				title:'借款状态',
+				sortable:true,
+				width:120,
+				formatter: function(value,row,index){//借款状态字段的数据格式化
+					return renderGridValue(value,fields.loanState);
+				}
+			},{
+				field:'loanTotal',
+				title:'借款总额',
+				width:100,
+				sortable:true
+			},{
+				field:'lowestSub',
+				title:'最小认购单位',
+				width:100,
+				sortable:true
+			},{
+				field:'subTotal',
+				title:'认购总份数',
+				width:100,
+				sortable:true
+			},{
 				field:'memberDisplay',
 				title:'投标人',
-				width:200,
+				width:100,
 				sortable:true
 			},{
 				field:'tenderMoney',
 				title:'投标金额(元)',
-				width:200,
+				width:100,
 				sortable:true
 			},{
 				field:'subSum',
 				title:'投标份数',
-				width:200,
+				width:100,
 				sortable:true
 			},{
 				field:'remark',
@@ -105,8 +133,8 @@
 			$.easyui.showDialog({
 				title: '【'+rowData.loanTitle+'】投标详细信息',
 				href : ctx + '/do/tenderNotes/intoDetail.htm?tenderNotesId='+rowData.tenderNotesId,//从controller请求jsp页面进行渲染
-				width : 550,
-				height : 200,
+				width : 560,
+				height : 280,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
