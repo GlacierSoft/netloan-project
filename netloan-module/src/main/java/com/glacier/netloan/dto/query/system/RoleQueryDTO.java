@@ -20,10 +20,8 @@
 package com.glacier.netloan.dto.query.system;
 
 import java.util.Date;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-
 import com.glacier.netloan.entity.system.Role;
 import com.glacier.netloan.entity.system.RoleExample.Criteria;
 
@@ -83,5 +81,4 @@ public class RoleQueryDTO extends Role {
     public String toString() {
         return ReflectionToStringBuilder.toString(this);
     }
-
 }

@@ -20,13 +20,10 @@
 package com.glacier.netloan.dto.query.system;
 
 import java.util.Date;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-
 import com.glacier.netloan.entity.system.LoginLog;
 import com.glacier.netloan.entity.system.LoginLogExample.Criteria;
-
 
 /**
  * @ClassName: LoginlogQueryDTO 
@@ -78,5 +75,4 @@ public class LoginlogQueryDTO extends LoginLog {
     public String toString() {
         return ReflectionToStringBuilder.toString(this);
     }
-
 }

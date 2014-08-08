@@ -20,10 +20,8 @@
 package com.glacier.netloan.dto.query.system;
 
 import java.util.Date;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample.Criteria;
 
@@ -90,5 +88,4 @@ public class UserQueryDTO extends User {
     public String toString() {
         return ReflectionToStringBuilder.toString(this);
     }
-
 }
