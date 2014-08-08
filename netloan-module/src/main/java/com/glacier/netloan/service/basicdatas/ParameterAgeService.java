@@ -64,10 +64,8 @@ public class ParameterAgeService {
      * @throws
      */
     public Object listAsGrid(JqPager pager) {
-    	
         JqGridReturn returnResult = new JqGridReturn();
         ParameterAgeExample parameterAgeExample = new ParameterAgeExample();
-        
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	parameterAgeExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	parameterAgeExample.setLimitEnd(pager.getRows());
@@ -93,10 +91,8 @@ public class ParameterAgeService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "AgeList_add")
     public Object addAge(ParameterAge age) {
-    	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParameterAgeExample ageExample = new ParameterAgeExample();
         int count = 0;
@@ -109,7 +105,6 @@ public class ParameterAgeService {
         }
         if(age.getAgeEnd() <= age.getAgeBegin()){
         	 returnResult.setMsg("会员结束年龄必须大于开始年龄!");
-        	 
              return returnResult;
         }
         age.setAgeId(RandomGUID.getRandomGUID());
@@ -139,13 +134,17 @@ public class ParameterAgeService {
     @MethodLog(opera = "AgeList_edit")
     public Object editAge(ParameterAge age) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        ParameterAgeExample ageExample = new ParameterAgeExample();
         int count = 0;
         // 防止会员年龄别称名称重复
+        ParameterAgeExample ageExample = new ParameterAgeExample();
         ageExample.createCriteria().andAgeIdNotEqualTo(age.getAgeId()).andAgeNameEqualTo(age.getAgeName());
         count = ageMapper.countByExample(ageExample);// 查找相同名称的会员年龄别称数量
-        if (count > 0) {
-            returnResult.setMsg("会员年龄别称名称重复");
+        if(age.getAgeEnd() <= age.getAgeBegin()){
+       	 returnResult.setMsg("会员结束年龄必须大于开始年龄!");
+            return returnResult;
+       }
+        if(age.getAgeBegin() >= age.getAgeEnd()){
+        	returnResult.setMsg("开始年龄必须小于结束年龄!");
             return returnResult;
         }
         Subject pricipalSubject = SecurityUtils.getSubject();
