@@ -23,7 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -31,8 +30,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -196,16 +193,15 @@ public class UserService {
     }
 
     /**
-     * 
      * @Title: addUser
      * @Description: TODO(增加管理员)
      * @param @param user
      * @param @return
      * @throws Exception 
      * @throws 备注
-     *             <p>
-     *             已检查测试:Green
-     *             <p>
+     * <p>
+     * 已检查测试:Green
+     * <p>
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "UserList_add")
@@ -242,9 +238,7 @@ public class UserService {
         String strDate=year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
         Date dates=sdf.parse(strDate);
         user.setCreateTime(dates);
-        
         //------------------------------------------------
-        
         user.setCreater(pricipalUser.getUserId());
         user.setLoginCount(0);
         count = userMapper.insert(user);
@@ -369,7 +363,4 @@ public class UserService {
 	   }
        return returnResult;
 	}
-    
-    
-    
 }

@@ -23,14 +23,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqReturnJson;
@@ -76,16 +74,15 @@ public class MenuService {
      * @param @param roleId
      * @param @return
      * @throws 备注
-     *             <p>
-     *             已检查测试:Green
-     *             <p>
+     * <p>
+     * 已检查测试:Green
+     * <p>
      */
     public Object getMenu(String menuId) {
         return menuMapper.selectByPrimaryKey(menuId);
     }
 
     /**
-     * 
      * @Title: addMenu
      * @Description: TODO(增加菜单)
      * @param @param menu
@@ -128,9 +125,7 @@ public class MenuService {
         return returnResult;
     }
 
-    
     /**
-     * 
      * @Title: editMenu
      * @Description: TODO(修改菜单)
      * @param @param menu
@@ -180,6 +175,14 @@ public class MenuService {
         return returnResult;
     }
 
+    /**
+     * @Title: delMenu
+     * @Description: TODO(删除菜单)
+     * @param @param menu
+     * @param @return 设定文件
+     * @return Object 返回类型
+     * @throws
+     */
     @Transactional(readOnly = false)
     @MethodLog(opera = "MenuTree_del")
     public Object delMenu(Menu menu) {
@@ -221,7 +224,6 @@ public class MenuService {
     }
 
     /**
-     * 
      * @Title: getMenuChild
      * @Description: TODO(递归获取菜单和菜单子节点)
      * @param @param menuId 要获取的当前菜单
@@ -244,7 +246,6 @@ public class MenuService {
     }
 
     /**
-     * 
      * @Title: getPrincipalUserMenu
      * @Description: TODO(获取用户可用Menu)
      * @param @return 设定文件
@@ -270,7 +271,6 @@ public class MenuService {
     }
 
     /**
-     * 
      * @Title: listAsTree
      * @Description: TODO(以树结构展示菜单列表)
      * @param @return 设定文件
@@ -285,7 +285,6 @@ public class MenuService {
     }
 
     /**
-     * 
      * @Title: getAllTreeMenuNode
      * @Description: TODO(获取全部的菜单数据组装成EasyUI树节点JSON)
      * @param @param virtualRoot 是否构建虚拟ROOT -> 系统菜单作为导航
@@ -294,7 +293,6 @@ public class MenuService {
      * @throws
      */
     public String getAllTreeMenuNode(boolean virtualRoot, String roleId) {
-
         List<Tree> items = new ArrayList<Tree>();
         if (virtualRoot) {
             Tree menuItem = new Tree();// 增加总的树节点作为菜单导航
@@ -335,7 +333,6 @@ public class MenuService {
                     treeAttributes.put("url", menu.getUrl());
                     item.setAttributes(treeAttributes);
                 }
-
                 item.setIconCls(menu.getIconCls());
                 items.add(item);
             }

@@ -2,7 +2,6 @@ package com.glacier.netloan.service.website;
 
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -62,10 +60,8 @@ public class WebsiteHiringService {
      * @throws
      */
     public Object listAsGrid(JqPager pager) {
-        
         JqGridReturn returnResult = new JqGridReturn();
         WebsiteHiringExample websiteHiringExample = new WebsiteHiringExample();
-
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	websiteHiringExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	websiteHiringExample.setLimitEnd(pager.getRows());
@@ -89,11 +85,9 @@ public class WebsiteHiringService {
      * @throws
      */
     public Object listAsWebsite(JqPager pager, int p) {
-        
         JqGridReturn returnResult = new JqGridReturn();
         WebsiteHiringExample websiteHiringExample = new WebsiteHiringExample();
         websiteHiringExample.createCriteria().andWebHiringStatusEqualTo("enable");//获取启用状态的招聘信息
-
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	websiteHiringExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	websiteHiringExample.setLimitEnd(pager.getRows());
@@ -125,10 +119,8 @@ public class WebsiteHiringService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "HiringList_add")
     public Object addWebsiteHiring(WebsiteHiring websiteHiring) {
-    	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         WebsiteHiringExample websiteHiringExample = new WebsiteHiringExample();
         int count = 0;
@@ -216,5 +208,4 @@ public class WebsiteHiringService {
         }
         return returnResult;
     }
-	
 }

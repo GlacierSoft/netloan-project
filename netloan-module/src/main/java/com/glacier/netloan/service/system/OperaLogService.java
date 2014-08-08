@@ -20,13 +20,11 @@
 package com.glacier.netloan.service.system;
 
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -52,26 +50,21 @@ public class OperaLogService {
     @Autowired
     private OperaLogMapper operaLogMapper;
 
-    
     /**
-     * 
      * @Title: listAsGrid
      * @Description: TODO(以表格结构展示操作日志列表)
      * @param @param pager
      * @param @return
      * @throws 备注
-     *             <p>
-     *             已检查测试:Green
-     *             <p>
+     * <p>
+     * 已检查测试:Green
+     * <p>
      */
     public Object listAsGrid(OperalogQueryDTO operalogQueryDTO,JqPager pager) {
-
         JqGridReturn returnResult = new JqGridReturn();
         OperaLogExample operaLogExample = new OperaLogExample();
-
         Criteria queryCriteria = operaLogExample.createCriteria();
         operalogQueryDTO.setQueryCondition(queryCriteria);
-
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	operaLogExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	operaLogExample.setLimitEnd(pager.getRows());
@@ -79,9 +72,7 @@ public class OperaLogService {
         if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
         	operaLogExample.setOrderByClause(pager.getOrderBy("temp_operalog_"));
         }
-        
-     // 高级检索
-        
+        // 高级检索
         List<OperaLog> OperaLogs = operaLogMapper.selectByExample(operaLogExample); // 查询所有操作日志列表
         int total = operaLogMapper.countByExample(operaLogExample); // 查询总页数
         returnResult.setRows(OperaLogs);
@@ -96,7 +87,6 @@ public class OperaLogService {
 	 * @param  @return设定文件
 	 * @return Object  返回类型
 	 * @throws 
-	 *
 	 */
 	public Object getOperaLog(String operalogId){
 		OperaLog operaLog = operaLogMapper.selectByPrimaryKey(operalogId);

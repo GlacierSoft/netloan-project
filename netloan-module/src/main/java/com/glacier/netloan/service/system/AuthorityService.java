@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -34,7 +33,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.jqueryui.util.Tree;
 import com.glacier.netloan.dao.system.ActionMapper;
@@ -88,7 +86,6 @@ public class AuthorityService {
     private UserRoleMapper userRoleMapper;
 
     /**
-     * 
      * @Title: getPrincipalUserMenu
      * @Description: TODO(获取用户可用Menu)
      * @param @return 设定文件
@@ -115,15 +112,14 @@ public class AuthorityService {
     }
 
     /**
-     * 
      * @Title: getAuthsByRoleId
      * @Description: TODO(根据角色获取权限)
      * @param @param roleId
      * @param @return
      * @throws 备注
-     *             <p>
-     *             已检查测试:Green
-     *             <p>
+     * <p>
+     * 已检查测试:Green
+     * <p>
      */
     public Object getAuthsByRoleId(String roleId) {
         List<AuthMenuActionDTO> returnAuthList = new ArrayList<AuthMenuActionDTO>();// 要返回的List数据
@@ -137,12 +133,10 @@ public class AuthorityService {
                 authsMap.put(authority.getMenuId() + "_" + authority.getRoleId(), authority);// 以menuId和roleId构建权限Map
             }
             for (Menu menu : sysNaviMenus) {
-
                 String menuId = menu.getMenuId();
                 String menuParentId = menu.getPid();
                 String menuCnName = menu.getMenuCnName();
                 String iconCls = menu.getIconCls();
-
                 // 构建菜单列表树
                 AuthMenuActionDTO authMenuActionVO = new AuthMenuActionDTO();
                 authMenuActionVO.setId(menuId);
@@ -152,7 +146,6 @@ public class AuthorityService {
                 if (authsMap.containsKey(menu.getMenuId() + "_" + roleId)) {
                     authMenuActionVO.setChecked(true);
                 }
-
                 String[] ownActions = null;
                 Authority roleAuth = authsMap.get(menuId + "_" + roleId);
                 if (null != roleAuth && StringUtils.isNotBlank(roleAuth.getActions())) {
@@ -163,7 +156,6 @@ public class AuthorityService {
                 actionExample.createCriteria().andMenuIdEqualTo(menuId);
                 actionExample.setOrderByClause("temp_action.order_num asc");
                 List<Action> actions = actionMapper.selectByExample(actionExample);
-
                 StringBuilder menuActionsBuilder = new StringBuilder();// 构建操作返回字符串，拼复选框，后台编写提高效率
                 if (null != actions && actions.size() > 0) {
                     menuActionsBuilder.append("<table class='auth_table'>");
@@ -178,7 +170,6 @@ public class AuthorityService {
                         }
                     }
                     Set<String> keySet = panelActionsMap.keySet();
-
                     for (Iterator<String> it = keySet.iterator(); it.hasNext();) {
                         String key = it.next();
                         List<Action> actionTemps = panelActionsMap.get(key);
@@ -211,18 +202,16 @@ public class AuthorityService {
         return returnAuthList;
     }
     
-    
     /**
      * @Title: getRolesAndRational
      * @Description: TODO(根据用户Id获取角色列表)
      * @param @param userId
      * @param @return
      * @throws 备注
-     *             <p>
-     *             已检查测试:Green
-     *             <p>
+     *<p>
+     *已检查测试:Green
+     *<p>
      */
-
     public Object getRolesAndRational(String userId) {
         RoleExample roleExample = new RoleExample();// 后面做优化，需要开
         List<Role> roles = roleMapper.selectByExample(roleExample);
@@ -241,7 +230,6 @@ public class AuthorityService {
     }
 
     /**
-     * 
      * @Title: saveRoleAuths
      * @Description: TODO(保存角色权限)
      * @param @param roleId
@@ -249,9 +237,9 @@ public class AuthorityService {
      * @param @param authActions
      * @param @return
      * @throws 备注
-     *             <p>
-     *             已检查测试:Green
-     *             <p>
+     *<p>
+     *已检查测试:Green
+     *<p>
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "RoleList_auth")
@@ -294,7 +282,6 @@ public class AuthorityService {
                     menuMap.put(menuId, actionString);
                 }
             }
-
             for (Entry<String, String> entry : menuMap.entrySet()) {
                 Authority Authority = new Authority();
                 Authority.setRoleId(roleId);
@@ -312,8 +299,6 @@ public class AuthorityService {
         return returnResult;
     }
 
-    
-
     /**
      * @Title: saveRolesAndRational
      * @Description: TODO(保存用户角色关联)
@@ -321,9 +306,9 @@ public class AuthorityService {
      * @param @param roleIds
      * @param @return
      * @throws 备注
-     *             <p>
-     *             已检查测试:Green
-     *             <p>
+     *<p>
+     *已检查测试:Green
+     *<p>
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "RoleList_assign")

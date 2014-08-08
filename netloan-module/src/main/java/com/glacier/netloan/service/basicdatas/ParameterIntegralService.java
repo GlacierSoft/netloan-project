@@ -41,6 +41,7 @@ public class ParameterIntegralService {
 	
 	@Autowired
     private UserMapper userMapper;
+	
 	/**
 	 * @Title: getIntegral 
 	 * @Description: TODO(通过会员积分级别ID查询) 
@@ -56,7 +57,6 @@ public class ParameterIntegralService {
 	}
 	
 	/**
-     * 
      * @Title: listAsGrid
      * @Description: TODO(以表格结构展示会员积分级别列表)
      * @param @param menuId 动作对应的菜单Id
@@ -66,10 +66,8 @@ public class ParameterIntegralService {
      * @throws
      */
     public Object listAsGrid(JqPager pager) {
-
         JqGridReturn returnResult = new JqGridReturn();
         ParameterIntegralExample parameterIntegralExample = new ParameterIntegralExample();
-
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	parameterIntegralExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	parameterIntegralExample.setLimitEnd(pager.getRows());
@@ -85,21 +83,18 @@ public class ParameterIntegralService {
     }
 
     /**
-     * 
      * @Title: addparameterIntegral 
      * @Description: TODO(新增会员积分级别) 
      * @param  @param parameterIntegral
      * @param  @return设定文件
      * @return Object  返回类型
      * @throws 
-     *
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "IntegralList_add")
     public Object addParameterIntegral(ParameterIntegral parameterIntegral) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParameterIntegralExample parameterIntegralExample = new ParameterIntegralExample();
         int count = 0;
@@ -128,15 +123,14 @@ public class ParameterIntegralService {
         }
         return returnResult;
     }
+    
     /**
-     * 
      * @Title: editParameterIntegral 
      * @Description: TODO(修改会员积分级别) 
      * @param  @param parameterIntegral
      * @param  @return设定文件
      * @return Object  返回类型
      * @throws 
-     *
      */
     @Transactional(readOnly = false)
     @MethodLog(opera="IntegralList_edit")
@@ -194,6 +188,4 @@ public class ParameterIntegralService {
         }
         return returnResult;
      }
-    
-    
 }

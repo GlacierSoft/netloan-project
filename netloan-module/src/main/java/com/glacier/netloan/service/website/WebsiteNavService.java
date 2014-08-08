@@ -3,7 +3,6 @@ package com.glacier.netloan.service.website;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -55,7 +53,7 @@ public class WebsiteNavService {
         return websiteNav;
 	}
 	
-	   /**
+	/**
      * @Title: listAsGrid 
      * @Description: TODO(获取所有导航信息) 
      * @param @param pnavr
@@ -64,10 +62,8 @@ public class WebsiteNavService {
      * @throws
      */
     public Object listAsGrid(JqPager pager) {
-
         JqGridReturn returnResult = new JqGridReturn();
         WebsiteNavExample websiteNavExample = new WebsiteNavExample();
-
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	websiteNavExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	websiteNavExample.setLimitEnd(pager.getRows());
@@ -100,7 +96,6 @@ public class WebsiteNavService {
     public Object addNav(WebsiteNav nav) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         WebsiteNavExample websiteNavExample = new WebsiteNavExample();
         int count = 0;
@@ -128,6 +123,7 @@ public class WebsiteNavService {
         }
         return returnResult;
     }
+    
     /**
      * 
      * @Title: getAllTreeNavNode
@@ -138,7 +134,6 @@ public class WebsiteNavService {
      * @throws
      */
     public String getAllTreeNavNode(boolean virtualRoot, String roleId) {
-
         List<Tree> items = new ArrayList<Tree>();
         if (virtualRoot) {
             Tree navItem = new Tree();// 增加总的树节点作为导航信息导航
@@ -213,6 +208,7 @@ public class WebsiteNavService {
         }
         return returnResult;
     }
+    
     /**
      * @Title: getNavChild 
      * @Description: TODO(递归获取导航和导航子节点) 
@@ -234,6 +230,7 @@ public class WebsiteNavService {
     	returnNavList.add(navId);
     	return returnNavList;
     }
+    
     /**
      * @Title: delNav 
      * @Description: TODO(删除导航) 

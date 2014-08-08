@@ -1,13 +1,11 @@
 package com.glacier.netloan.service.system;
 
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -35,13 +33,10 @@ public class LoginLogService {
 	 * @throws 
 	 */
 	public Object listAsGrid(LoginlogQueryDTO loginlogQueryDTO,JqPager pager){
-		
 		JqGridReturn returnResult = new JqGridReturn();
 		LoginLogExample loginLogExample = new LoginLogExample();
-		
 		Criteria queryCriteria = loginLogExample.createCriteria();
 		loginlogQueryDTO.setQueryCondition(queryCriteria);
-		
 		if(null != pager.getPage() && null != pager.getRows()){// 设置排序信息
 			loginLogExample.setLimitStart((pager.getPage()-1)*pager.getRows());
 			loginLogExample.setLimitEnd(pager.getRows());
@@ -49,9 +44,7 @@ public class LoginLogService {
 		if(StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())){// 设置排序信息
 			loginLogExample.setOrderByClause(pager.getOrderBy("temp_loginlog_"));
 		}
-		
 		// 高级检索
-		
 		List<LoginLog> loginLogs = loginLogMapper.selectByExample(loginLogExample);// 查询所有登录日志列表
 		int total = loginLogMapper.countByExample(loginLogExample);// 查询总页数
 		returnResult.setRows(loginLogs);

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -30,8 +29,7 @@ public class ActionService {
     @Autowired
     private AuthorityMapper authorityMapper;
 
-    /**
-     * 
+    /** 
      * @Title: listAsGrid
      * @Description: TODO(以组表格结构展示操作列表，操作中必须定义getGroup()方法)
      * @param @param menuId 动作对应的菜单Id
@@ -55,9 +53,6 @@ public class ActionService {
             }
             if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
                 actionExample.setOrderByClause("temp_panel.order_num ASC," + pager.getOrderBy("temp_action_"));// 必须外键inner
-                                                                                                               // join
-                                                                                                               // t_panel
-                                                                                                               // temp_panel
             }
             List<Action> actions = actionMapper.selectByExample(actionExample); // 查询所有操作列表
             int total = actionMapper.countByExample(actionExample); // 查询总页数
@@ -68,7 +63,6 @@ public class ActionService {
     }
 
     /**
-     * 
      * @Title: addAction
      * @Description: TODO(增加操作)
      * @param @param action
@@ -108,6 +102,14 @@ public class ActionService {
         return returnResult;
     }
 
+    /**
+     * @Title: editAction
+     * @Description: TODO(修改操作)
+     * @param @param action
+     * @param @return 设定文件
+     * @return Object 返回类型
+     * @throws
+     */
     @Transactional(readOnly = false)
     @MethodLog(opera = "ActionList_edit")
     public Object editAction(Action action) {
@@ -140,7 +142,15 @@ public class ActionService {
         }
         return returnResult;
     }
-
+    
+    /**
+     * @Title: delAction
+     * @Description: TODO(删除操作)
+     * @param @param action
+     * @param @return 设定文件
+     * @return Object 返回类型
+     * @throws
+     */
     @Transactional(readOnly = false)
     @MethodLog(opera = "ActionList_del")
     public Object delActions(List<String> actionIds, List<String> actionCnNames) {
@@ -160,5 +170,4 @@ public class ActionService {
         }
         return returnResult;
     }
-
 }

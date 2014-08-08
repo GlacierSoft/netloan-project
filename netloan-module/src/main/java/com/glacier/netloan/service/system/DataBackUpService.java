@@ -27,14 +27,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class DataBackUpService {
     
 	/**
-	  * @Title: handleDataBackUp 
-	  * @Description: TODO(数据备份) 
-	  * @throws
-	  */
-	
+	 * @Title: handleDataBackUp 
+	 * @Description: TODO(数据备份) 
+	 * @throws
+	 */
 	@PostConstruct
 	public void handleDataBackUp(){
-		 try { 
+		try { 
 			//构建SQL命令执行路径
 			String sqlWebapp=null; 
 			String sqlPath=System.getProperty("user.dir");
@@ -126,8 +125,8 @@ public class DataBackUpService {
 				writer.close();
 				fout.close();
 			}
-		  } catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		}
+	    }
    }
 }

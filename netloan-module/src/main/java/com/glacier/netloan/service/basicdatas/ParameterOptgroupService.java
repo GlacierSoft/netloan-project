@@ -8,7 +8,6 @@ package com.glacier.netloan.service.basicdatas;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqReturnJson;
@@ -86,10 +84,8 @@ public class ParameterOptgroupService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "OptgroupTree_add")
     public Object addOptgroup(ParameterOptgroup optgroup) {
-    	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParameterOptgroupExample optgroupExample = new ParameterOptgroupExample();
         int count = 0;
@@ -119,7 +115,6 @@ public class ParameterOptgroupService {
     }
     
     /**
-     * 
      * @Title: getAllTreeOptgroupNode
      * @Description: TODO(获取全部的下拉项数据组装成EasyUI树节点JSON)
      * @param @param virtualRoot 是否构建虚拟ROOT -> 系统下拉项作为导航

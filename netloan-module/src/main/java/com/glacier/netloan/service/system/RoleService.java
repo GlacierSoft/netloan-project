@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -48,16 +46,15 @@ public class RoleService {
      * @param @param roleId
      * @param @return
      * @throws 备注
-     *             <p>
-     *             已检查测试:Green
-     *             <p>
+     * <p>
+     * 已检查测试:Green
+     * <p>
      */
     public Object getRole(String roleId) {
         return roleMapper.selectByPrimaryKey(roleId);
     }
 
     /**
-     * 
      * @Title: listAsGrid
      * @Description: TODO(以表格结构展示角色列表)
      * @param @param menuId 动作对应的菜单Id
@@ -67,13 +64,10 @@ public class RoleService {
      * @throws
      */
     public Object listAsGrid(RoleQueryDTO roleQueryDTO, JqPager pager) {
-
         JqGridReturn returnResult = new JqGridReturn();
         RoleExample roleExample = new RoleExample();
-
         Criteria queryCriteria = roleExample.createCriteria();
         roleQueryDTO.setQueryCondition(queryCriteria);
-
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
             roleExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
             roleExample.setLimitEnd(pager.getRows());
@@ -81,9 +75,7 @@ public class RoleService {
         if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
             roleExample.setOrderByClause(pager.getOrderBy("temp_role_"));
         }
-
         // 高级检索
-
         List<Role> Roles = roleMapper.selectByExample(roleExample); // 查询所有操作列表
         int total = roleMapper.countByExample(roleExample); // 查询总页数
         returnResult.setRows(Roles);
@@ -98,16 +90,15 @@ public class RoleService {
      * @param @return
      * @throws Exception 
      * @throws 备注
-     *             <p>
-     *             已检查测试:Green
-     *             <p>
+     * <p>
+     * 已检查测试:Green
+     * <p>
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "RoleList_add")
     public Object addRole(Role role) throws Exception {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         RoleExample roleExample = new RoleExample();
         int count = 0;
@@ -143,7 +134,6 @@ public class RoleService {
         String strDate=year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
         Date dates=sdf.parse(strDate);
         role.setCreateTime(dates);
-        
         count = roleMapper.insert(role);
         if (count == 1) {
             returnResult.setSuccess(true);
@@ -160,9 +150,9 @@ public class RoleService {
      * @param @param role
      * @param @return
      * @throws 备注
-     *             <p>
-     *             已检查测试:Green
-     *             <p>
+     * <p>
+     * 已检查测试:Green
+     * <p>
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "RoleList_edit")
@@ -195,7 +185,6 @@ public class RoleService {
             returnResult.setMsg("英文名称重复");
             return returnResult;
         }
-        
         role.setCreater(pricipalUser.getUserId());//初始化插入角色信息
         role.setCreateTime(new Date());
         count = roleMapper.updateByPrimaryKeySelective(role);
@@ -209,16 +198,15 @@ public class RoleService {
     }
 
     /**
-     * 
      * @Title: delRoles
      * @Description: TODO(批量删除角色)
      * @param @param roleIds
      * @param @param roleCnNames
      * @param @return
      * @throws 备注
-     *             <p>
-     *             已检查测试:Green
-     *             <p>
+     * <p>
+     * 已检查测试:Green
+     * <p>
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "RoleList_del")
@@ -232,14 +220,12 @@ public class RoleService {
         String result_set="";
         //判断数据行
         if (roleIds.size() > 0) {
-        	
         	//匹配删除信息
         	for(int i=0;i<roleIds.size();i++){
         		//关联表t_authority
         		AuthorityExample authorityExample=new AuthorityExample();
             	authorityExample.createCriteria().andRoleIdEqualTo(roleIds.get(i));
             	int authority_nunmber=authorityMapper.countByExample(authorityExample);
-            	
             	if(authority_nunmber<=0){
             		 RoleExample roleExample = new RoleExample();
                      roleExample.createCriteria().andRoleIdEqualTo(roleIds.get(i));

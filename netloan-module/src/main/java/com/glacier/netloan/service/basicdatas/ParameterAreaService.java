@@ -8,7 +8,6 @@ package com.glacier.netloan.service.basicdatas;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqReturnJson;
@@ -79,10 +77,8 @@ public class ParameterAreaService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "AreaTree_add")
     public Object addArea(ParameterArea area) {
-    	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParameterAreaExample areaExample = new ParameterAreaExample();
         int count = 0;
@@ -121,7 +117,6 @@ public class ParameterAreaService {
      * @throws
      */
     public String getAllTreeAreaNode(boolean virtualRoot) {
-
         List<Tree> items = new ArrayList<Tree>();
         if (virtualRoot) {
             Tree areaItem = new Tree();// 增加总的树节点作为地区导航

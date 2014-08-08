@@ -7,7 +7,6 @@ package com.glacier.netloan.service.basicdatas;
 
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -52,7 +50,6 @@ public class ParameterIntegralTypeService {
 	 * @param  @return设定文件
 	 * @return Object  返回类型
 	 * @throws 
-	 *
 	 */
     public Object getCreditType(String integralTypeId) {
         return integralTypeMapper.selectByPrimaryKey(integralTypeId);
@@ -67,10 +64,8 @@ public class ParameterIntegralTypeService {
      * @throws
      */
     public Object listAsGrid(JqPager pager) {
-    	
         JqGridReturn returnResult = new JqGridReturn();
         ParameterIntegralTypeExample parameterIntegralTypeExample = new ParameterIntegralTypeExample();
-        
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	parameterIntegralTypeExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	parameterIntegralTypeExample.setLimitEnd(pager.getRows());
@@ -96,10 +91,8 @@ public class ParameterIntegralTypeService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "CreditTypeList_add")
     public Object addCreditType(ParameterIntegralType parameterIntegralType) {
-    	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParameterIntegralTypeExample parameterIntegralTypeExample = new ParameterIntegralTypeExample();
         int count = 0;

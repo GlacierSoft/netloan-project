@@ -2,7 +2,6 @@ package com.glacier.netloan.service.website;
 
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -58,10 +56,8 @@ public class WebsiteHelpService {
      * @throws
      */
     public Object listAsGrid(JqPager pager) {
-        
         JqGridReturn returnResult = new JqGridReturn();
         WebsiteHelpExample websiteHelpExample = new WebsiteHelpExample();;
-
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	websiteHelpExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	websiteHelpExample.setLimitEnd(pager.getRows());
@@ -87,10 +83,8 @@ public class WebsiteHelpService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "HelpList_add")
     public Object addWebsiteHelp(WebsiteHelp websiteHelp) {
-    	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         WebsiteHelpExample websiteHelpExample = new WebsiteHelpExample();
         int count = 0;

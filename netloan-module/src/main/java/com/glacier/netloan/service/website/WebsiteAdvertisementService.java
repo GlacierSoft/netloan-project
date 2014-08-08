@@ -7,7 +7,6 @@ package com.glacier.netloan.service.website;
 
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -53,7 +51,6 @@ public class WebsiteAdvertisementService {
 	 * @return Object    返回类型 
 	 * @throws
 	 */
-
     @Transactional(readOnly = false)
     public Object getAdvertisement(String webAdvId) {
     	WebsiteAdvertisement websiteAdvertisement = advertisementMapper.selectByPrimaryKey(webAdvId);
@@ -70,10 +67,8 @@ public class WebsiteAdvertisementService {
      * @throws
      */
     public Object listAsGrid(JqPager padvertisementr) {
-        
         JqGridReturn returnResult = new JqGridReturn();
         WebsiteAdvertisementExample websiteAdvertisementExample = new WebsiteAdvertisementExample();
-
         if (null != padvertisementr.getPage() && null != padvertisementr.getRows()) {// 设置排序信息
         	websiteAdvertisementExample.setLimitStart((padvertisementr.getPage() - 1) * padvertisementr.getRows());
         	websiteAdvertisementExample.setLimitEnd(padvertisementr.getRows());
@@ -99,10 +94,8 @@ public class WebsiteAdvertisementService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "AdvertisementList_add")
     public Object addAdvertisement(WebsiteAdvertisement advertisement) {
-    	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         WebsiteAdvertisementExample advertisementExample = new WebsiteAdvertisementExample();
         int count = 0;

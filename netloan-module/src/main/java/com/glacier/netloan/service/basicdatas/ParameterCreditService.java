@@ -2,7 +2,6 @@ package com.glacier.netloan.service.basicdatas;
 
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -56,7 +54,6 @@ public class ParameterCreditService {
 	}
 	
 	/**
-     * 
      * @Title: listAsGrid
      * @Description: TODO(以表格结构展示会员信用级别列表)
      * @param @param menuId 动作对应的菜单Id
@@ -66,10 +63,8 @@ public class ParameterCreditService {
      * @throws
      */
     public Object listAsGrid(JqPager pager) {
-
         JqGridReturn returnResult = new JqGridReturn();
         ParameterCreditExample parameterCreditExample = new ParameterCreditExample();
-
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	parameterCreditExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	parameterCreditExample.setLimitEnd(pager.getRows());
@@ -99,7 +94,6 @@ public class ParameterCreditService {
     public Object addParameterCredit(ParameterCredit parameterCredit) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParameterCreditExample parameterCreditExample = new ParameterCreditExample();
         int count = 0;
@@ -128,6 +122,7 @@ public class ParameterCreditService {
         }
         return returnResult;
     }
+    
     /**
      * 
      * @Title: editParameterCredit 
@@ -193,7 +188,8 @@ public class ParameterCreditService {
         	}
     	}
 		return returnResult;
-     }
+    }
+    
     /**
      * @Title: listCredits 
      * @Description: TODO(查询基础信用积分信息) 
@@ -209,7 +205,6 @@ public class ParameterCreditService {
     	pager.setOrder("DESC");
     	parameterCreditExample.setOrderByClause(pager.getOrderBy("temp_parameter_credit_"));
     	List<ParameterCredit>  parameterCredits = parameterCreditMapper.selectByExample(parameterCreditExample); // 查询所有操作列表
-        
         return parameterCredits;
     }
 }

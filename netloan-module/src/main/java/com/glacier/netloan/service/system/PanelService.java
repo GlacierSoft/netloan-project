@@ -21,13 +21,11 @@ package com.glacier.netloan.service.system;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.Item;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -58,7 +56,6 @@ public class PanelService {
     private ActionMapper actionMapper;
 
     /**
-     * 
      * @Title: listAsGrid
      * @Description: TODO(以Grid结构展示面板列表)
      * @param @param menuId 面板对应的菜单Id
@@ -88,15 +85,14 @@ public class PanelService {
     }
 
     /**
-     * 
      * @Title: getPanelsByMenuId
      * @Description: TODO(根据菜单ID获取面板数据)
      * @param @param menuId
      * @param @return 符合Item的Combobox的面板数据
      * @throws 备注
-     *             <p>
-     *             已检查测试:Green
-     *             <p>
+     * <p>
+     * 已检查测试:Green
+     * <p>
      */
     public Object getPanelsByMenuId(String menuId) {
         if (StringUtils.isNotBlank(menuId)) {
@@ -122,9 +118,9 @@ public class PanelService {
      * @param @param panel
      * @param @return
      * @throws 备注
-     *             <p>
-     *             已检查测试:Green
-     *             <p>
+     * <p>
+     * 已检查测试:Green
+     * <p>
      */
     @Transactional(readOnly = false)
     @MethodLog(opera ="PanelList_add")
@@ -159,15 +155,14 @@ public class PanelService {
     }
 
     /**
-     * 
      * @Title: editPanel
      * @Description: TODO(修改面板)
      * @param @param panel
      * @param @return
      * @throws 备注
-     *             <p>
-     *             已检查测试:Green
-     *             <p>
+     * <p>
+     * 已检查测试:Green
+     * <p>
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "PanelList_edit")
@@ -224,5 +219,4 @@ public class PanelService {
         returnResult.setMsg("发生未知错误，[ "+panel.getPanelCnName()+" ]面板删除失败");
         return returnResult;
     }
-
 }

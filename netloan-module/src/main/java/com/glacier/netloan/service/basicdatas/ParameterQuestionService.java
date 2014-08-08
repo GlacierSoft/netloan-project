@@ -2,7 +2,6 @@ package com.glacier.netloan.service.basicdatas;
 
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -69,10 +67,8 @@ public class ParameterQuestionService {
      * @throws
      */
     public Object listAsGrid(JqPager pager) {
-
         JqGridReturn returnResult = new JqGridReturn();
         ParameterQuestionExample parameterQuestionExample = new ParameterQuestionExample();
-        
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	parameterQuestionExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	parameterQuestionExample.setLimitEnd(pager.getRows());
@@ -102,7 +98,6 @@ public class ParameterQuestionService {
     public Object addParameterQuestion(ParameterQuestion parameterQuestion) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParameterQuestionExample parameterQuestionExample = new ParameterQuestionExample();
         int count = 0;
@@ -207,7 +202,6 @@ public class ParameterQuestionService {
             	
     		}
     	}
-    	
     	if (rightNumber > 0) {
 			//删除成功数量大于0即为操作成功,且提示关联信息 
 			returnResult.setMsg("已成功删除<font style='color:red;font-weight: bold;'>【"+ result_name.trim() + "】</font>&nbsp;"+rightNumber+"条数据" + returnResultMsg);
@@ -227,7 +221,6 @@ public class ParameterQuestionService {
     	pager.setOrder("DESC");
     	parameterQuestionExample.setOrderByClause(pager.getOrderBy("temp_parameter_credit_"));
     	List<ParameterQuestion>  parameterQuestions = parameterQuestionMapper.selectByExample(parameterQuestionExample); // 查询所有操作列表
-        
         return parameterQuestions;
     }*/
 }

@@ -7,7 +7,6 @@ package com.glacier.netloan.service.website;
 
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -53,7 +51,6 @@ public class WebsiteAnnouncementService {
 	 * @return Object    返回类型 
 	 * @throws
 	 */
-
     @Transactional(readOnly = false)
     public Object getAnnouncement(String webAnnId) {
     	WebsiteAnnouncement websiteAnnouncement = announcementMapper.selectByPrimaryKey(webAnnId); 
@@ -71,10 +68,8 @@ public class WebsiteAnnouncementService {
      * @throws
      */
     public Object listAsGrid(JqPager pager) {
-        
         JqGridReturn returnResult = new JqGridReturn();
         WebsiteAnnouncementExample websiteAnnouncementExample = new WebsiteAnnouncementExample();
-
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	websiteAnnouncementExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	websiteAnnouncementExample.setLimitEnd(pager.getRows());
@@ -99,11 +94,9 @@ public class WebsiteAnnouncementService {
      * @throws
      */
     public Object listAsWebsite(JqPager pager, int p) {
-        
     	JqGridReturn returnResult = new JqGridReturn();
         WebsiteAnnouncementExample websiteAnnouncementExample = new WebsiteAnnouncementExample();
         websiteAnnouncementExample.createCriteria().andWebAnnStatusEqualTo("enable");
-
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	websiteAnnouncementExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	websiteAnnouncementExample.setLimitEnd(pager.getRows());
@@ -135,10 +128,8 @@ public class WebsiteAnnouncementService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "AnnouncementList_add")
     public Object addAnnouncement(WebsiteAnnouncement announcement) {
-    	
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         WebsiteAnnouncementExample announcementExample = new WebsiteAnnouncementExample();
         int count = 0;
