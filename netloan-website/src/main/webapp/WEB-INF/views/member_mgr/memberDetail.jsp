@@ -132,7 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        <c:if test="${addBankCard == 'addBankCard' || !empty updateSecretSecurity}">
 				        <div class="tab-pane fade" id="tabPersonalDetails">
 				        </c:if>
-				       		<form id="personalMessageForm"  class=" form-horizontal" role="form"  method="post" >
+				       		<form id="personalMessageForm"  class=" form-horizontal" role="form"  method="post" onsubmit="return checkAll();">
 				       		<div class="bs-example bs-example-tabs">
 						     <ul id="myTab" class="nav nav-tabs">
 						       <li class="active"><a href="#tabPersonalBase" data-toggle="tab">基本信息</a></li>
@@ -152,35 +152,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    <input type="hidden" class="form-control" id="postAuth" name="postAuth" value="">
 									    <label for="memberRealName" class="col-sm-2 control-label">*真实姓名:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" id="memberRealName" name="memberRealName" value="${currentMember.memberRealName}" onkeyup="value=value.replace(/[\d]/ig,'')"  placeholder="真实姓名" >
+									      <input type="text" class="form-control" onblur="checkMemberRealName();" id="memberRealName" name="memberRealName" value="${currentMember.memberRealName}" onkeyup="value=value.replace(/[\d]/ig,'')"  placeholder="真实姓名" >
+									      <span id="memberRealNameSpan"></span>
 									    </div>
 									  </div>
 									  <div class="form-group">
 									    <label for="cardId" class="col-sm-2 control-label">*身份证:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" id="cardId" name="cardId" value="${currentMember.cardId}"  placeholder="身份证"  >
-									     </div>
-									      &nbsp;<span style="color:#F00;margin-left: 70px"> * 演示站点不发送短信验证</span>
+									      <input type="text" class="form-control" onblur="checkCardId();" id="cardId" name="cardId" value="${currentMember.cardId}"  placeholder="身份证"  >
+									      <span id="cardIdSpan"></span>
+									    </div>
 									  </div>
-									  <div class="form-group" >
+									  <div class="form-group">
 									    <label for="mobileNumber" class="col-sm-2 control-label">*手机号码:</label>
-									    <div class="col-sm-4" style="width: 300px;float: left;">
-									      <input type="tel"  class="form-control" maxlength="11" style="width: 170px;float: left;" name="mobileNumber" id="mobileNumber" value="${currentMember.mobileNumber}"  placeholder="手机号码" >
-									       
-									      <button id="updatePhoneForm_form-group" type="submit" style="float: right;" disabled="disabled" class="btn btn-default">获取验证码</button>
-					                 </div>
-					                 
-					                 <div class="form-group" style="float: left;width: 400px" >
-									   <label for="mobileNumber" class="col-sm-2 control-label" style="float: left;width: 150px;margin-left: 60px" >*短信验证码:</label>
-									      <div class="col-sm-4" style="float: left;">
-									       <input type="tel" class="form-control"  maxlength="6" style="width: 170px"  name="yz" id="yz"   placeholder="手机短信验证码" >
-									    
-									     </div> 
-									      </div>
-									     
-									     
+									    <div class="col-sm-4">
+									      <input type="tel"  class="form-control" onblur="checkMobileNumber();" name="mobileNumber" id="mobileNumber" value="${currentMember.mobileNumber}"  placeholder="手机号码" >
+									       <span id="mobileNumberSpan"></span>
+									    </div>
 									  </div>
-									  
 									  <div class="form-group">
 									    <label for="sex" class="col-sm-2 control-label">性别:</label>
 									  	<div class="col-sm-4">
@@ -229,7 +218,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									  <div class="form-group">
 									    <label for="liveAddress" class="col-sm-2 control-label">*现居住地址:</label>
 									    <div class="col-sm-10">
-									      <input type="text" class="form-control" name="liveAddress" id="liveAddress" value="${currentMember.liveAddress}"  placeholder="现居住地址">
+									      <input type="text" class="form-control" onblur="checkLiveAddress();" name="liveAddress" id="liveAddress" value="${currentMember.liveAddress}"  placeholder="现居住地址">
+									      <span id="liveAddressSpan"></span>
 									    </div>
 									  </div>
 			 						  <div class="form-group">
@@ -245,9 +235,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							  		<p class="text-primary">* 为必填项，所有资料均会严格保密。*成为借款人必填项。</p>
 								</blockquote>
 						  				<div class="form-group">
-									    <label for="firstContact" class="col-sm-2 control-label">第一联系人:</label>
+									    <label for="firstContact" class="col-sm-2 control-label">*第一联系人:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" name="firstContact" id="firstContact" value="${currentMember.firstContact}"  placeholder="第一联系人">
+									      <input type="text" class="form-control" onblur="checkFirstContact();" name="firstContact" id="firstContact" value="${currentMember.firstContact}"  placeholder="第一联系人">
+									      <span id="firstContactSpan"></span>
 									    </div>
 									     <label for="firstContactRelation" class="col-sm-2 control-label">第一联系人关系:</label>
 									    <div class="col-sm-4">
@@ -259,13 +250,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    </div>
 									  </div>
 									  <div class="form-group">
-									    <label for="firstContactPhone" class="col-sm-2 control-label" style="width: 150px">联系人手机号码:</label>
+									    <label for="firstContactPhone" class="col-sm-2 control-label" style="width: 150px">*联系人手机号码:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" name="firstContactPhone" id="firstContactPhone"  value="${currentMember.firstContactPhone}" placeholder="第一联系人手机号码">
+									      <input type="text" class="form-control" onblur="checkFirstContactPhone();" name="firstContactPhone" id="firstContactPhone"  value="${currentMember.firstContactPhone}" placeholder="第一联系人手机号码">
+									      <span id="firstContactPhoneSpan"></span>
 									    </div>
-									    <label for="firstContactAddress" class="col-sm-2 control-label">第一联系人地址:</label>
+									    <label for="firstContactAddress" class="col-sm-2 control-label">*第一联系人地址:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" name="firstContactAddress" id="firstContactAddress" value="${currentMember.firstContactAddress}"  placeholder="第一联系人地址">
+									      <input type="text" class="form-control" onblur="checkFirstContactAddress();" name="firstContactAddress" id="firstContactAddress" value="${currentMember.firstContactAddress}"  placeholder="第一联系人地址">
+									      <span id="firstContactAddressSpan"></span>
 									    </div>
 									  </div>
 									  <div class="form-group">
@@ -301,17 +294,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  		  <div class="form-group">
 								    <label for="unitName" class="col-sm-2 control-label">*单位名称:</label>
 								    <div class="col-sm-4">
-								      <input type="text" class="form-control" id="unitName" name="unitName" value="${currentMemberWork.unitName}"  placeholder="单位名称">
+								      <input type="text" class="form-control" onblur="checkUnitName();" id="unitName" name="unitName" value="${currentMemberWork.unitName}"  placeholder="单位名称">
+								      <span id="unitNameSpan"></span>
 								    </div>
 								  </div>
 								  <div class="form-group">
-								    <label for="unitAdress" class="col-sm-2 control-label">单位地址:</label>
+								    <label for="unitAdress" class="col-sm-2 control-label">*单位地址:</label>
 								    <div class="col-sm-4">
-								      <input type="text" class="form-control" id="unitAdress" name="unitAdress" value="${currentMemberWork.unitAdress}"  placeholder="单位地址">
+								      <input type="text" class="form-control" onblur="checkNull();" id="unitAdress" name="unitAdress" value="${currentMemberWork.unitAdress}"  placeholder="单位地址">
+								      <span id="unitAdressSpan"></span>
 								    </div>
-								    <label for="unitPhone" class="col-sm-2 control-label">单位电话:</label>
+								    <label for="unitPhone" class="col-sm-2 control-label">*单位电话:</label>
 								    <div class="col-sm-4">
-								      <input type="text" class="form-control" id="unitPhone" name="unitPhone" value="${currentMemberWork.unitPhone}"  placeholder="单位电话">
+								      <input type="text" class="form-control" onblur="checkUnitPhone();" id="unitPhone" name="unitPhone" value="${currentMemberWork.unitPhone}"  placeholder="单位电话">
+								      <span id="unitPhoneSpan"></span>
 								    </div>
 								  </div>
 								  <div class="form-group">
@@ -325,13 +321,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								    </div>
 								  </div>
 								  <div class="form-group">
-								    <label for="proofPerson" class="col-sm-2 control-label">证明人:</label>
+								    <label for="proofPerson" class="col-sm-2 control-label">*证明人:</label>
 								    <div class="col-sm-4">
-								      <input type="text" class="form-control" id="proofPerson" name="proofPerson" value="${currentMemberWork.proofPerson}"  placeholder="证明人">
+								      <input type="text" class="form-control" onblur="checkProofPerson();" id="proofPerson" name="proofPerson" value="${currentMemberWork.proofPerson}"  placeholder="证明人">
+								      <span id="proofPersonSpan"></span>
 								    </div>
-								    <label for="proofPhone" class="col-sm-2 control-label">证明人手机号码:</label>
+								    <label for="proofPhone" class="col-sm-2 control-label">*证明人手机号码:</label>
 								    <div class="col-sm-4">
-								      <input type="text" class="form-control" id="proofPhone" name="proofPhone" value="${currentMemberWork.proofPhone}"  placeholder="证明人手机号码">
+								      <input type="text" class="form-control" onblur="checkProofPhone();" id="proofPhone" name="proofPhone" value="${currentMemberWork.proofPhone}"  placeholder="证明人手机号码">
+								      <span id="proofPhoneSpan"></span>
 								    </div>
 								  </div>
 						       </div>
@@ -340,13 +338,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						   <div class="form-group">
 						    <div class="col-sm-2"></div>
 						    <div class="col-sm-10">
-						      <p class="text-warning">温馨提示:按保存并提交审核按钮之后，将不能再修改用户信息。</p>
+						      <p class="text-warning">温馨提示:按保存并提交审核按钮之后，将不能再修改用户信息。填写资料越详细，审核几率将会更高。</p>
 						    </div>
 						  </div>
 						    <div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10">
-						      <button id="onlyPost" type="submit" class="btn btn-primary btn-lg">保  存</button>
-						      <button id="postAuthBut" type="submit" class="btn btn-primary btn-lg">保存并提交审核</button>
+						      <button id="onlyPost" type="submit" class="btn btn-primary btn-lg" onclick="return checkAll();">保  存</button>
+						      <button id="postAuthBut" type="submit" class="btn btn-primary btn-lg" onclick="return checkAll();">保存并提交审核</button>
+						      <div style="float: right;margin-top: 10px;margin-right:300px;"><span id="tieshi"></span></div>
 						    </div>
 						  	</div>
 						   </form>  
@@ -753,7 +752,240 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <jsp:include page="../foot.jsp"/>
 	    <!-- CONTAINER START======================== -->
 	    <script type="text/javascript"> 
+	    /*-------------------------------------------------基本信息验证开始---------------------------------------------*/
+	  	//验证所有
+		function checkAll(){
+			return checkMemberRealName()&&checkCardId()&&checkMobileNumber()&&checkLiveAddress()&&checkFirstContact()&&checkFirstContactPhone()&&checkFirstContactAddress()&&checkNull()&&checkUnitPhone()&&checkProofPerson()&&checkProofPhone();
+		}
+		
+		//联系人名称验证
+		function checkFirstContact(){
+			var firstContact = $("#firstContact").val();
+			if(firstContact == ""){
+				document.getElementById("firstContactSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>第一联系人名称不能为空!</font>";
+				return false;
+			}else{
+				document.getElementById("firstContactSpan").innerHTML="";
+				$("#tieshi").html("");
+				return true;
+			}
+		}
+		
+		//联系人手机号码验证
+		function checkUnitName(){
+			var unitName = $("#unitName").val();
+			if(unitName == ""){
+				document.getElementById("unitNameSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>单位名称不能为空!</font>";
+				return false;
+			}else{
+				document.getElementById("unitNameSpan").innerHTML="";
+				$("#tieshi").html("");
+				return true;
+			}
+		 }
+		
+		
+		//联系人手机号码验证
+		function checkFirstContactPhone(){
+			var firstContactPhone = $("#firstContactPhone").val();
+			if(firstContactPhone == ""){
+				document.getElementById("firstContactPhoneSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>第一联系人手机号码不能为空!</font>";
+				return false;
+			}else{
+				document.getElementById("firstContactPhoneSpan").innerHTML="";
+				$("#tieshi").html("");
+				return true;
+			}
+		 }
+		
+		//联系人地址验证
+		function checkFirstContactAddress(){
+			var firstContactAddress = $("#firstContactAddress").val();
+			if(firstContactAddress == ""){
+				document.getElementById("firstContactAddressSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>联系人地址不能为空!</font>";
+				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
+				return false;
+			}else{
+				document.getElementById("firstContactAddressSpan").innerHTML="";
+				$("#tieshi").html("");
+				return true;
+			}
+		}
+		
+		
+    	//真实姓名验证
+		function checkMemberRealName(){
+			var memberRealName = $("#memberRealName").val();
+			if(memberRealName == ""){
+				document.getElementById("memberRealNameSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>真实姓名不能为空!</font>";
+				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
+				return false;
+			}else{
+				document.getElementById("memberRealNameSpan").innerHTML="";
+				$("#tieshi").html("");
+				return true;
+			}
+		}
+    	
+		//身份证验证
+		function checkCardId(){
+			var cardId = $("#cardId").val();
+			if(cardId == ""){
+				document.getElementById("cardIdSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>身份证号码不能为空!</font>";
+				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
+				return false;
+			}else{
+				document.getElementById("cardIdSpan").innerHTML="";
+				$("#tieshi").html("");
+				return true;
+			}
+		}
+		
+		//身份证验证
+		function checkMobileNumber(){
+			var mobileNumber = $("#mobileNumber").val();
+			if(mobileNumber == ""){
+				document.getElementById("mobileNumberSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>手机号码不能为空!</font>";
+				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
+				return false;
+			}else{
+				document.getElementById("mobileNumberSpan").innerHTML="";
+				$("#tieshi").html("");
+				return true;
+			}
+		}
+	
+		//居住地址验证
+		function checkLiveAddress(){
+			var liveAddress = $("#liveAddress").val();
+			if(liveAddress == ""){
+				document.getElementById("liveAddressSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>居住地址不能为空!</font>";
+				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
+				return false;
+			}else{
+				document.getElementById("liveAddressSpan").innerHTML="";
+				$("#tieshi").html("");
+				return true;
+			}
+		}
+		
+    	//证明人验证
+		function checkProofPhone(){
+			var proofPhone = $("#proofPhone").val();
+			if(proofPhone == ""){
+				document.getElementById("proofPhoneSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>证明人手机号码不能为空!</font>";
+				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
+				return false;
+			}else{
+				document.getElementById("proofPhoneSpan").innerHTML="";
+				$("#tieshi").html("");
+				return true;
+			}
+		}
+	
+		//证明人验证
+		function checkProofPerson(){
+			var proofPerson = $("#proofPerson").val();
+			if(proofPerson == ""){
+				document.getElementById("proofPersonSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>证明人不能为空!</font>";
+				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
+				return false;
+			}else{
+				document.getElementById("proofPersonSpan").innerHTML="";
+				$("#tieshi").html("");
+				return true;
+			}
+		}
+	
+		//单位地址验证
+		function checkNull(){
+			var unitAdress = $("#unitAdress").val();
+			if(unitAdress == ""){
+				document.getElementById("unitAdressSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>单位地址不能为空!</font>";
+				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
+				return false;
+			}else{
+				document.getElementById("unitAdressSpan").innerHTML="";
+				$("#tieshi").html("");
+				return true;
+			}
+		}
+		//单位电话验证
+		function checkUnitPhone(){
+			var unitPhone  = $("#unitPhone").val();
+			if(unitPhone == ""){
+				document.getElementById("unitPhoneSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>单位电话不能为空!</font>";
+				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
+				return false;
+			}else{
+				document.getElementById("unitPhoneSpan").innerHTML="";
+				$("#tieshi").html("");
+				return true;
+			}
+		}
 	    
+	   	//功能判断
+	    function checksMember(memberId,url){
+	    	$.ajax({
+				   type: "POST",
+				   url: ctx+"/member/judgeCheckMember.json",
+				   dataType: "json",
+				   data: 'memberId='+memberId,
+			   success: function(r) {
+				   successHint(r,url);
+               },
+               error: function() {
+            	   location.href="${ctx}/login.htm";
+               }
+			});
+	    }
+	    
+	    //充值提现判断
+	    function checkRechargeWithdraw(memberId,url){
+	    	$.ajax({
+				   type: "POST",
+				   url: ctx+"/financeMember/judgeCheckRechargeWithdraw.json",
+				   dataType: "json",
+				   data: 'memberId='+memberId,
+			   success: function(r) {
+				   successHint(r,url);
+	            },
+	            error: function() {
+	            	location.href="${ctx}/login.htm";
+	            }
+			});
+	    }
+	    
+	  	function successHint(data,url){
+	  		//如果不存在，则转到借款页面
+	  		if(data.success){
+	    		window.location.href=url;
+	    	}else{//如果存在，则提示错误信息
+	    		KindEditor.ready(function(K) {
+					var dialog = K.dialog({
+				        width : 500,
+				        title : "提示",
+				        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
+				        closeBtn : {
+			                name : '关闭',
+			                click : function(e) {
+			                        dialog.remove();
+			                        window.location.href="${ctx}/member/memberDetail.htm";
+			                }
+			        	},
+				        yesBtn : {
+			                name : '关闭',
+			                click : function(e) {
+			                	dialog.remove();
+			                	window.location.href="${ctx}/member/memberDetail.htm";
+			                }
+				        }
+					});
+				});
+	      	}
+	    }
+	    
+	  	/*-------------------------------------------------基本信息验证结束---------------------------------------------*/
 	   	//功能判断
 	    function checksMember(memberId,url){
 	    	$.ajax({
