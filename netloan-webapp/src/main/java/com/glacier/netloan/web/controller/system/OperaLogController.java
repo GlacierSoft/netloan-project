@@ -20,7 +20,6 @@
 package com.glacier.netloan.web.controller.system;
 
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.system.OperalogQueryDTO;
 import com.glacier.netloan.service.system.OperaLogService;
@@ -78,5 +76,4 @@ public class OperaLogController {
     private Object delOperaLog(@RequestParam List<String> operalogIds,@RequestParam List<String> operaPenals){
     	return operaLogService.delOperaLog(operalogIds, operaPenals);
     }
-
 }

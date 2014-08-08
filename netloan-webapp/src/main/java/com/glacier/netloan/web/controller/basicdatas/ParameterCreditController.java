@@ -1,10 +1,7 @@
 package com.glacier.netloan.web.controller.basicdatas;
 
-
 import java.util.List;
-
 import javax.validation.Valid;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,14 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
 
-/**
- *  
+/** 
  * @ClassName: ParameterCreditController 
  * @Description: TODO(会员信用等级的控制类) 
  * @author yuzexu
@@ -102,6 +97,7 @@ public class ParameterCreditController extends AbstractController{
         }
         return parameterCreditService.editParameterCredit(parameterCredit);
     }
+    
     // 删除会员信用等级
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody

@@ -6,9 +6,7 @@
 package com.glacier.netloan.web.controller.system;
 
 import java.util.List;
-
 import javax.validation.Valid;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.system.RoleQueryDTO;
@@ -70,14 +67,12 @@ public class RoleController extends AbstractController{
         return mav;
     }
     
-
     // 检索表格结构的角色数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listRoleAsGridByMenuId(RoleQueryDTO roleQueryDTO, JqPager pager) {
         return roleService.listAsGrid(roleQueryDTO,pager);
     }
-    
     
     // 增加角色
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
