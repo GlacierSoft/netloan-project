@@ -156,20 +156,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <span id="memberRealNameSpan"></span>
 									    </div>
 									  </div>
+									  
 									  <div class="form-group">
 									    <label for="cardId" class="col-sm-2 control-label">*身份证:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" onblur="checkCardId();" id="cardId" name="cardId" value="${currentMember.cardId}"  placeholder="身份证"  >
-									      <span id="cardIdSpan"></span>
-									    </div>
+									      <input type="text" class="form-control" id="cardId" name="cardId" value="${currentMember.cardId}"  placeholder="身份证"  >
+									     </div>
+									      <span style="color:#F00;margin-left: 70px"> * 演示站点不发送短信验证</span>
 									  </div>
-									  <div class="form-group">
+									  <div class="form-group" >
 									    <label for="mobileNumber" class="col-sm-2 control-label">*手机号码:</label>
-									    <div class="col-sm-4">
-									      <input type="tel"  class="form-control" onblur="checkMobileNumber();" name="mobileNumber" id="mobileNumber" value="${currentMember.mobileNumber}"  placeholder="手机号码" >
-									       <span id="mobileNumberSpan"></span>
-									    </div>
+									    <div class="col-sm-4" style="width: 300px;float: left;">
+									      <input type="tel"  class="form-control" maxlength="11" style="width: 170px;float: left;" name="mobileNumber" id="mobileNumber" value="${currentMember.mobileNumber}"  placeholder="手机号码" >
+									      <button id="updatePhoneForm_form-group" type="submit" style="float: right;" disabled="disabled" class="btn btn-default">获取验证码</button>
+					                 </div>
+					                 
+					                 <div class="form-group" style="float: left;width: 400px" >
+									   <label for="mobileNumber" class="col-sm-2 control-label" style="float: left;width: 150px;margin-left: 38px" >*短信验证码:</label>
+									      <div class="col-sm-4" style="float: left;">
+									       <input type="tel" class="form-control"  maxlength="6" style="width: 170px"  name="yz" id="yz"   placeholder="手机短信验证码" >
+									    
+									     </div> 
+									      </div>
+									     
+									     
 									  </div>
+									  
 									  <div class="form-group">
 									    <label for="sex" class="col-sm-2 control-label">性别:</label>
 									  	<div class="col-sm-4">
@@ -734,6 +746,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group">
 						    <div class="col-sm-offset-3 col-sm-9">
 						      <button id="updatememberPasswordForm_form-group" type="submit" class="btn btn-primary">提    交</button>
+						     <button id="updatememberPasswordForm_form-group" type="submit" disabled="disabled" style="margin-left: 30px" class="btn  btn-default">忘记密保？发送到手机</button>
+						     &nbsp;<span style="color:#F00;margin-left: 20px"> * 演示站点不发送短信验证</span>
+						  
+						   
+						    
 						    </div>
 						  </div>
 						</form>
@@ -752,6 +769,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <jsp:include page="../foot.jsp"/>
 	    <!-- CONTAINER START======================== -->
 	    <script type="text/javascript"> 
+	    //禁用Enter键表单自动提交
+	      document.onkeydown = function(event) {
+	          var target, code, tag;
+	          if (!event) {
+	              event = window.event; //针对ie浏览器
+	              target = event.srcElement;
+	              code = event.keyCode;
+	              if (code == 13) {
+	                  tag = target.tagName;
+	                  if (tag == "TEXTAREA") {
+	                  	return true; 
+	                  } else {
+	                  	return false;
+	                  }
+	              }
+	          }else {
+	              target = event.target; //针对遵循w3c标准的浏览器，如Firefox
+	              code = event.keyCode;
+	              if (code == 13) {
+	                  tag = target.tagName;
+	                  if (tag == "INPUT") { 
+	                  	return false;
+	                  	
+	                  	}else{ 
+	                  		return true; 
+	                  	} 
+	              }
+	          }
+	      };
+
 	    /*-------------------------------------------------基本信息验证开始---------------------------------------------*/
 	  	//验证所有
 		function checkAll(){

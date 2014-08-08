@@ -1,9 +1,10 @@
 package com.glacier.netloan.web.controller.common;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern; 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
+import javax.validation.Valid; 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
@@ -15,8 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod; 
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.servlet.ModelAndView; 
 import com.glacier.basic.util.IpUtil;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqReturnJson;
@@ -81,6 +81,13 @@ public class RegisterController extends AbstractController{
 		if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
+		 Pattern pattern = Pattern.compile("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
+         Matcher matcher = pattern.matcher(member.getEmail());
+         //验证邮箱的合法性
+         if(matcher.matches()==false){ 
+        	 return "register"; 
+         };  
+		
 		String isCaptcha = (String) request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
 		if (StringUtils.isBlank(captcha) || !isCaptcha.equalsIgnoreCase(captcha)) {
             //throw new IncorrectCaptchaException("验证码错误！");
@@ -88,9 +95,9 @@ public class RegisterController extends AbstractController{
         	request.setAttribute("member", member);
         	return "register";
         }
-		session.setAttribute("isCaptcha", isCaptcha);
+		 session.setAttribute("isCaptcha", isCaptcha);
 		
-		//判断用户名是否重复
+		 //判断用户名是否重复
 		 JqReturnJson returnisUsernameRepeat = (JqReturnJson) memberService.isUsernameRepeat(member);
 		if(!returnisUsernameRepeat.isSuccess()){
 			request.setAttribute("usernameRepeat", "usernameRepeat");//通过设置usernameRepeat的 值，来判断用户名是否重复。

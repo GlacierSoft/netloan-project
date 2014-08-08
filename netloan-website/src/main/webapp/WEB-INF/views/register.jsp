@@ -17,7 +17,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	<!-- 引入公用的js和样式库 -->
 	<jsp:include page="inc.jsp"/>
 	<!-- Custom styles for this template -->
-    <link href="${ctx}/resources/css/signin.css" rel="stylesheet">
+  <link href="${ctx}/resources/css/signin.css" rel="stylesheet">  
+    <link href="${ctx}/resources/css/email.css" type="text/css" rel="stylesheet" /> 
+    <script src="${ctx}/resources/js/register/emailAutoComplete.js"></script>
     <style type="text/css">
 		body {
 		    padding-top: 100px;
@@ -48,22 +50,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       		<form id="registerForm" class="form-horizontal" role="form" action="${pageContext.request.contextPath}/register.htm" method="post" onsubmit="return validaForm();">
 			  <div class="form-group">
 			    <label for="email" class="col-sm-2 control-label">常用邮箱</label>
-			    <div class="col-sm-6" style="float: left; width: 800px">
-			      <input type="email" class="form-control" style="float: left;width: 428px"  id="email_form-group" name="email" placeholder="常用邮箱"  maxlength="21" required  value="${member.email}"  />
+			    <div class="col-sm-6 parentCls" style="float: left; width: 800px">
+			      <input type="text" onfocus="this.type='email'"  class="form-control inputElem" autocomplete="off"  style="float: left;width: 428px;height: 35px"  id="email_form-group" name="email" placeholder="常用邮箱"  maxlength="21" required  value="${member.email}"  />
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="memberName" class="col-sm-2 control-label">用户名</label>
 			    <div class="col-sm-6" style="float: left; width: 800px">
-			      <input type="text" class="form-control" style="float: left;width: 428px" id="memberName_form-group"
-			       name="memberName" placeholder="用户名" onkeyup="value=value.replace(/[\W]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"
-			       required  value="${member.memberName}" maxlength="10"/>
+			      <input type="text"   class="form-control" style="float: left;width: 428px" id="memberName_form-group"
+			       name="memberName" placeholder="用户名" value="${member.memberName}" maxlength="12"/>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="memberPassword" class="col-sm-2 control-label">密码</label>
 			    <div class="col-sm-6" style="float: left; width: 800px">
-			      <input type="password" maxlength="12" class="form-control" style="float: left;width: 428px" id="memberPassword_form-group" name="memberPassword" placeholder="密码长度不能小于6个字符" required value="${member.memberPassword}"/>
+			      <input  type="text" onfocus="this.type='password'" autocomplete="off"  maxlength="12" class="form-control" style="float: left;width: 428px" id="memberPassword_form-group" name="memberPassword" placeholder="密码长度不能小于6个字符" required value="${member.memberPassword}"/>
 			    </div>
 			  </div>
 			  <div class="form-group">
@@ -84,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			  <div class="form-group">
 			    <div class="col-sm-offset-2 col-sm-10">
-			      <button id="register_form-group" type="submit" class="btn btn-primary">免 费 注 册</button>
+			      <button id="register_form-group"  class="btn btn-primary">免 费 注 册</button>
 			    </div>
 			  </div>
 			</form>
@@ -122,6 +123,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						},3000)
 						return false;
 					}
+					 
 					if($memberPassword.val().length < 6 || $memberPassword.val().length > 12){
 						$memberPassword.addClass("has-error");
 						$memberPassword.focus();
@@ -144,6 +146,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						},3000)
 						return false;
 					}
+					
+					
+					 $("#eml").remove();  
+	     			 var str=$("#email_form-group").val(); 
+	     			 var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+	     		     var boo= reg.test(str);
+	     		     if(str==""){
+	     		    	$("#email_form-group").after("<label id='eml' style='color: red'>*注册邮箱不能为空</label>");
+	     				  return false;
+	     		     } 
+	     		    if(boo==false){
+	     		    	$("#email_form-group").after("<label id='eml' style='color: red'>*邮箱格式不正确</label>");
+	     		    	 return false;
+	     		     }else{ 
+	     		    	$.ajax({
+	      				   type: "POST",
+	      				   url: ctx+"/confinMenberName.json",
+	      				   dataType: "json",
+	      				   data: 'str='+str+"&action=E",
+	      			       success: function(date) {  
+	      			    	  if(date.success==false){ //改用户已被注册
+	      			              $("#email_form-group").after("<label id='eml' style='color: red'>&nbsp;&nbsp;该邮箱已被注册</label>");
+	      			    	      return false;
+	      			    	  } 
+	      			   }  
+	      			});  
+	     		  }   
 					
 					var $captcha = $('#captcha');
 					if($captcha.val().length < 4){
@@ -169,42 +198,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript">
 		//输入框得到焦点
 		 $("#email_form-group").focus(function(){
-			 $("#eml").remove();
-			 $("#eml2").remove();
-			 $("#em2").remove(); 
+			 $("#eml").remove(); 
 		 });
-		//邮箱失去焦点前台验证
-		 $("#email_form-group").blur(function(){ 
-			 $("#eml").remove();
-			 $("#eml2").remove();
-			 $("#em2").remove();
-		    	
-			 var str=$(this).val();
-			 var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/;
-		     var boo= reg.test(str);
-		     if(str==""){
-		     	 $(this).after("<label id='eml2' style='color: red'>*注册邮箱不能为空</label>");
-				  return;
-		     }
-		    if(boo==false){
-		    	 $(this).after("<label id='eml' style='color: red'>*邮箱格式不正确</label>");
-		    	 return;
-		     }else{
-		    	 $("#eml").remove(); 
-		     }    
-		     $.ajax({
-				   type: "POST",
-				   url: ctx+"/confinMenberName.json",
-				   dataType: "json",
-				   data: 'str='+str+"&action=E",
-			       success: function(date) {  
-			    	  if(date.success==false){ //改用户已被注册
-			              $("#email_form-group").after("<label id='em2' style='color: red'>&nbsp;&nbsp;该邮箱已被注册</label>");
-			    	  }
-			   }  
-			}); 
-		 });  
-
+   
 		 $("#memberName_form-group").focus(function(){
 			 $("#name1").remove(); 
 			 $("#name2").remove(); 
