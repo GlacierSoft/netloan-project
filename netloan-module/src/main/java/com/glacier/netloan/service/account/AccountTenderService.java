@@ -37,7 +37,15 @@ public class AccountTenderService {
 	@Autowired
 	private TenderNotesMapper tenderNotesMapper;
 
-	// 获取表当数据
+	/**
+	  * @Title: listAsGrid 
+	  * @Description: TODO(投标统计信息查询) 
+	  * @param @param jqPager, tenderNotesQueryDTO,loanState
+	  * @param @return    设定文件 
+	  * @return Object    返回类型 
+	  * @throws
+	 */
+	
 	public Object listAsGrid(JqPager jqPager,TenderNotesQueryDTO tenderNotesQueryDTO, String loanState) {
 
 		JqGridReturn returnResult = new JqGridReturn();
@@ -67,18 +75,34 @@ public class AccountTenderService {
 		return returnResult;// 返回ExtGrid表
 	}
 
-	// 获取投资对象
+	/**
+	  * @Title: getTenderNotes 
+	  * @Description: TODO(投标统计信息对象获取) 
+	  * @param @param loanId
+	  * @param @return    设定文件 
+	  * @return Object    返回类型 
+	  * @throws
+	 */
+	
 	public Object getTenderNotes(String loanId) {
 		TenderNotes tenderNotes = tenderNotesMapper.selectByPrimaryKey(loanId);
 		return tenderNotes;
 	}
 
-	// 投资信息导出
-	String[] excelHeader = { "投标用户", "用户积分", "认购份数", "借款名称", "借款用户", "年利率","还款期限", "借款完成百分比", "备注" };
-	int[] excelHeaderWidth = { 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50 };
-
-	// 导出Excel
+	/**
+	  * @Title: export 
+	  * @Description: TODO(投标统计信息导出) 
+	  * @param @param list
+	  * @param @return    设定文件 
+	  * @return Object    返回类型 
+	  * @throws
+	 */
+	
 	public HSSFWorkbook export(List<TenderNotes> list) {
+		
+		String[] excelHeader = { "投标用户", "用户积分", "认购份数", "借款名称", "借款用户", "年利率","还款期限", "借款完成百分比", "备注" };
+		int[] excelHeaderWidth = { 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50 };
+		
 		HSSFWorkbook wb = new HSSFWorkbook();
 		HSSFSheet sheet = wb.createSheet("用户投标报表统计");
 		HSSFRow row = sheet.createRow((int) 0);

@@ -38,7 +38,15 @@ public class AccountBorrowService {
 	@Autowired
     private BorrowingLoanMapper borrowingLoanMapper;
 	
-	//获取表当数据
+	/**
+	  * @Title: listAsGrid 
+	  * @Description: TODO(借款统计信息查询) 
+	  * @param @param jqPager,borrowingLoanQueryDTO,loanState
+	  * @param @return    设定文件 
+	  * @return Object    返回类型 
+	  * @throws
+	 */
+	
 	public Object listAsGrid(JqPager jqPager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String loanState) {
         
         JqGridReturn returnResult = new JqGridReturn();
@@ -65,7 +73,16 @@ public class AccountBorrowService {
         return returnResult;// 返回ExtGrid表
     }   
 	
-	//获取借款对象
+	
+	/**
+	  * @Title: getBorrowingLoan 
+	  * @Description: TODO(借款统计信息对象获取) 
+	  * @param @param loanId
+	  * @param @return    设定文件 
+	  * @return Object    返回类型 
+	  * @throws
+	 */
+	
 	public Object getBorrowingLoan(String loanId) {
     	BorrowingLoan borrowingLoan = borrowingLoanMapper.selectByPrimaryKey(loanId);
     	Calendar c = Calendar.getInstance();
@@ -80,43 +97,50 @@ public class AccountBorrowService {
         return borrowingLoan;
     }
 	
+	/**
+	  * @Title: export 
+	  * @Description: TODO(借款统计信息导出) 
+	  * @param @param list
+	  * @param @return    设定文件 
+	  * @return Object    返回类型 
+	  * @throws
+	 */
 	
-	    String[] excelHeader = {"借款用户名","借款标题","借款金额","借款标的","借款时间","借款目的","借款期限"};	      
+    public HSSFWorkbook export(List<BorrowingLoan> list) {  
+    	String[] excelHeader = {"借款用户名","借款标题","借款金额","借款标的","借款时间","借款目的","借款期限"};	      
 	    int[] excelHeaderWidth = {80, 80, 100, 100, 100,100,100};  
 	    
-	    //借款信息导出
-	    public HSSFWorkbook export(List<BorrowingLoan> list) {    
-	        HSSFWorkbook wb = new HSSFWorkbook();    
-	        HSSFSheet sheet = wb.createSheet("用户借款报表统计");    
-	        HSSFRow row = sheet.createRow((int) 0);    
-	        HSSFCellStyle style = wb.createCellStyle();    
-	        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);   
-	        
-	        //时间转化
-	        SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
-	    
-	        for (int i = 0; i < excelHeader.length; i++) {    
-	            HSSFCell cell = row.createCell(i);    
-	            cell.setCellValue(excelHeader[i]);    
-	            cell.setCellStyle(style);    
-	            sheet.autoSizeColumn(i);    
-	        } 
-	        // 设置列宽度（像素）  
-	        for (int i = 0; i < excelHeaderWidth.length; i++) {  
-	            sheet.setColumnWidth(i, 32 * excelHeaderWidth[i]);  
-	        }  
-	        for (int i = 0; i < list.size(); i++) { 
-	        	row = sheet.createRow(i + 1);    
-	            BorrowingLoan borrow = list.get(i);    
-	            row.createCell(0).setCellValue(borrow.getMemberDisplay());//借款用户名
-	            row.createCell(1).setCellValue(borrow.getLoanTitle());//借款标题
-	            row.createCell(2).setCellValue(borrow.getLoanTotal());//借款总额
-	            row.createCell(3).setCellValue(borrow.getLoanTenderDisplay());//借款标的
-	            row.createCell(4).setCellValue(sf.format(borrow.getLoanDate()));//借款时间
-	            row.createCell(5).setCellValue(borrow.getLoanPurposeId());//借款目的
-	            row.createCell(6).setCellValue(borrow.getLoanDeadlinesId());//借款期限
-	        }    
-	        return wb;    
-	    }     
+        HSSFWorkbook wb = new HSSFWorkbook();    
+        HSSFSheet sheet = wb.createSheet("用户借款报表统计");    
+        HSSFRow row = sheet.createRow((int) 0);    
+        HSSFCellStyle style = wb.createCellStyle();    
+        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);   
+        
+        //时间转化
+        SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
+    
+        for (int i = 0; i < excelHeader.length; i++) {    
+            HSSFCell cell = row.createCell(i);    
+            cell.setCellValue(excelHeader[i]);    
+            cell.setCellStyle(style);    
+            sheet.autoSizeColumn(i);    
+        } 
+        // 设置列宽度（像素）  
+        for (int i = 0; i < excelHeaderWidth.length; i++) {  
+            sheet.setColumnWidth(i, 32 * excelHeaderWidth[i]);  
+        }  
+        for (int i = 0; i < list.size(); i++) { 
+        	row = sheet.createRow(i + 1);    
+            BorrowingLoan borrow = list.get(i);    
+            row.createCell(0).setCellValue(borrow.getMemberDisplay());//借款用户名
+            row.createCell(1).setCellValue(borrow.getLoanTitle());//借款标题
+            row.createCell(2).setCellValue(borrow.getLoanTotal());//借款总额
+            row.createCell(3).setCellValue(borrow.getLoanTenderDisplay());//借款标的
+            row.createCell(4).setCellValue(sf.format(borrow.getLoanDate()));//借款时间
+            row.createCell(5).setCellValue(borrow.getLoanPurposeId());//借款目的
+            row.createCell(6).setCellValue(borrow.getLoanDeadlinesId());//借款期限
+        }    
+        return wb;    
+    }     
 	
 }

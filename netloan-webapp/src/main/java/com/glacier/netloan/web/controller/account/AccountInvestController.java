@@ -72,8 +72,8 @@ public class AccountInvestController extends AbstractController {
 	}
 	 
 	 //投资统计详情页
-	  @RequestMapping(value = "/intoDetail.htm")
-	  private Object intoAccountInvestDetailPage(String investId) {
+	 @RequestMapping(value = "/intoDetail.htm")
+	 private Object intoAccountInvestDetailPage(String investId) {
 	      ModelAndView mav = new ModelAndView("account_mgr/accountInvest_mgr/accountInvest_detail");
 	      if(StringUtils.isNotBlank(investId)){
 	            mav.addObject("accountInvestData", accountInvestService.getAccountInvest(investId));
@@ -88,11 +88,10 @@ public class AccountInvestController extends AbstractController {
 	    	return accountInvestService.listAsGrid(jqPager,accountInvestQueryDTO);
 	   }
 	    
-	    
-	    //投资统计信息导出
-	   @SuppressWarnings("unchecked")
-	   @RequestMapping(value = "/exp.json")
-	   private void expAccountInvest(JqPager jqPager, AccountInvestQueryDTO accountInvestQueryDTO, String q,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	  //投资统计信息导出
+	  @SuppressWarnings("unchecked")
+	  @RequestMapping(value = "/exp.json")
+	  private void expAccountInvest(JqPager jqPager, AccountInvestQueryDTO accountInvestQueryDTO, String q,HttpServletRequest request,HttpServletResponse response) throws IOException{
 	    	  JqGridReturn returnResult=(JqGridReturn) accountInvestService.listAsGrid(jqPager,accountInvestQueryDTO);
 	    	  List<AccountInvest> list=(List<AccountInvest>)returnResult.getRows();
 	    	  HSSFWorkbook wb = accountInvestService.export(list);   
@@ -104,11 +103,9 @@ public class AccountInvestController extends AbstractController {
 	          wb.write(ouputStream);    
 	          ouputStream.flush();    
 	          ouputStream.close();  
-	    	
 	   }
 	   
-	   
-	   //柱形图数据绑定
+	  //柱形图数据绑定
 	  @RequestMapping(value="/data.json")
 	  @ResponseBody
 	  private Object FindAccountInvestData(HttpSession session){
@@ -121,7 +118,7 @@ public class AccountInvestController extends AbstractController {
 			  year_number=(Integer) session.getAttribute("year_number");
 			  month_number=(Integer) session.getAttribute("month_number");  
 		  }catch(Exception e){
-			  e.printStackTrace();
+			  System.out.println("异常抛出成功!");
 		  }
 		  List<AccountInvest> list_invest=(List<AccountInvest>) accountInvestService.FindAccountInvest(year_number,month_number);
 		  //定义变量
@@ -180,7 +177,7 @@ public class AccountInvestController extends AbstractController {
 			}
 		  return data_invest;
 		
-     }
+      }
 	  
 	  //X轴日期绑定
 	  @RequestMapping(value="/date.json")
@@ -196,11 +193,9 @@ public class AccountInvestController extends AbstractController {
 			  year_number=(Integer) session.getAttribute("year_number");
 			  month_number=(Integer) session.getAttribute("month_number");  
 		  }catch(Exception e){
-			  System.out.println("异常已抛出!!!!");  
+			  System.out.println("异常抛出成功!");
 		  }
-		  
 		  List<AccountInvest> list_invest=(List<AccountInvest>) accountInvestService.FindAccountInvest(year_number,month_number);
-		  
 		  //时间转化
 		  SimpleDateFormat sf=new SimpleDateFormat("MM.dd");
 		  String[] str_date=new String[list_invest.size()]; 
@@ -252,14 +247,13 @@ public class AccountInvestController extends AbstractController {
 				  flag=true;
 				}
 			}
-		   
 		   if(year_number>0&&month_number>0){
-			   invest_number=(Integer) accountInvestService.FindInvestListTest(year_number, month_number);
+			     invest_number=(Integer) accountInvestService.FindInvestListTest(year_number, month_number);
 		   }else{
 			   if(year_number>0)
 				 invest_number=(Integer) accountInvestService.FindInvestListTest(year_number, month_now);
 			   else
-				   invest_number=(Integer) accountInvestService.FindInvestListTest(year_now, month_number);
+				 invest_number=(Integer) accountInvestService.FindInvestListTest(year_now, month_number);
 		   }
 		   if(invest_number==0) 
 		        map.put("msg", "条件内无效，，请重新检索!!!!");
@@ -313,24 +307,18 @@ public class AccountInvestController extends AbstractController {
 		@RequestMapping(value="ExcelIn.json",method=RequestMethod.POST)
 		@ResponseBody
 		private Object AccountInvestIn(MultipartFile AccountFile, HttpServletRequest request,HttpServletResponse response) throws IOException{
-			   System.out.println("文件长度: " + AccountFile.getSize());  
-               System.out.println("文件类型: " + AccountFile.getContentType());  
-               System.out.println("文件名称: " + AccountFile.getName());  
-               System.out.println("文件原名: " + AccountFile.getOriginalFilename());
-               boolean flag=true;
-               Map<String,Object> map=new HashMap<String,Object>();
-               List<Map<String,Object>> list=new ArrayList<Map<String, Object>>();
-               try{
-            	   String realPath = request.getSession().getServletContext().getRealPath("/WEB-INF/upload"); 
-    			   FileUtils.copyInputStreamToFile(AccountFile.getInputStream(), new File(realPath, AccountFile.getOriginalFilename()));   
-               }catch(Exception e){
-            	   flag=false;
-            	   e.printStackTrace();
-            	}
-               map.put("data", flag);
-               list.add(map);
-			   return list;
+		   boolean flag=true;
+           Map<String,Object> map=new HashMap<String,Object>();
+           List<Map<String,Object>> list=new ArrayList<Map<String, Object>>();
+           try{
+        	   String realPath = request.getSession().getServletContext().getRealPath("/WEB-INF/upload"); 
+			   FileUtils.copyInputStreamToFile(AccountFile.getInputStream(), new File(realPath, AccountFile.getOriginalFilename()));   
+           }catch(Exception e){
+        	   flag=false;
+        	}
+           map.put("data", flag);
+           list.add(map);
+		   return list;
 		}
-	    
 }	    
 	   

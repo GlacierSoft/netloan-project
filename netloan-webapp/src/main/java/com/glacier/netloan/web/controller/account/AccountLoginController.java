@@ -49,66 +49,63 @@ public class AccountLoginController extends AbstractController {
 	 public Object intoAccountLogin(HttpServletRequest request,HttpServletResponse response){
 		ModelAndView mode=new ModelAndView("account_mgr/accountLogin_mgr/accountLogin");
 	    return mode ;	
-	}
+	 }
 	 
-	   //会员登入统计详情页
-	    @RequestMapping(value = "/intoDetail.htm")
-	    private Object intoAccountLoginDetailPage(String memberId) {
-	        ModelAndView mav = new ModelAndView("account_mgr/accountLogin_mgr/accountLogin_detail");
-	        if(StringUtils.isNotBlank(memberId)){
-	            mav.addObject("memberData", accountLoginService.getMember(memberId));
-	            mav.addObject("memberWorkData", accountLoginService.getMemberWork(memberId));
-	        }
-	        return mav;
-	    }
+     //会员登入统计详情页
+	 @RequestMapping(value = "/intoDetail.htm")
+	 private Object intoAccountLoginDetailPage(String memberId) {
+        ModelAndView mav = new ModelAndView("account_mgr/accountLogin_mgr/accountLogin_detail");
+        if(StringUtils.isNotBlank(memberId)){
+            mav.addObject("memberData", accountLoginService.getMember(memberId));
+            mav.addObject("memberWorkData", accountLoginService.getMemberWork(memberId));
+        }
+        return mav;
+	  }
 	    
-	    //获取表格结构的所有菜单数据
-	    @RequestMapping(value = "/list.json", method = RequestMethod.POST)
-	    @ResponseBody
-	    private Object listActionAsGridByMenuId(JqPager jqPager, MemberQueryDTO memberQueryDTO, String q,HttpSession session) {
-	        JqGridReturn returnResult=(JqGridReturn)accountLoginService.listAsGrid(jqPager, memberQueryDTO, q);
-	        if(returnResult!=null){
-	        	List<Member> list=(List<Member>)returnResult.getRows();
-	        	session.setAttribute("List", list);
-	        }
-	    	return returnResult;
-	    }
+	  //获取表格结构的所有菜单数据
+	  @RequestMapping(value = "/list.json", method = RequestMethod.POST)
+	  @ResponseBody
+	  private Object listActionAsGridByMenuId(JqPager jqPager, MemberQueryDTO memberQueryDTO, String q,HttpSession session) {
+        JqGridReturn returnResult=(JqGridReturn)accountLoginService.listAsGrid(jqPager, memberQueryDTO, q);
+        if(returnResult!=null){
+        	List<Member> list=(List<Member>)returnResult.getRows();
+        	session.setAttribute("List", list);
+        }
+    	return returnResult;
+	  }
 	    
-	    
-	    //登录统计信息导出
-	    @RequestMapping(value = "/exp.json")
-	    private void expAccountLogin(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
-	    	  List<Member> list=(List<Member>)session.getAttribute("List");
-	    	  HSSFWorkbook wb=null;
-	    	  if(list.size()>0&&list!=null){
-	    		  wb = accountLoginService.export(list);  
-	    	  }else{
-	    		  List<Member> list_null=new ArrayList<Member>(); 
-	    		  Member member=new Member();
-	    		  member.setMemberName("Null");
-	    		  member.setMemberRealName("Null");
-	    		  member.setCardId("Null");
-	    		  member.setLiveAddress("Null");
-	    		  member.setMobileNumber("Null");
-	    		  member.setEmail("Null");
-	    		  member.setType("Null");
-	    		  member.setCreditIntegral(new Float(0.00));
-	    		  member.setLastLoginIpAddress("Null");
-	    		  member.setLoginCount(0);
-	    		  list_null.add(member);
-	    		  wb = accountLoginService.export(list_null); 
-	    	  }
-    		  response.setContentType("application/vnd.ms-excel");    
-	          SimpleDateFormat sf=new SimpleDateFormat("yyyyMMddHHmmss");
-	          String filename="AccountMemberInfo_"+sf.format(new Date());
-	          response.setHeader("Content-disposition", "attachment;filename="+filename+".xls");    
-	          OutputStream ouputStream = response.getOutputStream();    
-	          wb.write(ouputStream);    
-	          ouputStream.flush();    
-	          ouputStream.close();   
-	    	  
-	     }
-	    
+	  //登录统计信息导出
+	  @RequestMapping(value = "/exp.json")
+	  private void expAccountLogin(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
+    	  List<Member> list=(List<Member>)session.getAttribute("List");
+    	  HSSFWorkbook wb=null;
+    	  if(list.size()>0&&list!=null){
+    		  wb = accountLoginService.export(list);  
+    	  }else{
+    		  List<Member> list_null=new ArrayList<Member>(); 
+    		  Member member=new Member();
+    		  member.setMemberName("Null");
+    		  member.setMemberRealName("Null");
+    		  member.setCardId("Null");
+    		  member.setLiveAddress("Null");
+    		  member.setMobileNumber("Null");
+    		  member.setEmail("Null");
+    		  member.setType("Null");
+    		  member.setCreditIntegral(new Float(0.00));
+    		  member.setLastLoginIpAddress("Null");
+    		  member.setLoginCount(0);
+    		  list_null.add(member);
+    		  wb = accountLoginService.export(list_null); 
+    	  }
+		  response.setContentType("application/vnd.ms-excel");    
+          SimpleDateFormat sf=new SimpleDateFormat("yyyyMMddHHmmss");
+          String filename="AccountMemberInfo_"+sf.format(new Date());
+          response.setHeader("Content-disposition", "attachment;filename="+filename+".xls");    
+          OutputStream ouputStream = response.getOutputStream();    
+          wb.write(ouputStream);    
+          ouputStream.flush();    
+          ouputStream.close();   
+	   }
 }	    
 	    
 

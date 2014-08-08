@@ -478,8 +478,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	console.info(data);
 	        	if(data[0].flag){
 	        		 if(data[0].msg){
-	        			 $("#invest_warn").text("条件内无数据，请重新检索!!!");
-	        			 $("#invest_warn").show();
+	        			$("#invest_warn").text("条件内无数据，请重新检索!!!");
+	        			$("#invest_warn").show();
 	        		}else{
 	        			$("#invest_warn").hide();
 	        			glacier.account_mgr.accountInvest_mgr.accountInvest.outExpAccountInvest();

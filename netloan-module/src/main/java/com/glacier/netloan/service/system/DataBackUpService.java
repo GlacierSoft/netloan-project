@@ -26,6 +26,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly=true,propagation=Propagation.REQUIRED)
 public class DataBackUpService {
     
+	
+	/**
+	  * @Title: handleDataBackUp 
+	  * @Description: TODO(数据备份) 
+	  * @throws
+	  */
+	
 	@PostConstruct
 	public void handleDataBackUp(){
 		 try { 
@@ -38,13 +45,12 @@ public class DataBackUpService {
 		        sqlWebapp=sqlPath.replaceAll("\\\\","\\\\\\\\").replaceAll("netloan-website","netloan-webapp");
 		    if(sqlPath.contains("netloan-webapp"))
 		        sqlWebapp=sqlPath.replaceAll("\\\\","\\\\\\\\");
-		    
 		    // 创建隐藏文件夹存储备份数据
 			File file_netloan = new File(""+sqlWebapp+"\\src\\main\\webapp\\resources\\backupsql");
 			if (!file_netloan.exists() || !file_netloan.isDirectory()) {
 				file_netloan.mkdir();
 			}
-			
+			//判断存储文件是否为空文件
 			if(file_netloan.listFiles().length>0){
 				 //指定文件夹内最后修改时间
 			    long file_time=file_netloan.lastModified();
@@ -53,9 +59,8 @@ public class DataBackUpService {
 				calendar.set(Calendar.HOUR_OF_DAY, 0);// 设置日历时
 				calendar.set(Calendar.MINUTE, 0);// 设置日历分
 				calendar.set(Calendar.SECOND, 0);// 设置日历秒
-				
 				Date date=new Date(file_time);//文件夹内最后修改时间
-				
+				//判断文件夹内是否有当天的备份文件
 				if(date.before(calendar.getTime())){
 					//构建执行命令
 				    Runtime rt = Runtime.getRuntime();

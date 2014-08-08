@@ -51,15 +51,20 @@ public class AccountLoginService {
 	@Autowired
 	private ParameterCreditService parameterCreditService;
 
-	// 用户登录统计信息
-	public Object listAsGrid(JqPager jqPager, MemberQueryDTO memberQueryDTO,
-			String q) {
-
-		JqGridReturn returnResult = new JqGridReturn();
+	/**
+	  * @Title: listAsGrid 
+	  * @Description: TODO(登录统计信息查询) 
+	  * @param @param jqPager,memberQueryDTO,q
+	  * @param @return    设定文件 
+	  * @return Object    返回类型 
+	  * @throws
+	 */
+	
+	public Object listAsGrid(JqPager jqPager, MemberQueryDTO memberQueryDTO,String q) {
+        JqGridReturn returnResult = new JqGridReturn();
 		MemberExample memberExample = new MemberExample();
 		
-
-		Criteria queryCriteria = memberExample.createCriteria();
+        Criteria queryCriteria = memberExample.createCriteria();
 		memberQueryDTO.setQueryCondition(queryCriteria, q);
 
 		if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息
@@ -76,25 +81,35 @@ public class AccountLoginService {
 		return returnResult;// 返回ExtGrid表
 	}
 
+	/**
+	  * @Title: getMemberWork 
+	  * @Description: TODO(登录统计信息对象获取) 
+	  * @param @param memberId
+	  * @param @return    设定文件 
+	  * @return Object    返回类型 
+	  * @throws
+	 */
+	
 	public Object getMemberWork(String memberId) {
 		MemberWork memberWork = memberWorkMapper.selectByPrimaryKey(memberId);
 		return memberWork;
 	}
 
-	// 获取用户登录对象
+	/**
+	  * @Title: getMember 
+	  * @Description: TODO(登录统计信息对象获取) 
+	  * @param @param memberId
+	  * @param @return    设定文件 
+	  * @return Object    返回类型 
+	  * @throws
+	 */
 	public Object getMember(String memberId) {
 		Member member = memberMapper.selectByPrimaryKey(memberId);
-
-		// 查询基础信用积分的所有数据
-		@SuppressWarnings("unchecked")
+        // 查询基础信用积分的所有数据
 		List<ParameterCredit> parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
-
-		// 通过嵌套for循环，将会员的信用图标加到会员对象中去
+        // 通过嵌套for循环，将会员的信用图标加到会员对象中去
 		for (ParameterCredit parameterCredit : parameterCredits) {
-			if (member.getCreditIntegral() >= parameterCredit
-					.getCreditBeginIntegral()
-					&& member.getCreditIntegral() < parameterCredit
-							.getCreditEndIntegral()) {
+			if (member.getCreditIntegral() >= parameterCredit.getCreditBeginIntegral()&& member.getCreditIntegral() < parameterCredit.getCreditEndIntegral()) {
 				member.setCreditPhoto(parameterCredit.getCreditPhoto());
 				break;
 			}
@@ -102,11 +117,19 @@ public class AccountLoginService {
 		return member;
 	}
 
-	String[] excelHeader = { "会员名称", "真实姓名", "身份证号", "居住地址", "联系方式", "电子邮件","用户等级", "信用积分", "最后登陆IP", "登入次数" };
-	int[] excelHeaderWidth = { 60, 60, 60, 60, 60, 60, 60, 60, 60, 60 };
-
-	// 登录统计信息导出
+    /**
+	  * @Title: export 
+	  * @Description: TODO(登录统计信息导出EXCEL) 
+	  * @param @param list
+	  * @param @return    设定文件 
+	  * @return Object    返回类型 
+	  * @throws
+	 */
+	
 	public HSSFWorkbook export(List<Member> list) {
+		String[] excelHeader = { "会员名称", "真实姓名", "身份证号", "居住地址", "联系方式", "电子邮件","用户等级", "信用积分", "最后登陆IP", "登入次数" };
+		int[] excelHeaderWidth = { 60, 60, 60, 60, 60, 60, 60, 60, 60, 60 };
+		
 		HSSFWorkbook wb = new HSSFWorkbook();
 		HSSFSheet sheet = wb.createSheet("用户登录报表统计");
 		HSSFRow row = sheet.createRow((int) 0);

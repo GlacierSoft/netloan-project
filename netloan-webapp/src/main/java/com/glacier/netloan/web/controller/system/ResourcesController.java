@@ -241,7 +241,7 @@ public class ResourcesController extends AbstractController{
     	String sqlPath=System.getProperty("user.dir");
     	//路径格式转化
 	    String sqlWebapp=sqlPath.replaceAll("\\\\","\\\\\\\\");
-			
+		//设定返回值结果	
     	boolean flag = true;
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -252,7 +252,7 @@ public class ResourcesController extends AbstractController{
 			String netlaon_name = "netloan" + ctime + ".sql";
 			String fPath = ""+sqlWebapp+"\\src\\main\\webapp\\resources\\backupsql\\" + netlaon_name+ "";
 			Runtime rt = Runtime.getRuntime();
-            // 调用 mysql 的 cmd
+            // 调用 mysql命令
 			Process child = rt.exec(""+sqlWebapp+"\\src\\main\\webapp\\resources\\mysql\\mysql.exe -uroot -proot netloan");
 			OutputStream out = child.getOutputStream();// 控制台的输入信息作为输出流
 			String inStr;
@@ -272,6 +272,7 @@ public class ResourcesController extends AbstractController{
 			br.close();
 			writer.close();
 		} catch (Exception e) {
+			e.printStackTrace();
 			flag = false;
 		}
 		map.put("data", flag);
