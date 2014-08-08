@@ -763,6 +763,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var firstContact = $("#firstContact").val();
 			if(firstContact == ""){
 				document.getElementById("firstContactSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>第一联系人名称不能为空!</font>";
+				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
 				return false;
 			}else{
 				document.getElementById("firstContactSpan").innerHTML="";
@@ -771,11 +772,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		}
 		
-		//联系人手机号码验证
+		//单位名称验证
 		function checkUnitName(){
 			var unitName = $("#unitName").val();
 			if(unitName == ""){
 				document.getElementById("unitNameSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>单位名称不能为空!</font>";
+				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
 				return false;
 			}else{
 				document.getElementById("unitNameSpan").innerHTML="";
@@ -790,6 +792,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var firstContactPhone = $("#firstContactPhone").val();
 			if(firstContactPhone == ""){
 				document.getElementById("firstContactPhoneSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>第一联系人手机号码不能为空!</font>";
+				$("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
 				return false;
 			}else{
 				document.getElementById("firstContactPhoneSpan").innerHTML="";
