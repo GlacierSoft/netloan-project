@@ -1,5 +1,6 @@
 package com.glacier.netloan.service.finance;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,9 +17,11 @@ import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.netloan.dao.finance.FinanceRechargeMapper;
 import com.glacier.netloan.dao.finance.FinanceRechargeSetMapper; 
+import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.entity.finance.FinanceRechargeExample;
 import com.glacier.netloan.entity.finance.FinanceRechargeSet;
 import com.glacier.netloan.entity.finance.FinanceRechargeSetExample;
+import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.util.MethodLog;
 
@@ -38,6 +41,11 @@ public class FinanceRechargeSetService {
 
 	@Autowired
 	private FinanceRechargeMapper  financeRechargeMapper;
+	
+	@Autowired
+	private  MemberMapper  memberMapper;
+	
+	
 	/**
 	 * @Title: getRechargeSet 
 	 * @Description: TODO(根据会员充值设置Id获取会员充值设置信息) 
@@ -59,11 +67,9 @@ public class FinanceRechargeSetService {
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager pager) {
-
+    public Object listAsGrid(JqPager pager) { 
         JqGridReturn returnResult = new JqGridReturn();
         FinanceRechargeSetExample financeRechargeSetExample = new FinanceRechargeSetExample();
-
         if (null != pager.getPage() && null != pager.getRows()) {// 设置排序信息
         	financeRechargeSetExample.setLimitStart((pager.getPage() - 1) * pager.getRows());
         	financeRechargeSetExample.setLimitEnd(pager.getRows());
@@ -80,16 +86,20 @@ public class FinanceRechargeSetService {
 
     /**
      * @Title: listWebsite 
-     * @Description: TODO(前台查找出“审核通过”的充值设置列表) 
+     * @Description: TODO(前台查找出“审核通过”的,且和该会员等级相匹配的所有充值设置列表) 
      * @param  @param auditState
      * @param  @return
      * @throws 
      * 备注<p>已检查测试:Green<p>
      */
-    public Object listWebsite() {
+    public Object listWebsite(String memberId) {
         JqGridReturn returnResult = new JqGridReturn();
-        FinanceRechargeSetExample financeRechargeSetExample = new FinanceRechargeSetExample();
-        financeRechargeSetExample.createCriteria().andAuditStateEqualTo("pass");
+        Member member=memberMapper.selectByPrimaryKey(memberId); 
+        FinanceRechargeSetExample financeRechargeSetExample = new FinanceRechargeSetExample(); 
+        List<String> list=new ArrayList<String>();
+        list.add("all");
+        list.add(member.getType());
+        financeRechargeSetExample.createCriteria().andAuditStateEqualTo("pass").andMemberTypeIn(list); 
         List<FinanceRechargeSet>  financeRechargeSets = financeRechargeSetMapper.selectByExample(financeRechargeSetExample); // 查询所有会员充值设置列表
         int total = financeRechargeSetMapper.countByExample(financeRechargeSetExample); // 查询总页数
         returnResult.setRows(financeRechargeSets);
@@ -106,15 +116,21 @@ public class FinanceRechargeSetService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "RechargeSetList_add")
-    public Object addRechargeSet(FinanceRechargeSet financeRechargeSet) {
-    	
+    public Object addRechargeSet(FinanceRechargeSet financeRechargeSet) { 
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal(); 
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         FinanceRechargeSetExample financeRechargeSetExample = new FinanceRechargeSetExample();
         int count = 0;
         // 防止会员充值设置名称重复
-        financeRechargeSetExample.createCriteria().andRechargeSetNameEqualTo(financeRechargeSet.getRechargeSetName()).andMemberTypeEqualTo(financeRechargeSet.getMemberType());
+        if(financeRechargeSet.getMemberType().equals("all")){ 
+             financeRechargeSetExample.createCriteria().andRechargeSetNameEqualTo(financeRechargeSet.getRechargeSetName());
+         }else{
+        	 List<String> list=new ArrayList<String>();
+        	 list.add("all");
+        	 list.add(financeRechargeSet.getMemberType());
+        	 financeRechargeSetExample.createCriteria().andRechargeSetNameEqualTo(financeRechargeSet.getRechargeSetName()).andMemberTypeIn(list);
+         }
          count = financeRechargeSetMapper.countByExample(financeRechargeSetExample);// 查找相同名称的会员充值设置数量
         if (count > 0) {
             returnResult.setMsg("会员充值设置名称重复");
@@ -149,11 +165,18 @@ public class FinanceRechargeSetService {
     public Object editRechargeSet(FinanceRechargeSet financeRechargeSet) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         FinanceRechargeSetExample financeRechargeSetExample = new FinanceRechargeSetExample();
-        int count = 0;
+        int count = 0; 
         // 防止会员充值设置名称重复
-        financeRechargeSetExample.createCriteria().andFinanceRechargeSetIdNotEqualTo(financeRechargeSet.getFinanceRechargeSetId())
-        .andRechargeSetNameEqualTo(financeRechargeSet.getRechargeSetName()).andMemberTypeEqualTo(financeRechargeSet.getMemberType());
-         count = financeRechargeSetMapper.countByExample(financeRechargeSetExample);// 查找相同名称的会员充值设置数量
+        if(financeRechargeSet.getMemberType().equals("all")){ 
+             financeRechargeSetExample.createCriteria().andFinanceRechargeSetIdNotEqualTo(financeRechargeSet.getFinanceRechargeSetId()).andRechargeSetNameEqualTo(financeRechargeSet.getRechargeSetName());
+         }else{
+        	 List<String> list=new ArrayList<String>();
+        	 list.add("all");
+        	 list.add(financeRechargeSet.getMemberType());
+        	 financeRechargeSetExample.createCriteria().andFinanceRechargeSetIdNotEqualTo(financeRechargeSet.getFinanceRechargeSetId()).andRechargeSetNameEqualTo(financeRechargeSet.getRechargeSetName()).andMemberTypeIn(list);
+         }
+         
+        count = financeRechargeSetMapper.countByExample(financeRechargeSetExample);// 查找相同名称的会员充值设置数量
         if (count > 0) {
             returnResult.setMsg("会员充值设置名称重复");
             return returnResult;

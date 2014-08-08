@@ -53,8 +53,7 @@ public class FinanceMemberController extends AbstractController{
     private FinanceBankCardService bankCardService;
     
     @Autowired
-    private MemberService memberService;
-    
+    private MemberService memberService; 
     
     //转到“充值提现”页面前作出完善资料的判断
   	@RequestMapping(value = "/judgeCheckRechargeWithdraw.json", method = RequestMethod.POST)
@@ -73,7 +72,7 @@ public class FinanceMemberController extends AbstractController{
             mav.addObject("financeMemberData", financeMemberService.getFinanceMemberByMemberId(pricipalMember.getMemberId()));
             mav.addObject("financeTransactionDatas",financeTransactionService.listAsWebsite(pager, finTransactionQueryDTO, pricipalMember.getMemberId(), p));
             mav.addObject("financeWithdrawDatas",financeWithdrawService.listAsWebsite(pager, pricipalMember.getMemberId(), p));
-            mav.addObject("financeRechargeSetDatas",financeRechargeSetService.listWebsite());
+            mav.addObject("financeRechargeSetDatas",financeRechargeSetService.listWebsite(pricipalMember.getMemberId()));
             mav.addObject("financeBankCardDatas",bankCardService.getBankCardByMemberId(pricipalMember.getMemberId()));
         }
         return mav;

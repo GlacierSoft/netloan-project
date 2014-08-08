@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.glacier.netloan.service.finance;
 
 import java.util.ArrayList;
@@ -36,7 +33,6 @@ import com.glacier.netloan.util.MethodLog;
 @Service
 @Transactional(readOnly = true ,propagation = Propagation.REQUIRED)
 public class FinanceWithdrawSetService {
-
 	
 	@Autowired
 	private FinanceWithdrawSetMapper financeWithdrawSetMapper;
@@ -92,11 +88,13 @@ public class FinanceWithdrawSetService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "WithdrawSetList_add")
     public Object addWithdrawSet(FinanceWithdrawSet financeWithdrawSet) {
-    	
         Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
+        User pricipalUser = (User) pricipalSubject.getPrincipal(); 
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        if(financeWithdrawSet.getWithdrawSetMinimum()>financeWithdrawSet.getWithdrawSetMaximum()){
+        	returnResult.setMsg("最大金额不能低于最小金额");
+            return returnResult;
+        } 
         FinanceWithdrawSetExample financeWithdrawSetExample = new FinanceWithdrawSetExample();
         int count = 0;
         // 防止会员提现两个等次最小金额和最大金额重复
@@ -134,6 +132,10 @@ public class FinanceWithdrawSetService {
     @MethodLog(opera = "WithdrawSetList_edit")
     public Object editWithdrawSet(FinanceWithdrawSet financeWithdrawSet) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        if(financeWithdrawSet.getWithdrawSetMinimum()>financeWithdrawSet.getWithdrawSetMaximum()){
+        	returnResult.setMsg("最大金额不能低于最小金额");
+            return returnResult;
+        } 
         FinanceWithdrawSetExample financeWithdrawSetExample = new FinanceWithdrawSetExample();
         int count = 0;
         //在一个范围内，且不等于自己本身的数据找出来，

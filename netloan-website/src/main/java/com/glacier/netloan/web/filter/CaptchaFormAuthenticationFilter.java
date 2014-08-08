@@ -63,7 +63,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
 		}else {//否则按照用户名登陆验证  
 	         username = email;
 		} 
-        String password = getPassword(request);
+       String password = getPassword(request);
         String captcha = getCaptcha(request);
         boolean rememberMe = isRememberMe(request);
         String ip = IpUtil.getIpAddr((HttpServletRequest) request);
@@ -89,7 +89,8 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             session.setAttribute("currentMember", member);
             session.setAttribute("currentMemberWork", memberService.getMemberWork(member.getMemberId()));
             int messageNoticCount = loginTotalMessageNotic(member.getMemberId()); 
-            session.setAttribute("messageNoticCount", messageNoticCount);
+            session.setAttribute("messageNoticCount", messageNoticCount); 
+            memberService.updateIntegra(member.getMemberId());
             return onLoginSuccess(token, subject, request, response);
         } catch (AuthenticationException e) {
             return onLoginFailure(token, e, request, response);

@@ -20,7 +20,8 @@
 		<tr>
 			<td>有效会员等级：</td>
 			<td>
-				<input id="withdrawSet_mgr_withdrawSet_form_memberType" name="memberType" value="${withdrawSetData.memberType}" class="easyui-combobox" style="height:18px;width:300px" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.memberType"/>
+			  
+				<input id="withdrawSet_mgr_withdrawSet_form_memberType" name="memberType" value="全部会员" class="easyui-validatebox spinner" style="height:18px;width:300px" readonly="readonly" />
 			</td>
 		</tr>
 		<tr>

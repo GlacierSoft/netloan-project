@@ -1,5 +1,7 @@
 package com.glacier.netloan.service.member;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -109,8 +111,7 @@ public class MemberService {
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
 		MemberExample memberExample = new MemberExample();
 		memberExample.createCriteria().andMemberIdEqualTo(memberId);
-		List<Member> MemberList = memberMapper.selectByExample(memberExample);
-		System.out.println("数量:"+MemberList.get(0).getMemberRealName());
+		List<Member> MemberList = memberMapper.selectByExample(memberExample); 
 		if(MemberList.get(0).getMemberRealName() == null){
 			returnResult.setMsg("此操作需要完善用户资料！");
 			returnResult.setSuccess(false);
@@ -200,13 +201,10 @@ public class MemberService {
      * @throws
      */
     public Object listAsGrid(JqPager jqPager, MemberQueryDTO memberQueryDTO, String q) {
-        
         JqGridReturn returnResult = new JqGridReturn();
-        MemberExample memberExample = new MemberExample();
-        
+        MemberExample memberExample = new MemberExample(); 
         Criteria queryCriteria = memberExample.createCriteria();
-        memberQueryDTO.setQueryCondition(queryCriteria, q);
-
+        memberQueryDTO.setQueryCondition(queryCriteria, q); 
         if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息
         	memberExample.setLimitStart((jqPager.getPage() - 1) * jqPager.getRows());
         	memberExample.setLimitEnd(jqPager.getRows());
@@ -815,20 +813,26 @@ public class MemberService {
     }
     
     
-   /* 
-    *//**
-     * @Title: retrievePassword 
+    /**
+     * @Title: updateIntegra 
      * @Description: TODO(会员登录，如果是当天第一次登陆就新增登录积分，同时修改会员的积分) 
      * @param @param member
      * @param @param  
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
-     *//*
+     */ 
     @Transactional(readOnly = false) 
-    public void updateIntegra(String memberId) { 
-      ParameterIntegralTypeExample parameterIntegralTypeExample=new ParameterIntegralTypeExample();
-      parameterIntegralTypeExample.createCriteria().andIntegralTypeEqualTo("login").andChangeTypeEqualTo("increase");
+    public void updateIntegra(String memberId) {    
+      ParameterIntegralTypeExample parameterIntegralTypeExample=new ParameterIntegralTypeExample(); 
+      parameterIntegralTypeExample.createCriteria().andIntegralTypeEqualTo("login");
+ 	  parameterIntegralTypeExample.createCriteria().andChangeTypeEqualTo("increase");
+      Member member=memberMapper.selectByPrimaryKey(memberId);
+      Date da=member.getLastLoginTime();
+      Date datime=new Date();
+      @SuppressWarnings("deprecation")
+	  int boo=(da.getYear()+da.getMonth()+da.getDay())-(datime.getYear()+datime.getMonth()+datime.getDay()); 
+      if(boo!=0){ 
       try{ 
     	  ParameterIntegralType parameterIntegralType=parameterIntegralTypeMapper.selectByExample(parameterIntegralTypeExample).get(0);
     	 if(parameterIntegralType!=null){ 
@@ -843,15 +847,23 @@ public class MemberService {
         	 memberIntegral.setCreateTime(new Date());
         	 memberIntegral.setUpdateTime(new Date());
         	 memberIntegral.setUpdater(getuserId());
-        	 memberIntegralMapper.insert(memberIntegral); 
-        	 Member member=memberMapper.selectByPrimaryKey(memberId);
+        	 memberIntegralMapper.insert(memberIntegral);  
         	 member.setIntegral(member.getIntegral()+parameterIntegralType.getChangeValue());
         	 memberMapper.updateByPrimaryKeySelective(member);  
     	 }  
          }catch(Exception ce){
     	  System.out.println(ce);
-      }
-   }*/
+      } 
+      member.setLoginCount(member.getLoginCount() + 1);
+      try {
+		member.setLastLoginIpAddress(InetAddress.getLocalHost().getHostAddress());
+	} catch (UnknownHostException e){
+		e.printStackTrace();
+	}
+      member.setLastLoginTime(new Date());// 设定最后登录时间
+      memberMapper.updateByPrimaryKeySelective(member);//更新会员信息
+      } 
+   } 
      
     
      
