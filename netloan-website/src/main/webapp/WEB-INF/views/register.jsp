@@ -58,6 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    <label for="memberName" class="col-sm-2 control-label">用户名</label>
 			    <div class="col-sm-6" style="float: left; width: 800px">
 			      <input type="text"   class="form-control" style="float: left;width: 428px" id="memberName_form-group"
+			      onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[\u4e00-\u9fa5]/g,''))" onkeyup="this.value=this.value.replace(/[\u4e00-\u9fa5]/g,'')" 
 			       name="memberName" placeholder="用户名" value="${member.memberName}" maxlength="12"/>
 			    </div>
 			  </div>
@@ -155,7 +156,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	     		     if(str==""){
 	     		    	$("#email_form-group").after("<label id='eml' style='color: red'>*注册邮箱不能为空</label>");
 	     				  return false;
-	     		     } 
+	     		     }  
 	     		    if(boo==false){
 	     		    	$("#email_form-group").after("<label id='eml' style='color: red'>*邮箱格式不正确</label>");
 	     		    	 return false;

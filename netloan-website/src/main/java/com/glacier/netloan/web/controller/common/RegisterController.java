@@ -84,7 +84,7 @@ public class RegisterController extends AbstractController{
 		 Pattern pattern = Pattern.compile("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
          Matcher matcher = pattern.matcher(member.getEmail());
          //验证邮箱的合法性
-         if(matcher.matches()==false){ 
+         if(matcher.matches()==false){  
         	 return "register"; 
          };  
 		
@@ -134,7 +134,8 @@ public class RegisterController extends AbstractController{
         HtmlEmail email = new HtmlEmail();
         email.setHostName("smtp.qq.com");// QQ郵箱服務器
 		//email.setHostName("smtp.163.com");// 163郵箱服務器
-		//email.setHostName("smtp.gmail.com");// gmail郵箱服務器
+		//email.setHostName("smtp.gmail.com");// gmail郵箱服務器 
+          
 		email.setSmtpPort(465);//设置端口号
 		email.setAuthenticator(new DefaultAuthenticator("1240033960@qq.com","zx5304960"));//用1240033960@qq.com这个邮箱发送验证邮件的
 	    email.setTLS(true);//tls要设置为true,没有设置会报错。
@@ -153,8 +154,9 @@ public class RegisterController extends AbstractController{
 			email.addTo(member.getEmail());//给会员发邮件
 			//email.addTo("804346249@qq.com");
 			email.send();//邮件发送
-		} catch (EmailException e) {
-			throw new RuntimeException(e);
+		} catch (EmailException e) { 
+			//throw new RuntimeException(e); 
+			 return "register"; 
 		}
 		return mav;
 	}
@@ -173,8 +175,7 @@ public class RegisterController extends AbstractController{
 	public Object mailBack(String registerId,HttpServletRequest request,HttpSession session){
 		if(registerId == null){
 			return "index";
-		}  
-		
+		}   
 		String registerName = (String) session.getAttribute(registerId);
 		 // 如果session设置的有限时间过期，则注册不成功，直接返回
         if(registerName == null || registerName.equals("")){ 
@@ -348,10 +349,16 @@ public class RegisterController extends AbstractController{
 	 * @throws 
 	 *
 	 */
-	@RequestMapping(value = "/getPasswrod.htm", method = RequestMethod.POST)
+	@RequestMapping(value = "/getPasswrod.htm", method = RequestMethod.GET)
     public Object getPasswrod(@Valid String useremal,HttpServletRequest request, HttpSession session){  
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-	        Member member=new Member();
+	        Member member=new Member(); 
+	        if(useremal==null){
+	        	 returnResult.setMsg("邮箱不能为空");
+            	 //邮箱不存在，就返回这个消息给前台
+            	 session.setAttribute("emailStatus", "false");
+            	 return "retrievePassword/retrievePasswordEmail";
+	        }
 	        member=memberService.retrieveEmail(useremal);
              if(member==null){
             	 returnResult.setMsg("邮箱不存在");
