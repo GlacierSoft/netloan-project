@@ -200,6 +200,7 @@ public class FinanceOverdueAdvancesService {
 						if (count <= 0) {
 							FinanceOverdueAdvancesExample financeOverdueAdvancesExample = new FinanceOverdueAdvancesExample();
 							financeOverdueAdvancesExample.createCriteria().andOverdueAdvancesIdEqualTo(overdueAdvancesIds.get(i));
+							result_name += financeOverdueAdvancesMapper.selectByPrimaryKey(overdueAdvancesIds.get(i)).getOverdueAdvancesName()+" ";
 							int number = financeOverdueAdvancesMapper.deleteByExample(financeOverdueAdvancesExample);
 			                rightNumber += number;// 删除成功数据行数量记录 
 		                } else { 
@@ -213,7 +214,7 @@ public class FinanceOverdueAdvancesService {
 					}
 				// 删除成功数量大于0即为操作成功,且提示关联信息
 				if(rightNumber>0){
-					returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+result_name.trim() + "】</font>"+ rightNumber+"条数据," +result_str);
+					returnResult.setMsg("成功删除<font style='color:red;font-weight: bold;'>【"+result_name.trim()+ "】</font>"+ rightNumber+"条数据  " +result_str);
 					returnResult.setSuccess(true);
 				}else{
 					returnResult.setMsg(result_str.trim());
