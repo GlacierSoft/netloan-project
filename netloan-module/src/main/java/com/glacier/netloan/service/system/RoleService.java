@@ -129,7 +129,7 @@ public class RoleService {
         role.setRoleId(RandomGUID.getRandomGUID());// 初始化新建角色信息
         role.setBuiltin(CommonBuiltin.custom);// 在业务新建的角色为自定义
         role.setCreater(pricipalUser.getUserId());
-      //构建时间字符串
+        //构建时间字符串
         Calendar cal = Calendar.getInstance();  
         int year = cal.get(Calendar.YEAR);//获取年份  
         int month=cal.get(Calendar.MONTH)+1;//获取月份   
@@ -137,14 +137,12 @@ public class RoleService {
         //int hour=cal.get(Calendar.HOUR);//小时  
         @SuppressWarnings("deprecation")
 		int hour=new Date().getHours();
-        System.out.println(hour);
         int minute=cal.get(Calendar.MINUTE);//分              
         int second=cal.get(Calendar.SECOND);//秒 
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String strDate=year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
         Date dates=sdf.parse(strDate);
         role.setCreateTime(dates);
-        
         
         count = roleMapper.insert(role);
         if (count == 1) {
