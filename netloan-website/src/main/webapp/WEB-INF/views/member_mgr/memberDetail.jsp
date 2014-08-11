@@ -160,15 +160,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									  <div class="form-group">
 									    <label for="cardId" class="col-sm-2 control-label">*身份证:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" id="cardId" name="cardId" value="${currentMember.cardId}"  placeholder="身份证"  >
+									      <input type="text" class="form-control" onblur="checkCardId();" id="cardId" name="cardId" value="${currentMember.cardId}"  placeholder="身份证"  >
+									      <span id="cardIdSpan"></span>
 									     </div>
 									      <span style="color:#F00;margin-left: 70px"> * 演示站点不发送短信验证</span>
 									  </div>
 									  <div class="form-group" >
 									    <label for="mobileNumber" class="col-sm-2 control-label">*手机号码:</label>
 									    <div class="col-sm-4" style="width: 300px;float: left;">
-									      <input type="tel"  class="form-control" maxlength="11" style="width: 170px;float: left;" name="mobileNumber" id="mobileNumber" value="${currentMember.mobileNumber}"  placeholder="手机号码" >
+									      <input type="tel"  class="form-control" maxlength="11" onblur="checkMobileNumber();" style="width: 170px;float: left;" name="mobileNumber" id="mobileNumber" value="${currentMember.mobileNumber}"  placeholder="手机号码" >
 									      <button id="updatePhoneForm_form-group" type="submit" style="float: right;" disabled="disabled" class="btn btn-default">获取验证码</button>
+									      <span id="mobileNumberSpan"></span>
+									      
 					                 </div>
 					                 
 					                 <div class="form-group" style="float: left;width: 400px" >
@@ -1213,7 +1216,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				max:100,
 	    				digits:true 
 	    			},
-	    			liveAddress:"required",
 	    			firstContactPhone:"required",
 	    			firstContactAddress:"required",
 	    			firstContact:"required",
@@ -1241,7 +1243,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				max:"年龄不能大于100岁",
 	    				digits:"请输入整数"
 	    			},
-	    			liveAddress:"居住地址不能为空",
 	    			firstContactPhone:"请填写联系号码",
 	    			firstContactAddress:"请填写联系人地址",
 	    			firstContact:"请填写联系人名称",

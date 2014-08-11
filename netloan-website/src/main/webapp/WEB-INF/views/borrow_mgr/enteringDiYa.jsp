@@ -368,7 +368,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				if(loanTotals%lowestSub==0){
 					document.getElementById("lowestSubCheck").innerHTML="";
 				}else{
-					document.getElementById("lowestSubCheck").innerHTML="<font style='color: #F00;font-style: italic;font-weight: bold;float:left;'>请输入能被借款总额整除的最小认购单位</font>";
+					document.getElementById("lowestSubCheck").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>请输入能被借款总额整除的最小认购单位</font>";
 				}
 			}
 		}
@@ -381,7 +381,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(lowestRewardPro <= parseFloat($bidProRewardValues)&&parseFloat($bidProRewardValues)<=largestRewardPro){//比较
 				document.getElementById("bidProRewardCheck").innerHTML="";
 			}else{
-				document.getElementById("bidProRewardCheck").innerHTML="<font style='color: #F00;font-style: italic;font-weight: bold;'>请输入${loanTenderDate.lowestRewardPro}"+" - "+"${loanTenderDate.largestRewardPro}的金额比例</font>";
+				document.getElementById("bidProRewardCheck").innerHTML="<font style='color: #F00;font-weight: bold;'>请输入${loanTenderDate.lowestRewardPro}"+" - "+"${loanTenderDate.largestRewardPro}的金额比例</font>";
 			}
 		}
 		
@@ -393,7 +393,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(lowestRewardPro <= parseFloat($bidProRewardValues)&&parseFloat($bidProRewardValues)<=largestRewardPro){//比较
 				document.getElementById("fixedAppRewardCheck").innerHTML="";
 			}else{
-				document.getElementById("fixedAppRewardCheck").innerHTML="<font style='color: #F00;font-style: italic;font-weight: bold;'>请输入${loanTenderDate.lowestRewardMoney}"+"元 - "+"${loanTenderDate.largestRewardMoney}元的奖励金额</font>";
+				document.getElementById("fixedAppRewardCheck").innerHTML="<font style='color: #F00;font-weight: bold;'>请输入${loanTenderDate.lowestRewardMoney}"+"元 - "+"${loanTenderDate.largestRewardMoney}元的奖励金额</font>";
 			}
 		}
 		
