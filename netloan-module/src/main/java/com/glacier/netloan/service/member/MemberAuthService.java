@@ -162,7 +162,8 @@ public class MemberAuthService {
       			//判断是否有重复的信用认证积分
       			memberCreditIntegralExample.createCriteria().andMemberIdEqualTo(memberAuthWithBLOBs.getMemberId()).andIntegralTypeEqualTo("infoAuth");
       			memberCreditIntegrals = memberCreditIntegralMapper.selectByExample(memberCreditIntegralExample);
-      			if(memberAuthWithBLOBs.getInfoAuth().equals("pass")){
+      		 	if(memberAuthWithBLOBs.getInfoAuth().equals("pass")){
+      				
       				if(memberCreditIntegrals.size() == 0){
     	      			//判断是哪个认证，添加信用积分记录
     	      			parameterCreditTypeExample.createCriteria().andCreditTypeEqualTo("infoAuth").andChangeTypeEqualTo("increase");
@@ -192,8 +193,7 @@ public class MemberAuthService {
     	    	        memberAuthWithBLOBs.setMobileAuth("pass"); 
     	    	        memberAuthWithBLOBs.setMobileAuditor(pricipalUser.getUserId());
     	    	        memberAuthWithBLOBs.setMobileTime(new Date());
-    	      			
-    	      	 	}
+    	      	  	}
       				//为信息通知对象设置值,并新增相应的信息通知
 	      			memberMessageNotice.setTitle("基本信息认证审核通知");
 	      			memberMessageNotice.setContent("您的基本信息认证审核状况:通过");
@@ -206,9 +206,12 @@ public class MemberAuthService {
       				}
       				//为信息通知对象设置值,并新增相应的信息通知
 	      			memberMessageNotice.setTitle("基本信息认证审核通知");
-	      			memberMessageNotice.setContent("您的基本信息认证审核状况:不通过");
+	      			memberMessageNotice.setContent("您的基本信息认证审核状况:不通过");  
 	      			MessageNoticeCount = this.addMessageNotice(memberMessageNotice,member.getMemberId());
-      			}
+      			    memberAuthWithBLOBs.setMobileAuth("failure"); 
+	    	        memberAuthWithBLOBs.setMobileAuditor(pricipalUser.getUserId());
+	    	        memberAuthWithBLOBs.setMobileTime(new Date());
+	    	    }
       			//修改认证记录表
       			memberAuthWithBLOBs.setInfoTime(new Date());
                 memberAuthWithBLOBs.setInfoAuditor(pricipalUser.getUserId());

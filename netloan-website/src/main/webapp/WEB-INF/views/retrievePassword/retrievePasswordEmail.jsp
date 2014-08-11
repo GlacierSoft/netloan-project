@@ -131,7 +131,7 @@ $(function(){
 			$('#danger_alert').fadeIn();
 			$('#danger_alert h4').html('邮箱不存在，请重新输入');
 			setTimeout(function(){//延迟3秒隐藏
-				$('#success_alert').fadeOut();
+				$('#danger_alert').fadeOut();
 			},3000)
 		}
 		

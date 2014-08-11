@@ -156,7 +156,7 @@ public class RegisterController extends AbstractController{
 			email.send();//邮件发送
 		} catch (EmailException e) { 
 			//throw new RuntimeException(e); 
-			 return "register"; 
+			 return mav;
 		}
 		return mav;
 	}
