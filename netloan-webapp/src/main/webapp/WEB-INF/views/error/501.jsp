@@ -8,7 +8,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-	<title>403 - 用户权限不足</title>
+	<title>501 - 不支持所需功能</title>
 </head>
 <SCRIPT>window.wpo={start:new Date*1,pid:109,page:'qing'}</SCRIPT>
 <link href="${ctx}/resources/css/404.css" type=text/css rel=stylesheet><!--<![endif]-->
@@ -28,24 +28,25 @@
 				<div style="float: left;">
 				<font style="color: orange;">禁止访问</font>
 				</div> --%>
+				<div style="position: absolute;margin-left: 280px;margin-top: -30px;"><IMG class=img-notfound height=200 src="${ctx}/resources/images/error/501.jpg" width=200></div>
 				<table height="160">
 					<tr>
-						<td rowspan="4" valign="top" style="padding: 5px;"><IMG class=img-notfound height=60 src="${ctx}/resources/images/error/403.jpg" width=60></td>
-						<td><font style="color: orange;font-weight: bold;margin-left: 30px;">禁止访问</font></td>
+						<%-- <td rowspan="4" valign="top" style="padding: 5px;"><IMG class=img-notfound height=60 src="${ctx}/resources/images/error/501.jpg" width=60></td> --%>
+						<td><font style="color: orange;font-weight: bold;margin-left: 30px;">不支持此功能</font></td>
 					</tr>
 					<tr>
-						<td valign="top"><font style="color: gray;font-size: 13px;margin-left: 30px;">HTTP &nbsp;&nbsp;错误: 403</font></td>
+						<td valign="top"><font style="color: gray;font-size: 13px;margin-left: 30px;">HTTP &nbsp;&nbsp;错误: 501</font></td>
 					</tr>
 					<tr>
-						<td valign="top"><font style="color: black;margin-left: 30px;">服务器拒绝了您的浏览请求</font></td>
+						<td valign="top"><font style="color: black;margin-left: 30px;">不支持实现此请求所需的功能</font></td>
 					</tr>
 					<tr>
-						<td valign="top"><font style="color: black;margin-left: 30px;">请确认您拥有所需的访问权限</font></td>
+						<td valign="top"><font style="color: black;margin-left: 30px;">请检查URL 中的错误</font></td>
 					</tr>
 				</table>
 			</div>
-			<P style="FONT-SIZE: 24px; LINE-HEIGHT: 70px">啊~哦~ 您要查看的页面用户权限不足！</P>
-			<P style="MARGIN-BOTTOM: 30px">请检查您的用户权限，或者点击链接继续浏览冰川</P>
+			<P style="FONT-SIZE: 24px; LINE-HEIGHT: 70px">啊~哦~ 您所请求的功能服务器不支持！</P>
+			<P style="MARGIN-BOTTOM: 30px">请检查URL 中的错误，或者点击链接继续浏览其他页面</P>
 			<P style="FONT-SIZE: 14px; LINE-HEIGHT: 20px">
 				您可以回到 
 				<A href="<c:url value="index.htm"/>">网站首页</A> 
