@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       	        <div class="form-group" style="width: 1000px">
 			    <label for="username" style="width: 250px;text-align: right;margin-top: 7px"  class="col-sm-2 control-label">请输入您注册时用的Email：</label>
 			    <div class="col-sm-6 parentCls" style="float: left;margin-left: 0px;text-align: left;width: 600px ">
-			      <input style="margin-left:0px;width: 300px;height:35px;float: left;"  type="text" onfocus="this.type='email'" autocomplete="off"  class="form-control inputElem" id="useremal" name="useremal" placeholder="请输入您注册时用的Email"  required autofocus />
+			      <input maxlength="21" style="margin-left:0px;width: 300px;height:35px;float: left;"  type="text" onfocus="this.type='email'" autocomplete="off"  class="form-control inputElem" id="useremal" name="useremal" placeholder="请输入您注册时用的Email"  required autofocus />
 			          <button  id="sub"  class="btn btn-primary btn-lg" style="height: 40px;margin-left:30px">发送</button>
 			  
 			     </div>  
