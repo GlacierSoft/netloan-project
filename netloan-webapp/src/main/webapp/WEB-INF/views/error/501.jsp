@@ -46,16 +46,9 @@
 				</table>
 			</div>
 			<P style="FONT-SIZE: 24px; LINE-HEIGHT: 70px">啊~哦~ 您所请求的功能服务器不支持！</P>
-			<P style="MARGIN-BOTTOM: 30px">请检查URL 中的错误，或者点击链接继续浏览其他页面</P>
+			<P style="MARGIN-BOTTOM: 30px">请检查URL 中的错误，或者点击<A href="<c:url value="/do/index.htm"/>">冰川系统首页</A></P>
 			<P style="FONT-SIZE: 14px; LINE-HEIGHT: 20px">
-				您可以回到 
-				<A href="<c:url value="index.htm"/>">网站首页</A> 
-				或到
-				<A href="${ctx}/contactUs.htm" target=_blank>帮助中心</A><BR>
-				如若不能解决您的问题，请进入<A href="#" target=_blank>投诉中心</A>
-				或者
-				<A href="#" target=_blank>冰川客服</A>
-				提出建议^_^
+				您若遇到不能解决的问题，请联系冰川软件客服，我们竭尽全力为您们排忧解难^_^
 			</P>
 		</div>
 	</div>
@@ -64,11 +57,6 @@
 <FOOTER class="mod-footer mod-cs-footer">
 	<div class="clearfix hidden-box"></div>
 	<div class=footer-box>
-		<div class=inner-box><A href="#" target=_blank>帮助中心</A>
-			<SPAN>&nbsp;|&nbsp;</SPAN><A href="#" target=_blank>冰川客服</A>
-			<SPAN>&nbsp;|&nbsp;</SPAN><A href="#" target=_blank>投诉中心</A>
-			<SPAN>&nbsp;|&nbsp;</SPAN><A href="#" target=_blank>冰川协议</A>
-		</div>
 		<div class=copy-box>©2014&nbsp;BingChuan</div>
 	</div>
 </FOOTER>

@@ -50,11 +50,8 @@ org.springframework.validation.BindException<%@ page contentType="text/html;char
 				您可以回到 
 				<A href="<c:url value="/"/>">网站首页</A> 
 				或到
-				<A href="${ctx}/contactUs.htm" target=_blank>帮助中心</A><BR>
-				如若不能解决您的问题，请进入<A href="#" target=_blank>投诉中心</A>
-				或者
-				<A href="#" target=_blank>冰川客服</A>
-				提出建议^_^
+				<A href="${ctx}/contactUs.htm" target=_blank>联系我们</A><BR>
+				如若不能解决您的问题，您可<a href="javascript:history.go(-1)">返回上一步</a>，继续执行其他操作，对您万分抱歉^_^
 			</P>
 		</div>
 	</div>
@@ -63,10 +60,14 @@ org.springframework.validation.BindException<%@ page contentType="text/html;char
 <FOOTER class="mod-footer mod-cs-footer">
 	<div class="clearfix hidden-box"></div>
 	<div class=footer-box>
-		<div class=inner-box><A href="#" target=_blank>帮助中心</A>
-			<SPAN>&nbsp;|&nbsp;</SPAN><A href="#" target=_blank>冰川客服</A>
-			<SPAN>&nbsp;|&nbsp;</SPAN><A href="#" target=_blank>投诉中心</A>
-			<SPAN>&nbsp;|&nbsp;</SPAN><A href="#" target=_blank>冰川协议</A>
+		<div class=inner-box>
+			<A href="${ctx}/contactUs.htm" target=_blank>联系我们</A>
+			<SPAN>&nbsp;|&nbsp;</SPAN>
+			<A href="${ctx}/others/otherAddress.htm" target=_blank>公司地图</A>
+			<SPAN>&nbsp;|&nbsp;</SPAN>
+			<A href="http://www.glaciersoft.cn/index.html" target=_blank>冰川软件</A><!-- 
+			<SPAN>&nbsp;|&nbsp;</SPAN>
+			<A href="#" target=_blank>冰川协议</A> -->
 		</div>
 		<div class=copy-box>©2014&nbsp;BingChuan</div>
 	</div>
