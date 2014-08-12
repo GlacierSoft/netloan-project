@@ -37,6 +37,7 @@ import com.glacier.netloan.entity.basicdatas.ParameterCreditType;
 import com.glacier.netloan.entity.basicdatas.ParameterCreditTypeExample;
 import com.glacier.netloan.entity.basicdatas.ParameterIntegralType;
 import com.glacier.netloan.entity.basicdatas.ParameterIntegralTypeExample;
+import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberAuthExample;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
@@ -44,6 +45,7 @@ import com.glacier.netloan.entity.member.MemberCreditIntegral;
 import com.glacier.netloan.entity.member.MemberExample;
 import com.glacier.netloan.entity.member.MemberIntegral;
 import com.glacier.netloan.entity.member.MemberMessageNotice;
+import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.entity.member.MemberExample.Criteria;
 import com.glacier.netloan.entity.member.MemberToken;
 import com.glacier.netloan.entity.member.MemberWork;
@@ -51,6 +53,7 @@ import com.glacier.netloan.entity.member.MemberWorkExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.service.basicdatas.ParameterCreditService;
+import com.glacier.netloan.service.finance.FinanceMemberService;
 import com.glacier.netloan.util.MethodLog;
 import com.glacier.security.util.Digests;
 import com.glacier.security.util.Encodes;
@@ -74,6 +77,12 @@ public class MemberService {
 	
 	@Autowired
 	private MemberWorkMapper memberWorkMapper;
+	
+	@Autowired
+    private FinanceMemberService financeMemberService;
+    
+    @Autowired
+    private MemberStatisticsService memberStatisticsService;
 	
 	@Autowired
 	private MemberAuthMapper memberAuthMapper;
@@ -104,6 +113,7 @@ public class MemberService {
 	
 	@Autowired
 	private MemberIntegralMapper memberIntegralMapper;
+	
 	/**
 	 * 判断用用户的信息是否完善
 	 */
@@ -381,6 +391,14 @@ public class MemberService {
     @Transactional(readOnly = false)
     public Object addMemberReception(Member member){  
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        //判断是否已经成功注册，如果成功注册，则提示已经注册信息，跳转到登录页面
+        Member memberTemp = new Member();
+        memberTemp = memberMapper.selectByMemberName(member.getMemberName());
+        if (memberTemp != null){
+            returnResult.setSuccess(true);
+            returnResult.setMsg("您已经注册成功，请登录。");
+            return returnResult;
+        }
         int count = 0;
         int countWork = 0;
         int countToken = 0;
@@ -486,6 +504,60 @@ public class MemberService {
         memberMessageNotice.setUpdater(getuserId());
         memberMessageNotice.setUpdateTime(new Date());
         MessageNoticeCount = memberMessageNoticeMapper.insert(memberMessageNotice); 
+        
+        //生成会员资金记录
+        FinanceMember financeMember = new FinanceMember();
+        financeMember.setMemberId(memberId);//设置会员id
+        financeMember.setUsableMoney(0f);//设置可用金额为0
+        financeMember.setFrozenMoney(0f);//设置冻结金额为0
+        financeMember.setCollectingMoney(0f);//设置待收金额为0
+        financeMember.setRefundMoney(0f);//设置待还金额为0
+        financeMember.setAmount(0f);//设置总金额为0
+        financeMember.setRechargeMoney(0f);//设置充值总金额为0
+        financeMember.setRechargeMonthTimes(0f);//设置本月充值次数
+        financeMember.setRechargeTimes(0f);//设置充值总次数
+        financeMember.setWithdrawMoney(0f);//设置提现总金额
+        financeMember.setWithdrawMonthTimes(0f);//设置本月提现总次数
+        financeMember.setWithdrawTimes(0f);//设置提现总次数
+        financeMember.setBorrowerCredit(0f);//设置借款信用额度
+        financeMember.setAvailableCredit(0f);//设置可用信用额度
+        financeMemberService.addMember(financeMember);//调用添加会员资金方法，添加会员资金
+        
+        //生会员统计记录
+        MemberStatistics memberStatistics = new MemberStatistics();
+        memberStatistics.setMemberId(memberId);//设置会员id
+        memberStatistics.setTotalBorrowings(0f);//设置借款总额
+        memberStatistics.setCumulativeLossProfit(0f);//设置累计亏盈
+        memberStatistics.setAlreadyTotal(0f);//设置已还总额
+        memberStatistics.setWaitAlsoTotal(0f);//待还总额 
+        memberStatistics.setAlreadyPrincipal(0f);//已还本金
+        memberStatistics.setWaitAlsoPrincipal(0f);//待还本金
+        memberStatistics.setAlreadyInterest(0f);//已还利息
+        memberStatistics.setWaitAlsoInterest(0f);//待还利息
+        memberStatistics.setAlreadyIncomePrincipal(0f);//已收本金
+        memberStatistics.setWaitIncomePrincipal(0f);//代收本金
+        memberStatistics.setAlreadyIncomeInterest(0f);//已收利息
+        memberStatistics.setWaitIncomeInterest(0f);//代收利息
+        memberStatistics.setOverdueFineAmount(0f);//逾期罚款金额
+        memberStatistics.setOverdueInterestAmount(0f);//逾期利息总额
+        memberStatistics.setLoanManagementAmount(0f);//借款管理费
+        memberStatistics.setLoanInterestAmount(0f);//借款利息总额 
+        memberStatistics.setBorrowSuccess(0);//借款成功次数
+        memberStatistics.setNormalRepayment(0);//正常还款次数
+        memberStatistics.setAdvanceRepayment(0);//提前还款次数
+        memberStatistics.setLateRepayment(0);//逾期还款次数
+        memberStatistics.setLate(0);//迟还次数
+        memberStatistics.setWebsiteSubstitute(0);//网站待还次数
+        memberStatistics.setInvestmentTotal(0f);//投资总额
+        memberStatistics.setTenderAwards(0f);//投标奖励
+        memberStatistics.setAlreadyIncomeTotal(0f);//已收总额
+        memberStatistics.setWaitIncomeTotal(0f);//待收总额
+        memberStatistics.setPromotionAwards(0f);//推广奖励
+        memberStatistics.setUplineDeltaAwards(0f);//线下冲值奖励
+        memberStatistics.setContinueAwards(0f);//续投奖励
+        memberStatistics.setSuccessTender(0);//投资次数
+        memberStatisticsService.addStatistics(memberStatistics);//调用添加会员统计记录方法，添加会员统计记录
+        
         if (count == 1 && countWork == 1 && countToken == 1 && creditCount == 1 && MessageNoticeCount == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + member.getMemberName() + "] 会员信息已保存");

@@ -19,6 +19,9 @@ public interface MemberMapper {
     List<Member> selectByExample(MemberExample example);
 
     Member selectByPrimaryKey(String memberId);
+    
+    //自定义方法，根据会员用户名进行查找会员信息
+    Member selectByMemberName(String memberName);
 
     int updateByExampleSelective(@Param("record") Member record, @Param("example") MemberExample example);
 

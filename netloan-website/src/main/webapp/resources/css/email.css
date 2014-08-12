@@ -17,7 +17,7 @@ ul, li {
 	height:22px; 
 	line-height:22px;
 	font-size:14px; 
-    font-family: "Georgia", Tahoma, Sans-Serif; 
+/*     font-family: "Georgia", Tahoma, Sans-Serif;  */
 }
 .auto-tip li.hoverBg {
 	background:#65C33D;

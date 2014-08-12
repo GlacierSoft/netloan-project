@@ -1,10 +1,12 @@
 package com.glacier.netloan.web.controller.common;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern; 
+import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid; 
+import javax.validation.Valid;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
@@ -14,21 +16,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod; 
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView; 
+import org.springframework.web.servlet.ModelAndView;
+
 import com.glacier.basic.util.IpUtil;
 import com.glacier.core.controller.AbstractController;
+import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
-import com.glacier.netloan.entity.finance.FinanceMember;
+import com.glacier.netloan.dto.query.borrow.BorrowingLoanQueryDTO;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
-import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.entity.member.MemberWork;
-import com.glacier.netloan.service.finance.FinanceMemberService;
+import com.glacier.netloan.service.borrow.BorrowingLoanService;
 import com.glacier.netloan.service.member.MemberAuthService;
 import com.glacier.netloan.service.member.MemberService;
-import com.glacier.netloan.service.member.MemberStatisticsService;
+import com.glacier.netloan.service.website.WebsiteAnnouncementService;
+import com.glacier.netloan.service.website.WebsiteNewsService;
 
 @Controller
 public class RegisterController extends AbstractController{
@@ -40,11 +44,14 @@ public class RegisterController extends AbstractController{
 	private MemberAuthService memberAuthService;
 	
 	@Autowired
-	private FinanceMemberService financeMemberService;
-	
-	@Autowired
-	private MemberStatisticsService memberStatisticsService;
-	
+    private WebsiteAnnouncementService announcementService;//注入公告业务类
+    
+    @Autowired
+    private WebsiteNewsService newsService;//注入新闻业务类
+    
+    @Autowired
+    private BorrowingLoanService borrowingLoanService;
+    
 	/**
 	 * @Title: intoregister 
 	 * @Description: TODO(前台注册转向页面) 
@@ -172,14 +179,20 @@ public class RegisterController extends AbstractController{
 	 *
 	 */
 	@RequestMapping(value = "/mailBack.htm")
-	public Object mailBack(String registerId,HttpServletRequest request,HttpSession session){
+	public Object mailBack(JqPager pager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String pagetype, String memberId, String registerId,HttpServletRequest request,HttpSession session){
+	    //获取主页显示的借款、新闻、公告的数据列表
+	    ModelAndView mav = new ModelAndView("index");
+        int p = 1;
+        mav.addObject("borrowingDatas",  borrowingLoanService.listAsGridWebsite(pager, borrowingLoanQueryDTO, pagetype, p,  memberId));//主页加载借款信息
+        mav.addObject("announcementDatas", announcementService.listAsWebsite(pager, 1));//主页加载公告信息
+        mav.addObject("newsDatas", newsService.listAsWebsite(pager, 1));//主页加载新闻信息
 		if(registerId == null){
-			return "index";
+			return mav;
 		}   
 		String registerName = (String) session.getAttribute(registerId);
 		 // 如果session设置的有限时间过期，则注册不成功，直接返回
         if(registerName == null || registerName.equals("")){ 
-            return "index"; 
+            return mav; 
         } 						
         session.setAttribute("registerName", registerName);
         Member member = (Member) session.getAttribute("memberSimple");
@@ -187,63 +200,11 @@ public class RegisterController extends AbstractController{
         String ip = IpUtil.getIpAddr((HttpServletRequest) request);
         String host = ip + IpUtil.getIpInfo(ip);
         member.setLastLoginIpAddress(host);
-        //注册时，生成会员信息，会员资金记录，会员统计记录
+        //注册时，生成会员信息，会员资金记录，会员统计记录, 生成会员资金记录, 生会员统计记录
         JqReturnJson returnResult = (JqReturnJson) memberService.addMemberReception(member);//注册会员，调用添加会员方法
-        //生成会员资金记录
-        FinanceMember financeMember = new FinanceMember();
-        Member memberNew = (Member) returnResult.getObj();
-        financeMember.setMemberId(memberNew.getMemberId());//设置会员id
-        financeMember.setUsableMoney(0f);//设置可用金额为0
-        financeMember.setFrozenMoney(0f);//设置冻结金额为0
-        financeMember.setCollectingMoney(0f);//设置待收金额为0
-        financeMember.setRefundMoney(0f);//设置待还金额为0
-        financeMember.setAmount(0f);//设置总金额为0
-        financeMember.setRechargeMoney(0f);//设置充值总金额为0
-        financeMember.setRechargeMonthTimes(0f);//设置本月充值次数
-        financeMember.setRechargeTimes(0f);//设置充值总次数
-        financeMember.setWithdrawMoney(0f);//设置提现总金额
-        financeMember.setWithdrawMonthTimes(0f);//设置本月提现总次数
-        financeMember.setWithdrawTimes(0f);//设置提现总次数
-        financeMember.setBorrowerCredit(0f);//设置借款信用额度
-        financeMember.setAvailableCredit(0f);//设置可用信用额度
-        financeMemberService.addMember(financeMember);//调用添加会员资金方法，添加会员资金
-        //生会员统计记录
-        MemberStatistics memberStatistics = new MemberStatistics();
-        memberStatistics.setMemberId(memberNew.getMemberId());//设置会员id
-        memberStatistics.setTotalBorrowings(0f);//设置借款总额
-        memberStatistics.setCumulativeLossProfit(0f);//设置累计亏盈
-        memberStatistics.setAlreadyTotal(0f);//设置已还总额
-        memberStatistics.setWaitAlsoTotal(0f);//待还总额 
-        memberStatistics.setAlreadyPrincipal(0f);//已还本金
-        memberStatistics.setWaitAlsoPrincipal(0f);//待还本金
-        memberStatistics.setAlreadyInterest(0f);//已还利息
-        memberStatistics.setWaitAlsoInterest(0f);//待还利息
-        memberStatistics.setAlreadyIncomePrincipal(0f);//已收本金
-        memberStatistics.setWaitIncomePrincipal(0f);//代收本金
-        memberStatistics.setAlreadyIncomeInterest(0f);//已收利息
-        memberStatistics.setWaitIncomeInterest(0f);//代收利息
-        memberStatistics.setOverdueFineAmount(0f);//逾期罚款金额
-        memberStatistics.setOverdueInterestAmount(0f);//逾期利息总额
-        memberStatistics.setLoanManagementAmount(0f);//借款管理费
-        memberStatistics.setLoanInterestAmount(0f);//借款利息总额 
-        memberStatistics.setBorrowSuccess(0);//借款成功次数
-        memberStatistics.setNormalRepayment(0);//正常还款次数
-        memberStatistics.setAdvanceRepayment(0);//提前还款次数
-        memberStatistics.setLateRepayment(0);//逾期还款次数
-        memberStatistics.setLate(0);//迟还次数
-        memberStatistics.setWebsiteSubstitute(0);//网站待还次数
-        memberStatistics.setInvestmentTotal(0f);//投资总额
-        memberStatistics.setTenderAwards(0f);//投标奖励
-        memberStatistics.setAlreadyIncomeTotal(0f);//已收总额
-        memberStatistics.setWaitIncomeTotal(0f);//待收总额
-        memberStatistics.setPromotionAwards(0f);//推广奖励
-        memberStatistics.setUplineDeltaAwards(0f);//线下冲值奖励
-        memberStatistics.setContinueAwards(0f);//续投奖励
-        memberStatistics.setSuccessTender(0);//投资次数
-        memberStatisticsService.addStatistics(memberStatistics);//调用添加会员统计记录方法，添加会员统计记录
         request.setAttribute("returnResult", returnResult);
         if(!returnResult.isSuccess()){
-        	return "index";
+        	return mav;
         }
 		return "login";
 	}

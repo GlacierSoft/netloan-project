@@ -160,6 +160,14 @@
 	<include refid="Base_extend" />
     where temp_member.member_id = #{memberId,jdbcType=VARCHAR}
   </select>
+  <!-- 自定义方法，根据会员用户名进行查找会员信息 -->
+  <select id="selectByMemberName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_member temp_member
+	<include refid="Base_extend" />
+    where temp_member.member_name = #{memberName,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_member
     where member_id = #{memberId,jdbcType=VARCHAR}
