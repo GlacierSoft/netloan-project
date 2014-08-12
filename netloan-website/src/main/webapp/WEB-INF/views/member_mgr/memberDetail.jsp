@@ -43,6 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					          <a href="#" onclick="checkRechargeWithdraw('${currentMember.memberId}','${ctx}/financeMember/rechargeWithdraw.htm?p=1');" class="btn btn-default" role="button">充值提现</a>
 					          <a href="#" onclick="checksMember('${currentMember.memberId}','${ctx}/member/memberAuth.htm?&p=0');" class="btn btn-default" role="button">平台认证</a>
 					          <a href="#" onclick="checksMember('${currentMember.memberId}','${ctx}/messageNotice/intoMessageNotice.htm?&p=1');" class="btn btn-default" role="button">站内信</a>
+							  
 							  <a href="${ctx}/member/memberDetail.htm" class="btn btn-info" role="button">个人设置</a>
 							  <a href="#" onclick="checksMember('${currentMember.memberId}','${ctx}/member/memberPhotoInto.htm');" class="btn btn-default" role="button">头像上传</a>
 							  <a href="${ctx}/member/memberEmail.htm" class="btn btn-default" role="button">邮箱设置</a>
@@ -152,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    <input type="hidden" class="form-control" id="postAuth" name="postAuth" value="">
 									    <label for="memberRealName" class="col-sm-2 control-label">*真实姓名:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" onblur="checkMemberRealName();" id="memberRealName" name="memberRealName" value="${currentMember.memberRealName}" onkeyup="value=value.replace(/[\d]/ig,'')"  placeholder="真实姓名" >
+									      <input type="text" maxlength="8" class="form-control" onblur="checkMemberRealName();" id="memberRealName" name="memberRealName" value="${currentMember.memberRealName}" onkeyup="value=value.replace(/[\d]/ig,'')"  placeholder="真实姓名" >
 									      <span id="memberRealNameSpan"></span>
 									    </div>
 									  </div>
@@ -160,7 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									  <div class="form-group">
 									    <label for="cardId" class="col-sm-2 control-label">*身份证:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" onblur="checkCardId();" id="cardId" name="cardId" value="${currentMember.cardId}"  placeholder="身份证"  >
+									      <input type="text" class="form-control" maxlength="23" onblur="checkCardId();" id="cardId" name="cardId" value="${currentMember.cardId}"  placeholder="身份证"  >
 									      <span id="cardIdSpan"></span>
 									     </div>
 									      <span style="color:#F00;margin-left: 70px"> * 演示站点不发送短信验证</span>
@@ -216,24 +217,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    </div>
 									    <label for="memberAge" class="col-sm-2 control-label">会员年龄:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" name="memberAge" id="memberAge" value="${currentMember.memberAge}" placeholder="会员年龄">
+									      <input type="text" class="form-control" maxlength="3" name="memberAge" id="memberAge" value="${currentMember.memberAge}" placeholder="会员年龄">
 									    </div>
 									  </div>
 									  <div class="form-group">
 									     <label for="hometown" class="validate[required] col-sm-2 control-label">籍贯:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class=" form-control" name="hometown" id="hometown" value="${currentMember.hometown}"  placeholder="籍贯" onchange="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" 
+									      <input type="text" maxlength="20" class=" form-control" name="hometown" id="hometown" value="${currentMember.hometown}"  placeholder="籍贯" onchange="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" 
 									      onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" >
 									    </div>
 									    <label for="homePhone" class="col-sm-2 control-label">住宅电话:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" name="homePhone" id="homePhone" value="${currentMember.homePhone}"  placeholder="住宅电话">
+									      <input type="text" class="form-control" maxlength="11" name="homePhone" id="homePhone" value="${currentMember.homePhone}"  placeholder="住宅电话">
 									    </div>
 									  </div>
 									  <div class="form-group">
 									    <label for="liveAddress" class="col-sm-2 control-label">*现居住地址:</label>
 									    <div class="col-sm-10">
-									      <input type="text" class="form-control" onblur="checkLiveAddress();" name="liveAddress" id="liveAddress" value="${currentMember.liveAddress}"  placeholder="现居住地址">
+									      <input type="text" class="form-control" maxlength="25" onblur="checkLiveAddress();" name="liveAddress" id="liveAddress" value="${currentMember.liveAddress}"  placeholder="现居住地址">
 									      <span id="liveAddressSpan"></span>
 									    </div>
 									  </div>
@@ -252,7 +253,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  				<div class="form-group">
 									    <label for="firstContact" class="col-sm-2 control-label">*第一联系人:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" onblur="checkFirstContact();" name="firstContact" id="firstContact" value="${currentMember.firstContact}"  placeholder="第一联系人">
+									      <input type="text" class="form-control" maxlength="8" onblur="checkFirstContact();" name="firstContact" id="firstContact" value="${currentMember.firstContact}" onkeyup="value=value.replace(/[\d]/ig,'')"  placeholder="第一联系人">
 									      <span id="firstContactSpan"></span>
 									    </div>
 									     <label for="firstContactRelation" class="col-sm-2 control-label">第一联系人关系:</label>
@@ -267,19 +268,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									  <div class="form-group">
 									    <label for="firstContactPhone" class="col-sm-2 control-label" style="width: 150px">*联系人手机号码:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" onblur="checkFirstContactPhone();" name="firstContactPhone" id="firstContactPhone"  value="${currentMember.firstContactPhone}" placeholder="第一联系人手机号码">
+									      <input type="text" class="form-control" maxlength="11" onblur="checkFirstContactPhone();" name="firstContactPhone" id="firstContactPhone"  value="${currentMember.firstContactPhone}" placeholder="第一联系人手机号码">
 									      <span id="firstContactPhoneSpan"></span>
 									    </div>
 									    <label for="firstContactAddress" class="col-sm-2 control-label">*第一联系人地址:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" onblur="checkFirstContactAddress();" name="firstContactAddress" id="firstContactAddress" value="${currentMember.firstContactAddress}"  placeholder="第一联系人地址">
+									      <input type="text" class="form-control" maxlength="25" onblur="checkFirstContactAddress();" name="firstContactAddress" id="firstContactAddress" value="${currentMember.firstContactAddress}"  placeholder="第一联系人地址">
 									      <span id="firstContactAddressSpan"></span>
 									    </div>
 									  </div>
 									  <div class="form-group">
 									    <label for="secondContact" class="col-sm-2 control-label">第二联系人:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" name="secondContact" id="secondContact" value="${currentMember.secondContact}"  placeholder="第二联系人">
+									      <input type="text" class="form-control" maxlength="8" name="secondContact" id="secondContact" value="${currentMember.secondContact}" onkeyup="value=value.replace(/[\d]/ig,'')"  placeholder="第二联系人">
 									    </div>
 									    <label for="secondContactRelation" class="col-sm-2 control-label">第二联系人关系:</label>
 									    <div class="col-sm-4">
@@ -293,11 +294,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									  <div class="form-group">
 									    <label for="secondContactPhone" class="col-sm-2 control-label">联系人手机号码:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" name="secondContactPhone" id="secondContactPhone" value="${currentMember.secondContactPhone}"  placeholder="第二联系人手机号码">
+									      <input type="text" class="form-control" maxlength="11" name="secondContactPhone" id="secondContactPhone" value="${currentMember.secondContactPhone}"  placeholder="第二联系人手机号码">
 									    </div>
 									    <label for="secondContactAddress" class="col-sm-2 control-label">第二联系人地址:</label>
 									    <div class="col-sm-4">
-									      <input type="text" class="form-control" name="secondContactAddress" id="secondContactAddress" value="${currentMember.secondContactAddress}"  placeholder="第二联系人地址">
+									      <input type="text" class="form-control" maxlength="25" name="secondContactAddress" id="secondContactAddress" value="${currentMember.secondContactAddress}"  placeholder="第二联系人地址">
 									    </div>
 									  </div>
 						       </div>
@@ -309,41 +310,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  		  <div class="form-group">
 								    <label for="unitName" class="col-sm-2 control-label">*单位名称:</label>
 								    <div class="col-sm-4">
-								      <input type="text" class="form-control" onblur="checkUnitName();" id="unitName" name="unitName" value="${currentMemberWork.unitName}"  placeholder="单位名称">
+								      <input type="text" maxlength="20" class="form-control" onblur="checkUnitName();" id="unitName" name="unitName" value="${currentMemberWork.unitName}"  placeholder="单位名称">
 								      <span id="unitNameSpan"></span>
 								    </div>
 								  </div>
 								  <div class="form-group">
 								    <label for="unitAdress" class="col-sm-2 control-label">*单位地址:</label>
 								    <div class="col-sm-4">
-								      <input type="text" class="form-control" onblur="checkNull();" id="unitAdress" name="unitAdress" value="${currentMemberWork.unitAdress}"  placeholder="单位地址">
+								      <input type="text" class="form-control" onblur="checkNull();" maxlength="25" id="unitAdress" name="unitAdress" value="${currentMemberWork.unitAdress}"  placeholder="单位地址">
 								      <span id="unitAdressSpan"></span>
 								    </div>
 								    <label for="unitPhone" class="col-sm-2 control-label">*单位电话:</label>
 								    <div class="col-sm-4">
-								      <input type="text" class="form-control" onblur="checkUnitPhone();" id="unitPhone" name="unitPhone" value="${currentMemberWork.unitPhone}"  placeholder="单位电话">
+								      <input type="text" class="form-control" maxlength="11" onblur="checkUnitPhone();" id="unitPhone" name="unitPhone" value="${currentMemberWork.unitPhone}"  placeholder="单位电话">
 								      <span id="unitPhoneSpan"></span>
 								    </div>
 								  </div>
 								  <div class="form-group">
 								    <label for="workAge" class="col-sm-2 control-label">工作年限:</label>
 								    <div class="col-sm-4">
-								      <input type="text" class="form-control" id="workAge" name="workAge" value="${currentMemberWork.workAge}"  placeholder="工作年限">
+								      <input type="text" class="form-control" id="workAge" maxlength="3" name="workAge" value="${currentMemberWork.workAge}"  placeholder="工作年限">
 								    </div>
 								    <label for="salary" class="col-sm-2 control-label">年薪:</label>
 								    <div class="col-sm-4">
-								      <input type="text" class="form-control" id="salary" name="salary" value="${currentMemberWork.salary}"  placeholder="年薪">
+								      <input type="text" class="form-control" id="salary" maxlength="12" name="salary" value="${currentMemberWork.salary}"  placeholder="年薪">
 								    </div>
 								  </div>
 								  <div class="form-group">
 								    <label for="proofPerson" class="col-sm-2 control-label">*证明人:</label>
 								    <div class="col-sm-4">
-								      <input type="text" class="form-control" onblur="checkProofPerson();" id="proofPerson" name="proofPerson" value="${currentMemberWork.proofPerson}"  placeholder="证明人">
+								      <input type="text" class="form-control" maxlength="8" onblur="checkProofPerson();" id="proofPerson" name="proofPerson" value="${currentMemberWork.proofPerson}" onkeyup="value=value.replace(/[\d]/ig,'')"  placeholder="证明人">
 								      <span id="proofPersonSpan"></span>
 								    </div>
 								    <label for="proofPhone" class="col-sm-2 control-label">*证明人手机号码:</label>
 								    <div class="col-sm-4">
-								      <input type="text" class="form-control" onblur="checkProofPhone();" id="proofPhone" name="proofPhone" value="${currentMemberWork.proofPhone}"  placeholder="证明人手机号码">
+								      <input type="text" class="form-control" onblur="checkProofPhone();" maxlength="11" id="proofPhone" name="proofPhone" value="${currentMemberWork.proofPhone}"  placeholder="证明人手机号码">
 								      <span id="proofPhoneSpan"></span>
 								    </div>
 								  </div>
@@ -805,7 +806,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    /*-------------------------------------------------基本信息验证开始---------------------------------------------*/
 	  	//验证所有
 		function checkAll(){
-			return checkMemberRealName()&&checkCardId()&&checkMobileNumber()&&checkLiveAddress()&&checkFirstContact()&&checkFirstContactPhone()&&checkFirstContactAddress()&&checkNull()&&checkUnitPhone()&&checkProofPerson()&&checkProofPhone();
+			return checkMemberRealName()&&checkCardId()&&checkMobileNumber()&&checkLiveAddress()&&checkFirstContactPhone()&&checkFirstContactAddress()&&checkNull()&&checkUnitPhone()&&checkProofPerson()&&checkProofPhone();
 		}
 		
 		//联系人名称验证
@@ -867,7 +868,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		
     	//真实姓名验证
-		function checkMemberRealName(){
+	 	function checkMemberRealName(){
 			var memberRealName = $("#memberRealName").val();
 			if(memberRealName == ""){
 				document.getElementById("memberRealNameSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>真实姓名不能为空!</font>";
@@ -1227,7 +1228,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				required:true,
 	    				rangelength:[1,10]
 	    			},
-	    			unitPhone:"isPhone"
+	    			unitPhone:"isPhone",
+	    			firstContactPhone:"isMobile"
 	    		},
 	    		messages:{
 	    			memberRealName:"真实姓名不能为空",
@@ -1237,13 +1239,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			},
 	    			mobileNumber:{
 	    				required:"手机号码不能为空",	
-	    			},
+	    			}, 
 	    			memberAge:{
 	    				min:" 年龄不能低于18岁",
 	    				max:"年龄不能大于100岁",
 	    				digits:"请输入整数"
 	    			},
-	    			firstContactPhone:"请填写联系号码",
+	    			firstContactPhone:"请填写正确的号码",
 	    			firstContactAddress:"请填写联系人地址",
 	    			firstContact:"请填写联系人名称",
 	    			firstContactRelation:"请填写与联系人的关系",
