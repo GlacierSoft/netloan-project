@@ -489,7 +489,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</form>
 				       </div>
 				       <div class="tab-pane fade" id="tabnotification">
-				         <p>通知设置</p>
+				     通知设置  <span style="color:#F00;margin-left: 70px"> *试用版本不能设置短信等收费通知</span>
 				       </div>
 				       <c:if test="${empty addBankCard}">
 				        <div class="tab-pane fade" id="tabbankCard">
