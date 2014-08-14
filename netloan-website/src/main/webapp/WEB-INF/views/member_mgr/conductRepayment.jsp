@@ -186,7 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				          </tr>
 				          <tr>
 				            <td colspan="4" align="center">
-				            	<button id="subSum" type="submit" class="btn btn-default">确认还款</button>
+				            	<button id="subSum" type="submit" onclick="return validaconductRepaymentSubForm();" class="btn btn-default">确认还款</button>
 				            	<button type="reset" class="btn btn-default">重置信息</button>
 				            </td>
 				          </tr>
@@ -329,13 +329,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
   
 	validaconductRepaymentSubForm = function(){
-		var $subSum = $('#subSum');
-		if(${repaymentNotesDetailsData.alsoNeedMoney} > ${financeMemberDate.usableMoney}){
+		if(parseFloat("${repaymentNotesDetailsData.currentPayMoeny+repaymentNotesDetailsData.overdueInterest+repaymentNotesDetailsData.overdueUrgeFee+repaymentNotesDetailsData.overdueManaFee}") > parseFloat("${financeMemberDate.usableMoney}")){
 			 vipdialog("您的可用余额不足以进行此期还款!");
 			 return false;
 		}
-		
-		
+		return true;
 	}
 	
 	$("#conductRepayment").validate({
