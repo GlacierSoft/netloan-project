@@ -206,7 +206,7 @@ public class FinanceWithdrawService {
     */
    public static final int SALT_SIZE = 8;
     @Transactional(readOnly = false)
-    public Object addWithdraw(FinanceWithdraw financeWithdraw, Member member, String bankCardId) {
+    public Object addWithdraw(FinanceWithdraw financeWithdraw, Member member, String bankCardId,int mobile_code,int mobile_true) {
     	
     	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
     	// 验证会员真正的交易密码是否等于输入的交易密码 
@@ -220,8 +220,11 @@ public class FinanceWithdrawService {
         	 returnResult.setMsg("交易密码错误，请重新输入");
              return returnResult;
         }
-         
-    	Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
+        if(mobile_code!=mobile_true){
+        	 returnResult.setMsg("验证码输入错误，请重新输入");
+        	 return returnResult;
+        }
+        Subject pricipalSubject = SecurityUtils.getSubject();//获取当前认证用户
   		Member pricipalMember = (Member) pricipalSubject.getPrincipal();
   		//获取超级管理员用户
   		UserExample userExample = new UserExample();

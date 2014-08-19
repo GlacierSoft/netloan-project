@@ -8,6 +8,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
@@ -15,6 +21,7 @@ import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -244,5 +251,19 @@ public class WebsiteOthersController {
 		return mav;
 	}
 		    
+	@RequestMapping(value="FindNote.json")
+	@ResponseBody
+	public Object findNote(int mobile_code,HttpSession session){
+		Map<String,Object> map=new HashMap<String, Object>();
+		List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+		if(((Integer) session.getAttribute("mobile_code"))==mobile_code){
+			map.put("info", true);
+		}else{
+			map.put("info", false);
+		}
+		list.add(map);
+		return list;
+	} 
+	
 		  
 }

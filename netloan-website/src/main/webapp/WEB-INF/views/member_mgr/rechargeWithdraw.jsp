@@ -227,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							              </tr>
 								          <tr>
 								            <td align="right">
-								            	<button   type="submit" id="sub"  class="btn btn-default">提交</button>
+								            	<button type="submit" id="sub"  class="btn btn-default">提交</button>
 								            </td>
 								            <td>
 								            	<button type="reset" class="btn btn-default">重置</button>
@@ -297,7 +297,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								          </tr>
 								          <tr>
 								            <td>验证码：</td>
-								            <td><input  type="text"  class="inp100x" />&nbsp;<button type="submit" disabled="true" class="btn btn-default">发送手机验证码</button>&nbsp;<span style="color:#F00"> * 演示站点不发送短信</span></td>
+								            <td>
+								                <input class="inp100x" type="text" size="8" name="mobile_code" id="mobile_code" maxlength="6" onkeyup='this.value=this.value.replace(/\D/gi,"")' />&nbsp;<input id="btnSendCode" disabled="disabled" class="btn btn-default"  name="btnSendCode" type="button" value=" 发送手机验证码 " onClick="get_mobile_code();">&nbsp;
+								            </td>
 								          </tr>
 								          <tr>
 								            <td colspan="2" align="center">
@@ -327,33 +329,63 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <jsp:include page="../foot.jsp"/> 
 <!-- 分页显示表格数据 -->
 <script type="text/javascript">
-/* var flag=false;
-function checkForm(){
-	alert(:---)
-  if (flag==true){
-      return false;
-  }
- flag=true;
- this.submit();
 
-} */
+	var count =30; //间隔函数，1秒执行 
+	var curCount;//当前剩余秒数  
+	var mobile_code=0;//记录短信验证码
 
+    $(function(){
+    	$("#withdrawAmount").bind("input",function(){
+    		if($("#withdrawAmount").val().length>=3){
+    			if($("#tradersPassword").val().length>=6){
+    				$("#btnSendCode").attr("disabled",false);
+    			}
+    		}else{
+    			$("#btnSendCode").attr("disabled",true);
+    		}
+    	 });	 
+    	 
+    	 $("#tradersPassword").bind("input",function(){
+    		 if($("#tradersPassword").val().length>=6){
+     			if($("#withdrawAmount").val().length>=3){
+     				$("#btnSendCode").attr("disabled",false);
+     			}
+     		}else{
+     			$("#btnSendCode").attr("disabled",true);
+     		} 
+    	 });
+    	 
+     });
+	
+    function get_mobile_code(){
+		 curCount=count;
+    	 $("#btnSendCode").attr("disabled", "true");  
+         $("#btnSendCode").val("请在" + curCount + "秒内输入验证码");  
+         InterValObj = window.setInterval(SetRemainTime, 1000); // 启动计时器，1秒执行一次 	
+         $.post('<%=basePath%>resources/note/sms.jspsms.jsp', {"mobile":'${currentMember.mobileNumber}'}, function(msg) {
+  			if(msg=='提交成功'){
+  				//暂无响应事件
+  		   }	
+  		});
+    }
+	
+	//timer处理函数  
+	function SetRemainTime() {  
+		if (curCount == 0) {
+			window.clearInterval(InterValObj);// 停止计时器  
+	        $("#btnSendCode").removeAttr("disabled");// 启用按钮  
+	        $("#btnSendCode").val("重新发送验证码"); 
+	        $("#mobile_code").val("");
+	    }else {  
+	       curCount--;
+           $("#btnSendCode").val("请在" + curCount + "秒内输入验证码");  
+	        
+	    }  
+	}  
+	
 	function displayIsFinanceRechargeSet(rechargeSetType){
 		var financeRechargeSet = document.financeRecharge.financeRechargeSetId;
-		/* if(financeRechargeSet[0].checked){
-			rechargeReceipt.disabled = "disabled";
-			$("#rechargeReceipt").val("");
-		}
-		
-		if(financeRechargeSet[1].checked){
-			rechargeReceipt.disabled = "disabled";
-			$("#rechargeReceipt").val("");
-		}
-		
-		if(financeRechargeSet[2].checked){
-			rechargeReceipt.disabled = "";
-		} */
-		if(rechargeSetType == "onLine"){
+	    if(rechargeSetType == "onLine"){
 			rechargeReceipt.disabled = "disabled";
 			$("#rechargeReceipt").val("");
 		}else{
@@ -491,7 +523,7 @@ function checkForm(){
    				required:"请输入充值金额", 
    				min:"充值金额不能低于100元",
    				max:"充值金额不能高于上限10万"
-   			}
+   			},
    		},  
    		submitHandler:function(){
    		 $('#sub').attr('disabled',"true");//提交就禁用按钮
@@ -546,15 +578,17 @@ function checkForm(){
 	            min:100,
    				
    			},
-   			tradersPassword:"required"
+   			tradersPassword:"required",
+   			mobile_code:"required"
    		},
    		messages:{
    		    withdrawAmount:{
    		    	required:"请输入提现金额", 
    				min:"提现金额不能低于100元" 
    		    },
-   			tradersPassword:"必须填写交易密码"
-   		},
+   			tradersPassword:"必须填写交易密码",
+   			mobile_code:"请输入验证码!"
+   		 },
    		submitHandler:function(){
    		 $('#subm').attr('disabled',"true");//提交就禁用按钮
    			$.ajax({
@@ -569,7 +603,17 @@ function checkForm(){
                         alert("提交出错！"); 
                     }
    				});
-   		} 
+   		},
+   		errorPlacement : function(error, element) {
+      		 if ( element.is(":radio") ) 
+      	        error.appendTo ( element.parent().next()  ); 
+      	    else if ( element.is(":checkbox") ) 
+      	        error.appendTo ( element.parent() ); 
+      	    else if ( element.is("input[name=mobile_code]") ) 
+      	        error.appendTo ( element.parent() ); 
+      	    else 
+      	        error.insertAfter(element); 
+      		}
    	});
     function successAddRecharge(data){
 		KindEditor.ready(function(K) { 

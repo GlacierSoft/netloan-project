@@ -303,8 +303,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	glacier.account_mgr.accountInvest_mgr.accountInvest.FindAccountInvestIn=function(){
 		$("#accountInvestInDailogTest").dialog({
 			title:"数据录入",
-		    width: 400,    
-			height: 100,
+		    width: 385,    
+			height:100,
 			modal: true,
 		    closed: false  
 		});
@@ -360,22 +360,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </table>   
 </div> 
 
-<!--百度地图对话款  -->
-<div id="investMapDailogTest" class="easyui-dialog"  buttons="#Map-buttons-invest-map" closed="true">
-   <div id="allmap" style="width: 600px;height: 350px;margin-top: 10px;margin-left: 15px;"></div>
-</div>
-<div id="Map-buttons-invest-map">   
-    <table cellpadding="0" cellspacing="0" style="width:100%">   
-        <tr>   
-            <td style="text-align:right">   
-                <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="javascript:$('#investMapDailogTest').dialog('close');">确认</a>   
-                <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#investMapDailogTest').dialog('close');">关闭</a>   
-            </td>   
-        </tr>   
-    </table>   
-</div> 
-
-
 <!--自定义折线图对话款  -->
 <div id="investOutExpDailogTest" class="easyui-dialog"  buttons="#dlg-buttons-invest-outExp" closed="true">
   <div style="width:700px;heght:50px;margin-bottom: 10px;margin-top: 10px;margin-left: 40px;">
@@ -416,7 +400,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <form method="post" id="form_in" enctype="multipart/form-data"  action="<%=basePath %>do/accountInvest/ExcelIn.json">
          <table>   
            <tr>           
-               <td> 选择数据导入文件:<input type="file" name="AccountFile" id="AccountFileIn"/><td>
+               <td> 
+					选择数据导入文件:
+					<input id="url" name="webServicePhoto" class="ke-input-text" type="text" style="width:180px" required="true" value="${serviceData.webServicePhoto}"/>
+					<input type="button" id="uploadButton" value="上 传"/> 
+              </td>
            </tr>                      
          </table>                        
   </form>
@@ -491,7 +479,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		});
 	}
-
+	
+	
 </script>
    
 

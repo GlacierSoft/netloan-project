@@ -5,6 +5,7 @@
  */
 package com.glacier.netloan.web.controller.finance;
  
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,11 +34,12 @@ public class FinanceWithdrawController extends AbstractController{
     // 增加会员提现记录
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addWithdraw(@Valid FinanceWithdraw financeWithdraw, Member member, String bankCardId, BindingResult bindingResult) {
+    private Object addWithdraw(@Valid FinanceWithdraw financeWithdraw, Member member, String bankCardId,int mobile_code ,BindingResult bindingResult,HttpSession session) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
-        return financeWithdrawService.addWithdraw(financeWithdraw, member, bankCardId);
+        int mobile_true=(Integer)session.getAttribute("mobile_code");
+        return financeWithdrawService.addWithdraw(financeWithdraw, member, bankCardId,mobile_code,mobile_true);
     }
      
 }
