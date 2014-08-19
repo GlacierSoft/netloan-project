@@ -362,7 +362,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	 $("#btnSendCode").attr("disabled", "true");  
          $("#btnSendCode").val("请在" + curCount + "秒内输入验证码");  
          InterValObj = window.setInterval(SetRemainTime, 1000); // 启动计时器，1秒执行一次 	
-         $.post('<%=basePath%>resources/note/sms.jspsms.jsp', {"mobile":'${currentMember.mobileNumber}'}, function(msg) {
+         $.post('<%=basePath%>resources/note/sms.jsp', {"mobile":'${currentMember.mobileNumber}'}, function(msg) {
   			if(msg=='提交成功'){
   				//暂无响应事件
   		   }	

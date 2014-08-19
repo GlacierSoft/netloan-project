@@ -446,7 +446,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group">
 						    <label for="memberName" class="col-sm-3 control-label"></label>
 						    <%-- <label for="memberName" class="col-sm-2 ">手机号码：${currentMember.mobileNumber}</label> --%>
-						    <div class="col-sm-9">
+						    <div class="col-sm-9" id="mobile_text">
 						  	  手机号码：${currentMember.mobileNumber}
 						    </div> 
 						  </div>
@@ -459,17 +459,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <label for="mobileNumber" class="col-sm-3 control-label">手机号码:</label>
 						    <div class="col-sm-6">
 						      <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >
-						      <input type="text" class="form-control" id="mobileNumber_form-group" maxlength="15" name="mobileNumber" placeholder="输入您要更改的手机号码" onkeyup="value=value.replace(/[^\d]/g,'') "
+						      <input type="text" class="form-control" id="mobileNumber_form-group" maxlength="11" name="mobileNumber" placeholder="输入您要更改的手机号码" onkeyup="value=value.replace(/[^\d]/g,'') "
                                onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"  />
 						    </div>
 						    <div class="col-sm-3">
-						       <button id="updatePhoneForm_form-group" type="submit" disabled="disabled" class="btn btn-primary">发送手机验证码</button>
+						        <input id="btnSendCode" name="btnSendCode" type="button" value=" 发送手机验证码 " onClick="get_mobile_code();" disabled="disabled" class="btn btn-primary">
 						    </div>
 						  </div>
 						  <div class="form-group">
 						    <label for="memberPassword" class="col-sm-3 control-label">验证码:</label>
 						    <div class="col-sm-6">
-						      <input type="text" class="form-control" id="memberPassword_form-group" maxlength="6" name="memberPassword" placeholder="输入手机验证码"  />
+						       <input type="text" class="form-control" size="8" name="mobile_code" class="inputBg" id="mobile_code"  maxlength="6" onkeyup='this.value=this.value.replace(/\D/gi,"")' placeholder="输入手机验证码" />
 						    </div>
 						     <div class="col-sm-3">
 						    </div>
@@ -482,15 +482,103 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  </div>
 						  <div class="form-group">
 						    <div class="col-sm-offset-3 col-sm-9">
-						      <button id="updatePhoneForm_form-group" type="submit" disabled="disabled" class="btn btn-primary">手机变更</button>
-						   &nbsp;<span style="color:#F00"> * 演示站点不发送短信</span>
-						    </div>
+						        <input type="button" value="验证码提交" id="button_submit" name="button_submit"  class="btn btn-primary" disabled="disabled" />
+						   </div>
 						  </div>
 						</form>
 				       </div>
-				       <div class="tab-pane fade" id="tabnotification">
-				     通知设置  <span style="color:#F00;margin-left: 70px"> *试用版本不能设置短信等收费通知</span>
-				       </div>
+				      
+				      <script>
+				      
+				      var count =30; //间隔函数，1秒执行 
+				      var curCount;//当前剩余秒数  
+				      var mobile_code=0;//记录短信验证码
+				      var mobile_right;//记录修改之后的手机号
+				      
+				      $(function(){
+				    	 if($("#mobileNumber_form-group").val().length==11){
+				    	    	$("#btnSendCode").attr("disabled",false);
+				    	 }
+				    	 
+			    	     var reg =/^0{0,1}(13[0-9]|15[7-9]|153|156|18[7-9])[0-9]{8}$/;
+		            	 $("#mobileNumber_form-group").bind("input",function(){
+		            		 if($("#mobileNumber_form-group").val().length==11){
+		            			 if(reg.test($("#mobileNumber_form-group").val())){
+		            				$("#btnSendCode").attr("disabled",false);
+		            			 }
+		            		 }else{
+		            			 $("#btnSendCode").attr("disabled",true);
+		            			 $("#button_submit").attr("disabled",true);
+		            		 }
+		            	    });
+		                
+				        $("#mobile_code").bind("input",function(){
+						   if($("#mobile_code").val().length==6){
+							   if($("#mobileNumber_form-group").val().length==11){
+								   $("#button_submit").attr("disabled",false);	   
+							   }
+							}else{
+							   $("#button_submit").attr("disabled",true); 
+						   }
+						 });
+				        
+				        $("#button_submit").bind("click",function(){
+							   $.ajax({
+					     		   type:"post",
+					     		   url:"<%=basePath%>others/UpdatePhone.json",
+					     		   data:$("#updatePhoneForm").serialize(),
+					     		   dataType:"json",
+					     		   success:function(data){
+					     			  if(data[0].info){
+					     				 alert("手机已重新绑定,请确认!!!");
+					     				 $("#mobile_text").html("手机号码:"+$("#mobileNumber_form-group").val());
+					     				 window.clearInterval(InterValObj);// 停止计时器  
+							  	         $("#btnSendCode").attr("disabled",true);// 启用按钮  
+							  	         $("#btnSendCode").val("发送验证码");
+							  	         $("#mobileNumber_form-group").val("");
+							  	         $("#mobile_code").val("");
+							  	        }else{
+					     				 alert("验证码错误,手机取消绑定失败!!!!");
+					     				 window.clearInterval(InterValObj);// 停止计时器 
+					     				 $("#btnSendCode").attr("disabled",false);// 启用按钮
+					     				 $("#btnSendCode").val("重新发送验证码!!!");
+					     				 $("#mobile_code").val(""); 
+					     			 }
+					     		   }
+					     		});
+						   });
+					 });
+				      
+				      function get_mobile_code(){
+				     	 curCount=count;
+				     	 $("#btnSendCode").attr("disabled", "true");  
+				          $("#btnSendCode").val("请在" + curCount + "秒内输入验证码");  
+				          InterValObj = window.setInterval(SetRemainTime, 1000); // 启动计时器，1秒执行一次 
+				          $.post('<%=basePath%>resources/note/sms.jsp', {"mobile":$('#mobileNumber_form-group').val()}, function(msg) {
+				  			if(msg=='提交成功'){//暂五事件
+				  			}	
+				  		});
+				    }
+				      
+				    //timer处理函数  
+				  	function SetRemainTime() {  
+				  	    if (curCount == 0) {                  
+				  	        window.clearInterval(InterValObj);// 停止计时器  
+				  	        $("#btnSendCode").removeAttr("disabled");// 启用按钮  
+				  	        $("#btnSendCode").val("重新发送验证码"); 
+				  	        mobile_code=0;
+				  	        $("#mobile_code").val("");
+				  	    }else {  
+				  	        curCount--;
+				  	        mobile_code=$("#mobile_code").val();
+				  	        $("#btnSendCode").val("请在" + curCount + "秒内输入验证码");  
+				  	    }  
+				  	}  
+				  </script>
+				      
+				    <div class="tab-pane fade" id="tabnotification">
+				                          通知设置  <span style="color:#F00;margin-left: 70px"> *试用版本不能设置短信等收费通知</span>
+				    </div>
 				       <c:if test="${empty addBankCard}">
 				        <div class="tab-pane fade" id="tabbankCard">
 				        </c:if>

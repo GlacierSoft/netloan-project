@@ -19,10 +19,13 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.glacier.netloan.service.member.MemberService;
 
 
 /**
@@ -35,6 +38,10 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value="others")
 public class WebsiteOthersController {
      
+	 @Autowired
+	 private MemberService memberService;
+	
+	
 	// 转到其他业务页面
 	@RequestMapping(value = "/others.htm")
 	public Object others(String str) {// IPNumber TellNumber
@@ -265,5 +272,23 @@ public class WebsiteOthersController {
 		return list;
 	} 
 	
+	@RequestMapping(value="UpdatePhone.json")
+	@ResponseBody
+	public Object UpdatePhone(String memberId,String mobileNumber,int mobile_code,String changeReason,HttpSession session){
+		Map<String,Object> map=new HashMap<String, Object>();
+		List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+		if(((Integer) session.getAttribute("mobile_code"))==mobile_code){
+			boolean info=memberService.updatePhone(memberId, mobileNumber, changeReason);
+			if(info){
+				map.put("info", true);
+			}else{
+				map.put("info", false);
+			}
+		}else{
+			map.put("info", false);
+		}
+		list.add(map);
+		return list;
+	} 
 		  
 }

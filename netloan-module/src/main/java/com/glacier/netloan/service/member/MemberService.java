@@ -957,13 +957,30 @@ public class MemberService {
       } 
    } 
      
-    
-     
-       //获取管理员id
+    //获取管理员id
       public String getuserId(){ 
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUsernameEqualTo("admin");
         List<User> users = userMapper.selectByExample(userExample);
         return users.get(0).getUserId();
        }
+      
+    //更改手机
+    @Transactional(readOnly = false) 
+    public boolean updatePhone(String memberId,String mobileNumber,String changeReason){
+          MemberExample memberExample=new MemberExample();
+          memberExample.createCriteria().andMemberIdEqualTo(memberId);
+          List<Member> member_list=memberMapper.selectByExample(memberExample);
+          if(member_list.size()>=0&&member_list!=null){
+        	 Member member_per=member_list.get(0);
+        	 member_per.setMobileNumber(mobileNumber);
+        	 int count=memberMapper.updateByPrimaryKeySelective(member_per);
+        	 if(count>0){
+        		 return true;
+        	 }else{
+        		 return false;
+        	 }
+          }
+          return false;
+    }     
 }
