@@ -22,8 +22,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   <body>
   <jsp:include page="../nav_mgr/navMember.jsp"/>
-       
-	    <!-- CONTAINER START======================== -->
+ 
+      <!-- CONTAINER START======================== -->
 	    <div class="container">
 	    <div class="row">
 		    <div class="col-md-2">
@@ -100,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				      <c:if test="${empty addBankCard && empty updateSecretSecurity}">
 				       <li class="active"><a href="${ctx}/member/memberDetail.htm" class="btn " role="button">个人详细信息</a></li>
 				       <li id="tabchangeMobileLi"><a  id="tabchangeMobileTab" href="#tabUpdatePassword" data-toggle="tab">修改密码</a></li>
-				       <li><a href="#tabchangeMobile" data-toggle="tab">更换手机</a></li>
+				       <li><a href="#tabchangeMobile" data-toggle="tab" onclick="FuckMobile();">更换手机</a></li>
 				       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
 				       <li id="tabbankCardTabs"><a href="#tabbankCard" id="tabbankCardTab" data-toggle="tab">银行卡设置</a></li>
 				       <li id="updateSecretSecurityLi"><a id="updateSecretSecurityTab" href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				       <c:if test="${addBankCard == 'addBankCard' }">
 				       	   <li><a href="${ctx}/member/memberDetail.htm" class="btn " role="button">个人详细信息</a></li>
 					       <li id="tabchangeMobileLi"><a id="tabchangeMobileTab" href="#tabUpdatePassword" data-toggle="tab">修改密码</a></li>
-					       <li><a href="#tabchangeMobile" data-toggle="tab">更换手机</a></li>
+					       <li><a href="#tabchangeMobile" data-toggle="tab" onclick="FuckMobile();" >更换手机</a></li>
 					       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
 					       <li id="tabbankCardTabs" class="active"><a href="#tabbankCard" id="tabbankCardTab" data-toggle="tab">银行卡设置</a></li>
 					       <li id="updateSecretSecurityLi"><a  id="updateSecretSecurityTab" href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
@@ -118,7 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        <c:if test="${!empty updateSecretSecurity }">
 				       	   <li><a href="${ctx}/member/memberDetail.htm" class="btn " role="button">个人详细信息</a></li>
 					       <li id="tabchangeMobileLi"><a id="tabchangeMobileTab" href="#tabUpdatePassword" data-toggle="tab">修改密码</a></li>
-					       <li><a href="#tabchangeMobile" data-toggle="tab">更换手机</a></li>
+					       <li><a href="#tabchangeMobile" data-toggle="tab" onclick="FuckMobile();">更换手机</a></li>
 					       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
 					       <li id="tabbankCardTabs"><a href="#tabbankCard" id="tabbankCardTab" data-toggle="tab">银行卡设置</a></li>
 					       <li id="updateSecretSecurityLi" class="active"><a id="updateSecretSecurityTab" href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
@@ -493,7 +493,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				      var count =30; //间隔函数，1秒执行 
 				      var curCount;//当前剩余秒数  
 				      var mobile_code=0;//记录短信验证码
-				      var mobile_right;//记录修改之后的手机号
+				      var mobile_right;
 				      
 				      $(function(){
 				    	 if($("#mobileNumber_form-group").val().length==11){
@@ -504,8 +504,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            	 $("#mobileNumber_form-group").bind("input",function(){
 		            		 if($("#mobileNumber_form-group").val().length==11){
 		            			 if(reg.test($("#mobileNumber_form-group").val())){
-		            				$("#btnSendCode").attr("disabled",false);
-		            			 }
+		            				 if($("#mobileNumber_form-group").val()!=mobile_right){
+		            					 $("#btnSendCode").attr("disabled",false);		 
+		            				 }
+		            			}
 		            		 }else{
 		            			 $("#btnSendCode").attr("disabled",true);
 		            			 $("#button_submit").attr("disabled",true);
@@ -523,31 +525,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						 });
 				        
 				        $("#button_submit").bind("click",function(){
-							   $.ajax({
+			                $.ajax({
 					     		   type:"post",
 					     		   url:"<%=basePath%>others/UpdatePhone.json",
-					     		   data:$("#updatePhoneForm").serialize(),
+					     		   data:{"memberId":$("#memberId").val(),"mobileNumber":$("#mobileNumber_form-group").val(),"mobile_code":mobile_code,"changeReason":$("#changeReason").val()},
 					     		   dataType:"json",
 					     		   success:function(data){
 					     			  if(data[0].info){
-					     				 alert("手机已重新绑定,请确认!!!");
 					     				 $("#mobile_text").html("手机号码:"+$("#mobileNumber_form-group").val());
 					     				 window.clearInterval(InterValObj);// 停止计时器  
 							  	         $("#btnSendCode").attr("disabled",true);// 启用按钮  
 							  	         $("#btnSendCode").val("发送验证码");
 							  	         $("#mobileNumber_form-group").val("");
 							  	         $("#mobile_code").val("");
+							  	         addSecretSecuritydialogChange({"msg":"手机已重新绑定,请确认!!!!!!"});
 							  	        }else{
-					     				 alert("验证码错误,手机取消绑定失败!!!!");
 					     				 window.clearInterval(InterValObj);// 停止计时器 
 					     				 $("#btnSendCode").attr("disabled",false);// 启用按钮
 					     				 $("#btnSendCode").val("重新发送验证码!!!");
 					     				 $("#mobile_code").val(""); 
+					     				 addSecretSecuritydialogChange({"msg":"验证码错误或已超时,手机取消绑定操作失败!!!!"});
 					     			 }
 					     		   }
 					     		});
 						   });
 					 });
+				      
+				      function FuckMobile(){
+				    	   $.ajax({
+				    		   type:"post",
+				    		   url:"<%=basePath%>others/FuckPhone.json",
+				     		   data:{"memberId":$("#memberId").val()},
+				     		   dataType:"json",
+				    		   success:function(data){
+				    			   mobile_right=data[0].info;
+				    			   $("#mobile_text").html("手机号码:"+data[0].info);      
+				    		   }
+				    		 });
+				       }
 				      
 				      function get_mobile_code(){
 				     	 curCount=count;
@@ -838,12 +853,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  <div class="form-group">
 						    <div class="col-sm-offset-3 col-sm-9">
 						      <button id="updatememberPasswordForm_form-group" type="submit" class="btn btn-primary">提    交</button>
-						     <button id="updatememberPasswordForm_form-group" type="submit" disabled="disabled" style="margin-left: 30px" class="btn  btn-default">忘记密保？发送到手机</button>
-						     &nbsp;<span style="color:#F00;margin-left: 20px"> * 演示站点不发送短信验证</span>
-						  
-						   
-						    
-						    </div>
+						      <input type="button" id="ChangePassMobile"  style="margin-left: 30px" class="btn  btn-default" value="忘记密保？发送到手机" >
+						   </div>
 						  </div>
 						</form>
 						</c:if>
@@ -856,11 +867,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	</div>
 	    </div>
 	    <hr class="featurette-divider2">
-	    
 	    </div>
+	    
+	    <!-- 自定义弹出层 -->
+	    <div id="DialogTextOne">
+	       <div Style="width:280px;height:36px;margin: auto;margin-top:10px;margin-bottom: 10px; ">
+	         <input disabled="disabled" class="btn btn-default"  type="button" value=" 输入手机验证码 :">&nbsp;
+	         <input class="inp100x"  style="width:120px;height:34px;border-radius:5px;" type="text" size="8" name="mobile_changeTxt" id="mobile_changeTxt" maxlength="6" onkeyup='this.value=this.value.replace(/\D/gi,"")' />&nbsp;
+	        </div>
+	    </div>
+	    
 	    <jsp:include page="../foot.jsp"/>
-	    <!-- CONTAINER START======================== -->
+	    
 	    <script type="text/javascript"> 
+	       KindEditor.ready(function(K) {
+					K('#ChangePassMobile').click(function() {
+						var dialog = K.dialog({
+							width : 500,
+							title : '测试窗口',
+							body : '#DialogTextOne',
+							closeBtn : {
+								name : '关闭',
+								click : function(e) {
+									dialog.hide();
+									$(".ke-dialog-mask").hide();
+								}
+							},
+							yesBtn : {
+								name : '确定',
+								click : function(e) {
+									alert(this.value);
+								}
+							},
+							noBtn : {
+								name : '取消',
+								click : function(e) {
+									dialog.hide();
+									$(".ke-dialog-mask").hide();
+								}
+							}
+						});
+					});
+				});
+          
+	    
 	    //禁用Enter键表单自动提交
 	      document.onkeydown = function(event) {
 	          var target, code, tag;
@@ -1743,6 +1793,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                click : function(e) {
 					                		dialog.remove();
 					                		window.location.href="${ctx}/member/memberDetail.htm";
+					                }
+					        }
+						});
+			});
+		}
+      	function addSecretSecuritydialogChange(data){
+			KindEditor.ready(function(K) {
+			var dialog = K.dialog({
+					        width : 300,
+					        title : '提示信息',
+					        body : '<div style="margin:10px;"><strong>'+data.msg+'</strong></div>',
+					        closeBtn : {
+					                name : '关闭',
+					                click : function(e) {
+					                        dialog.remove();
+					                }
+					        },
+					        yesBtn : {
+					                name : '确定',
+					                click : function(e) {
+					                		dialog.remove();
 					                }
 					        }
 						});

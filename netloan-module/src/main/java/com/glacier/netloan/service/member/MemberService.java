@@ -965,7 +965,7 @@ public class MemberService {
         return users.get(0).getUserId();
        }
       
-    //更改手机
+    //取消手机绑定手机
     @Transactional(readOnly = false) 
     public boolean updatePhone(String memberId,String mobileNumber,String changeReason){
           MemberExample memberExample=new MemberExample();
@@ -982,5 +982,14 @@ public class MemberService {
         	 }
           }
           return false;
-    }     
+    } 
+    
+    //获取绑定手机
+    public String FindMobile(String memberId){
+    	MemberExample memberExample=new MemberExample();
+        memberExample.createCriteria().andMemberIdEqualTo(memberId);
+        List<Member> member_list=memberMapper.selectByExample(memberExample);
+    	String mobile_info=member_list.get(0).getMobileNumber();
+    	return mobile_info;
+    }
 }

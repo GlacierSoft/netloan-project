@@ -3,7 +3,6 @@ package com.glacier.netloan.service.account;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -13,6 +12,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +38,7 @@ import com.glacier.netloan.entity.borrow.BorrowingLoanExample.Criteria;
 public class AccountBorrowService {
    
 	@Autowired
-    private BorrowingLoanMapper borrowingLoanMapper;
+	private BorrowingLoanMapper borrowingLoanMapper;
 	
 	/**
 	  * @Title: listAsGrid 
@@ -49,8 +49,11 @@ public class AccountBorrowService {
 	  * @throws
 	 */
 	
+	
+	@Cacheable(value="baseCache")
 	public Object listAsGrid(JqPager jqPager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String loanState) {
-        
+       //记录开始时间
+		long startTime = System.currentTimeMillis();
         JqGridReturn returnResult = new JqGridReturn();
         BorrowingLoanExample borrowingLoanExample = new BorrowingLoanExample();
         
@@ -72,6 +75,10 @@ public class AccountBorrowService {
         int total = borrowingLoanMapper.countByExample(borrowingLoanExample); // 查询总页数
         returnResult.setRows(borrowingLoans);
         returnResult.setTotal(total);
+        //记录结束时间
+        long EndTime= System.currentTimeMillis();
+        //方法运行时间
+        System.out.println("当前获得的时间戳为===================================>:"+(EndTime-startTime)/1000f+" 秒 ");
         return returnResult;// 返回ExtGrid表
     }   
 	
@@ -109,7 +116,7 @@ public class AccountBorrowService {
 	  */
 	
     public HSSFWorkbook export(List<BorrowingLoan> list) {  
-    	String[] excelHeader = {"借款用户名","借款标题","借款金额(元)","借款标的","借款时间","借款目的","借款期限","借款状态"};	      
+    	String[] excelHeader = {"借款用户名","借款标题","借款金额(元)","借款标的","借款时间","借款目的","借款期限(天)","借款状态"};	      
 	    int[] excelHeaderWidth = {80, 80, 100, 100, 100,100,100,100};  
 	    
         HSSFWorkbook wb = new HSSFWorkbook();    

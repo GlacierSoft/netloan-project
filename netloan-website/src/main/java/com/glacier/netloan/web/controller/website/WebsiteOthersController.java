@@ -290,5 +290,19 @@ public class WebsiteOthersController {
 		list.add(map);
 		return list;
 	} 
-		  
+	
+	@RequestMapping(value="FuckPhone.json")
+	@ResponseBody
+	public Object FindMobile(String memberId){
+		Map<String,Object> map=new HashMap<String, Object>();
+		List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+		String mobile_info=memberService.FindMobile(memberId);
+		if(mobile_info!=null){
+			map.put("info",mobile_info);
+		}else{
+			map.put("info","暂无绑定手机!!!");
+		}
+		list.add(map);
+		return list;
+	}
 }

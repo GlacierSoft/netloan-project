@@ -597,6 +597,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    				   dataType: "json",
    				   data: $("#financeWithdraw").serialize(),
     			   success: function(r) {
+    				   window.clearInterval(InterValObj);// 停止计时器  
+			  	       $("#btnSendCode").removeAttr("disabled");// 启用按钮
+			  	       $("#btnSendCode").val("重新发送验证码"); 
     				   successAddRecharge(r);
                     },
                     error: function() {
