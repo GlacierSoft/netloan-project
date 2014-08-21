@@ -881,15 +881,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <!-- 自定义安全问题弹出层 -->
 	    <div id="DialogTextOne_two" style="display: none;">
 	       <div style="width:650px;border:0px solid red;margin: auto;margin-top:10px;margin-bottom: 10px;">
-	            <form method="post" action="">
+	            <form method="post" id="form_update_mibao">
 	                 <div style="margin: auto; text-align: center;color: red;font-weight:bold;float: left;width: 620px;">安全问题设置</div>
-	                 <div style="float: left;width:650px;border:0px solid red;height: 80p;margin-top: 15px;">
+	                 <div style="float: left;width:650px;border:0px solid red;height: 80p;margin-top: 10px;">
 	                    <div style="width:620px;float: left; margin-top: 10px;margin-left: 80px;">
 	                       <div style="float: left;height: 35px;line-height: 35px;font-weight: bold;">问题一：&nbsp;&nbsp;&nbsp;</div> 
 	                       <div style="float: left;height: 35px;">
-                                <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >                                          
-                               <select class="form-control" name="questions1" id="questions1"  required="required" style="width: 250px;">
-					      		<option value="">请选择</option>
+                                <input type="hidden" class="form-control" id="memberId_temp" name="memberId" value="${currentMember.memberId}" >                                          
+                               <select class="form-control" name="questions1" id="questions1_temp"  required="required" style="width: 250px;">
+					      		<option value="0">请选择</option>
 					      	    <c:forEach items="${parameterQuestionResult.rows}" var="question" varStatus="indexStatus">
 					      		<option value="${question.questionId }">${question.questionDes }</option>
 					      	   </c:forEach>
@@ -899,7 +899,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <div style="width:620px;float: left;float: left;margin-top: 10px;margin-left: 55px;">
 	                     <div style="float: left;height: 35px;line-height: 35px;font-weight: bold;">问题一答案：&nbsp;&nbsp;&nbsp;</div> 
 	                     <div style="float: left;height: 35px;">
-                              <input type="text" class="form-control" id="updateSecretSecurityForm_answers1" name="answers1" placeholder="请输入问题一的答案" style="width: 400px;"  />
+                              <input type="text" class="form-control" id="answers1_temp" name="answers1" placeholder="请输入问题一的答案" style="width: 400px;"  />
 						</div>
 					</div>
 	              </div>
@@ -907,39 +907,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    <div style="width:620px;float: left; margin-top: 10px;margin-left: 80px;">
 	                       <div style="float: left;height: 35px;line-height: 35px;font-weight: bold;">问题二：&nbsp;&nbsp;&nbsp;</div> 
 	                       <div style="float: left;height: 35px;">
-                                <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >                                          
-                               <select class="form-control" name="questions1" id="questions1"  required="required" style="width: 250px;">
-					      		<option value="">请选择</option>
-					      	    <c:forEach items="${parameterQuestionResult.rows}" var="question" varStatus="indexStatus">
-					      		<option value="${question.questionId }">${question.questionDes }</option>
-					      	   </c:forEach>
-					           </select>
+                                 <select class="form-control" name="questions2" id="questions2_temp" required="required" >
+						      		<option value="0">请选择</option>
+								  <c:forEach items="${parameterQuestionResult.rows}" var="question" varStatus="indexStatus">
+						      		<option value="${question.questionId }">${question.questionDes }</option>
+						      	  </c:forEach>
+							 </select>
 						 </div>
 					  </div>
 					  <div style="width:620px;float: left;float: left;margin-top: 10px;margin-left: 55px;">
 	                     <div style="float: left;height: 35px;line-height: 35px;font-weight: bold;">问题二答案：&nbsp;&nbsp;&nbsp;</div> 
 	                     <div style="float: left;height: 35px;">
-                              <input type="text" class="form-control" id="updateSecretSecurityForm_answers1" name="answers1" placeholder="请输入问题二的答案" style="width: 400px;"  />
+                             <input type="text" class="form-control" id="answers2_temp" name="answers2" placeholder="请输入问题二的答案" style="width: 400px;"  />
 						</div>
 					</div>
 	              </div>
-	               <div style="float: left;width:650px;border:0px solid red;height: 80p;margin-top: 15px;margin-bottom: 10px;">
+	               <div style="float: left;width:650px;border:0px solid red;height: 80p;margin-top: 15px;margin-bottom: 15px;">
 	                    <div style="width:620px;float: left; margin-top: 10px;margin-left: 80px;">
 	                       <div style="float: left;height: 35px;line-height: 35px;font-weight: bold;">问题三：&nbsp;&nbsp;&nbsp;</div> 
 	                       <div style="float: left;height: 35px;">
-                                <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >                                          
-                               <select class="form-control" name="questions1" id="questions1"  required="required" style="width: 250px;">
-					      		<option value="">请选择</option>
-					      	    <c:forEach items="${parameterQuestionResult.rows}" var="question" varStatus="indexStatus">
-					      		<option value="${question.questionId }">${question.questionDes }</option>
-					      	   </c:forEach>
-					           </select>
+                                <select class="form-control" name="questions3" id="questions3_temp" required="required" >
+						      		<option value="0">请选择</option>
+								  <c:forEach items="${parameterQuestionResult.rows}" var="question" varStatus="indexStatus">
+						      		<option value="${question.questionId }">${question.questionDes }</option>
+						      	</c:forEach>
+							 </select>
 						 </div>
 					  </div>
 					  <div style="width:620px;float: left;float: left;margin-top: 10px;margin-left: 55px;">
 	                     <div style="float: left;height: 35px;line-height: 35px;font-weight: bold;">问题三答案：&nbsp;&nbsp;&nbsp;</div> 
 	                     <div style="float: left;height: 35px;">
-                              <input type="text" class="form-control" id="updateSecretSecurityForm_answers1" name="answers1" placeholder="请输入问题三的答案" style="width: 400px;"  />
+                              <input type="text" class="form-control" id="answers3_temp" name="answers3" placeholder="请输入问题三的答案" style="width: 400px;" />
 						</div>
 					</div>
 	              </div>
@@ -947,7 +945,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  </div>
 	    </div>
 	    
-	    <script>
+	   <script>
 	     var count_temp =30; //间隔函数，1秒执行 
 	     var curCount_temp;//当前剩余秒数  
 	     var mobile_code_temp=0;//记录短信验证码 
@@ -1014,7 +1012,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						name : '确定',
 						click : function(e) {
 							if( $("#mobile_changeTxt").val().length==6){
-								alert("当前获取验证:"+mobile_code_temp);
 								$.ajax({
 						    		   type:"post",
 						    		   url:"<%=basePath%>others/FindNote.json",
@@ -1072,7 +1069,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						yesBtn : {
 							name : '确定',
 							click : function(e) {
-								alert(this.value);
+								if($("#questions1_temp").val()==0||$("#questions2_temp").val()==0||$("#questions3_temp").val()==0){
+									alert("密保问题为必填项，请完整填写密保问题!!!");
+								}else{
+									if($("#questions1_temp").val() == $("#questions2_temp").val() || $("#questions1_temp").val() == $("#questions3_temp").val() ||$("#questions2_temp").val() == $("#questions3_temp").val()){
+									      alert("密保问题为不重复项，请按格式填写!!!");
+								    }else{
+								    	if(!$("#answers1_temp").val() || !$("#answers2_temp").val()||!$("#answers3_temp").val()){
+										      alert("密保答案为必填项,请完整填写密保答案!!!"); 
+											}else{
+												 $.ajax({
+									  				   type: "POST",
+									  				   url: ctx+"/secretSecurity/addSecretSecurity.json",
+									  				   dataType: "json",
+									  				   data: $("#form_update_mibao").serialize(),
+									    			   success: function(r) {
+									    				   if(r.success){
+									    					   dialog.hide();
+		 														$(".ke-dialog-mask").hide();
+		 									    				addSecretSecuritydialog(r);
+									    				   }else{
+									    					  var str={"msg":"提交出错!!!"};
+									    					  addSecretSecuritydialog(str);
+									    				   }
+ 									    				 
+									                    },
+									                    error: function() {
+									                        alert("提交出错！");
+									                    }
+									  		}); 
+										}
+								    }
+								}
+									
 							}
 						},
 						noBtn : {

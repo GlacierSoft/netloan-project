@@ -41,7 +41,6 @@ import com.glacier.netloan.service.member.MemberSecretSecurityService;
 import com.glacier.netloan.service.member.MemberService;
 import com.glacier.netloan.service.member.MemberStatisticsService;
 
-
 @Controller
 @RequestMapping(value = "member")
 public class MemberController extends AbstractController{
