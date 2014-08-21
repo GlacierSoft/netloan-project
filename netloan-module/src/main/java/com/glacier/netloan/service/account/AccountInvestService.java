@@ -8,9 +8,11 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,6 +69,7 @@ public class AccountInvestService  {
 	  public Object getAccountInvestQuery(String str,Date StartTime,Date EndTime){
 		 
 		//会员统计信息获取
+		@SuppressWarnings("unchecked")
 		List<MemberStatistics> MemeberDataList=(List<MemberStatistics>) statisticsService.listMemberStatistics();   
 		
 		//投资变量数据定义
@@ -317,6 +320,7 @@ public class AccountInvestService  {
 		List<User> userList = userMapper.selectByExample(userExample);
 
 		// 会员统计信息获取
+		@SuppressWarnings("unchecked")
 		List<MemberStatistics> list = (List<MemberStatistics>) statisticsService.listMemberStatistics();
 
 		// 时间设置
@@ -328,8 +332,9 @@ public class AccountInvestService  {
 		AccountInvestExample accountInvestExamole = new AccountInvestExample();
 		accountInvestExamole.createCriteria().andCreateTimeGreaterThan(calendar.getTime());
 		List<AccountInvest> accountInvestDataList = (List<AccountInvest>) accountInvestMapper.selectByExample(accountInvestExamole);
-
-		if(accountInvestDataList.size() <=0||accountInvestDataList == null){
+        if (accountInvestDataList.size() > 0 && accountInvestDataList != null){
+        	//暂时为空
+        }else{
 			// 投资变量数据定义
 			float sum_uncollected = 0;// 投资成功待收金额
 			float sum_reward = 0;// 投资奖励金额
@@ -519,14 +524,36 @@ public class AccountInvestService  {
 	 */
 	
 	public HSSFWorkbook export(List<AccountInvest> list) {
-		String[] excelHeader = { "投资统计序号", "投资成功待收金额", "投资奖励金额", "借款人逾期罚金金额","借款成功总额", "借款管理费总额", "借款利息总额", "借款逾期罚息总额","投资信息创建时间"};
+		String[] excelHeader = { "投资统计序号", "投资成功待收金额(元)", "投资奖励金额(元)", "借款人逾期罚金金额(元)","借款成功总额(元)", "借款管理费总额(元)", "借款利息总额(元)", "借款逾期罚息总额(元)","投资信息创建时间"};
 		int[] excelHeaderWidth = { 100, 125, 100, 140, 100, 110, 100,125,125 };
 		HSSFWorkbook wb = new HSSFWorkbook();
 		HSSFSheet sheet = wb.createSheet("投资信息报表统计");
 		HSSFRow row = sheet.createRow((int) 0);
-		HSSFCellStyle style = wb.createCellStyle();
-		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-
+		
+		// 生成一个样式  
+        HSSFCellStyle style = wb.createCellStyle();  
+        //设置这些样式  
+        style.setFillForegroundColor(HSSFColor.LIGHT_YELLOW.index);  
+        style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);  
+        style.setBorderBottom(HSSFCellStyle.BORDER_THIN);  
+        style.setBorderLeft(HSSFCellStyle.BORDER_THIN);  
+        style.setBorderRight(HSSFCellStyle.BORDER_THIN);  
+        style.setBorderTop(HSSFCellStyle.BORDER_THIN);  
+        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);  
+        // 生成另一个字体  
+        HSSFFont font= wb.createFont();  
+        font.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);  
+        // 把字体应用到当前的样式  
+        style.setFont(font); 
+        
+        HSSFCellStyle style2 = wb.createCellStyle();  
+        style2.setBorderBottom(HSSFCellStyle.BORDER_THIN);  
+        style2.setBorderLeft(HSSFCellStyle.BORDER_THIN);  
+        style2.setBorderRight(HSSFCellStyle.BORDER_THIN);  
+        style2.setBorderTop(HSSFCellStyle.BORDER_THIN);  
+        style2.setAlignment(HSSFCellStyle.ALIGN_CENTER);  
+        style2.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);  
+        
         for (int i = 0; i < excelHeader.length; i++) {
 			HSSFCell cell = row.createCell(i);
 			cell.setCellValue(excelHeader[i]);
@@ -541,18 +568,48 @@ public class AccountInvestService  {
 		SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
 		//统计信息遍历
 		for (int i = 0; i < list.size(); i++) {
-			row = sheet.createRow(i + 1);
+			//获取列值
 			AccountInvest accountInvest = list.get(i);
-			row.createCell(0).setCellValue((i+1));
-			row.createCell(1).setCellValue(accountInvest.getSumUncollected());
-			row.createCell(2).setCellValue(accountInvest.getSumReward());
-			row.createCell(3).setCellValue(accountInvest.getSumFine());
-			row.createCell(4).setCellValue(accountInvest.getSumBorrow());
-			row.createCell(5).setCellValue(accountInvest.getSumAdvfee());
-			row.createCell(6).setCellValue(accountInvest.getSumInterest());
-			row.createCell(7).setCellValue(accountInvest.getSumInterestfee());
-			row.createCell(8).setCellValue(sf.format(accountInvest.getCreateTime()));
-		}
+			//创建列
+			HSSFRow row_two=sheet.createRow(i + 1);
+			HSSFCell cell_Zero = row_two.createCell(0);
+			HSSFCell cell_One = row_two.createCell(1);
+			HSSFCell cell_Two = row_two.createCell(2);
+			HSSFCell cell_Three = row_two.createCell(3);
+			HSSFCell cell_Four = row_two.createCell(4);
+			HSSFCell cell_Five = row_two.createCell(5);
+			HSSFCell cell_Six = row_two.createCell(6);	
+			HSSFCell cell_Seven = row_two.createCell(7);
+			HSSFCell cell_Eight = row_two.createCell(8);
+			//格式过滤
+			String Value_one=((float)(Math.round(accountInvest.getSumUncollected()*100))/100)+"";
+			String Value_two=((float)(Math.round(accountInvest.getSumReward()*100))/100)+"";
+			String Value_three=((float)(Math.round(accountInvest.getSumFine()*100))/100)+"";
+			String Value_four=((float)(Math.round(accountInvest.getSumBorrow()*100))/100)+"";
+			String Value_five=((float)(Math.round(accountInvest.getSumAdvfee()*100))/100)+"";
+			String Value_six=((float)(Math.round(accountInvest.getSumInterest()*100))/100)+"";
+			String Value_seven=((float)(Math.round(accountInvest.getSumInterestfee()*100))/100)+"";
+			//列赋值
+			cell_Zero.setCellValue((i+1));
+			cell_One.setCellValue(Value_one);//保留两位小数
+			cell_Two.setCellValue(Value_two);
+			cell_Three.setCellValue(Value_three);
+			cell_Four.setCellValue(Value_four);
+			cell_Five.setCellValue(Value_five);
+			cell_Six.setCellValue(Value_six);
+			cell_Seven.setCellValue(Value_seven);
+			cell_Eight.setCellValue(sf.format(accountInvest.getCreateTime()));
+			//列样式
+            cell_Zero.setCellStyle(style2);
+			cell_One.setCellStyle(style2);
+            cell_Two.setCellStyle(style2);
+			cell_Three.setCellStyle(style2);
+			cell_Four.setCellStyle(style2);
+			cell_Five.setCellStyle(style2);
+			cell_Six.setCellStyle(style2);
+			cell_Seven.setCellStyle(style2);
+			cell_Eight.setCellStyle(style2);
+		 }
 		return wb;
 	}
 

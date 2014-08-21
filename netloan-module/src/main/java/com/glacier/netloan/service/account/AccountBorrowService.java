@@ -7,9 +7,11 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -107,14 +109,34 @@ public class AccountBorrowService {
 	  */
 	
     public HSSFWorkbook export(List<BorrowingLoan> list) {  
-    	String[] excelHeader = {"借款用户名","借款标题","借款金额","借款标的","借款时间","借款目的","借款期限"};	      
-	    int[] excelHeaderWidth = {80, 80, 100, 100, 100,100,100};  
+    	String[] excelHeader = {"借款用户名","借款标题","借款金额(元)","借款标的","借款时间","借款目的","借款期限","借款状态"};	      
+	    int[] excelHeaderWidth = {80, 80, 100, 100, 100,100,100,100};  
 	    
         HSSFWorkbook wb = new HSSFWorkbook();    
         HSSFSheet sheet = wb.createSheet("用户借款报表统计");    
         HSSFRow row = sheet.createRow((int) 0);    
-        HSSFCellStyle style = wb.createCellStyle();    
-        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);   
+        //生成一个样式  
+        HSSFCellStyle style = wb.createCellStyle();  
+        // 设置这些样式  
+        style.setFillForegroundColor(HSSFColor.LIGHT_YELLOW.index);  
+        style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);  
+        style.setBorderBottom(HSSFCellStyle.BORDER_THIN);  
+        style.setBorderLeft(HSSFCellStyle.BORDER_THIN);  
+        style.setBorderRight(HSSFCellStyle.BORDER_THIN);  
+        style.setBorderTop(HSSFCellStyle.BORDER_THIN);  
+        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);  
+        // 生成另一个字体  
+        HSSFFont font= wb.createFont();  
+        font.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);  
+        // 把字体应用到当前的样式  
+        style.setFont(font); 
+        HSSFCellStyle style2 = wb.createCellStyle();  
+        style2.setBorderBottom(HSSFCellStyle.BORDER_THIN);  
+        style2.setBorderLeft(HSSFCellStyle.BORDER_THIN);  
+        style2.setBorderRight(HSSFCellStyle.BORDER_THIN);  
+        style2.setBorderTop(HSSFCellStyle.BORDER_THIN);  
+        style2.setAlignment(HSSFCellStyle.ALIGN_CENTER);  
+        style2.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);  
         
         //时间转化
         SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
@@ -130,16 +152,58 @@ public class AccountBorrowService {
             sheet.setColumnWidth(i, 32 * excelHeaderWidth[i]);  
         }  
         for (int i = 0; i < list.size(); i++) { 
-        	row = sheet.createRow(i + 1);    
+        	//获取列值    
             BorrowingLoan borrow = list.get(i);    
-            row.createCell(0).setCellValue(borrow.getMemberDisplay());//借款用户名
-            row.createCell(1).setCellValue(borrow.getLoanTitle());//借款标题
-            row.createCell(2).setCellValue(borrow.getLoanTotal());//借款总额
-            row.createCell(3).setCellValue(borrow.getLoanTenderDisplay());//借款标的
-            row.createCell(4).setCellValue(sf.format(borrow.getLoanDate()));//借款时间
-            row.createCell(5).setCellValue(borrow.getLoanPurposeId());//借款目的
-            row.createCell(6).setCellValue(borrow.getLoanDeadlinesId());//借款期限
-        }    
+            //创建列
+			HSSFRow row_two=sheet.createRow(i + 1);
+			HSSFCell cell_Zero = row_two.createCell(0);
+			HSSFCell cell_One = row_two.createCell(1);
+			HSSFCell cell_Two = row_two.createCell(2);
+			HSSFCell cell_Three = row_two.createCell(3);
+			HSSFCell cell_Four = row_two.createCell(4);
+			HSSFCell cell_Five = row_two.createCell(5);
+			HSSFCell cell_Six = row_two.createCell(6);	
+			HSSFCell cell_Seven=row_two.createCell(7);
+			
+			//格式转化
+			String value_two=(float)(Math.round(borrow.getLoanTotal()/100)*100)+""; 
+			
+			//借款状态判断
+			String loanState=null;
+			if(borrow.getLoanState().equals("firstAudit"))
+				loanState="初审中";
+			else if(borrow.getLoanState().equals("tendering"))
+				loanState="招标中";
+			else if(borrow.getLoanState().equals("secondAuditor"))
+				loanState="满标";
+			else if(borrow.getLoanState().equals("repaymenting"))
+				loanState="还款中";
+			else if(borrow.getLoanState().equals("completed"))
+				loanState="已还完";
+			else if(borrow.getLoanState().equals("bids"))
+				loanState="流标";
+			else 
+				loanState="其他";
+			
+			cell_Zero.setCellValue(borrow.getMemberDisplay());//借款用户名
+			cell_One.setCellValue(borrow.getLoanTitle());//借款标题
+			cell_Two.setCellValue(value_two);//借款总额
+			cell_Three.setCellValue(borrow.getLoanTenderDisplay());//借款标的
+			cell_Four.setCellValue(sf.format(borrow.getLoanDate()));//借款时间
+			cell_Five.setCellValue(borrow.getLoanPurposeId());//借款目的
+			cell_Six.setCellValue(borrow.getLoanDeadlinesId());//借款期限
+			cell_Seven.setCellValue(loanState);//借款目的
+			
+			//列样式
+            cell_Zero.setCellStyle(style2);
+			cell_One.setCellStyle(style2);
+            cell_Two.setCellStyle(style2);
+			cell_Three.setCellStyle(style2);
+			cell_Four.setCellStyle(style2);
+			cell_Five.setCellStyle(style2);
+			cell_Six.setCellStyle(style2);
+			cell_Seven.setCellStyle(style2);
+		 }    
         return wb;    
     }     
 	

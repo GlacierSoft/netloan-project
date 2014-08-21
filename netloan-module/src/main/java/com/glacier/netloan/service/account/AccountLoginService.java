@@ -6,9 +6,11 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,7 @@ import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.member.MemberWorkMapper;
 import com.glacier.netloan.dto.query.member.MemberQueryDTO;
 
+import com.glacier.netloan.entity.account.AccountInvest;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberExample;
@@ -130,14 +133,36 @@ public class AccountLoginService {
 		
 		//定义导出变量
 		String[] excelHeader = { "会员名称", "真实姓名", "身份证号", "居住地址", "联系方式", "电子邮件","用户等级", "信用积分", "最后登陆IP", "登入次数" };
-		int[] excelHeaderWidth = { 85, 85, 85, 85, 85,85, 85, 85, 95, 85 };
+		int[] excelHeaderWidth = { 100, 100, 200, 100, 200,200, 100, 100,200, 100 };
 		
 		HSSFWorkbook wb = new HSSFWorkbook();
 		HSSFSheet sheet = wb.createSheet("用户登录报表统计");
 		HSSFRow row = sheet.createRow((int) 0);
-		HSSFCellStyle style = wb.createCellStyle();
-		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-
+		
+		// 生成一个样式  
+        HSSFCellStyle style = wb.createCellStyle();  
+        //设置这些样式  
+        style.setFillForegroundColor(HSSFColor.LIGHT_YELLOW.index);  
+        style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);  
+        style.setBorderBottom(HSSFCellStyle.BORDER_THIN);  
+        style.setBorderLeft(HSSFCellStyle.BORDER_THIN);  
+        style.setBorderRight(HSSFCellStyle.BORDER_THIN);  
+        style.setBorderTop(HSSFCellStyle.BORDER_THIN);  
+        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);  
+        // 生成另一个字体  
+        HSSFFont font= wb.createFont();  
+        font.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);  
+        // 把字体应用到当前的样式  
+        style.setFont(font); 
+        
+        HSSFCellStyle style2 = wb.createCellStyle();  
+        style2.setBorderBottom(HSSFCellStyle.BORDER_THIN);  
+        style2.setBorderLeft(HSSFCellStyle.BORDER_THIN);  
+        style2.setBorderRight(HSSFCellStyle.BORDER_THIN);  
+        style2.setBorderTop(HSSFCellStyle.BORDER_THIN);  
+        style2.setAlignment(HSSFCellStyle.ALIGN_CENTER);  
+        style2.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); 
+		
 		for (int i = 0; i < excelHeader.length; i++) {
 			HSSFCell cell = row.createCell(i);
 			cell.setCellValue(excelHeader[i]);
@@ -152,8 +177,22 @@ public class AccountLoginService {
 		
 		//遍历信息
 		for (int i = 0; i < list.size(); i++) {
-			row = sheet.createRow(i + 1);
+			//获取列值
 			Member member = list.get(i);
+			//创建列
+			HSSFRow row_two=sheet.createRow(i + 1);
+			HSSFCell cell_Zero = row_two.createCell(0);
+			HSSFCell cell_One = row_two.createCell(1);
+			HSSFCell cell_Two = row_two.createCell(2);
+			HSSFCell cell_Three = row_two.createCell(3);
+			HSSFCell cell_Four = row_two.createCell(4);
+			HSSFCell cell_Five = row_two.createCell(5);
+			HSSFCell cell_Six = row_two.createCell(6);	
+			HSSFCell cell_Seven = row_two.createCell(7);
+			HSSFCell cell_Eight = row_two.createCell(8);
+			HSSFCell cell_Nine=row_two.createCell(9);
+			
+			//格式过滤
 			String type_info=null;
 			if(member.getType().equals("general")){
 				type_info="普通会员";
@@ -162,16 +201,30 @@ public class AccountLoginService {
 			}else{
 				  type_info="全部会员";
 			}
-			row.createCell(0).setCellValue(member.getMemberName());
-			row.createCell(1).setCellValue(member.getMemberRealName());
-			row.createCell(2).setCellValue(member.getCardId());
-			row.createCell(3).setCellValue(member.getLiveAddress());
-			row.createCell(4).setCellValue(member.getMobileNumber());
-			row.createCell(5).setCellValue(member.getEmail());
-			row.createCell(6).setCellValue(type_info);
-			row.createCell(7).setCellValue(member.getCreditIntegral());
-			row.createCell(8).setCellValue(member.getLastLoginIpAddress());
-			row.createCell(9).setCellValue(member.getLoginCount());
+			
+			cell_Zero.setCellValue(member.getMemberName());
+			cell_One.setCellValue(member.getMemberRealName());
+			cell_Two.setCellValue(member.getCardId());
+			cell_Three.setCellValue(member.getLiveAddress());
+			cell_Four.setCellValue(member.getMobileNumber());
+			cell_Five.setCellValue(member.getEmail());
+			cell_Six.setCellValue(type_info);
+			cell_Seven.setCellValue(member.getCreditIntegral());
+			cell_Eight.setCellValue(member.getLastLoginIpAddress());
+			cell_Nine.setCellValue(member.getLoginCount());
+			
+			//列样式
+            cell_Zero.setCellStyle(style2);
+			cell_One.setCellStyle(style2);
+            cell_Two.setCellStyle(style2);
+			cell_Three.setCellStyle(style2);
+			cell_Four.setCellStyle(style2);
+			cell_Five.setCellStyle(style2);
+			cell_Six.setCellStyle(style2);
+			cell_Seven.setCellStyle(style2);
+			cell_Eight.setCellStyle(style2);
+			cell_Nine.setCellStyle(style2);
+			
 		}
 		return wb;
 	}

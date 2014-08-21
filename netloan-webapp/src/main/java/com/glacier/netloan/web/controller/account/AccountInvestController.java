@@ -268,7 +268,6 @@ public class AccountInvestController extends AbstractController {
 	  @RequestMapping(value="/expCheck.json")
 	  private void expCheckInvest(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
 	        AccountInvest accountInvestDataList=(AccountInvest)session.getAttribute("AccountInvestCheck");
-	        //System.out.println("我从Session中获取得对象值为:"+accountInvestDataList);
 	        List<AccountInvest> list=new ArrayList<AccountInvest>();
 	        if(accountInvestDataList==null){
 	            AccountInvest accountInvestNull=new AccountInvest();
@@ -278,7 +277,7 @@ public class AccountInvestController extends AbstractController {
 	        }
 	        HSSFWorkbook wb = accountInvestService.export(list);   
 	        response.setContentType("application/vnd.ms-excel"); 
-	        SimpleDateFormat sf=new SimpleDateFormat("yyyyMMddHHmmss");//yyyy-MM-dd HH:mm:ss
+	        SimpleDateFormat sf=new SimpleDateFormat("yyyyMMddHHmmss");
 	        String radioname=(String)session.getAttribute("investStr");
 	        Date StartTime=(Date)session.getAttribute("StartTime");
 	        Date EndTime=(Date)session.getAttribute("EndTime");
