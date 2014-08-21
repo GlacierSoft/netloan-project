@@ -13,19 +13,7 @@
 	   http://www.springframework.org/schema/cache/spring-cache.xsd
 	   ">
        
-       <cache:annotation-driven /><!-- 开启注解缓存 -->
-       
-       <bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"><!-- cacheManager工厂类，指定ehcache.xml的位置 -->
-          <property name="configLocation" value="classpath:ehcache.xml"></property>
-          <property name="shared" value="true"></property>
-      </bean>
-      
-     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager"><!-- 声明cacheManager -->
-            <property name="cacheManager" ref="cacheManagerFactory">
-     </property>
-     </bean>
-       
-     <!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
+      <!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
 	<context:component-scan base-package="com.glacier">
 		<!-- 排除SpringMVC的Controller注解，防止事务失效 -->
 		<context:exclude-filter type="annotation"

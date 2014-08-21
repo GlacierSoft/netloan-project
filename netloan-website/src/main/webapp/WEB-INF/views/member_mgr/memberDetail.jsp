@@ -103,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				       <li><a href="#tabchangeMobile" data-toggle="tab" onclick="FuckMobile();">更换手机</a></li>
 				       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
 				       <li id="tabbankCardTabs"><a href="#tabbankCard" id="tabbankCardTab" data-toggle="tab">银行卡设置</a></li>
-				       <li id="updateSecretSecurityLi"><a id="updateSecretSecurityTab" href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
+				       <li id="updateSecretSecurityLi"><a id="updateSecretSecurityTab" href="#updateSecretSecurity" data-toggle="tab" >修改密保设置</a></li>
 				       <li id="tabchangeMobileLi2"><a id="tabchangeMobileTab2" href="#tabUpdatePassword2" data-toggle="tab">修改交易密码</a></li>
 				       </c:if>
 				       <c:if test="${addBankCard == 'addBankCard' }">
@@ -112,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					       <li><a href="#tabchangeMobile" data-toggle="tab" onclick="FuckMobile();" >更换手机</a></li>
 					       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
 					       <li id="tabbankCardTabs" class="active"><a href="#tabbankCard" id="tabbankCardTab" data-toggle="tab">银行卡设置</a></li>
-					       <li id="updateSecretSecurityLi"><a  id="updateSecretSecurityTab" href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
+					       <li id="updateSecretSecurityLi"><a  id="updateSecretSecurityTab" href="#updateSecretSecurity" data-toggle="tab" >修改密保设置</a></li>
 				           <li id="tabchangeMobileLi2"><a  id="tabchangeMobileTab2" href="#tabUpdatePassword2" data-toggle="tab">修改交易密码</a></li>
 				       </c:if>
 				        <c:if test="${!empty updateSecretSecurity }">
@@ -121,7 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					       <li><a href="#tabchangeMobile" data-toggle="tab" onclick="FuckMobile();">更换手机</a></li>
 					       <li><a href="#tabnotification" data-toggle="tab">通知设置</a></li>
 					       <li id="tabbankCardTabs"><a href="#tabbankCard" id="tabbankCardTab" data-toggle="tab">银行卡设置</a></li>
-					       <li id="updateSecretSecurityLi" class="active"><a id="updateSecretSecurityTab" href="#updateSecretSecurity" data-toggle="tab">修改密保设置</a></li>
+					       <li id="updateSecretSecurityLi" class="active"><a id="updateSecretSecurityTab" href="#updateSecretSecurity" data-toggle="tab" >修改密保设置</a></li>
 				           <li id="tabchangeMobileLi2"><a  id="tabchangeMobileTab2" href="#tabUpdatePassword2" data-toggle="tab">修改交易密码</a></li>
 				       </c:if>
 				     </ul>
@@ -869,49 +869,225 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <hr class="featurette-divider2">
 	    </div>
 	    
-	    <!-- 自定义弹出层 -->
-	    <div id="DialogTextOne">
-	       <div Style="width:280px;height:36px;margin: auto;margin-top:10px;margin-bottom: 10px; ">
+	    <!-- 自定义验证码弹出层 -->
+	    <div id="DialogTextOne_lalal" style="display: none;">
+	       <div Style="width:450px;height:36px;margin: auto;margin-top:10px;margin-bottom: 10px;">
 	         <input disabled="disabled" class="btn btn-default"  type="button" value=" 输入手机验证码 :">&nbsp;
 	         <input class="inp100x"  style="width:120px;height:34px;border-radius:5px;" type="text" size="8" name="mobile_changeTxt" id="mobile_changeTxt" maxlength="6" onkeyup='this.value=this.value.replace(/\D/gi,"")' />&nbsp;
+	         <input class="btn btn-default" type="button" value="请在30秒内输入验证码" id="receive_mobile" disabled="disabled" onclick="findReceiveMobile();">&nbsp;
 	        </div>
 	    </div>
+	    
+	    <!-- 自定义安全问题弹出层 -->
+	    <div id="DialogTextOne_two" style="display: none;">
+	       <div style="width:650px;border:0px solid red;margin: auto;margin-top:10px;margin-bottom: 10px;">
+	            <form method="post" action="">
+	                 <div style="margin: auto; text-align: center;color: red;font-weight:bold;float: left;width: 620px;">安全问题设置</div>
+	                 <div style="float: left;width:650px;border:0px solid red;height: 80p;margin-top: 15px;">
+	                    <div style="width:620px;float: left; margin-top: 10px;margin-left: 80px;">
+	                       <div style="float: left;height: 35px;line-height: 35px;font-weight: bold;">问题一：&nbsp;&nbsp;&nbsp;</div> 
+	                       <div style="float: left;height: 35px;">
+                                <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >                                          
+                               <select class="form-control" name="questions1" id="questions1"  required="required" style="width: 250px;">
+					      		<option value="">请选择</option>
+					      	    <c:forEach items="${parameterQuestionResult.rows}" var="question" varStatus="indexStatus">
+					      		<option value="${question.questionId }">${question.questionDes }</option>
+					      	   </c:forEach>
+					           </select>
+						 </div>
+					  </div>
+					  <div style="width:620px;float: left;float: left;margin-top: 10px;margin-left: 55px;">
+	                     <div style="float: left;height: 35px;line-height: 35px;font-weight: bold;">问题一答案：&nbsp;&nbsp;&nbsp;</div> 
+	                     <div style="float: left;height: 35px;">
+                              <input type="text" class="form-control" id="updateSecretSecurityForm_answers1" name="answers1" placeholder="请输入问题一的答案" style="width: 400px;"  />
+						</div>
+					</div>
+	              </div>
+	               <div style="float: left;width:650px;border:0px solid red;height: 80p;margin-top: 15px;">
+	                    <div style="width:620px;float: left; margin-top: 10px;margin-left: 80px;">
+	                       <div style="float: left;height: 35px;line-height: 35px;font-weight: bold;">问题二：&nbsp;&nbsp;&nbsp;</div> 
+	                       <div style="float: left;height: 35px;">
+                                <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >                                          
+                               <select class="form-control" name="questions1" id="questions1"  required="required" style="width: 250px;">
+					      		<option value="">请选择</option>
+					      	    <c:forEach items="${parameterQuestionResult.rows}" var="question" varStatus="indexStatus">
+					      		<option value="${question.questionId }">${question.questionDes }</option>
+					      	   </c:forEach>
+					           </select>
+						 </div>
+					  </div>
+					  <div style="width:620px;float: left;float: left;margin-top: 10px;margin-left: 55px;">
+	                     <div style="float: left;height: 35px;line-height: 35px;font-weight: bold;">问题二答案：&nbsp;&nbsp;&nbsp;</div> 
+	                     <div style="float: left;height: 35px;">
+                              <input type="text" class="form-control" id="updateSecretSecurityForm_answers1" name="answers1" placeholder="请输入问题二的答案" style="width: 400px;"  />
+						</div>
+					</div>
+	              </div>
+	               <div style="float: left;width:650px;border:0px solid red;height: 80p;margin-top: 15px;margin-bottom: 10px;">
+	                    <div style="width:620px;float: left; margin-top: 10px;margin-left: 80px;">
+	                       <div style="float: left;height: 35px;line-height: 35px;font-weight: bold;">问题三：&nbsp;&nbsp;&nbsp;</div> 
+	                       <div style="float: left;height: 35px;">
+                                <input type="hidden" class="form-control" id="memberId" name="memberId" value="${currentMember.memberId}" >                                          
+                               <select class="form-control" name="questions1" id="questions1"  required="required" style="width: 250px;">
+					      		<option value="">请选择</option>
+					      	    <c:forEach items="${parameterQuestionResult.rows}" var="question" varStatus="indexStatus">
+					      		<option value="${question.questionId }">${question.questionDes }</option>
+					      	   </c:forEach>
+					           </select>
+						 </div>
+					  </div>
+					  <div style="width:620px;float: left;float: left;margin-top: 10px;margin-left: 55px;">
+	                     <div style="float: left;height: 35px;line-height: 35px;font-weight: bold;">问题三答案：&nbsp;&nbsp;&nbsp;</div> 
+	                     <div style="float: left;height: 35px;">
+                              <input type="text" class="form-control" id="updateSecretSecurityForm_answers1" name="answers1" placeholder="请输入问题三的答案" style="width: 400px;"  />
+						</div>
+					</div>
+	              </div>
+	            </form>
+		  </div>
+	    </div>
+	    
+	    <script>
+	     var count_temp =30; //间隔函数，1秒执行 
+	     var curCount_temp;//当前剩余秒数  
+	     var mobile_code_temp=0;//记录短信验证码 
+	     var mobile_right;//记录用户手机号码
+	    
+	     //timer处理函数  
+	 	function SetRemainTime_temp() {  
+	 	    if (curCount_temp == 0) { 
+	 	    	mobile_code_temp=0;
+	 	        window.clearInterval(InterValObj);// 停止计时器  
+	 	        $("#receive_mobile").removeAttr("disabled");// 启用按钮  
+	 	        $("#receive_mobile").val("重新发送验证码"); 
+	 	    }else {  
+	 	    	curCount_temp--;
+	 	    	mobile_code_temp=$("#mobile_changeTxt").val();
+	 	        $("#receive_mobile").val("请在" + curCount_temp + "秒内输入验证码");  
+	 	        
+	 	    }  
+	 	} 
+	     
+	     function findReceiveMobile(){
+	    	 curCount_temp=count_temp;
+	    	 $("#receive_mobile").attr("disabled", "true");  
+	         $("#btnSendCode").val("请在" + curCount_temp + "秒内输入验证码");  
+	         InterValObj= window.setInterval(SetRemainTime_temp, 1000); // 启动计时器，1秒执行一次 	 
+	     }
+	    </script>
 	    
 	    <jsp:include page="../foot.jsp"/>
 	    
 	    <script type="text/javascript"> 
-	       KindEditor.ready(function(K) {
-					K('#ChangePassMobile').click(function() {
-						var dialog = K.dialog({
-							width : 500,
-							title : '测试窗口',
-							body : '#DialogTextOne',
-							closeBtn : {
-								name : '关闭',
-								click : function(e) {
-									dialog.hide();
-									$(".ke-dialog-mask").hide();
-								}
-							},
-							yesBtn : {
-								name : '确定',
-								click : function(e) {
-									alert(this.value);
-								}
-							},
-							noBtn : {
-								name : '取消',
-								click : function(e) {
-									dialog.hide();
-									$(".ke-dialog-mask").hide();
-								}
+	    //弹框设置
+	    KindEditor.ready(function(K) {
+			K('#ChangePassMobile').click(function() {
+				 $("#DialogTextOne_lalal").css('display','block');
+				 $("#mobile_changeTxt").val("");
+				 curCount_temp=count_temp;
+		    	 $("#receive_mobile").attr("disabled", "true");  
+		         $("#btnSendCode").val("请在" + curCount_temp + "秒内输入验证码");  
+		         InterValObj= window.setInterval(SetRemainTime_temp, 1000); // 启动计时器，1秒执行一次 	
+		         $.ajax({
+		    		   type:"post",
+		    		   url:"<%=basePath%>others/FuckPhone.json",
+		     		   data:{"memberId":$("#memberId").val()},
+		     		   dataType:"json",
+		    		   success:function(data){
+		    			   $.post('<%=basePath%>resources/note/sms.jsp', {"mobile":data[0].info}, function(msg) {
+					  			//暂无事件
+					  		});    
+		    		   }
+		    		 });
+		         var dialog = K.dialog({
+					width : 500,
+					title : '手机验证窗口',
+					body : '#DialogTextOne_lalal',
+					closeBtn : {
+						name : '关闭',
+						click : function(e) {
+							dialog.hide();
+							$(".ke-dialog-mask").hide();
+						}
+					},
+					yesBtn : {
+						name : '确定',
+						click : function(e) {
+							if( $("#mobile_changeTxt").val().length==6){
+								alert("当前获取验证:"+mobile_code_temp);
+								$.ajax({
+						    		   type:"post",
+						    		   url:"<%=basePath%>others/FindNote.json",
+						     		   data:{"mobile_code":mobile_code_temp},
+						     		   dataType:"json",
+						    		   success:function(data){
+						    			   if(data[0].info){
+						    				    window.clearInterval(InterValObj);// 停止计时器
+												count_temp=30;
+										        $("#receive_mobile").val("请在30秒内输入验证码");
+												dialog.hide();
+												$(".ke-dialog-mask").hide();
+												safeChange();
+						    			   } else{
+						    				   alert("验证码超时或匹配错误!!");
+						    				   $("#mobile_changeTxt").val("");
+						    		      }   
+						    		   }
+						    	 });
+							}else{
+								alert("请正确填写验证码格式!!!");
 							}
-						});
-					});
+						}
+					},
+					noBtn : {
+						name : '取消',
+						click : function(e) {
+							window.clearInterval(InterValObj);// 停止计时器
+							count_temp=30;
+					        $("#receive_mobile").val("请在30秒内输入验证码");
+							dialog.hide();
+							$(".ke-dialog-mask").hide();
+						}
+					}
 				});
+			});
+		});
           
 	    
-	    //禁用Enter键表单自动提交
+	    //安全问题弹框
+	    function safeChange(){
+	    	KindEditor.ready(function(K) {
+				 $("#DialogTextOne_two").css('display','block');
+					var dialog = K.dialog({
+						width : 650,
+						title : '安全验证窗口',
+						body : '#DialogTextOne_two',
+						closeBtn : {
+							name : '关闭',
+							click : function(e) {
+								dialog.hide();
+								$(".ke-dialog-mask").hide();
+							}
+						},
+						yesBtn : {
+							name : '确定',
+							click : function(e) {
+								alert(this.value);
+							}
+						},
+						noBtn : {
+							name : '取消',
+							click : function(e) {
+								dialog.hide();
+								$(".ke-dialog-mask").hide();
+							}
+						}
+					});
+				
+			});
+        }
+	    
+	     //禁用Enter键表单自动提交
 	      document.onkeydown = function(event) {
 	          var target, code, tag;
 	          if (!event) {
