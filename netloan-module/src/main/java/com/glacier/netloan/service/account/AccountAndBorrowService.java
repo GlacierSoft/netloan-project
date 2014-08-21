@@ -3,10 +3,13 @@ package com.glacier.netloan.service.account;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.netloan.dao.account.AccountInvestMapper;
 import com.glacier.netloan.dao.basicdatas.ParameterBasicMapper;
@@ -17,9 +20,7 @@ import com.glacier.netloan.dao.borrow.RepaymentNotesDetailMapper;
 import com.glacier.netloan.dao.borrow.RepaymentNotesMapper;
 import com.glacier.netloan.dao.borrow.TenderNotesMapper;
 import com.glacier.netloan.dao.finance.FinanceMemberMapper;
-import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.member.MemberStatisticsMapper;
-import com.glacier.netloan.dao.member.MemberVipMapper;
 import com.glacier.netloan.dao.system.UserMapper;
 import com.glacier.netloan.entity.account.AccountInvest;
 import com.glacier.netloan.entity.account.AccountInvestExample;
@@ -34,11 +35,7 @@ import com.glacier.netloan.entity.borrow.RepaymentNotesDetail;
 import com.glacier.netloan.entity.borrow.RepaymentNotesDetailExample;
 import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.entity.finance.FinanceMember;
-import com.glacier.netloan.entity.member.Member;
-import com.glacier.netloan.entity.member.MemberExample;
 import com.glacier.netloan.entity.member.MemberStatistics;
-import com.glacier.netloan.entity.member.MemberVip;
-import com.glacier.netloan.entity.member.MemberVipExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
 import com.glacier.netloan.service.member.MemberStatisticsService;
@@ -82,12 +79,6 @@ public class AccountAndBorrowService implements InitializingBean {
 	 
 	@Autowired
 	private UserMapper userMapper;
-	
-	@Autowired
-	private MemberMapper MemberMapper;
-	
-	@Autowired
-	private MemberVipMapper memberVipMapper;
 	
 	/**
 	 * 返回一个AccountInvest的List集合的共同调用方法
@@ -262,24 +253,6 @@ public class AccountAndBorrowService implements InitializingBean {
 			}
 		}
     }  
-	
-	//判断会员是否过期
-	@PostConstruct  
-	public void memberShip() {
-		MemberExample memberExample = new MemberExample();
-		memberExample.createCriteria().andTypeEqualTo("vip");
-		List<Member> memberList = MemberMapper.selectByExample(memberExample);//取出为VIP的会员
-		for (Member member : memberList) {
-			MemberVipExample memberVipExample = new MemberVipExample();
-			memberVipExample.createCriteria().andMemberIdEqualTo(member.getMemberId());
-			List<MemberVip> memberVipList = memberVipMapper.selectByExample(memberVipExample);//循环出每个VIP会员的VIP信息
-			Date date1 = new Date();//当前时间
-			if(memberVipList.get(0).getVipEnd().before(date1)){//表示当前时间在会员的VIP到期时间前面就为VIP过期
-				memberList.get(0).setType("general");//改成普通会员类型
-				MemberMapper.updateByPrimaryKeySelective(memberList.get(0));//执行VIP修改
-			}
-		}
-	}
 	
     @Override  
     public void afterPropertiesSet() throws Exception {  

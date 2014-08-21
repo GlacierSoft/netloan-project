@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -43,10 +45,10 @@ import com.glacier.netloan.entity.member.MemberAuthExample;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
 import com.glacier.netloan.entity.member.MemberCreditIntegral;
 import com.glacier.netloan.entity.member.MemberExample;
+import com.glacier.netloan.entity.member.MemberExample.Criteria;
 import com.glacier.netloan.entity.member.MemberIntegral;
 import com.glacier.netloan.entity.member.MemberMessageNotice;
 import com.glacier.netloan.entity.member.MemberStatistics;
-import com.glacier.netloan.entity.member.MemberExample.Criteria;
 import com.glacier.netloan.entity.member.MemberToken;
 import com.glacier.netloan.entity.member.MemberWork;
 import com.glacier.netloan.entity.member.MemberWorkExample;
@@ -957,13 +959,13 @@ public class MemberService {
       } 
    } 
      
-    //获取管理员id
-      public String getuserId(){ 
+    // 获取管理员id
+    public String getuserId() {
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUsernameEqualTo("admin");
         List<User> users = userMapper.selectByExample(userExample);
         return users.get(0).getUserId();
-       }
+    }
       
     //取消手机绑定手机
     @Transactional(readOnly = false) 
@@ -991,5 +993,28 @@ public class MemberService {
         List<Member> member_list=memberMapper.selectByExample(memberExample);
     	String mobile_info=member_list.get(0).getMobileNumber();
     	return mobile_info;
+    }
+    
+    /**
+     * @Title: memberExpire 
+     * @Description: TODO(判断会员是否过期) 
+     * @param  
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    @PostConstruct  
+    public void memberExpire() {
+        MemberExample memberExample = new MemberExample();
+        memberExample.createCriteria().andTypeEqualTo("vip");
+        List<Member> memberList = memberMapper.selectByExample(memberExample);//取出为VIP的会员
+        for (Member member : memberList) {
+            Date dateExpire = new Date();//当前时间
+            if(member.getExpireTime().before(dateExpire)){//表示当前时间在会员的VIP到期时间前面就为VIP过期
+                member.setType("general");//改成普通会员类型
+                member.setRemark("VIP到期，进行更新会员信息");
+                member.setUpdateTime(new Date());
+                memberMapper.updateByPrimaryKeySelective(memberList.get(0));//执行VIP修改
+            }
+        }
     }
 }
