@@ -907,7 +907,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    <div style="width:620px;float: left; margin-top: 10px;margin-left: 80px;">
 	                       <div style="float: left;height: 35px;line-height: 35px;font-weight: bold;">问题二：&nbsp;&nbsp;&nbsp;</div> 
 	                       <div style="float: left;height: 35px;">
-                                 <select class="form-control" name="questions2" id="questions2_temp" required="required" >
+                                 <select class="form-control" name="questions2" id="questions2_temp" required="required" style="width: 250px;" >
 						      		<option value="0">请选择</option>
 								  <c:forEach items="${parameterQuestionResult.rows}" var="question" varStatus="indexStatus">
 						      		<option value="${question.questionId }">${question.questionDes }</option>
@@ -926,7 +926,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    <div style="width:620px;float: left; margin-top: 10px;margin-left: 80px;">
 	                       <div style="float: left;height: 35px;line-height: 35px;font-weight: bold;">问题三：&nbsp;&nbsp;&nbsp;</div> 
 	                       <div style="float: left;height: 35px;">
-                                <select class="form-control" name="questions3" id="questions3_temp" required="required" >
+                                <select class="form-control" name="questions3" id="questions3_temp" required="required"  style="width: 250px;">
 						      		<option value="0">请选择</option>
 								  <c:forEach items="${parameterQuestionResult.rows}" var="question" varStatus="indexStatus">
 						      		<option value="${question.questionId }">${question.questionDes }</option>
