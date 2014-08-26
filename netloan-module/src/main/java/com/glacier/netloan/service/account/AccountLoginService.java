@@ -11,22 +11,15 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-
-
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
-
 import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.member.MemberWorkMapper;
 import com.glacier.netloan.dto.query.member.MemberQueryDTO;
-
-import com.glacier.netloan.entity.account.AccountInvest;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberExample;
@@ -109,6 +102,7 @@ public class AccountLoginService {
 	public Object getMember(String memberId) {
 		Member member = memberMapper.selectByPrimaryKey(memberId);
         // 查询基础信用积分的所有数据
+		@SuppressWarnings("unchecked")
 		List<ParameterCredit> parameterCredits = (List<ParameterCredit>) parameterCreditService.listCredits();
         // 通过嵌套for循环，将会员的信用图标加到会员对象中去
 		for (ParameterCredit parameterCredit : parameterCredits) {

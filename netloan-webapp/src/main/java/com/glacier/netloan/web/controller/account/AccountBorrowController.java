@@ -53,7 +53,8 @@ public class AccountBorrowController{
     @ResponseBody
     private Object listAccountBorrowAsGridByMenuId(JqPager jqPager, BorrowingLoanQueryDTO borrowingLoanQueryDTO, String loanState,HttpSession session) {
         JqGridReturn returnResult=(JqGridReturn) accountBorrowService.listAsGrid(jqPager, borrowingLoanQueryDTO, loanState);
-    	 if(returnResult!=null){
+    	if(returnResult!=null){
+    	  @SuppressWarnings("unchecked")
     	  List<BorrowingLoan> list=(List<BorrowingLoan>)returnResult.getRows();	
     	  session.setAttribute("List", list);
     	 }
@@ -64,9 +65,8 @@ public class AccountBorrowController{
 	@RequestMapping(value = "/intoDetail.htm")
 	private Object intoAccountBorrowDetailPage(String loanId) {
 		ModelAndView mav = new ModelAndView("account_mgr/accountBorrow_mgr/accountBorrow_detail");
-		if (StringUtils.isNotBlank(loanId)) {
-			mav.addObject("borrowingLoanData",
-					accountBorrowService.getBorrowingLoan(loanId));
+		if(StringUtils.isNotBlank(loanId)) {
+		  mav.addObject("borrowingLoanData",accountBorrowService.getBorrowingLoan(loanId));
 		}
 		return mav;
 	}
@@ -74,30 +74,31 @@ public class AccountBorrowController{
     //借款信息导出
     @RequestMapping(value="/exp.json")
     private void expAccountBorrow(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
-    	  List<BorrowingLoan> list=(List<BorrowingLoan>)session.getAttribute("List");
-    	  HSSFWorkbook wb =null;
-    	  if(list.size()>0&&list!=null){
-    		  wb = accountBorrowService.export(list);   
-    	  }else{
-    		  List<BorrowingLoan> list_null=new ArrayList<BorrowingLoan>();
-    		  BorrowingLoan borrowingLoan=new BorrowingLoan();
-    		  borrowingLoan.setMemberDisplay("Null");
-    		  borrowingLoan.setLoanTitle("Null");
-    		  borrowingLoan.setLoanTotal(new Float(0.00));
-    		  borrowingLoan.setLoanTenderDisplay("Null");
-    		  borrowingLoan.setLoanDate(new Date());
-    		  borrowingLoan.setLoanPurposeId("Null");
-    		  borrowingLoan.setLoanDeadlinesId("Null");
-    		  list_null.add(borrowingLoan);
-    		  wb=accountBorrowService.export(list_null);
-    	  }
-    	  response.setContentType("application/vnd.ms-excel"); 
-          SimpleDateFormat sf=new SimpleDateFormat("yyyyMMddHHmmss");//日期格式设置
-          String fileName="AccountBorrow_"+sf.format(new Date());//文件名称
-          response.setHeader("Content-disposition", "attachment;filename="+fileName+".xls");    
-          OutputStream ouputStream = response.getOutputStream();    
-          wb.write(ouputStream);    
-          ouputStream.flush();    
-          ouputStream.close();       	
+    	@SuppressWarnings("unchecked")
+		List<BorrowingLoan> list=(List<BorrowingLoan>)session.getAttribute("List");
+		HSSFWorkbook wb =null;
+		if(list.size()>0&&list!=null){
+			wb = accountBorrowService.export(list);   
+		}else{
+			List<BorrowingLoan> list_null=new ArrayList<BorrowingLoan>();
+			BorrowingLoan borrowingLoan=new BorrowingLoan();
+			borrowingLoan.setMemberDisplay("Null");
+			borrowingLoan.setLoanTitle("Null");
+			borrowingLoan.setLoanTotal(new Float(0.00));
+			borrowingLoan.setLoanTenderDisplay("Null");
+			borrowingLoan.setLoanDate(new Date());
+			borrowingLoan.setLoanPurposeId("Null");
+			borrowingLoan.setLoanDeadlinesId("Null");
+			list_null.add(borrowingLoan);
+			wb=accountBorrowService.export(list_null);
+    	}
+    	response.setContentType("application/vnd.ms-excel"); 
+        SimpleDateFormat sf=new SimpleDateFormat("yyyyMMddHHmmss");//日期格式设置
+        String fileName="AccountBorrow_"+sf.format(new Date());//文件名称
+        response.setHeader("Content-disposition", "attachment;filename="+fileName+".xls");    
+        OutputStream ouputStream = response.getOutputStream();    
+        wb.write(ouputStream);    
+        ouputStream.flush();    
+        ouputStream.close();       	
     }
 }

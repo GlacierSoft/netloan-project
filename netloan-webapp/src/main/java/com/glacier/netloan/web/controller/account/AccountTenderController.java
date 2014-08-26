@@ -65,7 +65,8 @@ public class AccountTenderController extends AbstractController {
 	  private Object listActionAsGridByMenuId(JqPager jqPager, TenderNotesQueryDTO tenderNotesQueryDTO, String q,HttpSession session) {
         JqGridReturn returnResult=(JqGridReturn) accountTenderService.listAsGrid(jqPager, tenderNotesQueryDTO, q);
     	if(returnResult!=null){
-    	    List<TenderNotes> list=(List<TenderNotes>) returnResult.getRows();
+    	    @SuppressWarnings("unchecked")
+			List<TenderNotes> list=(List<TenderNotes>) returnResult.getRows();
     	    session.setAttribute("List", list);
     	}
         return returnResult;
@@ -75,6 +76,7 @@ public class AccountTenderController extends AbstractController {
 	   //登录统计信息导出
 	   @RequestMapping(value = "/exp.json")
 	   private void expAccountTender(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
+	    	  @SuppressWarnings("unchecked")
 	    	  List<TenderNotes> list=(List<TenderNotes>)session.getAttribute("List");
 	    	  HSSFWorkbook wb=null;
 	    	  if(list.size()>0&&list!=null){

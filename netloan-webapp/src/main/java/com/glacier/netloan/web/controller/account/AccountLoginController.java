@@ -44,39 +44,41 @@ public class AccountLoginController extends AbstractController {
 	@Autowired
 	private AccountLoginService accountLoginService;
 	  
-	 //会员登入统计信息页
-	 @RequestMapping(value="/index.htm")
-	 public Object intoAccountLogin(HttpServletRequest request,HttpServletResponse response){
+	//会员登入统计信息页
+	@RequestMapping(value="/index.htm")
+	public Object intoAccountLogin(HttpServletRequest request,HttpServletResponse response){
 		ModelAndView mode=new ModelAndView("account_mgr/accountLogin_mgr/accountLogin");
 	    return mode ;	
-	 }
+	}
 	 
-     //会员登入统计详情页
-	 @RequestMapping(value = "/intoDetail.htm")
-	 private Object intoAccountLoginDetailPage(String memberId) {
+    //会员登入统计详情页
+	@RequestMapping(value = "/intoDetail.htm")
+	private Object intoAccountLoginDetailPage(String memberId) {
         ModelAndView mav = new ModelAndView("account_mgr/accountLogin_mgr/accountLogin_detail");
         if(StringUtils.isNotBlank(memberId)){
             mav.addObject("memberData", accountLoginService.getMember(memberId));
             mav.addObject("memberWorkData", accountLoginService.getMemberWork(memberId));
         }
         return mav;
-	  }
+	 }
 	    
-	  //获取表格结构的所有菜单数据
-	  @RequestMapping(value = "/list.json", method = RequestMethod.POST)
-	  @ResponseBody
-	  private Object listActionAsGridByMenuId(JqPager jqPager, MemberQueryDTO memberQueryDTO, String q,HttpSession session) {
-        JqGridReturn returnResult=(JqGridReturn)accountLoginService.listAsGrid(jqPager, memberQueryDTO, q);
-        if(returnResult!=null){
-        	List<Member> list=(List<Member>)returnResult.getRows();
+	 //获取表格结构的所有菜单数据
+	 @RequestMapping(value = "/list.json", method = RequestMethod.POST)
+	 @ResponseBody
+	 private Object listActionAsGridByMenuId(JqPager jqPager, MemberQueryDTO memberQueryDTO, String q,HttpSession session) {
+         JqGridReturn returnResult=(JqGridReturn)accountLoginService.listAsGrid(jqPager, memberQueryDTO, q);
+         if(returnResult!=null){
+        	@SuppressWarnings("unchecked")
+			List<Member> list=(List<Member>)returnResult.getRows();
         	session.setAttribute("List", list);
-        }
-    	return returnResult;
-	  }
+         }
+    	 return returnResult;
+	 }
 	    
-	  //登录统计信息导出
-	  @RequestMapping(value = "/exp.json")
-	  private void expAccountLogin(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
+	 //登录统计信息导出
+	 @RequestMapping(value = "/exp.json")
+	 private void expAccountLogin(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
+    	  @SuppressWarnings("unchecked")
     	  List<Member> list=(List<Member>)session.getAttribute("List");
     	  HSSFWorkbook wb=null;
     	  if(list.size()>0&&list!=null){

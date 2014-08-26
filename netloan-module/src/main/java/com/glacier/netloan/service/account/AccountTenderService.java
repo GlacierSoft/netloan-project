@@ -15,12 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Propagation;
-
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dao.borrow.TenderNotesMapper;
 import com.glacier.netloan.dto.query.borrow.TenderNotesQueryDTO;
-import com.glacier.netloan.entity.account.AccountInvest;
 import com.glacier.netloan.entity.borrow.TenderNotes;
 import com.glacier.netloan.entity.borrow.TenderNotesExample;
 import com.glacier.netloan.entity.borrow.TenderNotesExample.Criteria;
@@ -102,14 +100,11 @@ public class AccountTenderService {
 	 */
 	
 	public HSSFWorkbook export(List<TenderNotes> list) {
-		
 		String[] excelHeader = { "投标用户", "用户积分(分)", "认购份数(份)", "借款标题", "借款用户", "投标状态" ,"创建人","创建时间","备注" };
 		int[] excelHeaderWidth = { 100, 100, 100, 100, 100, 100, 100, 100,100 };
-		
 		HSSFWorkbook wb = new HSSFWorkbook();
 		HSSFSheet sheet = wb.createSheet("用户投标报表统计");
 		HSSFRow row = sheet.createRow((int) 0);
-		
 		// 生成一个样式  
         HSSFCellStyle style = wb.createCellStyle();  
         //设置这些样式  
@@ -125,7 +120,6 @@ public class AccountTenderService {
         font.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);  
         // 把字体应用到当前的样式  
         style.setFont(font); 
-        
         HSSFCellStyle style2 = wb.createCellStyle();  
         style2.setBorderBottom(HSSFCellStyle.BORDER_THIN);  
         style2.setBorderLeft(HSSFCellStyle.BORDER_THIN);  
@@ -133,7 +127,6 @@ public class AccountTenderService {
         style2.setBorderTop(HSSFCellStyle.BORDER_THIN);  
         style2.setAlignment(HSSFCellStyle.ALIGN_CENTER);  
         style2.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);  
-		
 		for (int i = 0; i < excelHeader.length; i++) {
 			HSSFCell cell = row.createCell(i);
 			cell.setCellValue(excelHeader[i]);
@@ -162,7 +155,6 @@ public class AccountTenderService {
 			HSSFCell cell_Six = row_two.createCell(6);	
 			HSSFCell cell_Seven = row_two.createCell(7);
 			HSSFCell cell_Eight = row_two.createCell(8);
-			
 			String loanState=null;
 			String remark=tenderNotes.getRemark(); 
 			if(tenderNotes.getLoanState().equals("firstAudit"))
@@ -181,7 +173,6 @@ public class AccountTenderService {
 				loanState="其他";
 			if(remark==null)
                 remark="无";
-			
 			cell_Zero.setCellValue(tenderNotes.getMemberDisplay());// 投标用户
 			cell_One.setCellValue(tenderNotes.getCreditIntegral());// 用户积分
 			cell_Two.setCellValue(tenderNotes.getSubTotal());// 认购份数
@@ -191,7 +182,6 @@ public class AccountTenderService {
 			cell_Six.setCellValue(tenderNotes.getCreaterDisplay());// 创建人
 			cell_Seven.setCellValue(sf.format(tenderNotes.getCreateTime()));// 创建时间
 			cell_Eight.setCellValue(remark);// 备注
-			
 			//列样式
             cell_Zero.setCellStyle(style2);
 			cell_One.setCellStyle(style2);

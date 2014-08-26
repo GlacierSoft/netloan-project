@@ -135,6 +135,9 @@ public class BorrowingLoanService {
 	@Autowired
     private ParameterCreditMapper parameterCreditMapper;
 	
+	@Autowired
+	private HtmlEmailPublic htmlEmailPublic;
+	
 	/**
 	 * @Title: getBorrowingLoan 
 	 * @Description: TODO(根据借款Id获取借款信息) 
@@ -500,6 +503,7 @@ public class BorrowingLoanService {
         //借款初次审核站内信通知
         MemberMessageNotice  memberMessageNotice = new MemberMessageNotice();
         memberMessageNotice.setTitle(borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId()).getLoanTitle()+",初次审核通知");
+        Member memberborrowingLoan = memberMapper.selectByPrimaryKey(borrowingLoan.getMemberId());//根据借款会员ID取出借款人的信息
         if(borrowingLoan.getSecondMesNotice()!=null){ 
             memberMessageNotice.setContent(borrowingLoan.getSecondMesNotice());
         }else{ 
@@ -508,7 +512,6 @@ public class BorrowingLoanService {
         	}else{
         		memberMessageNotice.setContent("借款初审审核不通过，请重新申请");
         		//根据借款人的ID查询出借款人的信息，扣除信用额度
-                Member memberborrowingLoan = memberMapper.selectByPrimaryKey(borrowingLoan.getMemberId());//根据借款会员ID取出借款人的信息
                 BorrowingLoan mborrowingLoan = borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());//根据借款ID取出该借款的信息
                 memberborrowingLoan.setCreditamount(memberborrowingLoan.getCreditamount()+mborrowingLoan.getLoanTotal());//扣除信用额度(信用额度+借款总额)
                 memberborrowingLoan.setUpdater(pricipalUser.getUserId());
@@ -548,6 +551,10 @@ public class BorrowingLoanService {
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + borrowingLoan.getLoanCode() + "] 初审借款信息操作成功");
+            BorrowingLoan borrowingLoanMsg = borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());
+            String msg="尊敬的"+borrowingLoanMsg.getMemberDisplay()+"：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您申请的[<font color='red'>"+borrowingLoanMsg.getLoanTitle()+"</font>]借款初审审核成功！" +
+	        		"<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由冰川网贷系统自动发送，请勿回复！</font>";
+            htmlEmailPublic.goEmail(memberborrowingLoan,msg);
         } else {
             returnResult.setMsg("发生未知错误，初审借款信息失败");
         }
@@ -804,6 +811,22 @@ public class BorrowingLoanService {
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + borrowingLoan.getLoanCode() + "] 复审借款信息成功");
+            //借款人
+            Member member=memberMapper.selectByPrimaryKey(borrowingLoan.getMemberId());
+            String msg="尊敬的"+borrowingLoan.getMemberDisplay()+"：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您申请的[<font color='red'>"+borrowingLoan.getLoanTitle()+"</font>]借款复审审核成功！" +
+	        		"<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由冰川网贷系统自动发送，请勿回复！</font>";
+            htmlEmailPublic.goEmail(member,msg);
+            
+            //投资人
+            TenderNotesExample tenderNotesExample = new TenderNotesExample();;
+            tenderNotesExample.createCriteria().andLoanIdEqualTo(borrowingLoanNew.getLoanId());//查询相对应的投标的记录
+            List<TenderNotes> tenderNotesList = tenderNotesMapper.selectByExample(tenderNotesExample);
+            for (TenderNotes tenderNotes : tenderNotesList) {
+            	Member memberTenderNotes=memberMapper.selectByPrimaryKey(tenderNotes.getMemberId());
+            	String tenderMsg="尊敬的"+tenderNotes.getMemberDisplay()+"：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您投资的[<font color='red'>"+borrowingLoan.getLoanTitle()+"</font>]借款复审审核成功！" +
+    	        		"<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由冰川网贷系统自动发送，请勿回复！</font>";
+                htmlEmailPublic.goEmail(memberTenderNotes,tenderMsg);
+			}
         } else {
             returnResult.setMsg("发生未知错误，复审借款信息失败");
         }

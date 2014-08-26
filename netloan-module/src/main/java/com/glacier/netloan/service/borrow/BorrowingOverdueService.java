@@ -1,7 +1,4 @@
 package com.glacier.netloan.service.borrow; 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,15 +13,6 @@ import com.glacier.netloan.dao.borrow.RepaymentNotesDetailMapper;
 import com.glacier.netloan.dao.borrow.RepaymentNotesMapper;
 import com.glacier.netloan.dao.borrow.TenderNotesMapper;
 import com.glacier.netloan.dao.member.MemberStatisticsMapper;
-import com.glacier.netloan.entity.basicdatas.ParameterBasic;
-import com.glacier.netloan.entity.basicdatas.ParameterBasicExample;
-import com.glacier.netloan.entity.borrow.BorrowingLoan;
-import com.glacier.netloan.entity.borrow.ReceivablesNotesDetail;
-import com.glacier.netloan.entity.borrow.ReceivablesNotesDetailExample;
-import com.glacier.netloan.entity.borrow.RepaymentNotes;
-import com.glacier.netloan.entity.borrow.RepaymentNotesDetail;
-import com.glacier.netloan.entity.borrow.RepaymentNotesDetailExample;
-import com.glacier.netloan.entity.member.MemberStatistics;
 
 @Service("borrowingOverdueService")
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)

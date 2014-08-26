@@ -67,42 +67,42 @@ public class AccountInvestController extends AbstractController {
 	//投资统计信息页
 	 @RequestMapping(value="/index.htm")
 	 public Object intoAccountInvest(HttpServletRequest request,HttpServletResponse response){
-		ModelAndView mode=new ModelAndView("account_mgr/accountInvest_mgr/accountInvest");
-	    return mode ;	
+		 ModelAndView mode=new ModelAndView("account_mgr/accountInvest_mgr/accountInvest");
+	     return mode ;	
 	}
 	 
 	 //投资统计详情页
 	 @RequestMapping(value = "/intoDetail.htm")
 	 private Object intoAccountInvestDetailPage(String investId) {
-	      ModelAndView mav = new ModelAndView("account_mgr/accountInvest_mgr/accountInvest_detail");
-	      if(StringUtils.isNotBlank(investId)){
-	            mav.addObject("accountInvestData", accountInvestService.getAccountInvest(investId));
-	         }
-	        return mav;
+	     ModelAndView mav = new ModelAndView("account_mgr/accountInvest_mgr/accountInvest_detail");
+	     if(StringUtils.isNotBlank(investId)){
+	          mav.addObject("accountInvestData", accountInvestService.getAccountInvest(investId));
+	     }
+	     return mav;
 	  }
 	    
 	  //获取表格结构的所有菜单数据
 	  @RequestMapping(value = "/list.json", method = RequestMethod.POST)
 	  @ResponseBody
 	  private Object listActionAsGridByMenuId(JqPager jqPager,AccountInvestQueryDTO accountInvestQueryDTO ) {
-	    	return accountInvestService.listAsGrid(jqPager,accountInvestQueryDTO);
-	   }
+	     return accountInvestService.listAsGrid(jqPager,accountInvestQueryDTO);
+	  }
 	    
 	  //投资统计信息导出
 	  @SuppressWarnings("unchecked")
 	  @RequestMapping(value = "/exp.json")
 	  private void expAccountInvest(JqPager jqPager, AccountInvestQueryDTO accountInvestQueryDTO, String q,HttpServletRequest request,HttpServletResponse response) throws IOException{
-	    	  JqGridReturn returnResult=(JqGridReturn) accountInvestService.listAsGrid(jqPager,accountInvestQueryDTO);
-	    	  List<AccountInvest> list=(List<AccountInvest>)returnResult.getRows();
-	    	  HSSFWorkbook wb = accountInvestService.export(list);   
-	          response.setContentType("application/vnd.ms-excel");    
-	          SimpleDateFormat sf=new SimpleDateFormat("yyyyMMddHHmmss");
-	          String filename="AccountInvest_"+sf.format(new Date());
-	          response.setHeader("Content-disposition", "attachment;filename="+filename+".xls");    
-	          OutputStream ouputStream = response.getOutputStream();    
-	          wb.write(ouputStream);    
-	          ouputStream.flush();    
-	          ouputStream.close();  
+    	  JqGridReturn returnResult=(JqGridReturn) accountInvestService.listAsGrid(jqPager,accountInvestQueryDTO);
+    	  List<AccountInvest> list=(List<AccountInvest>)returnResult.getRows();
+    	  HSSFWorkbook wb = accountInvestService.export(list);   
+          response.setContentType("application/vnd.ms-excel");    
+          SimpleDateFormat sf=new SimpleDateFormat("yyyyMMddHHmmss");
+          String filename="AccountInvest_"+sf.format(new Date());
+          response.setHeader("Content-disposition", "attachment;filename="+filename+".xls");    
+          OutputStream ouputStream = response.getOutputStream();    
+          wb.write(ouputStream);    
+          ouputStream.flush();    
+          ouputStream.close();  
 	   }
 	   
 	  //柱形图数据绑定
@@ -120,7 +120,8 @@ public class AccountInvestController extends AbstractController {
 		  }catch(Exception e){
 			  System.out.println("异常抛出成功!");
 		  }
-		  List<AccountInvest> list_invest=(List<AccountInvest>) accountInvestService.FindAccountInvest(year_number,month_number);
+		  @SuppressWarnings("unchecked")
+		List<AccountInvest> list_invest=(List<AccountInvest>) accountInvestService.FindAccountInvest(year_number,month_number);
 		  //定义变量
 		  Float[]  sumUncollected=new Float[list_invest.size()];
 		  Float[]  sumReward=new Float[list_invest.size()];
@@ -129,8 +130,7 @@ public class AccountInvestController extends AbstractController {
 		  Float[]  sumAdvfee=new Float[list_invest.size()];
 		  Float[]  sumInterest=new Float[list_invest.size()];
 		  Float[]  sumInterestfee=new Float[list_invest.size()];
-		 
-		 //变量赋值
+		  //变量赋值
 		  for(int i=0;i<list_invest.size();i++){
 			  sumUncollected[i]=list_invest.get(i).getSumUncollected();
 			  sumReward[i]=list_invest.get(i).getSumReward();
@@ -140,7 +140,6 @@ public class AccountInvestController extends AbstractController {
 			  sumInterest[i]=list_invest.get(i).getSumInterest();
 			  sumInterestfee[i]=list_invest.get(i).getSumInterestfee();
 		  }
-		  
 		  //变量存储
 		  for(int i=0;i<6;i++){
 			  Map<String,Object> map=new HashMap<String, Object>();
@@ -173,10 +172,8 @@ public class AccountInvestController extends AbstractController {
 				   map.put("data", sumInterestfee);
 				   data_invest.add(map);
 			   }
-				  
 			}
 		  return data_invest;
-		
       }
 	  
 	  //X轴日期绑定
@@ -195,7 +192,8 @@ public class AccountInvestController extends AbstractController {
 		  }catch(Exception e){
 			  System.out.println("异常抛出成功!");
 		  }
-		  List<AccountInvest> list_invest=(List<AccountInvest>) accountInvestService.FindAccountInvest(year_number,month_number);
+		  @SuppressWarnings("unchecked")
+		List<AccountInvest> list_invest=(List<AccountInvest>) accountInvestService.FindAccountInvest(year_number,month_number);
 		  //时间转化
 		  SimpleDateFormat sf=new SimpleDateFormat("MM.dd");
 		  String[] str_date=new String[list_invest.size()]; 
@@ -203,14 +201,11 @@ public class AccountInvestController extends AbstractController {
 		  for(int i=0;i<list_invest.size();i++){
 			  str_date[i]=sf.format(list_invest.get(i).getCreateTime());  
 		  }
-		  
 		  Map<String, Object> map_invest=new HashMap<String, Object>();
 		  map_invest.put("date", str_date);
 		  data_invest.add(map_invest);
-		  
 		  return data_invest;
 	  }
-	  
 	  
 	  //年月数据存储
 	  @RequestMapping(value="/yearMonth.json")
