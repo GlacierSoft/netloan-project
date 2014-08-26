@@ -234,16 +234,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	    	}
     	    });
     	   
-    	   
-    	    $.ajax({
+    	   $.ajax({
      		   type:"post",
      		   url:"<%=basePath%>service/list.json",
      		   dataType:"json",
      		   success:function(data){
-     		        //循环开始
+     			   //循环开始
      		        $.each(data.rows,function(i,v){
-                           //alert("客服姓名:"+v.webServiceName+" 客服QQ:"+v.webServiceQq);   	
-     		               $("<a target='_blank' href='http://wpa.qq.com/msgrd?v=3&uin="+v.webServiceQq+"&site=qq&menu=yes'><img border='0' src='http://wpa.qq.com/pa?p=2:1203807137:51' alt='点击这里给我发消息' title='点击这里给我发消息'/></a>").appendTo("#KeFu_PutIn");     
+                           //alert("客服姓名:"+v.webServiceName+" 客服QQ:"+v.webServiceQq);	
+                           var numb=v.webServiceQq;
+                           $("<a target='_blank' href='http://wpa.qq.com/msgrd?v=3&uin="+v.webServiceQq+"&site=qq&menu=yes'><img border='0' src='http://wpa.qq.com/pa?p=1:"+numb+":51' alt='点击这里给我发消息' title='点击这里给我发消息'/></a>").appendTo("#KeFu_PutIn");     
      		       });
      		   }
      		});
