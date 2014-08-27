@@ -494,7 +494,7 @@ public class BorrowingLoanService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        
+        //判断是否选择审核按钮
         if(borrowingLoan.getFirstAuditState().equals("")){ 
         	returnResult.setMsg("操作失败,请选择审核状态!");
         	return returnResult; 
@@ -523,7 +523,7 @@ public class BorrowingLoanService {
         }
         memberMessageNotice.setAddressee(borrowingLoan.getMemberId());
         memberMessageNoticeService.addMemberMessageNotice(memberMessageNotice);
-         
+        //对借款信息赋值
         borrowingLoan.setFirstAuditorId(pricipalUser.getUserId());
         borrowingLoan.setFirstAuditDate(new Date());
         borrowingLoan.setUpdater(pricipalUser.getUserId());
@@ -652,14 +652,12 @@ public class BorrowingLoanService {
           	financeTransaction.setRefundMoney(financeMember.getRefundMoney());//设置待还金额
           	financeTransaction.setAmount(financeMember.getAmount());//设置总金额
           	financeTransactionService.addTransaction(financeTransaction);//调用添加记录明细方法
-                  	 
           	//增加借款会员积分记录表
         	//先查询出borrow的积分类型
         	ParameterIntegralTypeExample integralTypeExample = new ParameterIntegralTypeExample();
         	integralTypeExample.createCriteria().andIntegralTypeEqualTo("borrow");
         	List<ParameterIntegralType> integralTypes = integralTypeMapper.selectByExample(integralTypeExample);
         	ParameterIntegralType integralType = integralTypes.get(0);
-        	
         	//构建一个积分对象
         	MemberIntegral menberIntegral=new MemberIntegral();
         	menberIntegral.setMemberIntegralId(RandomGUID.getRandomGUID());
@@ -670,16 +668,13 @@ public class BorrowingLoanService {
         	menberIntegral.setRemark(integralType.getRemark());
         	menberIntegral.setCreater(pricipalUser.getUserId());
         	menberIntegral.setCreateTime(new Date());
-        	
         	//添加积分记录
         	integralMapper.insert(menberIntegral); 
         	//更新借款人的会员总积分
         	Member member=memberMapper.selectByPrimaryKey(borrowingLoan.getMemberId());
         	member.setIntegral(member.getIntegral()+integralType.getChangeValue());
-        	
         	//修改会员信息
         	memberMapper.updateByPrimaryKeySelective(member);
-        	
           	//判断借款是否设置投标奖励
           	if(borrowingLoan.getIsBidReward().equals("yes")){
           		if(borrowingLoan.getFixedAppReward() != 0.0){//按固定金额分摊奖励
@@ -811,22 +806,25 @@ public class BorrowingLoanService {
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + borrowingLoan.getLoanCode() + "] 复审借款信息成功");
-            //借款人
+            //借款人发送邮箱
+            List<String> toMailborrowingLoanList = new ArrayList<String>(); 
             Member member=memberMapper.selectByPrimaryKey(borrowingLoan.getMemberId());
-            String msg="尊敬的"+borrowingLoan.getMemberDisplay()+"：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您申请的[<font color='red'>"+borrowingLoan.getLoanTitle()+"</font>]借款复审审核成功！" +
+            toMailborrowingLoanList.add(member.getEmail());
+            String borrowingLoanMsg="亲爱的"+borrowingLoan.getMemberDisplay()+"：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您申请的[<font color='red'>"+borrowingLoan.getLoanTitle()+"</font>]借款复审审核成功！" +
 	        		"<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由冰川网贷系统自动发送，请勿回复！</font>";
-            htmlEmailPublic.goEmail(member,msg);
-            
-            //投资人
+            htmlEmailPublic.sendEmail(toMailborrowingLoanList, borrowingLoanMsg);
+            //投资人发送邮箱
             TenderNotesExample tenderNotesExample = new TenderNotesExample();;
             tenderNotesExample.createCriteria().andLoanIdEqualTo(borrowingLoanNew.getLoanId());//查询相对应的投标的记录
             List<TenderNotes> tenderNotesList = tenderNotesMapper.selectByExample(tenderNotesExample);
+            List<String> toMailTenderList=new ArrayList<String>();
             for (TenderNotes tenderNotes : tenderNotesList) {
             	Member memberTenderNotes=memberMapper.selectByPrimaryKey(tenderNotes.getMemberId());
-            	String tenderMsg="尊敬的"+tenderNotes.getMemberDisplay()+"：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您投资的[<font color='red'>"+borrowingLoan.getLoanTitle()+"</font>]借款复审审核成功！" +
-    	        		"<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由冰川网贷系统自动发送，请勿回复！</font>";
-                htmlEmailPublic.goEmail(memberTenderNotes,tenderMsg);
+            	toMailTenderList.add(memberTenderNotes.getEmail());
 			}
+            String sendMsg="亲爱的会员：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您投资的[<font color='red'>"+borrowingLoan.getLoanTitle()+"</font>]借款复审审核成功！" +
+	        		"<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由冰川网贷系统自动发送，请勿回复！</font>";
+            htmlEmailPublic.sendEmail(toMailTenderList, sendMsg);
         } else {
             returnResult.setMsg("发生未知错误，复审借款信息失败");
         }

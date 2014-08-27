@@ -29,6 +29,7 @@ import com.glacier.netloan.entity.member.Member;
 import com.glacier.netloan.entity.member.MemberAuthWithBLOBs;
 import com.glacier.netloan.entity.member.MemberWork;
 import com.glacier.netloan.service.borrow.BorrowingLoanService;
+import com.glacier.netloan.service.borrow.HtmlEmailPublic;
 import com.glacier.netloan.service.member.MemberAuthService;
 import com.glacier.netloan.service.member.MemberService;
 import com.glacier.netloan.service.website.WebsiteAnnouncementService;
@@ -51,6 +52,9 @@ public class RegisterController extends AbstractController {
 
     @Autowired
     private BorrowingLoanService borrowingLoanService;
+    
+    @Autowired
+	private HtmlEmailPublic htmlEmailPublic;
 
     /**
      * @Title: intoregister
@@ -212,6 +216,9 @@ public class RegisterController extends AbstractController {
         if (!returnResult.isSuccess()) {
             return mav;
         }
+        String memberMsg="尊敬的用户：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您在冰川网贷注册会员成功！注册的账号为"+member.getMemberName()+"。" +
+        		"<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由冰川网贷系统自动发送，请勿回复！</font>";
+        htmlEmailPublic.goEmail(member,memberMsg);
         return "login";
     }
 
