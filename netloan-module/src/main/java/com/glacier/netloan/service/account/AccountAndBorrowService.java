@@ -9,7 +9,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.netloan.dao.account.AccountInvestMapper;
 import com.glacier.netloan.dao.basicdatas.ParameterBasicMapper;
@@ -38,6 +37,7 @@ import com.glacier.netloan.entity.finance.FinanceMember;
 import com.glacier.netloan.entity.member.MemberStatistics;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.entity.system.UserExample;
+import com.glacier.netloan.service.member.MemberService;
 import com.glacier.netloan.service.member.MemberStatisticsService;
 
 //项目启动的时候执行，检查还款明细信息和收款明细信息是否逾期，作相对应的关联数据变动
@@ -75,7 +75,10 @@ public class AccountAndBorrowService implements InitializingBean {
 	private FinanceMemberMapper financeMemberMapper;
 	 
 	@Autowired
-	private MemberStatisticsService statisticsService; 
+	private MemberStatisticsService statisticsService;
+	
+	@Autowired
+	private MemberService memberService;
 	 
 	@Autowired
 	private UserMapper userMapper;
@@ -96,7 +99,19 @@ public class AccountAndBorrowService implements InitializingBean {
 		List<AccountInvest> accountInvestDataList = (List<AccountInvest>) accountInvestMapper.selectByExample(accountInvestExamole);
 		return accountInvestDataList;
 	}
-		
+	
+	/**
+     * @Title: memberExpire 
+     * @Description: TODO(判断会员是否过期) 
+     * @param  
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+	@PostConstruct 
+	public void memberExpire() {
+		memberService.memberExpire();
+	}
+	
 	/**
 	 * 进行判断逾期罚款的业务方法
 	 */

@@ -62,7 +62,7 @@ public class BorrowingOverdueService {
 	 * @throws 
 	 *
 	 */
-	@Transactional(readOnly = false)
+	/*@Transactional(readOnly = false)
 	public void handleBorrowingOverdue(){
 		RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();
 		repaymentNotesDetailExample.createCriteria().andRepayStateEqualTo("notRepay");
@@ -200,5 +200,5 @@ public class BorrowingOverdueService {
 		    }
 		}
 		
-	}
+	}*/
 }

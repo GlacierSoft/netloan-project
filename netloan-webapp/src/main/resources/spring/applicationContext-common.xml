@@ -75,11 +75,11 @@
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject">
 			<!-- 定时执行的类 -->
-			<ref bean="borrowingOverdueService" />
+			<ref bean="AccountAndBorrowService" />
 		</property>
 		<property name="targetMethod">
 			<!-- 定时执行的类方法 -->
-			<value>handleBorrowingOverdue</value>
+			<value>postConstruct</value>
 		</property>
 	</bean>
 	
