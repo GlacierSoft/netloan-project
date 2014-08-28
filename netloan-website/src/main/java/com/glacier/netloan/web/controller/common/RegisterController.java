@@ -1,5 +1,7 @@
 package com.glacier.netloan.web.controller.common;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -218,7 +220,13 @@ public class RegisterController extends AbstractController {
         }
         String memberMsg="尊敬的用户：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您在冰川网贷注册会员成功！注册的账号为"+member.getMemberName()+"。" +
         		"<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由冰川网贷系统自动发送，请勿回复！</font>";
-        htmlEmailPublic.goEmail(member,memberMsg);
+        //htmlEmailPublic.goEmail(member,memberMsg);
+        List<String> MemberMailList = new ArrayList<String>();
+        MemberMailList.add(member.getEmail());
+        htmlEmailPublic.setToMailsList(MemberMailList);
+        htmlEmailPublic.setMsg(memberMsg);
+        Thread borrowingLoanThread = new Thread(htmlEmailPublic);
+        borrowingLoanThread.start();//启动线程
         return "login";
     }
 

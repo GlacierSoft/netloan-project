@@ -551,10 +551,18 @@ public class BorrowingLoanService {
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + borrowingLoan.getLoanCode() + "] 初审借款信息操作成功");
-            BorrowingLoan borrowingLoanMsg = borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());
-            String msg="尊敬的"+borrowingLoanMsg.getMemberDisplay()+"：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您申请的[<font color='red'>"+borrowingLoanMsg.getLoanTitle()+"</font>]借款初审审核成功！" +
+            //初审成功发送邮箱通知
+            List<String> borrowingLoanMailsList = new ArrayList<String>();
+            BorrowingLoan borrowingLoanMsg = borrowingLoanMapper.selectByPrimaryKey(borrowingLoan.getLoanId());//取出借款信息
+            Member memberBorrowingLoan = memberMapper.selectByPrimaryKey(borrowingLoanMsg.getMemberId());//取出借款人的信息
+            borrowingLoanMailsList.add(memberBorrowingLoan.getEmail());//添加借款人的邮箱到List集合中
+            //构建邮件消息
+            String msg="尊敬的会员：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您申请的[<font color='red'>"+borrowingLoanMsg.getLoanTitle()+"</font>]借款初审审核成功！" +
 	        		"<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由冰川网贷系统自动发送，请勿回复！</font>";
-            htmlEmailPublic.goEmail(memberborrowingLoan,msg);
+            htmlEmailPublic.setMsg(msg);
+            htmlEmailPublic.setToMailsList(borrowingLoanMailsList);
+            Thread borrowingLoanThread = new Thread(htmlEmailPublic);
+            borrowingLoanThread.start();//启动线程
         } else {
             returnResult.setMsg("发生未知错误，初审借款信息失败");
         }
@@ -812,7 +820,10 @@ public class BorrowingLoanService {
             toMailborrowingLoanList.add(member.getEmail());
             String borrowingLoanMsg="亲爱的"+borrowingLoan.getMemberDisplay()+"：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您申请的[<font color='red'>"+borrowingLoan.getLoanTitle()+"</font>]借款复审审核成功！" +
 	        		"<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由冰川网贷系统自动发送，请勿回复！</font>";
-            htmlEmailPublic.sendEmail(toMailborrowingLoanList, borrowingLoanMsg);
+            htmlEmailPublic.setToMailsList(toMailborrowingLoanList);
+            htmlEmailPublic.setMsg(borrowingLoanMsg);
+            Thread borrowingLoanThread = new Thread(htmlEmailPublic);
+            borrowingLoanThread.start();//启动线程
             //投资人发送邮箱
             TenderNotesExample tenderNotesExample = new TenderNotesExample();;
             tenderNotesExample.createCriteria().andLoanIdEqualTo(borrowingLoanNew.getLoanId());//查询相对应的投标的记录
@@ -824,7 +835,11 @@ public class BorrowingLoanService {
 			}
             String sendMsg="亲爱的会员：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您投资的[<font color='red'>"+borrowingLoan.getLoanTitle()+"</font>]借款复审审核成功！" +
 	        		"<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由冰川网贷系统自动发送，请勿回复！</font>";
-            htmlEmailPublic.sendEmail(toMailTenderList, sendMsg);
+            //htmlEmailPublic.sendEmail(toMailTenderList, sendMsg);
+            htmlEmailPublic.setToMailsList(toMailTenderList);
+            htmlEmailPublic.setMsg(sendMsg);
+            Thread tenderThread = new Thread(htmlEmailPublic);
+            tenderThread.start();//启动线程
         } else {
             returnResult.setMsg("发生未知错误，复审借款信息失败");
         }
