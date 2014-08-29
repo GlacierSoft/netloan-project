@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.email.MessageEmailMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.email.MessageEmail" >
+    <id column="temp_message_email_email_id" property="emailId" jdbcType="VARCHAR" />
+    <result column="temp_message_email_email_title" property="emailTitle" jdbcType="VARCHAR" />
+    <result column="temp_message_email_email_text" property="emailText" jdbcType="VARCHAR" />
+    <result column="temp_message_email_email_type" property="emailType" jdbcType="VARCHAR" />
+    <result column="temp_message_email_send_time" property="sendTime" jdbcType="TIMESTAMP" />
+    <result column="temp_message_email_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_message_email_creater_time" property="createrTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_message_email.email_id as temp_message_email_email_id, temp_message_email.email_title as temp_message_email_email_title, 
+    temp_message_email.email_text as temp_message_email_email_text, temp_message_email.email_type as temp_message_email_email_type, 
+    temp_message_email.send_time as temp_message_email_send_time, temp_message_email.creater as temp_message_email_creater, 
+    temp_message_email.creater_time as temp_message_email_creater_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.email.MessageEmailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_message_email temp_message_email
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_message_email temp_message_email
+    where temp_message_email.email_id = #{emailId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_message_email
+    where email_id = #{emailId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.email.MessageEmailExample" >
+    delete from t_message_email temp_message_email
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.email.MessageEmail" >
+    insert into t_message_email (email_id, email_title, email_text, 
+      email_type, send_time, creater, 
+      creater_time)
+    values (#{emailId,jdbcType=VARCHAR}, #{emailTitle,jdbcType=VARCHAR}, #{emailText,jdbcType=VARCHAR}, 
+      #{emailType,jdbcType=VARCHAR}, #{sendTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, 
+      #{createrTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.email.MessageEmail" >
+    insert into t_message_email
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="emailId != null" >
+        email_id,
+      </if>
+      <if test="emailTitle != null" >
+        email_title,
+      </if>
+      <if test="emailText != null" >
+        email_text,
+      </if>
+      <if test="emailType != null" >
+        email_type,
+      </if>
+      <if test="sendTime != null" >
+        send_time,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createrTime != null" >
+        creater_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="emailId != null" >
+        #{emailId,jdbcType=VARCHAR},
+      </if>
+      <if test="emailTitle != null" >
+        #{emailTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="emailText != null" >
+        #{emailText,jdbcType=VARCHAR},
+      </if>
+      <if test="emailType != null" >
+        #{emailType,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createrTime != null" >
+        #{createrTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.email.MessageEmailExample" resultType="java.lang.Integer" >
+    select count(*) from t_message_email temp_message_email
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_message_email temp_message_email
+    <set >
+      <if test="record.emailId != null" >
+        temp_message_email.email_id = #{record.emailId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emailTitle != null" >
+        temp_message_email.email_title = #{record.emailTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emailText != null" >
+        temp_message_email.email_text = #{record.emailText,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emailType != null" >
+        temp_message_email.email_type = #{record.emailType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendTime != null" >
+        temp_message_email.send_time = #{record.sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creater != null" >
+        temp_message_email.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createrTime != null" >
+        temp_message_email.creater_time = #{record.createrTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_message_email temp_message_email
+    set temp_message_email.email_id = #{record.emailId,jdbcType=VARCHAR},
+      temp_message_email.email_title = #{record.emailTitle,jdbcType=VARCHAR},
+      temp_message_email.email_text = #{record.emailText,jdbcType=VARCHAR},
+      temp_message_email.email_type = #{record.emailType,jdbcType=VARCHAR},
+      temp_message_email.send_time = #{record.sendTime,jdbcType=TIMESTAMP},
+      temp_message_email.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_message_email.creater_time = #{record.createrTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.email.MessageEmail" >
+    update t_message_email
+    <set >
+      <if test="emailTitle != null" >
+        email_title = #{emailTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="emailText != null" >
+        email_text = #{emailText,jdbcType=VARCHAR},
+      </if>
+      <if test="emailType != null" >
+        email_type = #{emailType,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createrTime != null" >
+        creater_time = #{createrTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where email_id = #{emailId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.email.MessageEmail" >
+    update t_message_email
+    set email_title = #{emailTitle,jdbcType=VARCHAR},
+      email_text = #{emailText,jdbcType=VARCHAR},
+      email_type = #{emailType,jdbcType=VARCHAR},
+      send_time = #{sendTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR},
+      creater_time = #{createrTime,jdbcType=TIMESTAMP}
+    where email_id = #{emailId,jdbcType=VARCHAR}
+  </update>
+</mapper>
