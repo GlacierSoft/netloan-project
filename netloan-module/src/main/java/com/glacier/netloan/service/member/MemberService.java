@@ -21,6 +21,7 @@ import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.jqueryui.util.Tree;
 import com.glacier.netloan.dao.basicdatas.ParameterCreditTypeMapper;
 import com.glacier.netloan.dao.basicdatas.ParameterIntegralTypeMapper;
 import com.glacier.netloan.dao.finance.FinanceMemberMapper;
@@ -156,6 +157,21 @@ public class MemberService {
         memberToken.setSalt(Encodes.encodeHex(salt));
         byte[] hashPassword = Digests.sha1(memberToken.getPassword().getBytes(), salt, HASH_INTERATIONS);
         memberToken.setPassword(Encodes.encodeHex(hashPassword));
+    }
+    
+    /**
+     * 取出
+     */
+    public Object listAsTree() {
+    	List<Member> memberList = memberMapper.selectByExample(new MemberExample());
+    	List<Tree> items = new ArrayList<Tree>();
+        for (Member member : memberList) {
+        	Tree memberItem = new Tree();// 增加总的树节点作为导航信息导航
+        	memberItem.setId(member.getMemberId());
+        	memberItem.setText(member.getMemberName());
+            items.add(memberItem);
+		}
+    	return items;
     }
     
     

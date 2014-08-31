@@ -5,6 +5,9 @@
  */
 package com.glacier.netloan.web.controller.message;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.jqueryui.util.Tree;
+import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.service.member.MemberService;
 import com.glacier.netloan.service.message.MessageEmailService;
 
 /** 
@@ -30,6 +36,9 @@ public class EmailController extends AbstractController{
 	@Autowired
 	private MessageEmailService messageEmailService; 
 	
+	@Autowired
+	private MemberService memberService; 
+	
     // 进入活动邮件列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPadvertisement() {
@@ -42,6 +51,13 @@ public class EmailController extends AbstractController{
     @ResponseBody
     private Object listAdvertisementAsGridByMenuId(JqPager padvertisementr) {
         return messageEmailService.listAsGrid(padvertisementr);
+    }
+    
+    // 获取表格结构的所有广告数据
+    @RequestMapping(value = "/list2.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object listAdvertisementAsGrid(JqPager padvertisementr) {
+        return memberService.listAsTree();
     }
     
     // 进入广告Form表单页面

@@ -9,28 +9,25 @@
 <form  method="post">
 	<div id="cc" class="easyui-layout" style="height:400px;">   
 	   <div data-options="region:'east',iconCls:'icon-reload',title:'',split:true" style="width:150px;">
+	   	<ul id="tt" class="easyui-tree"></ul>
 	   </div>   
 	   <div data-options="region:'west',title:'活跃会员显示',split:true" style="width:150px;">
-	   	<ul id="tt" class="easyui-tree">   
-		    <li>   
-		        <span>Folder</span>   
-		        <ul>   
-		            <li>   
-		                <span>File 2</span>   
-		            </li>  
-		        </ul>   
-		    </li>  
-		    <li>   
-		        <span>Folder</span>   
-		        <ul>   
-		            <li>   
-		                <span>File 2</span>   
-		            </li>  
-		        </ul>   
-		    </li> 
-		</ul>  
-
-	   	
+	   	<ul id="memberTreeGrid">
+	   		<!-- <li>   
+                <span>Sub Folder 1</span>   
+                <ul>   
+                    <li>   
+                        <span><a href="#">File 11</a></span>   
+                    </li>   
+                    <li>   
+                        <span>File 12</span>   
+                    </li>   
+                    <li>   
+                        <span>File 13</span>   
+                    </li>   
+                </ul>   
+            </li> -->
+	   	</ul>  
 	   </div>   
 	   <div data-options="region:'center',title:'邮件操作'" style="padding:5px;background:#eee;padding: 20px;">
 	   		<table id="tabs">
@@ -52,6 +49,30 @@
 	</div>  
 </form>
 <script type="text/javascript">
+
+	$('#memberTreeGrid').tree({    
+	    url: ctx + '/do/email/list2.json' ,
+	    onClick: function(node){
+			//console.info(node);
+			var selected = $('#memberTreeGrid').tree('getSelected');
+			var t=$('#tt').tree('getChildren');
+			console.info(t);
+			var isflash=true;
+			$.each(t,function(i,v){
+				if(v.text==selected.text){
+					alert("已选择");
+					isflash=false;
+					return false;
+				}
+			});
+			if(isflash){
+				$('#tt').tree('append', {
+					data: selected
+				});
+			}
+		}
+	});
+
 KindEditor.ready(function(K) {
 	K.create('#editor_id', {
 		themeType : 'qq',
