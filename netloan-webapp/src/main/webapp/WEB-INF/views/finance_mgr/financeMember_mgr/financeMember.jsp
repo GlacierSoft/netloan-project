@@ -46,7 +46,7 @@
 				sortable:true
 			},{
 				field:'collectingMoney',
-				title:'代收金额(元)',
+				title:'待收金额(元)',
 				width:120,
 				sortable:true
 			},{

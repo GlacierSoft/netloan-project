@@ -531,7 +531,11 @@ public class RepaymentNotesDetailService {
             MemberStatistics memberStatistics = memberStatisticsMapper.selectByMemberId(member.getMemberId());
             memberStatistics.setAlreadyTotal(memberStatistics.getAlreadyTotal()+repaymentNotesDetail.getCurrentPayMoeny());//设置已还总额(现在的已还总额+现在归还的总额)
             memberStatistics.setWaitAlsoTotal(memberStatistics.getWaitAlsoTotal()-repaymentNotesDetail.getCurrentPayMoeny());//设置待还总额(现在的待还总额-现在归还的总额)
-            memberStatistics.setNormalRepayment(memberStatistics.getNormalRepayment()+1);//设置正常还款+1
+            if(repaymentNotesDetail.getIsOverdue().equals("yes")){//判断是否逾期
+            	memberStatistics.setLateRepayment(memberStatistics.getLateRepayment()+1);//设置逾期还款次数+1
+            }else{
+            	memberStatistics.setNormalRepayment(memberStatistics.getNormalRepayment()+1);//设置正常还款+1
+            }
             memberStatistics.setAlreadyPrincipal(memberStatistics.getAlreadyPrincipal()+repaymentNotesDetail.getCurrentPayPrincipal());//设置已还本金(现在的已还本金+现在归还本金)
             memberStatistics.setWaitAlsoPrincipal(memberStatistics.getWaitAlsoPrincipal()-repaymentNotesDetail.getCurrentPayPrincipal());//设置待还本金(现在的待还本金-现在归还本金)
             memberStatistics.setAlreadyInterest(memberStatistics.getAlreadyInterest()+repaymentNotesDetail.getCurrentPayInterest());//设置已还利息(现在的已还利息+现在归还利息)
