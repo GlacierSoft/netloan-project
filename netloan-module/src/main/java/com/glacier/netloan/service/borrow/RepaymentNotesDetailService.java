@@ -441,7 +441,7 @@ public class RepaymentNotesDetailService {
         User pricipalUser = users.get(0);
         //更新还款记录明细表WT于2014-6-30增加
         RepaymentNotesDetail repaymentNotesDetail = repaymentNotesDetailMapper.selectByPrimaryKey(repayNotesDetailId);// 根据还款明细Id查找出对应的还款明细信息记录
-        
+        System.out.println("逾期利息:"+repaymentNotesDetail.getOverdueInterest());
         if(repaymentNotesDetail.getRepayState().equals("alreadRepay")){
         	  returnResult.setMsg("该期数已还完");
         	  return returnResult;
@@ -529,8 +529,8 @@ public class RepaymentNotesDetailService {
             
             //更新还款人的会员统计信息WT于2014-6-30创建
             MemberStatistics memberStatistics = memberStatisticsMapper.selectByMemberId(member.getMemberId());
-            memberStatistics.setAlreadyTotal(memberStatistics.getAlreadyTotal()+repaymentNotesDetail.getCurrentPayMoeny());//设置已还总额(现在的已还总额+现在归还的总额)
-            memberStatistics.setWaitAlsoTotal(memberStatistics.getWaitAlsoTotal()-repaymentNotesDetail.getCurrentPayMoeny());//设置待还总额(现在的待还总额-现在归还的总额)
+            memberStatistics.setAlreadyTotal(memberStatistics.getAlreadyTotal()+repaymentNotesDetail.getAlsoNeedMoney());//设置已还总额(现在的已还总额+现在归还的总额)
+            memberStatistics.setWaitAlsoTotal(memberStatistics.getWaitAlsoTotal()-(repaymentNotesDetail.getCurrentPayMoeny()+repaymentNotesDetail.getOverdueInterest()+repaymentNotesDetail.getOverdueUrgeFee()+repaymentNotesDetail.getOverdueManaFee()));//设置待还总额(现在的待还总额-(现在归还的总额+逾期罚息+逾期催收费))
             if(repaymentNotesDetail.getIsOverdue().equals("yes")){//判断是否逾期
             	memberStatistics.setLateRepayment(memberStatistics.getLateRepayment()+1);//设置逾期还款次数+1
             }else{
@@ -550,7 +550,7 @@ public class RepaymentNotesDetailService {
             	List<FinancePlatform> financePlatformList = financePlatformMapper.selectByExample(financePlatformExample);
             	FinancePlatform financePlatform = financePlatformList.get(0);
             	//给资金平台增加相应的资金余额--
-            	financePlatform.setPlatformMoney(financePlatform.getPlatformMoney()+repaymentNotesDetail.getAlsoNeedMoney());//设置平台资金余额(还款人的还款总额+平台资金的余额)
+            	financePlatform.setPlatformMoney(financePlatform.getPlatformMoney()+repaymentNotesDetail.getAlsoNeedMoney()+repaymentNotesDetail.getOverdueManaFee());//设置平台资金余额(还款人的还款总额+平台资金的余额+逾期管理费用)
             	financePlatform.setRemark("平台向借款人收款成功后，更新平台资金");//设置备注
                 financePlatform.setCreater(pricipalUser.getUserId());
                 financePlatform.setCreateTime(new Date());
@@ -601,18 +601,6 @@ public class RepaymentNotesDetailService {
                 		for (ReceivablesNotesDetail receivablesNotesDetail : receivablesNotesDetailList) {
 							//判断收款的期数跟还款的期数是否一样
                 			if(receivablesNotesDetail.getNumberPeriod()==repaymentNotesDetailTemp.getNumberPeriod()){
-                            	
-                            	//更新投资会员统计信息
-                            	MemberStatistics memberStatisticsTemp = memberStatisticsMapper.selectByMemberId(tenderNotes.getMemberId());
-                            	memberStatisticsTemp.setAlreadyIncomeTotal(memberStatisticsTemp.getAlreadyIncomeTotal()+receivablesNotesDetail.getCurrentReceMoeny());//设置会员统计已收总额(原本的已收总额+还款人的还款总额)
-                            	memberStatisticsTemp.setWaitIncomeTotal(memberStatisticsTemp.getWaitIncomeTotal()-receivablesNotesDetail.getCurrentReceMoeny());//设置会员统计待收总额(原来的待收总额-还款的总额)
-                            	memberStatisticsTemp.setAlreadyIncomePrincipal(memberStatisticsTemp.getAlreadyIncomePrincipal()+receivablesNotesDetail.getCurrentRecePrincipal());//设置已收本金(原本的已收本金+还款人的还款本金)
-                            	memberStatisticsTemp.setWaitIncomePrincipal(memberStatisticsTemp.getWaitIncomePrincipal()-receivablesNotesDetail.getCurrentRecePrincipal());//设置待收本金(原本的待收本金-还款人的还款本金)
-                            	memberStatisticsTemp.setAlreadyIncomeInterest(memberStatisticsTemp.getAlreadyIncomeInterest()+receivablesNotesDetail.getCurrentReceInterest());//设置已收本息(原本的已收利息+还款人的还款利息)
-                            	memberStatisticsTemp.setWaitIncomeInterest(memberStatisticsTemp.getWaitIncomeInterest()-receivablesNotesDetail.getCurrentReceInterest());//设置待收本息(原本的待收利息-还款人的还款利息)
-                            	//执行会员统计更新
-                            	memberStatisticsMapper.updateByPrimaryKeySelective(memberStatisticsTemp);
-                            	
                             	//更改收款明细记录表的收款状态
                             	receivablesNotesDetail.setReceState("alreadReceivables");
                             	receivablesNotesDetail.setActualReceDate(new Date());
@@ -623,7 +611,16 @@ public class RepaymentNotesDetailService {
                             	receivablesNotesDetail.setUpdateTime(new Date());
                             	//执行更新收款明细记录
                             	receivablesNotesDetailMapper.updateByPrimaryKeySelective(receivablesNotesDetail);
-                            	
+                            	//更新投资会员统计信息
+                            	MemberStatistics memberStatisticsTemp = memberStatisticsMapper.selectByMemberId(tenderNotes.getMemberId());
+                            	memberStatisticsTemp.setAlreadyIncomeTotal(memberStatisticsTemp.getAlreadyIncomeTotal()+receivablesNotesDetail.getAmount());//设置会员统计已收总额(原本的已收总额+还款人的还款总额)
+                            	memberStatisticsTemp.setWaitIncomeTotal(memberStatisticsTemp.getWaitIncomeTotal()-receivablesNotesDetail.getAmount());//设置会员统计待收总额(原来的待收总额-还款的总额)
+                            	memberStatisticsTemp.setAlreadyIncomePrincipal(memberStatisticsTemp.getAlreadyIncomePrincipal()+receivablesNotesDetail.getCurrentRecePrincipal());//设置已收本金(原本的已收本金+还款人的还款本金)
+                            	memberStatisticsTemp.setWaitIncomePrincipal(memberStatisticsTemp.getWaitIncomePrincipal()-receivablesNotesDetail.getCurrentRecePrincipal());//设置待收本金(原本的待收本金-还款人的还款本金)
+                            	memberStatisticsTemp.setAlreadyIncomeInterest(memberStatisticsTemp.getAlreadyIncomeInterest()+receivablesNotesDetail.getCurrentReceInterest());//设置已收本息(原本的已收利息+还款人的还款利息)
+                            	memberStatisticsTemp.setWaitIncomeInterest(memberStatisticsTemp.getWaitIncomeInterest()-receivablesNotesDetail.getCurrentReceInterest());//设置待收本息(原本的待收利息-还款人的还款利息)
+                            	//执行会员统计更新
+                            	memberStatisticsMapper.updateByPrimaryKeySelective(memberStatisticsTemp);
                             	//更新收款记录中的收款总金额、已收本金、已收利息、已收本息、未收利息、已收本息、未收本息、已收逾期罚息、利息管理费、收益
                             	ReceivablesNotes receivablesNotesTemp = receivablesNotesMapper.selectByPrimaryKey(receivablesNotesDetail.getReceNotesId());
                             	receivablesNotesTemp.setReceivablesTotal(receivablesNotesTemp.getReceivablesTotal()+receivablesNotesDetail.getAmount());//设置收款总金额(原来的收款总金额+收款明细的总金额)
@@ -641,7 +638,6 @@ public class RepaymentNotesDetailService {
                             	receivablesNotesTemp.setUpdateTime(new Date());
                             	//执行更新收款记录操作
                             	receivablesNotesMapper.updateByPrimaryKeySelective(receivablesNotesTemp);
-                            	
                             	//增加一条投标人的收款平台资金记录信息
                                 FinancePlatformTransaction financePlatformTransactions=new FinancePlatformTransaction();//构建平台资金记录对象
                                 financePlatformTransactions.setPlatformTransactionId(RandomGUID.getRandomGUID());//随即产生字符串ID
@@ -659,21 +655,19 @@ public class RepaymentNotesDetailService {
                                 financePlatformTransactions.setUpdateTime(addOneSecond(new Date(), secondNum));
                                 //执行添加操作
                                 financePlatformTransactionMapper.insert(financePlatformTransactions);
-                                
                                 //平台向投资人还款成功后，更新平台资金
-                                financePlatform.setPlatformMoney(financePlatformTransactions.getAmount());//更新平台资金
+                                financePlatform.setPlatformMoney(financePlatformTransactions.getAmount()+receivablesNotesDetail.getInterestManaFee());//更新平台资金+利息管理费用
                                 financePlatform.setRemark("平台向投资人还款成功后，更新平台资金");//设置备注
                                 financePlatform.setCreater(pricipalUser.getUserId());
                                 financePlatform.setCreateTime(new Date());
                                 financePlatform.setUpdater(pricipalUser.getUserId());
                                 financePlatform.setUpdateTime(new Date());
                                 financePlatformMapper.updateByPrimaryKeySelective(financePlatform);//执行更新资金平台的操作
-                                
                             	//对投标人的会员资金进行更新
                                 FinanceMember financeMembers = financeMemberMapper.selectByMemberId(tenderNotes.getMemberId());// 根据投标人Id查找出该会员的财务会员信息记录
-                                financeMembers.setUsableMoney(financeMembers.getUsableMoney()+receivablesNotesDetail.getAmount());//设置可用余额(原本的可用余额+收款记录明细本息)
-                                financeMembers.setCollectingMoney(financeMembers.getCollectingMoney()-receivablesNotesDetail.getCurrentReceMoeny());//设置待收金额(原本的待收金额-收款记录明细本息)
-                                financeMembers.setAmount(financeMembers.getAmount()+receivablesNotesDetail.getAmount());//设置总金额(原本的总金额+收款记录明细本息)
+                                financeMembers.setUsableMoney(financeMembers.getUsableMoney()+receivablesNotesDetail.getAmount());//设置可用余额(原本的可用余额+收款记录总额)
+                                financeMembers.setCollectingMoney(financeMembers.getCollectingMoney()-receivablesNotesDetail.getAmount());//设置待收金额(原本的待收金额-收款记录总额)
+                                financeMembers.setAmount(financeMembers.getAmount()+receivablesNotesDetail.getAmount());//设置总金额(原本的总金额+收款记录总额)
                                 financeMembers.setUpdater(pricipalUser.getUserId());
                                 financeMembers.setUpdateTime(new Date());
                                 //执行更新会员资金操作
