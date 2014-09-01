@@ -47,7 +47,7 @@
 				width:120,
 				sortable:true,
 				formatter: function(value,row,index){//数据格式化，例如enable显示启用，disable显示禁用
-					return renderGridValue(value,fields.status);
+					return renderGridValue(value,fields.email);
 				}
 			},{
 				field:'creater',
@@ -55,7 +55,7 @@
 				sortable:true,
 				width:100
 			},{
-				field:'createTime',
+				field:'createrTime',
 				title:'创建时间',
 				sortable:true,
 				width:200
@@ -108,15 +108,42 @@
 	
 	//点击增加按钮触发方法
 	glacier.message_mgr.email_mgr.email.addEmail = function(){
-		glacier.basicAddOrEditDialog({
+		/* glacier.basicAddOrEditDialog({
 			title : '发送邮箱',
 			width : 780,
 			height : 500,
 			queryUrl : ctx + '/do/email/intoForm.htm',
-			submitUrl : ctx + '/do/advertisement/add.json',
+			submitUrl : ctx + '/do/email/send.json',
 			successFun : function (){
 				glacier.message_mgr.email_mgr.email.emailDataGrid.datagrid('reload');
 			}
+		}); */
+		glacier.message_mgr.email_mgr.email.newEmailDialog('发送邮箱',false,'/do/email/send.json');
+	};
+	
+	glacier.message_mgr.email_mgr.email.newEmailDialog = function(title,editModel,url){
+		$.easyui.showDialog({
+			href : ctx + '/do/email/intoForm.htm',//从controller请求jsp页面进行渲染
+			width : 800,
+			height : 500,
+			resizable: false,
+			enableSaveButton : false,
+			enableApplyButton : false,
+			title : title,
+			buttons : [{
+				text : '保存',
+				iconCls : 'icon-save',
+				handler : function(dia) {
+					$('#email_mgr_email_form').form('submit', {
+						url: ctx + url + "?arrys="+arr,
+						success: function(r){
+							glacier.show({msg:r.msg,result:r.success});
+							glacier.message_mgr.email_mgr.email.emailDataGrid.datagrid('reload');
+						    dia.dialog("close"); 
+						}
+					});
+				}
+			}]
 		});
 	};
 	

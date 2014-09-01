@@ -2,6 +2,8 @@ package com.glacier.netloan.entity.email;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class MessageEmail {
     private String emailId;
 
@@ -11,10 +13,12 @@ public class MessageEmail {
 
     private String emailType;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date sendTime;
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createrTime;
 
     public String getEmailId() {

@@ -160,7 +160,7 @@ public class MemberService {
     }
     
     /**
-     * 取出
+     * 取出活跃度最高的50名会员
      */
     public Object listAsTree() {
     	List<Member> memberList = memberMapper.selectByExample(new MemberExample());
@@ -193,7 +193,7 @@ public class MemberService {
 	 * @return Object    返回类型 
 	 * @throws
 	 */
-    public Object getMember(String memberId) {
+    public Member getMember(String memberId) {
     	Member member = memberMapper.selectByPrimaryKey(memberId);
     	//查询基础信用积分的所有数据
         @SuppressWarnings("unchecked")
@@ -219,6 +219,19 @@ public class MemberService {
     	MemberWork memberWork = memberWorkMapper.selectByPrimaryKey(memberId);
         return memberWork;
     }
+    
+    /**
+     * @Title: getMemberList 
+     * @Description: TODO(获取所有会员信息List) 
+     * @param 
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    public List<Member> getMemberList(){
+    	return memberMapper.selectByExample(new MemberExample());
+    }
+    
     
     /**
      * @Title: listAsGrid 

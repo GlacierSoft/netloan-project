@@ -6,29 +6,21 @@
 		padding: 10px;
 	}
 </style>
-<form  method="post">
+<form id="email_mgr_email_form" method="post">
 	<div id="cc" class="easyui-layout" style="height:400px;">   
-	   <div data-options="region:'east',iconCls:'icon-reload',title:'',split:true" style="width:150px;">
-	   	<ul id="tt" class="easyui-tree"></ul>
+	   <!-- 显示选择联系人会员 -->
+	   <div data-options="region:'east',iconCls:'icon-reload',title:'',split:true" style="width:170px;">
+	   	 <a href="javascript:cancelTree();" style="float: left;" class="easyui-linkbutton" plain="true" icon="icon-cancel">取消</a>&nbsp;
+    	 <a href="javascript:cancelTrees();" id="cancels" style="float: left;display:block;" class="easyui-linkbutton" plain="true" icon="icon-cancel">取消全部</a>  
+	   	<ul id="candidateTree" style="float: left;" class="easyui-tree"></ul>
 	   </div>   
+	   <!-- 结束 显示选择联系人会员-->
+	   <!-- 显示活跃会员 -->
 	   <div data-options="region:'west',title:'活跃会员显示',split:true" style="width:150px;">
-	   	<ul id="memberTreeGrid">
-	   		<!-- <li>   
-                <span>Sub Folder 1</span>   
-                <ul>   
-                    <li>   
-                        <span><a href="#">File 11</a></span>   
-                    </li>   
-                    <li>   
-                        <span>File 12</span>   
-                    </li>   
-                    <li>   
-                        <span>File 13</span>   
-                    </li>   
-                </ul>   
-            </li> -->
-	   	</ul>  
+	   	<ul id="memberTreeGrid"></ul>  
 	   </div>   
+	   <!-- 结束活跃会员 -->
+	   <!-- 邮件操作部分 -->
 	   <div data-options="region:'center',title:'邮件操作'" style="padding:5px;background:#eee;padding: 20px;">
 	   		<table id="tabs">
 	   			<tr>
@@ -39,49 +31,91 @@
 	   			</tr>
 	   			<tr>
 	   				<td>
-	   					<textarea id="editor_id" name="content" style="width:400px;height:240px;">
+	   					<textarea name="emailText" id="editor_id" name="content" style="width:400px;height:240px;">
 	   						&lt;strong&gt;HTML内容&lt;/strong&gt;
 	   					</textarea>
 	   				</td>
 	   			</tr>
 	   		</table>
-	   </div>   
+	   		<input type="hidden" id="arrys">
+	   </div>  
+	   <!-- 结束邮件部分 --> 
 	</div>  
 </form>
 <script type="text/javascript">
 
-	$('#memberTreeGrid').tree({    
-	    url: ctx + '/do/email/list2.json' ,
-	    onClick: function(node){
-			//console.info(node);
-			var selected = $('#memberTreeGrid').tree('getSelected');
-			var t=$('#tt').tree('getChildren');
-			console.info(t);
-			var isflash=true;
-			$.each(t,function(i,v){
-				if(v.text==selected.text){
-					alert("已选择");
-					isflash=false;
-					return false;
-				}
-			});
-			if(isflash){
-				$('#tt').tree('append', {
-					data: selected
-				});
-			}
-		}
-	});
+	var arr = new Array();//构建一个存储ID的数组
 
-KindEditor.ready(function(K) {
-	K.create('#editor_id', {
-		themeType : 'qq',
-		allowFileManager : true,
-		uploadJson : '../resources/js/kindeditor/jsp/upload_json.jsp',
-        fileManagerJson : '../resources/js/kindeditor/jsp/file_manager_json.jsp',
-		items : [
-			'bold','italic','underline','fontname','fontsize','forecolor','hilitecolor','plug-align','plug-order','plug-indent','link','code','emoticons','flash','table','lineheight','fullscreen','image'
-		]
+	//删除选中的节点
+	function cancelTree(){
+		var children = $("#candidateTree").tree("getChildren");
+		if(children!=""){
+			var c = $("#candidateTree").tree("getSelected");
+			$("#candidateTree").tree("remove",c.target);
+			$(".tree-indent").remove();//删除class为indent的节点预防删除完后样式突出
+			var nodeApped = $('#candidateTree').tree('getChildren');//获取删除过后所剩子节点
+			var index = 0;
+			arr = new Array();//初始化
+			$.each(nodeApped,function(i,v){
+				arr[index]=v.id; 
+	        	index++;
+			});
+		}else{
+			alert("请选择一个");
+		}
+	}
+	
+	//删除全部节点
+	function cancelTrees(){
+		var children = $("#candidateTree").tree("getChildren");
+		if(children!=""){
+			$.each(children,function(index,value){
+				$("#candidateTree").tree("remove",value.target);
+				arr = new Array();//初始化
+			});
+			$(".tree-indent").remove();//删除class为indent的节点预防删除完后样式突出
+		}
+	}
+	
+	$(function(){
+		$('#memberTreeGrid').tree({    
+		    url: ctx + '/do/email/list2.json' ,
+		    onClick: function(node){
+				var selected = $('#memberTreeGrid').tree('getSelected');//选中的节点
+				var nodes=$('#candidateTree').tree('getChildren');//获取所有的子节点
+				var isflash=true;
+				//判断是否有重复的
+				$.each(nodes,function(i,v){
+					if(v.text==selected.text){
+						isflash=false;
+						return false;//停止循环
+					}
+				});
+				//为true时进行追加
+				if(isflash){
+					$('#candidateTree').tree('append', {
+						data: selected
+					});
+					var nodeApped = $('#candidateTree').tree('getChildren');//获取已追加的所有子节点
+					var index = 0;
+					$.each(nodeApped,function(i,v){
+						arr[index]=v.id; 
+			        	index++;
+					});
+				}
+			}
+		});
 	});
-});
+	
+	KindEditor.ready(function(K) {
+		K.create('#editor_id', {
+			themeType : 'qq',
+			allowFileManager : true,
+			uploadJson : '../resources/js/kindeditor/jsp/upload_json.jsp',
+	        fileManagerJson : '../resources/js/kindeditor/jsp/file_manager_json.jsp',
+			items : [
+				'bold','italic','underline','fontname','fontsize','forecolor','hilitecolor','plug-align','plug-order','plug-indent','link','code','emoticons','flash','table','lineheight','fullscreen','image'
+			]
+		});
+	});
 </script>
