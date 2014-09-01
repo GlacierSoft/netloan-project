@@ -56,6 +56,16 @@ public class EmailController extends AbstractController{
         return messageEmailService.listAsGrid(padvertisementr);
     }
     
+    // 进入活动邮件Detail信息页面
+    @RequestMapping(value = "/intoDetail.htm")
+    private Object intoAdvertisementDetailPage(String emailId) {
+        ModelAndView mav = new ModelAndView("message_mgr/email_mgr/email_detail");
+        if(StringUtils.isNotBlank(emailId)){
+            mav.addObject("emailData", messageEmailService.getEmail(emailId));
+        }
+        return mav;
+    }
+    
     // 获取活动邮件数据
     @RequestMapping(value = "/list2.json", method = RequestMethod.POST)
     @ResponseBody
@@ -68,7 +78,7 @@ public class EmailController extends AbstractController{
     private Object intoAdvertisementFormPadvertisement(String webAdvId) {
         ModelAndView mav = new ModelAndView("message_mgr/email_mgr/email_form");
         if(StringUtils.isNotBlank(webAdvId)){
-            mav.addObject("advertisementData", messageEmailService.getAdvertisement(webAdvId));
+            mav.addObject("advertisementData", messageEmailService.getEmail(webAdvId));
         }
         return mav;
     }

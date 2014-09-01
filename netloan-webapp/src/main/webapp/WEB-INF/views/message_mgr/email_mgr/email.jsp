@@ -95,8 +95,8 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: "【"+rowData.webAdvTheme+"】的广告详细信息",
-				href : ctx + '/do/email/intoDetail.htm?webAdvId='+rowData.webAdvId,//从controller请求jsp页面进行渲染
+				title: "【"+rowData.emailTitle+"】的邮件详细信息",
+				href : ctx + '/do/email/intoDetail.htm?emailId='+rowData.emailId,//从controller请求jsp页面进行渲染
 				width : 720,
 				height : 520,
 				resizable: false,

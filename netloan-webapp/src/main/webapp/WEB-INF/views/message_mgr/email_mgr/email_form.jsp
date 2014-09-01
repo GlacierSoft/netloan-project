@@ -51,15 +51,19 @@
 		var children = $("#candidateTree").tree("getChildren");
 		if(children!=""){
 			var c = $("#candidateTree").tree("getSelected");
-			$("#candidateTree").tree("remove",c.target);
-			$(".tree-indent").remove();//删除class为indent的节点预防删除完后样式突出
-			var nodeApped = $('#candidateTree').tree('getChildren');//获取删除过后所剩子节点
-			var index = 0;
-			arr = new Array();//初始化
-			$.each(nodeApped,function(i,v){
-				arr[index]=v.id; 
-	        	index++;
-			});
+			if(c!=null){
+				$("#candidateTree").tree("remove",c.target);
+				$(".tree-indent").remove();//删除class为indent的节点预防删除完后样式突出
+				var nodeApped = $('#candidateTree').tree('getChildren');//获取删除过后所剩子节点
+				var index = 0;
+				arr = new Array();//初始化
+				$.each(nodeApped,function(i,v){
+					arr[index]=v.id; 
+		        	index++;
+				});
+			}else{
+				alert("请选择一个");
+			}
 		}else{
 			alert("请选择一个");
 		}

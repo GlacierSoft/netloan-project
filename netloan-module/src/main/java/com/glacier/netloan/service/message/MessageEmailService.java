@@ -66,7 +66,7 @@ public class MessageEmailService {
 	 * @throws
 	 */
     @Transactional(readOnly = false)
-    public Object getAdvertisement(String webAdvId) {
+    public Object getEmail(String webAdvId) {
     	MessageEmail messageEmail = messageEmailMapper.selectByPrimaryKey(webAdvId);
     	return messageEmail;
     }
