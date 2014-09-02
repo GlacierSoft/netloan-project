@@ -1,9 +1,9 @@
 /*
- * @(#)WebsiteAdvertisementService.java
+ * @(#)MessageEmailService.java
  * @author xichao.dong
  * Copyright (c) 2013 Glacier SoftWare Company Limited. All Rights Reserved.
  */
-package com.glacier.netloan.service.message;
+package com.glacier.netloan.service.email;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,8 +32,8 @@ import com.glacier.netloan.service.borrow.HtmlEmailPublic;
 import com.glacier.netloan.service.member.MemberService;
 
 /** 
- * @ClassName: WebsiteAdvertisementService 
- * @Description: TODO(广告业务类) 
+ * @ClassName: MessageEmailService 
+ * @Description: TODO(活动邮件业务类) 
  * @author xichao.dong
  * @email 406592176@QQ.com
  * @date 2014-1-21 下午2:22:22  
@@ -58,49 +58,50 @@ public class MessageEmailService {
 	private MessageRecordMapper messageRecordMapper;
 	
 	/**
-	 * @Title: getAdvertisement 
-	 * @Description: TODO(根据广告Id获取活动邮件) 
-	 * @param @param webAdvId
+	 * @Title: getEmail 
+	 * @Description: TODO(根据活动邮件Id获取活动邮件) 
+	 * @param @param emailId
 	 * @param @return    设定文件 
 	 * @return Object    返回类型 
 	 * @throws
 	 */
     @Transactional(readOnly = false)
-    public Object getEmail(String webAdvId) {
-    	MessageEmail messageEmail = messageEmailMapper.selectByPrimaryKey(webAdvId);
+    public Object getEmail(String emailId) {
+    	MessageEmail messageEmail = messageEmailMapper.selectByPrimaryKey(emailId);
     	return messageEmail;
     }
     
     /**
      * @Title: listAsGrid 
      * @Description: TODO(获取所有活动邮件信息) 
-     * @param @param padvertisementr
+     * @param @param pemail
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager padvertisementr) {
+    public Object listAsGrid(JqPager pemail) {
         JqGridReturn returnResult = new JqGridReturn();
         MessageEmailExample messageEmailExample = new MessageEmailExample();
-        if (null != padvertisementr.getPage() && null != padvertisementr.getRows()) {// 设置排序信息
-        	messageEmailExample.setLimitStart((padvertisementr.getPage() - 1) * padvertisementr.getRows());
-        	messageEmailExample.setLimitEnd(padvertisementr.getRows());
+        if (null != pemail.getPage() && null != pemail.getRows()) {// 设置排序信息
+        	messageEmailExample.setLimitStart((pemail.getPage() - 1) * pemail.getRows());
+        	messageEmailExample.setLimitEnd(pemail.getRows());
         }
-        if (StringUtils.isNotBlank(padvertisementr.getSort()) && StringUtils.isNotBlank(padvertisementr.getOrder())) {// 设置排序信息
-        	messageEmailExample.setOrderByClause(padvertisementr.getOrderBy("temp_website_advertisement_"));
+        if (StringUtils.isNotBlank(pemail.getSort()) && StringUtils.isNotBlank(pemail.getOrder())) {// 设置排序信息
+        	messageEmailExample.setOrderByClause(pemail.getOrderBy("temp_message_email_"));
         }
-        List<MessageEmail>  websiteAdvertisements = messageEmailMapper.selectByExample(messageEmailExample); // 查询所有广告列表
+        List<MessageEmail>  messageEmails = messageEmailMapper.selectByExample(messageEmailExample); // 查询所有广告列表
         int total = messageEmailMapper.countByExample(messageEmailExample); // 查询总页数
-        returnResult.setRows(websiteAdvertisements);
+        returnResult.setRows(messageEmails);
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
     }
 
     /**
      * @throws MessagingException 
-     * @Title: addAdvertisement 
+     * @Title: sendMessage 
      * @Description: TODO(发送活动邮件) 
-     * @param @param advertisement
+     * @param messageEmail
+     * @param array
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws

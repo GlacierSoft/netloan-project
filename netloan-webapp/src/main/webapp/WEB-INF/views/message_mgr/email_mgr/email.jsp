@@ -50,7 +50,7 @@
 					return renderGridValue(value,fields.email);
 				}
 			},{
-				field:'creater',
+				field:'createrDisplay',
 				title:'创建人',
 				sortable:true,
 				width:100

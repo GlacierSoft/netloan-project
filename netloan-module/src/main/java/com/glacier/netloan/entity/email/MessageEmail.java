@@ -12,6 +12,12 @@ public class MessageEmail {
     private String emailText;
 
     private String emailType;
+    
+    /**
+     * 自定义字段
+     * 发送人名称,收件人名称
+     */
+    private String createrDisplay;
 
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date sendTime;
@@ -77,7 +83,15 @@ public class MessageEmail {
         this.createrTime = createrTime;
     }
 
-    @Override
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
+
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

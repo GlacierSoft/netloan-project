@@ -9,6 +9,8 @@
     <result column="temp_message_email_send_time" property="sendTime" jdbcType="TIMESTAMP" />
     <result column="temp_message_email_creater" property="creater" jdbcType="VARCHAR" />
     <result column="temp_message_email_creater_time" property="createrTime" jdbcType="TIMESTAMP" />
+    
+    <result column="temp_message_email_record_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -73,6 +75,11 @@
     temp_message_email.email_text as temp_message_email_email_text, temp_message_email.email_type as temp_message_email_email_type, 
     temp_message_email.send_time as temp_message_email_send_time, temp_message_email.creater as temp_message_email_creater, 
     temp_message_email.creater_time as temp_message_email_creater_time
+  	<!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_message_email_record_creater_display
+  </sql>
+  <sql id="Base_extend">
+    LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_message_email.creater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.email.MessageEmailExample" >
     select
@@ -81,6 +88,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_message_email temp_message_email
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -95,6 +103,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_message_email temp_message_email
+    <include refid="Base_extend" />
     where temp_message_email.email_id = #{emailId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -166,6 +175,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.email.MessageEmailExample" resultType="java.lang.Integer" >
     select count(*) from t_message_email temp_message_email
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

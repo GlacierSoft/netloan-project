@@ -24,10 +24,10 @@
 	   <div data-options="region:'center',title:'邮件操作'" style="padding:5px;background:#eee;padding: 20px;">
 	   		<table id="tabs">
 	   			<tr>
-	   				<td><label>邮件标题：</label><input name="emailTitle" size="40"></td>
+	   				<td><label>邮件标题：</label><input class="easyui-validatebox spinner" name="emailTitle" size="40" required="true"></td>
 	   			</tr>
 	   			<tr>
-	   				<td><label>邮件类型：</label><input class="easyui-combobox" name="emailType" data-options="textField : 'label',panelHeight : 'auto',editable : false,data : fields.email"></td>
+	   				<td><label>邮件类型：</label><input class="easyui-combobox" name="emailType" class="easyui-combobox" data-options="textField : 'label',panelHeight : 'auto',editable : false,data : fields.email,required:true"></td>
 	   			</tr>
 	   			<tr>
 	   				<td>
@@ -53,7 +53,7 @@
 			var c = $("#candidateTree").tree("getSelected");
 			if(c!=null){
 				$("#candidateTree").tree("remove",c.target);
-				$(".tree-indent").remove();//删除class为indent的节点预防删除完后样式突出
+				$("#cancels .tree-indent").remove();//删除class为indent的节点预防删除完后样式突出
 				var nodeApped = $('#candidateTree').tree('getChildren');//获取删除过后所剩子节点
 				var index = 0;
 				arr = new Array();//初始化
@@ -77,7 +77,7 @@
 				$("#candidateTree").tree("remove",value.target);
 				arr = new Array();//初始化
 			});
-			$(".tree-indent").remove();//删除class为indent的节点预防删除完后样式突出
+			$("#cancels .tree-indent").remove();//删除class为indent的节点预防删除完后样式突出
 		}
 	}
 	
@@ -115,6 +115,7 @@
 		K.create('#editor_id', {
 			themeType : 'qq',
 			allowFileManager : true,
+			minWidth : '400',
 			uploadJson : '../resources/js/kindeditor/jsp/upload_json.jsp',
 	        fileManagerJson : '../resources/js/kindeditor/jsp/file_manager_json.jsp',
 			items : [

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.glacier.netloan.entity.finance.FinanceMemberExample.Criteria;
+
 public class MessageRecordExample {
     protected String orderByClause;
 
@@ -104,6 +106,17 @@ public class MessageRecordExample {
             return criteria;
         }
 
+        //扩展查询条件
+        public Criteria andRecordMemberDisplaylike(String value) {//根据收件人查询
+            addCriterion("temp_member.member_real_name like", value, "recordMemberDisplay");
+            return (Criteria) this;
+        }
+        
+        public Criteria andRecordSendDisplaylike(String value) {//根据发件人查询
+            addCriterion("temp_creater.user_cn_name like", value, "recordSendDisplay");
+            return (Criteria) this;
+        }
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");

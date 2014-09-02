@@ -2,6 +2,8 @@ package com.glacier.netloan.entity.email;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class MessageRecord {
     private String recordId;
 
@@ -11,7 +13,16 @@ public class MessageRecord {
 
     private String recordMemberid;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createrTime;
+    
+    /**
+     * 自定义字段
+     * 发送人名称,收件人名称
+     */
+    private String recordSendDisplay;
+    
+    private String recordMemberDisplay;
 
     private String emailId;
 
@@ -62,8 +73,24 @@ public class MessageRecord {
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
+    
+    public String getRecordSendDisplay() {
+		return recordSendDisplay;
+	}
 
-    @Override
+	public void setRecordSendDisplay(String recordSendDisplay) {
+		this.recordSendDisplay = recordSendDisplay;
+	}
+
+	public String getRecordMemberDisplay() {
+		return recordMemberDisplay;
+	}
+
+	public void setRecordMemberDisplay(String recordMemberDisplay) {
+		this.recordMemberDisplay = recordMemberDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

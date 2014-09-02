@@ -8,6 +8,9 @@
     <result column="temp_message_record_record_memberid" property="recordMemberid" jdbcType="VARCHAR" />
     <result column="temp_message_record_creater_time" property="createrTime" jdbcType="TIMESTAMP" />
     <result column="temp_message_record_email_id" property="emailId" jdbcType="VARCHAR" />
+    
+    <result column="temp_message_record_record_send_display" property="recordSendDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_message_record_record_member_display" property="recordMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -71,6 +74,14 @@
     temp_message_record.record_id as temp_message_record_record_id, temp_message_record.record_title as temp_message_record_record_title, 
     temp_message_record.record_send as temp_message_record_record_send, temp_message_record.record_memberid as temp_message_record_record_memberid, 
     temp_message_record.creater_time as temp_message_record_creater_time, temp_message_record.email_id as temp_message_record_email_id
+    
+    <!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_message_record_record_send_display
+    ,temp_member.member_real_name as temp_message_record_record_member_display
+  </sql>
+  <sql id="Base_extend">
+    LEFT JOIN t_member temp_member ON temp_member.member_id = temp_message_record.record_memberid <!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_message_record.record_send <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.email.MessageRecordExample" >
     select
@@ -79,6 +90,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_message_record temp_message_record
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -93,6 +105,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_message_record temp_message_record
+    <include refid="Base_extend" />
     where temp_message_record.record_id = #{recordId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -158,6 +171,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.netloan.entity.email.MessageRecordExample" resultType="java.lang.Integer" >
     select count(*) from t_message_record temp_message_record
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
