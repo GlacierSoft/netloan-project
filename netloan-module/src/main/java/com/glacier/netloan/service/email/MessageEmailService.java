@@ -138,6 +138,7 @@ public class MessageEmailService {
         		}
         		htmlEmailPublic.sendMessage(emailList, messageEmail.getEmailTitle(), messageEmail.getEmailText());
         		returnResult.setMsg("发送成功");
+        		returnResult.setSuccess(true);
         	}
     	}else if(messageEmail.getEmailType().equals("mass")){//群发会员
     		List<Member> memberList = memberService.getMemberList();
@@ -162,6 +163,7 @@ public class MessageEmailService {
         		}
         		htmlEmailPublic.sendMessage(emailList, messageEmail.getEmailTitle(), messageEmail.getEmailText());
         		returnResult.setMsg("发送成功");
+        		returnResult.setSuccess(true);
         	}
     	}
         return returnResult;

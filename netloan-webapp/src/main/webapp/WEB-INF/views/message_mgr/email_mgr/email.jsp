@@ -108,16 +108,6 @@
 	
 	//点击增加按钮触发方法
 	glacier.message_mgr.email_mgr.email.addEmail = function(){
-		/* glacier.basicAddOrEditDialog({
-			title : '发送邮箱',
-			width : 780,
-			height : 500,
-			queryUrl : ctx + '/do/email/intoForm.htm',
-			submitUrl : ctx + '/do/email/send.json',
-			successFun : function (){
-				glacier.message_mgr.email_mgr.email.emailDataGrid.datagrid('reload');
-			}
-		}); */
 		glacier.message_mgr.email_mgr.email.newEmailDialog('发送邮箱',false,'/do/email/send.json');
 	};
 	
