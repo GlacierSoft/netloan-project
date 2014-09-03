@@ -76,6 +76,24 @@ public class AccountAndBorrowService implements InitializingBean {
 	 
 	@Autowired
 	private UserMapper userMapper;
+	
+	/**
+	 * 返回一个AccountInvest的List集合的共同调用方法
+	 * @return
+	 */
+	public List<AccountInvest> getAccountInvestDataList(){
+		// 时间设置
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY, 0);// 设置日历时
+		calendar.set(Calendar.MINUTE, 0);// 设置日历分
+		calendar.set(Calendar.SECOND, 0);// 设置日历秒
+
+		AccountInvestExample accountInvestExamole = new AccountInvestExample();
+		accountInvestExamole.createCriteria().andCreateTimeGreaterThan(calendar.getTime());
+		List<AccountInvest> accountInvestDataList = (List<AccountInvest>) accountInvestMapper.selectByExample(accountInvestExamole);
+		return accountInvestDataList;
+	}
+		
 	/**
 	 * 进行判断逾期罚款的业务方法
 	 */
@@ -206,49 +224,44 @@ public class AccountAndBorrowService implements InitializingBean {
 		    	receivablesNotesDetail.setUpdateTime(new Date());
 		    	int count = receivablesNotesDetailMapper.updateByPrimaryKeySelective(receivablesNotesDetail);//更新收款记录明细
 		    	if (count == 1) {
-                    ReceivablesNotes receivablesNotes = receivablesNotesMapper.selectByPrimaryKey(receivablesNotesDetail.getReceNotesId());//获取收款记录信息
-                    //receivablesNotes.setReceivablesTotal(receivablesNotes.getReceivablesTotal() + currOverDueMoney);//设置收款记录的收款总金额
-                    //receivablesNotes.setUpdateTime(new Date());
-                    //receivablesNotesMapper.updateByPrimaryKeySelective(receivablesNotes);//更新还款记录
-                    //根据收款记录的投资ID查询出投资信息
-                    TenderNotes tenderNotes = tenderNotesMapper.selectByPrimaryKey(receivablesNotes.getTenderNotesId());
-                    //更新收款会员统计
-		    		MemberStatistics memberStatisticsTender = memberStatisticsMapper.selectByMemberId(tenderNotes.getMemberId());
-		    		memberStatisticsTender.setWaitIncomeTotal(memberStatisticsTender.getWaitIncomeTotal()+receivablesNotesDetail.getOverdueInterest());//设置待收总额
-		    		//执行更新会员统计信息
-			    	memberStatisticsMapper.updateByPrimaryKeySelective(memberStatisticsTender);
-		    		//更新会员资金的信息
-			    	FinanceMember financeMemberTender = financeMemberMapper.selectByMemberId(tenderNotes.getMemberId());
-			    	financeMemberTender.setCollectingMoney(financeMemberTender.getCollectingMoney()+receivablesNotesDetail.getOverdueInterest());
-			    	financeMemberMapper.updateByPrimaryKeySelective(financeMemberTender);//执行更新
+		    		if (getAccountInvestDataList().size() > 0 && getAccountInvestDataList() != null) {
+		    			//暂时为空
+		    		} else {
+	                    ReceivablesNotes receivablesNotes = receivablesNotesMapper.selectByPrimaryKey(receivablesNotesDetail.getReceNotesId());//获取收款记录信息
+	                    //receivablesNotes.setReceivablesTotal(receivablesNotes.getReceivablesTotal() + currOverDueMoney);//设置收款记录的收款总金额
+	                    //receivablesNotes.setUpdateTime(new Date());
+	                    //receivablesNotesMapper.updateByPrimaryKeySelective(receivablesNotes);//更新还款记录
+	                    //根据收款记录的投资ID查询出投资信息
+	                    TenderNotes tenderNotes = tenderNotesMapper.selectByPrimaryKey(receivablesNotes.getTenderNotesId());
+	                    //更新收款会员统计
+			    		MemberStatistics memberStatisticsTender = memberStatisticsMapper.selectByMemberId(tenderNotes.getMemberId());
+			    		memberStatisticsTender.setWaitIncomeTotal(memberStatisticsTender.getWaitIncomeTotal()+receivablesNotesDetail.getOverdueInterest());//设置待收总额
+			    		//执行更新会员统计信息
+				    	memberStatisticsMapper.updateByPrimaryKeySelective(memberStatisticsTender);
+			    		//更新会员资金的信息
+				    	FinanceMember financeMemberTender = financeMemberMapper.selectByMemberId(tenderNotes.getMemberId());
+				    	financeMemberTender.setCollectingMoney(financeMemberTender.getCollectingMoney()+receivablesNotesDetail.getOverdueInterest());
+				    	financeMemberMapper.updateByPrimaryKeySelective(financeMemberTender);//执行更新
+		    		}
 		    	}
 		    }
 		}
     }  
-	     
+	
+	
+	
     @Override  
     public void afterPropertiesSet() throws Exception {  
         // 获取当前用户
 		UserExample userExample = new UserExample();
 		userExample.createCriteria().andUsernameEqualTo("admin");
 		List<User> userList = userMapper.selectByExample(userExample);
-
 		// 会员统计信息获取
 		@SuppressWarnings("unchecked")
 		List<MemberStatistics> list = (List<MemberStatistics>) statisticsService.listMemberStatistics();
-
-		// 时间设置
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.HOUR_OF_DAY, 0);// 设置日历时
-		calendar.set(Calendar.MINUTE, 0);// 设置日历分
-		calendar.set(Calendar.SECOND, 0);// 设置日历秒
-
-		AccountInvestExample accountInvestExamole = new AccountInvestExample();
-		accountInvestExamole.createCriteria().andCreateTimeGreaterThan(calendar.getTime());
-		List<AccountInvest> accountInvestDataList = (List<AccountInvest>) accountInvestMapper.selectByExample(accountInvestExamole);
-
-		if (accountInvestDataList.size() > 0 && accountInvestDataList != null) {
-			System.out.println("当天已有数据");
+		
+		if (getAccountInvestDataList().size() > 0 && getAccountInvestDataList() != null) {
+			//暂时为空
 		} else {
 			// 投资变量数据定义
 			float sum_uncollected = 0;// 投资成功待收金额
@@ -258,16 +271,12 @@ public class AccountAndBorrowService implements InitializingBean {
 			float sum_advfee = 0;// 借款管理费总额
 			float sum_interest = 0;// 借款利息总额
 			float sum_interestfee = 0;// 借款逾期罚息总额
-
 			// System.out.println("我没问题呐(" + counter++ + ")");
 			// System.out.println("我获取的超级管理员ID是:"+ userList.get(0).getUserId());
-
 			// 构建投资对象
 			AccountInvest accountInvest_add = new AccountInvest();
-
 			// 变量累加
 			for (int j = 0; j < list.size(); j++) {
-
 				sum_uncollected += list.get(j).getWaitIncomeTotal();
 				sum_reward += list.get(j).getTenderAwards();
 				sum_fine += list.get(j).getOverdueFineAmount();
@@ -275,7 +284,6 @@ public class AccountAndBorrowService implements InitializingBean {
 				sum_advfee += list.get(j).getLoanManagementAmount();
 				sum_interest = list.get(j).getLoanInterestAmount();
 				sum_interestfee += list.get(j).getOverdueInterestAmount();
-
 			}
 
 			accountInvest_add.setInvestId(RandomGUID.getRandomGUID());
