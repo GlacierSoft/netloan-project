@@ -62,8 +62,8 @@ public class EmailController extends AbstractController{
     // 获取活动邮件数据
     @RequestMapping(value = "/list2.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listEmailAsGrid(JqPager pemailr) {
-        return memberService.listAsTree();
+    private Object listEmailAsGrid(JqPager pemailr,String param) {
+        return memberService.listAsTree(param);
     }
     
     // 进入活动邮件Form表单页面

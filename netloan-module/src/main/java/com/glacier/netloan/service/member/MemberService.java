@@ -162,8 +162,12 @@ public class MemberService {
     /**
      * 取出活跃度最高的50名会员
      */
-    public Object listAsTree() {
-    	List<Member> memberList = memberMapper.selectByExample(new MemberExample());
+    public Object listAsTree(String param) {
+    	MemberExample memberExample = new MemberExample();
+    	if(param != null&&param.length() > 0){
+    		memberExample.createCriteria().andMemberNameLike("%" + param + "%");
+    	}
+    	List<Member> memberList = memberMapper.selectByExample(memberExample);
     	List<Tree> items = new ArrayList<Tree>();
         for (Member member : memberList) {
         	Tree memberItem = new Tree();// 增加总的树节点作为导航信息导航

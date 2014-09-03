@@ -27,6 +27,7 @@ import com.glacier.netloan.entity.email.MessageEmail;
 import com.glacier.netloan.entity.email.MessageEmailExample;
 import com.glacier.netloan.entity.email.MessageRecord;
 import com.glacier.netloan.entity.member.Member;
+import com.glacier.netloan.entity.member.MemberExample;
 import com.glacier.netloan.entity.system.User;
 import com.glacier.netloan.service.borrow.HtmlEmailPublic;
 import com.glacier.netloan.service.member.MemberService;
@@ -142,6 +143,60 @@ public class MessageEmailService {
         	}
     	}else if(messageEmail.getEmailType().equals("mass")){//群发会员
     		List<Member> memberList = memberService.getMemberList();
+    		for (Member member : memberList) {
+    			emailList.add(member.getEmail());
+			}
+    		//对MessageEmail赋值
+        	messageEmail.setCreater(pricipalUser.getUserId());
+        	messageEmail.setCreaterTime(new Date());
+        	messageEmail.setSendTime(new Date());
+        	count = messageEmailMapper.insertSelective(messageEmail);
+        	if(count==1){
+        		for (Member member : memberList) {
+        			MessageRecord messageRecord = new MessageRecord();//构建邮箱记录
+        			messageRecord.setRecordId(RandomGUID.getRandomGUID());//随即产生32位ID
+        			messageRecord.setRecordTitle(messageEmail.getEmailTitle());//设置标题
+        			messageRecord.setRecordSend(pricipalUser.getUserId());//管理员
+        			messageRecord.setRecordMemberid(member.getMemberId());//会员ID
+        			messageRecord.setCreaterTime(new Date());//设置当前时间
+        			messageRecord.setEmailId(messageEmail.getEmailId());//设置活动邮件ID
+        			messageRecordMapper.insertSelective(messageRecord);//执行添加
+        		}
+        		htmlEmailPublic.sendMessage(emailList, messageEmail.getEmailTitle(), messageEmail.getEmailText());
+        		returnResult.setMsg("发送成功");
+        		returnResult.setSuccess(true);
+        	}
+    	}else if(messageEmail.getEmailType().equals("Vip")){
+    		MemberExample memberExample = new MemberExample();
+    		memberExample.createCriteria().andTypeEqualTo("vip");
+    		List<Member> memberList = memberMapper.selectByExample(memberExample);
+    		for (Member member : memberList) {
+    			emailList.add(member.getEmail());
+			}
+    		//对MessageEmail赋值
+        	messageEmail.setCreater(pricipalUser.getUserId());
+        	messageEmail.setCreaterTime(new Date());
+        	messageEmail.setSendTime(new Date());
+        	count = messageEmailMapper.insertSelective(messageEmail);
+        	if(count==1){
+        		for (Member member : memberList) {
+        			MessageRecord messageRecord = new MessageRecord();//构建邮箱记录
+        			messageRecord.setRecordId(RandomGUID.getRandomGUID());//随即产生32位ID
+        			messageRecord.setRecordTitle(messageEmail.getEmailTitle());//设置标题
+        			messageRecord.setRecordSend(pricipalUser.getUserId());//管理员
+        			messageRecord.setRecordMemberid(member.getMemberId());//会员ID
+        			messageRecord.setCreaterTime(new Date());//设置当前时间
+        			messageRecord.setEmailId(messageEmail.getEmailId());//设置活动邮件ID
+        			messageRecordMapper.insertSelective(messageRecord);//执行添加
+        		}
+        		htmlEmailPublic.sendMessage(emailList, messageEmail.getEmailTitle(), messageEmail.getEmailText());
+        		returnResult.setMsg("发送成功");
+        		returnResult.setSuccess(true);
+        	}
+    	}else if(messageEmail.getEmailType().equals("general")){
+    		MemberExample memberExample = new MemberExample();
+    		memberExample.createCriteria().andTypeEqualTo("general");
+    		List<Member> memberList = memberMapper.selectByExample(memberExample);
     		for (Member member : memberList) {
     			emailList.add(member.getEmail());
 			}

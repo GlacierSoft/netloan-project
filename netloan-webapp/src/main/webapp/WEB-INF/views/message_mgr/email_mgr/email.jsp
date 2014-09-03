@@ -114,7 +114,7 @@
 	glacier.message_mgr.email_mgr.email.newEmailDialog = function(title,editModel,url){
 		$.easyui.showDialog({
 			href : ctx + '/do/email/intoForm.htm',//从controller请求jsp页面进行渲染
-			width : 800,
+			width : 830,
 			height : 500,
 			resizable: false,
 			enableSaveButton : false,
@@ -124,14 +124,27 @@
 				text : '保存',
 				iconCls : 'icon-save',
 				handler : function(dia) {
-					$('#email_mgr_email_form').form('submit', {
-						url: ctx + url + "?arrys="+arr,
-						success: function(r){
-							glacier.show({msg:r.msg,result:r.success});
-							glacier.message_mgr.email_mgr.email.emailDataGrid.datagrid('reload');
-						    dia.dialog("close"); 
-						}
-					});
+					if(option == "candidate"&&arr.length > 0){//选择为部分群发并且arr数组大于0
+						$('#email_mgr_email_form').form('submit', {
+							url: ctx + url + "?arrys="+arr,
+							success: function(r){
+								glacier.show({msg:r.msg,result:r.success});
+								glacier.message_mgr.email_mgr.email.emailDataGrid.datagrid('reload');
+							    dia.dialog("close"); 
+							}
+						});
+					}else if(option != "candidate"){//不选择部分群发时
+						$('#email_mgr_email_form').form('submit', {
+							url: ctx + url + "?arrys="+arr,
+							success: function(r){
+								glacier.show({msg:r.msg,result:r.success});
+								glacier.message_mgr.email_mgr.email.emailDataGrid.datagrid('reload');
+							    dia.dialog("close"); 
+							}
+						});
+					}else if(option == "candidate"&&arr.length == 0){//选择为部分群发并且arr数组小于等于0
+						alert("部分群发必须至少有一个联系会员!");
+					}
 				}
 			}]
 		});

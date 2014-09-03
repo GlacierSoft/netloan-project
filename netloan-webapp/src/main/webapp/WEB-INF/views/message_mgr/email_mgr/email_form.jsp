@@ -8,68 +8,133 @@
 </style>
 <form id="email_mgr_email_form" method="post">
 	<div id="cc" class="easyui-layout" style="height:420px;">   
+	
 	   <!-- 显示选择联系人会员 -->
 	   <div id="east" data-options="region:'east',iconCls:'',title:'联系会员',split:true" style="width:160px;">
-	   	 <div id="opacityTwo" style="position: absolute;width: 100%;height: 100%;background-color: gray;filter:alpha(Opacity=20); opacity: 0.2;"></div>
+	   	 <div id="opacityTwo" style="position: absolute;width: 100%;height: 100%;background-color: gray;filter:alpha(Opacity=20); opacity: 0.2;z-index: 999;"></div>
 	   	 <a href="javascript:cancelTree();" style="position: absolute;" class="easyui-linkbutton" plain="true" icon="icon-cancel">取消</a>&nbsp;
     	 <a href="javascript:cancelTrees();" id="cancels" style="position: absolute;margin-left: 50px;" class="easyui-linkbutton" plain="true" icon="icon-cancel">取消全部</a>  
 	   	 <ul id="candidateTree" style="position: absolute;margin-top: 10px;" class="easyui-tree"></ul>
 	   </div>   
 	   <!-- 结束 显示选择联系人会员-->
+	   
 	   <!-- 显示活跃会员 -->
-	   <div id="west" data-options="region:'west',title:'活跃会员显示',split:true" style="width:160px;">
+	   <div id="west" data-options="region:'west',title:'活跃会员显示',split:true" style="width:180px;">
 	   	 <!-- 进来就封屏 -->
-		 <div id="opacityOne" style="position: absolute;width: 100%;height: 100%;background-color: gray;filter:alpha(Opacity=20); opacity: 0.2;"></div>
-		 <ul id="memberTreeGrid" style="position: absolute;"></ul>
+		 <div id="opacityOne" style="position: absolute;width: 100%;height: 100%;background-color: gray;filter:alpha(Opacity=20); opacity: 0.2;z-index: 999;"></div>
+		 <div data-options="region:'north',split:true" style="height:30px;padding-left:10px;position: absolute;border-bottom: 1px solid gray;">
+			<form id="messageEmailSearchForm">
+				<table>
+					<tr>
+						<td>用户名：</td>
+						<td><input id="memberName" name="memberName" style="width: 40px;" class="spinner"/></td>
+						<td>
+							<a href="javascript:emailFind();" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true">查询</a>
+						</td>
+					</tr>
+				</table>
+			</form>
+		 </div>
+		 <ul id="memberTreeGrid" style="position: absolute;margin-top: 35px;"></ul>
 		 <!-- 全部按钮 -->
-		 <!-- <a href="" style="width: 100%;height: 25px;background-color: #1A7BC9;bottom: 0xp;position: absolute;">全部选择</a> -->
+		 <a href="javascript:allTree();" style="width: 100%;height: 25px;background-color: #1A7BC9;bottom: 0px;position: absolute; right:0;text-align: center;line-height: 25px;text-decoration: none;color: white;"><b>全部选择</b></a>
 	   </div>   
 	   <!-- 结束活跃会员 -->
+	   
 	   <!-- 邮件操作部分 -->
 	   <div data-options="region:'center',title:'邮件操作'" style="padding:5px;background:#eee;padding: 20px;">
-	   		<table id="tabs" >
-	   			<tr>
-	   				<td><label>邮件标题：</label><input class="easyui-validatebox spinner" name="emailTitle" size="53" required="true" style="height: 20px;"></td>
-	   			</tr>
-	   			<tr>
-	   				<td><label>邮件类型：</label><input id="emailType" name="emailType" class="easyui-combobox" data-options="textField : 'label',panelHeight : 'auto',editable : false,data : fields.email,required:true"></td>
-	   			</tr>
-	   			<tr>
-	   				<td>
-	   					<textarea name="emailText" id="editor_id" name="content" style="width:400px;height:240px;">
-	   						&lt;strong&gt;HTML内容&lt;/strong&gt;
-	   					</textarea>
-	   				</td>
-	   			</tr>
+	   	   <table id="tabs" >
+	   		 <tr>
+	   			<td><label>邮件标题：</label><input class="easyui-validatebox spinner" name="emailTitle" size="53" required="true" style="height: 20px;"></td>
+	   		 </tr>
+	   		 <tr>
+	   			<td><label>邮件类型：</label><input id="emailType" name="emailType" class="easyui-combobox" data-options="textField : 'label',panelHeight : 'auto',editable : false,data : fields.email,required:true"></td>
+	   		 </tr>
+	   		 <tr>
+	   			<td>
+	   				<textarea name="emailText" id="editor_id" name="content" style="width:400px;height:240px;">
+	   					&lt;strong&gt;HTML内容&lt;/strong&gt;
+	   				</textarea>
+	   			 </td>
+	   		 </tr>
 	   		</table>
 	   		<input type="hidden" id="arrys">
 	   </div>  
 	   <!-- 结束邮件部分 --> 
+	   
 	</div>  
 </form>
 <script type="text/javascript">
 
 	var arr = new Array();//构建一个存储ID的数组
-
-	//下拉项选中发生的操作
+	var option = "";
+	//全部选择按钮功能
+	function allTree(){
+		var memberChildren = $("#memberTreeGrid").tree("getChildren");//获取活跃会员所有节点
+		var contactChildren = $("#candidateTree").tree("getChildren");//获取联系会员所有节点
+		if(contactChildren == ""){//判断联系会员的树节点是否为空,为空就全部加上
+			console.info(contactChildren);
+			$('#candidateTree').tree('append', {
+				data: memberChildren
+			});
+		}else{//不为空进行循环判断是否有重复的，有重复就不用再次追加
+			var appendChildren = $("#candidateTree").tree("getChildren");//获取已追加联系会员所有节点
+			for(var i=0;i<memberChildren.length;i++){
+				var isflash=true;
+				//从活跃会员一个一个的跟联系人会员对比
+				for(var j=0;j<appendChildren.length;j++){
+					if(memberChildren[i].text == appendChildren[j].text){
+						isflash = false;
+						break;//相同的就跳出
+					}
+				}
+				//为true时执行追加
+				if(isflash){
+					$('#candidateTree').tree('append', {
+						data: memberChildren[i]
+					});
+				}
+			}
+			//循环完毕
+		}
+		//重新把所有节点的ID存到数组步骤
+		var nodeApped = $('#candidateTree').tree('getChildren');//重新获取联系会员的所有节点节点
+		var index = 0;
+		arr = new Array();//初始化
+		$.each(nodeApped,function(i,v){
+			arr[index]=v.id; 
+        	index++;
+		});
+	}
+	
+	//下拉项选中发生的操作功能
 	$("#emailType").combobox({
 		onSelect:function(record){
 			if(record.value == "candidate"){//选择为candidate部分群发时进行以下方法
 				$("#opacityOne").remove();//删除透明度,让用户能进行选择用户的操作
 				$("#opacityTwo").remove();
+				option = record.value;
 			}else{//反之先删除再追加，预防增加多一层
 				$("#opacityOne").remove();
 				$("#opacityTwo").remove();
-				var divOne="<div id='opacityOne' style='position: absolute;width: 100%;height: 100%;background-color: gray;filter:alpha(Opacity=20); opacity: 0.2;'></div>";
-				var divOTwo="<div id='opacityTwo' style='position: absolute;width: 100%;height: 100%;background-color: gray;filter:alpha(Opacity=20); opacity: 0.2;margin-top: -15px;'></div>";
+				var divOne="<div id='opacityOne' style='position: absolute;width: 100%;height: 100%;background-color: gray;filter:alpha(Opacity=20); opacity: 0.2;z-index: 999;'></div>";
+				var divOTwo="<div id='opacityTwo' style='position: absolute;width: 100%;height: 100%;background-color: gray;filter:alpha(Opacity=20); opacity: 0.2;margin-top: -15px;z-index: 999;'></div>";
 				$("#west").append(divOne);
 				$("#east").append(divOTwo);
+				var children = $("#candidateTree").tree("getChildren");//获取id为联系会员所有节点
+				if(children != ""){//不为空就进行删除节点
+					$.each(children,function(i,v){
+						$("#candidateTree").tree("remove",v.target);
+						$("#cancels .tree-indent").remove();//删除class为indent的节点预防删除完后样式突出
+					});
+				}
+				option = record.value;
 			}
 		}
 	});
 	
 	
-	//删除选中的节点
+	//删除选中的节点功能
 	function cancelTree(){
 		var children = $("#candidateTree").tree("getChildren");//获取所有节点
 		if(children!=""){
@@ -85,14 +150,14 @@
 		        	index++;
 				});
 			}else{
-				alert("请选择联系人");
+				alert("至少选择一个联系会员");
 			}
 		}else{
-			alert("没有联系人");
+			alert("至少选择一个联系会员");
 		}
 	}
 	
-	//删除全部节点
+	//删除全部节点功能
 	function cancelTrees(){
 		var children = $("#candidateTree").tree("getChildren");
 		if(children!=""){
@@ -104,9 +169,11 @@
 		}
 	}
 	
-	$(function(){
+	function emailFind(){
+		var param = $("#memberName").val();
+		console.info(param);
 		$('#memberTreeGrid').tree({    
-		    url: ctx + '/do/email/list2.json' ,
+		    url: ctx + '/do/email/list2.json?param='+param ,
 		    onClick: function(node){
 				var selected = $('#memberTreeGrid').tree('getSelected');//选中的节点
 				var nodes=$('#candidateTree').tree('getChildren');//获取所有的子节点
@@ -132,6 +199,10 @@
 				}
 			}
 		});
+	}
+	
+	$(function(){
+		emailFind();
 	});
 	
 	KindEditor.ready(function(K) {
