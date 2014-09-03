@@ -18,8 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!--引入地图库  -->
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=28f141a7f98bb07afec4968ecd7fc808"></script>
         <script type="text/javascript" charset="utf-8">
-			$(function(){
-				
+			$(function(){ 
 				var userInfoDetailStr = '<table class="formtable" style="font-weight: bold;">'+
 											'<tr><td>上次登录时间：</td><td><span class="label label-warning"><fmt:formatDate value="${currentUser.lastLoginTime}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td></tr>'+
 											'<tr><td>上次登录IP：</td><td><span class="label label-warning">${currentUser.lastLoginIpAddress}<span></td></tr>'+
@@ -69,6 +68,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						}
 					});
 				});
+				
+			
 				
 				//主页
 				$("#home").click(function (){
@@ -221,6 +222,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<a id="btnFullScreen" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-dortmund-limited-edition'">全屏切换</a> 
 					<a href="javascript:void(0);" class="easyui-menubutton" data-options="menu:'#layout_north_pfMenu',iconCls:'icon-dortmund-delicious'">更换皮肤</a> 
 					<a href="javascript:void(0);" class="easyui-menubutton" data-options="menu:'#layout_north_kzmbMenu',iconCls:'icon-dortmund-settings'">控制面板</a> 
+					 <a id="myMessage" href="javascript:void(0);"  class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-dortmund-email'">我的消息(<font id="count" style="color: red;"></font>)</a> 
 					<a id="logout" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-dortmund-logout'">注销</a>
 				</div>
 				<div id="layout_north_pfMenu" style="width:120px; display: none;">
@@ -298,5 +300,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</table>
 			</form>
 		</div>
+		 
+		<script>
+    $(function() {
+    	//----------刷新消息，显示未读总数
+      var loadMssage=function messageCount(){ 
+    		$.ajax({
+ 			   type: "POST",
+ 			   url: ctx + '/do/message/prompt.json',
+ 			   dataType:'json',
+ 			   success: function(r){ 
+ 				       $("#count").empty(); 
+ 					   $("#count").append(r.msg); 
+ 			   }
+ 		   }); 
+    	}
+       loadMssage();
+	   $("#myMessage").click(function(){ 
+			$.easyui.showDialog({
+				title: "消息管理",
+				href : ctx + '/do/message/received.htm',       //从controller请求jsp页面进行渲染
+				width : 827,
+				height : 593,
+				enableApplyButton : false,
+				enableSaveButton : false, 
+				onClose:function(){
+					loadMssage();
+				}
+			});
+	   });
+      
+   });
+ </script>
 	</body>
 </html>

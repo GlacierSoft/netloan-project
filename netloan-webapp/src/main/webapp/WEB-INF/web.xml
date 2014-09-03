@@ -105,27 +105,27 @@
 		<location>/WEB-INF/views/error/500.jsp</location>
 	</error-page>
 	<error-page>
-		<error-code>500</error-code>
+		<error-code>5000</error-code>
 		<location>/WEB-INF/views/error/500.jsp</location>
 	</error-page>
 	<error-page>
-		<error-code>403</error-code>
+		<error-code>4030</error-code>
 		<location>/WEB-INF/views/error/403.jsp</location>
 	</error-page>
 	<error-page>
-		<error-code>501</error-code>
+		<error-code>5010</error-code>
 		<location>/WEB-INF/views/error/501.jsp</location>
 	</error-page>
 	<error-page>
-		<error-code>400</error-code>
+		<error-code>4000</error-code>
 		<location>/WEB-INF/views/error/400.jsp</location>
 	</error-page>
 	<error-page> 
-	  <error-code>404</error-code> 
+	  <error-code>4040</error-code> 
 	  <location>/WEB-INF/views/error/404.jsp</location> 
 	</error-page>
 	<session-config>
-		<session-timeout>300</session-timeout>
+		<session-timeout>3000</session-timeout>
 	</session-config>
 	
 	<welcome-file-list>

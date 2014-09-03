@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.system.MessageReceiverMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.system.MessageReceiver" >
+    <result column="temp_message_receiver_msg_rece_id" property="msgReceId" jdbcType="VARCHAR" />
+    <result column="temp_message_receiver_recipient" property="recipient" jdbcType="VARCHAR" />
+    <result column="temp_message_receiver_read_status" property="readStatus" jdbcType="BIT" />
+    <result column="temp_message_receiver_reply_msg" property="replyMsg" jdbcType="VARCHAR" />
+    <result column="temp_message_receiver_recipient_del" property="recipientDel" jdbcType="BIT" />
+    <!-- 自定义字段 -->
+    <result column="temp_message_receiver_recipient_name" property="recipientName" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_message_receiver.msg_rece_id as temp_message_receiver_msg_rece_id, temp_message_receiver.recipient as temp_message_receiver_recipient, 
+    temp_message_receiver.read_status as temp_message_receiver_read_status, temp_message_receiver.reply_msg as temp_message_receiver_reply_msg, 
+    temp_message_receiver.recipient_del as temp_message_receiver_recipient_del
+   <!-- 以下字段属于扩展 -->
+    ,temp_createrDisplay.user_cn_name as temp_message_receiver_recipient_name
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_user temp_createrDisplay ON temp_createrDisplay.user_id = temp_message_receiver.recipient <!-- 扩展 -->
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.system.MessageReceiverExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_message_receiver temp_message_receiver
+     <include refid="Base_extend"/>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.system.MessageReceiverExample" >
+    delete temp_message_receiver from t_message_receiver temp_message_receiver
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.system.MessageReceiver" >
+    insert into t_message_receiver (msg_rece_id, recipient, read_status, 
+      reply_msg, recipient_del)
+    values (#{msgReceId,jdbcType=VARCHAR}, #{recipient,jdbcType=VARCHAR}, #{readStatus,jdbcType=BIT}, 
+      #{replyMsg,jdbcType=VARCHAR}, #{recipientDel,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.system.MessageReceiver" >
+    insert into t_message_receiver
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="msgReceId != null" >
+        msg_rece_id,
+      </if>
+      <if test="recipient != null" >
+        recipient,
+      </if>
+      <if test="readStatus != null" >
+        read_status,
+      </if>
+      <if test="replyMsg != null" >
+        reply_msg,
+      </if>
+      <if test="recipientDel != null" >
+        recipient_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="msgReceId != null" >
+        #{msgReceId,jdbcType=VARCHAR},
+      </if>
+      <if test="recipient != null" >
+        #{recipient,jdbcType=VARCHAR},
+      </if>
+      <if test="readStatus != null" >
+        #{readStatus,jdbcType=BIT},
+      </if>
+      <if test="replyMsg != null" >
+        #{replyMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientDel != null" >
+        #{recipientDel,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.system.MessageReceiverExample" resultType="java.lang.Integer" >
+    select count(*) from t_message_receiver temp_message_receiver
+     <include refid="Base_extend"/>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_message_receiver temp_message_receiver
+    <set >
+      <if test="record.msgReceId != null" >
+        temp_message_receiver.msg_rece_id = #{record.msgReceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recipient != null" >
+        temp_message_receiver.recipient = #{record.recipient,jdbcType=VARCHAR},
+      </if>
+      <if test="record.readStatus != null" >
+        temp_message_receiver.read_status = #{record.readStatus,jdbcType=BIT},
+      </if>
+      <if test="record.replyMsg != null" >
+        temp_message_receiver.reply_msg = #{record.replyMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recipientDel != null" >
+        temp_message_receiver.recipient_del = #{record.recipientDel,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_message_receiver temp_message_receiver
+    set temp_message_receiver.msg_rece_id = #{record.msgReceId,jdbcType=VARCHAR},
+      temp_message_receiver.recipient = #{record.recipient,jdbcType=VARCHAR},
+      temp_message_receiver.read_status = #{record.readStatus,jdbcType=BIT},
+      temp_message_receiver.reply_msg = #{record.replyMsg,jdbcType=VARCHAR},
+      temp_message_receiver.recipient_del = #{record.recipientDel,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.system.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.system.Message" >
+    <id column="temp_message_message_id" property="messageId" jdbcType="VARCHAR" />
+    <result column="temp_message_content" property="content" jdbcType="VARCHAR" />
+    <result column="temp_message_sender" property="sender" jdbcType="VARCHAR" />
+    <result column="temp_message_sendTime" property="sendtime" jdbcType="TIMESTAMP" />
+    <result column="temp_message_senderIsDel" property="senderisdel" jdbcType="BIT" />
+    <!-- 自定义字段 -->
+    <result column="temp_message_sender_name" property="senderName" jdbcType="VARCHAR" />
+    
+    
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_message.message_id as temp_message_message_id, temp_message.content as temp_message_content, 
+    temp_message.sender as temp_message_sender, temp_message.sendTime as temp_message_sendTime, 
+    temp_message.senderIsDel as temp_message_senderIsDel
+    <!-- 以下字段属于扩展 -->
+    ,temp_createrDisplay.user_cn_name as temp_message_sender_name
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_user temp_createrDisplay ON temp_createrDisplay.user_id = temp_message.sender <!-- 扩展 -->
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.system.MessageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_message temp_message
+    <include refid="Base_extend"/>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_message temp_message
+    <include refid="Base_extend"/>
+    where temp_message.message_id = #{messageId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_message
+    where message_id = #{messageId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.system.MessageExample" >
+    delete from t_message temp_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.system.Message" >
+    insert into t_message (message_id, content, sender, 
+      sendTime, senderIsDel)
+    values (#{messageId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{sender,jdbcType=VARCHAR}, 
+      #{sendtime,jdbcType=TIMESTAMP}, #{senderisdel,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.system.Message" >
+    insert into t_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        message_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="sender != null" >
+        sender,
+      </if>
+      <if test="sendtime != null" >
+        sendTime,
+      </if>
+      <if test="senderisdel != null" >
+        senderIsDel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="sender != null" >
+        #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null" >
+        #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="senderisdel != null" >
+        #{senderisdel,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.system.MessageExample" resultType="java.lang.Integer" >
+    select count(*) from t_message temp_message
+    <include refid="Base_extend"/>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_message temp_message
+    <set >
+      <if test="record.messageId != null" >
+        temp_message.message_id = #{record.messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        temp_message.content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sender != null" >
+        temp_message.sender = #{record.sender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendtime != null" >
+        temp_message.sendTime = #{record.sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.senderisdel != null" >
+        temp_message.senderIsDel = #{record.senderisdel,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_message temp_message
+    set temp_message.message_id = #{record.messageId,jdbcType=VARCHAR},
+      temp_message.content = #{record.content,jdbcType=VARCHAR},
+      temp_message.sender = #{record.sender,jdbcType=VARCHAR},
+      temp_message.sendTime = #{record.sendtime,jdbcType=TIMESTAMP},
+      temp_message.senderIsDel = #{record.senderisdel,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.system.Message" >
+    update t_message
+    <set >
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="sender != null" >
+        sender = #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null" >
+        sendTime = #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="senderisdel != null" >
+        senderIsDel = #{senderisdel,jdbcType=BIT},
+      </if>
+    </set>
+    where message_id = #{messageId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.system.Message" >
+    update t_message
+    set content = #{content,jdbcType=VARCHAR},
+      sender = #{sender,jdbcType=VARCHAR},
+      sendTime = #{sendtime,jdbcType=TIMESTAMP},
+      senderIsDel = #{senderisdel,jdbcType=BIT}
+    where message_id = #{messageId,jdbcType=VARCHAR}
+  </update>
+</mapper>
