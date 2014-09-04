@@ -42,6 +42,22 @@ public class MessageRecordService {
 	
 	/**
 	 * @Title: getRecord 
+	 * @Description: TODO(根据活动邮件Id获取活动邮件记录) 
+	 * @param @param recordId
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
+    @Transactional(readOnly = false)
+    public Object getRecordList(String emailId) {
+    	MessageRecordExample messageRecordExample = new MessageRecordExample();
+    	messageRecordExample.createCriteria().andEmailIdEqualTo(emailId);
+    	List<MessageRecord> messageRecordList = messageRecordMapper.selectByExample(messageRecordExample);
+    	return messageRecordList;
+    }
+	
+	/**
+	 * @Title: getRecord 
 	 * @Description: TODO(根据活动邮件记录Id获取活动邮件) 
 	 * @param @param recordId
 	 * @param @return    设定文件 

@@ -28,6 +28,7 @@
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
 		url: ctx + '/do/email/list.json',
+		sortName: 'createrTime',//排序字段名称
 		sortOrder: 'desc',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
 		idField:'emailId',
@@ -51,12 +52,12 @@
 				}
 			},{
 				field:'createrDisplay',
-				title:'创建人',
+				title:'发送人',
 				sortable:true,
 				width:100
 			},{
 				field:'createrTime',
-				title:'创建时间',
+				title:'发送时间',
 				sortable:true,
 				width:200
 			}
@@ -125,21 +126,31 @@
 				iconCls : 'icon-save',
 				handler : function(dia) {
 					if(option == "candidate"&&arr.length > 0){//选择为部分群发并且arr数组大于0
+						$.messager.progress({
+							title : "邮件提示",
+							text : "正在发送邮件中..."
+						}); 
 						$('#email_mgr_email_form').form('submit', {
 							url: ctx + url + "?arrys="+arr,
 							success: function(r){
 								glacier.show({msg:r.msg,result:r.success});
 								glacier.message_mgr.email_mgr.email.emailDataGrid.datagrid('reload');
-							    dia.dialog("close"); 
+							    dia.dialog("close");
+							    $.messager.progress('close');
 							}
 						});
 					}else if(option != "candidate"){//不选择部分群发时
+						$.messager.progress({
+							title : "邮件提示",
+							text : "正在发送邮件中..."
+						}); 
 						$('#email_mgr_email_form').form('submit', {
 							url: ctx + url + "?arrys="+arr,
 							success: function(r){
 								glacier.show({msg:r.msg,result:r.success});
 								glacier.message_mgr.email_mgr.email.emailDataGrid.datagrid('reload');
 							    dia.dialog("close"); 
+							    $.messager.progress('close');
 							}
 						});
 					}else if(option == "candidate"&&arr.length == 0){//选择为部分群发并且arr数组小于等于0

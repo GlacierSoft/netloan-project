@@ -37,7 +37,7 @@
 		 </div>
 		 <ul id="memberTreeGrid" style="position: absolute;margin-top: 35px;"></ul>
 		 <!-- 全部按钮 -->
-		 <a href="javascript:allTree();" style="width: 100%;height: 25px;background-color: #1A7BC9;bottom: 0px;position: absolute; right:0;text-align: center;line-height: 25px;text-decoration: none;color: white;"><b>全部选择</b></a>
+		 <a href="javascript:allTree();" class="l-btn" style="width: 100%;height: 25px;bottom: 0px;position: absolute; right:0;text-align: center;line-height: 25px;color: white;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;全部选择</b></a>
 	   </div>   
 	   <!-- 结束活跃会员 -->
 	   

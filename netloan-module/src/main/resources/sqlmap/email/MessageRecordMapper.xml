@@ -11,6 +11,7 @@
     
     <result column="temp_message_record_record_send_display" property="recordSendDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_message_record_record_member_display" property="recordMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_message_record_record_member_name_display" property="recordMemberNameDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -78,6 +79,7 @@
     <!-- 以下字段属于扩展 -->
     ,temp_creater.user_cn_name as temp_message_record_record_send_display
     ,temp_member.member_real_name as temp_message_record_record_member_display
+    ,temp_member.member_name as temp_message_record_record_member_name_display
   </sql>
   <sql id="Base_extend">
     LEFT JOIN t_member temp_member ON temp_member.member_id = temp_message_record.record_memberid <!-- 扩展 -->

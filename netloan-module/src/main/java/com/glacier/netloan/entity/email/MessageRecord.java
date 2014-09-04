@@ -22,6 +22,8 @@ public class MessageRecord {
      */
     private String recordSendDisplay;
     
+    private String recordMemberNameDisplay;
+    
     private String recordMemberDisplay;
 
     private String emailId;
@@ -88,6 +90,15 @@ public class MessageRecord {
 
 	public void setRecordMemberDisplay(String recordMemberDisplay) {
 		this.recordMemberDisplay = recordMemberDisplay;
+	}
+
+	
+	public String getRecordMemberNameDisplay() {
+		return recordMemberNameDisplay;
+	}
+
+	public void setRecordMemberNameDisplay(String recordMemberNameDisplay) {
+		this.recordMemberNameDisplay = recordMemberNameDisplay;
 	}
 
 	@Override

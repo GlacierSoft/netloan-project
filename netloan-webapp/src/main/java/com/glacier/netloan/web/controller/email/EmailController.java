@@ -4,7 +4,10 @@
  * Copyright (c) 2013 Glacier SoftWare Company Limited. All Rights Reserved.
  */
 package com.glacier.netloan.web.controller.email;
+import java.util.List;
+
 import javax.mail.MessagingException;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.entity.email.MessageEmail;
+import com.glacier.netloan.entity.email.MessageRecord;
 import com.glacier.netloan.service.email.MessageEmailService;
+import com.glacier.netloan.service.email.MessageRecordService;
 import com.glacier.netloan.service.member.MemberService;
 
 /** 
@@ -30,7 +36,10 @@ import com.glacier.netloan.service.member.MemberService;
 public class EmailController extends AbstractController{
 
 	@Autowired
-	private MessageEmailService messageEmailService; 
+	private MessageEmailService messageEmailService;
+	
+	@Autowired
+	private MessageRecordService messageRecordService;
 	
 	@Autowired
 	private MemberService memberService; 
@@ -55,6 +64,16 @@ public class EmailController extends AbstractController{
         ModelAndView mav = new ModelAndView("message_mgr/email_mgr/email_detail");
         if(StringUtils.isNotBlank(emailId)){
             mav.addObject("emailData", messageEmailService.getEmail(emailId));
+        }
+        return mav;
+    }
+    
+    // 进入活动邮件Detail信息页面
+    @RequestMapping(value = "/addresseeDetail.htm")
+    private Object addresseeDetail(String emailId) {
+        ModelAndView mav = new ModelAndView("message_mgr/email_mgr/email_addressee");
+        if(StringUtils.isNotBlank(emailId)){
+            mav.addObject("recordDatas", messageRecordService.getRecordList(emailId));
         }
         return mav;
     }
