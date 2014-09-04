@@ -314,7 +314,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  					   $("#count").append(r.msg); 
  			   }
  		   }); 
-    	}
+    	} 
        loadMssage();
 	   $("#myMessage").click(function(){ 
 			$.easyui.showDialog({
@@ -328,8 +328,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					loadMssage(); 
 				} 
 			});
-	   });
-      
+	   }); 
    });
  </script>
 	</body>
