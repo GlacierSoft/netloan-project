@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50067
 File Encoding         : 65001
 
-Date: 2014-09-01 16:27:56
+Date: 2014-09-04 15:04:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -38,15 +38,18 @@ CREATE TABLE `t_account_invest` (
 -- ----------------------------
 -- Records of t_account_invest
 -- ----------------------------
+INSERT INTO `t_account_invest` VALUES ('032e2bc2a5f4f6163618ee522b20fb73', '0.00', '0.00', '0.00', '10000.00', '0.00', '0.00', '0.00', '8b25651c2d896297530b64e4b80ec503', '2014-09-02 08:42:41', '8b25651c2d896297530b64e4b80ec503', '2014-09-02 08:42:41');
 INSERT INTO `t_account_invest` VALUES ('14d99b43d20f55b163ddeea79712677d', '0.00', '0.00', '0.00', '10000.00', '0.00', '0.00', '0.00', '8b25651c2d896297530b64e4b80ec503', '2014-09-01 08:29:43', '8b25651c2d896297530b64e4b80ec503', '2014-09-01 08:29:43');
 INSERT INTO `t_account_invest` VALUES ('3a4918ace902639ca91d537768a974f0', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '8b25651c2d896297530b64e4b80ec503', '2014-07-28 15:30:23', '8b25651c2d896297530b64e4b80ec503', '2014-07-28 15:30:23');
 INSERT INTO `t_account_invest` VALUES ('50de9c03bba6e3650ceef242443386c4', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '8b25651c2d896297530b64e4b80ec503', '2014-07-25 16:19:39', '8b25651c2d896297530b64e4b80ec503', '2014-07-25 16:19:39');
+INSERT INTO `t_account_invest` VALUES ('5aa1227c90ac0c92401d395cad25dc68', '0.00', '0.00', '0.00', '10000.00', '0.00', '0.00', '0.00', '8b25651c2d896297530b64e4b80ec503', '2014-09-03 08:31:04', '8b25651c2d896297530b64e4b80ec503', '2014-09-03 08:31:04');
 INSERT INTO `t_account_invest` VALUES ('78204d43cee38d1d19cd4c9442636132', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '8b25651c2d896297530b64e4b80ec503', '2014-08-06 16:20:32', '8b25651c2d896297530b64e4b80ec503', '2014-08-06 16:20:32');
 INSERT INTO `t_account_invest` VALUES ('90bd29a92625f362259388f0f011c519', '0.00', '0.00', '0.00', '10000.00', '0.00', '0.00', '0.00', '8b25651c2d896297530b64e4b80ec503', '2014-08-29 09:23:16', '8b25651c2d896297530b64e4b80ec503', '2014-08-29 09:23:16');
 INSERT INTO `t_account_invest` VALUES ('9744b37a78611048baf4ea671f3c37a7', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '8b25651c2d896297530b64e4b80ec503', '2014-08-05 14:16:35', '8b25651c2d896297530b64e4b80ec503', '2014-08-05 14:16:35');
 INSERT INTO `t_account_invest` VALUES ('9f589f772e657460d19c8ba0b31a964d', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '8b25651c2d896297530b64e4b80ec503', '2014-07-30 10:20:16', '8b25651c2d896297530b64e4b80ec503', '2014-07-30 10:20:16');
 INSERT INTO `t_account_invest` VALUES ('c84e74d697a2cf1c57f0a35a004e35c8', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '8b25651c2d896297530b64e4b80ec503', '2014-08-07 16:21:52', '8b25651c2d896297530b64e4b80ec503', '2014-08-07 16:21:52');
 INSERT INTO `t_account_invest` VALUES ('c9f593c06b1574369ef2675b65624a15', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '8b25651c2d896297530b64e4b80ec503', '2014-07-24 15:30:55', '8b25651c2d896297530b64e4b80ec503', '2014-07-24 15:30:55');
+INSERT INTO `t_account_invest` VALUES ('e9a67679d9953885a9dda5d75292c07d', '0.00', '0.00', '0.00', '10000.00', '0.00', '0.00', '0.00', '8b25651c2d896297530b64e4b80ec503', '2014-09-04 09:32:25', '8b25651c2d896297530b64e4b80ec503', '2014-09-04 09:32:25');
 
 -- ----------------------------
 -- Table structure for `t_action`
@@ -145,7 +148,7 @@ INSERT INTO `t_action` VALUES ('8dd9d2808e9363daf78642bcb64bfa7e', '4c654b11b08e
 INSERT INTO `t_action` VALUES ('8eb3b50d119f05c30127c3359e4a5d2a', 'e550884c5e6c1e94ee70cc833aa1c2b9', '83bbeed02a85549ae84cde8d98bcd8c1', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'disable', 'glacier.system_mgr.role_mgr.role.delRole();', '3', null);
 INSERT INTO `t_action` VALUES ('9320f5b0199abd8d53990eef7cdcd745', '54eb754157cf483a790f4eea35200118', 'eb2a84c4b7bd11632135e4992ade286e', '编辑', 'edit', 'icon-standard-pencil-go', 'Button', 'disable', 'glacier.system_mgr.res_mgr.res.editAction();', '2', null);
 INSERT INTO `t_action` VALUES ('96325847f0e736a796d5ac4bdd78e123', 'sdsfeg4157cf483a790f4eea35ds5675', '3456eg4157cf483a790f4eea35ds5675', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'enable', 'glacier.basicdatas_mgr.optgroup_mgr.optgroup.addOptgroupValue();', '1', null);
-INSERT INTO `t_action` VALUES ('981c5578d788d0c55cebd3b78cce9624', '2d3bc716949c7351370d90b7e17cc857', '977cf7b3565ced93f7dea094633be885', '发送', 'emailAdd', 'icon-hamburg-feed', 'Button', 'enable', 'glacier.message_mgr.email_mgr.email.addEmail();', '1', '');
+INSERT INTO `t_action` VALUES ('981c5578d788d0c55cebd3b78cce9624', '2d3bc716949c7351370d90b7e17cc857', '977cf7b3565ced93f7dea094633be885', '发送', 'add', 'icon-hamburg-feed', 'Button', 'enable', 'glacier.message_mgr.email_mgr.email.addEmail();', '1', '');
 INSERT INTO `t_action` VALUES ('9b230bb84a2df248ad7a4d506d06f28c', 'b34761b59816e63743643c6f179683a4', 'b8a03efe50a44d460983badb4be96eea', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'enable', 'glacier.website_mgr.advertisement_mgr.advertisement.delAdvertisement();', '3', null);
 INSERT INTO `t_action` VALUES ('9bd85330248f3e9a3839fc7fb22e7989', '5db451044c71b4eb5448a4291d538241', '6e8859d95d4d4874c378f80f642740df', '审核', 'audit', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.finance_mgr.bankCard_mgr.bankCard.auditBankCard();', '4', null);
 INSERT INTO `t_action` VALUES ('9c975e58b77030f3eaa72f95ab34f786', 'ae024ce004991607d5ae9e725d67cce8', '7b6390143d9a9c234890391f475ef7c9', '审核', 'audit', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.member_mgr.applyAmount_mgr.applyAmount.auditApplyAmount();', '4', null);
@@ -462,7 +465,7 @@ INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '16ac1df11
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '185b00f80aaa910fa99d9abc99c84d58', 'LoanReviewList_del');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '2a93efe5aeae3cdef871447bd49134a0', 'FinancePlatformList_add,FinancePlatformList_edit,FinancePlatformList_del,FinancePlatformList_audit,FinancePlatformList_update');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '2ce7311ee180ae794c608251997dad9c', null);
-INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '2d3bc716949c7351370d90b7e17cc857', 'EmailList_emailAdd');
+INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '2d3bc716949c7351370d90b7e17cc857', 'EmailList_add');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '31a605c2a2a777c738a09103b9915615', 'BorrowingLoanSecAuditList_audit');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '33f5e9959e821a58696e2d2fb5c322fc', 'QuestionList_add,QuestionList_edit,QuestionList_del');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '3775cc8c3044650697dbb4d8636b5464', null);
@@ -472,6 +475,7 @@ INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '3d6978661
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '3f029e72ef13db56e8b65866984da722', 'WithdrawList_audit');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '43b1d02267e9ed610543845a1c1a24ca', 'OverdueAdvancesList_add,OverdueAdvancesList_edit,OverdueAdvancesList_del,OverdueAdvancesList_audit');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '4c654b11b08eecbf6eb4e6688ea83b7d', 'MemberList_edit');
+INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '4d37bb0154fe03c2c096ac83d5e867d1', null);
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '4f1b6666b70be892469b6e93c1eb30ce', 'NavTree_add,NavTree_edit,NavTree_del');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '51af37d8918504c4ba34a85b1a3d94fc', 'AccountLoginList_exp');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '54d652799e07bb8be54483301a89ff90', 'HelpList_add,HelpList_edit,HelpList_del');
@@ -1133,54 +1137,100 @@ CREATE TABLE `t_loginlog` (
 -- Records of t_loginlog
 -- ----------------------------
 INSERT INTO `t_loginlog` VALUES ('0034cf9415f5a87768d8c52bcd7f6fae', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-29 16:47:08', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('0078a6b119e596abfd442f1ea87b5f36', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 09:53:43', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('00a17dc579cc8ec7952f638facae4b73', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-06 17:12:29', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('0214de1f06b7e37376428a81458aee36', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 11:30:21', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('0b03be95e2cfc4f5ab8456a858a4355a', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 13:04:18', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('0f8e40d668bd8af755b784540dd1bdc5', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-29 13:29:36', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('12dabdd2736a73f95abb757fa2be7f5c', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 13:28:37', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('12ff5b29395a1350f93381b59e997864', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 16:00:25', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('138fa8c1a2fbe182daa9e8f74dc0686b', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-06 16:45:02', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('18bbdf88161a59d1e3d099388057a678', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 13:19:01', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('1f90e3829869db2e675ac0cbe2c6d6ae', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 13:03:33', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('2adbbdab92013cd24148a7261b28698a', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-07 23:44:23', '0:0:0:0:0:0:0:1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('2c5d45a5db98dee440243005c95c61cc', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-06 17:36:53', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('2cfe42ea211081d83bc30dcd2af8263f', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-04 14:02:19', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('2e8f41aa4e34b03c512eb83fcbf4162c', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-04 09:32:59', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('2f003de865cd30dd0a10cc963c55ec49', 'd6dc13121742a3b331dcb6f93d4f4bce', '测试用户', '2014-08-04 17:53:34', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('2f328a9133dc38b2beb16dc59d04501a', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-03 13:25:21', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('330f6f40b6b19c77f77fbdac5d207ddb', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-04 10:02:48', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('34d7a09b5267aed055f713fbb3e3bff9', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-05 14:22:50', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('3758e5af6e3b619ada36d2d930dccf1a', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-03 08:44:30', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('39f6c9a85844cb039fe8025338f5f8ab', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-03 13:34:48', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('3a5f8a896d0fcf1b240d9932b84aba18', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 14:36:19', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('3b525e370ec57d23410e3181a84baabd', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 15:24:25', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('3c5aba0a6384f55c13ba9f27ca39e287', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-06 17:28:19', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('3d138a9370a5b0a152dbdfdabbf96f11', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-03 13:28:15', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('3d13e1598d3c5eeeb57c2f2588bbaffd', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 11:12:56', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('3d1cd2f3179f5eda5ee7e411e7d1fc76', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-29 14:28:13', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('4233926da199baa7ffb8b47218f39d9d', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 11:16:23', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('43e7800f536cf6028381b5c990fcae4f', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-04 11:19:14', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('448fe534e7021b44b6e5f6f6a30a8be6', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 08:43:35', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('4495136b6ad83a92dac7c435cbaa25d1', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 16:37:09', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('4544e58656b958f46c1955cb972b5ac9', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-06 17:06:15', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('458037b99acd42cda51f161a04958478', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 11:34:23', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('45e0445476b67b74c9c39ee2984351d6', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-04 10:23:10', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('491f6ac5e49843dabc5eea0058ff9f33', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-06 16:38:02', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('4933ab00dd0fcd8a8e729cc53685a5a7', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 13:02:22', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('49825bb7fe3c26bd0ba17c172173bb71', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 08:54:06', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('4c7ae0eb2d3a80586952c320d25ba3d3', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-03 13:08:43', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('50e403c91be12a991d25757801445049', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-03 13:37:29', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('5119d4c11e93812ec9ecf727597ea85d', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 08:55:43', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('591f38ca6c4bbc18eee977e94d7a02e4', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-07 09:15:22', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('59b31b89921bc3bfdc54da1cfae9d8e6', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-03 13:32:42', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('5afbd42a74cffe30da38e491108c8dc4', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-03 09:11:44', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('5d43d02740e3285ddef4a1cf0853b14a', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-03 15:53:05', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('602f126bb7e20d993e91749ffc726bfb', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 11:18:10', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('6114aebdfe7125db1027c986fd3c45a1', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 10:04:26', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('62e7d02a0a13ed7935540213ccb5653a', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 15:54:21', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('65b863b499fd8cf992d88303b1783458', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 09:48:31', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('67fc14b314089fbc997cb734e14b86b3', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-03 13:30:14', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('682639928470a16897f62cd77900799a', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-06 16:26:37', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('6bec17d5b3c7448998f50578c0cbacf7', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 10:22:06', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('6d815589322cb9eb21573dd4b0b86879', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 09:38:22', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('6eb91adcf3ea14bc3230eb93dd21637a', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-29 16:56:26', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('722b6f06b38fed0f8137bd21887e3785', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 13:41:48', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('796bc25116f34438a374f00f35b91826', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-06 17:30:12', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('7a7cd75cebd868e8bb93fbe7493a4c85', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 13:32:56', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('7b1c9f2313cb1507ed6696fff004034f', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-04 14:59:25', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('7c10c6d3f9700b180d830879bb4214eb', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 11:22:08', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('7c66c9550fcf9a6aeab0086cb4332e14', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 15:49:45', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('7e9b530f17bd408764af491a8a285cb8', 'd31a15b0c9abe32744dc16203b9547d8', '客户管理员', '2014-09-04 09:32:47', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('81359934c64542d71297ff688c85bc03', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 10:27:43', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('844b5b355e6cf58d9668fe0c37764dc8', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-07-28 17:01:39', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('8a544f696d3d79e60f27a63e4540a26f', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-06 16:59:25', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('8c8dcb06f30c814e63aedee3163f917c', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-06 17:23:40', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('94ea098d7030005c252a7413b62ddfb3', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-29 09:25:23', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('9ee033e7795e2e53b11144e88c13b07d', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-03 14:58:39', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('9f541d2a31386659488df06c23800c7e', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-06 17:15:41', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('a0537aa7f4cf607efbe7e19e290cea44', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-07-30 10:23:18', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('a3db02e83a719c541420eed109f373d8', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-29 10:56:14', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('a3eeb4d9b04e21192f37feb944809df3', 'd6dc13121742a3b331dcb6f93d4f4bce', '测试用户', '2014-08-04 17:52:26', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('ad2980a542b33c1cd33aba780f4e6616', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-04 10:07:46', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('afb7d3a55b1f4d9b14ab34e14d337d46', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-03 15:48:58', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('b348d18de5011f69e6f2e5d61ce82186', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 15:12:24', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('bc342639e3e0545aa6cd89293ef09272', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-03 14:41:06', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('c8ce42f428f2dab459dc8dbb99c2f81d', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 15:41:30', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('ca781d984f9571a5dbc8523e2a93cfd9', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 14:30:48', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('caa8a85a6f720c67156ccd3200976a9c', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-06 17:52:14', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('ce09cd69287084d606aa8f23b94c04db', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 14:29:13', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('cfc26baa4d58e48a6b68e96a7080930b', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 11:10:51', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('da6ad75a1e9dbf4aa3e20291f5a97082', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 09:53:36', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('dd7d661c52894d19bf7a1f4c83246540', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-03 13:31:25', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('de09c266c36f1541d09fe699fc9decf1', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 15:52:30', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('dfe7763c132998ebda5417636637879c', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 11:18:04', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('e0ddd99dfb4d1bc2c1c10a993be2b02c', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-29 14:29:56', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('e3babb924260084b875303a2a138587c', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 13:36:02', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('ea0f1a7c334da832edd8d3e1d0048018', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 15:46:10', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('eb7491fb705a876b689630895e6ed729', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 15:08:55', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('ee06fdac5da7fa608033b728cab0a264', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-04 09:42:16', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('eecdce2d49bd8de6fd2e1f5e56838a07', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-06 17:34:20', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('f001ee8dba51c42a75d64f922c5a13b9', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-06 17:38:37', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('f011ad789089b18fc4d374e6297578da', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-04 11:24:30', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('f38dc7380c78c4656f5ad45ddeb3ec16', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 17:43:26', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('f504f76724d4224e6e65feb65855d532', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-02 15:23:38', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('faccee7b53eba106224912837d4bd009', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-08-06 16:40:46', '127.0.0.1[本地]', null, null);
+INSERT INTO `t_loginlog` VALUES ('fce3b1e10e586b8bf98848ce8316a272', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-04 10:30:09', '127.0.0.1[本地]', null, null);
 INSERT INTO `t_loginlog` VALUES ('fef407f63078c7805ced48d34b9c375d', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2014-09-01 08:30:17', '127.0.0.1[本地]', null, null);
 
 -- ----------------------------
@@ -1236,8 +1286,9 @@ CREATE TABLE `t_member` (
 -- ----------------------------
 -- Records of t_member
 -- ----------------------------
-INSERT INTO `t_member` VALUES ('477a9013280f7aa7a393124cb8ae2298', 'dong', 'dd3ea4087f506009046660fbbf9b8ab909633a76', 'dd3ea4087f506009046660fbbf9b8ab909633a76', 'Juney', 'http://bdmu.v068041.10000net.cn/netloan-website/resources/images/member/member.jpg', '20', '13411381321', 'man', 'single', '431081199309212993', '920339213@qq.com', '2014-07-30 09:42:35', '10.00', '17.00', '0.00', 'enable', 'general', null, null, '', '研究生或以上', 'w', '广东', '珠海市香洲区唐家湾', '3359486', '', 'family', '', '', '', 'family', '', '', '2014-08-07 16:22:08', '127.0.0.1[本地]', '5', null, '8b25651c2d896297530b64e4b80ec503', '2014-07-30 09:42:35', '8b25651c2d896297530b64e4b80ec503', '2014-08-07 17:42:12');
+INSERT INTO `t_member` VALUES ('477a9013280f7aa7a393124cb8ae2298', 'dong', 'dd3ea4087f506009046660fbbf9b8ab909633a76', 'dd3ea4087f506009046660fbbf9b8ab909633a76', 'Juney', 'http://bdmu.v068041.10000net.cn/netloan-website/resources/images/member/member.jpg', '20', '13411381321', 'man', 'single', '431081199309212993', '920339213@qq.com', '2014-07-30 09:42:35', '10.00', '17.00', '0.00', 'enable', 'vip', null, '2014-11-01 15:48:24', '', '研究生或以上', 'w', '广东', '珠海市香洲区唐家湾', '3359486', '', 'family', '', '', '', 'family', '', '', '2014-08-07 16:22:08', '127.0.0.1[本地]', '5', null, '8b25651c2d896297530b64e4b80ec503', '2014-07-30 09:42:35', '8b25651c2d896297530b64e4b80ec503', '2014-08-07 17:42:12');
 INSERT INTO `t_member` VALUES ('cef84adb9e4e8749c930133be63bc153', 'zhangsan', '0c78164cfc57ee238400e7ccfd8a25de1758ec44', '0c78164cfc57ee238400e7ccfd8a25de1758ec44', '张三', 'http://bdmu.v068041.10000net.cn/netloan-website/resources/images/member/member.jpg', '23', '13411381321', 'man', 'single', '431081199309212993', '920339213@qq.com', '2014-07-28 16:38:10', '10.00', '26.00', '10000.00', 'enable', 'general', null, null, null, '大专', '诚实守信', '广东', '珠海市香洲区唐家湾', '07563333993', '', 'family', '', '', '', 'family', '', '', '2014-08-07 23:53:25', '0:0:0:0:0:0:0:1[本地]', '6', null, '8b25651c2d896297530b64e4b80ec503', '2014-07-28 16:38:10', '8b25651c2d896297530b64e4b80ec503', '2014-08-07 23:57:45');
+INSERT INTO `t_member` VALUES ('de0bef41eba4478aaaf663e3a26ec811', '111', null, null, '111', null, null, null, null, null, null, '920339213@qq.com', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 INSERT INTO `t_member` VALUES ('de0bef41eba4478aaaf663e3a26ec819', 'song', '31198835ed5c1be5589e24350448692232983dea', '31198835ed5c1be5589e24350448692232983dea', '宋俊东', 'http://bdmu.v068041.10000net.cn/netloan-website/resources/images/member/member.jpg', '22', '13411381321', 'man', 'single', '431081199309212993', '920339213@qq.com', '2014-07-28 16:55:52', '10.00', '44.00', '10000.00', 'enable', 'general', null, null, '', '本科', '开朗乐观', '湖南', '珠海市香洲区唐家湾', '2145774', '', 'family', '', '', '', 'family', '', '', '2014-08-07 23:56:26', '0:0:0:0:0:0:0:1[本地]', '12', null, '8b25651c2d896297530b64e4b80ec503', '2014-07-28 16:55:52', '8b25651c2d896297530b64e4b80ec503', '2014-08-07 23:56:50');
 
 -- ----------------------------
@@ -1718,6 +1769,7 @@ INSERT INTO `t_menu` VALUES ('3d69786613fe15615172d1ae22defed4', '14sdf54157cf48
 INSERT INTO `t_menu` VALUES ('3f029e72ef13db56e8b65866984da722', 'b67d550a506255816d54840a853b7a46', 'withdraw', '提现记录', 'icon-cologne-sign-out', '/do/withdraw/index.htm', '4', '');
 INSERT INTO `t_menu` VALUES ('43b1d02267e9ed610543845a1c1a24ca', 'b67d550a506255816d54840a853b7a46', 'overdueAdvances', '逾期垫付设置', 'icon-cologne-graphic-design', '/do/overdueAdvances/index.htm', '10', '');
 INSERT INTO `t_menu` VALUES ('4c654b11b08eecbf6eb4e6688ea83b7d', 'fefe8e9ee335dadbace082923415e023', 'member', '会员信息', 'icon-standard-user', '/do/member/index.htm', '1', '');
+INSERT INTO `t_menu` VALUES ('4d37bb0154fe03c2c096ac83d5e867d1', 'd503136bdab7bbdc8d09f3bbb28fa979', 'record', '邮件记录', 'icon-hamburg-pencil', '/do/record/index.htm', '2', '');
 INSERT INTO `t_menu` VALUES ('4f1b6666b70be892469b6e93c1eb30ce', 'a60cca184eff20fdce88b3f1ab5a9cce', 'nav', '导航信息', 'icon-hamburg-category', '/do/nav/index.htm', '1', '');
 INSERT INTO `t_menu` VALUES ('51af37d8918504c4ba34a85b1a3d94fc', '6a56f98aba3ed0e794a9906e138195a9', 'AccountLogin', '登录统计', 'icon-hamburg-old-versions', '/do/accountLogin/index.htm', '1', '');
 INSERT INTO `t_menu` VALUES ('54d652799e07bb8be54483301a89ff90', 'a60cca184eff20fdce88b3f1ab5a9cce', 'help', '帮助中心', 'icon-hamburg-config', '/do/help/index.htm', '7', '');
@@ -1770,6 +1822,28 @@ INSERT INTO `t_menu` VALUES ('t110147c5e6c1e94ee70cc833aa7f5d3', '14sdf54157cf48
 INSERT INTO `t_menu` VALUES ('v465654c5e6c1e94ee70cc833asd142', '14sdf54157cf483a790f4eea35dsf6f6', 'credit', '会员信用', 'icon-standard-award-star-gold-3', '/do/credit/index.htm', '6', '');
 
 -- ----------------------------
+-- Table structure for `t_message`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_message`;
+CREATE TABLE `t_message` (
+  `message_id` varchar(32) NOT NULL COMMENT '主键、唯一',
+  `content` varchar(255) default NULL COMMENT '消息内容',
+  `sender` varchar(32) default NULL COMMENT '发送者，外键，引用用户主键',
+  `sendTime` datetime default NULL COMMENT '发送时间',
+  `senderIsDel` tinyint(1) default NULL COMMENT '发送者删除状态（0：正常；1：删除）',
+  PRIMARY KEY  (`message_id`),
+  UNIQUE KEY `id` USING BTREE (`message_id`),
+  KEY `FK_message_user_sender` USING BTREE (`sender`),
+  CONSTRAINT `FK_message_user_sender` FOREIGN KEY (`sender`) REFERENCES `t_user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_message
+-- ----------------------------
+INSERT INTO `t_message` VALUES ('4f052cb7c876332a038435a2ac38340b', '2222222222222222222222<br />', '8b25651c2d896297530b64e4b80ec503', '2014-09-03 18:06:39', '1');
+INSERT INTO `t_message` VALUES ('68f75ed18821867f5b868ee500de77eb', '2222222222222222222222<br />', '8b25651c2d896297530b64e4b80ec503', '2014-09-03 18:06:36', '1');
+
+-- ----------------------------
 -- Table structure for `t_message_email`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_message_email`;
@@ -1777,7 +1851,7 @@ CREATE TABLE `t_message_email` (
   `email_id` varchar(32) NOT NULL,
   `email_title` varchar(100) NOT NULL,
   `email_text` varchar(500) NOT NULL,
-  `email_type` enum('candidate','mass') NOT NULL,
+  `email_type` enum('candidate','general','Vip','mass') NOT NULL,
   `send_time` datetime NOT NULL,
   `creater` varchar(255) NOT NULL,
   `creater_time` datetime NOT NULL,
@@ -1788,6 +1862,32 @@ CREATE TABLE `t_message_email` (
 -- ----------------------------
 -- Records of t_message_email
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_message_receiver`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_message_receiver`;
+CREATE TABLE `t_message_receiver` (
+  `msg_rece_id` varchar(32) default NULL COMMENT '短消息，外键，引用短消息主键',
+  `recipient` varchar(32) default NULL COMMENT '接收者，外键，引用用户主键',
+  `read_status` tinyint(1) default NULL COMMENT '读取状态（0：未读取；1：已读取）',
+  `reply_msg` varchar(32) default NULL COMMENT '外键，引用消息表主键',
+  `recipient_del` tinyint(1) default NULL COMMENT '接收者删除状态（0：正常；1：删除）',
+  KEY `FK_message_receiver_message_messageId` (`msg_rece_id`),
+  KEY `FK_message_receiver_message_replyMsg` (`reply_msg`),
+  KEY `FK_message_user_recipient` (`recipient`),
+  CONSTRAINT `FK_message_receiver_message_messageId` FOREIGN KEY (`msg_rece_id`) REFERENCES `t_message` (`message_id`),
+  CONSTRAINT `FK_message_receiver_message_replyMsg` FOREIGN KEY (`reply_msg`) REFERENCES `t_message` (`message_id`),
+  CONSTRAINT `FK_message_user_recipient` FOREIGN KEY (`recipient`) REFERENCES `t_user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_message_receiver
+-- ----------------------------
+INSERT INTO `t_message_receiver` VALUES ('68f75ed18821867f5b868ee500de77eb', 'd31a15b0c9abe32744dc16203b9547d8', '1', null, '1');
+INSERT INTO `t_message_receiver` VALUES ('68f75ed18821867f5b868ee500de77eb', 'd6dc13121742a3b331dcb6f93d4f4bce', '0', null, '0');
+INSERT INTO `t_message_receiver` VALUES ('4f052cb7c876332a038435a2ac38340b', 'd31a15b0c9abe32744dc16203b9547d8', '1', null, '0');
+INSERT INTO `t_message_receiver` VALUES ('4f052cb7c876332a038435a2ac38340b', 'd6dc13121742a3b331dcb6f93d4f4bce', '0', null, '0');
 
 -- ----------------------------
 -- Table structure for `t_message_record`
@@ -1803,8 +1903,10 @@ CREATE TABLE `t_message_record` (
   PRIMARY KEY  (`record_id`),
   KEY `FK_record_memberid` (`record_memberid`),
   KEY `FK_email_id` (`email_id`),
+  KEY `FK_record_send` (`record_send`),
   CONSTRAINT `FK_email_id` FOREIGN KEY (`email_id`) REFERENCES `t_message_email` (`email_id`),
-  CONSTRAINT `FK_record_memberid` FOREIGN KEY (`record_memberid`) REFERENCES `t_member` (`member_id`)
+  CONSTRAINT `FK_record_memberid` FOREIGN KEY (`record_memberid`) REFERENCES `t_member` (`member_id`),
+  CONSTRAINT `FK_record_send` FOREIGN KEY (`record_send`) REFERENCES `t_user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -1834,29 +1936,42 @@ CREATE TABLE `t_operalog` (
 -- Records of t_operalog
 -- ----------------------------
 INSERT INTO `t_operalog` VALUES ('04737fde9e8b5dcbfcb18c8c3e069093', '标种类型', '标种类型列表', '修改', '1', '[流转标] 标种类型信息已修改', 'com.glacier.netloan.service.borrow.LoanTenderService', 'editLoanTender', 'LoanTenderList_edit', '超级管理员', '2014-08-07 23:54:44');
+INSERT INTO `t_operalog` VALUES ('077b2590f6bb20ddac77a3e8482742de', '下拉项管理', '下拉列表', '修改', '1', '[所有会员群发] 下拉项值信息已修改', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupValueService', 'editOptgroupValue', 'OptgroupValueList_edit', '超级管理员', '2014-09-03 14:39:36');
 INSERT INTO `t_operalog` VALUES ('1f805787a893f9353765adc8b9a05146', '下拉项管理', '下拉项树', '修改', '1', '[活动邮件] 下拉项信息已修改', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupService', 'editOptgroup', 'OptgroupTree_edit', '超级管理员', '2014-08-29 15:53:27');
 INSERT INTO `t_operalog` VALUES ('1fcf2cc26ff04ff6f1ccc7c8e06a96cb', '角色管理', '角色列表', '授权', '1', '权限信息已保存', 'com.glacier.netloan.service.system.AuthorityService', 'saveRoleAuths', 'RoleList_auth', '超级管理员', '2014-08-28 15:29:43');
+INSERT INTO `t_operalog` VALUES ('21febca28ce4e0e5327f1d6d92f36e02', '下拉项管理', '下拉列表', '修改', '1', '[群发选择会员] 下拉项值信息已修改', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupValueService', 'editOptgroupValue', 'OptgroupValueList_edit', '超级管理员', '2014-09-03 14:39:22');
 INSERT INTO `t_operalog` VALUES ('3021ffe378794b47ed45bec0e6459a5c', '资源管理', '菜单树', '修改', '1', '[信息管理] 菜单信息已保存', 'com.glacier.netloan.service.system.MenuService', 'editMenu', 'MenuTree_edit', '超级管理员', '2014-08-28 15:17:17');
 INSERT INTO `t_operalog` VALUES ('33ff68f0a46c7fa85ae2bcf482a577b0', '标种类型', '标种类型列表', '修改', '1', '[信用标] 标种类型信息已修改', 'com.glacier.netloan.service.borrow.LoanTenderService', 'editLoanTender', 'LoanTenderList_edit', '超级管理员', '2014-08-07 23:54:39');
 INSERT INTO `t_operalog` VALUES ('3436582cde154bfffd74885e7e5e5fb8', '标种类型', '标种类型列表', '修改', '1', '[流转标] 标种类型信息已修改', 'com.glacier.netloan.service.borrow.LoanTenderService', 'editLoanTender', 'LoanTenderList_edit', '超级管理员', '2014-08-07 23:52:33');
 INSERT INTO `t_operalog` VALUES ('3762abf0579487bb732302da3a2dd5e9', '下拉项管理', '下拉列表', '增加', '1', '[部分群发] 下拉项值信息已保存', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupValueService', 'addOptgroupValue', 'OptgroupValueList_add', '超级管理员', '2014-09-01 12:38:08');
 INSERT INTO `t_operalog` VALUES ('417af784588c23d070f4032a4e324e6f', '资源管理', '面板列表', '修改', '1', '[活动列表] 面板信息已保存', 'com.glacier.netloan.service.system.PanelService', 'editPanel', 'PanelList_edit', '超级管理员', '2014-08-29 13:50:33');
+INSERT INTO `t_operalog` VALUES ('45e5f5590234c42e49c4852681b52246', '资源管理', '菜单树', '修改', '1', '[邮件记录] 菜单信息已保存', 'com.glacier.netloan.service.system.MenuService', 'editMenu', 'MenuTree_edit', '超级管理员', '2014-09-04 14:50:13');
 INSERT INTO `t_operalog` VALUES ('4d35ff8d05da9bee3c47a0fc6c4519bd', '下拉项管理', '下拉项树', '修改', '1', '[信息管理] 下拉项信息已修改', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupService', 'editOptgroup', 'OptgroupTree_edit', '超级管理员', '2014-08-29 15:53:21');
 INSERT INTO `t_operalog` VALUES ('5c01295314a9306160b8a72500cefd6b', '标种类型', '标种类型列表', '修改', '1', '[抵押标] 标种类型信息已修改', 'com.glacier.netloan.service.borrow.LoanTenderService', 'editLoanTender', 'LoanTenderList_edit', '超级管理员', '2014-08-07 23:51:25');
 INSERT INTO `t_operalog` VALUES ('5ef0cd6b66615c6de32e5cadbeb38a82', '角色管理', '角色列表', '授权', '1', '权限信息已保存', 'com.glacier.netloan.service.system.AuthorityService', 'saveRoleAuths', 'RoleList_auth', '超级管理员', '2014-08-29 13:54:44');
+INSERT INTO `t_operalog` VALUES ('6420a01a866e0bf4448e47e066833aaa', '资源管理', '面板列表', '增加', '1', '[活动邮件记录] 面板信息已保存', 'com.glacier.netloan.service.system.PanelService', 'addPanel', 'PanelList_add', '超级管理员', '2014-09-02 10:18:14');
 INSERT INTO `t_operalog` VALUES ('6b7ae2f581768ba636b82f566e6b0e6c', '下拉项管理', '下拉项树', '增加', '1', '[活动邮件] 下拉项信息已保存', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupService', 'addOptgroup', 'OptgroupTree_add', '超级管理员', '2014-08-29 15:52:41');
 INSERT INTO `t_operalog` VALUES ('7c56757af1b92fd649c958526e190569', '资源管理', '菜单树', '修改', '1', '[信息管理] 菜单信息已保存', 'com.glacier.netloan.service.system.MenuService', 'editMenu', 'MenuTree_edit', '超级管理员', '2014-08-28 15:16:56');
+INSERT INTO `t_operalog` VALUES ('7e2c420dcd6c679f69a4a076708dece1', '资源管理', '操作列表', '编辑', '1', '[发送] 操作信息已保存', 'com.glacier.netloan.service.system.ActionService', 'editAction', 'ActionList_edit', '超级管理员', '2014-09-04 14:50:35');
 INSERT INTO `t_operalog` VALUES ('86b6b104eb203fb14df6e53f1932196e', '资源管理', '操作列表', '增加', '1', '[邮件添加] 操作信息已保存', 'com.glacier.netloan.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2014-08-29 13:46:48');
 INSERT INTO `t_operalog` VALUES ('8b63909ef9795ff63cb76dac0cc260f3', '标种类型', '标种类型列表', '修改', '1', '[信用标] 标种类型信息已修改', 'com.glacier.netloan.service.borrow.LoanTenderService', 'editLoanTender', 'LoanTenderList_edit', '超级管理员', '2014-08-07 23:51:59');
 INSERT INTO `t_operalog` VALUES ('a0a18c81cf0c507c4e7a236596068755', '资源管理', '操作列表', '编辑', '1', '[发送] 操作信息已保存', 'com.glacier.netloan.service.system.ActionService', 'editAction', 'ActionList_edit', '超级管理员', '2014-08-29 14:08:06');
 INSERT INTO `t_operalog` VALUES ('b5e6d4219d3b164894d40eb7eb30a63f', '资源管理', '菜单树', '修改', '1', '[活动通知] 菜单信息已保存', 'com.glacier.netloan.service.system.MenuService', 'editMenu', 'MenuTree_edit', '超级管理员', '2014-08-28 15:32:46');
+INSERT INTO `t_operalog` VALUES ('ba972de01e4adb8c5976d3986545c904', '角色管理', '角色列表', '授权', '1', '权限信息已保存', 'com.glacier.netloan.service.system.AuthorityService', 'saveRoleAuths', 'RoleList_auth', '超级管理员', '2014-09-04 14:53:43');
 INSERT INTO `t_operalog` VALUES ('bb9074aafbd322318e1765baf5a7c179', '标种类型', '标种类型列表', '修改', '1', '[抵押标] 标种类型信息已修改', 'com.glacier.netloan.service.borrow.LoanTenderService', 'editLoanTender', 'LoanTenderList_edit', '超级管理员', '2014-08-07 23:54:35');
+INSERT INTO `t_operalog` VALUES ('bd2f713bcbd7ab917f2d681076f01720', '资源管理', '面板列表', '删除', '1', '成功删除名称为：[ 活动邮件记录 ]mianban ', 'com.glacier.netloan.service.system.PanelService', 'delPanel', 'PanelList_del', '超级管理员', '2014-09-02 10:18:58');
+INSERT INTO `t_operalog` VALUES ('bdee8ca217a097cfc6ce4c35fa7989c0', '资源管理', '菜单树', '增加', '1', '[活动邮件记录] 菜单信息已保存', 'com.glacier.netloan.service.system.MenuService', 'addMenu', 'MenuTree_add', '超级管理员', '2014-09-02 10:21:24');
+INSERT INTO `t_operalog` VALUES ('c103cab6ddbc1b582471a8fdc61f4519', '下拉项管理', '下拉列表', '修改', '1', '[群发所有会员] 下拉项值信息已修改', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupValueService', 'editOptgroupValue', 'OptgroupValueList_edit', '超级管理员', '2014-09-03 14:48:50');
 INSERT INTO `t_operalog` VALUES ('c1b700392ba7803f10125b4c973eb675', '标种类型', '标种类型列表', '修改', '1', '[净值标] 标种类型信息已修改', 'com.glacier.netloan.service.borrow.LoanTenderService', 'editLoanTender', 'LoanTenderList_edit', '超级管理员', '2014-08-07 23:50:54');
+INSERT INTO `t_operalog` VALUES ('c528bbb4b7a7b74b505935529ecb3d9a', '下拉项管理', '下拉列表', '增加', '1', '[群发普通会员] 下拉项值信息已保存', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupValueService', 'addOptgroupValue', 'OptgroupValueList_add', '超级管理员', '2014-09-03 14:39:06');
 INSERT INTO `t_operalog` VALUES ('cb94ed053c49d22154836a7392f81d8d', '标种类型', '标种类型列表', '修改', '1', '[流转标] 标种类型信息已修改', 'com.glacier.netloan.service.borrow.LoanTenderService', 'editLoanTender', 'LoanTenderList_edit', '超级管理员', '2014-08-07 23:52:53');
 INSERT INTO `t_operalog` VALUES ('ce15839f54e7a224d4055f7772056319', '资源管理', '操作列表', '编辑', '1', '[邮件添加] 操作信息已保存', 'com.glacier.netloan.service.system.ActionService', 'editAction', 'ActionList_edit', '超级管理员', '2014-08-29 13:48:48');
 INSERT INTO `t_operalog` VALUES ('dd712403d60466528a0e74e6ebb03b45', '下拉项管理', '下拉列表', '增加', '1', '[群发会员] 下拉项值信息已保存', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupValueService', 'addOptgroupValue', 'OptgroupValueList_add', '超级管理员', '2014-08-29 15:55:52');
 INSERT INTO `t_operalog` VALUES ('e0229ddad22f8de3a8cdf003e747c035', '资源管理', '面板列表', '增加', '1', '[活动列表] 面板信息已保存', 'com.glacier.netloan.service.system.PanelService', 'addPanel', 'PanelList_add', '超级管理员', '2014-08-28 15:27:34');
+INSERT INTO `t_operalog` VALUES ('e140ecbf4eeef65961b111296d8fbc1d', '角色管理', '角色列表', '授权', '1', '权限信息已保存', 'com.glacier.netloan.service.system.AuthorityService', 'saveRoleAuths', 'RoleList_auth', '超级管理员', '2014-09-02 10:22:39');
 INSERT INTO `t_operalog` VALUES ('e4fd2e6c3e690776ca7358c6226122f5', '标种类型', '标种类型列表', '修改', '1', '[净值标] 标种类型信息已修改', 'com.glacier.netloan.service.borrow.LoanTenderService', 'editLoanTender', 'LoanTenderList_edit', '超级管理员', '2014-08-07 23:54:29');
+INSERT INTO `t_operalog` VALUES ('e8c648e68ce800e3ec1789876b8830a0', '下拉项管理', '下拉列表', '增加', '1', '[群发VIP会员] 下拉项值信息已保存', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupValueService', 'addOptgroupValue', 'OptgroupValueList_add', '超级管理员', '2014-09-03 14:39:58');
+INSERT INTO `t_operalog` VALUES ('ec905b7ceffe271a59e6ddcf5ee22a25', '下拉项管理', '下拉项树', '增加', '1', '[活动邮件记录] 下拉项信息已保存', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupService', 'addOptgroup', 'OptgroupTree_add', '超级管理员', '2014-09-02 09:44:36');
 INSERT INTO `t_operalog` VALUES ('f526d2a4e66c3a28ba15f51d4e4a84e4', '操作日志', '操作日志列表', '删除', '1', '成功删除了[ 操作日志列表,操作日志列表 ]操作', 'com.glacier.netloan.service.system.OperaLogService', 'delOperaLog', 'OperalogList_del', '超级管理员', '2014-08-07 17:56:16');
 INSERT INTO `t_operalog` VALUES ('f5c7cd4ac51febda388380e897417d7b', '资源管理', '菜单树', '增加', '1', '[活动通知] 菜单信息已保存', 'com.glacier.netloan.service.system.MenuService', 'addMenu', 'MenuTree_add', '超级管理员', '2014-08-28 15:26:29');
 INSERT INTO `t_operalog` VALUES ('f7db2d917623dcec56c2529f1dab3328', '下拉项管理', '下拉项树', '增加', '1', '[信息管理] 下拉项信息已保存', 'com.glacier.netloan.service.basicdatas.ParameterOptgroupService', 'addOptgroup', 'OptgroupTree_add', '超级管理员', '2014-08-29 15:43:02');
@@ -2225,6 +2340,7 @@ INSERT INTO `t_parameter_optgroup` VALUES ('a8bef69c1a0844c12750920724d858e6', '
 INSERT INTO `t_parameter_optgroup` VALUES ('aa2fe4d8f0b757d1329ba54745721d23', '70f3280adc4b70b24d945e247909adbc', 'authType', '认证类型', null, null, '4', '', '8b25651c2d896297530b64e4b80ec503', '2014-02-25 14:30:00', '8b25651c2d896297530b64e4b80ec503', '2014-06-23 10:05:37');
 INSERT INTO `t_parameter_optgroup` VALUES ('ab01266e39b5c3949d5111ec53ec2b89', '0157da7199bb6160b4e22f127688c418', 'yesOrNo', '是否', null, null, '1', '', '8b25651c2d896297530b64e4b80ec503', '2014-04-15 15:37:05', '8b25651c2d896297530b64e4b80ec503', '2014-06-23 09:52:25');
 INSERT INTO `t_parameter_optgroup` VALUES ('b5ac6ebbc227b3a2cfe5b75ae48d81ca', '70f3280adc4b70b24d945e247909adbc', 'contactRelation', '联系人关系', null, null, '11', '', '8b25651c2d896297530b64e4b80ec503', '2014-02-21 11:03:24', '8b25651c2d896297530b64e4b80ec503', '2014-06-23 10:10:22');
+INSERT INTO `t_parameter_optgroup` VALUES ('b8c1cf3c9a128072993c76cb3aa21d0d', '91043d63a00b91c0ae306b95cab20a77', 'record', '活动邮件记录', null, null, '2', '', '8b25651c2d896297530b64e4b80ec503', '2014-09-02 09:44:36', '8b25651c2d896297530b64e4b80ec503', '2014-09-02 09:44:36');
 INSERT INTO `t_parameter_optgroup` VALUES ('bd88aee43efe41a6ebd10b263fa29ed1', '3de467b04ce8984ae48ba243eb25ffb2', 'variables', '系统变量', null, null, '1', '', '8b25651c2d896297530b64e4b80ec503', '2014-02-17 16:18:18', '8b25651c2d896297530b64e4b80ec503', '2014-06-23 10:04:28');
 INSERT INTO `t_parameter_optgroup` VALUES ('cbe00383b14bfda6baccca63dc57b409', '0157da7199bb6160b4e22f127688c418', 'repayDetailState', '还款明细状态', null, null, '6', '', '8b25651c2d896297530b64e4b80ec503', '2014-05-12 15:46:34', '8b25651c2d896297530b64e4b80ec503', '2014-06-23 10:02:31');
 INSERT INTO `t_parameter_optgroup` VALUES ('ed362e9f461f6216a26f960377266e2d', '0157da7199bb6160b4e22f127688c418', 'firstAuditState', '初审审核状态', null, null, '8', '', '8b25651c2d896297530b64e4b80ec503', '2014-04-18 10:08:24', '8b25651c2d896297530b64e4b80ec503', '2014-06-23 09:47:19');
@@ -2268,6 +2384,7 @@ INSERT INTO `t_parameter_optgroup_value` VALUES ('02df4e5c07bb38221b41c9c74448fd
 INSERT INTO `t_parameter_optgroup_value` VALUES ('0615767fa982aecbfaf3481782f0ca9d', '723e02be061a63f73629257804c75f46', 'failure', '不通过', 'enable', '4', '', '8b25651c2d896297530b64e4b80ec503', '2014-02-24 13:27:22', '8b25651c2d896297530b64e4b80ec503', '2014-02-24 13:27:22');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('0769765b6d7bafc39e154b8d478f1f81', 'a8bef69c1a0844c12750920724d858e6', 'close', '关闭', 'enable', '2', '', '8b25651c2d896297530b64e4b80ec503', '2014-04-15 15:32:54', '8b25651c2d896297530b64e4b80ec503', '2014-04-15 15:32:54');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('0b5542adbf297edc010938b328dbcb09', '9fa0f7f7ce49cd65efae5f4e6e2f3888', 'secondSucess', '复审通过', 'enable', '1', '', '8b25651c2d896297530b64e4b80ec503', '2014-04-18 10:10:11', '8b25651c2d896297530b64e4b80ec503', '2014-04-18 10:10:11');
+INSERT INTO `t_parameter_optgroup_value` VALUES ('0d3466439764b4deac9c5a8715d4e311', '9140b562160e948c5eeafe799e6c172b', 'Vip', '群发VIP会员', 'enable', '4', '', '8b25651c2d896297530b64e4b80ec503', '2014-09-03 14:39:58', '8b25651c2d896297530b64e4b80ec503', '2014-09-03 14:39:58');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('0de4cdf1498363b60228266317c050c1', '067abb1f4a35c41ddce2c3e1dcb45e65', 'withdraw', '提现', 'enable', '5', '', '8b25651c2d896297530b64e4b80ec503', '2014-06-27 17:20:16', '8b25651c2d896297530b64e4b80ec503', '2014-06-27 17:20:16');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('0f092de3c9d78e87828887caa70344e4', '79be87300c0df2a803dd75221f9ca0b0', 'CancelCompanyAuth', '取消企业认证审核', 'enable', '16', '', '8b25651c2d896297530b64e4b80ec503', '2014-06-24 10:26:07', '8b25651c2d896297530b64e4b80ec503', '2014-06-24 10:26:07');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('11a14da652efb14c166c9809578dad08', 'fd88b3384c71b648a6a4de78b8c08e7b', 'receiving', '收款中', 'enable', '1', '', '8b25651c2d896297530b64e4b80ec503', '2014-05-12 15:52:58', '8b25651c2d896297530b64e4b80ec503', '2014-05-12 15:52:58');
@@ -2308,6 +2425,7 @@ INSERT INTO `t_parameter_optgroup_value` VALUES ('46a48351bed57b07b599a565234823
 INSERT INTO `t_parameter_optgroup_value` VALUES ('47859bb01516af361ef1b61ed5d41ba6', 'ed362e9f461f6216a26f960377266e2d', 'firstFailure', '初审失败', 'enable', '2', '', '8b25651c2d896297530b64e4b80ec503', '2014-04-18 10:09:16', '8b25651c2d896297530b64e4b80ec503', '2014-04-18 10:09:16');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('48219c94dc94c86116997c48c910500e', '676531ee865ec4ed5f3c3ca029596293', 'vip', 'vip会员', 'enable', '2', '', '8b25651c2d896297530b64e4b80ec503', '2014-02-21 10:32:30', '8b25651c2d896297530b64e4b80ec503', '2014-02-17 10:15:11');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('4860bf6e387e3c1cd1f0a6b1b9395b47', '413a9c8479ba9b057f4b7f9c076b93ba', 'yes', '是', 'enable', '1', '', '8b25651c2d896297530b64e4b80ec503', '2014-05-12 15:51:13', '8b25651c2d896297530b64e4b80ec503', '2014-05-12 15:51:13');
+INSERT INTO `t_parameter_optgroup_value` VALUES ('488326fea12de826e4a52472c503938b', '9140b562160e948c5eeafe799e6c172b', 'general', '群发普通会员', 'enable', '3', '', '8b25651c2d896297530b64e4b80ec503', '2014-09-03 14:39:06', '8b25651c2d896297530b64e4b80ec503', '2014-09-03 14:39:06');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('4dc1fd5f1ac24e8807f59254139b0912', '79be87300c0df2a803dd75221f9ca0b0', 'infoAuth', '基本信息认证信用积分', 'enable', '2', '', '8b25651c2d896297530b64e4b80ec503', '2014-02-24 10:56:43', '8b25651c2d896297530b64e4b80ec503', '2014-03-25 16:56:36');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('5122f4929b14499ebd97f7f99552d5c7', '28ee70d89cd44ab3e8f6a54929a47952', 'fund', '基金', 'enable', '3', '', '8b25651c2d896297530b64e4b80ec503', '2014-02-18 11:02:27', '8b25651c2d896297530b64e4b80ec503', '2014-02-17 10:15:11');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('538c0911b50592e0546800ddffd1fc5b', 'f2cbc02d97c7bdefcb7947ef6d1c9839', 'havehouse', '已购房', 'enable', '1', '', '8b25651c2d896297530b64e4b80ec503', '2014-02-24 17:38:21', '8b25651c2d896297530b64e4b80ec503', '2014-02-24 17:38:21');
@@ -2315,7 +2433,7 @@ INSERT INTO `t_parameter_optgroup_value` VALUES ('55cef926490517adcbccb54c867bd1
 INSERT INTO `t_parameter_optgroup_value` VALUES ('56eeec8a7371ddf86b432b42ff999b4f', '79be87300c0df2a803dd75221f9ca0b0', 'CancelIdCardAuth', '取消身份认证审核', 'enable', '17', '', '8b25651c2d896297530b64e4b80ec503', '2014-06-24 10:26:39', '8b25651c2d896297530b64e4b80ec503', '2014-06-24 10:26:39');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('5be37ff93bdc78b8457a0584f2713c9f', '4776fe7b0e02b3467b4ea41c7e237223', 'nocar', '未购车', 'enable', '2', '', '8b25651c2d896297530b64e4b80ec503', '2014-02-24 17:54:36', '8b25651c2d896297530b64e4b80ec503', '2014-02-24 17:54:36');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('5dfs2d1f32sd1f2sd1f2sd1f256565sd', '1bf27bce9c73b22e9822fb85380ac347', 'disable', '禁用', 'enable', '2', '', '8b25651c2d896297530b64e4b80ec503', '2014-02-17 10:15:11', '8b25651c2d896297530b64e4b80ec503', '2014-02-17 14:42:50');
-INSERT INTO `t_parameter_optgroup_value` VALUES ('613babad36ae4efc892dba1bf120ba8d', '9140b562160e948c5eeafe799e6c172b', 'mass', '群发会员', 'enable', '1', '', '8b25651c2d896297530b64e4b80ec503', '2014-08-29 15:55:52', '8b25651c2d896297530b64e4b80ec503', '2014-08-29 15:55:52');
+INSERT INTO `t_parameter_optgroup_value` VALUES ('613babad36ae4efc892dba1bf120ba8d', '9140b562160e948c5eeafe799e6c172b', 'mass', '群发所有会员', 'enable', '1', '', '8b25651c2d896297530b64e4b80ec503', '2014-08-29 15:55:52', '8b25651c2d896297530b64e4b80ec503', '2014-09-03 14:48:50');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('6282d9040a2029a89017d1998e4ad476', '3be6f556f18b7763c74eb3e6fd992785', 'internet', '互联网', 'enable', '2', '', '8b25651c2d896297530b64e4b80ec503', '2014-02-24 17:02:37', '8b25651c2d896297530b64e4b80ec503', '2014-02-24 17:02:37');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('6389ad1302b149b26120f9762f2393a9', '79be87300c0df2a803dd75221f9ca0b0', 'mobileAuth', '手机认证信用积分', 'enable', '5', '', '8b25651c2d896297530b64e4b80ec503', '2014-03-25 16:59:32', '8b25651c2d896297530b64e4b80ec503', '2014-03-25 16:59:32');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('66416703e266b5af49036fde2020789e', 'b5ac6ebbc227b3a2cfe5b75ae48d81ca', 'friend', '朋友', 'enable', '2', '', '8b25651c2d896297530b64e4b80ec503', '2014-02-21 11:04:15', '8b25651c2d896297530b64e4b80ec503', '2014-02-21 11:04:15');
@@ -2375,7 +2493,7 @@ INSERT INTO `t_parameter_optgroup_value` VALUES ('e5b76e49ef32f7636d377e5bda82c2
 INSERT INTO `t_parameter_optgroup_value` VALUES ('e60a0f1adebf1b828640fbb338316eb8', '0b6919d96ff46e91471d9714bd1d205f', 'authstr', '审核中', 'enable', '1', '', '8b25651c2d896297530b64e4b80ec503', '2014-04-02 15:16:10', '8b25651c2d896297530b64e4b80ec503', '2014-04-02 15:16:10');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('ead9c20f4d1457b1d436e8333aeb9a13', '723e02be061a63f73629257804c75f46', 'authstr', '待审核', 'enable', '2', '', '8b25651c2d896297530b64e4b80ec503', '2014-02-24 13:26:32', '8b25651c2d896297530b64e4b80ec503', '2014-04-02 16:29:01');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('eaff01e8813e716704ddf0427e633b1c', '54d980527c2227b5ccc8b87e46e9c1e6', 'external', '外置账户', 'enable', '1', '', '8b25651c2d896297530b64e4b80ec503', '2014-06-26 13:40:38', '8b25651c2d896297530b64e4b80ec503', '2014-06-27 14:22:25');
-INSERT INTO `t_parameter_optgroup_value` VALUES ('ebb3cfc8eb01f7960066b58e63232909', '9140b562160e948c5eeafe799e6c172b', 'candidate', '部分群发', 'enable', '2', '', '8b25651c2d896297530b64e4b80ec503', '2014-09-01 12:38:07', '8b25651c2d896297530b64e4b80ec503', '2014-09-01 12:38:07');
+INSERT INTO `t_parameter_optgroup_value` VALUES ('ebb3cfc8eb01f7960066b58e63232909', '9140b562160e948c5eeafe799e6c172b', 'candidate', '群发选择会员', 'enable', '2', '', '8b25651c2d896297530b64e4b80ec503', '2014-09-01 12:38:07', '8b25651c2d896297530b64e4b80ec503', '2014-09-03 14:39:22');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('ecefc7db8ad84949efb3aeaeacbef2de', 'f162bad386611ea6705db86adce95fc7', 'secret', '保密', 'enable', '3', '', '8b25651c2d896297530b64e4b80ec503', '2014-02-21 10:49:21', '8b25651c2d896297530b64e4b80ec503', '2014-02-21 10:49:21');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('f081962b0b8f3b28b727c60b821dbee2', '87e805fcf0c779b8f57fde22d819e2db', 'woman', '女', 'enable', '2', '', '8b25651c2d896297530b64e4b80ec503', '2014-02-21 10:55:01', '8b25651c2d896297530b64e4b80ec503', '2014-02-21 10:55:01');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('f1498ee9de5b4e78fe4654ae3b3175bb', '0b6919d96ff46e91471d9714bd1d205f', 'pass', '审核通过', 'enable', '2', '', '8b25651c2d896297530b64e4b80ec503', '2014-04-02 15:16:43', '8b25651c2d896297530b64e4b80ec503', '2014-05-06 10:52:17');
@@ -2705,8 +2823,8 @@ CREATE TABLE `t_user` (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('8b25651c2d896297530b64e4b80ec503', 'admin', '超级管理员', '5dc10e7826e648ec6f136974c38f81d0e5e1d0ae', 'e03b1b95ceff4db6', 'enable', 'admin', 'admin@glacier.cn', null, null, '2014-09-01 16:00:25', '127.0.0.1[本地]', '965', '8b25651c2d896297530b64e4b80ec503', '2014-02-27 02:58:02');
-INSERT INTO `t_user` VALUES ('d31a15b0c9abe32744dc16203b9547d8', 'administrators', '客户管理员', 'f418eabf12e35e6112d8783ef6751c0da68782b5', 'd5a18894f8d85631', 'enable', 'custom', 'administrators@qq.com', null, '后台管理员', null, null, '0', '8b25651c2d896297530b64e4b80ec503', '2014-07-28 16:30:17');
+INSERT INTO `t_user` VALUES ('8b25651c2d896297530b64e4b80ec503', 'admin', '超级管理员', '5dc10e7826e648ec6f136974c38f81d0e5e1d0ae', 'e03b1b95ceff4db6', 'enable', 'admin', 'admin@glacier.cn', null, null, '2014-09-04 14:59:25', '127.0.0.1[本地]', '1010', '8b25651c2d896297530b64e4b80ec503', '2014-02-27 02:58:02');
+INSERT INTO `t_user` VALUES ('d31a15b0c9abe32744dc16203b9547d8', 'administrators', '客户管理员', 'f418eabf12e35e6112d8783ef6751c0da68782b5', 'd5a18894f8d85631', 'enable', 'custom', 'administrators@qq.com', null, '后台管理员', '2014-09-04 09:32:47', '127.0.0.1[本地]', '1', '8b25651c2d896297530b64e4b80ec503', '2014-07-28 16:30:17');
 INSERT INTO `t_user` VALUES ('d6dc13121742a3b331dcb6f93d4f4bce', 'adminTest', '客户管理员', 'd7d62bc0a343ffea509247f1a7c92120e762771d', 'baaa252597ec918e', 'enable', 'custom', 'adminTest@163.com', null, '客户、测试使用账号', '2014-08-04 17:53:34', '127.0.0.1[本地]', '4', '8b25651c2d896297530b64e4b80ec503', '2014-07-14 13:40:42');
 
 -- ----------------------------

@@ -161,10 +161,6 @@ public class MessageEmailService {
         			messageRecord.setCreaterTime(new Date());//设置当前时间
         			messageRecord.setEmailId(messageEmail.getEmailId());//设置活动邮件ID
         			messageRecordMapper.insertSelective(messageRecord);//执行添加
-        			try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e) {
-					}
         		}
         		htmlEmailPublic.sendMessage(emailList, messageEmail.getEmailTitle(), messageEmail.getEmailText());
         		returnResult.setMsg("发送成功");

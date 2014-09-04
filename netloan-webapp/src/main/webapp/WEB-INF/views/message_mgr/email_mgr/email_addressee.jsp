@@ -15,7 +15,7 @@
 			<c:if test="${idx.index%2==0 }">
 				<tr>
 			</c:if>
-			<td style="border-bottom: 1px solid gray;padding: 5px;">${idx.index+1}、${record.recordMemberDisplay}(${record.recordMemberNameDisplay})</td>
+			<td style="border-bottom: 1px solid gray;padding: 5px;"><span style="float: left;">${idx.index+1}、${record.recordMemberDisplay}(${record.recordMemberNameDisplay})</span></td>
 			<c:if test="${(idx.index+1)%2==0}">
 				</tr>
 			</c:if>
