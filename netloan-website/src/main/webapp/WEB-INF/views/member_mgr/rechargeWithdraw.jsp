@@ -212,7 +212,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								            	<table>
 									            	<c:forEach items="${financeRechargeSetDatas.rows}" var="financeRechargeSet">
 									            		<tr>
-									            			<td><input name="financeRechargeSetId" type="radio" value="${financeRechargeSet.financeRechargeSetId}"/></td>
+									            			<td><input name="financeRechargeSetId" type="radio" onclick="displayIsFinanceRechargeSet();" value="${financeRechargeSet.financeRechargeSetId}"/></td>
 									            			<td>${financeRechargeSet.rechargeSetName}</td>
 									            		</tr>
 									            	</c:forEach>
@@ -337,6 +337,24 @@ function checkForm(){
  this.submit();
 
 } */
+
+	function displayIsFinanceRechargeSet(){
+		var financeRechargeSet = document.financeRecharge.financeRechargeSetId;
+		if(financeRechargeSet[0].checked){
+			rechargeReceipt.disabled = "disabled";
+			$("#rechargeReceipt").val("");
+		}
+		
+		if(financeRechargeSet[1].checked){
+			rechargeReceipt.disabled = "disabled";
+			$("#rechargeReceipt").val("");
+		}
+		
+		if(financeRechargeSet[2].checked){
+			rechargeReceipt.disabled = "";
+		}
+	}
+
 	//功能判断
 	function checksMember(memberId,url){
 		$.ajax({
