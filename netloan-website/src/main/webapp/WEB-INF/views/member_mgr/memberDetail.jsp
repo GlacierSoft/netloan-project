@@ -164,22 +164,71 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <input type="text" class="form-control" maxlength="23" onblur="checkCardId();" id="cardId" name="cardId" value="${currentMember.cardId}"  placeholder="身份证"  >
 									      <span id="cardIdSpan"></span>
 									     </div>
-									      <span style="color:#F00;margin-left: 70px"> * 演示站点不发送短信验证</span>
 									  </div>
 									  <div class="form-group" >
 									    <label for="mobileNumber" class="col-sm-2 control-label">*手机号码:</label>
 									    <div class="col-sm-4" style="width: 300px;float: left;">
-									      <input type="tel"  class="form-control" maxlength="11" onblur="checkMobileNumber();" style="width: 170px;float: left;" name="mobileNumber" id="mobileNumber" value="${currentMember.mobileNumber}"  placeholder="手机号码" >
-									      <button id="updatePhoneForm_form-group" type="submit" style="float: right;" disabled="disabled" class="btn btn-default">获取验证码</button>
+									      <input type="tel"  class="form-control" maxlength="11" onblur="checkMobileNumber();" style="width: 174px;float: left;" name="mobileNumber" id="mobileNumber" value="${currentMember.mobileNumber}"  placeholder="手机号码" onkeyup='this.value=this.value.replace(/\D/gi,"")' >
+                                          <input type="button" value="获取验证码" id="buttone_Test_One" name="buttone_Test-One" class="btn btn-default" onclick="FindYanZheng();" onblur="checkPhoneNumber();" onkeyup='this.value=this.value.replace(/\D/gi,"")'/>
 									      <span id="mobileNumberSpan"></span>
-									      
-					                 </div>
+									 </div>
+									 
+									 <script>
+									    
+									    var count_yanzheng=30; //间隔函数，1秒执行 
+										var curCount_yanzheng;//当前剩余秒数  
+										var mobile_code_yangzheng=0;//记录短信验证码
+										
+										$("#buttone_Test_One").removeAttr("disabled");
+										
+                                         var flag_reg=/^0{0,1}(13[0-9]|15[7-9]|153|156|18[7-9])[0-9]{8}$/;
+						            	 $("#mobileNumber").bind("input",function(){
+						            		 if($("#mobileNumber").val().length==11){
+						            			 if(flag_reg.test($("#mobileNumber").val())){
+						            				 $("#buttone_Test_One").attr("disabled",false);		 
+						            			}
+						            		 }else{
+						            			 $("#buttone_Test_One").attr("disabled",true);
+						            		  }
+						            	    });
+						            	 
+						            	 function FindYanZheng(){
+						            		 curCount_yanzheng=count_yanzheng;
+						                	 $("#buttone_Test_One").attr("disabled", "true");  
+						                	 $("#mobileNumber").css("width","100px");
+						                     $("#buttone_Test_One").val("请在" + curCount_yanzheng + "秒内输入验证码");  
+						                     InterValObj_BtnOne= window.setInterval(SetRemainTimeBtnOne, 1000); // 启动计时器，1秒执行一次 	
+						                     $.post('<%=basePath%>resources/note/sms.jsp', {"mobile":'${currentMember.mobileNumber}'}, function(msg) {
+						               			if(msg=='提交成功'){
+						               				//暂无响应事件
+						               		   }	
+						               		});
+								          }
+										
+						            	//timer处理函数  
+					            		function SetRemainTimeBtnOne() {  
+					            			if (curCount_yanzheng == 0) {
+					            				window.clearInterval(InterValObj_BtnOne);// 停止计时器  
+					            		        $("#buttone_Test_One").removeAttr("disabled");// 启用按钮  
+					            		        $("#buttone_Test_One").val("重新发送验证码"); 
+					            		        $("#mobileNumber").css("width","145px");
+					            		        mobile_code_yangzheng=0;
+					            		    }else {  
+					            		    	curCount_yanzheng--;
+					            		    	mobile_code_yangzheng=$("#phoneNumber").val();
+					            	            $("#buttone_Test_One").val("请在" + curCount_yanzheng + "秒内输入验证码");  
+					            		        
+					            		    }  
+					            		} 
+						            	 
+						            </script>
+									 
 					                 
 					                 <div class="form-group" style="float: left;width: 400px" >
 									   <label for="mobileNumber" class="col-sm-2 control-label" style="float: left;width: 150px;margin-left: 38px" >*短信验证码:</label>
 									      <div class="col-sm-4" style="float: left;">
-									       <input type="tel" class="form-control"  maxlength="6" style="width: 170px"  name="yz" id="yz"   placeholder="手机短信验证码" >
-									    
+									       <input type="tel" class="form-control"  name="phoneNumber" id="phoneNumber" maxlength="6" style="width: 170px"  name="yz" id="yz"   placeholder="手机短信验证码" >
+									         <span id="phoneNumberSpan"></span>
 									     </div> 
 									      </div>
 									     
@@ -1149,7 +1198,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    /*-------------------------------------------------基本信息验证开始---------------------------------------------*/
 	  	//验证所有
 		function checkAll(){
-			return checkMemberRealName()&&checkCardId()&&checkMobileNumber()&&checkLiveAddress()&&checkFirstContactPhone()&&checkFirstContactAddress()&&checkNull()&&checkUnitPhone()&&checkProofPerson()&&checkProofPhone();
+	    	return checkMemberRealName()&&checkCardId()&&checkMobileNumber()&&checkPhoneNumber()&&checkLiveAddress()&&checkFirstContactPhone()&&checkFirstContactAddress()&&checkNull()&&checkUnitPhone()&&checkProofPerson()&&checkProofPhone();
 		}
 		
 		//联系人名称验证
@@ -1251,8 +1300,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				return true;
 			}
 		}
-	
-		//居住地址验证
+		
+		
+		//验证码信息
+		function checkPhoneNumber(){
+		     var PhoneNumber=$("#phoneNumber").val(); 
+		     if(PhoneNumber==""){
+		    	 document.getElementById("phoneNumberSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>验证码不能为空!</font>"; 
+		    	 $("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
+		    	 return false;
+		     }else{
+		    	 $.ajax({
+		    		   type:"post",
+		    		   url:"<%=basePath%>others/FindNote.json",
+		     		   data:{"mobile_code":mobile_code_yangzheng},
+		     		   dataType:"json",
+		    		   success:function(data){
+		    			   if(data[0].info){
+		    				    window.clearInterval(InterValObj_BtnOne);// 停止计时器
+		    				    count_yanzheng=30;
+		    				    document.getElementById("phoneNumberSpan").innerHTML="";
+		    					$("#tieshi").html("");
+		    					 return true;
+		    				 } else{
+		    				   document.getElementById("phoneNumberSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>验证码匹配错误!</font>";
+		    				    return false; 
+		    		      }   
+		    		   }
+		    	 });
+		     }
+		}
+		
+	    //居住地址验证
 		function checkLiveAddress(){
 			var liveAddress = $("#liveAddress").val();
 			if(liveAddress == ""){
@@ -1554,6 +1633,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				required:true,
 	    				isMobile:true
 	    			}, 
+	    			buttone_Test_One:"required",
 	    			homePhone:"isPhone",
 	    			memberAge:{
 	    				min:18,
@@ -1583,6 +1663,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			mobileNumber:{
 	    				required:"手机号码不能为空",	
 	    			}, 
+	    			buttone_Test_One:{
+	    				required:"手机验证码不能为空",	
+	    			},
 	    			memberAge:{
 	    				min:" 年龄不能低于18岁",
 	    				max:"年龄不能大于100岁",
