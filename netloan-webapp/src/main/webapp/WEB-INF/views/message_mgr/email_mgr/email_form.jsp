@@ -43,7 +43,11 @@
 	   
 	   <!-- 邮件操作部分 -->
 	   <div data-options="region:'center',title:'邮件操作'" style="padding:5px;background:#eee;padding: 20px;">
-	   	   <table id="tabs" >
+	   	  
+	   </div>  
+	   
+	   <div style="position:absolute;margin-left: 200px;margin-top: 40px;">
+	    <table id="tabs" >
 	   		 <tr>
 	   			<td><label>邮件标题：</label><input class="easyui-validatebox spinner" name="emailTitle" size="53" required="true" style="height: 20px;"></td>
 	   		 </tr>
@@ -53,13 +57,11 @@
 	   		 <tr>
 	   			<td>
 	   				<textarea name="emailText" id="editor_id" name="content" style="width:400px;height:240px;">
-	   					&lt;strong&gt;HTML内容&lt;/strong&gt;
 	   				</textarea>
 	   			 </td>
 	   		 </tr>
 	   		</table>
-	   		<input type="hidden" id="arrys">
-	   </div>  
+	   	</div>
 	   <!-- 结束邮件部分 --> 
 	   
 	</div>  
@@ -206,7 +208,7 @@
 	});
 	
 	KindEditor.ready(function(K) {
-		K.create('#editor_id', {
+		editor = K.create('#editor_id', {
 			themeType : 'qq',
 			allowFileManager : true,
 			minWidth : '400',

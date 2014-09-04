@@ -125,13 +125,15 @@
 				text : '保存',
 				iconCls : 'icon-save',
 				handler : function(dia) {
+					editor.sync();// 同步数据后可以直接取得textarea的value
+					var html=document.getElementById('editor_id').value;
 					if(option == "candidate"&&arr.length > 0){//选择为部分群发并且arr数组大于0
 						$.messager.progress({
 							title : "邮件提示",
 							text : "正在发送邮件中..."
 						}); 
 						$('#email_mgr_email_form').form('submit', {
-							url: ctx + url + "?arrys="+arr,
+							url: ctx + url + "?arrys="+arr+"&textare="+html,
 							success: function(r){
 								glacier.show({msg:r.msg,result:r.success});
 								glacier.message_mgr.email_mgr.email.emailDataGrid.datagrid('reload');
@@ -145,7 +147,7 @@
 							text : "正在发送邮件中..."
 						}); 
 						$('#email_mgr_email_form').form('submit', {
-							url: ctx + url + "?arrys="+arr,
+							url: ctx + url + "?arrys="+arr+"&textare="+html,
 							success: function(r){
 								glacier.show({msg:r.msg,result:r.success});
 								glacier.message_mgr.email_mgr.email.emailDataGrid.datagrid('reload');

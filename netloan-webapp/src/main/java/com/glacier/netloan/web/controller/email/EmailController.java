@@ -98,7 +98,8 @@ public class EmailController extends AbstractController{
     //发送活动邮件
     @RequestMapping(value = "/send.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object sendEmail(String[] arrys,MessageEmail email) throws MessagingException {
+    private Object sendEmail(String[] arrys,MessageEmail email,String textare) throws MessagingException {
+    	email.setEmailText(textare);
         return messageEmailService.sendMessage(arrys, email);
     }
     
