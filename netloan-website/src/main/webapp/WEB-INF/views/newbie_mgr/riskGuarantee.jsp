@@ -117,7 +117,7 @@
 				           
 				           <div style="width:886px; height:111px; text-align:right;"><img src="${pageContext.request.contextPath}/resources/images/newbie/risk_title002.png" /></div>
 				        <div style="width:886px; font-size:16px; line-height:24px; color:#666666;">
-				           为保障投资者的资金安全，<span style="font-size:24px; color:#10abe1;">冰川贷</span>贷采用多管齐下的资金管理措施。          
+				           为保障投资者的资金安全，<span style="font-size:24px; color:#10abe1;">冰川贷</span>&nbsp;采用多管齐下的资金管理措施。          
 				           
 				         </div>
 				         
