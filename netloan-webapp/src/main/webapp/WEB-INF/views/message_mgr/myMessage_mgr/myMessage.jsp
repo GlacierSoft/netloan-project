@@ -1,5 +1,5 @@
-  <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
-  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- 引入jstl解析标签 -->
+<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- 引入jstl解析标签 -->
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%    
@@ -15,12 +15,11 @@ pageContext.setAttribute("basePath",basePath);
 <jsp:include page="../../inc.jsp"/>  
   
 </head>
-<body>    
- <!--  <div id="p" class="easyui-progressbar" data-options="value:0" style="width:50px;"></div>
- -->
-    <div id="cc" class="easyui-layout" style="width:800px;height:500px;border-right-style: none;">     
-    
-    <!-- 左边布局 --> 
+<body>     
+<div style="float: left;width: 800px;height:500px;"> 
+   <div style="float: left;width:width:138px ">
+      <div id="cc" class="easyui-layout" style="width:138px;height:500px;">     
+      <!-- 左边布局 --> 
 	 <div data-options="region:'west',title:'我的消息'" style="width:138px;border-right-style: none;">
 	    <div>
 		     <ul id="ulOne" class="easyui-tree"> 
@@ -32,51 +31,51 @@ pageContext.setAttribute("basePath",basePath);
 	     <div style="padding-top: 120px;width: 100%">  
 				<div id="myContacts" class="easyui-panel" title="我的联系人"    
 				        style="width:137px;height:260px; background:#fafafa;border-bottom-style: none;border-left-style:none;border-right-style:none; OVERFLOW-Y: auto; OVERFLOW-X:hidden; "> 
-			        
-			        <ul id="ulTwo"  class="easyui-tree" style="position: absolute;width: 100%">
+			         <ul id="ulTwo"  class="easyui-tree" style="position: absolute;width: 100%">
 					     <c:forEach items="${userList}" var="us" >
 				      	 <li id="${us.userId}" iconCls="icon-cologne-user">${us.userCnName}</li>
 			      	     </c:forEach> 
 			        </ul>  
 				</div> 
-         </div> 
-	  </div>   
-	  
+          </div> 
+	   </div>   
+     </div>
+   </div> 
 	  <!-- 中间布局 --> 
-	  <div data-options="region:'center'" >  
-	        <!-- 收件箱和发件箱的div层 -->
-		     <div id="tt" class="easyui-tabs" style="width:647px;height:498px;"> 
-		          <!-- 收件箱 -->
+  <div data-options="region:'center'" style="height: 498px;float: left;border-style:solid;border-color:#C3C3C3; border-width:0.5px;" >  
+	         <!-- 收件箱和发件箱的div层 -->
+		     <div id="tt" class="easyui-tabs" style="width:648px;height:498px;"> 
+		     
+		         <!--  收件箱 -->
 		          <div title="已接收消息  "  id="tab1"   style="overflow:auto;padding:0px;">    
 		             <table id="receiveMessageDataGrid"></table>   
 			      </div>    
 			       
-			      <!-- 发件箱 -->
+			      <!--发件箱 -->
 			      <div title=" 已发送消息 " style="overflow:auto;padding:0px;">    
 	 	             <table id="messageDataGrid"></table>   
 			      </div>   
-	         </div>   
+	         </div>    
 	         
-	         
-	         <!-- 写短信的div层 class="easyui-tree"-->
-	         <div id="write" style="height: 495px"> 
-		         <div id="ccs" class="easyui-layout" style="width:656px;height:495px;border-left-style: none;">    
+	        <!--  写短信的div层 class="easyui-tree" -->
+	         <div id="write" style="float: left;">  
+	         <div id="myContacts" class="easyui-panel" title="写信息"    
+				        style="width:656px; background:#fafafa;border-style: none;"> 
+			  </div> 
+		         <div id="ccs" style="width:656px;height:467px;border-left-style: none;float: left;">    
 		               <div data-options="region:'center',title:'写短信'" style="height: 100%;float: left;border-left-style: none;border-right-style: none;" >
 			               <div style="width: 515px;height: 100%;float: left;margin-left: 13px; ">
 				                <div id="info" style="margin-bottom: 20px;margin-top:30px;border-style:solid;border-color:#C3C3C3;
 				                   border-width:0.5px; width: 100%;height: 150px;OVERFLOW-Y: auto; OVERFLOW-X:hidden; scrollbar-shadow-color: #ffffff; scrollbar-highlight-color: #ffffff; scrollbar-face-color: #d9d9d9; scrollbar-3dlight-color: #d9d9d9; scrollbar-darkshadow-color: #d9d9d9; scrollbar-track-color: #ffffff; scrollbar-arrow-color: #ffffff"  >
-				                </div> 
-				                
+				                </div>  
 				                <div> 
-				                    <!-- kindeditor编辑器 -->
+				                   <!--  kindeditor编辑器 -->
 					                 <textarea id="kindeditorMessage"  autofocus style="width:100%;height: 150px"  ></textarea> 
 								    <input style="margin-top: 5px;margin-left: 480px;width: 37px;height: 25px" type="button" onclick="sendMsg()" value="发送">
-				                </div> 
-				                
-				          </div>
-				          
-				          <div style="width:115px;height: 100%;float: left;margin-left: 11px;OVERFLOW-Y: auto; OVERFLOW-X:hidden; ">
-					               <div class="easyui-panel" style="width:115px;height:435px;margin-top:30px; float: left; text-align: center;border-bottom-style: none;">
+				                </div>  
+				          </div> 
+				          <div style="width:115px;height: 100%;float: left;margin-left: 11px;OVERFLOW-Y: auto; OVERFLOW-X:hidden; float: le">
+					               <div class="easyui-panel" style="width:115px;height:437px;margin-top:30px; float: left; text-align: center;border-bottom-style: none;">
 						                <a class="l-btn" href="javascript:empt()" style="width: 28px;text-align: center;margin-top: 3px">
 									            <span class="l-btn-text" style="font-size: 1;text-align: center;">&nbsp;移除</span>
 									     </a> 
@@ -90,20 +89,17 @@ pageContext.setAttribute("basePath",basePath);
 						                       <ul>  </ul>
 										 </li>  
 								   </ul> 
-				                   </div>
-				                     
+				                   </div> 
 			                 </div>   
 		               </div>   
 	             </div>   
 	       </div> 
 	  </div>   
-	  
-	</div>   
-	
-	
+	</div> 
+	   
 	
 	<script type="text/javascript">   
-	
+	var editor1;
 	 //初始化禁用我的联系人
 	 var divOTwo="<div id='opacityTwo' style='position: absolute;width: 100%;height: 100%;background-color: gray;filter:alpha(Opacity=20); opacity: 0.2;z-index: 999;'></div>";
 	
@@ -198,8 +194,7 @@ pageContext.setAttribute("basePath",basePath);
 		 $("#write").hide();
 		 $("#tt").show(); 
 		 $('#tt').tabs('select',1);   
-		 $("#messageDataGrid").datagrid('reload');
-	 
+		 $("#messageDataGrid").datagrid('reload'); 
 		 //清空收件人列表
 		 emptyAll();
 	 }
@@ -216,9 +211,7 @@ pageContext.setAttribute("basePath",basePath);
 		 $("#opacityTwo").remove();
 		 //清空收件人列表
 		 emptyAll();
-	 }
-	
-	
+	 }  
 	
 	//发送消息
     function sendMsg(){ 
@@ -276,8 +269,8 @@ pageContext.setAttribute("basePath",basePath);
 									showType:'slide'
 								});   
 							   $("#info").append("<span style='color: blue;'>&nbsp;&nbsp;我说 :"+r.obj.sendtime+" </span><br>&nbsp;&nbsp;&nbsp;&nbsp;"+str+"<br>");
-							   //清空下面的编辑器内容
-							   $("#kindeditorMessage").attr("value"," ");
+							   //清空下面的编辑器内容 
+							   editor1.html(' ');
 						   }else{
 							   $.messager.show({//后台验证弹出错误提示信息框
 									title:'错误提示',
@@ -298,25 +291,19 @@ pageContext.setAttribute("basePath",basePath);
 	
 	KindEditor.options.filterMode = false;
 	KindEditor.ready(function(K) {
-		K.create('#kindeditorMessage', {
+		editor1=K.create('#kindeditorMessage', {
 			themeType : 'qq',
 			allowFileManager : true,
 			minWidth : "600px", 
 			uploadJson : '../resources/js/kindeditor/jsp/upload_json.jsp',
             fileManagerJson : '../resources/js/kindeditor/jsp/file_manager_json.jsp',
             allowFileManager : true,
-            urlType:'domain',
+            urlType:'domain', 
 			afterBlur : function() {
-				this.sync();
-				K.ctrl(document, 13, function() {
-					K('form[name=myform]')[0].submit();
-				});
-				K.ctrl(this.edit.doc, 13, function() {
-					K('form[name=myform]')[0].submit();
-				});
+				this.sync(); 
 			},
 			items : [
-				'bold','italic','underline','fontname','fontsize','forecolor','hilitecolor','plug-align','plug-order','plug-indent','link','code','emoticons','flash','table','lineheight','fullscreen'
+				'bold','italic','underline','fontname','fontsize','forecolor','hilitecolor','plug-align','plug-order','plug-indent','link','code','emoticons','flash','table','lineheight','fullscreen','image'
 			]
 		});
 	});  
