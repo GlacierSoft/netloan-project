@@ -325,8 +325,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				enableApplyButton : false,
 				enableSaveButton : false, 
 				onClose:function(){
-					loadMssage();
-				}
+					loadMssage(); 
+				} 
 			});
 	   });
       

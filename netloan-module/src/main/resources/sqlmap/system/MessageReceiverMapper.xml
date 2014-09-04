@@ -9,6 +9,7 @@
     <result column="temp_message_receiver_recipient_del" property="recipientDel" jdbcType="BIT" />
     <!-- 自定义字段 -->
     <result column="temp_message_receiver_recipient_name" property="recipientName" jdbcType="VARCHAR" />
+    <result column="temp_message_receiver_receive_sendtime" property="receiveSendtime" jdbcType="TIMESTAMP" />
     
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -75,9 +76,13 @@
     temp_message_receiver.recipient_del as temp_message_receiver_recipient_del
    <!-- 以下字段属于扩展 -->
     ,temp_createrDisplay.user_cn_name as temp_message_receiver_recipient_name
+    ,temp_message.sendtime as temp_message_receiver_receive_sendtime
+    
   </sql>
   <sql id="Base_extend">
   	LEFT JOIN t_user temp_createrDisplay ON temp_createrDisplay.user_id = temp_message_receiver.recipient <!-- 扩展 -->
+ 	LEFT JOIN t_message temp_message ON temp_message.message_id = temp_message_receiver.msg_rece_id <!-- 扩展 -->
+ 
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.system.MessageReceiverExample" >
     select

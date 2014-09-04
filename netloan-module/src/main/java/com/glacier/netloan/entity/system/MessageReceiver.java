@@ -1,5 +1,9 @@
 package com.glacier.netloan.entity.system;
 
+import java.util.Date;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class MessageReceiver {
     private String msgReceId;
 
@@ -7,6 +11,9 @@ public class MessageReceiver {
       
     //自定义字段，接收人
     private String recipientName;
+    
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Date receiveSendtime;
     
     private Boolean readStatus;
 
@@ -18,7 +25,15 @@ public class MessageReceiver {
         return msgReceId;
     }
 
-    public void setMsgReceId(String msgReceId) {
+    public Date getReceiveSendtime() {
+		return receiveSendtime;
+	}
+
+	public void setReceiveSendtime(Date receiveSendtime) {
+		this.receiveSendtime = receiveSendtime;
+	}
+
+	public void setMsgReceId(String msgReceId) {
         this.msgReceId = msgReceId;
     }
 

@@ -12,13 +12,16 @@ pageContext.setAttribute("basePath",basePath);
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-<jsp:include page="../inc.jsp"/>  
+<jsp:include page="../../inc.jsp"/>  
+  
 </head>
-<body>   
-    <div id="cc" class="easyui-layout" style="width:800px;height:500px;">     
+<body>    
+ <!--  <div id="p" class="easyui-progressbar" data-options="value:0" style="width:50px;"></div>
+ -->
+    <div id="cc" class="easyui-layout" style="width:800px;height:500px;border-right-style: none;">     
     
     <!-- 左边布局 --> 
-	 <div data-options="region:'west',title:'我的消息'" style="width:138px;">
+	 <div data-options="region:'west',title:'我的消息'" style="width:138px;border-right-style: none;">
 	    <div>
 		     <ul id="ulOne" class="easyui-tree"> 
 	           <li iconCls="icon-standard-email-edit">写信息</li>
@@ -26,9 +29,9 @@ pageContext.setAttribute("basePath",basePath);
 	           <li iconCls="icon-standard-email-go">发件箱</li>
 	         </ul>   
          </div>
-	     <div style="padding-top: 150px">  
+	     <div style="padding-top: 120px;width: 100%">  
 				<div id="myContacts" class="easyui-panel" title="我的联系人"    
-				        style="width:135px;height:250px; background:#fafafa;border-bottom-style: none;OVERFLOW-Y: auto; OVERFLOW-X:hidden; "> 
+				        style="width:137px;height:260px; background:#fafafa;border-bottom-style: none;border-left-style:none;border-right-style:none; OVERFLOW-Y: auto; OVERFLOW-X:hidden; "> 
 			        
 			        <ul id="ulTwo"  class="easyui-tree" style="position: absolute;width: 100%">
 					     <c:forEach items="${userList}" var="us" >
@@ -51,47 +54,50 @@ pageContext.setAttribute("basePath",basePath);
 			      <!-- 发件箱 -->
 			      <div title=" 已发送消息 " style="overflow:auto;padding:0px;">    
 	 	             <table id="messageDataGrid"></table>   
-			      </div>  
+			      </div>   
 	         </div>   
 	         
 	         
 	         <!-- 写短信的div层 class="easyui-tree"-->
-	         <div id="write"> 
-		         <div id="ccs" class="easyui-layout" style="width:656px;height:450px;">    
-		               <div data-options="region:'center',title:'写短信'" style="float: left;" >
-			               <div style="width: 515px;height: 100%;float: left;margin-left: 13px">
-				                <div id="info" style="margin-bottom: 20px;margin-top:10px;border-style:solid;border-color:#C3C3C3;
-				                   border-width:0.5px; width: 100%;height: 200px;OVERFLOW-Y: auto; OVERFLOW-X:hidden; scrollbar-shadow-color: #ffffff; scrollbar-highlight-color: #ffffff; scrollbar-face-color: #d9d9d9; scrollbar-3dlight-color: #d9d9d9; scrollbar-darkshadow-color: #d9d9d9; scrollbar-track-color: #ffffff; scrollbar-arrow-color: #ffffff"  >
+	         <div id="write" style="height: 495px"> 
+		         <div id="ccs" class="easyui-layout" style="width:656px;height:495px;border-left-style: none;">    
+		               <div data-options="region:'center',title:'写短信'" style="height: 100%;float: left;border-left-style: none;border-right-style: none;" >
+			               <div style="width: 515px;height: 100%;float: left;margin-left: 13px; ">
+				                <div id="info" style="margin-bottom: 20px;margin-top:30px;border-style:solid;border-color:#C3C3C3;
+				                   border-width:0.5px; width: 100%;height: 150px;OVERFLOW-Y: auto; OVERFLOW-X:hidden; scrollbar-shadow-color: #ffffff; scrollbar-highlight-color: #ffffff; scrollbar-face-color: #d9d9d9; scrollbar-3dlight-color: #d9d9d9; scrollbar-darkshadow-color: #d9d9d9; scrollbar-track-color: #ffffff; scrollbar-arrow-color: #ffffff"  >
 				                </div> 
 				                
 				                <div> 
 				                    <!-- kindeditor编辑器 -->
-					                <textarea id="kindeditor" name="kindeditor" style="width:100%"  >  
-								    </textarea>  
+					                 <textarea id="kindeditorMessage"  autofocus style="width:100%;height: 150px"  ></textarea> 
 								    <input style="margin-top: 5px;margin-left: 480px;width: 37px;height: 25px" type="button" onclick="sendMsg()" value="发送">
 				                </div> 
 				                
 				          </div>
-				          <div style="width:115px;height: 250px;float: left;margin-left: 8px;OVERFLOW-Y: auto; OVERFLOW-X:hidden; ">
-					               <div class="easyui-panel" style="width:115px;height:30px;float: left; text-align: center;">
-						                <a class="l-btn" href="javascript:empt()" style="width: 28px;text-align: center;">
+				          
+				          <div style="width:115px;height: 100%;float: left;margin-left: 11px;OVERFLOW-Y: auto; OVERFLOW-X:hidden; ">
+					               <div class="easyui-panel" style="width:115px;height:435px;margin-top:30px; float: left; text-align: center;border-bottom-style: none;">
+						                <a class="l-btn" href="javascript:empt()" style="width: 28px;text-align: center;margin-top: 3px">
 									            <span class="l-btn-text" style="font-size: 1;text-align: center;">&nbsp;移除</span>
-									     </a>|
+									     </a> 
 					                    <a class="l-btn" href="javascript:emptyAll()" style="width: 28px">
-									            <span class="l-btn-text" style="font-size: 1;text-align: center;">清空</span>
+									            <span class="l-btn-text" style="font-size: 1;text-align: center;margin-right: 0">&nbsp;清空</span>
 									    </a> 
-				                   </div>
-				                   <ul id="tta" class="easyui-tree"  > 
+									    <hr>
+									    <ul id="tta" class="easyui-tree"  > 
 					                    <li iconCls="icon-hamburg-customers">
 						                      <span>收件人组</span> 
 						                       <ul>  </ul>
 										 </li>  
-								   </ul>   
+								   </ul> 
+				                   </div>
+				                     
 			                 </div>   
 		               </div>   
 	             </div>   
 	       </div> 
 	  </div>   
+	  
 	</div>   
 	
 	
@@ -184,7 +190,7 @@ pageContext.setAttribute("basePath",basePath);
 		 $('#tt').tabs('select',0);  
 		 inbox("all"); 
 		 //清空收件人列表
-		 emptyAll();
+		 emptyAll();  
 	 }
 	 
 	 //发件箱，tab面板加载收件箱的内容
@@ -193,12 +199,15 @@ pageContext.setAttribute("basePath",basePath);
 		 $("#tt").show(); 
 		 $('#tt').tabs('select',1);   
 		 $("#messageDataGrid").datagrid('reload');
+	 
 		 //清空收件人列表
 		 emptyAll();
 	 }
 	  
 	 //写信息，tab面板加载写信息的内容
 	 glacier.system_mgr.message.writeMsg = function writeInfo(){
+		 
+		 
 		 $("#tt").hide(); 
 		 $("#write").show();
 		 //清空显示列表
@@ -212,11 +221,35 @@ pageContext.setAttribute("basePath",basePath);
 	
 	
 	//发送消息
-    function sendMsg(){
+    function sendMsg(){ 
 			 //获取编辑器的内容
-		     var str=	$("#kindeditor").val(); 
-	         //获取接收人id
+		     var str=	$("#kindeditorMessage").val(); 
+			 if(typeof(str) == "undefined"||str == ""){
+				 $.messager.show({//后台验证弹出错误提示信息框
+						title:'错误提示',
+						width:400,
+					    height:120,
+					    icon:'error',
+						msg: "<span style='color:red'>消息内容不能为空</span>",
+						timeout:2000
+					});
+				 return;
+			 }
+			//获取接收人id
 	         var nodes  =$('#tta').tree('getChildren');
+			 if(nodes.length<2){
+				 $.messager.show({//后台验证弹出错误提示信息框
+						title:'错误提示',
+						width:400,
+					    height:120,
+					    icon:'error',
+						msg: "<span style='color:red'>请先选择收件人</span>",
+						timeout:2000
+					});
+				 return;
+			 }
+			 
+			 $.messager.progress();  
 	         var arr = new Array();
 	         var index=0;
 	         for(var i=0,n=nodes.length;i<n;i++){  
@@ -241,11 +274,10 @@ pageContext.setAttribute("basePath",basePath);
 								    height:120,
 									timeout:3000,
 									showType:'slide'
-								});  
-							   
-							   $("#info").append("<span style='color: blue;'>&nbsp;&nbsp;我说 :"+r.obj.sendtime+" </span><br>&nbsp;&nbsp;&nbsp;&nbsp;"+str+"");
+								});   
+							   $("#info").append("<span style='color: blue;'>&nbsp;&nbsp;我说 :"+r.obj.sendtime+" </span><br>&nbsp;&nbsp;&nbsp;&nbsp;"+str+"<br>");
 							   //清空下面的编辑器内容
-							   $("#kindeditor").attr("value"," ");
+							   $("#kindeditorMessage").attr("value"," ");
 						   }else{
 							   $.messager.show({//后台验证弹出错误提示信息框
 									title:'错误提示',
@@ -256,6 +288,7 @@ pageContext.setAttribute("basePath",basePath);
 									timeout:4500
 								});
 						   } 
+						   $.messager.progress('close');
 					   }
 				});  
 	  }
@@ -265,10 +298,10 @@ pageContext.setAttribute("basePath",basePath);
 	
 	KindEditor.options.filterMode = false;
 	KindEditor.ready(function(K) {
-		K.create('#kindeditor', {
+		K.create('#kindeditorMessage', {
 			themeType : 'qq',
 			allowFileManager : true,
-			minWidth : "600px",
+			minWidth : "600px", 
 			uploadJson : '../resources/js/kindeditor/jsp/upload_json.jsp',
             fileManagerJson : '../resources/js/kindeditor/jsp/file_manager_json.jsp',
             allowFileManager : true,
@@ -287,8 +320,7 @@ pageContext.setAttribute("basePath",basePath);
 			]
 		});
 	});  
-	
-	 
+	   
 	//****************消息dataGrid************************
 	 
 	//发件箱dateGrid
@@ -349,7 +381,7 @@ pageContext.setAttribute("basePath",basePath);
 		$('#receiveMessageDataGrid').datagrid({    
 		    // fit : true,//控件自动resize占满窗口大小
 		    height:460,  
-		    width:645,   ///do/message/all.json?sendOrReceive=receive&readStatus='+status
+		    width:645,  
 		    url:ctx + '/do/message/all.json?sendOrReceive=receive&readStatus='+status, 
 		    //  fitColumns:true,//自动填充行
 			nowrap: true,//禁止单元格中的文字自动换行
@@ -368,6 +400,7 @@ pageContext.setAttribute("basePath",basePath);
 		        {field:'sendTime',title:'发送时间',width:180,sortable:true},   
 		        {   field:'readStatus',
 		        	title:'信件状态',
+		        	sortable:true,
 		        	width:90,
 		        	formatter: function(value,row,index){//数据格式化，例如man显示是，woman显示女
 					 if(value==false){
@@ -427,6 +460,7 @@ pageContext.setAttribute("basePath",basePath);
 	 //查看消息
 	 function selectInfo(rowData,messgaId,sendOrReceive){ 
 			//初始化页面
+			$("#kindeditorMessage").text(" ");
 			 glacier.system_mgr.message.writeMsg(); 
 			 $("#info").empty();
 			//alert(rowData.messageId);
@@ -455,9 +489,8 @@ pageContext.setAttribute("basePath",basePath);
 									$('#ulTwo').tree('remove',nodes[index].target); 
 								}
 							});    
-						});
-					   
-					   $("#info").append("<span style='color: blue;'>&nbsp;&nbsp;我说:"+rowData.sendTime+" </span><br>&nbsp;&nbsp;&nbsp;&nbsp;"+rowData.content+"");
+						});  
+					   $("#info").append("<span style='color: blue;'>&nbsp;&nbsp;我说:"+r.obj[0].receiveSendtime+" </span><br>&nbsp;&nbsp;&nbsp;&nbsp;"+rowData.content+"<br>");
 					      
 				   }else{  //查看的是接收的消息
 						$('#tta').tree('append', { 
@@ -469,7 +502,7 @@ pageContext.setAttribute("basePath",basePath);
 							}]
 						});    
 				   
-						 $("#info").append("<span style='color: blue;'>&nbsp;&nbsp;"+r.obj.senderName+":"+r.obj.sendtime+" </span><br>&nbsp;&nbsp;&nbsp;&nbsp;"+r.obj.content+"");
+						 $("#info").append("<span style='color: blue;'>&nbsp;&nbsp;"+r.obj.senderName+":"+r.obj.sendtime+" </span><br>&nbsp;&nbsp;&nbsp;&nbsp;"+r.obj.content+"<br>");
 						 //刷新联系人列表
 						var nodes=$('#ulTwo').tree('getChildren');//获取所有的子节点 
 						$.each(nodes,function(i,v){
@@ -484,7 +517,20 @@ pageContext.setAttribute("basePath",basePath);
 	 } 
 	  
 	 //删除消息
-	 function deleteDate(rows, receive){
+	 function deleteDate(rows, receive){ 
+		 if(rows.length<1){
+			 $.messager.show({//后台验证弹出错误提示信息框
+					title:'错误提示',
+					width:380,
+					icon:'error',
+					height:120,
+					msg: '<span style="color:red">未选择删除的信件<span>',
+					timeout:3000, 
+
+				});
+			 return;
+		 }
+		 
 		 $.messager.confirm('确认对话框', '确认删除信件？', function(r){
 				if (r){ 
 						var messageIds = [];//删除的id标识 
@@ -509,6 +555,7 @@ pageContext.setAttribute("basePath",basePath);
 										$.messager.show({//后台验证弹出错误提示信息框
 											title:'错误提示',
 											width:380,
+											icon:'error',
 											height:120,
 											msg: '<span style="color:red">'+r.msg+'<span>',
 											timeout:4500

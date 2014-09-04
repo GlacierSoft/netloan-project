@@ -38,8 +38,8 @@ public class MessageController extends AbstractController {
 
      //点击我的消息
     @RequestMapping(value = "/received.htm",method = RequestMethod.GET)
-    public Object receivedMsg() {  
-   	    ModelAndView mav = new ModelAndView("message/myMessage");  
+    public Object receivedMsg() {  //kindEdt
+   	    ModelAndView mav = new ModelAndView("message_mgr/myMessage_mgr/myMessage");  
    	    List<User> lis=new ArrayList<User>();
    	    lis=messageService.selectUser(); 
    	    if(lis.size()!=0){
@@ -51,8 +51,7 @@ public class MessageController extends AbstractController {
      // 获取短信息
     @RequestMapping(value = "/all.json", method = RequestMethod.POST)
     @ResponseBody
-    public Object all(JqPager pager, String sendOrReceive, String readStatus) {  
-    	
+    public Object all(JqPager pager, String sendOrReceive, String readStatus) {   
     	// 根据参数不同返回不同的短消息记录，包括（发送的、接收已读的、接收未读的）
     	return messageService.selectMessagesByPrincipal(pager, sendOrReceive, readStatus);
      }
