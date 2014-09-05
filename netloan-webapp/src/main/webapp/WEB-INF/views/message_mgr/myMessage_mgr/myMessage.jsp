@@ -200,9 +200,7 @@ pageContext.setAttribute("basePath",basePath);
 	 }
 	  
 	 //写信息，tab面板加载写信息的内容
-	 glacier.system_mgr.message.writeMsg = function writeInfo(){
-		 
-		 
+	 glacier.system_mgr.message.writeMsg = function writeInfo(){ 
 		 $("#tt").hide(); 
 		 $("#write").show();
 		 //清空显示列表
@@ -285,8 +283,7 @@ pageContext.setAttribute("basePath",basePath);
 					   }
 				});  
 	  }
-	
-	
+	 
 	//--------------------绑定编辑器-----------------------
 	
 	KindEditor.options.filterMode = false;
@@ -312,12 +309,10 @@ pageContext.setAttribute("basePath",basePath);
 	 
 	//发件箱dateGrid
 	function sendBox(){
-          $('#messageDataGrid').datagrid({    
-			   // fit : true,//控件自动resize占满窗口大小
+          $('#messageDataGrid').datagrid({     
 			    height:460,  
 			    width:645,
-			    url:ctx + '/do/message/all.json?sendOrReceive=send', 
-			   //  fitColumns:true,//自动填充行
+			    url:ctx + '/do/message/all.json?sendOrReceive=send',  
 				nowrap: true,//禁止单元格中的文字自动换行
 				autoRowHeight: false,//禁止设置自动行高以适应内容
 				striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
@@ -326,7 +321,7 @@ pageContext.setAttribute("basePath",basePath);
 				sortName: 'sendTime',//排序字段名称
 				sortOrder: 'desc',//升序还是降序
 				sortable:true,
-				remoteSort: true,//开启远程排序，默认为false 
+				remoteSort: false,//开启远程排序，默认为false 
 			    columns:[[    
 			        {field:'messageId', title:'ID', checkbox:true },
 			        {field:'receivers',title:'接收人',width:180,sortable:true},    
@@ -360,17 +355,14 @@ pageContext.setAttribute("basePath",basePath);
 					 deleteDate(rows,"send");
 				}  
 			}]
-		}); 
-
+		});  
 	 
 	 //收件箱dateGrid
 	function inbox(status){ 
-		$('#receiveMessageDataGrid').datagrid({    
-		    // fit : true,//控件自动resize占满窗口大小
+		$('#receiveMessageDataGrid').datagrid({     
 		    height:460,  
 		    width:645,  
-		    url:ctx + '/do/message/all.json?sendOrReceive=receive&readStatus='+status, 
-		    //  fitColumns:true,//自动填充行
+		    url:ctx + '/do/message/all.json?sendOrReceive=receive&readStatus='+status,  
 			nowrap: true,//禁止单元格中的文字自动换行
 			autoRowHeight: false,//禁止设置自动行高以适应内容
 			striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
@@ -442,8 +434,7 @@ pageContext.setAttribute("basePath",basePath);
 					}
 				}]
 		});  
-	  
-
+	   
 	 //查看消息
 	 function selectInfo(rowData,messgaId,sendOrReceive){ 
 			//初始化页面

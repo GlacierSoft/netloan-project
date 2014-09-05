@@ -62,8 +62,7 @@ public class MessageController extends AbstractController {
     public Object addSave(@Valid  Message newMessage, BindingResult bindingResult, @RequestParam 
 		List<String> recipientIds, HttpSession session) {   
 	    //发送信息，成功与否，提示信息直接到前台msg显示
-	    return messageService.createMessageSelective(newMessage, recipientIds);
- 
+	    return messageService.createMessageSelective(newMessage, recipientIds); 
     }
 
      //删除短消息

@@ -152,8 +152,7 @@ public class MessageService  {
         returnResult.setRows(messageDTOs);
         returnResult.setTotal(count);    
         return returnResult;// 返回GridReturn表
-    }  
-    
+    }   
     
     /***
      * @Title: createMessageSelective
@@ -304,19 +303,14 @@ public class MessageService  {
                     //查找属于我的接收的那条消息记录
                     messageReceiverExampleForUpdateOrDelete.createCriteria()
                             .andMsgReceIdEqualTo(messageReceiver.getMsgReceId())
-                            .andRecipientEqualTo(principalUser.getUserId());
-                    
-                    
-                    
+                            .andRecipientEqualTo(principalUser.getUserId()); 
                     //查看除了我自己之外，是否还存在其它的接收者，且是未删除状态
                     MessageReceiverExample messageReceiverExampleForGetCount = new MessageReceiverExample();
                     messageReceiverExampleForGetCount.createCriteria()
                             .andMsgReceIdEqualTo(messageReceiver.getMsgReceId())
                             .andRecipientNotEqualTo(principalUser.getUserId());
                     List<MessageReceiver> reMessageReceivers = messageReceiverMapper
-                            .selectByExample(messageReceiverExampleForGetCount);
-                       
-                  
+                            .selectByExample(messageReceiverExampleForGetCount); 
                     if (message.getSenderisdel() == true && reMessageReceivers.size() == 0) {// 该消息的发送者已删除该消息，并且不存在其他接收记录
                         messageReceiverMapper.deleteByExample(messageReceiverExampleForUpdateOrDelete);
                         messageMapper.deleteByPrimaryKey(messageReceiver.getMsgReceId());
