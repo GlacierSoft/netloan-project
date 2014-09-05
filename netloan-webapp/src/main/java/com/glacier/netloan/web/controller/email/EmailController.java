@@ -4,10 +4,8 @@
  * Copyright (c) 2013 Glacier SoftWare Company Limited. All Rights Reserved.
  */
 package com.glacier.netloan.web.controller.email;
-import java.util.List;
 
 import javax.mail.MessagingException;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.entity.email.MessageEmail;
-import com.glacier.netloan.entity.email.MessageRecord;
 import com.glacier.netloan.service.email.MessageEmailService;
 import com.glacier.netloan.service.email.MessageRecordService;
 import com.glacier.netloan.service.member.MemberService;

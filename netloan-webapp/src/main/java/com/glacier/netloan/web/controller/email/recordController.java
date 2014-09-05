@@ -15,7 +15,6 @@ import com.glacier.core.controller.AbstractController;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.netloan.dto.query.email.MessageRecordQueryDTO;
 import com.glacier.netloan.service.email.MessageRecordService;
-import com.glacier.netloan.service.member.MemberService;
 
 /** 
  * @ClassName: MessageRecordController 
