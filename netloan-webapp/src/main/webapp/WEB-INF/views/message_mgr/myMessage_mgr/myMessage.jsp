@@ -269,6 +269,7 @@ pageContext.setAttribute("basePath",basePath);
 							   $("#info").append("<span style='color: blue;'>&nbsp;&nbsp;我说 :"+r.obj.sendtime+" </span><br>&nbsp;&nbsp;&nbsp;&nbsp;"+str+"<br>");
 							   //清空下面的编辑器内容 
 							   editor1.html(' ');
+							   editor1.sync(); 
 						   }else{
 							   $.messager.show({//后台验证弹出错误提示信息框
 									title:'错误提示',
@@ -440,8 +441,7 @@ pageContext.setAttribute("basePath",basePath);
 			//初始化页面
 			$("#kindeditorMessage").text(" ");
 			 glacier.system_mgr.message.writeMsg(); 
-			 $("#info").empty();
-			//alert(rowData.messageId);
+			 $("#info").empty(); 
 			//加载该消息，同时更新该消息的读取状态
 		 	$.ajax({
 			   type: "POST",
