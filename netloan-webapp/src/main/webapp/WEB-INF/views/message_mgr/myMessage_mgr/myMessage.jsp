@@ -65,7 +65,7 @@ pageContext.setAttribute("basePath",basePath);
 		         <div id="ccs" style="width:656px;height:467px;border-left-style: none;float: left;">    
 		               <div data-options="region:'center',title:'写短信'" style="height: 100%;float: left;border-left-style: none;border-right-style: none;" >
 			               <div style="width: 515px;height: 100%;float: left;margin-left: 13px; ">
-				                <div id="info" style="margin-bottom: 20px;margin-top:30px;border-style:solid;border-color:#C3C3C3;
+				                <div id="info" style="margin-bottom: 20px;word-wrap:break-word; overflow:hidden;margin-top:30px;border-style:solid;border-color:#C3C3C3;
 				                   border-width:0.5px; width: 100%;height: 150px;OVERFLOW-Y: auto; OVERFLOW-X:hidden; scrollbar-shadow-color: #ffffff; scrollbar-highlight-color: #ffffff; scrollbar-face-color: #d9d9d9; scrollbar-3dlight-color: #d9d9d9; scrollbar-darkshadow-color: #d9d9d9; scrollbar-track-color: #ffffff; scrollbar-arrow-color: #ffffff"  >
 				                </div>  
 				                <div> 
