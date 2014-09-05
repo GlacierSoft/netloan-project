@@ -169,7 +169,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    <label for="mobileNumber" class="col-sm-2 control-label">*手机号码:</label>
 									    <div class="col-sm-4" style="width: 300px;float: left;">
 									      <input type="tel"  class="form-control" maxlength="11" onblur="checkMobileNumber();" style="width: 174px;float: left;" name="mobileNumber" id="mobileNumber" value="${currentMember.mobileNumber}"  placeholder="手机号码" onkeyup='this.value=this.value.replace(/\D/gi,"")' >
-                                          <input type="button" value="获取验证码" id="buttone_Test_One" name="buttone_Test-One" class="btn btn-default" onclick="FindYanZheng();" onblur="checkPhoneNumber();" onkeyup='this.value=this.value.replace(/\D/gi,"")'/>
+                                          <input type="button" value="获取验证码" id="buttone_Test_One" name="buttone_Test_One" class="btn btn-default" onclick="FindYanZheng();" onkeyup='this.value=this.value.replace(/\D/gi,"")'/>
 									      <span id="mobileNumberSpan"></span>
 									 </div>
 									 
@@ -178,31 +178,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    var count_yanzheng=30; //间隔函数，1秒执行 
 										var curCount_yanzheng;//当前剩余秒数  
 										var mobile_code_yangzheng=0;//记录短信验证码
-										
-										$("#buttone_Test_One").removeAttr("disabled");
-										
-                                         var flag_reg=/^0{0,1}(13[0-9]|15[7-9]|153|156|18[7-9])[0-9]{8}$/;
-						            	 $("#mobileNumber").bind("input",function(){
+										var InterValObj_BtnOne;//定义定时方法
+									
+										function FindYanZheng(){
+						            		 var flag_reg=/^0{0,1}(13[0-9]|15[7-9]|153|156|18[7-9])[0-9]{8}$/;
 						            		 if($("#mobileNumber").val().length==11){
 						            			 if(flag_reg.test($("#mobileNumber").val())){
-						            				 $("#buttone_Test_One").attr("disabled",false);		 
+						            				 curCount_yanzheng=count_yanzheng;
+								                	 $("#buttone_Test_One").attr("disabled", "true");  
+								                	 $("#mobileNumber").css("width","100px");
+								                     $("#buttone_Test_One").val("请在" + curCount_yanzheng + "秒内输入验证码");  
+								                     InterValObj_BtnOne= window.setInterval(SetRemainTimeBtnOne, 1000); // 启动计时器，1秒执行一次 	
+								                     $.post('<%=basePath%>resources/note/sms.jsp', {"mobile":'${currentMember.mobileNumber}'}, function(msg) {
+								               			if(msg=='提交成功'){
+								               				//暂无响应事件
+								               		   }	
+								               		});	 
+						            			}else{
+						            				 alert("请填写正确格式!!");
 						            			}
 						            		 }else{
-						            			 $("#buttone_Test_One").attr("disabled",true);
-						            		  }
-						            	    });
-						            	 
-						            	 function FindYanZheng(){
-						            		 curCount_yanzheng=count_yanzheng;
-						                	 $("#buttone_Test_One").attr("disabled", "true");  
-						                	 $("#mobileNumber").css("width","100px");
-						                     $("#buttone_Test_One").val("请在" + curCount_yanzheng + "秒内输入验证码");  
-						                     InterValObj_BtnOne= window.setInterval(SetRemainTimeBtnOne, 1000); // 启动计时器，1秒执行一次 	
-						                     $.post('<%=basePath%>resources/note/sms.jsp', {"mobile":'${currentMember.mobileNumber}'}, function(msg) {
-						               			if(msg=='提交成功'){
-						               				//暂无响应事件
-						               		   }	
-						               		});
+						            			 alert("请填写正确格式!!");
+						            		 }
 								          }
 										
 						            	//timer处理函数  
@@ -216,11 +213,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					            		    }else {  
 					            		    	curCount_yanzheng--;
 					            		    	mobile_code_yangzheng=$("#phoneNumber").val();
-					            	            $("#buttone_Test_One").val("请在" + curCount_yanzheng + "秒内输入验证码");  
-					            		        
+					            		    	$("#buttone_Test_One").val("请在" + curCount_yanzheng + "秒内输入验证码");  
 					            		    }  
 					            		} 
 						            	 
+						            	
+						            	$(function(){
+						            		if($("#memberRealName").prop("readonly")){
+						            			  $("#buttone_Test_One").attr("disabled","true");// 启用按钮
+						            		}
+						            	});
+						            	
 						            </script>
 									 
 					                 
@@ -1198,7 +1201,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    /*-------------------------------------------------基本信息验证开始---------------------------------------------*/
 	  	//验证所有
 		function checkAll(){
-	    	return checkMemberRealName()&&checkCardId()&&checkMobileNumber()&&checkPhoneNumber()&&checkLiveAddress()&&checkFirstContactPhone()&&checkFirstContactAddress()&&checkNull()&&checkUnitPhone()&&checkProofPerson()&&checkProofPhone();
+	    	return checkMemberRealName()&&checkCardId()&&checkMobileNumber()&&checkLiveAddress()&&checkFirstContactPhone()&&checkFirstContactAddress()&&checkNull()&&checkUnitPhone()&&checkProofPerson()&&checkProofPhone();
 		}
 		
 		//联系人名称验证
@@ -1301,37 +1304,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		}
 		
-		
-		//验证码信息
-		function checkPhoneNumber(){
-		     var PhoneNumber=$("#phoneNumber").val(); 
-		     if(PhoneNumber==""){
-		    	 document.getElementById("phoneNumberSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>验证码不能为空!</font>"; 
-		    	 $("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
-		    	 return false;
-		     }else{
-		    	 $.ajax({
-		    		   type:"post",
-		    		   url:"<%=basePath%>others/FindNote.json",
-		     		   data:{"mobile_code":mobile_code_yangzheng},
-		     		   dataType:"json",
-		    		   success:function(data){
-		    			   if(data[0].info){
-		    				    window.clearInterval(InterValObj_BtnOne);// 停止计时器
-		    				    count_yanzheng=30;
-		    				    document.getElementById("phoneNumberSpan").innerHTML="";
-		    					$("#tieshi").html("");
-		    					 return true;
-		    				 } else{
-		    				   document.getElementById("phoneNumberSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>验证码匹配错误!</font>";
-		    				    return false; 
-		    		      }   
-		    		   }
-		    	 });
-		     }
-		}
-		
-	    //居住地址验证
+		//居住地址验证
 		function checkLiveAddress(){
 			var liveAddress = $("#liveAddress").val();
 			if(liveAddress == ""){
@@ -1633,7 +1606,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				required:true,
 	    				isMobile:true
 	    			}, 
-	    			buttone_Test_One:"required",
 	    			homePhone:"isPhone",
 	    			memberAge:{
 	    				min:18,
@@ -1663,9 +1635,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			mobileNumber:{
 	    				required:"手机号码不能为空",	
 	    			}, 
-	    			buttone_Test_One:{
-	    				required:"手机验证码不能为空",	
-	    			},
 	    			memberAge:{
 	    				min:" 年龄不能低于18岁",
 	    				max:"年龄不能大于100岁",
@@ -1688,25 +1657,83 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				error.insertAfter(element); 
 	    		  },
 	    		submitHandler:function(){ 
-	    			$.ajax({
-	    				   type: "POST",
-	    				   url: ctx+"/perfectRegister.htm",
-	    				   dataType: "json",
-	    				   data: $("#personalMessageForm").serialize(),
-		    			   success: function(r) { 
-		   					$("#onlyPost").attr('disabled',"true");
-	    						successdialog(r);
-	    						 if(r.obj == 'infoAndWorRealOnly'){
-	    								$("form[id='personalMessageForm'] input,textarea[id='personalDes']").prop("readonly", true);
-	    								$("form[id='personalMessageForm'] select,button[id='onlyPost'],button[id='postAuthBut']").prop("disabled", true);
-	    							}
-		                    },
-		                    error: function() {
-		                        alert("提交出错！");
-		                    }
-	    				});
-	    			
-	    			
+	    		    if($("#buttone_Test_One").val()=="重新发送")
+	   		    		mobile_code_yangzheng=0;
+	   		    	 
+	   		    	 var PhoneNumber=$("#phoneNumber").val();
+	   		    	 
+	   		    	 if($("#postAuth").val()==""){
+	   		    		 window.clearInterval(InterValObj_BtnOne);// 停止计时器
+	    				 count_yanzheng=30;
+	    				 $("#buttone_Test_One").val("重新发送");
+	   		    		 document.getElementById("phoneNumberSpan").innerHTML=""; 
+  		   		    	 $("#tieshi").html("");
+  		   		         $("#phoneNumber").val("");
+	   		    		 $.ajax({
+		    				   type: "POST",
+		    				   url: ctx+"/perfectRegister.htm",
+		    				   dataType: "json",
+		    				   data: $("#personalMessageForm").serialize(),
+			    			   success: function(r) { 
+			   					$("#onlyPost").attr('disabled',"true");
+		    						successdialog(r);
+		    						 if(r.obj == 'infoAndWorRealOnly'){
+		    								$("form[id='personalMessageForm'] input,textarea[id='personalDes']").prop("readonly", true);
+		    								$("form[id='personalMessageForm'] select,button[id='onlyPost'],button[id='postAuthBut'],button[id='buttone_Test_One']").prop("disabled", true);
+		    						  }
+			                    },
+			                    error: function() {
+			                        alert("提交出错！");
+			                    }
+				    		});
+	   		    	 }else{
+	   		    		 if(PhoneNumber==""){
+	   		    			 document.getElementById("phoneNumberSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>验证码不能为空!</font>"; 
+	   		   		    	 $("#tieshi").html("<font style='color: #F00;font-weight: bold;float:left;'>还有必填信息为空，请填写!</font>");
+	   		   		         $("#postAuth").val("");
+	   		   		     }else{
+	   		   		    	$.ajax({
+		   		    		   type:"post",
+		   		    		   url:"<%=basePath%>others/FindNote.json",
+		   		     		   data:{"mobile_code":mobile_code_yangzheng},
+		   		     		   dataType:"json",
+		   		    		   success:function(data){
+		   		    			   $("#buttone_Test_One").removeAttr("disabled");
+		   		    			   if(data[0].info){
+		   		    				    window.clearInterval(InterValObj_BtnOne);// 停止计时器
+		   		    				    count_yanzheng=30;
+		   		    				    $("#buttone_Test_One").val("重新发送");
+		   		    				    document.getElementById("phoneNumberSpan").innerHTML="";
+		   		    					$("#tieshi").html("");
+		   		    					$.ajax({
+	    				    				   type: "POST",
+	    				    				   url: ctx+"/perfectRegister.htm",
+	    				    				   dataType: "json",
+	    				    				   data: $("#personalMessageForm").serialize(),
+	    					    			   success: function(r) { 
+	    					   					    $("#onlyPost").attr('disabled',"true");
+	    					   					    $("#postAuth").val()==""
+	    				    						successdialog(r);
+	    				    						 if(r.obj == 'infoAndWorRealOnly'){
+	    				    								$("form[id='personalMessageForm'] input,textarea[id='personalDes']").prop("readonly", true);
+	    				    								$("form[id='personalMessageForm'] select,button[id='onlyPost'],button[id='postAuthBut']").prop("disabled", true);
+	    				    						        $("form[id='personalMessageForm'] input[id='buttone_Test_One']").prop("disabled",true);	
+	    				    						 }
+	    					                    },
+	    					                    error: function() {
+	    					                        alert("提交出错！");
+	    					                    }
+			    				    		});
+		   		    					
+		   		    			    } else{
+		   		    			       $("#postAuth").val("");
+		   		    			       document.getElementById("phoneNumberSpan").innerHTML="<font style='color: #F00;font-weight: bold;float:left;'>验证码匹配错误!</font>";
+		   		    				} 
+		   		    			}
+		   		    	 }); 
+	   		    	  }
+	   		    	 }
+	   		      
 	    		} 
 	    	});
 	      	$("#bankCardForm").validate({
