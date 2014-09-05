@@ -11,7 +11,7 @@
 				<input class="spinner" style="width:250px"  value="${recordData.recordTitle}" readonly="readonly"/>
 			</td>
 			<td>收件人：</td>
-			<td><input class="spinner" style="width:250px" value="${recordData.recordMemberDisplay}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:270px" value="${recordData.recordMemberDisplay}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>发送人：</td>

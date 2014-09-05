@@ -14,7 +14,7 @@
 				<input class="spinner" style="width:250px"  value="${emailData.emailTitle}" readonly="readonly"/>
 			</td>
 			<td>邮件类型：</td>
-			<td><input id="advertisement_mgr_advertisement_detail_webAdvStatus" class="spinner" style="width:250px"  readonly="readonly"/></td>
+			<td><input id="advertisement_mgr_advertisement_detail_webAdvStatus" class="spinner" style="width:270px"  readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>发送人：</td>
@@ -29,7 +29,7 @@
 		<tr>
 			<td>收件人：</td>
 			<td colspan="3">
-				<a href="javascript:selectFind();">查看收件人</a>
+				<a href="javascript:selectFind();" style="color: #404040;font-size: 12px;">查看收件人</a>
 			</td>
 		</tr>
 	</table>

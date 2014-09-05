@@ -99,7 +99,7 @@
 				title: "【"+rowData.emailTitle+"】的邮件详细信息",
 				href : ctx + '/do/email/intoDetail.htm?emailId='+rowData.emailId,//从controller请求jsp页面进行渲染
 				width : 720,
-				height : 520,
+				height : 490,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -127,34 +127,43 @@
 				handler : function(dia) {
 					editor.sync();// 同步数据后可以直接取得textarea的value
 					var html=document.getElementById('editor_id').value;
+					console.info(html);
 					if(option == "candidate"&&arr.length > 0){//选择为部分群发并且arr数组大于0
-						$.messager.progress({
-							title : "邮件提示",
-							text : "正在发送邮件中..."
-						}); 
-						$('#email_mgr_email_form').form('submit', {
-							url: ctx + url + "?arrys="+arr+"&textare="+html,
-							success: function(r){
-								glacier.show({msg:r.msg,result:r.success});
-								glacier.message_mgr.email_mgr.email.emailDataGrid.datagrid('reload');
-							    dia.dialog("close");
-							    $.messager.progress('close');
-							}
-						});
+						if(html == ""&&html.length == 0){
+							alert("邮件内容不能为空！");
+						}else{
+							$.messager.progress({
+								title : "邮件提示",
+								text : "正在发送邮件中..."
+							}); 
+							$('#email_mgr_email_form').form('submit', {
+								url: ctx + url + "?arrys="+arr+"&textare="+html,
+								success: function(r){
+									glacier.show({msg:r.msg,result:r.success});
+									glacier.message_mgr.email_mgr.email.emailDataGrid.datagrid('reload');
+								    dia.dialog("close");
+								    $.messager.progress('close');
+								}
+							});
+						}
 					}else if(option != "candidate"){//不选择部分群发时
-						$.messager.progress({
-							title : "邮件提示",
-							text : "正在发送邮件中..."
-						}); 
-						$('#email_mgr_email_form').form('submit', {
-							url: ctx + url + "?arrys="+arr+"&textare="+html,
-							success: function(r){
-								glacier.show({msg:r.msg,result:r.success});
-								glacier.message_mgr.email_mgr.email.emailDataGrid.datagrid('reload');
-							    dia.dialog("close"); 
-							    $.messager.progress('close');
-							}
-						});
+						if(html == ""&&html.length == 0){
+							alert("邮件内容不能为空！");
+						}else{
+							$.messager.progress({
+								title : "邮件提示",
+								text : "正在发送邮件中..."
+							}); 
+							$('#email_mgr_email_form').form('submit', {
+								url: ctx + url + "?arrys="+arr+"&textare="+html,
+								success: function(r){
+									glacier.show({msg:r.msg,result:r.success});
+									glacier.message_mgr.email_mgr.email.emailDataGrid.datagrid('reload');
+								    dia.dialog("close"); 
+								    $.messager.progress('close');
+								}
+							});
+						}
 					}else if(option == "candidate"&&arr.length == 0){//选择为部分群发并且arr数组小于等于0
 						alert("部分群发必须至少有一个联系会员!");
 					}
