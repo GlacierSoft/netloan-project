@@ -212,12 +212,23 @@ public class UserService {
         UserExample userExample = new UserExample();
         int count = 0;
         // 防止管理员名称重复
-        userExample.createCriteria().andUsernameEqualTo(user.getUsername());
+        userExample.createCriteria().andUsernameEqualTo(user.getUsername()).andUserCnNameEqualTo(user.getUserCnName());
         count = userMapper.countByExample(userExample);// 查找相同管理员名称数量
         if (count > 0) {
             returnResult.setMsg("管理员名称重复");
             return returnResult;
         }
+        
+        //防止真实姓名重复
+        UserExample userCnNameExample = new UserExample();
+        // 防止管理员名称重复
+        userCnNameExample.createCriteria().andUserCnNameEqualTo(user.getUserCnName()).andUserIdNotEqualTo(user.getUserId());
+        count = userMapper.countByExample(userCnNameExample);// 查找相同管理员名称数量
+        if (count > 0) {
+            returnResult.setMsg("管理员真实姓名重复");
+            return returnResult;
+        } 
+        
         // 初始化管理员信息
         user.setUserId(RandomGUID.getRandomGUID());
         user.setPassword(user.getUsername());
@@ -267,7 +278,7 @@ public class UserService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         UserExample userExample = new UserExample();
         // 防止管理员名称重复
-        userExample.createCriteria().andUsernameEqualTo(user.getUsername()).andUserIdNotEqualTo(user.getUserId());
+        userExample.createCriteria().andUsernameEqualTo(user.getUsername()).andUserIdNotEqualTo(user.getUserId()); 
         int count = 0;
         User originalUser = userMapper.selectByPrimaryKey(user.getUserId());// 获取原用户相关信息
         // 管理员类型用户只有所属创建者才能进行修改
@@ -282,6 +293,17 @@ public class UserService {
             returnResult.setMsg("管理员名称重复");
             return returnResult;
         }
+         
+        //防止真实姓名重复
+        UserExample userCnNameExample = new UserExample();
+        // 防止管理员名称重复
+        userCnNameExample.createCriteria().andUserCnNameEqualTo(user.getUserCnName()).andUserIdNotEqualTo(user.getUserId());
+        count = userMapper.countByExample(userCnNameExample);// 查找相同管理员名称数量
+        if (count > 0) {
+            returnResult.setMsg("管理员真实姓名重复");
+            return returnResult;
+        } 
+        
         count = userMapper.updateByPrimaryKeySelective(user);
         if (count == 1) {
             returnResult.setMsg("[" + user.getUsername() + "]" + "管理员信息已修改");
