@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.glacier.netloan.entity.finance.FinanceMemberExample.Criteria;
-
 public class MessageRecordExample {
     protected String orderByClause;
 
