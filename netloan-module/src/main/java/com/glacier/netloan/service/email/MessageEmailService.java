@@ -117,7 +117,7 @@ public class MessageEmailService {
     	int count=0;
     	if(messageEmail.getEmailType().equals("candidate")){//部分群发
     		for (int i = 0; i < array.length; i++) {
-    			Member member = memberService.getMember(array[i]);
+    			Member member = memberService.getMemberMsg(array[i]);
     			emailList.add(member.getEmail());
 			}
     		//对MessageEmail赋值
@@ -127,7 +127,7 @@ public class MessageEmailService {
         	count = messageEmailMapper.insertSelective(messageEmail);
         	if(count==1){
         		for (int i = 0; i < array.length; i++) {
-        			Member member = memberService.getMember(array[i]);
+        			Member member = memberService.getMemberMsg(array[i]);
         			MessageRecord messageRecord = new MessageRecord();//构建邮箱记录
         			messageRecord.setRecordId(RandomGUID.getRandomGUID());//随即产生32位ID
         			messageRecord.setRecordTitle(messageEmail.getEmailTitle());//设置标题
@@ -137,7 +137,11 @@ public class MessageEmailService {
         			messageRecord.setEmailId(messageEmail.getEmailId());//设置活动邮件ID
         			messageRecordMapper.insertSelective(messageRecord);//执行添加
         		}
-        		htmlEmailPublic.sendMessage(emailList, messageEmail.getEmailTitle(), messageEmail.getEmailText());
+        		htmlEmailPublic.setMsg(messageEmail.getEmailText());
+        		htmlEmailPublic.setTitle(messageEmail.getEmailTitle());
+        		htmlEmailPublic.setToMailsList(emailList);
+        		Thread thread = new Thread(htmlEmailPublic);
+        		thread.start();//启动线程
         		returnResult.setMsg("发送成功");
         		returnResult.setSuccess(true);
         	}
@@ -162,7 +166,11 @@ public class MessageEmailService {
         			messageRecord.setEmailId(messageEmail.getEmailId());//设置活动邮件ID
         			messageRecordMapper.insertSelective(messageRecord);//执行添加
         		}
-        		htmlEmailPublic.sendMessage(emailList, messageEmail.getEmailTitle(), messageEmail.getEmailText());
+        		htmlEmailPublic.setMsg(messageEmail.getEmailText());
+        		htmlEmailPublic.setTitle(messageEmail.getEmailTitle());
+        		htmlEmailPublic.setToMailsList(emailList);
+        		Thread thread = new Thread(htmlEmailPublic);
+        		thread.start();//启动线程
         		returnResult.setMsg("发送成功");
         		returnResult.setSuccess(true);
         	}
@@ -189,7 +197,11 @@ public class MessageEmailService {
         			messageRecord.setEmailId(messageEmail.getEmailId());//设置活动邮件ID
         			messageRecordMapper.insertSelective(messageRecord);//执行添加
         		}
-        		htmlEmailPublic.sendMessage(emailList, messageEmail.getEmailTitle(), messageEmail.getEmailText());
+        		htmlEmailPublic.setMsg(messageEmail.getEmailText());
+        		htmlEmailPublic.setTitle(messageEmail.getEmailTitle());
+        		htmlEmailPublic.setToMailsList(emailList);
+        		Thread thread = new Thread(htmlEmailPublic);
+        		thread.start();//启动线程
         		returnResult.setMsg("发送成功");
         		returnResult.setSuccess(true);
         	}
@@ -216,7 +228,11 @@ public class MessageEmailService {
         			messageRecord.setEmailId(messageEmail.getEmailId());//设置活动邮件ID
         			messageRecordMapper.insertSelective(messageRecord);//执行添加
         		}
-        		htmlEmailPublic.sendMessage(emailList, messageEmail.getEmailTitle(), messageEmail.getEmailText());
+        		htmlEmailPublic.setMsg(messageEmail.getEmailText());
+        		htmlEmailPublic.setTitle(messageEmail.getEmailTitle());
+        		htmlEmailPublic.setToMailsList(emailList);
+        		Thread thread = new Thread(htmlEmailPublic);
+        		thread.start();//启动线程
         		returnResult.setMsg("发送成功");
         		returnResult.setSuccess(true);
         	}

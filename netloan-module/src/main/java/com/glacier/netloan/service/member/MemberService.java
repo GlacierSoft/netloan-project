@@ -189,6 +189,18 @@ public class MemberService {
         memberToken.setTratersPassword(Encodes.encodeHex(hashPassword));
     }
      
+    /**
+	 * @Title: getMemberMsg 
+	 * @Description: TODO(根据会员Id获取会员信息简洁班) 
+	 * @param @param memberId
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	 */
+    public Member getMemberMsg(String memberId){
+    	Member member = memberMapper.selectByPrimaryKey(memberId);
+    	return member;
+    }
 	/**
 	 * @Title: getMember 
 	 * @Description: TODO(根据会员Id获取会员信息) 

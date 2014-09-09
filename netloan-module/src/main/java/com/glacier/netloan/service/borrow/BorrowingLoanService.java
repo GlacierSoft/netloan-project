@@ -560,6 +560,7 @@ public class BorrowingLoanService {
             String msg="尊敬的会员：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您申请的[<font color='red'>"+borrowingLoanMsg.getLoanTitle()+"</font>]借款初审审核成功！" +
 	        		"<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由冰川网贷系统自动发送，请勿回复！</font>";
             htmlEmailPublic.setMsg(msg);
+            htmlEmailPublic.setTitle("冰川网贷提示");
             htmlEmailPublic.setToMailsList(borrowingLoanMailsList);
             Thread borrowingLoanThread = new Thread(htmlEmailPublic);
             borrowingLoanThread.start();//启动线程
@@ -821,6 +822,7 @@ public class BorrowingLoanService {
             String borrowingLoanMsg="亲爱的"+borrowingLoan.getMemberDisplay()+"：<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜您!您申请的[<font color='red'>"+borrowingLoan.getLoanTitle()+"</font>]借款复审审核成功！" +
 	        		"<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由冰川网贷系统自动发送，请勿回复！</font>";
             htmlEmailPublic.setToMailsList(toMailborrowingLoanList);
+            htmlEmailPublic.setTitle("冰川网贷提示");
             htmlEmailPublic.setMsg(borrowingLoanMsg);
             Thread borrowingLoanThread = new Thread(htmlEmailPublic);
             borrowingLoanThread.start();//启动线程
@@ -837,6 +839,7 @@ public class BorrowingLoanService {
 	        		"<br/><br/><font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：此邮件由冰川网贷系统自动发送，请勿回复！</font>";
             //htmlEmailPublic.sendEmail(toMailTenderList, sendMsg);
             htmlEmailPublic.setToMailsList(toMailTenderList);
+            htmlEmailPublic.setTitle("冰川网贷提示");
             htmlEmailPublic.setMsg(sendMsg);
             Thread tenderThread = new Thread(htmlEmailPublic);
             tenderThread.start();//启动线程

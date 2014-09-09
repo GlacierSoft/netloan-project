@@ -224,6 +224,7 @@ public class RegisterController extends AbstractController {
         List<String> MemberMailList = new ArrayList<String>();
         MemberMailList.add(member.getEmail());
         htmlEmailPublic.setToMailsList(MemberMailList);
+        htmlEmailPublic.setTitle("冰川网贷提示");
         htmlEmailPublic.setMsg(memberMsg);
         Thread borrowingLoanThread = new Thread(htmlEmailPublic);
         borrowingLoanThread.start();//启动线程

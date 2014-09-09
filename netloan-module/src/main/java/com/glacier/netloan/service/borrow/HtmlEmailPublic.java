@@ -24,10 +24,16 @@ public class HtmlEmailPublic implements Runnable{
 	
 	private List<String> toMailsList;
 	
+	private String title;
+	
 	private String Msg;
 	
 	public void setToMailsList(List<String> toMailsList) {
 		this.toMailsList = toMailsList;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public void setMsg(String msg) {
@@ -96,7 +102,7 @@ public class HtmlEmailPublic implements Runnable{
 	public void run() {
 		HtmlEmailPublic email = new HtmlEmailPublic();
 		try {
-			email.sendMessage(toMailsList, "冰川网贷注册", Msg);
+			email.sendMessage(toMailsList, title, Msg);
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
