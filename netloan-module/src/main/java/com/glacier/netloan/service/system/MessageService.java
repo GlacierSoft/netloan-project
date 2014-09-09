@@ -164,17 +164,21 @@ public class MessageService  {
      * @throws
      */ 
     @Transactional(readOnly = false)
-    public Object createMessageSelective(Message newMessage,  List<String> recipientIds) {
+    public Object createMessageSelective(Message newMessage,  String[] recipientIds) {
         User principalUser = (User) SecurityUtils.getSubject().getPrincipal();// 获取已认证对象
         JqReturnJson returnResult = new JqReturnJson(); 
-        //内容为空
-        if(newMessage.getContent().trim().equals("")){
+        //内容为空  
+        if(newMessage.getContent()==null){ 
         	returnResult.setMsg("消息内容不能为空！");
         	return 	returnResult;
-        } 
-    	if (recipientIds.size() > 0) {
-            Message message = new Message();
-          //  MessageDTO.dto2entity(newMessageDTO, message);
+        }else{
+        	if(newMessage.getContent().trim()==""){
+        		returnResult.setMsg("消息内容不能为空！");
+            	return 	returnResult;
+        	}
+        }
+    	if (recipientIds.length > 0) {
+            Message message = new Message(); 
             String messageId = RandomGUID.getRandomGUID();// 生成新的GUID作为新短消息的主键
             message.setMessageId(messageId);
             message.setSender(principalUser.getUserId());

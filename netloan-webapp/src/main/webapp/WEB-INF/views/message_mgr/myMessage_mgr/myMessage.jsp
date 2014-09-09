@@ -70,7 +70,7 @@ pageContext.setAttribute("basePath",basePath);
 				                </div>  
 				                <div> 
 				                   <!--  kindeditor编辑器 -->
-					                 <textarea id="kindeditorMessage"  autofocus style="width:100%;height: 150px"  ></textarea> 
+					                 <textarea id="kindeditorMessage"    style="width:100%;height: 150px"  ></textarea> 
 								    <input style="margin-top: 5px;margin-left: 480px;width: 37px;height: 25px" type="button" onclick="sendMsg()" value="发送">
 				                </div>  
 				          </div> 
@@ -213,9 +213,14 @@ pageContext.setAttribute("basePath",basePath);
 	
 	//发送消息
     function sendMsg(){ 
+    	     editor1.sync(); 
+    	     if(editor1.text()==""){
+    	    	 alert("消息内容不能为空");
+    	    	 return;
+    	     }
 			 //获取编辑器的内容
-		     var str=	$("#kindeditorMessage").val(); 
-			 if(typeof(str) == "undefined"||str == ""){
+			 var str=editor1.html();  
+			 if(typeof(str) == "undefined"||str == ""){ 
 				 $.messager.show({//后台验证弹出错误提示信息框
 						title:'错误提示',
 						width:400,
@@ -241,7 +246,7 @@ pageContext.setAttribute("basePath",basePath);
 			 }
 			 
 			 $.messager.progress();  
-	         var arr = new Array();
+	         var arr = [];
 	         var index=0;
 	         for(var i=0,n=nodes.length;i<n;i++){  
 	        	 if (typeof(nodes[i].id) == "undefined") {  
@@ -251,10 +256,13 @@ pageContext.setAttribute("basePath",basePath);
 	        	   arr[index]=nodes[i].id;   
 	        	   index++; 
 	         } 
+	         alert(arr[0]);
 			 $.ajax({
 					   type: "POST",
-					   url: ctx + '/do/message/addSave.json',
-					   data:"recipientIds="+arr+"&content="+str,
+					   url: ctx + '/do/message/addSave.json?listId='+arr, 
+					     data:{ 
+						    content : str
+					   }, 
 					   dataType:'json',
 					   success: function(r){ 
 						   if(r.success){
@@ -267,7 +275,7 @@ pageContext.setAttribute("basePath",basePath);
 									showType:'slide'
 								});   
 							   $("#info").append("<span style='color: blue;'>&nbsp;&nbsp;我说 :"+r.obj.sendtime+" </span><br>&nbsp;&nbsp;&nbsp;&nbsp;"+str+"<br>");
-							   //清空下面的编辑器内容 
+							   //清空下面的编辑器内容  
 							   editor1.html(' ');
 							   editor1.sync(); 
 						   }else{
@@ -287,25 +295,78 @@ pageContext.setAttribute("basePath",basePath);
 	 
 	//--------------------绑定编辑器-----------------------
 	
+	
 	KindEditor.options.filterMode = false;
 	KindEditor.ready(function(K) {
+		K.each({
+			'plug-align' : {
+				name : '对齐方式',
+				method : {
+					'justifyleft' : '左对齐',
+					'justifycenter' : '居中对齐',
+					'justifyright' : '右对齐'
+				}
+			},
+			'plug-order' : {
+				name : '编号',
+				method : {
+					'insertorderedlist' : '数字编号',
+					'insertunorderedlist' : '项目编号'
+				}
+			},
+			'plug-indent' : {
+				name : '缩进',
+				method : {
+					'indent' : '向右缩进',
+					'outdent' : '向左缩进'
+				}
+			}
+		},function( pluginName, pluginData ){
+			var lang = {};
+			lang[pluginName] = pluginData.name;
+			KindEditor.lang( lang );
+			KindEditor.plugin( pluginName, function(K) {
+				var self = this;
+				self.clickToolbar( pluginName, function() {
+					var menu = self.createMenu({
+							name : pluginName,
+							width : pluginData.width || 100
+						});
+					K.each( pluginData.method, function( i, v ){
+						menu.addItem({
+							title : v,
+							checked : false,
+							iconClass : pluginName+'-'+i,
+							click : function() {
+								self.exec(i).hideMenu();
+							}
+						});
+					})
+				});
+			});
+		});
 		editor1=K.create('#kindeditorMessage', {
 			themeType : 'qq',
 			allowFileManager : true,
-			minWidth : "600px", 
+			minWidth : "600px",
 			uploadJson : '../resources/js/kindeditor/jsp/upload_json.jsp',
             fileManagerJson : '../resources/js/kindeditor/jsp/file_manager_json.jsp',
             allowFileManager : true,
-            urlType:'domain', 
+            urlType:'domain',
 			afterBlur : function() {
-				this.sync(); 
+				this.sync();
+				K.ctrl(document, 13, function() {
+					K('form[name=myform]')[0].submit();
+				});
+				K.ctrl(this.edit.doc, 13, function() {
+					K('form[name=myform]')[0].submit();
+				});
 			},
 			items : [
 				'bold','italic','underline','fontname','fontsize','forecolor','hilitecolor','plug-align','plug-order','plug-indent','link','code','emoticons','flash','table','lineheight','fullscreen','image'
 			]
 		});
-	});  
-	   
+	});
 	//****************消息dataGrid************************
 	 
 	//发件箱dateGrid

@@ -1,13 +1,11 @@
- package com.glacier.netloan.web.controller.system;
-
+ package com.glacier.netloan.web.controller.system; 
 import java.util.ArrayList;
-import java.util.List; 
-import javax.servlet.http.HttpSession;
+import java.util.List;
+
 import javax.validation.Valid;  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import org.springframework.stereotype.Controller; 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,8 +32,8 @@ import com.glacier.netloan.service.system.MessageService;
 public class MessageController extends AbstractController { 
 	
     @Autowired
-    private MessageService messageService;
-
+    private MessageService messageService; 
+      
      //点击我的消息
     @RequestMapping(value = "/received.htm",method = RequestMethod.GET)
     public Object receivedMsg() {  //kindEdt
@@ -57,12 +55,11 @@ public class MessageController extends AbstractController {
      }
 	
      //短消息发送
-    @RequestMapping(value="/addSave.json",method = RequestMethod.POST)
+    @RequestMapping(value="/addSave.json", method = RequestMethod.POST)
     @ResponseBody
-    public Object addSave(@Valid  Message newMessage, BindingResult bindingResult, @RequestParam 
-		List<String> recipientIds, HttpSession session) {   
+    public Object addSave(@Valid Message newMessage,String[] listId) {   
 	    //发送信息，成功与否，提示信息直接到前台msg显示
-	    return messageService.createMessageSelective(newMessage, recipientIds); 
+    	return messageService.createMessageSelective(newMessage, listId); 
     }
 
      //删除短消息
