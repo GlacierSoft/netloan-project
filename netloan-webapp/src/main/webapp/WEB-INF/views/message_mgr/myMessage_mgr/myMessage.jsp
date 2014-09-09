@@ -255,8 +255,7 @@ pageContext.setAttribute("basePath",basePath);
 	        	   //收件人的数组id  
 	        	   arr[index]=nodes[i].id;   
 	        	   index++; 
-	         } 
-	         alert(arr[0]);
+	         }  
 			 $.ajax({
 					   type: "POST",
 					   url: ctx + '/do/message/addSave.json?listId='+arr, 
