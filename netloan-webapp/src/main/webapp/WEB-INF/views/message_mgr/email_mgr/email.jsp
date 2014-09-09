@@ -127,7 +127,7 @@
 				handler : function(dia) {
 					editor.sync();// 同步数据后可以直接取得textarea的value
 					var html=document.getElementById('editor_id').value;
-					console.info(html);
+					$("#emailText").val(html);
 					if(option == "candidate"&&arr.length > 0){//选择为部分群发并且arr数组大于0
 						if(html == ""&&html.length == 0){
 							alert("邮件内容不能为空！");
