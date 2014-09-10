@@ -320,7 +320,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$.easyui.showDialog({
 				title: "消息管理",
 				href : ctx + '/do/message/received.htm',       //从controller请求jsp页面进行渲染
-				width : 827,
+				width : 835,
 				height : 593,
 				enableApplyButton : false,
 				enableSaveButton : false, 

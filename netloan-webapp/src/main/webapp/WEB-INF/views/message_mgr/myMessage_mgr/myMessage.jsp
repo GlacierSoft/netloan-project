@@ -16,11 +16,11 @@ pageContext.setAttribute("basePath",basePath);
   
 </head>
 <body>     
-<div style="float: left;width: 800px;height:500px;"> 
-   <div style="float: left;width:width:138px ">
+<div style="float: left;width:810px;height:500px;"> 
+   <div style="float: left;width:138px ">
       <div id="cc" class="easyui-layout" style="width:138px;height:500px;">     
       <!-- 左边布局 --> 
-	 <div data-options="region:'west',title:'我的消息'" style="width:138px;border-right-style: none;">
+	 <div data-options="region:'west',title:'我的消息'" style="width:138px;border-left-style: none;">
 	    <div>
 		     <ul id="ulOne" class="easyui-tree"> 
 	           <li iconCls="icon-standard-email-edit">写信息</li>
@@ -30,23 +30,28 @@ pageContext.setAttribute("basePath",basePath);
          </div>
 	     <div style="padding-top: 120px;width: 100%">  
 				<div id="myContacts" class="easyui-panel" title="我的联系人"    
-				        style="width:137px;height:260px; background:#fafafa;border-bottom-style: none;border-left-style:none;border-right-style:none; OVERFLOW-Y: auto; OVERFLOW-X:hidden; "> 
-			         <ul id="ulTwo"  class="easyui-tree" style="position: absolute;width: 100%">
-					     <c:forEach items="${userList}" var="us" >
-				      	 <li id="${us.userId}" iconCls="icon-cologne-user">${us.userCnName}</li>
-			      	     </c:forEach> 
-			        </ul>  
+				        style="width:137px;height:260px; background:#fafafa;border-bottom-style: none;border-left-style:none;border-right-style:none; overflow:auto "> 
+			       <ul id="ulTwo" class="easyui-tree" style="position: absolute;width: 100%" > 
+	                    <li iconCls="icon-hamburg-customers">
+		                      <span>联系人组</span> 
+		                       <ul> 
+		                         <c:forEach items="${userList}" var="us" >
+					      	       <li id="${us.userId}" iconCls="icon-cologne-user">${us.userCnName}</li>
+				      	         </c:forEach> 
+		                        </ul>
+						 </li>  
+				      </ul>  
 				</div> 
           </div> 
 	   </div>   
      </div>
    </div> 
-	  <!-- 中间布局 --> 
-  <div data-options="region:'center'" style="height: 498px;float: left;border-style:solid;border-color:#C3C3C3; border-width:0.5px;" >  
+	  <!-- 中间布局 #C3C3C3--> 
+  <div data-options="region:'center'" style="height: 498px;float: left;width:672px;border-left-style: none; " >  
 	         <!-- 收件箱和发件箱的div层 -->
-		     <div id="tt" class="easyui-tabs" style="width:648px;height:498px;"> 
+		     <div id="tt" class="easyui-tabs" style="width:672px;height:498px;border-left-style: none;"> 
 		     
-		         <!--  收件箱 -->
+		          <!--  收件箱 -->
 		          <div title="已接收消息  "  id="tab1"   style="overflow:auto;padding:0px;">    
 		             <table id="receiveMessageDataGrid"></table>   
 			      </div>    
@@ -60,35 +65,37 @@ pageContext.setAttribute("basePath",basePath);
 	        <!--  写短信的div层 class="easyui-tree" -->
 	         <div id="write" style="float: left;">  
 	         <div id="myContacts" class="easyui-panel" title="写信息"    
-				        style="width:656px; background:#fafafa;border-style: none;"> 
+				        style="width:675px; background:#fafafa;border-style: none;"> 
 			  </div> 
 		         <div id="ccs" style="width:656px;height:467px;border-left-style: none;float: left;">    
-		               <div data-options="region:'center',title:'写短信'" style="height: 100%;float: left;border-left-style: none;border-right-style: none;" >
-			               <div style="width: 515px;height: 100%;float: left;margin-left: 13px; ">
-				                <div id="info" style="margin-bottom: 20px;word-wrap:break-word; overflow:hidden;margin-top:30px;border-style:solid;border-color:#C3C3C3;
-				                   border-width:0.5px; width: 100%;height: 150px;OVERFLOW-Y: auto; OVERFLOW-X:hidden; scrollbar-shadow-color: #ffffff; scrollbar-highlight-color: #ffffff; scrollbar-face-color: #d9d9d9; scrollbar-3dlight-color: #d9d9d9; scrollbar-darkshadow-color: #d9d9d9; scrollbar-track-color: #ffffff; scrollbar-arrow-color: #ffffff"  >
+		               <div data-options="region:'center',title:'写短信'" style="width:675px; height: 100%;float: left;border-left-style: none;border-right-style: none;" >
+			               <div style="width: 480px;height: 100%;float: left;margin-left: 23px; ">
+				               
+				                <div id="info" style="margin-bottom: 20px;word-wrap:break-word;margin-top:30px;border-style:solid;border-color:#C3C3C3;
+				                   border-width:1px; width: 100%;height: 150px;OVERFLOW-Y: auto; OVERFLOW-X:hidden; scrollbar-shadow-color: #ffffff; scrollbar-highlight-color: #ffffff; scrollbar-face-color: #d9d9d9; scrollbar-3dlight-color: #d9d9d9; scrollbar-darkshadow-color: #d9d9d9; scrollbar-track-color: #ffffff; scrollbar-arrow-color: #ffffff"  >
 				                </div>  
+				                
 				                <div> 
-				                   <!--  kindeditor编辑器 -->
+				                    <!--  kindeditor编辑器 -->
 					                 <textarea id="kindeditorMessage"    style="width:100%;height: 150px"  ></textarea> 
-								    <input style="margin-top: 5px;margin-left: 480px;width: 37px;height: 25px" type="button" onclick="sendMsg()" value="发送">
+								    <input style="margin-top: 5px;margin-left: 445px;width: 37px;height: 25px" type="button" onclick="sendMsg()" value="发送">
 				                </div>  
 				          </div> 
-				          <div style="width:115px;height: 100%;float: left;margin-left: 11px;OVERFLOW-Y: auto; OVERFLOW-X:hidden; float: le">
-					               <div class="easyui-panel" style="width:115px;height:437px;margin-top:30px; float: left; text-align: center;border-bottom-style: none;">
+				          <div style="width:143px;height: 100%;float: left;OVERFLOW-Y: auto; OVERFLOW-X:hidden;margin-left: 25px;">
+					               <div class="easyui-panel" style="width:143px;height:437px;margin-top:30px; float: left; text-align: center;">
 						                <a class="l-btn" href="javascript:empt()" style="width: 28px;text-align: center;margin-top: 3px">
 									            <span class="l-btn-text" style="font-size: 1;text-align: center;">&nbsp;移除</span>
-									     </a> 
+									     </a> |
 					                    <a class="l-btn" href="javascript:emptyAll()" style="width: 28px">
 									            <span class="l-btn-text" style="font-size: 1;text-align: center;margin-right: 0">&nbsp;清空</span>
 									    </a> 
 									    <hr>
-									    <ul id="tta" class="easyui-tree"  > 
+									    <ul id="tta" class="easyui-tree" style="width: 143px;position: absolute;" > 
 					                    <li iconCls="icon-hamburg-customers">
 						                      <span>收件人组</span> 
-						                       <ul>  </ul>
+						                       <ul style="position: absolute;">  </ul>
 										 </li>  
-								   </ul> 
+								         </ul> 
 				                   </div> 
 			                 </div>   
 		               </div>   
@@ -96,8 +103,7 @@ pageContext.setAttribute("basePath",basePath);
 	       </div> 
 	  </div>   
 	</div> 
-	   
-	
+	    
 	<script type="text/javascript">   
 	var editor1;
 	 //初始化禁用我的联系人
@@ -131,12 +137,15 @@ pageContext.setAttribute("basePath",basePath);
 		//点击我的联系人，添加到联系人组
 		$("#ulTwo").tree({
 			onClick: function(node){   
-				var selected = $('#tta').tree('getRoot');  
-				var str=$("#ulTwo").tree("pop",node.target);  
-				$('#tta').tree('append', {
-					parent: selected.target,
-					data: str
-				});   
+		          if (node==null||node.text=="联系人组") { 
+		          }else{
+		        	    var selected = $('#tta').tree('getRoot');  
+						var str=$("#ulTwo").tree("pop",node.target);  
+						$('#tta').tree('append', {
+							parent: selected.target,
+							data: str
+						});    
+		          } 
 			}
 		});   
 	});
@@ -152,9 +161,11 @@ pageContext.setAttribute("basePath",basePath);
               alert("未选中收件人");
           }
           else { 
+        	  var selected = $('#ulTwo').tree('getRoot'); 
         	  var str=$("#tta").tree("pop",node.target);  
         	  $('#ulTwo').tree('append', { 
-					data: str
+        		    parent: selected.target,
+				 	data: str
 				});  
           } 
 	}
@@ -165,10 +176,12 @@ pageContext.setAttribute("basePath",basePath);
 		   if (node.length<2) {
                //alert("收件人列表为空！");
              } else {   
-            	 var i=1 
+            	 var i=1;
+            	 var selected = $('#ulTwo').tree('getRoot'); 
             	 while(i<=(node.length-1)){ 
             		 var str=$("#tta").tree("pop",node[i].target);  
             		 $('#ulTwo').tree('append', { 
+            			parent: selected.target,
      					data: str
      				 });  
             	  i++; 
@@ -371,8 +384,8 @@ pageContext.setAttribute("basePath",basePath);
 	//发件箱dateGrid
 	function sendBox(){
           $('#messageDataGrid').datagrid({     
-			    height:460,  
-			    width:645,
+			    height:464,  
+			    width:670,
 			    url:ctx + '/do/message/all.json?sendOrReceive=send',  
 				nowrap: true,//禁止单元格中的文字自动换行
 				autoRowHeight: false,//禁止设置自动行高以适应内容
@@ -385,8 +398,8 @@ pageContext.setAttribute("basePath",basePath);
 				remoteSort: false,//开启远程排序，默认为false 
 			    columns:[[    
 			        {field:'messageId', title:'ID', checkbox:true },
-			        {field:'receivers',title:'接收人',width:180,sortable:true},    
-			        {field:'content',title:'内容',width:220,sortable:true},    
+			        {field:'receivers',title:'接收人',width:190,sortable:true},    
+			        {field:'content',title:'内容',width:230,sortable:true},    
 			        {field:'sendTime',title:'发送时间',width:180,sortable:true}    
 			    ]],
 			    pagination : true,//True 就会在 datagrid 的底部显示分页栏
@@ -421,8 +434,8 @@ pageContext.setAttribute("basePath",basePath);
 	 //收件箱dateGrid
 	function inbox(status){ 
 		$('#receiveMessageDataGrid').datagrid({     
-		    height:460,  
-		    width:645,  
+		    height:464,  
+		    width:670,  
 		    url:ctx + '/do/message/all.json?sendOrReceive=receive&readStatus='+status,  
 			nowrap: true,//禁止单元格中的文字自动换行
 			autoRowHeight: false,//禁止设置自动行高以适应内容
@@ -435,8 +448,8 @@ pageContext.setAttribute("basePath",basePath);
 			remoteSort: false,//开启远程排序，默认为false 
 		    columns:[[    
 		        {field:'messageId', title:'ID', checkbox:true }, 
-		        {field:'senderName',title:'发送人',width:90,sortable:true},    
-		        {field:'content',title:'内容',width:220,sortable:true},    
+		        {field:'senderName',title:'发送人',width:100,sortable:true},    
+		        {field:'content',title:'内容',width:230,sortable:true},    
 		        {field:'sendTime',title:'发送时间',width:180,sortable:true},   
 		        {   field:'readStatus',
 		        	title:'信件状态',
