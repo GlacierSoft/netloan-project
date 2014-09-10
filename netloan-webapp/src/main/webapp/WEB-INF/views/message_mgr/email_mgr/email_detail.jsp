@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- 引入jstl解析标签 -->
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %><!-- 引入自定义权限标签 -->
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="glacierui" uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
 
 <form method="post" style="padding:15px">
@@ -28,7 +29,7 @@
 		</tr>
 		<tr>
 			<td>收件人：</td>
-			<td colspan="3">
+			<td colspan="3" >
 				<a href="javascript:selectFind();" style="color: #404040;font-size: 12px;">查看收件人</a>
 			</td>
 		</tr>
@@ -40,7 +41,7 @@
 	//查看收件人功能
 	function selectFind(){
 		$.easyui.showDialog({
-			title: "【${emailData.emailTitle}】的所有收件人姓名",
+			title : "【${fn:substring(emailData.emailTitle, 0, 10)}...】的所有收件人姓名",
 			href : ctx + '/do/email/addresseeDetail.htm?emailId=${emailData.emailId}',//从controller请求jsp页面进行渲染
 			width : 320,
 			height : 320,
