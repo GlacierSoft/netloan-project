@@ -83,13 +83,12 @@ pageContext.setAttribute("basePath",basePath);
 				          </div> 
 				          <div style="width:143px;height: 100%;float: left;OVERFLOW-Y: auto; OVERFLOW-X:hidden;margin-left: 25px;">
 					               <div class="easyui-panel" style="width:143px;height:437px;margin-top:30px; float: left; text-align: center;">
-						                <a class="l-btn" href="javascript:empt()" style="width: 28px;text-align: center;margin-top: 3px">
-									            <span class="l-btn-text" style="font-size: 1;text-align: center;">&nbsp;移除</span>
-									     </a> |
-					                    <a class="l-btn" href="javascript:emptyAll()" style="width: 28px">
-									            <span class="l-btn-text" style="font-size: 1;text-align: center;margin-right: 0">&nbsp;清空</span>
-									    </a> 
-									    <hr>
+						                <div style="float: left;height: 150px;">
+									    <a href="javascript:empt();" style="position: absolute;margin-left: 10px" class="easyui-linkbutton" plain="true" icon="icon-standard-arrow-left">移除</a>&nbsp;
+    	                                <a href="javascript:emptyAll();" style="position: absolute;margin-left: 60px" class="easyui-linkbutton" plain="true" icon="icon-standard-arrow-rotate-clockwise">清空</a>&nbsp;
+    	                                
+									    </div>
+									    <hr style="margin-top: 30px">
 									    <ul id="tta" class="easyui-tree" style="width: 143px;position: absolute;" > 
 					                    <li iconCls="icon-hamburg-customers">
 						                      <span>收件人组</span> 
