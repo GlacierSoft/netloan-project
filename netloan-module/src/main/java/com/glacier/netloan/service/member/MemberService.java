@@ -173,6 +173,7 @@ public class MemberService {
         	Tree memberItem = new Tree();// 增加总的树节点作为导航信息导航
         	memberItem.setId(member.getMemberId());
         	memberItem.setText(member.getMemberName());
+        	memberItem.setIconCls("icon-hamburg-customers");
             items.add(memberItem);
 		}
     	return items;

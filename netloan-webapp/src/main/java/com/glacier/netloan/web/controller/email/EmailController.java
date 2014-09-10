@@ -64,7 +64,7 @@ public class EmailController extends AbstractController{
         return mav;
     }
     
-    // 进入活动邮件Detail信息页面
+    // 进入活动邮件收件人信息页面
     @RequestMapping(value = "/addresseeDetail.htm")
     private Object addresseeDetail(String emailId) {
         ModelAndView mav = new ModelAndView("message_mgr/email_mgr/email_addressee");
