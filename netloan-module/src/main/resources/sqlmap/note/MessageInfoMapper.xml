@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.note.MessageInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.note.MessageInfo" >
+    <id column="temp_message_info_info_id" property="infoId" jdbcType="VARCHAR" />
+    <result column="temp_message_info_info_title" property="infoTitle" jdbcType="VARCHAR" />
+    <result column="temp_message_info_info_send" property="infoSend" jdbcType="VARCHAR" />
+    <result column="temp_message_info_info_memberid" property="infoMemberid" jdbcType="VARCHAR" />
+    <result column="temp_message_info_creater_time" property="createrTime" jdbcType="TIMESTAMP" />
+    <result column="temp_message_info_note_id" property="noteId" jdbcType="VARCHAR" />
+    
+    <result column="temp_message_info_info_send_display" property="infoSendDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_message_info_info_member_display" property="infoMemberDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_message_info_info_member_name_display" property="infoMemberNameDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_message_info.info_id as temp_message_info_info_id, temp_message_info.info_title as temp_message_info_info_title, 
+    temp_message_info.info_send as temp_message_info_info_send, temp_message_info.info_memberid as temp_message_info_info_memberid, 
+    temp_message_info.creater_time as temp_message_info_creater_time, temp_message_info.note_id as temp_message_info_note_id
+  
+    <!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_message_info_info_send_display
+    ,temp_member.member_real_name as temp_message_info_info_member_display
+    ,temp_member.member_name as temp_message_info_info_member_name_display
+  
+  </sql>
+  
+  <sql id="Base_extend">
+    LEFT JOIN t_member temp_member ON temp_member.member_id = temp_message_info.info_memberid <!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_creater.user_id = temp_message_info.info_send <!-- 扩展 -->
+  </sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.note.MessageInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_message_info temp_message_info
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_message_info temp_message_info
+     <include refid="Base_extend" />
+    where temp_message_info.info_id = #{infoId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_message_info
+    where info_id = #{infoId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.note.MessageInfoExample" >
+    delete from t_message_info temp_message_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.note.MessageInfo" >
+    insert into t_message_info (info_id, info_title, info_send, 
+      info_memberid, creater_time, note_id
+      )
+    values (#{infoId,jdbcType=VARCHAR}, #{infoTitle,jdbcType=VARCHAR}, #{infoSend,jdbcType=VARCHAR}, 
+      #{infoMemberid,jdbcType=VARCHAR}, #{createrTime,jdbcType=TIMESTAMP}, #{noteId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.note.MessageInfo" >
+    insert into t_message_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="infoId != null" >
+        info_id,
+      </if>
+      <if test="infoTitle != null" >
+        info_title,
+      </if>
+      <if test="infoSend != null" >
+        info_send,
+      </if>
+      <if test="infoMemberid != null" >
+        info_memberid,
+      </if>
+      <if test="createrTime != null" >
+        creater_time,
+      </if>
+      <if test="noteId != null" >
+        note_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="infoId != null" >
+        #{infoId,jdbcType=VARCHAR},
+      </if>
+      <if test="infoTitle != null" >
+        #{infoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="infoSend != null" >
+        #{infoSend,jdbcType=VARCHAR},
+      </if>
+      <if test="infoMemberid != null" >
+        #{infoMemberid,jdbcType=VARCHAR},
+      </if>
+      <if test="createrTime != null" >
+        #{createrTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noteId != null" >
+        #{noteId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.note.MessageInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_message_info temp_message_info
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_message_info temp_message_info
+    <set >
+      <if test="record.infoId != null" >
+        temp_message_info.info_id = #{record.infoId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infoTitle != null" >
+        temp_message_info.info_title = #{record.infoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infoSend != null" >
+        temp_message_info.info_send = #{record.infoSend,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infoMemberid != null" >
+        temp_message_info.info_memberid = #{record.infoMemberid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createrTime != null" >
+        temp_message_info.creater_time = #{record.createrTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.noteId != null" >
+        temp_message_info.note_id = #{record.noteId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_message_info temp_message_info
+    set temp_message_info.info_id = #{record.infoId,jdbcType=VARCHAR},
+      temp_message_info.info_title = #{record.infoTitle,jdbcType=VARCHAR},
+      temp_message_info.info_send = #{record.infoSend,jdbcType=VARCHAR},
+      temp_message_info.info_memberid = #{record.infoMemberid,jdbcType=VARCHAR},
+      temp_message_info.creater_time = #{record.createrTime,jdbcType=TIMESTAMP},
+      temp_message_info.note_id = #{record.noteId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.note.MessageInfo" >
+    update t_message_info
+    <set >
+      <if test="infoTitle != null" >
+        info_title = #{infoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="infoSend != null" >
+        info_send = #{infoSend,jdbcType=VARCHAR},
+      </if>
+      <if test="infoMemberid != null" >
+        info_memberid = #{infoMemberid,jdbcType=VARCHAR},
+      </if>
+      <if test="createrTime != null" >
+        creater_time = #{createrTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noteId != null" >
+        note_id = #{noteId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where info_id = #{infoId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.note.MessageInfo" >
+    update t_message_info
+    set info_title = #{infoTitle,jdbcType=VARCHAR},
+      info_send = #{infoSend,jdbcType=VARCHAR},
+      info_memberid = #{infoMemberid,jdbcType=VARCHAR},
+      creater_time = #{createrTime,jdbcType=TIMESTAMP},
+      note_id = #{noteId,jdbcType=VARCHAR}
+    where info_id = #{infoId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.netloan.dao.note.MessageNoteMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.netloan.entity.note.MessageNote" >
+    <id column="temp_message_note_note_id" property="noteId" jdbcType="VARCHAR" />
+    <result column="temp_message_note_note_title" property="noteTitle" jdbcType="VARCHAR" />
+    <result column="temp_message_note_note_text" property="noteText" jdbcType="VARCHAR" />
+    <result column="temp_message_note_note_type" property="noteType" jdbcType="CHAR" />
+    <result column="temp_message_note_note_time" property="noteTime" jdbcType="TIMESTAMP" />
+    <result column="temp_message_note_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_message_note_creater_time" property="createrTime" jdbcType="TIMESTAMP" />
+    
+    <result column="temp_message_note_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    
+   </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_message_note.note_id as temp_message_note_note_id, temp_message_note.note_title as temp_message_note_note_title, 
+    temp_message_note.note_text as temp_message_note_note_text, temp_message_note.note_type as temp_message_note_note_type, 
+    temp_message_note.note_time as temp_message_note_note_time, temp_message_note.creater as temp_message_note_creater, 
+    temp_message_note.creater_time as temp_message_note_creater_time,
+    
+    temp_creater.user_cn_name as temp_message_note_creater_display
+    
+  </sql>
+  
+  <sql id="Base_extend">
+  	LEFT JOIN t_user temp_creater ON temp_creater.user_id =  temp_message_note.creater <!-- 扩展 -->
+  </sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.netloan.entity.note.MessageNoteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_message_note temp_message_note
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_message_note temp_message_note
+     <include refid="Base_extend" />
+    where temp_message_note.note_id = #{noteId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_message_note
+    where note_id = #{noteId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.netloan.entity.note.MessageNoteExample" >
+    delete from t_message_note temp_message_note
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.netloan.entity.note.MessageNote" >
+    insert into t_message_note (note_id, note_title, note_text, 
+      note_type, note_time, creater, 
+      creater_time)
+    values (#{noteId,jdbcType=VARCHAR}, #{noteTitle,jdbcType=VARCHAR}, #{noteText,jdbcType=VARCHAR}, 
+      #{noteType,jdbcType=CHAR}, #{noteTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, 
+      #{createrTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.netloan.entity.note.MessageNote" >
+    insert into t_message_note
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="noteId != null" >
+        note_id,
+      </if>
+      <if test="noteTitle != null" >
+        note_title,
+      </if>
+      <if test="noteText != null" >
+        note_text,
+      </if>
+      <if test="noteType != null" >
+        note_type,
+      </if>
+      <if test="noteTime != null" >
+        note_time,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createrTime != null" >
+        creater_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="noteId != null" >
+        #{noteId,jdbcType=VARCHAR},
+      </if>
+      <if test="noteTitle != null" >
+        #{noteTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noteText != null" >
+        #{noteText,jdbcType=VARCHAR},
+      </if>
+      <if test="noteType != null" >
+        #{noteType,jdbcType=CHAR},
+      </if>
+      <if test="noteTime != null" >
+        #{noteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createrTime != null" >
+        #{createrTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.netloan.entity.note.MessageNoteExample" resultType="java.lang.Integer" >
+    select count(*) from t_message_note temp_message_note
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_message_note temp_message_note
+    <set >
+      <if test="record.noteId != null" >
+        temp_message_note.note_id = #{record.noteId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noteTitle != null" >
+        temp_message_note.note_title = #{record.noteTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noteText != null" >
+        temp_message_note.note_text = #{record.noteText,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noteType != null" >
+        temp_message_note.note_type = #{record.noteType,jdbcType=CHAR},
+      </if>
+      <if test="record.noteTime != null" >
+        temp_message_note.note_time = #{record.noteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creater != null" >
+        temp_message_note.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createrTime != null" >
+        temp_message_note.creater_time = #{record.createrTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_message_note temp_message_note
+    set temp_message_note.note_id = #{record.noteId,jdbcType=VARCHAR},
+      temp_message_note.note_title = #{record.noteTitle,jdbcType=VARCHAR},
+      temp_message_note.note_text = #{record.noteText,jdbcType=VARCHAR},
+      temp_message_note.note_type = #{record.noteType,jdbcType=CHAR},
+      temp_message_note.note_time = #{record.noteTime,jdbcType=TIMESTAMP},
+      temp_message_note.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_message_note.creater_time = #{record.createrTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.netloan.entity.note.MessageNote" >
+    update t_message_note
+    <set >
+      <if test="noteTitle != null" >
+        note_title = #{noteTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noteText != null" >
+        note_text = #{noteText,jdbcType=VARCHAR},
+      </if>
+      <if test="noteType != null" >
+        note_type = #{noteType,jdbcType=CHAR},
+      </if>
+      <if test="noteTime != null" >
+        note_time = #{noteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createrTime != null" >
+        creater_time = #{createrTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where note_id = #{noteId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.netloan.entity.note.MessageNote" >
+    update t_message_note
+    set note_title = #{noteTitle,jdbcType=VARCHAR},
+      note_text = #{noteText,jdbcType=VARCHAR},
+      note_type = #{noteType,jdbcType=CHAR},
+      note_time = #{noteTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR},
+      creater_time = #{createrTime,jdbcType=TIMESTAMP}
+    where note_id = #{noteId,jdbcType=VARCHAR}
+  </update>
+</mapper>
