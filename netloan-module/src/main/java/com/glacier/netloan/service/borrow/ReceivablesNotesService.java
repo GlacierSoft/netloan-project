@@ -31,7 +31,6 @@ import com.glacier.netloan.dao.member.MemberIntegralMapper;
 import com.glacier.netloan.dao.member.MemberMapper;
 import com.glacier.netloan.dao.member.MemberStatisticsMapper;
 import com.glacier.netloan.dto.query.borrow.ReceivablesNotesQueryDTO;
-import com.glacier.netloan.entity.basicdatas.ParameterBasic;
 import com.glacier.netloan.entity.basicdatas.ParameterCredit;
 import com.glacier.netloan.entity.basicdatas.ParameterIntegralType;
 import com.glacier.netloan.entity.basicdatas.ParameterIntegralTypeExample;
@@ -500,9 +499,11 @@ public class ReceivablesNotesService {
             receivablesNotes.setAlrRecePrincipal(0f);//设置已收本金
             receivablesNotes.setAlrReceInterest(0f);//设置已收利息
             //查找利息管理费的参数信息记录
-            ParameterBasic parameterBasic = (ParameterBasic) parameterBasicService.getParameterBasicByTitle("利息管理费");
-            receivablesNotes.setInterestManaFee(receivablesNotes.getShouldReceInterest() * Float.valueOf(parameterBasic.getBasicValue()));//设置利息管理费=应收利息*利息管理费利率
-            receivablesNotes.setIncome(receivablesNotes.getShouldReceInterest() - receivablesNotes.getInterestManaFee());//设置收益=应收利息-利息管理费
+            //ParameterBasic parameterBasic = (ParameterBasic) parameterBasicService.getParameterBasicByTitle("利息管理费");
+            //receivablesNotes.setInterestManaFee(receivablesNotes.getShouldReceInterest() * Float.valueOf(parameterBasic.getBasicValue()));//设置利息管理费=应收利息*利息管理费利率
+            //receivablesNotes.setIncome(receivablesNotes.getShouldReceInterest() - receivablesNotes.getInterestManaFee());//设置收益=应收利息-利息管理费
+            receivablesNotes.setInterestManaFee(0f);//设置已收利息管理费为0
+            receivablesNotes.setIncome(0f);//设置已收收益为0
             receivablesNotes.setRemark("满标复审通过时，系统自动添加收款记录信息");
             receivablesNotes.setCreater(pricipalUser.getUserId());
             receivablesNotes.setCreateTime(new Date());

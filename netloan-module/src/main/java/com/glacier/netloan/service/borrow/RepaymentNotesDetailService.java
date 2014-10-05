@@ -644,14 +644,14 @@ public class RepaymentNotesDetailService {
                             	receivablesNotesDetail.setReceState("alreadReceivables");
                             	receivablesNotesDetail.setActualReceDate(new Date());
                             	receivablesNotesDetail.setSurplusPrincipal(0f);//设置未收本金为0
-                            	receivablesNotesDetail.setAmount(receivablesNotesDetail.getCurrentReceMoeny() - receivablesNotesDetail.getInterestManaFee());//设置收款总金额=应收本息-利息管理费
+                            	receivablesNotesDetail.setAmount(receivablesNotesDetail.getCurrentRecePrincipal() + receivablesNotesDetail.getIncome());//设置收款总金额=应收本金+收益
                             	receivablesNotesDetail.setRemark("借款人进行还款成功时，系统自动进行更新收款明细信息");
                             	receivablesNotesDetail.setUpdater(pricipalUser.getUserId());
                             	receivablesNotesDetail.setUpdateTime(new Date());
                             	//执行更新收款明细记录
                             	receivablesNotesDetailMapper.updateByPrimaryKeySelective(receivablesNotesDetail);
                             	
-                            	//更新收款记录中的收款总金额、已收本金、已收利息、已收本息、未收利息、已收本息、未收本息、已收逾期罚息
+                            	//更新收款记录中的收款总金额、已收本金、已收利息、已收本息、未收利息、已收本息、未收本息、已收逾期罚息、利息管理费、收益
                             	ReceivablesNotes receivablesNotesTemp = receivablesNotesMapper.selectByPrimaryKey(receivablesNotesDetail.getReceNotesId());
                             	receivablesNotesTemp.setReceivablesTotal(receivablesNotesTemp.getReceivablesTotal()+receivablesNotesDetail.getAmount());//设置收款总金额(原来的收款总金额+收款明细的总金额)
                             	receivablesNotesTemp.setAlrRecePrincipal(receivablesNotesTemp.getAlrRecePrincipal()+receivablesNotesDetail.getCurrentRecePrincipal());//设置已收本金(原本的已收还本金+收款明细的本金)
@@ -661,6 +661,8 @@ public class RepaymentNotesDetailService {
                             	receivablesNotesTemp.setAlrReceMoney(receivablesNotesTemp.getAlrReceMoney()+receivablesNotesDetail.getCurrentReceMoeny());//设置已收本息(原本的已收还本息+收款明细的本息)
                             	receivablesNotesTemp.setNotReceMoney(receivablesNotesTemp.getNotReceMoney()-receivablesNotesDetail.getCurrentReceMoeny());//设置未收本息(原本的未收还本息-收款明细的本息)
                             	receivablesNotesTemp.setAlrOverdueInterest(receivablesNotesTemp.getAlrOverdueInterest()+receivablesNotesDetail.getOverdueInterest());//已收逾期罚息(原来的已逾期罚息+收款明细的逾期罚息)
+                            	receivablesNotesTemp.setInterestManaFee(receivablesNotesTemp.getInterestManaFee()+receivablesNotesDetail.getInterestManaFee());//利息管理费(原来的利息管理费+收款明细的利息管理费)
+                            	receivablesNotesTemp.setIncome(receivablesNotesTemp.getIncome()+receivablesNotesDetail.getIncome());//收益(原来的收益+收款明细的收益)
                             	receivablesNotesTemp.setRemark("借款人进行还款成功时，系统自动进行更新收款信息");
                             	receivablesNotesTemp.setUpdater(pricipalUser.getUserId());
                             	receivablesNotesTemp.setUpdateTime(new Date());

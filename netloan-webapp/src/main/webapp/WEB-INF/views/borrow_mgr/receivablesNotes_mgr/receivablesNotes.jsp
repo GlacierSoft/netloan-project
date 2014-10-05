@@ -119,12 +119,12 @@
 				}
 			},{
 				field:'interestManaFee',
-				title:'利息管理费',
+				title:'已收利息管理费',
 				width:200,
 				sortable:true
 			},{
 				field:'income',
-				title:'收益',
+				title:'已收收益',
 				width:200,
 				sortable:true
 			},{
