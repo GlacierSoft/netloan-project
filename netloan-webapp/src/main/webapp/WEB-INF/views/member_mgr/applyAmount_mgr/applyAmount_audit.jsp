@@ -53,7 +53,7 @@
 		</tr>
 	</table>
 </form>
-<div style="color: red;margin-left: 80px;">*审核金额必须小于所申请的额度</div>
+<div style="color: red;margin-left: 80px;">*审核金额必须小于等于所申请的额度</div>
 <script type="text/javascript">
 //初始化下拉值状态下拉框
 	$('#applyAmount_mgr_applyAmount_audit_auditState').combobox({  
