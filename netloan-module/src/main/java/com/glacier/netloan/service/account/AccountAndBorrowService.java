@@ -235,12 +235,12 @@ public class AccountAndBorrowService implements InitializingBean {
 	                    TenderNotes tenderNotes = tenderNotesMapper.selectByPrimaryKey(receivablesNotes.getTenderNotesId());
 	                    //更新收款会员统计
 			    		MemberStatistics memberStatisticsTender = memberStatisticsMapper.selectByMemberId(tenderNotes.getMemberId());
-			    		memberStatisticsTender.setWaitIncomeTotal(memberStatisticsTender.getWaitIncomeTotal()+receivablesNotesDetail.getOverdueInterest()-receivablesNotesDetail.getInterestManaFee());//设置待收总额(原来的待收总额+罚息-管理费用))
+			    		memberStatisticsTender.setWaitIncomeTotal(memberStatisticsTender.getWaitIncomeTotal()+receivablesNotesDetail.getOverdueInterest());//设置待收总额(原来的待收总额+罚息))
 			    		//执行更新会员统计信息
 				    	memberStatisticsMapper.updateByPrimaryKeySelective(memberStatisticsTender);
 			    		//更新会员资金的信息
 				    	FinanceMember financeMemberTender = financeMemberMapper.selectByMemberId(tenderNotes.getMemberId());
-				    	financeMemberTender.setCollectingMoney(financeMemberTender.getCollectingMoney()+receivablesNotesDetail.getOverdueInterest()-receivablesNotesDetail.getInterestManaFee());
+				    	financeMemberTender.setCollectingMoney(financeMemberTender.getCollectingMoney()+receivablesNotesDetail.getOverdueInterest());
 				    	financeMemberMapper.updateByPrimaryKeySelective(financeMemberTender);//执行更新
 		    		}
 		    	}

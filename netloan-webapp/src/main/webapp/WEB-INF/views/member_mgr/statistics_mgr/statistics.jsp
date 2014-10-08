@@ -157,26 +157,27 @@
 				width:70
 		 	},  {    
 				field:'overdueFineAmount',
-				title:'逾期罚款金额',
+				title:'逾期罚款总金额',
 				sortable:true,
-				width:70
+				width:100
 		 	}, {    
 				field:'overdueInterestAmount',
 				title:'逾期利息总额',
 				sortable:true,
-				width:70
-		 	}, {    
-				field:'loanManagementAmount',
-				title:'借款管理费',
-				sortable:true,
-				width:70
-		 	},
-		 	 {    
-				field:'loanInterestAmount',
-				title:' 借款利息总额',
-				sortable:true,
-				width:70  //end
-		 	}, {
+				width:90
+		 	}, 
+// 		 	{    
+// 				field:'loanManagementAmount',
+// 				title:'借款管理费',
+// 				sortable:true,
+// 				width:70
+// 		 	}, {    
+// 				field:'loanInterestAmount',
+// 				title:' 借款利息总额',
+// 				sortable:true,
+// 				width:70  //end
+// 		 	}, 
+		 	{
 				field:'promotionAwards',
 				title:'推广奖励',
 				sortable:true,

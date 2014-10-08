@@ -74,7 +74,6 @@
 			<td><input class="spinner" style="width: 168px"
 				value="${statisticsData.waitIncomeTotal}" readonly="readonly" /></td>
 		</tr>
-
 		<tr>
 			<td>已还本金：</td>
 			<td><input class="spinner" style="width: 168px"
@@ -83,7 +82,6 @@
 			<td><input class="spinner" style="width: 168px"
 				value="${statisticsData.waitAlsoPrincipal}" readonly="readonly" /></td>
 		</tr>
-
 		<tr>
 			<td>已还利息：</td>
 			<td><input class="spinner" style="width: 168px"
@@ -92,8 +90,6 @@
 			<td><input class="spinner" style="width: 168px"
 				value="${statisticsData.waitAlsoInterest}" readonly="readonly" /></td>
 		</tr>
-
-
 		<tr>
 			<td>已收本金：</td>
 			<td><input class="spinner" style="width: 168px"
@@ -102,8 +98,6 @@
 			<td><input class="spinner" style="width: 168px"
 				value="${statisticsData.waitIncomePrincipal}" readonly="readonly" /></td>
 		</tr>
-
-
 		<tr>
 			<td>已收利息：</td>
 			<td><input class="spinner" style="width: 168px"
@@ -112,28 +106,22 @@
 			<td><input class="spinner" style="width: 168px"
 				value="${statisticsData.waitIncomeInterest}" readonly="readonly" /></td>
 		</tr>
-
 		<tr>
-			<td>逾期罚款金额：</td>
+			<td>逾期罚款总金额：</td>
 			<td><input class="spinner" style="width: 168px"
 				value="${statisticsData.overdueFineAmount}" readonly="readonly" /></td>
 			<td>逾期利息总额：</td>
 			<td><input class="spinner" style="width: 168px"
 				value="${statisticsData.overdueInterestAmount}" readonly="readonly" /></td>
 		</tr>
-
-
-		<tr>
-			<td>借款管理费：</td>
-			<td><input class="spinner" style="width: 168px"
-				value="${statisticsData.loanManagementAmount}" readonly="readonly" /></td>
-			<td>借款利息总额：</td>
-			<td><input class="spinner" style="width: 168px"
-				value="${statisticsData.loanInterestAmount}" readonly="readonly" /></td>
-		</tr>
-
-
-
+<!-- 		<tr> -->
+<!-- 			<td>借款管理费：</td> -->
+<!-- 			<td><input class="spinner" style="width: 168px" -->
+<%-- 				value="${statisticsData.loanManagementAmount}" readonly="readonly" /></td> --%>
+<!-- 			<td>借款利息总额：</td> -->
+<!-- 			<td><input class="spinner" style="width: 168px" -->
+<%-- 				value="${statisticsData.loanInterestAmount}" readonly="readonly" /></td> --%>
+<!-- 		</tr> -->
 		<tr>
 			<td>推广奖励：</td>
 			<td><input class="spinner" style="width: 168px"
