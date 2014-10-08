@@ -612,8 +612,8 @@ public class RepaymentNotesDetailService {
                             	receivablesNotesDetailMapper.updateByPrimaryKeySelective(receivablesNotesDetail);
                             	//更新投资会员统计信息
                             	MemberStatistics memberStatisticsTemp = memberStatisticsMapper.selectByMemberId(tenderNotes.getMemberId());
-                            	memberStatisticsTemp.setAlreadyIncomeTotal(memberStatisticsTemp.getAlreadyIncomeTotal()+receivablesNotesDetail.getAmount());//设置会员统计已收总额(原本的已收总额+还款人的还款总额)
-                            	memberStatisticsTemp.setWaitIncomeTotal(memberStatisticsTemp.getWaitIncomeTotal()-receivablesNotesDetail.getAmount());//设置会员统计待收总额(原来的待收总额-还款的总额)
+                            	memberStatisticsTemp.setAlreadyIncomeTotal(memberStatisticsTemp.getAlreadyIncomeTotal()+receivablesNotesDetail.getCurrentReceMoeny()+receivablesNotesDetail.getOverdueInterest());//设置会员统计已收总额(原本的已收总额+还款本息+逾期罚息)
+                            	memberStatisticsTemp.setWaitIncomeTotal(memberStatisticsTemp.getWaitIncomeTotal()-receivablesNotesDetail.getCurrentReceMoeny()-receivablesNotesDetail.getOverdueInterest());//设置会员统计待收总额(原来的待收总额-还款本息-逾期罚息)
                             	memberStatisticsTemp.setAlreadyIncomePrincipal(memberStatisticsTemp.getAlreadyIncomePrincipal()+receivablesNotesDetail.getCurrentRecePrincipal());//设置已收本金(原本的已收本金+还款人的还款本金)
                             	memberStatisticsTemp.setWaitIncomePrincipal(memberStatisticsTemp.getWaitIncomePrincipal()-receivablesNotesDetail.getCurrentRecePrincipal());//设置待收本金(原本的待收本金-还款人的还款本金)
                             	memberStatisticsTemp.setAlreadyIncomeInterest(memberStatisticsTemp.getAlreadyIncomeInterest()+receivablesNotesDetail.getCurrentReceInterest());//设置已收本息(原本的已收利息+还款人的还款利息)
@@ -662,24 +662,25 @@ public class RepaymentNotesDetailService {
                                 financePlatform.setUpdater(pricipalUser.getUserId());
                                 financePlatform.setUpdateTime(new Date());
                                 financePlatformMapper.updateByPrimaryKeySelective(financePlatform);//执行更新资金平台的操作
-                            	//对投标人的会员资金进行更新
+                            	//对投标人的会员资金进行更新-会员进行投资收款成功
                                 FinanceMember financeMembers = financeMemberMapper.selectByMemberId(tenderNotes.getMemberId());// 根据投标人Id查找出该会员的财务会员信息记录
-                                financeMembers.setUsableMoney(financeMembers.getUsableMoney()+receivablesNotesDetail.getAmount());//设置可用余额(原本的可用余额+收款记录总额)
-                                financeMembers.setCollectingMoney(financeMembers.getCollectingMoney()-receivablesNotesDetail.getAmount());//设置待收金额(原本的待收金额-收款记录总额)
-                                financeMembers.setAmount(financeMembers.getAmount()+receivablesNotesDetail.getAmount());//设置总金额(原本的总金额+收款记录总额)
+                                financeMembers.setUsableMoney(financeMembers.getUsableMoney()+receivablesNotesDetail.getCurrentReceMoeny()+receivablesNotesDetail.getOverdueInterest());//设置可用余额(原本的可用余额+应收本息+逾期罚息)
+                                financeMembers.setCollectingMoney(financeMembers.getCollectingMoney()-receivablesNotesDetail.getCurrentReceMoeny()-receivablesNotesDetail.getOverdueInterest());//设置待收金额(原本的待收金额-应收本息-逾期罚息)
+                                financeMembers.setAmount(financeMembers.getAmount()+receivablesNotesDetail.getCurrentReceMoeny()+receivablesNotesDetail.getOverdueInterest());//设置总金额(原本的总金额+应收本息+逾期罚息)
                                 financeMembers.setUpdater(pricipalUser.getUserId());
                                 financeMembers.setUpdateTime(new Date());
+                                financeMembers.setRemark("会员进行投资收款成功，更新会员资金");
                                 //执行更新会员资金操作
                                 financeMemberMapper.updateByPrimaryKeySelective(financeMembers);
                                 
-                                //增加一条会员资金记录信息
+                                //增加一条会员资金记录信息-会员进行投资收款成功
                                 FinanceTransaction financeTransactionTemp = new FinanceTransaction();
                                 financeTransactionTemp.setTransactionId(RandomGUID.getRandomGUID());
                                 financeTransactionTemp.setFinanceMemberId(financeMembers.getFinanceMemberId());//设置会员资金ID
                                 financeTransactionTemp.setMemberId(financeMembers.getMemberId());//设置会员ID
                                 financeTransactionTemp.setTransactionTarget("系统帐号");//设置交易对象
                                 financeTransactionTemp.setTransactionType("投资人进行收款");//设置交易类型
-                                financeTransactionTemp.setEarningMoney(receivablesNotesDetail.getAmount());//设置收入金额(还款记录明细中的总还款金额)
+                                financeTransactionTemp.setEarningMoney(receivablesNotesDetail.getCurrentReceMoeny()+receivablesNotesDetail.getOverdueInterest());//设置收入金额(还款记录明细中的应收本息+逾期罚息)
                                 financeTransactionTemp.setExpendMoney(0f);//设置支出金额
                                 financeTransactionTemp.setUsableMoney(financeMembers.getUsableMoney());//设置可用金额=原会员的可用金额
                                 financeTransactionTemp.setFrozenMoney(financeMembers.getFrozenMoney());//设置冻结金额
@@ -693,6 +694,40 @@ public class RepaymentNotesDetailService {
                                 financeTransactionTemp.setUpdateTime(addOneSecond(new Date(), secondNum));
                                 //执行添加会员资金记录信息
                                 financeTransactionMapper.insert(financeTransactionTemp);
+                                
+                                //对投标人的会员资金进行更新-会员进行上缴收款利息管理费
+                                FinanceMember financeMembersInteres = financeMemberMapper.selectByMemberId(tenderNotes.getMemberId());// 根据投标人Id查找出该会员的财务会员信息记录
+                                financeMembersInteres.setUsableMoney(financeMembers.getUsableMoney()-receivablesNotesDetail.getInterestManaFee());//设置可用余额(原本的可用余额-上缴利息管理费)
+                                financeMembersInteres.setAmount(financeMembers.getAmount()-receivablesNotesDetail.getInterestManaFee());//设置总金额(原本的总金额-上缴利息管理费)
+                                financeMembersInteres.setUpdater(pricipalUser.getUserId());
+                                financeMembersInteres.setUpdateTime(new Date());
+                                financeMembersInteres.setRemark("会员进行上缴收款利息管理费");
+                                //执行更新会员资金操作
+                                financeMemberMapper.updateByPrimaryKeySelective(financeMembersInteres);
+                                
+                                secondNum=secondNum+1;//为了排序能够清晰显示，同时创建的记录，后面每加一条加一秒
+                                
+                                //增加一条会员资金记录信息-会员进行上缴收款利息管理费
+                                FinanceTransaction financeTransactionTempInteres = new FinanceTransaction();
+                                financeTransactionTempInteres.setTransactionId(RandomGUID.getRandomGUID());
+                                financeTransactionTempInteres.setFinanceMemberId(financeMembersInteres.getFinanceMemberId());//设置会员资金ID
+                                financeTransactionTempInteres.setMemberId(financeMembersInteres.getMemberId());//设置会员ID
+                                financeTransactionTempInteres.setTransactionTarget("系统帐号");//设置交易对象
+                                financeTransactionTempInteres.setTransactionType("投资人进行上缴收款利息管理费");//设置交易类型
+                                financeTransactionTempInteres.setEarningMoney(0f);//设置收入金额
+                                financeTransactionTempInteres.setExpendMoney(receivablesNotesDetail.getInterestManaFee());//设置支出金额(上缴利息管理费)
+                                financeTransactionTempInteres.setUsableMoney(financeMembersInteres.getUsableMoney());//设置可用金额=原会员的可用金额
+                                financeTransactionTempInteres.setFrozenMoney(financeMembersInteres.getFrozenMoney());//设置冻结金额
+                                financeTransactionTempInteres.setCollectingMoney(financeMembersInteres.getCollectingMoney());//设置待收金额
+                                financeTransactionTempInteres.setRefundMoney(financeMembersInteres.getRefundMoney());//设置待还金额
+                                financeTransactionTempInteres.setAmount(financeMembersInteres.getAmount());//设置总金额
+                                financeTransactionTempInteres.setRemark("会员进行投资收款成功，进行上缴收款利息管理费");//设置备注
+                                financeTransactionTempInteres.setCreater(pricipalUser.getUserId());
+                                financeTransactionTempInteres.setCreateTime(addOneSecond(new Date(), secondNum));
+                                financeTransactionTempInteres.setUpdater(pricipalUser.getUserId());
+                                financeTransactionTempInteres.setUpdateTime(addOneSecond(new Date(), secondNum));
+                                //执行添加会员资金记录信息
+                                financeTransactionMapper.insert(financeTransactionTempInteres);
                                 
                             	//判断是否收款款记录明细表的收款状态有多少条
                             	ReceivablesNotesDetailExample receivablesNotesDetailsExample = new ReceivablesNotesDetailExample();

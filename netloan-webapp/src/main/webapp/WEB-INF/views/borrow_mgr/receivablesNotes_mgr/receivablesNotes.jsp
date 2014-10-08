@@ -119,7 +119,7 @@
 				}
 			},{
 				field:'interestManaFee',
-				title:'已收利息管理费(元)',
+				title:'已缴利息管理费(元)',
 				width:200,
 				sortable:true
 			},{
