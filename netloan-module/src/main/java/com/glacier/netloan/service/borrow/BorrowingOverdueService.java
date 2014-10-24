@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,7 +22,6 @@ import com.glacier.netloan.dao.member.MemberStatisticsMapper;
 import com.glacier.netloan.entity.basicdatas.ParameterBasic;
 import com.glacier.netloan.entity.basicdatas.ParameterBasicExample;
 import com.glacier.netloan.entity.borrow.BorrowingLoan;
-import com.glacier.netloan.entity.borrow.ReceivablesNotes;
 import com.glacier.netloan.entity.borrow.ReceivablesNotesDetail;
 import com.glacier.netloan.entity.borrow.ReceivablesNotesDetailExample;
 import com.glacier.netloan.entity.borrow.RepaymentNotes;
@@ -71,9 +69,11 @@ public class BorrowingOverdueService {
 	@Transactional(readOnly = false)
 	public void handleBorrowingOverdue(){
 		RepaymentNotesDetailExample repaymentNotesDetailExample = new RepaymentNotesDetailExample();
-		List<RepaymentNotesDetail>  repaymentNotesDetails = repaymentNotesDetailMapper.selectByExample(repaymentNotesDetailExample); // 查询所有还款列表
+		repaymentNotesDetailExample.createCriteria().andRepayStateEqualTo("notRepay");
+		List<RepaymentNotesDetail>  repaymentNotesDetails = repaymentNotesDetailMapper.selectByExample(repaymentNotesDetailExample); // 查询所有状态为"未还"的还款明细列表
 		ReceivablesNotesDetailExample receivablesNotesDetailExample = new ReceivablesNotesDetailExample();
-		List<ReceivablesNotesDetail>  receivablesNotesDetails = receivablesNotesDetailMapper.selectByExample(receivablesNotesDetailExample); // 查询所有收款列表
+		receivablesNotesDetailExample.createCriteria().andReceStateEqualTo("notReceiving");
+		List<ReceivablesNotesDetail>  receivablesNotesDetails = receivablesNotesDetailMapper.selectByExample(receivablesNotesDetailExample); // 查询所有状态为"未收"的收款明细列表
 		
 		//获取当前时间
 		Date n = new Date();
@@ -96,6 +96,10 @@ public class BorrowingOverdueService {
         List<ParameterBasic>  basicTitles4 = parameterBasicMapper.selectByExample(parameterBasicExample); // 查询所有基础参数列表
 	    ParameterBasic parameterBasic4 = basicTitles4.get(0);
 	    
+	    parameterBasicExample.createCriteria().andBasicTitleEqualTo("利息管理费");
+        List<ParameterBasic>  basicTitles5 = parameterBasicMapper.selectByExample(parameterBasicExample); // 查询所有基础参数列表
+        ParameterBasic parameterBasic5 = basicTitles5.get(0);
+        
 	    //ParameterBasic parameterBasic2 = (ParameterBasic) parameterBasicService.getParameterBasicByTitle("罚息利率30天以上");
 	    //ParameterBasic parameterBasic3 = (ParameterBasic) parameterBasicService.getParameterBasicByTitle("逾期管理费1至30天");
 	    //ParameterBasic parameterBasic4 = (ParameterBasic) parameterBasicService.getParameterBasicByTitle("逾期管理费30天以上");
@@ -133,12 +137,11 @@ public class BorrowingOverdueService {
 		    	repaymentNotesDetail.setOverdueManaFee(overdueManaFee);//设置当期逾期管理费
 		    	repaymentNotesDetail.setOverdueInterest(overdueInterest);//设置当期逾期罚息
 		    	repaymentNotesDetail.setUpdateTime(new Date());
-		    	repaymentNotesDetailMapper.updateByPrimaryKeySelective(repaymentNotesDetail);//更新还款记录明细
+		    	count = repaymentNotesDetailMapper.updateByPrimaryKeySelective(repaymentNotesDetail);//更新还款记录明细
 		    	RepaymentNotes repaymentNotes = repaymentNotesMapper.selectByPrimaryKey(repaymentNotesDetail.getRepayNotesId());//获取还款记录信息
-		    	repaymentNotes.setRepaymentTotal(repaymentNotes.getRepaymentTotal() + currOverDueMoney);//设置还款记录的还款总金额
-		    	repaymentNotes.setUpdateTime(new Date());
-		    	count=repaymentNotesMapper.updateByPrimaryKeySelective(repaymentNotes);//更新还款记录
-		    	
+//		    	repaymentNotes.setRepaymentTotal(repaymentNotes.getRepaymentTotal() + currOverDueMoney);//设置还款记录的还款总金额
+//		    	repaymentNotes.setUpdateTime(new Date());
+//		    	count=repaymentNotesMapper.updateByPrimaryKeySelective(repaymentNotes);//更新还款记录
 		    	if(count==1){
 		    		//更新会员统计中逾期还款次数+1，逾期罚款金额和逾期罚款利息
 			    	//第一步根据还款记录中的借款ID取出完整的借款信息
@@ -151,7 +154,6 @@ public class BorrowingOverdueService {
 			    	memberStatisticsRepay.setUpdateTime(new Date());
 			    	//执行更新会员统计信息
 			    	memberStatisticsMapper.updateByPrimaryKeySelective(memberStatisticsRepay);
-		    		
 		    		//待做逾期罚款记录操作
 		    	}
 		    }
@@ -179,16 +181,21 @@ public class BorrowingOverdueService {
 		    		overdueInterest = (receivablesNotesDetail.getCurrentReceMoeny() * 30 * Float.parseFloat(parameterBasic1.getBasicValue()))
 		    							+ (receivablesNotesDetail.getCurrentReceMoeny() * overDayReal * Float.parseFloat(parameterBasic2.getBasicValue()));//计算当期逾期罚息
 		    	}
-		    	float currOverDueMoney = overdueInterest - receivablesNotesDetail.getOverdueInterest();//当期新增的罚款
+		    	//float currOverDueMoney = overdueInterest - receivablesNotesDetail.getOverdueInterest();//当期新增的罚款
 		    	receivablesNotesDetail.setIsOverdue("yes");//设置当期收款为逾期状态
 		    	receivablesNotesDetail.setOverdueDays((float) overDayReal);//设置逾期天数
 		    	receivablesNotesDetail.setOverdueInterest(overdueInterest);//设置当期逾期罚息
+		    	float Interest = receivablesNotesDetail.getCurrentReceInterest() + receivablesNotesDetail.getOverdueInterest();//利息总费=应收利息+逾期罚息
+		    	receivablesNotesDetail.setInterestManaFee(Interest * Float.valueOf(parameterBasic5.getBasicValue()));//设置利息管理费=利息总费*利息管理费费率
+		    	receivablesNotesDetail.setIncome(Interest - receivablesNotesDetail.getInterestManaFee());//设置收益=利息总费-利息管理费
 		    	receivablesNotesDetail.setUpdateTime(new Date());
-		    	receivablesNotesDetailMapper.updateByPrimaryKeySelective(receivablesNotesDetail);//更新收款记录明细
-		    	ReceivablesNotes receivablesNotes = receivablesNotesMapper.selectByPrimaryKey(receivablesNotesDetail.getReceNotesId());//获取收款记录信息
-		    	receivablesNotes.setReceivablesTotal(receivablesNotes.getReceivablesTotal() + currOverDueMoney);//设置收款记录的收款总金额
-		    	receivablesNotes.setUpdateTime(new Date());
-		    	receivablesNotesMapper.updateByPrimaryKeySelective(receivablesNotes);//更新还款记录
+		    	int count = receivablesNotesDetailMapper.updateByPrimaryKeySelective(receivablesNotesDetail);//更新收款记录明细
+		    	if (count == 1) {
+                    //ReceivablesNotes receivablesNotes = receivablesNotesMapper.selectByPrimaryKey(receivablesNotesDetail.getReceNotesId());//获取收款记录信息
+                    //receivablesNotes.setReceivablesTotal(receivablesNotes.getReceivablesTotal() + currOverDueMoney);//设置收款记录的收款总金额
+                    //receivablesNotes.setUpdateTime(new Date());
+                    //receivablesNotesMapper.updateByPrimaryKeySelective(receivablesNotes);//更新还款记录
+		    	}
 		    }
 		}
 		
